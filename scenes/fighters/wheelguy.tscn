@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfbsdba6873vx"]
+
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_d6j8r"]
+[ext_resource type="Texture2D" uid="uid://40ih8jb8k5rg" path="res://assets/fighters/wheelguy.png" id="1_gtayi"]
+[ext_resource type="Script" path="res://scenes/fighters/wheelguy.gd" id="1_qf76y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kmf12"]
+resource_local_to_scene = true
+shader = ExtResource("1_d6j8r")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[node name="Wheel Guy" type="Sprite2D"]
+material = SubResource("ShaderMaterial_kmf12")
+texture = ExtResource("1_gtayi")
+hframes = 4
+vframes = 3
+script = ExtResource("1_qf76y")

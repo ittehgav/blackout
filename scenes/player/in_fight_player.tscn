@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://clxl0g1dnu81h"]
+
+[ext_resource type="Script" path="res://scenes/player/in_fight_player.gd" id="1_bxbr4"]
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="3_3uxwr"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/player/body.png" id="4_uqyhm"]
+[ext_resource type="Script" path="res://scenes/player/body.gd" id="5_yvg0f"]
+[ext_resource type="Script" path="res://scenes/player/tool.gd" id="6_cbwmk"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/tools/tailpipe.tscn" id="7_074eh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
+radius = 29.2
+height = 90.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_71g0g"]
+resource_local_to_scene = true
+shader = ExtResource("3_3uxwr")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
+radius = 80.0
+
+[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "tool", "hit_scan", "base", "stun_timer")]
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_bxbr4")
+body = NodePath("body")
+tool = NodePath("tool")
+hit_scan = NodePath("hit_scan")
+base = NodePath("body")
+stun_timer = NodePath("timers/stun")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_wutkk")
+
+[node name="body" type="Sprite2D" parent="." node_paths=PackedStringArray("ticker")]
+material = SubResource("ShaderMaterial_71g0g")
+texture = ExtResource("4_uqyhm")
+hframes = 6
+frame = 4
+script = ExtResource("5_yvg0f")
+ticker = NodePath("animation_ticker")
+
+[node name="animation_ticker" type="Timer" parent="body"]
+wait_time = 0.3
+
+[node name="tool" type="Node2D" parent="." node_paths=PackedStringArray("holder", "tool_cd", "tool_node", "body")]
+script = ExtResource("6_cbwmk")
+holder = NodePath("..")
+tool_cd = NodePath("tool_cd")
+tool_node = NodePath("Tailpipe")
+body = NodePath("../body")
+
+[node name="Tailpipe" parent="tool" instance=ExtResource("7_074eh")]
+
+[node name="tool_cd" type="Timer" parent="tool"]
+wait_time = 0.5
+one_shot = true
+
+[node name="sprites" type="Node2D" parent="."]
+
+[node name="hit_scan" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hit_scan"]
+position = Vector2(60, 0)
+shape = SubResource("CircleShape2D_5q67b")
+
+[node name="overlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -66.0
+offset_top = -53.0
+offset_right = -26.0
+offset_bottom = -13.0
+
+[node name="hp" type="Label" parent="overlay"]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 23.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="timers" type="Node" parent="."]
+
+[node name="stun" type="Timer" parent="timers"]
+one_shot = true
+
+[connection signal="damage_taken" from="." to="." method="_on_damage_taken"]
+[connection signal="death" from="." to="." method="_on_death"]
+[connection signal="timeout" from="body/animation_ticker" to="body" method="next_frame"]
+[connection signal="timeout" from="tool/tool_cd" to="tool" method="tool_use_held"]

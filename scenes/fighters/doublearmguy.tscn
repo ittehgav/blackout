@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp6be4yyu4i6o"]
+
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_810ed"]
+[ext_resource type="Texture2D" uid="uid://bpaicwhk4e4vm" path="res://assets/fighters/doublearmguy.png" id="1_fta4o"]
+[ext_resource type="Script" path="res://scenes/fighters/doublearmguy.gd" id="2_f03mh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5s7us"]
+resource_local_to_scene = true
+shader = ExtResource("1_810ed")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[node name="Double Arm Guy" type="Sprite2D"]
+material = SubResource("ShaderMaterial_5s7us")
+texture = ExtResource("1_fta4o")
+hframes = 4
+vframes = 3
+script = ExtResource("2_f03mh")

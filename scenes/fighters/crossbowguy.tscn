@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://ofss0u0pyra0"]
+
+[ext_resource type="Texture2D" uid="uid://bmh0bym5ta8qg" path="res://assets/fighters/crossbowguy.png" id="1_dyesl"]
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_qa0nl"]
+[ext_resource type="Script" path="res://scenes/fighters/crossbowguy.gd" id="2_th07v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_letj7"]
+resource_local_to_scene = true
+shader = ExtResource("1_qa0nl")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[node name="Crossbow Guy" type="Sprite2D"]
+material = SubResource("ShaderMaterial_letj7")
+texture = ExtResource("1_dyesl")
+hframes = 4
+vframes = 3
+script = ExtResource("2_th07v")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://43ll080ti47n"]
+
+[ext_resource type="Script" path="res://scenes/fighters/tetherguy.gd" id="1_0oa0c"]
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_sbbkc"]
+[ext_resource type="Texture2D" uid="uid://02uaa4r14ql3" path="res://assets/fighters/tetherguy.png" id="2_yetav"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehxvi"]
+resource_local_to_scene = true
+shader = ExtResource("1_sbbkc")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[node name="Tether Guy" type="Sprite2D"]
+material = SubResource("ShaderMaterial_ehxvi")
+texture = ExtResource("2_yetav")
+hframes = 4
+vframes = 3
+script = ExtResource("1_0oa0c")

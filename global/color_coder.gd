@@ -1,0 +1,100 @@
+extends Node
+
+## color-coding is applied before fights and replaces the flat RGBs for team-corresponding colors
+## all functions of this sort will be in this script
+## (unless it ends up becoming massive?)
+
+func color_code_character(character:Sprite2D)->void:
+	var img = character.texture.get_image()
+
+	var width = img.get_width()
+	var height = img.get_height()
+	var base_color:Color = Color.GREEN;
+
+	for y in height:
+		for x in width:
+			var color:Color = img.get_pixel(x, y)
+			if color.a:
+				var new_color:Color;
+				match color:
+					Color.GREEN:
+						new_color = base_color; 
+					Color.BLUE:
+						new_color = base_color.darkened(.5)
+					Color.RED:
+						new_color = base_color.lightened(.25)
+				img.set_pixel(x, y, new_color)
+	character.texture = ImageTexture.create_from_image(img)
+
+func color_code_tool(tool:Sprite2D)->void:
+	var img = tool.texture.get_image()
+	
+	var width = img.get_width();
+	var height = img.get_height();
+	var base_color:Color = Color.RED;
+
+	for y in height:
+		for x in width:
+			var color:Color = img.get_pixel(x, y);
+			if color.a:
+				var new_color:Color;
+				match color:
+					Color.FUCHSIA:
+						new_color = base_color.lightened(.5)
+					Color.RED:
+						new_color = base_color;
+				img.set_pixel(x, y, new_color);
+	tool.texture = ImageTexture.create_from_image(img);
+
+
+func color_code_vfx(vfx:Sprite2D)->void:
+	var img = vfx.texture.get_image()
+
+	var width = img.get_width()
+	var height = img.get_height()
+	var base_color = Color.LIGHT_BLUE;
+	
+	for y in height:
+		for x in width:
+			var color:Color = img.get_pixel(x, y);
+			if color.a:
+				var new_color:Color;
+				match color:
+					Color.GREEN:
+						new_color = base_color.darkened(.5);
+					Color.BLUE:
+						new_color = base_color;
+				img.set_pixel(x, y, new_color);
+	vfx.texture = ImageTexture.create_from_image(img);
+
+
+func color_code_fighter(fighter:Sprite2D, scheme:int=1)->void:
+	const darkening = .35
+	var base_color:Color;
+	var off_color:Color;
+	match scheme:
+		1:
+			base_color = Color.LIGHT_SKY_BLUE;
+			off_color = Color.YELLOW;
+	
+	var img = fighter.texture.get_image()
+	
+	var width = img.get_width();
+	var height = img.get_height();
+
+	for y in height:
+		for x in width:
+			var color:Color = img.get_pixel(x, y);
+			if color.a:
+				var new_color:Color;
+				match color:
+					Color.GREEN:
+						new_color = base_color;
+					Color.BLUE:
+						new_color = base_color.darkened(darkening);
+					Color.RED:
+						new_color = off_color.darkened(darkening);
+					Color.YELLOW:
+						new_color = off_color;
+				img.set_pixel(x, y, new_color);
+	fighter.texture = ImageTexture.create_from_image(img);

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://clxl0g1dnu81h"]
+
+[ext_resource type="Texture2D" uid="uid://sha6umeynupp" path="res://assets/legs.png" id="1_3kaco"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_ee878"]
+[ext_resource type="Script" path="res://scenes/sprite.gd" id="3_i0g6n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
+radius = 29.2
+height = 90.4
+
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_ee878")
+sprite = NodePath("sprite")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_3kaco")
+hframes = 5
+script = ExtResource("3_i0g6n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_wutkk")
+
+[node name="newt" type="Sprite2D" parent="."]

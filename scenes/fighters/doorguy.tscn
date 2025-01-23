@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://okq3jirq5mq5"]
+
+[ext_resource type="Texture2D" uid="uid://ccrb6t58ir8fi" path="res://assets/fighters/doorguy.png" id="1_g1xn4"]
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_genit"]
+[ext_resource type="Script" path="res://scenes/fighters/doorguy.gd" id="2_pej6q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bjd3r"]
+resource_local_to_scene = true
+shader = ExtResource("1_genit")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[node name="Door Guy" type="Sprite2D"]
+material = SubResource("ShaderMaterial_bjd3r")
+texture = ExtResource("1_g1xn4")
+hframes = 4
+vframes = 3
+script = ExtResource("2_pej6q")
