@@ -5,6 +5,7 @@ extends "res://scenes/active_fighter/active_fighter.gd";
 @export var body: Sprite2D;
 @export var tool:Node2D;
 @export var hit_scan:Area2D;
+@export var camera:Camera2D;
 
 
 var moving:bool = false;

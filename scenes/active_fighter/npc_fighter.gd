@@ -35,14 +35,18 @@ func load_base(new_base):
 	ColorCoder.color_code_fighter(base);
 	
 	## eventually will add persistant values from leveling/other modifiers;
-	for key in base.stats.keys():
-		## node needs to have a property for every key on a base's stat dictionary;
-		self[key] = base.stats[key];
+	max_hp = base.stats.max_hp;
 	hp = base.stats.max_hp;
+	
+	attack = base.stats.attack;
+	
+	defense = base.stats.defense;
+	move_speed = base.stats.move_speed;
+	
 	cooldown_timer.wait_time = base.skill_cooldown;
 	
 	update_overlay();
-	
+
 
 func find_target()->void:
 	match base.target_type:
@@ -76,6 +80,7 @@ func _physics_process(_delta: float) -> void:
 func _on_skill_range_body_entered(body: Node2D) -> void:
 	if body == target_unit:
 		target_in_range = true;
+
 
 func _on_skill_range_body_exited(body: Node2D) -> void:
 	if body == target_unit:

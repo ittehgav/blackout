@@ -1,5 +1,6 @@
 extends Sprite2D
 
+@export var stats:Node;
 
 const skill_effects = ["self_buff"];
 const skill_visuals = ["lunge_forward"]
@@ -18,17 +19,12 @@ const hitbox_height = 150;
 const hit_scan_radius = 100;
 const skill_range = 100;
 
-## TODO: figure out how defense works (fractions are cooler than percentages)
 const buff_type = "stat";
 
-const stats_to_buff = ["def"]
-const def_buff_value = 5;
-
-const stats = {
-	"max_hp":200,
-	"attack":100,
-	"move_speed":500,
-	"def":10
+const stats_to_buff = ["defense"]
+const stat_buff_values = {
+	"def":5
 }
+
 
 const skill_cooldown = 3;

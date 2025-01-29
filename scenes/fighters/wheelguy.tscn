@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfbsdba6873vx"]
+[gd_scene load_steps=6 format=3 uid="uid://cfbsdba6873vx"]
 
 [ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_d6j8r"]
 [ext_resource type="Texture2D" uid="uid://40ih8jb8k5rg" path="res://assets/fighters/wheelguy.png" id="1_gtayi"]
 [ext_resource type="Script" path="res://scenes/fighters/wheelguy.gd" id="1_qf76y"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighters/npc_base/npc_base_stats.tscn" id="4_lvxsm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kmf12"]
 resource_local_to_scene = true
@@ -10,9 +11,16 @@ shader = ExtResource("1_d6j8r")
 shader_parameter/target_color = null
 shader_parameter/grad = null
 
-[node name="Wheel Guy" type="Sprite2D"]
+[node name="Wheel Guy" type="Sprite2D" node_paths=PackedStringArray("stats")]
 material = SubResource("ShaderMaterial_kmf12")
 texture = ExtResource("1_gtayi")
 hframes = 4
 vframes = 3
 script = ExtResource("1_qf76y")
+stats = NodePath("stats")
+
+[node name="stats" parent="." instance=ExtResource("4_lvxsm")]
+max_hp = 750.0
+attack = 10.0
+defense = 20.0
+move_speed = 500.0

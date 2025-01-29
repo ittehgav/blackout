@@ -1,5 +1,6 @@
 extends Sprite2D
 
+@export var stats:Node;
 
 const skill_effects = ["aoe_damage", "aoe_debuff"];
 const skill_visuals = ["lunge_forward"]
@@ -19,14 +20,11 @@ const hit_scan_radius = 100;
 const skill_range = 100;
 
 const debuff_type = "stat";
-const stats_to_debuff = ["def"];
-const def_debuff_value = 5;
 
-const stats = {
-	"max_hp":200,
-	"attack":100,
-	"move_speed":500,
-	"def":10
+const stats_to_debuff = ["defense"];
+const stat_debuff_values = {
+	"defense":5
 }
+
 
 const skill_cooldown = 3;

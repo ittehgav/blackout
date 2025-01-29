@@ -19,3 +19,5 @@ func use():
 	Tweens.swing_tween(self);
 	Tweens.arc_vfx(arc)
 	Combat.aoe_damage(holder);
+	Tweens.lunge_forward_tween(holder);
+	Tweens.camera_lunge(holder)

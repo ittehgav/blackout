@@ -2,6 +2,9 @@ extends Node
 
 func deal_damage(source:CharacterBody2D, target:CharacterBody2D)->void:
 	var damage:float = source.attack;
+	var mitigation:float = defense_mitigation(target);
+	damage *= mitigation;
+	
 	target.hp -= source.attack;
 	target.damage_taken.emit(damage)
 
@@ -15,3 +18,57 @@ func stun_target(source:CharacterBody2D, target:CharacterBody2D):
 			target.stun_timer.start()
 	target.status_applied.emit(source, "stun")
 	Tweens.stun_vfx(target);
+
+func apply_stat_change(source:CharacterBody2D,target:CharacterBody2D, value:float, stat:String)->void:
+		## a single stat change only reduces a single stat at a time
+		target[stat] -= value;
+		Tweens.stat_change_vfx(target, value > 0);
+		## may need to be less generalized?
+		target.status_applied.emit(source, "stat_down");
+		
+		if "applied_status_duration" in source.base:
+			var timer:Timer = target.status_timer.duplicate();
+			timer.wait_timer = source.applied_duration
+			timer.timeout.connect(clear_stat_change.bind(target, stat, value * -1, timer))
+		
+
+func clear_stat_change(target:CharacterBody2D, stat:String, value:float, status_timer:Timer)->void:
+	target[stat] += value;
+	status_timer.queue_free()
+	
+
+const def_mitigation_breakpoints = {
+	## DEF value has diminishing returns, each breakpoint makes the value of each 
+	## subsequent DEF point yield less damage mitigation
+	10:1,
+	20:.75,
+	50:.5,
+	150:.25,
+	250:.1,
+}
+
+const final_def_point_mitigation_value = .05;
+
+func defense_mitigation(unit:CharacterBody2D)->float:
+	var total_mitigation:float = 0.0
+	var def_acm:int = unit.defense;
+
+	var breakpoints:Array = def_mitigation_breakpoints.keys();
+	for key:int in breakpoints:
+		def_acm -= key;
+		if def_acm >= 0:
+			total_mitigation += def_mitigation_breakpoints[key] * key
+		else:
+			## ACM will turn to a negative number that gets subtracted from the
+			## breakpoint in order to get the value of the last few points
+			total_mitigation += def_mitigation_breakpoints[key] * (key + def_acm)
+			break
+			
+	
+	# Handle the case for DEF values above the highest breakpoint
+	if def_acm >= 0:
+		total_mitigation += final_def_point_mitigation_value * def_acm;
+	
+	## mitigation = pecentage reduction to damage
+	## (only by defense stat rn)
+	return total_mitigation/100

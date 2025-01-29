@@ -1,5 +1,6 @@
 extends Sprite2D
 
+@export var stats:Node;
 
 const skill_effects = ["special"];
 const skill_visuals = ["recoil"]
@@ -18,11 +19,6 @@ const hitbox_height = 150;
 
 const skill_range = 500;
 
-const stats = {
-	"max_hp":200,
-	"attack":100,
-	"move_speed":500,
-	"def":10
-}
+
 
 const skill_cooldown = 1;

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpe6djjx0cu5o"]
+[gd_scene load_steps=6 format=3 uid="uid://cpe6djjx0cu5o"]
 
 [ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/fighters/armguy.png" id="1_exc21"]
 [ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_lw5tj"]
 [ext_resource type="Script" path="res://scenes/fighters/armguy.gd" id="2_04vbq"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighters/npc_base/npc_base_stats.tscn" id="4_0ohop"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bk56x"]
 resource_local_to_scene = true
@@ -10,9 +11,16 @@ shader = ExtResource("1_lw5tj")
 shader_parameter/target_color = null
 shader_parameter/grad = null
 
-[node name="Arm Guy" type="Sprite2D"]
+[node name="Arm Guy" type="Sprite2D" node_paths=PackedStringArray("stats")]
 material = SubResource("ShaderMaterial_bk56x")
 texture = ExtResource("1_exc21")
 hframes = 4
 vframes = 3
 script = ExtResource("2_04vbq")
+stats = NodePath("stats")
+
+[node name="stats" parent="." instance=ExtResource("4_0ohop")]
+max_hp = 500.0
+attack = 50.0
+defense = 20.0
+move_speed = 500.0

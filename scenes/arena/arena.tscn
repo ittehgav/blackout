@@ -15,21 +15,24 @@ shader_parameter/target_color = null
 shader_parameter/grad = null
 
 [node name="arena" type="Node2D" node_paths=PackedStringArray("team_1_node", "team_2_node")]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_gosq3")
 team_1_node = NodePath("team_1")
 team_2_node = NodePath("team_2")
 
-[node name="pre_fight" type="Control" parent="."]
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="pre_fight" type="Control" parent="hud"]
 process_mode = 2
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 2554.0
-offset_bottom = 1432.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_n8kpf")
 
-[node name="Panel" type="Panel" parent="pre_fight"]
+[node name="Panel" type="Panel" parent="hud/pre_fight"]
 self_modulate = Color(0.313726, 0.486275, 0.501961, 0.501961)
 layout_mode = 1
 anchors_preset = 15
@@ -40,7 +43,7 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="pre_fight"]
+[node name="PanelContainer" type="PanelContainer" parent="hud/pre_fight"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,30 +57,32 @@ offset_bottom = 25.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="pre_fight/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="hud/pre_fight/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="pre_fight/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="hud/pre_fight/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="start_battle" type="Button" parent="pre_fight/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="start_battle" type="Button" parent="hud/pre_fight/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Start Battle"
 
-[node name="post_fight" type="Control" parent="."]
+[node name="post_fight" type="Control" parent="hud"]
 process_mode = 2
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 2558.0
-offset_bottom = 1442.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("3_2d4x2")
 
-[node name="Panel" type="Panel" parent="post_fight"]
+[node name="Panel" type="Panel" parent="hud/post_fight"]
 self_modulate = Color(0.313726, 0.486275, 0.501961, 0.501961)
 layout_mode = 1
 anchors_preset = 15
@@ -88,7 +93,7 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="winner" type="Label" parent="post_fight"]
+[node name="winner" type="Label" parent="hud/post_fight"]
 layout_mode = 0
 offset_left = 864.0
 offset_top = 466.0
@@ -110,4 +115,4 @@ base = NodePath("Arm Guy")
 [node name="Arm Guy" parent="team_2/npc_fighter2" instance=ExtResource("6_8aeh8")]
 material = SubResource("ShaderMaterial_r8jcc")
 
-[connection signal="pressed" from="pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="pre_fight" method="start_battle"]
+[connection signal="pressed" from="hud/pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="hud/pre_fight" method="start_battle"]

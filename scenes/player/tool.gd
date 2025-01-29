@@ -21,7 +21,7 @@ func _process(_delta:float)->void:
 	else:
 		rotation_degrees += angle_adjust;
 		scale.x = 1
-		
+
 
 func tool_input()->void:
 	if tool_cd.is_stopped():

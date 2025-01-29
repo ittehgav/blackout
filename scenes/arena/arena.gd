@@ -23,7 +23,7 @@ func match_teams():
 		unit.death.connect(check_battle_over)
 
 
-func check_battle_over(_killer):
+func check_battle_over(_killer:CharacterBody2D):
 	if not len(team_1):
 		battle_over(2);
 	elif not len(team_2):
@@ -31,5 +31,5 @@ func check_battle_over(_killer):
 		
 func battle_over(winner:int):
 	get_tree().paused = true;
-	$post_fight.show_post_fight(winner)
+	$hud/post_fight.show_post_fight(winner)
 	

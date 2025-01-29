@@ -20,15 +20,18 @@ shader_parameter/grad = 0.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
 radius = 80.0
 
-[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "tool", "hit_scan", "base", "stun_timer")]
+[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "tool", "hit_scan", "camera", "base", "stun_timer", "timers", "status_timer")]
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_bxbr4")
 body = NodePath("body")
 tool = NodePath("tool")
 hit_scan = NodePath("hit_scan")
+camera = NodePath("Camera2D")
 base = NodePath("body")
 stun_timer = NodePath("timers/stun")
+timers = NodePath("timers")
+status_timer = NodePath("timers/_status_timer")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wutkk")
@@ -82,6 +85,8 @@ offset_bottom = 23.0
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="timers" type="Node" parent="."]
+
+[node name="_status_timer" type="Timer" parent="timers"]
 
 [node name="stun" type="Timer" parent="timers"]
 one_shot = true

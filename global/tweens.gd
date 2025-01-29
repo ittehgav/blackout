@@ -33,7 +33,6 @@ func arc_vfx(target:Polygon2D)->Tween:
 	return tween;
 	
 func stun_vfx(target:CharacterBody2D)->Tween:
-	print(target.base)
 	var tween = create_tween();
 	var up_bounce = Vector2(-10, -50);
 	var down_bounce = Vector2(10, 50);
@@ -43,8 +42,13 @@ func stun_vfx(target:CharacterBody2D)->Tween:
 	
 	return tween;
 
-func debuff_vfx(target:CharacterBody2D)->Tween:
-	return color_blink(target.base, Color.PURPLE);
+func stat_change_vfx(target:CharacterBody2D, positive:bool)->Tween:
+	var blink_color:Color;
+	if positive:
+		blink_color = Color.BLUE;
+	else:
+		blink_color = Color.REBECCA_PURPLE
+	return color_blink(target.base, blink_color);
 
 func damage_blink(target:CharacterBody2D)->Tween:
 	return color_blink(target.base, Color.RED)
@@ -83,7 +87,11 @@ func death_vfx(target:CharacterBody2D)->Tween:
 	return tween;
 	
 func lunge_forward_tween(fighter:CharacterBody2D)->Tween:
-	var gap =  fighter.target_unit.position - fighter.position;
+	var gap:Vector2;
+	if fighter.name != "in_fight_player":
+		gap =  fighter.target_unit.position - fighter.position;
+	else:
+		gap = fighter.get_node("hit_scan/shape").position
 	var shift = fighter.base.position.move_toward(gap, 100);
 	fighter.base.position = shift
 
@@ -99,3 +107,12 @@ func recoil_tween(fighter:CharacterBody2D)->Tween:
 	var tween = create_tween();
 	tween.tween_property(fighter.base,"position", Vector2.ZERO, .2);
 	return tween
+
+func camera_lunge(fighter:CharacterBody2D)->Tween:
+	var gap = fighter.get_node("hit_scan/shape").position
+	var shift = fighter.base.position.move_toward(gap, 100);
+	fighter.camera.offset = shift
+	
+	var tween = create_tween();
+	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
+	return tween;

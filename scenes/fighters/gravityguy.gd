@@ -21,7 +21,7 @@ const stats = {
 	"max_hp":200,
 	"attack":100,
 	"move_speed":500,
-	"def":10
+	"defense":10
 }
 
 const skill_cooldown = 2;

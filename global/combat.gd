@@ -1,5 +1,7 @@
 extends "res://global/combat_mechanics.gd"
 
+
+
 func skill_effect(source:CharacterBody2D, effect_name:String)->void:
 	match effect_name:
 		"aoe_damage":
@@ -28,7 +30,6 @@ func aoe_stun(source:CharacterBody2D)->void:
 	for target in targets:
 		if target in source.enemy_team:
 			stun_target(source, target)
-		
 
 
 func self_buff(source):
@@ -38,6 +39,7 @@ func self_buff(source):
 				match stat:
 					"def":
 						source.def += source.def_buff_value;
+						source.status_applied.emit(source, "stat_up")
 						## TODO: implement buff durations
 
 
@@ -49,8 +51,8 @@ func aoe_debuff(source:CharacterBody2D)->void:
 				if unit in source.enemy_team:
 					for stat in source.base.stats_to_debuff:
 						match stat:
-							"def":
-								unit.def -= source.base.def_debuff_value;
-								Tweens.debuff_vfx(unit)
-								## may need to be less generalized?
-								unit.status_applied.emit(source, "stat_down");
+							"defense", "attack", "max_hp", "move_speed":
+								## stat debuff values are multiplied by - 1 here
+								var value = source.base.stat_debuff_values[stat]
+								apply_stat_change(source, unit, value * -1, stat);
+								

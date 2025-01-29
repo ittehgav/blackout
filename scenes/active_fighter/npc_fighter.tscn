@@ -30,15 +30,15 @@ fighter = NodePath("..")
 position = Vector2(49, 0)
 shape = SubResource("CircleShape2D_2qjd5")
 
-[node name="Polygon2D" type="Polygon2D" parent="hit_scan"]
-polygon = PackedVector2Array(4, 3, 170, -4, 144, 37)
-
 [node name="skill_range" type="Area2D" parent="."]
 
 [node name="shape" type="CollisionShape2D" parent="skill_range"]
 shape = SubResource("CircleShape2D_mp8l8")
 
 [node name="timers" type="Node" parent="."]
+
+[node name="_status_timer" type="Timer" parent="timers"]
+one_shot = true
 
 [node name="find_target" type="Timer" parent="timers"]
 wait_time = 0.5
