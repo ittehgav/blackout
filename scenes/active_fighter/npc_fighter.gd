@@ -139,16 +139,7 @@ func skill_cooldown() -> void:
 		skill_retry_timer.start();
 
 
-func update_overlay(_damage: float=0) -> void:
-	var hp_label:Label = $overlay/hp;
-	
-	hp_label.text = str(hp);
-	if hp > max_hp/2:
-		hp_label.modulate = Color.GREEN.darkened(.2);
-	elif hp > max_hp/6:
-		hp_label.modulate = Color.YELLOW.darkened(.2)
-	else:
-		hp_label.modulate = Color.RED;
+
 
 
 func damage_overlay_shake(damage:float):

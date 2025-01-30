@@ -3,6 +3,12 @@ extends Node
 ## ALL TWEENS WILL BE DONE HERE
 ## all tween functions will return their tween
 
+func stat_icon_sprite(stat:String)->Sprite2D:
+	var sprite = Sprite2D.new();
+	match stat:
+		"defense", "attack", "max_hp", "move_speed":
+			sprite.texture = Icons[stat];
+	return sprite;
 func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 	var target_rotation:float;
 	if target.swung:
@@ -42,12 +48,28 @@ func stun_vfx(target:CharacterBody2D)->Tween:
 	
 	return tween;
 
-func stat_change_vfx(target:CharacterBody2D, positive:bool)->Tween:
+func stat_change_vfx(target:CharacterBody2D, stat:String, positive:bool)->Tween:
 	var blink_color:Color;
 	if positive:
 		blink_color = Color.BLUE;
 	else:
 		blink_color = Color.REBECCA_PURPLE
+		
+	var icon = stat_icon_sprite(stat);
+	target.floating_icon_anchor.add_child(icon);
+	
+	var y_shift = -30;
+	if not positive:
+		icon.modulate = Color.RED;
+		y_shift *= -1
+	else:
+		icon.modulate = Color.BLUE
+
+	var icon_tween:Tween = create_tween();
+	icon_tween.tween_property(icon, "position:y", y_shift, .45);
+	icon_tween.parallel().tween_property(icon, "modulate:a", 0, .45)
+	icon_tween.tween_callback(icon.queue_free);
+	
 	return color_blink(target.base, blink_color);
 
 func damage_blink(target:CharacterBody2D)->Tween:

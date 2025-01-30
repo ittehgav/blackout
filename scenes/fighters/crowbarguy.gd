@@ -19,4 +19,10 @@ const hitbox_height = 150;
 
 const skill_range = 100;
 
+const debuff_type = "stat";
 const skill_cooldown = 1;
+
+const stats_to_debuff = ["defense"];
+const stat_debuff_values = {
+	"defense":5
+}

@@ -20,7 +20,7 @@ shader_parameter/grad = 0.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
 radius = 80.0
 
-[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "tool", "hit_scan", "camera", "base", "stun_timer", "timers", "status_timer")]
+[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "tool", "hit_scan", "camera", "base", "floating_icon_anchor", "stun_timer", "timers", "status_timer")]
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_bxbr4")
@@ -29,6 +29,7 @@ tool = NodePath("tool")
 hit_scan = NodePath("hit_scan")
 camera = NodePath("Camera2D")
 base = NodePath("body")
+floating_icon_anchor = NodePath("floating_icon_anchor")
 stun_timer = NodePath("timers/stun")
 timers = NodePath("timers")
 status_timer = NodePath("timers/_status_timer")
@@ -60,13 +61,21 @@ body = NodePath("../body")
 wait_time = 0.5
 one_shot = true
 
-[node name="sprites" type="Node2D" parent="."]
-
 [node name="hit_scan" type="Area2D" parent="."]
 
 [node name="shape" type="CollisionShape2D" parent="hit_scan"]
 position = Vector2(60, 0)
 shape = SubResource("CircleShape2D_5q67b")
+
+[node name="floating_icon_anchor" type="Node2D" parent="."]
+position = Vector2(50, -50)
+
+[node name="timers" type="Node" parent="."]
+
+[node name="_status_timer" type="Timer" parent="timers"]
+
+[node name="stun" type="Timer" parent="timers"]
+one_shot = true
 
 [node name="overlay" type="Control" parent="."]
 layout_mode = 3
@@ -84,14 +93,8 @@ offset_bottom = 23.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="timers" type="Node" parent="."]
-
-[node name="_status_timer" type="Timer" parent="timers"]
-
-[node name="stun" type="Timer" parent="timers"]
-one_shot = true
-
 [connection signal="damage_taken" from="." to="." method="_on_damage_taken"]
+[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="death" from="." to="." method="_on_death"]
 [connection signal="timeout" from="body/animation_ticker" to="body" method="next_frame"]
 [connection signal="timeout" from="tool/tool_cd" to="tool" method="tool_use_held"]

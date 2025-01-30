@@ -18,9 +18,8 @@ const hitbox_radius = 50;
 const hitbox_height = 150;
 
 const skill_range = 1000;
-
-
 const skill_cooldown = 2;
+
 
 var tagged_targets:Array[CharacterBody2D] = [];
 

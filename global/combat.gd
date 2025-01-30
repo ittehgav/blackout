@@ -1,22 +1,27 @@
 extends "res://global/combat_mechanics.gd"
 
 
-
 func skill_effect(source:CharacterBody2D, effect_name:String)->void:
 	match effect_name:
-		"aoe_damage":
-			aoe_damage(source);
-		"aoe_stun":
-			aoe_stun(source);
 		"direct_damage":
 			deal_damage(source, source.target_unit);
+		"aoe_damage":
+			aoe_damage(source);
+			
+		"stun":
+			stun_target(source, source.target_unit);
+		"aoe_stun":
+			aoe_stun(source);
+
 		"self_buff":
 			self_buff(source);
 		"aoe_debuff":
 			aoe_debuff(source);
+
 		"special":
 			source.base.special_skill(source);
-	
+
+
 func aoe_damage(source:CharacterBody2D)->void:
 	## simply damages all valid targets within the hit scan which may take different shapes
 	for target in source.hit_scan.get_overlapping_bodies():
@@ -37,10 +42,10 @@ func self_buff(source):
 		"stat":
 			for stat in source.base.stats_to_buff:
 				match stat:
-					"def":
-						source.def += source.def_buff_value;
-						source.status_applied.emit(source, "stat_up")
-						## TODO: implement buff durations
+					"defense", "attack", "max_hp", "move_speed":
+						var value:float = source.base.stat_buff_values[stat];
+						apply_stat_change(source, source, value, stat)
+
 
 
 func aoe_debuff(source:CharacterBody2D)->void:

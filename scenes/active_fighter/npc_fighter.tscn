@@ -10,13 +10,16 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_mp8l8"]
 resource_local_to_scene = true
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "stun_timer")]
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "floating_icon_anchor", "stun_timer", "timers", "status_timer")]
 motion_mode = 1
 script = ExtResource("1_bgds5")
 hit_scan = NodePath("hit_scan")
 cooldown_timer = NodePath("timers/skill_cooldown")
 skill_retry_timer = NodePath("timers/skill_cooldown/skill_retry")
+floating_icon_anchor = NodePath("floating_icon_anchor")
 stun_timer = NodePath("timers/stun")
+timers = NodePath("timers")
+status_timer = NodePath("timers/_status_timer")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 16)
@@ -57,6 +60,9 @@ wait_time = 0.1
 
 [node name="stun" type="Timer" parent="timers"]
 one_shot = true
+
+[node name="floating_icon_anchor" type="Node2D" parent="."]
+position = Vector2(50, -50)
 
 [node name="overlay" type="Control" parent="."]
 layout_mode = 3

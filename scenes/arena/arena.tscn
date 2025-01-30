@@ -5,12 +5,12 @@
 [ext_resource type="Script" path="res://scenes/arena/pre_fight.gd" id="2_n8kpf"]
 [ext_resource type="Script" path="res://scenes/arena/post_fight.gd" id="3_2d4x2"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/player/in_fight_player.tscn" id="4_n7xip"]
-[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="5_hgeri"]
-[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/fighters/armguy.tscn" id="6_8aeh8"]
+[ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/fighters/tailpipeguy.tscn" id="6_dqsre"]
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="7_qmo1s"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r8jcc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_klabn"]
 resource_local_to_scene = true
-shader = ExtResource("5_hgeri")
+shader = ExtResource("7_qmo1s")
 shader_parameter/target_color = null
 shader_parameter/grad = null
 
@@ -110,9 +110,9 @@ position = Vector2(426, 640)
 
 [node name="npc_fighter2" parent="team_2" node_paths=PackedStringArray("base") instance=ExtResource("2_ahtdn")]
 position = Vector2(1488, 790)
-base = NodePath("Arm Guy")
+base = NodePath("Tailpipe Guy")
 
-[node name="Arm Guy" parent="team_2/npc_fighter2" instance=ExtResource("6_8aeh8")]
-material = SubResource("ShaderMaterial_r8jcc")
+[node name="Tailpipe Guy" parent="team_2/npc_fighter2" instance=ExtResource("6_dqsre")]
+material = SubResource("ShaderMaterial_klabn")
 
 [connection signal="pressed" from="hud/pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="hud/pre_fight" method="start_battle"]

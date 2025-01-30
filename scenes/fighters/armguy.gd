@@ -17,10 +17,9 @@ const profile = {
 const hitbox_radius = 50;
 const hitbox_height = 150;
 
-
 const hit_scan_radius = 100;
+
 const skill_range = 100;
+const skill_cooldown = 5;
 
 const stun_duration = 2;
-
-const skill_cooldown = 5;

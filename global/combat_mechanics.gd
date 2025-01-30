@@ -3,9 +3,9 @@ extends Node
 func deal_damage(source:CharacterBody2D, target:CharacterBody2D)->void:
 	var damage:float = source.attack;
 	var mitigation:float = defense_mitigation(target);
-	damage *= mitigation;
+	damage -= damage * mitigation;
 	
-	target.hp -= source.attack;
+	target.hp -= damage;
 	target.damage_taken.emit(damage)
 
 	if target.hp <= 0:
@@ -21,8 +21,8 @@ func stun_target(source:CharacterBody2D, target:CharacterBody2D):
 
 func apply_stat_change(source:CharacterBody2D,target:CharacterBody2D, value:float, stat:String)->void:
 		## a single stat change only reduces a single stat at a time
-		target[stat] -= value;
-		Tweens.stat_change_vfx(target, value > 0);
+		target[stat] += value;
+		Tweens.stat_change_vfx(target,stat, value > 0);
 		## may need to be less generalized?
 		target.status_applied.emit(source, "stat_down");
 		
@@ -52,6 +52,7 @@ const final_def_point_mitigation_value = .05;
 func defense_mitigation(unit:CharacterBody2D)->float:
 	var total_mitigation:float = 0.0
 	var def_acm:int = unit.defense;
+
 
 	var breakpoints:Array = def_mitigation_breakpoints.keys();
 	for key:int in breakpoints:
