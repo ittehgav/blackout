@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=8 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" path="res://scenes/active_fighter/npc_fighter.gd" id="1_bgds5"]
 [ext_resource type="Script" path="res://scenes/active_fighter/hit_scan.gd" id="2_8jf47"]
+[ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/active_fighter/fighter_timers.tscn" id="3_qq6tp"]
+[ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/active_fighter/fighter_overlay.tscn" id="4_g7h3x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g13ct"]
+resource_local_to_scene = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2qjd5"]
 
@@ -11,15 +14,17 @@
 resource_local_to_scene = true
 
 [node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "floating_icon_anchor", "stun_timer", "timers", "status_timer")]
+collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_bgds5")
 hit_scan = NodePath("hit_scan")
-cooldown_timer = NodePath("timers/skill_cooldown")
-skill_retry_timer = NodePath("timers/skill_cooldown/skill_retry")
-floating_icon_anchor = NodePath("floating_icon_anchor")
-stun_timer = NodePath("timers/stun")
-timers = NodePath("timers")
-status_timer = NodePath("timers/_status_timer")
+cooldown_timer = NodePath("npc_timers/skill_cooldown")
+skill_retry_timer = NodePath("npc_timers/skill_cooldown/skill_retry")
+floating_icon_anchor = NodePath("overlay/floating_icon_anchor")
+stun_timer = NodePath("fighter_timers/_status_timer")
+timers = NodePath("fighter_timers")
+status_timer = NodePath("fighter_timers/_status_timer")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 16)
@@ -38,53 +43,37 @@ shape = SubResource("CircleShape2D_2qjd5")
 [node name="shape" type="CollisionShape2D" parent="skill_range"]
 shape = SubResource("CircleShape2D_mp8l8")
 
-[node name="timers" type="Node" parent="."]
+[node name="fighter_timers" parent="." node_paths=PackedStringArray("stun_display") instance=ExtResource("3_qq6tp")]
+stun_display = NodePath("../overlay/stun_display")
 
-[node name="_status_timer" type="Timer" parent="timers"]
-one_shot = true
+[node name="npc_timers" type="Node" parent="."]
 
-[node name="find_target" type="Timer" parent="timers"]
-wait_time = 0.5
-autostart = true
-
-[node name="animation_timer" type="Timer" parent="timers"]
-wait_time = 0.5
-autostart = true
-
-[node name="skill_cooldown" type="Timer" parent="timers"]
+[node name="skill_cooldown" type="Timer" parent="npc_timers"]
 one_shot = true
 autostart = true
 
-[node name="skill_retry" type="Timer" parent="timers/skill_cooldown"]
+[node name="skill_retry" type="Timer" parent="npc_timers/skill_cooldown"]
 wait_time = 0.1
 
-[node name="stun" type="Timer" parent="timers"]
-one_shot = true
+[node name="animation_timer" type="Timer" parent="npc_timers"]
+wait_time = 0.5
+autostart = true
 
-[node name="floating_icon_anchor" type="Node2D" parent="."]
-position = Vector2(50, -50)
+[node name="find_target" type="Timer" parent="npc_timers"]
+wait_time = 0.5
+autostart = true
 
-[node name="overlay" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -66.0
-offset_top = -53.0
-offset_right = -26.0
-offset_bottom = -13.0
+[node name="overlay" parent="." instance=ExtResource("4_g7h3x")]
 
-[node name="hp" type="Label" parent="overlay"]
-modulate = Color(0, 1, 0, 1)
-layout_mode = 0
-offset_right = 52.0
-offset_bottom = 23.0
-
-[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
-[connection signal="damage_taken" from="." to="." method="damage_taken_vfx"]
-[connection signal="death" from="." to="." method="_on_death"]
+[connection signal="damage_taken" from="." to="." method="update_overlay"]
+[connection signal="healing_received" from="." to="." method="update_overlay"]
 [connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]
 [connection signal="body_exited" from="skill_range" to="." method="_on_skill_range_body_exited"]
-[connection signal="timeout" from="timers/find_target" to="." method="find_target"]
-[connection signal="timeout" from="timers/animation_timer" to="." method="next_frame"]
-[connection signal="timeout" from="timers/skill_cooldown" to="." method="skill_cooldown"]
-[connection signal="timeout" from="timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
+[connection signal="timeout" from="npc_timers/skill_cooldown" to="." method="skill_cooldown"]
+[connection signal="timeout" from="npc_timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
+[connection signal="timeout" from="npc_timers/animation_timer" to="." method="next_frame"]
+[connection signal="timeout" from="npc_timers/find_target" to="." method="find_target"]
+
+[editable path="fighter_timers"]
+[editable path="overlay"]

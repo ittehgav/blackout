@@ -48,6 +48,10 @@ func stun_vfx(target:CharacterBody2D)->Tween:
 	
 	return tween;
 
+	
+func heal_vfx(target:CharacterBody2D)->Tween:
+	return color_blink(target.base, Color.GREEN);
+
 func stat_change_vfx(target:CharacterBody2D, stat:String, positive:bool)->Tween:
 	var blink_color:Color;
 	if positive:

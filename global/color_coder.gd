@@ -76,6 +76,9 @@ func color_code_fighter(fighter:Sprite2D, scheme:int=1)->void:
 		1:
 			base_color = Color.LIGHT_SKY_BLUE;
 			off_color = Color.YELLOW;
+		2:
+			base_color = Color.LIGHT_CORAL;
+			off_color = Color.SILVER;
 	
 	var img = fighter.texture.get_image()
 	

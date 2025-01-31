@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://evcwbpbqici3"]
+
+[ext_resource type="Script" path="res://scenes/active_fighter/fighter_timers.gd" id="1_c4ycd"]
+
+[node name="fighter_timers" type="Node" node_paths=PackedStringArray("stun_timer")]
+script = ExtResource("1_c4ycd")
+stun_timer = NodePath("stun")
+
+[node name="_status_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="stun" type="Timer" parent="."]
+one_shot = true

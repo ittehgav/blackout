@@ -1,5 +1,6 @@
 extends "res://scenes/active_fighter/active_fighter.gd";
 
+signal target_change;
 
 @export var hit_scan:Area2D;
 @export var cooldown_timer:Timer;
@@ -27,12 +28,15 @@ func load_base(new_base):
 					var shape = SegmentShape2D.new();
 					shape.b = Vector2(base.hit_scan_length, 0);
 					$hit_scan/shape.shape = shape;
+				"rectangle":
+					var shape = RectangleShape2D.new();
+					shape.size = Vector2(base.hit_scan_length, base.hit_scan_width);
+					$hit_scan/shape.shape = shape;
 		else:
 			hit_scan.get_node("shape").shape.radius = base.hit_scan_radius
 	else:
 		hit_scan.queue_free();
 	$skill_range/shape.shape.radius = base.skill_range;
-	ColorCoder.color_code_fighter(base);
 	
 	## eventually will add persistant values from leveling/other modifiers;
 	max_hp = base.stats.max_hp;
@@ -45,23 +49,34 @@ func load_base(new_base):
 	
 	cooldown_timer.wait_time = base.skill_cooldown;
 	
+	if "special_setup" in base:
+		base.special_setup(self);
+	
 	update_overlay();
 
 
 func find_target()->void:
+	var target:CharacterBody2D;
 	match base.target_type:
 		"nearest_enemy":
-			var target:CharacterBody2D;
 			var current_distance:float;
 			for unit in enemy_team:
+
 				var distance = position.distance_to(unit.position)
 				@warning_ignore("unassigned_variable")
-				if not target or distance > current_distance:
+				if not target or distance < current_distance:
 					target = unit;
 					current_distance = distance;
-			target_unit = target;
 
-			target_in_range =  target_unit in $skill_range.get_overlapping_bodies();
+		"least_hp_ally":
+			for unit in ally_team:
+				if not target or target.hp < unit.hp:
+					target = unit;
+	if target != target_unit:
+		target_unit = target;
+		target_change.emit();
+
+	target_in_range = target_unit in $skill_range.get_overlapping_bodies();
 
 
 func _physics_process(_delta: float) -> void:
@@ -104,17 +119,17 @@ func next_frame() -> void:
 	match current_animation:
 		"walk":
 			if base.frame_coords.y == 1:
-				$timers/animation_timer.wait_time = .2;
-				$timers/animation_timer.start()
+				$npc_timers/animation_timer.wait_time = .2;
+				$npc_timers/animation_timer.start()
 				base.frame += 1;
 				if base.frame_coords.y == 2:
 					base.frame_coords.y = 1;
 			else:
-				$timers/animation_timer.wait_time = .2
+				$npc_timers/animation_timer.wait_time = .2
 				base.frame_coords = Vector2(0, 1);
 		"idle":
 			if base.frame_coords.y:
-				$timers/animation_timer.wait_time = .5;
+				$npc_timers/animation_timer.wait_time = .5;
 				base.frame = 0;
 			else:
 				if base.frame == 0:
@@ -123,8 +138,8 @@ func next_frame() -> void:
 					base.frame = 0;
 		"skill":
 			if base.frame_coords.y != 2:
-				$timers/animation_timer.wait_time = .3;
-				$timers/animation_timer.start()
+				$npc_timers/animation_timer.wait_time = .3;
+				$npc_timers/animation_timer.start()
 				base.frame_coords = Vector2(0, 2);
 			else:
 				current_animation = "idle";
@@ -134,18 +149,6 @@ func skill_cooldown() -> void:
 	if target_in_range and stun_timer.is_stopped():
 		use_skill()
 		skill_retry_timer.stop()
-		$timers/skill_cooldown.start()
+		$npc_timers/skill_cooldown.start()
 	else:
 		skill_retry_timer.start();
-
-
-
-
-
-func damage_overlay_shake(damage:float):
-	var intensity:float = .1;
-	if damage > max_hp/2:
-		intensity = 1;
-	elif damage > max_hp/3:
-		intensity = .75;
-	Tweens.damage_overlay_tween($overlay/hp, intensity);

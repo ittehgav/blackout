@@ -10,12 +10,24 @@ func deal_damage(source:CharacterBody2D, target:CharacterBody2D)->void:
 
 	if target.hp <= 0:
 		target.death.emit(source);
+		
+		target.ally_team.erase(target);
+		var tween = Tweens.death_vfx(target);
+		tween.tween_callback(target.queue_free);
 
-func stun_target(source:CharacterBody2D, target:CharacterBody2D):
-	var duration = source.base.stun_duration
+func heal_unit(source:CharacterBody2D, target:CharacterBody2D, value:float)->void:
+	target.hp += value;
+	if target.hp > target.max_hp:
+		target.hp = target.max_hp;
+
+	target.healing_received.emit(value)
+	Tweens.heal_vfx(target);
+
+func stun_target(source:CharacterBody2D, target:CharacterBody2D, duration:float = source.base.stun_duration):
 	if target.stun_timer.is_stopped() or target.stun_timer.time_left < duration:
 			target.stun_timer.wait_time = duration;
 			target.stun_timer.start()
+			target.timers.display_stun();
 	target.status_applied.emit(source, "stun")
 	Tweens.stun_vfx(target);
 
@@ -73,3 +85,11 @@ func defense_mitigation(unit:CharacterBody2D)->float:
 	## mitigation = pecentage reduction to damage
 	## (only by defense stat rn)
 	return total_mitigation/100
+
+func recurring_effect(target:CharacterBody2D, effect:Callable, interval:float, repetitions_left:int)->void:
+	effect.call();
+	repetitions_left -= 1;
+	if repetitions_left:
+		await get_tree().create_timer(interval).timeout;
+		if is_instance_valid(target):
+			recurring_effect(target, effect, interval, repetitions_left)

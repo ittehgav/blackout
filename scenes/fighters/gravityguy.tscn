@@ -11,12 +11,13 @@ shader = ExtResource("1_c2e0o")
 shader_parameter/target_color = null
 shader_parameter/grad = null
 
-[node name="Gravity Guy" type="Sprite2D"]
+[node name="Gravity Guy" type="Sprite2D" node_paths=PackedStringArray("stats")]
 material = SubResource("ShaderMaterial_l0ln4")
 texture = ExtResource("1_if48y")
 hframes = 4
 vframes = 3
 script = ExtResource("2_oja1q")
+stats = NodePath("stats")
 
 [node name="stats" parent="." instance=ExtResource("4_mnvhp")]
 max_hp = 200.0

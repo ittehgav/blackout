@@ -3,13 +3,16 @@ extends CharacterBody2D;
 var ally_team:Array[Node];
 var enemy_team:Array[Node];
 
-
 @warning_ignore("unused_signal")
 signal damage_taken(damage:float);
+@warning_ignore("unused_signal")
+signal healing_received(value:float);
 @warning_ignore("unused_signal")
 signal death(killer:CharacterBody2D);
 @warning_ignore("unused_signal")
 signal status_applied(source:CharacterBody2D, type:String);
+
+
 
 var move_speed:int = 500;
 
@@ -27,14 +30,6 @@ var hp:float;
 var attack:float;
 var defense:float;
 
-func damage_taken_vfx(_damage: float) -> void:
-	Tweens.damage_blink(self);
-
-func _on_death(_killer:CharacterBody2D)->void:
-	ally_team.erase(self);
-	
-	var tween:Tween = Tweens.death_vfx(self);
-	tween.tween_callback(queue_free)
 
 func update_overlay(_damage: float=0) -> void:
 	var hp_label:Label = $overlay/hp;
@@ -46,3 +41,11 @@ func update_overlay(_damage: float=0) -> void:
 		hp_label.modulate = Color.YELLOW.darkened(.2)
 	else:
 		hp_label.modulate = Color.RED;
+
+func damage_overlay_shake(damage:float):
+	var intensity:float = .1;
+	if damage > max_hp/2:
+		intensity = 1;
+	elif damage > max_hp/3:
+		intensity = .75;
+	Tweens.damage_overlay_tween($overlay/hp, intensity);

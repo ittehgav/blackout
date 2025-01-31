@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://d13s4a07by3vu"]
+
+[ext_resource type="Texture2D" uid="uid://bq52wcygpdk4u" path="res://assets/ui/fighter_overlay/status_timer.png" id="1_nh5c3"]
+
+[node name="overlay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -66.0
+offset_top = -53.0
+offset_right = -26.0
+offset_bottom = -13.0
+
+[node name="floating_icon_anchor" type="Node2D" parent="."]
+position = Vector2(116, 3)
+
+[node name="hp" type="Label" parent="."]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 0
+offset_right = 52.0
+offset_bottom = 23.0
+
+[node name="stun_display" type="TextureProgressBar" parent="."]
+modulate = Color(1, 1, 1, 0.34902)
+layout_mode = 0
+offset_left = 89.0
+offset_top = -3.0
+offset_right = 121.0
+offset_bottom = 29.0
+step = 0.1
+fill_mode = 4
+texture_progress = ExtResource("1_nh5c3")
+tint_progress = Color(0.431373, 0.141176, 0.435294, 1)

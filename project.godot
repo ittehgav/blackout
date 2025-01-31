@@ -57,6 +57,11 @@ use_tool={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="team_1"
+2d_physics/layer_2="team_2"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
