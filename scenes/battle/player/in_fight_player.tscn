@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://clxl0g1dnu81h"]
+
+[ext_resource type="Script" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="3_3uxwr"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/sprites/player/body.png" id="4_uqyhm"]
+[ext_resource type="Script" path="res://scenes/battle/player/body.gd" id="5_yvg0f"]
+[ext_resource type="Script" path="res://scenes/battle/player/tool.gd" id="6_cbwmk"]
+[ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/active_fighter/fighter_timers.tscn" id="7_6mba4"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/tools/tailpipe.tscn" id="7_074eh"]
+[ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/active_fighter/fighter_overlay.tscn" id="8_14x5b"]
+[ext_resource type="Script" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
+radius = 29.2
+height = 90.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_71g0g"]
+resource_local_to_scene = true
+shader = ExtResource("3_3uxwr")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
+radius = 80.0
+
+[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "tool", "hit_scan", "camera", "base", "floating_icon_anchor", "stun_timer", "timers", "status_timer")]
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_bxbr4")
+body = NodePath("body")
+tool = NodePath("tool")
+hit_scan = NodePath("hit_scan")
+camera = NodePath("camera")
+base = NodePath("body")
+floating_icon_anchor = NodePath("overlay/floating_icon_anchor")
+stun_timer = NodePath("fighter_timers/stun")
+timers = NodePath("fighter_timers")
+status_timer = NodePath("fighter_timers/_status_timer")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_wutkk")
+
+[node name="body" type="Sprite2D" parent="." node_paths=PackedStringArray("ticker")]
+material = SubResource("ShaderMaterial_71g0g")
+texture = ExtResource("4_uqyhm")
+hframes = 6
+frame = 4
+script = ExtResource("5_yvg0f")
+ticker = NodePath("animation_ticker")
+
+[node name="animation_ticker" type="Timer" parent="body"]
+wait_time = 0.3
+
+[node name="tool" type="Node2D" parent="." node_paths=PackedStringArray("holder", "tool_cd", "tool_node", "body")]
+script = ExtResource("6_cbwmk")
+holder = NodePath("..")
+tool_cd = NodePath("tool_cd")
+tool_node = NodePath("Tailpipe")
+body = NodePath("../body")
+
+[node name="Tailpipe" parent="tool" instance=ExtResource("7_074eh")]
+
+[node name="tool_cd" type="Timer" parent="tool"]
+wait_time = 0.5
+one_shot = true
+
+[node name="hit_scan" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="shape" type="CollisionShape2D" parent="hit_scan"]
+position = Vector2(60, 0)
+shape = SubResource("CircleShape2D_5q67b")
+
+[node name="fighter_timers" parent="." node_paths=PackedStringArray("stun_display") instance=ExtResource("7_6mba4")]
+stun_display = NodePath("../overlay/stun_display")
+
+[node name="camera" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+editor_draw_drag_margin = true
+script = ExtResource("8_ccswf")
+
+[node name="overlay" parent="." instance=ExtResource("8_14x5b")]
+
+[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
+[connection signal="damage_taken" from="." to="." method="update_overlay"]
+[connection signal="healing_received" from="." to="." method="update_overlay"]
+[connection signal="timeout" from="body/animation_ticker" to="body" method="next_frame"]
+[connection signal="timeout" from="tool/tool_cd" to="tool" method="tool_use_held"]
+
+[editable path="fighter_timers"]
+[editable path="overlay"]

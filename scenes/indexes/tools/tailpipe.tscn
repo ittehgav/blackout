@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpu4aip3dy4kq"]
+
+[ext_resource type="Script" path="res://scenes/indexes/tools/tailpipe.gd" id="1_1n7ey"]
+[ext_resource type="Texture2D" uid="uid://b1ii7gb6p2fb7" path="res://assets/sprites/player/tools/pipe.png" id="1_4334k"]
+
+[node name="Tailpipe" type="Sprite2D" node_paths=PackedStringArray("arc")]
+texture = ExtResource("1_4334k")
+offset = Vector2(-30, -15)
+hframes = 2
+script = ExtResource("1_1n7ey")
+arc = NodePath("arc")
+
+[node name="arc" type="Polygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(30, 0, 30, 20, 24, 39, 16, 57, 0, 74, 26, 62, 39, 45, 46, 24, 49, 0, 46, -24, 39, -45, 26, -62, 0, -74, 16, -57, 24, -39, 30, -20)

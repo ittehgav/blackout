@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://lqdqixbqupq0"]
-
-[ext_resource type="Script" path="res://scenes/fighters/npc_base/npc_base_stats.gd" id="1_em6ui"]
-
-[node name="stats" type="Node"]
-script = ExtResource("1_em6ui")

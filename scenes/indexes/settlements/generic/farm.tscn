@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://ocvlerfa58lv"]
+
+[ext_resource type="Texture2D" uid="uid://dl8ct2ft4t4x5" path="res://assets/sprites/settlements/farm.png" id="1_dxx1i"]
+[ext_resource type="Script" path="res://scenes/indexes/settlements/generic/farm.gd" id="2_d001o"]
+[ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_6win5"]
+[ext_resource type="Texture2D" uid="uid://ja3tgd5rjsjh" path="res://assets/backgrounds/settlements/farm.jpg" id="3_nn28j"]
+
+[node name="Farm" type="Sprite2D" node_paths=PackedStringArray("settings")]
+texture = ExtResource("1_dxx1i")
+script = ExtResource("2_d001o")
+background = ExtResource("3_nn28j")
+settings = NodePath("SettlementSettings")
+
+[node name="SettlementSettings" parent="." instance=ExtResource("3_6win5")]

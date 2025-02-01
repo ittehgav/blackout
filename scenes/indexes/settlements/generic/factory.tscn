@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://d01qvu00evo46"]
+
+[ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/sprites/settlements/factory.png" id="1_cwx7e"]
+[ext_resource type="Script" path="res://scenes/indexes/settlements/generic/factory.gd" id="2_82p61"]
+[ext_resource type="Texture2D" uid="uid://4qjxg6qo28dq" path="res://assets/backgrounds/settlements/factory.jpg" id="3_641dt"]
+[ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_nhmlw"]
+
+[node name="Factory" type="Sprite2D" node_paths=PackedStringArray("settings")]
+texture = ExtResource("1_cwx7e")
+script = ExtResource("2_82p61")
+background = ExtResource("3_641dt")
+settings = NodePath("SettlementSettings")
+
+[node name="SettlementSettings" parent="." instance=ExtResource("3_nhmlw")]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://djkkgqmvt57v2"]
+
+[ext_resource type="Script" path="res://scenes/map/settlement/settlement_settings.gd" id="1_7nwbh"]
+
+[node name="settings" type="Node"]
+script = ExtResource("1_7nwbh")
+economy_level = 1.0

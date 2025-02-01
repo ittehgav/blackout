@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6vpew5mdwbdf"]
+
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_gdtna"]
+[ext_resource type="Texture2D" uid="uid://bbefybh8ca2i5" path="res://assets/sprites/fighters/mecharmguy.png" id="2_7n0ta"]
+[ext_resource type="Script" path="res://scenes/indexes/fighters/mecharmguy.gd" id="3_j370o"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/npc_base/npc_base_stats.tscn" id="4_gwc8s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pgyn"]
+shader = ExtResource("1_gdtna")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[node name="Mech Arm Guy" type="Sprite2D" node_paths=PackedStringArray("stats")]
+material = SubResource("ShaderMaterial_6pgyn")
+texture = ExtResource("2_7n0ta")
+hframes = 4
+vframes = 3
+script = ExtResource("3_j370o")
+stats = NodePath("stats")
+
+[node name="stats" parent="." instance=ExtResource("4_gwc8s")]
+max_hp = 300.0
+attack = 100.0
+defense = 20.0
+move_speed = 750.0
