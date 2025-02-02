@@ -1,4 +1,6 @@
-extends Node2D;
+extends MapEntity;
 
-@export var base:Sprite2D;
+class_name Settlement;
+
+@export var base:SettlementBase;
 @export var inventory:Inventory;

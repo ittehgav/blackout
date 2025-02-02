@@ -9,6 +9,7 @@ func stat_icon_sprite(stat:String)->Sprite2D:
 		"defense", "attack", "max_hp", "move_speed":
 			sprite.texture = Icons[stat];
 	return sprite;
+
 func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 	var target_rotation:float;
 	if target.swung:
@@ -38,7 +39,7 @@ func arc_vfx(target:Polygon2D)->Tween:
 	
 	return tween;
 	
-func stun_vfx(target:CharacterBody2D)->Tween:
+func stun_vfx(target:ActiveFighter)->Tween:
 	var tween = create_tween();
 	var up_bounce = Vector2(-10, -50);
 	var down_bounce = Vector2(10, 50);
@@ -49,10 +50,10 @@ func stun_vfx(target:CharacterBody2D)->Tween:
 	return tween;
 
 	
-func heal_vfx(target:CharacterBody2D)->Tween:
+func heal_vfx(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.GREEN);
 
-func stat_change_vfx(target:CharacterBody2D, stat:String, positive:bool)->Tween:
+func stat_change_vfx(target:ActiveFighter, stat:String, positive:bool)->Tween:
 	var blink_color:Color;
 	if positive:
 		blink_color = Color.BLUE;
@@ -76,10 +77,10 @@ func stat_change_vfx(target:CharacterBody2D, stat:String, positive:bool)->Tween:
 	
 	return color_blink(target.base, blink_color);
 
-func damage_blink(target:CharacterBody2D)->Tween:
+func damage_blink(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.RED)
 
-func color_blink(target:Sprite2D, target_color:Color)->Tween:
+func color_blink(target:FighterBase, target_color:Color)->Tween:
 	target.material.set_shader_parameter("target_color", target_color);
 	target.material.set_shader_parameter("grad", 1.0);
 
@@ -105,14 +106,14 @@ func damage_overlay_tween(target:Label, intensity:float)->Tween:
 	tween.tween_property(target, "position", Vector2.ZERO, step);
 	return tween;
 
-func death_vfx(target:CharacterBody2D)->Tween:
+func death_vfx(target:ActiveFighter)->Tween:
 	target.modulate = Color.DARK_RED;
 	
 	var tween:Tween = create_tween();
 	tween.tween_property(target, "modulate:a", 0, .5);
 	return tween;
 	
-func lunge_forward_tween(fighter:CharacterBody2D)->Tween:
+func lunge_forward_tween(fighter:ActiveFighter)->Tween:
 	var gap:Vector2;
 	if fighter.name != "in_fight_player":
 		gap =  fighter.target_unit.position - fighter.position;
@@ -125,7 +126,7 @@ func lunge_forward_tween(fighter:CharacterBody2D)->Tween:
 	tween.tween_property(fighter.base,"position", Vector2.ZERO, .1);
 	return tween
 
-func recoil_tween(fighter:CharacterBody2D)->Tween:
+func recoil_tween(fighter:ActiveFighter)->Tween:
 	var gap =  fighter.target_unit.position - fighter.position;
 	var shift = fighter.base.position.move_toward(gap * -1, 50);
 	fighter.base.position = shift
@@ -134,7 +135,7 @@ func recoil_tween(fighter:CharacterBody2D)->Tween:
 	tween.tween_property(fighter.base,"position", Vector2.ZERO, .2);
 	return tween
 
-func camera_lunge(fighter:CharacterBody2D)->Tween:
+func camera_lunge(fighter:ActiveFighter)->Tween:
 	var gap = fighter.get_node("hit_scan/shape").position
 	var shift = fighter.base.position.move_toward(gap, 100);
 	fighter.camera.offset = shift

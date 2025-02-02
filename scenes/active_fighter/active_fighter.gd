@@ -1,5 +1,7 @@
 extends CharacterBody2D;
 
+class_name ActiveFighter;
+
 var ally_team:Array[Node];
 var enemy_team:Array[Node];
 
@@ -8,15 +10,14 @@ signal damage_taken(damage:float);
 @warning_ignore("unused_signal")
 signal healing_received(value:float);
 @warning_ignore("unused_signal")
-signal death(killer:CharacterBody2D);
+signal death(killer:ActiveFighter);
 @warning_ignore("unused_signal")
-signal status_applied(source:CharacterBody2D, type:String);
+signal status_applied(source:ActiveFighter, type:String);
 
 
 
-var move_speed:int = 500;
 
-@export var base:Sprite2D;
+@export var base:FighterBase;
 @export var floating_icon_anchor:Node2D;
 
 @export var stun_timer:Timer;
@@ -29,7 +30,7 @@ var max_hp:float;
 var hp:float;
 var attack:float;
 var defense:float;
-
+var move_speed:float = 500.0;
 
 func update_overlay(_damage: float=0) -> void:
 	var hp_label:Label = $overlay/hp;

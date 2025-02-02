@@ -12,3 +12,7 @@ background = ExtResource("3_641dt")
 settings = NodePath("SettlementSettings")
 
 [node name="SettlementSettings" parent="." instance=ExtResource("3_nhmlw")]
+food_production = 1
+juice_production = 3
+scrap_production = 3
+fuel_production = 3

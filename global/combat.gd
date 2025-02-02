@@ -1,7 +1,7 @@
 extends "res://global/combat_mechanics.gd"
 
 
-func skill_effect(source:CharacterBody2D, effect_name:String)->void:
+func skill_effect(source:ActiveFighter, effect_name:String)->void:
 	match effect_name:
 		"direct_damage":
 			deal_damage(source, source.target_unit);
@@ -22,7 +22,7 @@ func skill_effect(source:CharacterBody2D, effect_name:String)->void:
 			source.base.special_skill(source);
 
 
-func aoe_damage(source:CharacterBody2D)->void:
+func aoe_damage(source:ActiveFighter)->void:
 	## simply damages all valid targets within the hit scan which may take different shapes
 	for target in source.hit_scan.get_overlapping_bodies():
 		if target in source.enemy_team:
@@ -30,7 +30,7 @@ func aoe_damage(source:CharacterBody2D)->void:
 			Tweens.damage_blink(target);
 
 
-func aoe_stun(source:CharacterBody2D)->void:
+func aoe_stun(source:ActiveFighter)->void:
 	var targets = source.hit_scan.get_overlapping_bodies();
 	for target in targets:
 		if target in source.enemy_team:
@@ -48,7 +48,7 @@ func self_buff(source):
 
 
 
-func aoe_debuff(source:CharacterBody2D)->void:
+func aoe_debuff(source:ActiveFighter)->void:
 	var targets = source.hit_scan.get_overlapping_bodies();
 	match source.base.debuff_type:
 		"stat":

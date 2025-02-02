@@ -1,14 +1,15 @@
-[gd_scene load_steps=15 format=4 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=17 format=4 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
-[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/active_fighter/npc_fighter.tscn" id="2_ahtdn"]
+[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_ahtdn"]
 [ext_resource type="Texture2D" uid="uid://b5v0av607qkqc" path="res://assets/tiles/Terrain/Ground/Tilemap_Flat.png" id="2_h1h18"]
 [ext_resource type="Script" path="res://scenes/battle/arena/pre_fight.gd" id="2_n8kpf"]
 [ext_resource type="Script" path="res://scenes/battle/arena/post_fight.gd" id="3_2d4x2"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/player/in_fight_player.tscn" id="4_n7xip"]
-[ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="6_k46e3"]
+[ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="6_loau7"]
 [ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="7_qmo1s"]
 [ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/indexes/fighters/gravityguy.tscn" id="8_pv14e"]
+[ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/indexes/fighters/mecharmguy.tscn" id="10_cpmty"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l0ejv"]
 texture = ExtResource("2_h1h18")
@@ -53,7 +54,7 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_scfhb"]
 sources/0 = SubResource("TileSetAtlasSource_l0ejv")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_51u8v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pqiqv"]
 resource_local_to_scene = true
 shader = ExtResource("7_qmo1s")
 shader_parameter/target_color = null
@@ -71,7 +72,14 @@ shader = ExtResource("7_qmo1s")
 shader_parameter/target_color = null
 shader_parameter/grad = null
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gahyp"]
+resource_local_to_scene = true
+shader = ExtResource("7_qmo1s")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
 [node name="arena" type="Node2D" node_paths=PackedStringArray("team_1_node", "team_2_node")]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_gosq3")
 team_1_node = NodePath("team_1")
 team_2_node = NodePath("team_2")
@@ -167,10 +175,10 @@ theme_override_font_sizes/font_size = 48
 
 [node name="npc_fighter" parent="team_1" node_paths=PackedStringArray("base") instance=ExtResource("2_ahtdn")]
 position = Vector2(264, 157)
-base = NodePath("Crowbar Guy")
+base = NodePath("Door Guy")
 
-[node name="Crowbar Guy" parent="team_1/npc_fighter" instance=ExtResource("6_k46e3")]
-material = SubResource("ShaderMaterial_51u8v")
+[node name="Door Guy" parent="team_1/npc_fighter" instance=ExtResource("6_loau7")]
+material = SubResource("ShaderMaterial_pqiqv")
 
 [node name="in_fight_player" parent="team_1" instance=ExtResource("4_n7xip")]
 position = Vector2(245, 17)
@@ -192,6 +200,13 @@ base = NodePath("Gravity Guy")
 
 [node name="Gravity Guy" parent="team_2/npc_fighter3" instance=ExtResource("8_pv14e")]
 material = SubResource("ShaderMaterial_e2o0g")
+
+[node name="npc_fighter4" parent="team_2" node_paths=PackedStringArray("base") instance=ExtResource("2_ahtdn")]
+position = Vector2(175, 257)
+base = NodePath("Mech Arm Guy")
+
+[node name="Mech Arm Guy" parent="team_2/npc_fighter4" instance=ExtResource("10_cpmty")]
+material = SubResource("ShaderMaterial_gahyp")
 
 [connection signal="pressed" from="hud/pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="hud/pre_fight" method="start_battle"]
 

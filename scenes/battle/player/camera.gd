@@ -6,18 +6,10 @@ extends Camera2D
 # Reference to the parent node (e.g., the player)
 @onready var parent: Node2D = get_parent()
 
-func _process(delta: float) -> void:
-	# Get the global position of the mouse cursor
+func _process(_delta: float) -> void:
 	var mouse_position: Vector2 = get_global_mouse_position()
-	
-	# Calculate the direction from the parent to the mouse cursor
-	var direction: Vector2 = (mouse_position - parent.global_position).normalized()
-	
-	# Calculate the distance from the parent to the mouse cursor
+	var direction: Vector2 = (mouse_position - parent.global_position).normalized()	
 	var distance: float = parent.global_position.distance_to(mouse_position)
 	
-	# Clamp the distance to the maximum allowed distance
 	distance = min(distance, max_distance_from_parent)
-	
-	# Set the camera's position to the parent's position plus the offset
 	global_position = parent.global_position + direction * distance

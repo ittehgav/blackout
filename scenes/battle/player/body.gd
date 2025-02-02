@@ -1,4 +1,4 @@
-extends Sprite2D
+extends FighterBase
 
 @export var ticker:Timer;
 

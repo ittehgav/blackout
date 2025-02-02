@@ -1,6 +1,5 @@
-extends Sprite2D
+extends FighterBase
 
-@export var stats:Node;
 
 const skill_effects = ["self_buff"];
 const skill_visuals = ["recoil"]

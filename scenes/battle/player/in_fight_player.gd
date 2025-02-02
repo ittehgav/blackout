@@ -1,8 +1,8 @@
-extends "res://scenes/active_fighter/active_fighter.gd";
+extends ActiveFighter;
 
 ##redeclaring body as base so it gets its VFX to work the same way as they do on ActiveFighter
 @export_category("Unique to Player")
-@export var body: Sprite2D;
+@export var body: FighterBase;
 @export var tool:Node2D;
 @export var hit_scan:Area2D;
 @export var camera:Camera2D;

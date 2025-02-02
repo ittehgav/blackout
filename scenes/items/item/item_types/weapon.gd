@@ -1,3 +1,2 @@
-extends Node
-
+extends Item;
 class_name Weapon;

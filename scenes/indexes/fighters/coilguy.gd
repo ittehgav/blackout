@@ -1,6 +1,4 @@
-extends Sprite2D
-
-@export var stats:Node;
+extends FighterBase
 
 const skill_effects = ["special"];
 const skill_visuals = ["recoil"]
@@ -20,9 +18,9 @@ const skill_range = 1000;
 const skill_cooldown = 2;
 
 
-var tagged_targets:Array[CharacterBody2D] = [];
+var tagged_targets:Array[ActiveFighter] = [];
 
-func special_skill(fighter:CharacterBody2D)->void:
+func special_skill(fighter:ActiveFighter)->void:
 	if not len(tagged_targets):
 		tagged_targets.push_back(fighter.target_unit);
 		fighter.target_unit.death.connect(remove_from_tagged.bind(fighter.target_unit))
@@ -30,22 +28,22 @@ func special_skill(fighter:CharacterBody2D)->void:
 	elif not len(fighter.enemy_team) == len(tagged_targets):
 		var untagged_targets = fighter.enemy_team.duplicate();
 		
-		for unit:CharacterBody2D in tagged_targets:
+		for unit:ActiveFighter in tagged_targets:
 			untagged_targets.erase(unit)
 		untagged_targets.sort_custom(closer_to_last_tagged)
 
-		var target:CharacterBody2D = untagged_targets[0];
+		var target:ActiveFighter = untagged_targets[0];
 		tagged_targets.push_back(target);
 		target.death.connect(remove_from_tagged.bind(target));
 
-	for unit:CharacterBody2D in fighter.enemy_team:
+	for unit:ActiveFighter in fighter.enemy_team:
 		if unit in tagged_targets:
 			Combat.deal_damage(fighter, unit);
 
 
-func closer_to_last_tagged(a:CharacterBody2D, b:CharacterBody2D)->bool:
+func closer_to_last_tagged(a:ActiveFighter, b:ActiveFighter)->bool:
 	return a.position.distance_to(tagged_targets[-1].position) < b.position.distance_to(tagged_targets[-1].position)
 	
 
-func remove_from_tagged(_killer, target:CharacterBody2D):
+func remove_from_tagged(_killer, target:ActiveFighter):
 	tagged_targets.erase(target);

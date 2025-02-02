@@ -1,11 +1,9 @@
-extends Sprite2D
+extends FighterBase
 
-@export var stats:Node;
-
-var fighter_node:CharacterBody2D;
+var fighter_node:ActiveFighter;
 var hit_scan_shape:CollisionShape2D;
 
-func special_setup(fighter:CharacterBody2D)->void:
+func special_setup(fighter:ActiveFighter)->void:
 	fighter.target_change.connect(update_hit_scan.bind(fighter));
 	fighter_node = fighter;
 	hit_scan_shape = fighter.get_node("hit_scan/shape")
@@ -41,7 +39,7 @@ const knock_back_distance = 500;
 const stun_duration = 1;
 const secondary_stun_duration = .5;
 
-func special_skill(fighter:CharacterBody2D)->void:
+func special_skill(fighter:ActiveFighter)->void:
 	Combat.stun_target(fighter, fighter.target_unit);
 	
 	for target in fighter.hit_scan.get_overlapping_bodies():
@@ -54,6 +52,6 @@ func special_skill(fighter:CharacterBody2D)->void:
 	tween.tween_property(fighter.target_unit, "position", target_position, .1)
 	
 
-func update_hit_scan(fighter:CharacterBody2D)->void:
+func update_hit_scan(fighter:ActiveFighter)->void:
 	fighter.hit_scan.get_node("shape").shape.size.y = fighter.target_unit.get_node("hitbox").shape.height
 	

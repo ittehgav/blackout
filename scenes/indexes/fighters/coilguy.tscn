@@ -1,18 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cn6wxjfhbdfcq"]
+[gd_scene load_steps=5 format=3 uid="uid://cn6wxjfhbdfcq"]
 
 [ext_resource type="Texture2D" uid="uid://tsefuarfxuhu" path="res://assets/sprites/fighters/coilguy.png" id="1_5yy3e"]
-[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_7uadh"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://shaders/materials/fighter_base.tres" id="1_bnqoe"]
 [ext_resource type="Script" path="res://scenes/indexes/fighters/coilguy.gd" id="2_aqke5"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/npc_base/npc_base_stats.tscn" id="4_kt263"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5807a"]
-resource_local_to_scene = true
-shader = ExtResource("1_7uadh")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/npc_fighter/npc_base_stats.tscn" id="4_kt263"]
 
 [node name="Coil Guy" type="Sprite2D" node_paths=PackedStringArray("stats")]
-material = SubResource("ShaderMaterial_5807a")
+material = ExtResource("1_bnqoe")
 texture = ExtResource("1_5yy3e")
 hframes = 4
 vframes = 3

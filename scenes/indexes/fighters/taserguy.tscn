@@ -1,22 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://3phgdfixhg5t"]
+[gd_scene load_steps=5 format=3 uid="uid://3phgdfixhg5t"]
 
-[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="1_ei360"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://shaders/materials/fighter_base.tres" id="1_bxgjl"]
 [ext_resource type="Script" path="res://scenes/indexes/fighters/taserguy.gd" id="1_vhysh"]
 [ext_resource type="Texture2D" uid="uid://bmmbkr4rigrv" path="res://assets/sprites/fighters/taserguy.png" id="2_124pl"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/npc_base/npc_base_stats.tscn" id="4_5ugom"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/npc_fighter/npc_base_stats.tscn" id="4_5ugom"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7xhvb"]
-resource_local_to_scene = true
-shader = ExtResource("1_ei360")
-shader_parameter/target_color = null
-shader_parameter/grad = null
-
-[node name="Taser Guy" type="Sprite2D"]
-material = SubResource("ShaderMaterial_7xhvb")
+[node name="Taser Guy" type="Sprite2D" node_paths=PackedStringArray("stats")]
+material = ExtResource("1_bxgjl")
 texture = ExtResource("2_124pl")
 hframes = 4
 vframes = 3
 script = ExtResource("1_vhysh")
+stats = NodePath("stats")
 
 [node name="stats" parent="." instance=ExtResource("4_5ugom")]
 max_hp = 200.0

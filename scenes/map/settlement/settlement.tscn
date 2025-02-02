@@ -6,13 +6,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_vj1d5"]
 radius = 70.0
 
-[node name="Settlement" type="Node2D" node_paths=PackedStringArray("inventory")]
+[node name="Settlement" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
 script = ExtResource("1_7jd87")
 inventory = NodePath("Inventory")
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vj1d5")
 
 [node name="Inventory" parent="." instance=ExtResource("2_8v5d5")]

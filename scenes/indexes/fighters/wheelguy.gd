@@ -1,6 +1,4 @@
-extends Sprite2D
-
-@export var stats:Node;
+extends FighterBase
 
 const skill_effects = ["special"];
 const skill_visuals = ["power_up_glow", "shake"]
@@ -21,5 +19,5 @@ const skill_range = 100;
 
 const skill_cooldown = 3;
 
-func special_skill(fighter:CharacterBody2D):
+func special_skill(fighter:ActiveFighter):
 	pass

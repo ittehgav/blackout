@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bghgbhdlygqcs"]
+[gd_scene load_steps=4 format=3 uid="uid://bghgbhdlygqcs"]
 
 [ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/sprites/settlements/scrapyard.png" id="1_60suj"]
 [ext_resource type="Script" path="res://scenes/indexes/settlements/generic/scrapyard.gd" id="2_ylbiw"]
-[ext_resource type="Texture2D" uid="uid://c27hif6frvgxj" path="res://assets/backgrounds/settlements/scrapyard.jpg" id="3_kwlka"]
 [ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_tfuu7"]
 
-[node name="Scrapyard" type="Sprite2D" node_paths=PackedStringArray("settings")]
+[node name="Scrapyard" type="Sprite2D"]
 texture = ExtResource("1_60suj")
 script = ExtResource("2_ylbiw")
-background = ExtResource("3_kwlka")
-settings = NodePath("SettlementSettings")
 
 [node name="SettlementSettings" parent="." instance=ExtResource("3_tfuu7")]
+food_production = 1
+juice_production = 1
+scrap_production = 5
+fuel_production = 3

@@ -1,9 +1,9 @@
 extends Node2D
 
-@export var holder:CharacterBody2D;
+@export var holder:ActiveFighter;
 @export var tool_cd:Timer;
 @export var tool_node:Sprite2D;
-@export var body:Sprite2D;
+@export var body:FighterBase;
 
 func _ready()->void:
 	equip_tool()

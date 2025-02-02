@@ -1,6 +1,6 @@
 extends Node
 
-func deal_damage(source:CharacterBody2D, target:CharacterBody2D)->void:
+func deal_damage(source:ActiveFighter, target:ActiveFighter)->void:
 	var damage:float = source.attack;
 	var mitigation:float = defense_mitigation(target);
 	damage -= damage * mitigation;
@@ -15,7 +15,7 @@ func deal_damage(source:CharacterBody2D, target:CharacterBody2D)->void:
 		var tween = Tweens.death_vfx(target);
 		tween.tween_callback(target.queue_free);
 
-func heal_unit(source:CharacterBody2D, target:CharacterBody2D, value:float)->void:
+func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	target.hp += value;
 	if target.hp > target.max_hp:
 		target.hp = target.max_hp;
@@ -23,7 +23,7 @@ func heal_unit(source:CharacterBody2D, target:CharacterBody2D, value:float)->voi
 	target.healing_received.emit(value)
 	Tweens.heal_vfx(target);
 
-func stun_target(source:CharacterBody2D, target:CharacterBody2D, duration:float = source.base.stun_duration):
+func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = source.base.stun_duration):
 	if target.stun_timer.is_stopped() or target.stun_timer.time_left < duration:
 			target.stun_timer.wait_time = duration;
 			target.stun_timer.start()
@@ -31,7 +31,7 @@ func stun_target(source:CharacterBody2D, target:CharacterBody2D, duration:float 
 	target.status_applied.emit(source, "stun")
 	Tweens.stun_vfx(target);
 
-func apply_stat_change(source:CharacterBody2D,target:CharacterBody2D, value:float, stat:String)->void:
+func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, stat:String)->void:
 		## a single stat change only reduces a single stat at a time
 		target[stat] += value;
 		Tweens.stat_change_vfx(target,stat, value > 0);
@@ -44,7 +44,7 @@ func apply_stat_change(source:CharacterBody2D,target:CharacterBody2D, value:floa
 			timer.timeout.connect(clear_stat_change.bind(target, stat, value * -1, timer))
 		
 
-func clear_stat_change(target:CharacterBody2D, stat:String, value:float, status_timer:Timer)->void:
+func clear_stat_change(target:ActiveFighter, stat:String, value:float, status_timer:Timer)->void:
 	target[stat] += value;
 	status_timer.queue_free()
 	
@@ -52,22 +52,22 @@ func clear_stat_change(target:CharacterBody2D, stat:String, value:float, status_
 const def_mitigation_breakpoints = {
 	## DEF value has diminishing returns, each breakpoint makes the value of each 
 	## subsequent DEF point yield less damage mitigation
-	10:1,
-	20:.75,
-	50:.5,
-	150:.25,
-	250:.1,
+	10.0:1,
+	20.0:.75,
+	50.0:.5,
+	150.0:.25,
+	250.0:.1,
 }
 
 const final_def_point_mitigation_value = .05;
 
-func defense_mitigation(unit:CharacterBody2D)->float:
+func defense_mitigation(unit:ActiveFighter)->float:
 	var total_mitigation:float = 0.0
-	var def_acm:int = unit.defense;
+	var def_acm:float = unit.defense;
 
 
 	var breakpoints:Array = def_mitigation_breakpoints.keys();
-	for key:int in breakpoints:
+	for key:float in breakpoints:
 		def_acm -= key;
 		if def_acm >= 0:
 			total_mitigation += def_mitigation_breakpoints[key] * key
@@ -86,7 +86,7 @@ func defense_mitigation(unit:CharacterBody2D)->float:
 	## (only by defense stat rn)
 	return total_mitigation/100
 
-func recurring_effect(target:CharacterBody2D, effect:Callable, interval:float, repetitions_left:int)->void:
+func recurring_effect(target:ActiveFighter, effect:Callable, interval:float, repetitions_left:int)->void:
 	effect.call();
 	repetitions_left -= 1;
 	if repetitions_left:

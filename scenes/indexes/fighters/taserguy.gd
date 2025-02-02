@@ -1,4 +1,4 @@
-extends Sprite2D
+extends FighterBase
 
 
 const skill_effects = ["stun", "direct_damage"];

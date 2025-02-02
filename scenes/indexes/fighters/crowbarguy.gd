@@ -1,6 +1,5 @@
-extends Sprite2D
+extends FighterBase
 
-@export var stats:Node;
 
 const skill_effects = ["direct_damage"];
 const skill_visuals = ["lunge_forward"]

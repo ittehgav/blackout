@@ -1,4 +1,4 @@
-extends "res://scenes/active_fighter/active_fighter.gd";
+extends ActiveFighter;
 
 signal target_change;
 
@@ -9,7 +9,7 @@ signal target_change;
 
 var current_animation:String = "idle";
 
-var target_unit:CharacterBody2D;
+var target_unit:ActiveFighter;
 var target_in_range:bool = false;
 
 func _ready()->void:
@@ -45,7 +45,7 @@ func load_base(new_base):
 	attack = base.stats.attack;
 	
 	defense = base.stats.defense;
-	move_speed = base.stats.move_speed;
+	move_speed = base.stats.move_speed
 	
 	cooldown_timer.wait_time = base.skill_cooldown;
 	
@@ -56,7 +56,7 @@ func load_base(new_base):
 
 
 func find_target()->void:
-	var target:CharacterBody2D;
+	var target:ActiveFighter;
 	match base.target_type:
 		"nearest_enemy":
 			var current_distance:float;

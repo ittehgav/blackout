@@ -1,5 +1,7 @@
 extends Node
 
+class_name SettlementSettings;
+
 @export_subgroup("Settlement Data")
 @export var faction:String;
 @export_range(1.0,5.0) var economy_level:float;
@@ -13,7 +15,7 @@ extends Node
 
 
 @export_subgroup("Resource Production")
-@export_range(0, 10) var food_production:int=3;
-@export_range(0, 10) var juice_production:int=3;
-@export_range(0, 10) var scrap_production:int=3;
-@export_range(0, 10) var fuel_production:int=3;
+@export_range(0, 10) var food_production:int;
+@export_range(0, 10) var juice_production:int;
+@export_range(0, 10) var scrap_production:int;
+@export_range(0, 10) var fuel_production:int;
