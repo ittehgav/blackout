@@ -81,3 +81,27 @@ func color_code_fighter(fighter:FighterBase, scheme:int=1)->void:
 						new_color = off_color;
 				img.set_pixel(x, y, new_color);
 	fighter.texture = ImageTexture.create_from_image(img);
+
+func color_code_settlement(settlement:Settlement)->void:
+	var sprite:Sprite2D = settlement.get_node("sprite");
+	var texture = sprite.texture
+	var img = texture.get_image()
+
+	var width = img.get_width()
+	var height = img.get_height()
+	var base_color:Color = Color.DARK_GREEN;
+
+	for y in height:
+		for x in width:
+			var color:Color = img.get_pixel(x, y)
+			if color.a:
+				var new_color:Color;
+				match color:
+					Color.GREEN:
+						new_color = base_color; 
+					Color.BLUE:
+						new_color = base_color.lightened(.5)
+					Color.RED:
+						new_color = base_color.darkened(.5)
+				img.set_pixel(x, y, new_color)
+	sprite.texture = ImageTexture.create_from_image(img)

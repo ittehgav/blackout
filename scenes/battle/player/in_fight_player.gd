@@ -1,5 +1,7 @@
 extends ActiveFighter;
 
+class_name InFightPlayer
+
 ##redeclaring body as base so it gets its VFX to work the same way as they do on ActiveFighter
 @export_category("Unique to Player")
 @export var body: FighterBase;

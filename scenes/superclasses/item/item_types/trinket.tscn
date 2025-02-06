@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxyc3ti0renpx"]
+
+[ext_resource type="Script" path="res://scenes/superclasses/item/item_types/trinket.gd" id="1_78a4d"]
+
+[node name="Trinket" type="Node"]
+script = ExtResource("1_78a4d")

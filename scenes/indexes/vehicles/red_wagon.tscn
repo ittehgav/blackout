@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://itv8y8s3x8p7"]
+
+[ext_resource type="Script" path="res://scenes/superclasses/map/vehicle.gd" id="1_3xqf1"]
+
+[node name="RedWagon" type="Sprite2D"]
+hframes = 2
+script = ExtResource("1_3xqf1")

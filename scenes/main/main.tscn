@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=4 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_ft8he"]
+[ext_resource type="PackedScene" uid="uid://dw4kenb3r4atf" path="res://scenes/map/world_map/world_map.tscn" id="3_onvlx"]
 
 [node name="main" type="Node"]
 
@@ -14,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v0lew")
 arena_scene = ExtResource("2_ft8he")
+world_map_scene = ExtResource("3_onvlx")
 
 [node name="PanelContainer" type="PanelContainer" parent="main_ui"]
 layout_mode = 0
@@ -37,4 +39,10 @@ layout_mode = 2
 text = "Test Battle
 "
 
+[node name="world_map" type="Button" parent="main_ui/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "World Map
+"
+
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/test_battle" to="main_ui" method="test_battle"]
+[connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/world_map" to="main_ui" method="world_map"]

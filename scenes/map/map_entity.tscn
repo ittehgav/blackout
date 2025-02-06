@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://xvj5uxfjpayp"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hrb00"]
-
-[node name="MapEntity" type="RigidBody2D"]
-physics_material_override = SubResource("PhysicsMaterial_hrb00")

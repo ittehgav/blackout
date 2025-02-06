@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8it4um7bn0p1"]
+
+[ext_resource type="Script" path="res://scenes/superclasses/leader/leader.gd" id="1_luj4t"]
+
+[node name="Leader" type="Node"]
+script = ExtResource("1_luj4t")

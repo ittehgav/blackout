@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0vg6gq1edsw"]
+
+[ext_resource type="Script" path="res://scenes/map/parties/player/in_map_player.gd" id="1_h5u0f"]
+[ext_resource type="PackedScene" uid="uid://cxnvcyig6jdws" path="res://scenes/indexes/vehicles/black_suv.tscn" id="2_b8oxe"]
+[ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
+[ext_resource type="Script" path="res://scenes/map/parties/player/in_map_camera.gd" id="4_ibn0u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]
+radius = 30.0
+
+[node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "leader")]
+process_mode = 3
+script = ExtResource("1_h5u0f")
+camera = NodePath("in_map_camera")
+leader = NodePath("Player")
+
+[node name="BlackSuv" parent="." node_paths=PackedStringArray("party") instance=ExtResource("2_b8oxe")]
+party = NodePath("..")
+
+[node name="Player" parent="." instance=ExtResource("2_c0i2s")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n4fri")
+
+[node name="in_map_camera" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+script = ExtResource("4_ibn0u")
+
+[connection signal="started_moving" from="." to="." method="_on_started_moving"]

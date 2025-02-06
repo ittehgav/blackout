@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt1tku536sysu"]
+
+[ext_resource type="Script" path="res://scenes/superclasses/map/vehicle.gd" id="1_q2gmu"]
+
+[node name="BrownCivic" type="Sprite2D"]
+hframes = 2
+script = ExtResource("1_q2gmu")

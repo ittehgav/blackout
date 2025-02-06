@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://k2s8kht48sma"]
-
-[ext_resource type="Script" path="res://scenes/map/entities/map_party.gd" id="1_e2xs0"]
-
-[node name="MapParty" type="CharacterBody2D"]
-script = ExtResource("1_e2xs0")

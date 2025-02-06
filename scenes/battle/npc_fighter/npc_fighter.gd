@@ -2,6 +2,7 @@ extends ActiveFighter;
 
 signal target_change;
 
+@export var fighter:Fighter;
 @export var hit_scan:Area2D;
 @export var cooldown_timer:Timer;
 @export var skill_retry_timer:Timer;
@@ -13,10 +14,19 @@ var target_unit:ActiveFighter;
 var target_in_range:bool = false;
 
 func _ready()->void:
-	load_base(base);
+	load_base();
 
-func load_base(new_base):
-	base = new_base;
+func load_base():
+	if not fighter:
+		fighter = Fighter.new();
+		var new_base = Index.random_fighter_base();
+		fighter.base = new_base
+
+	base = fighter.base.duplicate()
+	## fighter bases are instantiated as the fight begins
+	## Fighter nodes are not children of the ActiveFighters
+	add_child(base)
+
 	$hitbox.shape.radius = base.hitbox_radius;
 	$hitbox.shape.height = base.hitbox_height;
 	
