@@ -8,7 +8,7 @@
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://shaders/materials/settlement.tres" id="5_38mel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iwht7"]
-radius = 60.0
+radius = 50.0
 
 [node name="Scrapyard" type="CharacterBody2D" node_paths=PackedStringArray("settings", "inventory")]
 script = ExtResource("2_ylbiw")
@@ -23,9 +23,9 @@ shape = SubResource("CircleShape2D_iwht7")
 
 [node name="SettlementSettings" parent="." instance=ExtResource("3_tfuu7")]
 food_production = 1
+fuel_production = 3
 juice_production = 1
 scrap_production = 5
-fuel_production = 3
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("5_38mel")

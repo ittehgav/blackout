@@ -26,11 +26,14 @@ func listen_around() -> void:
 
 
 func exit_settlement() -> void:
-	get_parent().hide();
+	get_parent().get_parent().hide();
 	Entities.in_map_player.in_settlement = false;
 
 func show_main_view()->void:
-	current_view.hide();
+	resource_trade_menu.hide()
+	##item_trade_menu.hide();
+	##recruitment_menu.hide()
+	
 	main_view.show();
 	current_view = main_view;
 
@@ -40,3 +43,7 @@ func _input(e:InputEvent)->void:
 			exit_settlement();
 		else:
 			show_main_view();
+
+
+func trade_1(extra_arg_0: String) -> void:
+	pass # Replace with function body.

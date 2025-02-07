@@ -1,22 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" path="res://scenes/map/world_map/settlement_ui.gd" id="1_dun4i"]
-[ext_resource type="StyleBox" uid="uid://c8an0dn6fp18x" path="res://styles/settlement_ui_panel.tres" id="2_33115"]
 [ext_resource type="Texture2D" uid="uid://ja3tgd5rjsjh" path="res://assets/backgrounds/settlements/farm.jpg" id="2_bxlrq"]
 [ext_resource type="Script" path="res://scenes/map/world_map/options.gd" id="3_2ay4q"]
+[ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://themes/dark.tres" id="3_obgmr"]
 [ext_resource type="Script" path="res://scenes/map/world_map/resource_trade_menu.gd" id="4_y856o"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86ysr"]
-bg_color = Color(0.29, 0.29, 0.29, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[ext_resource type="PackedScene" uid="uid://b24i4rn2btsi0" path="res://scenes/map/ui/trading/resource_trader_card.tscn" id="6_h5go8"]
 
 [node name="settlement_ui" type="Control" node_paths=PackedStringArray("name_label", "short_description_label", "long_description_label", "trade_resources_btn", "trade_items_btn", "recruit_units_btn", "listen_around_btn")]
 process_mode = 3
@@ -37,6 +26,7 @@ listen_around_btn = NodePath("main_view/options/VBoxContainer/listen_around")
 
 [node name="background" type="TextureRect" parent="."]
 modulate = Color(0.784314, 0.784314, 0.784314, 1)
+z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,6 +52,8 @@ offset_right = 176.0
 offset_bottom = 41.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_obgmr")
+theme_override_font_sizes/font_size = 32
 text = "Exit (esc)"
 
 [node name="text" type="PanelContainer" parent="main_view"]
@@ -70,7 +62,6 @@ offset_left = 100.0
 offset_top = 50.0
 offset_right = 550.0
 offset_bottom = 650.0
-theme_override_styles/panel = ExtResource("2_33115")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_view/text"]
 layout_mode = 2
@@ -78,37 +69,45 @@ theme_override_constants/separation = 10
 
 [node name="settlement_name" type="Label" parent="main_view/text/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
+theme_type_variation = &"settlement_title"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -5
+theme_override_constants/shadow_offset_y = -5
+theme_override_font_sizes/font_size = 80
 text = "Factory"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="main_view/text/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="short_description" type="RichTextLabel" parent="main_view/text/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "Produces and trades mostly [color=green]Fuel, Juice and Scrap.[/color]"
 scroll_active = false
 shortcut_keys_enabled = false
 
-[node name="long_description" type="RichTextLabel" parent="main_view/text/VBoxContainer"]
-modulate = Color(0.62, 0.62, 0.62, 1)
+[node name="HSeparator2" type="HSeparator" parent="main_view/text/VBoxContainer"]
 layout_mode = 2
+
+[node name="long_description" type="RichTextLabel" parent="main_view/text/VBoxContainer"]
+modulate = Color(0.73, 0.73, 0.73, 1)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "Region full of manufacturing buildings from [color=blue]Pre-Blackout Civilization[/color], repurposed for production of mechanical and chemical goods."
 fit_content = true
 
 [node name="options" type="PanelContainer" parent="main_view" node_paths=PackedStringArray("main_view", "resource_trade_menu")]
-custom_minimum_size = Vector2(600, 600)
+custom_minimum_size = Vector2(400, 550)
 layout_mode = 0
 offset_left = 650.0
-offset_top = 50.0
-offset_right = 1250.0
+offset_top = 100.0
+offset_right = 1155.0
 offset_bottom = 650.0
-theme_override_styles/panel = ExtResource("2_33115")
 script = ExtResource("3_2ay4q")
 main_view = NodePath("..")
 resource_trade_menu = NodePath("../../resource_trade_menu")
@@ -118,32 +117,42 @@ layout_mode = 2
 
 [node name="options_title" type="Label" parent="main_view/options/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -5
+theme_override_constants/shadow_offset_y = -5
+theme_override_font_sizes/font_size = 80
 text = "What Will You Do?"
+
+[node name="HSeparator" type="HSeparator" parent="main_view/options/VBoxContainer"]
+layout_mode = 2
 
 [node name="trade_resources" type="Button" parent="main_view/options/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
 text = "Trade Resources"
 
 [node name="trade_items" type="Button" parent="main_view/options/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
 text = "Trade Items"
 
 [node name="recruit_units" type="Button" parent="main_view/options/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Recruit Fighters
 "
 
 [node name="listen_around" type="Button" parent="main_view/options/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
 text = "Listen Around for trade opportunities"
 
-[node name="resource_trade_menu" type="Control" parent="."]
-visible = false
+[node name="resource_trade_menu" type="Control" parent="." node_paths=PackedStringArray("player_trade_card", "settlement_trade_card", "confirm_btn")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -151,6 +160,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_y856o")
+player_trade_card = NodePath("player")
+settlement_trade_card = NodePath("trader")
+confirm_btn = NodePath("confirm")
 
 [node name="return_to_main_view" type="Button" parent="resource_trade_menu"]
 layout_mode = 0
@@ -158,455 +170,60 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 111.0
 offset_bottom = 41.0
+theme = ExtResource("3_obgmr")
+theme_override_font_sizes/font_size = 32
 text = "Return (esc)"
 
-[node name="player" type="Panel" parent="resource_trade_menu"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 203.0
-offset_top = 50.0
-offset_right = 553.0
-offset_bottom = -70.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_86ysr")
+[node name="player" parent="resource_trade_menu" node_paths=PackedStringArray("menu") instance=ExtResource("6_h5go8")]
+layout_mode = 0
+anchors_preset = 0
+anchor_bottom = 0.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 450.0
+offset_bottom = 650.0
+grow_vertical = 1
+menu = NodePath("..")
 
-[node name="rows" type="VBoxContainer" parent="resource_trade_menu/player"]
+[node name="trader" parent="resource_trade_menu" node_paths=PackedStringArray("menu") instance=ExtResource("6_h5go8")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -38.0
-offset_right = 38.0
-offset_bottom = 45.0
-grow_horizontal = 2
-alignment = 1
+offset_left = 510.0
+offset_top = 100.0
+offset_right = 860.0
+menu = NodePath("..")
 
-[node name="Label" type="Label" parent="resource_trade_menu/player/rows"]
-layout_mode = 2
+[node name="trade" parent="resource_trade_menu/trader/rows/resources/col/food/food/opts" index="0"]
+text = "buy"
+
+[node name="trade" parent="resource_trade_menu/trader/rows/resources/col/fuel/fuel/opts" index="0"]
+text = "buy"
+
+[node name="trade" parent="resource_trade_menu/trader/rows/resources/col/juice/juice/opts" index="0"]
+text = "buy"
+
+[node name="trade" parent="resource_trade_menu/trader/rows/resources/col/scrap/scrap/opts" index="0"]
+text = "buy"
+
+[node name="trade" parent="resource_trade_menu/trader/rows/resources/col/chips/chips/opts" index="0"]
+text = "buy"
+
+[node name="confirm" type="Button" parent="resource_trade_menu"]
+layout_mode = 0
+offset_left = 938.0
+offset_top = 526.0
+offset_right = 1106.0
+offset_bottom = 636.0
 theme_override_font_sizes/font_size = 64
-text = "Player"
+text = "Confirm
+Trade"
 
-[node name="money" type="Label" parent="resource_trade_menu/player/rows"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "$100"
-horizontal_alignment = 1
-
-[node name="resources" type="HBoxContainer" parent="resource_trade_menu/player/rows"]
-layout_mode = 2
-
-[node name="col1" type="VBoxContainer" parent="resource_trade_menu/player/rows/resources"]
-layout_mode = 2
-
-[node name="food" type="VBoxContainer" parent="resource_trade_menu/player/rows/resources/col1"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player/rows/resources/col1/food"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Food"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player/rows/resources/col1/food"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player/rows/resources/col1/food"]
-layout_mode = 2
-
-[node name="sell" type="Button" parent="resource_trade_menu/player/rows/resources/col1/food/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "sell"
-
-[node name="10" type="Button" parent="resource_trade_menu/player/rows/resources/col1/food/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player/rows/resources/col1/food/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="HSeparator" type="HSeparator" parent="resource_trade_menu/player/rows/resources/col1"]
-layout_mode = 2
-
-[node name="fuel" type="VBoxContainer" parent="resource_trade_menu/player/rows/resources/col1"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player/rows/resources/col1/fuel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Fuel
-"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player/rows/resources/col1/fuel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player/rows/resources/col1/fuel"]
-layout_mode = 2
-
-[node name="sell" type="Button" parent="resource_trade_menu/player/rows/resources/col1/fuel/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "sell"
-
-[node name="10" type="Button" parent="resource_trade_menu/player/rows/resources/col1/fuel/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player/rows/resources/col1/fuel/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="VSeparator" type="VSeparator" parent="resource_trade_menu/player/rows/resources"]
-layout_mode = 2
-
-[node name="col2" type="VBoxContainer" parent="resource_trade_menu/player/rows/resources"]
-layout_mode = 2
-
-[node name="juice" type="VBoxContainer" parent="resource_trade_menu/player/rows/resources/col2"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player/rows/resources/col2/juice"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Juice
-"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player/rows/resources/col2/juice"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player/rows/resources/col2/juice"]
-layout_mode = 2
-
-[node name="sell" type="Button" parent="resource_trade_menu/player/rows/resources/col2/juice/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "sell"
-
-[node name="10" type="Button" parent="resource_trade_menu/player/rows/resources/col2/juice/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player/rows/resources/col2/juice/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="HSeparator" type="HSeparator" parent="resource_trade_menu/player/rows/resources/col2"]
-layout_mode = 2
-
-[node name="scrap" type="VBoxContainer" parent="resource_trade_menu/player/rows/resources/col2"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player/rows/resources/col2/scrap"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Scrap"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player/rows/resources/col2/scrap"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player/rows/resources/col2/scrap"]
-layout_mode = 2
-
-[node name="sell" type="Button" parent="resource_trade_menu/player/rows/resources/col2/scrap/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "sell"
-
-[node name="10" type="Button" parent="resource_trade_menu/player/rows/resources/col2/scrap/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player/rows/resources/col2/scrap/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="HSeparator2" type="HSeparator" parent="resource_trade_menu/player/rows/resources/col2"]
-layout_mode = 2
-
-[node name="chips" type="VBoxContainer" parent="resource_trade_menu/player/rows/resources/col2"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player/rows/resources/col2/chips"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Chips
-"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player/rows/resources/col2/chips"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player/rows/resources/col2/chips"]
-layout_mode = 2
-
-[node name="sell" type="Button" parent="resource_trade_menu/player/rows/resources/col2/chips/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "sell"
-
-[node name="10" type="Button" parent="resource_trade_menu/player/rows/resources/col2/chips/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player/rows/resources/col2/chips/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="player2" type="Panel" parent="resource_trade_menu"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 830.0
-offset_top = 50.0
-offset_right = 1180.0
-offset_bottom = -70.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_86ysr")
-
-[node name="rows" type="VBoxContainer" parent="resource_trade_menu/player2"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -38.0
-offset_right = 38.0
-offset_bottom = 45.0
-grow_horizontal = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="resource_trade_menu/player2/rows"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Player"
-
-[node name="money" type="Label" parent="resource_trade_menu/player2/rows"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "$100"
-horizontal_alignment = 1
-
-[node name="resources" type="HBoxContainer" parent="resource_trade_menu/player2/rows"]
-layout_mode = 2
-
-[node name="col1" type="VBoxContainer" parent="resource_trade_menu/player2/rows/resources"]
-layout_mode = 2
-
-[node name="food" type="VBoxContainer" parent="resource_trade_menu/player2/rows/resources/col1"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player2/rows/resources/col1/food"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Food"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player2/rows/resources/col1/food"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player2/rows/resources/col1/food"]
-layout_mode = 2
-
-[node name="buy" type="Button" parent="resource_trade_menu/player2/rows/resources/col1/food/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "buy"
-
-[node name="10" type="Button" parent="resource_trade_menu/player2/rows/resources/col1/food/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player2/rows/resources/col1/food/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="HSeparator" type="HSeparator" parent="resource_trade_menu/player2/rows/resources/col1"]
-layout_mode = 2
-
-[node name="fuel" type="VBoxContainer" parent="resource_trade_menu/player2/rows/resources/col1"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player2/rows/resources/col1/fuel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Fuel
-"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player2/rows/resources/col1/fuel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player2/rows/resources/col1/fuel"]
-layout_mode = 2
-
-[node name="buy" type="Button" parent="resource_trade_menu/player2/rows/resources/col1/fuel/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "buy"
-
-[node name="10" type="Button" parent="resource_trade_menu/player2/rows/resources/col1/fuel/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player2/rows/resources/col1/fuel/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="VSeparator" type="VSeparator" parent="resource_trade_menu/player2/rows/resources"]
-layout_mode = 2
-
-[node name="col2" type="VBoxContainer" parent="resource_trade_menu/player2/rows/resources"]
-layout_mode = 2
-
-[node name="juice" type="VBoxContainer" parent="resource_trade_menu/player2/rows/resources/col2"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player2/rows/resources/col2/juice"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Juice
-"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player2/rows/resources/col2/juice"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player2/rows/resources/col2/juice"]
-layout_mode = 2
-
-[node name="buy" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/juice/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "buy"
-
-[node name="10" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/juice/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/juice/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="HSeparator" type="HSeparator" parent="resource_trade_menu/player2/rows/resources/col2"]
-layout_mode = 2
-
-[node name="scrap" type="VBoxContainer" parent="resource_trade_menu/player2/rows/resources/col2"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player2/rows/resources/col2/scrap"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Scrap"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player2/rows/resources/col2/scrap"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player2/rows/resources/col2/scrap"]
-layout_mode = 2
-
-[node name="buy" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/scrap/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "buy"
-
-[node name="10" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/scrap/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/scrap/opts"]
-layout_mode = 2
-text = "max"
-
-[node name="HSeparator2" type="HSeparator" parent="resource_trade_menu/player2/rows/resources/col2"]
-layout_mode = 2
-
-[node name="chips" type="VBoxContainer" parent="resource_trade_menu/player2/rows/resources/col2"]
-layout_mode = 2
-theme_override_constants/separation = -5
-alignment = 1
-
-[node name="resource" type="Label" parent="resource_trade_menu/player2/rows/resources/col2/chips"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Chips
-"
-horizontal_alignment = 1
-
-[node name="value" type="Label" parent="resource_trade_menu/player2/rows/resources/col2/chips"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="opts" type="HBoxContainer" parent="resource_trade_menu/player2/rows/resources/col2/chips"]
-layout_mode = 2
-
-[node name="buy" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/chips/opts"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "buy"
-
-[node name="10" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/chips/opts"]
-layout_mode = 2
-text = "10"
-
-[node name="max" type="Button" parent="resource_trade_menu/player2/rows/resources/col2/chips/opts"]
-layout_mode = 2
-text = "max"
-
+[connection signal="settlement_entered" from="." to="resource_trade_menu" method="_on_settlement_ui_settlement_entered"]
 [connection signal="pressed" from="main_view/exit" to="main_view/options" method="exit_settlement"]
 [connection signal="pressed" from="main_view/options/VBoxContainer/trade_resources" to="main_view/options" method="trade_resources"]
 [connection signal="pressed" from="main_view/options/VBoxContainer/trade_items" to="main_view/options" method="trade_items"]
 [connection signal="pressed" from="main_view/options/VBoxContainer/recruit_units" to="main_view/options" method="recruit_units"]
 [connection signal="pressed" from="main_view/options/VBoxContainer/listen_around" to="main_view/options" method="listen_around"]
 [connection signal="pressed" from="resource_trade_menu/return_to_main_view" to="main_view/options" method="show_main_view"]
+[connection signal="pressed" from="resource_trade_menu/confirm" to="resource_trade_menu" method="confirm_trade"]
+
+[editable path="resource_trade_menu/trader"]

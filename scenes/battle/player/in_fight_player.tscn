@@ -176,8 +176,8 @@ theme_override_font_sizes/font_size = 48
 
 [node name="overlay" parent="." instance=ExtResource("8_14x5b")]
 
-[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
+[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
 [connection signal="timeout" from="body/animation_ticker" to="body" method="next_frame"]
 [connection signal="timeout" from="tool/tool_cd" to="tool" method="tool_use_held"]

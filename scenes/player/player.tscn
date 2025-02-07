@@ -12,6 +12,12 @@ roster = NodePath("Roster")
 combat_stats = NodePath("stats")
 
 [node name="Inventory" parent="." instance=ExtResource("2_w3kr7")]
+food = 2
+money = 110.0
+fuel = 4
+juice = 5
+scrap = 6
+chips = 7
 
 [node name="Roster" parent="." instance=ExtResource("3_5khbq")]
 

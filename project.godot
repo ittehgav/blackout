@@ -23,6 +23,7 @@ Entities="*res://global/entities.gd"
 Combat="*res://global/combat.gd"
 Icons="*res://global/icons.gd"
 Index="*res://global/index.gd"
+Trade="*res://global/trade.gd"
 
 [display]
 
@@ -37,6 +38,10 @@ folder_colors={
 "res://global/": "orange",
 "res://scenes/": "yellow"
 }
+
+[gui]
+
+theme/custom="res://themes/PixelTheme-Paper.tres"
 
 [input]
 

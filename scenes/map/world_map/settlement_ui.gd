@@ -1,6 +1,8 @@
 extends Control
 
+@warning_ignore("unused_signal")
 signal settlement_entered;
+@warning_ignore("unused_signal")
 signal settlement_left;
 
 @export var name_label:Label;
@@ -48,11 +50,3 @@ func _on_player_settlement_entered(settlement: Settlement) -> void:
 	
 	var tween = create_tween();
 	tween.tween_property(self, "modulate:a", 1, .5);
-	
-	
-
-
-
-
-func _on_in_map_player_settlement_entered(settlement: Settlement) -> void:
-	pass # Replace with function body.

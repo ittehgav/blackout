@@ -1,12 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=10 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/map/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
 [ext_resource type="Script" path="res://scenes/map/world_map/ui.gd" id="6_d8dst"]
 [ext_resource type="PackedScene" uid="uid://bghgbhdlygqcs" path="res://scenes/indexes/settlements/generic/scrapyard.tscn" id="6_ooxid"]
+[ext_resource type="PackedScene" uid="uid://7fflfwvmna2n" path="res://scenes/map/ui/world_map_hud.tscn" id="7_33ijt"]
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aptmb"]
+resource_local_to_scene = true
 
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_s4sam")
@@ -15,20 +19,28 @@ player = NodePath("entities/in_map_player")
 [node name="entities" type="Node2D" parent="."]
 
 [node name="in_map_player" parent="entities" instance=ExtResource("4_vgkop")]
-position = Vector2(838, 375)
+position = Vector2(521, 310)
 
 [node name="Factory" parent="entities" instance=ExtResource("5_akvl2")]
-position = Vector2(542, 30)
+position = Vector2(214, 315)
 
 [node name="Scrapyard" parent="entities" instance=ExtResource("6_ooxid")]
-position = Vector2(26, 216)
+position = Vector2(217, 571)
 
 [node name="Farm" parent="entities" instance=ExtResource("7_gpotv")]
 position = Vector2(248, 12)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="sprite" parent="entities/Farm" index="1"]
+material = SubResource("ShaderMaterial_aptmb")
 
-[node name="ui" type="Control" parent="CanvasLayer"]
+[node name="Inventory" parent="entities/Farm" index="3"]
+food = 5
+fuel = 1
+juice = 3
+
+[node name="ui_canvas" type="CanvasLayer" parent="."]
+
+[node name="ui" type="Control" parent="ui_canvas"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -38,22 +50,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_d8dst")
 
-[node name="world_map_hud" type="Control" parent="CanvasLayer/ui"]
+[node name="world_map_hud" parent="ui_canvas/ui" instance=ExtResource("7_33ijt")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
-[node name="settlement_ui" parent="CanvasLayer/ui" instance=ExtResource("7_b85ww")]
+[node name="corner_hud" parent="ui_canvas/ui/world_map_hud" index="0"]
+offset_left = -312.0
+offset_bottom = 68.0
+
+[node name="settlement_ui" parent="ui_canvas/ui" instance=ExtResource("7_b85ww")]
 visible = false
 layout_mode = 1
 
-[connection signal="settlement_entered" from="entities/in_map_player" to="CanvasLayer/ui" method="_on_settlement_entered"]
-[connection signal="settlement_entered" from="entities/in_map_player" to="CanvasLayer/ui/settlement_ui" method="_on_player_settlement_entered"]
+[connection signal="settlement_entered" from="entities/in_map_player" to="ui_canvas/ui/settlement_ui" method="_on_player_settlement_entered"]
 [connection signal="started_moving" from="entities/in_map_player" to="." method="_on_player_started_moving"]
 [connection signal="stopped_moving" from="entities/in_map_player" to="." method="_on_player_stopped_moving"]
 
 [editable path="entities/in_map_player"]
-[editable path="CanvasLayer/ui/settlement_ui"]
+[editable path="entities/Farm"]
+[editable path="ui_canvas/ui/world_map_hud"]
+[editable path="ui_canvas/ui/settlement_ui"]
+[editable path="ui_canvas/ui/settlement_ui/resource_trade_menu/trader"]

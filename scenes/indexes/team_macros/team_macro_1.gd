@@ -1,1 +1,1 @@
-extends 
+extends Node2D;

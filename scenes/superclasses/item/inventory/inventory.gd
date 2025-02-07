@@ -5,7 +5,7 @@ class_name Inventory;
 
 @export_subgroup("Resources")
 @export var food:int;
-@export var money:int;
+@export var money:float;
 @export var fuel:int;
 
 @export var juice:int;

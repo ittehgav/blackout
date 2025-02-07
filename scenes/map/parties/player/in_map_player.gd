@@ -50,6 +50,7 @@ func stop_movement()->void:
 
 func interact_with_map_entity(entity:MapEntity)->void:
 	if entity is Settlement:
+		Entities.current_settlement = entity;
 		settlement_entered.emit(entity)
 		in_settlement = true;
 	elif entity is MapParty:
