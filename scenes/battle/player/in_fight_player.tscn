@@ -1,12 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=17 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
 [ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="3_3uxwr"]
-[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/sprites/player/body.png" id="4_uqyhm"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="4_uqyhm"]
 [ext_resource type="Script" path="res://scenes/battle/player/body.gd" id="5_yvg0f"]
 [ext_resource type="Script" path="res://scenes/battle/player/tool.gd" id="6_cbwmk"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="7_6mba4"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/tools/tailpipe.tscn" id="7_074eh"]
+[ext_resource type="Script" path="res://scenes/battle/player/tool_sfx.gd" id="7_avuby"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Swipe - 2.ogg" id="8_6prrp"]
 [ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/battle/active_fighter/fighter_overlay.tscn" id="8_14x5b"]
 [ext_resource type="Script" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
 [ext_resource type="Script" path="res://scenes/battle/arena/ui/pre_fight.gd" id="9_0it5h"]
@@ -25,14 +27,14 @@ shader_parameter/grad = 0.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
 radius = 80.0
 
-[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "tool", "hit_scan", "camera", "base", "floating_icon_anchor", "stun_timer", "timers", "status_timer")]
+[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "weapon", "hit_scan", "camera", "base", "floating_icon_anchor", "stun_timer", "timers", "status_timer")]
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_bxbr4")
 body = NodePath("body")
-tool = NodePath("tool")
+weapon = NodePath("weapon")
 hit_scan = NodePath("hit_scan")
 camera = NodePath("camera")
 base = NodePath("body")
@@ -55,18 +57,23 @@ ticker = NodePath("animation_ticker")
 [node name="animation_ticker" type="Timer" parent="body"]
 wait_time = 0.3
 
-[node name="tool" type="Node2D" parent="." node_paths=PackedStringArray("holder", "tool_cd", "tool_node", "body")]
+[node name="weapon" type="Node2D" parent="." node_paths=PackedStringArray("holder", "body", "weapon_cd", "weapon_node", "weapon_sfx")]
 script = ExtResource("6_cbwmk")
 holder = NodePath("..")
-tool_cd = NodePath("tool_cd")
-tool_node = NodePath("Tailpipe")
 body = NodePath("../body")
+weapon_cd = NodePath("weapon_cd")
+weapon_node = NodePath("Tailpipe")
+weapon_sfx = NodePath("weapon_sfx")
 
-[node name="Tailpipe" parent="tool" instance=ExtResource("7_074eh")]
+[node name="Tailpipe" parent="weapon" instance=ExtResource("7_074eh")]
 
-[node name="tool_cd" type="Timer" parent="tool"]
+[node name="weapon_cd" type="Timer" parent="weapon"]
 wait_time = 0.5
 one_shot = true
+
+[node name="weapon_sfx" type="AudioStreamPlayer" parent="weapon"]
+script = ExtResource("7_avuby")
+swing = ExtResource("8_6prrp")
 
 [node name="hit_scan" type="Area2D" parent="."]
 collision_layer = 0
@@ -176,11 +183,11 @@ theme_override_font_sizes/font_size = 48
 
 [node name="overlay" parent="." instance=ExtResource("8_14x5b")]
 
-[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
+[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
 [connection signal="timeout" from="body/animation_ticker" to="body" method="next_frame"]
-[connection signal="timeout" from="tool/tool_cd" to="tool" method="tool_use_held"]
+[connection signal="timeout" from="weapon/weapon_cd" to="weapon" method="tool_use_held"]
 [connection signal="pressed" from="camera/hud/pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="camera/hud/pre_fight" method="start_battle"]
 
 [editable path="fighter_timers"]

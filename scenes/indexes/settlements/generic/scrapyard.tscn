@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bghgbhdlygqcs"]
 
-[ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/sprites/settlements/scrapyard.png" id="1_60suj"]
+[ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/visual/sprites/settlements/scrapyard.png" id="1_60suj"]
 [ext_resource type="Script" path="res://scenes/indexes/settlements/generic/scrapyard.gd" id="2_ylbiw"]
-[ext_resource type="Texture2D" uid="uid://c27hif6frvgxj" path="res://assets/backgrounds/settlements/scrapyard.jpg" id="3_db4an"]
+[ext_resource type="Texture2D" uid="uid://c27hif6frvgxj" path="res://assets/visual/backgrounds/settlements/scrapyard.jpg" id="3_db4an"]
 [ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_tfuu7"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_y1jku"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://shaders/materials/settlement.tres" id="5_38mel"]
@@ -16,18 +16,18 @@ background = ExtResource("3_db4an")
 settings = NodePath("SettlementSettings")
 inventory = NodePath("Inventory")
 
-[node name="Inventory" parent="." instance=ExtResource("3_y1jku")]
+[node name="sprite" type="Sprite2D" parent="."]
+material = ExtResource("5_38mel")
+position = Vector2(4, 8)
+texture = ExtResource("1_60suj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_iwht7")
+
+[node name="Inventory" parent="." instance=ExtResource("3_y1jku")]
 
 [node name="SettlementSettings" parent="." instance=ExtResource("3_tfuu7")]
 food_production = 1
 fuel_production = 3
 juice_production = 1
 scrap_production = 5
-
-[node name="sprite" type="Sprite2D" parent="."]
-material = ExtResource("5_38mel")
-position = Vector2(4, 8)
-texture = ExtResource("1_60suj")

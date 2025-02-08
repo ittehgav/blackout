@@ -52,6 +52,7 @@ func interact_with_map_entity(entity:MapEntity)->void:
 	if entity is Settlement:
 		Entities.current_settlement = entity;
 		settlement_entered.emit(entity)
+		Entities.ui_sfx.play_stream_by_key("settlement_entered")
 		in_settlement = true;
 	elif entity is MapParty:
 		print("ismapp")

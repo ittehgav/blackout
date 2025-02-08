@@ -26,8 +26,8 @@ func color_code_character(character:FighterBase)->void:
 				img.set_pixel(x, y, new_color)
 	character.texture = ImageTexture.create_from_image(img)
 
-func color_code_tool(tool:Sprite2D)->void:
-	var img = tool.texture.get_image()
+func color_code_weapon(weapon:Sprite2D)->void:
+	var img = weapon.texture.get_image()
 	
 	var width = img.get_width();
 	var height = img.get_height();
@@ -44,7 +44,7 @@ func color_code_tool(tool:Sprite2D)->void:
 					Color.RED:
 						new_color = base_color;
 				img.set_pixel(x, y, new_color);
-	tool.texture = ImageTexture.create_from_image(img);
+	weapon.texture = ImageTexture.create_from_image(img);
 
 
 

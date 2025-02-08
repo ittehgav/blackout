@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://0fnfsxh017op"
+path="res://.godot/imported/JDSherbert - Ultimate UI SFX Pack - Cancel - 2.ogg-6467d3d97f45b39230b862a05cf1d7d6.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cancel - 2.ogg"
+dest_files=["res://.godot/imported/JDSherbert - Ultimate UI SFX Pack - Cancel - 2.ogg-6467d3d97f45b39230b862a05cf1d7d6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

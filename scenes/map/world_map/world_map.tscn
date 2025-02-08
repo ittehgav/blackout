@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aptmb"]
-resource_local_to_scene = true
+[sub_resource type="Resource" id="Resource_fsmxr"]
+metadata/__load_path__ = "res://assets/backgrounds/settlements/farm.jpg"
 
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_s4sam")
@@ -29,14 +29,7 @@ position = Vector2(217, 571)
 
 [node name="Farm" parent="entities" instance=ExtResource("7_gpotv")]
 position = Vector2(248, 12)
-
-[node name="sprite" parent="entities/Farm" index="1"]
-material = SubResource("ShaderMaterial_aptmb")
-
-[node name="Inventory" parent="entities/Farm" index="3"]
-food = 5
-fuel = 1
-juice = 3
+background = SubResource("Resource_fsmxr")
 
 [node name="ui_canvas" type="CanvasLayer" parent="."]
 
@@ -61,12 +54,14 @@ offset_bottom = 68.0
 visible = false
 layout_mode = 1
 
+[node name="background" parent="ui_canvas/ui/settlement_ui" index="0"]
+texture = null
+
 [connection signal="settlement_entered" from="entities/in_map_player" to="ui_canvas/ui/settlement_ui" method="_on_player_settlement_entered"]
 [connection signal="started_moving" from="entities/in_map_player" to="." method="_on_player_started_moving"]
 [connection signal="stopped_moving" from="entities/in_map_player" to="." method="_on_player_stopped_moving"]
 
 [editable path="entities/in_map_player"]
-[editable path="entities/Farm"]
 [editable path="ui_canvas/ui/world_map_hud"]
 [editable path="ui_canvas/ui/settlement_ui"]
 [editable path="ui_canvas/ui/settlement_ui/resource_trade_menu/trader"]

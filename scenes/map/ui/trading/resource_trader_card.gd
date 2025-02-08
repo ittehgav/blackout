@@ -102,8 +102,6 @@ func trade_max(resource:String)->void:
 
 func trade_resource(resource:String, amount:int)->void:
 	if holder is Player:
-		print("playerwo")
 		menu[resource + "_trade"] -= amount;
 	else:
-		print("settlow")
 		menu[resource + "_trade"] += amount

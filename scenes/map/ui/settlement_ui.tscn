@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" path="res://scenes/map/world_map/settlement_ui.gd" id="1_dun4i"]
-[ext_resource type="Texture2D" uid="uid://ja3tgd5rjsjh" path="res://assets/backgrounds/settlements/farm.jpg" id="2_bxlrq"]
+[ext_resource type="Texture2D" uid="uid://ja3tgd5rjsjh" path="res://assets/visual/backgrounds/settlements/farm.jpg" id="2_a8cfp"]
 [ext_resource type="Script" path="res://scenes/map/world_map/options.gd" id="3_2ay4q"]
 [ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://themes/dark.tres" id="3_obgmr"]
 [ext_resource type="Script" path="res://scenes/map/world_map/resource_trade_menu.gd" id="4_y856o"]
@@ -33,7 +33,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_bxlrq")
+texture = ExtResource("2_a8cfp")
 
 [node name="main_view" type="Control" parent="."]
 visible = false
@@ -164,7 +164,7 @@ player_trade_card = NodePath("player")
 settlement_trade_card = NodePath("trader")
 confirm_btn = NodePath("confirm")
 
-[node name="return_to_main_view" type="Button" parent="resource_trade_menu"]
+[node name="return" type="Button" parent="resource_trade_menu"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -223,7 +223,7 @@ Trade"
 [connection signal="pressed" from="main_view/options/VBoxContainer/trade_items" to="main_view/options" method="trade_items"]
 [connection signal="pressed" from="main_view/options/VBoxContainer/recruit_units" to="main_view/options" method="recruit_units"]
 [connection signal="pressed" from="main_view/options/VBoxContainer/listen_around" to="main_view/options" method="listen_around"]
-[connection signal="pressed" from="resource_trade_menu/return_to_main_view" to="main_view/options" method="show_main_view"]
+[connection signal="pressed" from="resource_trade_menu/return" to="main_view/options" method="show_main_view"]
 [connection signal="pressed" from="resource_trade_menu/confirm" to="resource_trade_menu" method="confirm_trade"]
 
 [editable path="resource_trade_menu/trader"]
