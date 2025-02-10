@@ -15,9 +15,9 @@ var moving:bool = false;
 func _ready()->void:
 	max_hp = 1000;
 	hp = 1000;
-	Entities.fighting_player = self;
+	Entities.in_fight_player = self;
 
-func get_input():
+func get_input()->void:
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_direction * move_speed
 	body.moving_right = velocity.x > 0;
@@ -31,7 +31,7 @@ func get_input():
 			body.switch_animation("idle")
 	
 
-func _physics_process(_delta:float):
+func _physics_process(_delta:float)->void:
 	if stun_timer.is_stopped():
 		get_input()
 		move_and_slide()

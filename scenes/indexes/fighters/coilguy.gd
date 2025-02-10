@@ -26,7 +26,7 @@ func special_skill(fighter:ActiveFighter)->void:
 		fighter.target_unit.death.connect(remove_from_tagged.bind(fighter.target_unit))
 
 	elif not len(fighter.enemy_team) == len(tagged_targets):
-		var untagged_targets = fighter.enemy_team.duplicate();
+		var untagged_targets:Array[ActiveFighter] = fighter.enemy_team.duplicate();
 		
 		for unit:ActiveFighter in tagged_targets:
 			untagged_targets.erase(unit)
@@ -45,5 +45,5 @@ func closer_to_last_tagged(a:ActiveFighter, b:ActiveFighter)->bool:
 	return a.position.distance_to(tagged_targets[-1].position) < b.position.distance_to(tagged_targets[-1].position)
 	
 
-func remove_from_tagged(_killer, target:ActiveFighter):
+func remove_from_tagged(_killer, target:ActiveFighter)->void:
 	tagged_targets.erase(target);

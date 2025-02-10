@@ -3,13 +3,13 @@ extends MapParty
 class_name InMapPlayer;
 
 @export var camera:Camera2D;
-var move_speed = 200.0;
+var move_speed:float = 200.0;
 
 var in_settlement:bool = false;
 
 signal settlement_entered(settlement:Settlement);
 
-func _ready():
+func _ready()->void:
 	Entities.in_map_player = self;
 
 func _input(e:InputEvent)->void:
@@ -22,7 +22,7 @@ func _input(e:InputEvent)->void:
 			started_moving.emit();
 
 		if camera.in_player:
-			var camera_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+			var camera_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 			if camera_direction and camera.in_player:
 				camera.free_panning()
 			
@@ -31,11 +31,11 @@ func _input(e:InputEvent)->void:
 func _physics_process(delta: float) -> void:
 	if not target_entity:
 		if target_position != position:
-			var gap = target_position - position
+			var gap:Vector2 = target_position - position
 			if abs(gap) < Vector2(2.5, 2.5):
 				stop_movement();
 			else:
-				var direction = gap.normalized();
+				var direction:Vector2 = gap.normalized();
 				var movement:Vector2 = direction * move_speed * delta
 				var collision:KinematicCollision2D = move_and_collide(movement)
 				if collision:

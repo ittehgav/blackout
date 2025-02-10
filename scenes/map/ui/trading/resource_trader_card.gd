@@ -18,7 +18,7 @@ extends Panel
 
 @export var menu:Control;
 
-var holder;
+var holder:Node;
 
 func update_values()->void:
 	update_amount_label(money_amount_label, "money", menu.money_trade, true);
@@ -29,7 +29,7 @@ func update_values()->void:
 	update_amount_label(scrap_amount_label, "scrap", menu.scrap_trade);
 	update_amount_label(chips_amount_label, "chips", menu.chips_trade);
 
-	var new_values = menu.get_resource_values(self);
+	var new_values:Dictionary = menu.get_resource_values(self);
 
 	update_value_label(food_value_label, "food", new_values["food"]);
 	update_value_label(fuel_value_label, "fuel", new_values["fuel"]);
@@ -43,7 +43,7 @@ func update_value_label(label:Label, resource:String, new_price)->void:
 	label.text = resource + " - $" + str(snapped(new_price, .01))
 
 func update_amount_label(label:Label, resource_key:String, trade_value:int, is_money:bool = false)->void:
-	var current_resource = holder.inventory[resource_key];
+	var current_resource:float = holder.inventory[resource_key];
 	var text:String = "";
 	if is_money:
 		text = "$"
@@ -92,7 +92,7 @@ func trade_10(resource:String)->void:
 
 	
 func trade_max(resource:String)->void:
-	var total = holder.inventory[resource];
+	var total:float = holder.inventory[resource];
 
 	if holder is Player:
 		menu[resource + "_trade"] = total * -1;

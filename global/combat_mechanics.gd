@@ -12,7 +12,7 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter)->void:
 		target.death.emit(source);
 		
 		target.ally_team.erase(target);
-		var tween = Tweens.death_vfx(target);
+		var tween:Tween = Tweens.death_vfx(target);
 		tween.tween_callback(target.queue_free);
 
 func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
@@ -23,7 +23,7 @@ func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	target.healing_received.emit(value)
 	Tweens.heal_vfx(target);
 
-func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = source.base.stun_duration):
+func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = source.base.stun_duration)->void:
 	if target.stun_timer.is_stopped() or target.stun_timer.time_left < duration:
 			target.stun_timer.wait_time = duration;
 			target.stun_timer.start()

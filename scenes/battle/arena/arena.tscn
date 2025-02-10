@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_ahtdn"]
-[ext_resource type="Texture2D" uid="uid://b5v0av607qkqc" path="res://assets/tiles/Terrain/Ground/Tilemap_Flat.png" id="2_h1h18"]
+[ext_resource type="Texture2D" uid="uid://b5v0av607qkqc" path="res://assets/visual/tiles/Terrain/Ground/Tilemap_Flat.png" id="2_h1h18"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/player/in_fight_player.tscn" id="4_n7xip"]
 [ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="7_qmo1s"]
 

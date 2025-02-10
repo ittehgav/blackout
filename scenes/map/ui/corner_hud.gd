@@ -9,11 +9,11 @@ extends PanelContainer
 @export var scrap_label:Label
 @export var chips_label:Label
 
-func _ready():
+func _ready()->void:
 	Entities.player.resources_changed.connect(refresh_values);
 	refresh_values()
 
-func refresh_values():
+func refresh_values()->void:
 	update_resource_label(food_label, "food");
 	update_resource_label(money_label, "money");
 	update_resource_label(fuel_label, "fuel");
@@ -29,7 +29,7 @@ func update_resource_label(label:Label, resource:String)->void:
 	else:
 		current_value = int(label.text.split(": ")[1])
 		
-	var new_value = Entities.player.inventory[resource];
+	var new_value:float = Entities.player.inventory[resource];
 	
 	if current_value != new_value:
 		label.text = resource.capitalize() + ": ";
@@ -44,7 +44,7 @@ func update_resource_label(label:Label, resource:String)->void:
 			change_color = Color.GREEN;
 		
 		label.modulate  = change_color;
-		var tween = create_tween();
+		var tween:Tween = create_tween();
 		tween.tween_interval(.75)
 		tween.tween_property(label, "modulate", Color.WHITE, .5)
 	

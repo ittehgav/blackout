@@ -13,20 +13,20 @@ func _ready() -> void:
 	team_2 = team_2_node.get_children();
 	match_teams()
 
-func match_teams():
+func match_teams()->void:
 	for unit:ActiveFighter in team_1:
 		assign_team(unit, 1);
 
 	for unit:ActiveFighter in team_2:
 		assign_team(unit, 2)
 
-func check_battle_over(_killer:ActiveFighter):
+func check_battle_over(_killer:ActiveFighter)->void:
 	if not len(team_1):
 		battle_over(2);
 	elif not len(team_2):
 		battle_over(1);
 		
-func battle_over(winner:int):
+func battle_over(winner:int)->void:
 	get_tree().paused = true;
 	$hud/post_fight.show_post_fight(winner)
 	
@@ -53,18 +53,18 @@ func assign_team(unit:ActiveFighter, team_n:int)->void:
 				"nearest_enemy":
 					skill_range.set_collision_mask_value(enemy_team_n, true);
 					
-					var hit_scan = unit.get_node_or_null("hit_scan");
+					var hit_scan:Node = unit.get_node_or_null("hit_scan");
 					if hit_scan:
 						hit_scan.set_collision_mask_value(enemy_team_n, true)
 						
 				"least_hp_ally":
 					skill_range.set_collision_mask_value(team_n, true)
 					
-					var hit_scan = unit.get_node_or_null("hit_scan");
+					var hit_scan:Node = unit.get_node_or_null("hit_scan");
 					if hit_scan:
 						hit_scan.set_collision_mask_value(enemy_team_n, true)
 	else:
-		var hit_scan = unit.get_node_or_null("hit_scan");
+		var hit_scan:Node = unit.get_node_or_null("hit_scan");
 		if hit_scan:
 			hit_scan.set_collision_mask_value(enemy_team_n, true)
 	

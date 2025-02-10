@@ -48,5 +48,5 @@ func _on_player_settlement_entered(settlement: Settlement) -> void:
 		
 	show();
 	
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	tween.tween_property(self, "modulate:a", 1, .5);

@@ -16,5 +16,5 @@ var leadership_exp:int = 0;
 var combat_level:int = 0;
 var combat_exp:int = 0;
 
-func _ready():
+func _ready()->void:
 	Entities.player = self;

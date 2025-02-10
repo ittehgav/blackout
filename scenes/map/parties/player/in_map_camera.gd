@@ -4,15 +4,15 @@ var in_player:bool = true;
 
 const move_speed = 200;
 
-func free_panning():
+func free_panning()->void:
 	position_smoothing_enabled = false
 	reparent(Entities.world_map);
 	in_player = false;
 
-func return_to_player():
+func return_to_player()->void:
 	if not in_player:
 		in_player = true;
-		var tween = create_tween();
+		var tween:Tween = create_tween();
 		tween.tween_property(self, "position", Entities.in_map_player.position, .5);
 		await tween.finished;
 		reparent(Entities.in_map_player, true);
@@ -24,5 +24,5 @@ func return_to_player():
 	
 
 func _process(delta: float) -> void:
-	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	position += direction * delta * move_speed;

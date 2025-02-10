@@ -43,7 +43,3 @@ func _input(e:InputEvent)->void:
 			exit_settlement();
 		else:
 			show_main_view();
-
-
-func trade_1(extra_arg_0: String) -> void:
-	pass # Replace with function body.

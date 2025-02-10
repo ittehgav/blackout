@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://4wvh3dxhi1cy"]
+
+[ext_resource type="Script" path="res://scenes/map/ui/tooltip.gd" id="1_1b27s"]
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://themes/PixelTheme-Sky.tres" id="2_jwc1q"]
+[ext_resource type="Texture2D" uid="uid://dl8ct2ft4t4x5" path="res://assets/visual/sprites/settlements/farm.png" id="3_3kf6q"]
+
+[node name="Tooltip" type="Control" node_paths=PackedStringArray("name_label", "thumbnail_image")]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 23.0
+offset_top = -116.0
+offset_right = 23.0
+offset_bottom = -116.0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+script = ExtResource("1_1b27s")
+name_label = NodePath("panel/HBoxContainer/name")
+thumbnail_image = NodePath("panel/HBoxContainer/thumbnail")
+
+[node name="panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_jwc1q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="panel"]
+layout_mode = 2
+
+[node name="thumbnail" type="TextureRect" parent="panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_3kf6q")
+
+[node name="name" type="Label" parent="panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Name"

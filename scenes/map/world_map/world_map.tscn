@@ -31,9 +31,9 @@ position = Vector2(217, 571)
 position = Vector2(248, 12)
 background = SubResource("Resource_fsmxr")
 
-[node name="ui_canvas" type="CanvasLayer" parent="."]
+[node name="ui_overlay" type="CanvasLayer" parent="."]
 
-[node name="ui" type="Control" parent="ui_canvas"]
+[node name="ui" type="Control" parent="ui_overlay"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -41,27 +41,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("6_d8dst")
 
-[node name="world_map_hud" parent="ui_canvas/ui" instance=ExtResource("7_33ijt")]
+[node name="world_map_hud" parent="ui_overlay/ui" instance=ExtResource("7_33ijt")]
 layout_mode = 1
 
-[node name="corner_hud" parent="ui_canvas/ui/world_map_hud" index="0"]
+[node name="corner_hud" parent="ui_overlay/ui/world_map_hud" index="0" node_paths=PackedStringArray("food_label")]
 offset_left = -312.0
 offset_bottom = 68.0
+food_label = NodePath("corner_bar/resources/row1/food_hover")
 
-[node name="settlement_ui" parent="ui_canvas/ui" instance=ExtResource("7_b85ww")]
+[node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
 visible = false
 layout_mode = 1
+mouse_filter = 2
 
-[node name="background" parent="ui_canvas/ui/settlement_ui" index="0"]
+[node name="background" parent="ui_overlay/ui/settlement_ui" index="0"]
 texture = null
 
-[connection signal="settlement_entered" from="entities/in_map_player" to="ui_canvas/ui/settlement_ui" method="_on_player_settlement_entered"]
+[connection signal="settlement_entered" from="entities/in_map_player" to="ui_overlay/ui/settlement_ui" method="_on_player_settlement_entered"]
 [connection signal="started_moving" from="entities/in_map_player" to="." method="_on_player_started_moving"]
 [connection signal="stopped_moving" from="entities/in_map_player" to="." method="_on_player_stopped_moving"]
 
 [editable path="entities/in_map_player"]
-[editable path="ui_canvas/ui/world_map_hud"]
-[editable path="ui_canvas/ui/settlement_ui"]
-[editable path="ui_canvas/ui/settlement_ui/resource_trade_menu/trader"]
+[editable path="ui_overlay/ui/world_map_hud"]
+[editable path="ui_overlay/ui/settlement_ui"]
+[editable path="ui_overlay/ui/settlement_ui/resource_trade_menu/trader"]

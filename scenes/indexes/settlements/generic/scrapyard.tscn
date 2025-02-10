@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bghgbhdlygqcs"]
+[gd_scene load_steps=9 format=3 uid="uid://bghgbhdlygqcs"]
 
 [ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/visual/sprites/settlements/scrapyard.png" id="1_60suj"]
 [ext_resource type="Script" path="res://scenes/indexes/settlements/generic/scrapyard.gd" id="2_ylbiw"]
+[ext_resource type="PackedScene" uid="uid://4wvh3dxhi1cy" path="res://scenes/map/ui/tooltip.tscn" id="3_5vld4"]
 [ext_resource type="Texture2D" uid="uid://c27hif6frvgxj" path="res://assets/visual/backgrounds/settlements/scrapyard.jpg" id="3_db4an"]
 [ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_tfuu7"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_y1jku"]
@@ -10,19 +11,20 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_iwht7"]
 radius = 50.0
 
-[node name="Scrapyard" type="CharacterBody2D" node_paths=PackedStringArray("settings", "inventory")]
+[node name="Scrapyard" type="CharacterBody2D" node_paths=PackedStringArray("settings", "tooltip", "inventory")]
+input_pickable = true
 script = ExtResource("2_ylbiw")
 background = ExtResource("3_db4an")
 settings = NodePath("SettlementSettings")
+tooltip = NodePath("Tooltip")
 inventory = NodePath("Inventory")
+
+[node name="Tooltip" parent="." instance=ExtResource("3_5vld4")]
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("5_38mel")
 position = Vector2(4, 8)
 texture = ExtResource("1_60suj")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_iwht7")
 
 [node name="Inventory" parent="." instance=ExtResource("3_y1jku")]
 
@@ -31,3 +33,14 @@ food_production = 1
 fuel_production = 3
 juice_production = 1
 scrap_production = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iwht7")
+
+[node name="hover_box" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0

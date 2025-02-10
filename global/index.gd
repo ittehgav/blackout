@@ -19,5 +19,5 @@ var all_fighter_base_scenes:Array[PackedScene] = [
 ]
 
 func random_fighter_base()->FighterBase:
-	var base = all_fighter_base_scenes.pick_random();
+	var base:PackedScene = all_fighter_base_scenes.pick_random();
 	return base.instantiate();

@@ -10,26 +10,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="corner_hud" type="PanelContainer" parent="." node_paths=PackedStringArray("food_label", "money_label", "fuel_label", "juice_label", "scrap_label", "chips_label")]
+[node name="corner_hud" type="PanelContainer" parent="." node_paths=PackedStringArray("money_label", "fuel_label", "juice_label", "scrap_label", "chips_label")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -294.0
-offset_bottom = 96.0
+offset_left = -329.0
+offset_bottom = 75.0
 grow_horizontal = 0
+mouse_filter = 2
 theme = ExtResource("1_cxm17")
 script = ExtResource("2_02srg")
-food_label = NodePath("corner_bar/resources/row1/food")
-money_label = NodePath("corner_bar/resources/row1/money")
-fuel_label = NodePath("corner_bar/resources/row1/fuel")
-juice_label = NodePath("corner_bar/resources/row2/juice")
-scrap_label = NodePath("corner_bar/resources/row2/scrap")
-chips_label = NodePath("corner_bar/resources/row2/chips")
+money_label = NodePath("corner_bar/resources/row1/money_hover")
+fuel_label = NodePath("corner_bar/resources/row1/fuel_hover")
+juice_label = NodePath("corner_bar/resources/row2/juice_hover")
+scrap_label = NodePath("corner_bar/resources/row2/scrap_hover")
+chips_label = NodePath("corner_bar/resources/row2/chips_hover")
 
 [node name="corner_bar" type="HBoxContainer" parent="corner_hud"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="resources" type="VBoxContainer" parent="corner_hud/corner_bar"]
 layout_mode = 2
@@ -37,41 +40,43 @@ layout_mode = 2
 [node name="row1" type="HBoxContainer" parent="corner_hud/corner_bar/resources"]
 layout_mode = 2
 
-[node name="food" type="Label" parent="corner_hud/corner_bar/resources/row1"]
+[node name="food_hover" type="Label" parent="corner_hud/corner_bar/resources/row1"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Food: 10"
 
 [node name="VSeparator" type="VSeparator" parent="corner_hud/corner_bar/resources/row1"]
 layout_mode = 2
 
-[node name="money" type="Label" parent="corner_hud/corner_bar/resources/row1"]
+[node name="money_hover" type="Label" parent="corner_hud/corner_bar/resources/row1"]
 layout_mode = 2
 text = "Money: $10"
 
 [node name="VSeparator2" type="VSeparator" parent="corner_hud/corner_bar/resources/row1"]
 layout_mode = 2
 
-[node name="fuel" type="Label" parent="corner_hud/corner_bar/resources/row1"]
+[node name="fuel_hover" type="Label" parent="corner_hud/corner_bar/resources/row1"]
 layout_mode = 2
 text = "Fuel: 10"
 
 [node name="row2" type="HBoxContainer" parent="corner_hud/corner_bar/resources"]
 layout_mode = 2
 
-[node name="juice" type="Label" parent="corner_hud/corner_bar/resources/row2"]
+[node name="juice_hover" type="Label" parent="corner_hud/corner_bar/resources/row2"]
 layout_mode = 2
 text = "Juice: 10"
 
 [node name="VSeparator" type="VSeparator" parent="corner_hud/corner_bar/resources/row2"]
 layout_mode = 2
 
-[node name="scrap" type="Label" parent="corner_hud/corner_bar/resources/row2"]
+[node name="scrap_hover" type="Label" parent="corner_hud/corner_bar/resources/row2"]
 layout_mode = 2
 text = "Scrap: 10"
 
 [node name="VSeparator2" type="VSeparator" parent="corner_hud/corner_bar/resources/row2"]
 layout_mode = 2
 
-[node name="chips" type="Label" parent="corner_hud/corner_bar/resources/row2"]
+[node name="chips_hover" type="Label" parent="corner_hud/corner_bar/resources/row2"]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Chips: 10"

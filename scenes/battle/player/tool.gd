@@ -10,11 +10,10 @@ extends Node2D
 func _ready()->void:
 	equip_weapon()
 
-func _input(e:InputEvent)->void:
-	if e.is_action_pressed("use_weapon") and holder.stun_timer.is_stopped():
-		weapon_input();
 
 func _process(_delta:float)->void:
+	if Input.is_action_pressed("use_weapon") and holder.stun_timer.is_stopped():
+		weapon_input();
 	const angle_adjust = 30;
 	look_at(get_global_mouse_position())
 	if body.flip_h:
@@ -30,10 +29,12 @@ func weapon_input()->void:
 		use_weapon()
 		
 
-func use_weapon():
-	weapon_sfx.play_sfx_by_key(weapon_node.sfx);
+func use_weapon()->void:
+	weapon_sfx.play_sfx_by_key(weapon_node.use_sfx);
 	weapon_cd.start()
-	weapon_node.use();
+	var hit:bool = weapon_node.use();
+	if hit:
+		weapon_sfx.play_hit_sfx_by_key(weapon_node.hit_sfx);
 
 func equip_weapon()->void:
 	## for now just auto equips the exported one but it's where it'll do so at the start of battle and
@@ -42,8 +43,3 @@ func equip_weapon()->void:
 	ColorCoder.color_code_weapon(weapon_node)
 	weapon_node.holder = holder;
 	holder.attack = weapon_node.damage;
-	
-
-func weapon_use_held() -> void:
-	if Input.is_action_pressed("use_weapon"):
-		use_weapon();

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d10x267l7hoq7"
+path="res://.godot/imported/Water Chain Run 3.ogg-55c0f5e630a07006f185c9604ced6e60.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/packs/SFX/Footsteps/Water/Water Chain Run 3.ogg"
+dest_files=["res://.godot/imported/Water Chain Run 3.ogg-55c0f5e630a07006f185c9604ced6e60.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

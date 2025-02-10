@@ -3,7 +3,7 @@ extends Node
 @export var stun_display:TextureProgressBar;
 @export var stun_timer:Timer;
 
-func display_stun():
+func display_stun()->void:
 	## runs AFTER stun timer gets set and started
 	stun_display.max_value = stun_timer.wait_time;
 	

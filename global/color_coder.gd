@@ -5,14 +5,14 @@ extends Node
 ## (unless it ends up becoming massive?)
 
 func color_code_character(character:FighterBase)->void:
-	var img = character.texture.get_image()
+	var img:Image = character.texture.get_image()
 
-	var width = img.get_width()
-	var height = img.get_height()
+	var width:int = img.get_width()
+	var height:int = img.get_height()
 	var base_color:Color = Color.GREEN;
 
-	for y in height:
-		for x in width:
+	for y:int in height:
+		for x:int in width:
 			var color:Color = img.get_pixel(x, y)
 			if color.a:
 				var new_color:Color;
@@ -27,14 +27,14 @@ func color_code_character(character:FighterBase)->void:
 	character.texture = ImageTexture.create_from_image(img)
 
 func color_code_weapon(weapon:Sprite2D)->void:
-	var img = weapon.texture.get_image()
+	var img:Image = weapon.texture.get_image()
 	
-	var width = img.get_width();
-	var height = img.get_height();
+	var width:int = img.get_width();
+	var height:int = img.get_height();
 	var base_color:Color = Color.RED;
 
-	for y in height:
-		for x in width:
+	for y:int in height:
+		for x:int in width:
 			var color:Color = img.get_pixel(x, y);
 			if color.a:
 				var new_color:Color;
@@ -60,13 +60,13 @@ func color_code_fighter(fighter:FighterBase, scheme:int=1)->void:
 			base_color = Color.LIGHT_CORAL;
 			off_color = Color.SILVER;
 	
-	var img = fighter.texture.get_image()
+	var img:Image = fighter.texture.get_image()
 	
-	var width = img.get_width();
-	var height = img.get_height();
+	var width:int = img.get_width();
+	var height:int = img.get_height();
 
-	for y in height:
-		for x in width:
+	for y:int in height:
+		for x:int in width:
 			var color:Color = img.get_pixel(x, y);
 			if color.a:
 				var new_color:Color;

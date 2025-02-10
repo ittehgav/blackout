@@ -30,22 +30,22 @@ func open()->void:
 	show()
 
 
-func refresh_values():
+func refresh_values()->void:
 	set_money_trade();
 	set_confirm_availability();
 	player_trade_card.update_values()
 	settlement_trade_card.update_values();
 	
-func set_confirm_availability():
+func set_confirm_availability()->void:
 	confirm_btn.disabled =\
 	player.inventory.money < money_trade * -1 or \
 	settlement.inventory.money < money_trade
 
 
 		
-func set_money_trade():
-	var sell_values = Entities.current_settlement.get_resource_values("sell");
-	var buy_values = Entities.current_settlement.get_resource_values("buy")
+func set_money_trade()->void:
+	var sell_values:Dictionary = Entities.current_settlement.get_resource_values("sell");
+	var buy_values:Dictionary = Entities.current_settlement.get_resource_values("buy")
 
 	money_trade = 0;
 	
@@ -75,7 +75,7 @@ func set_money_trade():
 		money_trade -= buy_values["chips"] * chips_trade
 	
 
-func get_resource_values(trader):
+func get_resource_values(trader)->Dictionary:
 	if trader is Player:
 		return Entities.current_settlement.get_resource_values("buy");
 	else:

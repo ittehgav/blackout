@@ -31,13 +31,13 @@ func aoe_damage(source:ActiveFighter)->void:
 
 
 func aoe_stun(source:ActiveFighter)->void:
-	var targets = source.hit_scan.get_overlapping_bodies();
+	var targets:Array[Node2D] = source.hit_scan.get_overlapping_bodies();
 	for target in targets:
 		if target in source.enemy_team:
 			stun_target(source, target)
 
 
-func self_buff(source):
+func self_buff(source)->void:
 	match source.base.buff_type:
 		"stat":
 			for stat in source.base.stats_to_buff:
@@ -49,7 +49,7 @@ func self_buff(source):
 
 
 func aoe_debuff(source:ActiveFighter)->void:
-	var targets = source.hit_scan.get_overlapping_bodies();
+	var targets:Array[Node2D] = source.hit_scan.get_overlapping_bodies();
 	match source.base.debuff_type:
 		"stat":
 			for unit in targets:
@@ -58,6 +58,6 @@ func aoe_debuff(source:ActiveFighter)->void:
 						match stat:
 							"defense", "attack", "max_hp", "move_speed":
 								## stat debuff values are multiplied by - 1 here
-								var value = source.base.stat_debuff_values[stat]
+								var value:float = source.base.stat_debuff_values[stat]
 								apply_stat_change(source, unit, value * -1, stat);
 								

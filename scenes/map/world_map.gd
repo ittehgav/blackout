@@ -4,7 +4,7 @@ class_name WorldMap
 
 @export var player:InMapPlayer
 
-func _ready():
+func _ready()->void:
 	Entities.world_map = self;
 
 func _on_player_started_moving() -> void:

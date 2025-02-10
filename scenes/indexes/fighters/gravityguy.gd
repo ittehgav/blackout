@@ -48,7 +48,7 @@ func special_skill(fighter:ActiveFighter)->void:
 	var direction = fighter.position.direction_to(fighter.target_unit.position).normalized();
 	var target_position:Vector2 = fighter.target_unit.position + direction * knock_back_distance;
 	
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	tween.tween_property(fighter.target_unit, "position", target_position, .1)
 	
 

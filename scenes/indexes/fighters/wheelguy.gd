@@ -19,5 +19,5 @@ const skill_range = 100;
 
 const skill_cooldown = 3;
 
-func special_skill(fighter:ActiveFighter):
+func special_skill(fighter:ActiveFighter)->void:
 	pass

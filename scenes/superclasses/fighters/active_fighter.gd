@@ -25,6 +25,8 @@ signal status_applied(source:ActiveFighter, type:String);
 @export var timers:Node;
 @export var status_timer:Timer;
 
+@export var sfx:AudioStreamPlayer;
+
 ## combat stats (will get more complicated when it needs to)
 var max_hp:float;
 var hp:float;
@@ -43,7 +45,7 @@ func update_overlay(_damage: float=0) -> void:
 	else:
 		hp_label.modulate = Color.RED;
 
-func damage_overlay_shake(damage:float):
+func damage_overlay_shake(damage:float)->void:
 	var intensity:float = .1;
 	if damage > max_hp/2:
 		intensity = 1;

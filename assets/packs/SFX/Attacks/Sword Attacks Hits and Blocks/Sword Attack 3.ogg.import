@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bu7pxqkgfc3jy"
+path="res://.godot/imported/Sword Attack 3.ogg-60e1077f8c03a12899309e84c8757906.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/packs/SFX/Attacks/Sword Attacks Hits and Blocks/Sword Attack 3.ogg"
+dest_files=["res://.godot/imported/Sword Attack 3.ogg-60e1077f8c03a12899309e84c8757906.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

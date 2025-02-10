@@ -8,6 +8,7 @@ signal target_change;
 @export var skill_retry_timer:Timer;
 
 
+
 var current_animation:String = "idle";
 
 var target_unit:ActiveFighter;
@@ -16,10 +17,10 @@ var target_in_range:bool = false;
 func _ready()->void:
 	load_base();
 
-func load_base():
+func load_base()->void:
 	if not fighter:
 		fighter = Fighter.new();
-		var new_base = Index.random_fighter_base();
+		var new_base:FighterBase = Index.random_fighter_base();
 		fighter.base = new_base
 
 	base = fighter.base.duplicate()
@@ -35,11 +36,11 @@ func load_base():
 			## hit scans other than the circle shaped one will be generated when the fight starts
 			match base.hit_scan_type:
 				"line":
-					var shape = SegmentShape2D.new();
+					var shape:SegmentShape2D = SegmentShape2D.new();
 					shape.b = Vector2(base.hit_scan_length, 0);
 					$hit_scan/shape.shape = shape;
 				"rectangle":
-					var shape = RectangleShape2D.new();
+					var shape:RectangleShape2D = RectangleShape2D.new();
 					shape.size = Vector2(base.hit_scan_length, base.hit_scan_width);
 					$hit_scan/shape.shape = shape;
 		else:
@@ -72,7 +73,7 @@ func find_target()->void:
 			var current_distance:float;
 			for unit in enemy_team:
 
-				var distance = position.distance_to(unit.position)
+				var distance:float = position.distance_to(unit.position)
 				@warning_ignore("unassigned_variable")
 				if not target or distance < current_distance:
 					target = unit;
@@ -100,7 +101,7 @@ func _physics_process(_delta: float) -> void:
 		else:
 			if current_animation != "skill":
 				current_animation = "idle";
-
+		
 
 func _on_skill_range_body_entered(body: Node2D) -> void:
 	if body == target_unit:
@@ -112,7 +113,7 @@ func _on_skill_range_body_exited(body: Node2D) -> void:
 		target_in_range = false;
 
 
-func use_skill():
+func use_skill()->void:
 	current_animation = "skill";
 	next_frame()
 	for effect in base.skill_effects:
@@ -162,3 +163,10 @@ func skill_cooldown() -> void:
 		$npc_timers/skill_cooldown.start()
 	else:
 		skill_retry_timer.start();
+
+
+func _on_death(_killer: ActiveFighter) -> void:
+	if ally_team == Entities.in_fight_player.ally_team:
+		sfx.play_sfx_by_key("ally_death");
+	else:
+		sfx.play_sfx_by_key("enemy_death")
