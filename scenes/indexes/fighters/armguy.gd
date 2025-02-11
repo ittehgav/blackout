@@ -7,10 +7,14 @@ const skill_visuals = ["lunge_forward"]
 const target_type = "nearest_enemy"
 
 const skill_name = "Throw Hands"
-const short_description ="Slow and resistant, deals damage and stuns enemies in an area."
-const long_description ="Packs a decent punch, but takes a long time between attacks.\n
+const short_description = "Slow and resistant, deals damage and stuns enemies in an area."
+const long_description = "Packs a decent punch, but takes a long time between attacks.\n
 Can be upgraded for more crowd control and resistance or for more damage."
 
+const tags = [
+	"brawler",
+	"bodybuilder"
+]
 
 const hitbox_radius = 50;
 const hitbox_height = 150;

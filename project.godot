@@ -24,6 +24,7 @@ Combat="*res://global/combat.gd"
 Icons="*res://global/icons.gd"
 Index="*res://global/index.gd"
 Trade="*res://global/trade.gd"
+Scaling="*res://global/scaling.gd"
 
 [display]
 

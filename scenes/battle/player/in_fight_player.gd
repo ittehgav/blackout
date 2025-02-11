@@ -2,6 +2,9 @@ extends ActiveFighter;
 
 class_name InFightPlayer
 
+signal started_moving;
+signal stopped_moving;
+
 ##redeclaring body as base so it gets its VFX to work the same way as they do on ActiveFighter
 @export_category("Unique to Player")
 @export var body: FighterBase;
@@ -13,9 +16,26 @@ class_name InFightPlayer
 var moving:bool = false;
 
 func _ready()->void:
-	max_hp = 1000;
-	hp = 1000;
 	Entities.in_fight_player = self;
+
+func load_fighter():
+	var stats = Entities.player.combat_stats;
+	
+	max_hp = stats.max_hp;
+	hp = stats.max_hp;
+	
+	## player's combat stats will be more tied to equipment?
+	attack = stats.attack
+	defense = stats.defense
+	
+	technique = stats.technique
+	move_speed = stats.move_speed
+	
+	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate()
+	weapon.add_child(equipped_weapon);
+
+	weapon.equip_weapon(equipped_weapon)
+	
 
 func get_input()->void:
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -23,10 +43,12 @@ func get_input()->void:
 	body.moving_right = velocity.x > 0;
 	if velocity:
 		if not moving:
+			started_moving.emit()
 			moving = true;
 			body.switch_animation("walk")
 	else:
 		if moving:
+			stopped_moving.emit()
 			moving = false;
 			body.switch_animation("idle")
 	

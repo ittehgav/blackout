@@ -9,7 +9,11 @@ const skill_name = "Chain Lightning"
 const short_description = "Fires Chain Lightning Attacks."
 const long_description = "Magnetizes one enemy, then deals damage to all magnetized enemies."
 
-
+const tags = [
+	"hunter",
+	"scientist",
+	"mechanic"
+]
 
 const hitbox_radius = 50;
 const hitbox_height = 150;
@@ -26,7 +30,7 @@ func special_skill(fighter:ActiveFighter)->void:
 		fighter.target_unit.death.connect(remove_from_tagged.bind(fighter.target_unit))
 
 	elif not len(fighter.enemy_team) == len(tagged_targets):
-		var untagged_targets:Array[ActiveFighter] = fighter.enemy_team.duplicate();
+		var untagged_targets:Array[Node] = fighter.enemy_team.duplicate();
 		
 		for unit:ActiveFighter in tagged_targets:
 			untagged_targets.erase(unit)

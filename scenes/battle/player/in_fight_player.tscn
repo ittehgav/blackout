@@ -1,13 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=20 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
 [ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="3_3uxwr"]
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="4_uqyhm"]
 [ext_resource type="Script" path="res://scenes/battle/player/body.gd" id="5_yvg0f"]
-[ext_resource type="Script" path="res://scenes/battle/player/tool.gd" id="6_cbwmk"]
+[ext_resource type="Script" path="res://scenes/battle/player/weapon.gd" id="6_cbwmk"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="7_6mba4"]
-[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/weapons/tailpipe.tscn" id="7_074eh"]
-[ext_resource type="Script" path="res://scenes/battle/player/tool_sfx.gd" id="7_avuby"]
+[ext_resource type="Script" path="res://scenes/battle/player/weapon_sfx.gd" id="7_avuby"]
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Swipe - 2.ogg" id="8_6prrp"]
 [ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/battle/active_fighter/fighter_overlay.tscn" id="8_14x5b"]
 [ext_resource type="Script" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
@@ -62,15 +61,12 @@ ticker = NodePath("animation_ticker")
 [node name="animation_ticker" type="Timer" parent="body"]
 wait_time = 0.3
 
-[node name="weapon" type="Node2D" parent="." node_paths=PackedStringArray("holder", "body", "weapon_cd", "weapon_node", "weapon_sfx")]
+[node name="weapon" type="Node2D" parent="." node_paths=PackedStringArray("holder", "body", "weapon_cd", "weapon_sfx")]
 script = ExtResource("6_cbwmk")
 holder = NodePath("..")
 body = NodePath("../body")
 weapon_cd = NodePath("weapon_cd")
-weapon_node = NodePath("Tailpipe")
 weapon_sfx = NodePath("weapon_sfx")
-
-[node name="Tailpipe" parent="weapon" instance=ExtResource("7_074eh")]
 
 [node name="weapon_cd" type="Timer" parent="weapon"]
 wait_time = 0.5
@@ -83,6 +79,9 @@ swing = ExtResource("8_6prrp")
 swing_hit = ExtResource("9_423a7")
 
 [node name="weapon_hit_sfx" type="AudioStreamPlayer" parent="weapon"]
+
+[node name="animation_ticker" type="Timer" parent="weapon"]
+wait_time = 0.15
 
 [node name="hit_scan" type="Area2D" parent="."]
 collision_layer = 0
@@ -266,6 +265,8 @@ damage_taken = ExtResource("17_plg7w")
 [connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
+[connection signal="started_moving" from="." to="weapon" method="player_started_moving"]
+[connection signal="stopped_moving" from="." to="weapon" method="player_stopped_moving"]
 [connection signal="timeout" from="body/animation_ticker" to="body" method="next_frame"]
 [connection signal="pressed" from="camera/hud_overlay/hud/pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="camera/hud_overlay/hud/pre_fight" method="start_battle"]
 [connection signal="mouse_entered" from="camera/hud_overlay/tactics/tactic_left" to="camera/hud_overlay/tactics" method="_on_tactic_left_mouse_entered"]

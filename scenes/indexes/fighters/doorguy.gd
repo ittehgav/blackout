@@ -10,6 +10,12 @@ const skill_name = "Buckle up"
 const short_description = "[color=blue]Doesn't deal damage.[/color] Shields self, becoming progressively more resistant."
 const long_description = "Can be extremely difficult to take down."
 
+const tags = [
+	"juggernaut",
+	"mechanic",
+	"bodybuilder"
+]
+
 const hitbox_radius = 50;
 const hitbox_height = 150;
 

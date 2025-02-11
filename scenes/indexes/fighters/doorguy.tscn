@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://okq3jirq5mq5"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://shaders/materials/fighter_base.tres" id="1_120d0"]
-[ext_resource type="Texture2D" uid="uid://ccrb6t58ir8fi" path="res://assets/sprites/fighters/doorguy.png" id="1_g1xn4"]
+[ext_resource type="Texture2D" uid="uid://ccrb6t58ir8fi" path="res://assets/visual/sprites/fighters/doorguy.png" id="1_g1xn4"]
 [ext_resource type="Script" path="res://scenes/indexes/fighters/doorguy.gd" id="2_pej6q"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighter/combat_stats.tscn" id="4_wa1wk"]
 
@@ -14,6 +14,3 @@ script = ExtResource("2_pej6q")
 stats = NodePath("stats")
 
 [node name="stats" parent="." instance=ExtResource("4_wa1wk")]
-max_hp = 500.0
-defense = 25.0
-move_speed = 500.0

@@ -13,3 +13,5 @@ signal stopped_moving;
 
 var target_entity:MapEntity;
 var target_position:Vector2;
+
+var move_speed:float = 200.0;

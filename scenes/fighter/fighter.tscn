@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://lls0f7qofwnf"]
+[gd_scene load_steps=3 format=3 uid="uid://lls0f7qofwnf"]
 
 [ext_resource type="Script" path="res://scenes/fighter/fighter.gd" id="1_tcogk"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighter/combat_stats.tscn" id="2_62l1n"]
 
-[node name="Fighter" type="Node"]
+[node name="Fighter" type="Node" node_paths=PackedStringArray("stats")]
 script = ExtResource("1_tcogk")
+stats = NodePath("stats")
+
+[node name="stats" parent="." instance=ExtResource("2_62l1n")]

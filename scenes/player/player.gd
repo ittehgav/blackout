@@ -16,5 +16,9 @@ var leadership_exp:int = 0;
 var combat_level:int = 0;
 var combat_exp:int = 0;
 
+## ANY ITEMS THAT BELONG TO THE PLAYER WILL BE CHILDREN OF THE INVENTORY NODE
+@export var equipped_weapon:Weapon;
+
 func _ready()->void:
 	Entities.player = self;
+	

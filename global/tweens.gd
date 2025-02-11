@@ -6,7 +6,7 @@ extends Node
 func stat_icon_sprite(stat:String)->Sprite2D:
 	var sprite: = Sprite2D.new();
 	match stat:
-		"defense", "attack", "max_hp", "move_speed":
+		"defense", "attack", "max_hp", "move_speed", "technique":
 			sprite.texture = Icons[stat];
 	return sprite;
 
@@ -143,3 +143,18 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	var tween:Tween = create_tween();
 	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
 	return tween;
+
+func weapon_float_tween(weapon:Weapon, up:bool):
+	const float_range = 20
+	const step_duration =.75
+	var tween = create_tween();
+	var target_position:Vector2 = Vector2.ZERO;
+	if up:
+		target_position.y = float_range * -1;
+	else:
+		target_position.y = float_range;
+	
+	target_position.x = randi_range(float_range/2*-1, float_range/2);
+	tween.tween_property(weapon,"position", target_position, step_duration)
+	
+	tween.tween_callback(weapon_float_tween.bind(weapon, not up))

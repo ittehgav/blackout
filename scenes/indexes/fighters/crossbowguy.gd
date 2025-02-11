@@ -10,6 +10,12 @@ const skill_name = "Piercing Shot"
 const short_description = "Fires a powerful piercing bolt."
 const long_description = "Deals massive damage to enemies in a straight line."
 
+const tags = [
+	"hunter",
+	"ranger",
+	"doctor"
+]
+
 
 const hit_scan_type = "line";
 const hit_scan_length = 2000.0;

@@ -5,12 +5,18 @@ class_name Arena;
 @export var team_1_node:Node2D;
 @export var team_2_node:Node2D;
 
-var team_1:Array[Node];
-var team_2:Array[Node];
+var team_1:Array[ActiveFighter];
+var team_2:Array[ActiveFighter];
 
-func _ready() -> void:
-	team_1 = team_1_node.get_children();
-	team_2 = team_2_node.get_children();
+
+
+func load_teams(enemy_leader:Leader):
+	## happens before ready?
+	team_1 = Entities.player.load_party(team_1_node);
+	team_1.push_back($team_1/in_fight_player)
+	## will leaders be part of the roster?
+	team_2 = enemy_leader.load_party(team_2_node);
+	$team_1/in_fight_player.load_fighter()
 	match_teams()
 
 func match_teams()->void:

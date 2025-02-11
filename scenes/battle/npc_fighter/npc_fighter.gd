@@ -1,5 +1,7 @@
 extends ActiveFighter;
 
+class_name NpcFighter
+
 signal target_change;
 
 @export var fighter:Fighter;
@@ -15,9 +17,9 @@ var target_unit:ActiveFighter;
 var target_in_range:bool = false;
 
 func _ready()->void:
-	load_base();
+	load_fighter();
 
-func load_base()->void:
+func load_fighter()->void:
 	if not fighter:
 		fighter = Fighter.new();
 		var new_base:FighterBase = Index.random_fighter_base();
@@ -50,15 +52,17 @@ func load_base()->void:
 	$skill_range/shape.shape.radius = base.skill_range;
 	
 	## eventually will add persistant values from leveling/other modifiers;
-	max_hp = base.stats.max_hp;
-	hp = base.stats.max_hp;
+	max_hp = fighter.stats.max_hp;
+	hp = fighter.stats.max_hp;
 	
-	attack = base.stats.attack;
+	attack = fighter.stats.attack;
+	defense = fighter.stats.defense;
 	
-	defense = base.stats.defense;
-	move_speed = base.stats.move_speed
+	technique = fighter.stats.technique
+	move_speed = fighter.stats.move_speed
 	
 	cooldown_timer.wait_time = base.skill_cooldown;
+	
 	
 	if "special_setup" in base:
 		base.special_setup(self);

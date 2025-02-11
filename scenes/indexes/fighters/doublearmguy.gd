@@ -6,6 +6,11 @@ const skill_visuals = ["lunge_forward"]
 
 const target_type = "nearest_enemy"
 
+const tags = [
+	"juggernaut",
+	"disruptor",
+	"bodybuilder"
+]
 
 const skill_name = "Throw More Hands"
 const short_description = "Damages and stuns enemies in a large area."

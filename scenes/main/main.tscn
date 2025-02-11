@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=20 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
@@ -11,11 +11,29 @@
 [ext_resource type="AudioStream" uid="uid://b2570jayrbgqr" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 5.ogg" id="8_wk8ot"]
 [ext_resource type="AudioStream" uid="uid://0fnfsxh017op" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cancel - 2.ogg" id="9_2nx3w"]
 [ext_resource type="AudioStream" uid="uid://fhr3xripjers" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Select - 1.ogg" id="9_ec77q"]
+[ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="12_nheuf"]
+[ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/map/parties/generic/thugs.tscn" id="13_8pkd1"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/weapons/tailpipe.tscn" id="13_hwqgy"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/fighter/fighter.tscn" id="14_wuuif"]
+[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="15_pw2ou"]
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="16_md0em"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05me7"]
+resource_local_to_scene = true
+shader = ExtResource("16_md0em")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g1n0t"]
+resource_local_to_scene = true
+shader = ExtResource("16_md0em")
+shader_parameter/target_color = null
+shader_parameter/grad = null
 
 [node name="main" type="Node"]
 script = ExtResource("1_8gx17")
 
-[node name="main_ui" type="Control" parent="."]
+[node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("thug_leader")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,6 +43,7 @@ grow_vertical = 2
 script = ExtResource("1_v0lew")
 arena_scene = ExtResource("2_ft8he")
 world_map_scene = ExtResource("3_onvlx")
+thug_leader = NodePath("../Node2D/Thugs")
 
 [node name="PanelContainer" type="PanelContainer" parent="main_ui"]
 layout_mode = 0
@@ -63,5 +82,46 @@ button_click_sound = ExtResource("9_ec77q")
 cancel_sound = ExtResource("9_2nx3w")
 settlement_entered = ExtResource("8_wk8ot")
 
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="Player" parent="Node2D" node_paths=PackedStringArray("equipped_weapon") instance=ExtResource("12_nheuf")]
+equipped_weapon = NodePath("Inventory/Tailpipe")
+
+[node name="Inventory" parent="Node2D/Player" index="0" node_paths=PackedStringArray("weapons")]
+weapons = [NodePath("Tailpipe")]
+
+[node name="Tailpipe" parent="Node2D/Player/Inventory" index="0" instance=ExtResource("13_hwqgy")]
+
+[node name="stats" parent="Node2D/Player" index="2"]
+max_hp = 100.0
+attack = 10.0
+defense = 5.0
+
+[node name="Thugs" parent="Node2D" instance=ExtResource("13_8pkd1")]
+
+[node name="Roster" parent="Node2D/Thugs" index="1" node_paths=PackedStringArray("units")]
+units = [NodePath("Fighter2"), NodePath("Fighter")]
+
+[node name="Fighter2" parent="Node2D/Thugs/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("14_wuuif")]
+base = NodePath("Arm Guy")
+level = 3
+
+[node name="Arm Guy" parent="Node2D/Thugs/Roster/Fighter2" instance=ExtResource("15_pw2ou")]
+material = SubResource("ShaderMaterial_05me7")
+
+[node name="Fighter" parent="Node2D/Thugs/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("14_wuuif")]
+base = NodePath("Arm Guy")
+level = 3
+
+[node name="Arm Guy" parent="Node2D/Thugs/Roster/Fighter" instance=ExtResource("15_pw2ou")]
+material = SubResource("ShaderMaterial_g1n0t")
+
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/test_battle" to="main_ui" method="test_battle"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/world_map" to="main_ui" method="world_map"]
+
+[editable path="Node2D/Player"]
+[editable path="Node2D/Thugs"]
+[editable path="Node2D/Thugs/Roster"]
+[editable path="Node2D/Thugs/Roster/Fighter2"]
+[editable path="Node2D/Thugs/Roster/Fighter"]

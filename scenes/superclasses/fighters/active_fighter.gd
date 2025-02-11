@@ -2,8 +2,8 @@ extends CharacterBody2D;
 
 class_name ActiveFighter;
 
-var ally_team:Array[Node];
-var enemy_team:Array[Node];
+var ally_team:Array[ActiveFighter];
+var enemy_team:Array[ActiveFighter];
 
 @warning_ignore("unused_signal")
 signal damage_taken(damage:float);
@@ -32,6 +32,8 @@ var max_hp:float;
 var hp:float;
 var attack:float;
 var defense:float;
+var technique:float;
+
 var move_speed:float = 500.0;
 
 func update_overlay(_damage: float=0) -> void:

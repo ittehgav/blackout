@@ -7,8 +7,8 @@ extends Node2D
 @export var weapon_node:Weapon;
 @export var weapon_sfx:AudioStreamPlayer
 
-func _ready()->void:
-	equip_weapon()
+var current_float_tween:Tween;
+
 
 
 func _process(_delta:float)->void:
@@ -36,10 +36,20 @@ func use_weapon()->void:
 	if hit:
 		weapon_sfx.play_hit_sfx_by_key(weapon_node.hit_sfx);
 
-func equip_weapon()->void:
+func equip_weapon(weapon:Weapon)->void:
 	## for now just auto equips the exported one but it's where it'll do so at the start of battle and
 	## where it'll swap them mid-fight
+	## both weapons will be children of thsi node
+	weapon_node = weapon;
 	weapon_cd.wait_time = weapon_node.cooldown;
 	ColorCoder.color_code_weapon(weapon_node)
 	weapon_node.holder = holder;
 	holder.attack = weapon_node.damage;
+
+
+func player_started_moving() -> void:
+	current_float_tween = Tweens.weapon_float_tween(weapon_node, true);
+
+func player_stopped_moving() -> void:
+	if is_instance_valid(current_float_tween):
+		current_float_tween.kill();

@@ -13,6 +13,11 @@ const long_description = "Low resistance and range, high damage.\n
 Can be upgraded to deal heavy damage or to apply heavy crowd control."
 
 
+const tags = [
+	"hunter",
+	"scientist"
+]
+
 const hitbox_radius = 50;
 const hitbox_height = 150;
 

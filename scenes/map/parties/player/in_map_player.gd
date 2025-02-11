@@ -3,7 +3,6 @@ extends MapParty
 class_name InMapPlayer;
 
 @export var camera:Camera2D;
-var move_speed:float = 200.0;
 
 var in_settlement:bool = false;
 

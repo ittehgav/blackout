@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c55pra6yiugp3"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://shaders/materials/fighter_base.tres" id="1_2u2il"]
-[ext_resource type="Texture2D" uid="uid://cwd7ms5in0o41" path="res://assets/sprites/fighters/gravityguy.png" id="1_if48y"]
+[ext_resource type="Texture2D" uid="uid://cwd7ms5in0o41" path="res://assets/visual/sprites/fighters/gravityguy.png" id="1_if48y"]
 [ext_resource type="Script" path="res://scenes/indexes/fighters/gravityguy.gd" id="2_oja1q"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighter/combat_stats.tscn" id="4_mnvhp"]
 
@@ -14,7 +14,3 @@ script = ExtResource("2_oja1q")
 stats = NodePath("stats")
 
 [node name="stats" parent="." instance=ExtResource("4_mnvhp")]
-max_hp = 200.0
-attack = 30.0
-defense = 10.0
-move_speed = 500.0

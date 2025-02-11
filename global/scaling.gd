@@ -1,0 +1,112 @@
+extends Node
+
+
+func initiate_unit_stats(unit:Fighter)->void:
+	## gives the stats to a Fighter ONLY THE INITIAL VALUE FROM THEIR TAGS
+	## will be ran when the node is first loaded and when it evolves, where it will 
+	## retroactively gain the bonuses for the current level
+	for tag:String in unit.base.tags:
+		match tag:
+			"juggernaut":
+				unit.stats.max_hp += 100;
+				unit.stats.defense += 20;
+				unit.stats.attack += 100;
+			"brawler":
+				unit.stats.max_hp += 75;
+				unit.stats.defense += 15;
+				unit.stats.attack += 150;
+			"hunter":
+				unit.stats.max_hp += 25;
+				unit.stats.defense += 0;
+				unit.stats.attack += 300;
+			"disruptor":
+				unit.stats.max_hp+= 25;
+				unit.stats.defense += 5;
+				unit.stats.attack += 5;
+			"healer":
+				unit.stats.max_hp+= 50;
+				unit.stats.defense += 5;
+				unit.stats.attack += 0;
+			"scientist":
+				unit.stats.max_hp+= 25;
+				unit.stats.defense += 5;
+				unit.stats.attack += 100;
+			"mechanic":
+				unit.stats.max_hp+= 50;
+				unit.stats.max_hp+= 5000;
+				unit.stats.defense += 5;
+				unit.stats.attack += 100;
+			"bodybuilder":
+				unit.stats.max_hp+= 75;
+				unit.stats.defense += 5;
+				unit.stats.attack += 100;
+			"doctor":
+				unit.stats.max_p += 25;
+				unit.stats.defense += 5;
+				unit.stats.attack += 100;
+			"cyborg":
+				unit.stats.max_p += 25
+				unit.stats.defense += 10;
+				unit.stats.attack += 250
+
+
+func level_up_stats(unit:Fighter)->void:
+	for tag:String in unit.base.tags:
+		var gains:Dictionary = tag_stats_per_level(tag)
+		for key:String in gains.keys():
+			unit.stats[key] += gains[key]
+
+func tag_stats_per_level(tag:String)->Dictionary:
+	## will the difference between some technique and no technique feel huge?
+	## some tags can be straight up better than others?
+	var dict:= {};
+	match tag:
+		"juggernaut":
+			dict.max_hp = 250;
+			dict.defense = 10;
+			dict.attack = 5;
+		"brawler":
+			dict.max_hp = 150;
+			dict.defense = 7
+			dict.attack = 10;
+		"hunter":
+			dict.max_hp = 50;
+			dict.defense = 2;
+			dict.attack = 20;
+			dict.technique = .05
+		"disruptor":
+			dict.max_hp = 50;
+			dict.defense = 2;
+			dict.attack = 5;
+			dict.technique = .125
+		"healer":
+			dict.max_hp = 100;
+			dict.defense = 5;
+			dict.attack = 0;
+			dict.technique = .125
+		
+		"scientist":
+			dict.max_hp = 50;
+			dict.defense = 5;
+			dict.attack = 10;
+			dict.technique = .2;
+		"mechanic":
+			dict.max_hp = 100;
+			dict.defense = 10;
+			dict.attack = 10;
+			dict.technique = .125
+		"bodybuilder":
+			dict.max_hp = 200;
+			dict.defense = 5;
+			dict.attack = 10;
+		"doctor":
+			dict.max_hp = 50;
+			dict.defense = 2;
+			dict.attack = 0;
+			dict.technique = .2;
+		"cyborg":
+			dict.max_hp = 100;
+			dict.defense = 10;
+			dict.attack = 10;
+			dict.technique = .125
+	return dict;

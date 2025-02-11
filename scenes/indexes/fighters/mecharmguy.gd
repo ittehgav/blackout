@@ -10,6 +10,11 @@ const skill_name =  "Wrecking Punch"
 const short_description = "Throws a powerful punch that reduces the defense of the target."
 const long_description = "Can tear through even the toughest of enemies."
 
+const tags = [
+	"juggernaut",
+	"cyborg",
+	"brawler"
+]
 
 const hitbox_radius = 50;
 const hitbox_height = 150;

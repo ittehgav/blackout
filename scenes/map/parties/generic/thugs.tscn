@@ -13,6 +13,7 @@ combat_stats = NodePath("stats")
 
 [node name="Inventory" parent="." instance=ExtResource("2_pre44")]
 
-[node name="Roster" parent="." instance=ExtResource("3_uabn6")]
+[node name="Roster" parent="." node_paths=PackedStringArray("units") instance=ExtResource("3_uabn6")]
+units = [null]
 
 [node name="stats" parent="." instance=ExtResource("4_a55b4")]

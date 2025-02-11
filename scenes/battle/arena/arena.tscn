@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=6 format=4 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
-[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_ahtdn"]
 [ext_resource type="Texture2D" uid="uid://b5v0av607qkqc" path="res://assets/visual/tiles/Terrain/Ground/Tilemap_Flat.png" id="2_h1h18"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/player/in_fight_player.tscn" id="4_n7xip"]
-[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="7_qmo1s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l0ejv"]
 texture = ExtResource("2_h1h18")
@@ -49,12 +47,6 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_scfhb"]
 sources/0 = SubResource("TileSetAtlasSource_l0ejv")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5kune"]
-resource_local_to_scene = true
-shader = ExtResource("7_qmo1s")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-
 [node name="arena" type="Node2D" node_paths=PackedStringArray("team_1_node", "team_2_node")]
 script = ExtResource("1_gosq3")
 team_1_node = NodePath("team_1")
@@ -68,29 +60,6 @@ collision_enabled = false
 
 [node name="team_1" type="Node2D" parent="."]
 
-[node name="npc_fighter" parent="team_1" instance=ExtResource("2_ahtdn")]
-position = Vector2(444, 180)
-
 [node name="in_fight_player" parent="team_1" instance=ExtResource("4_n7xip")]
-position = Vector2(245, 17)
-
-[node name="body" parent="team_1/in_fight_player" index="1"]
-material = SubResource("ShaderMaterial_5kune")
-
-[node name="stun_display" parent="team_1/in_fight_player/overlay" index="2"]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 32.0
-offset_bottom = 32.0
 
 [node name="team_2" type="Node2D" parent="."]
-
-[node name="npc_fighter3" parent="team_2" instance=ExtResource("2_ahtdn")]
-position = Vector2(175, 257)
-
-[node name="npc_fighter4" parent="team_2" instance=ExtResource("2_ahtdn")]
-position = Vector2(448, 264)
-
-[editable path="team_1/in_fight_player"]
-[editable path="team_1/in_fight_player/fighter_timers"]
-[editable path="team_1/in_fight_player/overlay"]
