@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ci0qrxesuuyg6"]
-
-[ext_resource type="Script" path="res://scenes/indexes/dialogues/thugs.gd" id="1_iwgba"]
-
-[node name="Thugs Dialogue" type="Node"]
-script = ExtResource("1_iwgba")

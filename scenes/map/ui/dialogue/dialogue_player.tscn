@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://di52ctdy1nihl"]
+[gd_scene load_steps=5 format=3 uid="uid://di52ctdy1nihl"]
 
 [ext_resource type="Script" path="res://scenes/map/ui/dialogue/dialogue_player.gd" id="1_78q7f"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="2_7vmqi"]
+[ext_resource type="Resource" uid="uid://b5o607txbh0ge" path="res://resources/dialogues/thugs.dialogue" id="2_awglh"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_qvf0k"]
 color = Color(1, 1, 1, 1)
 thickness = 4
 
-[node name="Dialogue" type="Control" node_paths=PackedStringArray("choice_button")]
+[node name="Dialogue" type="Control" node_paths=PackedStringArray("choice_button", "choices_box", "choices_container", "speaker_name_label", "text_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +16,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_78q7f")
+current_dialogue = ExtResource("2_awglh")
 choice_button = NodePath("PanelContainer/_choice")
+choices_box = NodePath("PanelContainer")
+choices_container = NodePath("PanelContainer/VBoxContainer")
+speaker_name_label = NodePath("Panel/speaker_name")
+text_label = NodePath("Panel/DialogueLabel")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -42,26 +49,12 @@ theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 96
 text = "wawa"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/bold_italics_font_size = 48
-theme_override_font_sizes/italics_font_size = 48
-theme_override_font_sizes/mono_font_size = 48
-theme_override_font_sizes/normal_font_size = 48
-theme_override_font_sizes/bold_font_size = 48
-bbcode_enabled = true
-text = "wawa eweawio jhrpaseouthrawepiuthawepiufghae4rpiughaer  
-graeog hser
-g se [htaeg a"
+[node name="DialogueLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_7vmqi")
+skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/map/world_map/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="Texture2D" uid="uid://ja3tgd5rjsjh" path="res://assets/visual/backgrounds/settlements/farm.jpg" id="2_a8cfp"]
 [ext_resource type="Script" path="res://scenes/map/world_map/options.gd" id="3_2ay4q"]
-[ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://themes/dark.tres" id="3_obgmr"]
+[ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://resources/themes/dark.tres" id="3_obgmr"]
 [ext_resource type="Script" path="res://scenes/map/world_map/resource_trade_menu.gd" id="4_y856o"]
 [ext_resource type="PackedScene" uid="uid://b24i4rn2btsi0" path="res://scenes/map/ui/trading/resource_trader_card.tscn" id="6_h5go8"]
 

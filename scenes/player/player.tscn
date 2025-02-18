@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxonxw6koom7v"]
+[gd_scene load_steps=6 format=3 uid="uid://dxonxw6koom7v"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_efaxt"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="2_w3kr7"]
 [ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster.tscn" id="3_5khbq"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighter/combat_stats.tscn" id="4_4udko"]
+[ext_resource type="Script" path="res://scenes/player/leadership_stats.gd" id="5_a3c1i"]
 
-[node name="Player" type="Node" node_paths=PackedStringArray("inventory", "roster", "combat_stats")]
+[node name="Player" type="Node" node_paths=PackedStringArray("leadership_stats", "inventory", "roster", "combat_stats")]
 script = ExtResource("1_efaxt")
+leadership_stats = NodePath("leadership_stats")
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("stats")
@@ -22,3 +24,6 @@ chips = 7
 [node name="Roster" parent="." instance=ExtResource("3_5khbq")]
 
 [node name="stats" parent="." instance=ExtResource("4_4udko")]
+
+[node name="leadership_stats" type="Node" parent="."]
+script = ExtResource("5_a3c1i")

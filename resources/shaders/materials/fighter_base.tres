@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c67ajt88mamto"]
+
+[ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="1_aqx4w"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_aqx4w")
+shader_parameter/target_color = null
+shader_parameter/grad = null

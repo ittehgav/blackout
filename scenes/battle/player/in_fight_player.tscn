@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
-[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="3_3uxwr"]
+[ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="3_3uxwr"]
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="4_uqyhm"]
 [ext_resource type="Script" path="res://scenes/battle/player/body.gd" id="5_yvg0f"]
 [ext_resource type="Script" path="res://scenes/battle/player/weapon.gd" id="6_cbwmk"]

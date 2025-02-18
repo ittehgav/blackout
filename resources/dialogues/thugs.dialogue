@@ -1,0 +1,14 @@
+~ start
+Thugs: Hey you, give me everything you have!
+- Over my cold, dead hands! [color=red] Engage in battle
+	Thugs: i just shit myself
+- Okay, you can have it, just don't hurt me! [color=dark_red] Lose half of your food, fuel and money
+	Thugs: lmao
+- Maybe we can talk this out? => talk_things_out
+
+~ talk_things_out
+Thugs: Maybe I'll let you choose which of your bones i'll break first!
+- What if you did the smart thing and not cause us any trouble? 
+- What if i offered 
+
+=> END

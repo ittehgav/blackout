@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cn6wxjfhbdfcq"]
 
 [ext_resource type="Texture2D" uid="uid://tsefuarfxuhu" path="res://assets/visual/sprites/fighters/coilguy.png" id="1_5yy3e"]
-[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://shaders/materials/fighter_base.tres" id="1_bnqoe"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_bnqoe"]
 [ext_resource type="Script" path="res://scenes/indexes/fighters/coilguy.gd" id="2_aqke5"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighter/combat_stats.tscn" id="4_kt263"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" path="res://scenes/map/world_map.gd" id="1_s4sam"]
-[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="3_ircok"]
+[ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="3_ircok"]
 [ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/map/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
 [ext_resource type="Script" path="res://scenes/map/world_map/ui.gd" id="6_d8dst"]

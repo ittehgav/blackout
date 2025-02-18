@@ -1,5 +1,7 @@
 extends Control
 
+@export var current_dialogue:DialogueResource;
+
 @export var choice_button:Button;
 
 @export var choices_box:PanelContainer;
@@ -13,6 +15,7 @@ var lines:Array[Array]
 
 func _ready()->void:
 	Entities.dialogue_player = self;
+	next_line()
 	
 
 func load_lines(init_lines:Array[Array])->void:
@@ -34,34 +37,12 @@ func start_dialogue():
 	choices_box.hide();
 	show()
 	next_line()
-	
+
 func next_line():
-	current_line_index += 1;
-	var line = lines[current_line_index]
-	match line[0]:
-		"T":
-			## T = basic text, changes the text currently on display
-			pass
-		"S":
-			## S = speaker name change, chanes the speaker's name on display,
-			## and in the future also their visual?
-			pass
-		"P":
-			## P = prompt
-			load_prompt(line);
-		"E":
-			end_dialogue();
-		## lots more to add on but keep it simple for the first demo
-
-
-func load_prompt(line:Array):
-	for i:int in len(line[1]):
-		var choice_text:String = line[1][i];
-		var choice_outcome:Callable = line[2][i]
+	var next_line:DialogueLine = await current_dialogue.get_next_dialogue_line("start")
+	print(next_line.responses);
+	while next_line:
+		next_line = await current_dialogue.get_next_dialogue_line(next_line.next_id)
+		if "responses" in next_line:
+			print(next_line.responses);
 		
-		var choice = DialogueChoice.new()
-		choice.load_text(choice_text);
-		choice.pressed.conect(choice_outcome);
-		
-func end_dialogue():
-	pass

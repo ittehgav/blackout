@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cyome5ww8fely"]
+
+[ext_resource type="Shader" path="res://resources/shaders/pixelate.gdshader" id="1_k5c5w"]
+
+[resource]
+shader = ExtResource("1_k5c5w")
+shader_parameter/amount = 50.0

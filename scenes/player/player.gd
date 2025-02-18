@@ -2,6 +2,8 @@ extends Leader
 
 class_name Player;
 
+@export var leadership_stats:Node;
+
 signal resources_changed;
 
 ## leadership skills will be a special tree that grants a special bonus at each level

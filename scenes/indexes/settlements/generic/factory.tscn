@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d01qvu00evo46"]
 
-[ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://shaders/materials/settlement.tres" id="1_bkqf8"]
+[ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="1_bkqf8"]
 [ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/visual/sprites/settlements/factory.png" id="1_cwx7e"]
 [ext_resource type="Script" path="res://scenes/indexes/settlements/generic/factory.gd" id="2_82p61"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_8bllo"]

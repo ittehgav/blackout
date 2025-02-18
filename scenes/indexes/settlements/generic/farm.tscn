@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/indexes/settlements/generic/farm.gd" id="2_d001o"]
 [ext_resource type="PackedScene" uid="uid://4wvh3dxhi1cy" path="res://scenes/map/ui/tooltip.tscn" id="3_2q0sq"]
 [ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_6win5"]
-[ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://shaders/materials/settlement.tres" id="3_prkd2"]
+[ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="3_prkd2"]
 [ext_resource type="Texture2D" uid="uid://dl8ct2ft4t4x5" path="res://assets/visual/sprites/settlements/farm.png" id="4_6vfoy"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="5_ptoka"]
 

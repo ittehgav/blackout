@@ -1,6 +1,6 @@
 extends Leader
 
-
+@export var dialogue:DialogueResource;
 
 #
 #var dialogue = Dialogue.new([

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scenes/map/parties/player/in_map_camera.gd" id="4_ibn0u"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/fighter/fighter_unit.tscn" id="5_rrghm"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="6_06avr"]
-[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="7_qkp1n"]
+[ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="7_qkp1n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]
 radius = 30.0

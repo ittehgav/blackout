@@ -26,12 +26,17 @@ Index="*res://global/index.gd"
 Trade="*res://global/trade.gd"
 Scaling="*res://global/scaling.gd"
 MapEvents="*res://global/map_events.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/always_on_top=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [file_customization]
 
@@ -43,7 +48,7 @@ folder_colors={
 
 [gui]
 
-theme/custom="res://themes/PixelTheme-Paper.tres"
+theme/custom="res://resources/themes/PixelTheme-Paper.tres"
 
 [input]
 
@@ -82,6 +87,10 @@ show_tactics={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://resources/dialogues/thugs.dialogue")
 
 [layer_names]
 

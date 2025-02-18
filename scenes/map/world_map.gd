@@ -6,6 +6,7 @@ class_name WorldMap
 
 func _ready()->void:
 	Entities.world_map = self;
+	Entities.world_map = self;
 
 func _on_player_started_moving() -> void:
 	$entities.process_mode = PROCESS_MODE_PAUSABLE
