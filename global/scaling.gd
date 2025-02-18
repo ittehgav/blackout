@@ -1,8 +1,9 @@
 extends Node
 
 
-func initiate_unit_stats(unit:Fighter)->void:
-	## gives the stats to a Fighter ONLY THE INITIAL VALUE FROM THEIR TAGS
+func initiate_unit_stats(unit:FighterUnit)->void:
+	## gives the stats to a FighterUnit
+	## ONLY THE INITIAL VALUE FROM THEIR BASE'S TAGS
 	## will be ran when the node is first loaded and when it evolves, where it will 
 	## retroactively gain the bonuses for the current level
 	for tag:String in unit.base.tags:
@@ -50,7 +51,7 @@ func initiate_unit_stats(unit:Fighter)->void:
 				unit.stats.attack += 250
 
 
-func level_up_stats(unit:Fighter)->void:
+func level_up_stats(unit:FighterUnit)->void:
 	for tag:String in unit.base.tags:
 		var gains:Dictionary = tag_stats_per_level(tag)
 		for key:String in gains.keys():

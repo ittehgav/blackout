@@ -2,8 +2,6 @@ extends Node
 
 class_name Leader
 
-@onready var npc_fighter_scene:PackedScene = preload("res://scenes/battle/npc_fighter/npc_fighter.tscn");
-
 @export var inventory:Inventory;
 @export var roster:Roster;
 @export var combat_stats:CombatStats;
@@ -12,9 +10,15 @@ func load_party(team:Node2D)->Array[ActiveFighter]:
 	var x_acm = 0;
 	var y_acm = 0;
 	var party:Array[ActiveFighter]
-	for unit in roster.units:
-		var npc_fighter:NpcFighter = npc_fighter_scene.instantiate();
-		npc_fighter.fighter = unit;
+
+	if not self is Player:
+		## make the leader of each party an operational fighter
+		## higher level/class than subordinates?
+		print("notp")
+
+	for unit:FighterUnit in roster.units:
+		var npc_fighter:NpcFighter = NpcFighter.new();
+		npc_fighter.unit = unit;
 		npc_fighter.load_fighter();
 		
 		npc_fighter.position = Vector2(x_acm, y_acm);
@@ -25,5 +29,4 @@ func load_party(team:Node2D)->Array[ActiveFighter]:
 		
 		team.add_child(npc_fighter);
 		party.push_back(npc_fighter);
-	print(party)
 	return party

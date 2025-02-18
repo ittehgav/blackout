@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://8it4um7bn0p1"]
+[gd_scene load_steps=2 format=3 uid="uid://dga1b0o7jyy3x"]
 
 [ext_resource type="Script" path="res://scenes/superclasses/leader/leader.gd" id="1_luj4t"]
 

@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://di52ctdy1nihl"]
+
+[ext_resource type="Script" path="res://scenes/map/ui/dialogue/dialogue_player.gd" id="1_78q7f"]
+[ext_resource type="PackedScene" uid="uid://iq3683m8bnmc" path="res://scenes/map/ui/dialogue/dialogue_choice.tscn" id="2_nmaof"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_qvf0k"]
+color = Color(1, 1, 1, 1)
+thickness = 4
+
+[node name="DialoguePlayer" type="Control" node_paths=PackedStringArray("choice_button", "choices_box", "choices_container", "speaker_name_label", "text_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_78q7f")
+choice_button = NodePath("")
+choices_box = NodePath("PanelContainer")
+choices_container = NodePath("PanelContainer/VBoxContainer")
+speaker_name_label = NodePath("Panel/speaker_name")
+text_label = NodePath("Panel/text")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -230.0
+offset_right = -25.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="speaker_name" type="Label" parent="Panel"]
+layout_mode = 0
+offset_top = -77.0
+offset_right = 168.0
+offset_bottom = -1.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = -2
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 96
+text = "wawa"
+
+[node name="text" type="RichTextLabel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+bbcode_enabled = true
+text = "wawa eweawio jhrpaseouthrawepiuthawepiufghae4rpiughaer  
+graeog hser
+g se [htaeg a"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -54.0
+offset_right = 234.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="_choice" parent="PanelContainer" instance=ExtResource("2_nmaof")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Choose an Answer
+"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_qvf0k")

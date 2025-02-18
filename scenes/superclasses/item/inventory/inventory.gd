@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 ## any settlement or party has an inventory
 class_name Inventory;

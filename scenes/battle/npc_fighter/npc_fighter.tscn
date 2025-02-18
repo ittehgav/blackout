@@ -69,14 +69,17 @@ autostart = true
 
 [node name="overlay" parent="." instance=ExtResource("4_g7h3x")]
 
+[node name="stun_display" parent="overlay" index="2"]
+texture_progress = null
+
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_om1h4")
 script = ExtResource("5_8vs8j")
 ally_death = ExtResource("6_om1h4")
 enemy_death = ExtResource("6_g7r3k")
 
-[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
+[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="death" from="." to="." method="_on_death"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
 [connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]

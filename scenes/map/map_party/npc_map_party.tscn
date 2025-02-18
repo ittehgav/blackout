@@ -5,10 +5,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpm2v"]
 radius = 25.0
 
-[node name="NpcMapParty" type="CharacterBody2D" node_paths=PackedStringArray("leader", "vehicle")]
+[node name="NpcMapParty" type="CharacterBody2D"]
 script = ExtResource("1_lag4v")
-leader = NodePath("")
-vehicle = NodePath("")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qpm2v")

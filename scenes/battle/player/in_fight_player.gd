@@ -17,6 +17,8 @@ var moving:bool = false;
 
 func _ready()->void:
 	Entities.in_fight_player = self;
+	## this node is the only fighter that'll always be in an arena instance
+	load_fighter()
 
 func load_fighter():
 	var stats = Entities.player.combat_stats;

@@ -1,23 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0vg6gq1edsw"]
+[gd_scene load_steps=10 format=3 uid="uid://c0vg6gq1edsw"]
 
 [ext_resource type="Script" path="res://scenes/map/parties/player/in_map_player.gd" id="1_h5u0f"]
 [ext_resource type="PackedScene" uid="uid://cxnvcyig6jdws" path="res://scenes/indexes/vehicles/black_suv.tscn" id="2_b8oxe"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
 [ext_resource type="Script" path="res://scenes/map/parties/player/in_map_camera.gd" id="4_ibn0u"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/fighter/fighter_unit.tscn" id="5_rrghm"]
+[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="6_06avr"]
+[ext_resource type="Shader" path="res://shaders/blink_vfx.gdshader" id="7_qkp1n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]
 radius = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc55"]
+resource_local_to_scene = true
+shader = ExtResource("7_qkp1n")
+shader_parameter/target_color = null
+shader_parameter/grad = null
 
 [node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "leader")]
 process_mode = 3
 script = ExtResource("1_h5u0f")
 camera = NodePath("in_map_camera")
-leader = NodePath("Player")
+leader = NodePath("data/Player")
 
 [node name="BlackSuv" parent="." node_paths=PackedStringArray("party") instance=ExtResource("2_b8oxe")]
 party = NodePath("..")
-
-[node name="Player" parent="." instance=ExtResource("2_c0i2s")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n4fri")
@@ -26,4 +33,22 @@ shape = SubResource("CircleShape2D_n4fri")
 position_smoothing_enabled = true
 script = ExtResource("4_ibn0u")
 
+[node name="data" type="Node2D" parent="."]
+
+[node name="Player" parent="data" instance=ExtResource("2_c0i2s")]
+
+[node name="Roster" parent="data/Player" index="1" node_paths=PackedStringArray("units")]
+units = [NodePath("FighterUnit")]
+
+[node name="FighterUnit" parent="data/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("5_rrghm")]
+base = NodePath("Arm Guy")
+level = 2
+experience = 1
+
+[node name="Arm Guy" parent="data/Player/Roster/FighterUnit" instance=ExtResource("6_06avr")]
+material = SubResource("ShaderMaterial_1gc55")
+
 [connection signal="started_moving" from="." to="." method="_on_started_moving"]
+
+[editable path="data/Player"]
+[editable path="data/Player/Roster/FighterUnit"]

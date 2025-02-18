@@ -4,7 +4,7 @@ class_name NpcFighter
 
 signal target_change;
 
-@export var fighter:Fighter;
+@export var unit:FighterUnit;
 @export var hit_scan:Area2D;
 @export var cooldown_timer:Timer;
 @export var skill_retry_timer:Timer;
@@ -16,18 +16,17 @@ var current_animation:String = "idle";
 var target_unit:ActiveFighter;
 var target_in_range:bool = false;
 
-func _ready()->void:
-	load_fighter();
 
 func load_fighter()->void:
-	if not fighter:
-		fighter = Fighter.new();
+	if not unit:
+		unit = FighterUnit.new();
 		var new_base:FighterBase = Index.random_fighter_base();
-		fighter.base = new_base
+		unit.base = new_base
 
-	base = fighter.base.duplicate()
 	## fighter bases are instantiated as the fight begins
 	## Fighter nodes are not children of the ActiveFighters
+	
+	base = unit.base.duplicate();
 	add_child(base)
 
 	$hitbox.shape.radius = base.hitbox_radius;
@@ -52,14 +51,14 @@ func load_fighter()->void:
 	$skill_range/shape.shape.radius = base.skill_range;
 	
 	## eventually will add persistant values from leveling/other modifiers;
-	max_hp = fighter.stats.max_hp;
-	hp = fighter.stats.max_hp;
+	max_hp = unit.stats.max_hp;
+	hp = unit.stats.max_hp;
 	
-	attack = fighter.stats.attack;
-	defense = fighter.stats.defense;
+	attack = unit.stats.attack;
+	defense = unit.stats.defense;
 	
-	technique = fighter.stats.technique
-	move_speed = fighter.stats.move_speed
+	technique = unit.stats.technique
+	move_speed = unit.stats.move_speed
 	
 	cooldown_timer.wait_time = base.skill_cooldown;
 	
@@ -75,18 +74,18 @@ func find_target()->void:
 	match base.target_type:
 		"nearest_enemy":
 			var current_distance:float;
-			for unit in enemy_team:
-
-				var distance:float = position.distance_to(unit.position)
+			for enemy in enemy_team:
+				var distance:float = position.distance_to(enemy.position)
 				@warning_ignore("unassigned_variable")
 				if not target or distance < current_distance:
-					target = unit;
+					target = enemy;
 					current_distance = distance;
 
 		"least_hp_ally":
-			for unit in ally_team:
-				if not target or target.hp < unit.hp:
-					target = unit;
+			for ally in ally_team:
+				if not target or target.hp < ally.hp:
+					target = ally;
+
 	if target != target_unit:
 		target_unit = target;
 		target_change.emit();

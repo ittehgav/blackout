@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://scenes/superclasses/item/item_types/consumable.gd" id="1_ti25i"]
 
-[node name="Consumable" type="Node"]
+[node name="Consumable" type="Sprite2D"]
 script = ExtResource("1_ti25i")
