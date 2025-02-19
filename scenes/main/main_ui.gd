@@ -12,8 +12,5 @@ func test_battle() -> void:
 
 func world_map() -> void:
 	var map:WorldMap = world_map_scene.instantiate();
-	print(map)
-	print(get_parent().get_children())
 	get_parent().add_child(map);
-	print(get_parent().get_children())
 	hide()

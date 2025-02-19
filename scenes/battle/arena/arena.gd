@@ -23,11 +23,9 @@ func load_teams(enemy_leader:Leader):
 
 func match_teams()->void:
 	for unit:ActiveFighter in team_1:
-		print(unit)
 		assign_team(unit, 1);
 
 	for unit:ActiveFighter in team_2:
-		print(unit)
 		assign_team(unit, 2)
 
 func check_battle_over(_killer:ActiveFighter)->void:

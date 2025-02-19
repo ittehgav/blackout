@@ -6,7 +6,6 @@ class_name Vehicle
 
 func _ready():
 	party = get_parent();
-	print(party)
 
 func _physics_process(_delta: float) -> void:
 	var check_position:Vector2;
