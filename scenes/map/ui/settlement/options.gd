@@ -26,8 +26,9 @@ func listen_around() -> void:
 
 
 func exit_settlement() -> void:
-	get_parent().get_parent().hide();
-	Entities.in_map_player.in_settlement = false;
+	var settlement_ui:Control = get_parent().get_parent();
+	settlement_ui.settlement_left.emit();
+	settlement_ui.hide();
 
 func show_main_view()->void:
 	resource_trade_menu.hide()

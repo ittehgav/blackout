@@ -11,7 +11,8 @@ class_name FighterUnit
 @export var stats:CombatStats;
 
 func _ready()->void:
-	load_stats();
+	if base:
+		load_stats();
 	
 
 func load_stats():
@@ -20,4 +21,3 @@ func load_stats():
 	## gear (?)
 	Scaling.initiate_unit_stats(self);
 	Scaling.level_up_stats(self)
-		

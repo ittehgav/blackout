@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://di52ctdy1nihl"]
+[gd_scene load_steps=5 format=3 uid="uid://di52ctdy1nihl"]
 
 [ext_resource type="Script" path="res://scenes/map/ui/dialogue/dialogue_player.gd" id="1_78q7f"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="2_7vmqi"]
-[ext_resource type="Resource" uid="uid://b5o607txbh0ge" path="res://resources/dialogues/thugs.dialogue" id="2_awglh"]
 [ext_resource type="PackedScene" uid="uid://bhxxi2711i5k2" path="res://scenes/map/ui/dialogue/dialogue_choice.tscn" id="3_eqxh4"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_qvf0k"]
@@ -10,6 +9,7 @@ color = Color(1, 1, 1, 1)
 thickness = 4
 
 [node name="Dialogue" type="Control" node_paths=PackedStringArray("choices_box", "choices_container", "speaker_name_label", "text_label")]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_78q7f")
-current_dialogue = ExtResource("2_awglh")
 dialogue_choice_scene = ExtResource("3_eqxh4")
 choices_box = NodePath("PanelContainer")
 choices_container = NodePath("PanelContainer/VBoxContainer")

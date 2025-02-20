@@ -15,7 +15,11 @@ const hitbox_height = 150;
 const hit_scan_radius = 100;
 const skill_range = 100;
 
-
+const tags = [
+	"brawler",
+	"hunter",
+	"mechanic"
+]
 
 const skill_cooldown = 3;
 

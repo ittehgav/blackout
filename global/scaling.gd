@@ -42,11 +42,11 @@ func initiate_unit_stats(unit:FighterUnit)->void:
 				unit.stats.defense += 5;
 				unit.stats.attack += 100;
 			"doctor":
-				unit.stats.max_p += 25;
+				unit.stats.max_hp += 25;
 				unit.stats.defense += 5;
 				unit.stats.attack += 100;
 			"cyborg":
-				unit.stats.max_p += 25
+				unit.stats.max_hp += 25
 				unit.stats.defense += 10;
 				unit.stats.attack += 250
 

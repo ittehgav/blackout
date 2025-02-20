@@ -1,8 +1,6 @@
 extends Control
 
-@warning_ignore("unused_signal")
-signal settlement_entered;
-@warning_ignore("unused_signal")
+signal settlement_entered(settlement:Settlement);
 signal settlement_left;
 
 @export var name_label:Label;
@@ -24,9 +22,10 @@ signal settlement_left;
 ]
 
 
-func _on_player_settlement_entered(settlement: Settlement) -> void:
-	$main_view/options.show_main_view();
+func _on_settlement_entered(settlement: Settlement) -> void:
+	Entities.world_map.pause_map();
 	
+	$main_view/options.show_main_view();
 	modulate.a = .1;
 	$background.texture = settlement.background;
 
@@ -50,3 +49,11 @@ func _on_player_settlement_entered(settlement: Settlement) -> void:
 	
 	var tween:Tween = create_tween();
 	tween.tween_property(self, "modulate:a", 1, .5);
+
+
+func _on_in_map_player_settlement_left() -> void:
+	Entities.world_map.unpause_map()
+
+
+func _on_settlement_left() -> void:
+	Entities.world_map.unpause_map();

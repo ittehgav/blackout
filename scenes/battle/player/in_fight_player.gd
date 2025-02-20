@@ -35,7 +35,6 @@ func load_fighter():
 	
 	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate()
 	weapon.add_child(equipped_weapon);
-
 	weapon.equip_weapon(equipped_weapon)
 	
 

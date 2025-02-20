@@ -11,8 +11,6 @@ signal stopped_moving;
 @export var leader:Leader;
 @export var vehicle:Vehicle
 
-var view_range:int;
-
 var target_entity:MapEntity;
 var target_position:Vector2;
 

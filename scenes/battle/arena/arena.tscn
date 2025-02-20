@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=7 format=4 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="Texture2D" uid="uid://b5v0av607qkqc" path="res://assets/visual/tiles/Terrain/Ground/Tilemap_Flat.png" id="2_h1h18"]
+[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_vr7dw"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/player/in_fight_player.tscn" id="4_n7xip"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l0ejv"]
@@ -49,6 +50,7 @@ sources/0 = SubResource("TileSetAtlasSource_l0ejv")
 
 [node name="arena" type="Node2D" node_paths=PackedStringArray("team_1_node", "team_2_node")]
 script = ExtResource("1_gosq3")
+npc_fighter_scene = ExtResource("2_vr7dw")
 team_1_node = NodePath("team_1")
 team_2_node = NodePath("team_2")
 

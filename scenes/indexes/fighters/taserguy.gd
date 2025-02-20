@@ -6,6 +6,10 @@ const skill_visuals = ["recoil"]
 
 const target_type = "nearest_enemy"
 
+const tags = [
+	"disruptor",
+	"scientist"
+]
 
 const skill_name = "Taser Shot"
 const short_description = "Deals light damage and stuns target."

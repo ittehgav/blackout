@@ -4,26 +4,24 @@ class_name InMapPlayer;
 
 @export var camera:Camera2D;
 
-var in_settlement:bool = false;
 
-signal settlement_entered(settlement:Settlement);
 
 func _ready()->void:
 	Entities.in_map_player = self;
+	target_position = position;
 
 func _input(e:InputEvent)->void:
-	if not in_settlement:
-		if e is InputEventMouseButton and e.is_pressed() \
-		and e.button_index==MOUSE_BUTTON_LEFT:
-			target_position = Entities.world_map.get_local_mouse_position();
-			if not camera.in_player:
-				target_position += camera.position - position;
-			started_moving.emit();
+	if e is InputEventMouseButton and e.is_pressed() \
+	and e.button_index==MOUSE_BUTTON_LEFT:
+		target_position = Entities.world_map.get_local_mouse_position();
+		if not camera.in_player:
+			target_position += camera.position - position;
+		started_moving.emit();
 
-		if camera.in_player:
-			var camera_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-			if camera_direction and camera.in_player:
-				camera.free_panning()
+	if camera.in_player:
+		var camera_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		if camera_direction and camera.in_player:
+			camera.free_panning()
 			
 			
 
@@ -50,12 +48,19 @@ func stop_movement()->void:
 func interact_with_map_entity(entity:MapEntity)->void:
 	if entity is Settlement:
 		Entities.current_settlement = entity;
-		settlement_entered.emit(entity)
+		Entities.world_map.ui.settlement_ui.settlement_entered.emit(entity)
 		Entities.ui_sfx.play_stream_by_key("settlement_entered")
-		in_settlement = true;
+
 	elif entity is MapParty:
-		print("ismapp")
+		Entities.current_speaking_party = entity;
+		Entities.world_map.ui.settlement_ui.settlement_left.emit(entity)
+		Entities.dialogue_player.start_dialogue(entity.leader.dialogue)
 
 
 func _on_started_moving() -> void:
+	get_tree().paused = false;
 	camera.return_to_player()
+
+
+func _on_stopped_moving() -> void:
+	get_tree().paused = true;

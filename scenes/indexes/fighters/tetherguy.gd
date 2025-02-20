@@ -23,6 +23,13 @@ const heal_value = 5.0;
 const total_heal_ticks = 10;
 const heal_interval = 1.0;
 
+const tags = [
+	"healer",
+	"scientist",
+	"doctor"
+]
+
+
 func special_skill(fighter:ActiveFighter)->void:
 	var effect:Callable = Combat.heal_unit.bind(fighter, fighter.target_unit, heal_value);
 	Combat.recurring_effect(fighter.target_unit, effect, heal_interval, total_heal_ticks);

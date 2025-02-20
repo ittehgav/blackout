@@ -21,7 +21,7 @@ shader_parameter/grad = null
 process_mode = 3
 script = ExtResource("1_h5u0f")
 camera = NodePath("in_map_camera")
-leader = NodePath("data/Player")
+leader = NodePath("Player")
 
 [node name="BlackSuv" parent="." node_paths=PackedStringArray("party") instance=ExtResource("2_b8oxe")]
 party = NodePath("..")
@@ -33,22 +33,21 @@ shape = SubResource("CircleShape2D_n4fri")
 position_smoothing_enabled = true
 script = ExtResource("4_ibn0u")
 
-[node name="data" type="Node2D" parent="."]
+[node name="Player" parent="." instance=ExtResource("2_c0i2s")]
 
-[node name="Player" parent="data" instance=ExtResource("2_c0i2s")]
-
-[node name="Roster" parent="data/Player" index="1" node_paths=PackedStringArray("units")]
+[node name="Roster" parent="Player" index="1" node_paths=PackedStringArray("units")]
 units = [NodePath("FighterUnit")]
 
-[node name="FighterUnit" parent="data/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("5_rrghm")]
+[node name="FighterUnit" parent="Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("5_rrghm")]
 base = NodePath("Arm Guy")
 level = 2
 experience = 1
 
-[node name="Arm Guy" parent="data/Player/Roster/FighterUnit" instance=ExtResource("6_06avr")]
+[node name="Arm Guy" parent="Player/Roster/FighterUnit" instance=ExtResource("6_06avr")]
 material = SubResource("ShaderMaterial_1gc55")
 
 [connection signal="started_moving" from="." to="." method="_on_started_moving"]
+[connection signal="stopped_moving" from="." to="." method="_on_stopped_moving"]
 
-[editable path="data/Player"]
-[editable path="data/Player/Roster/FighterUnit"]
+[editable path="Player"]
+[editable path="Player/Roster/FighterUnit"]

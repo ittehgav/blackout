@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_8bllo"]
 [ext_resource type="Texture2D" uid="uid://4qjxg6qo28dq" path="res://assets/visual/backgrounds/settlements/factory.jpg" id="3_641dt"]
 [ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_nhmlw"]
-[ext_resource type="PackedScene" uid="uid://4wvh3dxhi1cy" path="res://scenes/map/ui/tooltip.tscn" id="3_wsadw"]
+[ext_resource type="PackedScene" uid="uid://4wvh3dxhi1cy" path="res://scenes/map/ui/hud/tooltip.tscn" id="3_wsadw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8aio"]
 radius = 50.0

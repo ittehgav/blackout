@@ -263,8 +263,8 @@ texture_progress = null
 script = ExtResource("16_sjuhg")
 damage_taken = ExtResource("17_plg7w")
 
-[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
+[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]

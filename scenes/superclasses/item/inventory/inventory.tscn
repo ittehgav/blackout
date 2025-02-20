@@ -5,3 +5,6 @@
 [node name="Inventory" type="Node2D"]
 visible = false
 script = ExtResource("1_0ke8j")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

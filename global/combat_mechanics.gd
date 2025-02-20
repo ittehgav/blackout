@@ -10,10 +10,10 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter)->void:
 
 	if target.hp <= 0:
 		target.death.emit(source);
-		
-		target.ally_team.erase(target);
-		var tween:Tween = Tweens.death_vfx(target);
-		tween.tween_callback(target.queue_free);
+		if not target is InFightPlayer:
+			target.ally_team.erase(target);
+			var tween:Tween = Tweens.death_vfx(target);
+			tween.tween_callback(target.queue_free);
 
 func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	target.hp += value;

@@ -19,3 +19,27 @@ class_name Inventory;
 @export var weapons:Array[Weapon];
 @export var armor:Array[Armor];
 @export var trinkets:Array[Trinket];
+
+
+func _on_child_entered_tree(node: Node) -> void:
+	match node.get_class():
+		Consumable:
+			consumables.push_back(node);
+		Weapon:
+			weapons.push_back(node);
+		Armor:
+			armor.push_back(node);
+		Trinket:
+			trinkets.push_back(node)
+			
+
+func _on_child_exiting_tree(node: Node) -> void:
+	match node.get_class():
+		Consumable:
+			consumables.erase(node);
+		Weapon:
+			weapons.erase(node);
+		Armor:
+			armor.erase(node);
+		Trinket:
+			trinkets.erase(node)

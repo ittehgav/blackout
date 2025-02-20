@@ -17,14 +17,8 @@ var target_unit:ActiveFighter;
 var target_in_range:bool = false;
 
 
-func load_fighter()->void:
-	if not unit:
-		unit = FighterUnit.new();
-		var new_base:FighterBase = Index.random_fighter_base();
-		unit.base = new_base
-
-	## fighter bases are instantiated as the fight begins
-	## Fighter nodes are not children of the ActiveFighters
+func load_fighter(new_unit:FighterUnit)->void:
+	unit = new_unit
 	
 	base = unit.base.duplicate();
 	add_child(base)

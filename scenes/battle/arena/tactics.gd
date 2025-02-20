@@ -10,6 +10,7 @@ func _process(_delta:float)->void:
 		else:
 			Engine.time_scale -= .05
 			modulate.a += .1;
+
 	elif Input.is_action_just_released("show_tactics"):
 		get_tree().paused = false
 		tactic_right.mouse_filter = MOUSE_FILTER_IGNORE

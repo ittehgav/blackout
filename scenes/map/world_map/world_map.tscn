@@ -1,17 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=18 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" path="res://scenes/map/world_map.gd" id="1_s4sam"]
+[ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_hae4w"]
 [ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="3_ircok"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/weapons/tailpipe.tscn" id="4_4aisy"]
 [ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/map/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
-[ext_resource type="Script" path="res://scenes/map/world_map/ui.gd" id="6_d8dst"]
+[ext_resource type="Script" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
 [ext_resource type="PackedScene" uid="uid://bghgbhdlygqcs" path="res://scenes/indexes/settlements/generic/scrapyard.tscn" id="6_ooxid"]
-[ext_resource type="PackedScene" uid="uid://7fflfwvmna2n" path="res://scenes/map/ui/world_map_hud.tscn" id="7_33ijt"]
-[ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement_ui.tscn" id="7_b85ww"]
+[ext_resource type="PackedScene" uid="uid://7fflfwvmna2n" path="res://scenes/map/ui/hud/world_map_hud.tscn" id="7_33ijt"]
+[ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
 [ext_resource type="PackedScene" uid="uid://bl2gyiuhaw0j2" path="res://scenes/map/map_party/npc_map_party.tscn" id="7_hpkuj"]
 [ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/map/parties/generic/thugs.tscn" id="8_weuan"]
 [ext_resource type="PackedScene" uid="uid://itv8y8s3x8p7" path="res://scenes/indexes/vehicles/red_wagon.tscn" id="9_4eg2f"]
+[ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/map/ui/dialogue/dialogue_player.tscn" id="13_8dqwv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc55"]
 resource_local_to_scene = true
@@ -22,17 +25,33 @@ shader_parameter/grad = null
 [sub_resource type="Resource" id="Resource_fsmxr"]
 metadata/__load_path__ = "res://assets/backgrounds/settlements/farm.jpg"
 
-[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("player")]
+[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "player")]
+process_mode = 1
 script = ExtResource("1_s4sam")
+ui = NodePath("ui_overlay/ui")
 player = NodePath("entities/in_map_player")
+arena_scene = ExtResource("2_hae4w")
 
 [node name="entities" type="Node2D" parent="."]
 
 [node name="in_map_player" parent="entities" instance=ExtResource("4_vgkop")]
 position = Vector2(521, 310)
 
-[node name="Arm Guy" parent="entities/in_map_player/data/Player/Roster/FighterUnit" index="1"]
+[node name="Player" parent="entities/in_map_player" index="3" node_paths=PackedStringArray("equipped_weapon")]
+equipped_weapon = NodePath("Inventory/Tailpipe")
+
+[node name="Inventory" parent="entities/in_map_player/Player" index="0" node_paths=PackedStringArray("weapons")]
+weapons = [NodePath("Tailpipe")]
+
+[node name="Tailpipe" parent="entities/in_map_player/Player/Inventory" index="0" instance=ExtResource("4_4aisy")]
+
+[node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit" index="1"]
 material = SubResource("ShaderMaterial_1gc55")
+
+[node name="stats" parent="entities/in_map_player/Player" index="2"]
+max_hp = 1000.0
+attack = 10.0
+defense = 10.0
 
 [node name="Factory" parent="entities" instance=ExtResource("5_akvl2")]
 position = Vector2(214, 315)
@@ -56,7 +75,7 @@ party = NodePath("..")
 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
 
-[node name="ui" type="Control" parent="ui_overlay"]
+[node name="ui" type="Control" parent="ui_overlay" node_paths=PackedStringArray("settlement_ui")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -66,6 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_d8dst")
+settlement_ui = NodePath("settlement_ui")
 
 [node name="world_map_hud" parent="ui_overlay/ui" instance=ExtResource("7_33ijt")]
 layout_mode = 1
@@ -83,13 +103,14 @@ mouse_filter = 2
 [node name="background" parent="ui_overlay/ui/settlement_ui" index="0"]
 texture = null
 
-[connection signal="settlement_entered" from="entities/in_map_player" to="ui_overlay/ui/settlement_ui" method="_on_player_settlement_entered"]
-[connection signal="started_moving" from="entities/in_map_player" to="." method="_on_player_started_moving"]
-[connection signal="stopped_moving" from="entities/in_map_player" to="." method="_on_player_stopped_moving"]
+[node name="Dialogue" parent="ui_overlay/ui" instance=ExtResource("13_8dqwv")]
+visible = false
+layout_mode = 1
 
 [editable path="entities/in_map_player"]
-[editable path="entities/in_map_player/data/Player"]
-[editable path="entities/in_map_player/data/Player/Roster/FighterUnit"]
+[editable path="entities/in_map_player/Player"]
+[editable path="entities/in_map_player/Player/Inventory"]
+[editable path="entities/in_map_player/Player/Roster/FighterUnit"]
 [editable path="ui_overlay/ui/world_map_hud"]
 [editable path="ui_overlay/ui/settlement_ui"]
 [editable path="ui_overlay/ui/settlement_ui/resource_trade_menu/trader"]

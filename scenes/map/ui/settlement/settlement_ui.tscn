@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cqdyfeds3f681"]
 
-[ext_resource type="Script" path="res://scenes/map/world_map/settlement_ui.gd" id="1_dun4i"]
+[ext_resource type="Script" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="Texture2D" uid="uid://ja3tgd5rjsjh" path="res://assets/visual/backgrounds/settlements/farm.jpg" id="2_a8cfp"]
-[ext_resource type="Script" path="res://scenes/map/world_map/options.gd" id="3_2ay4q"]
+[ext_resource type="Script" path="res://scenes/map/ui/settlement/options.gd" id="3_2ay4q"]
 [ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://resources/themes/dark.tres" id="3_obgmr"]
-[ext_resource type="Script" path="res://scenes/map/world_map/resource_trade_menu.gd" id="4_y856o"]
+[ext_resource type="Script" path="res://scenes/map/ui/settlement/resource_trade_menu.gd" id="4_y856o"]
 [ext_resource type="PackedScene" uid="uid://b24i4rn2btsi0" path="res://scenes/map/ui/trading/resource_trader_card.tscn" id="6_h5go8"]
 
 [node name="settlement_ui" type="Control" node_paths=PackedStringArray("name_label", "short_description_label", "long_description_label", "trade_resources_btn", "trade_items_btn", "recruit_units_btn", "listen_around_btn")]
@@ -217,7 +217,9 @@ theme_override_font_sizes/font_size = 64
 text = "Confirm
 Trade"
 
+[connection signal="settlement_entered" from="." to="." method="_on_settlement_entered"]
 [connection signal="settlement_entered" from="." to="resource_trade_menu" method="_on_settlement_ui_settlement_entered"]
+[connection signal="settlement_left" from="." to="." method="_on_settlement_left"]
 [connection signal="pressed" from="main_view/exit" to="main_view/options" method="exit_settlement"]
 [connection signal="pressed" from="main_view/options/VBoxContainer/trade_resources" to="main_view/options" method="trade_resources"]
 [connection signal="pressed" from="main_view/options/VBoxContainer/trade_items" to="main_view/options" method="trade_items"]

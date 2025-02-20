@@ -17,11 +17,7 @@ func return_to_player()->void:
 		await tween.finished;
 		reparent(Entities.in_map_player, true);
 		global_position = Entities.in_map_player.global_position;
-		
-		
-		
-		
-	
+
 
 func _process(delta: float) -> void:
 	var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")

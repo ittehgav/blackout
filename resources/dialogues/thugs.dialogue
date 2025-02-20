@@ -12,7 +12,10 @@ Thugs: Maybe I'll let you choose which of your bones i'll break first!
 
 ~ yield
 do MapEvents.yield_resources()
+do Entities.dialogue_player.dialogue_ended()
 => END
+
 ~ battle
 do MapEvents.battle_speaking_party()
+do Entities.dialogue_player.dialogue_ended()
 => END

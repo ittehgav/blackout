@@ -11,6 +11,10 @@ const skill_name = "Rusty Pipe"
 const short_description = "Moderate resistance and damage, attacks reduce enemies' damage."
 const long_description = "Disruptive and resistant. Can be upgraded to become extremely resistant or to deal great AOE damage."
 
+const tags = [
+	"brawler",
+	"mechanic"
+]
 
 const hitbox_radius = 50;
 const hitbox_height = 150;

@@ -10,7 +10,7 @@ extends PanelContainer
 @export var chips_label:Label
 
 func _ready()->void:
-	Entities.player.resources_changed.connect(refresh_values);
+	-Entities.player.resources_changed.connect(refresh_values);
 	refresh_values()
 
 func refresh_values()->void:

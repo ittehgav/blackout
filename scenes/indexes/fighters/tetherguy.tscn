@@ -16,4 +16,3 @@ stats = NodePath("stats")
 [node name="stats" parent="." instance=ExtResource("4_hioug")]
 max_hp = 500.0
 defense = 15.0
-move_speed = 500.0
