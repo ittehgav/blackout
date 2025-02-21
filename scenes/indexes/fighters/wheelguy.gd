@@ -1,5 +1,7 @@
 extends FighterBase
 
+@export var dmg_timer:Timer;
+
 const skill_effects = ["special"];
 const skill_visuals = ["power_up_glow", "shake"]
 
@@ -21,7 +23,18 @@ const tags = [
 	"mechanic"
 ]
 
+const hit_scan_type = "surrounding";
+
 const skill_cooldown = 3;
 
+func _ready():
+	dmg_timer.timeout.connect(aoe_damage.bind(get_parent()));
+
 func special_skill(fighter:ActiveFighter)->void:
-	pass
+	if not dmg_timer.is_stopped():
+		dmg_timer.wait_time -= dmg_timer.wait_time/10;
+	else:
+		dmg_timer.start();
+
+func aoe_damage(unit:ActiveFighter) -> void:
+	Combat.aoe_damage(unit)

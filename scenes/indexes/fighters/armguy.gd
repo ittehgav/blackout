@@ -1,7 +1,5 @@
 extends FighterBase
 
-
-
 const skill_effects = ["aoe_damage", "aoe_stun"];
 const skill_visuals = ["lunge_forward"]
 

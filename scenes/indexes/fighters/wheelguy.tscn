@@ -1,21 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfbsdba6873vx"]
+[gd_scene load_steps=4 format=3 uid="uid://cfbsdba6873vx"]
 
 [ext_resource type="Texture2D" uid="uid://40ih8jb8k5rg" path="res://assets/visual/sprites/fighters/wheelguy.png" id="1_gtayi"]
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_npdqc"]
 [ext_resource type="Script" path="res://scenes/indexes/fighters/wheelguy.gd" id="1_qf76y"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighter/combat_stats.tscn" id="4_lvxsm"]
 
-[node name="Wheel Guy" type="Sprite2D" node_paths=PackedStringArray("stats")]
+[node name="Wheel Guy" type="Sprite2D" node_paths=PackedStringArray("dmg_timer")]
 material = ExtResource("1_npdqc")
 texture = ExtResource("1_gtayi")
 hframes = 4
 vframes = 3
 frame = 7
 script = ExtResource("1_qf76y")
-stats = NodePath("stats")
+dmg_timer = NodePath("aoe_dmg")
 
-[node name="stats" parent="." instance=ExtResource("4_lvxsm")]
-max_hp = 750.0
-attack = 10.0
-defense = 20.0
-move_speed = 500.0
+[node name="aoe_dmg" type="Timer" parent="."]
+autostart = true

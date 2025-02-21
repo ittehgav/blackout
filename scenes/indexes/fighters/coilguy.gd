@@ -30,7 +30,7 @@ func special_skill(fighter:ActiveFighter)->void:
 		fighter.target_unit.death.connect(remove_from_tagged.bind(fighter.target_unit))
 
 	elif not len(fighter.enemy_team) == len(tagged_targets):
-		var untagged_targets:Array[Node] = fighter.enemy_team.duplicate();
+		var untagged_targets:Array[ActiveFighter] = fighter.enemy_team.duplicate();
 		
 		for unit:ActiveFighter in tagged_targets:
 			untagged_targets.erase(unit)

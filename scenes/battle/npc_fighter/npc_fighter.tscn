@@ -39,7 +39,7 @@ script = ExtResource("2_8jf47")
 fighter = NodePath("..")
 
 [node name="shape" type="CollisionShape2D" parent="hit_scan"]
-position = Vector2(49, 0)
+position = Vector2(50, 0)
 shape = SubResource("CircleShape2D_2qjd5")
 
 [node name="skill_range" type="Area2D" parent="."]

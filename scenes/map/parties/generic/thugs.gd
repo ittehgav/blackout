@@ -24,14 +24,14 @@ func generate():
 	leader_unit.level = 5;
 	leader_unit.load_stats()
 	
-	for i in randi_range(1, 2):
-		var fighter:FighterUnit = fighter_unit_scene.instantiate();
-		
-		var base:FighterBase = Index.random_fighter_base()
-		fighter.base = base;
-		fighter.add_child(base);
-
-		fighter.level = randi_range(3, 5);
-		fighter.load_stats()
-		
-		roster.add_child(fighter);
+	#for i in randi_range(1, 2):
+		#var fighter:FighterUnit = fighter_unit_scene.instantiate();
+		#
+		#var base:FighterBase = Index.random_fighter_base()
+		#fighter.base = base;
+		#fighter.add_child(base);
+#
+		#fighter.level = randi_range(3, 5);
+		#fighter.load_stats()
+		#
+		#roster.add_child(fighter);

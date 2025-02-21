@@ -19,7 +19,6 @@ var target_in_range:bool = false;
 
 func load_fighter(new_unit:FighterUnit)->void:
 	unit = new_unit
-	
 	base = unit.base.duplicate();
 	add_child(base)
 
@@ -38,6 +37,10 @@ func load_fighter(new_unit:FighterUnit)->void:
 					var shape:RectangleShape2D = RectangleShape2D.new();
 					shape.size = Vector2(base.hit_scan_length, base.hit_scan_width);
 					$hit_scan/shape.shape = shape;
+				"surounding":
+					var shape = $hit_scan/shape;
+					shape.shape.radius = base.hit_scan_radius;
+					shape.position.x = 0;
 		else:
 			hit_scan.get_node("shape").shape.radius = base.hit_scan_radius
 	else:
