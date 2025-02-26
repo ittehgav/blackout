@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnyd60sks1ttw"]
+
+[ext_resource type="Script" path="res://scenes/testers/animation_tester.gd" id="1_s5b4a"]
+
+[node name="animation tester" type="Timer"]
+wait_time = 0.15
+autostart = true
+script = ExtResource("1_s5b4a")
+
+[connection signal="timeout" from="." to="." method="next_frame"]

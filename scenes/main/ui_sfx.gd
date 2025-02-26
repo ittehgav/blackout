@@ -12,25 +12,23 @@ func _ready() -> void:
 	recursive_connect_ui_feedback(get_parent().get_node("main_ui"))
 
 func recursive_connect_ui_feedback(node:Control)->void:
-	var cloned:bool = false;
 	node.mouse_entered.connect(ui_mouseover_sound.bind(node));
 	if "pressed" in node:
 		node.pressed.connect(ui_click_sound.bind(node));
 
-	if node is Label and "hover" in node.name:
+	if "hover" in node.name:
 		## cloned nodes can't have children
-		add_label_hover_effect(node)
-		cloned = true
+		add_hover_effect(node)
 
-	if not cloned:
-		for c in node.get_children():
-			recursive_connect_ui_feedback(c);
+
+	for c in node.get_children():
+		recursive_connect_ui_feedback(c);
 	
-func add_label_hover_effect(label:Label)->void:
-	label.mouse_filter =Control.MOUSE_FILTER_PASS
+func add_hover_effect(node:Control)->void:
+	node.mouse_filter = Control.MOUSE_FILTER_PASS
 	
-	label.mouse_entered.connect(label.set_modulate.bind(Color.LIGHT_GREEN));
-	label.mouse_exited.connect(label.set_modulate.bind(Color.WHITE))
+	node.mouse_entered.connect(node.set_modulate.bind(Color.LIGHT_GREEN));
+	node.mouse_exited.connect(node.set_modulate.bind(Color.WHITE))
 
 
 func ui_click_sound(node:Control)->void:

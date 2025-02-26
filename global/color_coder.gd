@@ -4,12 +4,13 @@ extends Node
 ## all functions of this sort will be in this script
 ## (unless it ends up becoming massive?)
 
-func color_code_character(character:FighterBase)->void:
+func color_code_player(character:FighterBase)->void:
 	var img:Image = character.texture.get_image()
 
 	var width:int = img.get_width()
 	var height:int = img.get_height()
-	var base_color:Color = Color.GREEN;
+	var base_color:Color = Color.SEA_GREEN.darkened(.25);
+	var off_color = Color.DARK_RED;
 
 	for y:int in height:
 		for x:int in width:
@@ -21,8 +22,10 @@ func color_code_character(character:FighterBase)->void:
 						new_color = base_color; 
 					Color.BLUE:
 						new_color = base_color.darkened(.5)
+					Color.YELLOW:
+						new_color = off_color
 					Color.RED:
-						new_color = base_color.lightened(.25)
+						new_color = off_color.darkened(.5)
 				img.set_pixel(x, y, new_color)
 	character.texture = ImageTexture.create_from_image(img)
 

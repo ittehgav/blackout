@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3 uid="uid://bgysvsmknpv0o"]
+
+[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="1_chvcl"]
+[ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="2_3mvmp"]
+[ext_resource type="PackedScene" uid="uid://dnyd60sks1ttw" path="res://scenes/testers/animation_tester.tscn" id="3_01uig"]
+[ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="4_kon31"]
+[ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="5_7pc77"]
+[ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="6_gsqdb"]
+[ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/indexes/fighters/doublearmguy.tscn" id="7_ya851"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qm3di"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b16ir"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rayda"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bom4d"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ytyw8"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+
+[node name="Allanimations" type="Node2D"]
+
+[node name="Arm Guy" parent="." instance=ExtResource("1_chvcl")]
+material = SubResource("ShaderMaterial_qm3di")
+position = Vector2(101, 51)
+
+[node name="animation tester" parent="Arm Guy" instance=ExtResource("3_01uig")]
+
+[node name="Crossbow Guy" parent="." instance=ExtResource("4_kon31")]
+material = SubResource("ShaderMaterial_b16ir")
+position = Vector2(345, 53)
+
+[node name="animation tester" parent="Crossbow Guy" instance=ExtResource("3_01uig")]
+
+[node name="Crowbar Guy" parent="." instance=ExtResource("5_7pc77")]
+material = SubResource("ShaderMaterial_rayda")
+position = Vector2(107, 198)
+
+[node name="animation tester" parent="Crowbar Guy" instance=ExtResource("3_01uig")]
+
+[node name="Door Guy" parent="." instance=ExtResource("6_gsqdb")]
+material = SubResource("ShaderMaterial_bom4d")
+position = Vector2(334, 209)
+
+[node name="animation tester" parent="Door Guy" instance=ExtResource("3_01uig")]
+
+[node name="Double Arm Guy" parent="." instance=ExtResource("7_ya851")]
+material = SubResource("ShaderMaterial_ytyw8")
+position = Vector2(100, 339)
+
+[node name="animation tester" parent="Double Arm Guy" instance=ExtResource("3_01uig")]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://kwsml5se8oc3"]
+
+[ext_resource type="Texture2D" uid="uid://6sqh8dwvgc4n" path="res://assets/clip/legs.png" id="1_c6rut"]
+[ext_resource type="Script" path="res://node_2d.gd" id="2_astol"]
+
+[node name="Node2D" type="Sprite2D"]
+position = Vector2(527, 279)
+texture = ExtResource("1_c6rut")
+hframes = 6
+frame = 5
+script = ExtResource("2_astol")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.18
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

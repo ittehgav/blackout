@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://djpu6n3aeyfxw"]
-
-[ext_resource type="Script" path="res://scenes/indexes/team_macros/team_macro_1.gd" id="1_dpov8"]
-
-[node name="TeamMacro1" type="Node2D"]
-script = ExtResource("1_dpov8")

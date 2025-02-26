@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=9 format=4 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="Texture2D" uid="uid://b5v0av607qkqc" path="res://assets/visual/tiles/Terrain/Ground/Tilemap_Flat.png" id="2_h1h18"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_vr7dw"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/player/in_fight_player.tscn" id="4_n7xip"]
+[ext_resource type="Script" path="res://scenes/battle/arena/overlay.gd" id="5_jp2sx"]
+[ext_resource type="Script" path="res://scenes/battle/arena/ui/pre_fight.gd" id="5_l2men"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l0ejv"]
 texture = ExtResource("2_h1h18")
@@ -65,3 +67,59 @@ collision_enabled = false
 [node name="in_fight_player" parent="team_1" instance=ExtResource("4_n7xip")]
 
 [node name="team_2" type="Node2D" parent="."]
+
+[node name="overlay" type="Control" parent="." node_paths=PackedStringArray("in_fight_player")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("5_jp2sx")
+in_fight_player = NodePath("../team_1/in_fight_player")
+
+[node name="pre_fight" type="Control" parent="overlay"]
+process_mode = 2
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_l2men")
+
+[node name="Panel" type="Panel" parent="overlay/pre_fight"]
+self_modulate = Color(0.313726, 0.486275, 0.501961, 0.501961)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="overlay/pre_fight"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -25.5
+offset_right = 58.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="overlay/pre_fight/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="overlay/pre_fight/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="start_battle" type="Button" parent="overlay/pre_fight/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start Battle"
+
+[connection signal="pressed" from="overlay/pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="overlay/pre_fight" method="start_battle"]

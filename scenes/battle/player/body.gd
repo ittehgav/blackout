@@ -8,7 +8,7 @@ var moving_right:bool = true;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ColorCoder.color_code_character(self);
+	ColorCoder.color_code_player(self);
 
 func _process(_delta)->void:
 	flip_h = get_local_mouse_position().x < position.x
@@ -17,7 +17,7 @@ func switch_animation(type:String)->void:
 	current_state = type;
 	match type:
 		"walk":
-			frame = 2;
+			frame = hframes;
 			ticker.wait_time = .2;
 		"idle":
 			frame = 0;
@@ -45,11 +45,13 @@ func next_frame() -> void:
 				frame = 1;
 
 func walk_frame_forward()->void:
-	if frame == 5:
-		frame = 2;
-	frame += 1;
+	if frame_coords.x == hframes - 1:
+		frame = hframes;
+	else:
+		frame += 1;
 
 func walk_frame_backward()->void:
-	frame -= 1;
-	if frame == 1:
-		frame = 5;
+	if frame_coords.x == 0:
+		frame_coords.x = hframes - 1;
+	else:
+		frame -= 1;

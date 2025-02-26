@@ -27,12 +27,12 @@ func update_resource_label(label:Label, resource:String)->void:
 	if resource == "money":
 		current_value = int(label.text.split("$")[1])
 	else:
-		current_value = int(label.text.split(": ")[1])
+		current_value = int(label.text.split(" ")[1])
 		
 	var new_value:float = Entities.player.inventory[resource];
 	
 	if current_value != new_value:
-		label.text = resource.capitalize() + ": ";
+		label.text = ""
 		if resource == "money":
 			label.text += "$";
 		label.text += str(new_value)

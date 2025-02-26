@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=19 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
 [ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="3_3uxwr"]
@@ -10,7 +10,6 @@
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Swipe - 2.ogg" id="8_6prrp"]
 [ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/battle/active_fighter/fighter_overlay.tscn" id="8_14x5b"]
 [ext_resource type="Script" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
-[ext_resource type="Script" path="res://scenes/battle/arena/ui/pre_fight.gd" id="9_0it5h"]
 [ext_resource type="AudioStream" uid="uid://baey8yjmqyq7m" path="res://assets/packs/SFX/Attacks/Sword Attacks Hits and Blocks/Sword Impact Hit 3.ogg" id="9_423a7"]
 [ext_resource type="Script" path="res://scenes/battle/arena/ui/post_fight.gd" id="10_8bgty"]
 [ext_resource type="Script" path="res://scenes/battle/arena/tactics.gd" id="14_0y57y"]
@@ -54,6 +53,7 @@ shape = SubResource("CapsuleShape2D_wutkk")
 material = SubResource("ShaderMaterial_71g0g")
 texture = ExtResource("4_uqyhm")
 hframes = 6
+vframes = 2
 frame = 4
 script = ExtResource("5_yvg0f")
 ticker = NodePath("animation_ticker")
@@ -111,54 +111,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-
-[node name="pre_fight" type="Control" parent="camera/hud_overlay/hud"]
-process_mode = 2
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("9_0it5h")
-
-[node name="Panel" type="Panel" parent="camera/hud_overlay/hud/pre_fight"]
-self_modulate = Color(0.313726, 0.486275, 0.501961, 0.501961)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="camera/hud_overlay/hud/pre_fight"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -58.0
-offset_top = -25.5
-offset_right = 58.0
-offset_bottom = 25.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="camera/hud_overlay/hud/pre_fight/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="camera/hud_overlay/hud/pre_fight/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="start_battle" type="Button" parent="camera/hud_overlay/hud/pre_fight/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Start Battle"
+mouse_filter = 2
 
 [node name="post_fight" type="Control" parent="camera/hud_overlay/hud"]
 process_mode = 2
@@ -271,7 +224,6 @@ damage_taken = ExtResource("17_plg7w")
 [connection signal="started_moving" from="." to="weapon" method="player_started_moving"]
 [connection signal="stopped_moving" from="." to="weapon" method="player_stopped_moving"]
 [connection signal="timeout" from="body/animation_ticker" to="body" method="next_frame"]
-[connection signal="pressed" from="camera/hud_overlay/hud/pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="camera/hud_overlay/hud/pre_fight" method="start_battle"]
 [connection signal="mouse_entered" from="camera/hud_overlay/tactics/tactic_left" to="camera/hud_overlay/tactics" method="_on_tactic_left_mouse_entered"]
 [connection signal="mouse_exited" from="camera/hud_overlay/tactics/tactic_left" to="camera/hud_overlay/tactics" method="_on_tactic_left_mouse_exited"]
 [connection signal="mouse_entered" from="camera/hud_overlay/tactics/tactic_right" to="camera/hud_overlay/tactics" method="_on_tactic_right_mouse_entered"]
