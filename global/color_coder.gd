@@ -57,16 +57,20 @@ func color_code_fighter(fighter:FighterBase, scheme:int=1)->void:
 	var off_color:Color;
 	match scheme:
 		1:
-			base_color = Color.LIGHT_SKY_BLUE;
-			off_color = Color.YELLOW;
+			base_color = Color("007878");
+			off_color = Color("C80000");
 		2:
 			base_color = Color.LIGHT_CORAL;
 			off_color = Color.SILVER;
-	
+	var outline_color = off_color;
+	outline_color.a -=.5;
+	fighter.material.set_shader_parameter("color", outline_color)
 	var img:Image = fighter.texture.get_image()
 	
 	var width:int = img.get_width();
 	var height:int = img.get_height();
+	
+	const outline_thickness = 2;
 
 	for y:int in height:
 		for x:int in width:
@@ -83,7 +87,10 @@ func color_code_fighter(fighter:FighterBase, scheme:int=1)->void:
 					Color.YELLOW:
 						new_color = off_color;
 				img.set_pixel(x, y, new_color);
+
+				
 	fighter.texture = ImageTexture.create_from_image(img);
+
 
 func color_code_settlement(settlement:Settlement)->void:
 	var sprite:Sprite2D = settlement.get_node("sprite");

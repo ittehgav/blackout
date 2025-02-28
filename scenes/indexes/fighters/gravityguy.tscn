@@ -7,6 +7,6 @@
 [node name="Gravity Guy" type="Sprite2D"]
 material = ExtResource("1_2u2il")
 texture = ExtResource("1_if48y")
-hframes = 4
+hframes = 6
 vframes = 3
 script = ExtResource("2_oja1q")

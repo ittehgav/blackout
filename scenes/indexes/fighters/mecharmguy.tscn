@@ -7,6 +7,6 @@
 [node name="Mech Arm Guy" type="Sprite2D"]
 material = ExtResource("1_74j0h")
 texture = ExtResource("2_7n0ta")
-hframes = 4
+hframes = 6
 vframes = 3
 script = ExtResource("3_j370o")

@@ -7,6 +7,6 @@
 [node name="Tailpipe Guy" type="Sprite2D"]
 material = ExtResource("1_0khta")
 texture = ExtResource("1_dsvnu")
-hframes = 4
+hframes = 6
 vframes = 3
 script = ExtResource("2_rm1nj")

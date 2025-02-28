@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/testers/animation_tester.gd" id="1_s5b4a"]
 
 [node name="animation tester" type="Timer"]
-wait_time = 0.15
+wait_time = 0.1
 autostart = true
 script = ExtResource("1_s5b4a")
 

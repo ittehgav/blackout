@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgysvsmknpv0o"]
+[gd_scene load_steps=25 format=3 uid="uid://bgysvsmknpv0o"]
 
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="1_chvcl"]
 [ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="2_3mvmp"]
@@ -7,36 +7,144 @@
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="5_7pc77"]
 [ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="6_gsqdb"]
 [ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/indexes/fighters/doublearmguy.tscn" id="7_ya851"]
+[ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/indexes/fighters/mecharmguy.tscn" id="8_2w41y"]
+[ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/indexes/fighters/gravityguy.tscn" id="8_mg1db"]
+[ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/indexes/fighters/tailpipeguy.tscn" id="10_4ta4c"]
+[ext_resource type="PackedScene" uid="uid://3phgdfixhg5t" path="res://scenes/indexes/fighters/taserguy.tscn" id="11_73nr8"]
+[ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/indexes/fighters/tetherguy.tscn" id="12_viard"]
+[ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="13_0l41v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qm3di"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
 shader_parameter/target_color = null
 shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b16ir"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
 shader_parameter/target_color = null
 shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rayda"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
 shader_parameter/target_color = null
 shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bom4d"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
 shader_parameter/target_color = null
 shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ytyw8"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
 shader_parameter/target_color = null
 shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_um7sb"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y43xv"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgh6u"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_756jx"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fv8ay"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cyb6x"]
+resource_local_to_scene = true
+shader = ExtResource("2_3mvmp")
+shader_parameter/target_color = null
+shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="Allanimations" type="Node2D"]
 
@@ -69,3 +177,41 @@ material = SubResource("ShaderMaterial_ytyw8")
 position = Vector2(100, 339)
 
 [node name="animation tester" parent="Double Arm Guy" instance=ExtResource("3_01uig")]
+
+[node name="Mech Arm Guy" parent="." instance=ExtResource("8_2w41y")]
+material = SubResource("ShaderMaterial_um7sb")
+position = Vector2(537, 81)
+
+[node name="animation tester" parent="Mech Arm Guy" instance=ExtResource("3_01uig")]
+
+[node name="Gravity Guy" parent="." instance=ExtResource("8_mg1db")]
+material = SubResource("ShaderMaterial_y43xv")
+position = Vector2(376, 343)
+frame = 8
+
+[node name="animation tester" parent="Gravity Guy" instance=ExtResource("3_01uig")]
+
+[node name="Tailpipe Guy" parent="." instance=ExtResource("10_4ta4c")]
+material = SubResource("ShaderMaterial_fgh6u")
+position = Vector2(752, 99)
+
+[node name="animation tester" parent="Tailpipe Guy" instance=ExtResource("3_01uig")]
+
+[node name="Taser Guy" parent="." instance=ExtResource("11_73nr8")]
+material = SubResource("ShaderMaterial_756jx")
+position = Vector2(773, 287)
+frame = 8
+
+[node name="animation tester" parent="Taser Guy" instance=ExtResource("3_01uig")]
+
+[node name="Tether Guy" parent="." instance=ExtResource("12_viard")]
+material = SubResource("ShaderMaterial_fv8ay")
+position = Vector2(1008, 69)
+
+[node name="animation tester" parent="Tether Guy" instance=ExtResource("3_01uig")]
+
+[node name="Wheel Guy" parent="." instance=ExtResource("13_0l41v")]
+material = SubResource("ShaderMaterial_cyb6x")
+position = Vector2(1050, 298)
+
+[node name="animation tester" parent="Wheel Guy" instance=ExtResource("3_01uig")]
