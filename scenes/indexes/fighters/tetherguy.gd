@@ -31,5 +31,14 @@ const tags = [
 
 
 func special_skill(fighter:ActiveFighter)->void:
-	var effect:Callable = Combat.heal_unit.bind(fighter, fighter.target_unit, heal_value);
-	Combat.recurring_effect(fighter.target_unit, effect, heal_interval, total_heal_ticks);
+	recurring_heal(fighter, fighter.target_unit, total_heal_ticks);
+
+
+
+func recurring_heal(source:ActiveFighter, target:ActiveFighter, ticks_left:int):
+	Combat.heal_unit(source, target, heal_value );
+	ticks_left -= 1
+	if ticks_left and get_tree():
+		await get_tree().create_timer(heal_interval).timeout
+		if target.hp > 0:
+			recurring_heal(source, target, ticks_left)

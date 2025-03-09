@@ -1,10 +1,10 @@
 extends Control
 
 
-func show_post_fight(winner:int)->void:
+func show_post_fight(winner_n:int):
+	get_tree().paused = true
+	$winner.text = "Team "+ str(winner_n)+ " Wins!";
 	
-	$winner.text = "Team " + str(winner) + " Wins!"
 	show();
-	modulate.a = .1;
-	var tween:Tween = create_tween();
-	tween.tween_property(self, "modulate:a", 1, .5)
+	Tweens.ui_fade_in(self)
+	

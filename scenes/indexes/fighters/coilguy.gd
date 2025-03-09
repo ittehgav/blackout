@@ -23,6 +23,7 @@ const skill_cooldown = 2;
 
 
 var tagged_targets:Array[ActiveFighter] = [];
+##TODO: make the chain lighjtning thingy
 
 func special_skill(fighter:ActiveFighter)->void:
 	if not len(tagged_targets):
@@ -30,7 +31,7 @@ func special_skill(fighter:ActiveFighter)->void:
 		fighter.target_unit.death.connect(remove_from_tagged.bind(fighter.target_unit))
 
 	elif not len(fighter.enemy_team) == len(tagged_targets):
-		var untagged_targets:Array[ActiveFighter] = fighter.enemy_team.duplicate();
+		var untagged_targets:Array[ActiveFighter] = fighter.enemy_team.units.duplicate();
 		
 		for unit:ActiveFighter in tagged_targets:
 			untagged_targets.erase(unit)
@@ -40,7 +41,7 @@ func special_skill(fighter:ActiveFighter)->void:
 		tagged_targets.push_back(target);
 		target.death.connect(remove_from_tagged.bind(target));
 
-	for unit:ActiveFighter in fighter.enemy_team:
+	for unit:ActiveFighter in fighter.enemy_team.units:
 		if unit in tagged_targets:
 			Combat.deal_damage(fighter, unit);
 

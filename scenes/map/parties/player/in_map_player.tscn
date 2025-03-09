@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://c0vg6gq1edsw"]
 
 [ext_resource type="Script" path="res://scenes/map/parties/player/in_map_player.gd" id="1_h5u0f"]
-[ext_resource type="PackedScene" uid="uid://cxnvcyig6jdws" path="res://scenes/indexes/vehicles/black_suv.tscn" id="2_b8oxe"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
 [ext_resource type="Script" path="res://scenes/map/parties/player/in_map_camera.gd" id="4_ibn0u"]
-[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/fighter/fighter_unit.tscn" id="5_rrghm"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="5_rrghm"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="6_06avr"]
 [ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="7_qkp1n"]
+[ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/indexes/vehicles/gol.tscn" id="7_swjnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]
 radius = 30.0
@@ -16,15 +16,21 @@ resource_local_to_scene = true
 shader = ExtResource("7_qkp1n")
 shader_parameter/target_color = null
 shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "leader")]
+[node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "leader", "vehicle")]
 process_mode = 3
 script = ExtResource("1_h5u0f")
 camera = NodePath("in_map_camera")
 leader = NodePath("Player")
+vehicle = NodePath("Gol")
 
-[node name="BlackSuv" parent="." node_paths=PackedStringArray("party") instance=ExtResource("2_b8oxe")]
-party = NodePath("..")
+[node name="Gol" parent="." instance=ExtResource("7_swjnx")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n4fri")

@@ -1,13 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://7fflfwvmna2n"]
+[gd_scene load_steps=3 format=3 uid="uid://7fflfwvmna2n"]
 
-[ext_resource type="Theme" uid="uid://yqkvsb5q7pab" path="res://resources/themes/PixelTheme.tres" id="1_cxm17"]
 [ext_resource type="Script" path="res://scenes/map/ui/hud/corner_hud.gd" id="2_02srg"]
-[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/map/ui/resource_icon.tscn" id="3_keiaa"]
-[ext_resource type="Texture2D" uid="uid://dwnbrv5st6qi0" path="res://assets/visual/icons/resources/food.png" id="4_ug3rc"]
-[ext_resource type="Texture2D" uid="uid://crcuy0k66wkxi" path="res://assets/visual/icons/resources/fuel.png" id="5_4kplg"]
-[ext_resource type="Texture2D" uid="uid://dflla4k07ci5j" path="res://assets/visual/icons/resources/juice.png" id="6_jh5j6"]
-[ext_resource type="Texture2D" uid="uid://br4sa081ylalm" path="res://assets/visual/icons/resources/money.png" id="6_ux7va"]
-[ext_resource type="Texture2D" uid="uid://6sf7pcvpmhmr" path="res://assets/visual/icons/resources/scrap.png" id="7_8ghoc"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/map/ui/resource_icons/resource_icon.tscn" id="7_gnhfn"]
 
 [node name="world_map_hud" type="Control"]
 layout_mode = 3
@@ -26,21 +20,16 @@ anchor_right = 1.0
 offset_left = -230.0
 offset_bottom = 88.0
 grow_horizontal = 0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
 [node name="corner_hud" type="PanelContainer" parent="MarginContainer" node_paths=PackedStringArray("food_label", "money_label", "fuel_label", "juice_label", "scrap_label", "chips_label")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
-theme = ExtResource("1_cxm17")
 script = ExtResource("2_02srg")
-food_label = NodePath("corner_bar/resources/row1/hover_g1/food_amount")
-money_label = NodePath("corner_bar/resources/row1/hover_g3/money_amount")
-fuel_label = NodePath("corner_bar/resources/row1/hover_g2/fuel_amount")
+food_label = NodePath("corner_bar/resources/row1/food_amount")
+money_label = NodePath("corner_bar/resources/row1/money_amount")
+fuel_label = NodePath("corner_bar/resources/row1/fuel_amount")
 juice_label = NodePath("corner_bar/resources/row2/juice_amt_hover")
 scrap_label = NodePath("corner_bar/resources/row2/scrap_amt_hover")
 chips_label = NodePath("corner_bar/resources/row2/chips_amt_hover")
@@ -56,90 +45,51 @@ layout_mode = 2
 [node name="row1" type="HBoxContainer" parent="MarginContainer/corner_hud/corner_bar/resources"]
 layout_mode = 2
 
-[node name="hover_g1" type="HBoxContainer" parent="MarginContainer/corner_hud/corner_bar/resources/row1"]
+[node name="food_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row1" instance=ExtResource("7_gnhfn")]
 layout_mode = 2
 
-[node name="food_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g1" instance=ExtResource("3_keiaa")]
-layout_mode = 2
-
-[node name="TextureRect" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g1/food_icon" index="1"]
-texture = ExtResource("4_ug3rc")
-
-[node name="food_amount" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g1"]
+[node name="food_amount" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row1"]
 layout_mode = 2
 text = " 0"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/corner_hud/corner_bar/resources/row1"]
+[node name="fuel_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row1" instance=ExtResource("7_gnhfn")]
 layout_mode = 2
 
-[node name="hover_g2" type="HBoxContainer" parent="MarginContainer/corner_hud/corner_bar/resources/row1"]
-layout_mode = 2
-
-[node name="fuel_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g2" instance=ExtResource("3_keiaa")]
-layout_mode = 2
-
-[node name="TextureRect" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g2/fuel_icon" index="1"]
-texture = ExtResource("5_4kplg")
-
-[node name="fuel_amount" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g2"]
+[node name="fuel_amount" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row1"]
 layout_mode = 2
 text = " 0"
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/corner_hud/corner_bar/resources/row1"]
+[node name="resource_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row1" instance=ExtResource("7_gnhfn")]
 layout_mode = 2
 
-[node name="hover_g3" type="HBoxContainer" parent="MarginContainer/corner_hud/corner_bar/resources/row1"]
-layout_mode = 2
-
-[node name="money_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g3" instance=ExtResource("3_keiaa")]
-layout_mode = 2
-
-[node name="TextureRect" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g3/money_icon" index="1"]
-texture = ExtResource("6_ux7va")
-
-[node name="money_amount" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g3"]
+[node name="money_amount" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row1"]
 layout_mode = 2
 text = " $0"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/corner_hud/corner_bar/resources"]
+layout_mode = 2
 
 [node name="row2" type="HBoxContainer" parent="MarginContainer/corner_hud/corner_bar/resources"]
 layout_mode = 2
 
-[node name="juice_hover" parent="MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("3_keiaa")]
+[node name="juice_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("7_gnhfn")]
 layout_mode = 2
-
-[node name="TextureRect" parent="MarginContainer/corner_hud/corner_bar/resources/row2/juice_hover" index="1"]
-texture = ExtResource("6_jh5j6")
 
 [node name="juice_amt_hover" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row2"]
 layout_mode = 2
 text = " 0"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/corner_hud/corner_bar/resources/row2"]
+[node name="resource_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("7_gnhfn")]
 layout_mode = 2
-
-[node name="scrap_hover" parent="MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("3_keiaa")]
-layout_mode = 2
-
-[node name="TextureRect" parent="MarginContainer/corner_hud/corner_bar/resources/row2/scrap_hover" index="1"]
-texture = ExtResource("7_8ghoc")
 
 [node name="scrap_amt_hover" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row2"]
 layout_mode = 2
 text = " 0"
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/corner_hud/corner_bar/resources/row2"]
-layout_mode = 2
-
-[node name="chips_hover" parent="MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("3_keiaa")]
+[node name="chips_icon" parent="MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("7_gnhfn")]
 layout_mode = 2
 
 [node name="chips_amt_hover" type="Label" parent="MarginContainer/corner_hud/corner_bar/resources/row2"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = " 0"
-
-[editable path="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g1/food_icon"]
-[editable path="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g2/fuel_icon"]
-[editable path="MarginContainer/corner_hud/corner_bar/resources/row1/hover_g3/money_icon"]
-[editable path="MarginContainer/corner_hud/corner_bar/resources/row2/juice_hover"]
-[editable path="MarginContainer/corner_hud/corner_bar/resources/row2/scrap_hover"]

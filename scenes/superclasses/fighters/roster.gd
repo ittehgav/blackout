@@ -10,6 +10,7 @@ class_name Roster;
 
 
 func _on_child_entered_tree(unit: Node) -> void:
+	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
 	assert(unit is FighterUnit)
 	units.push_back(unit)
 

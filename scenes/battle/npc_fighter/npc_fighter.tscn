@@ -64,7 +64,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="find_target" type="Timer" parent="npc_timers"]
-wait_time = 0.5
+wait_time = 0.2
 autostart = true
 
 [node name="overlay" parent="." instance=ExtResource("4_g7h3x")]

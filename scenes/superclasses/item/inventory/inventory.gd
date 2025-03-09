@@ -14,14 +14,16 @@ class_name Inventory;
 
 @export_subgroup("Items")
 @export var consumables:Array[Consumable];
+@export var trinkets:Array[Trinket];
 
 @export_subgroup("Equipment")
 @export var weapons:Array[Weapon];
 @export var armor:Array[Armor];
-@export var trinkets:Array[Trinket];
 
 
 func _on_child_entered_tree(node: Node) -> void:
+	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
+	assert(node is Item)
 	match node.get_class():
 		Consumable:
 			consumables.push_back(node);

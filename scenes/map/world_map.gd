@@ -23,8 +23,10 @@ func _on_player_stopped_moving() -> void:
 func pause_map():
 	## the built in pause functionality is used to control whether
 	## the other parties are moving,
-	## truly pausing the map includes (eventually)
-	## the day/night cycle, global clock and everything tied to it
+	## (eventually) the day/night cycle, global clock and everything tied to it
+	
+	## truly pausing the map includes disabling the player's navigation
+	## (when there's a menu open)
 
 	process_mode = PROCESS_MODE_DISABLED
 	Entities.in_map_player.process_mode = Node.PROCESS_MODE_DISABLED;

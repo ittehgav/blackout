@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxnvcyig6jdws"]
+[gd_scene load_steps=3 format=3 uid="uid://du842twtnhwnd"]
 
-[ext_resource type="Texture2D" uid="uid://dqqks3hxd64tw" path="res://assets/sprites/vehicles/black_suv.png" id="1_uq0a1"]
+[ext_resource type="Texture2D" uid="uid://dqqks3hxd64tw" path="res://assets/visual/sprites/vehicles/black_suv.png" id="1_uq0a1"]
 [ext_resource type="Script" path="res://scenes/superclasses/map/vehicle.gd" id="2_pgb2m"]
 
 [node name="BlackSuv" type="Sprite2D"]

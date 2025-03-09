@@ -76,7 +76,6 @@ func type_out_text():
 func get_next_line():
 	current_line = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
 	if current_line:
-		print(current_line)
 		display_line()
 	else:
 		print("notcl??")

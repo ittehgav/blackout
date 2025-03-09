@@ -4,7 +4,7 @@ var fighter_node:ActiveFighter;
 var hit_scan_shape:CollisionShape2D;
 
 const skill_effects = ["special"];
-const skill_visuals = ["recoil"]
+const skill_visuals = ["recoil", "shrink_target"]
 
 const target_type = "nearest_enemy"
 

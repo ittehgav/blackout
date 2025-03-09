@@ -9,7 +9,7 @@ class_name Leader
 
 @export var sight_range:int;
 
-func load_party(team:Node2D, npc_fighter_scene:PackedScene, x_offset:int=0)->Array[ActiveFighter]:
+func load_party(team:Team, npc_fighter_scene:PackedScene, x_offset:int=0)->void:
 	var x_acm = 0;
 	var y_acm = 0;
 	var party:Array[ActiveFighter]
@@ -27,4 +27,3 @@ func load_party(team:Node2D, npc_fighter_scene:PackedScene, x_offset:int=0)->Arr
 			y_acm = 0;
 		
 		party.push_back(npc_fighter);
-	return party

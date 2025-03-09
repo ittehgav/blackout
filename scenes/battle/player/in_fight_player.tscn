@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=18 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
 [ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="3_3uxwr"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/battle/active_fighter/fighter_overlay.tscn" id="8_14x5b"]
 [ext_resource type="Script" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
 [ext_resource type="AudioStream" uid="uid://baey8yjmqyq7m" path="res://assets/packs/SFX/Attacks/Sword Attacks Hits and Blocks/Sword Impact Hit 3.ogg" id="9_423a7"]
-[ext_resource type="Script" path="res://scenes/battle/arena/ui/post_fight.gd" id="10_8bgty"]
 [ext_resource type="Script" path="res://scenes/battle/arena/tactics.gd" id="14_0y57y"]
 [ext_resource type="Script" path="res://scenes/battle/player/sfx.gd" id="16_sjuhg"]
 [ext_resource type="AudioStream" uid="uid://dr1xnljn0rd6v" path="res://assets/packs/SFX/Spells/Spell Impact 3.ogg" id="17_plg7w"]
@@ -25,6 +24,12 @@ resource_local_to_scene = true
 shader = ExtResource("3_3uxwr")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
 radius = 80.0
@@ -113,36 +118,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="post_fight" type="Control" parent="camera/hud_overlay/hud"]
-process_mode = 2
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("10_8bgty")
-
-[node name="Panel" type="Panel" parent="camera/hud_overlay/hud/post_fight"]
-self_modulate = Color(0.313726, 0.486275, 0.501961, 0.501961)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 6.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="winner" type="Label" parent="camera/hud_overlay/hud/post_fight"]
-layout_mode = 0
-offset_left = 864.0
-offset_top = 466.0
-offset_right = 904.0
-offset_bottom = 489.0
-theme_override_font_sizes/font_size = 48
-
 [node name="tactics" type="Control" parent="camera/hud_overlay" node_paths=PackedStringArray("tactic_left", "tactic_right")]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
@@ -216,8 +191,8 @@ texture_progress = null
 script = ExtResource("16_sjuhg")
 damage_taken = ExtResource("17_plg7w")
 
-[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
+[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]

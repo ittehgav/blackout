@@ -10,6 +10,7 @@ var player:Player;
 var in_fight_player:InFightPlayer;
 var in_map_player:InMapPlayer;
 
+var arena:Arena;
 var world_map:WorldMap;
 
 var current_settlement:Settlement;

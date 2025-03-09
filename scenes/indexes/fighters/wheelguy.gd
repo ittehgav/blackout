@@ -3,7 +3,7 @@ extends FighterBase
 @export var dmg_timer:Timer;
 
 const skill_effects = ["special"];
-const skill_visuals = ["power_up_glow", "shake"]
+const skill_visuals = ["grow", "shake"]
 
 const target_type = "nearest_enemy"
 
@@ -30,7 +30,7 @@ const skill_cooldown = 3;
 func _ready():
 	dmg_timer.timeout.connect(aoe_damage.bind(get_parent()));
 
-func special_skill(fighter:ActiveFighter)->void:
+func special_skill(_fighter:ActiveFighter)->void:
 	if not dmg_timer.is_stopped():
 		dmg_timer.wait_time -= dmg_timer.wait_time/10;
 	else:

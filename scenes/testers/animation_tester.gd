@@ -4,11 +4,8 @@ var target:Sprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(get_parent())
 	target = get_parent();
 	ColorCoder.color_code_fighter(target)
-
-
 
 
 func next_frame() -> void:

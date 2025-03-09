@@ -1,9 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=35 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_hae4w"]
+[ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
 [ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="3_ircok"]
-[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/weapons/tailpipe.tscn" id="4_4aisy"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="4_4aisy"]
+[ext_resource type="Script" path="res://scenes/map/world_map/bg_tiles.gd" id="4_f6xbr"]
 [ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/map/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
 [ext_resource type="Script" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
@@ -13,25 +15,97 @@
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
 [ext_resource type="PackedScene" uid="uid://bl2gyiuhaw0j2" path="res://scenes/map/map_party/npc_map_party.tscn" id="7_hpkuj"]
 [ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/map/parties/generic/thugs.tscn" id="8_weuan"]
-[ext_resource type="PackedScene" uid="uid://itv8y8s3x8p7" path="res://scenes/indexes/vehicles/red_wagon.tscn" id="9_4eg2f"]
-[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/fighter/fighter_unit.tscn" id="11_n44x7"]
-[ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="12_64kue"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="11_n44x7"]
+[ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/indexes/vehicles/doblo.tscn" id="12_qhuc7"]
 [ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/map/ui/dialogue/dialogue_player.tscn" id="13_8dqwv"]
+[ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/indexes/fighters/tetherguy.tscn" id="15_utbw7"]
+[ext_resource type="Shader" path="res://resources/shaders/resource_icon.gdshader" id="18_8a7hc"]
+[ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gyjr"]
+texture = ExtResource("3_1w3gq")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_uklf8"]
+sources/0 = SubResource("TileSetAtlasSource_4gyjr")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yg1vu"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v3lqp"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_yg1vu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc55"]
 resource_local_to_scene = true
 shader = ExtResource("3_ircok")
 shader_parameter/target_color = null
 shader_parameter/grad = null
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="Resource" id="Resource_fsmxr"]
 metadata/__load_path__ = "res://assets/backgrounds/settlements/farm.jpg"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0r22t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6rbvw"]
 resource_local_to_scene = true
 shader = ExtResource("3_ircok")
 shader_parameter/target_color = null
 shader_parameter/grad = null
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vk0ie"]
+resource_local_to_scene = true
+shader = ExtResource("18_8a7hc")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ruj8"]
+resource_local_to_scene = true
+shader = ExtResource("18_8a7hc")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2gil0"]
+resource_local_to_scene = true
+shader = ExtResource("18_8a7hc")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_it3pq"]
+resource_local_to_scene = true
+shader = ExtResource("18_8a7hc")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hd8vf"]
+resource_local_to_scene = true
+shader = ExtResource("18_8a7hc")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8i7xo"]
+resource_local_to_scene = true
+shader = ExtResource("18_8a7hc")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
 
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "player")]
 process_mode = 1
@@ -40,12 +114,23 @@ ui = NodePath("ui_overlay/ui")
 player = NodePath("entities/in_map_player")
 arena_scene = ExtResource("2_hae4w")
 
+[node name="bg_tiles" type="TileMapLayer" parent="."]
+self_modulate = Color(0.76662, 0.76662, 0.76662, 1)
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_uklf8")
+script = ExtResource("4_f6xbr")
+noise_height_text = SubResource("NoiseTexture2D_v3lqp")
+
 [node name="entities" type="Node2D" parent="."]
 
 [node name="in_map_player" parent="entities" instance=ExtResource("4_vgkop")]
 position = Vector2(521, 310)
 
 [node name="Player" parent="entities/in_map_player" index="3" node_paths=PackedStringArray("equipped_weapon")]
+leadership_level = 3
+leadership_exp = 4
+combat_level = 3
+combat_exp = 3
 equipped_weapon = NodePath("Inventory/Tailpipe")
 
 [node name="Inventory" parent="entities/in_map_player/Player" index="0" node_paths=PackedStringArray("weapons")]
@@ -53,11 +138,20 @@ weapons = [NodePath("Tailpipe")]
 
 [node name="Tailpipe" parent="entities/in_map_player/Player/Inventory" index="0" instance=ExtResource("4_4aisy")]
 
+[node name="Roster" parent="entities/in_map_player/Player" index="1" node_paths=PackedStringArray("units")]
+units = []
+
 [node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit" index="1"]
 material = SubResource("ShaderMaterial_1gc55")
 
-[node name="stats" parent="entities/in_map_player/Player" index="2"]
-max_hp = 1000.0
+[node name="combat_stats" parent="entities/in_map_player/Player" index="2"]
+max_hp = 1232.1
+attack = 11.0
+defense = 1.0
+technique = 1.23
+
+[node name="leadership_stats" parent="entities/in_map_player/Player" index="3"]
+charisma = 2
 
 [node name="Factory" parent="entities" instance=ExtResource("5_akvl2")]
 position = Vector2(214, 315)
@@ -72,21 +166,17 @@ background = SubResource("Resource_fsmxr")
 [node name="NpcMapParty" parent="entities" node_paths=PackedStringArray("leader", "vehicle") instance=ExtResource("7_hpkuj")]
 position = Vector2(638, 81)
 leader = NodePath("Thugs")
-vehicle = NodePath("RedWagon")
+vehicle = NodePath("Doblo")
+
+[node name="Doblo" parent="entities/NpcMapParty" instance=ExtResource("12_qhuc7")]
 
 [node name="Thugs" parent="entities/NpcMapParty" instance=ExtResource("8_weuan")]
 
-[node name="Roster" parent="entities/NpcMapParty/Thugs" index="2" node_paths=PackedStringArray("units")]
-units = [NodePath("FighterUnit")]
-
 [node name="FighterUnit" parent="entities/NpcMapParty/Thugs/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("11_n44x7")]
-base = NodePath("Wheel Guy")
+base = NodePath("Tether Guy")
 
-[node name="Wheel Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit" instance=ExtResource("12_64kue")]
-material = SubResource("ShaderMaterial_0r22t")
-
-[node name="RedWagon" parent="entities/NpcMapParty" node_paths=PackedStringArray("party") instance=ExtResource("9_4eg2f")]
-party = NodePath("..")
+[node name="Tether Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit" instance=ExtResource("15_utbw7")]
+material = SubResource("ShaderMaterial_6rbvw")
 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
 
@@ -105,10 +195,28 @@ settlement_ui = NodePath("settlement_ui")
 [node name="world_map_hud" parent="ui_overlay/ui" instance=ExtResource("7_33ijt")]
 layout_mode = 1
 
-[node name="corner_hud" parent="ui_overlay/ui/world_map_hud" index="0" node_paths=PackedStringArray("food_label")]
-offset_left = -312.0
-offset_bottom = 68.0
-food_label = NodePath("corner_bar/resources/row1/food_hover")
+[node name="food_icon" parent="ui_overlay/ui/world_map_hud/MarginContainer/corner_hud/corner_bar/resources/row1" index="0"]
+material = SubResource("ShaderMaterial_vk0ie")
+
+[node name="fuel_icon" parent="ui_overlay/ui/world_map_hud/MarginContainer/corner_hud/corner_bar/resources/row1" index="2"]
+material = SubResource("ShaderMaterial_0ruj8")
+resource = "fuel"
+
+[node name="resource_icon" parent="ui_overlay/ui/world_map_hud/MarginContainer/corner_hud/corner_bar/resources/row1" index="4"]
+material = SubResource("ShaderMaterial_2gil0")
+resource = "money"
+
+[node name="juice_icon" parent="ui_overlay/ui/world_map_hud/MarginContainer/corner_hud/corner_bar/resources/row2" index="0"]
+material = SubResource("ShaderMaterial_it3pq")
+resource = "juice"
+
+[node name="resource_icon" parent="ui_overlay/ui/world_map_hud/MarginContainer/corner_hud/corner_bar/resources/row2" index="2"]
+material = SubResource("ShaderMaterial_hd8vf")
+resource = "scrap"
+
+[node name="chips_icon" parent="ui_overlay/ui/world_map_hud/MarginContainer/corner_hud/corner_bar/resources/row2" index="4"]
+material = SubResource("ShaderMaterial_8i7xo")
+resource = "chips"
 
 [node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
 visible = false
@@ -120,6 +228,9 @@ texture = null
 
 [node name="Dialogue" parent="ui_overlay/ui" instance=ExtResource("13_8dqwv")]
 visible = false
+layout_mode = 1
+
+[node name="PlayerSheet" parent="ui_overlay/ui" instance=ExtResource("20_lvh7d")]
 layout_mode = 1
 
 [editable path="entities/in_map_player"]

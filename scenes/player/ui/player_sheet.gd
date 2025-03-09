@@ -1,0 +1,107 @@
+extends UIRoot;
+
+@export var bg:ColorRect;
+@export var container:HBoxContainer;
+
+@export_category("Resource Labels")
+@export var food_label:Label;
+@export var fuel_label:Label;
+@export var money_label:Label;
+@export var juice_label:Label;
+@export var scrap_label:Label;
+@export var chips_label: Label;
+
+@export_category("Combat Stat Labels")
+@export var max_hp_label:Label;
+@export var attack_label:Label;
+@export var defense_label:Label;
+@export var move_speed_label:Label;
+@export var technique_label:Label;
+
+const resources_names = [
+	"food", "fuel", "money", "scrap", "juice", "scrap", "chips"
+]
+
+@export_category("Levels")
+@export var leadership_level_label:Label;
+@export var leadership_level_progress:ProgressBar;
+
+@export var combat_level_label:Label;
+@export var combat_level_progress:ProgressBar;
+
+@export_category("Leadership Stat Labels")
+@export var charisma_label:Label;
+@export var navigation_label:Label;
+@export var tactics_label:Label;
+@export var logistics_label:Label;
+
+func _ready():
+	super();
+	for name in resources_names:
+		self[name + "_label"].modulate = Icons.resource_colors[name].lightened(.25);
+
+func _input(e:InputEvent):
+	if e.is_action_pressed("show_player_sheet"):
+		if not visible:
+			show_player_sheet();
+		else:
+			hide_player_sheet();
+			
+
+func show_player_sheet():
+	show()
+	refresh_data();
+	get_tree().paused = true;
+	Entities.world_map.pause_map()
+	bg.self_modulate.a = 0;
+	
+	const tween_duration = .4;
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(bg, "self_modulate:a", 1, tween_duration);
+	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
+
+
+func hide_player_sheet():
+	const tween_duration = .25;
+	var tween = create_tween();
+	tween.tween_property(container, "theme_override_constants/separation", 1700, tween_duration);
+	tween.parallel().tween_property(bg, "self_modulate:a", 0, tween_duration)
+	await tween.finished
+	Entities.world_map.unpause_map()
+	hide()
+
+
+func refresh_data():
+	## will show upkeep costs when upkeep is implemented
+	var inv:Inventory = Entities.player.inventory;
+	food_label.text = "Food: " + str(inv.food);
+	fuel_label.text = "Fuel: " + str(inv.fuel);
+	money_label.text = "Money: $" + str(inv.money);
+	
+	juice_label.text = "Juice: " + str(inv.juice);
+	scrap_label.text = "Scrap: " + str(inv.scrap);
+	chips_label.text = "Chips: " + str(inv.chips);
+
+	var stats: LeadershipStats = Entities.player.leadership_stats;
+	charisma_label.text = "Charisma: " + str(stats.charisma);
+	navigation_label.text = "Navigation: " + str(stats.navigation);
+	tactics_label.text = "Tactics: " + str(stats.tactics);
+	logistics_label.text = "Logistics: " + str(stats.logistics)
+
+	leadership_level_label.text = "Leadership Level: " + str(Entities.player.leadership_level);
+	combat_level_label.text = "Combat Level: " + str(Entities.player.combat_level);
+
+	leadership_level_progress.max_value = Scaling.exp_for_next_level(Entities.player.leadership_level);
+	leadership_level_progress.value = Entities.player.leadership_exp;
+
+	combat_level_progress.max_value = Scaling.exp_for_next_level(Entities.player.combat_level);
+	combat_level_progress.value = Entities.player.combat_exp;
+	
+	var cstats:CombatStats = Entities.player.combat_stats;
+	max_hp_label.text = "Map HP: " + str(cstats.max_hp);
+	attack_label.text = "Base Attack: " + str(cstats.attack);
+	defense_label.text = "Defense: " + str(cstats.defense);
+	move_speed_label.text=  "Movement Speed: " + str(cstats.move_speed);
+	technique_label.text = "Technique: " + str(cstats.technique);
+	

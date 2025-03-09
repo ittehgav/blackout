@@ -62,7 +62,6 @@ func load_fighter(new_unit:FighterUnit)->void:
 	
 	if "special_setup" in base:
 		base.special_setup(self);
-	
 	update_overlay();
 
 
@@ -71,7 +70,7 @@ func find_target()->void:
 	match base.target_type:
 		"nearest_enemy":
 			var current_distance:float;
-			for enemy in enemy_team:
+			for enemy in enemy_team.units:
 				var distance:float = position.distance_to(enemy.position)
 				@warning_ignore("unassigned_variable")
 				if not target or distance < current_distance:
@@ -79,10 +78,9 @@ func find_target()->void:
 					current_distance = distance;
 
 		"least_hp_ally":
-			for ally in ally_team:
+			for ally in ally_team.units:
 				if not target or target.hp < ally.hp:
 					target = ally;
-
 	if target != target_unit:
 		target_unit = target;
 		target_change.emit();
@@ -91,10 +89,19 @@ func find_target()->void:
 
 
 func _physics_process(_delta: float) -> void:
-	if target_unit and is_instance_valid(target_unit):
+	if ally_team.fleeing:
+		var target_x = 0;
+		if ally_team.team_n == 1:
+			target_x = -1;
+		else:
+			target_x = 1;
+	elif target_unit and is_instance_valid(target_unit):
 		if not target_in_range and stun_timer.is_stopped():
 			base.flip_h = target_unit.position.x < position.x;
-			current_animation = "walk";
+			if not current_animation == "walk":
+				current_animation = "walk";
+				next_frame();
+				$npc_timers/animation_timer.start()
 			var direction:Vector2 = (target_unit.position - position).normalized();
 			velocity = direction * move_speed
 			move_and_slide()
@@ -125,6 +132,10 @@ func use_skill()->void:
 				Tweens.lunge_forward_tween(self)
 			"recoil":
 				Tweens.recoil_tween(self)
+			"recoil_target":
+				Tweens.recoil_target(self)
+			"grow":
+				Tweens.growth_tween(self)
 
 func next_frame() -> void:
 	match current_animation:

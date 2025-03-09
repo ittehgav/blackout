@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://if0mdd1xo0lc"]
+
+[ext_resource type="Texture2D" uid="uid://db46xs600k1pd" path="res://assets/visual/sprites/vehicles/doblo.png" id="1_r0fof"]
+[ext_resource type="Script" path="res://scenes/superclasses/map/vehicle.gd" id="2_47qof"]
+
+[node name="Doblo" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_r0fof")
+hframes = 2
+vframes = 2
+script = ExtResource("2_47qof")

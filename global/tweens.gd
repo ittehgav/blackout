@@ -41,12 +41,8 @@ func arc_vfx(target:Polygon2D)->Tween:
 	
 func stun_vfx(target:ActiveFighter)->Tween:
 	var tween:Tween = create_tween();
-	var up_bounce: = Vector2(-10, -50);
-	var down_bounce: = Vector2(10, 50);
-	tween.tween_property(target.base, "position", up_bounce, .1);
-	tween.tween_property(target.base, "position", down_bounce, .1);
-	tween.tween_property(target.base, "position", Vector2.ZERO, .05)
-	
+	target.base.modulate.a = .5;
+	tween.tween_property(target.base, "modulate:a", 1, .5);
 	return tween;
 
 	
@@ -80,13 +76,6 @@ func stat_change_vfx(target:ActiveFighter, stat:String, positive:bool)->Tween:
 func damage_blink(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.RED)
 
-func color_blink(target:FighterBase, target_color:Color)->Tween:
-	target.material.set_shader_parameter("target_color", target_color);
-	target.material.set_shader_parameter("grad", 1.0);
-
-	var tween:Tween = create_tween();
-	tween.tween_property(target.material, "shader_parameter/grad", 0.0, .3);
-	return tween;
 
 func damage_overlay_tween(target:Label, intensity:float)->Tween:
 	var shake_range:float = 50 * intensity;
@@ -158,3 +147,36 @@ func weapon_float_tween(weapon:Weapon, up:bool):
 	tween.tween_property(weapon,"position", target_position, step_duration)
 	
 	tween.tween_callback(weapon_float_tween.bind(weapon, not up))
+
+func ui_fade_in(target:Control)->Tween:
+	target.modulate.a = .1
+	
+	## tween goes into the control because of nodes that process when pasued
+	var tween = target.create_tween();
+	tween.tween_property(target, "modulate:a", 1, .5);
+	
+	return tween
+
+func growth_tween(unit:ActiveFighter)->Tween:
+	var tween = create_tween();
+	unit.base.scale = Vector2(1.5, 1.5)
+	tween.tween_property(unit.base, "scale", Vector2.ONE, .2);
+	
+	return tween;
+
+func recoil_target(unit:ActiveFighter)->Tween:
+	var target:ActiveFighter = unit.target_unit
+	var tween = create_tween();
+	var rel = (target.position - unit.position).normalized();
+	var target_recoil = rel * 50;
+	target.base.position = target_recoil;
+	tween.tween_property(target.base, "position", Vector2.ZERO, .25);
+	return tween;
+
+func color_blink(target:FighterBase, target_color:Color)->Tween:
+	target.material.set_shader_parameter("target_color", target_color);
+	target.material.set_shader_parameter("grad", 1.0);
+
+	var tween:Tween = create_tween();
+	tween.tween_property(target.material, "shader_parameter/grad", 0.0, .3);
+	return tween;

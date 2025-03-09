@@ -2,7 +2,7 @@ extends FighterBase
 
 
 const skill_effects = ["self_buff"];
-const skill_visuals = ["recoil"]
+const skill_visuals = ["grow"]
 
 const target_type = "nearest_enemy"
 

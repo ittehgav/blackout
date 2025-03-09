@@ -1,7 +1,7 @@
 extends FighterBase
 
 const skill_effects = ["aoe_damage"];
-const skill_visuals = ["recoil"]
+const skill_visuals = ["recoil", "recoil_target"]
 
 const target_type = "nearest_enemy"
 
@@ -25,4 +25,4 @@ const hitbox_height = 150;
 
 const skill_range = 1000;
 
-const skill_cooldown = 5;
+const skill_cooldown = 3;

@@ -13,3 +13,14 @@ extends Node
 @onready var juice:Texture = load("res://assets/visual/icons/resources/juice.png");
 @onready var scrap:Texture = load("res://assets/visual/icons/resources/scrap.png");
 @onready var chips:Texture = load("res://assets/visual/icons/resources/chips.png");
+
+
+const resource_colors = {
+	"food":Color.YELLOW,
+	"fuel":Color.ORANGE_RED,
+	"money":Color.GREEN,
+	
+	"juice":Color.PURPLE,
+	"scrap":Color.SADDLE_BROWN,
+	"chips":Color.SKY_BLUE
+}

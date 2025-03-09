@@ -1,0 +1,476 @@
+[gd_scene load_steps=12 format=3 uid="uid://1yund7taju3s"]
+
+[ext_resource type="Script" path="res://scenes/player/ui/player_sheet.gd" id="1_6boby"]
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/PixelTheme-Sky.tres" id="2_jp7yd"]
+[ext_resource type="Shader" path="res://resources/shaders/resource_icon.gdshader" id="3_0tcx5"]
+[ext_resource type="Theme" uid="uid://dpboo8w0w3psc" path="res://resources/themes/PixelTheme-Leather.tres" id="3_6io7m"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/map/ui/resource_icons/resource_icon.tscn" id="6_u5vdc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ff84"]
+resource_local_to_scene = true
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_523kj"]
+resource_local_to_scene = true
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_55ejy"]
+resource_local_to_scene = true
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1fif"]
+resource_local_to_scene = true
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nuo2s"]
+resource_local_to_scene = true
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjbpt"]
+resource_local_to_scene = true
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = null
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "container", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6boby")
+bg = NodePath("ColorRect")
+container = NodePath("ColorRect/MarginContainer/HBoxContainer")
+food_label = NodePath("ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer/food")
+fuel_label = NodePath("ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2/fuel")
+money_label = NodePath("ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3/money")
+juice_label = NodePath("ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4/juice")
+scrap_label = NodePath("ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5/scrap")
+chips_label = NodePath("ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6/chips")
+max_hp_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/max_hp")
+attack_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/attack")
+defense_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/defense")
+move_speed_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/move_speed")
+technique_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/technique")
+leadership_level_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/VBoxContainer/leadership_level")
+leadership_level_progress = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/VBoxContainer/leadership_level_progress")
+combat_level_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/VBoxContainer/combat_level")
+combat_level_progress = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/VBoxContainer/combat_level_progress")
+charisma_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/charisma")
+navigation_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/navigation")
+tactics_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/tactics")
+logistics_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/logistics")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.623529)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -645.0
+offset_right = 645.0
+offset_bottom = 690.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 1700
+alignment = 1
+
+[node name="inventory" type="Panel" parent="ColorRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(800, 650)
+layout_mode = 2
+
+[node name="title" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 30.0
+offset_right = 258.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 80
+text = "Inventory"
+
+[node name="resources" type="VBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 130.0
+offset_right = 360.0
+offset_bottom = 288.0
+
+[node name="Label" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Resources:"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="resource_icon" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer" instance=ExtResource("6_u5vdc")]
+material = SubResource("ShaderMaterial_7ff84")
+layout_mode = 2
+
+[node name="food" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Food: X"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="resource_icon" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2" instance=ExtResource("6_u5vdc")]
+material = SubResource("ShaderMaterial_523kj")
+layout_mode = 2
+resource = "fuel"
+
+[node name="fuel" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Fuel: X"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="resource_icon" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3" instance=ExtResource("6_u5vdc")]
+material = SubResource("ShaderMaterial_55ejy")
+layout_mode = 2
+resource = "money"
+
+[node name="money" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Money: $X"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="resource_icon" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4" instance=ExtResource("6_u5vdc")]
+material = SubResource("ShaderMaterial_d1fif")
+layout_mode = 2
+resource = "juice"
+
+[node name="juice" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4"]
+layout_mode = 2
+text = "Juice: X"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="resource_icon" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5" instance=ExtResource("6_u5vdc")]
+material = SubResource("ShaderMaterial_nuo2s")
+layout_mode = 2
+resource = "scrap"
+
+[node name="scrap" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5"]
+layout_mode = 2
+text = "Scrap: X"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="resource_icon" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6" instance=ExtResource("6_u5vdc")]
+material = SubResource("ShaderMaterial_yjbpt")
+layout_mode = 2
+resource = "chips"
+
+[node name="chips" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6"]
+layout_mode = 2
+text = "Chips: X"
+
+[node name="item_data" type="Panel" parent="ColorRect/MarginContainer/HBoxContainer/inventory"]
+layout_mode = 0
+offset_left = 410.0
+offset_top = 42.0
+offset_right = 779.0
+offset_bottom = 377.0
+theme = ExtResource("2_jp7yd")
+
+[node name="item_name" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/inventory/item_data"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 28.0
+offset_right = 71.0
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 64
+text = "Item Name"
+
+[node name="item_description" type="RichTextLabel" parent="ColorRect/MarginContainer/HBoxContainer/inventory/item_data"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 100.0
+offset_right = 377.0
+offset_bottom = 320.0
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+text = "Item description pee pee poo poo lmao"
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/inventory/item_data"]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 259.0
+offset_right = 344.0
+offset_bottom = 318.0
+theme = ExtResource("3_6io7m")
+theme_override_font_sizes/font_size = 64
+text = "Use"
+
+[node name="inventories" type="TabContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 378.0
+offset_right = 779.0
+offset_bottom = 628.0
+theme_override_font_sizes/font_size = 32
+current_tab = 0
+
+[node name="Consumables" type="GridContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/inventories"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Trinkets" type="GridContainer" parent="ColorRect/MarginContainer/HBoxContainer/inventory/inventories"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="player_sheet" type="Panel" parent="ColorRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="player_name" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 30.0
+offset_right = 87.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 64
+text = "Player"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 94.0
+offset_right = 247.0
+offset_bottom = 218.0
+
+[node name="leadership_level" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/VBoxContainer"]
+layout_mode = 2
+text = "Leadership Level: 1"
+
+[node name="leadership_level_progress" type="ProgressBar" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+step = 1.0
+show_percentage = false
+
+[node name="combat_level" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/VBoxContainer"]
+layout_mode = 2
+text = "Combat Level: 1"
+
+[node name="combat_level_progress" type="ProgressBar" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+step = 1.0
+show_percentage = false
+
+[node name="stats" type="TabContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 232.0
+offset_right = 393.0
+offset_bottom = 626.0
+theme_override_font_sizes/font_size = 32
+current_tab = 1
+
+[node name="Leadership Stats" type="Control" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -146.0
+offset_top = 10.0
+offset_right = 146.0
+offset_bottom = 278.0
+grow_horizontal = 2
+
+[node name="charisma" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+layout_mode = 2
+text = "Charisma: 1"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+layout_mode = 2
+
+[node name="charisma_progress" type="ProgressBar" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(236, 30)
+layout_mode = 2
+max_value = 5.0
+value = 1.0
+show_percentage = false
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "-"
+
+[node name="Button2" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "+"
+
+[node name="navigation" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+layout_mode = 2
+text = "Navigation: 1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+layout_mode = 2
+
+[node name="navigation_progress" type="ProgressBar" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(236, 30)
+layout_mode = 2
+max_value = 5.0
+value = 1.0
+show_percentage = false
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+disabled = true
+text = "-"
+
+[node name="Button2" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+disabled = true
+text = "+"
+
+[node name="tactics" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+layout_mode = 2
+text = "Tactics: 1"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+layout_mode = 2
+
+[node name="tactics_progress" type="ProgressBar" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(236, 30)
+layout_mode = 2
+max_value = 5.0
+value = 1.0
+show_percentage = false
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+disabled = true
+text = "-"
+
+[node name="Button2" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+disabled = true
+text = "+"
+
+[node name="logistics" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+layout_mode = 2
+text = "Logistics: 1"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+layout_mode = 2
+
+[node name="logistics_progress" type="ProgressBar" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(236, 30)
+layout_mode = 2
+max_value = 5.0
+value = 1.0
+show_percentage = false
+
+[node name="Button" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+disabled = true
+text = "-"
+
+[node name="Button2" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+disabled = true
+text = "+"
+
+[node name="Combat Stats" type="Control" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -111.0
+offset_top = 10.0
+offset_right = 111.0
+offset_bottom = 156.0
+grow_horizontal = 2
+
+[node name="max_hp" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+layout_mode = 2
+text = "Max HP: 10"
+
+[node name="attack" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+layout_mode = 2
+text = "Base Attack: 10"
+
+[node name="defense" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+layout_mode = 2
+text = "Defense: 10"
+
+[node name="move_speed" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+layout_mode = 2
+text = "Movement Speed: 100"
+
+[node name="technique" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+layout_mode = 2
+text = "Technique: 1"

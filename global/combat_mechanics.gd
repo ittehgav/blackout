@@ -7,13 +7,15 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter)->void:
 	
 	target.hp -= damage;
 	target.damage_taken.emit(damage)
-
 	if target.hp <= 0:
-		target.death.emit(source);
 		if not target is InFightPlayer:
-			target.ally_team.erase(target);
+			target.ally_team.remove_child(target);
 			var tween:Tween = Tweens.death_vfx(target);
 			tween.tween_callback(target.queue_free);
+		else:
+			Entities.arena.player_died()
+			
+		target.death.emit(source);
 
 func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	target.hp += value;
@@ -85,11 +87,3 @@ func defense_mitigation(unit:ActiveFighter)->float:
 	## mitigation = pecentage reduction to damage
 	## (only by defense stat rn)
 	return total_mitigation/100
-
-func recurring_effect(target:ActiveFighter, effect:Callable, interval:float, repetitions_left:int)->void:
-	effect.call();
-	repetitions_left -= 1;
-	if repetitions_left:
-		await get_tree().create_timer(interval).timeout;
-		if is_instance_valid(target):
-			recurring_effect(target, effect, interval, repetitions_left)

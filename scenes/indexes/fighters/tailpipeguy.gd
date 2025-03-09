@@ -2,7 +2,7 @@ extends FighterBase
 
 
 const skill_effects = ["aoe_damage", "aoe_debuff"];
-const skill_visuals = ["lunge_forward"]
+const skill_visuals = ["lunge_forward", "shrink_target"]
 
 const target_type = "nearest_enemy"
 

@@ -25,7 +25,7 @@ func skill_effect(source:ActiveFighter, effect_name:String)->void:
 func aoe_damage(source:ActiveFighter)->void:
 	## simply damages all valid targets within the hit scan which may take different shapes
 	for target in source.hit_scan.get_overlapping_bodies():
-		if target in source.enemy_team:
+		if target in source.enemy_team.units:
 			deal_damage(source, target);
 			Tweens.damage_blink(target);
 
@@ -33,7 +33,7 @@ func aoe_damage(source:ActiveFighter)->void:
 func aoe_stun(source:ActiveFighter)->void:
 	var targets:Array[Node2D] = source.hit_scan.get_overlapping_bodies();
 	for target in targets:
-		if target in source.enemy_team:
+		if target in source.enemy_team.units:
 			stun_target(source, target)
 
 
@@ -53,7 +53,7 @@ func aoe_debuff(source:ActiveFighter)->void:
 	match source.base.debuff_type:
 		"stat":
 			for unit in targets:
-				if unit in source.enemy_team:
+				if unit in source.enemy_team.units:
 					for stat in source.base.stats_to_debuff:
 						match stat:
 							"defense", "attack", "max_hp", "move_speed":

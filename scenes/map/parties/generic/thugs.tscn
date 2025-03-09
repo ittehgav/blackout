@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scenes/map/parties/generic/thugs.gd" id="1_0qe1h"]
 [ext_resource type="Resource" uid="uid://b5o607txbh0ge" path="res://resources/dialogues/thugs.dialogue" id="2_30pqr"]
-[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/fighter/fighter_unit.tscn" id="2_a3g6n"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="2_a3g6n"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="2_pre44"]
 [ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster.tscn" id="3_uabn6"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/fighter/combat_stats.tscn" id="4_a55b4"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_a55b4"]
 
 [node name="Thugs" type="Node" node_paths=PackedStringArray("leader_unit", "inventory", "roster", "combat_stats")]
 script = ExtResource("1_0qe1h")

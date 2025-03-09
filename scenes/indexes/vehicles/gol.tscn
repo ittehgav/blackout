@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpqa03jkcvh3o"]
+
+[ext_resource type="Texture2D" uid="uid://drm5b44tmgiph" path="res://assets/visual/sprites/vehicles/gol.png" id="1_msghd"]
+[ext_resource type="Script" path="res://scenes/superclasses/map/vehicle.gd" id="2_wswif"]
+
+[node name="Gol" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_msghd")
+hframes = 2
+vframes = 2
+script = ExtResource("2_wswif")

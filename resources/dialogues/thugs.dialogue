@@ -19,3 +19,4 @@ do Entities.dialogue_player.dialogue_ended()
 do MapEvents.battle_speaking_party()
 do Entities.dialogue_player.dialogue_ended()
 => END
+

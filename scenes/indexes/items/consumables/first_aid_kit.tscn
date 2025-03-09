@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8b0jmbg2w2hg"]
+
+[ext_resource type="Texture2D" uid="uid://wjnk6p5e21t6" path="res://assets/visual/icons/items/consumables/first_aid_kit.png" id="1_dhqpa"]
+[ext_resource type="Script" path="res://scenes/indexes/items/consumables/first_aid_kit.gd" id="2_42oc2"]
+
+[node name="First Aid Kit" type="Sprite2D"]
+texture = ExtResource("1_dhqpa")
+script = ExtResource("2_42oc2")

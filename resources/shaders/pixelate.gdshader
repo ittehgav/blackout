@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform float amount = 50.0;
+uniform float amount = 40.0;
 
 void fragment() {
 	if (amount != 0.0) {
