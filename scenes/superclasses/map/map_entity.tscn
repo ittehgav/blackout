@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://dam62qdcl0a2b"]
+[gd_scene load_steps=2 format=3 uid="uid://buwsx4oyg8eil"]
 
 [ext_resource type="Script" path="res://scenes/superclasses/map/map_entity.gd" id="1_10cbo"]
 

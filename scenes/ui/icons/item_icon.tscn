@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyfkqf4uf38r0"]
+
+[ext_resource type="Script" path="res://scenes/ui/icons/item_icon.gd" id="1_omml7"]
+[ext_resource type="Shader" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_yl2uv"]
+[ext_resource type="Texture2D" uid="uid://b8hxrvbev462v" path="res://assets/visual/icons/items/consumables/hagglers_brew.png" id="2_22rr4"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="3_bk7rh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_00vum"]
+resource_local_to_scene = true
+shader = ExtResource("1_yl2uv")
+shader_parameter/base_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqyij"]
+bg_color = Color(0, 1, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 1, 1)
+
+[node name="ItemIcon" type="TextureRect" node_paths=PackedStringArray("tooltip")]
+z_index = 1
+material = SubResource("ShaderMaterial_00vum")
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 0
+texture = ExtResource("2_22rr4")
+script = ExtResource("1_omml7")
+tooltip = NodePath("Tooltip")
+
+[node name="Panel" type="Panel" parent="."]
+z_index = -1
+use_parent_material = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 36.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bqyij")
+
+[node name="Tooltip" parent="." instance=ExtResource("3_bk7rh")]
+layout_mode = 0

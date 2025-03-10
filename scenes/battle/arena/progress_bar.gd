@@ -17,7 +17,7 @@ func set_tide_bar()->void:
 	icon.position.x = tide_fraction * 1240 - 16;
 
 
-func _on_value_changed(value: float) -> void:
+func _on_value_changed(_value: float) -> void:
 	## where a flashy animation will go eventually
 	var tide_fraction = 1/max_value * value
 	var target_icon_x = tide_fraction * 1240 - 16;

@@ -1,6 +1,7 @@
 extends Weapon
 
 ## weapons can be weapons or tools with effects such as heals/buffs
+const rarity = 1;
 
 const cooldown:float = .5;
 

@@ -3,7 +3,11 @@ extends UIRoot;
 @export var bg:ColorRect;
 @export var container:HBoxContainer;
 
-@export_category("Resource Labels")
+@export var consumables_inventory:GridContainer;
+@export var trinkets_inventory:GridContainer;
+
+@export_category("Elements")
+@export_subgroup("Resource Labels")
 @export var food_label:Label;
 @export var fuel_label:Label;
 @export var money_label:Label;
@@ -11,25 +15,28 @@ extends UIRoot;
 @export var scrap_label:Label;
 @export var chips_label: Label;
 
-@export_category("Combat Stat Labels")
+@export_subgroup("Combat Stat Labels")
 @export var max_hp_label:Label;
 @export var attack_label:Label;
 @export var defense_label:Label;
 @export var move_speed_label:Label;
 @export var technique_label:Label;
 
+@export_subgroup("Packed Scenes")
+@export var item_icon_scene:PackedScene;
+
 const resources_names = [
 	"food", "fuel", "money", "scrap", "juice", "scrap", "chips"
 ]
 
-@export_category("Levels")
+@export_subgroup("Levels")
 @export var leadership_level_label:Label;
 @export var leadership_level_progress:ProgressBar;
 
 @export var combat_level_label:Label;
 @export var combat_level_progress:ProgressBar;
 
-@export_category("Leadership Stat Labels")
+@export_subgroup("Leadership Stat Labels")
 @export var charisma_label:Label;
 @export var navigation_label:Label;
 @export var tactics_label:Label;
@@ -37,8 +44,8 @@ const resources_names = [
 
 func _ready():
 	super();
-	for name in resources_names:
-		self[name + "_label"].modulate = Icons.resource_colors[name].lightened(.25);
+	for rname in resources_names:
+		self[rname + "_label"].modulate = Icons.resource_colors[rname].lightened(.25);
 
 func _input(e:InputEvent):
 	if e.is_action_pressed("show_player_sheet"):
@@ -51,6 +58,7 @@ func _input(e:InputEvent):
 func show_player_sheet():
 	show()
 	refresh_data();
+	Entities.in_map_player.stop_movement(false)
 	get_tree().paused = true;
 	Entities.world_map.pause_map()
 	bg.self_modulate.a = 0;
@@ -99,9 +107,21 @@ func refresh_data():
 	combat_level_progress.value = Entities.player.combat_exp;
 	
 	var cstats:CombatStats = Entities.player.combat_stats;
-	max_hp_label.text = "Map HP: " + str(cstats.max_hp);
+	max_hp_label.text = "Max HP: " + str(cstats.max_hp);
 	attack_label.text = "Base Attack: " + str(cstats.attack);
 	defense_label.text = "Defense: " + str(cstats.defense);
 	move_speed_label.text=  "Movement Speed: " + str(cstats.move_speed);
 	technique_label.text = "Technique: " + str(cstats.technique);
+	for c in consumables_inventory.get_children():
+		c.queue_free();
+	for t  in trinkets_inventory.get_children():
+		t.queue_free();
+	
+	for item:Item in Entities.player.inventory.consumables + Entities.player.inventory.trinkets:
+		var icon:ItemIcon = item_icon_scene.instantiate();
+		icon.item = item;
+		if item is Consumable:
+			consumables_inventory.add_child(icon)
+		if item is Trinket:
+			trinkets_inventory.add_child(icon)
 	

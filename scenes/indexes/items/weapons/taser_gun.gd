@@ -1,5 +1,6 @@
 extends Weapon
 
+const rarity = 2;
 
 ## taser gun, stuns and damages a target
 const type = "ranged";

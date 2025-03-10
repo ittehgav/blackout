@@ -10,6 +10,7 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if target_entity:
 		var direction:Vector2 = (target_entity.position - position).normalized();
+		## without multiplying by delta this behaves exacly as move_and_collide(with delta)
 		velocity = direction * move_speed
 		move_and_slide();
 

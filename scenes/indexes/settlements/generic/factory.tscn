@@ -6,20 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_8bllo"]
 [ext_resource type="Texture2D" uid="uid://4qjxg6qo28dq" path="res://assets/visual/backgrounds/settlements/factory.jpg" id="3_641dt"]
 [ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_nhmlw"]
-[ext_resource type="PackedScene" uid="uid://4wvh3dxhi1cy" path="res://scenes/map/ui/hud/tooltip.tscn" id="3_wsadw"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_mncoa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8aio"]
 radius = 50.0
 
-[node name="Factory" type="CharacterBody2D" node_paths=PackedStringArray("settings", "tooltip", "inventory")]
+[node name="Factory" type="CharacterBody2D" node_paths=PackedStringArray("settings", "inventory")]
 input_pickable = true
 script = ExtResource("2_82p61")
 background = ExtResource("3_641dt")
 settings = NodePath("SettlementSettings")
-tooltip = NodePath("Tooltip")
 inventory = NodePath("Inventory")
-
-[node name="Tooltip" parent="." instance=ExtResource("3_wsadw")]
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("1_bkqf8")
@@ -44,3 +41,13 @@ offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = 50.0
+
+[node name="Tooltip" parent="hover_box" node_paths=PackedStringArray("target") instance=ExtResource("7_mncoa")]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 392.0
+offset_bottom = 158.0
+target = NodePath("../..")
+
+[editable path="hover_box/Tooltip"]

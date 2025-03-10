@@ -71,8 +71,13 @@ func color_code_settlement(settlement:Settlement)->void:
 	color_code_sprite(sprite, dict)
 
 
+
 func color_code_sprite(sprite:Sprite2D, pairs:Dictionary)->void:
-	var img:Image = sprite.texture.get_image();
+	sprite.texture = color_code_texture(sprite.texture, pairs);
+	
+
+func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:
+	var img:Image = texture.get_image();
 	
 	var width:int = img.get_width();
 	var height:int = img.get_height()
@@ -86,4 +91,4 @@ func color_code_sprite(sprite:Sprite2D, pairs:Dictionary)->void:
 			if color.a and color in keys:
 				var new_color:Color = pairs[color];
 				img.set_pixel(x, y, new_color);
-	sprite.texture = ImageTexture.create_from_image(img);
+	return ImageTexture.create_from_image(img);

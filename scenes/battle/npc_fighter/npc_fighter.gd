@@ -89,13 +89,7 @@ func find_target()->void:
 
 
 func _physics_process(_delta: float) -> void:
-	if ally_team.fleeing:
-		var target_x = 0;
-		if ally_team.team_n == 1:
-			target_x = -1;
-		else:
-			target_x = 1;
-	elif target_unit and is_instance_valid(target_unit):
+	if target_unit and is_instance_valid(target_unit):
 		if not target_in_range and stun_timer.is_stopped():
 			base.flip_h = target_unit.position.x < position.x;
 			if not current_animation == "walk":

@@ -1,5 +1,7 @@
 extends Weapon
 
+const rarity = 2
+
 const cooldown = 1;
 
 const type = "support"

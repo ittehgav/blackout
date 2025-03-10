@@ -25,6 +25,7 @@ shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "leader", "vehicle")]
 process_mode = 3
+motion_mode = 1
 script = ExtResource("1_h5u0f")
 camera = NodePath("in_map_camera")
 leader = NodePath("Player")

@@ -1,5 +1,7 @@
 extends Sprite2D
 
+const rarity = 3
+
 ## magnetic staff, maybe chargeable?
 const type="ranged";
 const projctile_lifespan =5;

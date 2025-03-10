@@ -6,6 +6,7 @@
 radius = 25.0
 
 [node name="NpcMapParty" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_lag4v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

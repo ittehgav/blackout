@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7ylp6mxbcewc"]
+
+[ext_resource type="Shader" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_1s3gs"]
+[ext_resource type="Texture2D" uid="uid://dj1i0pekcb7xu" path="res://assets/visual/icons/stats/max_hp.png" id="1_b7vp6"]
+[ext_resource type="Script" path="res://scenes/ui/icons/stat_icon.gd" id="2_w7tyd"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="4_66raq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xoeuu"]
+resource_local_to_scene = true
+shader = ExtResource("1_1s3gs")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d742l"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 1, 1)
+
+[node name="StatIcon" type="TextureRect"]
+z_index = 1
+material = SubResource("ShaderMaterial_xoeuu")
+custom_minimum_size = Vector2(32, 32)
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_b7vp6")
+script = ExtResource("2_w7tyd")
+
+[node name="Panel" type="Panel" parent="."]
+z_index = -1
+use_parent_material = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d742l")
+
+[node name="Tooltip" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_66raq")]
+layout_mode = 0
+target = NodePath("..")

@@ -41,8 +41,11 @@ func _physics_process(delta: float) -> void:
 					interact_with_map_entity(collision.get_collider());
 					
 
-func stop_movement()->void:
-	position = target_position;
+func stop_movement(finish:bool =true)->void:
+	if finish:
+		position = target_position;
+	else:
+		target_position = position
 	stopped_moving.emit()
 
 func interact_with_map_entity(entity:MapEntity)->void:

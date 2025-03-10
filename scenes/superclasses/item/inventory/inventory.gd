@@ -24,24 +24,24 @@ class_name Inventory;
 func _on_child_entered_tree(node: Node) -> void:
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
 	assert(node is Item)
-	match node.get_class():
-		Consumable:
-			consumables.push_back(node);
-		Weapon:
-			weapons.push_back(node);
-		Armor:
-			armor.push_back(node);
-		Trinket:
-			trinkets.push_back(node)
+	if node is Consumable:
+		consumables.push_back(node);
+	elif node is Trinket:
+		trinkets.push_back(node);
+	elif node is Armor:
+		armor.push_back(node);
+	elif node is Weapon:
+		weapons.push_back(node);
+
 			
 
 func _on_child_exiting_tree(node: Node) -> void:
-	match node.get_class():
-		Consumable:
-			consumables.erase(node);
-		Weapon:
-			weapons.erase(node);
-		Armor:
-			armor.erase(node);
-		Trinket:
-			trinkets.erase(node)
+	assert(node is Item)
+	if node is Consumable:
+		consumables.erase(node);
+	elif node is Trinket:
+		trinkets.erase(node);
+	elif node is Armor:
+		armor.erase(node);
+	elif node is Weapon:
+		weapons.erase(node);

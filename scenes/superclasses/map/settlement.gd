@@ -4,7 +4,6 @@ class_name Settlement;
 
 @export var background:Texture;
 @export var settings:SettlementSettings;
-@export var tooltip:Tooltip;
 
 @export var inventory:Inventory;
 
@@ -12,15 +11,8 @@ var player_relation:int=5;
 
 
 func _ready()->void:
-	$hover_box.mouse_entered.connect(show_tooltip);
-	$hover_box.mouse_exited.connect(hide_tooltip)
 	ColorCoder.color_code_settlement(self)
 
-func show_tooltip()->void:
-	tooltip.show();
-	
-func hide_tooltip()->void:
-	tooltip.hide();
 
 
 func get_resource_values(operation:String)->Dictionary:

@@ -30,8 +30,8 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	$background.texture = settlement.background;
 
 	name_label.text = settlement.name;
-	short_description_label.text = settlement.short_description;
-	long_description_label.text = settlement.description;
+	short_description_label.text = settlement.description;
+	long_description_label.text = settlement.flavor;
 	
 	for button:Button in basic_options:
 		button.hide();
