@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://begv0mypb35ls"
+path="res://.godot/imported/GAMEBoard_Chess Piece Topple on Cardboard Board_SARM_BGE_OneShot-04.wav-a7602ee9df8974d55054fcc4ea54808b.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Chess/Piece Topple Cardboard Board/GAMEBoard_Chess Piece Topple on Cardboard Board_SARM_BGE_OneShot-04.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Chess Piece Topple on Cardboard Board_SARM_BGE_OneShot-04.wav-a7602ee9df8974d55054fcc4ea54808b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

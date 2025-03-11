@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/ui/tooltip.gd" id="1_ufptg"]
 
-[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "description_label", "icon", "hover_timer")]
+[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "description_label", "icon", "hint", "hover_timer")]
 process_mode = 3
 visible = false
 z_index = 1
@@ -15,6 +15,7 @@ script = ExtResource("1_ufptg")
 name_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/name")
 description_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/description")
 icon = NodePath("MarginContainer/HBoxContainer/icon")
+hint = NodePath("MarginContainer/HBoxContainer/VBoxContainer/hint")
 hover_timer = NodePath("hover_timer")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -31,10 +32,12 @@ size_flags_vertical = 0
 mouse_filter = 2
 
 [node name="icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 mouse_filter = 2
 
@@ -53,6 +56,14 @@ bbcode_enabled = true
 text = "edwadawdawdawdwadawd"
 fit_content = true
 scroll_active = false
+
+[node name="hint" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+modulate = Color(1, 1, 1, 0.513726)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "tooly"
+horizontal_alignment = 2
 
 [node name="hover_timer" type="Timer" parent="."]
 wait_time = 0.5

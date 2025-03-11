@@ -4,6 +4,7 @@ class_name InMapPlayer;
 
 @export var camera:Camera2D;
 
+var morale:float;
 
 
 func _ready()->void:
@@ -52,7 +53,7 @@ func interact_with_map_entity(entity:MapEntity)->void:
 	if entity is Settlement:
 		Entities.current_settlement = entity;
 		Entities.world_map.ui.settlement_ui.settlement_entered.emit(entity)
-		Entities.ui_sfx.play_stream_by_key("settlement_entered")
+		#Entities.ui_sfx.play_stream_by_key("settlement_entered")
 
 	elif entity is MapParty:
 		Entities.current_speaking_party = entity;

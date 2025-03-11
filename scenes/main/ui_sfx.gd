@@ -1,34 +1,13 @@
 extends AudioStreamPlayer
 
+class_name UISFX;
+
 @export var mouseover_sounds:Array[AudioStream];
 @export var disabled_mouseover:AudioStream;
 
 @export var button_click_sound:AudioStream;
 @export var cancel_sound:AudioStream;
 @export var settlement_entered:AudioStream;
-
-func _ready() -> void:
-	Entities.ui_sfx = self;
-	recursive_connect_ui_feedback(get_parent().get_node("main_ui"))
-
-func recursive_connect_ui_feedback(node:Control)->void:
-	node.mouse_entered.connect(ui_mouseover_sound.bind(node));
-	if "pressed" in node:
-		node.pressed.connect(ui_click_sound.bind(node));
-
-	if "hover" in node.name:
-		## cloned nodes can't have children
-		add_hover_effect(node)
-
-
-	for c in node.get_children():
-		recursive_connect_ui_feedback(c);
-	
-func add_hover_effect(node:Control)->void:
-	node.mouse_filter = Control.MOUSE_FILTER_PASS
-	
-	node.mouse_entered.connect(node.set_modulate.bind(Color.LIGHT_GREEN));
-	node.mouse_exited.connect(node.set_modulate.bind(Color.WHITE))
 
 
 func ui_click_sound(node:Control)->void:
@@ -40,11 +19,15 @@ func ui_click_sound(node:Control)->void:
 			
 
 func ui_mouseover_sound(node:Control)->void:
+	print(node)
 	if node is Button:
 		if node.disabled:
 			play_stream(disabled_mouseover)
 		else:
 			play_stream(mouseover_sounds.pick_random());
+	else:
+		play_stream(mouseover_sounds.pick_random())
+		
 	
 func play_stream(to_play:AudioStream)->void:
 	stream = to_play;
@@ -54,3 +37,9 @@ func play_stream_by_key(key:String)->void:
 	## key needs to be a string matching an AudioStream declared in this script
 	stream = self[key];
 	play();
+	
+func tab_mouseover_sound(_tab, node:TabContainer):
+	play_stream(mouseover_sounds.pick_random())
+
+func tab_click_sound(_tab, node:TabContainer):
+	play_stream(button_click_sound)

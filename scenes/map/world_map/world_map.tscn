@@ -1,15 +1,15 @@
 [gd_scene load_steps=38 format=3 uid="uid://dw4kenb3r4atf"]
 
-[ext_resource type="Script" path="res://scenes/map/world_map.gd" id="1_s4sam"]
+[ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_hae4w"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
-[ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="3_ircok"]
-[ext_resource type="Script" path="res://scenes/map/world_map/ambient_light.gd" id="3_uqjvj"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="3_ircok"]
+[ext_resource type="Script" uid="uid://bvgff2ddyp43u" path="res://scenes/map/world_map/ambient_light.gd" id="3_uqjvj"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="4_4aisy"]
-[ext_resource type="Script" path="res://scenes/map/world_map/bg_tiles.gd" id="4_f6xbr"]
+[ext_resource type="Script" uid="uid://m3pegw86khqm" path="res://scenes/map/world_map/bg_tiles.gd" id="4_f6xbr"]
 [ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/map/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
-[ext_resource type="Script" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
+[ext_resource type="Script" uid="uid://d1epphgokcyg0" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
 [ext_resource type="PackedScene" uid="uid://bghgbhdlygqcs" path="res://scenes/indexes/settlements/generic/scrapyard.tscn" id="6_ooxid"]
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
@@ -21,8 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://b5o7ipw23muir" path="res://scenes/indexes/items/trinkets/rare_coin.tscn" id="11_5up8w"]
 [ext_resource type="PackedScene" uid="uid://m2wpkoi452n" path="res://scenes/indexes/items/consumables/gakka_roll.tscn" id="12_g4k6m"]
 [ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/map/ui/dialogue/dialogue_player.tscn" id="13_8dqwv"]
-[ext_resource type="Shader" path="res://resources/shaders/icon_color_replacer.gdshader" id="18_8a7hc"]
-[ext_resource type="Script" path="res://scenes/map/ui/hud/corner_hud.gd" id="20_kjmu7"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="18_8a7hc"]
+[ext_resource type="Script" uid="uid://oi4485psd4yk" path="res://scenes/map/ui/hud/corner_hud.gd" id="20_kjmu7"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="21_e8wjb"]
 
@@ -45,8 +45,8 @@ noise = SubResource("FastNoiseLite_yg1vu")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc55"]
 resource_local_to_scene = true
 shader = ExtResource("3_ircok")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -60,7 +60,7 @@ metadata/__load_path__ = "res://assets/backgrounds/settlements/farm.jpg"
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t8lh1"]
 resource_local_to_scene = true
 shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -76,7 +76,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewsj2"]
 resource_local_to_scene = true
 shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -84,7 +84,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3iwor"]
 resource_local_to_scene = true
 shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -92,7 +92,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g6tog"]
 resource_local_to_scene = true
 shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -100,7 +100,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5fy52"]
 resource_local_to_scene = true
 shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -120,7 +120,6 @@ clock = NodePath("../ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar
 autostart = true
 
 [node name="bg_tiles" type="TileMapLayer" parent="."]
-self_modulate = Color(0.76662, 0.76662, 0.76662, 1)
 scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_uklf8")
 script = ExtResource("4_f6xbr")
@@ -351,6 +350,7 @@ layout_mode = 1
 
 [node name="PlayerSheet" parent="ui_overlay/ui" instance=ExtResource("20_lvh7d")]
 visible = false
+z_index = 1
 layout_mode = 1
 
 [connection signal="timeout" from="ambient_light/minute_ticker" to="ambient_light" method="_on_minute_ticker_timeout"]

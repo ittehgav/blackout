@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dnu7qdnri5bks"
+path="res://.godot/imported/GAMEBoard_Checkers Place on Wooden Board_SARM_BGE_OneShot-01.wav-30c687f8d8fa1cd2f0db453df136eabb.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Checkers/Place Wood Board/GAMEBoard_Checkers Place on Wooden Board_SARM_BGE_OneShot-01.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Checkers Place on Wooden Board_SARM_BGE_OneShot-01.wav-30c687f8d8fa1cd2f0db453df136eabb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

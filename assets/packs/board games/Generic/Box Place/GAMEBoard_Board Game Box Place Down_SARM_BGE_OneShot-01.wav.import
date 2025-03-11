@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d4g5x1fggi0ba"
+path="res://.godot/imported/GAMEBoard_Board Game Box Place Down_SARM_BGE_OneShot-01.wav-8d49e882c33471362009859d9d3cfb37.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Generic/Box Place/GAMEBoard_Board Game Box Place Down_SARM_BGE_OneShot-01.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Board Game Box Place Down_SARM_BGE_OneShot-01.wav-8d49e882c33471362009859d9d3cfb37.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

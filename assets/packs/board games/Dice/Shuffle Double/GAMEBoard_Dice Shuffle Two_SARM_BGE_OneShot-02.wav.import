@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://brnww6tgp6b8s"
+path="res://.godot/imported/GAMEBoard_Dice Shuffle Two_SARM_BGE_OneShot-02.wav-614a7509a3667620217b47373f208e25.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Dice/Shuffle Double/GAMEBoard_Dice Shuffle Two_SARM_BGE_OneShot-02.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Dice Shuffle Two_SARM_BGE_OneShot-02.wav-614a7509a3667620217b47373f208e25.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,4 +1,6 @@
-extends TextureRect
+extends Icon
+
+class_name StatIcon
 
 var description:String;
 var tooltip_name_color:Color;

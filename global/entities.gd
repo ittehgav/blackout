@@ -1,10 +1,7 @@
 extends Node
 
 
-
 var main:Node;
-
-var ui_sfx:AudioStreamPlayer;
 
 var player:Player;
 var in_fight_player:InFightPlayer;

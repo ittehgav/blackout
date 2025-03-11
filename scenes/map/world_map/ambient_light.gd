@@ -2,24 +2,23 @@ extends CanvasModulate
 
 var current_hour:int=0;
 var current_minute:int=0;
-const alpha = .8
-const sand_color = Color.SANDY_BROWN;
 
 @export var clock:Label;
 
 @export var cycle_colors:Array[Color] = [
-	Color(0.400, 0.378, 0.349, alpha),   # Pre-dawn on sand
-	Color(0.518, 0.427, 0.447, alpha),   # Early dawn on sand
-	Color(0.880, 0.545, 0.349, alpha),   # Sunrise on sand
-	Color(0.645, 0.753, 0.712, alpha),   # Morning on sand
-	Color(0.380, 0.723, 0.751, alpha),   # Midday on sand
-	Color(0.576, 0.641, 0.715, alpha),   # Afternoon on sand
-	Color(0.720, 0.772, 0.702, alpha),   # Late afternoon on sand
-	Color(0.880, 0.484, 0.251, alpha),   # Sunset on sand
-	Color(0.631, 0.349, 0.502, alpha),   # Twilight on sand
-	Color(0.429, 0.398, 0.470, alpha),   # Dusk on sand
-	Color(0.380, 0.349, 0.329, alpha),   # Night on sand
-	Color(0.390, 0.359, 0.280, alpha)    # Late night on sand
+	Color.MIDNIGHT_BLUE + Color(-.2, -.2, -.2, -.2), ## 00:00
+	Color.MIDNIGHT_BLUE + Color(-.2, -.2, -.2, -.2), ## 01:00 / 23:00
+	Color.MIDNIGHT_BLUE + Color(-.2, -.2, -.2, -.2), ## 02:00 / 22:00
+	Color.MIDNIGHT_BLUE * 1.2 + Color(-.1, -.1, -.1, -.5), ## 03:00 / 21:00
+	Color.MIDNIGHT_BLUE * 1.5 + Color(0, 0, 0, -.6), ## 04:00 / 20:00
+	Color.SKY_BLUE * .75 + Color(0, 0, 0, 1), ## 05:00 / 19:00
+	Color.SKY_BLUE * Color.SANDY_BROWN + Color(0, 0, 0, 1), ## 6:00 / 18:00
+	Color.SANDY_BROWN + Color(0, 0, 0, 1), ## 07:00 / 17:00
+	Color.SANDY_BROWN * 1.2 + Color(0, 0, 0, 1), ##08:00 / 16:00
+	Color.SANDY_BROWN * 1.4 + Color(0, 0, 0, 1), ##09:00 / 15:00
+	Color.SANDY_BROWN * 1.5 + Color(0, 0, 0, 1), ##10:00 / 14:00 
+	Color.SANDY_BROWN * 1.5 + Color(0, 0, 0, 1), ##11:00 / 13:00
+	Color.SANDY_BROWN * 1.5 + Color(0, 0, 0, 1), ##12:00
 ]
 
 func _ready():
@@ -34,10 +33,11 @@ func hour_passed() -> void:
 	update_lighting();
 	
 func update_lighting():
-	if not current_hour % 2:
-		var index = current_hour/2;
-		var tween = create_tween();
-		tween.tween_property(self, "color", cycle_colors[index], 1);
+	var index = current_hour;
+	if index > 11:
+		index = 12 - (index - 11)
+	var tween = create_tween();
+	tween.tween_property(self, "color", cycle_colors[index], 1);
 
 
 func _on_minute_ticker_timeout() -> void:
@@ -58,3 +58,8 @@ func _on_minute_ticker_timeout() -> void:
 		minute_str = str(current_minute)
 		
 	clock.text = hour_str + ":"+ minute_str
+
+
+func _input(e:InputEvent):
+	if e.is_action_pressed("move_right"):
+		get_tree().paused = false;

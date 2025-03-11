@@ -1,17 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=20 format=3 uid="uid://1yund7taju3s"]
 
-[ext_resource type="Script" path="res://scenes/player/ui/player_sheet.gd" id="1_6boby"]
-[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/PixelTheme-Sky.tres" id="2_jp7yd"]
+[ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/player/ui/player_sheet.gd" id="1_6boby"]
+[ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/ui_sfx/GAMEBoard_Dice Collect_SARM_BGE_OneShot-03.wav" id="2_go8yu"]
 [ext_resource type="PackedScene" uid="uid://dyfkqf4uf38r0" path="res://scenes/ui/icons/item_icon.tscn" id="2_uujnm"]
-[ext_resource type="Shader" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_0tcx5"]
-[ext_resource type="Theme" uid="uid://dpboo8w0w3psc" path="res://resources/themes/PixelTheme-Leather.tres" id="3_6io7m"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_0tcx5"]
+[ext_resource type="AudioStream" uid="uid://cidv5tcb082h5" path="res://assets/sound/ui_sfx/GAMEBoard_Dice Collect_SARM_BGE_OneShot-01.wav" id="3_5uudl"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="3_vnktq"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="6_1fayv"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="6_u5vdc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ff84"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -19,7 +20,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_523kj"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -27,7 +28,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_55ejy"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -35,7 +36,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d1fif"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -43,7 +44,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nuo2s"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -51,7 +52,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjbpt"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -59,7 +60,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ncu57"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -67,7 +68,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nsjwg"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -75,7 +76,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_um8mn"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -83,7 +84,7 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fwr53"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -91,12 +92,12 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gcm86"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
-shader_parameter/base_color = null
+shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "container", "consumables_inventory", "trinkets_inventory", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label")]
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "container", "consumables_inventory", "trinkets_inventory", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
 process_mode = 3
 y_sort_enabled = true
 layout_mode = 3
@@ -110,6 +111,8 @@ size_flags_vertical = 4
 script = ExtResource("1_6boby")
 bg = NodePath("ColorRect")
 container = NodePath("ColorRect/MarginContainer/HBoxContainer")
+open_sound = ExtResource("2_go8yu")
+close_sound = ExtResource("3_5uudl")
 consumables_inventory = NodePath("ColorRect/MarginContainer/HBoxContainer/TabContainer/Inventory/inventories/Consumables/Consumables")
 trinkets_inventory = NodePath("ColorRect/MarginContainer/HBoxContainer/TabContainer/Inventory/inventories/Trinkets/Trinkets")
 food_label = NodePath("ColorRect/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer/food")
@@ -132,6 +135,9 @@ charisma_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/
 navigation_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/navigation")
 tactics_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/tactics")
 logistics_label = NodePath("ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/logistics")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." instance=ExtResource("3_vnktq")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 process_mode = 2
@@ -305,46 +311,6 @@ theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 text = "Chips: X"
 
-[node name="item_data" type="Panel" parent="ColorRect/MarginContainer/HBoxContainer/TabContainer/Inventory"]
-layout_mode = 0
-offset_left = 410.0
-offset_top = 21.0
-offset_right = 778.0
-offset_bottom = 322.0
-theme = ExtResource("2_jp7yd")
-
-[node name="item_name" type="Label" parent="ColorRect/MarginContainer/HBoxContainer/TabContainer/Inventory/item_data"]
-layout_mode = 0
-offset_left = 31.0
-offset_top = 28.0
-offset_right = 71.0
-offset_bottom = 41.0
-theme_override_font_sizes/font_size = 64
-text = "Item Name"
-
-[node name="item_description" type="RichTextLabel" parent="ColorRect/MarginContainer/HBoxContainer/TabContainer/Inventory/item_data"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 100.0
-offset_right = 377.0
-offset_bottom = 320.0
-theme_override_font_sizes/bold_italics_font_size = 32
-theme_override_font_sizes/italics_font_size = 32
-theme_override_font_sizes/mono_font_size = 32
-theme_override_font_sizes/normal_font_size = 32
-theme_override_font_sizes/bold_font_size = 32
-text = "Item description pee pee poo poo lmao"
-
-[node name="Button" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/TabContainer/Inventory/item_data"]
-layout_mode = 0
-offset_left = 223.0
-offset_top = 228.0
-offset_right = 307.0
-offset_bottom = 287.0
-theme = ExtResource("3_6io7m")
-theme_override_font_sizes/font_size = 64
-text = "Use"
-
 [node name="inventories" type="TabContainer" parent="ColorRect/MarginContainer/HBoxContainer/TabContainer/Inventory"]
 layout_mode = 0
 offset_left = 23.0
@@ -432,14 +398,13 @@ show_percentage = false
 [node name="stats" type="TabContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet"]
 layout_mode = 2
 offset_left = 20.0
-offset_top = 286.0
+offset_top = 234.0
 offset_right = 380.0
 offset_bottom = 630.0
 theme_override_font_sizes/font_size = 32
-current_tab = 1
+current_tab = 0
 
 [node name="Leadership Stats" type="Control" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -552,11 +517,13 @@ disabled = true
 text = "+"
 
 [node name="Combat Stats" type="Control" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats"]
+visible = false
 z_as_relative = false
 layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats"]
+z_index = 1
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

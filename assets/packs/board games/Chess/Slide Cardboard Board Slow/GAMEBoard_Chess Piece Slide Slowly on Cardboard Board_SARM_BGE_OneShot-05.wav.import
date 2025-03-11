@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b7bflxtt2cgwp"
+path="res://.godot/imported/GAMEBoard_Chess Piece Slide Slowly on Cardboard Board_SARM_BGE_OneShot-05.wav-ae0a579768b4f546a5c0f7db38ea154b.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Chess/Slide Cardboard Board Slow/GAMEBoard_Chess Piece Slide Slowly on Cardboard Board_SARM_BGE_OneShot-05.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Chess Piece Slide Slowly on Cardboard Board_SARM_BGE_OneShot-05.wav-ae0a579768b4f546a5c0f7db38ea154b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d28s6sb7congd"
+path="res://.godot/imported/GAMEBoard_Chess Piece Return to Box Single_SARM_BGE_OneShot-03.wav-a7ff37a5eb68912b62ad8862bb846179.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Chess/Piece Return To Box Single/GAMEBoard_Chess Piece Return to Box Single_SARM_BGE_OneShot-03.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Chess Piece Return to Box Single_SARM_BGE_OneShot-03.wav-a7ff37a5eb68912b62ad8862bb846179.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

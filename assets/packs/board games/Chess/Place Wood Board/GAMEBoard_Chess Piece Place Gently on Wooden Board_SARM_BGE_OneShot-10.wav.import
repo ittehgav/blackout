@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://vg7w02lbocme"
+path="res://.godot/imported/GAMEBoard_Chess Piece Place Gently on Wooden Board_SARM_BGE_OneShot-10.wav-164d0e0e2e97f76d68287ffd8140401e.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Chess/Place Wood Board/GAMEBoard_Chess Piece Place Gently on Wooden Board_SARM_BGE_OneShot-10.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Chess Piece Place Gently on Wooden Board_SARM_BGE_OneShot-10.wav-164d0e0e2e97f76d68287ffd8140401e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

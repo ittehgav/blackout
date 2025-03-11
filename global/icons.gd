@@ -23,7 +23,7 @@ const resource_colors = {
 	"money":Color(0, .7, 0),
 	
 	"juice":Color.PURPLE,
-	"scrap":Color.SADDLE_BROWN,
+	"scrap":Color.DARK_GRAY,
 	"chips":Color.SKY_BLUE
 }
 

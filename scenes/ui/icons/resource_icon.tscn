@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8uqyv4bj780w"]
 
-[ext_resource type="Script" path="res://scenes/ui/icons/resource_icon.gd" id="1_2qubx"]
-[ext_resource type="Shader" path="res://resources/shaders/icon_color_replacer.gdshader" id="2_g1fkx"]
+[ext_resource type="Script" uid="uid://1f41cnvgtini" path="res://scenes/ui/icons/resource_icon.gd" id="1_2qubx"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="2_g1fkx"]
 [ext_resource type="Texture2D" uid="uid://dbesccl2h38ie" path="res://assets/visual/icons/resources/chips.png" id="2_otlm7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g3d32"]
@@ -27,6 +27,7 @@ material = SubResource("ShaderMaterial_g3d32")
 custom_minimum_size = Vector2(36, 36)
 offset_right = 36.0
 offset_bottom = 36.0
+mouse_filter = 0
 texture = ExtResource("2_otlm7")
 script = ExtResource("1_2qubx")
 panel = NodePath("Panel")
@@ -40,3 +41,5 @@ offset_top = -2.0
 offset_right = 38.0
 offset_bottom = 38.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3h1ap")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

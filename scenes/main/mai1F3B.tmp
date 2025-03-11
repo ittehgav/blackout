@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbj4g27p0o6dw"]
+
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_8gx17"]
+[ext_resource type="Script" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
+[ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_ft8he"]
+[ext_resource type="PackedScene" uid="uid://dw4kenb3r4atf" path="res://scenes/map/world_map/world_map.tscn" id="3_onvlx"]
+[ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="5_8yyg4"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="6_l3xhp"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_8gx17")
+
+[node name="main_ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v0lew")
+world_map_scene = ExtResource("3_onvlx")
+arena_scene = ExtResource("2_ft8he")
+
+[node name="TextureRect" type="TextureRect" parent="main_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_8yyg4")
+expand_mode = 3
+flip_h = true
+
+[node name="PanelContainer" type="PanelContainer" parent="main_ui"]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 428.0
+offset_right = 174.0
+offset_bottom = 468.0
+
+[node name="MarginContainer" type="MarginContainer" parent="main_ui/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="test_battle" type="Button" parent="main_ui/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Battle
+"
+
+[node name="world_map" type="Button" parent="main_ui/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "World Map
+"
+
+[node name="ui_sfx" parent="." instance=ExtResource("6_l3xhp")]
+
+[connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/test_battle" to="main_ui" method="test_battle"]
+[connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/world_map" to="main_ui" method="world_map"]

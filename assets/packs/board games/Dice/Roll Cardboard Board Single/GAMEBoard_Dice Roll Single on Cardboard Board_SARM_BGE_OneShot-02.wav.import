@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bl1ptt4lrfo8g"
+path="res://.godot/imported/GAMEBoard_Dice Roll Single on Cardboard Board_SARM_BGE_OneShot-02.wav-8e21257902ea272a0fa5a761e09a94ef.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Dice/Roll Cardboard Board Single/GAMEBoard_Dice Roll Single on Cardboard Board_SARM_BGE_OneShot-02.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Dice Roll Single on Cardboard Board_SARM_BGE_OneShot-02.wav-8e21257902ea272a0fa5a761e09a94ef.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

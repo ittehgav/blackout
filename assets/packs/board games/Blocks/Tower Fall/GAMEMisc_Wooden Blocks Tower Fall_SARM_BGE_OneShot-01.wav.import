@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bo78771e8v4rc"
+path="res://.godot/imported/GAMEMisc_Wooden Blocks Tower Fall_SARM_BGE_OneShot-01.wav-e04156a75fe8de1b75ee810c640c0003.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Blocks/Tower Fall/GAMEMisc_Wooden Blocks Tower Fall_SARM_BGE_OneShot-01.wav"
+dest_files=["res://.godot/imported/GAMEMisc_Wooden Blocks Tower Fall_SARM_BGE_OneShot-01.wav-e04156a75fe8de1b75ee810c640c0003.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

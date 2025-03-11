@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dqqlnsw4c4o0w"
+path="res://.godot/imported/GAMEMisc_Playing Card Return to Deck_SARM_BGE_OneShot-02.wav-f3eaf8870cea9c3694b228fe8993ad04.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Cards/Return To Deck/GAMEMisc_Playing Card Return to Deck_SARM_BGE_OneShot-02.wav"
+dest_files=["res://.godot/imported/GAMEMisc_Playing Card Return to Deck_SARM_BGE_OneShot-02.wav-f3eaf8870cea9c3694b228fe8993ad04.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,19 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbh3hqgsu5es8"]
+
+[ext_resource type="AudioStream" uid="uid://bgr1451esjfxc" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 1.ogg" id="1_igjwg"]
+[ext_resource type="Script" path="res://scenes/main/ui_sfx.gd" id="2_qkd3f"]
+[ext_resource type="AudioStream" uid="uid://dxce8m1hdp6vk" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 3.ogg" id="3_xbfpv"]
+[ext_resource type="AudioStream" uid="uid://6wpoyciwpcqp" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 4.ogg" id="4_4v0va"]
+[ext_resource type="AudioStream" uid="uid://fhr3xripjers" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Select - 1.ogg" id="5_5rusu"]
+[ext_resource type="AudioStream" uid="uid://0fnfsxh017op" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cancel - 2.ogg" id="6_mtudi"]
+[ext_resource type="AudioStream" uid="uid://b2570jayrbgqr" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 5.ogg" id="7_v0nya"]
+
+[node name="ui_sfx" type="AudioStreamPlayer"]
+stream = ExtResource("1_igjwg")
+volume_db = -10.0
+script = ExtResource("2_qkd3f")
+mouseover_sounds = Array[AudioStream]([ExtResource("3_xbfpv"), ExtResource("4_4v0va")])
+disabled_mouseover = ExtResource("1_igjwg")
+button_click_sound = ExtResource("5_5rusu")
+cancel_sound = ExtResource("6_mtudi")
+settlement_entered = ExtResource("7_v0nya")

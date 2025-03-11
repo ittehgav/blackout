@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ojuj5x355lj6"
+path="res://.godot/imported/GAMEBoard_Chess Piece Place Firmly on Cardboard Board_SARM_BGE_OneShot-05.wav-7e3e7971f40b31c29891eed5fda1fd80.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Chess/Place Cardboard Board Hard/GAMEBoard_Chess Piece Place Firmly on Cardboard Board_SARM_BGE_OneShot-05.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Chess Piece Place Firmly on Cardboard Board_SARM_BGE_OneShot-05.wav-7e3e7971f40b31c29891eed5fda1fd80.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

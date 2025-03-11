@@ -8,6 +8,7 @@ class_name Tooltip;
 @export var name_label:Label;
 @export var description_label:RichTextLabel;
 @export var icon:TextureRect;
+@export var hint:Label;
 
 @export var hover_timer:Timer;
 
@@ -26,9 +27,14 @@ func _ready() -> void:
 	if "tooltip_name_color" in target:
 		name_label.modulate = target.tooltip_name_color;
 	if "icon_texture" in target:
+		icon.show()
 		icon.texture = target.icon_texture;
 	if "description" in target:
+		description_label.show()
 		description_label.text = target.description;
+	if "tooltip_hint" in target:
+		hint.show();
+		hint.text = target.tooltip_hint;
 	
 	description_label.custom_minimum_size.x = size.x;
 

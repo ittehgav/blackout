@@ -1,22 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=7 format=3 uid="uid://bbj4g27p0o6dw"]
 
-[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_8gx17"]
-[ext_resource type="Script" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
+[ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
+[ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_ft8he"]
 [ext_resource type="PackedScene" uid="uid://dw4kenb3r4atf" path="res://scenes/map/world_map/world_map.tscn" id="3_onvlx"]
-[ext_resource type="AudioStream" uid="uid://bgr1451esjfxc" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 1.ogg" id="5_8ncba"]
 [ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="5_8yyg4"]
-[ext_resource type="Script" path="res://scenes/main/ui_sfx.gd" id="5_gj70x"]
-[ext_resource type="AudioStream" uid="uid://dxce8m1hdp6vk" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 3.ogg" id="6_ws3js"]
-[ext_resource type="AudioStream" uid="uid://6wpoyciwpcqp" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 4.ogg" id="7_x2qfe"]
-[ext_resource type="AudioStream" uid="uid://b2570jayrbgqr" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cursor - 5.ogg" id="8_wk8ot"]
-[ext_resource type="AudioStream" uid="uid://0fnfsxh017op" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Cancel - 2.ogg" id="9_2nx3w"]
-[ext_resource type="AudioStream" uid="uid://fhr3xripjers" path="res://assets/sound/ui_sfx/JDSherbert - Ultimate UI SFX Pack - Select - 1.ogg" id="9_ec77q"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="6_l3xhp"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_8gx17")
 
-[node name="main_ui" type="Control" parent="."]
+[node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("ui_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +20,9 @@ grow_vertical = 2
 script = ExtResource("1_v0lew")
 world_map_scene = ExtResource("3_onvlx")
 arena_scene = ExtResource("2_ft8he")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="main_ui" instance=ExtResource("6_l3xhp")]
 
 [node name="TextureRect" type="TextureRect" parent="main_ui"]
 layout_mode = 1
@@ -36,6 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_8yyg4")
 expand_mode = 3
+flip_h = true
 
 [node name="PanelContainer" type="PanelContainer" parent="main_ui"]
 layout_mode = 0
@@ -63,16 +61,6 @@ text = "Test Battle
 layout_mode = 2
 text = "World Map
 "
-
-[node name="ui_sfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_8ncba")
-volume_db = -10.0
-script = ExtResource("5_gj70x")
-mouseover_sounds = Array[AudioStream]([ExtResource("6_ws3js"), ExtResource("7_x2qfe")])
-disabled_mouseover = ExtResource("5_8ncba")
-button_click_sound = ExtResource("9_ec77q")
-cancel_sound = ExtResource("9_2nx3w")
-settlement_entered = ExtResource("8_wk8ot")
 
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/test_battle" to="main_ui" method="test_battle"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/world_map" to="main_ui" method="world_map"]

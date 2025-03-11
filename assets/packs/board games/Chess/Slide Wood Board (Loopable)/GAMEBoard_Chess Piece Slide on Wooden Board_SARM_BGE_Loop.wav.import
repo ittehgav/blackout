@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bunbwpgka13l7"
+path="res://.godot/imported/GAMEBoard_Chess Piece Slide on Wooden Board_SARM_BGE_Loop.wav-a21b5e4185a9c02f3f4f1d702a549d59.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Chess/Slide Wood Board (Loopable)/GAMEBoard_Chess Piece Slide on Wooden Board_SARM_BGE_Loop.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Chess Piece Slide on Wooden Board_SARM_BGE_Loop.wav-a21b5e4185a9c02f3f4f1d702a549d59.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

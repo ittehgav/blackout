@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ew0nk20daxcv"
+path="res://.godot/imported/GAMEBoard_Chess Board Clear_SARM_BGE_OneShot-02.wav-9ba11fd0350b73e6946ddf066786ce16.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Chess/Board Clear/GAMEBoard_Chess Board Clear_SARM_BGE_OneShot-02.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Chess Board Clear_SARM_BGE_OneShot-02.wav-9ba11fd0350b73e6946ddf066786ce16.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

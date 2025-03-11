@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b4y74rmt8jqj2"
+path="res://.godot/imported/GAMEBoard_Dice Roll Multiple on Wooden Board_SARM_BGE_OneShot-08.wav-8da5ee58ec36c229fde730f7576242b8.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Dice/Roll Wood Board Multi/GAMEBoard_Dice Roll Multiple on Wooden Board_SARM_BGE_OneShot-08.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Dice Roll Multiple on Wooden Board_SARM_BGE_OneShot-08.wav-8da5ee58ec36c229fde730f7576242b8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

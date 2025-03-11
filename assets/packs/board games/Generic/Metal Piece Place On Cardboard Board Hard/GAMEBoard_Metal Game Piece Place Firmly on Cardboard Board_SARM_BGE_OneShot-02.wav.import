@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cpn7be5hqntgx"
+path="res://.godot/imported/GAMEBoard_Metal Game Piece Place Firmly on Cardboard Board_SARM_BGE_OneShot-02.wav-eac992e62c8ac1c8247b0fbe9de3d41d.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Generic/Metal Piece Place On Cardboard Board Hard/GAMEBoard_Metal Game Piece Place Firmly on Cardboard Board_SARM_BGE_OneShot-02.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Metal Game Piece Place Firmly on Cardboard Board_SARM_BGE_OneShot-02.wav-eac992e62c8ac1c8247b0fbe9de3d41d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

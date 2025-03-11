@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dsoclvljr2pq1"
+path="res://.godot/imported/GAMEBoard_Chess Piece Place Gently on Cardboard Board_SARM_BGE_OneShot-09.wav-3799e1b29c8abf61480fe9b2c1da14d1.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Chess/Place Cardboard Board/GAMEBoard_Chess Piece Place Gently on Cardboard Board_SARM_BGE_OneShot-09.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Chess Piece Place Gently on Cardboard Board_SARM_BGE_OneShot-09.wav-3799e1b29c8abf61480fe9b2c1da14d1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

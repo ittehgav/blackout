@@ -1,4 +1,4 @@
-extends Control
+extends UIRoot
 
 @export var world_map_scene:PackedScene
 @export var arena_scene:PackedScene;

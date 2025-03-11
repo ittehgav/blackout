@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dcudbe1ums6vc"]
 
-[ext_resource type="Shader" path="res://resources/shaders/settlement_outline.gdshader" id="1_ha5lo"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/settlement_outline.gdshader" id="1_ha5lo"]
 
 [resource]
 shader = ExtResource("1_ha5lo")

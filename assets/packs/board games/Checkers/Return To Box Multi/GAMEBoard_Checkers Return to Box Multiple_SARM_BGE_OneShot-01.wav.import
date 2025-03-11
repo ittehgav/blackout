@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://can46qof2qggv"
+path="res://.godot/imported/GAMEBoard_Checkers Return to Box Multiple_SARM_BGE_OneShot-01.wav-73915cb8b3701a7df58f8ca1cd619c0c.sample"
+
+[deps]
+
+source_file="res://assets/packs/board games/Checkers/Return To Box Multi/GAMEBoard_Checkers Return to Box Multiple_SARM_BGE_OneShot-01.wav"
+dest_files=["res://.godot/imported/GAMEBoard_Checkers Return to Box Multiple_SARM_BGE_OneShot-01.wav-73915cb8b3701a7df58f8ca1cd619c0c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

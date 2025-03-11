@@ -3,6 +3,9 @@ extends UIRoot;
 @export var bg:ColorRect;
 @export var container:HBoxContainer;
 
+@export var open_sound:AudioStream;
+@export var close_sound:AudioStream;
+
 @export var consumables_inventory:GridContainer;
 @export var trinkets_inventory:GridContainer;
 
@@ -56,6 +59,7 @@ func _input(e:InputEvent):
 			
 
 func show_player_sheet():
+	ui_sfx.play_stream(open_sound)
 	show()
 	refresh_data();
 	Entities.in_map_player.stop_movement(false)
@@ -71,6 +75,7 @@ func show_player_sheet():
 
 
 func hide_player_sheet():
+	ui_sfx.play_stream(close_sound)
 	const tween_duration = .25;
 	var tween = create_tween();
 	tween.tween_property(container, "theme_override_constants/separation", 1700, tween_duration);
