@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://ocvlerfa58lv"]
 
 [ext_resource type="Texture2D" uid="uid://ja3tgd5rjsjh" path="res://assets/visual/backgrounds/settlements/farm.jpg" id="2_1vkkf"]
-[ext_resource type="Script" path="res://scenes/indexes/settlements/generic/farm.gd" id="2_d001o"]
+[ext_resource type="Script" uid="uid://cj7r0jpp6vbou" path="res://scenes/indexes/settlements/generic/farm.gd" id="2_d001o"]
 [ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_6win5"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="3_prkd2"]
 [ext_resource type="Texture2D" uid="uid://dl8ct2ft4t4x5" path="res://assets/visual/sprites/settlements/farm.png" id="4_6vfoy"]

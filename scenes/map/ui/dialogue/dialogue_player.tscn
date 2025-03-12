@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://di52ctdy1nihl"]
+[gd_scene load_steps=6 format=3 uid="uid://di52ctdy1nihl"]
 
-[ext_resource type="Script" path="res://scenes/map/ui/dialogue/dialogue_player.gd" id="1_78q7f"]
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_label.gd" id="2_7vmqi"]
+[ext_resource type="Script" uid="uid://ehyudl1u8c6p" path="res://scenes/map/ui/dialogue/dialogue_player.gd" id="1_78q7f"]
+[ext_resource type="Script" uid="uid://g32um0mltv5d" path="res://addons/dialogue_manager/dialogue_label.gd" id="2_7vmqi"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="3_5y6lb"]
 [ext_resource type="PackedScene" uid="uid://bhxxi2711i5k2" path="res://scenes/map/ui/dialogue/dialogue_choice.tscn" id="3_eqxh4"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_qvf0k"]
 color = Color(1, 1, 1, 1)
 thickness = 4
 
-[node name="Dialogue" type="Control" node_paths=PackedStringArray("choices_box", "choices_container", "speaker_name_label", "text_label")]
+[node name="Dialogue" type="Control" node_paths=PackedStringArray("choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -22,6 +23,9 @@ choices_box = NodePath("PanelContainer")
 choices_container = NodePath("PanelContainer/VBoxContainer")
 speaker_name_label = NodePath("Panel/speaker_name")
 text_label = NodePath("Panel/DialogueLabel")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." instance=ExtResource("3_5y6lb")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

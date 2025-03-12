@@ -28,18 +28,21 @@ custom_minimum_size = Vector2(32, 32)
 offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("2_22rr4")
+expand_mode = 5
+stretch_mode = 4
 script = ExtResource("1_omml7")
 tooltip = NodePath("Tooltip")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="panel" type="Panel" parent="."]
 z_index = -1
 use_parent_material = true
 custom_minimum_size = Vector2(36, 36)
-layout_mode = 0
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 36.0
-offset_bottom = 36.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bqyij")
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://m2wpkoi452n"]
 
 [ext_resource type="Texture2D" uid="uid://bsa6jv0imn01u" path="res://assets/visual/icons/items/consumables/gakka_roll.png" id="1_h58wj"]
-[ext_resource type="Script" path="res://scenes/indexes/items/consumables/gakka_roll.gd" id="2_s6hym"]
+[ext_resource type="Script" uid="uid://p23gsf2wcsw6" path="res://scenes/indexes/items/consumables/gakka_roll.gd" id="2_s6hym"]
 
 [node name="Gakka Roll" type="Sprite2D"]
 texture = ExtResource("1_h58wj")

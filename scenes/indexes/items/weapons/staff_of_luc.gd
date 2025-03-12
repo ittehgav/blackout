@@ -8,6 +8,8 @@ const type = "support"
 const effect_range = 50
 const damage = 0;
 
+const description = "[color=blue]Deals no damage.[/color] Can [color=green]heal allies[/color] in an area or give them a [color=green]movement speed boost.[/color]\n[color=blue]right-click[/color] to alternate between the effects in battle."
+
 const aoe_radius = 250;
 
 var holder:Node2D;

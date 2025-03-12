@@ -19,7 +19,6 @@ func ui_click_sound(node:Control)->void:
 			
 
 func ui_mouseover_sound(node:Control)->void:
-	print(node)
 	if node is Button:
 		if node.disabled:
 			play_stream(disabled_mouseover)
@@ -39,6 +38,7 @@ func play_stream_by_key(key:String)->void:
 	play();
 	
 func tab_mouseover_sound(_tab, node:TabContainer):
+	## need do this in separate fucntion because of signal-bound arguments
 	play_stream(mouseover_sounds.pick_random())
 
 func tab_click_sound(_tab, node:TabContainer):

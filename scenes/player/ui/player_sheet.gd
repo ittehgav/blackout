@@ -2,12 +2,21 @@ extends UIRoot;
 
 @export var bg:ColorRect;
 @export var container:HBoxContainer;
-
-@export var open_sound:AudioStream;
-@export var close_sound:AudioStream;
+ 
+@export var gear:Control;
 
 @export var consumables_inventory:GridContainer;
 @export var trinkets_inventory:GridContainer;
+@export var weapons_inventory:GridContainer;
+
+@export var item_feedback:Panel;
+
+@export_subgroup("sounds")
+@export var open_sound:AudioStream;
+@export var close_sound:AudioStream;
+@export var rummage:AudioStream;
+@export var consumable_used:AudioStream;
+@export var equip:AudioStream;
 
 @export_category("Elements")
 @export_subgroup("Resource Labels")
@@ -47,11 +56,12 @@ const resources_names = [
 
 func _ready():
 	super();
+	Entities.player.resources_changed.connect(refresh_data)
 	for rname in resources_names:
 		self[rname + "_label"].modulate = Icons.resource_colors[rname].lightened(.25);
 
 func _input(e:InputEvent):
-	if e.is_action_pressed("show_player_sheet"):
+	if e.is_action_pressed("show_player_sheet") or e.is_action_pressed("ui_cancel") and visible:
 		if not visible:
 			show_player_sheet();
 		else:
@@ -87,6 +97,7 @@ func hide_player_sheet():
 
 func refresh_data():
 	## will show upkeep costs when upkeep is implemented
+	gear.refresh_samples()
 	var inv:Inventory = Entities.player.inventory;
 	food_label.text = "Food: " + str(inv.food);
 	fuel_label.text = "Fuel: " + str(inv.fuel);
@@ -121,12 +132,35 @@ func refresh_data():
 		c.queue_free();
 	for t  in trinkets_inventory.get_children():
 		t.queue_free();
-	
-	for item:Item in Entities.player.inventory.consumables + Entities.player.inventory.trinkets:
+	for w in weapons_inventory.get_children():
+		w.queue_free();
+
+	var inventory:Inventory = Entities.player.inventory;
+	for item:Item in inventory.consumables +inventory.trinkets + inventory.weapons:
 		var icon:ItemIcon = item_icon_scene.instantiate();
 		icon.item = item;
 		if item is Consumable:
 			consumables_inventory.add_child(icon)
+			icon.gui_input.connect(use_consumable.bind(item))
+	
 		if item is Trinket:
 			trinkets_inventory.add_child(icon)
+		if item is Weapon and not item.get_instance_id() == Entities.player.equipped_weapon.get_instance_id():
+			weapons_inventory.add_child(icon);
+			icon.gui_input.connect(equip_weapon.bind(item));
 	
+func use_consumable(e:InputEvent, item:Consumable):
+	if e.is_action_pressed("use_item"):
+		if item.use():
+			ui_sfx.play_stream(rummage)
+			await item_feedback.use_animation(item);
+			ui_sfx.play_stream(consumable_used)
+			Entities.player.inventory.remove_child(item);
+			refresh_data()
+
+
+func equip_weapon(e:InputEvent, weapon:Weapon):
+	if e.is_action_pressed("use_item"):
+		ui_sfx.play_stream(equip)
+		Entities.player.equipped_weapon = weapon
+		refresh_data()

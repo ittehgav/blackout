@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c83u8udv4ox01"]
 
 [ext_resource type="Texture2D" uid="uid://dhrroled0o0a5" path="res://assets/visual/sprites/vehicles/uno.png" id="1_gjlxu"]
-[ext_resource type="Script" path="res://scenes/superclasses/map/vehicle.gd" id="2_jugko"]
+[ext_resource type="Script" uid="uid://dqa1gjdx6lk2m" path="res://scenes/superclasses/map/vehicle.gd" id="2_jugko"]
 
 [node name="Uno" type="Sprite2D"]
 scale = Vector2(2, 2)

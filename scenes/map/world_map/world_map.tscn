@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=31 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_hae4w"]
@@ -11,9 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
 [ext_resource type="Script" uid="uid://d1epphgokcyg0" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
 [ext_resource type="PackedScene" uid="uid://bghgbhdlygqcs" path="res://scenes/indexes/settlements/generic/scrapyard.tscn" id="6_ooxid"]
+[ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="7_3vru2"]
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
 [ext_resource type="PackedScene" uid="uid://u3585ur6ytmf" path="res://scenes/indexes/items/trinkets/crimson_snow_globe.tscn" id="7_wwpc6"]
+[ext_resource type="PackedScene" uid="uid://chgtgjl5g2lx3" path="res://scenes/indexes/items/weapons/spray_gun.tscn" id="8_magck"]
 [ext_resource type="PackedScene" uid="uid://dbloxip34nvnd" path="res://scenes/indexes/items/trinkets/chromatic_cheese.tscn" id="8_n54q8"]
 [ext_resource type="PackedScene" uid="uid://b2r0xgt02ax4m" path="res://scenes/indexes/items/consumables/hagglers_brew.tscn" id="9_6iewt"]
 [ext_resource type="PackedScene" uid="uid://b8b0jmbg2w2hg" path="res://scenes/indexes/items/consumables/first_aid_kit.tscn" id="10_15jho"]
@@ -21,10 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b5o7ipw23muir" path="res://scenes/indexes/items/trinkets/rare_coin.tscn" id="11_5up8w"]
 [ext_resource type="PackedScene" uid="uid://m2wpkoi452n" path="res://scenes/indexes/items/consumables/gakka_roll.tscn" id="12_g4k6m"]
 [ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/map/ui/dialogue/dialogue_player.tscn" id="13_8dqwv"]
-[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="18_8a7hc"]
-[ext_resource type="Script" uid="uid://oi4485psd4yk" path="res://scenes/map/ui/hud/corner_hud.gd" id="20_kjmu7"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
-[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="21_e8wjb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gyjr"]
 texture = ExtResource("3_1w3gq")
@@ -57,54 +56,6 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="Resource" id="Resource_fsmxr"]
 metadata/__load_path__ = "res://assets/backgrounds/settlements/farm.jpg"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t8lh1"]
-resource_local_to_scene = true
-shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tcv1x"]
-resource_local_to_scene = true
-shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = Color(0.717647, 0.545098, 0.372549, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewsj2"]
-resource_local_to_scene = true
-shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3iwor"]
-resource_local_to_scene = true
-shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6tog"]
-resource_local_to_scene = true
-shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5fy52"]
-resource_local_to_scene = true
-shader = ExtResource("18_8a7hc")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "player")]
 process_mode = 1
 script = ExtResource("1_s4sam")
@@ -112,9 +63,8 @@ ui = NodePath("ui_overlay/ui")
 player = NodePath("entities/in_map_player")
 arena_scene = ExtResource("2_hae4w")
 
-[node name="ambient_light" type="CanvasModulate" parent="." node_paths=PackedStringArray("clock")]
+[node name="ambient_light" type="CanvasModulate" parent="."]
 script = ExtResource("3_uqjvj")
-clock = NodePath("../ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/Panel/VBoxContainer/hour")
 
 [node name="minute_ticker" type="Timer" parent="ambient_light"]
 autostart = true
@@ -137,38 +87,29 @@ combat_level = 3
 combat_exp = 3
 equipped_weapon = NodePath("Inventory/Tailpipe")
 
-[node name="Inventory" parent="entities/in_map_player/Player" index="0" node_paths=PackedStringArray("weapons")]
-weapons = [NodePath("Tailpipe")]
+[node name="SprayGun" parent="entities/in_map_player/Player/Inventory" index="0" instance=ExtResource("8_magck")]
 
-[node name="Tailpipe" parent="entities/in_map_player/Player/Inventory" index="0" instance=ExtResource("4_4aisy")]
+[node name="Tailpipe" parent="entities/in_map_player/Player/Inventory" index="1" instance=ExtResource("4_4aisy")]
 
-[node name="Crimson Snow Globe" parent="entities/in_map_player/Player/Inventory" index="1" instance=ExtResource("7_wwpc6")]
+[node name="Crimson Snow Globe" parent="entities/in_map_player/Player/Inventory" index="2" instance=ExtResource("7_wwpc6")]
 
-[node name="Chromatic Cheese" parent="entities/in_map_player/Player/Inventory" index="2" instance=ExtResource("8_n54q8")]
+[node name="Chromatic Cheese" parent="entities/in_map_player/Player/Inventory" index="3" instance=ExtResource("8_n54q8")]
 
-[node name="Haggler\'s Brew" parent="entities/in_map_player/Player/Inventory" index="3" instance=ExtResource("9_6iewt")]
+[node name="Haggler\'s Brew" parent="entities/in_map_player/Player/Inventory" index="4" instance=ExtResource("9_6iewt")]
 
-[node name="First Aid Kit" parent="entities/in_map_player/Player/Inventory" index="4" instance=ExtResource("10_15jho")]
+[node name="First Aid Kit" parent="entities/in_map_player/Player/Inventory" index="5" instance=ExtResource("10_15jho")]
 
-[node name="Haggler\'s Brew2" parent="entities/in_map_player/Player/Inventory" index="5" instance=ExtResource("9_6iewt")]
+[node name="Haggler\'s Brew2" parent="entities/in_map_player/Player/Inventory" index="6" instance=ExtResource("9_6iewt")]
 
-[node name="Mystery Snack Pack" parent="entities/in_map_player/Player/Inventory" index="6" instance=ExtResource("10_w1bgm")]
+[node name="Mystery Snack Pack" parent="entities/in_map_player/Player/Inventory" index="7" instance=ExtResource("10_w1bgm")]
 
-[node name="Gakka Roll" parent="entities/in_map_player/Player/Inventory" index="7" instance=ExtResource("12_g4k6m")]
+[node name="Gakka Roll" parent="entities/in_map_player/Player/Inventory" index="8" instance=ExtResource("12_g4k6m")]
 
-[node name="Rare Coin" parent="entities/in_map_player/Player/Inventory" index="8" instance=ExtResource("11_5up8w")]
+[node name="Rare Coin" parent="entities/in_map_player/Player/Inventory" index="9" instance=ExtResource("11_5up8w")]
 
-[node name="Rare Coin2" parent="entities/in_map_player/Player/Inventory" index="9" instance=ExtResource("11_5up8w")]
+[node name="Rare Coin2" parent="entities/in_map_player/Player/Inventory" index="10" instance=ExtResource("11_5up8w")]
 
-[node name="Rare Coin3" parent="entities/in_map_player/Player/Inventory" index="10" instance=ExtResource("11_5up8w")]
-
-[node name="Rare Coin7" parent="entities/in_map_player/Player/Inventory" index="11" instance=ExtResource("11_5up8w")]
-
-[node name="Rare Coin4" parent="entities/in_map_player/Player/Inventory" index="12" instance=ExtResource("11_5up8w")]
-
-[node name="Rare Coin5" parent="entities/in_map_player/Player/Inventory" index="13" instance=ExtResource("11_5up8w")]
-
-[node name="Rare Coin6" parent="entities/in_map_player/Player/Inventory" index="14" instance=ExtResource("11_5up8w")]
+[node name="Staff of Luc" parent="entities/in_map_player/Player/Inventory" index="11" instance=ExtResource("7_3vru2")]
 
 [node name="Roster" parent="entities/in_map_player/Player" index="1" node_paths=PackedStringArray("units")]
 units = []
@@ -209,140 +150,15 @@ mouse_filter = 2
 script = ExtResource("6_d8dst")
 settlement_ui = NodePath("settlement_ui")
 
-[node name="Control" type="Control" parent="ui_overlay/ui"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/Control"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -230.0
-offset_bottom = 88.0
-grow_horizontal = 0
-
-[node name="corner_hud" type="PanelContainer" parent="ui_overlay/ui/Control/MarginContainer" node_paths=PackedStringArray("food_label", "money_label", "fuel_label", "juice_label", "scrap_label", "chips_label")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-script = ExtResource("20_kjmu7")
-food_label = NodePath("corner_bar/resources/row1/food_amount")
-money_label = NodePath("corner_bar/resources/row1/money_amount")
-fuel_label = NodePath("corner_bar/resources/row1/fuel_amount")
-juice_label = NodePath("corner_bar/resources/row2/juice_amt_hover")
-scrap_label = NodePath("corner_bar/resources/row2/scrap_amt_hover")
-chips_label = NodePath("corner_bar/resources/row2/chips_amt_hover")
-
-[node name="corner_bar" type="HBoxContainer" parent="ui_overlay/ui/Control/MarginContainer/corner_hud"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Panel" type="Panel" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/Panel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -26.0
-offset_right = 26.0
-offset_bottom = 56.0
-grow_horizontal = 2
-alignment = 1
-
-[node name="date" type="Label" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/Panel/VBoxContainer"]
-layout_mode = 2
-text = "20/4"
-horizontal_alignment = 1
-
-[node name="hour" type="Label" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/Panel/VBoxContainer"]
-layout_mode = 2
-text = "16:20
-"
-horizontal_alignment = 1
-
-[node name="resources" type="VBoxContainer" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar"]
-layout_mode = 2
-
-[node name="row1" type="HBoxContainer" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources"]
-layout_mode = 2
-
-[node name="food_icon" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row1" instance=ExtResource("21_e8wjb")]
-material = SubResource("ShaderMaterial_t8lh1")
-layout_mode = 2
-
-[node name="food_amount" type="Label" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row1"]
-layout_mode = 2
-text = " 0"
-
-[node name="fuel_icon" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row1" instance=ExtResource("21_e8wjb")]
-material = SubResource("ShaderMaterial_tcv1x")
-layout_mode = 2
-resource = "fuel"
-
-[node name="fuel_amount" type="Label" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row1"]
-layout_mode = 2
-text = " 0"
-
-[node name="resource_icon" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row1" instance=ExtResource("21_e8wjb")]
-material = SubResource("ShaderMaterial_ewsj2")
-layout_mode = 2
-resource = "money"
-
-[node name="money_amount" type="Label" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row1"]
-layout_mode = 2
-text = " $0"
-
-[node name="HSeparator" type="HSeparator" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources"]
-layout_mode = 2
-
-[node name="row2" type="HBoxContainer" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources"]
-layout_mode = 2
-
-[node name="juice_icon" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("21_e8wjb")]
-material = SubResource("ShaderMaterial_3iwor")
-layout_mode = 2
-resource = "juice"
-
-[node name="juice_amt_hover" type="Label" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row2"]
-layout_mode = 2
-text = " 0"
-
-[node name="resource_icon" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("21_e8wjb")]
-material = SubResource("ShaderMaterial_g6tog")
-layout_mode = 2
-resource = "scrap"
-
-[node name="scrap_amt_hover" type="Label" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row2"]
-layout_mode = 2
-text = " 0"
-
-[node name="chips_icon" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row2" instance=ExtResource("21_e8wjb")]
-material = SubResource("ShaderMaterial_5fy52")
-layout_mode = 2
-resource = "chips"
-
-[node name="chips_amt_hover" type="Label" parent="ui_overlay/ui/Control/MarginContainer/corner_hud/corner_bar/resources/row2"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = " 0"
+[node name="main_hud" type="Control" parent="ui_overlay/ui"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
 visible = false
 layout_mode = 1
 mouse_filter = 2
-
-[node name="background" parent="ui_overlay/ui/settlement_ui" index="0"]
-texture = null
 
 [node name="Dialogue" parent="ui_overlay/ui" instance=ExtResource("13_8dqwv")]
 visible = false
@@ -359,5 +175,3 @@ layout_mode = 1
 [editable path="entities/in_map_player/Player"]
 [editable path="entities/in_map_player/Player/Inventory"]
 [editable path="entities/in_map_player/Player/Roster/FighterUnit"]
-[editable path="ui_overlay/ui/settlement_ui"]
-[editable path="ui_overlay/ui/settlement_ui/resource_trade_menu/trader"]

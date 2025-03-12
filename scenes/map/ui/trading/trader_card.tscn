@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=3 uid="uid://1ofonprgcwiw"]
+
+[ext_resource type="Script" uid="uid://bqpiooxwkn228" path="res://scenes/map/ui/trading/trader_card.gd" id="1_yt2dg"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="2_m8ihs"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_vhuu3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kdbh2"]
+resource_local_to_scene = true
+shader = ExtResource("3_vhuu3")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h42kx"]
+resource_local_to_scene = true
+shader = ExtResource("3_vhuu3")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_76vvj"]
+resource_local_to_scene = true
+shader = ExtResource("3_vhuu3")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qanoe"]
+resource_local_to_scene = true
+shader = ExtResource("3_vhuu3")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iks28"]
+resource_local_to_scene = true
+shader = ExtResource("3_vhuu3")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="Panel" type="Panel"]
+custom_minimum_size = Vector2(500, 600)
+offset_right = 500.0
+offset_bottom = 600.0
+script = ExtResource("1_yt2dg")
+
+[node name="trader_name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 33.0
+offset_right = 175.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 96
+text = "Trader"
+
+[node name="sell_or_buy" type="Label" parent="."]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 112.0
+offset_right = 148.0
+offset_bottom = 163.0
+theme_override_font_sizes/font_size = 64
+text = "Sell"
+
+[node name="resources" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 194.0
+offset_right = 317.0
+offset_bottom = 276.0
+theme_override_constants/separation = 10
+
+[node name="row1" type="HBoxContainer" parent="resources"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="resources/row1" instance=ExtResource("2_m8ihs")]
+material = SubResource("ShaderMaterial_kdbh2")
+layout_mode = 2
+show_tooltip = true
+
+[node name="Label" type="Label" parent="resources/row1"]
+layout_mode = 2
+text = "12"
+
+[node name="resource_icon2" parent="resources/row1" instance=ExtResource("2_m8ihs")]
+material = SubResource("ShaderMaterial_h42kx")
+layout_mode = 2
+show_tooltip = true
+resource = "fuel"
+
+[node name="Label2" type="Label" parent="resources/row1"]
+layout_mode = 2
+text = "11"
+
+[node name="row2" type="HBoxContainer" parent="resources"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="resources/row2" instance=ExtResource("2_m8ihs")]
+material = SubResource("ShaderMaterial_76vvj")
+layout_mode = 2
+resource = "juice"
+
+[node name="Label" type="Label" parent="resources/row2"]
+layout_mode = 2
+text = "33"
+
+[node name="resource_icon2" parent="resources/row2" instance=ExtResource("2_m8ihs")]
+material = SubResource("ShaderMaterial_qanoe")
+layout_mode = 2
+resource = "scrap"
+
+[node name="Label2" type="Label" parent="resources/row2"]
+layout_mode = 2
+text = "213"
+
+[node name="resource_icon3" parent="resources/row2" instance=ExtResource("2_m8ihs")]
+material = SubResource("ShaderMaterial_iks28")
+layout_mode = 2
+resource = "chips"
+
+[node name="Label3" type="Label" parent="resources/row2"]
+layout_mode = 2
+text = "22"

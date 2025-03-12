@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://dd47t7xuh3au2"]
 
-[ext_resource type="Script" path="res://scenes/battle/npc_fighter/npc_fighter.gd" id="1_bgds5"]
-[ext_resource type="Script" path="res://scenes/battle/active_fighter/hit_scan.gd" id="2_8jf47"]
+[ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/npc_fighter/npc_fighter.gd" id="1_bgds5"]
+[ext_resource type="Script" uid="uid://r5su55c7yqu4" path="res://scenes/battle/active_fighter/hit_scan.gd" id="2_8jf47"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="3_qq6tp"]
 [ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/battle/active_fighter/fighter_overlay.tscn" id="4_g7h3x"]
-[ext_resource type="Script" path="res://scenes/battle/npc_fighter/sfx.gd" id="5_8vs8j"]
-[ext_resource type="AudioStream" uid="uid://bwf12k0sj13fc" path="res://assets/packs/SFX/Attacks/Sword Attacks Hits and Blocks/Sword Impact Hit 2.ogg" id="6_g7r3k"]
-[ext_resource type="AudioStream" uid="uid://bu7pxqkgfc3jy" path="res://assets/packs/SFX/Attacks/Sword Attacks Hits and Blocks/Sword Attack 3.ogg" id="6_om1h4"]
+[ext_resource type="Script" uid="uid://47lks7vsfn5k" path="res://scenes/battle/npc_fighter/sfx.gd" id="5_8vs8j"]
+[ext_resource type="AudioStream" uid="uid://ci73y0y2n56qe" path="res://assets/sound/combat/ally_death.ogg" id="6_xquvl"]
+[ext_resource type="AudioStream" uid="uid://dgx7krdtsjf0f" path="res://assets/sound/combat/enemy_death.ogg" id="7_4e07g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g13ct"]
 resource_local_to_scene = true
@@ -73,10 +73,9 @@ autostart = true
 texture_progress = null
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_om1h4")
 script = ExtResource("5_8vs8j")
-ally_death = ExtResource("6_om1h4")
-enemy_death = ExtResource("6_g7r3k")
+ally_death = ExtResource("6_xquvl")
+enemy_death = ExtResource("7_4e07g")
 
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]

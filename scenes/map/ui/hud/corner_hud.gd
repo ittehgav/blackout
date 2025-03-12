@@ -32,9 +32,9 @@ func update_resource_label(label:Label, resource:String)->void:
 	var new_value:float = Entities.player.inventory[resource];
 	
 	if current_value != new_value:
-		label.text = ""
+		label.text = " "
 		if resource == "money":
-			label.text += "$";
+			label.text += " $";
 		label.text += str(new_value)
 	
 		var change_color:Color;

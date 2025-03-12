@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bpaicwhk4e4vm" path="res://assets/visual/sprites/fighters/doublearmguy.png" id="1_fta4o"]
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_wxx4o"]
-[ext_resource type="Script" path="res://scenes/indexes/fighters/doublearmguy.gd" id="2_f03mh"]
+[ext_resource type="Script" uid="uid://ck7sg5h7e1k8v" path="res://scenes/indexes/fighters/doublearmguy.gd" id="2_f03mh"]
 
 [node name="Double Arm Guy" type="Sprite2D"]
 material = ExtResource("1_wxx4o")

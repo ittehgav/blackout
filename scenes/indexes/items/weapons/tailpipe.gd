@@ -3,11 +3,14 @@ extends Weapon
 ## weapons can be weapons or tools with effects such as heals/buffs
 const rarity = 1;
 
+
 const cooldown:float = .5;
 
 const type = "melee";
 const effect_range = 1;
 const damage = 100;
+
+var description = "Short range, quick, reliable weapon.\n\nDamage: [color=green]" + str(damage) + "[/color]\n\nCooldown: [color=green]" + str(cooldown) + "s[/color]";
 
 const aoe_radius = 100;
 

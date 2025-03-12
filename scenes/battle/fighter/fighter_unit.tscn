@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://lls0f7qofwnf"]
 
-[ext_resource type="Script" path="res://scenes/battle/fighter/fighter_unit.gd" id="1_tcogk"]
+[ext_resource type="Script" uid="uid://cc7u84ibiprfk" path="res://scenes/battle/fighter/fighter_unit.gd" id="1_tcogk"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_62l1n"]
 
 [node name="FighterUnit" type="Node2D" node_paths=PackedStringArray("stats")]

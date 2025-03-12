@@ -1,8 +1,8 @@
 [gd_scene load_steps=26 format=3 uid="uid://bgysvsmknpv0o"]
 
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="1_chvcl"]
-[ext_resource type="Script" path="res://scenes/testers/allanimations.gd" id="1_e28q0"]
-[ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="2_3mvmp"]
+[ext_resource type="Script" uid="uid://to3kctqxpxmk" path="res://scenes/testers/allanimations.gd" id="1_e28q0"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="2_3mvmp"]
 [ext_resource type="PackedScene" uid="uid://dnyd60sks1ttw" path="res://scenes/testers/animation_tester.tscn" id="3_01uig"]
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="4_kon31"]
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="5_7pc77"]
@@ -18,8 +18,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qm3di"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -30,8 +30,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b16ir"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -42,8 +42,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rayda"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -54,8 +54,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bom4d"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -66,8 +66,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ytyw8"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -78,8 +78,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_um7sb"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -90,8 +90,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y43xv"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -102,8 +102,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgh6u"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -114,8 +114,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_756jx"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -126,8 +126,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fv8ay"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -138,8 +138,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cyb6x"]
 resource_local_to_scene = true
 shader = ExtResource("2_3mvmp")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0

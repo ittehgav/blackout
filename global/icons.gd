@@ -27,6 +27,22 @@ const resource_colors = {
 	"chips":Color.SKY_BLUE
 }
 
+const resource_descriptions = {
+	"food": "[color=green]Basic survival resource[/color], you and your recruits need to eat some food 
+	every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop",
+	
+	"fuel": "[color=green]Basic travel resource[/color], consumed every hour of travel in the world map, the more units there are in the party the more fuel travelling will\
+	 cost. If you have no fuel, you will travel much slower.",
+
+	"money": "[color=green]Basic currency[/color] used for trading items and resources.",
+	
+	
+	"juice": "Strange substance with many practical uses, a [color=green]common[/color] trade comodity, required for the [color=cyan]upkeep and upgrade[/color] of certain units.",
+	"scrap": "Broken down pieces of metal used for all kinds of purposes, pure scrap is [color=green]rare[/color] to come across because of its trade value. Used for the 
+[color=cyan]upkeep and upgrade[/color] of certain units.",
+	"chips": "Intact processor chips are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading[/color] certain units."
+}
+
 const stat_colors = {
 	"max_hp": Color.WEB_GREEN,
 	"attack": Color.DARK_RED,
@@ -36,7 +52,7 @@ const stat_colors = {
 }
 
 const item_rarity_colors:={
-	1: Color.WEB_GRAY,
+	1: Color.LIGHT_GRAY,
 	2: Color.GREEN_YELLOW,
 	3:Color.RED
 }

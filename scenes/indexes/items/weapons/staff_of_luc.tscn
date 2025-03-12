@@ -1,10 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://gd04wp3cmysg"]
+[gd_scene load_steps=3 format=3 uid="uid://gd04wp3cmysg"]
 
-[ext_resource type="Script" path="res://scenes/indexes/items/weapons/staff_of_luc.gd" id="1_pntea"]
+[ext_resource type="Texture2D" uid="uid://b8qimuaorji8u" path="res://assets/visual/sprites/weapons/staff_of_luc.png" id="1_cv0vf"]
+[ext_resource type="Script" uid="uid://x1khpbtlehdh" path="res://scenes/indexes/items/weapons/staff_of_luc.gd" id="1_pntea"]
 
-[node name="Staff of Luc" type="Sprite2D" node_paths=PackedStringArray("projection")]
+[node name="Staff of Luc" type="Sprite2D"]
+texture = ExtResource("1_cv0vf")
 script = ExtResource("1_pntea")
-projection = NodePath("projection")
-
-[node name="projection" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(8.77, 0, 4.385, 7.79, -4.385, 7.59, -8.77, 0, -4.385, -7.59, 4.385, -7.59)

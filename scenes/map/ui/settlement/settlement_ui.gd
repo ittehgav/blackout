@@ -1,4 +1,4 @@
-extends Control
+extends UIRoot;
 
 signal settlement_entered(settlement:Settlement);
 signal settlement_left;
@@ -7,22 +7,21 @@ signal settlement_left;
 @export var short_description_label:RichTextLabel;
 @export var long_description_label:RichTextLabel;
 
-@export var trade_resources_btn:Button;
-@export var trade_items_btn:Button;
+@export var trade_btn:Button;
 @export var recruit_units_btn:Button;
 @export var listen_around_btn:Button;
 
 
 
 @onready var basic_options:Array[Button] = [
-	trade_resources_btn,
-	trade_items_btn,
+	trade_btn,
 	recruit_units_btn,
 	listen_around_btn
 ]
 
 
 func _on_settlement_entered(settlement: Settlement) -> void:
+	ui_sfx.play_stream(ui_sfx.settlement_entered)
 	Entities.world_map.pause_map();
 	
 	$main_view/options.show_main_view();
@@ -36,10 +35,8 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	for button:Button in basic_options:
 		button.hide();
 
-	if settlement.settings.trade_resources:
-		trade_resources_btn.show();
-	if settlement.settings.trade_items:
-		trade_items_btn.show();
+	if settlement.settings.trade:
+		trade_btn.show();
 	if settlement.settings.recruit_units:
 		recruit_units_btn.show();
 	if settlement.settings.listen_around:

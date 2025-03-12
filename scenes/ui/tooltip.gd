@@ -17,11 +17,21 @@ class_name Tooltip;
 func _ready() -> void:
 	var parent:Control = get_parent()
 	assert (parent is Control);
-	await parent.ready
+	if not parent.is_node_ready():
+		await parent.ready
+		setup()
+	else:
+		setup();
+	## lots of places where the sample target is defined on load
+
+func setup():
+	if not target:
+		queue_free();
+		return
+
+	var parent = get_parent();
 	parent.mouse_entered.connect(hover_timer.start);
 	parent.mouse_exited.connect(stop_hover_timer);
-	
-	
 
 	name_label.text = target.name;
 	if "tooltip_name_color" in target:
@@ -43,6 +53,7 @@ func _ready() -> void:
 func _on_hover_timer_timeout() -> void:
 	modulate.a = .1;
 	show();
+
 	var tween = create_tween();
 	tween.tween_property(self, "modulate:a", 1, .5);
 
@@ -56,14 +67,10 @@ func set_rel():
 	if global_position.x < window_size.x:
 		if global_position.y < window_size.y:
 			set_anchors_preset(PRESET_TOP_LEFT);
-			#position -= size
 		else:
 			set_anchors_preset(PRESET_BOTTOM_LEFT);
-			#position += parent.size
 	else:
 		if global_position.y < window_size.y:
 			set_anchors_preset(PRESET_TOP_RIGHT);
-			#position.x += parent.size.x
 		else:
 			set_anchors_preset(PRESET_BOTTOM_RIGHT);
-			#position.x -= size.x;

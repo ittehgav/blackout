@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://chgtgjl5g2lx3"]
 
 [ext_resource type="Texture2D" uid="uid://cnvhkeeblgvuw" path="res://assets/visual/sprites/weapons/spray_gun.png" id="1_ysbsj"]
-[ext_resource type="Script" path="res://scenes/indexes/items/weapons/spray_gun.gd" id="2_6uoul"]
+[ext_resource type="Script" uid="uid://ci17osa4lm0fi" path="res://scenes/indexes/items/weapons/spray_gun.gd" id="2_6uoul"]
 
-[node name="SprayGun" type="Sprite2D"]
+[node name="Spray Gun" type="Sprite2D"]
 texture = ExtResource("1_ysbsj")
 script = ExtResource("2_6uoul")

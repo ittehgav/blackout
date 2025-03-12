@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d13s4a07by3vu"]
 
-[ext_resource type="Texture2D" uid="uid://bq52wcygpdk4u" path="res://assets/ui/fighter_overlay/status_timer.png" id="1_nh5c3"]
+[ext_resource type="Texture2D" uid="uid://bq52wcygpdk4u" path="res://assets/visual/ui/fighter_overlay/status_timer.png" id="1_nh5c3"]
 
 [node name="overlay" type="Control"]
 layout_mode = 3

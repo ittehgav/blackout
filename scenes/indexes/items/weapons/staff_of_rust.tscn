@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbetfnnc4fgpt"]
 
-[ext_resource type="Script" path="res://scenes/indexes/items/weapons/staff_of_rust.gd" id="1_nyb2i"]
+[ext_resource type="Script" uid="uid://qs032dngx00m" path="res://scenes/indexes/items/weapons/staff_of_rust.gd" id="1_nyb2i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k8f7p"]
 

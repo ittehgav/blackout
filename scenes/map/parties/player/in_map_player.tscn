@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://c0vg6gq1edsw"]
 
-[ext_resource type="Script" path="res://scenes/map/parties/player/in_map_player.gd" id="1_h5u0f"]
+[ext_resource type="Script" uid="uid://cno7hu4sfyc12" path="res://scenes/map/parties/player/in_map_player.gd" id="1_h5u0f"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
-[ext_resource type="Script" path="res://scenes/map/parties/player/in_map_camera.gd" id="4_ibn0u"]
+[ext_resource type="Script" uid="uid://c0wbe3ugd608g" path="res://scenes/map/parties/player/in_map_camera.gd" id="4_ibn0u"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="5_rrghm"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="6_06avr"]
-[ext_resource type="Shader" path="res://resources/shaders/blink_vfx.gdshader" id="7_qkp1n"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="7_qkp1n"]
 [ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/indexes/vehicles/gol.tscn" id="7_swjnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]
@@ -14,8 +14,8 @@ radius = 30.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc55"]
 resource_local_to_scene = true
 shader = ExtResource("7_qkp1n")
-shader_parameter/target_color = null
-shader_parameter/grad = null
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0

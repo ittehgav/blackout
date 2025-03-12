@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bhxxi2711i5k2"]
 
-[ext_resource type="Script" path="res://scenes/map/ui/dialogue/_choice.gd" id="1_bi8yq"]
+[ext_resource type="Script" uid="uid://db1dwr7y73v3n" path="res://scenes/map/ui/dialogue/_choice.gd" id="1_bi8yq"]
 
 [node name="_choice" type="Button" node_paths=PackedStringArray("label")]
 offset_right = 12.0

@@ -18,7 +18,8 @@ class_name Inventory;
 
 @export_subgroup("Equipment")
 @export var weapons:Array[Weapon];
-@export var armor:Array[Armor];
+@export var modules:Array[Module];
+
 
 
 func _on_child_entered_tree(node: Node) -> void:
@@ -28,12 +29,11 @@ func _on_child_entered_tree(node: Node) -> void:
 		consumables.push_back(node);
 	elif node is Trinket:
 		trinkets.push_back(node);
-	elif node is Armor:
-		armor.push_back(node);
+	elif node is Module:
+		modules.push_back(node);
 	elif node is Weapon:
 		weapons.push_back(node);
 
-			
 
 func _on_child_exiting_tree(node: Node) -> void:
 	assert(node is Item)
@@ -41,7 +41,7 @@ func _on_child_exiting_tree(node: Node) -> void:
 		consumables.erase(node);
 	elif node is Trinket:
 		trinkets.erase(node);
-	elif node is Armor:
-		armor.erase(node);
+	elif node is Module:
+		modules.erase(node);
 	elif node is Weapon:
 		weapons.erase(node);

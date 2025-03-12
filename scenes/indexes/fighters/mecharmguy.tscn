@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_74j0h"]
 [ext_resource type="Texture2D" uid="uid://bbefybh8ca2i5" path="res://assets/visual/sprites/fighters/mecharmguy.png" id="2_7n0ta"]
-[ext_resource type="Script" path="res://scenes/indexes/fighters/mecharmguy.gd" id="3_j370o"]
+[ext_resource type="Script" uid="uid://osou1dmxn102" path="res://scenes/indexes/fighters/mecharmguy.gd" id="3_j370o"]
 
 [node name="Mech Arm Guy" type="Sprite2D"]
 material = ExtResource("1_74j0h")

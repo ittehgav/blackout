@@ -27,7 +27,7 @@ func color_code_weapon(weapon:Sprite2D)->void:
 
 
 
-func color_code_fighter(fighter:FighterBase, scheme:int=1)->void:
+func color_code_fighter(fighter:FighterBase, scheme:int=1, sample:bool=false)->void:
 	const darkening = .35
 	var base_color:Color;
 	var off_color:Color;
@@ -45,11 +45,13 @@ func color_code_fighter(fighter:FighterBase, scheme:int=1)->void:
 		Color.YELLOW:off_color,
 		Color.RED:off_color.darkened(darkening)
 	}
-	var outline_color = off_color;
-	outline_color.a -=.5;
-	fighter.material.set_shader_parameter("color", outline_color)
-	
 	color_code_sprite(fighter, dict)
+	
+	if not sample:
+		var outline_color = off_color;
+		outline_color.a -=.5;
+		fighter.material.set_shader_parameter("color", outline_color)
+	
 
 func color_code_vehicle(vehicle:Vehicle):
 	var base_color = Color.SADDLE_BROWN;

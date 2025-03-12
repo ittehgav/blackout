@@ -27,6 +27,7 @@ material = SubResource("ShaderMaterial_xoeuu")
 custom_minimum_size = Vector2(32, 32)
 offset_right = 16.0
 offset_bottom = 16.0
+mouse_filter = 2
 texture = ExtResource("1_b7vp6")
 script = ExtResource("2_w7tyd")
 

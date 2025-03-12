@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cw1dam2aacl14"]
 
 [ext_resource type="Texture2D" uid="uid://b2ghcwxf6c3q0" path="res://assets/visual/icons/items/consumables/mystery_snack_pack.png" id="1_7islw"]
-[ext_resource type="Script" path="res://scenes/indexes/items/consumables/mystery_snack_pack.gd" id="1_67bi2"]
+[ext_resource type="Script" uid="uid://b4376n1ii2ibp" path="res://scenes/indexes/items/consumables/mystery_snack_pack.gd" id="1_67bi2"]
 
 [node name="Mystery Snack Pack" type="Sprite2D"]
 texture = ExtResource("1_7islw")

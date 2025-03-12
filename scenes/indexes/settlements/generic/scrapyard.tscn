@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bghgbhdlygqcs"]
 
 [ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/visual/sprites/settlements/scrapyard.png" id="1_60suj"]
-[ext_resource type="Script" path="res://scenes/indexes/settlements/generic/scrapyard.gd" id="2_ylbiw"]
+[ext_resource type="Script" uid="uid://cjcr0wvsl0iad" path="res://scenes/indexes/settlements/generic/scrapyard.gd" id="2_ylbiw"]
 [ext_resource type="Texture2D" uid="uid://c27hif6frvgxj" path="res://assets/visual/backgrounds/settlements/scrapyard.jpg" id="3_db4an"]
 [ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_tfuu7"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_y1jku"]

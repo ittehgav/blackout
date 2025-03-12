@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3q2rj3eol6t"]
+
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="1_v7wxf"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="2_tn4cm"]
+[ext_resource type="Script" uid="uid://cuk2slytdd26o" path="res://scenes/battle/player/body.gd" id="3_dsuet"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_71g0g"]
+resource_local_to_scene = true
+shader = ExtResource("1_v7wxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="body" type="Sprite2D" node_paths=PackedStringArray("ticker")]
+material = SubResource("ShaderMaterial_71g0g")
+texture = ExtResource("2_tn4cm")
+hframes = 6
+vframes = 2
+script = ExtResource("3_dsuet")
+ticker = NodePath("animation_ticker")
+
+[node name="animation_ticker" type="Timer" parent="."]
+wait_time = 0.3
+
+[connection signal="timeout" from="animation_ticker" to="." method="next_frame"]

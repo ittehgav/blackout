@@ -1,4 +1,4 @@
-extends Control
+extends UIRoot
 
 class_name DialoguePlayer;
 

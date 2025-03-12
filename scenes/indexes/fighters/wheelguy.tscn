@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://40ih8jb8k5rg" path="res://assets/visual/sprites/fighters/wheelguy.png" id="1_gtayi"]
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_npdqc"]
-[ext_resource type="Script" path="res://scenes/indexes/fighters/wheelguy.gd" id="1_qf76y"]
+[ext_resource type="Script" uid="uid://kvys5ejm6loc" path="res://scenes/indexes/fighters/wheelguy.gd" id="1_qf76y"]
 
 [node name="Wheel Guy" type="Sprite2D" node_paths=PackedStringArray("dmg_timer")]
 material = ExtResource("1_npdqc")

@@ -50,14 +50,14 @@ func _on_minute_ticker_timeout() -> void:
 		hour_str = "0" + str(current_hour);
 	else:
 		hour_str = str(current_hour)
-	var minute_str:String;
-	
-	if current_minute < 10:
-		minute_str = "0" + str(current_minute);
-	else:
-		minute_str = str(current_minute)
+	#var minute_str:String;
+	#
+	#if current_minute < 10:
+		#minute_str = "0" + str(current_minute);
+	#else:
+		#minute_str = str(current_minute)
 		
-	clock.text = hour_str + ":"+ minute_str
+	#clock.text = hour_str + ":"+ minute_str
 
 
 func _input(e:InputEvent):

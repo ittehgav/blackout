@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://kwsml5se8oc3"]
 
 [ext_resource type="Texture2D" uid="uid://6sqh8dwvgc4n" path="res://assets/clip/legs.png" id="1_c6rut"]
-[ext_resource type="Script" path="res://node_2d.gd" id="2_astol"]
+[ext_resource type="Script" uid="uid://d80n51ydexur" path="res://node_2d.gd" id="2_astol"]
 
 [node name="Node2D" type="Sprite2D"]
 position = Vector2(527, 279)

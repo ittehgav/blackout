@@ -1,13 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://qt3uf6vc1tww"]
 
-[ext_resource type="Script" path="res://scenes/ui/tooltip.gd" id="1_ufptg"]
+[ext_resource type="Script" uid="uid://bvfxh7uhjvokr" path="res://scenes/ui/tooltip.gd" id="1_ufptg"]
 
 [node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "description_label", "icon", "hint", "hover_timer")]
 process_mode = 3
 visible = false
 z_index = 1
-offset_right = 300.0
-offset_bottom = 176.0
+offset_right = 322.0
+offset_bottom = 77.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
@@ -21,10 +21,10 @@ hover_timer = NodePath("hover_timer")
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = -5
-theme_override_constants/margin_top = -5
-theme_override_constants/margin_right = -5
-theme_override_constants/margin_bottom = -5
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -52,6 +52,11 @@ text = "wawa"
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
 bbcode_enabled = true
 text = "edwadawdawdawdwadawd"
 fit_content = true
