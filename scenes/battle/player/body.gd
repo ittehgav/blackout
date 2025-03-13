@@ -1,5 +1,7 @@
 extends FighterBase
 
+class_name PlayerFighterBase;
+
 @export var ticker:Timer;
 
 

@@ -9,5 +9,4 @@ material = ExtResource("1_wxx4o")
 texture = ExtResource("1_fta4o")
 hframes = 6
 vframes = 3
-frame = 6
 script = ExtResource("2_f03mh")

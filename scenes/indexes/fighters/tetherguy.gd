@@ -7,10 +7,15 @@ const target_type = "least_hp_ally"
 
 
 const skill_name = "Healing Tether"
-const short_description = "[color=blue]Doesn't deal damage.[/color] Regenerates allies' health."
+const description = "[color=blue]Doesn't deal damage.[/color] Regenerates allies' health."
 const long_description = "Prioritizes wounded allies."
 
-
+func full_skill_description(unit:FighterUnit)->String:
+	var total_heal = heal_value * total_heal_ticks;
+	var heal_str = Meta.get_technique_scaled_string(unit, "", total_heal);
+	var str:String = "[color=blue]Doesn't deal damage.[/color] Heals the most damaged ally for "\
+	 + heal_str + " over " + str(total_heal_ticks) + " seconds.";
+	return str;
 
 const hitbox_radius = 50;
 const hitbox_height = 150;

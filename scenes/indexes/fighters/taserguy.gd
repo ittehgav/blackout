@@ -12,8 +12,16 @@ const tags = [
 ]
 
 const skill_name = "Taser Shot"
-const short_description = "Deals light damage and stuns target."
+const description = "Deals light damage and stuns target."
 const long_description = "Utility unit.\nCan be upgraded to heal allies or for heavy AOE damage."
+
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str = Meta.get_unit_damage_string(unit);
+	var stun_duration = Meta.get_technique_scaled_string(unit, "stun_duration");
+	
+	var str:String = "Deals " + damage_str + " damage to a target and stuns them for "\
+	 + stun_duration + " seconds.";
+	return str
 
 
 const hitbox_radius = 50;

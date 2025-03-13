@@ -9,7 +9,6 @@ material = ExtResource("1_npdqc")
 texture = ExtResource("1_gtayi")
 hframes = 6
 vframes = 3
-frame = 9
 script = ExtResource("1_qf76y")
 dmg_timer = NodePath("aoe_dmg")
 

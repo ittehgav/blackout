@@ -7,8 +7,15 @@ const skill_visuals = ["lunge_forward", "shrink_target"]
 const target_type = "nearest_enemy"
 
 const skill_name =  "Wrecking Punch"
-const short_description = "Throws a powerful punch that reduces the defense of the target."
+const description = "Throws a powerful punch that reduces the defense of the target."
 const long_description = "Can tear through even the toughest of enemies."
+
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str = Meta.get_unit_damage_string(unit);
+	var def_reduction_str = Meta.get_technique_scaled_string(unit, "poo", stat_debuff_values.defense);
+	var str:String = "Deals "+damage_str + " damage to enemies in an area and reduces their defense by " \
+	+ def_reduction_str + " for the rest of the battle.";
+	return str;
 
 const tags = [
 	"juggernaut",

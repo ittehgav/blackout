@@ -8,8 +8,16 @@ const target_type = "nearest_enemy"
 
 
 const skill_name = "Rusty Pipe"
-const short_description = "Moderate resistance and damage, attacks reduce enemies' damage."
+const description = "Moderate resistance and damage, attacks reduce enemies' damage."
 const long_description = "Disruptive and resistant. Can be upgraded to become extremely resistant or to deal great AOE damage."
+
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str = Meta.get_unit_damage_string(unit);
+	var atk_reduction_str=  Meta.get_technique_scaled_string(unit, "", stat_debuff_values.attack, "%");
+	
+	var str:String = "Deals " + damage_str + " damage to enemies in an area and reduces their attack by "\
+	+atk_reduction_str + " for the rest of the battle.";
+	return str;
 
 const tags = [
 	"brawler",

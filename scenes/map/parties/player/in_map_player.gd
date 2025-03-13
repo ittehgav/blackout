@@ -4,7 +4,7 @@ class_name InMapPlayer;
 
 @export var camera:Camera2D;
 
-var morale:float;
+
 
 
 func _ready()->void:

@@ -22,5 +22,5 @@ func _ready():
 	texture = item.texture.duplicate();
 	tooltip.target = item;
 
-	var base_color:Color = Icons.item_rarity_colors[item.rarity];
+	var base_color:Color = Meta.item_rarity_colors[item.rarity];
 	material.set_shader_parameter("base_color", base_color)

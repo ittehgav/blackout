@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=33 format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/player/ui/player_sheet.gd" id="1_6boby"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/ui_sfx/open_player_sheet.wav" id="2_go8yu"]
@@ -17,6 +17,9 @@
 [ext_resource type="Script" uid="uid://bbd3oiy16p7qa" path="res://scenes/player/ui/gear.gd" id="10_guigk"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="11_drn0r"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="12_guigk"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="15_ptfqp"]
+[ext_resource type="Script" uid="uid://dqpi700chh4i" path="res://scenes/player/ui/party_view.gd" id="15_s407w"]
+[ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/recruit_full_view.tscn" id="18_vtwi5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ff84"]
 resource_local_to_scene = true
@@ -118,7 +121,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "container", "gear", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "container", "gear", "morale_label", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
 process_mode = 3
 y_sort_enabled = true
 layout_mode = 3
@@ -133,6 +136,7 @@ script = ExtResource("1_6boby")
 bg = NodePath("main_bg")
 container = NodePath("main_bg/MarginContainer/HBoxContainer")
 gear = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear")
+morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Party/HBoxContainer/morale_display")
 consumables_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Consumables/Consumables")
 trinkets_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Trinkets/Trinkets")
 weapons_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Weapons/Weapons")
@@ -174,7 +178,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.623529)
+color = Color(0, 0, 0, 0.768627)
 
 [node name="MarginContainer" type="MarginContainer" parent="main_bg"]
 layout_mode = 1
@@ -220,7 +224,7 @@ offset_bottom = 247.0
 [node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-text = "Resources:"
+text = "Resources"
 
 [node name="HSeparator" type="HSeparator" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources"]
 layout_mode = 2
@@ -238,10 +242,11 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer" instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_7ff84")
 layout_mode = 2
 show_tooltip = true
+adjacent_items = [NodePath("../food")]
 
 [node name="food" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -254,10 +259,11 @@ text = "Food: X"
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2" instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_523kj")
 layout_mode = 2
 show_tooltip = true
+adjacent_items = [NodePath("../fuel")]
 resource = "fuel"
 
 [node name="fuel" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2"]
@@ -271,10 +277,11 @@ text = "Fuel: X"
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3" instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_55ejy")
 layout_mode = 2
 show_tooltip = true
+adjacent_items = [NodePath("../money")]
 resource = "money"
 
 [node name="money" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3"]
@@ -292,10 +299,11 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4" instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_d1fif")
 layout_mode = 2
 show_tooltip = true
+adjacent_items = [NodePath("../juice")]
 resource = "juice"
 
 [node name="juice" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4"]
@@ -309,10 +317,11 @@ text = "Juice: X"
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5" instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_nuo2s")
 layout_mode = 2
 show_tooltip = true
+adjacent_items = [NodePath("../scrap")]
 resource = "scrap"
 
 [node name="scrap" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5"]
@@ -326,10 +335,11 @@ text = "Scrap: X"
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6" instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_yjbpt")
 layout_mode = 2
 show_tooltip = true
+adjacent_items = [NodePath("../chips")]
 resource = "chips"
 
 [node name="chips" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6"]
@@ -369,6 +379,7 @@ offset_right = 42.0
 offset_bottom = 66.0
 scale = Vector2(2, 2)
 target_base = NodePath("body")
+autostart = true
 
 [node name="body" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear/Control/player_sample" instance=ExtResource("11_drn0r")]
 material = SubResource("ShaderMaterial_ptfqp")
@@ -439,11 +450,66 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 18
 
-[node name="Party" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/TabContainer"]
+[node name="Party" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/TabContainer" node_paths=PackedStringArray("recruit_full_view", "recruits_grid")]
 visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
+script = ExtResource("15_s407w")
+sprite_sample_scene = ExtResource("10_2ehd5")
+recruit_full_view = NodePath("../../../../RecruitFullView")
+recruits_grid = NodePath("recruits")
 metadata/_tab_index = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 38.0
+offset_right = 316.0
+offset_bottom = 118.0
+theme_override_constants/separation = 15
+
+[node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("15_ptfqp")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+adjacent_items = [NodePath("../morale_display")]
+
+[node name="morale_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Morale: 5"
+
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 158.0
+offset_right = 233.0
+offset_bottom = 209.0
+theme_override_font_sizes/font_size = 64
+text = "Units"
+
+[node name="recruits" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 207.0
+offset_right = 61.0
+offset_bottom = 247.0
+columns = 7
+
+[node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party"]
+modulate = Color(1, 1, 1, 0.341176)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -40.0
+offset_right = -14.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Click on a unit for more information"
 
 [node name="player_sheet" type="Panel" parent="main_bg/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -492,9 +558,10 @@ offset_top = 234.0
 offset_right = 380.0
 offset_bottom = 630.0
 theme_override_font_sizes/font_size = 32
-current_tab = 0
+current_tab = 1
 
 [node name="Leadership Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -607,7 +674,6 @@ disabled = true
 text = "+"
 
 [node name="Combat Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats"]
-visible = false
 z_as_relative = false
 layout_mode = 2
 metadata/_tab_index = 1
@@ -629,9 +695,10 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer" instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_ncu57")
 layout_mode = 2
+adjacent_items = [NodePath("../max_hp")]
 
 [node name="max_hp" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -641,9 +708,10 @@ text = "Max HP: 10"
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer2" instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_nsjwg")
 layout_mode = 2
+adjacent_items = [NodePath("../attack")]
 stat = "attack"
 
 [node name="attack" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer2"]
@@ -654,9 +722,10 @@ text = "Base Attack: 10"
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer3" instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_um8mn")
 layout_mode = 2
+adjacent_items = [NodePath("../defense")]
 stat = "defense"
 
 [node name="defense" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer3"]
@@ -667,9 +736,10 @@ text = "Defense: 10"
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer4" instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_fwr53")
 layout_mode = 2
+adjacent_items = [NodePath("../move_speed")]
 stat = "move_speed"
 
 [node name="move_speed" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer4"]
@@ -680,14 +750,19 @@ text = "Movement Speed: 100"
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer5" instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_gcm86")
 layout_mode = 2
+adjacent_items = [NodePath("../technique")]
 stat = "technique"
 
 [node name="technique" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 text = "Technique: 1"
+
+[node name="RecruitFullView" parent="main_bg" instance=ExtResource("18_vtwi5")]
+visible = false
+layout_mode = 1
 
 [node name="feedback_bg" type="ColorRect" parent="."]
 visible = false

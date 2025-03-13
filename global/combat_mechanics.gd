@@ -1,7 +1,14 @@
 extends Node
 
-func deal_damage(source:ActiveFighter, target:ActiveFighter)->void:
+func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=Callable())->void:
+	
 	var damage:float = source.attack;
+	if not modifier.is_null():
+		damage = modifier.bind(damage).call();
+	## there may be both i suppose but theres no case of that atm
+	if "damage_modifier" in source.base:
+		damage = source.base.damage_modifier(damage);
+	
 	var mitigation:float = defense_mitigation(target);
 	damage -= damage * mitigation;
 	

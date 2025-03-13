@@ -21,6 +21,7 @@ func load_fighter(new_unit:FighterUnit)->void:
 	unit = new_unit
 	base = unit.base.duplicate();
 	add_child(base)
+	base.fighter = self;
 
 	$hitbox.shape.radius = base.hitbox_radius;
 	$hitbox.shape.height = base.hitbox_height;

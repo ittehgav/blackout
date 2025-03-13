@@ -5,6 +5,7 @@ class_name Player;
 @export var leadership_stats:Node;
 
 signal resources_changed;
+signal morale_changed;
 
 ## leadership skills will be a special tree that grants a special bonus at each level
 ## you can win leadership EXP by fighting (based on the amount of units is the party?)
@@ -20,6 +21,9 @@ signal resources_changed;
 
 ## ANY ITEMS THAT BELONG TO THE PLAYER WILL BE CHILDREN OF THE INVENTORY NODE
 @export var equipped_weapon:Weapon;
+
+
+var morale:float=4.56664;
 
 func _ready()->void:
 	Entities.player = self;

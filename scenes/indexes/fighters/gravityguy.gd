@@ -9,8 +9,14 @@ const skill_visuals = ["recoil", "shrink_target"]
 const target_type = "nearest_enemy"
 
 const skill_name = "Shockwave"
-const short_description = "Knocks back and stuns enemies."
+const description = "Knocks back and stuns enemies."
 const long_description = "[color=blue]Doesn't deal damage.[/color] Knocks back and stuns a target enemy, also stuns any other enemy it comes into contact with."
+
+func full_skill_description(unit:FighterUnit)->String:
+	var stun_duration_string = Meta.get_technique_scaled_string(unit, "stun_duration");
+	var str:String = "[color=blue]Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
+	+ stun_duration_string + " seconds.";
+	return str;
 
 const tags = [
 	"disruptor",
@@ -45,7 +51,7 @@ func _process(_delta)->void:
 		hit_scan_shape.position.x += hit_scan_shape.shape.size.x/2;
 
 
-func special_skill(fighter:ActiveFighter)->void:
+func special_skill()->void:
 	Combat.stun_target(fighter, fighter.target_unit);
 	
 	for target in fighter.hit_scan.get_overlapping_bodies():

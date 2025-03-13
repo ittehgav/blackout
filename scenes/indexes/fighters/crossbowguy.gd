@@ -7,8 +7,22 @@ const target_type = "nearest_enemy"
 
 
 const skill_name = "Piercing Shot"
-const short_description = "Fires a powerful piercing bolt."
+const description = "Fires a powerful, long-range piercing bolt."
 const long_description = "Deals massive damage to enemies in a straight line."
+
+func damage_modifier(damage:float)->float:
+	return damage * fighter.technique;
+
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str = Meta.get_unit_damage_string(unit);
+	var technique_str = Meta.get_technique_scaled_string(unit);
+	
+	var final_damage = unit.stats.attack * unit.stats.technique;
+	var final_damage_color = Meta.stat_colors.attack.blend(Meta.stat_colors.technique).to_html();
+	var final_damage_str = "[color=" + final_damage_color + "]" + str(final_damage) + "[/color]"
+	
+	var str:String = "Deals " + damage_str + " * " + technique_str + " ("+final_damage_str + ") damage to enemies in a straight line.";
+	return str;
 
 const tags = [
 	"hunter",

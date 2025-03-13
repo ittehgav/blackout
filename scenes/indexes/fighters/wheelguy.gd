@@ -8,8 +8,15 @@ const skill_visuals = ["grow", "shake"]
 const target_type = "nearest_enemy"
 
 const skill_name =  "Accelerate"
-const short_description = "Deals damage to surrounding enemies that speeds up over time."
+const description = "Deals damage to surrounding enemies that speeds up over time."
 const long_description = "Speeds up the wheel, making it deal damage to enemies faster."
+
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str = Meta.get_unit_damage_string(unit);
+	var acceleration = Meta.get_technique_scaled_string(unit, "", 10, "%");
+	var str:String = "Spins a wheel that deals " + damage_str + " damage to surrounding enemies every second.\n"\
+	+ "Each additional activation makes the damage go " + acceleration + " faster.";
+	return str
 
 const hitbox_radius = 50;
 const hitbox_height = 150;
@@ -30,9 +37,9 @@ const skill_cooldown = 3;
 func _ready():
 	dmg_timer.timeout.connect(aoe_damage.bind(get_parent()));
 
-func special_skill(_fighter:ActiveFighter)->void:
+func special_skill()->void:
 	if not dmg_timer.is_stopped():
-		dmg_timer.wait_time -= dmg_timer.wait_time/10;
+		dmg_timer.wait_time -= dmg_timer.wait_time/10*fighter.technique;
 	else:
 		dmg_timer.start();
 

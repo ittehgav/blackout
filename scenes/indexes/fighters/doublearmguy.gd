@@ -13,11 +13,20 @@ const tags = [
 ]
 
 const skill_name = "Throw More Hands"
-const short_description = "Damages and stuns enemies in a large area."
+const description = "Damages and stuns enemies in a large area."
 const long_description = "Very resistant and disruptive."
 
 
-const stun_duration = 2;
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str = Meta.get_unit_damage_string(unit);
+	var stun_duration_str = Meta.get_technique_scaled_string(unit, "stun_duration");
+	
+	
+	var str:String = "Slams the ground with both arms, dealing " + damage_str +\
+	" damage to enemies in a large area and stunning them for " + stun_duration_str + " seconds."
+	return str
+
+const stun_duration = 4;
 
 const hitbox_radius = 50;
 const hitbox_height = 150;

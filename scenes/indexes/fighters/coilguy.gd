@@ -6,8 +6,19 @@ const skill_visuals = ["recoil"]
 const target_type = "nearest_enemy"
 
 const skill_name = "Chain Lightning"
-const short_description = "Fires Chain Lightning Attacks."
+const description = "Fires powerful chain lightning Attacks."
 const long_description = "Magnetizes one enemy, then deals damage to all magnetized enemies."
+
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str = Meta.get_unit_damage_string(unit);
+	var technique_str = Meta.get_technique_scaled_string(unit)
+	
+	
+	var string:String="[color=yellow]Magnetizes[/color] the nearest enemy that's not [color=yellow]magnetized[/color], then deals " +\
+	damage_str + "[/color] damage to all [color=yelow]magnetized[/color] enemies.\nDeals " + technique_str + \
+	"x more damage to all targets for each [color=yellow]magnetized[/color] enemy on the battlefield."
+	return string
+	
 
 const tags = [
 	"hunter",
@@ -23,12 +34,13 @@ const skill_cooldown = 2;
 
 
 var tagged_targets:Array[ActiveFighter] = [];
-##TODO: make the chain lighjtning thingy
+##TODO: make the chain lighjtning VFX thingy
 
-func special_skill(fighter:ActiveFighter)->void:
+func special_skill()->void:
 	if not len(tagged_targets):
 		tagged_targets.push_back(fighter.target_unit);
 		fighter.target_unit.death.connect(remove_from_tagged.bind(fighter.target_unit))
+		
 
 	elif not len(fighter.enemy_team) == len(tagged_targets):
 		var untagged_targets:Array[ActiveFighter] = fighter.enemy_team.units.duplicate();
@@ -43,8 +55,13 @@ func special_skill(fighter:ActiveFighter)->void:
 
 	for unit:ActiveFighter in fighter.enemy_team.units:
 		if unit in tagged_targets:
-			Combat.deal_damage(fighter, unit);
+			Combat.deal_damage(fighter, unit, target_count_amplifier);
 
+
+func target_count_amplifier(damage:float)->float:
+	for i in len(tagged_targets):
+		damage *= fighter.technique;
+	return damage;
 
 func closer_to_last_tagged(a:ActiveFighter, b:ActiveFighter)->bool:
 	return a.position.distance_to(tagged_targets[-1].position) < b.position.distance_to(tagged_targets[-1].position)

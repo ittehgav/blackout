@@ -16,7 +16,7 @@ class_name Tooltip;
 
 func _ready() -> void:
 	var parent:Control = get_parent()
-	assert (parent is Control);
+	assert (parent is Control and not parent is Container);
 	if not parent.is_node_ready():
 		await parent.ready
 		setup()
@@ -52,25 +52,15 @@ func setup():
 
 func _on_hover_timer_timeout() -> void:
 	modulate.a = .1;
-	show();
 
+	show();
+	position = get_parent().get_local_mouse_position();
+	size.y -= 10000
+	size.y += 10
+		
 	var tween = create_tween();
 	tween.tween_property(self, "modulate:a", 1, .5);
 
 func stop_hover_timer():
 	hide();
 	hover_timer.stop();
-
-
-func set_rel():
-	var parent:Control = get_parent()
-	if global_position.x < window_size.x:
-		if global_position.y < window_size.y:
-			set_anchors_preset(PRESET_TOP_LEFT);
-		else:
-			set_anchors_preset(PRESET_BOTTOM_LEFT);
-	else:
-		if global_position.y < window_size.y:
-			set_anchors_preset(PRESET_TOP_RIGHT);
-		else:
-			set_anchors_preset(PRESET_BOTTOM_RIGHT);

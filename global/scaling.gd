@@ -112,5 +112,5 @@ func tag_stats_per_level(tag:String)->Dictionary:
 
 
 func exp_for_next_level(current_level:int)->int:
-	return (current_level + 1) ^ 2;
+	return (current_level + 1) ** 2;
 	

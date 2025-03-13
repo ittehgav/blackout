@@ -1,0 +1,223 @@
+[gd_scene load_steps=11 format=3 uid="uid://1hbrworalfdw"]
+
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="1_lmv1r"]
+[ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/recruit_full_view.gd" id="1_ywq7p"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_atfxm"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_lmv1r"]
+[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="4_cwkea"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ywq7p"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_atfxm"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmv1r"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cwkea"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wpwsp"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("sample", "unit_name_label", "skill_name_label", "skill_description_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label")]
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lmv1r")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_ywq7p")
+sample = NodePath("Panel/SpriteSample")
+unit_name_label = NodePath("Panel/name")
+skill_name_label = NodePath("Panel/skill_name")
+skill_description_label = NodePath("Panel/skill_description")
+unit_level_label = NodePath("Panel/level")
+level_progress_bar = NodePath("Panel/ProgressBar")
+max_hp_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer/max_hp")
+attack_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer2/attack")
+defense_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer3/defense")
+move_speed_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer4/move_speed")
+technique_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer5/technique")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="SpriteSample" parent="Panel" instance=ExtResource("4_cwkea")]
+
+[node name="name" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 343.0
+offset_top = 80.0
+offset_right = 637.0
+offset_bottom = 169.0
+theme_override_font_sizes/font_size = 112
+text = "Arm Guy"
+
+[node name="level" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 211.0
+offset_right = 504.0
+offset_bottom = 262.0
+theme_override_font_sizes/font_size = 64
+text = "Level 2"
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 288.0
+offset_right = 670.0
+offset_bottom = 315.0
+step = 1.0
+show_percentage = false
+
+[node name="skill_name" type="Label" parent="Panel"]
+layout_mode = 2
+offset_left = 701.0
+offset_top = 188.0
+offset_right = 1067.0
+offset_bottom = 239.0
+pivot_offset = Vector2(-1197, 114)
+theme_override_font_sizes/font_size = 64
+text = "Skill: Penes"
+
+[node name="skill_description" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 702.0
+offset_top = 246.0
+offset_right = 1192.0
+offset_bottom = 394.0
+pivot_offset = Vector2(-1198, 56)
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "opesnfçasejnfçasoerinfg´~"
+fit_content = true
+
+[node name="stats" type="VBoxContainer" parent="Panel"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -263.0
+offset_top = 346.0
+offset_right = 111.0
+offset_bottom = 546.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/stats/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer6/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_ywq7p")
+layout_mode = 2
+adjacent_items = [NodePath("../max_hp")]
+
+[node name="max_hp" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "10"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/stats/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer6/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_atfxm")
+layout_mode = 2
+adjacent_items = [NodePath("../attack")]
+stat = "attack"
+
+[node name="attack" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "10"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/stats/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer6/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_lmv1r")
+layout_mode = 2
+adjacent_items = [NodePath("../defense")]
+stat = "defense"
+
+[node name="defense" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "10"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/stats/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_cwkea")
+layout_mode = 2
+adjacent_items = [NodePath("../move_speed")]
+stat = "move_speed"
+
+[node name="move_speed" type="Label" parent="Panel/stats/HBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Panel/stats/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_wpwsp")
+layout_mode = 2
+adjacent_items = [NodePath("../technique")]
+stat = "technique"
+
+[node name="technique" type="Label" parent="Panel/stats/HBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "1"

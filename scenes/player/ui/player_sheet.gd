@@ -4,6 +4,7 @@ extends UIRoot;
 @export var container:HBoxContainer;
  
 @export var gear:Control;
+@export var morale_label:Label;
 
 @export var consumables_inventory:GridContainer;
 @export var trinkets_inventory:GridContainer;
@@ -57,8 +58,7 @@ const resources_names = [
 func _ready():
 	super();
 	Entities.player.resources_changed.connect(refresh_data)
-	for rname in resources_names:
-		self[rname + "_label"].modulate = Icons.resource_colors[rname].lightened(.25);
+
 
 func _input(e:InputEvent):
 	if e.is_action_pressed("show_player_sheet") or e.is_action_pressed("ui_cancel") and visible:
@@ -97,6 +97,8 @@ func hide_player_sheet():
 
 func refresh_data():
 	## will show upkeep costs when upkeep is implemented
+	morale_label.text = "Morale: " + str(snapped(Entities.player.morale, .01));
+	
 	gear.refresh_samples()
 	var inv:Inventory = Entities.player.inventory;
 	food_label.text = "Food: " + str(inv.food);

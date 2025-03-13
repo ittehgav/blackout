@@ -7,8 +7,17 @@ const skill_visuals = ["grow"]
 const target_type = "nearest_enemy"
 
 const skill_name = "Buckle up"
-const short_description = "[color=blue]Doesn't deal damage.[/color] Shields self, becoming progressively more resistant."
+const description = "[color=blue]Doesn't deal damage.[/color] Shields self, becoming progressively more resistant."
 const long_description = "Can be extremely difficult to take down."
+
+func full_skill_description(unit:FighterUnit)->String:
+	var technique_str = Meta.get_technique_scaled_string(unit);
+	var base_value_str = "[color=sky_blue]" + str(stat_buff_values.defense) + "[/color]"
+	var final_value_str = "[color=blue]" + str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
+	
+	var str:String = "[color=blue]Doesn't deal damage.[/color] Shields himself, gaining " + base_value_str + " * " + technique_str\
+	 + " (" + final_value_str +") defense until the end of battle.";
+	return str
 
 const tags = [
 	"juggernaut",

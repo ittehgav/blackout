@@ -2,19 +2,22 @@ extends Node
 
 ## this file is gonna need a more appropriate name
 
-@onready var defense:Texture = load("res://assets/visual/icons/stats/defense.png");
-@onready var attack:Texture = load("res://assets/visual/icons/stats/attack.png")
-@onready var max_hp:Texture = load("res://assets/visual/icons/stats/max_hp.png");
-@onready var move_speed:Texture = load("res://assets/visual/icons/stats/move_speed.png");
-@onready var technique:Texture = load("res://assets/visual/icons/stats/technique.png")
+@onready var icons = {
+	"defense":load("res://assets/visual/icons/stats/defense.png"),
+	"attack":load("res://assets/visual/icons/stats/attack.png"),
+	"max_hp":load("res://assets/visual/icons/stats/max_hp.png"),
+	"move_speed":load("res://assets/visual/icons/stats/move_speed.png"),
+	"technique":load("res://assets/visual/icons/stats/technique.png"),
 
-@onready var food:Texture = load("res://assets/visual/icons/resources/food.png");
-@onready var money:Texture = load("res://assets/visual/icons/resources/money.png");
-@onready var fuel:Texture = load("res://assets/visual/icons/resources/fuel.png");
+	"food":load("res://assets/visual/icons/resources/food.png"),
+	"money":load("res://assets/visual/icons/resources/money.png"),
+	"fuel":load("res://assets/visual/icons/resources/fuel.png"),
 
-@onready var juice:Texture = load("res://assets/visual/icons/resources/juice.png");
-@onready var scrap:Texture = load("res://assets/visual/icons/resources/scrap.png");
-@onready var chips:Texture = load("res://assets/visual/icons/resources/chips.png");
+	"juice":load("res://assets/visual/icons/resources/juice.png"),
+	"scrap":load("res://assets/visual/icons/resources/scrap.png"),
+	"chips":load("res://assets/visual/icons/resources/chips.png"),
+}
+
 
 
 const resource_colors = {
@@ -45,7 +48,7 @@ const resource_descriptions = {
 
 const stat_colors = {
 	"max_hp": Color.WEB_GREEN,
-	"attack": Color.DARK_RED,
+	"attack": Color(.8, 0, 0),
 	"defense": Color.SKY_BLUE,
 	"move_speed": Color(.8, .8, 0), ## darkish yellow
 	"technique": Color.DEEP_PINK
@@ -54,7 +57,7 @@ const stat_colors = {
 const item_rarity_colors:={
 	1: Color.LIGHT_GRAY,
 	2: Color.GREEN_YELLOW,
-	3:Color.RED
+	3: Color.RED
 }
 
 const stat_descriptions = {
@@ -64,3 +67,19 @@ const stat_descriptions = {
 	"move_speed": "The speed at which the character moves in battle",
 	"technique": "Multiplier applied to special effects in units' skills"
 }
+
+
+func get_unit_damage_string(unit:FighterUnit)->String:
+	var string = "[color=" + stat_colors.attack.to_html() + "]";
+	string += str(unit.stats.attack) + "[/color]"
+	return string
+	
+func get_technique_scaled_string(unit:FighterUnit, value_key:String="", hard_value = 0, trailing_string="")->String:
+	var string = "[color=" + stat_colors.technique.to_html() + "]";
+	if hard_value:
+		string += str(hard_value * unit.stats.technique) + trailing_string + "[/color]"
+	elif not value_key:
+		string += str(unit.stats.technique) + trailing_string + "[/color]"
+	else:
+		string += str(unit.base[value_key] * unit.stats.technique) + trailing_string + "[/color]";
+	return string;

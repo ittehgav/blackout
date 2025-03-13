@@ -7,7 +7,7 @@ func stat_icon_sprite(stat:String)->Sprite2D:
 	var sprite: = Sprite2D.new();
 	match stat:
 		"defense", "attack", "max_hp", "move_speed", "technique":
-			sprite.texture = Icons[stat];
+			sprite.texture = Meta.icons[stat];
 	return sprite;
 
 func swing_tween(target:Sprite2D, duration:float = .05)->Tween:

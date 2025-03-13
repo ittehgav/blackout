@@ -19,7 +19,7 @@ func skill_effect(source:ActiveFighter, effect_name:String)->void:
 			aoe_debuff(source);
 
 		"special":
-			source.base.special_skill(source);
+			source.base.special_skill();
 
 
 func aoe_damage(source:ActiveFighter)->void:

@@ -8,14 +8,18 @@ var description:String;
 @export var show_tooltip:bool;
 @export var in_trade:bool;
 
+@export var adjacent_items:Array[CanvasItem];
+
 @export_enum("food", "fuel", "money", "juice", "scrap", "chips") var resource="food";
 
 func _ready():
-	texture = Icons[resource];
-	material.set_shader_parameter("base_color", Icons.resource_colors[resource])
+	texture = Meta.icons[resource];
+	material.set_shader_parameter("base_color", Meta.resource_colors[resource])
 	
 	if show_tooltip:
 		name = resource.capitalize();
-		tooltip_name_color = Icons.resource_colors[resource];
-		description = Icons.resource_descriptions[resource]
+		tooltip_name_color = Meta.resource_colors[resource];
+		description = Meta.resource_descriptions[resource]
 	
+	for item in adjacent_items:
+		item.modulate = Meta.resource_colors[resource]
