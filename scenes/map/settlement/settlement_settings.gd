@@ -2,12 +2,6 @@ extends Node
 
 class_name SettlementSettings;
 
-@export_subgroup("Settlement Data")
-@export var faction:String;
-@export_range(1.0,5.0) var economy_level:float;
-@export_range(1.0, 5.0) var military_level:float;
-
-
 @export_subgroup("Basic Features")
 @export var trade:bool=true;
 @export var recruit_units:bool=true;

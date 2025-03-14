@@ -121,7 +121,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "container", "gear", "morale_label", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "container", "gear", "morale_label", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "recruit_full_view", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
 process_mode = 3
 y_sort_enabled = true
 layout_mode = 3
@@ -141,6 +141,7 @@ consumables_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabConta
 trinkets_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Trinkets/Trinkets")
 weapons_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Weapons/Weapons")
 item_feedback = NodePath("feedback_bg/item_feedback")
+recruit_full_view = NodePath("main_bg/RecruitFullView")
 open_sound = ExtResource("2_go8yu")
 close_sound = ExtResource("3_5uudl")
 rummage = ExtResource("6_fcyhu")
@@ -208,6 +209,7 @@ alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 current_tab = 0
+tab_focus_mode = 1
 
 [node name="Inventory" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/TabContainer"]
 custom_minimum_size = Vector2(800, 600)
@@ -405,6 +407,7 @@ offset_top = 341.0
 offset_right = 779.0
 offset_bottom = 578.0
 current_tab = 0
+tab_focus_mode = 1
 
 [node name="Consumables" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items"]
 layout_mode = 2
@@ -559,6 +562,7 @@ offset_right = 380.0
 offset_bottom = 630.0
 theme_override_font_sizes/font_size = 32
 current_tab = 1
+tab_focus_mode = 1
 
 [node name="Leadership Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats"]
 visible = false
@@ -806,3 +810,5 @@ offset_right = 736.0
 offset_bottom = 367.0
 theme_override_font_sizes/font_size = 32
 text = "press any key to continue"
+
+[connection signal="visibility_changed" from="main_bg/RecruitFullView" to="." method="_on_recruit_full_view_visibility_changed"]

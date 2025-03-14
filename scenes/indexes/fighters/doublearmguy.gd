@@ -28,11 +28,12 @@ func full_skill_description(unit:FighterUnit)->String:
 
 const stun_duration = 4;
 
-const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_radius = 35;
+const hitbox_height = 80;
+const hitbox_offset = Vector2(0, 5);
 
 const hit_scan_radius = 200;
-const skill_range = 200;
+const skill_range = MELEE_RANGE;
 
 
 

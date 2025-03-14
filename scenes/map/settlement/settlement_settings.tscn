@@ -4,4 +4,3 @@
 
 [node name="settings" type="Node"]
 script = ExtResource("1_7nwbh")
-economy_level = 1.0

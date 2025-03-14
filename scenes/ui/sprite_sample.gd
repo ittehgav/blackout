@@ -8,14 +8,25 @@ class_name SpriteSample;
 @export var tooltip_scene:PackedScene;
 @export var tooltip:Tooltip;
 
+@export var add_tooltip = true;
+@export var enable_hover_panel = true;
+
 @export var autostart:bool;
 
 func _ready()->void:
 	if autostart:
 		$bob_timer.start()
 
+func disable_panel():
+	$panel.queue_free();
+	mouse_entered.disconnect(show_panel);
+	mouse_exited.disconnect(hide_panel);
 	
+
 func set_sample(target:Sprite2D)->void:
+	if target_base and not autostart:
+		target_base.queue_free();
+	
 	if not autostart:
 		## idk but it works
 		target_base = target.duplicate();
@@ -29,6 +40,7 @@ func set_sample(target:Sprite2D)->void:
 			target_base.set_material(null)
 			set_rectangle();
 			set_tooltip();
+
 	if target_base is Weapon:
 		$bob_timer.stop()
 		ColorCoder.color_code_weapon(target_base);
@@ -43,24 +55,26 @@ func set_sample(target:Sprite2D)->void:
 	
 
 func set_rectangle():
-	var sample_size = target_base.texture.get_size() * target_base.scale.x;
-	custom_minimum_size = sample_size;
-	size = sample_size;
-	if target_base is FighterBase and not target_base is PlayerFighterBase:
-		mouse_entered.connect(show_panel);
-		mouse_exited.connect(hide_panel)
-		target_base.offset.x = -50
-		custom_minimum_size.x /= 12
-		custom_minimum_size.y /= 3
+	if enable_hover_panel:
+		var sample_size = target_base.texture.get_size() * target_base.scale.x;
+		custom_minimum_size = sample_size;
+		size = sample_size;
+		if target_base is FighterBase and not target_base is PlayerFighterBase:
+			mouse_entered.connect(show_panel);
+			mouse_exited.connect(hide_panel)
+			target_base.offset.x = -50
+			custom_minimum_size.x /= 12
+			custom_minimum_size.y /= 3
 
 func set_tooltip():
-	if tooltip:
-		tooltip.queue_free();
+	if add_tooltip:
+		if tooltip:
+			tooltip.queue_free();
 
-	tooltip = tooltip_scene.instantiate();
-	tooltip.target = target_base;
+		tooltip = tooltip_scene.instantiate();
+		tooltip.target = target_base;
 
-	add_child(tooltip)
+		add_child(tooltip)
 
 
 func _on_timer_timeout() -> void:

@@ -8,6 +8,8 @@ extends MarginContainer
 @export var skill_name_label:Label;
 @export var skill_description_label:RichTextLabel;
 
+@export var tags_label:Label;
+
 @export var unit_level_label:Label;
 @export var level_progress_bar:ProgressBar;
 
@@ -18,12 +20,18 @@ extends MarginContainer
 @export var move_speed_label:Label;
 @export var technique_label:Label;
 
+@export var skill_range_label:Label;
+@export var skill_cooldown_label:Label;
+
 ## TODO also display
 ## range (melee, short or long)
 ## cooldown
 ## tags (and color code the tags)
 
 
+
+func _ready():
+	sample.disable_panel();
 
 func display_recruit(unit:FighterUnit):
 	if showing_unit:
@@ -38,6 +46,9 @@ func display_recruit(unit:FighterUnit):
 	
 func refresh_data():
 	unit_name_label.text = showing_unit.base.name;
+	tags_label.text = "";
+	for tag in showing_unit.base.tags:
+		tags_label.text += tag.capitalize() + "\n"
 	
 	unit_level_label.text = "Level " + str(showing_unit.level);
 	level_progress_bar.max_value = Scaling.exp_for_next_level(showing_unit.level);
@@ -51,9 +62,31 @@ func refresh_data():
 	defense_label.text = str(showing_unit.stats.defense)
 	move_speed_label.text = str(showing_unit.stats.move_speed)
 	technique_label.text = str(showing_unit.stats.technique)
+	
+	skill_cooldown_label.text = "Cooldown: " + str(showing_unit.base.skill_cooldown) + "s";
+	skill_range_label.text = get_skill_range(showing_unit.base);
+
+func get_skill_range(fighter:FighterBase)->String:
+	if fighter.skill_range == fighter.MELEE_RANGE:
+		return "Melee";
+	elif fighter.skill_range < 350:
+		return "Short Range";
+	else:
+		return "Long Range"
+	
 
 func fade_in():
 	modulate.a = 0;
 	show();
 	var tween = create_tween();
-	tween.tween_property(self, "modulate:a", 1, .5)
+	tween.tween_property(self, "modulate:a", 1, .35)
+	
+func fade_out():
+	var tween = create_tween();
+	tween.tween_property(self, "modulate:a", 0, .35)
+	await tween.finished;
+	hide();
+
+func _input(e: InputEvent) -> void:
+	if e.is_action_pressed("ui_cancel") and visible:
+		fade_out();

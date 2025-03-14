@@ -1,27 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0vg6gq1edsw"]
+[gd_scene load_steps=6 format=3 uid="uid://c0vg6gq1edsw"]
 
 [ext_resource type="Script" uid="uid://cno7hu4sfyc12" path="res://scenes/map/parties/player/in_map_player.gd" id="1_h5u0f"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
 [ext_resource type="Script" uid="uid://c0wbe3ugd608g" path="res://scenes/map/parties/player/in_map_camera.gd" id="4_ibn0u"]
-[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="5_rrghm"]
-[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="6_06avr"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="7_qkp1n"]
 [ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/indexes/vehicles/gol.tscn" id="7_swjnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]
 radius = 30.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc55"]
-resource_local_to_scene = true
-shader = ExtResource("7_qkp1n")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "leader", "vehicle")]
 process_mode = 3
@@ -43,18 +28,9 @@ script = ExtResource("4_ibn0u")
 [node name="Player" parent="." instance=ExtResource("2_c0i2s")]
 
 [node name="Roster" parent="Player" index="1" node_paths=PackedStringArray("units")]
-units = [NodePath("FighterUnit")]
-
-[node name="FighterUnit" parent="Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("5_rrghm")]
-base = NodePath("Arm Guy")
-level = 2
-experience = 1
-
-[node name="Arm Guy" parent="Player/Roster/FighterUnit" instance=ExtResource("6_06avr")]
-material = SubResource("ShaderMaterial_1gc55")
+units = [null]
 
 [connection signal="started_moving" from="." to="." method="_on_started_moving"]
 [connection signal="stopped_moving" from="." to="." method="_on_stopped_moving"]
 
 [editable path="Player"]
-[editable path="Player/Roster/FighterUnit"]

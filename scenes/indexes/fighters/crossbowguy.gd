@@ -34,9 +34,10 @@ const tags = [
 const hit_scan_type = "line";
 const hit_scan_length = 2000.0;
 
-const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_radius = 25;
+const hitbox_height = 60;
+const hitbox_offset = Vector2(0, 5)
 
-const skill_range = 1000;
+const skill_range = 750;
 
 const skill_cooldown = 3;

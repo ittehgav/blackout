@@ -27,6 +27,7 @@ Trade="*res://global/trade.gd"
 Scaling="*res://global/scaling.gd"
 MapEvents="*res://global/map_events.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+NameDatabase="*res://global/name_database.gd"
 
 [display]
 

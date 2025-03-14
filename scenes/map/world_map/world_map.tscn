@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=53 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_hae4w"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/map/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
 [ext_resource type="Script" uid="uid://d1epphgokcyg0" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
-[ext_resource type="PackedScene" uid="uid://bghgbhdlygqcs" path="res://scenes/indexes/settlements/generic/scrapyard.tscn" id="6_ooxid"]
 [ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="7_3vru2"]
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
@@ -23,9 +22,20 @@
 [ext_resource type="PackedScene" uid="uid://b5o7ipw23muir" path="res://scenes/indexes/items/trinkets/rare_coin.tscn" id="11_5up8w"]
 [ext_resource type="PackedScene" uid="uid://m2wpkoi452n" path="res://scenes/indexes/items/consumables/gakka_roll.tscn" id="12_g4k6m"]
 [ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/map/ui/dialogue/dialogue_player.tscn" id="13_8dqwv"]
+[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="18_8x8fu"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="18_p3eby"]
+[ext_resource type="PackedScene" uid="uid://cn6wxjfhbdfcq" path="res://scenes/indexes/fighters/coilguy.tscn" id="20_05i75"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="20_opvew"]
+[ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="21_1aag8"]
+[ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="22_kcivd"]
+[ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="23_3w437"]
+[ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/indexes/fighters/doublearmguy.tscn" id="24_mw666"]
+[ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/indexes/fighters/gravityguy.tscn" id="25_qkpsy"]
+[ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/indexes/fighters/mecharmguy.tscn" id="26_2cuod"]
+[ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/indexes/fighters/tailpipeguy.tscn" id="27_bp0ea"]
+[ext_resource type="PackedScene" uid="uid://3phgdfixhg5t" path="res://scenes/indexes/fighters/taserguy.tscn" id="28_5larv"]
+[ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/indexes/fighters/tetherguy.tscn" id="29_oxxdj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gyjr"]
 texture = ExtResource("3_1w3gq")
@@ -43,19 +53,7 @@ sources/0 = SubResource("TileSetAtlasSource_4gyjr")
 resource_local_to_scene = true
 noise = SubResource("FastNoiseLite_yg1vu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gc55"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p3eby"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8x8fu"]
 resource_local_to_scene = true
 shader = ExtResource("3_ircok")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -67,8 +65,137 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Resource" id="Resource_fsmxr"]
-metadata/__load_path__ = "res://assets/backgrounds/settlements/farm.jpg"
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05i75"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1aag8"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kcivd"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3w437"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mw666"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkpsy"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cuod"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bp0ea"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5larv"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxxdj"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bgkna"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "player")]
 process_mode = 1
@@ -76,8 +203,12 @@ script = ExtResource("1_s4sam")
 ui = NodePath("ui_overlay/ui")
 player = NodePath("entities/in_map_player")
 arena_scene = ExtResource("2_hae4w")
+farm_scene = ExtResource("7_gpotv")
+scrapyard_scene = ExtResource("5_akvl2")
+factory_scene = ExtResource("5_akvl2")
 
 [node name="ambient_light" type="CanvasModulate" parent="."]
+visible = false
 script = ExtResource("3_uqjvj")
 
 [node name="minute_ticker" type="Timer" parent="ambient_light"]
@@ -128,16 +259,77 @@ equipped_weapon = NodePath("Inventory/Tailpipe")
 [node name="Roster" parent="entities/in_map_player/Player" index="1" node_paths=PackedStringArray("units")]
 units = []
 
-[node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit" index="1"]
-material = SubResource("ShaderMaterial_1gc55")
+[node name="FighterUnit" parent="entities/in_map_player/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Arm Guy")
+
+[node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit" instance=ExtResource("18_8x8fu")]
+material = SubResource("ShaderMaterial_8x8fu")
 
 [node name="FighterUnit2" parent="entities/in_map_player/Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Wheel Guy")
-level = 2
-experience = 1
+base = NodePath("Coil Guy")
 
-[node name="Wheel Guy" parent="entities/in_map_player/Player/Roster/FighterUnit2" instance=ExtResource("20_opvew")]
-material = SubResource("ShaderMaterial_p3eby")
+[node name="Coil Guy" parent="entities/in_map_player/Player/Roster/FighterUnit2" instance=ExtResource("20_05i75")]
+material = SubResource("ShaderMaterial_05i75")
+
+[node name="FighterUnit3" parent="entities/in_map_player/Player/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Crossbow Guy")
+
+[node name="Crossbow Guy" parent="entities/in_map_player/Player/Roster/FighterUnit3" instance=ExtResource("21_1aag8")]
+material = SubResource("ShaderMaterial_1aag8")
+
+[node name="FighterUnit4" parent="entities/in_map_player/Player/Roster" index="3" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Crowbar Guy")
+
+[node name="Crowbar Guy" parent="entities/in_map_player/Player/Roster/FighterUnit4" instance=ExtResource("22_kcivd")]
+material = SubResource("ShaderMaterial_kcivd")
+
+[node name="FighterUnit5" parent="entities/in_map_player/Player/Roster" index="4" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Door Guy")
+
+[node name="Door Guy" parent="entities/in_map_player/Player/Roster/FighterUnit5" instance=ExtResource("23_3w437")]
+material = SubResource("ShaderMaterial_3w437")
+
+[node name="FighterUnit6" parent="entities/in_map_player/Player/Roster" index="5" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Double Arm Guy")
+
+[node name="Double Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit6" instance=ExtResource("24_mw666")]
+material = SubResource("ShaderMaterial_mw666")
+
+[node name="FighterUnit7" parent="entities/in_map_player/Player/Roster" index="6" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Gravity Guy")
+
+[node name="Gravity Guy" parent="entities/in_map_player/Player/Roster/FighterUnit7" instance=ExtResource("25_qkpsy")]
+material = SubResource("ShaderMaterial_qkpsy")
+
+[node name="FighterUnit8" parent="entities/in_map_player/Player/Roster" index="7" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Mech Arm Guy")
+
+[node name="Mech Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit8" instance=ExtResource("26_2cuod")]
+material = SubResource("ShaderMaterial_2cuod")
+
+[node name="FighterUnit9" parent="entities/in_map_player/Player/Roster" index="8" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Tailpipe Guy")
+
+[node name="Tailpipe Guy" parent="entities/in_map_player/Player/Roster/FighterUnit9" instance=ExtResource("27_bp0ea")]
+material = SubResource("ShaderMaterial_bp0ea")
+
+[node name="FighterUnit10" parent="entities/in_map_player/Player/Roster" index="9" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Taser Guy")
+
+[node name="Taser Guy" parent="entities/in_map_player/Player/Roster/FighterUnit10" instance=ExtResource("28_5larv")]
+material = SubResource("ShaderMaterial_5larv")
+
+[node name="FighterUnit11" parent="entities/in_map_player/Player/Roster" index="10" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Tether Guy")
+
+[node name="Tether Guy" parent="entities/in_map_player/Player/Roster/FighterUnit11" instance=ExtResource("29_oxxdj")]
+material = SubResource("ShaderMaterial_oxxdj")
+
+[node name="FighterUnit12" parent="entities/in_map_player/Player/Roster" index="11" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Wheel Guy")
+
+[node name="Wheel Guy" parent="entities/in_map_player/Player/Roster/FighterUnit12" instance=ExtResource("20_opvew")]
+material = SubResource("ShaderMaterial_bgkna")
 
 [node name="combat_stats" parent="entities/in_map_player/Player" index="2"]
 max_hp = 1232.1
@@ -147,16 +339,6 @@ technique = 1.23
 
 [node name="leadership_stats" parent="entities/in_map_player/Player" index="3"]
 charisma = 2
-
-[node name="Factory" parent="entities" instance=ExtResource("5_akvl2")]
-position = Vector2(214, 315)
-
-[node name="Scrapyard" parent="entities" instance=ExtResource("6_ooxid")]
-position = Vector2(217, 571)
-
-[node name="Farm" parent="entities" instance=ExtResource("7_gpotv")]
-position = Vector2(248, 12)
-background = SubResource("Resource_fsmxr")
 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
 
@@ -176,6 +358,7 @@ settlement_ui = NodePath("settlement_ui")
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
 
 [node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
 visible = false
@@ -196,5 +379,3 @@ layout_mode = 1
 [editable path="entities/in_map_player"]
 [editable path="entities/in_map_player/Player"]
 [editable path="entities/in_map_player/Player/Inventory"]
-[editable path="entities/in_map_player/Player/Roster/FighterUnit"]
-[editable path="entities/in_map_player/Player/Roster/FighterUnit2"]

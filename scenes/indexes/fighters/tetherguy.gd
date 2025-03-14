@@ -17,10 +17,11 @@ func full_skill_description(unit:FighterUnit)->String:
 	 + heal_str + " over " + str(total_heal_ticks) + " seconds.";
 	return str;
 
-const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_radius = 25;
+const hitbox_height = 60;
+const hitbox_offset = Vector2(0, 5)
 
-const skill_range = 500;
+const skill_range = 200;
 
 const skill_cooldown = 1;
 

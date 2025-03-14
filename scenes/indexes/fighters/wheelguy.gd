@@ -19,10 +19,11 @@ func full_skill_description(unit:FighterUnit)->String:
 	return str
 
 const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_height = 100;
+const hitbox_offset = Vector2(5, 0);
 
-const hit_scan_radius = 100;
-const skill_range = 100;
+const hit_scan_radius = 200;
+const skill_range = MELEE_RANGE;
 
 const tags = [
 	"brawler",

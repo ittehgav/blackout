@@ -33,10 +33,11 @@ const tags = [
 func damage_modifier(damage:float)->float:
 	return damage * fighter.technique;
 
-const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_radius = 25;
+const hitbox_height = 60;
+const hitbox_offset = Vector2(0, 5)
 
-const skill_range = 100;
+const skill_range = MELEE_RANGE;
 
 const debuff_type = "stat";
 const skill_cooldown = 1;

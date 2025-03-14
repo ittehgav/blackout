@@ -24,10 +24,11 @@ func full_skill_description(unit:FighterUnit)->String:
 	return str
 
 
-const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_radius = 25;
+const hitbox_height = 60;
+const hitbox_offset = Vector2(0, 5)
 
-const skill_range = 500;
+const skill_range = 300;
 const skill_cooldown = 1;
 
 const stun_duration = .75

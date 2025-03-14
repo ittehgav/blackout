@@ -46,7 +46,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("sample", "unit_name_label", "skill_name_label", "skill_description_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label")]
+[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("sample", "unit_name_label", "skill_name_label", "skill_description_label", "tags_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "skill_range_label", "skill_cooldown_label")]
 z_index = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,9 +60,10 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("1_ywq7p")
 sample = NodePath("Panel/SpriteSample")
-unit_name_label = NodePath("Panel/name")
-skill_name_label = NodePath("Panel/skill_name")
-skill_description_label = NodePath("Panel/skill_description")
+unit_name_label = NodePath("Panel/HBoxContainer/name")
+skill_name_label = NodePath("Panel/VBoxContainer/skill_name")
+skill_description_label = NodePath("Panel/VBoxContainer/skill_description")
+tags_label = NodePath("Panel/HBoxContainer/tags")
 unit_level_label = NodePath("Panel/level")
 level_progress_bar = NodePath("Panel/ProgressBar")
 max_hp_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer/max_hp")
@@ -70,20 +71,35 @@ attack_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer2/attack")
 defense_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer3/defense")
 move_speed_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer4/move_speed")
 technique_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer5/technique")
+skill_range_label = NodePath("Panel/VBoxContainer/HBoxContainer/range")
+skill_cooldown_label = NodePath("Panel/VBoxContainer/HBoxContainer/cooldown")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 2
 
 [node name="SpriteSample" parent="Panel" instance=ExtResource("4_cwkea")]
+offset_left = 60.0
+offset_top = 55.0
+offset_right = 60.0
+offset_bottom = 55.0
+add_tooltip = false
+enable_hover_panel = false
 
-[node name="name" type="Label" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 0
-offset_left = 343.0
-offset_top = 80.0
-offset_right = 637.0
-offset_bottom = 169.0
+offset_left = 314.0
+offset_top = 77.0
+offset_right = 613.0
+offset_bottom = 166.0
+theme_override_constants/separation = 15
+
+[node name="name" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 112
 text = "Arm Guy"
+
+[node name="tags" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
 
 [node name="level" type="Label" parent="Panel"]
 layout_mode = 0
@@ -103,23 +119,32 @@ offset_bottom = 315.0
 step = 1.0
 show_percentage = false
 
-[node name="skill_name" type="Label" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 753.0
+offset_top = 214.0
+offset_right = 1237.0
+offset_bottom = 394.0
+
+[node name="skill_name" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
-offset_left = 701.0
-offset_top = 188.0
-offset_right = 1067.0
-offset_bottom = 239.0
-pivot_offset = Vector2(-1197, 114)
 theme_override_font_sizes/font_size = 64
 text = "Skill: Penes"
 
-[node name="skill_description" type="RichTextLabel" parent="Panel"]
-layout_mode = 0
-offset_left = 702.0
-offset_top = 246.0
-offset_right = 1192.0
-offset_bottom = 394.0
-pivot_offset = Vector2(-1198, 56)
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 70
+
+[node name="cooldown" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cooldown: 1.2s"
+
+[node name="range" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Melee"
+
+[node name="skill_description" type="RichTextLabel" parent="Panel/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/bold_italics_font_size = 32
 theme_override_font_sizes/italics_font_size = 32
 theme_override_font_sizes/mono_font_size = 32
@@ -221,3 +246,12 @@ stat = "technique"
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "1"
+
+[node name="exit" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 18.0
+offset_right = 289.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 32
+text = "Press [escape] to return"

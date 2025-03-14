@@ -17,7 +17,7 @@ var chips_trade:int=0;
 
 
 @export var confirm_btn:Button;
-
+## TODO: the player can buy supplies base in days'/hours' worth of upkeep for their current party
 func open()->void:
 	player = Entities.in_map_player.leader;
 	settlement = Entities.current_settlement;

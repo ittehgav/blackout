@@ -25,12 +25,13 @@ const tags = [
 	"bodybuilder"
 ]
 
-const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_radius = 35;
+const hitbox_height = 80;
+const hitbox_offset = Vector2(-5, 0);
 
 const hit_scan_radius = 100;
 
-const skill_range = 100;
+const skill_range = MELEE_RANGE;
 const skill_cooldown = 3;
 
 const buff_type = "stat";

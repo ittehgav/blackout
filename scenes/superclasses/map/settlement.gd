@@ -45,9 +45,3 @@ func get_production_multiplier(resource:String)->float:
 	if production == 0:
 		production = 5;
 	return 5.0/production
-
-func get_resource_market_value(_resource:String)->int:
-	return 1
-
-func get_relation_multiplier()->int:
-	return 1

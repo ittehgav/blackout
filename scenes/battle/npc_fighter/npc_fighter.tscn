@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=14 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/npc_fighter/npc_fighter.gd" id="1_bgds5"]
 [ext_resource type="Script" uid="uid://r5su55c7yqu4" path="res://scenes/battle/active_fighter/hit_scan.gd" id="2_8jf47"]
@@ -7,14 +7,31 @@
 [ext_resource type="Script" uid="uid://47lks7vsfn5k" path="res://scenes/battle/npc_fighter/sfx.gd" id="5_8vs8j"]
 [ext_resource type="AudioStream" uid="uid://ci73y0y2n56qe" path="res://assets/sound/combat/ally_death.ogg" id="6_xquvl"]
 [ext_resource type="AudioStream" uid="uid://dgx7krdtsjf0f" path="res://assets/sound/combat/enemy_death.ogg" id="7_4e07g"]
+[ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="8_n186n"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="9_2igk4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g13ct"]
 resource_local_to_scene = true
+radius = 50.0
+height = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2qjd5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mp8l8"]
 resource_local_to_scene = true
+radius = 200.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2igk4"]
+resource_local_to_scene = true
+shader = ExtResource("9_2igk4")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "floating_icon_anchor", "stun_timer", "timers", "status_timer", "sfx")]
 collision_layer = 0
@@ -31,10 +48,11 @@ status_timer = NodePath("fighter_timers/_status_timer")
 sfx = NodePath("sfx")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 16)
+position = Vector2(5, 0)
 shape = SubResource("CapsuleShape2D_g13ct")
 
 [node name="hit_scan" type="Area2D" parent="." node_paths=PackedStringArray("fighter")]
+monitorable = false
 script = ExtResource("2_8jf47")
 fighter = NodePath("..")
 
@@ -43,6 +61,7 @@ position = Vector2(50, 0)
 shape = SubResource("CircleShape2D_2qjd5")
 
 [node name="skill_range" type="Area2D" parent="."]
+monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="skill_range"]
 shape = SubResource("CircleShape2D_mp8l8")
@@ -76,6 +95,9 @@ texture_progress = null
 script = ExtResource("5_8vs8j")
 ally_death = ExtResource("6_xquvl")
 enemy_death = ExtResource("7_4e07g")
+
+[node name="Wheel Guy" parent="." instance=ExtResource("8_n186n")]
+material = SubResource("ShaderMaterial_2igk4")
 
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]

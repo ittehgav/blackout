@@ -21,12 +21,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dun4i")
-name_label = NodePath("main_view/text/VBoxContainer/settlement_name")
-short_description_label = NodePath("main_view/text/VBoxContainer/short_description")
-long_description_label = NodePath("main_view/text/VBoxContainer/long_description")
-trade_btn = NodePath("main_view/options/VBoxContainer/trade")
-recruit_units_btn = NodePath("main_view/options/VBoxContainer/recruit_units")
-listen_around_btn = NodePath("main_view/options/VBoxContainer/listen_around")
+name_label = NodePath("main_view/text/MarginContainer/VBoxContainer/settlement_name")
+short_description_label = NodePath("main_view/text/MarginContainer/VBoxContainer/short_description")
+long_description_label = NodePath("main_view/text/MarginContainer/VBoxContainer/long_description")
+trade_btn = NodePath("main_view/options/MarginContainer/VBoxContainer/trade")
+recruit_units_btn = NodePath("main_view/options/MarginContainer/VBoxContainer/recruit_units")
+listen_around_btn = NodePath("main_view/options/MarginContainer/VBoxContainer/listen_around")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
@@ -43,7 +43,6 @@ grow_vertical = 2
 texture = ExtResource("2_a8cfp")
 
 [node name="main_view" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,11 +70,18 @@ offset_top = 50.0
 offset_right = 550.0
 offset_bottom = 650.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_view/text"]
+[node name="MarginContainer" type="MarginContainer" parent="main_view/text"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_view/text/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="settlement_name" type="Label" parent="main_view/text/VBoxContainer"]
+[node name="settlement_name" type="Label" parent="main_view/text/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"settlement_title"
 theme_override_colors/font_shadow_color = Color(0.5, 0.5, 0.5, 1)
@@ -85,11 +91,11 @@ theme_override_font_sizes/font_size = 80
 text = "Factory"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="main_view/text/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="main_view/text/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="short_description" type="RichTextLabel" parent="main_view/text/VBoxContainer"]
+[node name="short_description" type="RichTextLabel" parent="main_view/text/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 48
@@ -98,13 +104,12 @@ text = "Produces and trades mostly [color=green]Fuel, Juice and Scrap.[/color]"
 scroll_active = false
 shortcut_keys_enabled = false
 
-[node name="HSeparator2" type="HSeparator" parent="main_view/text/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="main_view/text/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="long_description" type="RichTextLabel" parent="main_view/text/VBoxContainer"]
+[node name="long_description" type="RichTextLabel" parent="main_view/text/MarginContainer/VBoxContainer"]
 modulate = Color(0.73, 0.73, 0.73, 1)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "Region full of manufacturing buildings from [color=blue]Pre-Blackout Civilization[/color], repurposed for production of mechanical and chemical goods."
 fit_content = true
@@ -119,10 +124,17 @@ script = ExtResource("3_2ay4q")
 main_view = NodePath("..")
 trade_menu = NodePath("../../trade_menu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_view/options"]
+[node name="MarginContainer" type="MarginContainer" parent="main_view/options"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_view/options/MarginContainer"]
 layout_mode = 2
 
-[node name="options_title" type="Label" parent="main_view/options/VBoxContainer"]
+[node name="options_title" type="Label" parent="main_view/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_constants/shadow_offset_x = -2
@@ -130,10 +142,10 @@ theme_override_constants/shadow_offset_y = -2
 theme_override_font_sizes/font_size = 80
 text = "What Will You Do?"
 
-[node name="HSeparator" type="HSeparator" parent="main_view/options/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="main_view/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="trade" type="Button" parent="main_view/options/VBoxContainer"]
+[node name="trade" type="Button" parent="main_view/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 1)
@@ -143,7 +155,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
 text = "Trade"
 flat = true
 
-[node name="recruit_units" type="Button" parent="main_view/options/VBoxContainer"]
+[node name="recruit_units" type="Button" parent="main_view/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -155,7 +167,7 @@ text = "Recruit Fighters
 "
 flat = true
 
-[node name="listen_around" type="Button" parent="main_view/options/VBoxContainer"]
+[node name="listen_around" type="Button" parent="main_view/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 1)
@@ -166,6 +178,7 @@ text = "Listen Around for trade opportunities"
 flat = true
 
 [node name="trade_menu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -193,6 +206,6 @@ layout_mode = 2
 [connection signal="settlement_entered" from="." to="trade_menu" method="_on_settlement_ui_settlement_entered"]
 [connection signal="settlement_left" from="." to="." method="_on_settlement_left"]
 [connection signal="pressed" from="main_view/exit" to="main_view/options" method="exit_settlement"]
-[connection signal="pressed" from="main_view/options/VBoxContainer/trade" to="main_view/options" method="trade"]
-[connection signal="pressed" from="main_view/options/VBoxContainer/recruit_units" to="main_view/options" method="recruit_units"]
-[connection signal="pressed" from="main_view/options/VBoxContainer/listen_around" to="main_view/options" method="listen_around"]
+[connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/trade" to="main_view/options" method="trade"]
+[connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/recruit_units" to="main_view/options" method="recruit_units"]
+[connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/listen_around" to="main_view/options" method="listen_around"]

@@ -11,6 +11,7 @@ extends UIRoot;
 @export var weapons_inventory:GridContainer;
 
 @export var item_feedback:Panel;
+@export var recruit_full_view:Control;
 
 @export_subgroup("sounds")
 @export var open_sound:AudioStream;
@@ -55,18 +56,17 @@ const resources_names = [
 @export var tactics_label:Label;
 @export var logistics_label:Label;
 
+
 func _ready():
 	super();
 	Entities.player.resources_changed.connect(refresh_data)
 
-
-func _input(e:InputEvent):
-	if e.is_action_pressed("show_player_sheet") or e.is_action_pressed("ui_cancel") and visible:
-		if not visible:
-			show_player_sheet();
-		else:
-			hide_player_sheet();
-			
+func _input(e:InputEvent)->void:
+	if e.is_action_pressed("show_player_sheet") and not visible:
+		show_player_sheet()
+	elif visible and not recruit_full_view.visible and (e.is_action_pressed("ui_cancel")\
+	 or e.is_action_pressed("show_player_sheet")):
+		hide_player_sheet();
 
 func show_player_sheet():
 	ui_sfx.play_stream(open_sound)

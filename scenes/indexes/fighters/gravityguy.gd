@@ -1,6 +1,5 @@
 extends FighterBase
 
-var fighter_node:ActiveFighter;
 var hit_scan_shape:CollisionShape2D;
 
 const skill_effects = ["special"];
@@ -24,8 +23,9 @@ const tags = [
 	"doctor"
 ]
 
-const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_radius = 25;
+const hitbox_height = 60;
+const hitbox_offset = Vector2(0, 5)
 
 const hit_scan_type = "rectangle";
 const hit_scan_length = 500;
@@ -40,14 +40,13 @@ const knock_back_distance = 500;
 const stun_duration = 1;
 const secondary_stun_duration = .5;
 
-func special_setup(fighter:ActiveFighter)->void:
+func special_setup()->void:
 	fighter.target_change.connect(update_hit_scan.bind(fighter));
-	fighter_node = fighter;
 	hit_scan_shape = fighter.get_node("hit_scan/shape")
 
 func _process(_delta)->void:
-	if fighter_node and fighter_node.target_unit:
-		hit_scan_shape.global_position = fighter_node.target_unit.global_position;
+	if fighter and fighter.target_unit:
+		hit_scan_shape.global_position = fighter.target_unit.global_position;
 		hit_scan_shape.position.x += hit_scan_shape.shape.size.x/2;
 
 
@@ -64,6 +63,6 @@ func special_skill()->void:
 	tween.tween_property(fighter.target_unit, "position", target_position, .1)
 	
 
-func update_hit_scan(fighter:ActiveFighter)->void:
+func update_hit_scan()->void:
 	fighter.hit_scan.get_node("shape").shape.size.y = fighter.target_unit.get_node("hitbox").shape.height
 	

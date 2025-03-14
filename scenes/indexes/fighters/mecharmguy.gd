@@ -23,11 +23,12 @@ const tags = [
 	"brawler"
 ]
 
-const hitbox_radius = 50;
-const hitbox_height = 150;
+const hitbox_radius = 35;
+const hitbox_height = 100;
+const hitbox_offset = Vector2.ZERO;
 
 const hit_scan_radius = 100;
-const skill_range = 100;
+const skill_range = MELEE_RANGE;
 
 const debuff_type = "stat";
 
