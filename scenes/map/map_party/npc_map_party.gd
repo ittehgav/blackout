@@ -4,7 +4,7 @@ extends MapParty;
 ## Leader nodes' parties, which will contain all the data that makes an NPC map party
 
 
-func _ready():
+func _ready()->void:
 	find_target();
 
 func _physics_process(delta: float) -> void:

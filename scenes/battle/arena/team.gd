@@ -9,11 +9,11 @@ var units:Array[Node];
 var fleeing:bool;
 
 
-func refresh_units():
+func refresh_units()->void:
 	## buffers the children so get_children doesn't get called several times in a single process frame at times
 	units = get_children();
 
-func on_unit_death(_killer, unit:ActiveFighter)->void:
+func on_unit_death(_killer:ActiveFighter, unit:ActiveFighter)->void:
 	if unit.is_inside_tree():
 		await unit.tree_exited;
 		refresh_units();

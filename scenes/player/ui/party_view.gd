@@ -6,7 +6,7 @@ extends Panel
 
 @export var recruits_grid:GridContainer;
 
-func _ready():
+func _ready()->void:
 	for unit:FighterUnit in Entities.player.roster.units:
 		var sample:SpriteSample = sprite_sample_scene.instantiate();
 		sample.set_sample(unit.base)
@@ -14,6 +14,6 @@ func _ready():
 		sample.gui_input.connect(show_more.bind(unit))
 		
 		
-func show_more(e:InputEvent, unit:FighterUnit):
+func show_more(e:InputEvent, unit:FighterUnit)->void:
 	if e is InputEventMouseButton and e.pressed:
 		recruit_full_view.display_recruit(unit)

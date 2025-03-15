@@ -6,7 +6,7 @@ extends Node
 
 func color_code_player(character:FighterBase)->void:
 	var base_color:Color = Color.SEA_GREEN.darkened(.25);
-	var off_color = Color.DARK_RED;
+	var off_color:Color = Color.DARK_RED;
 	
 	var dict:={
 		Color.GREEN: base_color,
@@ -48,13 +48,13 @@ func color_code_fighter(fighter:FighterBase, scheme:int=1, sample:bool=false)->v
 	color_code_sprite(fighter, dict)
 	
 	if not sample:
-		var outline_color = off_color;
+		var outline_color:Color = off_color;
 		outline_color.a -=.5;
 		fighter.material.set_shader_parameter("color", outline_color)
 	
 
-func color_code_vehicle(vehicle:Vehicle):
-	var base_color = Color.SADDLE_BROWN;
+func color_code_vehicle(vehicle:Vehicle)->void:
+	var base_color:Color = Color.SADDLE_BROWN;
 	var dict:= {
 		Color.BLUE:base_color.darkened(.5),
 		Color.GREEN: base_color

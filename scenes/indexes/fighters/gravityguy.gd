@@ -13,9 +13,9 @@ const long_description = "[color=blue]Doesn't deal damage.[/color] Knocks back a
 
 func full_skill_description(unit:FighterUnit)->String:
 	var stun_duration_string = Meta.get_technique_scaled_string(unit, "stun_duration");
-	var str:String = "[color=blue]Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
+	var string:String = "[color=blue]Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
 	+ stun_duration_string + " seconds.";
-	return str;
+	return string;
 
 const tags = [
 	"disruptor",
@@ -44,7 +44,7 @@ func special_setup()->void:
 	fighter.target_change.connect(update_hit_scan.bind(fighter));
 	hit_scan_shape = fighter.get_node("hit_scan/shape")
 
-func _process(_delta)->void:
+func _process(_delta:float)->void:
 	if fighter and fighter.target_unit:
 		hit_scan_shape.global_position = fighter.target_unit.global_position;
 		hit_scan_shape.position.x += hit_scan_shape.shape.size.x/2;
@@ -53,10 +53,10 @@ func _process(_delta)->void:
 func special_skill()->void:
 	Combat.stun_target(fighter, fighter.target_unit);
 	
-	for target in fighter.hit_scan.get_overlapping_bodies():
+	for target:Node in fighter.hit_scan.get_overlapping_bodies():
 		Combat.stun_target(fighter, target, secondary_stun_duration)
 	
-	var direction = fighter.position.direction_to(fighter.target_unit.position).normalized();
+	var direction:Vector2 = fighter.position.direction_to(fighter.target_unit.position).normalized();
 	var target_position:Vector2 = fighter.target_unit.position + direction * knock_back_distance;
 	
 	var tween:Tween = create_tween();

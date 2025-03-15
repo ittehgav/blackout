@@ -18,13 +18,12 @@ const long_description = "Very resistant and disruptive."
 
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str = Meta.get_unit_damage_string(unit);
-	var stun_duration_str = Meta.get_technique_scaled_string(unit, "stun_duration");
+	var damage_str:String = Meta.get_unit_damage_string(unit);
+	var stun_duration_str:String = Meta.get_technique_scaled_string(unit, "stun_duration");
 	
-	
-	var str:String = "Slams the ground with both arms, dealing " + damage_str +\
+	var string:String = "Slams the ground with both arms, dealing " + damage_str +\
 	" damage to enemies in a large area and stunning them for " + stun_duration_str + " seconds."
-	return str
+	return string
 
 const stun_duration = 4;
 

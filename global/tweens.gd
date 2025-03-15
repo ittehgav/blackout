@@ -133,43 +133,46 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
 	return tween;
 
-func weapon_float_tween(weapon:Weapon, up:bool):
-	const float_range = 20
+func weapon_float_tween(weapon:Weapon, up:bool)->Tween:
+	const float_range = 20.0
 	const step_duration =.75
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	var target_position:Vector2 = Vector2.ZERO;
 	if up:
-		target_position.y = float_range * -1;
+		target_position.y = float_range * -1.0;
 	else:
 		target_position.y = float_range;
 	
-	target_position.x = randi_range(float_range/2*-1, float_range/2);
+	target_position.x = randi_range(float_range / 2.0 * -1.0, float_range/2.0);
 	tween.tween_property(weapon,"position", target_position, step_duration)
 	
 	tween.tween_callback(weapon_float_tween.bind(weapon, not up))
+	return tween;
 
 func ui_fade_in(target:Control)->Tween:
 	target.modulate.a = .1
 	
 	## tween goes into the control because of nodes that process when pasued
-	var tween = target.create_tween();
+	var tween:Tween = target.create_tween();
 	tween.tween_property(target, "modulate:a", 1, .5);
 	
 	return tween
 
 func growth_tween(unit:ActiveFighter)->Tween:
-	var tween = create_tween();
 	unit.base.scale = Vector2(1.5, 1.5)
+	
+	var tween:Tween = create_tween();
 	tween.tween_property(unit.base, "scale", Vector2.ONE, .2);
 	
 	return tween;
 
 func recoil_target(unit:ActiveFighter)->Tween:
 	var target:ActiveFighter = unit.target_unit
-	var tween = create_tween();
-	var rel = (target.position - unit.position).normalized();
-	var target_recoil = rel * 50;
+	var rel:Vector2 = (target.position - unit.position).normalized();
+	var target_recoil:Vector2 = rel * 50;
 	target.base.position = target_recoil;
+	
+	var tween:Tween = create_tween();
 	tween.tween_property(target.base, "position", Vector2.ZERO, .25);
 	return tween;
 

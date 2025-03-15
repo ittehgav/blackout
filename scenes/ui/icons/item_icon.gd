@@ -11,12 +11,12 @@ class_name ItemIcon;
 var description:String;
 
 
-func _ready():
+func _ready()->void:
 	if item is Weapon:
 		## forces the item into a square frame where it fits
-		var size = item.texture.get_size();
-		var target_size = max(size.x, size.y)
-		var panel_size = Vector2(target_size, target_size);
+		var texture_size:Vector2 = item.texture.get_size();
+		var target_size:int = max(texture_size.x, texture_size.y)
+		var panel_size:Vector2 = Vector2(target_size, target_size);
 		$panel.custom_minimum_size = panel_size;
 		custom_minimum_size = panel_size;
 	texture = item.texture.duplicate();

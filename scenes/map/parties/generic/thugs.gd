@@ -7,12 +7,12 @@ extends Leader
 
 const behavior = "agressive"
 
-func _ready():
+func _ready()->void:
 	## prob just generates every time until load files
 	## or like procedural generation
 	generate();
 
-func generate():
+func generate()->void:
 	## generic map parties will be generated based on 
 	## world conditions such as region and the player's level
 	

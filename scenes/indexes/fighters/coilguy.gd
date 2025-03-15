@@ -10,13 +10,13 @@ const description = "Fires powerful chain lightning Attacks."
 const long_description = "Magnetizes one enemy, then deals damage to all magnetized enemies."
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str = Meta.get_unit_damage_string(unit);
-	var technique_str = Meta.get_technique_scaled_string(unit)
+	var damage_str:String = Meta.get_unit_damage_string(unit);
+	var technique_str:String = Meta.get_technique_scaled_string(unit, "", 0, "x")
 	
 	
 	var string:String="[color=yellow]Magnetizes[/color] the nearest enemy that's not [color=yellow]magnetized[/color], then deals " +\
-	damage_str + "[/color] damage to all [color=yelow]magnetized[/color] enemies.\nDeals " + technique_str + \
-	"x more damage to all targets for each [color=yellow]magnetized[/color] enemy on the battlefield."
+	damage_str + " damage to all [color=yelow]magnetized[/color] enemies.\nDeals " + technique_str + \
+	" more damage to all targets for each [color=yellow]magnetized[/color] enemy on the battlefield."
 	return string
 	
 
@@ -68,5 +68,5 @@ func closer_to_last_tagged(a:ActiveFighter, b:ActiveFighter)->bool:
 	return a.position.distance_to(tagged_targets[-1].position) < b.position.distance_to(tagged_targets[-1].position)
 	
 
-func remove_from_tagged(_killer, target:ActiveFighter)->void:
+func remove_from_tagged(_killer:ActiveFighter, target:ActiveFighter)->void:
 	tagged_targets.erase(target);

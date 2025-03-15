@@ -30,7 +30,7 @@ func get_resource_values(operation:String)->Dictionary:
 	## population (or some sort of civilization level that would increase demant)
 	## passive production
 	## regional market value
-	for r in resources:
+	for r:String in resources:
 		var value:float = Trade.resource_base_values[r];
 		var production_multiplier:float = get_production_multiplier(r);
 		value *= production_multiplier

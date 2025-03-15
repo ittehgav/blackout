@@ -7,7 +7,7 @@ extends Panel
 
 var current_icon:ItemIcon;
 
-func use_animation(item:Item):
+func use_animation(item:Item)->void:
 	## PLAY SOME DOPAMINEY SOUND
 	var icon:ItemIcon = item_icon_scene.instantiate();
 	icon.tooltip.queue_free();
@@ -22,14 +22,14 @@ func use_animation(item:Item):
 	bg.show();
 	item_message.text = item.use_message;
 	
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	tween.set_trans(Tween.TRANS_BOUNCE);
 	tween.tween_property(icon, "scale", Vector2(1.25, 1.25), .3)
 	tween.tween_interval(1);
 	await tween.finished
 	item_message.show()
 	
-func _input(e:InputEvent):
+func _input(e:InputEvent)->void:
 	if (e is InputEventKey or e is InputEventMouseButton) and e.pressed and item_message.visible:
 		current_icon.queue_free()
 		item_message.hide();

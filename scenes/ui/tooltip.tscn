@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bvfxh7uhjvokr" path="res://scenes/ui/tooltip.gd" id="1_ufptg"]
 
-[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "description_label", "icon", "hint", "hover_timer")]
+[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "sub_name_label", "description_label", "icon", "hint", "hover_timer")]
 process_mode = 3
 visible = false
 z_index = 1
@@ -13,6 +13,7 @@ size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_ufptg")
 name_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/name")
+sub_name_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/sub_name")
 description_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/description")
 icon = NodePath("MarginContainer/HBoxContainer/icon")
 hint = NodePath("MarginContainer/HBoxContainer/VBoxContainer/hint")
@@ -47,6 +48,12 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 48
 text = "wawa"
+
+[node name="sub_name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.556863)
+layout_mode = 2
+text = "subname"
+horizontal_alignment = 1
 
 [node name="description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

@@ -6,6 +6,7 @@ class_name Tooltip;
 ## where the tooltip will get the data from
 
 @export var name_label:Label;
+@export var sub_name_label:Label;
 @export var description_label:RichTextLabel;
 @export var icon:TextureRect;
 @export var hint:Label;
@@ -24,16 +25,18 @@ func _ready() -> void:
 		setup();
 	## lots of places where the sample target is defined on load
 
-func setup():
+func setup()->void:
 	if not target:
 		queue_free();
 		return
 
-	var parent = get_parent();
+	var parent:Node = get_parent();
 	parent.mouse_entered.connect(hover_timer.start);
 	parent.mouse_exited.connect(stop_hover_timer);
 
 	name_label.text = target.name;
+	if "sub_name" in target:
+		sub_name_label.text = target.sub_name;
 	if "tooltip_name_color" in target:
 		name_label.modulate = target.tooltip_name_color;
 	if "icon_texture" in target:
@@ -58,9 +61,9 @@ func _on_hover_timer_timeout() -> void:
 	size.y -= 10000
 	size.y += 10
 		
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	tween.tween_property(self, "modulate:a", 1, .5);
 
-func stop_hover_timer():
+func stop_hover_timer()->void:
 	hide();
 	hover_timer.stop();

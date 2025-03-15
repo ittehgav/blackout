@@ -20,8 +20,8 @@ func _ready()->void:
 	## this node is the only fighter that'll always be in an arena instance
 	load_fighter()
 
-func load_fighter():
-	var stats = Entities.player.combat_stats;
+func load_fighter()->void:
+	var stats:CombatStats = Entities.player.combat_stats;
 	
 	max_hp = stats.max_hp;
 	hp = stats.max_hp;
@@ -39,7 +39,7 @@ func load_fighter():
 	
 
 func get_input()->void:
-	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_direction * move_speed
 	body.moving_right = velocity.x > 0;
 	if velocity:

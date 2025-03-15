@@ -8,8 +8,8 @@ class_name SpriteSample;
 @export var tooltip_scene:PackedScene;
 @export var tooltip:Tooltip;
 
-@export var add_tooltip = true;
-@export var enable_hover_panel = true;
+@export var add_tooltip:bool = true;
+@export var enable_hover_panel:bool = true;
 
 @export var autostart:bool;
 
@@ -17,10 +17,11 @@ func _ready()->void:
 	if autostart:
 		$bob_timer.start()
 
-func disable_panel():
-	$panel.queue_free();
-	mouse_entered.disconnect(show_panel);
-	mouse_exited.disconnect(hide_panel);
+func disable_panel()->void:
+	if $panel:
+		$panel.queue_free();
+		mouse_entered.disconnect(show_panel);
+		mouse_exited.disconnect(hide_panel);
 	
 
 func set_sample(target:Sprite2D)->void:
@@ -54,9 +55,9 @@ func set_sample(target:Sprite2D)->void:
 		## tooltip needs to be set AFTER transforming the target so the hoverbox gets set appropriately
 	
 
-func set_rectangle():
+func set_rectangle()->void:
 	if enable_hover_panel:
-		var sample_size = target_base.texture.get_size() * target_base.scale.x;
+		var sample_size:Vector2 = target_base.texture.get_size() * target_base.scale.x;
 		custom_minimum_size = sample_size;
 		size = sample_size;
 		if target_base is FighterBase and not target_base is PlayerFighterBase:
@@ -66,7 +67,7 @@ func set_rectangle():
 			custom_minimum_size.x /= 12
 			custom_minimum_size.y /= 3
 
-func set_tooltip():
+func set_tooltip()->void:
 	if add_tooltip:
 		if tooltip:
 			tooltip.queue_free();
@@ -84,8 +85,8 @@ func _on_timer_timeout() -> void:
 		else:
 			target_base.frame = 1;
 
-func show_panel():
+func show_panel()->void:
 	$panel.modulate.a = .5;
 
-func hide_panel():
+func hide_panel()->void:
 	$panel.modulate.a = 0;

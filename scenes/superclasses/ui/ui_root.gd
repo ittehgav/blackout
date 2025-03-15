@@ -5,7 +5,7 @@ class_name UIRoot;
 @export var ui_sfx:UISFX;
 
 
-func _ready():
+func _ready()->void:
 	recursive_connect_ui_feedback(self)
 
 

@@ -4,7 +4,7 @@ extends PanelContainer
 @export var trade_menu:Control;
 @export var recruitment_menu:Control;
 
-@onready var current_view = main_view;
+@onready var current_view:Control = main_view;
 
 func trade() -> void:
 	main_view.hide();

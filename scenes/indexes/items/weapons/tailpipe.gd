@@ -10,7 +10,7 @@ const type = "melee";
 const effect_range = 1;
 const damage = 100;
 
-var description = "Short range, quick, reliable weapon.\n\nDamage: [color=green]" + str(damage) + "[/color]\n\nCooldown: [color=green]" + str(cooldown) + "s[/color]";
+var description:String = "Short range, quick, reliable weapon.\n\nDamage: [color=green]" + str(damage) + "[/color]\n\nCooldown: [color=green]" + str(cooldown) + "s[/color]";
 
 const aoe_radius = 100;
 

@@ -12,7 +12,7 @@ var moving_right:bool = true;
 func _ready() -> void:
 	ColorCoder.color_code_player(self);
 
-func _process(_delta)->void:
+func _process(_delta:float)->void:
 	flip_h = get_local_mouse_position().x < position.x
 
 func switch_animation(type:String)->void:

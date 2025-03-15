@@ -12,11 +12,11 @@ const description = "Deals damage to surrounding enemies that speeds up over tim
 const long_description = "Speeds up the wheel, making it deal damage to enemies faster."
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str = Meta.get_unit_damage_string(unit);
-	var acceleration = Meta.get_technique_scaled_string(unit, "", 10, "%");
-	var str:String = "Spins a wheel that deals " + damage_str + " damage to surrounding enemies every second.\n"\
+	var damage_str:String = Meta.get_unit_damage_string(unit);
+	var acceleration:String = Meta.get_technique_scaled_string(unit, "", 10, "%");
+	var string:String = "Spins a wheel that deals " + damage_str + " damage to surrounding enemies every second.\n"\
 	+ "Each additional activation makes the damage go " + acceleration + " faster.";
-	return str
+	return string
 
 const hitbox_radius = 50;
 const hitbox_height = 100;
@@ -35,7 +35,7 @@ const hit_scan_type = "surrounding";
 
 const skill_cooldown = 3;
 
-func _ready():
+func _ready()->void:
 	dmg_timer.timeout.connect(aoe_damage.bind(get_parent()));
 
 func special_skill()->void:

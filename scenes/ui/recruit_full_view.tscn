@@ -136,10 +136,12 @@ layout_mode = 2
 theme_override_constants/separation = 70
 
 [node name="cooldown" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+modulate = Color(0.525217, 1, 0.464516, 1)
 layout_mode = 2
 text = "Cooldown: 1.2s"
 
 [node name="range" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+modulate = Color(0.525217, 1, 0.464516, 1)
 layout_mode = 2
 text = "Melee"
 

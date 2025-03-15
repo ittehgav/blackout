@@ -5,22 +5,24 @@ const gendered_settlement_adjacent_names:Array[String] = [
 	## they're suffixes or prefixes
 	## change letters based on word genders
 	## by default they're female
-	" Nova",
+	"Nova ",
 	" Velha",
 	"Santa ",
-	"Querida ",
-	" Amada"
-	
-	
+	" Amada",
+	" Segura",
+	" Bela",
 ]
 
 const non_gendered_settlement_adjacent_names:Array[String] = [
 	" do Sul",
 	" do Norte",
-	" de Deus",
 	" Grande",
 	" das Dores",
-	" da Verdade"
+	" da Verdade",
+	" de São Pedro",
+	" de São Jorge",
+	" de Todos os Santos",
+	" de Cima"
 ]
 
 const male_settlement_main_names:Array[String] = [
@@ -29,15 +31,41 @@ const male_settlement_main_names:Array[String] = [
 	"Espírito",
 	"Santo",
 	"Lago",
-	"Jesus"
+	"Arroio",
+	"Passo",
+	"Rosário",
+	"Campo",
+	"Duque",
+	"Ribeirão",
+	"Iguatu",
+	"Jaburu",
+	"Ouro",
+	"Monteiro",
+	"Estreito",
+	"Cacique",
+	"Itaquara",
+	"Horizonte",
+	"Ribeirão"
 ]
 
 const female_settlement_main_names:Array[String] = [
+	"Redenção",
 	"Petrópolis",
 	"Maria",
 	"Terra",
 	"Aparecida",
-	"Maria"
+	"Maria",
+	"Nazaré",
+	"Iemanjá",
+	"Palmeira",
+	"Chapada",
+	"Ressaca",
+	"Formosa",
+	"Iracema",
+	"Vila",
+	"Alvorada",
+	"Taquara",
+	"Bahia"
 ]
 
 func generate_name()->String:

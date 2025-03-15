@@ -2,7 +2,7 @@ extends Node
 
 ## this file is gonna need a more appropriate name
 
-@onready var icons = {
+@onready var icons:Dictionary = {
 	"defense":load("res://assets/visual/icons/stats/defense.png"),
 	"attack":load("res://assets/visual/icons/stats/attack.png"),
 	"max_hp":load("res://assets/visual/icons/stats/max_hp.png"),
@@ -26,7 +26,7 @@ const resource_colors = {
 	"money":Color(0, .7, 0),
 	
 	"juice":Color.PURPLE,
-	"scrap":Color.DARK_GRAY,
+	"scrap":Color.DIM_GRAY,
 	"chips":Color.SKY_BLUE
 }
 
@@ -45,6 +45,21 @@ const resource_descriptions = {
 [color=cyan]upkeep and upgrade[/color] of certain units.",
 	"chips": "Intact processor chips are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading[/color] certain units."
 }
+
+const flavor_colors = {
+	"blackout":Color.MEDIUM_ORCHID
+}
+
+func get_color_tag(key:String)->String:
+	var color:Color;
+	if key in resource_colors:
+		color = resource_colors[key];
+	elif key in stat_colors:
+		color = stat_colors[key]
+	elif key in flavor_colors:
+		color = flavor_colors[key]
+	return "[color=" + color.to_html() + "]";
+	
 
 const stat_colors = {
 	"max_hp": Color.WEB_GREEN,
@@ -70,16 +85,17 @@ const stat_descriptions = {
 
 
 func get_unit_damage_string(unit:FighterUnit)->String:
-	var string = "[color=" + stat_colors.attack.to_html() + "]";
+	var string:String = "[color=" + stat_colors.attack.to_html() + "]";
 	string += str(unit.stats.attack) + "[/color]"
 	return string
 	
-func get_technique_scaled_string(unit:FighterUnit, value_key:String="", hard_value = 0, trailing_string="")->String:
-	var string = "[color=" + stat_colors.technique.to_html() + "]";
+func get_technique_scaled_string(unit:FighterUnit, value_key:String="", hard_value:float = 0.0, trailing_string:String="")->String:
+	var string:String = "[color=" + stat_colors.technique.to_html() + "]";
 	if hard_value:
-		string += str(hard_value * unit.stats.technique) + trailing_string + "[/color]"
+		string += str(snapped(hard_value * unit.stats.technique, .01)) + trailing_string + "[/color]"
 	elif not value_key:
 		string += str(unit.stats.technique) + trailing_string + "[/color]"
 	else:
-		string += str(unit.base[value_key] * unit.stats.technique) + trailing_string + "[/color]";
+		string += str(snapped(unit.base[value_key] * unit.stats.technique, .01)) + trailing_string + "[/color]";
 	return string;
+	

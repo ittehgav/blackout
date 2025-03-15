@@ -9,7 +9,7 @@ class_name LeadershipStats
 
 const all_leadership_stats = ["charisma", "navigation", "tactics", "resource_management"]
 
-var trading_traits = [
+var trading_traits:PackedStringArray = [
 	"Each level of the charisma skill allows you to sell items for 10% more and buy items for 10% less.",
 	"When trading with faction-affiliated traders, gain twice as much relation with that faction.",
 	"Allows you to pay a fee to traders to refresh their item inventories once per day.",

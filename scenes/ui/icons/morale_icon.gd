@@ -7,11 +7,11 @@ extends TextureRect
 ## adjacent items need to be white/white adjacent to get the color properly
 @export var adjacent_items:Array[CanvasItem];
 
-func _ready():
+func _ready()->void:
 	Entities.player.morale_changed.connect(update)
 	update();
 
-func update():
+func update()->void:
 	var morale:float = Entities.player.morale;
 	var target_color:Color
 	if morale < 1.5:

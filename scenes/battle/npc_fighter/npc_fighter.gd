@@ -39,7 +39,7 @@ func load_fighter(new_unit:FighterUnit)->void:
 					shape.size = Vector2(base.hit_scan_length, base.hit_scan_width);
 					$hit_scan/shape.shape = shape;
 				"surounding":
-					var shape = $hit_scan/shape;
+					var shape:CollisionShape2D = $hit_scan/shape;
 					shape.shape.radius = base.hit_scan_radius;
 					shape.position.x = 0;
 		else:
@@ -118,10 +118,10 @@ func _on_skill_range_body_exited(body: Node2D) -> void:
 func use_skill()->void:
 	current_animation = "skill";
 	next_frame()
-	for effect in base.skill_effects:
+	for effect:String in base.skill_effects:
 		Combat.skill_effect(self, effect)
 		
-	for visual in base.skill_visuals:
+	for visual:String in base.skill_visuals:
 		match visual:
 			"lunge_forward":
 				Tweens.lunge_forward_tween(self)

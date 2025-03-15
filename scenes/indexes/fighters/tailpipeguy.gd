@@ -13,11 +13,11 @@ const long_description = "Disruptive and resistant. Can be upgraded to become ex
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str = Meta.get_unit_damage_string(unit);
-	var atk_reduction_str=  Meta.get_technique_scaled_string(unit, "", stat_debuff_values.attack, "%");
+	var atk_reduction_str:String =  Meta.get_technique_scaled_string(unit, "", stat_debuff_values.attack, "%");
 	
-	var str:String = "Deals " + damage_str + " damage to enemies in an area and reduces their attack by "\
+	var string:String = "Deals " + damage_str + " damage to enemies in an area and reduces their attack by "\
 	+atk_reduction_str + " for the rest of the battle.";
-	return str;
+	return string;
 
 const tags = [
 	"brawler",

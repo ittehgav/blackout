@@ -57,7 +57,7 @@ const resources_names = [
 @export var logistics_label:Label;
 
 
-func _ready():
+func _ready()->void:
 	super();
 	Entities.player.resources_changed.connect(refresh_data)
 
@@ -68,7 +68,7 @@ func _input(e:InputEvent)->void:
 	 or e.is_action_pressed("show_player_sheet")):
 		hide_player_sheet();
 
-func show_player_sheet():
+func show_player_sheet()->void:
 	ui_sfx.play_stream(open_sound)
 	show()
 	refresh_data();
@@ -78,16 +78,16 @@ func show_player_sheet():
 	bg.self_modulate.a = 0;
 	
 	const tween_duration = .4;
-	var tween = create_tween()
+	var tween:Tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(bg, "self_modulate:a", 1, tween_duration);
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
 
 
-func hide_player_sheet():
+func hide_player_sheet()->void:
 	ui_sfx.play_stream(close_sound)
 	const tween_duration = .25;
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	tween.tween_property(container, "theme_override_constants/separation", 1700, tween_duration);
 	tween.parallel().tween_property(bg, "self_modulate:a", 0, tween_duration)
 	await tween.finished
@@ -95,7 +95,7 @@ func hide_player_sheet():
 	hide()
 
 
-func refresh_data():
+func refresh_data()->void:
 	## will show upkeep costs when upkeep is implemented
 	morale_label.text = "Morale: " + str(snapped(Entities.player.morale, .01));
 	
@@ -151,7 +151,7 @@ func refresh_data():
 			weapons_inventory.add_child(icon);
 			icon.gui_input.connect(equip_weapon.bind(item));
 	
-func use_consumable(e:InputEvent, item:Consumable):
+func use_consumable(e:InputEvent, item:Consumable)->void:
 	if e.is_action_pressed("use_item"):
 		if item.use():
 			ui_sfx.play_stream(rummage)
@@ -161,7 +161,7 @@ func use_consumable(e:InputEvent, item:Consumable):
 			refresh_data()
 
 
-func equip_weapon(e:InputEvent, weapon:Weapon):
+func equip_weapon(e:InputEvent, weapon:Weapon)->void:
 	if e.is_action_pressed("use_item"):
 		ui_sfx.play_stream(equip)
 		Entities.player.equipped_weapon = weapon

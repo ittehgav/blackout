@@ -13,12 +13,12 @@ const long_description = "Low resistance and range, high damage.\n
 Can be upgraded to deal heavy damage or to apply heavy crowd control."
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str = Meta.get_unit_damage_string(unit);
-	var technique_str = Meta.get_technique_scaled_string(unit)
+	var damage_str:String = Meta.get_unit_damage_string(unit);
+	var technique_str:String = Meta.get_technique_scaled_string(unit)
 	
-	var final_damage = unit.stats.attack * unit.stats.technique;
-	var final_damage_color = Meta.stat_colors.attack.blend(Meta.stat_colors.technique).to_html();
-	var final_damage_str = "[color=" + final_damage_color + "]" + str(final_damage) + "[/color]"
+	var final_damage:float = unit.stats.attack * unit.stats.technique;
+	var final_damage_color_hex:String = Meta.stat_colors.attack.blend(Meta.stat_colors.technique).to_html();
+	var final_damage_str:String = "[color=" + final_damage_color_hex + "]" + str(final_damage) + "[/color]"
 	
 	var string:String = "Deals " + damage_str + " * " + \
 	technique_str + " (" + final_damage_str + ") damage to the nearest enemy.";

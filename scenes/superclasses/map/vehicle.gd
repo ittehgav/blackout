@@ -6,7 +6,7 @@ class_name Vehicle
 
 var wheel_bounce_acm:float = 0.0;
 
-func _ready():
+func _ready()->void:
 	party = get_parent();
 	ColorCoder.color_code_vehicle(self);
 

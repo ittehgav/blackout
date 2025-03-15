@@ -8,10 +8,10 @@ var tooltip_name_color:Color;
 @export var adjacent_items:Array[CanvasItem];
 
 
-@export_enum("max_hp", "attack", "defense", "move_speed", "technique") var stat="max_hp";
+@export_enum("max_hp", "attack", "defense", "move_speed", "technique") var stat:String="max_hp";
 
 
-func _ready():
+func _ready()->void:
 	texture = Meta.icons[stat];
 	material.set_shader_parameter("base_color", Meta.stat_colors[stat]);
 	name = stat.capitalize()

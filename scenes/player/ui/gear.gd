@@ -6,10 +6,9 @@ extends Control
 
 
 	
-func refresh_samples():
+func refresh_samples()->void:
 	if weapon_sample.target_base:
 		weapon_sample.target_base.queue_free();
-
 
 	var weapon_to_sample:Weapon = Entities.player.equipped_weapon;
 	weapon_sample.set_sample(weapon_to_sample);

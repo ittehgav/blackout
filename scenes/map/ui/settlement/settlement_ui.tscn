@@ -116,9 +116,9 @@ fit_content = true
 
 [node name="options" type="PanelContainer" parent="main_view" node_paths=PackedStringArray("main_view", "trade_menu")]
 layout_mode = 0
-offset_left = 650.0
+offset_left = 746.0
 offset_top = 144.0
-offset_right = 1155.0
+offset_right = 1243.0
 offset_bottom = 650.0
 script = ExtResource("3_2ay4q")
 main_view = NodePath("..")

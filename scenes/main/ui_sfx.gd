@@ -37,9 +37,9 @@ func play_stream_by_key(key:String)->void:
 	stream = self[key];
 	play();
 	
-func tab_mouseover_sound(_tab, node:TabContainer):
+func tab_mouseover_sound(_tab:int, _node:TabContainer)->void:
 	## need do this in separate fucntion because of signal-bound arguments
 	play_stream(mouseover_sounds.pick_random())
 
-func tab_click_sound(_tab, node:TabContainer):
+func tab_click_sound(_tab:int, _node:TabContainer)->void:
 	play_stream(button_click_sound)

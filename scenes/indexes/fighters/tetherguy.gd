@@ -11,11 +11,11 @@ const description = "[color=blue]Doesn't deal damage.[/color] Regenerates allies
 const long_description = "Prioritizes wounded allies."
 
 func full_skill_description(unit:FighterUnit)->String:
-	var total_heal = heal_value * total_heal_ticks;
-	var heal_str = Meta.get_technique_scaled_string(unit, "", total_heal);
-	var str:String = "[color=blue]Doesn't deal damage.[/color] Heals the most damaged ally for "\
+	var total_heal:float = heal_value * total_heal_ticks;
+	var heal_str:String = Meta.get_technique_scaled_string(unit, "", total_heal);
+	var string:String = "[color=blue]Doesn't deal damage.[/color] Heals the most damaged ally for "\
 	 + heal_str + " over " + str(total_heal_ticks) + " seconds.";
-	return str;
+	return string;
 
 const hitbox_radius = 25;
 const hitbox_height = 60;
@@ -36,12 +36,11 @@ const tags = [
 ]
 
 
-func special_skill(fighter:ActiveFighter)->void:
+func special_skill()->void:
 	recurring_heal(fighter, fighter.target_unit, total_heal_ticks);
 
 
-
-func recurring_heal(source:ActiveFighter, target:ActiveFighter, ticks_left:int):
+func recurring_heal(source:ActiveFighter, target:ActiveFighter, ticks_left:int)->void:
 	Combat.heal_unit(source, target, heal_value );
 	ticks_left -= 1
 	if ticks_left and get_tree():

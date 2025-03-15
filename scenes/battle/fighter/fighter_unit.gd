@@ -15,7 +15,7 @@ func _ready()->void:
 		load_stats();
 	
 
-func load_stats():
+func load_stats()->void:
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels and 
 	## gear (?)

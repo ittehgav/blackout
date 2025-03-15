@@ -23,7 +23,7 @@ class_name Arena;
 ## the player's party will also flee if the tide of battle is too bad
 
 
-func start_battle(enemy_leader:Leader):
+func start_battle(enemy_leader:Leader)->void:
 	Entities.arena = self;
 	Entities.in_map_player.camera.enabled = false;
 	load_teams(enemy_leader);
@@ -35,7 +35,7 @@ func start_battle(enemy_leader:Leader):
 	Entities.main.add_child(self)
 
 
-func load_teams(enemy_leader:Leader):
+func load_teams(enemy_leader:Leader)->void:
 	## happens before ready?
 	Entities.player.load_party(team_1, npc_fighter_scene);
 	team_1.refresh_units();
@@ -59,7 +59,7 @@ func match_teams()->void:
 	for unit:ActiveFighter in team_2.units:
 		assign_team(unit, 2)
 
-func player_died():
+func player_died()->void:
 	battle_over(2);
 
 		

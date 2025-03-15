@@ -10,8 +10,8 @@ class_name Leader
 @export var sight_range:int;
 
 func load_party(team:Team, npc_fighter_scene:PackedScene, x_offset:int=0)->void:
-	var x_acm = 0;
-	var y_acm = 0;
+	var x_acm:int = 0;
+	var y_acm:int = 0;
 	var party:Array[ActiveFighter]
 
 

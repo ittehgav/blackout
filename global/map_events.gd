@@ -1,7 +1,7 @@
 extends Node
 
 
-func battle_speaking_party():
+func battle_speaking_party()->void:
 	var enemy_party:MapParty = Entities.current_speaking_party;
 	var arena:Arena = Entities.world_map.arena_scene.instantiate();
 	arena.start_battle(enemy_party.leader)
@@ -11,6 +11,6 @@ func battle_speaking_party():
 	
 
 	
-func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5):
+func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->void:
 	print("yield")
 	pass

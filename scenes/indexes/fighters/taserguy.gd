@@ -16,12 +16,12 @@ const description = "Deals light damage and stuns target."
 const long_description = "Utility unit.\nCan be upgraded to heal allies or for heavy AOE damage."
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str = Meta.get_unit_damage_string(unit);
-	var stun_duration = Meta.get_technique_scaled_string(unit, "stun_duration");
+	var damage_str:String = Meta.get_unit_damage_string(unit);
+	var stun_duration_str:String = Meta.get_technique_scaled_string(unit, "stun_duration");
 	
-	var str:String = "Deals " + damage_str + " damage to a target and stuns them for "\
-	 + stun_duration + " seconds.";
-	return str
+	var string:String = "Deals " + damage_str + " damage to a target and stuns them for "\
+	 + stun_duration_str + " seconds.";
+	return string
 
 
 const hitbox_radius = 25;

@@ -10,9 +10,9 @@ var description:String;
 
 @export var adjacent_items:Array[CanvasItem];
 
-@export_enum("food", "fuel", "money", "juice", "scrap", "chips") var resource="food";
+@export_enum("food", "fuel", "money", "juice", "scrap", "chips") var resource:String="food";
 
-func _ready():
+func _ready()->void:
 	texture = Meta.icons[resource];
 	material.set_shader_parameter("base_color", Meta.resource_colors[resource])
 	

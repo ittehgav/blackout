@@ -30,10 +30,10 @@ extends MarginContainer
 
 
 
-func _ready():
+func _ready()->void:
 	sample.disable_panel();
 
-func display_recruit(unit:FighterUnit):
+func display_recruit(unit:FighterUnit)->void:
 	if showing_unit:
 		showing_unit.queue_free();
 
@@ -44,10 +44,10 @@ func display_recruit(unit:FighterUnit):
 	refresh_data();
 	fade_in()
 	
-func refresh_data():
+func refresh_data()->void:
 	unit_name_label.text = showing_unit.base.name;
 	tags_label.text = "";
-	for tag in showing_unit.base.tags:
+	for tag:String in showing_unit.base.tags:
 		tags_label.text += tag.capitalize() + "\n"
 	
 	unit_level_label.text = "Level " + str(showing_unit.level);
@@ -75,14 +75,14 @@ func get_skill_range(fighter:FighterBase)->String:
 		return "Long Range"
 	
 
-func fade_in():
+func fade_in()->void:
 	modulate.a = 0;
 	show();
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	tween.tween_property(self, "modulate:a", 1, .35)
 	
-func fade_out():
-	var tween = create_tween();
+func fade_out()->void:
+	var tween:Tween = create_tween();
 	tween.tween_property(self, "modulate:a", 0, .35)
 	await tween.finished;
 	hide();

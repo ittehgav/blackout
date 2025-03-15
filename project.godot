@@ -29,6 +29,10 @@ MapEvents="*res://global/map_events.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 NameDatabase="*res://global/name_database.gd"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+
 [display]
 
 window/size/viewport_width=1280

@@ -48,5 +48,5 @@ func _on_tactic_right_mouse_entered() -> void:
 
 func _on_tactic_right_mouse_exited() -> void:
 	var highlight:ColorRect = tactic_right.get_node("hover_highlight")
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	tween.tween_property(highlight, "modulate:a", 0, .5)

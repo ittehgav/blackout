@@ -5,6 +5,9 @@ class_name WorldMap
 signal hour_passed;
 signal day_passed;
 
+var current_minute:int;
+var current_hour:int;
+
 @export var ui:Control;
 
 @export var player:InMapPlayer
@@ -29,7 +32,7 @@ func _on_player_started_moving() -> void:
 func _on_player_stopped_moving() -> void:
 	$entities.process_mode = PROCESS_MODE_DISABLED;
 
-func pause_map():
+func pause_map()->void:
 	## the built in pause functionality is used to control whether
 	## the other parties are moving,
 	## (eventually) the day/night cycle, global clock and everything tied to it
@@ -40,21 +43,34 @@ func pause_map():
 	process_mode = PROCESS_MODE_DISABLED
 	Entities.in_map_player.process_mode = Node.PROCESS_MODE_DISABLED;
 	
-func unpause_map():
+func unpause_map()->void:
 	process_mode = PROCESS_MODE_PAUSABLE
 	Entities.in_map_player.process_mode = Node.PROCESS_MODE_ALWAYS;
 
 
-func generate_world():
-	var alternatives = [farm_scene, scrapyard_scene, factory_scene];
+func generate_world()->void:
+	var alternatives:Array[PackedScene] = [farm_scene, scrapyard_scene, factory_scene];
 	for i in 10:
 		var settlement_name:String = NameDatabase.generate_name();
 		var settlement:Settlement = alternatives.pick_random().instantiate();
-		print(settlement)
-		var location = Vector2(randi_range(0, 1000), randi_range(0, 1000));
-		print(location)
+		var location:Vector2 = Vector2(randi_range(0, 1000), randi_range(0, 1000));
 		
 		settlement.position = location;
 		settlement.name = settlement_name;
 		add_child(settlement);
 		
+
+
+func _on_minute_ticker_timeout() -> void:
+	current_minute += 1;
+	if current_minute == 60:
+		current_minute = 0;
+		hour_passed.emit()
+
+
+func _on_hour_passed() -> void:
+	current_hour += 1;
+	if current_hour == 24:
+		current_hour = 0;
+		day_passed.emit()
+	$ambient_light.update_lighting();
