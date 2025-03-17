@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
-[ext_resource type="Texture2D" uid="uid://ja3tgd5rjsjh" path="res://assets/visual/backgrounds/settlements/farm.jpg" id="2_a8cfp"]
+[ext_resource type="Texture2D" uid="uid://c56f6fttgx4gb" path="res://assets/visual/backgrounds/settlements/farm.png" id="2_36m0f"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_c11hx"]
 [ext_resource type="Script" uid="uid://bahlds1d7kky5" path="res://scenes/map/ui/settlement/options.gd" id="3_2ay4q"]
 [ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://resources/themes/pixel_ui_theme/PixelTheme-Dark-Fade.tres" id="3_obgmr"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fjqa"]
 
-[node name="settlement_ui" type="Control" node_paths=PackedStringArray("name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "ui_sfx")]
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_bg", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -21,6 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dun4i")
+sky_bg = NodePath("sky_bg")
 name_label = NodePath("main_view/text/MarginContainer/VBoxContainer/settlement_name")
 short_description_label = NodePath("main_view/text/MarginContainer/VBoxContainer/short_description")
 long_description_label = NodePath("main_view/text/MarginContainer/VBoxContainer/long_description")
@@ -29,18 +30,24 @@ recruit_units_btn = NodePath("main_view/options/MarginContainer/VBoxContainer/re
 listen_around_btn = NodePath("main_view/options/MarginContainer/VBoxContainer/listen_around")
 ui_sfx = NodePath("ui_sfx")
 
-[node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
-
-[node name="background" type="TextureRect" parent="."]
-modulate = Color(0.784314, 0.784314, 0.784314, 1)
-z_index = -3
+[node name="sky_bg" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_a8cfp")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_36m0f")
+
+[node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
 
 [node name="main_view" type="Control" parent="."]
 layout_mode = 1
@@ -147,17 +154,14 @@ layout_mode = 2
 
 [node name="trade" type="Button" parent="main_view/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 1)
 theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
 theme_override_font_sizes/font_size = 32
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
 text = "Trade"
-flat = true
 
 [node name="recruit_units" type="Button" parent="main_view/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 1)
 theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
@@ -165,17 +169,15 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
 text = "Recruit Fighters
 "
-flat = true
 
 [node name="listen_around" type="Button" parent="main_view/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 1)
 theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
 theme_override_font_sizes/font_size = 32
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
-text = "Listen Around for trade opportunities"
-flat = true
+text = "Listen Around for
+trade opportunities"
 
 [node name="trade_menu" type="Control" parent="."]
 visible = false

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cqgly5rpfuvp7"]
 
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="1_8jw71"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="1_8jw71"]
 [ext_resource type="Script" uid="uid://c6up3yjjuvie" path="res://scenes/superclasses/fighters/fighter_base.gd" id="2_igrwa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cmfqr"]

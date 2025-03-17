@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://43ll080ti47n"]
+[gd_scene load_steps=3 format=3 uid="uid://43ll080ti47n"]
 
-[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_0havd"]
 [ext_resource type="Script" uid="uid://du846ayif484l" path="res://scenes/indexes/fighters/tetherguy.gd" id="1_0oa0c"]
 [ext_resource type="Texture2D" uid="uid://02uaa4r14ql3" path="res://assets/visual/sprites/fighters/tetherguy.png" id="2_yetav"]
 
 [node name="Tether Guy" type="Sprite2D"]
-material = ExtResource("1_0havd")
+use_parent_material = true
 texture = ExtResource("2_yetav")
 hframes = 6
 vframes = 3

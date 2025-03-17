@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cn6wxjfhbdfcq"]
+[gd_scene load_steps=3 format=3 uid="uid://cn6wxjfhbdfcq"]
 
 [ext_resource type="Texture2D" uid="uid://tsefuarfxuhu" path="res://assets/visual/sprites/fighters/coilguy.png" id="1_5yy3e"]
-[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_bnqoe"]
 [ext_resource type="Script" uid="uid://b74na1yept4yy" path="res://scenes/indexes/fighters/coilguy.gd" id="2_aqke5"]
 
 [node name="Coil Guy" type="Sprite2D"]
-material = ExtResource("1_bnqoe")
+use_parent_material = true
 texture = ExtResource("1_5yy3e")
 hframes = 6
 vframes = 3

@@ -4,7 +4,7 @@
 
 [resource]
 shader = ExtResource("1_ha5lo")
-shader_parameter/color = Color(0.215902, 0.215902, 0.215902, 1)
+shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/width = 2.0
 shader_parameter/pattern = 1
 shader_parameter/inside = false

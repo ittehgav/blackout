@@ -3,6 +3,7 @@ extends UIRoot;
 signal settlement_entered(settlement:Settlement);
 signal settlement_left;
 
+@export var sky_bg:ColorRect;
 @export var name_label:Label;
 @export var short_description_label:RichTextLabel;
 @export var long_description_label:RichTextLabel;
@@ -41,8 +42,10 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 		recruit_units_btn.show();
 	if settlement.settings.listen_around:
 		listen_around_btn.show();
-		
+	
+	sky_bg.modulate = Entities.world_map.ambient_light.color;
 	show();
+	
 	
 	Tweens.ui_fade_in(self)
 

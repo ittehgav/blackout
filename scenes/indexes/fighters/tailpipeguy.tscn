@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkmfirafpqidg"]
+[gd_scene load_steps=3 format=3 uid="uid://dkmfirafpqidg"]
 
-[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_0khta"]
 [ext_resource type="Texture2D" uid="uid://cgfe6r2uuwxjk" path="res://assets/visual/sprites/fighters/tailpipeguy.png" id="1_dsvnu"]
 [ext_resource type="Script" uid="uid://ct5qpyuwmni5n" path="res://scenes/indexes/fighters/tailpipeguy.gd" id="2_rm1nj"]
 
 [node name="Tailpipe Guy" type="Sprite2D"]
-material = ExtResource("1_0khta")
+use_parent_material = true
 texture = ExtResource("1_dsvnu")
 hframes = 6
 vframes = 3

@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://cmhoioydm7yn1" path="res://scenes/player/ui/item_feedback.gd" id="10_b563s"]
 [ext_resource type="Script" uid="uid://bbd3oiy16p7qa" path="res://scenes/player/ui/gear.gd" id="10_guigk"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="11_drn0r"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="12_guigk"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="12_guigk"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="15_ptfqp"]
 [ext_resource type="Script" uid="uid://dqpi700chh4i" path="res://scenes/player/ui/party_view.gd" id="15_s407w"]
 [ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/recruit_full_view.tscn" id="18_vtwi5"]

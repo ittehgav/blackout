@@ -1,26 +1,30 @@
 extends CanvasModulate
 
 @export var cycle_colors:Array[Color] = [
-	Color.MIDNIGHT_BLUE + Color(-.2, -.2, -.2, -.2), ## 00:00
-	Color.MIDNIGHT_BLUE + Color(-.2, -.2, -.2, -.2), ## 01:00 / 23:00
-	Color.MIDNIGHT_BLUE + Color(-.2, -.2, -.2, -.2), ## 02:00 / 22:00
-	Color.MIDNIGHT_BLUE * 1.2 + Color(-.1, -.1, -.1, -.5), ## 03:00 / 21:00
-	Color.MIDNIGHT_BLUE * 1.5 + Color(0, 0, 0, -.6), ## 04:00 / 20:00
-	Color.SKY_BLUE * .75 + Color(0, 0, 0, 1), ## 05:00 / 19:00
-	Color.SKY_BLUE * Color.SANDY_BROWN + Color(0, 0, 0, 1), ## 6:00 / 18:00
-	Color.SANDY_BROWN + Color(0, 0, 0, 1), ## 07:00 / 17:00
-	Color.SANDY_BROWN * 1.2 + Color(0, 0, 0, 1), ##08:00 / 16:00
-	Color.SANDY_BROWN * 1.4 + Color(0, 0, 0, 1), ##09:00 / 15:00
-	Color.SANDY_BROWN * 1.5 + Color(0, 0, 0, 1), ##10:00 / 14:00 
-	Color.SANDY_BROWN * 1.5 + Color(0, 0, 0, 1), ##11:00 / 13:00
-	Color.SANDY_BROWN * 1.5 + Color(0, 0, 0, 1), ##12:00
+	Color(0.04, 0.04, 0.12),       # Midnight (dark blue)
+	Color(0.08, 0.08, 0.20),       # Early night (slightly lighter blue)
+	Color(0.12, 0.12, 0.27),       # Late night (medium blue)
+	Color(0.20, 0.20, 0.39),       # Pre-dawn (lighter blue)
+	Color(0.39, 0.31, 0.47),       # Dawn (purple-ish)
+	Color(0.59, 0.39, 0.55),       # Early morning (pink-ish)
+	Color(1.00, 0.78, 0.59),       # Sunrise (warm orange)
+	Color(1.00, 1.00, 0.78),       # Morning (light yellow)
+	Color(0.78, 0.90, 1.00),       # Midday (bright sky blue)
+	Color(0.59, 0.78, 1.00),       # Afternoon (lighter sky blue)
+	Color(0.39, 0.59, 0.78),       # Evening (dusk blue)
+	Color(0.20, 0.39, 0.59)        # Late evening (darkening blue)
+
 ]
+func _ready():
+	await get_parent().ready
+	update_lighting()
 
 
 func update_lighting()->void:
 	var index:int = Entities.world_map.current_hour;
-	if index >= 11:
+	if index > 11:
 		index -= 11
+		index = 12 - index
 	var tween:Tween = create_tween();
 	tween.tween_property(self, "color", cycle_colors[index], 1);
 

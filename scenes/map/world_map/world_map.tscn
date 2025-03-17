@@ -1,9 +1,9 @@
-[gd_scene load_steps=54 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=66 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_hae4w"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="3_ircok"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_ircok"]
 [ext_resource type="Script" uid="uid://bvgff2ddyp43u" path="res://scenes/map/world_map/ambient_light.gd" id="3_uqjvj"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="4_4aisy"]
 [ext_resource type="PackedScene" uid="uid://bghgbhdlygqcs" path="res://scenes/indexes/settlements/generic/scrapyard.tscn" id="4_8x8fu"]
@@ -15,16 +15,27 @@
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
 [ext_resource type="PackedScene" uid="uid://u3585ur6ytmf" path="res://scenes/indexes/items/trinkets/crimson_snow_globe.tscn" id="7_wwpc6"]
+[ext_resource type="Texture2D" uid="uid://cl6tga3pkpyq4" path="res://assets/visual/sprites/props/props_tilemap.png" id="8_05i75"]
 [ext_resource type="PackedScene" uid="uid://chgtgjl5g2lx3" path="res://scenes/indexes/items/weapons/spray_gun.tscn" id="8_magck"]
 [ext_resource type="PackedScene" uid="uid://dbloxip34nvnd" path="res://scenes/indexes/items/trinkets/chromatic_cheese.tscn" id="8_n54q8"]
 [ext_resource type="PackedScene" uid="uid://b2r0xgt02ax4m" path="res://scenes/indexes/items/consumables/hagglers_brew.tscn" id="9_6iewt"]
 [ext_resource type="PackedScene" uid="uid://b8b0jmbg2w2hg" path="res://scenes/indexes/items/consumables/first_aid_kit.tscn" id="10_15jho"]
+[ext_resource type="Texture2D" uid="uid://clhbdifdrlhyy" path="res://assets/visual/sprites/props/auto_sign.png" id="10_bgkna"]
 [ext_resource type="PackedScene" uid="uid://cw1dam2aacl14" path="res://scenes/indexes/items/consumables/mystery_snack_pack.tscn" id="10_w1bgm"]
 [ext_resource type="PackedScene" uid="uid://b5o7ipw23muir" path="res://scenes/indexes/items/trinkets/rare_coin.tscn" id="11_5up8w"]
+[ext_resource type="Texture2D" uid="uid://dpxpoo4n1th3u" path="res://assets/visual/sprites/props/broken_lamppost.png" id="11_h0tw4"]
+[ext_resource type="Texture2D" uid="uid://rc816161fuhg" path="res://assets/visual/sprites/props/buried_car.png" id="12_fd0ro"]
 [ext_resource type="PackedScene" uid="uid://m2wpkoi452n" path="res://scenes/indexes/items/consumables/gakka_roll.tscn" id="12_g4k6m"]
 [ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/map/ui/dialogue/dialogue_player.tscn" id="13_8dqwv"]
+[ext_resource type="Texture2D" uid="uid://c7q02tyy5x8sw" path="res://assets/visual/sprites/props/buried_car_front.png" id="13_lljjg"]
+[ext_resource type="Texture2D" uid="uid://bw582msiqpaxu" path="res://assets/visual/sprites/props/gym_sign.png" id="14_jbv7y"]
+[ext_resource type="Texture2D" uid="uid://bmsq6vmoh7k4e" path="res://assets/visual/sprites/props/standing_lamppost.png" id="15_yhrnu"]
+[ext_resource type="Texture2D" uid="uid://bob8aj6xwa0ki" path="res://assets/visual/sprites/props/tree.png" id="16_piqjc"]
+[ext_resource type="Texture2D" uid="uid://d321t0t5ou0c4" path="res://assets/visual/sprites/props/wall.png" id="17_ltr5c"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="18_8x8fu"]
+[ext_resource type="Texture2D" uid="uid://c7o80mfyae726" path="res://assets/visual/sprites/props/wheel.png" id="18_anjvn"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="18_p3eby"]
+[ext_resource type="Texture2D" uid="uid://0jnn2cl0w5b5" path="res://assets/visual/sprites/props/wheel_stack.png" id="19_ebkns"]
 [ext_resource type="PackedScene" uid="uid://cn6wxjfhbdfcq" path="res://scenes/indexes/fighters/coilguy.tscn" id="20_05i75"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="20_opvew"]
@@ -45,146 +56,84 @@ texture = ExtResource("3_1w3gq")
 0:1/0 = 0
 1:1/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1aag8"]
+texture = ExtResource("8_05i75")
+0:0/next_alternative_id = 4
+0:0/0 = 0
+1:0/next_alternative_id = 3
+1:0/0 = 0
+2:0/next_alternative_id = 3
+2:0/0 = 0
+1:1/next_alternative_id = 3
+1:1/0 = 0
+1:3/next_alternative_id = 3
+1:3/0 = 0
+1:2/next_alternative_id = 3
+1:2/0 = 0
+1:4/next_alternative_id = 4
+1:4/0 = 0
+0:4/next_alternative_id = 3
+0:4/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+6:0/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+4:5/0 = 0
+3:5/0 = 0
+3:4/0 = 0
+3:3/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+5:3/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+4:4/0 = 0
+4:3/0 = 0
+3:2/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+6:4/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+10:4/0 = 0
+10:3/0 = 0
+10:2/0 = 0
+9:2/0 = 0
+9:3/0 = 0
+11:3/0 = 0
+11:2/0 = 0
+8:3/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+7:3/0 = 0
+7:4/0 = 0
+8:2/0 = 0
+8:1/0 = 0
+8:0/0 = 0
+7:0/0 = 0
+7:1/0 = 0
+7:2/0 = 0
+9:1/0 = 0
+9:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_uklf8"]
 sources/0 = SubResource("TileSetAtlasSource_4gyjr")
+sources/4 = SubResource("TileSetAtlasSource_1aag8")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_yg1vu"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8x8fu"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v3lqp"]
-resource_local_to_scene = true
-noise = SubResource("FastNoiseLite_yg1vu")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8x8fu"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_05i75"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1aag8"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kcivd"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3w437"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mw666"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkpsy"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cuod"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bp0ea"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5larv"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxxdj"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8x8fu"]
+noise = SubResource("FastNoiseLite_8x8fu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bgkna"]
 resource_local_to_scene = true
@@ -198,29 +147,166 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "player")]
-process_mode = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0tw4"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fd0ro"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lljjg"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbv7y"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhrnu"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_piqjc"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_anjvn"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ebkns"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_64kp8"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nmq41"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ambient_light", "ui", "player", "props_node")]
+process_mode = 3
 script = ExtResource("1_s4sam")
+ambient_light = NodePath("ambient_light")
 ui = NodePath("ui_overlay/ui")
 player = NodePath("entities/in_map_player")
 arena_scene = ExtResource("2_hae4w")
 farm_scene = ExtResource("7_gpotv")
 scrapyard_scene = ExtResource("4_8x8fu")
 factory_scene = ExtResource("5_akvl2")
+props_node = NodePath("bg_props")
+prop_textures = Array[Texture]([ExtResource("10_bgkna"), ExtResource("11_h0tw4"), ExtResource("12_fd0ro"), ExtResource("13_lljjg"), ExtResource("14_jbv7y"), ExtResource("15_yhrnu"), ExtResource("16_piqjc"), ExtResource("17_ltr5c"), ExtResource("18_anjvn"), ExtResource("19_ebkns")])
 
 [node name="minute_ticker" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.05
 autostart = true
 
 [node name="ambient_light" type="CanvasModulate" parent="."]
 script = ExtResource("3_uqjvj")
-cycle_colors = Array[Color]([Color(-0.101961, -0.101961, 0.239216, 0.8), Color(-0.101961, -0.101961, 0.239216, 0.8), Color(-0.101961, -0.101961, 0.239216, 0.8), Color(0.0176471, 0.0176471, 0.427059, 0.7), Color(0.147059, 0.147059, 0.658824, 0.9), Color(0.397059, 0.605882, 0.691176, 1.75), Color(0.506574, 0.519554, 0.346943, 2), Color(0.956863, 0.643137, 0.376471, 2), Color(1.14824, 0.771765, 0.451765, 2.2), Color(1.33961, 0.900392, 0.527059, 2.4), Color(1.43529, 0.964706, 0.564706, 2.5), Color(1.43529, 0.964706, 0.564706, 2.5)])
 
 [node name="bg_tiles" type="TileMapLayer" parent="."]
+modulate = Color(0.78, 0.78, 0.78, 1)
 scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_uklf8")
 script = ExtResource("4_f6xbr")
-noise_height_text = SubResource("NoiseTexture2D_v3lqp")
+noise_height_texture = SubResource("NoiseTexture2D_8x8fu")
+
+[node name="bg_props" type="Node2D" parent="."]
 
 [node name="entities" type="Node2D" parent="."]
 
@@ -265,73 +351,73 @@ units = []
 base = NodePath("Arm Guy")
 
 [node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit" instance=ExtResource("18_8x8fu")]
-material = SubResource("ShaderMaterial_8x8fu")
+material = SubResource("ShaderMaterial_bgkna")
 
 [node name="FighterUnit2" parent="entities/in_map_player/Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Coil Guy")
 
 [node name="Coil Guy" parent="entities/in_map_player/Player/Roster/FighterUnit2" instance=ExtResource("20_05i75")]
-material = SubResource("ShaderMaterial_05i75")
+material = SubResource("ShaderMaterial_h0tw4")
 
 [node name="FighterUnit3" parent="entities/in_map_player/Player/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Crossbow Guy")
 
 [node name="Crossbow Guy" parent="entities/in_map_player/Player/Roster/FighterUnit3" instance=ExtResource("21_1aag8")]
-material = SubResource("ShaderMaterial_1aag8")
+material = SubResource("ShaderMaterial_fd0ro")
 
 [node name="FighterUnit4" parent="entities/in_map_player/Player/Roster" index="3" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Crowbar Guy")
 
 [node name="Crowbar Guy" parent="entities/in_map_player/Player/Roster/FighterUnit4" instance=ExtResource("22_kcivd")]
-material = SubResource("ShaderMaterial_kcivd")
+material = SubResource("ShaderMaterial_lljjg")
 
 [node name="FighterUnit5" parent="entities/in_map_player/Player/Roster" index="4" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Door Guy")
 
 [node name="Door Guy" parent="entities/in_map_player/Player/Roster/FighterUnit5" instance=ExtResource("23_3w437")]
-material = SubResource("ShaderMaterial_3w437")
+material = SubResource("ShaderMaterial_jbv7y")
 
 [node name="FighterUnit6" parent="entities/in_map_player/Player/Roster" index="5" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Double Arm Guy")
 
 [node name="Double Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit6" instance=ExtResource("24_mw666")]
-material = SubResource("ShaderMaterial_mw666")
+material = SubResource("ShaderMaterial_yhrnu")
 
 [node name="FighterUnit7" parent="entities/in_map_player/Player/Roster" index="6" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Gravity Guy")
 
 [node name="Gravity Guy" parent="entities/in_map_player/Player/Roster/FighterUnit7" instance=ExtResource("25_qkpsy")]
-material = SubResource("ShaderMaterial_qkpsy")
+material = SubResource("ShaderMaterial_piqjc")
 
 [node name="FighterUnit8" parent="entities/in_map_player/Player/Roster" index="7" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Mech Arm Guy")
 
 [node name="Mech Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit8" instance=ExtResource("26_2cuod")]
-material = SubResource("ShaderMaterial_2cuod")
+material = SubResource("ShaderMaterial_ltr5c")
 
 [node name="FighterUnit9" parent="entities/in_map_player/Player/Roster" index="8" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Tailpipe Guy")
 
 [node name="Tailpipe Guy" parent="entities/in_map_player/Player/Roster/FighterUnit9" instance=ExtResource("27_bp0ea")]
-material = SubResource("ShaderMaterial_bp0ea")
+material = SubResource("ShaderMaterial_anjvn")
 
 [node name="FighterUnit10" parent="entities/in_map_player/Player/Roster" index="9" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Taser Guy")
 
 [node name="Taser Guy" parent="entities/in_map_player/Player/Roster/FighterUnit10" instance=ExtResource("28_5larv")]
-material = SubResource("ShaderMaterial_5larv")
+material = SubResource("ShaderMaterial_ebkns")
 
 [node name="FighterUnit11" parent="entities/in_map_player/Player/Roster" index="10" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Tether Guy")
 
 [node name="Tether Guy" parent="entities/in_map_player/Player/Roster/FighterUnit11" instance=ExtResource("29_oxxdj")]
-material = SubResource("ShaderMaterial_oxxdj")
+material = SubResource("ShaderMaterial_64kp8")
 
 [node name="FighterUnit12" parent="entities/in_map_player/Player/Roster" index="11" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Wheel Guy")
 
 [node name="Wheel Guy" parent="entities/in_map_player/Player/Roster/FighterUnit12" instance=ExtResource("20_opvew")]
-material = SubResource("ShaderMaterial_bgkna")
+material = SubResource("ShaderMaterial_nmq41")
 
 [node name="combat_stats" parent="entities/in_map_player/Player" index="2"]
 max_hp = 1232.1
@@ -344,7 +430,7 @@ charisma = 2
 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
 
-[node name="ui" type="Control" parent="ui_overlay" node_paths=PackedStringArray("settlement_ui")]
+[node name="ui" type="Control" parent="ui_overlay" node_paths=PackedStringArray("settlement_ui", "clock")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -355,12 +441,25 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_d8dst")
 settlement_ui = NodePath("settlement_ui")
+clock = NodePath("main_hud/clock")
 
 [node name="main_hud" type="Control" parent="ui_overlay/ui"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_use_anchors_ = true
+
+[node name="clock" type="Label" parent="ui_overlay/ui/main_hud"]
+layout_mode = 0
+offset_left = 1069.0
+offset_top = 16.0
+offset_right = 1173.0
+offset_bottom = 67.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -3
+theme_override_constants/shadow_offset_y = -3
+theme_override_font_sizes/font_size = 64
+text = "16:20"
 
 [node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
 visible = false
@@ -378,7 +477,7 @@ layout_mode = 1
 
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
 [connection signal="timeout" from="minute_ticker" to="." method="_on_minute_ticker_timeout"]
-[connection signal="timeout" from="minute_ticker" to="ambient_light" method="_on_minute_ticker_timeout"]
+[connection signal="timeout" from="minute_ticker" to="ui_overlay/ui" method="update_clock"]
 
 [editable path="entities/in_map_player"]
 [editable path="entities/in_map_player/Player"]

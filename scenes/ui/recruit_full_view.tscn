@@ -1,10 +1,22 @@
-[gd_scene load_steps=11 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene load_steps=13 format=3 uid="uid://1hbrworalfdw"]
 
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="1_lmv1r"]
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/recruit_full_view.gd" id="1_ywq7p"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_atfxm"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_lmv1r"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="4_cwkea"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_ywq7p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hjhfp"]
+shader = ExtResource("4_ywq7p")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ywq7p"]
 resource_local_to_scene = true
@@ -78,6 +90,7 @@ skill_cooldown_label = NodePath("Panel/VBoxContainer/HBoxContainer/cooldown")
 layout_mode = 2
 
 [node name="SpriteSample" parent="Panel" instance=ExtResource("4_cwkea")]
+material = SubResource("ShaderMaterial_hjhfp")
 offset_left = 60.0
 offset_top = 55.0
 offset_right = 60.0

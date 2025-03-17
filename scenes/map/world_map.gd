@@ -8,6 +8,10 @@ signal day_passed;
 var current_minute:int;
 var current_hour:int;
 
+const map_size = 1000;
+
+@export var ambient_light:CanvasModulate;
+
 @export var ui:Control;
 
 @export var player:InMapPlayer
@@ -19,7 +23,15 @@ var current_hour:int;
 @export var scrapyard_scene:PackedScene;
 @export var factory_scene:PackedScene;
 
+@export_subgroup("props")
+@export var props_node:Node2D;
+@export var prop_textures:Array[Texture];
+var taken_positions:Array[Vector2];
+var prop_sprites:Array[Sprite2D]
+
+
 func _ready()->void:
+	set_props()
 	Entities.world_map = self;
 	get_tree().paused = true;
 	generate_world()
@@ -49,17 +61,72 @@ func unpause_map()->void:
 
 
 func generate_world()->void:
+	const spawn_range = 2000;
+	var taken_spots:Array[Vector2] = [Entities.in_map_player.position]
 	var alternatives:Array[PackedScene] = [farm_scene, scrapyard_scene, factory_scene];
 	for i in 10:
 		var settlement_name:String = NameDatabase.generate_name();
 		var settlement:Settlement = alternatives.pick_random().instantiate();
-		var location:Vector2 = Vector2(randi_range(0, 1000), randi_range(0, 1000));
+		var location:Vector2 = Vector2(randi_range(0, spawn_range), randi_range(0, spawn_range));
+		var spot_taken = false;
+		for spot in taken_spots:
+			var gap = location - spot
+			if abs(gap.x) < 50 or abs(gap.y) < 50:
+				spot_taken = true;
+
+		while spot_taken:
+			spot_taken = false;
+			location = Vector2(randi_range(0, spawn_range), randi_range(0, spawn_range));
+			for spot in taken_spots:
+				var gap = location - spot
+				if abs(gap.x) < 50 or abs(gap.y) < 50:
+					spot_taken = true;
+					
+		taken_spots.append(location)
+				
 		
 		settlement.position = location;
 		settlement.name = settlement_name;
 		add_child(settlement);
-		
 
+
+func set_props():
+	for texture in prop_textures:
+		var sprite = Sprite2D.new();
+		sprite.texture = texture;
+		ColorCoder.color_code_prop(sprite)
+		#sprite.scale = Vector2(2, 2);
+		prop_sprites.append(sprite);
+	
+	const prop_amounts = 2;
+	for prop in prop_sprites:
+		for i in prop_amounts:
+			set_prop(prop);
+
+
+func set_prop(which:Sprite2D)->void:
+	const tile_size = 16;
+	var prop = which.duplicate();
+	var x_roll = randi_range(map_size * -1, map_size);
+	var y_roll = randi_range(map_size*-1, map_size );
+	var target_position = Vector2(x_roll,  y_roll)
+	while position_taken(target_position):
+		x_roll = randi_range(map_size * -1, map_size);
+		y_roll = randi_range(map_size*-1, map_size );
+		target_position = Vector2(x_roll,  y_roll)
+	
+	taken_positions.append(target_position);
+	
+	prop.position = target_position;
+	props_node.add_child(prop);
+	
+func position_taken(to_check:Vector2)->bool:
+	for p in taken_positions:
+		var x_gap = to_check.x - p.x;
+		var y_gap = to_check.y - p.y;
+		if abs(x_gap) < 50 or abs(y_gap) < 50:
+			return true;
+	return false;
 
 func _on_minute_ticker_timeout() -> void:
 	current_minute += 1;

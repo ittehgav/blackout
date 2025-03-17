@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="2_fo4cr"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="3_3uxwr"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_3uxwr"]
 [ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/player/active_weapon.gd" id="6_cbwmk"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="7_6mba4"]
 [ext_resource type="Script" uid="uid://bbow6qj3s5hyu" path="res://scenes/battle/player/weapon_sfx.gd" id="7_avuby"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="1_80g3d"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="2_r8kaq"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/blink_vfx.gdshader" id="3_vnqoj"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_vnqoj"]
 [ext_resource type="PackedScene" uid="uid://cn6wxjfhbdfcq" path="res://scenes/indexes/fighters/coilguy.tscn" id="4_1imjy"]
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="5_4585b"]
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="6_4oc3h"]

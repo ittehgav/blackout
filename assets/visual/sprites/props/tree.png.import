@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dl8ct2ft4t4x5"
-path="res://.godot/imported/farm.png-713f5a7c1ad3a12b6596ecd96234c13e.ctex"
+uid="uid://bob8aj6xwa0ki"
+path="res://.godot/imported/tree.png-ca0fff5811c04a36dd1520ab876c6f2d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/visual/sprites/settlements/farm.png"
-dest_files=["res://.godot/imported/farm.png-713f5a7c1ad3a12b6596ecd96234c13e.ctex"]
+source_file="res://assets/visual/sprites/props/tree.png"
+dest_files=["res://.godot/imported/tree.png-ca0fff5811c04a36dd1520ab876c6f2d.ctex"]
 
 [params]
 
