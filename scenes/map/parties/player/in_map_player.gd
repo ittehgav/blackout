@@ -29,12 +29,11 @@ func _input(e:InputEvent)->void:
 func _physics_process(delta: float) -> void:
 	if not target_entity:
 		if target_position != position:
-			var gap:Vector2 = target_position - position
-			if abs(gap) < Vector2(2.5, 2.5):
+			if position.distance_to(target_position) < 2.5:
 				stop_movement();
 			else:
-				var direction:Vector2 = gap.normalized();
-				var movement:Vector2 = direction * move_speed * delta
+				var gap:Vector2 = (target_position - position).normalized()
+				var movement = gap * move_speed * delta;
 				var collision:KinematicCollision2D = move_and_collide(movement)
 				if collision:
 					target_position = position

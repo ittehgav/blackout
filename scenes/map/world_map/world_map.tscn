@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=69 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_hae4w"]
@@ -11,14 +11,17 @@
 [ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/map/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
 [ext_resource type="Script" uid="uid://d1epphgokcyg0" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
+[ext_resource type="Texture2D" uid="uid://bpm3w0wvrmw71" path="res://assets/visual/sprites/props/small/cactus.png" id="6_jbv7y"]
 [ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="7_3vru2"]
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="7_gpotv"]
 [ext_resource type="PackedScene" uid="uid://u3585ur6ytmf" path="res://scenes/indexes/items/trinkets/crimson_snow_globe.tscn" id="7_wwpc6"]
+[ext_resource type="Texture2D" uid="uid://dqkqrpwcxaxqa" path="res://assets/visual/sprites/props/small/long_cactus.png" id="7_yhrnu"]
 [ext_resource type="Texture2D" uid="uid://cl6tga3pkpyq4" path="res://assets/visual/sprites/props/props_tilemap.png" id="8_05i75"]
 [ext_resource type="PackedScene" uid="uid://chgtgjl5g2lx3" path="res://scenes/indexes/items/weapons/spray_gun.tscn" id="8_magck"]
 [ext_resource type="PackedScene" uid="uid://dbloxip34nvnd" path="res://scenes/indexes/items/trinkets/chromatic_cheese.tscn" id="8_n54q8"]
 [ext_resource type="PackedScene" uid="uid://b2r0xgt02ax4m" path="res://scenes/indexes/items/consumables/hagglers_brew.tscn" id="9_6iewt"]
+[ext_resource type="Texture2D" uid="uid://d2mn1g5x7n2ey" path="res://assets/visual/sprites/props/small/stick.png" id="9_ltr5c"]
 [ext_resource type="PackedScene" uid="uid://b8b0jmbg2w2hg" path="res://scenes/indexes/items/consumables/first_aid_kit.tscn" id="10_15jho"]
 [ext_resource type="Texture2D" uid="uid://clhbdifdrlhyy" path="res://assets/visual/sprites/props/auto_sign.png" id="10_bgkna"]
 [ext_resource type="PackedScene" uid="uid://cw1dam2aacl14" path="res://scenes/indexes/items/consumables/mystery_snack_pack.tscn" id="10_w1bgm"]
@@ -135,42 +138,6 @@ sources/4 = SubResource("TileSetAtlasSource_1aag8")
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8x8fu"]
 noise = SubResource("FastNoiseLite_8x8fu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bgkna"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0tw4"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fd0ro"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lljjg"]
 resource_local_to_scene = true
 shader = ExtResource("3_ircok")
@@ -279,39 +246,84 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ambient_light", "ui", "player", "props_node")]
-process_mode = 3
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7d1fb"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f2dah"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gmjui"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ambient_light", "ui", "player", "small_props_node", "props_node")]
+process_mode = 1
 script = ExtResource("1_s4sam")
-ambient_light = NodePath("ambient_light")
+ambient_light = NodePath("entities/ambient_light")
 ui = NodePath("ui_overlay/ui")
 player = NodePath("entities/in_map_player")
 arena_scene = ExtResource("2_hae4w")
 farm_scene = ExtResource("7_gpotv")
 scrapyard_scene = ExtResource("4_8x8fu")
 factory_scene = ExtResource("5_akvl2")
-props_node = NodePath("bg_props")
+small_props_node = NodePath("bg_props")
+props_node = NodePath("foreground_props")
+small_prop_textures = Array[Texture]([ExtResource("6_jbv7y"), ExtResource("7_yhrnu"), ExtResource("9_ltr5c")])
 prop_textures = Array[Texture]([ExtResource("10_bgkna"), ExtResource("11_h0tw4"), ExtResource("12_fd0ro"), ExtResource("13_lljjg"), ExtResource("14_jbv7y"), ExtResource("15_yhrnu"), ExtResource("16_piqjc"), ExtResource("17_ltr5c"), ExtResource("18_anjvn"), ExtResource("19_ebkns")])
 
 [node name="minute_ticker" type="Timer" parent="."]
 wait_time = 0.05
 autostart = true
 
-[node name="ambient_light" type="CanvasModulate" parent="."]
-script = ExtResource("3_uqjvj")
-
 [node name="bg_tiles" type="TileMapLayer" parent="."]
-modulate = Color(0.78, 0.78, 0.78, 1)
+z_index = -2
 scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_uklf8")
 script = ExtResource("4_f6xbr")
 noise_height_texture = SubResource("NoiseTexture2D_8x8fu")
 
 [node name="bg_props" type="Node2D" parent="."]
+z_index = -2
 
 [node name="entities" type="Node2D" parent="."]
 
+[node name="ambient_light" type="CanvasModulate" parent="entities" node_paths=PackedStringArray("active_elements")]
+show_behind_parent = true
+script = ExtResource("3_uqjvj")
+active_elements = NodePath("..")
+cycle_colors = Array[Color]([Color(0.0396, 0.0396, 0.12, 0.588235), Color(0.08, 0.08, 0.2, 0.666667), Color(0.1188, 0.1188, 0.27, 0.784314), Color(0.1989, 0.1989, 0.39, 0.901961), Color(0.39, 0.31, 0.47, 1), Color(0.59, 0.39, 0.2525, 1), Color(0.921569, 0.686275, 0.227451, 1), Color(0.921569, 0.878431, 0.345098, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)])
+
 [node name="in_map_player" parent="entities" instance=ExtResource("4_vgkop")]
 position = Vector2(521, 310)
+
+[node name="in_map_camera" parent="entities/in_map_player" index="2"]
+process_mode = 3
 
 [node name="Player" parent="entities/in_map_player" index="3" node_paths=PackedStringArray("equipped_weapon")]
 leadership_level = 3
@@ -351,73 +363,73 @@ units = []
 base = NodePath("Arm Guy")
 
 [node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit" instance=ExtResource("18_8x8fu")]
-material = SubResource("ShaderMaterial_bgkna")
+material = SubResource("ShaderMaterial_lljjg")
 
 [node name="FighterUnit2" parent="entities/in_map_player/Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Coil Guy")
 
 [node name="Coil Guy" parent="entities/in_map_player/Player/Roster/FighterUnit2" instance=ExtResource("20_05i75")]
-material = SubResource("ShaderMaterial_h0tw4")
+material = SubResource("ShaderMaterial_jbv7y")
 
 [node name="FighterUnit3" parent="entities/in_map_player/Player/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Crossbow Guy")
 
 [node name="Crossbow Guy" parent="entities/in_map_player/Player/Roster/FighterUnit3" instance=ExtResource("21_1aag8")]
-material = SubResource("ShaderMaterial_fd0ro")
+material = SubResource("ShaderMaterial_yhrnu")
 
 [node name="FighterUnit4" parent="entities/in_map_player/Player/Roster" index="3" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Crowbar Guy")
 
 [node name="Crowbar Guy" parent="entities/in_map_player/Player/Roster/FighterUnit4" instance=ExtResource("22_kcivd")]
-material = SubResource("ShaderMaterial_lljjg")
+material = SubResource("ShaderMaterial_piqjc")
 
 [node name="FighterUnit5" parent="entities/in_map_player/Player/Roster" index="4" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Door Guy")
 
 [node name="Door Guy" parent="entities/in_map_player/Player/Roster/FighterUnit5" instance=ExtResource("23_3w437")]
-material = SubResource("ShaderMaterial_jbv7y")
+material = SubResource("ShaderMaterial_ltr5c")
 
 [node name="FighterUnit6" parent="entities/in_map_player/Player/Roster" index="5" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Double Arm Guy")
 
 [node name="Double Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit6" instance=ExtResource("24_mw666")]
-material = SubResource("ShaderMaterial_yhrnu")
+material = SubResource("ShaderMaterial_anjvn")
 
 [node name="FighterUnit7" parent="entities/in_map_player/Player/Roster" index="6" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Gravity Guy")
 
 [node name="Gravity Guy" parent="entities/in_map_player/Player/Roster/FighterUnit7" instance=ExtResource("25_qkpsy")]
-material = SubResource("ShaderMaterial_piqjc")
+material = SubResource("ShaderMaterial_ebkns")
 
 [node name="FighterUnit8" parent="entities/in_map_player/Player/Roster" index="7" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Mech Arm Guy")
 
 [node name="Mech Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit8" instance=ExtResource("26_2cuod")]
-material = SubResource("ShaderMaterial_ltr5c")
+material = SubResource("ShaderMaterial_64kp8")
 
 [node name="FighterUnit9" parent="entities/in_map_player/Player/Roster" index="8" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Tailpipe Guy")
 
 [node name="Tailpipe Guy" parent="entities/in_map_player/Player/Roster/FighterUnit9" instance=ExtResource("27_bp0ea")]
-material = SubResource("ShaderMaterial_anjvn")
+material = SubResource("ShaderMaterial_nmq41")
 
 [node name="FighterUnit10" parent="entities/in_map_player/Player/Roster" index="9" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Taser Guy")
 
 [node name="Taser Guy" parent="entities/in_map_player/Player/Roster/FighterUnit10" instance=ExtResource("28_5larv")]
-material = SubResource("ShaderMaterial_ebkns")
+material = SubResource("ShaderMaterial_7d1fb")
 
 [node name="FighterUnit11" parent="entities/in_map_player/Player/Roster" index="10" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Tether Guy")
 
 [node name="Tether Guy" parent="entities/in_map_player/Player/Roster/FighterUnit11" instance=ExtResource("29_oxxdj")]
-material = SubResource("ShaderMaterial_64kp8")
+material = SubResource("ShaderMaterial_f2dah")
 
 [node name="FighterUnit12" parent="entities/in_map_player/Player/Roster" index="11" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Wheel Guy")
 
 [node name="Wheel Guy" parent="entities/in_map_player/Player/Roster/FighterUnit12" instance=ExtResource("20_opvew")]
-material = SubResource("ShaderMaterial_nmq41")
+material = SubResource("ShaderMaterial_gmjui")
 
 [node name="combat_stats" parent="entities/in_map_player/Player" index="2"]
 max_hp = 1232.1
@@ -427,6 +439,8 @@ technique = 1.23
 
 [node name="leadership_stats" parent="entities/in_map_player/Player" index="3"]
 charisma = 2
+
+[node name="foreground_props" type="Node2D" parent="."]
 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
 
@@ -476,6 +490,7 @@ z_index = 1
 layout_mode = 1
 
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
+[connection signal="hour_passed" from="." to="entities/ambient_light" method="update_light"]
 [connection signal="timeout" from="minute_ticker" to="." method="_on_minute_ticker_timeout"]
 [connection signal="timeout" from="minute_ticker" to="ui_overlay/ui" method="update_clock"]
 

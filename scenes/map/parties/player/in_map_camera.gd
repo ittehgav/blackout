@@ -13,7 +13,8 @@ func return_to_player()->void:
 	if not in_player:
 		in_player = true;
 		var tween:Tween = create_tween();
-		tween.tween_property(self, "position", Entities.in_map_player.position, .5);
+		tween.set_trans(Tween.TRANS_CIRC)
+		tween.tween_property(self, "position", Entities.in_map_player.position, .25);
 		await tween.finished;
 		reparent(Entities.in_map_player, true);
 		global_position = Entities.in_map_player.global_position;

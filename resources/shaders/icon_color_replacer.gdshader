@@ -15,6 +15,6 @@ void fragment() {
 		}else if (COLOR.rgb == light_color){
 			COLOR.rgb = base_color.rgb * 1.75;
 		}
-		
-	
+
+
 }

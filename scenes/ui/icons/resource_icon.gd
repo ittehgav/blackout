@@ -20,6 +20,8 @@ func _ready()->void:
 		name = resource.capitalize();
 		tooltip_name_color = Meta.resource_colors[resource];
 		description = Meta.resource_descriptions[resource]
+	else:
+		$Tooltip.queue_free();
 	
 	for item in adjacent_items:
 		item.modulate = Meta.resource_colors[resource]

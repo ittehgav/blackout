@@ -1,6 +1,4 @@
-extends CanvasModulate
-
-@export var active_elements:Node2D;
+extends ColorRect
 
 @export var cycle_colors:Array[Color] = [
 	Color(0.04, 0.04, 0.12),       # Midnight (dark blue)
@@ -8,22 +6,22 @@ extends CanvasModulate
 	Color(0.12, 0.12, 0.27),       # Late night (medium blue)
 	Color(0.20, 0.20, 0.39),       # Pre-dawn (lighter blue)
 	Color(0.39, 0.31, 0.47),       # Dawn (purple-ish)
-	Color(0.59, 0.39, 0.2525),       # Early morning (pink-ish)
-	Color(1.00, 0.78, 0.259),       # Sunrise (warm orange)
-	Color(1.00, 1.00, 0.39),       # Morning (light yellow)
-	Color(0.78, 0.90,.5),       # Midday (bright sky blue)
-	Color(0.59, 0.78, .5),       # Afternoon (lighter sky blue)
-	Color(0.39, 0.59, 0.39),       # Evening (dusk blue)
-	Color(0.20, 0.39, 0.359)        # Late evening (darkening blue)
+	Color(0.59, 0.39, 0.55),       # Early morning (pink-ish)
+	Color(1.00, 0.78, 0.59),       # Sunrise (warm orange)
+	Color(1.00, 1.00, 0.78),       # Morning (light yellow)
+	Color(0.78, 0.90, 1.00),       # Midday (bright sky blue)
+	Color(0.59, 0.78, 1.00),       # Afternoon (lighter sky blue)
+	Color(0.39, 0.59, 0.78),       # Evening (dusk blue)
+	Color(0.20, 0.39, 0.59)        # Late evening (darkening blue)
+
 ]
 func _ready():
-	await get_parent().get_parent().ready
-	update_light()
+	await get_parent().get_parent().get_parent().ready
+	update_lighting()
 
 
-func update_light()->void:
+func update_lighting()->void:
 	var index:int = Entities.world_map.current_hour;
-
 	if index > 11:
 		index -= 11
 		index = 12 - index

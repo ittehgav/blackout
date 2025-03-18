@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://ocvlerfa58lv"]
+[gd_scene load_steps=8 format=3 uid="uid://ocvlerfa58lv"]
 
 [ext_resource type="Script" uid="uid://cj7r0jpp6vbou" path="res://scenes/indexes/settlements/generic/farm.gd" id="2_d001o"]
 [ext_resource type="Texture2D" uid="uid://c56f6fttgx4gb" path="res://assets/visual/backgrounds/settlements/farm.png" id="2_i3mdt"]
-[ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_6win5"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="3_prkd2"]
 [ext_resource type="Texture2D" uid="uid://dl8ct2ft4t4x5" path="res://assets/visual/sprites/farm.png" id="4_6vfoy"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="5_ptoka"]
@@ -11,23 +10,21 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_oyln7"]
 radius = 50.0
 
-[node name="Farm" type="CharacterBody2D" node_paths=PackedStringArray("settings", "inventory")]
+[node name="Farm" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
 input_pickable = true
 script = ExtResource("2_d001o")
 background = ExtResource("2_i3mdt")
-settings = NodePath("SettlementSettings")
 inventory = NodePath("Inventory")
+food_production = 50
+fuel_production = 20
+juice_production = 10
+scrap_production = 10
+chips_production = 10
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("3_prkd2")
 position = Vector2(27, 23)
 texture = ExtResource("4_6vfoy")
-
-[node name="SettlementSettings" parent="." instance=ExtResource("3_6win5")]
-food_production = 5
-fuel_production = 1
-juice_production = 3
-scrap_production = 1
 
 [node name="Inventory" parent="." instance=ExtResource("5_ptoka")]
 

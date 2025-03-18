@@ -36,11 +36,11 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	for button:Button in basic_options:
 		button.hide();
 
-	if settlement.settings.trade:
+	if settlement.trade:
 		trade_btn.show();
-	if settlement.settings.recruit_units:
+	if settlement.recruit_units:
 		recruit_units_btn.show();
-	if settlement.settings.listen_around:
+	if settlement.listen_around:
 		listen_around_btn.show();
 	
 	sky_bg.modulate = Entities.world_map.ambient_light.color;

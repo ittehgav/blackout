@@ -1,22 +1,25 @@
-[gd_scene load_steps=9 format=3 uid="uid://d01qvu00evo46"]
+[gd_scene load_steps=8 format=3 uid="uid://d01qvu00evo46"]
 
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="1_bkqf8"]
 [ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/visual/sprites/settlements/factory.png" id="1_cwx7e"]
 [ext_resource type="Script" uid="uid://cspof4tgur6tj" path="res://scenes/indexes/settlements/generic/factory.gd" id="2_82p61"]
 [ext_resource type="Texture2D" uid="uid://b8o26cjjwgvd" path="res://assets/visual/backgrounds/settlements/factory.png" id="2_r2k12"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_8bllo"]
-[ext_resource type="PackedScene" uid="uid://djkkgqmvt57v2" path="res://scenes/map/settlement/settlement_settings.tscn" id="3_nhmlw"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_mncoa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8aio"]
 radius = 50.0
 
-[node name="Factory" type="CharacterBody2D" node_paths=PackedStringArray("settings", "inventory")]
+[node name="Factory" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
 input_pickable = true
 script = ExtResource("2_82p61")
 background = ExtResource("2_r2k12")
-settings = NodePath("SettlementSettings")
 inventory = NodePath("Inventory")
+food_production = 10
+fuel_production = 10
+juice_production = 50
+scrap_production = 50
+chips_production = 50
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("1_bkqf8")
@@ -24,12 +27,6 @@ position = Vector2(18, 11)
 texture = ExtResource("1_cwx7e")
 
 [node name="Inventory" parent="." instance=ExtResource("3_8bllo")]
-
-[node name="SettlementSettings" parent="." instance=ExtResource("3_nhmlw")]
-food_production = 1
-fuel_production = 3
-juice_production = 3
-scrap_production = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i8aio")

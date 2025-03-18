@@ -95,10 +95,12 @@ func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:
 				img.set_pixel(x, y, new_color);
 	return ImageTexture.create_from_image(img);
 
-func color_code_prop(prop:Sprite2D)->void:
+func color_code_prop(prop:Sprite2D, small:bool=false)->void:
 	var dict = {
 		Color.RED: Color.SADDLE_BROWN + Color(0,0,0,-.8),
 		Color.BLUE: Color(.1, .1, .1) + Color(0, .15, 0, -.3),
 		Color.GREEN: Color.LIGHT_GRAY.darkened(.4) + Color(0, .1, 0, -.3)
 	}
+	if small:
+		dict[Color.RED].a = .8;
 	prop.texture = color_code_texture(prop.texture, dict);
