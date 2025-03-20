@@ -1,5 +1,7 @@
 extends Control
 
+signal trade_completed;
+
 var player:Leader;
 var settlement:Settlement;
 
@@ -18,8 +20,10 @@ var chips_trade:int=0;
 
 const all_trade_resources = ["food", "fuel", "juice", "scrap", "chips"];
 
+@export_subgroup("middle panel elements")
 @export var in_trade_view:Panel;
 @export var reset_btn:Button;
+@export var confirm_btn:Button;
 
 @export_subgroup("resource values")
 @export var player_food:Label;
@@ -39,6 +43,7 @@ const all_trade_resources = ["food", "fuel", "juice", "scrap", "chips"];
 @export_subgroup("trade displays")
 @export var food_trade_display:HBoxContainer;
 @export var fuel_trade_display:HBoxContainer;
+@export var money_trade_display:HBoxContainer;
 
 @export var juice_trade_display:HBoxContainer;
 @export var scrap_trade_display:HBoxContainer;
@@ -57,18 +62,33 @@ const all_trade_resources = ["food", "fuel", "juice", "scrap", "chips"];
 @export var scrap_buying_price:Label;
 @export var chips_buying_price:Label;
 
+
+
 ## TODO: the player can buy supplies in days/hours worth of upkeep for their current party
 func open()->void:
-	player_money.text = "$" + str(Entities.player.inventory.money);
-	settlement_money.text= "$" + str(Entities.current_settlement.inventory.money)
+	player_money.text = str(Entities.player.inventory.money);
+	settlement_money.text= str(Entities.current_settlement.inventory.money)
 	player = Entities.in_map_player.leader;
 	settlement = Entities.current_settlement;
-	print(settlement.resource_prices)
 	
 	for r in all_trade_resources:
 		self[r + "_trade"] = 0;
+	
+	slide_in();
+		
 	update_values();
 	show()
+	
+
+func slide_in():
+	position.y = 800;
+	var hbox:HBoxContainer = $margin/hbox;
+	hbox.add_theme_constant_override("separation", 1000);
+	var tween = create_tween();
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "position:y", 0, .25);
+	tween.parallel().tween_property(hbox, "theme_override_constants/separation", 50, .25)
+	
 
 func clear_trade_overflows():
 	for r in all_trade_resources:
@@ -83,21 +103,24 @@ func clear_trade_overflows():
 
 func update_values():
 	clear_trade_overflows();
-
+	
 	if visible:
-		var x_roll = randi_range(-25, 25);
-		var y_roll = randi_range(-25, 25);
+		const shake_range = 10;
+		var x_roll = randi_range(shake_range * -1, shake_range);
+		var y_roll = randi_range(shake_range * -1, shake_range);
 		in_trade_view.position = Vector2(x_roll, y_roll)
 
 		var tween = create_tween();
 		tween.set_trans(Tween.TRANS_BOUNCE);
 		tween.tween_property(in_trade_view, "position", Vector2.ZERO, .15)
 
+	money_trade = 0;
 	reset_btn.hide()
+	player_money.modulate = Color.WHITE;
+	settlement_money.modulate = Color.WHITE;
 	for resource in all_trade_resources:
-		print(settlement.resource_prices[resource])
-		self[resource + "_selling_price"].text ="$" + str( settlement.resource_prices[resource]/2); 
-		self[resource + "_buying_price"].text ="$" + str( settlement.resource_prices[resource]*2); 
+		self[resource + "_selling_price"].text = str( settlement.resource_prices[resource]/2); 
+		self[resource + "_buying_price"].text = str( settlement.resource_prices[resource]*2); 
 		
 		var traded = self[resource+"_trade"]
 		
@@ -109,16 +132,25 @@ func update_values():
 		if traded:
 			reset_btn.show();
 			trade_display.show()
-			self["player_" + resource].text = str(player_current) + " -> " + str(player_current + traded);
-			self["settlement_" + resource].text = str(settlement_current) + " -> " + str(settlement_current - traded)
+			self["player_" + resource].text = str(player_current) + "->" + str(player_current + traded);
+			self["settlement_" + resource].text = str(settlement_current) + "->" + str(settlement_current - traded)
 			
 			var sold_label = trade_display.get_node("sold");
 			var bought_label = trade_display.get_node("bought");
+			
 			if traded > 0:
+				## trade of an item > 0 = player buying
+				## player buying = money trade go down
+				## RESOURCE BUYING PRICE = PLAYER BUYING
+				money_trade -= traded * settlement.resource_buying_prices[resource];
 				bought_label.show()
 				bought_label.text = str(traded)
 				sold_label.hide();
 			else:
+				## trade of an item < 0 = player selling
+				## player selling = money trade go up
+				## RESOURCE SELLING PRICE = PLAYER SELLING
+				money_trade += settlement.resource_selling_prices[resource]
 				sold_label.show()
 				sold_label.text = str(abs(traded));
 				bought_label.hide();
@@ -126,6 +158,32 @@ func update_values():
 			self["player_" + resource].text = str(player_current)
 			self["settlement_" + resource].text = str(settlement_current)
 			trade_display.hide()
+
+	if money_trade:
+		var player_can_pay:bool =  Entities.player.inventory.money > money_trade * -1;
+		var settlement_can_pay:bool = settlement.inventory.money > money_trade;
+		if player_can_pay and settlement_can_pay:
+			confirm_btn.disabled = false;
+		else:
+			confirm_btn.disabled = true;
+			if not player_can_pay:
+				player_money.modulate = Color.RED;
+			else:
+				settlement_money.modulate = Color.RED;
+		
+			
+		money_trade_display.show()
+		if money_trade > 0:
+			money_trade_display.alignment = BoxContainer.ALIGNMENT_BEGIN
+			money_trade_display.get_node("label").modulate = Color.GREEN;
+			money_trade_display.get_node("label").text = str(abs(money_trade));
+		else:
+			money_trade_display.alignment = BoxContainer.ALIGNMENT_END
+			money_trade_display.get_node("label").modulate = Color.GOLD;
+			money_trade_display.get_node("label").text =  str(abs(money_trade));
+	else:
+		confirm_btn.disabled = true;
+		money_trade_display.hide();
 		
 
 
@@ -133,3 +191,23 @@ func reset_trade() -> void:
 	for r in all_trade_resources:
 		self[r + "_trade"] = 0;
 	update_values()
+	
+
+
+func _on_confirm_trade_pressed() -> void:
+	for r in ["food", "fuel", "money", "juice", "scrap", "chips"]:
+		var trade = self[r+"_trade"];
+		Entities.player.inventory[r] += trade;
+		settlement.inventory[r] -= trade
+		
+	Entities.player.resources_changed.emit();
+	trade_completed.emit();
+	exit_trade_menu()
+
+
+func exit_trade_menu() -> void:
+	hide();
+	var main_view = get_parent().main_view;
+	var tween = create_tween();
+	tween.tween_property(main_view, "modulate:a", 1, .25)
+	main_view.show();

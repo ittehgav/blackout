@@ -5,7 +5,7 @@
 [node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "sub_name_label", "description_label", "icon", "hint", "hover_timer")]
 process_mode = 3
 visible = false
-z_index = 1
+z_index = 6
 offset_right = 322.0
 offset_bottom = 90.0
 size_flags_horizontal = 0

@@ -23,9 +23,11 @@ var ongoing_anomalies:Array[TradeAnomaly];
 @export_range(0, 100) var scrap_production:int;
 @export_range(0, 100) var chips_production:int;
 
+var neighbors:Array[Settlement];
+
 const resources = ["food", "fuel", "juice", "scrap", "chips"]
 
-var resource_prices = {
+var resource_prices:Dictionary = {
 	"food":1.0,
 	"fuel":1.0,
 	"juice":2.0,
@@ -33,7 +35,25 @@ var resource_prices = {
 	"chips":5.0
 }
 
-var resource_daily_balance = {
+var resource_buying_prices:Dictionary = {
+	## RESOURCE BUYING PRICE = PLAYER BUYING
+	"food":0,
+	"fuel":0,
+	"juice":0,
+	"scrap":0,
+	"chips":0
+}
+
+var resource_selling_prices:Dictionary = {
+	## RESOURCE SELLING PRICE = PLAYER SELLING
+	"food":0,
+	"fuel":0,
+	"juice":0,
+	"scrap":0,
+	"chips":0
+}
+
+var resource_daily_balance:Dictionary = {
 	## keeps track of changes to affect pricing
 	"food":0,
 	"fuel":0,
@@ -63,14 +83,19 @@ func daily_reset()->void:
 	## replaces all non-rare items in the inventory and refreshes resource inventory
 	## based on trade anomalies and production
 	if not len(ongoing_anomalies) or len(ongoing_anomalies) < 3 and randf_range(0, 1) > .5:
-		var anomaly:TradeAnomaly = TradeAnomaly.new();
-		anomaly.generate();
-		while overlapping_anomaly(anomaly):
-			anomaly.generate();
-		ongoing_anomalies.append(anomaly);
+		add_new_anomaly();
+	while len(ongoing_anomalies) < 3:
+		add_new_anomaly()
 	
 	refresh_inventory();
-	
+
+func add_new_anomaly():
+	var anomaly:TradeAnomaly = TradeAnomaly.new();
+	anomaly.generate(self);
+	while overlapping_anomaly(anomaly):
+		anomaly.generate(self);
+	ongoing_anomalies.append(anomaly);
+
 func refresh_inventory():
 	## affects daily inventory refresh:
 	## production
@@ -109,6 +134,8 @@ func refresh_inventory():
 				to_add[r] += change;
 
 	for r in to_add.keys():
+		resource_selling_prices[r] = resource_prices[r] / 2;
+		resource_buying_prices[r] = resource_prices[r] * 2;
 		inventory[r] = to_add[r];
 				
 

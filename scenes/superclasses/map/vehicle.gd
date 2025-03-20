@@ -11,8 +11,6 @@ func _ready()->void:
 	ColorCoder.color_code_vehicle(self);
 
 func _physics_process(delta: float) -> void:
-	
-
 	var check_position:Vector2;
 	if party.target_entity:
 		check_position = party.target_entity.global_position;

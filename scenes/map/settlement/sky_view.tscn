@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://8cr8p5qofnu1"]
+
+[ext_resource type="Script" uid="uid://u2ac34htf78x" path="res://scenes/map/settlement/sky_view.gd" id="1_llay6"]
+[ext_resource type="Texture2D" uid="uid://dxbjg1pgdvjc8" path="res://assets/visual/sprites/props/sky/cloud1.png" id="2_4njyy"]
+[ext_resource type="Texture2D" uid="uid://dhx8x4f0f06hy" path="res://assets/visual/sprites/props/sky/cloud2.png" id="3_2uqak"]
+[ext_resource type="Texture2D" uid="uid://c847fm3ui7g3u" path="res://assets/visual/sprites/props/sky/cloud3.png" id="4_rqlmt"]
+[ext_resource type="Texture2D" uid="uid://bith1viw5hfm0" path="res://assets/visual/sprites/props/sky/star1.png" id="5_eprwo"]
+
+[node name="sky_view" type="Control" node_paths=PackedStringArray("clouds", "chatter_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_llay6")
+clouds = NodePath("clouds")
+cloud_textures = Array[Texture]([ExtResource("2_4njyy"), ExtResource("3_2uqak"), ExtResource("4_rqlmt")])
+star_textures = Array[Texture]([ExtResource("5_eprwo")])
+chatter_box = NodePath("chatter")
+
+[node name="chatter" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 64
+text = "chatter"
+
+[node name="clouds" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.490196)

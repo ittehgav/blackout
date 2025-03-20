@@ -14,7 +14,8 @@ func ui_click_sound(node:Control)->void:
 	if node is Button:
 		if node.name in ["exit", "return"]:
 			play_stream(cancel_sound);
-		else:
+		elif not node.name in \
+		["confirm_trade"]:## just add every name that doesnt play the default sound??
 			play_stream(button_click_sound);
 			
 

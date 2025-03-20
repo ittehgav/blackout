@@ -3,6 +3,8 @@ extends UIRoot;
 signal settlement_entered(settlement:Settlement);
 signal settlement_left;
 
+
+@export var sky_props:Control;
 @export var sky_bg:ColorRect;
 @export var name_label:Label;
 @export var short_description_label:RichTextLabel;
@@ -12,7 +14,14 @@ signal settlement_left;
 @export var recruit_units_btn:Button;
 @export var listen_around_btn:Button;
 
+@export_subgroup("views")
+@export var main_view:Control;
+@export var trade_view:Control;
 
+@export_subgroup("sounds")
+@export var trade_completed_sound:AudioStream;
+
+var sky_base_color = Color.LIGHT_SKY_BLUE;
 
 @onready var basic_options:Array[Button] = [
 	trade_btn,
@@ -43,7 +52,7 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	if settlement.listen_around:
 		listen_around_btn.show();
 	
-	sky_bg.modulate = Entities.world_map.ambient_light.color;
+	sky_bg.modulate = Entities.world_map.modulate * sky_base_color;
 	show();
 	
 	
@@ -53,3 +62,7 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 
 func _on_settlement_left() -> void:
 	Entities.world_map.unpause_map();
+
+
+func _on_trade_menu_trade_completed() -> void:
+	ui_sfx.play_stream(trade_completed_sound)

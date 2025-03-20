@@ -5,10 +5,12 @@ class_name WorldMap
 signal hour_passed;
 signal day_passed;
 
-var current_minute:int=59;
-var current_hour:int=23;
+var current_day:int=1;
+var current_month:int=1;
 
-const map_size = 10000;
+var current_hour:int=23;
+var current_minute:int=30;
+
 
 @export var ambient_light:CanvasModulate;
 
@@ -19,26 +21,28 @@ const map_size = 10000;
 @export_subgroup("scenes")
 @export var arena_scene:PackedScene;
 
-@export var farm_scene:PackedScene;
-@export var scrapyard_scene:PackedScene;
-@export var factory_scene:PackedScene;
+@export var sky_colors:Array[Color] = [
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+	Color.WHITE,
+]
 
-@export_subgroup("props")
-@export var small_props_node:Node2D;
-@export var props_node:Node2D;
-@export var small_prop_textures:Array[Texture];
-var small_prop_sprites:Array[Sprite2D];
 
-@export var prop_textures:Array[Texture];
-var prop_sprites:Array[Sprite2D]
 
 
 func _ready()->void:
-	set_props()
-	set_small_props()
+
 	Entities.world_map = self;
 	get_tree().paused = true;
-	generate_world()
 
 
 func _on_player_started_moving() -> void:
@@ -64,74 +68,6 @@ func unpause_map()->void:
 	Entities.in_map_player.process_mode = Node.PROCESS_MODE_ALWAYS;
 
 
-func generate_world()->void:
-	const spawn_range = 2000;
-	var taken_positions:Array[Vector2] = [Entities.in_map_player.position]
-	var alternatives:Array[PackedScene] = [farm_scene, scrapyard_scene, factory_scene];
-	for i in 10:
-		var settlement_name:String = NameDatabase.generate_name();
-		var settlement:Settlement = alternatives.pick_random().instantiate();
-		
-		var location:Vector2 = Vector2(randi_range(0, spawn_range), randi_range(0, spawn_range));
-		while position_taken(location, taken_positions):
-			location = Vector2(randi_range(0, spawn_range), randi_range(0, spawn_range));
-		taken_positions.append(location)
-		settlement.position = location;
-		settlement.name = settlement_name;
-		day_passed.connect(settlement.daily_reset)
-		add_child(settlement);
-
-func set_small_props():
-	for texture in small_prop_textures:
-		var sprite = Sprite2D.new();
-		sprite.texture = texture;
-		ColorCoder.color_code_prop(sprite);
-		sprite.scale = Vector2(2, 2)
-		small_prop_sprites.append(sprite)
-		
-	var taken_positions:Array[Vector2] = [];
-	const prop_amounts = 1000;
-	for prop in small_prop_sprites:
-		for i in prop_amounts:
-			set_prop(prop, taken_positions, 10, true)
-
-func set_props():
-	for texture in prop_textures:
-		var sprite = Sprite2D.new();
-		sprite.texture = texture;
-		ColorCoder.color_code_prop(sprite, true)
-		sprite.scale = Vector2(2, 2);
-		prop_sprites.append(sprite);
-	
-	var taken_positions:Array[Vector2] = [];
-	const prop_amounts = 30;
-	for prop in prop_sprites:
-		for i in prop_amounts:
-			set_prop(prop, taken_positions);
-
-
-func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, small=false)->void:
-	var prop = which.duplicate();
-	var x_roll = randi_range(map_size * -1, map_size);
-	var y_roll = randi_range(map_size*-1, map_size );
-	var target_position = Vector2(x_roll,  y_roll)
-	while position_taken(target_position, taken_positions, min_gap):
-		x_roll = randi_range(map_size * -1, map_size);
-		y_roll = randi_range(map_size*-1, map_size );
-		target_position = Vector2(x_roll,  y_roll)
-	
-	taken_positions.append(target_position);
-	
-	prop.position = target_position;
-	if not small:
-		props_node.add_child(prop);
-	else:
-		small_props_node.add_child(prop);
-func position_taken(to_check:Vector2, taken_positions:Array[Vector2], min_gap:float = 30)->bool:
-	for p in taken_positions:
-		if to_check.distance_to(p)< min_gap:
-			return true;
-	return false;
 
 func _on_minute_ticker_timeout() -> void:
 	current_minute += 1;
@@ -145,3 +81,28 @@ func _on_hour_passed() -> void:
 	if current_hour == 24:
 		current_hour = 0;
 		day_passed.emit()
+	update_light();
+
+
+func _on_day_passed() -> void:
+	current_day += 1;
+	if current_day == 32:
+		current_day = 1;
+		current_month += 1;
+		if current_month == 13:
+			current_month = 1;
+
+func update_light():
+	if not get_tree().paused:
+		var target_color = get_hour_sky_color();
+		
+		var tween = create_tween();
+		tween.tween_property(self, "modulate", target_color, .5)
+
+func get_hour_sky_color(hour:int=current_hour)->Color:
+	var color_index;
+	if current_hour > 11:
+		color_index = 11-(hour-12)
+	else:
+		color_index = hour
+	return sky_colors[color_index];

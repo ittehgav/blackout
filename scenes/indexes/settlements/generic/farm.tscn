@@ -32,6 +32,7 @@ texture = ExtResource("4_6vfoy")
 shape = SubResource("CircleShape2D_oyln7")
 
 [node name="hover_box" type="Control" parent="."]
+z_index = 4
 layout_mode = 3
 anchors_preset = 0
 offset_left = -50.0

@@ -7,16 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="5_8yyg4"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="6_l3xhp"]
 
-[node name="main" type="Node"]
+[node name="main" type="Node2D"]
 script = ExtResource("1_8gx17")
 
 [node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("ui_sfx")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_v0lew")
 world_map_scene = ExtResource("3_onvlx")
 arena_scene = ExtResource("2_ft8he")
@@ -27,9 +23,13 @@ ui_sfx = NodePath("ui_sfx")
 [node name="TextureRect" type="TextureRect" parent="main_ui"]
 texture_filter = 4
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1280.0
+offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_8yyg4")

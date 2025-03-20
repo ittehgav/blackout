@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://cqdyfeds3f681"]
+[gd_scene load_steps=36 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="Texture2D" uid="uid://c56f6fttgx4gb" path="res://assets/visual/backgrounds/settlements/farm.png" id="2_36m0f"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_c11hx"]
+[ext_resource type="AudioStream" uid="uid://tfrup27pkmxl" path="res://assets/sound/ui_sfx/trade_complete.wav" id="2_i581t"]
 [ext_resource type="Script" uid="uid://bahlds1d7kky5" path="res://scenes/map/ui/settlement/options.gd" id="3_2ay4q"]
 [ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://resources/themes/pixel_ui_theme/PixelTheme-Dark-Fade.tres" id="3_obgmr"]
 [ext_resource type="Script" uid="uid://dvt03jqvbsvfs" path="res://scenes/map/ui/settlement/trade_menu.gd" id="4_y856o"]
@@ -11,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="9_bwbxe"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="10_i581t"]
 [ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="11_6i511"]
+[ext_resource type="PackedScene" uid="uid://fwe1bsrtaynq" path="res://scenes/ui/hover_box.tscn" id="12_bwbxe"]
+[ext_resource type="PackedScene" uid="uid://8cr8p5qofnu1" path="res://scenes/map/settlement/sky_view.tscn" id="14_6i511"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fjqa"]
 
@@ -62,6 +65,14 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubk1d"]
+resource_local_to_scene = true
+shader = ExtResource("10_i581t")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xvf0a"]
 resource_local_to_scene = true
 shader = ExtResource("10_i581t")
@@ -101,6 +112,12 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="InputEventAction" id="InputEventAction_bwbxe"]
+action = &"ui_confirm"
+
+[sub_resource type="Shortcut" id="Shortcut_bwbxe"]
+events = [SubResource("InputEventAction_bwbxe")]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pkjfj"]
 resource_local_to_scene = true
@@ -150,7 +167,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_bg", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "ui_sfx")]
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_props", "sky_bg", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "main_view", "trade_view", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -160,6 +177,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dun4i")
+sky_props = NodePath("sky_view")
 sky_bg = NodePath("sky_bg")
 name_label = NodePath("main_view/text/MarginContainer/VBoxContainer/settlement_name")
 short_description_label = NodePath("main_view/text/MarginContainer/VBoxContainer/short_description")
@@ -167,6 +185,9 @@ long_description_label = NodePath("main_view/text/MarginContainer/VBoxContainer/
 trade_btn = NodePath("main_view/options/MarginContainer/VBoxContainer/trade")
 recruit_units_btn = NodePath("main_view/options/MarginContainer/VBoxContainer/recruit_units")
 listen_around_btn = NodePath("main_view/options/MarginContainer/VBoxContainer/listen_around")
+main_view = NodePath("main_view")
+trade_view = NodePath("trade_menu")
+trade_completed_sound = ExtResource("2_i581t")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="sky_bg" type="ColorRect" parent="."]
@@ -174,8 +195,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -720.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.75, 0.75, 0.75, 1)
 
 [node name="background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -189,7 +212,6 @@ texture = ExtResource("2_36m0f")
 [node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
 
 [node name="main_view" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -202,12 +224,13 @@ layout_mode = 2
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 176.0
-offset_bottom = 41.0
+offset_bottom = 44.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("3_obgmr")
 theme_override_font_sizes/font_size = 32
 shortcut = ExtResource("5_36m0f")
+shortcut_in_tooltip = false
 text = "[esc] Exit"
 
 [node name="text" type="PanelContainer" parent="main_view"]
@@ -262,13 +285,17 @@ bbcode_enabled = true
 text = "Region full of manufacturing buildings from [color=blue]Pre-Blackout Civilization[/color], repurposed for production of mechanical and chemical goods."
 fit_content = true
 
-[node name="options" type="PanelContainer" parent="main_view" node_paths=PackedStringArray("main_view", "trade_menu")]
+[node name="options" type="PanelContainer" parent="main_view" node_paths=PackedStringArray("settlement_ui", "post_listen_around", "post_listen_around_list", "memo_label", "main_view", "trade_menu")]
 layout_mode = 0
 offset_left = 746.0
 offset_top = 144.0
 offset_right = 1243.0
 offset_bottom = 650.0
 script = ExtResource("3_2ay4q")
+settlement_ui = NodePath("../..")
+post_listen_around = NodePath("../../post_listen_around")
+post_listen_around_list = NodePath("../../post_listen_around/PanelContainer/list")
+memo_label = NodePath("../../post_listen_around/PanelContainer/list/memo_label")
 main_view = NodePath("..")
 trade_menu = NodePath("../../trade_menu")
 
@@ -320,7 +347,8 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
 text = "Listen Around for
 trade opportunities"
 
-[node name="trade_menu" type="Control" parent="." node_paths=PackedStringArray("in_trade_view", "reset_btn", "player_food", "player_fuel", "player_money", "player_juice", "player_scrap", "player_chips", "settlement_food", "settlement_fuel", "settlement_money", "settlement_juice", "settlement_scrap", "settlement_chips", "food_trade_display", "fuel_trade_display", "juice_trade_display", "scrap_trade_display", "chips_trade_display", "food_selling_price", "fuel_selling_price", "juice_selling_price", "scrap_selling_price", "chips_selling_price", "food_buying_price", "fuel_buying_price", "juice_buying_price", "scrap_buying_price", "chips_buying_price")]
+[node name="trade_menu" type="Control" parent="." node_paths=PackedStringArray("in_trade_view", "reset_btn", "confirm_btn", "player_food", "player_fuel", "player_money", "player_juice", "player_scrap", "player_chips", "settlement_food", "settlement_fuel", "settlement_money", "settlement_juice", "settlement_scrap", "settlement_chips", "food_trade_display", "fuel_trade_display", "money_trade_display", "juice_trade_display", "scrap_trade_display", "chips_trade_display", "food_selling_price", "fuel_selling_price", "juice_selling_price", "scrap_selling_price", "chips_selling_price", "food_buying_price", "fuel_buying_price", "juice_buying_price", "scrap_buying_price", "chips_buying_price")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -328,37 +356,39 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_y856o")
-in_trade_view = NodePath("MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade")
-reset_btn = NodePath("MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/reset")
-player_food = NodePath("MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer/player_food")
-player_fuel = NodePath("MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer2/player_fuel")
-player_money = NodePath("MarginContainer/HBoxContainer/player_trader/HBoxContainer/player_money")
-player_juice = NodePath("MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer3/player_juice")
-player_scrap = NodePath("MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer4/player_scrap")
-player_chips = NodePath("MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer5/player_chips")
-settlement_food = NodePath("MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer/settlement_food")
-settlement_fuel = NodePath("MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer2/settlement_fuel")
-settlement_money = NodePath("MarginContainer/HBoxContainer/settlement_trader/HBoxContainer/settlement_money")
-settlement_juice = NodePath("MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer3/settlement_juice")
-settlement_scrap = NodePath("MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer4/settlement_scrap")
-settlement_chips = NodePath("MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer5/settlement_chips")
-food_trade_display = NodePath("MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade")
-fuel_trade_display = NodePath("MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade")
-juice_trade_display = NodePath("MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade")
-scrap_trade_display = NodePath("MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade")
-chips_trade_display = NodePath("MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade")
-food_selling_price = NodePath("MarginContainer/HBoxContainer/player_trader/selling_prices/food")
-fuel_selling_price = NodePath("MarginContainer/HBoxContainer/player_trader/selling_prices/fuel")
-juice_selling_price = NodePath("MarginContainer/HBoxContainer/player_trader/selling_prices/juice")
-scrap_selling_price = NodePath("MarginContainer/HBoxContainer/player_trader/selling_prices/scrap")
-chips_selling_price = NodePath("MarginContainer/HBoxContainer/player_trader/selling_prices/chips")
-food_buying_price = NodePath("MarginContainer/HBoxContainer/settlement_trader/buying_prices/food")
-fuel_buying_price = NodePath("MarginContainer/HBoxContainer/settlement_trader/buying_prices/fuel")
-juice_buying_price = NodePath("MarginContainer/HBoxContainer/settlement_trader/buying_prices/juice")
-scrap_buying_price = NodePath("MarginContainer/HBoxContainer/settlement_trader/buying_prices/scrap")
-chips_buying_price = NodePath("MarginContainer/HBoxContainer/settlement_trader/buying_prices/chips")
+in_trade_view = NodePath("margin/hbox/in_trade_tween_anchor/in_trade")
+reset_btn = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/reset")
+confirm_btn = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/confirm_trade")
+player_food = NodePath("margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer/player_food")
+player_fuel = NodePath("margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer2/player_fuel")
+player_money = NodePath("margin/hbox/player_trader/HBoxContainer/player_money")
+player_juice = NodePath("margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer3/player_juice")
+player_scrap = NodePath("margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer4/player_scrap")
+player_chips = NodePath("margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer5/player_chips")
+settlement_food = NodePath("margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer/settlement_food")
+settlement_fuel = NodePath("margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer2/settlement_fuel")
+settlement_money = NodePath("margin/hbox/settlement_trader/HBoxContainer/settlement_money")
+settlement_juice = NodePath("margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer3/settlement_juice")
+settlement_scrap = NodePath("margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer4/settlement_scrap")
+settlement_chips = NodePath("margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer5/settlement_chips")
+food_trade_display = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade")
+fuel_trade_display = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade")
+money_trade_display = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/money_trade")
+juice_trade_display = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade")
+scrap_trade_display = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade")
+chips_trade_display = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade")
+food_selling_price = NodePath("margin/hbox/player_trader/selling_prices/food")
+fuel_selling_price = NodePath("margin/hbox/player_trader/selling_prices/fuel")
+juice_selling_price = NodePath("margin/hbox/player_trader/selling_prices/juice")
+scrap_selling_price = NodePath("margin/hbox/player_trader/selling_prices/scrap")
+chips_selling_price = NodePath("margin/hbox/player_trader/selling_prices/chips")
+food_buying_price = NodePath("margin/hbox/settlement_trader/buying_prices/food")
+fuel_buying_price = NodePath("margin/hbox/settlement_trader/buying_prices/fuel")
+juice_buying_price = NodePath("margin/hbox/settlement_trader/buying_prices/juice")
+scrap_buying_price = NodePath("margin/hbox/settlement_trader/buying_prices/scrap")
+chips_buying_price = NodePath("margin/hbox/settlement_trader/buying_prices/chips")
 
-[node name="MarginContainer" type="MarginContainer" parent="trade_menu"]
+[node name="margin" type="MarginContainer" parent="trade_menu"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -367,16 +397,16 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/MarginContainer"]
+[node name="hbox" type="HBoxContainer" parent="trade_menu/margin"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="player_trader" type="Panel" parent="trade_menu/MarginContainer/HBoxContainer"]
+[node name="player_trader" type="Panel" parent="trade_menu/margin/hbox"]
 custom_minimum_size = Vector2(400, 600)
 layout_mode = 2
 
-[node name="player_name" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader"]
+[node name="player_name" type="Label" parent="trade_menu/margin/hbox/player_trader"]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 16.0
@@ -385,232 +415,320 @@ offset_bottom = 67.0
 theme_override_font_sizes/font_size = 64
 text = "Player"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader"]
+[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/margin/hbox/player_trader"]
 layout_mode = 0
 offset_left = 194.0
 offset_top = 100.0
 offset_right = 258.0
 offset_bottom = 140.0
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/HBoxContainer" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/player_trader/HBoxContainer" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_gxtxx")
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 resource = "money"
 
-[node name="player_money" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/HBoxContainer"]
+[node name="player_money" type="Label" parent="trade_menu/margin/hbox/player_trader/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "$1"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader"]
+[node name="resource_sell_options" type="VBoxContainer" parent="trade_menu/margin/hbox/player_trader"]
 layout_mode = 0
 offset_left = 61.0
 offset_top = 80.0
 offset_right = 309.0
 offset_bottom = 415.0
 
-[node name="Label" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer"]
+[node name="Label" type="Label" parent="trade_menu/margin/hbox/player_trader/resource_sell_options"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Sell"
 
-[node name="Label2" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer"]
+[node name="Label2" type="Label" parent="trade_menu/margin/hbox/player_trader/resource_sell_options"]
 layout_mode = 2
 text = "Resources"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="trade_menu/margin/hbox/player_trader/resource_sell_options"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_fgyyh")
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+ALL"
 
-[node name="player_food" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="player_food" type="Label" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "11"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 
-[node name="resource_icon2" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon2" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer2" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_pm0ox")
 layout_mode = 2
 size_flags_horizontal = 0
 resource = "fuel"
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+ALL"
 
-[node name="player_fuel" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="player_fuel" type="Label" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "21"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer3" type="HBoxContainer" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 
-[node name="resource_icon3" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer3" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon3" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer3" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_m2mhi")
 layout_mode = 2
 size_flags_horizontal = 0
 resource = "juice"
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+ALL"
 
-[node name="player_juice" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="player_juice" type="Label" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "22"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer4" type="HBoxContainer" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 
-[node name="resource_icon4" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon4" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer4" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_akq8h")
 layout_mode = 2
 size_flags_horizontal = 0
 resource = "scrap"
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+ALL"
 
-[node name="player_scrap" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="player_scrap" type="Label" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 text = "wa"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer5" type="HBoxContainer" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 
-[node name="resource_icon5" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer5" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon5" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer5" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_05gvk")
 layout_mode = 2
 size_flags_horizontal = 0
 resource = "chips"
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+ALL"
 
-[node name="player_chips" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="player_chips" type="Label" parent="trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 text = "22"
 
-[node name="selling_prices" type="VBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/player_trader"]
+[node name="selling_prices" type="VBoxContainer" parent="trade_menu/margin/hbox/player_trader"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 170.0
 offset_right = 89.0
-offset_bottom = 376.0
+offset_bottom = 380.0
 theme_override_constants/separation = 20
 
-[node name="food" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/selling_prices"]
+[node name="food" type="Label" parent="trade_menu/margin/hbox/player_trader/selling_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="fuel" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/selling_prices"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/player_trader/selling_prices/food" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 48.0
+offset_top = -10.0
+offset_right = 348.0
+offset_bottom = 36.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_sell_options/VBoxContainer/HBoxContainer")
+
+[node name="fuel" type="Label" parent="trade_menu/margin/hbox/player_trader/selling_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="juice" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/selling_prices"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/player_trader/selling_prices/fuel" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 48.0
+offset_top = -10.0
+offset_right = 348.0
+offset_bottom = 36.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_sell_options/VBoxContainer/HBoxContainer2")
+
+[node name="juice" type="Label" parent="trade_menu/margin/hbox/player_trader/selling_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="scrap" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/selling_prices"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/player_trader/selling_prices/juice" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 48.0
+offset_top = -10.0
+offset_right = 348.0
+offset_bottom = 36.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_sell_options/VBoxContainer/HBoxContainer3")
+
+[node name="scrap" type="Label" parent="trade_menu/margin/hbox/player_trader/selling_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="chips" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/player_trader/selling_prices"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/player_trader/selling_prices/scrap" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 48.0
+offset_top = -10.0
+offset_right = 348.0
+offset_bottom = 36.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_sell_options/VBoxContainer/HBoxContainer4")
+
+[node name="chips" type="Label" parent="trade_menu/margin/hbox/player_trader/selling_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="in_trade_tween_anchor" type="Control" parent="trade_menu/MarginContainer/HBoxContainer"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/player_trader/selling_prices/chips" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 48.0
+offset_top = -10.0
+offset_right = 348.0
+offset_bottom = 36.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_sell_options/VBoxContainer/HBoxContainer5")
+
+[node name="in_trade_tween_anchor" type="Control" parent="trade_menu/margin/hbox"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="in_trade" type="Panel" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor"]
+[node name="in_trade" type="Panel" parent="trade_menu/margin/hbox/in_trade_tween_anchor"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -619,7 +737,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade"]
+[node name="Label" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade"]
 layout_mode = 0
 offset_left = 92.0
 offset_top = 28.0
@@ -628,7 +746,24 @@ offset_bottom = 79.0
 theme_override_font_sizes/font_size = 64
 text = "Trade"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade"]
+[node name="money_trade" type="HBoxContainer" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 101.0
+offset_right = 278.0
+offset_bottom = 141.0
+
+[node name="resource_icon" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/money_trade" instance=ExtResource("9_bwbxe")]
+material = SubResource("ShaderMaterial_ubk1d")
+layout_mode = 2
+resource = "money"
+
+[node name="label" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/money_trade"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "$$@"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -636,106 +771,133 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -23.0
-offset_top = -148.0
+offset_top = -125.0
 offset_right = 23.0
-offset_bottom = 48.0
+offset_bottom = 71.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="reset" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer"]
+[node name="reset" type="Button" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer"]
 visible = false
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "Reset"
 
-[node name="food_trade" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer"]
+[node name="food_trade" type="HBoxContainer" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="sold" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade"]
+[node name="sold" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.454902, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_xvf0a")
 layout_mode = 2
 
-[node name="bought" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade"]
+[node name="bought" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.196078, 1, 0.196078, 1)
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="fuel_trade" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer"]
+[node name="fuel_trade" type="HBoxContainer" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="sold" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade"]
+[node name="sold" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.454902, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_qjyf3")
 layout_mode = 2
 resource = "fuel"
 
-[node name="bought" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade"]
+[node name="bought" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.196078, 1, 0.196078, 1)
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="juice_trade" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer"]
+[node name="juice_trade" type="HBoxContainer" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="sold" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade"]
+[node name="sold" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.454902, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_bwbxe")
 layout_mode = 2
 resource = "juice"
 
-[node name="bought" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade"]
+[node name="bought" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.196078, 1, 0.196078, 1)
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="scrap_trade" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer"]
+[node name="scrap_trade" type="HBoxContainer" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="sold" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade"]
+[node name="sold" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.454902, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_i581t")
 layout_mode = 2
 resource = "scrap"
 
-[node name="bought" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade"]
+[node name="bought" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.196078, 1, 0.196078, 1)
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="chips_trade" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer"]
+[node name="chips_trade" type="HBoxContainer" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 15
 
-[node name="sold" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade"]
+[node name="sold" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.454902, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_6i511")
 layout_mode = 2
 resource = "chips"
 
-[node name="bought" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade"]
+[node name="bought" type="Label" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.196078, 1, 0.196078, 1)
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 48
 
-[node name="settlement_trader" type="Panel" parent="trade_menu/MarginContainer/HBoxContainer"]
+[node name="confirm_trade" type="Button" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade"]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 528.0
+offset_right = 281.0
+offset_bottom = 588.0
+disabled = true
+shortcut = SubResource("Shortcut_bwbxe")
+text = "[spacebar] 
+Confirm Trade"
+
+[node name="settlement_trader" type="Panel" parent="trade_menu/margin/hbox"]
 custom_minimum_size = Vector2(400, 600)
 layout_mode = 2
 
-[node name="player_name" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader"]
+[node name="player_name" type="Label" parent="trade_menu/margin/hbox/settlement_trader"]
 layout_mode = 0
 offset_left = 31.0
 offset_top = 16.0
@@ -745,26 +907,24 @@ theme_override_font_sizes/font_size = 64
 text = "Settlement"
 autowrap_mode = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader"]
+[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/margin/hbox/settlement_trader"]
 layout_mode = 0
 offset_left = 34.0
 offset_top = 100.0
 offset_right = 122.0
 offset_bottom = 151.0
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/HBoxContainer" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/settlement_trader/HBoxContainer" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_pkjfj")
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 resource = "money"
 
-[node name="settlement_money" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/HBoxContainer"]
+[node name="settlement_money" type="Label" parent="trade_menu/margin/hbox/settlement_trader/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "$1"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader"]
+[node name="resource_buy_opts" type="VBoxContainer" parent="trade_menu/margin/hbox/settlement_trader"]
 layout_direction = 3
 layout_mode = 0
 offset_left = 77.0
@@ -772,208 +932,345 @@ offset_top = 80.0
 offset_right = 349.0
 offset_bottom = 415.0
 
-[node name="Label" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer"]
+[node name="Label" type="Label" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Buy"
 
-[node name="Label2" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer"]
+[node name="Label2" type="Label" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts"]
 layout_mode = 2
 text = "Resources"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer" type="HBoxContainer" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 player_side = false
 
-[node name="resource_icon" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_jxa5d")
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+MAX"
 
-[node name="settlement_food" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="settlement_food" type="Label" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "4213"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 player_side = false
 
-[node name="resource_icon2" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon2" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer2" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_qrl08")
 layout_mode = 2
 size_flags_horizontal = 0
 resource = "fuel"
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+MAX"
 
-[node name="settlement_fuel" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="settlement_fuel" type="Label" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "21"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer3" type="HBoxContainer" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 player_side = false
 
-[node name="resource_icon3" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer3" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon3" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer3" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_ud2rb")
 layout_mode = 2
 size_flags_horizontal = 0
 resource = "juice"
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+MAX"
 
-[node name="settlement_juice" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="settlement_juice" type="Label" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "21"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer4" type="HBoxContainer" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 player_side = false
 
-[node name="resource_icon4" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon4" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer4" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_474x4")
 layout_mode = 2
 size_flags_horizontal = 0
 resource = "scrap"
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+MAX"
 
-[node name="settlement_scrap" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer4"]
+[node name="settlement_scrap" type="Label" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 text = "12"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
+[node name="HBoxContainer5" type="HBoxContainer" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("8_qjyf3")
 trade_menu = NodePath("../../../../../..")
 player_side = false
 
-[node name="resource_icon5" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer5" instance=ExtResource("9_bwbxe")]
+[node name="resource_icon5" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer5" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_6hn8o")
 layout_mode = 2
 size_flags_horizontal = 0
 resource = "chips"
 
-[node name="Button" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="Button" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+1"
 
-[node name="Button2" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="Button2" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+10"
 
-[node name="Button3" type="Button" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="Button3" type="Button" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("11_6i511")
 text = "+MAX"
 
-[node name="settlement_chips" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer/VBoxContainer/HBoxContainer5"]
+[node name="settlement_chips" type="Label" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 text = "11"
 
-[node name="Label3" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/VBoxContainer"]
+[node name="Label3" type="Label" parent="trade_menu/margin/hbox/settlement_trader/resource_buy_opts"]
 layout_mode = 2
 
-[node name="buying_prices" type="VBoxContainer" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader"]
+[node name="buying_prices" type="VBoxContainer" parent="trade_menu/margin/hbox/settlement_trader"]
 layout_mode = 0
 offset_left = 336.0
 offset_top = 170.0
 offset_right = 416.0
-offset_bottom = 376.0
+offset_bottom = 380.0
 theme_override_constants/separation = 20
 
-[node name="food" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/buying_prices"]
+[node name="food" type="Label" parent="trade_menu/margin/hbox/settlement_trader/buying_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="fuel" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/buying_prices"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/settlement_trader/buying_prices/food" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -310.0
+offset_top = -9.0
+offset_right = -10.0
+offset_bottom = 37.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_buy_opts/VBoxContainer/HBoxContainer")
+
+[node name="fuel" type="Label" parent="trade_menu/margin/hbox/settlement_trader/buying_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="juice" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/buying_prices"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/settlement_trader/buying_prices/fuel" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -310.0
+offset_top = -9.0
+offset_right = -10.0
+offset_bottom = 37.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_buy_opts/VBoxContainer/HBoxContainer2")
+
+[node name="juice" type="Label" parent="trade_menu/margin/hbox/settlement_trader/buying_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="scrap" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/buying_prices"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/settlement_trader/buying_prices/juice" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -310.0
+offset_top = -9.0
+offset_right = -10.0
+offset_bottom = 37.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_buy_opts/VBoxContainer/HBoxContainer3")
+
+[node name="scrap" type="Label" parent="trade_menu/margin/hbox/settlement_trader/buying_prices"]
 layout_mode = 2
 text = "$c12"
 
-[node name="chips" type="Label" parent="trade_menu/MarginContainer/HBoxContainer/settlement_trader/buying_prices"]
+[node name="HoverBox" parent="trade_menu/margin/hbox/settlement_trader/buying_prices/scrap" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -310.0
+offset_top = -9.0
+offset_right = -10.0
+offset_bottom = 37.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_buy_opts/VBoxContainer/HBoxContainer4")
+
+[node name="chips" type="Label" parent="trade_menu/margin/hbox/settlement_trader/buying_prices"]
 layout_mode = 2
 text = "$c12"
+
+[node name="HoverBox" parent="trade_menu/margin/hbox/settlement_trader/buying_prices/chips" node_paths=PackedStringArray("hover_target") instance=ExtResource("12_bwbxe")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -310.0
+offset_top = -9.0
+offset_right = -10.0
+offset_bottom = 37.0
+grow_horizontal = 1
+grow_vertical = 1
+hover_target = NodePath("../../../resource_buy_opts/VBoxContainer/HBoxContainer5")
+
+[node name="return" type="Button" parent="trade_menu"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 9.0
+offset_right = 187.0
+offset_bottom = 43.0
+shortcut = ExtResource("5_36m0f")
+shortcut_in_tooltip = false
+text = "[esc] Return"
+
+[node name="post_listen_around" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="post_listen_around"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 123.0
+offset_right = 1094.0
+offset_bottom = 447.0
+
+[node name="list" type="VBoxContainer" parent="post_listen_around/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="post_listen_around/PanelContainer/list"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Information Found:"
+horizontal_alignment = 1
+
+[node name="memo_label" type="RichTextLabel" parent="post_listen_around/PanelContainer/list"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="sky_view" parent="." instance=ExtResource("14_6i511")]
+layout_mode = 1
+offset_top = -720.0
+offset_bottom = -720.0
 
 [connection signal="settlement_entered" from="." to="." method="_on_settlement_entered"]
 [connection signal="settlement_entered" from="." to="trade_menu" method="_on_settlement_ui_settlement_entered"]
@@ -982,4 +1279,7 @@ text = "$c12"
 [connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/trade" to="main_view/options" method="trade"]
 [connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/recruit_units" to="main_view/options" method="recruit_units"]
 [connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/listen_around" to="main_view/options" method="listen_around"]
-[connection signal="pressed" from="trade_menu/MarginContainer/HBoxContainer/in_trade_tween_anchor/in_trade/VBoxContainer/reset" to="trade_menu" method="reset_trade"]
+[connection signal="trade_completed" from="trade_menu" to="." method="_on_trade_menu_trade_completed"]
+[connection signal="pressed" from="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/reset" to="trade_menu" method="reset_trade"]
+[connection signal="pressed" from="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/confirm_trade" to="trade_menu" method="_on_confirm_trade_pressed"]
+[connection signal="pressed" from="trade_menu/return" to="trade_menu" method="exit_trade_menu"]

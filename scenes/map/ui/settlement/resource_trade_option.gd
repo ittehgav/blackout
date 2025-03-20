@@ -1,6 +1,5 @@
 extends HBoxContainer
 
-
 @export var trade_menu:Control;
 @export var player_side:bool=true;
 

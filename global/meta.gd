@@ -30,6 +30,12 @@ const resource_colors = {
 	"chips":Color.SKY_BLUE
 }
 
+func resource_colored_name(resource:String):
+	var color = resource_colors[resource].to_html();
+	var string = "[color=" + color + "]"+resource
+	return string
+
+
 const resource_descriptions = {
 	"food": "[color=green]Basic survival resource[/color], you and your recruits need to eat some food 
 	every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop",

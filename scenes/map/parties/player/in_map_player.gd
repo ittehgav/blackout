@@ -14,10 +14,14 @@ func _ready()->void:
 func _input(e:InputEvent)->void:
 	if e is InputEventMouseButton and e.is_pressed() \
 	and e.button_index==MOUSE_BUTTON_LEFT:
-		target_position = Entities.world_map.get_local_mouse_position();
-		if not camera.in_player:
-			target_position += camera.position - position;
-		started_moving.emit();
+		var cursor_position:Vector2 = Entities.world_map.get_local_mouse_position()
+		if position.distance_to(cursor_position) > 30:
+			target_position = cursor_position
+			if not camera.in_player:
+				target_position += camera.position - position;
+			
+			started_moving.emit();
+
 
 	if camera.in_player:
 		var camera_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -62,6 +66,7 @@ func interact_with_map_entity(entity:MapEntity)->void:
 func _on_started_moving() -> void:
 	get_tree().paused = false;
 	camera.return_to_player()
+
 
 
 func _on_stopped_moving() -> void:

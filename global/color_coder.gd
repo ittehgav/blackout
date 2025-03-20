@@ -69,9 +69,8 @@ func color_code_settlement(settlement:Settlement)->void:
 		Color.BLUE: Color.DARK_GREEN.lightened(.5),
 		Color.RED: Color.DARK_GREEN.darkened(.5)
 	}
-	
 	color_code_sprite(sprite, dict)
-
+	sprite.material.set_shader_parameter("color",Color.DARK_GREEN.lightened(.5) + Color(0, 0, 0, -.5))
 
 
 func color_code_sprite(sprite:Sprite2D, pairs:Dictionary)->void:
@@ -96,11 +95,10 @@ func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:
 	return ImageTexture.create_from_image(img);
 
 func color_code_prop(prop:Sprite2D, small:bool=false)->void:
-	var dict = {
-		Color.RED: Color.SADDLE_BROWN + Color(0,0,0,-.8),
-		Color.BLUE: Color(.1, .1, .1) + Color(0, .15, 0, -.3),
-		Color.GREEN: Color.LIGHT_GRAY.darkened(.4) + Color(0, .1, 0, -.3)
+	const dict = {
+		Color.RED: Color(.5, .5, .5, .4),
+		Color.BLUE: Color(.3, .3, .3),
+		Color.GREEN: Color(.9, .9, .9)
 	}
-	if small:
-		dict[Color.RED].a = .8;
+
 	prop.texture = color_code_texture(prop.texture, dict);
