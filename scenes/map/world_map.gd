@@ -40,6 +40,7 @@ var current_minute:int=30;
 
 
 func _ready()->void:
+	Entities.main_bgm.play_bgm("in_map")
 
 	Entities.world_map = self;
 	get_tree().paused = true;

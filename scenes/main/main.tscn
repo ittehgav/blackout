@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=12 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://dw4kenb3r4atf" path="res://scenes/map/world_map/world_map.tscn" id="3_onvlx"]
 [ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="5_8yyg4"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="6_l3xhp"]
+[ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="6_ouso4"]
+[ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/in_map.ogg" id="7_blune"]
+[ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/in_settlement.ogg" id="8_th5th"]
+[ext_resource type="AudioStream" uid="uid://cbb5k61nskf8o" path="res://assets/sound/bgm/loops/combat.ogg" id="9_7smn1"]
+[ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/main_menu.ogg" id="10_raeie"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_8gx17")
@@ -19,6 +24,13 @@ arena_scene = ExtResource("2_ft8he")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="main_ui" instance=ExtResource("6_l3xhp")]
+
+[node name="main_bgm" type="AudioStreamPlayer" parent="main_ui"]
+script = ExtResource("6_ouso4")
+in_map = ExtResource("7_blune")
+in_settlement = ExtResource("8_th5th")
+combat = ExtResource("9_7smn1")
+intro = ExtResource("10_raeie")
 
 [node name="TextureRect" type="TextureRect" parent="main_ui"]
 texture_filter = 4

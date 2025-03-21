@@ -22,6 +22,8 @@ signal morale_changed;
 ## ANY ITEMS THAT BELONG TO THE PLAYER WILL BE CHILDREN OF THE INVENTORY NODE
 @export var equipped_weapon:Weapon;
 
+var memos:Array[Memo];
+
 
 var morale:float=4.56664;
 

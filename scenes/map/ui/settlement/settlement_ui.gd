@@ -31,6 +31,7 @@ var sky_base_color = Color.LIGHT_SKY_BLUE;
 
 
 func _on_settlement_entered(settlement: Settlement) -> void:
+	Entities.main_bgm.play_bgm("in_settlement")
 	ui_sfx.play_stream(ui_sfx.settlement_entered)
 	Entities.world_map.pause_map();
 	
@@ -61,6 +62,7 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 
 
 func _on_settlement_left() -> void:
+	Entities.main_bgm.play_bgm("in_map")
 	Entities.world_map.unpause_map();
 
 

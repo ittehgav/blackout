@@ -2,6 +2,7 @@ extends Node
 
 
 var main:Node;
+var main_bgm:AudioStreamPlayer;
 
 var player:Player;
 var in_fight_player:InFightPlayer;

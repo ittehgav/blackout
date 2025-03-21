@@ -28,14 +28,14 @@ func generate(settlement:Settlement):
 func generate_description()->String:
 	var positive_event_highlight_color = "[color=" + Color.GREEN.to_html()+ "]"
 	var negative_event_highlight_color = "[color=" + Color.RED.to_html() + "]";
-	var string:String = target.name;
+	var string:String = "[color=light_blue]" + target.name + "[/color]"
 	
 	if positive:
 		if change < .3:
 			string += " has a"+positive_event_highlight_color + " Slight Surplus[/color] of "\
 			 + Meta.resource_colored_name(resource) + "[/color] and is selling it for"+positive_event_highlight_color + " cheaper than usual.";
 		elif change < .7:
-			string += " has an"+ positive_event_highlight_color + " Surplus[/color] of "\
+			string += " has a"+ positive_event_highlight_color + " Surplus[/color] of "\
 			+ Meta.resource_colored_name(resource) + "[/color] and prices are"+positive_event_highlight_color+" much lower!"
 		else:
 			string += " has a"+ positive_event_highlight_color + " Massive Surplus[/color] of "\
