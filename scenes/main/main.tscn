@@ -26,6 +26,7 @@ ui_sfx = NodePath("ui_sfx")
 [node name="ui_sfx" parent="main_ui" instance=ExtResource("6_l3xhp")]
 
 [node name="main_bgm" type="AudioStreamPlayer" parent="main_ui"]
+process_mode = 3
 script = ExtResource("6_ouso4")
 in_map = ExtResource("7_blune")
 in_settlement = ExtResource("8_th5th")

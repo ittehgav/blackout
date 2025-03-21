@@ -37,6 +37,22 @@ var current_minute:int=30;
 ]
 
 
+var hour_bgm_pitches = [
+	.8,
+	.85,
+	.9,
+	.95,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	
+]
+var all_settlements = {}
 
 
 func _ready()->void:
@@ -99,6 +115,15 @@ func update_light():
 		
 		var tween = create_tween();
 		tween.tween_property(self, "modulate", target_color, .5)
+		tween.parallel().tween_property(Entities.main_bgm, "pitch_scale", get_hour_pitch(), 2)
+
+func get_hour_pitch(hour:int = current_hour)->float:
+	var pitch_index;
+	if current_hour > 11:
+		pitch_index = 11-(hour-12)
+	else:
+		pitch_index = hour
+	return hour_bgm_pitches[pitch_index]
 
 func get_hour_sky_color(hour:int=current_hour)->Color:
 	var color_index;

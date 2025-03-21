@@ -10,5 +10,6 @@ func _ready()->void:
 	play_bgm("intro")
 	
 func play_bgm(key:String)->void:
+	pitch_scale = 1;
 	stream = self[key];
-	play();
+	#play();

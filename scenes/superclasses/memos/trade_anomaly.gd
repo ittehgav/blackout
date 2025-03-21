@@ -28,7 +28,7 @@ func generate(settlement:Settlement):
 func generate_description()->String:
 	var positive_event_highlight_color = "[color=" + Color.GREEN.to_html()+ "]"
 	var negative_event_highlight_color = "[color=" + Color.RED.to_html() + "]";
-	var string:String = "[color=light_blue]" + target.name + "[/color]"
+	var string:String = Meta.tagged_settlement_name(target)
 	
 	if positive:
 		if change < .3:

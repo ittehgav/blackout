@@ -60,6 +60,8 @@ func generate_settlements()->void:
 	var all_settlements:Array[Settlement]=[];
 	for i in 20:
 		var settlement_name:String = NameDatabase.generate_name();
+		while settlement_name in world_map.all_settlements.keys():
+			settlement_name = NameDatabase.generate_name()
 		var settlement:Settlement = alternatives.pick_random().instantiate();
 		
 		var location:Vector2 = Vector2(randi_range(0, spawn_range), randi_range(0, spawn_range));
@@ -71,6 +73,8 @@ func generate_settlements()->void:
 		world_map.day_passed.connect(settlement.daily_reset)
 		all_settlements.append(settlement);
 		world_map.add_child(settlement);
+		world_map.all_settlements[settlement.name] = settlement;
+
 	set_neighbors(all_settlements);
 	
 func set_neighbors(settlements:Array[Settlement]):

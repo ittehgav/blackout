@@ -48,7 +48,7 @@ func generate_sky():
 	await get_tree().create_timer(1.25).timeout
 	var wait_acm:float = 0;
 	for i in 3:
-		var x_margin = 100;
+		const x_margin = 300;
 		var chatter = chatter_box.duplicate();
 		chatter.position = Vector2(randi_range(x_margin, window_size.x - x_margin), window_size.y + 200 + randi_range(10, 50));
 		add_child(chatter)

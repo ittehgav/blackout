@@ -18,6 +18,8 @@ extends Node
 	"chips":load("res://assets/visual/icons/resources/chips.png"),
 }
 
+func tagged_settlement_name(settlement:Settlement):
+	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 
 
 const resource_colors = {

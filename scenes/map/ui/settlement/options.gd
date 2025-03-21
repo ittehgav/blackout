@@ -62,7 +62,7 @@ func listen_around() -> void:
 			found.append(all_anomalies.pick_random())
 
 	for anomaly:TradeAnomaly in found:
-		var label = memo_label.duplicate();
+		var label = memo_label.duplicate(true);
 		label.show()
 		label.text = anomaly.generate_description();
 		post_listen_around_list.add_child(label);
@@ -80,9 +80,7 @@ func listen_around() -> void:
 
 
 
-func exit_settlement() -> void:
-	settlement_ui.settlement_left.emit();
-	settlement_ui.hide();
+
 
 func show_main_view()->void:
 	trade_menu.hide()

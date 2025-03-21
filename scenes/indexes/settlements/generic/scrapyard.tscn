@@ -15,11 +15,6 @@ input_pickable = true
 script = ExtResource("2_ylbiw")
 background = ExtResource("2_k2u3n")
 inventory = NodePath("Inventory")
-food_production = 10
-fuel_production = 50
-juice_production = 10
-scrap_production = 50
-chips_production = 10
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("5_38mel")

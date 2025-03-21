@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cqdyfeds3f681"]
+[gd_scene load_steps=39 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="Texture2D" uid="uid://c56f6fttgx4gb" path="res://assets/visual/backgrounds/settlements/farm.png" id="2_36m0f"]
@@ -14,6 +14,7 @@
 [ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="11_6i511"]
 [ext_resource type="PackedScene" uid="uid://fwe1bsrtaynq" path="res://scenes/ui/hover_box.tscn" id="12_bwbxe"]
 [ext_resource type="PackedScene" uid="uid://8cr8p5qofnu1" path="res://scenes/map/settlement/sky_view.tscn" id="14_6i511"]
+[ext_resource type="Script" uid="uid://lcw1ymx6e6i6" path="res://scenes/map/ui/settlement/post_listen_around.gd" id="14_fgyyh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fjqa"]
 
@@ -65,6 +66,20 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgyyh"]
+bg_color = Color(0, 0.93, 0.1705, 0.890196)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pm0ox"]
+bg_color = Color(0.3672, 0.46104, 0.68, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ubk1d"]
 resource_local_to_scene = true
 shader = ExtResource("10_i581t")
@@ -112,12 +127,6 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="InputEventAction" id="InputEventAction_bwbxe"]
-action = &"ui_confirm"
-
-[sub_resource type="Shortcut" id="Shortcut_bwbxe"]
-events = [SubResource("InputEventAction_bwbxe")]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pkjfj"]
 resource_local_to_scene = true
@@ -167,7 +176,13 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_props", "sky_bg", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "main_view", "trade_view", "ui_sfx")]
+[sub_resource type="InputEventAction" id="InputEventAction_bwbxe"]
+action = &"ui_confirm"
+
+[sub_resource type="Shortcut" id="Shortcut_bwbxe"]
+events = [SubResource("InputEventAction_bwbxe")]
+
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_props", "sky_bg", "relationship_progress", "relation_label", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "main_view", "trade_view", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -179,6 +194,8 @@ grow_vertical = 2
 script = ExtResource("1_dun4i")
 sky_props = NodePath("sky_view")
 sky_bg = NodePath("sky_bg")
+relationship_progress = NodePath("main_view/text/MarginContainer/VBoxContainer/relation_progress")
+relation_label = NodePath("main_view/text/MarginContainer/VBoxContainer/relation")
 name_label = NodePath("main_view/text/MarginContainer/VBoxContainer/settlement_name")
 short_description_label = NodePath("main_view/text/MarginContainer/VBoxContainer/short_description")
 long_description_label = NodePath("main_view/text/MarginContainer/VBoxContainer/long_description")
@@ -212,6 +229,7 @@ texture = ExtResource("2_36m0f")
 [node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
 
 [node name="main_view" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -257,7 +275,7 @@ theme_type_variation = &"settlement_title"
 theme_override_colors/font_shadow_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
-theme_override_font_sizes/font_size = 80
+theme_override_font_sizes/font_size = 64
 text = "Factory"
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -266,24 +284,46 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="short_description" type="RichTextLabel" parent="main_view/text/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 150)
+[node name="relation" type="RichTextLabel" parent="main_view/text/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
 theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
 bbcode_enabled = true
-text = "Produces and trades mostly [color=green]Fuel, Juice and Scrap.[/color]"
-scroll_active = false
-shortcut_keys_enabled = false
+text = "Relation:"
+fit_content = true
+
+[node name="relation_progress" type="ProgressBar" parent="main_view/text/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 33.0
 
 [node name="HSeparator2" type="HSeparator" parent="main_view/text/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="short_description" type="RichTextLabel" parent="main_view/text/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Produces and trades mostly [color=green]Fuel, Juice and Scrap.[/color]"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+
 [node name="long_description" type="RichTextLabel" parent="main_view/text/MarginContainer/VBoxContainer"]
 modulate = Color(0.73, 0.73, 0.73, 1)
 layout_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
 bbcode_enabled = true
 text = "Region full of manufacturing buildings from [color=blue]Pre-Blackout Civilization[/color], repurposed for production of mechanical and chemical goods."
 fit_content = true
+shortcut_keys_enabled = false
+horizontal_alignment = 1
 
 [node name="options" type="PanelContainer" parent="main_view" node_paths=PackedStringArray("settlement_ui", "post_listen_around", "post_listen_around_list", "memo_label", "main_view", "trade_menu")]
 layout_mode = 0
@@ -294,8 +334,8 @@ offset_bottom = 650.0
 script = ExtResource("3_2ay4q")
 settlement_ui = NodePath("../..")
 post_listen_around = NodePath("../../post_listen_around")
-post_listen_around_list = NodePath("../../post_listen_around/PanelContainer/list")
-memo_label = NodePath("../../post_listen_around/PanelContainer/list/memo_label")
+post_listen_around_list = NodePath("../../post_listen_around/panel/list")
+memo_label = NodePath("../../post_listen_around/panel/list/memo_label")
 main_view = NodePath("..")
 trade_menu = NodePath("../../trade_menu")
 
@@ -347,8 +387,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
 text = "Listen Around for
 trade opportunities"
 
-[node name="trade_menu" type="Control" parent="." node_paths=PackedStringArray("in_trade_view", "reset_btn", "confirm_btn", "player_food", "player_fuel", "player_money", "player_juice", "player_scrap", "player_chips", "settlement_food", "settlement_fuel", "settlement_money", "settlement_juice", "settlement_scrap", "settlement_chips", "food_trade_display", "fuel_trade_display", "money_trade_display", "juice_trade_display", "scrap_trade_display", "chips_trade_display", "food_selling_price", "fuel_selling_price", "juice_selling_price", "scrap_selling_price", "chips_selling_price", "food_buying_price", "fuel_buying_price", "juice_buying_price", "scrap_buying_price", "chips_buying_price")]
-visible = false
+[node name="trade_menu" type="Control" parent="." node_paths=PackedStringArray("relation_progress_current", "relation_progress_gain", "relation_label", "in_trade_view", "reset_btn", "confirm_btn", "player_food", "player_fuel", "player_money", "player_juice", "player_scrap", "player_chips", "settlement_food", "settlement_fuel", "settlement_money", "settlement_juice", "settlement_scrap", "settlement_chips", "food_trade_display", "fuel_trade_display", "money_trade_display", "juice_trade_display", "scrap_trade_display", "chips_trade_display", "food_selling_price", "fuel_selling_price", "juice_selling_price", "scrap_selling_price", "chips_selling_price", "food_buying_price", "fuel_buying_price", "juice_buying_price", "scrap_buying_price", "chips_buying_price")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -356,9 +395,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_y856o")
+relation_progress_current = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/relation_progress_gain/relation_progress_current")
+relation_progress_gain = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/relation_progress_gain")
+relation_label = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/relation_progress_gain/relation_progress_current/relation_label")
 in_trade_view = NodePath("margin/hbox/in_trade_tween_anchor/in_trade")
 reset_btn = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/reset")
-confirm_btn = NodePath("margin/hbox/in_trade_tween_anchor/in_trade/confirm_trade")
+confirm_btn = NodePath("margin/hbox/settlement_trader/confirm_trade")
 player_food = NodePath("margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer/player_food")
 player_fuel = NodePath("margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer2/player_fuel")
 player_money = NodePath("margin/hbox/player_trader/HBoxContainer/player_money")
@@ -746,12 +788,52 @@ offset_bottom = 79.0
 theme_override_font_sizes/font_size = 64
 text = "Trade"
 
+[node name="relation_progress_gain" type="ProgressBar" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 93.0
+offset_right = -23.0
+offset_bottom = -477.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_fgyyh")
+value = 66.0
+allow_greater = true
+show_percentage = false
+
+[node name="relation_progress_current" type="ProgressBar" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/relation_progress_gain"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_pm0ox")
+value = 55.0
+show_percentage = false
+
+[node name="relation_label" type="RichTextLabel" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/relation_progress_gain/relation_progress_current"]
+layout_mode = 0
+offset_right = 249.0
+offset_bottom = 26.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.752941)
+theme_override_constants/shadow_offset_y = -1
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_outline_size = 2
+bbcode_enabled = true
+text = "Relation: "
+fit_content = true
+horizontal_alignment = 1
+
 [node name="money_trade" type="HBoxContainer" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade"]
 layout_mode = 0
 offset_left = 26.0
-offset_top = 101.0
+offset_top = 136.0
 offset_right = 278.0
-offset_bottom = 141.0
+offset_bottom = 176.0
 
 [node name="resource_icon" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/money_trade" instance=ExtResource("9_bwbxe")]
 material = SubResource("ShaderMaterial_ubk1d")
@@ -771,9 +853,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -23.0
-offset_top = -125.0
+offset_top = -90.0
 offset_right = 23.0
-offset_bottom = 71.0
+offset_bottom = 106.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -881,17 +963,6 @@ resource = "chips"
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 theme_override_font_sizes/font_size = 48
-
-[node name="confirm_trade" type="Button" parent="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade"]
-layout_mode = 0
-offset_left = 123.0
-offset_top = 528.0
-offset_right = 281.0
-offset_bottom = 588.0
-disabled = true
-shortcut = SubResource("Shortcut_bwbxe")
-text = "[spacebar] 
-Confirm Trade"
 
 [node name="settlement_trader" type="Panel" parent="trade_menu/margin/hbox"]
 custom_minimum_size = Vector2(400, 600)
@@ -1225,6 +1296,17 @@ grow_horizontal = 1
 grow_vertical = 1
 hover_target = NodePath("../../../resource_buy_opts/VBoxContainer/HBoxContainer5")
 
+[node name="confirm_trade" type="Button" parent="trade_menu/margin/hbox/settlement_trader"]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 525.0
+offset_right = 383.0
+offset_bottom = 585.0
+disabled = true
+shortcut = SubResource("Shortcut_bwbxe")
+text = "[spacebar] 
+Confirm Trade"
+
 [node name="return" type="Button" parent="trade_menu"]
 layout_mode = 0
 offset_left = 22.0
@@ -1235,7 +1317,7 @@ shortcut = ExtResource("5_36m0f")
 shortcut_in_tooltip = false
 text = "[esc] Return"
 
-[node name="post_listen_around" type="Control" parent="."]
+[node name="post_listen_around" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "main_view")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1243,43 +1325,72 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("14_fgyyh")
+settlement_ui = NodePath("..")
+main_view = NodePath("../main_view")
 
-[node name="PanelContainer" type="PanelContainer" parent="post_listen_around"]
+[node name="panel" type="Panel" parent="post_listen_around"]
 layout_mode = 0
 offset_left = 120.0
 offset_top = 123.0
 offset_right = 1094.0
 offset_bottom = 447.0
+mouse_filter = 2
 
-[node name="list" type="VBoxContainer" parent="post_listen_around/PanelContainer"]
+[node name="list" type="VBoxContainer" parent="post_listen_around/panel"]
 layout_mode = 2
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 968.0
+offset_bottom = 318.0
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="post_listen_around/PanelContainer/list"]
+[node name="Label" type="Label" parent="post_listen_around/panel/list"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "Information Found:"
 horizontal_alignment = 1
 
-[node name="memo_label" type="RichTextLabel" parent="post_listen_around/PanelContainer/list"]
+[node name="memo_label" type="RichTextLabel" parent="post_listen_around/panel/list"]
 visible = false
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 
+[node name="Label" type="Label" parent="post_listen_around/panel"]
+modulate = Color(1, 1, 1, 0.72549)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -649.0
+offset_top = -29.0
+offset_right = -7.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "[click on a settlement to reveal it in the world map or press any key to return]"
+
 [node name="sky_view" parent="." instance=ExtResource("14_6i511")]
 layout_mode = 1
 offset_top = -720.0
 offset_bottom = -720.0
+mouse_filter = 2
 
 [connection signal="settlement_entered" from="." to="." method="_on_settlement_entered"]
 [connection signal="settlement_entered" from="." to="trade_menu" method="_on_settlement_ui_settlement_entered"]
 [connection signal="settlement_left" from="." to="." method="_on_settlement_left"]
-[connection signal="pressed" from="main_view/exit" to="main_view/options" method="exit_settlement"]
+[connection signal="pressed" from="main_view/exit" to="." method="exit_settlement"]
 [connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/trade" to="main_view/options" method="trade"]
 [connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/recruit_units" to="main_view/options" method="recruit_units"]
 [connection signal="pressed" from="main_view/options/MarginContainer/VBoxContainer/listen_around" to="main_view/options" method="listen_around"]
 [connection signal="trade_completed" from="trade_menu" to="." method="_on_trade_menu_trade_completed"]
 [connection signal="pressed" from="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/reset" to="trade_menu" method="reset_trade"]
-[connection signal="pressed" from="trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/confirm_trade" to="trade_menu" method="_on_confirm_trade_pressed"]
+[connection signal="pressed" from="trade_menu/margin/hbox/settlement_trader/confirm_trade" to="trade_menu" method="_on_confirm_trade_pressed"]
 [connection signal="pressed" from="trade_menu/return" to="trade_menu" method="exit_trade_menu"]
+[connection signal="gui_input" from="post_listen_around" to="post_listen_around" method="_on_gui_input"]
+[connection signal="visibility_changed" from="post_listen_around" to="post_listen_around" method="_on_visibility_changed"]
+[connection signal="meta_clicked" from="post_listen_around/panel/list/memo_label" to="post_listen_around" method="_on_memo_label_meta_clicked"]

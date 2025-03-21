@@ -15,17 +15,20 @@ var ongoing_anomalies:Array[TradeAnomaly];
 
 
 @export_subgroup("Resource Production")
-@export_range(0, 100) var food_production:int;
-@export_range(0, 100) var fuel_production:int;
+@export_range(0, 100) var food_production:int=100;
+@export_range(0, 100) var fuel_production:int=100;
 
 
-@export_range(0, 100) var juice_production:int;
-@export_range(0, 100) var scrap_production:int;
-@export_range(0, 100) var chips_production:int;
+@export_range(0, 100) var juice_production:int=100;
+@export_range(0, 100) var scrap_production:int=100;
+@export_range(0, 100) var chips_production:int=100;
 
 var neighbors:Array[Settlement];
 
 const resources = ["food", "fuel", "juice", "scrap", "chips"]
+
+func _ready()->void:
+	ColorCoder.color_code_settlement(self)
 
 var resource_prices:Dictionary = {
 	"food":1.0,
@@ -63,14 +66,61 @@ var resource_daily_balance:Dictionary = {
 	"chips":0
 }
 
-var player_relation:int=5;
+const relation_level_names:Dictionary[int,String] = {
+	-5:"dreaded",
+	-4:"hated",
+	-3:"shunned",
+	-2:"disliked",
+	-1:"avoided",
+	0:"neutral",
+	1:"tolerated",
+	2:"liked",
+	3:"friendly",
+	4:"loved",
+	5:"local hero"
+}
+
+const relationship_modifiers = {
+	-5:8,
+	-4:5,
+	-3:4,
+	-2:3,
+	-1:2.5,
+	0:2,
+	1:1.95,
+	2:1.9,
+	3:1.8,
+	4:1.5,
+	5:1.2
+}
+
+var player_relation:int=0;
+## relation progresses as the player trades with and does tasks for the settlement
+var relation_progress:float=0.0;
+
+func relation_level_string()->String:
+	var color_str := "[color=";
+	if player_relation >= 0:
+		color_str += "green]";
+	else:
+		color_str += "red]"
+	return color_str +  relation_level_names[player_relation].capitalize() + "[/color]";
+
+func relation_progress_for_next_level()->int:
+	if player_relation >= 0:
+		return (player_relation + 2) ** 2
+	else:
+		return player_relation * -1
 
 
-func _ready()->void:
-	ColorCoder.color_code_settlement(self)
 
-
-
+func gain_relation_progress(amount:float)->void:
+	var to_next_level = relation_progress_for_next_level() - relation_progress;
+	if amount >= to_next_level:
+		player_relation += 1;
+		relation_progress = amount - to_next_level;
+	else:
+		relation_progress += amount;
 
 func get_production_multiplier(resource:String)->float:
 	var production:int = self[resource + "_production"];
@@ -96,11 +146,15 @@ func add_new_anomaly():
 		anomaly.generate(self);
 	ongoing_anomalies.append(anomaly);
 
+
+
 func refresh_inventory():
 	## affects daily inventory refresh:
 	## production
 	## trade anomalies
 	## price hikes a little or drops a little for a resource if it was bought/sold
+	## TODO more price adjusting
+	
 	
 	resource_prices = {
 		## resets prices to 0 before routine
@@ -133,9 +187,11 @@ func refresh_inventory():
 					
 				to_add[r] += change;
 
+	var relationship_modifier = relationship_modifiers[player_relation];
+
 	for r in to_add.keys():
-		resource_selling_prices[r] = resource_prices[r] / 2;
-		resource_buying_prices[r] = resource_prices[r] * 2;
+		resource_selling_prices[r] = resource_prices[r] / relationship_modifier;
+		resource_buying_prices[r] = resource_prices[r] * relationship_modifier;
 		inventory[r] = to_add[r];
 				
 

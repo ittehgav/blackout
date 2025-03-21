@@ -512,7 +512,13 @@ settlement_ui = NodePath("settlement_ui")
 clock = NodePath("main_hud/Panel/VBoxContainer2/clock")
 date = NodePath("main_hud/Panel/VBoxContainer2/date")
 
+[node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
+visible = false
+layout_mode = 1
+mouse_filter = 2
+
 [node name="main_hud" type="Control" parent="ui_overlay/ui"]
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -534,16 +540,19 @@ texture = SubResource("GradientTexture2D_piqjc")
 
 [node name="Panel" type="Panel" parent="ui_overlay/ui/main_hud"]
 layout_mode = 0
-offset_top = 552.0
+offset_top = 599.0
 offset_right = 594.0
 offset_bottom = 720.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/main_hud/Panel"]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 22.0
-offset_right = 248.0
-offset_bottom = 104.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0151515
+anchor_top = 0.0740741
+anchor_right = 0.0151515
+anchor_bottom = 0.0740741
+offset_right = 302.0
+offset_bottom = 112.0
 theme_override_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer"]
@@ -620,11 +629,15 @@ theme_override_font_sizes/font_size = 64
 text = "23"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ui_overlay/ui/main_hud/Panel"]
-layout_mode = 0
-offset_left = 452.0
-offset_top = 21.0
-offset_right = 492.0
-offset_bottom = 61.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.973064
+anchor_top = 0.0165289
+anchor_right = 0.973064
+anchor_bottom = 0.0165289
+offset_left = -112.0
+offset_bottom = 114.0
+grow_horizontal = 0
 
 [node name="date" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer2"]
 layout_mode = 2
@@ -644,11 +657,6 @@ theme_override_constants/shadow_offset_x = -3
 theme_override_constants/shadow_offset_y = -3
 theme_override_font_sizes/font_size = 64
 text = "16:20"
-
-[node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
-visible = false
-layout_mode = 1
-mouse_filter = 2
 
 [node name="Dialogue" parent="ui_overlay/ui" instance=ExtResource("13_8dqwv")]
 visible = false

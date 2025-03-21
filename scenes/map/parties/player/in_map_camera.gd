@@ -23,3 +23,8 @@ func return_to_player()->void:
 func _process(delta: float) -> void:
 	var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	position += direction * delta * move_speed;
+	
+func pan_to_target(target:MapEntity)->void:
+	free_panning()
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", target.global_position, 2);
