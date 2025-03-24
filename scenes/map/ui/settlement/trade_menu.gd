@@ -247,7 +247,6 @@ func exit_trade_menu() -> void:
 	
 func relation_level_glow():
 	if relation_glow:
-		print("rlg???")
 		var tween = create_tween();
 		tween.tween_property(relation_progress_gain, "self_modulate:a", .3, .5);
 		tween.tween_property(relation_progress_gain, "self_modulate:a", 1, .5);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0vg6gq1edsw"]
+[gd_scene load_steps=7 format=3 uid="uid://c0vg6gq1edsw"]
 
 [ext_resource type="Script" uid="uid://cno7hu4sfyc12" path="res://scenes/map/parties/player/in_map_player.gd" id="1_h5u0f"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
@@ -8,17 +8,21 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]
 radius = 30.0
 
-[node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "leader", "vehicle")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_07dg6"]
+radius = 160.0
+
+[node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "sight_shape", "leader", "vehicle")]
 process_mode = 3
 motion_mode = 1
 script = ExtResource("1_h5u0f")
 camera = NodePath("in_map_camera")
+sight_shape = NodePath("sight/shape")
 leader = NodePath("Player")
 vehicle = NodePath("Gol")
 
 [node name="Gol" parent="." instance=ExtResource("7_swjnx")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n4fri")
 
 [node name="in_map_camera" type="Camera2D" parent="."]
@@ -30,7 +34,18 @@ script = ExtResource("4_ibn0u")
 [node name="Roster" parent="Player" index="1" node_paths=PackedStringArray("units")]
 units = [null]
 
+[node name="sight" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="shape" type="CollisionShape2D" parent="sight"]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_07dg6")
+
 [connection signal="started_moving" from="." to="." method="_on_started_moving"]
 [connection signal="stopped_moving" from="." to="." method="_on_stopped_moving"]
+[connection signal="area_entered" from="sight" to="." method="_on_sight_area_entered"]
+[connection signal="area_shape_entered" from="sight" to="." method="_on_sight_area_shape_entered"]
+[connection signal="body_entered" from="sight" to="." method="_on_sight_body_entered"]
 
 [editable path="Player"]

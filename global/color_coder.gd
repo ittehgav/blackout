@@ -63,14 +63,25 @@ func color_code_vehicle(vehicle:Vehicle)->void:
 
 func color_code_settlement(settlement:Settlement)->void:
 	var sprite:Sprite2D = settlement.get_node("sprite");
-
+	var base_color:Color;
+	
+	if settlement is Factory:
+		base_color = Meta.resource_colors["chips"]
+	elif settlement is Farm:
+		base_color = Meta.resource_colors["food"];
+	elif settlement is Scrapyard:
+		base_color = Meta.resource_colors["fuel"].lightened(.3)
+	base_color = base_color.darkened(.5)
 	var dict:Dictionary = {
-		Color.GREEN: Color.DARK_GREEN,
-		Color.BLUE: Color.DARK_GREEN.lightened(.5),
-		Color.RED: Color.DARK_GREEN.darkened(.5)
+		Color.GREEN: base_color,
+		Color.BLUE: base_color.darkened(.5),
+		Color.RED: base_color.lightened(.2)
 	}
 	color_code_sprite(sprite, dict)
-	sprite.material.set_shader_parameter("color",Color.DARK_GREEN.lightened(.5) + Color(0, 0, 0, -.5))
+	
+	var box = settlement.get_node("hover_box");
+	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", base_color.darkened(.3) - Color(0, 0, 0, .3)));
+	box.mouse_exited.connect(sprite.material.set_shader_parameter.bind("color", Color(0,0,0,0)));
 
 
 func color_code_sprite(sprite:Sprite2D, pairs:Dictionary)->void:

@@ -8,7 +8,7 @@ signal day_passed;
 var current_day:int=1;
 var current_month:int=1;
 
-var current_hour:int=23;
+var current_hour:int=03;
 var current_minute:int=30;
 
 

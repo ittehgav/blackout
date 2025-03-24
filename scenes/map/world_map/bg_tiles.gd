@@ -1,11 +1,13 @@
 extends TileMapLayer
 
 @export var world_map:WorldMap;
+@export var fog_layer:TileMapLayer;
 
 @export var farm_scene:PackedScene;
 @export var scrapyard_scene:PackedScene;
 @export var factory_scene:PackedScene;
 
+const cell_size = 16
 
 @export var noise_height_texture:NoiseTexture2D;
 var noise:Noise;
@@ -28,29 +30,34 @@ const map_size = 5000;
 
 func _ready()->void:
 	await world_map.ready
+	tile_set.tile_size = Vector2(cell_size, cell_size)
 	set_tiles()
 
 	generate_settlements();
 	set_props()
 	set_small_props()
+	update_fog()
+	Entities.world_map.day_passed.emit()
 	
 
 func set_tiles():
 	noise = noise_height_texture.noise
-	var width = map_size/16;
-	var height = map_size/16
+	var width = map_size/cell_size;
+	var height = map_size/cell_size
 	for x in width * 2:
 		for y in height * 2:
+			var cell_coords:Vector2 = Vector2(x-width, y-height)
+			fog_layer.set_cell(cell_coords, 0, Vector2.ZERO);
 			var roll:float = noise.get_noise_2d(x - width, y - height);
 
 			if roll < -.6:
-				set_cell(Vector2(x-width, y-height), 0, Vector2.ONE);
+				set_cell(cell_coords, 0, Vector2.ONE);
 			elif roll < 0:
-				set_cell(Vector2(x-width, y-height), 0, Vector2.ZERO);
+				set_cell(cell_coords, 0, Vector2.ZERO);
 			elif roll < .2 :
-				set_cell(Vector2(x-width, y-height), 0, Vector2.RIGHT)
+				set_cell(cell_coords, 0, Vector2.RIGHT)
 			else:
-				set_cell(Vector2(x-width, y-height), 0, Vector2.DOWN)
+				set_cell(cell_coords, 0, Vector2.DOWN)
 
 func generate_settlements()->void:
 	const spawn_range = 2000;
@@ -141,7 +148,7 @@ func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, 
 	taken_positions.append(target_position);
 	
 	prop.position = target_position;
-	var grid_position = prop.position/16;
+	var grid_position = prop.position/cell_size;
 	var noise_roll = noise.get_noise_2d(grid_position.x, grid_position.y)
 	
 	if noise_roll < -.6:
@@ -166,3 +173,17 @@ func position_taken(to_check:Vector2, taken_positions:Array[Vector2], min_gap:fl
 		if to_check.distance_to(p)< min_gap:
 			return true;
 	return false;
+	
+func update_fog():
+	var player_grid_position = Vector2i(Entities.in_map_player.position/cell_size)
+	var cells_to_paint:Array[Vector2];
+	var grid_radius = Entities.in_map_player.sight_shape.shape.radius/cell_size;
+	for x in range(grid_radius * 2):
+		for y in range(grid_radius * 2):
+			var cell = Vector2i(x - grid_radius, y - grid_radius);
+			if cell.distance_to(Vector2.ZERO) > grid_radius:
+				print(cell, "skip?");
+			else:
+				print(cell, "noskip?")
+				fog_layer.set_cell(cell + player_grid_position, 0, Vector2(1,0))
+				

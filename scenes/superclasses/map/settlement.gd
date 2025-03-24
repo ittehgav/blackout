@@ -13,7 +13,6 @@ var ongoing_anomalies:Array[TradeAnomaly];
 @export var recruit_units:bool=true;
 @export var listen_around:bool=true;
 
-
 @export_subgroup("Resource Production")
 @export_range(0, 100) var food_production:int=100;
 @export_range(0, 100) var fuel_production:int=100;
@@ -201,3 +200,9 @@ func overlapping_anomaly(anomaly:TradeAnomaly)->bool:
 		if a.resource == anomaly.resource:
 			return true;
 	return false
+
+func _on_hover_box_mouse_entered():
+	Entities.map_entity_under_mouse = self;
+	
+func _on_hover_box_mouse_exited():
+	Entities.clear_map_entity_under_mouse();

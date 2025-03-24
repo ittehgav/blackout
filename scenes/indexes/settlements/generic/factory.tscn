@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d01qvu00evo46"]
+[gd_scene load_steps=9 format=3 uid="uid://d01qvu00evo46"]
 
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="1_bkqf8"]
 [ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/visual/sprites/settlements/factory.png" id="1_cwx7e"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b8o26cjjwgvd" path="res://assets/visual/backgrounds/settlements/factory.png" id="2_r2k12"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_8bllo"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_mncoa"]
+[ext_resource type="PackedScene" uid="uid://dfma50xf3yute" path="res://scenes/map/settlement/settlement_shadoow.tscn" id="7_r2k12"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8aio"]
 radius = 50.0
@@ -19,20 +20,22 @@ inventory = NodePath("Inventory")
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("1_bkqf8")
 position = Vector2(18, 11)
+scale = Vector2(2, 2)
 texture = ExtResource("1_cwx7e")
 
 [node name="Inventory" parent="." instance=ExtResource("3_8bllo")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(19, 14)
 shape = SubResource("CircleShape2D_i8aio")
 
 [node name="hover_box" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
+offset_left = -31.0
+offset_top = -36.0
+offset_right = 69.0
+offset_bottom = 64.0
 
 [node name="Tooltip" parent="hover_box" node_paths=PackedStringArray("target") instance=ExtResource("7_mncoa")]
 layout_mode = 0
@@ -41,5 +44,12 @@ offset_top = 50.0
 offset_right = 392.0
 offset_bottom = 158.0
 target = NodePath("../..")
+
+[node name="shadow" parent="." instance=ExtResource("7_r2k12")]
+position = Vector2(18, 7)
+scale = Vector2(2, 2)
+
+[connection signal="mouse_entered" from="hover_box" to="." method="_on_hover_box_mouse_entered"]
+[connection signal="mouse_exited" from="hover_box" to="." method="_on_hover_box_mouse_exited"]
 
 [editable path="hover_box/Tooltip"]

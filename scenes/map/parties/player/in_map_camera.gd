@@ -27,4 +27,5 @@ func _process(delta: float) -> void:
 func pan_to_target(target:MapEntity)->void:
 	free_panning()
 	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "global_position", target.global_position, 2);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bghgbhdlygqcs"]
+[gd_scene load_steps=9 format=3 uid="uid://bghgbhdlygqcs"]
 
 [ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/visual/sprites/settlements/scrapyard.png" id="1_60suj"]
 [ext_resource type="Texture2D" uid="uid://brrlicrroxuha" path="res://assets/visual/backgrounds/settlements/scrapyard.png" id="2_k2u3n"]
@@ -6,34 +6,45 @@
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_y1jku"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="5_38mel"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_c7cf1"]
+[ext_resource type="PackedScene" uid="uid://dfma50xf3yute" path="res://scenes/map/settlement/settlement_shadoow.tscn" id="7_k2u3n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iwht7"]
 radius = 50.0
 
-[node name="Scrapyard" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
+[node name="Scrapyard" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "hit_box")]
 input_pickable = true
 script = ExtResource("2_ylbiw")
 background = ExtResource("2_k2u3n")
 inventory = NodePath("Inventory")
+hit_box = NodePath("CollisionShape2D")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("5_38mel")
 position = Vector2(4, 8)
+scale = Vector2(2, 2)
 texture = ExtResource("1_60suj")
 
 [node name="Inventory" parent="." instance=ExtResource("3_y1jku")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 23)
 shape = SubResource("CircleShape2D_iwht7")
 
 [node name="hover_box" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -50.0
-offset_top = -50.0
+offset_top = -27.0
 offset_right = 50.0
-offset_bottom = 50.0
+offset_bottom = 73.0
 
 [node name="Tooltip" parent="hover_box" node_paths=PackedStringArray("target") instance=ExtResource("7_c7cf1")]
 layout_mode = 0
 target = NodePath("../..")
+
+[node name="shadow" parent="." instance=ExtResource("7_k2u3n")]
+position = Vector2(8, 19)
+scale = Vector2(2, 2)
+
+[connection signal="mouse_entered" from="hover_box" to="." method="_on_hover_box_mouse_entered"]
+[connection signal="mouse_exited" from="hover_box" to="." method="_on_hover_box_mouse_exited"]

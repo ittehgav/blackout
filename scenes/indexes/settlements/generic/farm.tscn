@@ -1,40 +1,51 @@
-[gd_scene load_steps=8 format=3 uid="uid://ocvlerfa58lv"]
+[gd_scene load_steps=9 format=3 uid="uid://ocvlerfa58lv"]
 
 [ext_resource type="Script" uid="uid://cj7r0jpp6vbou" path="res://scenes/indexes/settlements/generic/farm.gd" id="2_d001o"]
 [ext_resource type="Texture2D" uid="uid://c56f6fttgx4gb" path="res://assets/visual/backgrounds/settlements/farm.png" id="2_i3mdt"]
+[ext_resource type="Texture2D" uid="uid://btxapn8epd61d" path="res://assets/visual/sprites/settlements/farm.png" id="3_ks67y"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="3_prkd2"]
-[ext_resource type="Texture2D" uid="uid://dl8ct2ft4t4x5" path="res://assets/visual/sprites/farm.png" id="4_6vfoy"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="5_ptoka"]
+[ext_resource type="PackedScene" uid="uid://dfma50xf3yute" path="res://scenes/map/settlement/settlement_shadoow.tscn" id="6_i3mdt"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_gw7tl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oyln7"]
 radius = 50.0
 
-[node name="Farm" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
+[node name="Farm" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "hit_box")]
 input_pickable = true
 script = ExtResource("2_d001o")
 background = ExtResource("2_i3mdt")
 inventory = NodePath("Inventory")
+hit_box = NodePath("CollisionShape2D")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("3_prkd2")
 position = Vector2(27, 23)
-texture = ExtResource("4_6vfoy")
+scale = Vector2(2, 2)
+texture = ExtResource("3_ks67y")
 
 [node name="Inventory" parent="." instance=ExtResource("5_ptoka")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_oyln7")
 
 [node name="hover_box" type="Control" parent="."]
 z_index = 4
 layout_mode = 3
 anchors_preset = 0
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
+offset_left = -23.0
+offset_top = -21.0
+offset_right = 77.0
+offset_bottom = 79.0
 
 [node name="Tooltip" parent="hover_box" node_paths=PackedStringArray("target") instance=ExtResource("7_gw7tl")]
 layout_mode = 0
 target = NodePath("../..")
+
+[node name="shadow" parent="." instance=ExtResource("6_i3mdt")]
+position = Vector2(30, 27)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(27, 29)
+shape = SubResource("CircleShape2D_oyln7")
+
+[connection signal="mouse_entered" from="hover_box" to="." method="_on_hover_box_mouse_entered"]
+[connection signal="mouse_exited" from="hover_box" to="." method="_on_hover_box_mouse_exited"]
