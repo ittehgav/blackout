@@ -71,6 +71,8 @@ func color_code_settlement(settlement:Settlement)->void:
 		base_color = Meta.resource_colors["food"];
 	elif settlement is Scrapyard:
 		base_color = Meta.resource_colors["fuel"].lightened(.3)
+	elif settlement is Stadium:
+		base_color = Color.GOLD;
 	base_color = base_color.darkened(.5)
 	var dict:Dictionary = {
 		Color.GREEN: base_color,
@@ -79,8 +81,8 @@ func color_code_settlement(settlement:Settlement)->void:
 	}
 	color_code_sprite(sprite, dict)
 	
-	var box = settlement.get_node("hover_box");
-	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", base_color.darkened(.3) - Color(0, 0, 0, .3)));
+	var box:Control = settlement.get_node("hover_box");
+	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", base_color.lightened(.6) - Color(0, 0, 0, .3)));
 	box.mouse_exited.connect(sprite.material.set_shader_parameter.bind("color", Color(0,0,0,0)));
 
 
@@ -105,7 +107,7 @@ func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:
 				img.set_pixel(x, y, new_color);
 	return ImageTexture.create_from_image(img);
 
-func color_code_prop(prop:Sprite2D, small:bool=false)->void:
+func color_code_prop(prop:Sprite2D)->void:
 	const dict = {
 		Color.RED: Color(.5, .5, .5, .4),
 		Color.BLUE: Color(.3, .3, .3),

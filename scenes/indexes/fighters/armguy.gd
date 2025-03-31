@@ -3,6 +3,9 @@ extends FighterBase
 const skill_effects = ["aoe_damage", "aoe_stun"];
 const skill_visuals = ["lunge_forward"]
 
+## offset to be used on sprite samples
+const sample_offset = Vector2(19, -42);
+
 const target_type = "nearest_enemy"
 
 const skill_name = "Throw Hands"

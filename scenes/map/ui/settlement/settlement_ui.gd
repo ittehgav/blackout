@@ -3,9 +3,10 @@ extends UIRoot;
 signal settlement_entered(settlement:Settlement);
 signal settlement_left;
 
-
 @export var sky_props:Control;
 @export var sky_bg:ColorRect;
+
+@export var crowd_rect:TextureRect;
 
 @export_group("settlement data")
 @export var relationship_progress:ProgressBar;
@@ -38,13 +39,16 @@ var sky_base_color = Color.LIGHT_SKY_BLUE;
 
 
 func _on_settlement_entered(settlement: Settlement) -> void:
+	color_bg();
+	var crowd_texture:Texture =[settlement.crowd_1, settlement.crowd_2].pick_random()
+	crowd_rect.texture = crowd_texture
 	Entities.world_map.ui.self_modulate.a = 0
 	current_settlement = settlement;
 	Entities.main_bgm.play_bgm("in_settlement")
 	ui_sfx.play_stream(ui_sfx.settlement_entered)
 	Entities.world_map.pause_map();
 	
-	$main_view/options.show_main_view();
+	$main_view/container/options.show_main_view();
 	modulate.a = .1;
 	$background.texture = settlement.background;
 
@@ -69,6 +73,36 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	
 	
 	Tweens.ui_fade_in(self)
+
+func color_bg():
+	var sky_color = Entities.world_map.get_hour_sky_color();
+	
+	var prop_opaque_color:Color;
+	var prop_reflective_color:Color;
+	
+	var ground_opaque_color:Color;
+	var ground_reflective_color:Color;
+	
+	if Entities.world_map.current_hour >= 20 or Entities.world_map.current_hour <= 4:
+		prop_reflective_color = sky_color.lightened(.3);
+		prop_opaque_color = Color.MIDNIGHT_BLUE.lightened(.2);
+		
+		ground_reflective_color = Color.MIDNIGHT_BLUE.darkened(.3)
+		ground_opaque_color = Color.SANDY_BROWN.blend(Color.MIDNIGHT_BLUE);
+		
+	else:
+		prop_reflective_color = sky_color.blend(Color.YELLOW.darkened(.2) - Color(0, 0, 0, .3));
+		prop_opaque_color = Color.GOLDENROD.darkened(.8);
+		
+		ground_reflective_color = Color(223.0/255, 134.0/255, 76.0/255).blend(sky_color.darkened(.5) - Color(0, 0, 0, .7))
+		ground_opaque_color = Color(100.0/255, 16.0/255, 14.0/255).darkened(.1)
+
+	$background.material.set_shader_parameter("prop_reflective", prop_reflective_color)
+	$background.material.set_shader_parameter("prop_opaque", prop_opaque_color)
+	
+	$background.material.set_shader_parameter("ground_reflective", ground_reflective_color)
+	$background.material.set_shader_parameter("ground_opaque", ground_opaque_color)
+	 
 
 func refresh_data():
 	relation_label.text = "Relation: " + current_settlement.relation_level_string()

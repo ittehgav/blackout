@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://3phgdfixhg5t"]
+[gd_scene load_steps=4 format=3 uid="uid://3phgdfixhg5t"]
 
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_h0jct"]
 [ext_resource type="Script" uid="uid://tu7seyiq35ud" path="res://scenes/indexes/fighters/taserguy.gd" id="1_vhysh"]
 [ext_resource type="Texture2D" uid="uid://bmmbkr4rigrv" path="res://assets/visual/sprites/fighters/taserguy.png" id="2_124pl"]
 
 [node name="Taser Guy" type="Sprite2D"]
-use_parent_material = true
+material = ExtResource("1_h0jct")
 texture = ExtResource("2_124pl")
 hframes = 6
 vframes = 3

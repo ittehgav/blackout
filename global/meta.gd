@@ -18,7 +18,7 @@ extends Node
 	"chips":load("res://assets/visual/icons/resources/chips.png"),
 }
 
-func tagged_settlement_name(settlement:Settlement):
+func tagged_settlement_name(settlement:Settlement)->String:
 	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 
 
@@ -32,9 +32,9 @@ const resource_colors = {
 	"chips":Color.SKY_BLUE
 }
 
-func resource_colored_name(resource:String):
-	var color = resource_colors[resource].to_html();
-	var string = "[color=" + color + "]"+resource
+func resource_colored_name(resource:String)->String:
+	var color:String = resource_colors[resource].to_html();
+	var string:String = "[color=" + color + "]"+resource
 	return string
 
 

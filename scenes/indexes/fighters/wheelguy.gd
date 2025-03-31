@@ -5,6 +5,8 @@ extends FighterBase
 const skill_effects = ["special"];
 const skill_visuals = ["grow", "shake"]
 
+const sample_offset = Vector2(15, -26)
+
 const target_type = "nearest_enemy"
 
 const skill_name =  "Accelerate"

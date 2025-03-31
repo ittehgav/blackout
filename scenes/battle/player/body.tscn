@@ -25,6 +25,5 @@ script = ExtResource("3_dsuet")
 ticker = NodePath("animation_ticker")
 
 [node name="animation_ticker" type="Timer" parent="."]
-wait_time = 0.3
 
 [connection signal="timeout" from="animation_ticker" to="." method="next_frame"]

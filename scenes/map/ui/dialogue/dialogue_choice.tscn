@@ -3,26 +3,32 @@
 [ext_resource type="Script" uid="uid://db1dwr7y73v3n" path="res://scenes/map/ui/dialogue/_choice.gd" id="1_bi8yq"]
 
 [node name="_choice" type="Button" node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(700, 40)
 offset_right = 12.0
 offset_bottom = 8.0
-text_overrun_behavior = 2
-autowrap_mode = 3
 script = ExtResource("1_bi8yq")
-label = NodePath("text")
+label = NodePath("MarginContainer/text")
 
-[node name="text" type="RichTextLabel" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 5.0
-offset_top = 1.0
-offset_right = 5.0
-offset_bottom = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="text" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
 mouse_filter = 2
+theme_override_constants/line_separation = 0
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
 bbcode_enabled = true
 fit_content = true
 scroll_active = false

@@ -6,8 +6,15 @@ class_name UIRoot;
 
 
 func _ready()->void:
+	resize()
 	recursive_connect_ui_feedback(self)
+	get_tree().root.size_changed.connect(resize);
+	
 
+func resize()->void:
+	size = get_window().size
+	if size >= Vector2(1280, 720) * 2:
+		scale = Vector2(2, 2)
 
 func recursive_connect_ui_feedback(node:Control)->void:
 	if "pressed" in node:

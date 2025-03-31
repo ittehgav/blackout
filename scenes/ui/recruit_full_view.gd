@@ -1,6 +1,9 @@
 extends MarginContainer
 
 
+@export var ui_sfx:AudioStreamPlayer;
+
+@export_group("data_nodes")
 @export var sample:SpriteSample;
 @export var showing_unit:FighterUnit
 
@@ -38,9 +41,9 @@ func display_recruit(unit:FighterUnit)->void:
 		showing_unit.queue_free();
 
 	showing_unit = unit.duplicate();
+	showing_unit.base.set_material(null);
 	sample.set_sample(showing_unit.base);
 	sample.target_base.scale *= 6
-	sample.target_base.offset = Vector2(-80, -10)
 	refresh_data();
 	fade_in()
 	
@@ -65,6 +68,7 @@ func refresh_data()->void:
 	
 	skill_cooldown_label.text = "Cooldown: " + str(showing_unit.base.skill_cooldown) + "s";
 	skill_range_label.text = get_skill_range(showing_unit.base);
+	
 
 func get_skill_range(fighter:FighterBase)->String:
 	if fighter.skill_range == fighter.MELEE_RANGE:
@@ -82,6 +86,7 @@ func fade_in()->void:
 	tween.tween_property(self, "modulate:a", 1, .35)
 	
 func fade_out()->void:
+	ui_sfx.play_stream_by_key("cancel_sound")
 	var tween:Tween = create_tween();
 	tween.tween_property(self, "modulate:a", 0, .35)
 	await tween.finished;

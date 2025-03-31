@@ -3,11 +3,15 @@ extends Node
 class_name Leader
 
 
+
+@export_group("Party Data")
 @export var inventory:Inventory;
 @export var roster:Roster;
 @export var combat_stats:CombatStats;
 
 @export var sight_range:int;
+@export_group("Scenes")
+@export var fighter_unit_scene:PackedScene
 
 func load_party(team:Team, npc_fighter_scene:PackedScene, x_offset:int=0)->void:
 	var x_acm:int = 0;

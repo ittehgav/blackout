@@ -124,7 +124,7 @@ func set_props():
 	for texture in prop_textures:
 		var sprite = Sprite2D.new();
 		sprite.texture = texture;
-		ColorCoder.color_code_prop(sprite, true)
+		ColorCoder.color_code_prop(sprite)
 		sprite.scale = Vector2(2, 2);
 		prop_sprites.append(sprite);
 	
@@ -176,14 +176,26 @@ func position_taken(to_check:Vector2, taken_positions:Array[Vector2], min_gap:fl
 	
 func update_fog():
 	var player_grid_position = Vector2i(Entities.in_map_player.position/cell_size)
-	var cells_to_paint:Array[Vector2];
-	var grid_radius = Entities.in_map_player.sight_shape.shape.radius/cell_size;
+	var grid_radius = Entities.in_map_player.sight_shape.shape.radius/cell_size + 4;
 	for x in range(grid_radius * 2):
 		for y in range(grid_radius * 2):
 			var cell = Vector2i(x - grid_radius, y - grid_radius);
-			if cell.distance_to(Vector2.ZERO) > grid_radius:
-				print(cell, "skip?");
+			var distance = cell.distance_to(Vector2.ZERO)
+			var cell_position = cell + player_grid_position;
+			if distance < grid_radius - 1:
+				fog_layer.set_cell(cell_position, 0, Vector2(2, 0))
 			else:
-				print(cell, "noskip?")
-				fog_layer.set_cell(cell + player_grid_position, 0, Vector2(1,0))
+				if distance < grid_radius and distance < grid_radius + 1:
+					if fog_layer.get_cell_atlas_coords(cell_position) != Vector2i(2, 0):
+						fog_layer.set_cell(cell + player_grid_position, 0, Vector2(1,0))
+					 
 				
+
+
+func _on_sight_body_entered(body: Node2D) -> void:
+	if body == fog_layer:
+		update_fog();
+
+func position_in_fog(p:Vector2):
+	var cell_position = Vector2i(p/cell_size);
+	return fog_layer.get_cell_atlas_coords(cell_position) == Vector2i(0, 0)

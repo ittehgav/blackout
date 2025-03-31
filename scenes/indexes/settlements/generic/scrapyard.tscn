@@ -1,33 +1,36 @@
-[gd_scene load_steps=9 format=3 uid="uid://bghgbhdlygqcs"]
+[gd_scene load_steps=11 format=3 uid="uid://bghgbhdlygqcs"]
 
 [ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/visual/sprites/settlements/scrapyard.png" id="1_60suj"]
 [ext_resource type="Texture2D" uid="uid://brrlicrroxuha" path="res://assets/visual/backgrounds/settlements/scrapyard.png" id="2_k2u3n"]
 [ext_resource type="Script" uid="uid://cjcr0wvsl0iad" path="res://scenes/indexes/settlements/generic/scrapyard.gd" id="2_ylbiw"]
+[ext_resource type="Texture2D" uid="uid://cfh2sfj47tk1n" path="res://assets/visual/backgrounds/settlements/scrapyard/crowd1.png" id="3_nxvsu"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_y1jku"]
+[ext_resource type="Texture2D" uid="uid://oec7k3xuwk1i" path="res://assets/visual/backgrounds/settlements/scrapyard/crowd2.png" id="4_lqfi7"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="5_38mel"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_c7cf1"]
 [ext_resource type="PackedScene" uid="uid://dfma50xf3yute" path="res://scenes/map/settlement/settlement_shadoow.tscn" id="7_k2u3n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iwht7"]
-radius = 50.0
+radius = 40.0
 
-[node name="Scrapyard" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "hit_box")]
+[node name="Scrapyard" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
 input_pickable = true
+motion_mode = 1
 script = ExtResource("2_ylbiw")
 background = ExtResource("2_k2u3n")
+crowd_1 = ExtResource("3_nxvsu")
+crowd_2 = ExtResource("4_lqfi7")
 inventory = NodePath("Inventory")
-hit_box = NodePath("CollisionShape2D")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("5_38mel")
-position = Vector2(4, 8)
 scale = Vector2(2, 2)
 texture = ExtResource("1_60suj")
 
 [node name="Inventory" parent="." instance=ExtResource("3_y1jku")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 23)
+position = Vector2(-2, 7)
 shape = SubResource("CircleShape2D_iwht7")
 
 [node name="hover_box" type="Control" parent="."]
@@ -43,7 +46,7 @@ layout_mode = 0
 target = NodePath("../..")
 
 [node name="shadow" parent="." instance=ExtResource("7_k2u3n")]
-position = Vector2(8, 19)
+position = Vector2(-1, 11)
 scale = Vector2(2, 2)
 
 [connection signal="mouse_entered" from="hover_box" to="." method="_on_hover_box_mouse_entered"]

@@ -1,8 +1,12 @@
 extends UIRoot;
 
+class_name PlayerSheet;
+
 @export var bg:ColorRect;
-@export var container:HBoxContainer;
  
+@export_group("elements")
+@export var left_tab_container:TabContainer;
+@export var container:HBoxContainer;
 @export var gear:Control;
 @export var morale_label:Label;
 
@@ -59,6 +63,7 @@ const resources_names = [
 
 func _ready()->void:
 	super();
+	Entities.player_sheet = self;
 	Entities.player.resources_changed.connect(refresh_data)
 
 func _input(e:InputEvent)->void:
@@ -68,7 +73,8 @@ func _input(e:InputEvent)->void:
 	 or e.is_action_pressed("show_player_sheet")):
 		hide_player_sheet();
 
-func show_player_sheet()->void:
+func show_player_sheet(left_tab_view:int=0)->void:
+	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream(open_sound)
 	show()
 	refresh_data();

@@ -1,0 +1,60 @@
+extends UIRoot
+
+signal pre_battle_started;
+
+@export var player_name_label:Label;
+@export var enemy_name_label:Label;
+
+@export var enemy_party_count_label:Label;
+
+@export var enemy_party_power_icon:PartyPowerIcon;
+@export var enemy_party_icon:PartyIcon;
+
+@export var plates_container:HBoxContainer;
+
+@export var opponent_avatar:Control;
+var opponent_sprite:Sprite2D;
+
+func _ready():
+	player_name_label.text = Entities.player.name;
+	Entities.pre_battle = self;
+
+func start_pre_battle(opponent:NpcMapParty=Entities.current_speaking_party):
+	enemy_name_label.text = opponent.leader.name;
+	enemy_party_icon.leader = opponent.leader;
+	enemy_party_icon.refresh()
+	enemy_party_power_icon.leader = opponent.leader;
+	enemy_party_power_icon.refresh()
+	set_opponent_avatar(opponent.leader)
+
+	set_process_mode(PROCESS_MODE_ALWAYS)
+	Entities.world_map.pause_map()
+	
+	slide_in()
+	pre_battle_started.emit();
+
+	show()
+
+func slide_in():
+	plates_container.add_theme_constant_override("separation", 2000);
+	var tween:Tween = create_tween();
+	tween.set_trans(Tween.TRANS_CUBIC);
+	tween.tween_property(plates_container, "theme_override_constants/separation", 200, 1);
+	tween.set_trans(Tween.TRANS_ELASTIC);
+	tween.tween_property(plates_container, "theme_override_constants/separation", 0, .5);
+	
+func set_opponent_avatar(target:Leader):
+	if opponent_sprite:
+		opponent_sprite.queue_free()
+	
+	opponent_sprite = target.unit.base.duplicate();
+	opponent_sprite.offset = opponent_sprite.sample_offset
+	ColorCoder.color_code_fighter(opponent_sprite);
+	opponent_avatar.add_child(opponent_sprite);
+
+
+func _on_animation_ticker_timeout() -> void:
+	if opponent_sprite.frame:
+		opponent_sprite.frame = 0;
+	else:
+		opponent_sprite.frame = 1;

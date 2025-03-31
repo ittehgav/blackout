@@ -54,6 +54,8 @@ func setup()->void:
 
 
 func _on_hover_timer_timeout() -> void:
+	if target is Settlement and Entities.world_map.tile_map.position_in_fog(target.position):
+		return
 	modulate.a = .1;
 
 	show();

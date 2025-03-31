@@ -26,8 +26,8 @@ Index="*res://global/index.gd"
 Trade="*res://global/trade.gd"
 Scaling="*res://global/scaling.gd"
 MapEvents="*res://global/map_events.gd"
-DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 NameDatabase="*res://global/name_database.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [debug]
 
@@ -131,7 +131,7 @@ world_map_zoom_in={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://resources/dialogues/thugs.dialogue")
+locale/translations_pot_files=PackedStringArray("res://resources/dialogues/thugs.dialogue", "res://resources/dialogues/map_common.dialogue")
 
 [layer_names]
 

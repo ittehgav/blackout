@@ -3,6 +3,8 @@ extends FighterBase
 const skill_effects = ["special"];
 const skill_visuals = ["recoil"]
 
+const sample_offset = Vector2(8, -26)
+
 const target_type = "least_hp_ally"
 
 

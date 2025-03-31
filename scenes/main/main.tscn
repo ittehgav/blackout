@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=13 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
@@ -11,13 +11,18 @@
 [ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/in_settlement.ogg" id="8_th5th"]
 [ext_resource type="AudioStream" uid="uid://cbb5k61nskf8o" path="res://assets/sound/bgm/loops/combat.ogg" id="9_7smn1"]
 [ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/main_menu.ogg" id="10_raeie"]
+[ext_resource type="AudioStream" uid="uid://c401hatxeek87" path="res://assets/sound/bgm/loops/dialogue.ogg" id="11_blune"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_8gx17")
 
 [node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("ui_sfx")]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_v0lew")
 world_map_scene = ExtResource("3_onvlx")
 arena_scene = ExtResource("2_ft8he")
@@ -32,17 +37,14 @@ in_map = ExtResource("7_blune")
 in_settlement = ExtResource("8_th5th")
 combat = ExtResource("9_7smn1")
 intro = ExtResource("10_raeie")
+dialogue = ExtResource("11_blune")
 
 [node name="TextureRect" type="TextureRect" parent="main_ui"]
 texture_filter = 4
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 1280.0
-offset_bottom = 720.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_8yyg4")
@@ -76,5 +78,6 @@ layout_mode = 2
 text = "World Map
 "
 
+[connection signal="finished" from="main_ui/main_bgm" to="main_ui/main_bgm" method="_on_finished"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/test_battle" to="main_ui" method="test_battle"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/world_map" to="main_ui" method="world_map"]

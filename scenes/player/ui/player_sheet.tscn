@@ -121,7 +121,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "container", "gear", "morale_label", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "recruit_full_view", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "left_tab_container", "container", "gear", "morale_label", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "recruit_full_view", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
 process_mode = 3
 y_sort_enabled = true
 layout_mode = 3
@@ -134,12 +134,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_6boby")
 bg = NodePath("main_bg")
+left_tab_container = NodePath("main_bg/MarginContainer/HBoxContainer/left_container")
 container = NodePath("main_bg/MarginContainer/HBoxContainer")
-gear = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear")
-morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Party/HBoxContainer/morale_display")
-consumables_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Consumables/Consumables")
-trinkets_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Trinkets/Trinkets")
-weapons_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Weapons/Weapons")
+gear = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/gear")
+morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Party/HBoxContainer/morale_display")
+consumables_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items/Consumables/Consumables")
+trinkets_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items/Trinkets/Trinkets")
+weapons_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items/Weapons/Weapons")
 item_feedback = NodePath("feedback_bg/item_feedback")
 recruit_full_view = NodePath("main_bg/RecruitFullView")
 open_sound = ExtResource("2_go8yu")
@@ -147,26 +148,26 @@ close_sound = ExtResource("3_5uudl")
 rummage = ExtResource("6_fcyhu")
 consumable_used = ExtResource("5_b563s")
 equip = ExtResource("6_guigk")
-food_label = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer/food")
-fuel_label = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2/fuel")
-money_label = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3/money")
-juice_label = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4/juice")
-scrap_label = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5/scrap")
-chips_label = NodePath("main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6/chips")
-max_hp_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer/max_hp")
-attack_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer2/attack")
-defense_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer3/defense")
-move_speed_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer4/move_speed")
-technique_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer5/technique")
+food_label = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer/food")
+fuel_label = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2/fuel")
+money_label = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3/money")
+juice_label = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4/juice")
+scrap_label = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5/scrap")
+chips_label = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6/chips")
+max_hp_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer/max_hp")
+attack_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer2/attack")
+defense_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer3/defense")
+move_speed_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer4/move_speed")
+technique_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer5/technique")
 item_icon_scene = ExtResource("2_uujnm")
-leadership_level_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/VBoxContainer/leadership_level")
-leadership_level_progress = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/VBoxContainer/leadership_level_progress")
-combat_level_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/VBoxContainer/combat_level")
-combat_level_progress = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/VBoxContainer/combat_level_progress")
-charisma_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/charisma")
-navigation_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/navigation")
-tactics_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/tactics")
-logistics_label = NodePath("main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/logistics")
+leadership_level_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer/leadership_level")
+leadership_level_progress = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer/leadership_level_progress")
+combat_level_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer/combat_level")
+combat_level_progress = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer/combat_level_progress")
+charisma_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/charisma")
+navigation_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/navigation")
+tactics_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/tactics")
+logistics_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/logistics")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("3_vnktq")]
@@ -205,153 +206,153 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 1700
 alignment = 1
 
-[node name="TabContainer" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer"]
+[node name="left_container" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 current_tab = 0
 tab_focus_mode = 1
 
-[node name="Inventory" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/TabContainer"]
+[node name="Inventory" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/left_container"]
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="resources" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory"]
+[node name="resources" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory"]
 layout_mode = 0
 offset_left = 40.0
 offset_top = 40.0
 offset_right = 356.0
 offset_bottom = 247.0
 
-[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources"]
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Resources"
 
-[node name="HSeparator" type="HSeparator" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources"]
+[node name="HSeparator" type="HSeparator" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="HBoxContainer7" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources"]
+[node name="HBoxContainer7" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_7ff84")
 layout_mode = 2
 show_tooltip = true
 adjacent_items = [NodePath("../food")]
 
-[node name="food" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer"]
+[node name="food" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.0475577, 0.0475576, 0.0475576, 1)
 theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 text = "Food: X"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_523kj")
 layout_mode = 2
 show_tooltip = true
 adjacent_items = [NodePath("../fuel")]
 resource = "fuel"
 
-[node name="fuel" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2"]
+[node name="fuel" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.0475577, 0.0475576, 0.0475576, 1)
 theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 text = "Fuel: X"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_55ejy")
 layout_mode = 2
 show_tooltip = true
 adjacent_items = [NodePath("../money")]
 resource = "money"
 
-[node name="money" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3"]
+[node name="money" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.0475577, 0.0475576, 0.0475576, 1)
 theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 text = "Money: $X"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_d1fif")
 layout_mode = 2
 show_tooltip = true
 adjacent_items = [NodePath("../juice")]
 resource = "juice"
 
-[node name="juice" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4"]
+[node name="juice" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer4"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.0475577, 0.0475576, 0.0475576, 1)
 theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 text = "Juice: X"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_nuo2s")
 layout_mode = 2
 show_tooltip = true
 adjacent_items = [NodePath("../scrap")]
 resource = "scrap"
 
-[node name="scrap" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5"]
+[node name="scrap" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer5"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.0475577, 0.0475576, 0.0475576, 1)
 theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 text = "Scrap: X"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_u5vdc")]
 material = SubResource("ShaderMaterial_yjbpt")
 layout_mode = 2
 show_tooltip = true
 adjacent_items = [NodePath("../chips")]
 resource = "chips"
 
-[node name="chips" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6"]
+[node name="chips" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/resources/HBoxContainer7/VBoxContainer2/HBoxContainer6"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0.0475577, 0.0475576, 0.0475576, 1)
 theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 text = "Chips: X"
 
-[node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory" node_paths=PackedStringArray("weapon_sample")]
+[node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory" node_paths=PackedStringArray("weapon_sample")]
 anchors_preset = 0
 offset_left = 420.0
 offset_top = 40.0
@@ -360,21 +361,21 @@ offset_bottom = 95.0
 script = ExtResource("10_guigk")
 weapon_sample = NodePath("VBoxContainer/weapon_sample")
 
-[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear"]
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/gear"]
 layout_mode = 2
 offset_right = 92.0
 offset_bottom = 51.0
 theme_override_font_sizes/font_size = 64
 text = "Gear"
 
-[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear"]
+[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/gear"]
 layout_mode = 2
 anchors_preset = 0
 offset_top = 55.0
 offset_right = 92.0
 offset_bottom = 55.0
 
-[node name="player_sample" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("10_2ehd5")]
+[node name="player_sample" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/gear/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("10_2ehd5")]
 offset_left = 42.0
 offset_top = 66.0
 offset_right = 42.0
@@ -383,24 +384,24 @@ scale = Vector2(2, 2)
 target_base = NodePath("body")
 autostart = true
 
-[node name="body" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear/Control/player_sample" instance=ExtResource("11_drn0r")]
+[node name="body" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/gear/Control/player_sample" instance=ExtResource("11_drn0r")]
 material = SubResource("ShaderMaterial_ptfqp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/gear"]
 layout_mode = 0
 offset_left = 193.0
 offset_top = 6.0
 offset_right = 269.0
 offset_bottom = 46.0
 
-[node name="weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear/VBoxContainer"]
+[node name="weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/gear/VBoxContainer"]
 layout_mode = 2
 text = "Weapon"
 
-[node name="weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/gear/VBoxContainer" instance=ExtResource("10_2ehd5")]
+[node name="weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/gear/VBoxContainer" instance=ExtResource("10_2ehd5")]
 layout_mode = 2
 
-[node name="items" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory"]
+[node name="items" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory"]
 layout_mode = 0
 offset_left = 23.0
 offset_top = 341.0
@@ -409,7 +410,7 @@ offset_bottom = 578.0
 current_tab = 0
 tab_focus_mode = 1
 
-[node name="Consumables" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items"]
+[node name="Consumables" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
@@ -417,13 +418,13 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 metadata/_tab_index = 0
 
-[node name="Consumables" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Consumables"]
+[node name="Consumables" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items/Consumables"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 18
 
-[node name="Weapons" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items"]
+[node name="Weapons" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 5
@@ -432,13 +433,13 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 metadata/_tab_index = 1
 
-[node name="Weapons" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Weapons"]
+[node name="Weapons" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items/Weapons"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 18
 
-[node name="Trinkets" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items"]
+[node name="Trinkets" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 5
@@ -447,23 +448,24 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 metadata/_tab_index = 2
 
-[node name="Trinkets" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Inventory/items/Trinkets"]
+[node name="Trinkets" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Inventory/items/Trinkets"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 18
 
-[node name="Party" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/TabContainer" node_paths=PackedStringArray("recruit_full_view", "recruits_grid")]
+[node name="Party" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/left_container" node_paths=PackedStringArray("ui_sfx", "recruit_full_view", "recruits_grid")]
 visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("15_s407w")
+ui_sfx = NodePath("../../../../../ui_sfx")
 sprite_sample_scene = ExtResource("10_2ehd5")
 recruit_full_view = NodePath("../../../../RecruitFullView")
 recruits_grid = NodePath("recruits")
 metadata/_tab_index = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Party"]
 layout_mode = 0
 offset_left = 33.0
 offset_top = 38.0
@@ -471,17 +473,17 @@ offset_right = 316.0
 offset_bottom = 118.0
 theme_override_constants/separation = 15
 
-[node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("15_ptfqp")]
+[node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/left_container/Party/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("15_ptfqp")]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 adjacent_items = [NodePath("../morale_display")]
 
-[node name="morale_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party/HBoxContainer"]
+[node name="morale_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Party/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Morale: 5"
 
-[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party"]
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Party"]
 layout_mode = 0
 offset_left = 65.0
 offset_top = 158.0
@@ -490,7 +492,7 @@ offset_bottom = 209.0
 theme_override_font_sizes/font_size = 64
 text = "Units"
 
-[node name="recruits" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party"]
+[node name="recruits" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/left_container/Party"]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 207.0
@@ -498,7 +500,7 @@ offset_right = 61.0
 offset_bottom = 247.0
 columns = 7
 
-[node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/TabContainer/Party"]
+[node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/left_container/Party"]
 modulate = Color(1, 1, 1, 0.341176)
 layout_mode = 1
 anchors_preset = 3
@@ -514,11 +516,11 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Click on a unit for more information"
 
-[node name="player_sheet" type="Panel" parent="main_bg/MarginContainer/HBoxContainer"]
+[node name="right_container" type="Panel" parent="main_bg/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="player_name" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet"]
+[node name="player_name" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container"]
 layout_mode = 2
 offset_left = 122.0
 offset_top = 21.0
@@ -527,49 +529,48 @@ offset_bottom = 72.0
 theme_override_font_sizes/font_size = 64
 text = "Player"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container"]
 layout_mode = 2
 offset_left = 42.0
 offset_top = 114.0
 offset_right = 368.0
 offset_bottom = 198.0
 
-[node name="leadership_level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/VBoxContainer"]
+[node name="leadership_level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer"]
 layout_mode = 2
 text = "Leadership Level: 1"
 
-[node name="leadership_level_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/VBoxContainer"]
+[node name="leadership_level_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 step = 1.0
 show_percentage = false
 
-[node name="combat_level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/VBoxContainer"]
+[node name="combat_level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer"]
 layout_mode = 2
 text = "Combat Level: 1"
 
-[node name="combat_level_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/VBoxContainer"]
+[node name="combat_level_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 step = 1.0
 show_percentage = false
 
-[node name="stats" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet"]
+[node name="stats" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container"]
 layout_mode = 2
 offset_left = 20.0
 offset_top = 234.0
 offset_right = 380.0
 offset_bottom = 630.0
 theme_override_font_sizes/font_size = 32
-current_tab = 1
+current_tab = 0
 tab_focus_mode = 1
 
-[node name="Leadership Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats"]
-visible = false
+[node name="Leadership Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -581,108 +582,109 @@ offset_bottom = 298.0
 grow_horizontal = 2
 theme_override_constants/separation = 10
 
-[node name="charisma" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+[node name="charisma" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer"]
 layout_mode = 2
 text = "Charisma: 1"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer"]
 layout_mode = 2
 
-[node name="charisma_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
+[node name="charisma_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(236, 30)
 layout_mode = 2
 max_value = 5.0
 value = 1.0
 show_percentage = false
 
-[node name="Button" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "-"
 
-[node name="Button2" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 disabled = true
 text = "+"
 
-[node name="navigation" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+[node name="navigation" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer"]
 layout_mode = 2
 text = "Navigation: 1"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer"]
 layout_mode = 2
 
-[node name="navigation_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
+[node name="navigation_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(236, 30)
 layout_mode = 2
 max_value = 5.0
 value = 1.0
 show_percentage = false
 
-[node name="Button" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
+[node name="Button" type="Button" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 disabled = true
 text = "-"
 
-[node name="Button2" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
+[node name="Button2" type="Button" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 disabled = true
 text = "+"
 
-[node name="tactics" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+[node name="tactics" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer"]
 layout_mode = 2
 text = "Tactics: 1"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer"]
 layout_mode = 2
 
-[node name="tactics_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
+[node name="tactics_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(236, 30)
 layout_mode = 2
 max_value = 5.0
 value = 1.0
 show_percentage = false
 
-[node name="Button" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
+[node name="Button" type="Button" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 disabled = true
 text = "-"
 
-[node name="Button2" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
+[node name="Button2" type="Button" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 disabled = true
 text = "+"
 
-[node name="logistics" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+[node name="logistics" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer"]
 layout_mode = 2
 text = "Logistics: 1"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer"]
 layout_mode = 2
 
-[node name="logistics_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
+[node name="logistics_progress" type="ProgressBar" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(236, 30)
 layout_mode = 2
 max_value = 5.0
 value = 1.0
 show_percentage = false
 
-[node name="Button" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
+[node name="Button" type="Button" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 disabled = true
 text = "-"
 
-[node name="Button2" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
+[node name="Button2" type="Button" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Leadership Stats/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 disabled = true
 text = "+"
 
-[node name="Combat Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats"]
+[node name="Combat Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats"]
+visible = false
 z_as_relative = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 5
@@ -695,72 +697,77 @@ offset_bottom = 206.0
 grow_horizontal = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_ncu57")
 layout_mode = 2
 adjacent_items = [NodePath("../max_hp")]
 
-[node name="max_hp" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer"]
+[node name="max_hp" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer"]
+z_index = 1
 layout_mode = 2
 text = "Max HP: 10"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_nsjwg")
 layout_mode = 2
 adjacent_items = [NodePath("../attack")]
 stat = "attack"
 
-[node name="attack" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer2"]
+[node name="attack" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer2"]
+z_index = 1
 layout_mode = 2
 text = "Base Attack: 10"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_um8mn")
 layout_mode = 2
 adjacent_items = [NodePath("../defense")]
 stat = "defense"
 
-[node name="defense" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer3"]
+[node name="defense" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer3"]
+z_index = 1
 layout_mode = 2
 text = "Defense: 10"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_fwr53")
 layout_mode = 2
 adjacent_items = [NodePath("../move_speed")]
 stat = "move_speed"
 
-[node name="move_speed" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer4"]
+[node name="move_speed" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer4"]
+z_index = 1
 layout_mode = 2
 text = "Movement Speed: 100"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
+[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_gcm86")
 layout_mode = 2
 adjacent_items = [NodePath("../technique")]
 stat = "technique"
 
-[node name="technique" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player_sheet/stats/Combat Stats/VBoxContainer/HBoxContainer5"]
+[node name="technique" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer5"]
+z_index = 1
 layout_mode = 2
 text = "Technique: 1"
 

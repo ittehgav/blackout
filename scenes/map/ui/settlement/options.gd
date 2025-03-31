@@ -40,12 +40,17 @@ func listen_around() -> void:
 	for i in 3:
 		Entities.world_map.hour_passed.emit();
 		colors.append(Entities.world_map.get_hour_sky_color() * settlement_ui.sky_base_color);
-
+	settlement_ui.color_bg();
 	var sky_tween = create_tween();
 	for color in colors:
 		sky_tween.tween_property(settlement_ui.sky_bg, "modulate", color, .5);
 
 	await sky_tween.finished;
+	if settlement_ui.crowd_rect.texture == settlement_ui.current_settlement.crowd_1:
+		settlement_ui.crowd_rect.texture = settlement_ui.current_settlement.crowd_2
+	else:
+		settlement_ui.crowd_rect.texture = settlement_ui.current_settlement.crowd_1
+		
 	for c in post_listen_around_list.get_children():
 		if c.visible and c is RichTextLabel:
 			c.queue_free();

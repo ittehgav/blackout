@@ -2,11 +2,25 @@ extends UIRoot
 
 class_name DialoguePlayer;
 
+signal dialogue_started;
+signal dialogue_ended;
+
 @onready var manager:DialogueManager=DialogueManager;
 
 @export var current_dialogue:DialogueResource;
 
+@export_group("Scenes")
+@export var input_hold_timer:Timer;
+
 @export var dialogue_choice_scene:PackedScene;
+
+@export_group("Elements")
+@export var speaking_party_avatar:Control;
+
+var current_speaking_sprite:Sprite2D;
+@export var player_sprite:Sprite2D
+var current_exposed:Sprite2D;
+
 
 @export var choices_box:PanelContainer;
 @export var choices_container:VBoxContainer;
@@ -18,31 +32,53 @@ var current_line:DialogueLine;
 
 func _ready()->void:
 	manager.mutated.connect(check_end)
-	manager.dialogue_ended.connect(dialogue_ended);
+	manager.dialogue_ended.connect(end_dialogue);
 	Entities.dialogue_player = self;
-
-func check_end()->void:
-	var next_line:DialogueLine = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
-	if not next_line is DialogueLine:
-		dialogue_ended()
-
-func dialogue_ended()->void:
-	hide()
+	
+func _process(_delta:float)->void:
+	if Input.is_action_just_pressed("dialogue_next") and visible and not choices_box.visible:
+		dialogue_next();
 
 func start_dialogue(dialogue:DialogueResource)->void:
+	Entities.main_bgm.play_bgm("dialogue")
+	set_process_mode(Node.PROCESS_MODE_ALWAYS)
 	Entities.world_map.pause_map()
 	get_tree().paused = true;
 	show()
 	choices_box.hide();
 	
+	set_speaking_avatar();
+	
 	current_dialogue = dialogue;
 	current_line = await manager.get_next_dialogue_line(current_dialogue, "start")
 	display_line()
 	
+	expose_avatar(current_speaking_sprite);
+	dialogue_started.emit()
 
-func _process(_delta:float)->void:
-	if Input.is_action_just_pressed("dialogue_next") and visible and not choices_box.visible:
-		dialogue_next();
+func end_dialogue()->void:
+	hide()
+	set_process_mode(Node.PROCESS_MODE_DISABLED)
+	if not Entities.pre_battle.visible:
+		## lazy solution for race condition
+		dialogue_ended.emit()
+
+
+func check_end()->void:
+	var next_line:DialogueLine = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
+	if not next_line is DialogueLine:
+		end_dialogue()
+
+func set_speaking_avatar()->void:
+	if current_speaking_sprite:
+		current_speaking_sprite.queue_free();
+		
+	current_speaking_sprite = Entities.current_speaking_party.leader.unit.base.duplicate();
+	current_speaking_sprite.offset = current_speaking_sprite.sample_offset
+	ColorCoder.color_code_fighter(current_speaking_sprite);
+
+	speaking_party_avatar.add_child(current_speaking_sprite)
+
 
 func dialogue_next()->void:
 	if len(current_line.responses):
@@ -51,23 +87,49 @@ func dialogue_next()->void:
 		get_next_line()
 
 func show_responses()->void:
+	expose_avatar(player_sprite)
+	for c in choices_container.get_children():
+		c.queue_free()
 	for response:DialogueResponse in current_line.responses:
-		var button:Button = dialogue_choice_scene.instantiate();
-		button.build(response.text);
-		button.pressed.connect(response_chosen.bind(response.next_id))
+		var button:DialogueChoice = dialogue_choice_scene.instantiate();
+		
+		var button_text:String = parse_dialogue_text(response.text);
+		button.build(button_text);
+		button.pressed.connect(response_chosen.bind(response))
+		
 		choices_container.add_child(button);
 
 	choices_box.show()
 
 func display_line()->void:
+	expose_avatar(current_speaking_sprite);
 	var speaker:String = current_line.character;
 	var line_text:String = current_line.text;
 	if speaker:
 		speaker_name_label.text = speaker;
-	text_label.text = line_text
+	text_label.text = parse_dialogue_text(line_text);
 	
 	type_out_text();
 	
+
+func expose_avatar(target:Sprite2D)->void:
+	if current_exposed != target:
+		current_exposed = target;
+		if target == current_speaking_sprite:
+			var vanish_tween: = create_tween();
+			vanish_tween.tween_property(player_sprite, "modulate:v", .2, .1);
+			vanish_tween.parallel().tween_property(player_sprite, "scale", Vector2(7, 7), .1)
+		else:
+			var vanish_tween: = create_tween();
+			vanish_tween.tween_property(current_speaking_sprite, "modulate:v", .2, .1);
+			vanish_tween.parallel().tween_property(current_speaking_sprite, "scale", Vector2.ONE, .1);
+		
+		var expose_tween: = create_tween();
+		expose_tween.tween_property(target, "modulate:v", 1, .2);
+		expose_tween.set_trans(Tween.TRANS_BOUNCE)
+		expose_tween.parallel().tween_property(target, "scale", target.scale * 1.1, .2);
+
+
 func type_out_text()->void:
 	text_label.visible_ratio = 0;
 	var tween:Tween = create_tween();
@@ -81,9 +143,61 @@ func get_next_line()->void:
 		print("notcl??")
 
 
-func response_chosen(key:String)->void:
+func response_chosen(response:DialogueResponse)->void:
 	choices_box.hide();
-	current_line = await manager.get_next_dialogue_line(current_dialogue, key);
-	if current_line and  current_line.text:
-		display_line();
+	if "#roll" in response.text:
+		var key:String;
+		if "#roll_intimidate" in response.text:
+			if Entities.in_map_player.roll_intimidate(Entities.current_speaking_party):
+				key = "intimidate_success";
+			else:
+				key = "intimidate_fail"
+		elif "#roll_convince" in response.text:
+			if Entities.in_map_player.roll_convince(Entities.current_speaking_party):
+				key = "convince_success";
+			else:
+				key = "convince_fail"
+		current_line = await manager.get_next_dialogue_line(current_dialogue, key)
+		if current_line and  current_line.text:
+			display_line();
+	else:
+		var key:String = response.next_id;
+		current_line = await manager.get_next_dialogue_line(current_dialogue, key);
+		if current_line and  current_line.text:
+			display_line();
+		
 	
+func parse_dialogue_text(text:String)->String:
+	var final_text:String = text;
+	if "#start_battle" in final_text:
+		final_text = final_text.replace("#start_battle", "[color=red]Engage in Battle[/color]")
+	if "#roll_intimidate" in final_text:
+		final_text = final_text.replace("#roll_intimidate", roll_intimidate_odds())
+	if "#roll_convince" in final_text:
+		final_text = final_text.replace("#roll_convince", roll_convince_odds())
+	if "#yield" in final_text:
+		final_text = final_text.replace("#yield", "[color=dark_red]Lose half of all your resources.");
+	
+	
+	return final_text
+	
+func roll_intimidate_odds()->String:
+	var odds_string:String = "[color=red]Intimidate - ";
+	var odds:float = Entities.in_map_player.intimidate_odds(Entities.current_speaking_party);
+	odds_string += str(odds * 100) + "%[/color]"
+	return odds_string;
+
+func roll_convince_odds()->String:
+	var odds_string: = "[color=yellow]Convince - "
+	var odds:float = Entities.in_map_player.convince_odds(Entities.current_speaking_party);
+	odds_string += str(odds * 100) + "%[/color]"
+	return odds_string
+
+
+func _on_animation_ticker_timeout() -> void:
+	await get_tree().create_timer(.25).timeout;
+	
+	if current_speaking_sprite.frame:
+		current_speaking_sprite.frame = 0;
+	else:
+		current_speaking_sprite.frame = 1;

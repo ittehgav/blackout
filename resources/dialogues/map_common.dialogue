@@ -1,0 +1,18 @@
+~ scare_speaking_party
+do MapEvents.spook_speaking_party()
+=> finish_dialogue
+
+~ yield
+do MapEvents.yield_resources()
+=> finish_dialogue
+
+~ battle
+do MapEvents.battle_speaking_party()
+=> finish_dialogue
+
+~ pacify_speaking_party
+do MapEvents.pacify_speaking_party()
+
+~ finish_dialogue
+do Entities.dialogue_player.end_dialogue()
+=>END

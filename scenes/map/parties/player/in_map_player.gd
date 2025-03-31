@@ -13,7 +13,7 @@ func _ready()->void:
 	target_position = position;
 
 func _input(e:InputEvent)->void:
-	if e is InputEventMouseButton and e.is_pressed() \
+	if e is InputEventMouseButton and e.pressed \
 	and e.button_index==MOUSE_BUTTON_LEFT:
 		var cursor_position:Vector2 = Entities.world_map.get_local_mouse_position()
 		if position.distance_to(cursor_position) > 30:
@@ -34,7 +34,7 @@ func _input(e:InputEvent)->void:
 		if camera_direction and camera.in_player:
 			camera.free_panning()
 			
-func move_toward_entity():
+func move_toward_entity()->void:
 	target_entity = Entities.map_entity_under_mouse
 	target_position = target_entity.position;
 	
@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 			stop_movement();
 		else:
 			var gap:Vector2 = (target_position - position).normalized()
-			var movement = gap * move_speed * delta;
+			var movement:Vector2 = gap * move_speed * delta;
 			var collision:KinematicCollision2D = move_and_collide(movement)
 			if collision:
 				target_position = position
@@ -94,13 +94,72 @@ func _on_stopped_moving() -> void:
 	get_tree().paused = true;
 
 
-func _on_sight_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
-	print("erm")
 
+func intimidate_odds(target:NpcMapParty)->float:
+	var combined_level:int = leader.combat_level * 2;
+	for unit:FighterUnit in leader.roster.units:
+		combined_level += unit.level;
+		
+	var target_combined_level:int = target.leader.unit.level * 2;
+	for unit:FighterUnit in target.leader.roster.units:
+		target_combined_level += unit.level;
+	
+	var frac:float = combined_level/target_combined_level;
+	if frac >= 3.00:
+		return 1.0;
+	elif frac >= 2:
+		## frac == 2 - odds = .9
+		return frac * .45
+	elif frac >= 1.75:
+		## fract == 1.75 - odds = .8
+		return frac * .8/1.75 
+	elif frac >= 1.5:
+		## frac == 1.5 - odds = .7
+		return frac * .7/1.5;
+	elif frac >= 1.25:
+		## frac == 1.25 - odds = .5
+		return frac * .5/1.25
+	elif frac >= 1.00:
+		## frac == 1.00 - odds = .4
+		return frac * .4
+	elif frac >= .75:
+		## frac == .75 - odds = .3
+		return frac * .3/.75
+	elif frac >= .5:
+		## frac == .5 - odds = .2
+		return frac * .2/.5;
+	else:
+		return 0;
 
-func _on_sight_area_entered(area: Area2D) -> void:
-	print("ermarea")
+func convince_odds(target:NpcMapParty)->float:
+	var level_gap: = 0;
+	var leadership_lvl_gap:int = leader.leadership_level - target.leader.unit.level;
+	var combat_lvl_gap:int = leader.combat_level - target.leader.unit.level;
+	
+	if abs(leadership_lvl_gap) < abs(combat_lvl_gap):
+		level_gap = abs(leadership_lvl_gap);
+	else:
+		level_gap = abs(combat_lvl_gap);
+	
+	var odds: = .8;
+	odds += .1 * leader.leadership_stats.charisma
+	var per_level_decay: = .8;
+	per_level_decay += .025 * leader.leadership_stats.charisma;
+	for i:int in level_gap:
+		odds *= per_level_decay
+	
+	return odds
 
+func roll_intimidate(target:NpcMapParty)->bool:
+	var roll: = randf_range(0, 1);
+	if roll < intimidate_odds(target):
+		return true;
+	else:
+		return false
 
-func _on_sight_body_entered(body: Node2D) -> void:
-	print(body)
+func roll_convince(target:NpcMapParty)->bool:
+	var roll: = randf_range(0, 1);
+	if roll < convince_odds(target):
+		return true;
+	else:
+		return false;

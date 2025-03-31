@@ -4,6 +4,8 @@ extends FighterBase
 const skill_effects = ["self_buff"];
 const skill_visuals = ["grow"]
 
+const sample_offset = Vector2(35, -26)
+
 const target_type = "nearest_enemy"
 
 const skill_name = "Buckle up"
@@ -11,9 +13,9 @@ const description = "[color=blue]Doesn't deal damage.[/color] Shields self, beco
 const long_description = "Can be extremely difficult to take down."
 
 func full_skill_description(unit:FighterUnit)->String:
-	var technique_str = Meta.get_technique_scaled_string(unit);
-	var base_value_str = Meta.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
-	var final_value_str = Meta.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
+	var technique_str:String = Meta.get_technique_scaled_string(unit);
+	var base_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
+	var final_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
 	
 	var string:String = "[color=blue]Doesn't deal damage.[/color] Shields himself, gaining " + base_value_str + " * " + technique_str\
 	 + " (" + final_value_str +") defense until the end of battle.";

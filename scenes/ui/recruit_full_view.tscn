@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene load_steps=14 format=3 uid="uid://1hbrworalfdw"]
 
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="1_lmv1r"]
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/recruit_full_view.gd" id="1_ywq7p"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_atfxm"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="3_atfxm"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_lmv1r"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="4_cwkea"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_ywq7p"]
@@ -58,11 +59,18 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("sample", "unit_name_label", "skill_name_label", "skill_description_label", "tags_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "skill_range_label", "skill_cooldown_label")]
+[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("ui_sfx", "sample", "unit_name_label", "skill_name_label", "skill_description_label", "tags_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "skill_range_label", "skill_cooldown_label")]
 z_index = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_lmv1r")
@@ -71,6 +79,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("1_ywq7p")
+ui_sfx = NodePath("ui_sfx")
 sample = NodePath("Panel/SpriteSample")
 unit_name_label = NodePath("Panel/HBoxContainer/name")
 skill_name_label = NodePath("Panel/VBoxContainer/skill_name")
@@ -86,15 +95,20 @@ technique_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer5/technique")
 skill_range_label = NodePath("Panel/VBoxContainer/HBoxContainer/range")
 skill_cooldown_label = NodePath("Panel/VBoxContainer/HBoxContainer/cooldown")
 
+[node name="ui_sfx" parent="." instance=ExtResource("3_atfxm")]
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 2
 
 [node name="SpriteSample" parent="Panel" instance=ExtResource("4_cwkea")]
 material = SubResource("ShaderMaterial_hjhfp")
-offset_left = 60.0
-offset_top = 55.0
-offset_right = 60.0
-offset_bottom = 55.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -132.0
+offset_right = -132.0
+grow_vertical = 0
 add_tooltip = false
 enable_hover_panel = false
 

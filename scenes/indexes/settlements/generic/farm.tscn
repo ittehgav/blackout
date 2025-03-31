@@ -1,26 +1,32 @@
-[gd_scene load_steps=9 format=3 uid="uid://ocvlerfa58lv"]
+[gd_scene load_steps=11 format=3 uid="uid://ocvlerfa58lv"]
 
 [ext_resource type="Script" uid="uid://cj7r0jpp6vbou" path="res://scenes/indexes/settlements/generic/farm.gd" id="2_d001o"]
 [ext_resource type="Texture2D" uid="uid://c56f6fttgx4gb" path="res://assets/visual/backgrounds/settlements/farm.png" id="2_i3mdt"]
+[ext_resource type="Texture2D" uid="uid://b7ibfji45yrso" path="res://assets/visual/backgrounds/settlements/farm/crowd1.png" id="3_cdknx"]
 [ext_resource type="Texture2D" uid="uid://btxapn8epd61d" path="res://assets/visual/sprites/settlements/farm.png" id="3_ks67y"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="3_prkd2"]
+[ext_resource type="Texture2D" uid="uid://dvkldeq4wkpwa" path="res://assets/visual/backgrounds/settlements/farm/crowd2.png" id="4_jfju3"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="5_ptoka"]
 [ext_resource type="PackedScene" uid="uid://dfma50xf3yute" path="res://scenes/map/settlement/settlement_shadoow.tscn" id="6_i3mdt"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_gw7tl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oyln7"]
-radius = 50.0
+radius = 40.0
 
-[node name="Farm" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "hit_box")]
+[node name="Farm" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
 input_pickable = true
+motion_mode = 1
 script = ExtResource("2_d001o")
 background = ExtResource("2_i3mdt")
+crowd_1 = ExtResource("3_cdknx")
+crowd_2 = ExtResource("4_jfju3")
 inventory = NodePath("Inventory")
-hit_box = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oyln7")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("3_prkd2")
-position = Vector2(27, 23)
 scale = Vector2(2, 2)
 texture = ExtResource("3_ks67y")
 
@@ -40,12 +46,5 @@ layout_mode = 0
 target = NodePath("../..")
 
 [node name="shadow" parent="." instance=ExtResource("6_i3mdt")]
-position = Vector2(30, 27)
+position = Vector2(1, 7)
 scale = Vector2(2, 2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(27, 29)
-shape = SubResource("CircleShape2D_oyln7")
-
-[connection signal="mouse_entered" from="hover_box" to="." method="_on_hover_box_mouse_entered"]
-[connection signal="mouse_exited" from="hover_box" to="." method="_on_hover_box_mouse_exited"]

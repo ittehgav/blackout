@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://omexx2cfjuxi"]
+[gd_scene load_steps=4 format=3 uid="uid://omexx2cfjuxi"]
 
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_3cgx7"]
 [ext_resource type="Texture2D" uid="uid://xdjhil3q72jh" path="res://assets/visual/sprites/fighters/crowbarguy.png" id="1_vdb17"]
 [ext_resource type="Script" uid="uid://dhbadsk6cnird" path="res://scenes/indexes/fighters/crowbarguy.gd" id="2_nr745"]
 
 [node name="Crowbar Guy" type="Sprite2D"]
-use_parent_material = true
+material = ExtResource("1_3cgx7")
 texture = ExtResource("1_vdb17")
 hframes = 6
 vframes = 3

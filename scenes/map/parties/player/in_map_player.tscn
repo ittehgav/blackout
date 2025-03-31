@@ -9,7 +9,7 @@
 radius = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_07dg6"]
-radius = 160.0
+radius = 250.0
 
 [node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "sight_shape", "leader", "vehicle")]
 process_mode = 3
@@ -31,9 +31,6 @@ script = ExtResource("4_ibn0u")
 
 [node name="Player" parent="." instance=ExtResource("2_c0i2s")]
 
-[node name="Roster" parent="Player" index="1" node_paths=PackedStringArray("units")]
-units = [null]
-
 [node name="sight" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
@@ -44,8 +41,5 @@ shape = SubResource("CircleShape2D_07dg6")
 
 [connection signal="started_moving" from="." to="." method="_on_started_moving"]
 [connection signal="stopped_moving" from="." to="." method="_on_stopped_moving"]
-[connection signal="area_entered" from="sight" to="." method="_on_sight_area_entered"]
-[connection signal="area_shape_entered" from="sight" to="." method="_on_sight_area_shape_entered"]
-[connection signal="body_entered" from="sight" to="." method="_on_sight_body_entered"]
 
 [editable path="Player"]

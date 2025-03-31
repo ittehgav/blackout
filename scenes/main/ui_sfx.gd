@@ -2,6 +2,7 @@ extends AudioStreamPlayer
 
 class_name UISFX;
 
+
 @export var mouseover_sounds:Array[AudioStream];
 @export var disabled_mouseover:AudioStream;
 
@@ -35,8 +36,7 @@ func play_stream(to_play:AudioStream)->void:
 
 func play_stream_by_key(key:String)->void:
 	## key needs to be a string matching an AudioStream declared in this script
-	stream = self[key];
-	play();
+	play_stream(self[key]);
 	
 func tab_mouseover_sound(_tab:int, _node:TabContainer)->void:
 	## need do this in separate fucntion because of signal-bound arguments

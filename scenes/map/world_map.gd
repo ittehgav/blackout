@@ -2,24 +2,25 @@ extends Node2D
 
 class_name WorldMap
 
+signal minute_passed;
 signal hour_passed;
 signal day_passed;
 
 var current_day:int=1;
 var current_month:int=1;
 
-var current_hour:int=03;
+var pause_stack:int = 0;
+
+var current_hour:int=00;
 var current_minute:int=30;
 
 
-@export var ambient_light:CanvasModulate;
-
 @export var ui:Control;
+@export var tile_map:TileMapLayer;
 
 @export var player:InMapPlayer
 
-@export_subgroup("scenes")
-@export var arena_scene:PackedScene;
+
 
 @export var sky_colors:Array[Color] = [
 	Color.WHITE,
@@ -35,9 +36,10 @@ var current_minute:int=30;
 	Color.WHITE,
 	Color.WHITE,
 ]
+@export_subgroup("scenes")
+@export var arena_scene:PackedScene;
 
-
-var hour_bgm_pitches = [
+var hour_bgm_pitches:Array[float] = [
 	.8,
 	.85,
 	.9,
@@ -52,14 +54,14 @@ var hour_bgm_pitches = [
 	1,
 	
 ]
-var all_settlements = {}
+var all_settlements: = {}
 
 
 func _ready()->void:
-	Entities.main_bgm.play_bgm("in_map")
 
 	Entities.world_map = self;
 	get_tree().paused = true;
+	Entities.main_bgm.play_bgm("in_map")
 
 
 func _on_player_started_moving() -> void:
@@ -72,17 +74,22 @@ func _on_player_stopped_moving() -> void:
 func pause_map()->void:
 	## the built in pause functionality is used to control whether
 	## the other parties are moving,
-	## (eventually) the day/night cycle, global clock and everything tied to it
+	## the day/night cycle, global clock and everything tied to it
 	
 	## truly pausing the map includes disabling the player's navigation
 	## (when there's a menu open)
-
-	process_mode = PROCESS_MODE_DISABLED
-	Entities.in_map_player.process_mode = Node.PROCESS_MODE_DISABLED;
+	pause_stack += 1;
+	if pause_stack == 1:
+		Entities.in_map_player.set_process_input(false)
+		process_mode = PROCESS_MODE_DISABLED
+		Entities.in_map_player.process_mode = Node.PROCESS_MODE_DISABLED;
 	
 func unpause_map()->void:
-	process_mode = PROCESS_MODE_PAUSABLE
-	Entities.in_map_player.process_mode = Node.PROCESS_MODE_ALWAYS;
+	pause_stack -= 1
+	if not pause_stack:
+		Entities.in_map_player.set_process_input(true)
+		process_mode = PROCESS_MODE_PAUSABLE
+		Entities.in_map_player.process_mode = Node.PROCESS_MODE_ALWAYS;
 
 
 
@@ -91,6 +98,7 @@ func _on_minute_ticker_timeout() -> void:
 	if current_minute == 60:
 		current_minute = 0;
 		hour_passed.emit()
+	minute_passed.emit()
 
 
 func _on_hour_passed() -> void:
@@ -109,16 +117,16 @@ func _on_day_passed() -> void:
 		if current_month == 13:
 			current_month = 1;
 
-func update_light():
+func update_light()->void:
 	if not get_tree().paused:
-		var target_color = get_hour_sky_color();
+		var target_color:Color = get_hour_sky_color();
 		
-		var tween = create_tween();
+		var tween: = create_tween();
 		tween.tween_property(self, "modulate", target_color, .5)
 		tween.parallel().tween_property(Entities.main_bgm, "pitch_scale", get_hour_pitch(), 2)
 
 func get_hour_pitch(hour:int = current_hour)->float:
-	var pitch_index;
+	var pitch_index:int;
 	if current_hour > 11:
 		pitch_index = 11-(hour-12)
 	else:
@@ -126,7 +134,7 @@ func get_hour_pitch(hour:int = current_hour)->float:
 	return hour_bgm_pitches[pitch_index]
 
 func get_hour_sky_color(hour:int=current_hour)->Color:
-	var color_index;
+	var color_index:int;
 	if current_hour > 11:
 		color_index = 11-(hour-12)
 	else:

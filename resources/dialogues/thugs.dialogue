@@ -1,22 +1,26 @@
+import "res://resources/dialogues/map_common.dialogue" as common
+
 ~ start
 Thugs: Hey you, give me everything you have!
-Thugs: PENIS PENI
-- Over my cold, dead hands! [color=red] Engage in battle => battle
-- Okay, you can have it, just don't hurt me! [color=dark_red] Lose half of your food, fuel and money => yield
+- Over my cold, dead hands! #start_battle =>< common/battle
+- Okay, you can have it, just don't hurt me! #yield =>< common/yield
 - Maybe we can talk this out? => talk_things_out
 
 ~ talk_things_out
 Thugs: Maybe I'll let you choose which of your bones i'll break first!
-- What if you did the smart thing and not cause us any trouble? 
-- What if i offered
+- Nevermind, I'll just kill you! #start_battle =>< common/battle
+- #roll_convince I just think nothing good will come out of us drawing our weapons, you know?  
+- #roll_intimidate What if you spare my time and i spare your life?
 
-~ yield
-do MapEvents.yield_resources()
-do Entities.dialogue_player.dialogue_ended()
-=> END
+~ intimidate_success
+Thugs: I-I... fine, let's get out of here, boys!
+=>< common/scare_speaking_party
 
-~ battle
-do MapEvents.battle_speaking_party()
-do Entities.dialogue_player.dialogue_ended()
-=> END
+~ convince_fail
+~ intimidate_fail
+Thugs: #!angry Just who do you think you're talking to!?!?!?!?
+=>< common/battle
 
+~ convince_success
+Thugs: I guess you're right... Then get out of here!
+=>< common/pacify_speaking_party

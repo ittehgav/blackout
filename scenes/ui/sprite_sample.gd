@@ -32,12 +32,12 @@ func set_sample(target:Sprite2D)->void:
 		## idk but it works
 		target_base = target.duplicate();
 		add_child(target_base)
-	
+		
 	if target_base is FighterBase:
+		target_base.offset = target_base.sample_offset + Vector2(30, -20);
+		
 		ColorCoder.color_code_fighter(target_base, 1, true);
-		target_base.centered = false;
 		if not target_base is PlayerFighterBase:
-
 			target_base.set_material(null)
 			set_rectangle();
 			set_tooltip();
@@ -61,9 +61,9 @@ func set_rectangle()->void:
 		custom_minimum_size = sample_size;
 		size = sample_size;
 		if target_base is FighterBase and not target_base is PlayerFighterBase:
+			target_base.position.y += sample_size.y/3;
 			mouse_entered.connect(show_panel);
 			mouse_exited.connect(hide_panel)
-			target_base.offset.x = -50
 			custom_minimum_size.x /= 12
 			custom_minimum_size.y /= 3
 

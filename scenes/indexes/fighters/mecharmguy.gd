@@ -4,6 +4,8 @@ extends FighterBase
 const skill_effects = ["aoe_damage", "aoe_debuff"];
 const skill_visuals = ["lunge_forward", "shrink_target"]
 
+const sample_offset = Vector2(25, -43)
+
 const target_type = "nearest_enemy"
 
 const skill_name =  "Wrecking Punch"

@@ -2,15 +2,20 @@ extends Node
 
 
 func battle_speaking_party()->void:
-	var enemy_party:MapParty = Entities.current_speaking_party;
-	var arena:Arena = Entities.world_map.arena_scene.instantiate();
-	arena.start_battle(enemy_party.leader)
-	## figure out how this will show up on top of map
-	## prob just a mask?
+	Entities.pre_battle.start_pre_battle();
 
 	
 
 	
 func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->void:
+	Entities.world_map.unpause_map()
 	print("yield")
+	pass
+
+
+func scare_speaking_party():
+	pass
+
+
+func pacify_speaking_party():
 	pass

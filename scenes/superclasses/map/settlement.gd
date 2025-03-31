@@ -5,6 +5,8 @@ class_name Settlement;
 var ongoing_anomalies:Array[TradeAnomaly];
 
 @export var background:Texture;
+@export var crowd_1:Texture;
+@export var crowd_2:Texture;
 
 @export var inventory:Inventory;
 
@@ -114,7 +116,7 @@ func relation_progress_for_next_level()->int:
 
 
 func gain_relation_progress(amount:float)->void:
-	var to_next_level = relation_progress_for_next_level() - relation_progress;
+	var to_next_level:float = relation_progress_for_next_level() - relation_progress;
 	if amount >= to_next_level:
 		player_relation += 1;
 		relation_progress = amount - to_next_level;
@@ -138,7 +140,7 @@ func daily_reset()->void:
 	
 	refresh_inventory();
 
-func add_new_anomaly():
+func add_new_anomaly()->void:
 	var anomaly:TradeAnomaly = TradeAnomaly.new();
 	anomaly.generate(self);
 	while overlapping_anomaly(anomaly):
@@ -147,7 +149,7 @@ func add_new_anomaly():
 
 
 
-func refresh_inventory():
+func refresh_inventory()->void:
 	## affects daily inventory refresh:
 	## production
 	## trade anomalies
@@ -172,11 +174,11 @@ func refresh_inventory():
 		"chips":chips_production
 	}
 	
-	for r in resources:
+	for r:String in resources:
 		for anomaly:TradeAnomaly in ongoing_anomalies:
 			if anomaly.resource == r:
-				var price_shift = resource_prices[r] * anomaly.change
-				var change = to_add[r] * anomaly.change;
+				var price_shift:float = resource_prices[r] * anomaly.change
+				var change:float = to_add[r] * anomaly.change;
 				if not anomaly.positive:
 					## anomalies are heavily overcorrected
 					change *= -1; 
@@ -186,9 +188,9 @@ func refresh_inventory():
 					
 				to_add[r] += change;
 
-	var relationship_modifier = relationship_modifiers[player_relation];
+	var relationship_modifier:float = relationship_modifiers[player_relation];
 
-	for r in to_add.keys():
+	for r:String in to_add.keys():
 		resource_selling_prices[r] = resource_prices[r] / relationship_modifier;
 		resource_buying_prices[r] = resource_prices[r] * relationship_modifier;
 		inventory[r] = to_add[r];
@@ -201,8 +203,8 @@ func overlapping_anomaly(anomaly:TradeAnomaly)->bool:
 			return true;
 	return false
 
-func _on_hover_box_mouse_entered():
+func _on_hover_box_mouse_entered()->void:
 	Entities.map_entity_under_mouse = self;
 	
-func _on_hover_box_mouse_exited():
+func _on_hover_box_mouse_exited()->void:
 	Entities.clear_map_entity_under_mouse();

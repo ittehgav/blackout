@@ -25,3 +25,10 @@ func _ready()->void:
 	
 	for item in adjacent_items:
 		item.modulate = Meta.resource_colors[resource]
+		if item is Label:
+			Entities.player.resources_changed.connect(set_count_label.bind(item))
+			set_count_label(item);
+		
+func set_count_label(target:Label):
+	var value = Entities.player.inventory[resource];
+	target.text = str(value);

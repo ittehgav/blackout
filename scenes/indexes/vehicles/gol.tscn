@@ -9,3 +9,9 @@ texture = ExtResource("1_msghd")
 hframes = 2
 vframes = 2
 script = ExtResource("2_wswif")
+
+[node name="bounce" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="bounce" to="." method="_on_bounce_timeout"]

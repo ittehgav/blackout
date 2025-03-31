@@ -1,6 +1,7 @@
-[gd_scene load_steps=83 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=90 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
+[ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_sjqk0"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_ircok"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="4_4aisy"]
@@ -52,9 +53,17 @@
 [ext_resource type="Texture2D" uid="uid://btl7carrb2i4v" path="res://assets/visual/tiles/fog_cell.png" id="48_ltr5c"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="49_yhrnu"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="50_piqjc"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="52_64kp8"]
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="52_ebkns"]
 [ext_resource type="Texture2D" uid="uid://dkpxsjgvphgq8" path="res://assets/visual/ui/map/movement_pointer_shadow.png" id="52_piqjc"]
 [ext_resource type="Script" uid="uid://0o04smiwwlcd" path="res://scenes/map/world_map/movement_pointer.gd" id="53_ltr5c"]
 [ext_resource type="Texture2D" uid="uid://wagrlrl1grej" path="res://assets/visual/ui/map/movement_pointer.png" id="54_anjvn"]
+[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="54_nmq41"]
+[ext_resource type="PackedScene" uid="uid://6qbhmvo1b1n1" path="res://scenes/indexes/settlements/stadium.tscn" id="56_anjvn"]
+[ext_resource type="PackedScene" uid="uid://cqyc1v8qqn3xv" path="res://scenes/map/ui/pre_battle/pre_battle.tscn" id="57_1ogav"]
+[ext_resource type="PackedScene" uid="uid://bl2gyiuhaw0j2" path="res://scenes/map/map_party/npc_map_party.tscn" id="60_gmjui"]
+[ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/map/parties/generic/thugs.tscn" id="61_sjqk0"]
+[ext_resource type="PackedScene" uid="uid://c83u8udv4ox01" path="res://scenes/indexes/vehicles/uno.tscn" id="62_1ogav"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gyjr"]
 texture = ExtResource("3_1w3gq")
@@ -143,102 +152,6 @@ sources/4 = SubResource("TileSetAtlasSource_1aag8")
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8x8fu"]
 noise = SubResource("FastNoiseLite_8x8fu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_anjvn"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ebkns"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_64kp8"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nmq41"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7d1fb"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f2dah"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gmjui"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sjqk0"]
 resource_local_to_scene = true
 shader = ExtResource("3_ircok")
@@ -287,6 +200,102 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48qk5"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xm6f"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbcyd"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oq2vs"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37vhr"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7rrql"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qa630"]
+resource_local_to_scene = true
+shader = ExtResource("3_ircok")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltr5c"]
 texture = ExtResource("48_ltr5c")
 0:0/0 = 0
@@ -298,15 +307,6 @@ texture = ExtResource("48_ltr5c")
 physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 4
 sources/0 = SubResource("TileSetAtlasSource_ltr5c")
-
-[sub_resource type="Gradient" id="Gradient_yhrnu"]
-offsets = PackedFloat32Array(0, 0.510836)
-colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_piqjc"]
-gradient = SubResource("Gradient_yhrnu")
-fill = 1
-fill_from = Vector2(0.525641, 0.508547)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
 resource_local_to_scene = true
@@ -356,12 +356,14 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "player")]
+[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "tile_map", "player")]
 process_mode = 1
 script = ExtResource("1_s4sam")
 ui = NodePath("ui_overlay/ui")
+tile_map = NodePath("bg_tiles")
 player = NodePath("entities/in_map_player")
 sky_colors = Array[Color]([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.114, 0.114, 0.15, 1), Color(0.2, 0.1736, 0.134, 1), Color(0.5, 0.376333, 0.235, 1), Color(0.6, 0.5388, 0.492, 1), Color(0.8, 0.8, 0.8, 1), Color(0.9, 0.9, 0.9, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)])
+arena_scene = ExtResource("2_sjqk0")
 
 [node name="minute_ticker" type="Timer" parent="."]
 wait_time = 0.05
@@ -450,80 +452,77 @@ equipped_weapon = NodePath("Inventory/Tailpipe")
 
 [node name="Staff of Luc" parent="entities/in_map_player/Player/Inventory" index="11" instance=ExtResource("7_3vru2")]
 
-[node name="Roster" parent="entities/in_map_player/Player" index="1" node_paths=PackedStringArray("units")]
-units = []
-
 [node name="FighterUnit" parent="entities/in_map_player/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Arm Guy")
 
 [node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit" instance=ExtResource("18_8x8fu")]
-material = SubResource("ShaderMaterial_ltr5c")
+material = SubResource("ShaderMaterial_sjqk0")
 
 [node name="FighterUnit2" parent="entities/in_map_player/Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Coil Guy")
 
 [node name="Coil Guy" parent="entities/in_map_player/Player/Roster/FighterUnit2" instance=ExtResource("20_05i75")]
-material = SubResource("ShaderMaterial_anjvn")
+material = SubResource("ShaderMaterial_1ogav")
 
 [node name="FighterUnit3" parent="entities/in_map_player/Player/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Crossbow Guy")
 
 [node name="Crossbow Guy" parent="entities/in_map_player/Player/Roster/FighterUnit3" instance=ExtResource("21_1aag8")]
-material = SubResource("ShaderMaterial_ebkns")
+material = SubResource("ShaderMaterial_cxe47")
 
 [node name="FighterUnit4" parent="entities/in_map_player/Player/Roster" index="3" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Crowbar Guy")
 
 [node name="Crowbar Guy" parent="entities/in_map_player/Player/Roster/FighterUnit4" instance=ExtResource("22_kcivd")]
-material = SubResource("ShaderMaterial_64kp8")
+material = SubResource("ShaderMaterial_0jkk0")
 
 [node name="FighterUnit5" parent="entities/in_map_player/Player/Roster" index="4" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Door Guy")
 
 [node name="Door Guy" parent="entities/in_map_player/Player/Roster/FighterUnit5" instance=ExtResource("23_3w437")]
-material = SubResource("ShaderMaterial_nmq41")
+material = SubResource("ShaderMaterial_48qk5")
 
 [node name="FighterUnit6" parent="entities/in_map_player/Player/Roster" index="5" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Double Arm Guy")
 
 [node name="Double Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit6" instance=ExtResource("24_mw666")]
-material = SubResource("ShaderMaterial_7d1fb")
+material = SubResource("ShaderMaterial_8xm6f")
 
 [node name="FighterUnit7" parent="entities/in_map_player/Player/Roster" index="6" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Gravity Guy")
 
 [node name="Gravity Guy" parent="entities/in_map_player/Player/Roster/FighterUnit7" instance=ExtResource("25_qkpsy")]
-material = SubResource("ShaderMaterial_f2dah")
+material = SubResource("ShaderMaterial_gbcyd")
 
 [node name="FighterUnit8" parent="entities/in_map_player/Player/Roster" index="7" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Mech Arm Guy")
 
 [node name="Mech Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit8" instance=ExtResource("26_2cuod")]
-material = SubResource("ShaderMaterial_gmjui")
+material = SubResource("ShaderMaterial_oq2vs")
 
 [node name="FighterUnit9" parent="entities/in_map_player/Player/Roster" index="8" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Tailpipe Guy")
 
 [node name="Tailpipe Guy" parent="entities/in_map_player/Player/Roster/FighterUnit9" instance=ExtResource("27_bp0ea")]
-material = SubResource("ShaderMaterial_sjqk0")
+material = SubResource("ShaderMaterial_l56xi")
 
 [node name="FighterUnit10" parent="entities/in_map_player/Player/Roster" index="9" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Taser Guy")
 
 [node name="Taser Guy" parent="entities/in_map_player/Player/Roster/FighterUnit10" instance=ExtResource("28_5larv")]
-material = SubResource("ShaderMaterial_1ogav")
+material = SubResource("ShaderMaterial_37vhr")
 
 [node name="FighterUnit11" parent="entities/in_map_player/Player/Roster" index="10" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Tether Guy")
 
 [node name="Tether Guy" parent="entities/in_map_player/Player/Roster/FighterUnit11" instance=ExtResource("29_oxxdj")]
-material = SubResource("ShaderMaterial_cxe47")
+material = SubResource("ShaderMaterial_7rrql")
 
 [node name="FighterUnit12" parent="entities/in_map_player/Player/Roster" index="11" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Wheel Guy")
 
 [node name="Wheel Guy" parent="entities/in_map_player/Player/Roster/FighterUnit12" instance=ExtResource("20_opvew")]
-material = SubResource("ShaderMaterial_0jkk0")
+material = SubResource("ShaderMaterial_qa630")
 
 [node name="combat_stats" parent="entities/in_map_player/Player" index="2"]
 max_hp = 1232.1
@@ -534,9 +533,21 @@ technique = 1.23
 [node name="leadership_stats" parent="entities/in_map_player/Player" index="3"]
 charisma = 2
 
+[node name="Stadium" parent="entities" instance=ExtResource("56_anjvn")]
+position = Vector2(780, 104)
+
+[node name="NpcMapParty" parent="entities" node_paths=PackedStringArray("leader", "vehicle") instance=ExtResource("60_gmjui")]
+position = Vector2(1081, 380)
+leader = NodePath("Thugs")
+vehicle = NodePath("Uno")
+
+[node name="Thugs" parent="entities/NpcMapParty" instance=ExtResource("61_sjqk0")]
+
+[node name="Uno" parent="entities/NpcMapParty" instance=ExtResource("62_1ogav")]
+
 [node name="fog" type="TileMapLayer" parent="."]
-visible = false
-modulate = Color(0.37, 0.37, 0.37, 0.980392)
+modulate = Color(0.38, 0.38, 0.38, 1)
+z_index = 1
 tile_set = SubResource("TileSet_anjvn")
 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
@@ -552,16 +563,29 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_d8dst")
 settlement_ui = NodePath("settlement_ui")
-clock = NodePath("main_hud/Panel/VBoxContainer2/clock")
-date = NodePath("main_hud/Panel/VBoxContainer2/date")
+clock = NodePath("main_hud/clock_panel/MarginContainer/VBoxContainer2/clock")
+date = NodePath("main_hud/clock_panel/MarginContainer/VBoxContainer2/date")
 
 [node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
 visible = false
 layout_mode = 1
 mouse_filter = 2
 
-[node name="main_hud" type="Control" parent="ui_overlay/ui" node_paths=PackedStringArray("panel")]
+[node name="Dialogue" parent="ui_overlay/ui" instance=ExtResource("13_8dqwv")]
 visible = false
+layout_mode = 1
+
+[node name="pre_battle" parent="ui_overlay/ui" instance=ExtResource("57_1ogav")]
+visible = false
+layout_mode = 1
+
+[node name="PlayerSheet" parent="ui_overlay/ui" instance=ExtResource("20_lvh7d")]
+visible = false
+z_index = 2
+layout_mode = 1
+
+[node name="main_hud" type="Control" parent="ui_overlay/ui" node_paths=PackedStringArray("clock", "date", "fade_tweens")]
+process_mode = 3
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -571,126 +595,71 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("47_lljjg")
-panel = NodePath("Panel")
+clock = NodePath("clock_panel/MarginContainer/VBoxContainer2/clock")
+date = NodePath("clock_panel/MarginContainer/VBoxContainer2/date")
+fade_tweens = {
+NodePath("party_status_panel"): null,
+NodePath("clock_panel"): null,
+NodePath("resources_panel"): null
+}
 
-[node name="night_fog" type="TextureRect" parent="ui_overlay/ui/main_hud"]
-visible = false
+[node name="party_status_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud"]
+layout_mode = 0
+offset_right = 212.0
+offset_bottom = 97.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/party_status_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MoraleIcon" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("52_64kp8")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+adjacent_items = [NodePath("../morale_value")]
+
+[node name="morale_value" type="Label" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "wawa"
+
+[node name="PartyIcon" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("count_label") instance=ExtResource("54_nmq41")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+count_label = NodePath("../Label")
+
+[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="clock_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("GradientTexture2D_piqjc")
-
-[node name="Panel" type="Panel" parent="ui_overlay/ui/main_hud"]
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/main_hud/Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0151515
-anchor_top = 0.0740741
-anchor_right = 0.0151515
-anchor_bottom = 0.0740741
-offset_right = 302.0
-offset_bottom = 112.0
-theme_override_constants/separation = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="resource_icon" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_fn5hq")
-layout_mode = 2
-adjacent_items = [NodePath("../Label")]
-
-[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "22"
-
-[node name="resource_icon2" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_k7mhn")
-layout_mode = 2
-adjacent_items = [NodePath("../Label2")]
-resource = "fuel"
-
-[node name="Label2" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "11"
-
-[node name="resource_icon3" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_a8suh")
-layout_mode = 2
-adjacent_items = [NodePath("../Label3")]
-resource = "money"
-
-[node name="Label3" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "23"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="resource_icon" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_umths")
-layout_mode = 2
-adjacent_items = [NodePath("../Label")]
-resource = "juice"
-
-[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "22"
-
-[node name="resource_icon2" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_ffuc7")
-layout_mode = 2
-adjacent_items = [NodePath("../Label2")]
-resource = "scrap"
-
-[node name="Label2" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "11"
-
-[node name="resource_icon3" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_h2uxo")
-layout_mode = 2
-adjacent_items = [NodePath("../Label3")]
-resource = "chips"
-
-[node name="Label3" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "23"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="ui_overlay/ui/main_hud/Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.973064
-anchor_top = 0.0165289
-anchor_right = 0.973064
-anchor_bottom = 0.0165289
-offset_left = -112.0
-offset_bottom = 114.0
+offset_left = -144.0
+offset_bottom = 146.0
 grow_horizontal = 0
+theme = ExtResource("52_ebkns")
 
-[node name="date" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/clock_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ui_overlay/ui/main_hud/clock_panel/MarginContainer"]
+layout_mode = 2
+
+[node name="date" type="Label" parent="ui_overlay/ui/main_hud/clock_panel/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -3
@@ -698,10 +667,10 @@ theme_override_constants/shadow_offset_y = -3
 theme_override_font_sizes/font_size = 64
 text = "20/04"
 
-[node name="HSeparator" type="HSeparator" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer2"]
+[node name="HSeparator" type="HSeparator" parent="ui_overlay/ui/main_hud/clock_panel/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="clock" type="Label" parent="ui_overlay/ui/main_hud/Panel/VBoxContainer2"]
+[node name="clock" type="Label" parent="ui_overlay/ui/main_hud/clock_panel/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -3
@@ -709,24 +678,118 @@ theme_override_constants/shadow_offset_y = -3
 theme_override_font_sizes/font_size = 64
 text = "16:20"
 
-[node name="Dialogue" parent="ui_overlay/ui" instance=ExtResource("13_8dqwv")]
-visible = false
+[node name="resources_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud"]
 layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -134.0
+offset_right = 324.0
+grow_vertical = 0
 
-[node name="PlayerSheet" parent="ui_overlay/ui" instance=ExtResource("20_lvh7d")]
-visible = false
-z_index = 1
-layout_mode = 1
+[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/resources_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_fn5hq")
+layout_mode = 2
+adjacent_items = [NodePath("../Label")]
+
+[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "22"
+
+[node name="resource_icon2" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_k7mhn")
+layout_mode = 2
+adjacent_items = [NodePath("../Label2")]
+resource = "fuel"
+
+[node name="Label2" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="resource_icon3" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_a8suh")
+layout_mode = 2
+adjacent_items = [NodePath("../Label3")]
+resource = "money"
+
+[node name="Label3" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "23"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_umths")
+layout_mode = 2
+adjacent_items = [NodePath("../Label")]
+resource = "juice"
+
+[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "22"
+
+[node name="resource_icon2" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_ffuc7")
+layout_mode = 2
+adjacent_items = [NodePath("../Label2")]
+resource = "scrap"
+
+[node name="Label2" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="resource_icon3" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_h2uxo")
+layout_mode = 2
+adjacent_items = [NodePath("../Label3")]
+resource = "chips"
+
+[node name="Label3" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "23"
 
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
 [connection signal="timeout" from="minute_ticker" to="." method="_on_minute_ticker_timeout"]
-[connection signal="timeout" from="minute_ticker" to="ui_overlay/ui" method="update_clock"]
+[connection signal="timeout" from="minute_ticker" to="ui_overlay/ui/main_hud" method="update_clock"]
 [connection signal="timeout" from="entities/movement_pointer_shadow/next_frame" to="entities/movement_pointer_shadow" method="_on_next_frame_timeout"]
 [connection signal="started_moving" from="entities/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_started_moving"]
 [connection signal="stopped_moving" from="entities/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_stopped_moving"]
-[connection signal="mouse_entered" from="ui_overlay/ui/main_hud/Panel" to="ui_overlay/ui/main_hud" method="_on_panel_mouse_entered"]
-[connection signal="mouse_exited" from="ui_overlay/ui/main_hud/Panel" to="ui_overlay/ui/main_hud" method="_on_panel_mouse_exited"]
+[connection signal="body_entered" from="entities/in_map_player/sight" to="bg_tiles" method="_on_sight_body_entered"]
+[connection signal="settlement_entered" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]
+[connection signal="settlement_left" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]
+[connection signal="dialogue_ended" from="ui_overlay/ui/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]
+[connection signal="dialogue_started" from="ui_overlay/ui/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]
+[connection signal="pre_battle_started" from="ui_overlay/ui/pre_battle" to="ui_overlay/ui/main_hud" method="_on_pre_battle_started"]
+[connection signal="gui_input" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_gui_input"]
+[connection signal="mouse_entered" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_mouse_entered"]
+[connection signal="mouse_exited" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_mouse_exited"]
+[connection signal="gui_input" from="ui_overlay/ui/main_hud/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_gui_input"]
+[connection signal="mouse_entered" from="ui_overlay/ui/main_hud/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_mouse_entered"]
+[connection signal="mouse_exited" from="ui_overlay/ui/main_hud/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_mouse_exited"]
 
 [editable path="entities/in_map_player"]
 [editable path="entities/in_map_player/Player"]

@@ -1,5 +1,6 @@
 extends Panel
 
+@export var ui_sfx:AudioStreamPlayer;
 @export var sprite_sample_scene:PackedScene;
 
 @export var recruit_full_view:Container;
@@ -16,4 +17,5 @@ func _ready()->void:
 		
 func show_more(e:InputEvent, unit:FighterUnit)->void:
 	if e is InputEventMouseButton and e.pressed:
+		ui_sfx.play_stream_by_key("button_click_sound")
 		recruit_full_view.display_recruit(unit)

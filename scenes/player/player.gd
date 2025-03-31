@@ -6,6 +6,7 @@ class_name Player;
 
 signal resources_changed;
 signal morale_changed;
+signal party_changed;
 
 ## leadership skills will be a special tree that grants a special bonus at each level
 ## you can win leadership EXP by fighting (based on the amount of units is the party?)
@@ -25,7 +26,7 @@ signal morale_changed;
 var memos:Array[Memo];
 
 
-var morale:float=4.56664;
+var morale:float=2.56664;
 
 func _ready()->void:
 	Entities.player = self;

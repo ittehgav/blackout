@@ -34,3 +34,5 @@ func update()->void:
 	
 	for item in adjacent_items:
 		item.modulate = target_color;
+		if item.name == "morale_value":
+			item.text = str(snapped(Entities.player.morale, .01));

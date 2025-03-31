@@ -17,7 +17,7 @@ var positive:bool;
 
 var anomaly:Dictionary;
 
-func generate(settlement:Settlement):
+func generate(settlement:Settlement)->void:
 	## roll = 10 - 100% increase or decrese in stock of item
 	target = settlement;
 	change = snapped(randf_range(0, .9), .1);
@@ -26,8 +26,8 @@ func generate(settlement:Settlement):
 
 
 func generate_description()->String:
-	var positive_event_highlight_color = "[color=" + Color.GREEN.to_html()+ "]"
-	var negative_event_highlight_color = "[color=" + Color.RED.to_html() + "]";
+	var positive_event_highlight_color: = "[color=" + Color.GREEN.to_html()+ "]"
+	var negative_event_highlight_color: = "[color=" + Color.RED.to_html() + "]";
 	var string:String = Meta.tagged_settlement_name(target)
 	
 	if positive:

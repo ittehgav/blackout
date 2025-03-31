@@ -44,7 +44,7 @@ func load_teams(enemy_leader:Leader)->void:
 	enemy_leader.load_party(team_2, npc_fighter_scene, 500);
 	
 	var leader_unit:NpcFighter = npc_fighter_scene.instantiate();
-	leader_unit.load_fighter(enemy_leader.leader_unit)
+	leader_unit.load_fighter(enemy_leader.unit)
 	team_2.add_child(leader_unit)
 	team_2.refresh_units();
 	

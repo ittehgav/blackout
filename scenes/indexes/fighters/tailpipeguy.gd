@@ -4,6 +4,8 @@ extends FighterBase
 const skill_effects = ["aoe_damage", "aoe_debuff"];
 const skill_visuals = ["lunge_forward", "shrink_target"]
 
+const sample_offset = Vector2(33, -26)
+
 const target_type = "nearest_enemy"
 
 
@@ -12,7 +14,7 @@ const description = "Moderate resistance and damage, attacks reduce enemies' dam
 const long_description = "Disruptive and resistant. Can be upgraded to become extremely resistant or to deal great AOE damage."
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str = Meta.get_unit_damage_string(unit);
+	var damage_str: = Meta.get_unit_damage_string(unit);
 	var atk_reduction_str:String =  Meta.get_technique_scaled_string(unit, "", stat_debuff_values.attack, "%");
 	
 	var string:String = "Deals " + damage_str + " damage to enemies in an area and reduces their attack by "\

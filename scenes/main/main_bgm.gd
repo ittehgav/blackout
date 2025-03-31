@@ -4,6 +4,7 @@ extends AudioStreamPlayer
 @export var in_settlement:AudioStream;
 @export var combat:AudioStream;
 @export var intro:AudioStream;
+@export var dialogue:AudioStream;
 
 func _ready()->void:
 	Entities.main_bgm = self;
@@ -12,4 +13,11 @@ func _ready()->void:
 func play_bgm(key:String)->void:
 	pitch_scale = 1;
 	stream = self[key];
-	play();
+	
+	if stream == in_map:
+		pitch_scale = Entities.world_map.get_hour_pitch()
+	#play();
+
+
+func _on_finished() -> void:
+	play()

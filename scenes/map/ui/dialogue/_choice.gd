@@ -5,9 +5,9 @@ class_name DialogueChoice;
 @export var label:RichTextLabel
 
 func build(new_text:String)->void:
-	const line_height = 48;
-	const chars_per_line = 38;
+	const line_height = 50;
 	label.text = new_text;
-	var total_lines:float = len(new_text)/chars_per_line
-	if total_lines == 0:total_lines = 1;
-	custom_minimum_size.y = line_height * total_lines + 5
+	await label.draw
+	var line_count:int = label.get_line_count();
+
+	custom_minimum_size.y = line_height * line_count + 5

@@ -13,7 +13,7 @@ func _ready() -> void:
 	ColorCoder.color_code_player(self);
 
 func _process(_delta:float)->void:
-	flip_h = get_local_mouse_position().x < position.x
+	flip_h = get_global_mouse_position().x < global_position.x
 
 func switch_animation(type:String)->void:
 	current_state = type;

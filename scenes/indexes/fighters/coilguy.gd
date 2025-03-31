@@ -3,6 +3,8 @@ extends FighterBase
 const skill_effects = ["special"];
 const skill_visuals = ["recoil"]
 
+const sample_offset = Vector2(10, -26)
+
 const target_type = "nearest_enemy"
 
 const skill_name = "Chain Lightning"

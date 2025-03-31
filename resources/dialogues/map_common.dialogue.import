@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://feaq8of8tkb0"
+path="res://.godot/imported/map_common.dialogue-68d8c4d8e01b640061b242fe715a9469.tres"
+
+[deps]
+
+source_file="res://resources/dialogues/map_common.dialogue"
+dest_files=["res://.godot/imported/map_common.dialogue-68d8c4d8e01b640061b242fe715a9469.tres"]
+
+[params]
+
+defaults=true

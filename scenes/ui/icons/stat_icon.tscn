@@ -25,8 +25,17 @@ border_color = Color(0, 0, 1, 1)
 z_index = 1
 material = SubResource("ShaderMaterial_xoeuu")
 custom_minimum_size = Vector2(32, 32)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_b7vp6")
 script = ExtResource("2_w7tyd")
 
