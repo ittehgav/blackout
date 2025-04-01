@@ -33,6 +33,10 @@ func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	Tweens.heal_vfx(target);
 
 func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = source.base.stun_duration * source.technique)->void:
+	if source is NpcFighter:
+		if not target in source.hit_targets:
+			source.hit_targets.append(target);
+
 	if target.stun_timer.is_stopped() or target.stun_timer.time_left < duration:
 			target.stun_timer.wait_time = duration;
 			target.stun_timer.start()

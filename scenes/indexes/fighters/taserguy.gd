@@ -4,6 +4,9 @@ extends FighterBase
 const skill_effects = ["stun", "direct_damage"];
 const skill_visuals = ["recoil"]
 
+const skill_use_sfx = ["shoot"]
+const skill_hit_sfx = ["projectile_hit"]
+
 const sample_offset = Vector2(8, -26)
 
 const target_type = "nearest_enemy"

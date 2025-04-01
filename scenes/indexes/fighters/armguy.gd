@@ -3,6 +3,9 @@ extends FighterBase
 const skill_effects = ["aoe_damage", "aoe_stun"];
 const skill_visuals = ["lunge_forward"]
 
+const skill_use_sfx = ["swing"]
+const skill_hit_sfx = ["slam"]
+
 ## offset to be used on sprite samples
 const sample_offset = Vector2(19, -42);
 

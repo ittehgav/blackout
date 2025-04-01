@@ -2,7 +2,9 @@ extends ActiveFighter;
 
 class_name NpcFighter
 
-signal target_change;
+signal target_changed;
+signal skill_used;
+signal skill_hit(target_hit:ActiveFighter);
 
 @export var unit:FighterUnit;
 @export var hit_scan:Area2D;
@@ -10,12 +12,13 @@ signal target_change;
 @export var skill_retry_timer:Timer;
 
 
-
 var current_animation:String = "idle";
 
 var target_unit:ActiveFighter;
 var target_in_range:bool = false;
 
+## for the skill_hit signal to not repeat itself
+var hit_targets:Array[ActiveFighter]
 
 func load_fighter(new_unit:FighterUnit)->void:
 	unit = new_unit
@@ -62,7 +65,7 @@ func load_fighter(new_unit:FighterUnit)->void:
 	
 	
 	if "special_setup" in base:
-		base.special_setup(self);
+		base.special_setup();
 	update_overlay();
 
 
@@ -84,7 +87,7 @@ func find_target()->void:
 					target = ally;
 	if target != target_unit:
 		target_unit = target;
-		target_change.emit();
+		target_changed.emit();
 
 	target_in_range = target_unit in $skill_range.get_overlapping_bodies();
 
@@ -116,6 +119,7 @@ func _on_skill_range_body_exited(body: Node2D) -> void:
 
 
 func use_skill()->void:
+	hit_targets = []
 	current_animation = "skill";
 	next_frame()
 	for effect:String in base.skill_effects:
@@ -131,6 +135,11 @@ func use_skill()->void:
 				Tweens.recoil_target(self)
 			"grow":
 				Tweens.growth_tween(self)
+	skill_used.emit();
+	for target:ActiveFighter in hit_targets:
+		skill_hit.emit(target);
+	
+
 
 func next_frame() -> void:
 	match current_animation:
@@ -169,10 +178,3 @@ func skill_cooldown() -> void:
 		$npc_timers/skill_cooldown.start()
 	else:
 		skill_retry_timer.start();
-
-
-func _on_death(_killer: ActiveFighter) -> void:
-	if ally_team == Entities.in_fight_player.ally_team:
-		sfx.play_sfx_by_key("ally_death");
-	else:
-		sfx.play_sfx_by_key("enemy_death")

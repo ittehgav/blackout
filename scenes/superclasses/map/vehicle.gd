@@ -2,7 +2,7 @@ extends Sprite2D
 
 class_name Vehicle
 
-@export var party:MapParty;
+var party:MapParty;
 
 var wheel_bounce_acm:float = 0.0;
 

@@ -5,6 +5,9 @@ var hit_scan_shape:CollisionShape2D;
 const skill_effects = ["special"];
 const skill_visuals = ["recoil", "shrink_target"]
 
+const skill_use_sfx = ["gravity"]
+const skill_hit_sfx = []
+
 const sample_offset = Vector2(1, -26)
 
 const target_type = "nearest_enemy"
@@ -43,7 +46,7 @@ const stun_duration = 1;
 const secondary_stun_duration = .5;
 
 func special_setup()->void:
-	fighter.target_change.connect(update_hit_scan.bind(fighter));
+	fighter.target_changed.connect(update_hit_scan.bind(fighter));
 	hit_scan_shape = fighter.get_node("hit_scan/shape")
 
 func _process(_delta:float)->void:

@@ -50,12 +50,14 @@ theme_override_font_sizes/font_size = 48
 text = "wawa"
 
 [node name="sub_name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
 modulate = Color(1, 1, 1, 0.556863)
 layout_mode = 2
 text = "subname"
 horizontal_alignment = 1
 
 [node name="description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2

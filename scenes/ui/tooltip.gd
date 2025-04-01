@@ -15,6 +15,11 @@ class_name Tooltip;
 
 @onready var window_size:Vector2 = DisplayServer.screen_get_size();
 
+@export_group("hardcode")
+@export var hardcoded_name:String;
+@export var hardcoded_sub_name:String;
+@export var hardcoded_description:String;
+
 func _ready() -> void:
 	var parent:Control = get_parent()
 	assert (parent is Control and not parent is Container);
@@ -36,6 +41,7 @@ func setup()->void:
 
 	name_label.text = target.name;
 	if "sub_name" in target:
+		sub_name_label.show()
 		sub_name_label.text = target.sub_name;
 	if "tooltip_name_color" in target:
 		name_label.modulate = target.tooltip_name_color;
@@ -48,6 +54,15 @@ func setup()->void:
 	if "tooltip_hint" in target:
 		hint.show();
 		hint.text = target.tooltip_hint;
+	
+	if hardcoded_name:
+		name_label.text = hardcoded_name;
+	if hardcoded_sub_name:
+		sub_name_label.show()
+		sub_name_label.text = hardcoded_sub_name
+	if hardcoded_description:
+		description_label.show();
+		description_label.text = hardcoded_description
 	
 	description_label.custom_minimum_size.x = size.x;
 

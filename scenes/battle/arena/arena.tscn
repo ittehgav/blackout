@@ -1,14 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=11 format=3 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" uid="uid://xb73utl6rxmj" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_vr7dw"]
-[ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/team.gd" id="3_kfkuj"]
+[ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="3_kfkuj"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/player/in_fight_player.tscn" id="4_n7xip"]
 [ext_resource type="Script" uid="uid://d0ji6wb36bxta" path="res://scenes/battle/arena/overlay.gd" id="5_jp2sx"]
-[ext_resource type="Script" uid="uid://bakb8wwv3vj5x" path="res://scenes/battle/arena/ui/pre_fight.gd" id="5_l2men"]
 [ext_resource type="Script" uid="uid://csxx5rp5jofmp" path="res://scenes/battle/arena/progress_bar.gd" id="5_mjben"]
 [ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/arena/ui/post_fight.gd" id="6_j1t58"]
 [ext_resource type="Texture2D" uid="uid://bnodj0olc5drs" path="res://assets/visual/icons/stats/attack.png" id="6_tbs4p"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="7_dheq7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xlpfb"]
+shader = ExtResource("7_dheq7")
+shader_parameter/base_color = Color(0.423529, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
 
 [node name="arena" type="Node2D" node_paths=PackedStringArray("overlay", "team_1", "team_2")]
 script = ExtResource("1_gosq3")
@@ -22,6 +29,7 @@ script = ExtResource("3_kfkuj")
 team_n = 1
 
 [node name="in_fight_player" parent="team_1" instance=ExtResource("4_n7xip")]
+position = Vector2(-45, 420)
 
 [node name="team_2" type="Node2D" parent="."]
 script = ExtResource("3_kfkuj")
@@ -59,59 +67,15 @@ script = ExtResource("5_mjben")
 icon = NodePath("icon")
 
 [node name="icon" type="TextureRect" parent="CanvasLayer/overlay/tide_of_battle"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_xlpfb")
 layout_mode = 0
 offset_left = 620.0
 offset_top = -5.0
 offset_right = 660.0
 offset_bottom = 35.0
+scale = Vector2(2, 2)
 texture = ExtResource("6_tbs4p")
-
-[node name="pre_fight" type="Control" parent="CanvasLayer/overlay"]
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_l2men")
-
-[node name="Panel" type="Panel" parent="CanvasLayer/overlay/pre_fight"]
-self_modulate = Color(0.313726, 0.486275, 0.501961, 0.501961)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/overlay/pre_fight"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -58.0
-offset_top = -25.5
-offset_right = 58.0
-offset_bottom = 25.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/overlay/pre_fight/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/overlay/pre_fight/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="start_battle" type="Button" parent="CanvasLayer/overlay/pre_fight/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Start Battle"
 
 [node name="post_fight" type="Control" parent="CanvasLayer/overlay"]
 visible = false
@@ -141,5 +105,13 @@ offset_bottom = 262.0
 theme_override_font_sizes/font_size = 128
 text = "penaz"
 
+[node name="Button" type="Button" parent="CanvasLayer"]
+process_mode = 3
+offset_top = 163.0
+offset_right = 56.0
+offset_bottom = 197.0
+scale = Vector2(2, 2)
+text = "stat"
+
 [connection signal="value_changed" from="CanvasLayer/overlay/tide_of_battle" to="CanvasLayer/overlay/tide_of_battle" method="_on_value_changed"]
-[connection signal="pressed" from="CanvasLayer/overlay/pre_fight/PanelContainer/MarginContainer/VBoxContainer/start_battle" to="CanvasLayer/overlay/pre_fight" method="start_battle"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

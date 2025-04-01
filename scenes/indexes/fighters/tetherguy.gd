@@ -3,6 +3,9 @@ extends FighterBase
 const skill_effects = ["special"];
 const skill_visuals = ["recoil"]
 
+const skill_use_sfx = ["shoot"]
+const skill_hit_sfx = ["heal"]
+
 const sample_offset = Vector2(8, -26)
 
 const target_type = "least_hp_ally"
@@ -39,13 +42,14 @@ const tags = [
 
 
 func special_skill()->void:
-	recurring_heal(fighter, fighter.target_unit, total_heal_ticks);
+	recurring_heal(fighter.target_unit, total_heal_ticks);
 
 
-func recurring_heal(source:ActiveFighter, target:ActiveFighter, ticks_left:int)->void:
-	Combat.heal_unit(source, target, heal_value );
+func recurring_heal(target:ActiveFighter, ticks_left:int)->void:
+	Combat.heal_unit(fighter, target, heal_value );
 	ticks_left -= 1
 	if ticks_left and get_tree():
 		await get_tree().create_timer(heal_interval).timeout
+		fighter.skill_hit.emit(target);
 		if target.hp > 0:
-			recurring_heal(source, target, ticks_left)
+			recurring_heal( target, ticks_left)

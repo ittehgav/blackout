@@ -23,11 +23,7 @@ func _input(e:InputEvent)->void:
 				target_position = cursor_position
 			if not camera.in_player:
 				target_position += camera.position - position;
-			
-
 			started_moving.emit();
-
-
 
 	if camera.in_player:
 		var camera_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")

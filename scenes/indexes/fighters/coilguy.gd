@@ -1,7 +1,11 @@
 extends FighterBase
 
 const skill_effects = ["special"];
-const skill_visuals = ["recoil"]
+const skill_visuals = ["recoil"];
+
+## sounds for this guy are played through the special_skill function
+const skill_use_sfx = []
+const skill_hit_sfx = []
 
 const sample_offset = Vector2(10, -26)
 
@@ -45,8 +49,8 @@ func special_skill()->void:
 		fighter.target_unit.death.connect(remove_from_tagged.bind(fighter.target_unit))
 		
 
-	elif not len(fighter.enemy_team) == len(tagged_targets):
-		var untagged_targets:Array[ActiveFighter] = fighter.enemy_team.units.duplicate();
+	elif not len(fighter.enemy_team.units) == len(tagged_targets):
+		var untagged_targets:Array[Node] = fighter.enemy_team.units.duplicate();
 		
 		for unit:ActiveFighter in tagged_targets:
 			untagged_targets.erase(unit)
@@ -59,6 +63,11 @@ func special_skill()->void:
 	for unit:ActiveFighter in fighter.enemy_team.units:
 		if unit in tagged_targets:
 			Combat.deal_damage(fighter, unit, target_count_amplifier);
+	
+	if len(tagged_targets) > 1:
+		fighter.npc_sfx.play_sfx_by_key("lightning_big");
+	else:
+		fighter.npc_sfx.play_sfx_by_key("lightning_small")
 
 
 func target_count_amplifier(damage:float)->float:

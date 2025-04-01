@@ -29,11 +29,11 @@ func start_battle(enemy_leader:Leader)->void:
 	load_teams(enemy_leader);
 	overlay.tide_bar.set_tide_bar();
 	
+	Entities.world_map.set_process_mode(Node.PROCESS_MODE_DISABLED);
 	Entities.world_map.hide();
-	Entities.world_map.ui.hide();
-	Entities.world_map.ui.hide();
+	#Entities.world_map.ui.hide();
 	Entities.main.add_child(self)
-
+	
 
 func load_teams(enemy_leader:Leader)->void:
 	## happens before ready?
@@ -41,7 +41,7 @@ func load_teams(enemy_leader:Leader)->void:
 	team_1.refresh_units();
 	## will leaders be part of the roster?
 	
-	enemy_leader.load_party(team_2, npc_fighter_scene, 500);
+	enemy_leader.load_party(team_2, npc_fighter_scene, false);
 	
 	var leader_unit:NpcFighter = npc_fighter_scene.instantiate();
 	leader_unit.load_fighter(enemy_leader.unit)
@@ -106,3 +106,7 @@ func assign_team(unit:ActiveFighter, team_n:int)->void:
 	
 	unit.death.connect(unit.ally_team.on_unit_death.bind(unit))
 	unit.death.connect(overlay.tide_bar.refresh_tide_value.bind(unit))
+
+
+func _on_button_pressed() -> void:
+	get_tree().paused = false;

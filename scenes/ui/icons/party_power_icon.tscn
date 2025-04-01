@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cymd0sqneerkx"]
+[gd_scene load_steps=6 format=3 uid="uid://cymd0sqneerkx"]
 
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_8ilsa"]
 [ext_resource type="Texture2D" uid="uid://bnodj0olc5drs" path="res://assets/visual/icons/stats/attack.png" id="2_ttxnn"]
 [ext_resource type="Script" uid="uid://b3kn11lxf6yer" path="res://scenes/ui/icons/party_power_icon.gd" id="3_eu2l2"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="4_ttxnn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ssxhn"]
 shader = ExtResource("1_8ilsa")
@@ -16,5 +17,11 @@ material = SubResource("ShaderMaterial_ssxhn")
 custom_minimum_size = Vector2(32, 32)
 texture = ExtResource("2_ttxnn")
 script = ExtResource("3_eu2l2")
+
+[node name="Tooltip" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_ttxnn")]
+layout_mode = 0
+target = NodePath("..")
+hardcoded_name = "Party Power"
+hardcoded_description = "The party's combined level"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

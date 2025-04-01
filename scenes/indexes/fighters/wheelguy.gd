@@ -5,6 +5,9 @@ extends FighterBase
 const skill_effects = ["special"];
 const skill_visuals = ["grow", "shake"]
 
+const skill_use_sfx = ["engine"]
+const skill_hit_sfx = ["small_hit"]
+
 const sample_offset = Vector2(15, -26)
 
 const target_type = "nearest_enemy"
@@ -38,7 +41,7 @@ const hit_scan_type = "surrounding";
 const skill_cooldown = 3;
 
 func _ready()->void:
-	dmg_timer.timeout.connect(aoe_damage.bind(get_parent()));
+	dmg_timer.timeout.connect(aoe_damage);
 
 func special_skill()->void:
 	if not dmg_timer.is_stopped():
@@ -46,5 +49,8 @@ func special_skill()->void:
 	else:
 		dmg_timer.start();
 
-func aoe_damage(unit:ActiveFighter) -> void:
-	Combat.aoe_damage(unit)
+
+func aoe_damage() -> void:
+	Combat.aoe_damage(fighter)
+	for target in fighter.hit_targets:
+		fighter.skill_hit.emit(target);

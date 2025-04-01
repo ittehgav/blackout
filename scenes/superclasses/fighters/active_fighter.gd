@@ -2,31 +2,24 @@ extends CharacterBody2D;
 
 class_name ActiveFighter;
 
+signal damage_taken(damage:float);
+signal healing_received(value:float);
+signal death(killer:ActiveFighter);
+signal status_applied(source:ActiveFighter, type:String);
+
+
 var ally_team:Team;
 var enemy_team:Team;
 
 
-@warning_ignore("unused_signal")
-signal damage_taken(damage:float);
-@warning_ignore("unused_signal")
-signal healing_received(value:float);
-@warning_ignore("unused_signal")
-signal death(killer:ActiveFighter);
-@warning_ignore("unused_signal")
-signal status_applied(source:ActiveFighter, type:String);
-
-
-
-
 @export var base:FighterBase;
 @export var floating_icon_anchor:Node2D;
-
 @export var stun_timer:Timer;
-
 @export var timers:Node;
 @export var status_timer:Timer;
+## player node just gets one for now
+@export var npc_sfx:AudioStreamPlayer2D;
 
-@export var sfx:AudioStreamPlayer;
 
 ## combat stats (will get more complicated when it needs to)
 var max_hp:float;

@@ -13,21 +13,58 @@ class_name Leader
 @export_group("Scenes")
 @export var fighter_unit_scene:PackedScene
 
-func load_party(team:Team, npc_fighter_scene:PackedScene, x_offset:int=0)->void:
-	var x_acm:int = 0;
-	var y_acm:int = 0;
+func load_party(team:Team, npc_fighter_scene:PackedScene, left_side:bool=true)->void:
 	var party:Array[ActiveFighter]
-
+	
+	var cols:Dictionary={"melee":[], "mid":[], "long":[]}
 
 	for unit:FighterUnit in roster.units:
-		var npc_fighter:NpcFighter = npc_fighter_scene.instantiate();
-		team.add_child(npc_fighter);
-		npc_fighter.load_fighter(unit);
+		var fighter:NpcFighter = npc_fighter_scene.instantiate();
+		team.add_child(fighter);
+		fighter.load_fighter(unit);
 		
-		npc_fighter.position = Vector2(x_acm + x_offset, y_acm);
-		y_acm += 100;
-		if y_acm == 300:
-			x_acm += 100;
-			y_acm = 0;
+		if unit.base.skill_range == FighterBase.MELEE_RANGE:
+			cols.melee.append(fighter)
+		elif unit.base.skill_range < 1000:
+			cols.mid.append(fighter)
+		else:
+			cols.long.append(fighter)
 		
-		party.push_back(npc_fighter);
+		party.push_back(fighter);
+	
+	var base_x = -150;
+	if not left_side:
+		base_x *= -1;
+		
+	const y_shift = 60;
+	
+	for i:int in len(cols.melee):
+		var fighter:ActiveFighter = cols.melee[i]
+		fighter.position.x = base_x;
+		
+		fighter.position.y = y_shift * i
+	
+		if i % 2:
+			fighter.position.y *= -1;
+			
+	for i:int in len(cols.mid):
+		var fighter:ActiveFighter = cols.mid[i];
+		fighter.position.x = base_x * 2
+		
+		fighter.position.y = y_shift * i
+	
+		if i % 2:
+			fighter.position.y *= -1;
+			
+	for i:int in len(cols.long):
+		var fighter:ActiveFighter = cols.long[i];
+		fighter.position.x = base_x * 4
+		
+		fighter.position.y = y_shift * i
+	
+		if i % 2:
+			fighter.position.y *= -1;
+		
+
+	#for key in cols.keys():
+		

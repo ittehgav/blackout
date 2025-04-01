@@ -6,9 +6,6 @@ class_name Team;
 
 var units:Array[Node];
 
-var fleeing:bool;
-
-
 func refresh_units()->void:
 	## buffers the children so get_children doesn't get called several times in a single process frame at times
 	units = get_children();

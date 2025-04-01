@@ -1,13 +1,20 @@
-[gd_scene load_steps=13 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=20 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/npc_fighter/npc_fighter.gd" id="1_bgds5"]
 [ext_resource type="Script" uid="uid://r5su55c7yqu4" path="res://scenes/battle/active_fighter/hit_scan.gd" id="2_8jf47"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="3_qq6tp"]
 [ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/battle/active_fighter/fighter_overlay.tscn" id="4_g7h3x"]
 [ext_resource type="Script" uid="uid://47lks7vsfn5k" path="res://scenes/battle/npc_fighter/sfx.gd" id="5_8vs8j"]
+[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/combat/generic/swing.wav" id="6_7heog"]
 [ext_resource type="AudioStream" uid="uid://ci73y0y2n56qe" path="res://assets/sound/combat/ally_death.ogg" id="6_xquvl"]
 [ext_resource type="AudioStream" uid="uid://dgx7krdtsjf0f" path="res://assets/sound/combat/enemy_death.ogg" id="7_4e07g"]
+[ext_resource type="AudioStream" uid="uid://c0xyiomr261fb" path="res://assets/sound/combat/special/lightning_light.wav" id="7_ij1yk"]
+[ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/combat/generic/shoot.ogg" id="8_dd3dq"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="9_2igk4"]
+[ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/combat/generic/heal.wav" id="9_88til"]
+[ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/combat/special/gravity.ogg" id="9_dd3dq"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/ui_sfx/swing_hit.ogg" id="10_aigv4"]
+[ext_resource type="AudioStream" uid="uid://cdww8uxgqysc6" path="res://assets/sound/combat/generic/slam.ogg" id="12_88til"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4e07g"]
 shader = ExtResource("9_2igk4")
@@ -31,7 +38,7 @@ height = 100.0
 resource_local_to_scene = true
 radius = 200.0
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "floating_icon_anchor", "stun_timer", "timers", "status_timer", "sfx")]
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "floating_icon_anchor", "stun_timer", "timers", "status_timer", "npc_sfx")]
 material = SubResource("ShaderMaterial_4e07g")
 collision_layer = 0
 collision_mask = 0
@@ -44,26 +51,25 @@ floating_icon_anchor = NodePath("overlay/floating_icon_anchor")
 stun_timer = NodePath("fighter_timers/_status_timer")
 timers = NodePath("fighter_timers")
 status_timer = NodePath("fighter_timers/_status_timer")
-sfx = NodePath("sfx")
+npc_sfx = NodePath("sfx")
 
-[node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(5, 0)
-shape = SubResource("CapsuleShape2D_g13ct")
-
-[node name="hit_scan" type="Area2D" parent="." node_paths=PackedStringArray("fighter")]
-monitorable = false
-script = ExtResource("2_8jf47")
-fighter = NodePath("..")
-
-[node name="shape" type="CollisionShape2D" parent="hit_scan"]
-position = Vector2(50, 0)
-shape = SubResource("CircleShape2D_2qjd5")
-
-[node name="skill_range" type="Area2D" parent="."]
-monitorable = false
-
-[node name="shape" type="CollisionShape2D" parent="skill_range"]
-shape = SubResource("CircleShape2D_mp8l8")
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
+script = ExtResource("5_8vs8j")
+ally_death = ExtResource("6_xquvl")
+enemy_death = ExtResource("7_4e07g")
+swing = ExtResource("6_7heog")
+lightning_small = ExtResource("7_ij1yk")
+lightning_big = ExtResource("7_ij1yk")
+defense_up = ExtResource("7_ij1yk")
+engine = ExtResource("7_ij1yk")
+shoot = ExtResource("8_dd3dq")
+gravity = ExtResource("9_dd3dq")
+heal = ExtResource("9_88til")
+projectile_hit = ExtResource("10_aigv4")
+metal = ExtResource("10_aigv4")
+small_hit = ExtResource("10_aigv4")
+slam = ExtResource("12_88til")
 
 [node name="fighter_timers" parent="." node_paths=PackedStringArray("stun_display") instance=ExtResource("3_qq6tp")]
 stun_display = NodePath("../overlay/stun_display")
@@ -85,26 +91,40 @@ autostart = true
 wait_time = 0.2
 autostart = true
 
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(5, 0)
+shape = SubResource("CapsuleShape2D_g13ct")
+
+[node name="hit_scan" type="Area2D" parent="." node_paths=PackedStringArray("fighter")]
+monitorable = false
+script = ExtResource("2_8jf47")
+fighter = NodePath("..")
+
+[node name="shape" type="CollisionShape2D" parent="hit_scan"]
+position = Vector2(50, 0)
+shape = SubResource("CircleShape2D_2qjd5")
+
+[node name="skill_range" type="Area2D" parent="."]
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="skill_range"]
+shape = SubResource("CircleShape2D_mp8l8")
+
 [node name="overlay" parent="." instance=ExtResource("4_g7h3x")]
 
 [node name="stun_display" parent="overlay" index="2"]
 texture_progress = null
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
-script = ExtResource("5_8vs8j")
-ally_death = ExtResource("6_xquvl")
-enemy_death = ExtResource("7_4e07g")
-
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
-[connection signal="death" from="." to="." method="_on_death"]
+[connection signal="death" from="." to="sfx" method="_on_death"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
-[connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]
-[connection signal="body_exited" from="skill_range" to="." method="_on_skill_range_body_exited"]
 [connection signal="timeout" from="npc_timers/skill_cooldown" to="." method="skill_cooldown"]
 [connection signal="timeout" from="npc_timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
 [connection signal="timeout" from="npc_timers/animation_timer" to="." method="next_frame"]
 [connection signal="timeout" from="npc_timers/find_target" to="." method="find_target"]
+[connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]
+[connection signal="body_exited" from="skill_range" to="." method="_on_skill_range_body_exited"]
 
 [editable path="fighter_timers"]
 [editable path="overlay"]

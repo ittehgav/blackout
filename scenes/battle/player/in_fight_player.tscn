@@ -1,17 +1,25 @@
-[gd_scene load_steps=18 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=26 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
+[ext_resource type="Script" uid="uid://47lks7vsfn5k" path="res://scenes/battle/npc_fighter/sfx.gd" id="2_3ir4e"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="2_fo4cr"]
+[ext_resource type="AudioStream" uid="uid://ci73y0y2n56qe" path="res://assets/sound/combat/ally_death.ogg" id="3_3sqae"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_3uxwr"]
+[ext_resource type="AudioStream" uid="uid://dgx7krdtsjf0f" path="res://assets/sound/combat/enemy_death.ogg" id="4_pldj0"]
+[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/combat/generic/swing.wav" id="5_1g51p"]
 [ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/player/active_weapon.gd" id="6_cbwmk"]
+[ext_resource type="AudioStream" uid="uid://c0xyiomr261fb" path="res://assets/sound/combat/special/lightning_light.wav" id="6_g6u4u"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="7_6mba4"]
 [ext_resource type="Script" uid="uid://bbow6qj3s5hyu" path="res://scenes/battle/player/weapon_sfx.gd" id="7_avuby"]
+[ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/combat/generic/shoot.ogg" id="7_g4l1e"]
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/ui_sfx/weapon_swing.ogg" id="8_6prrp"]
+[ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/combat/special/gravity.ogg" id="8_8al0b"]
 [ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/battle/active_fighter/fighter_overlay.tscn" id="8_14x5b"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
 [ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/ui_sfx/swing_hit.ogg" id="8_og1r2"]
+[ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/combat/generic/heal.wav" id="9_dax2e"]
+[ext_resource type="AudioStream" uid="uid://cdww8uxgqysc6" path="res://assets/sound/combat/generic/slam.ogg" id="11_gipdv"]
 [ext_resource type="Script" uid="uid://cqdrpx6jmvux1" path="res://scenes/battle/arena/tactics.gd" id="14_0y57y"]
-[ext_resource type="AudioStream" uid="uid://cy7sdah83wkn3" path="res://assets/sound/combat/Spell Impact 3.ogg" id="14_fo4cr"]
 [ext_resource type="AudioStream" uid="uid://b51a48pddixp1" path="res://assets/sound/combat/damage_taken.ogg" id="15_clyj1"]
 [ext_resource type="Script" uid="uid://c1mom3xvj15xj" path="res://scenes/battle/player/sfx.gd" id="16_sjuhg"]
 
@@ -34,20 +42,48 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
 radius = 80.0
 
-[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("weapon", "hit_scan", "camera", "floating_icon_anchor", "stun_timer", "timers", "status_timer", "sfx")]
+[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "weapon", "hit_scan", "camera", "sfx", "base", "floating_icon_anchor", "stun_timer", "timers", "status_timer", "npc_sfx")]
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_bxbr4")
+body = NodePath("body")
 weapon = NodePath("weapon")
 hit_scan = NodePath("hit_scan")
 camera = NodePath("camera")
+sfx = NodePath("sfx")
+base = NodePath("body")
 floating_icon_anchor = NodePath("overlay/floating_icon_anchor")
 stun_timer = NodePath("fighter_timers/stun")
 timers = NodePath("fighter_timers")
 status_timer = NodePath("fighter_timers/_status_timer")
-sfx = NodePath("sfx")
+npc_sfx = NodePath("npc_sfx")
+
+[node name="npc_sfx" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
+script = ExtResource("2_3ir4e")
+ally_death = ExtResource("3_3sqae")
+enemy_death = ExtResource("4_pldj0")
+swing = ExtResource("5_1g51p")
+lightning_small = ExtResource("6_g6u4u")
+lightning_big = ExtResource("6_g6u4u")
+defense_up = ExtResource("6_g6u4u")
+engine = ExtResource("6_g6u4u")
+shoot = ExtResource("7_g4l1e")
+gravity = ExtResource("8_8al0b")
+heal = ExtResource("9_dax2e")
+projectile_hit = ExtResource("8_og1r2")
+metal = ExtResource("8_og1r2")
+small_hit = ExtResource("8_og1r2")
+slam = ExtResource("11_gipdv")
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+script = ExtResource("16_sjuhg")
+damage_taken = ExtResource("15_clyj1")
+
+[node name="fighter_timers" parent="." node_paths=PackedStringArray("stun_display") instance=ExtResource("7_6mba4")]
+stun_display = NodePath("../overlay/stun_display")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wutkk")
@@ -55,9 +91,10 @@ shape = SubResource("CapsuleShape2D_wutkk")
 [node name="body" parent="." instance=ExtResource("2_fo4cr")]
 material = SubResource("ShaderMaterial_og1r2")
 
-[node name="weapon" type="Node2D" parent="." node_paths=PackedStringArray("holder", "weapon_cd", "weapon_sfx")]
+[node name="weapon" type="Node2D" parent="." node_paths=PackedStringArray("holder", "body", "weapon_cd", "weapon_sfx")]
 script = ExtResource("6_cbwmk")
 holder = NodePath("..")
+body = NodePath("../body")
 weapon_cd = NodePath("weapon_cd")
 weapon_sfx = NodePath("weapon_sfx")
 
@@ -83,9 +120,6 @@ collision_mask = 0
 [node name="shape" type="CollisionShape2D" parent="hit_scan"]
 position = Vector2(60, 0)
 shape = SubResource("CircleShape2D_5q67b")
-
-[node name="fighter_timers" parent="." node_paths=PackedStringArray("stun_display") instance=ExtResource("7_6mba4")]
-stun_display = NodePath("../overlay/stun_display")
 
 [node name="camera" type="Camera2D" parent="." node_paths=PackedStringArray("screen_blink")]
 position_smoothing_enabled = true
@@ -174,11 +208,6 @@ mouse_filter = 2
 
 [node name="stun_display" parent="overlay" index="2"]
 texture_progress = null
-
-[node name="sfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_fo4cr")
-script = ExtResource("16_sjuhg")
-damage_taken = ExtResource("15_clyj1")
 
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]

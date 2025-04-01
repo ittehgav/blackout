@@ -357,7 +357,6 @@ shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "tile_map", "player")]
-process_mode = 1
 script = ExtResource("1_s4sam")
 ui = NodePath("ui_overlay/ui")
 tile_map = NodePath("bg_tiles")
@@ -394,7 +393,7 @@ modulate = Color(0.88, 0.88, 0.88, 1)
 [node name="entities" type="Node2D" parent="."]
 
 [node name="movement_pointer_shadow" type="Sprite2D" parent="entities" node_paths=PackedStringArray("pointer")]
-process_mode = 3
+process_mode = 1
 visible = false
 z_index = 1
 scale = Vector2(2, 2)
@@ -414,12 +413,6 @@ autostart = true
 [node name="in_map_player" parent="entities" instance=ExtResource("4_vgkop")]
 z_index = 2
 position = Vector2(521, 310)
-
-[node name="Gol" parent="entities/in_map_player" index="0"]
-process_mode = 1
-
-[node name="in_map_camera" parent="entities/in_map_player" index="2"]
-process_mode = 3
 
 [node name="Player" parent="entities/in_map_player" index="3" node_paths=PackedStringArray("equipped_weapon")]
 leadership_level = 3
@@ -577,11 +570,6 @@ layout_mode = 1
 
 [node name="pre_battle" parent="ui_overlay/ui" instance=ExtResource("57_1ogav")]
 visible = false
-layout_mode = 1
-
-[node name="PlayerSheet" parent="ui_overlay/ui" instance=ExtResource("20_lvh7d")]
-visible = false
-z_index = 2
 layout_mode = 1
 
 [node name="main_hud" type="Control" parent="ui_overlay/ui" node_paths=PackedStringArray("clock", "date", "fade_tweens")]
@@ -770,6 +758,11 @@ resource = "chips"
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "23"
+
+[node name="PlayerSheet" parent="ui_overlay/ui" instance=ExtResource("20_lvh7d")]
+visible = false
+z_index = 2
+layout_mode = 1
 
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]

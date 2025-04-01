@@ -11,6 +11,7 @@ signal stopped_moving;
 @export var weapon:Node2D;
 @export var hit_scan:Area2D;
 @export var camera:Camera2D;
+@export var sfx:AudioStreamPlayer
 
 
 var moving:bool = false;

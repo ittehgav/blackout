@@ -4,6 +4,9 @@ extends FighterBase
 const skill_effects = ["self_buff"];
 const skill_visuals = ["grow"]
 
+const skill_use_sfx = ["defense_up"]
+const skill_hit_sfx = []
+
 const sample_offset = Vector2(35, -26)
 
 const target_type = "nearest_enemy"
