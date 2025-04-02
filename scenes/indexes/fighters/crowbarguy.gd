@@ -13,20 +13,32 @@ const target_type = "nearest_enemy"
 
 
 const skill_name =  "Crowbar Swing"
-const description = "Not very resistant. Surprisingly strong for a scientist with a crowbar."
-const long_description = "Low resistance and range, high damage.\n
-Can be upgraded to deal heavy damage or to apply heavy crowd control."
+const description = "Low resistance, high melee damage."
+
+func damage_modifier(damage:float, unit:FighterUnit=null)->float:
+	if not unit:
+		if fighter.technique >= 2:
+			return damage * fighter.technique/2;
+		else:
+			return damage
+	else:
+		if unit.stats.technique >= 2:
+			return damage * unit.stats.technique/2;
+		else:
+			return damage
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str:String = Meta.get_unit_damage_string(unit);
-	var technique_str:String = Meta.get_technique_scaled_string(unit)
-	
-	var final_damage:float = unit.stats.attack * unit.stats.technique;
+	var base_damage_str:String = Meta.get_color_tag("attack") +  str(unit.stats.attack) + "[/color]";
+
 	var final_damage_color_hex:String = Meta.stat_colors.attack.blend(Meta.stat_colors.technique).to_html();
-	var final_damage_str:String = "[color=" + final_damage_color_hex + "]" + str(final_damage) + "[/color]"
+	var final_damage_str:String = Meta.get_unit_damage_string(unit);
+	final_damage_str= "[color=" + final_damage_color_hex + "]" + final_damage_str + "[/color]"
 	
-	var string:String = "Deals " + damage_str + " * " + \
-	technique_str + " (" + final_damage_str + ") damage to the nearest enemy.";
+	var technique_str:String = Meta.get_technique_scaled_string(unit, "", 0, .5);
+	
+	var string:String = "Deals (" + base_damage_str + " * " + technique_str + ") = ("+ final_damage_str + ") damage to the nearest enemy.";
+
+	string += "\n\nCan be upgraded to deal heavy, long-range damage or to apply AOE crowd control.";
 	return string;
 
 
@@ -35,8 +47,7 @@ const tags = [
 	"scientist"
 ]
 
-func damage_modifier(damage:float)->float:
-	return damage * fighter.technique;
+
 
 const hitbox_radius = 25;
 const hitbox_height = 60;
@@ -45,7 +56,7 @@ const hitbox_offset = Vector2(0, 5)
 const skill_range = MELEE_RANGE;
 
 const debuff_type = "stat";
-const skill_cooldown = 1;
+const skill_cooldown = 2;
 
 const stats_to_debuff = ["defense"];
 const stat_debuff_values = {

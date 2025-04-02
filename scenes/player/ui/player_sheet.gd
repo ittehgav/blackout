@@ -37,7 +37,7 @@ class_name PlayerSheet;
 @export var max_hp_label:Label;
 @export var attack_label:Label;
 @export var defense_label:Label;
-@export var move_speed_label:Label;
+@export var agility_label:Label;
 @export var technique_label:Label;
 
 @export_subgroup("Packed Scenes")
@@ -75,7 +75,7 @@ func _input(e:InputEvent)->void:
 
 func show_player_sheet(left_tab_view:int=0)->void:
 	left_tab_container.get_child(left_tab_view).show()
-	ui_sfx.play_stream(open_sound)
+	ui_sfx.play_stream_obj(open_sound)
 	show()
 	refresh_data();
 	Entities.in_map_player.stop_movement(false)
@@ -91,7 +91,7 @@ func show_player_sheet(left_tab_view:int=0)->void:
 
 
 func hide_player_sheet()->void:
-	ui_sfx.play_stream(close_sound)
+	ui_sfx.play_stream_obj(close_sound)
 	const tween_duration = .25;
 	var tween:Tween = create_tween();
 	tween.tween_property(container, "theme_override_constants/separation", 1700, tween_duration);
@@ -131,10 +131,11 @@ func refresh_data()->void:
 	combat_level_progress.value = Entities.player.combat_exp;
 	
 	var cstats:CombatStats = Entities.player.combat_stats;
+
 	max_hp_label.text = "Max HP: " + str(cstats.max_hp);
 	attack_label.text = "Base Attack: " + str(cstats.attack);
 	defense_label.text = "Defense: " + str(cstats.defense);
-	move_speed_label.text=  "Movement Speed: " + str(cstats.move_speed);
+	agility_label.text=  "Agility: " + str(cstats.agility);
 	technique_label.text = "Technique: " + str(cstats.technique);
 	for c in consumables_inventory.get_children():
 		c.queue_free();
@@ -160,15 +161,15 @@ func refresh_data()->void:
 func use_consumable(e:InputEvent, item:Consumable)->void:
 	if e.is_action_pressed("use_item"):
 		if item.use():
-			ui_sfx.play_stream(rummage)
+			ui_sfx.play_stream_obj(rummage)
 			await item_feedback.use_animation(item);
-			ui_sfx.play_stream(consumable_used)
+			ui_sfx.play_stream_obj(consumable_used)
 			Entities.player.inventory.remove_child(item);
 			refresh_data()
 
 
 func equip_weapon(e:InputEvent, weapon:Weapon)->void:
 	if e.is_action_pressed("use_item"):
-		ui_sfx.play_stream(equip)
+		ui_sfx.play_stream_obj(equip)
 		Entities.player.equipped_weapon = weapon
 		refresh_data()

@@ -1,0 +1,776 @@
+[gd_scene load_steps=47 format=3 uid="uid://b74jcaca5m7go"]
+
+[ext_resource type="Script" uid="uid://l7hk7fw0y56r" path="res://scenes/testers/stat_comarisons/all_units_stats.gd" id="1_w04be"]
+[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster.tscn" id="2_6bw3p"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="3_l4ota"]
+[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="4_mjfnl"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="5_elgxf"]
+[ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="6_428gu"]
+[ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/indexes/fighters/tailpipeguy.tscn" id="7_w2eek"]
+[ext_resource type="PackedScene" uid="uid://3phgdfixhg5t" path="res://scenes/indexes/fighters/taserguy.tscn" id="8_txxqh"]
+[ext_resource type="PackedScene" uid="uid://cn6wxjfhbdfcq" path="res://scenes/indexes/fighters/coilguy.tscn" id="9_isna1"]
+[ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="10_g01mp"]
+[ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="11_fi3k0"]
+[ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/indexes/fighters/doublearmguy.tscn" id="12_ffxpr"]
+[ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/indexes/fighters/gravityguy.tscn" id="13_75nuw"]
+[ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/indexes/fighters/mecharmguy.tscn" id="14_t84ss"]
+[ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/indexes/fighters/tetherguy.tscn" id="15_w81eq"]
+[ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="16_d6jj1"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="17_yokmf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y110n"]
+atlas = ExtResource("17_yokmf")
+region = Rect2(25, 0, 175, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5va0"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6cs5"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ork4i"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lp453"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdeqa"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ue535"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lug3u"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r1go0"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_52hg3"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r3vvd"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kj23p"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_noavm"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v2h3v"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3jkc5"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qgboe"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r4wra"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vm7j5"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5mi4u"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3pn12"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtnys"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2m14"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvj1j"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2uud"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1062c"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lhqjl"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2bylh"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6xl2"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_myw6d"]
+resource_local_to_scene = true
+shader = ExtResource("5_elgxf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0.439216, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="AllUnitsStats" type="Control" node_paths=PackedStringArray("all_recruits", "sheet", "new_recruit_container", "new_recruit_sprite", "new_recruit_name", "new_recruit_level", "new_recruit_max_hp", "new_recruit_attack", "new_recruit_defense", "new_recruit_agility", "new_recruit_technique")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w04be")
+all_recruits = NodePath("Roster")
+sheet = NodePath("VBoxContainer")
+new_recruit_container = NodePath("VBoxContainer/_data")
+new_recruit_sprite = NodePath("VBoxContainer/_data/sprite/PanelContainer/TextureRect")
+new_recruit_name = NodePath("VBoxContainer/_data/name/name/name")
+new_recruit_level = NodePath("VBoxContainer/_data/level/PanelContainer6/level")
+new_recruit_max_hp = NodePath("VBoxContainer/_data/max_hp/PanelContainer3/max_hp")
+new_recruit_attack = NodePath("VBoxContainer/_data/attack/PanelContainer4/attack")
+new_recruit_defense = NodePath("VBoxContainer/_data/defense/PanelContainer5/defense")
+new_recruit_agility = NodePath("VBoxContainer/_data/agility/PanelContainer4/agility")
+new_recruit_technique = NodePath("VBoxContainer/_data/technique/PanelContainer4/technique")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="header" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="sprite" type="VBoxContainer" parent="VBoxContainer/header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/header/sprite"]
+custom_minimum_size = Vector2(187, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/header/sprite/PanelContainer"]
+layout_mode = 2
+text = "Sprite"
+
+[node name="name" type="VBoxContainer" parent="VBoxContainer/header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="name" type="PanelContainer" parent="VBoxContainer/header/name"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/header/name/name"]
+layout_mode = 2
+text = "Name"
+
+[node name="level" type="VBoxContainer" parent="VBoxContainer/header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer6" type="PanelContainer" parent="VBoxContainer/header/level"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/header/level/PanelContainer6"]
+layout_mode = 2
+text = "Level"
+
+[node name="max_hp" type="VBoxContainer" parent="VBoxContainer/header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/header/max_hp"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/header/max_hp/PanelContainer3"]
+layout_mode = 2
+text = "Max HP"
+
+[node name="attack" type="VBoxContainer" parent="VBoxContainer/header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/header/attack"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/header/attack/PanelContainer4"]
+layout_mode = 2
+text = "Attack"
+
+[node name="defense" type="VBoxContainer" parent="VBoxContainer/header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer5" type="PanelContainer" parent="VBoxContainer/header/defense"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/header/defense/PanelContainer5"]
+layout_mode = 2
+text = "Degense"
+
+[node name="agility" type="VBoxContainer" parent="VBoxContainer/header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/header/agility"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/header/agility/PanelContainer4"]
+layout_mode = 2
+text = "Agility"
+
+[node name="technique" type="VBoxContainer" parent="VBoxContainer/header"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/header/technique"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/header/technique/PanelContainer4"]
+layout_mode = 2
+text = "Technique"
+
+[node name="_data" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="sprite" type="VBoxContainer" parent="VBoxContainer/_data"]
+custom_minimum_size = Vector2(187, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/_data/sprite"]
+custom_minimum_size = Vector2(187, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/_data/sprite/PanelContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_y110n")
+
+[node name="name" type="VBoxContainer" parent="VBoxContainer/_data"]
+custom_minimum_size = Vector2(187, 0)
+layout_mode = 2
+
+[node name="name" type="PanelContainer" parent="VBoxContainer/_data/name"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="name" type="Label" parent="VBoxContainer/_data/name/name"]
+layout_mode = 2
+text = "Name"
+
+[node name="level" type="VBoxContainer" parent="VBoxContainer/_data"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer6" type="PanelContainer" parent="VBoxContainer/_data/level"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="level" type="Label" parent="VBoxContainer/_data/level/PanelContainer6"]
+layout_mode = 2
+text = "Level"
+
+[node name="max_hp" type="VBoxContainer" parent="VBoxContainer/_data"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/_data/max_hp"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="max_hp" type="Label" parent="VBoxContainer/_data/max_hp/PanelContainer3"]
+layout_mode = 2
+text = "Max HP"
+
+[node name="attack" type="VBoxContainer" parent="VBoxContainer/_data"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/_data/attack"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="attack" type="Label" parent="VBoxContainer/_data/attack/PanelContainer4"]
+layout_mode = 2
+text = "Attack"
+
+[node name="defense" type="VBoxContainer" parent="VBoxContainer/_data"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer5" type="PanelContainer" parent="VBoxContainer/_data/defense"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="defense" type="Label" parent="VBoxContainer/_data/defense/PanelContainer5"]
+layout_mode = 2
+text = "Degense"
+
+[node name="agility" type="VBoxContainer" parent="VBoxContainer/_data"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/_data/agility"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="agility" type="Label" parent="VBoxContainer/_data/agility/PanelContainer4"]
+layout_mode = 2
+text = "Agility"
+
+[node name="technique" type="VBoxContainer" parent="VBoxContainer/_data"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/_data/technique"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="technique" type="Label" parent="VBoxContainer/_data/technique/PanelContainer4"]
+layout_mode = 2
+text = "Technique"
+
+[node name="Roster" parent="." instance=ExtResource("2_6bw3p")]
+
+[node name="FighterUnit25" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Arm Guy")
+
+[node name="Arm Guy" parent="Roster/FighterUnit25" instance=ExtResource("4_mjfnl")]
+material = SubResource("ShaderMaterial_x5va0")
+
+[node name="FighterUnit28" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Crowbar Guy")
+
+[node name="Crowbar Guy" parent="Roster/FighterUnit28" instance=ExtResource("6_428gu")]
+material = SubResource("ShaderMaterial_k6cs5")
+
+[node name="FighterUnit33" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Tailpipe Guy")
+
+[node name="Tailpipe Guy" parent="Roster/FighterUnit33" instance=ExtResource("7_w2eek")]
+material = SubResource("ShaderMaterial_ork4i")
+
+[node name="FighterUnit34" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Taser Guy")
+
+[node name="Taser Guy" parent="Roster/FighterUnit34" instance=ExtResource("8_txxqh")]
+material = SubResource("ShaderMaterial_lp453")
+
+[node name="FighterUnit" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Arm Guy")
+level = 5
+
+[node name="Arm Guy" parent="Roster/FighterUnit" instance=ExtResource("4_mjfnl")]
+material = SubResource("ShaderMaterial_wdeqa")
+
+[node name="FighterUnit2" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Coil Guy")
+level = 5
+
+[node name="Coil Guy" parent="Roster/FighterUnit2" instance=ExtResource("9_isna1")]
+material = SubResource("ShaderMaterial_ue535")
+
+[node name="FighterUnit3" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Crossbow Guy")
+level = 5
+
+[node name="Crossbow Guy" parent="Roster/FighterUnit3" instance=ExtResource("10_g01mp")]
+material = SubResource("ShaderMaterial_lug3u")
+
+[node name="FighterUnit4" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Crowbar Guy")
+level = 5
+
+[node name="Crowbar Guy" parent="Roster/FighterUnit4" instance=ExtResource("6_428gu")]
+material = SubResource("ShaderMaterial_r1go0")
+
+[node name="FighterUnit5" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Door Guy")
+level = 5
+
+[node name="Door Guy" parent="Roster/FighterUnit5" instance=ExtResource("11_fi3k0")]
+material = SubResource("ShaderMaterial_52hg3")
+
+[node name="FighterUnit6" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Double Arm Guy")
+level = 5
+
+[node name="Double Arm Guy" parent="Roster/FighterUnit6" instance=ExtResource("12_ffxpr")]
+material = SubResource("ShaderMaterial_r3vvd")
+
+[node name="FighterUnit7" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Gravity Guy")
+level = 5
+
+[node name="Gravity Guy" parent="Roster/FighterUnit7" instance=ExtResource("13_75nuw")]
+material = SubResource("ShaderMaterial_kj23p")
+
+[node name="FighterUnit8" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Mech Arm Guy")
+level = 5
+
+[node name="Mech Arm Guy" parent="Roster/FighterUnit8" instance=ExtResource("14_t84ss")]
+material = SubResource("ShaderMaterial_noavm")
+
+[node name="FighterUnit9" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Tailpipe Guy")
+level = 5
+
+[node name="Tailpipe Guy" parent="Roster/FighterUnit9" instance=ExtResource("7_w2eek")]
+material = SubResource("ShaderMaterial_v2h3v")
+
+[node name="FighterUnit10" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Taser Guy")
+level = 5
+
+[node name="Taser Guy" parent="Roster/FighterUnit10" instance=ExtResource("8_txxqh")]
+material = SubResource("ShaderMaterial_3jkc5")
+
+[node name="FighterUnit11" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Tether Guy")
+level = 5
+
+[node name="Tether Guy" parent="Roster/FighterUnit11" instance=ExtResource("15_w81eq")]
+material = SubResource("ShaderMaterial_qgboe")
+
+[node name="FighterUnit12" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Wheel Guy")
+level = 5
+
+[node name="Wheel Guy" parent="Roster/FighterUnit12" instance=ExtResource("16_d6jj1")]
+material = SubResource("ShaderMaterial_r4wra")
+
+[node name="FighterUnit13" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Arm Guy")
+level = 20
+
+[node name="Arm Guy" parent="Roster/FighterUnit13" instance=ExtResource("4_mjfnl")]
+material = SubResource("ShaderMaterial_vm7j5")
+
+[node name="FighterUnit14" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Coil Guy")
+level = 20
+
+[node name="Coil Guy" parent="Roster/FighterUnit14" instance=ExtResource("9_isna1")]
+material = SubResource("ShaderMaterial_5mi4u")
+
+[node name="FighterUnit15" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Crossbow Guy")
+level = 20
+
+[node name="Crossbow Guy" parent="Roster/FighterUnit15" instance=ExtResource("10_g01mp")]
+material = SubResource("ShaderMaterial_3pn12")
+
+[node name="FighterUnit16" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Crowbar Guy")
+level = 20
+
+[node name="Crowbar Guy" parent="Roster/FighterUnit16" instance=ExtResource("6_428gu")]
+material = SubResource("ShaderMaterial_vtnys")
+
+[node name="FighterUnit17" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Door Guy")
+level = 20
+
+[node name="Door Guy" parent="Roster/FighterUnit17" instance=ExtResource("11_fi3k0")]
+material = SubResource("ShaderMaterial_y2m14")
+
+[node name="FighterUnit18" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Double Arm Guy")
+level = 20
+
+[node name="Double Arm Guy" parent="Roster/FighterUnit18" instance=ExtResource("12_ffxpr")]
+material = SubResource("ShaderMaterial_hvj1j")
+
+[node name="FighterUnit19" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Gravity Guy")
+level = 20
+
+[node name="Gravity Guy" parent="Roster/FighterUnit19" instance=ExtResource("13_75nuw")]
+material = SubResource("ShaderMaterial_i2uud")
+
+[node name="FighterUnit20" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Mech Arm Guy")
+level = 20
+
+[node name="Mech Arm Guy" parent="Roster/FighterUnit20" instance=ExtResource("14_t84ss")]
+material = SubResource("ShaderMaterial_1062c")
+
+[node name="FighterUnit21" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Tailpipe Guy")
+level = 20
+
+[node name="Tailpipe Guy" parent="Roster/FighterUnit21" instance=ExtResource("7_w2eek")]
+material = SubResource("ShaderMaterial_lhqjl")
+
+[node name="FighterUnit22" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Taser Guy")
+level = 20
+
+[node name="Taser Guy" parent="Roster/FighterUnit22" instance=ExtResource("8_txxqh")]
+material = SubResource("ShaderMaterial_2bylh")
+
+[node name="FighterUnit23" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Tether Guy")
+level = 20
+
+[node name="Tether Guy" parent="Roster/FighterUnit23" instance=ExtResource("15_w81eq")]
+material = SubResource("ShaderMaterial_v6xl2")
+
+[node name="FighterUnit24" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("3_l4ota")]
+base = NodePath("Wheel Guy")
+level = 20
+
+[node name="Wheel Guy" parent="Roster/FighterUnit24" instance=ExtResource("16_d6jj1")]
+material = SubResource("ShaderMaterial_myw6d")

@@ -24,24 +24,22 @@ extends AudioStreamPlayer2D
 func _ready():
 	if fighter is NpcFighter:
 		for sfx:String in fighter.base.skill_use_sfx:
-			fighter.skill_used.connect(play_sfx_by_key.bind(sfx))
+			fighter.skill_used.connect(play_sfx.bind(sfx))
 			
 		for sfx:String in fighter.base.skill_hit_sfx:
 			fighter.skill_hit.connect(skill_hit_sfx.bind(sfx))
 
-func play_sfx_by_key(key:String)->void:
+func play_sfx(key:String)->void:
 	stream = self[key];
 	play();
 
-func play_sfx(sfx:AudioStream):
-	stream = sfx;
-	play();
+
 
 func _on_death(killer: ActiveFighter) -> void:
 	if fighter.ally_team == Entities.in_fight_player.ally_team:
-		play_sfx(ally_death);
+		play_sfx("ally_death");
 	else:
-		play_sfx(enemy_death);
+		play_sfx("enemy_death");
 
 func skill_hit_sfx(target_hit:ActiveFighter, key:String):
-	target_hit.npc_sfx.play_sfx_by_key(key)
+	target_hit.npc_sfx.play_sfx(key)

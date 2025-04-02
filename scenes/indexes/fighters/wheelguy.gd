@@ -18,9 +18,9 @@ const long_description = "Speeds up the wheel, making it deal damage to enemies 
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Meta.get_unit_damage_string(unit);
-	var acceleration:String = Meta.get_technique_scaled_string(unit, "", 10, "%");
+	var acceleration:String = Meta.get_technique_scaled_string(unit, "", 10, .5, "%");
 	var string:String = "Spins a wheel that deals " + damage_str + " damage to surrounding enemies every second.\n"\
-	+ "Each additional activation makes the damage go " + acceleration + " faster.";
+	+ "Each additional activation makes the wheel go " + acceleration + " faster.";
 	return string
 
 const hitbox_radius = 50;
@@ -36,6 +36,9 @@ const tags = [
 	"mechanic"
 ]
 
+func damage_modifier(damage:float, _unit:FighterUnit)->float:
+	return damage/10
+	
 const hit_scan_type = "surrounding";
 
 const skill_cooldown = 3;
@@ -45,7 +48,7 @@ func _ready()->void:
 
 func special_skill()->void:
 	if not dmg_timer.is_stopped():
-		dmg_timer.wait_time -= dmg_timer.wait_time/10*fighter.technique;
+		dmg_timer.wait_time -= (dmg_timer.wait_time/10)*(fighter.technique/2);
 	else:
 		dmg_timer.start();
 

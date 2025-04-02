@@ -14,11 +14,10 @@ const target_type = "nearest_enemy"
 
 const skill_name = "Shockwave"
 const description = "Knocks back and stuns enemies."
-const long_description = "[color=blue]Doesn't deal damage.[/color] Knocks back and stuns a target enemy, also stuns any other enemy it comes into contact with."
 
 func full_skill_description(unit:FighterUnit)->String:
 	var stun_duration_string:String = Meta.get_technique_scaled_string(unit, "stun_duration");
-	var string:String = "[color=blue]Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
+	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
 	+ stun_duration_string + " seconds.";
 	return string;
 
@@ -38,7 +37,7 @@ const hit_scan_width = 100;
 
 const skill_range = 300;
 
-const skill_cooldown = 2;
+const skill_cooldown = 8;
 
 const knock_back_distance = 500;
 

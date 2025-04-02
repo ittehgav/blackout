@@ -12,8 +12,9 @@ class_name Leader
 @export var sight_range:int;
 @export_group("Scenes")
 @export var fighter_unit_scene:PackedScene
+@export var npc_fighter_scene:PackedScene;
 
-func load_party(team:Team, npc_fighter_scene:PackedScene, left_side:bool=true)->void:
+func load_party(team:Team, left_side:bool=true)->void:
 	var party:Array[ActiveFighter]
 	
 	var cols:Dictionary={"melee":[], "mid":[], "long":[]}
@@ -25,14 +26,14 @@ func load_party(team:Team, npc_fighter_scene:PackedScene, left_side:bool=true)->
 		
 		if unit.base.skill_range == FighterBase.MELEE_RANGE:
 			cols.melee.append(fighter)
-		elif unit.base.skill_range < 1000:
+		elif unit.base.skill_range < 750:
 			cols.mid.append(fighter)
 		else:
 			cols.long.append(fighter)
 		
 		party.push_back(fighter);
 	
-	var base_x = -150;
+	var base_x = -250;
 	if not left_side:
 		base_x *= -1;
 		

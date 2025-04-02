@@ -17,5 +17,5 @@ func _ready()->void:
 		
 func show_more(e:InputEvent, unit:FighterUnit)->void:
 	if e is InputEventMouseButton and e.pressed:
-		ui_sfx.play_stream_by_key("button_click_sound")
+		ui_sfx.play_stream("button_click")
 		recruit_full_view.display_recruit(unit)

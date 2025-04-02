@@ -121,7 +121,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "left_tab_container", "container", "gear", "morale_label", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "recruit_full_view", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "move_speed_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "left_tab_container", "container", "gear", "morale_label", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "recruit_full_view", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "charisma_label", "navigation_label", "tactics_label", "logistics_label", "ui_sfx")]
 process_mode = 3
 y_sort_enabled = true
 layout_mode = 3
@@ -157,7 +157,7 @@ chips_label = NodePath("main_bg/MarginContainer/HBoxContainer/left_container/Inv
 max_hp_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer/max_hp")
 attack_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer2/attack")
 defense_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer3/defense")
-move_speed_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer4/move_speed")
+agility_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer4/agility")
 technique_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer5/technique")
 item_icon_scene = ExtResource("2_uujnm")
 leadership_level_label = NodePath("main_bg/MarginContainer/HBoxContainer/right_container/VBoxContainer/leadership_level")
@@ -563,10 +563,11 @@ offset_top = 234.0
 offset_right = 380.0
 offset_bottom = 630.0
 theme_override_font_sizes/font_size = 32
-current_tab = 0
+current_tab = 1
 tab_focus_mode = 1
 
 [node name="Leadership Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -679,7 +680,6 @@ disabled = true
 text = "+"
 
 [node name="Combat Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats"]
-visible = false
 z_as_relative = false
 layout_mode = 2
 metadata/_tab_index = 1
@@ -748,13 +748,13 @@ theme_override_constants/separation = 10
 [node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("6_1fayv")]
 material = SubResource("ShaderMaterial_fwr53")
 layout_mode = 2
-adjacent_items = [NodePath("../move_speed")]
-stat = "move_speed"
+adjacent_items = [NodePath("../agility")]
+stat = "agility"
 
-[node name="move_speed" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer4"]
+[node name="agility" type="Label" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer/HBoxContainer4"]
 z_index = 1
 layout_mode = 2
-text = "Movement Speed: 100"
+text = "Agility: 100"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/right_container/stats/Combat Stats/VBoxContainer"]
 layout_mode = 2

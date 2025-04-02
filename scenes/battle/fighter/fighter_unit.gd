@@ -15,15 +15,17 @@ var remaining_downed_minutes:int=0;
 
 func _ready()->void:
 	if base:
+		await get_parent().get_parent().ready;
 		load_stats();
-	
+
 
 func load_stats()->void:
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels and 
 	## gear (?)
+		
 	Scaling.initiate_unit_stats(self);
-	Scaling.level_up_stats(self)
+	Scaling.level_up_stats(self, level)
 
 func downed()->void:
 	## only effectively applies after battle
@@ -34,3 +36,15 @@ func downed_time_passed()->void:
 	remaining_downed_minutes -= 1;
 	if not remaining_downed_minutes:
 		Entities.world_map.minute_pased.disconnect(downed_time_passed)
+
+func final_skill_cooldown()->float:
+	var cooldown:float = base.skill_cooldown;
+	var agi_acm:float = stats.agility;
+	
+	while agi_acm > 5:
+		cooldown -= cooldown/20;
+		agi_acm -= 5;
+	
+	var final_reduction:float = (cooldown/100)*agi_acm
+	cooldown -= final_reduction
+	return cooldown

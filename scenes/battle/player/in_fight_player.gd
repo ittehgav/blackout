@@ -56,7 +56,10 @@ func get_input()->void:
 	
 
 func _physics_process(_delta:float)->void:
-	if stun_timer.is_stopped():
-		get_input()
-		move_and_slide()
+	get_input()
+	move_and_slide()
 	hit_scan.look_at(get_global_mouse_position())
+
+
+func _on_stun_timeout() -> void:
+	set_physics_process(true)

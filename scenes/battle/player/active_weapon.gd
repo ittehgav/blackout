@@ -30,11 +30,11 @@ func weapon_input()->void:
 		
 
 func use_weapon()->void:
-	weapon_sfx.play_sfx_by_key(weapon_node.use_sfx);
+	weapon_sfx.play_sfx(weapon_node.use_sfx);
 	weapon_cd.start()
 	var hit:bool = weapon_node.use();
 	if hit:
-		weapon_sfx.play_hit_sfx_by_key(weapon_node.hit_sfx);
+		weapon_sfx.play_hit_sfx(weapon_node.hit_sfx);
 
 func equip_weapon(weapon:Weapon)->void:
 	## for now just auto equips the exported one but it's where it'll do so at the start of battle and

@@ -209,13 +209,14 @@ mouse_filter = 2
 [node name="stun_display" parent="overlay" index="2"]
 texture_progress = null
 
-[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
-[connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
+[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
+[connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
 [connection signal="started_moving" from="." to="weapon" method="player_started_moving"]
 [connection signal="stopped_moving" from="." to="weapon" method="player_stopped_moving"]
+[connection signal="timeout" from="fighter_timers/stun" to="." method="_on_stun_timeout"]
 [connection signal="mouse_entered" from="camera/hud_overlay/tactics/tactic_left" to="camera/hud_overlay/tactics" method="_on_tactic_left_mouse_entered"]
 [connection signal="mouse_exited" from="camera/hud_overlay/tactics/tactic_left" to="camera/hud_overlay/tactics" method="_on_tactic_left_mouse_exited"]
 [connection signal="mouse_entered" from="camera/hud_overlay/tactics/tactic_right" to="camera/hud_overlay/tactics" method="_on_tactic_right_mouse_entered"]

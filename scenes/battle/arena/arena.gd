@@ -25,23 +25,25 @@ class_name Arena;
 
 func start_battle(enemy_leader:Leader)->void:
 	Entities.arena = self;
-	Entities.in_map_player.camera.enabled = false;
+
 	load_teams(enemy_leader);
 	overlay.tide_bar.set_tide_bar();
+	if Entities.world_map:
+		## for testing battle straight out of the main menu
+		Entities.world_map.set_process_mode(Node.PROCESS_MODE_DISABLED);
+		Entities.world_map.hide();
+		#Entities.world_map.ui.hide();
+		Entities.main.add_child(self)
 	
-	Entities.world_map.set_process_mode(Node.PROCESS_MODE_DISABLED);
-	Entities.world_map.hide();
-	#Entities.world_map.ui.hide();
-	Entities.main.add_child(self)
 	
 
 func load_teams(enemy_leader:Leader)->void:
 	## happens before ready?
-	Entities.player.load_party(team_1, npc_fighter_scene);
+	Entities.player.load_party(team_1);
 	team_1.refresh_units();
 	## will leaders be part of the roster?
 	
-	enemy_leader.load_party(team_2, npc_fighter_scene, false);
+	enemy_leader.load_party(team_2, false);
 	
 	var leader_unit:NpcFighter = npc_fighter_scene.instantiate();
 	leader_unit.load_fighter(enemy_leader.unit)

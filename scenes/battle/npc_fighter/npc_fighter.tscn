@@ -38,15 +38,16 @@ height = 100.0
 resource_local_to_scene = true
 radius = 200.0
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "floating_icon_anchor", "stun_timer", "timers", "status_timer", "npc_sfx")]
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "stunnable_timers", "floating_icon_anchor", "stun_timer", "timers", "status_timer", "npc_sfx")]
 material = SubResource("ShaderMaterial_4e07g")
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_bgds5")
 hit_scan = NodePath("hit_scan")
-cooldown_timer = NodePath("npc_timers/skill_cooldown")
-skill_retry_timer = NodePath("npc_timers/skill_cooldown/skill_retry")
+cooldown_timer = NodePath("fighter_timers/stunnable/skill_cooldown")
+skill_retry_timer = NodePath("fighter_timers/stunnable/skill_cooldown/skill_retry")
+stunnable_timers = NodePath("fighter_timers/stunnable")
 floating_icon_anchor = NodePath("overlay/floating_icon_anchor")
 stun_timer = NodePath("fighter_timers/_status_timer")
 timers = NodePath("fighter_timers")
@@ -74,14 +75,16 @@ slam = ExtResource("12_88til")
 [node name="fighter_timers" parent="." node_paths=PackedStringArray("stun_display") instance=ExtResource("3_qq6tp")]
 stun_display = NodePath("../overlay/stun_display")
 
-[node name="npc_timers" type="Node" parent="."]
+[node name="stunnable" type="Node" parent="fighter_timers"]
 
-[node name="skill_cooldown" type="Timer" parent="npc_timers"]
+[node name="skill_cooldown" type="Timer" parent="fighter_timers/stunnable"]
 one_shot = true
 autostart = true
 
-[node name="skill_retry" type="Timer" parent="npc_timers/skill_cooldown"]
+[node name="skill_retry" type="Timer" parent="fighter_timers/stunnable/skill_cooldown"]
 wait_time = 0.1
+
+[node name="npc_timers" type="Node" parent="."]
 
 [node name="animation_timer" type="Timer" parent="npc_timers"]
 wait_time = 0.5
@@ -115,12 +118,13 @@ shape = SubResource("CircleShape2D_mp8l8")
 [node name="stun_display" parent="overlay" index="2"]
 texture_progress = null
 
-[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
+[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="death" from="." to="sfx" method="_on_death"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
-[connection signal="timeout" from="npc_timers/skill_cooldown" to="." method="skill_cooldown"]
-[connection signal="timeout" from="npc_timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
+[connection signal="timeout" from="fighter_timers/stun" to="." method="_on_stun_timeout"]
+[connection signal="timeout" from="fighter_timers/stunnable/skill_cooldown" to="." method="skill_cooldown"]
+[connection signal="timeout" from="fighter_timers/stunnable/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
 [connection signal="timeout" from="npc_timers/animation_timer" to="." method="next_frame"]
 [connection signal="timeout" from="npc_timers/find_target" to="." method="find_target"]
 [connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]

@@ -14,14 +14,15 @@ const target_type = "nearest_enemy"
 
 const skill_name = "Rusty Pipe"
 const description = "Moderate resistance and damage, attacks reduce enemies' damage."
-const long_description = "Disruptive and resistant. Can be upgraded to become extremely resistant or to deal great AOE damage."
+const long_description = "Disruptive and resistant. "
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str: = Meta.get_unit_damage_string(unit);
-	var atk_reduction_str:String =  Meta.get_technique_scaled_string(unit, "", stat_debuff_values.attack, "%");
+	var atk_reduction_str:String =  Meta.get_technique_scaled_string(unit, "", stat_debuff_values.attack,1, "%");
 	
-	var string:String = "Deals " + damage_str + " damage to enemies in an area and reduces their attack by "\
-	+atk_reduction_str + " for the rest of the battle.";
+	var string:String = "Deals " + damage_str + " damage to enemies in an area and reduces their "+Meta.get_color_tag("attack") + \
+	"attack [/color]by " + atk_reduction_str + " for the rest of the battle.";
+	string += "\n\nCan be upgraded to become extremely resistant or to deal great AOE damage."
 	return string;
 
 const tags = [

@@ -1,7 +1,6 @@
 extends Node
 
 func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=Callable())->void:
-	
 	var damage:float = source.attack;
 	if not modifier.is_null():
 		damage = modifier.bind(damage).call();
@@ -40,6 +39,11 @@ func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = so
 	if target.stun_timer.is_stopped() or target.stun_timer.time_left < duration:
 			target.stun_timer.wait_time = duration;
 			target.stun_timer.start()
+			
+			target.set_physics_process(false);
+			if target is NpcFighter:
+				target.stunnable_timers.set_process_mode(NOTIFICATION_DISABLED);
+
 			target.timers.display_stun();
 	target.status_applied.emit(source, "stun")
 	Tweens.stun_vfx(target);
@@ -65,36 +69,44 @@ func clear_stat_change(target:ActiveFighter, stat:String, value:float, status_ti
 const def_mitigation_breakpoints = {
 	## DEF value has diminishing returns, each breakpoint makes the value of each 
 	## subsequent DEF point yield less damage mitigation
-	10.0:1,
-	20.0:.75,
+	20.0:1,
 	50.0:.5,
-	150.0:.25,
-	250.0:.1,
+	100:.25,
+	200:.2
 }
 
-const final_def_point_mitigation_value = .05;
+## after 200, every 100 def points make the next 100 yield half as much, towards infinity
+const excess_def_falloff_divider = 2;
+## value the player gets from the first 200 points of defense
+const base_excess_mitigation = 42.5
 
 func defense_mitigation(unit:ActiveFighter)->float:
+	var def_left:int = unit.defense;
 	var total_mitigation:float = 0.0
-	var def_acm:float = unit.defense;
+	var previous_point:int=0;
 
+	if unit.defense < 200:
+		for point in def_mitigation_breakpoints.keys():
+			var point_range = point - previous_point;
+			if def_left > point_range:
+				def_left -= point - previous_point;
+				total_mitigation += (point - previous_point) * def_mitigation_breakpoints[point];
+				previous_point = point
+			else:
+				total_mitigation += def_left * def_mitigation_breakpoints[point]
+				break;
+	else:
+		def_left -= 200;
+		total_mitigation += base_excess_mitigation;
+		var point_value = def_mitigation_breakpoints[200];
+		
+		while def_left > 100:
+			def_left -= 100
+			total_mitigation += 100 * point_value;
+			point_value /= excess_def_falloff_divider;
+		
+		total_mitigation += def_left * point_value
 
-	var breakpoints:Array = def_mitigation_breakpoints.keys();
-	for key:float in breakpoints:
-		def_acm -= key;
-		if def_acm >= 0:
-			total_mitigation += def_mitigation_breakpoints[key] * key
-		else:
-			## ACM will turn to a negative number that gets subtracted from the
-			## breakpoint in order to get the value of the last few points
-			total_mitigation += def_mitigation_breakpoints[key] * (key + def_acm)
-			break
-			
-	
-	# Handle the case for DEF values above the highest breakpoint
-	if def_acm >= 0:
-		total_mitigation += final_def_point_mitigation_value * def_acm;
-	
 	## mitigation = pecentage reduction to damage
 	## (only by defense stat rn)
 	return total_mitigation/100

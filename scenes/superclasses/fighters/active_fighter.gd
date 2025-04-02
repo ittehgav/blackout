@@ -26,6 +26,7 @@ var max_hp:float;
 var hp:float;
 var attack:float;
 var defense:float;
+var agility:float;
 var technique:float;
 
 var move_speed:float = 220.0;

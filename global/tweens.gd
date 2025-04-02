@@ -6,7 +6,7 @@ extends Node
 func stat_icon_sprite(stat:String)->Sprite2D:
 	var sprite: = Sprite2D.new();
 	match stat:
-		"defense", "attack", "max_hp", "move_speed", "technique":
+		"defense", "attack", "max_hp", "agility", "technique":
 			sprite.texture = Meta.icons[stat];
 	return sprite;
 

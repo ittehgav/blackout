@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dnyd60sks1ttw"]
 
-[ext_resource type="Script" uid="uid://77atybcgh3u6" path="res://scenes/testers/animation_tester.gd" id="1_s5b4a"]
+[ext_resource type="Script" uid="uid://77atybcgh3u6" path="res://scenes/testers/animations/animation_tester.gd" id="1_s5b4a"]
 
 [node name="animation tester" type="Timer"]
 wait_time = 0.1

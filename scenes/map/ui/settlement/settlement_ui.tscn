@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bahlds1d7kky5" path="res://scenes/map/ui/settlement/options.gd" id="3_2ay4q"]
 [ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://resources/themes/pixel_ui_theme/PixelTheme-Dark-Fade.tres" id="3_obgmr"]
 [ext_resource type="Shader" uid="uid://bg5d2crng34n6" path="res://scenes/map/ui/settlement/settlement_bg.gdshader" id="3_pm0ox"]
-[ext_resource type="Texture2D" uid="uid://b8o26cjjwgvd" path="res://assets/visual/backgrounds/settlements/factory.png" id="4_pm0ox"]
+[ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/visual/sprites/settlements/factory.png" id="4_pm0ox"]
 [ext_resource type="Script" uid="uid://dvt03jqvbsvfs" path="res://scenes/map/ui/settlement/trade_menu.gd" id="4_y856o"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="5_36m0f"]
 [ext_resource type="Script" uid="uid://cp0p3thqi28a2" path="res://scenes/map/ui/settlement/resource_trade_option.gd" id="8_qjyf3"]

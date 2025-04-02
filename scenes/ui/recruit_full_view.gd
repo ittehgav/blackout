@@ -20,7 +20,7 @@ extends MarginContainer
 @export var max_hp_label:Label;
 @export var attack_label:Label;
 @export var defense_label:Label;
-@export var move_speed_label:Label;
+@export var agility_label:Label;
 @export var technique_label:Label;
 
 @export var skill_range_label:Label;
@@ -63,17 +63,17 @@ func refresh_data()->void:
 	max_hp_label.text = str(showing_unit.stats.max_hp)
 	attack_label.text = str(showing_unit.stats.attack)
 	defense_label.text = str(showing_unit.stats.defense)
-	move_speed_label.text = str(showing_unit.stats.move_speed)
+	agility_label.text = str(showing_unit.stats.agility)
 	technique_label.text = str(showing_unit.stats.technique)
 	
-	skill_cooldown_label.text = "Cooldown: " + str(showing_unit.base.skill_cooldown) + "s";
+	skill_cooldown_label.text = "Cooldown: " + str(snapped(showing_unit.final_skill_cooldown(),.01)) + "s";
 	skill_range_label.text = get_skill_range(showing_unit.base);
 	
 
 func get_skill_range(fighter:FighterBase)->String:
 	if fighter.skill_range == fighter.MELEE_RANGE:
 		return "Melee";
-	elif fighter.skill_range < 350:
+	elif fighter.skill_range < 750:
 		return "Short Range";
 	else:
 		return "Long Range"
@@ -86,12 +86,12 @@ func fade_in()->void:
 	tween.tween_property(self, "modulate:a", 1, .35)
 	
 func fade_out()->void:
-	ui_sfx.play_stream_by_key("cancel_sound")
+	ui_sfx.play_stream("cancel")
 	var tween:Tween = create_tween();
 	tween.tween_property(self, "modulate:a", 0, .35)
 	await tween.finished;
 	hide();
 
 func _input(e: InputEvent) -> void:
-	if e.is_action_pressed("ui_cancel") and visible:
+	if e.is_action_pressed("ui_exit") and visible:
 		fade_out();

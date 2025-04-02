@@ -8,7 +8,7 @@ var tooltip_name_color:Color;
 @export var adjacent_items:Array[CanvasItem];
 
 
-@export_enum("max_hp", "attack", "defense", "move_speed", "technique") var stat:String="max_hp";
+@export_enum("max_hp", "attack", "defense", "agility", "technique") var stat:String="max_hp";
 
 
 func _ready()->void:
@@ -19,8 +19,6 @@ func _ready()->void:
 	tooltip_name_color = Meta.stat_colors[stat];
 	if stat == "map_hp":
 		name = "Max HP";
-	if stat == "move_speed":
-		name = "Movement Speed"
 		
 	description = Meta.stat_descriptions[stat]
 	for item in adjacent_items:

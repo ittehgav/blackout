@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="1_bkqf8"]
 [ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/visual/sprites/settlements/factory.png" id="1_cwx7e"]
 [ext_resource type="Script" uid="uid://cspof4tgur6tj" path="res://scenes/indexes/settlements/generic/factory.gd" id="2_82p61"]
-[ext_resource type="Texture2D" uid="uid://b8o26cjjwgvd" path="res://assets/visual/backgrounds/settlements/factory.png" id="2_r2k12"]
+[ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/visual/sprites/settlements/factory.png" id="2_r2k12"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_8bllo"]
 [ext_resource type="Texture2D" uid="uid://b4ndd8dp8125d" path="res://assets/visual/backgrounds/settlements/factory/crowd1.png" id="3_cxdhc"]
 [ext_resource type="Texture2D" uid="uid://jsaa83fc4t87" path="res://assets/visual/backgrounds/settlements/factory/crowd2.png" id="4_c4ynk"]

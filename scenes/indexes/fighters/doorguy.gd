@@ -12,15 +12,14 @@ const sample_offset = Vector2(35, -26)
 const target_type = "nearest_enemy"
 
 const skill_name = "Buckle up"
-const description = "[color=blue]Doesn't deal damage.[/color] Shields self, becoming progressively more resistant."
-const long_description = "Can be extremely difficult to take down."
+var description:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields self, becoming progressively more resistant."
 
 func full_skill_description(unit:FighterUnit)->String:
 	var technique_str:String = Meta.get_technique_scaled_string(unit);
 	var base_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
 	var final_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
 	
-	var string:String = "[color=blue]Doesn't deal damage.[/color] Shields himself, gaining " + base_value_str + " * " + technique_str\
+	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields himself, gaining " + base_value_str + " * " + technique_str\
 	 + " (" + final_value_str +") defense until the end of battle.";
 	return string
 

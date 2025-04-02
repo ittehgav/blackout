@@ -45,7 +45,7 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	Entities.world_map.ui.self_modulate.a = 0
 	current_settlement = settlement;
 	Entities.main_bgm.play_bgm("in_settlement")
-	ui_sfx.play_stream(ui_sfx.settlement_entered)
+	ui_sfx.play_stream("settlement_entered")
 	Entities.world_map.pause_map();
 	
 	$main_view/container/options.show_main_view();
@@ -121,4 +121,4 @@ func _on_settlement_left() -> void:
 
 
 func _on_trade_menu_trade_completed() -> void:
-	ui_sfx.play_stream(trade_completed_sound)
+	ui_sfx.play_stream_obj(trade_completed_sound)

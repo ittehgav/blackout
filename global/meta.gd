@@ -6,7 +6,7 @@ extends Node
 	"defense":load("res://assets/visual/icons/stats/defense.png"),
 	"attack":load("res://assets/visual/icons/stats/attack.png"),
 	"max_hp":load("res://assets/visual/icons/stats/max_hp.png"),
-	"move_speed":load("res://assets/visual/icons/stats/move_speed.png"),
+	"agility":load("res://assets/visual/icons/stats/agility.png"),
 	"technique":load("res://assets/visual/icons/stats/technique.png"),
 
 	"food":load("res://assets/visual/icons/resources/food.png"),
@@ -66,14 +66,19 @@ func get_color_tag(key:String)->String:
 		color = stat_colors[key]
 	elif key in flavor_colors:
 		color = flavor_colors[key]
+	elif key in misc_colors:
+		color = misc_colors[key]
 	return "[color=" + color.to_html() + "]";
 	
+const misc_colors = {
+	"no_dmg":Color.LIGHT_BLUE
+}
 
 const stat_colors = {
 	"max_hp": Color.WEB_GREEN,
 	"attack": Color(.8, 0, 0),
 	"defense": Color.SKY_BLUE,
-	"move_speed": Color(.8, .8, 0), ## darkish yellow
+	"agility": Color(.8, .8, 0), ## darkish yellow
 	"technique": Color.DEEP_PINK
 }
 
@@ -86,24 +91,27 @@ const item_rarity_colors:={
 const stat_descriptions = {
 	"max_hp": "The unit's total HP at the start of battle.",
 	"attack": "The damage the unit's skill will deal (some units deal no damage.)",
-	"defense": "Flat mitigation from all damage dealt to the unit (??????????????)",
-	"move_speed": "The speed at which the character moves in battle",
+	"defense": "Reduces the damage taken by the unit.",
+	"agility": "Increases the speed at which the unit uses their skill.",
 	"technique": "Multiplier applied to special effects in units' skills"
 }
 
 
 func get_unit_damage_string(unit:FighterUnit)->String:
+	var damage:float = unit.stats.attack
+	if "damage_modifier" in unit.base:
+		damage = unit.base.damage_modifier(damage, unit)
 	var string:String = "[color=" + stat_colors.attack.to_html() + "]";
-	string += str(unit.stats.attack) + "[/color]"
+	string += str(damage) + "[/color]"
 	return string
 	
-func get_technique_scaled_string(unit:FighterUnit, value_key:String="", hard_value:float = 0.0, trailing_string:String="")->String:
+func get_technique_scaled_string(unit:FighterUnit, value_key:String="", hard_value:float = 0.0, additional_multiplier:float=1, trailing_string:String="")->String:
 	var string:String = "[color=" + stat_colors.technique.to_html() + "]";
 	if hard_value:
-		string += str(snapped(hard_value * unit.stats.technique, .01)) + trailing_string + "[/color]"
+		string += str(snapped(hard_value * unit.stats.technique * additional_multiplier, .01)) + trailing_string + "[/color]"
 	elif not value_key:
-		string += str(unit.stats.technique) + trailing_string + "[/color]"
+		string += str(snapped(unit.stats.technique * additional_multiplier, .01)) + trailing_string + "[/color]"
 	else:
-		string += str(snapped(unit.base[value_key] * unit.stats.technique, .01)) + trailing_string + "[/color]";
+		string += str(snapped(unit.base[value_key] * unit.stats.technique * additional_multiplier, .01)) + trailing_string + "[/color]";
 	return string;
 	

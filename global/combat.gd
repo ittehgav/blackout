@@ -57,7 +57,7 @@ func self_buff(source:ActiveFighter)->void:
 		"stat":
 			for stat:String in source.base.stats_to_buff:
 				match stat:
-					"defense", "attack", "max_hp", "move_speed":
+					"defense", "attack", "max_hp", "agility":
 						var value:float = source.base.stat_buff_values[stat] * source.technique;
 						apply_stat_change(source, source, value, stat)
 
@@ -76,7 +76,7 @@ func aoe_debuff(source:ActiveFighter)->void:
 
 					for stat:String in source.base.stats_to_debuff:
 						match stat:
-							"defense", "attack", "max_hp", "move_speed":
+							"defense", "attack", "max_hp", "agility":
 								## stat debuff values are multiplied by - 1 here
 								var value:float = source.base.stat_debuff_values[stat] * source.technique
 								apply_stat_change(source, unit, value * -1, stat);

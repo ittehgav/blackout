@@ -1,9 +1,9 @@
 [gd_scene load_steps=26 format=3 uid="uid://bgysvsmknpv0o"]
 
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="1_chvcl"]
-[ext_resource type="Script" uid="uid://to3kctqxpxmk" path="res://scenes/testers/allanimations.gd" id="1_e28q0"]
+[ext_resource type="Script" uid="uid://to3kctqxpxmk" path="res://scenes/testers/animations/allanimations.gd" id="1_e28q0"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="2_3mvmp"]
-[ext_resource type="PackedScene" uid="uid://dnyd60sks1ttw" path="res://scenes/testers/animation_tester.tscn" id="3_01uig"]
+[ext_resource type="PackedScene" uid="uid://dnyd60sks1ttw" path="res://scenes/testers/animations/animation_tester.tscn" id="3_01uig"]
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="4_kon31"]
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="5_7pc77"]
 [ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="6_gsqdb"]

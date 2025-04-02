@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxonxw6koom7v"]
+[gd_scene load_steps=7 format=3 uid="uid://dxonxw6koom7v"]
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_efaxt"]
+[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_75vfm"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="2_w3kr7"]
 [ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster.tscn" id="3_5khbq"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_4udko"]
@@ -12,6 +13,8 @@ leadership_stats = NodePath("leadership_stats")
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("combat_stats")
+fighter_unit_scene = ExtResource("2_75vfm")
+npc_fighter_scene = ExtResource("2_75vfm")
 
 [node name="Inventory" parent="." instance=ExtResource("2_w3kr7")]
 food = 2

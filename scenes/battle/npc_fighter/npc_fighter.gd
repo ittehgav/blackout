@@ -11,6 +11,7 @@ signal skill_hit(target_hit:ActiveFighter);
 @export var cooldown_timer:Timer;
 @export var skill_retry_timer:Timer;
 
+@export var stunnable_timers:Node;
 
 var current_animation:String = "idle";
 
@@ -58,9 +59,13 @@ func load_fighter(new_unit:FighterUnit)->void:
 	attack = unit.stats.attack;
 	defense = unit.stats.defense;
 	
+	agility = unit.stats.agility;
+	
 	technique = unit.stats.technique
 	move_speed = unit.stats.move_speed
 	
+	
+	var skill_cooldown = unit.final_skill_cooldown()
 	cooldown_timer.wait_time = base.skill_cooldown;
 	
 	
@@ -94,7 +99,7 @@ func find_target()->void:
 
 func _physics_process(_delta: float) -> void:
 	if target_unit and is_instance_valid(target_unit):
-		if not target_in_range and stun_timer.is_stopped():
+		if not target_in_range:
 			base.flip_h = target_unit.position.x < position.x;
 			if not current_animation == "walk":
 				current_animation = "walk";
@@ -172,9 +177,15 @@ func next_frame() -> void:
 				next_frame();
 			
 func skill_cooldown() -> void:
-	if target_in_range and stun_timer.is_stopped():
+	if target_in_range:
 		use_skill()
 		skill_retry_timer.stop()
-		$npc_timers/skill_cooldown.start()
+		$fighter_timers/stunnable/skill_cooldown.start()
 	else:
 		skill_retry_timer.start();
+
+
+func _on_stun_timeout() -> void:
+	set_physics_process(true);
+	stunnable_timers.set_process_mode(PROCESS_MODE_PAUSABLE);
+	

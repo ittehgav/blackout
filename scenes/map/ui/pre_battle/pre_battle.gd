@@ -39,6 +39,8 @@ func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader):
 	
 	slide_in()
 	pre_battle_started.emit();
+	
+	Entities.main_bgm.play_bgm("combat")
 
 	show()
 
