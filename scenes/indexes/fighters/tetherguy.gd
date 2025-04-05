@@ -4,7 +4,7 @@ const skill_effects = ["special"];
 const skill_visuals = ["recoil"]
 
 const skill_use_sfx = ["shoot"]
-const skill_hit_sfx = ["heal"]
+const skill_hit_sfx = []
 
 const sample_offset = Vector2(8, -26)
 

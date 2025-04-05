@@ -3,12 +3,6 @@ extends Node
 ## ALL TWEENS WILL BE DONE HERE
 ## all tween functions will return their tween
 
-func stat_icon_sprite(stat:String)->Sprite2D:
-	var sprite: = Sprite2D.new();
-	match stat:
-		"defense", "attack", "max_hp", "agility", "technique":
-			sprite.texture = Meta.icons[stat];
-	return sprite;
 
 func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 	var target_rotation:float;
@@ -39,61 +33,21 @@ func arc_vfx(target:Polygon2D)->Tween:
 	
 	return tween;
 	
-func stun_vfx(target:ActiveFighter)->Tween:
-	var tween:Tween = create_tween();
-	target.base.modulate.a = .5;
-	tween.tween_property(target.base, "modulate:a", 1, .5);
-	return tween;
 
-	
+func stun_vfx(target:ActiveFighter)->Tween:
+	return color_blink(target.base, Color.PURPLE);
+
 func heal_vfx(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.GREEN);
 
-func stat_change_vfx(target:ActiveFighter, stat:String, positive:bool)->Tween:
-	var blink_color:Color;
-	if positive:
-		blink_color = Color.BLUE;
-	else:
-		blink_color = Color.REBECCA_PURPLE
-		
-	var icon:Sprite2D = stat_icon_sprite(stat);
-	target.floating_icon_anchor.add_child(icon);
-	
-	var y_shift: = -30;
-	if not positive:
-		icon.modulate = Color.RED;
-		y_shift *= -1
-	else:
-		icon.modulate = Color.BLUE
-
-	var icon_tween:Tween = create_tween();
-	icon_tween.tween_property(icon, "position:y", y_shift, .45);
-	icon_tween.parallel().tween_property(icon, "modulate:a", 0, .45)
-	icon_tween.tween_callback(icon.queue_free);
-	
-	return color_blink(target.base, blink_color);
-
-func damage_blink(target:ActiveFighter)->Tween:
+func damage_vfx(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.RED)
 
-
-func damage_overlay_tween(target:Label, intensity:float)->Tween:
-	var shake_range:float = 50 * intensity;
+func stat_debuff_vfx(target:ActiveFighter)->Tween:
+	return color_blink(target.base, Color.PURPLE);
 	
-	var back_x:float = shake_range * -1;
-	var back_y:float = randf_range(shake_range * -1, shake_range);
-	var back_v2: = Vector2(back_x, back_y);
-	
-	var forth_x:float = shake_range;
-	var forth_y:float = randf_range(shake_range * -1, shake_range);
-	var forth_v2: = Vector2(forth_x, forth_y);
-	
-	const step = .025;
-	var tween:Tween = create_tween();
-	tween.tween_property(target, "position", back_v2, step);
-	tween.tween_property(target, "position", forth_v2, step);
-	tween.tween_property(target, "position", Vector2.ZERO, step);
-	return tween;
+func stat_buff_vfx(target:ActiveFighter)->Tween:
+	return color_blink(target.base, Color.BLUE)
 
 func death_vfx(target:ActiveFighter)->Tween:
 	target.modulate = Color.DARK_RED;
@@ -133,21 +87,6 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
 	return tween;
 
-func weapon_float_tween(weapon:Weapon, up:bool)->Tween:
-	const float_range = 20.0
-	const step_duration =.75
-	var tween:Tween = create_tween();
-	var target_position:Vector2 = Vector2.ZERO;
-	if up:
-		target_position.y = float_range * -1.0;
-	else:
-		target_position.y = float_range;
-	
-	target_position.x = randi_range(float_range / 2.0 * -1.0, float_range/2.0);
-	tween.tween_property(weapon,"position", target_position, step_duration)
-	
-	tween.tween_callback(weapon_float_tween.bind(weapon, not up))
-	return tween;
 
 func ui_fade_in(target:Control)->Tween:
 	target.modulate.a = .1
@@ -159,10 +98,11 @@ func ui_fade_in(target:Control)->Tween:
 	return tween
 
 func growth_tween(unit:ActiveFighter)->Tween:
-	unit.base.scale = Vector2(1.5, 1.5)
+	unit.base.scale *= 2
+	var return_scale = unit.base.scale/2
 	
 	var tween:Tween = create_tween();
-	tween.tween_property(unit.base, "scale", Vector2.ONE, .2);
+	tween.tween_property(unit.base, "scale", return_scale, .2);
 	
 	return tween;
 

@@ -4,6 +4,7 @@ class_name Arena;
 
 @export var npc_fighter_scene:PackedScene;
 @export var overlay:Control;
+@export var kill_feed:Control;
 
 @export var team_1:Team;
 @export var team_2:Team;
@@ -30,9 +31,9 @@ func start_battle(enemy_leader:Leader)->void:
 	overlay.tide_bar.set_tide_bar();
 	if Entities.world_map:
 		## for testing battle straight out of the main menu
+		Entities.in_map_player.camera.enabled = false
 		Entities.world_map.set_process_mode(Node.PROCESS_MODE_DISABLED);
 		Entities.world_map.hide();
-		#Entities.world_map.ui.hide();
 		Entities.main.add_child(self)
 	
 	
@@ -41,13 +42,17 @@ func load_teams(enemy_leader:Leader)->void:
 	## happens before ready?
 	Entities.player.load_party(team_1);
 	team_1.refresh_units();
+	team_1.leader_fighter = Entities.in_fight_player;
 	## will leaders be part of the roster?
 	
 	enemy_leader.load_party(team_2, false);
 	
 	var leader_unit:NpcFighter = npc_fighter_scene.instantiate();
 	leader_unit.load_fighter(enemy_leader.unit)
+	team_2.leader_fighter = leader_unit
 	team_2.add_child(leader_unit)
+
+	
 	team_2.refresh_units();
 	
 	leader_unit.position = Vector2(450, 50)
@@ -108,7 +113,8 @@ func assign_team(unit:ActiveFighter, team_n:int)->void:
 	
 	unit.death.connect(unit.ally_team.on_unit_death.bind(unit))
 	unit.death.connect(overlay.tide_bar.refresh_tide_value.bind(unit))
+	unit.death.connect(kill_feed.unit_died.bind(unit))
 
 
-func _on_button_pressed() -> void:
-	get_tree().paused = false;
+func _on_cooldown_bar_tree_exited() -> void:
+	pass # Replace with function body.

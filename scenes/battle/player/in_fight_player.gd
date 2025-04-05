@@ -17,6 +17,7 @@ signal stopped_moving;
 var moving:bool = false;
 
 func _ready()->void:
+	super()
 	Entities.in_fight_player = self;
 	## this node is the only fighter that'll always be in an arena instance
 	load_fighter()
@@ -59,7 +60,3 @@ func _physics_process(_delta:float)->void:
 	get_input()
 	move_and_slide()
 	hit_scan.look_at(get_global_mouse_position())
-
-
-func _on_stun_timeout() -> void:
-	set_physics_process(true)

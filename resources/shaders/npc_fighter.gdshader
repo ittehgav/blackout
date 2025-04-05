@@ -1,10 +1,10 @@
 shader_type canvas_item;
 
-uniform vec4 target_color :source_color;
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
 uniform float grad:hint_range(0.0, 1.0);
 
 
-uniform vec4 color : source_color = vec4(1.0);
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
 uniform float width : hint_range(0, 10) = 1.0;
 uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
 uniform bool inside = false;

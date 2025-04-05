@@ -1,7 +1,7 @@
 extends FighterBase
 
 
-const skill_effects = ["stun", "direct_damage"];
+const skill_effects = ["stun_target", "direct_damage"];
 const skill_visuals = ["recoil"]
 
 const skill_use_sfx = ["shoot"]
@@ -39,4 +39,4 @@ const hitbox_offset = Vector2(0, 5)
 const skill_range = 300;
 const skill_cooldown = 8;
 
-const stun_duration = .75
+const status_duration = .75

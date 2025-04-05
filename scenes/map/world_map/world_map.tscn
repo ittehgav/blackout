@@ -780,55 +780,6 @@ level = 20
 [node name="Door Guy" parent="entities/in_map_player/Player/Roster/FighterUnit17" instance=ExtResource("23_3w437")]
 material = SubResource("ShaderMaterial_nsmlf")
 
-[node name="FighterUnit18" parent="entities/in_map_player/Player/Roster" index="21" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Double Arm Guy")
-level = 20
-
-[node name="Double Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit18" instance=ExtResource("24_mw666")]
-material = SubResource("ShaderMaterial_b4hij")
-
-[node name="FighterUnit19" parent="entities/in_map_player/Player/Roster" index="22" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Gravity Guy")
-level = 20
-
-[node name="Gravity Guy" parent="entities/in_map_player/Player/Roster/FighterUnit19" instance=ExtResource("25_qkpsy")]
-material = SubResource("ShaderMaterial_e4ls7")
-
-[node name="FighterUnit20" parent="entities/in_map_player/Player/Roster" index="23" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Mech Arm Guy")
-level = 20
-
-[node name="Mech Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit20" instance=ExtResource("26_2cuod")]
-material = SubResource("ShaderMaterial_x3dn3")
-
-[node name="FighterUnit21" parent="entities/in_map_player/Player/Roster" index="24" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Tailpipe Guy")
-level = 20
-
-[node name="Tailpipe Guy" parent="entities/in_map_player/Player/Roster/FighterUnit21" instance=ExtResource("27_bp0ea")]
-material = SubResource("ShaderMaterial_g6khw")
-
-[node name="FighterUnit22" parent="entities/in_map_player/Player/Roster" index="25" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Taser Guy")
-level = 20
-
-[node name="Taser Guy" parent="entities/in_map_player/Player/Roster/FighterUnit22" instance=ExtResource("28_5larv")]
-material = SubResource("ShaderMaterial_yrlwn")
-
-[node name="FighterUnit23" parent="entities/in_map_player/Player/Roster" index="26" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Tether Guy")
-level = 20
-
-[node name="Tether Guy" parent="entities/in_map_player/Player/Roster/FighterUnit23" instance=ExtResource("29_oxxdj")]
-material = SubResource("ShaderMaterial_1sa2f")
-
-[node name="FighterUnit24" parent="entities/in_map_player/Player/Roster" index="27" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Wheel Guy")
-level = 20
-
-[node name="Wheel Guy" parent="entities/in_map_player/Player/Roster/FighterUnit24" instance=ExtResource("20_opvew")]
-material = SubResource("ShaderMaterial_xrd1i")
-
 [node name="combat_stats" parent="entities/in_map_player/Player" index="2"]
 max_hp = 1232.1
 attack = 11.0
@@ -847,6 +798,55 @@ leader = NodePath("Thugs")
 vehicle = NodePath("Uno")
 
 [node name="Thugs" parent="entities/NpcMapParty" instance=ExtResource("61_sjqk0")]
+
+[node name="FighterUnit18" parent="entities/NpcMapParty/Thugs/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Double Arm Guy")
+level = 20
+
+[node name="Double Arm Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit18" instance=ExtResource("24_mw666")]
+material = SubResource("ShaderMaterial_b4hij")
+
+[node name="FighterUnit19" parent="entities/NpcMapParty/Thugs/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Gravity Guy")
+level = 20
+
+[node name="Gravity Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit19" instance=ExtResource("25_qkpsy")]
+material = SubResource("ShaderMaterial_e4ls7")
+
+[node name="FighterUnit20" parent="entities/NpcMapParty/Thugs/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Mech Arm Guy")
+level = 20
+
+[node name="Mech Arm Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit20" instance=ExtResource("26_2cuod")]
+material = SubResource("ShaderMaterial_x3dn3")
+
+[node name="FighterUnit21" parent="entities/NpcMapParty/Thugs/Roster" index="3" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Tailpipe Guy")
+level = 20
+
+[node name="Tailpipe Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit21" instance=ExtResource("27_bp0ea")]
+material = SubResource("ShaderMaterial_g6khw")
+
+[node name="FighterUnit22" parent="entities/NpcMapParty/Thugs/Roster" index="4" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Taser Guy")
+level = 20
+
+[node name="Taser Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit22" instance=ExtResource("28_5larv")]
+material = SubResource("ShaderMaterial_yrlwn")
+
+[node name="FighterUnit23" parent="entities/NpcMapParty/Thugs/Roster" index="5" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Tether Guy")
+level = 20
+
+[node name="Tether Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit23" instance=ExtResource("29_oxxdj")]
+material = SubResource("ShaderMaterial_1sa2f")
+
+[node name="FighterUnit24" parent="entities/NpcMapParty/Thugs/Roster" index="6" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+base = NodePath("Wheel Guy")
+level = 20
+
+[node name="Wheel Guy" parent="entities/NpcMapParty/Thugs/Roster/FighterUnit24" instance=ExtResource("20_opvew")]
+material = SubResource("ShaderMaterial_xrd1i")
 
 [node name="Uno" parent="entities/NpcMapParty" instance=ExtResource("62_1ogav")]
 
@@ -1099,3 +1099,4 @@ layout_mode = 1
 [editable path="entities/in_map_player"]
 [editable path="entities/in_map_player/Player"]
 [editable path="entities/in_map_player/Player/Inventory"]
+[editable path="entities/NpcMapParty/Thugs"]

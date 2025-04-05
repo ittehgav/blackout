@@ -10,3 +10,4 @@ texture = ExtResource("1_g1xn4")
 hframes = 6
 vframes = 3
 script = ExtResource("2_pej6q")
+need_target = false

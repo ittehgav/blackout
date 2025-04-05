@@ -1,7 +1,7 @@
 extends FighterBase
 
 
-const skill_effects = ["self_buff"];
+const skill_effects = ["self_stat_buff"];
 const skill_visuals = ["grow"]
 
 const skill_use_sfx = ["defense_up"]

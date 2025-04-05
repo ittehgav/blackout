@@ -1,14 +1,48 @@
-[gd_scene load_steps=11 format=3 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=30 format=3 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" uid="uid://xb73utl6rxmj" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_vr7dw"]
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="3_kfkuj"]
+[ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_rdtky"]
+[ext_resource type="Script" uid="uid://dub078lw4l51s" path="res://scenes/battle/arena/tiles.gd" id="4_jf7ja"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/player/in_fight_player.tscn" id="4_n7xip"]
 [ext_resource type="Script" uid="uid://d0ji6wb36bxta" path="res://scenes/battle/arena/overlay.gd" id="5_jp2sx"]
 [ext_resource type="Script" uid="uid://csxx5rp5jofmp" path="res://scenes/battle/arena/progress_bar.gd" id="5_mjben"]
 [ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/arena/ui/post_fight.gd" id="6_j1t58"]
 [ext_resource type="Texture2D" uid="uid://bnodj0olc5drs" path="res://assets/visual/icons/stats/attack.png" id="6_tbs4p"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="7_dheq7"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="7_ofgqu"]
+[ext_resource type="Script" uid="uid://di16ygj4n1cdp" path="res://scenes/battle/arena/ui/player_data.gd" id="13_v0vqe"]
+[ext_resource type="Texture2D" uid="uid://b1ii7gb6p2fb7" path="res://assets/visual/sprites/weapons/pipe.png" id="14_byfkr"]
+[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="15_v0vqe"]
+[ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="16_byfkr"]
+[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="16_kgbfd"]
+[ext_resource type="Script" uid="uid://dhd1birgmrx10" path="res://scenes/battle/arena/kill_feed.gd" id="17_pmgkv"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="18_kgbfd"]
+[ext_resource type="Script" uid="uid://bfcqcwall15j1" path="res://scenes/battle/arena/enemy_leader_data.gd" id="20_5bepm"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="21_0yl87"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qcibd"]
+texture = ExtResource("3_rdtky")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3qo6m"]
+sources/0 = SubResource("TileSetAtlasSource_qcibd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_og1r2"]
+resource_local_to_scene = true
+shader = ExtResource("7_ofgqu")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xlpfb"]
 shader = ExtResource("7_dheq7")
@@ -17,12 +51,35 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="arena" type="Node2D" node_paths=PackedStringArray("overlay", "team_1", "team_2")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5bepm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yl87"]
+bg_color = Color(1, 1, 1, 0.415686)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5bepm"]
+resource_local_to_scene = true
+shader = ExtResource("7_dheq7")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awn3j"]
+atlas = ExtResource("21_0yl87")
+region = Rect2(55, 0, 80, 100)
+
+[node name="arena" type="Node2D" node_paths=PackedStringArray("overlay", "kill_feed", "team_1", "team_2")]
 script = ExtResource("1_gosq3")
 npc_fighter_scene = ExtResource("2_vr7dw")
-overlay = NodePath("CanvasLayer/overlay")
+overlay = NodePath("hud/overlay")
+kill_feed = NodePath("hud/overlay/kill_feed")
 team_1 = NodePath("team_1")
 team_2 = NodePath("team_2")
+
+[node name="tiles" type="TileMapLayer" parent="."]
+scale = Vector2(4, 4)
+tile_set = SubResource("TileSet_3qo6m")
+script = ExtResource("4_jf7ja")
 
 [node name="team_1" type="Node2D" parent="."]
 script = ExtResource("3_kfkuj")
@@ -31,14 +88,17 @@ team_n = 1
 [node name="in_fight_player" parent="team_1" instance=ExtResource("4_n7xip")]
 position = Vector2(-45, 420)
 
+[node name="body" parent="team_1/in_fight_player" index="4"]
+material = SubResource("ShaderMaterial_og1r2")
+
 [node name="team_2" type="Node2D" parent="."]
 script = ExtResource("3_kfkuj")
 team_n = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="hud" type="CanvasLayer" parent="."]
 process_mode = 3
 
-[node name="overlay" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("in_fight_player", "post_fight", "tide_bar")]
+[node name="overlay" type="Control" parent="hud" node_paths=PackedStringArray("in_fight_player", "post_fight", "tide_bar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,34 +110,41 @@ in_fight_player = NodePath("../../team_1/in_fight_player")
 post_fight = NodePath("post_fight")
 tide_bar = NodePath("tide_of_battle")
 
-[node name="tide_of_battle" type="ProgressBar" parent="CanvasLayer/overlay" node_paths=PackedStringArray("icon")]
+[node name="tide_of_battle" type="TextureProgressBar" parent="hud/overlay" node_paths=PackedStringArray("icon")]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 20.0
-offset_top = -346.0
-offset_right = -20.0
-offset_bottom = -316.0
+offset_top = -318.0
+offset_bottom = -308.0
 grow_horizontal = 2
 grow_vertical = 2
-show_percentage = false
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("15_v0vqe")
+texture_progress = ExtResource("16_byfkr")
+tint_under = Color(0.2, 0.2, 0.2, 1)
 script = ExtResource("5_mjben")
-icon = NodePath("icon")
+icon = NodePath("../icon")
 
-[node name="icon" type="TextureRect" parent="CanvasLayer/overlay/tide_of_battle"]
+[node name="icon" type="TextureRect" parent="hud/overlay"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_xlpfb")
 layout_mode = 0
 offset_left = 620.0
-offset_top = -5.0
+offset_top = 13.0
 offset_right = 660.0
-offset_bottom = 35.0
+offset_bottom = 53.0
 scale = Vector2(2, 2)
 texture = ExtResource("6_tbs4p")
+expand_mode = 3
 
-[node name="post_fight" type="Control" parent="CanvasLayer/overlay"]
+[node name="post_fight" type="Control" parent="hud/overlay"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -87,7 +154,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_j1t58")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/overlay/post_fight"]
+[node name="ColorRect" type="ColorRect" parent="hud/overlay/post_fight"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,7 +163,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.556863)
 
-[node name="winner" type="Label" parent="CanvasLayer/overlay/post_fight"]
+[node name="winner" type="Label" parent="hud/overlay/post_fight"]
 layout_mode = 0
 offset_left = 537.0
 offset_top = 160.0
@@ -105,13 +172,223 @@ offset_bottom = 262.0
 theme_override_font_sizes/font_size = 128
 text = "penaz"
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-process_mode = 3
-offset_top = 163.0
-offset_right = 56.0
-offset_bottom = 197.0
+[node name="player_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("hp_bar", "player", "weapon_container", "weapon_cd_bg", "weapon_cd", "weapon_cd_timer")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -164.0
+offset_right = 148.0
+offset_bottom = -82.0
+grow_vertical = 0
 scale = Vector2(2, 2)
-text = "stat"
+script = ExtResource("13_v0vqe")
+hp_bar = NodePath("HBoxContainer/VBoxContainer/player_hp")
+player = NodePath("../../../team_1/in_fight_player")
+weapon_container = NodePath("HBoxContainer/PanelContainer/VBoxContainer2/MarginContainer")
+weapon_cd_bg = NodePath("HBoxContainer/PanelContainer/VBoxContainer2/MarginContainer/ProgressBar")
+weapon_cd = NodePath("HBoxContainer/PanelContainer/VBoxContainer2/MarginContainer/ProgressBar/TextureProgressBar")
+weapon_cd_timer = NodePath("../../../team_1/in_fight_player/weapon/weapon_cd")
 
-[connection signal="value_changed" from="CanvasLayer/overlay/tide_of_battle" to="CanvasLayer/overlay/tide_of_battle" method="_on_value_changed"]
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[node name="HBoxContainer" type="HBoxContainer" parent="hud/overlay/player_data"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 236.0
+grow_vertical = 0
+
+[node name="PanelContainer" type="Panel" parent="hud/overlay/player_data/HBoxContainer"]
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+theme = ExtResource("16_kgbfd")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="hud/overlay/player_data/HBoxContainer/PanelContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+offset_right = -1.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="hud/overlay/player_data/HBoxContainer/PanelContainer/VBoxContainer2"]
+modulate = Color(1, 1, 1, 0.556863)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = " [LMB]"
+
+[node name="MarginContainer" type="MarginContainer" parent="hud/overlay/player_data/HBoxContainer/PanelContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_top = -3
+
+[node name="ProgressBar" type="ProgressBar" parent="hud/overlay/player_data/HBoxContainer/PanelContainer/VBoxContainer2/MarginContainer"]
+self_modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_5bepm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0yl87")
+value = 40.0
+fill_mode = 3
+show_percentage = false
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="hud/overlay/player_data/HBoxContainer/PanelContainer/VBoxContainer2/MarginContainer/ProgressBar"]
+layout_mode = 2
+offset_right = 32.0
+offset_bottom = 64.0
+step = 0.1
+value = 40.0
+fill_mode = 3
+texture_progress = ExtResource("14_byfkr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hud/overlay/player_data/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+
+[node name="player_hp" type="TextureProgressBar" parent="hud/overlay/player_data/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("15_v0vqe")
+texture_progress = ExtResource("16_byfkr")
+tint_under = Color(0, 0.23, 0, 1)
+tint_progress = Color(0.12549, 1, 0.12549, 1)
+
+[node name="Control" type="Control" parent="hud/overlay/player_data/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="kill_feed" type="Control" parent="hud/overlay"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 116.0
+offset_bottom = 156.0
+grow_horizontal = 0
+script = ExtResource("17_pmgkv")
+
+[node name="kill" type="PanelContainer" parent="hud/overlay/kill_feed"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.164706)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+
+[node name="data" type="HBoxContainer" parent="hud/overlay/kill_feed/kill"]
+layout_mode = 2
+
+[node name="killer" type="Label" parent="hud/overlay/kill_feed/kill/data"]
+layout_mode = 2
+text = "Lv. 1 Arm Guy"
+
+[node name="icon" parent="hud/overlay/kill_feed/kill/data" instance=ExtResource("18_kgbfd")]
+modulate = Color(1, 1, 1, 0.603922)
+material = SubResource("ShaderMaterial_5bepm")
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+flip_h = true
+stat = "attack"
+
+[node name="panel" parent="hud/overlay/kill_feed/kill/data/icon" index="0"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+
+[node name="dead" type="Label" parent="hud/overlay/kill_feed/kill/data"]
+layout_mode = 2
+text = "Lv. 10 Wheel Guy"
+
+[node name="enemy_leader_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("avatar", "hp_bar", "cooldown_bar")]
+process_mode = 4
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("20_5bepm")
+avatar = NodePath("HBoxContainer/PanelContainer/avatar")
+hp_bar = NodePath("HBoxContainer/VBoxContainer/hp_bar")
+cooldown_bar = NodePath("HBoxContainer/VBoxContainer/cooldown_bar")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="hud/overlay/enemy_leader_data"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -92.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hud/overlay/enemy_leader_data/HBoxContainer"]
+layout_mode = 2
+
+[node name="cooldown_bar" type="TextureProgressBar" parent="hud/overlay/enemy_leader_data/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 8
+value = 57.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("6_tbs4p")
+texture_progress = ExtResource("6_tbs4p")
+tint_under = Color(0, 0, 0, 0.635294)
+tint_progress = Color(1, 0, 0, 1)
+
+[node name="hp_bar" type="TextureProgressBar" parent="hud/overlay/enemy_leader_data/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 2
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("15_v0vqe")
+texture_progress = ExtResource("16_byfkr")
+tint_under = Color(0, 0.23, 0, 1)
+tint_progress = Color(0.12549, 1, 0.12549, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="hud/overlay/enemy_leader_data/HBoxContainer"]
+layout_mode = 2
+
+[node name="avatar" type="TextureRect" parent="hud/overlay/enemy_leader_data/HBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_awn3j")
+flip_h = true
+
+[connection signal="ready" from="." to="tiles" method="set_tiles"]
+[connection signal="used" from="team_1/in_fight_player/weapon" to="hud/overlay/player_data" method="_on_weapon_used"]
+[connection signal="value_changed" from="hud/overlay/tide_of_battle" to="hud/overlay/tide_of_battle" method="move_tide"]
+
+[editable path="team_1/in_fight_player"]
+[editable path="team_1/in_fight_player/fighter_timers"]
+[editable path="team_1/in_fight_player/FighterOverlay"]
+[editable path="hud/overlay/kill_feed/kill/data/icon"]

@@ -4,6 +4,8 @@ class_name Team;
 
 @export var team_n:int;
 
+var leader_fighter:ActiveFighter
+
 var units:Array[Node];
 
 func refresh_units()->void:

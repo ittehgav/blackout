@@ -1,7 +1,7 @@
 extends FighterBase
 
 
-const skill_effects = ["aoe_damage", "aoe_debuff"];
+const skill_effects = ["aoe_damage", "aoe_stat_debuff"];
 const skill_visuals = ["lunge_forward", "shrink_target"]
 
 const skill_use_sfx = ["swing"]

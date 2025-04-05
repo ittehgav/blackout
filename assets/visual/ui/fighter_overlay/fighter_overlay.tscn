@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://brumfwmtyejcs"]
+
+[ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="1_at0n3"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_q8108"]
+[ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="3_ic2tu"]
+[ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="4_hhq0a"]
+
+[node name="FighterOverlay" type="Control" node_paths=PackedStringArray("hp_bar", "charge_bar", "floating_icon_anchor")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_at0n3")
+hp_bar = NodePath("VBoxContainer/hp_bar")
+charge_bar = NodePath("VBoxContainer/charge_bar")
+floating_icon_anchor = NodePath("floating_icon_anchor")
+stat_icon_scene = ExtResource("2_q8108")
+
+[node name="floating_icon_anchor" type="Node2D" parent="."]
+position = Vector2(70, 28)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 53.0
+offset_bottom = 38.0
+scale = Vector2(1.04, 1)
+theme_override_constants/separation = 2
+
+[node name="hp_bar" type="TextureProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+allow_greater = true
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_progress = ExtResource("3_ic2tu")
+tint_progress = Color(0.054902, 0.796078, 0, 1)
+
+[node name="charge_bar" type="TextureProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+texture_progress = ExtResource("4_hhq0a")
+
+[node name="refresh_bars" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="refresh_bars" to="." method="refresh_bars"]

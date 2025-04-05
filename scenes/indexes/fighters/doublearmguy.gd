@@ -30,7 +30,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	" damage to enemies in a large area and stunning them for " + stun_duration_str + " seconds."
 	return string
 
-const stun_duration = .25;
+const status_duration = .25;
 
 const hitbox_radius = 35;
 const hitbox_height = 80;

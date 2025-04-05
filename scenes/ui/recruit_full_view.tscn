@@ -59,7 +59,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("ui_sfx", "sample", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "tags_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label", "skill_range_label", "skill_cooldown_label")]
+[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("ui_sfx", "sample", "unit_name_label", "skill_name_label", "skill_description_label", "tags_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label", "skill_range_label", "skill_cooldown_label")]
 z_index = 1
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 8
@@ -84,7 +84,6 @@ sample = NodePath("Panel/SpriteSample")
 unit_name_label = NodePath("Panel/HBoxContainer/name")
 skill_name_label = NodePath("Panel/VBoxContainer/skill_name")
 skill_description_label = NodePath("Panel/VBoxContainer/skill_description")
-flavor_label = NodePath("Panel/VBoxContainer/flavor")
 tags_label = NodePath("Panel/HBoxContainer/tags")
 unit_level_label = NodePath("Panel/level")
 level_progress_bar = NodePath("Panel/ProgressBar")

@@ -1,5 +1,7 @@
 extends Node2D
 
+signal used;
+
 @export var holder:ActiveFighter;
 @export var body:FighterBase;
 
@@ -12,7 +14,7 @@ var current_float_tween:Tween;
 
 
 func _process(_delta:float)->void:
-	if Input.is_action_pressed("use_weapon") and holder.stun_timer.is_stopped():
+	if Input.is_action_pressed("use_weapon") and not holder.stunned:
 		weapon_input();
 	const angle_adjust = 30;
 	look_at(get_global_mouse_position())
@@ -32,6 +34,7 @@ func weapon_input()->void:
 func use_weapon()->void:
 	weapon_sfx.play_sfx(weapon_node.use_sfx);
 	weapon_cd.start()
+	used.emit()
 	var hit:bool = weapon_node.use();
 	if hit:
 		weapon_sfx.play_hit_sfx(weapon_node.hit_sfx);
@@ -45,11 +48,3 @@ func equip_weapon(weapon:Weapon)->void:
 	ColorCoder.color_code_weapon(weapon_node)
 	weapon_node.holder = holder;
 	holder.attack = weapon_node.damage;
-
-
-func player_started_moving() -> void:
-	current_float_tween = Tweens.weapon_float_tween(weapon_node, true);
-
-func player_stopped_moving() -> void:
-	if is_instance_valid(current_float_tween):
-		current_float_tween.kill();

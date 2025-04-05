@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://ocvlerfa58lv"]
 
+[ext_resource type="Texture2D" uid="uid://dr71gxx11i0gw" path="res://assets/visual/backgrounds/settlements/farm/farm.png" id="2_cdknx"]
 [ext_resource type="Script" uid="uid://cj7r0jpp6vbou" path="res://scenes/indexes/settlements/generic/farm.gd" id="2_d001o"]
-[ext_resource type="Texture2D" uid="uid://btxapn8epd61d" path="res://assets/visual/sprites/settlements/farm.png" id="2_i3mdt"]
 [ext_resource type="Texture2D" uid="uid://b7ibfji45yrso" path="res://assets/visual/backgrounds/settlements/farm/crowd1.png" id="3_cdknx"]
 [ext_resource type="Texture2D" uid="uid://btxapn8epd61d" path="res://assets/visual/sprites/settlements/farm.png" id="3_ks67y"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="3_prkd2"]
@@ -17,7 +17,7 @@ radius = 40.0
 input_pickable = true
 motion_mode = 1
 script = ExtResource("2_d001o")
-background = ExtResource("2_i3mdt")
+background = ExtResource("2_cdknx")
 crowd_1 = ExtResource("3_cdknx")
 crowd_2 = ExtResource("4_jfju3")
 inventory = NodePath("Inventory")

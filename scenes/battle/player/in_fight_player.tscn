@@ -14,7 +14,6 @@
 [ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/combat/generic/shoot.ogg" id="7_g4l1e"]
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/ui_sfx/weapon_swing.ogg" id="8_6prrp"]
 [ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/combat/special/gravity.ogg" id="8_8al0b"]
-[ext_resource type="PackedScene" uid="uid://d13s4a07by3vu" path="res://scenes/battle/active_fighter/fighter_overlay.tscn" id="8_14x5b"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
 [ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/ui_sfx/swing_hit.ogg" id="8_og1r2"]
 [ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/combat/generic/heal.wav" id="9_dax2e"]
@@ -22,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cqdrpx6jmvux1" path="res://scenes/battle/arena/tactics.gd" id="14_0y57y"]
 [ext_resource type="AudioStream" uid="uid://b51a48pddixp1" path="res://assets/sound/combat/damage_taken.ogg" id="15_clyj1"]
 [ext_resource type="Script" uid="uid://c1mom3xvj15xj" path="res://scenes/battle/player/sfx.gd" id="16_sjuhg"]
+[ext_resource type="PackedScene" uid="uid://brumfwmtyejcs" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.tscn" id="22_3ir4e"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
 radius = 29.2
@@ -42,7 +42,7 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
 radius = 80.0
 
-[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "weapon", "hit_scan", "camera", "sfx", "base", "floating_icon_anchor", "stun_timer", "timers", "status_timer", "npc_sfx")]
+[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "weapon", "hit_scan", "camera", "sfx", "base", "timers", "npc_sfx")]
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
@@ -54,10 +54,7 @@ hit_scan = NodePath("hit_scan")
 camera = NodePath("camera")
 sfx = NodePath("sfx")
 base = NodePath("body")
-floating_icon_anchor = NodePath("overlay/floating_icon_anchor")
-stun_timer = NodePath("fighter_timers/stun")
 timers = NodePath("fighter_timers")
-status_timer = NodePath("fighter_timers/_status_timer")
 npc_sfx = NodePath("npc_sfx")
 
 [node name="npc_sfx" type="AudioStreamPlayer2D" parent="."]
@@ -82,8 +79,7 @@ slam = ExtResource("11_gipdv")
 script = ExtResource("16_sjuhg")
 damage_taken = ExtResource("15_clyj1")
 
-[node name="fighter_timers" parent="." node_paths=PackedStringArray("stun_display") instance=ExtResource("7_6mba4")]
-stun_display = NodePath("../overlay/stun_display")
+[node name="fighter_timers" parent="." instance=ExtResource("7_6mba4")]
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wutkk")
@@ -123,13 +119,15 @@ shape = SubResource("CircleShape2D_5q67b")
 
 [node name="camera" type="Camera2D" parent="." node_paths=PackedStringArray("screen_blink")]
 position_smoothing_enabled = true
+position_smoothing_speed = 20.0
 editor_draw_drag_margin = true
 script = ExtResource("8_ccswf")
-screen_blink = NodePath("hud_overlay/screen_blink")
+screen_blink = NodePath("../hud_overlay/screen_blink")
+max_distance_from_parent = 50.0
 
-[node name="hud_overlay" type="CanvasLayer" parent="camera"]
+[node name="hud_overlay" type="CanvasLayer" parent="."]
 
-[node name="hud" type="Control" parent="camera/hud_overlay"]
+[node name="hud" type="Control" parent="hud_overlay"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -140,7 +138,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="tactics" type="Control" parent="camera/hud_overlay" node_paths=PackedStringArray("tactic_left", "tactic_right")]
+[node name="tactics" type="Control" parent="hud_overlay" node_paths=PackedStringArray("tactic_left", "tactic_right")]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
@@ -154,7 +152,7 @@ script = ExtResource("14_0y57y")
 tactic_left = NodePath("tactic_left")
 tactic_right = NodePath("tactic_right")
 
-[node name="tactic_left" type="ColorRect" parent="camera/hud_overlay/tactics"]
+[node name="tactic_left" type="ColorRect" parent="hud_overlay/tactics"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -163,7 +161,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.784314)
 
-[node name="hover_highlight" type="ColorRect" parent="camera/hud_overlay/tactics/tactic_left"]
+[node name="hover_highlight" type="ColorRect" parent="hud_overlay/tactics/tactic_left"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -174,7 +172,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.74, 0.74, 0.74, 0.529412)
 
-[node name="tactic_right" type="ColorRect" parent="camera/hud_overlay/tactics"]
+[node name="tactic_right" type="ColorRect" parent="hud_overlay/tactics"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -184,7 +182,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.784314)
 
-[node name="hover_highlight" type="ColorRect" parent="camera/hud_overlay/tactics/tactic_right"]
+[node name="hover_highlight" type="ColorRect" parent="hud_overlay/tactics/tactic_right"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -195,7 +193,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.74, 0.74, 0.74, 0.529412)
 
-[node name="screen_blink" type="ColorRect" parent="camera/hud_overlay"]
+[node name="screen_blink" type="ColorRect" parent="hud_overlay"]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -204,23 +202,28 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="overlay" parent="." instance=ExtResource("8_14x5b")]
+[node name="floating_icon_anchor" type="Node2D" parent="hud_overlay"]
+position = Vector2(116, 3)
 
-[node name="stun_display" parent="overlay" index="2"]
-texture_progress = null
+[node name="FighterOverlay" parent="." node_paths=PackedStringArray("cooldown_timer", "unit") instance=ExtResource("22_3ir4e")]
+offset_left = -38.0
+offset_top = -49.0
+offset_right = -38.0
+offset_bottom = -49.0
+cooldown_timer = NodePath("../weapon/weapon_cd")
+unit = NodePath("..")
 
-[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
+[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
 [connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
-[connection signal="started_moving" from="." to="weapon" method="player_started_moving"]
-[connection signal="stopped_moving" from="." to="weapon" method="player_stopped_moving"]
-[connection signal="timeout" from="fighter_timers/stun" to="." method="_on_stun_timeout"]
-[connection signal="mouse_entered" from="camera/hud_overlay/tactics/tactic_left" to="camera/hud_overlay/tactics" method="_on_tactic_left_mouse_entered"]
-[connection signal="mouse_exited" from="camera/hud_overlay/tactics/tactic_left" to="camera/hud_overlay/tactics" method="_on_tactic_left_mouse_exited"]
-[connection signal="mouse_entered" from="camera/hud_overlay/tactics/tactic_right" to="camera/hud_overlay/tactics" method="_on_tactic_right_mouse_entered"]
-[connection signal="mouse_exited" from="camera/hud_overlay/tactics/tactic_right" to="camera/hud_overlay/tactics" method="_on_tactic_right_mouse_exited"]
+[connection signal="status_applied" from="." to="FighterOverlay" method="_on_fighter_status_applied"]
+[connection signal="used" from="weapon" to="FighterOverlay" method="_on_weapon_used"]
+[connection signal="mouse_entered" from="hud_overlay/tactics/tactic_left" to="hud_overlay/tactics" method="_on_tactic_left_mouse_entered"]
+[connection signal="mouse_exited" from="hud_overlay/tactics/tactic_left" to="hud_overlay/tactics" method="_on_tactic_left_mouse_exited"]
+[connection signal="mouse_entered" from="hud_overlay/tactics/tactic_right" to="hud_overlay/tactics" method="_on_tactic_right_mouse_entered"]
+[connection signal="mouse_exited" from="hud_overlay/tactics/tactic_right" to="hud_overlay/tactics" method="_on_tactic_right_mouse_exited"]
 
 [editable path="fighter_timers"]
-[editable path="overlay"]
+[editable path="FighterOverlay"]

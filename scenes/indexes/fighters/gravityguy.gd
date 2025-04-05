@@ -41,7 +41,7 @@ const skill_cooldown = 8;
 
 const knock_back_distance = 500;
 
-const stun_duration = 1;
+const status_duration = 1;
 const secondary_stun_duration = .5;
 
 func special_setup()->void:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bghgbhdlygqcs"]
 
 [ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/visual/sprites/settlements/scrapyard.png" id="1_60suj"]
-[ext_resource type="Texture2D" uid="uid://kjkjr13ixjuu" path="res://assets/visual/sprites/settlements/scrapyard.png" id="2_k2u3n"]
+[ext_resource type="Texture2D" uid="uid://0adisj2gynf8" path="res://assets/visual/backgrounds/settlements/scrapyard/scrapyard.png" id="2_nxvsu"]
 [ext_resource type="Script" uid="uid://cjcr0wvsl0iad" path="res://scenes/indexes/settlements/generic/scrapyard.gd" id="2_ylbiw"]
 [ext_resource type="Texture2D" uid="uid://cfh2sfj47tk1n" path="res://assets/visual/backgrounds/settlements/scrapyard/crowd1.png" id="3_nxvsu"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="3_y1jku"]
@@ -17,7 +17,7 @@ radius = 40.0
 input_pickable = true
 motion_mode = 1
 script = ExtResource("2_ylbiw")
-background = ExtResource("2_k2u3n")
+background = ExtResource("2_nxvsu")
 crowd_1 = ExtResource("3_nxvsu")
 crowd_2 = ExtResource("4_lqfi7")
 inventory = NodePath("Inventory")

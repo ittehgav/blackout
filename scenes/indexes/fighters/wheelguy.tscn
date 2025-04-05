@@ -11,5 +11,6 @@ hframes = 6
 vframes = 3
 script = ExtResource("1_qf76y")
 dmg_timer = NodePath("aoe_dmg")
+need_target = false
 
 [node name="aoe_dmg" type="Timer" parent="."]

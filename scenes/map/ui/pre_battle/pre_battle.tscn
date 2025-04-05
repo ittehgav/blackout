@@ -60,14 +60,14 @@ layout_mode = 2
 
 [node name="player_avatar" type="Control" parent="container/player_panel"]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 63.0
-offset_top = -101.0
-offset_right = 103.0
-offset_bottom = -61.0
-grow_vertical = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 71.0
+offset_top = -394.0
+offset_right = 111.0
+offset_bottom = -354.0
+grow_vertical = 0
 
 [node name="body" parent="container/player_panel/player_avatar" instance=ExtResource("3_t1aoh")]
 material = SubResource("ShaderMaterial_6f1ys")

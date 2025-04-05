@@ -71,7 +71,6 @@ func load_fighter(new_unit:FighterUnit)->void:
 	
 	if "special_setup" in base:
 		base.special_setup();
-	update_overlay();
 
 
 func find_target()->void:
@@ -121,6 +120,14 @@ func _on_skill_range_body_entered(body: Node2D) -> void:
 func _on_skill_range_body_exited(body: Node2D) -> void:
 	if body == target_unit:
 		target_in_range = false;
+			
+func skill_cooldown() -> void:
+	if target_in_range or not base.need_target:
+		use_skill()
+		skill_retry_timer.stop()
+		$fighter_timers/stunnable/skill_cooldown.start()
+	else:
+		skill_retry_timer.start();
 
 
 func use_skill()->void:
@@ -175,17 +182,3 @@ func next_frame() -> void:
 			else:
 				current_animation = "idle";
 				next_frame();
-			
-func skill_cooldown() -> void:
-	if target_in_range:
-		use_skill()
-		skill_retry_timer.stop()
-		$fighter_timers/stunnable/skill_cooldown.start()
-	else:
-		skill_retry_timer.start();
-
-
-func _on_stun_timeout() -> void:
-	set_physics_process(true);
-	stunnable_timers.set_process_mode(PROCESS_MODE_PAUSABLE);
-	

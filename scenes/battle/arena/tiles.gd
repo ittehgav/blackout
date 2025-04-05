@@ -1,0 +1,14 @@
+extends TileMapLayer
+
+func _ready():
+	if Entities.world_map:
+		set_tiles()
+
+func set_tiles():
+	if Entities.world_map:
+		var center_tile = Vector2i(Entities.in_map_player.global_position/16);
+		for x in range(-16, 16):
+			for y in range(-16, 16):
+				var cell_position = Vector2(center_tile.x + x, center_tile.y + y)
+				var tile = Entities.world_map.tile_map.get_cell_atlas_coords(Vector2(center_tile.x + x, center_tile.y + y));
+				set_cell(Vector2(x, y), 0, tile)

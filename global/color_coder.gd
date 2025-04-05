@@ -48,9 +48,10 @@ func color_code_fighter(fighter:FighterBase, scheme:int=1, sample:bool=false)->v
 	color_code_sprite(fighter, dict)
 	
 	if not sample:
-		var outline_color:Color = off_color;
+		var outline_color:Color = off_color.darkened(darkening);
 		outline_color.a -=.5;
 		fighter.material.set_shader_parameter("color", outline_color)
+
 	
 
 func color_code_vehicle(vehicle:Vehicle)->void:

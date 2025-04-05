@@ -39,4 +39,4 @@ const hit_scan_radius = 100;
 const skill_range = MELEE_RANGE;
 const skill_cooldown = 5;
 
-const stun_duration = .125;
+const status_duration = .125;

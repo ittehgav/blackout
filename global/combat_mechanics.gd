@@ -16,6 +16,7 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=C
 	if target.hp <= 0:
 		if not target is InFightPlayer:
 			target.ally_team.remove_child(target);
+			target.set_process(false);
 			var tween:Tween = Tweens.death_vfx(target);
 			tween.tween_callback(target.queue_free);
 		else:
@@ -29,42 +30,27 @@ func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 		target.hp = target.max_hp;
 
 	target.healing_received.emit(value)
-	Tweens.heal_vfx(target);
 
-func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = source.base.stun_duration * source.technique)->void:
+func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = source.base.status_duration * source.technique)->void:
 	if source is NpcFighter:
 		if not target in source.hit_targets:
 			source.hit_targets.append(target);
 
-	if target.stun_timer.is_stopped() or target.stun_timer.time_left < duration:
-			target.stun_timer.wait_time = duration;
-			target.stun_timer.start()
-			
-			target.set_physics_process(false);
-			if target is NpcFighter:
-				target.stunnable_timers.set_process_mode(NOTIFICATION_DISABLED);
+	Statuses.apply_status(source, target, "stun", duration)
 
-			target.timers.display_stun();
-	target.status_applied.emit(source, "stun")
-	Tweens.stun_vfx(target);
 
 func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, stat:String)->void:
-		## a single stat change only reduces a single stat at a time
-		target[stat] += value;
-		Tweens.stat_change_vfx(target,stat, value > 0);
-		## may need to be less generalized?
-		target.status_applied.emit(source, "stat_down");
-		
-		if "applied_status_duration" in source.base:
-			var timer:Timer = target.status_timer.duplicate();
-			timer.wait_timer = source.applied_duration
-			timer.timeout.connect(clear_stat_change.bind(target, stat, value * -1, timer))
-		
+		var duration = 0;
+		if "status_duration" in source.base:
+			duration = source.base.status_duration * source.technique;
+		var status_data := {
+			"stat":stat,
+			"amount":value
+		}
+		Statuses.apply_status(source, target, "stat_change", duration, status_data)
 
-func clear_stat_change(target:ActiveFighter, stat:String, value:float, status_timer:Timer)->void:
-	target[stat] += value;
-	status_timer.queue_free()
-	
+
+
 
 const def_mitigation_breakpoints = {
 	## DEF value has diminishing returns, each breakpoint makes the value of each 

@@ -36,7 +36,7 @@ const tags = [
 	"mechanic"
 ]
 
-func damage_modifier(damage:float, _unit:FighterUnit)->float:
+func damage_modifier(damage:float, _unit:FighterUnit=null)->float:
 	return damage/10
 	
 const hit_scan_type = "surrounding";

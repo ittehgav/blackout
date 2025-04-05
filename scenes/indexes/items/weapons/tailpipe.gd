@@ -8,7 +8,7 @@ const cooldown:float = .5;
 
 const type = "melee";
 const effect_range = 1;
-const damage = 10;
+const damage = 50;
 
 var description:String = "Short range, quick, reliable weapon.\n\nDamage: [color=green]" + str(damage) + "[/color]\n\nCooldown: [color=green]" + str(cooldown) + "s[/color]";
 

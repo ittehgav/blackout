@@ -2,12 +2,5 @@
 
 [ext_resource type="Script" uid="uid://dlftx2hw1xqbs" path="res://scenes/battle/active_fighter/fighter_timers.gd" id="1_c4ycd"]
 
-[node name="fighter_timers" type="Node" node_paths=PackedStringArray("stun_timer")]
+[node name="fighter_timers" type="Node"]
 script = ExtResource("1_c4ycd")
-stun_timer = NodePath("stun")
-
-[node name="_status_timer" type="Timer" parent="."]
-one_shot = true
-
-[node name="stun" type="Timer" parent="."]
-one_shot = true

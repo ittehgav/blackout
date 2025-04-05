@@ -136,10 +136,10 @@ func set_props():
 
 
 func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, small=false)->void:
-	var prop = which.duplicate();
-	var x_roll = randi_range(map_size * -1, map_size);
-	var y_roll = randi_range(map_size*-1, map_size );
-	var target_position = Vector2(x_roll,  y_roll)
+	var prop:Sprite2D = which.duplicate();
+	var x_roll := randi_range(map_size * -1, map_size);
+	var y_roll := randi_range(map_size*-1, map_size );
+	var target_position: = Vector2(x_roll,  y_roll)
 	while position_taken(target_position, taken_positions, min_gap):
 		x_roll = randi_range(map_size * -1, map_size);
 		y_roll = randi_range(map_size*-1, map_size );
