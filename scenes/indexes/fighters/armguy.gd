@@ -1,5 +1,7 @@
 extends FighterBase
 
+const skill_windup = true;
+
 const skill_effects = ["aoe_damage", "aoe_stun"];
 const skill_visuals = ["lunge_forward"]
 
@@ -16,7 +18,7 @@ const description = "Slow and tough, damages and stuns enemies in an area."
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage:String = Meta.get_unit_damage_string(unit);
-	var stun_duration_str:String = Meta.get_technique_scaled_string(unit, "stun_duration")
+	var stun_duration_str:String = Meta.get_technique_scaled_string(unit, "status_duration")
 	
 	var string:String = "Punches forward, dealing " + damage + \
 	" damage and to enemies in a small area and stunning them for "\
@@ -27,7 +29,7 @@ func full_skill_description(unit:FighterUnit)->String:
 
 const tags = [
 	"brawler",
-	"bodybuilder"
+	"bodybuilder"		
 ]
 
 const hitbox_radius = 30;

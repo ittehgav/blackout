@@ -17,7 +17,6 @@ signal stopped_moving;
 var moving:bool = false;
 
 func _ready()->void:
-	super()
 	Entities.in_fight_player = self;
 	## this node is the only fighter that'll always be in an arena instance
 	load_fighter()

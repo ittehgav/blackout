@@ -29,6 +29,6 @@ func _ready()->void:
 			Entities.player.resources_changed.connect(set_count_label.bind(item))
 			set_count_label(item);
 		
-func set_count_label(target:Label):
-	var value = Entities.player.inventory[resource];
+func set_count_label(target:Label)->void:
+	var value:int = Entities.player.inventory[resource];
 	target.text = str(value);

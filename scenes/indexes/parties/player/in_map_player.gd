@@ -100,7 +100,7 @@ func intimidate_odds(target:NpcMapParty)->float:
 	for unit:FighterUnit in target.leader.roster.units:
 		target_combined_level += unit.level;
 	
-	var frac:float = combined_level/target_combined_level;
+	var frac:float = float(combined_level)/float(target_combined_level);
 	if frac >= 3.00:
 		return 1.0;
 	elif frac >= 2:

@@ -37,11 +37,20 @@ func arc_vfx(target:Polygon2D)->Tween:
 func stun_vfx(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.PURPLE);
 
-func heal_vfx(target:ActiveFighter)->Tween:
-	return color_blink(target.base, Color.GREEN);
+func heal_vfx(target:ActiveFighter, transparency:float =0.0)->Tween:
+	return color_blink(target.base, Color.GREEN - Color(0, 0, 0, transparency), 1);
 
-func damage_vfx(target:ActiveFighter)->Tween:
-	return color_blink(target.base, Color.RED)
+func damage_vfx(target:ActiveFighter, intensity:int)->Tween:
+	var target_color:Color = Color.RED
+	var duration:float = 1.0;
+	if intensity == 1.0:
+		target_color.a -= .8;
+		duration = .2
+	elif intensity == 2.0:
+		target_color.a -= .5;
+		duration = .3
+	
+	return color_blink(target.base, target_color, duration)
 
 func stat_debuff_vfx(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.PURPLE);
@@ -99,7 +108,7 @@ func ui_fade_in(target:Control)->Tween:
 
 func growth_tween(unit:ActiveFighter)->Tween:
 	unit.base.scale *= 2
-	var return_scale = unit.base.scale/2
+	var return_scale:Vector2 = unit.base.scale/2
 	
 	var tween:Tween = create_tween();
 	tween.tween_property(unit.base, "scale", return_scale, .2);
@@ -116,10 +125,10 @@ func recoil_target(unit:ActiveFighter)->Tween:
 	tween.tween_property(target.base, "position", Vector2.ZERO, .25);
 	return tween;
 
-func color_blink(target:FighterBase, target_color:Color)->Tween:
+func color_blink(target:FighterBase, target_color:Color, duration:float = .3)->Tween:
 	target.material.set_shader_parameter("target_color", target_color);
 	target.material.set_shader_parameter("grad", 1.0);
 
 	var tween:Tween = create_tween();
-	tween.tween_property(target.material, "shader_parameter/grad", 0.0, .3);
+	tween.tween_property(target.material, "shader_parameter/grad", 0.0, duration);
 	return tween;

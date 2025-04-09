@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c14j25tgu3icd"]
+
+[ext_resource type="Texture2D" uid="uid://dvgpwoqsdta66" path="res://assets/visual/icons/items/modules/sensory_overloader.png" id="1_uoo42"]
+[ext_resource type="Script" uid="uid://ba505caq6mcv" path="res://scenes/indexes/items/modules/sensory_overload.gd" id="2_qlhdj"]
+
+[node name="Sensory Overload" type="Sprite2D"]
+texture = ExtResource("1_uoo42")
+script = ExtResource("2_qlhdj")

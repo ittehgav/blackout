@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcbeey2233tbx"]
+
+[ext_resource type="Texture2D" uid="uid://g5tyfnvg4mb1" path="res://assets/visual/icons/items/modules/buckler.png" id="1_bn410"]
+[ext_resource type="Script" uid="uid://tck3osf7tfmr" path="res://scenes/indexes/items/modules/buckler.gd" id="2_gf6e3"]
+
+[node name="Buckler" type="Sprite2D"]
+texture = ExtResource("1_bn410")
+script = ExtResource("2_gf6e3")

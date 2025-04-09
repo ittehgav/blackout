@@ -21,7 +21,7 @@ extends AudioStreamPlayer2D
 @export var small_hit:AudioStream;
 @export var slam:AudioStream;
 
-func _ready():
+func _ready()->void:
 	if fighter is NpcFighter:
 		for sfx:String in fighter.base.skill_use_sfx:
 			fighter.skill_used.connect(play_sfx.bind(sfx))
@@ -35,11 +35,11 @@ func play_sfx(key:String)->void:
 
 
 
-func _on_death(killer: ActiveFighter) -> void:
+func _on_death(_killer: ActiveFighter) -> void:
 	if fighter.ally_team == Entities.in_fight_player.ally_team:
 		play_sfx("ally_death");
 	else:
 		play_sfx("enemy_death");
 
-func skill_hit_sfx(target_hit:ActiveFighter, key:String):
+func skill_hit_sfx(target_hit:ActiveFighter, key:String)->void:
 	target_hit.npc_sfx.play_sfx(key)

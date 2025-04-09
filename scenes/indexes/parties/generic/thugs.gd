@@ -6,10 +6,7 @@ extends Leader
 
 const behavior = "agressive"
 
-func _ready()->void:
-	## prob just generates every time until load files
-	## or like procedural generation
-	generate();
+
 
 func generate()->void:
 	## generic map parties will be generated based on 

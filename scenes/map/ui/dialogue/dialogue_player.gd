@@ -72,10 +72,12 @@ func check_end()->void:
 func set_speaking_avatar()->void:
 	if current_speaking_sprite:
 		current_speaking_sprite.queue_free();
-		
-	current_speaking_sprite = Entities.current_speaking_party.leader.unit.base.duplicate();
+	
+	var leader:Leader = Entities.current_speaking_party.leader;
+	
+	current_speaking_sprite = leader.unit.base.duplicate();
 	current_speaking_sprite.offset = current_speaking_sprite.sample_offset
-	ColorCoder.color_code_fighter(current_speaking_sprite);
+	ColorCoder.color_code_fighter(current_speaking_sprite, leader.color_scheme_index);
 
 	speaking_party_avatar.add_child(current_speaking_sprite)
 

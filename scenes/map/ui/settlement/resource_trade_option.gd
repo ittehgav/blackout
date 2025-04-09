@@ -20,23 +20,23 @@ func _ready()->void:
 	max_btn.pressed.connect(trade_max)
 	
 
-func trade_one():
-	var change = 1;
+func trade_one()->void:
+	var change:float = 1;
 	if player_side:
 		change *= -1;
 	trade_menu[resource+"_trade"] += change;
 	trade_menu.update_values()
 	
-func trade_10():
-	var change = 10;
+func trade_10()->void:
+	var change:float = 10;
 	if player_side:
 		change *= -1;
 	trade_menu[resource+"_trade"] += change;
 	trade_menu.update_values()
 	pass
 
-func trade_max():
-	var change;
+func trade_max()->void:
+	var change:float;
 	if player_side:
 		change = Entities.player.inventory[resource] * -1;
 	else:

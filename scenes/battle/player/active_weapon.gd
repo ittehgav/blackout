@@ -45,6 +45,6 @@ func equip_weapon(weapon:Weapon)->void:
 	## both weapons will be children of thsi node
 	weapon_node = weapon;
 	weapon_cd.wait_time = weapon_node.cooldown;
-	ColorCoder.color_code_weapon(weapon_node)
+	ColorCoder.color_code_weapon(weapon_node, Entities.player.color_scheme_index)
 	weapon_node.holder = holder;
 	holder.attack = weapon_node.damage;

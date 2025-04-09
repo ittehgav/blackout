@@ -5,8 +5,9 @@ extends Node
 ## (unless it ends up becoming massive?)
 
 func color_code_player(character:FighterBase)->void:
-	var base_color:Color = Color.SEA_GREEN.darkened(.25);
-	var off_color:Color = Color.DARK_RED;
+	var scheme:Array = Index.color_schemes[Entities.player.color_scheme_index]
+	var base_color:Color = scheme[0]
+	var off_color:Color = scheme[1];
 	
 	var dict:={
 		Color.GREEN: base_color,
@@ -17,8 +18,8 @@ func color_code_player(character:FighterBase)->void:
 	color_code_sprite(character, dict);
 
 
-func color_code_weapon(weapon:Sprite2D)->void:
-	var base_color:Color = Color.RED;
+func color_code_weapon(weapon:Sprite2D, scheme:int)->void:
+	var base_color:Color = Index.color_schemes[scheme][1];
 	var dict:= {
 		Color.GREEN:base_color,
 		Color.BLUE:base_color.darkened(.5)
@@ -27,17 +28,12 @@ func color_code_weapon(weapon:Sprite2D)->void:
 
 
 
-func color_code_fighter(fighter:FighterBase, scheme:int=1, sample:bool=false)->void:
+func color_code_fighter(fighter:FighterBase, scheme:int, sample:bool=false)->void:
 	const darkening = .35
-	var base_color:Color;
-	var off_color:Color;
-	match scheme:
-		1:
-			base_color = Color("007878");
-			off_color = Color("C80000");
-		2:
-			base_color = Color.LIGHT_CORAL;
-			off_color = Color.SILVER;
+	var base_color:Color = Index.color_schemes[scheme][0];
+	var off_color:Color = Index.color_schemes[scheme][1];
+	
+
 	
 	var dict:Dictionary = {
 		Color.GREEN:base_color,

@@ -10,7 +10,7 @@ extends Panel
 func _ready()->void:
 	for unit:FighterUnit in Entities.player.roster.units:
 		var sample:SpriteSample = sprite_sample_scene.instantiate();
-		sample.set_sample(unit.base)
+		sample.set_sample(unit.base, Entities.player.color_scheme_index)
 		recruits_grid.add_child(sample)
 		sample.gui_input.connect(show_more.bind(unit))
 		

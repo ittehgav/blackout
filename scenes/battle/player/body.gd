@@ -20,7 +20,7 @@ func switch_animation(type:String)->void:
 	match type:
 		"walk":
 			frame = hframes;
-			ticker.wait_time = .2;
+			ticker.wait_time = .15;
 		"idle":
 			frame = 0;
 			ticker.wait_time = .5;

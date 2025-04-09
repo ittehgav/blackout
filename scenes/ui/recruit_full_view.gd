@@ -42,7 +42,7 @@ func display_recruit(unit:FighterUnit)->void:
 
 	showing_unit = unit.duplicate();
 	showing_unit.base.set_material(null);
-	sample.set_sample(showing_unit.base);
+	sample.set_sample(showing_unit.base, Entities.player.color_scheme_index);
 	sample.target_base.scale *= 6
 	refresh_data();
 	fade_in()

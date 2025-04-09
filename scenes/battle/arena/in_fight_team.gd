@@ -5,6 +5,7 @@ class_name Team;
 @export var team_n:int;
 
 var leader_fighter:ActiveFighter
+var leader:Leader;
 
 var units:Array[Node];
 

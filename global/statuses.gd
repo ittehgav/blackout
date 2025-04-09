@@ -1,6 +1,6 @@
 extends Node
 
-func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, duration:float=0, data:Dictionary={}):
+func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, duration:float=0, data:Dictionary={})->void:
 	var status_data:Dictionary = {"type":type}
 	match type:
 		"stun":
@@ -17,7 +17,7 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 			target[data.stat] += data.amount;
 	
 	if duration:
-		var timer = Timer.new();
+		var timer:Timer = Timer.new();
 		timer.wait_time = duration;
 		target.timers.add_child(timer);
 		timer.timeout.connect(remove_status.bind(target, type, data, timer))
@@ -27,7 +27,7 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 
 
 
-func remove_status(target:ActiveFighter, status_type:String, status_data:Dictionary, timer:Timer):
+func remove_status(target:ActiveFighter, status_type:String, status_data:Dictionary, timer:Timer)->void:
 	timer.queue_free();
 	
 	match status_type:
@@ -40,7 +40,7 @@ func remove_status(target:ActiveFighter, status_type:String, status_data:Diction
 	
 
 		
-func remove_stun(target:ActiveFighter):
+func remove_stun(target:ActiveFighter)->void:
 	target.stunned = false;
 	target.set_physics_process(true);
 	if target is NpcFighter:

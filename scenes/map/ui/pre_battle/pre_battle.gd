@@ -20,11 +20,11 @@ var to_fight:Leader;
 @export var opponent_avatar:Control;
 var opponent_sprite:Sprite2D;
 
-func _ready():
+func _ready()->void:
 	player_name_label.text = Entities.player.name;
 	Entities.pre_battle = self;
 
-func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader):
+func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader)->void:
 	to_fight = opponent;
 	
 	enemy_name_label.text = opponent.name;
@@ -46,13 +46,13 @@ func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader):
 
 
 	
-func set_opponent_avatar(target:Leader):
+func set_opponent_avatar(target:Leader)->void:
 	if opponent_sprite:
 		opponent_sprite.queue_free()
 	
 	opponent_sprite = target.unit.base.duplicate();
 	opponent_sprite.offset = opponent_sprite.sample_offset
-	ColorCoder.color_code_fighter(opponent_sprite);
+	ColorCoder.color_code_fighter(opponent_sprite,target.color_scheme_index);
 	opponent_avatar.add_child(opponent_sprite);
 
 
@@ -70,7 +70,7 @@ func _on_start_battle_pressed() -> void:
 	Entities.main.add_child(arena)
 
 
-func slide_in():
+func slide_in()->void:
 	plates_container.add_theme_constant_override("separation", 2000);
 	var tween:Tween = create_tween();
 	tween.set_trans(Tween.TRANS_CUBIC);
@@ -78,12 +78,12 @@ func slide_in():
 	tween.set_trans(Tween.TRANS_ELASTIC);
 	tween.tween_property(plates_container, "theme_override_constants/separation", 0, .5);
 
-func slide_out():
-	var tween = create_tween();
+func slide_out()->void:
+	var tween:Tween = create_tween();
 	tween.set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(plates_container, "theme_override_constants/separation", 1000, 1.5)
 	tween.tween_callback(finish_pre_battle);
 
-func finish_pre_battle():
+func finish_pre_battle()->void:
 	Entities.world_map.ui.hide()
-	#get_tree().paused = false;
+	get_tree().paused = false;

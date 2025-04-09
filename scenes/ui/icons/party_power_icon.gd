@@ -5,15 +5,15 @@ class_name PartyPowerIcon
 @export var value_label:Label;
 var leader:Leader;
 
-func _ready():
+func _ready()->void:
 	refresh()
 
-func refresh():
+func refresh()->void:
 	if not leader:
 		leader = Entities.player
 	value_label.text = str(get_party_power())
 	
-func get_party_power():
+func get_party_power()->int:
 	var total_power:int=0;
 	if leader is Player:
 		total_power += leader.combat_level + leader.leadership_level;

@@ -24,6 +24,7 @@ class_name Arena;
 ## the player's party will also flee if the tide of battle is too bad
 
 
+
 func start_battle(enemy_leader:Leader)->void:
 	Entities.arena = self;
 
@@ -40,16 +41,18 @@ func start_battle(enemy_leader:Leader)->void:
 
 func load_teams(enemy_leader:Leader)->void:
 	## happens before ready?
-	Entities.player.load_party(team_1);
+	Entities.player.load_party(team_1, 1);
 	team_1.refresh_units();
 	team_1.leader_fighter = Entities.in_fight_player;
+	team_1.leader = Entities.player
 	## will leaders be part of the roster?
 	
 	enemy_leader.load_party(team_2, false);
 	
 	var leader_unit:NpcFighter = npc_fighter_scene.instantiate();
-	leader_unit.load_fighter(enemy_leader.unit)
+	leader_unit.load_fighter(enemy_leader.unit, 2)
 	team_2.leader_fighter = leader_unit
+	team_2.leader = enemy_leader;
 	team_2.add_child(leader_unit)
 
 	
@@ -57,24 +60,23 @@ func load_teams(enemy_leader:Leader)->void:
 	
 	leader_unit.position = Vector2(450, 50)
 
-	match_teams()
+	match_teams(enemy_leader)
 
-func match_teams()->void:
+func match_teams(enemy_leader:Leader)->void:
 	for unit:ActiveFighter in team_1.units:
-		assign_team(unit, 1);
+		assign_team(unit, 1, Entities.player);
 
 	for unit:ActiveFighter in team_2.units:
-		assign_team(unit, 2)
+		assign_team(unit, 2, enemy_leader)
 
 func player_died()->void:
 	battle_over(2);
 
-		
 func battle_over(winner:int)->void:
 	get_tree().paused = true;
 	overlay.post_fight.show_post_fight(winner)
 	
-func assign_team(unit:ActiveFighter, team_n:int)->void:
+func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
 	var enemy_team_n:int = 2 if team_n == 1 else 1;
 	
 	unit.set_collision_layer_value(team_n, true);
@@ -88,7 +90,7 @@ func assign_team(unit:ActiveFighter, team_n:int)->void:
 		unit.enemy_team = team_1;
 		
 	if not unit is InFightPlayer:
-		ColorCoder.color_code_fighter(unit.base, team_n);
+		ColorCoder.color_code_fighter(unit.base, leader.color_scheme_index);
 		
 		var skill_range:Area2D = unit.get_node("skill_range")
 		## break this down into enemy/ally targets:?
@@ -115,6 +117,17 @@ func assign_team(unit:ActiveFighter, team_n:int)->void:
 	unit.death.connect(overlay.tide_bar.refresh_tide_value.bind(unit))
 	unit.death.connect(kill_feed.unit_died.bind(unit))
 
-
-func _on_cooldown_bar_tree_exited() -> void:
-	pass # Replace with function body.
+func _process(_delta:float)->void:
+	if Input.is_action_just_pressed("world_map_zoom_in"):
+		if scale == Vector2.ONE or scale == Vector2(.5, .5):
+			var target_scale:Vector2 = scale * 2
+			
+			var tween:Tween = create_tween();
+			tween.tween_property(self, "scale", target_scale, 1)
+	elif Input.is_action_just_pressed("world_map_zoom_out"):
+		if scale == Vector2.ONE or scale == Vector2(2, 2):
+			var target_scale:Vector2 = scale / 2
+			
+			var tween:Tween = create_tween();
+			tween.tween_property(self, "scale", target_scale, 1)
+	

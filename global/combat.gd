@@ -6,8 +6,7 @@ func skill_effect(source:ActiveFighter, effect_name:String)->void:
 		"direct_damage":
 			deal_damage(source, source.target_unit);
 			if source is NpcFighter:
-				if not source.target_unit in source.hit_targets:
-					source.hit_targets.append(source.target_unit)
+				source.catch_hit_target(source.target_unit)
 					
 		"aoe_damage":
 			aoe_damage(source);
@@ -21,8 +20,7 @@ func skill_effect(source:ActiveFighter, effect_name:String)->void:
 		"self_stat_buff":
 			self_stat_buff(source);
 			if source is NpcFighter:
-				if not source in source.hit_targets:
-					source.hit_targets.append(source)
+				source.catch_hit_target(source);
 					
 		"aoe_stat_debuff":
 			aoe_stat_debuff(source);
@@ -33,11 +31,11 @@ func skill_effect(source:ActiveFighter, effect_name:String)->void:
 
 func aoe_damage(source:ActiveFighter)->void:
 	## simply damages all valid targets within the hit scan which may take different shapes
+	var enemy_team:Team = source.enemy_team;
 	for target:Node2D in source.hit_scan.get_overlapping_bodies():
-		if target in source.enemy_team.units:
+		if target in enemy_team.units:
 			if source is NpcFighter:
-				if not target in source.hit_targets:
-					source.hit_targets.append(target)
+				source.catch_hit_target(target);
 			deal_damage(source, target);
 
 
@@ -45,8 +43,7 @@ func aoe_stun(source:ActiveFighter)->void:
 	var targets:Array[Node2D] = source.hit_scan.get_overlapping_bodies();
 	for target in targets:
 		if source is NpcFighter:
-			if not target in source.hit_targets:
-				source.hit_targets.append(target)
+			source.catch_hit_target(target);
 		if target in source.enemy_team.units:
 			stun_target(source, target)
 
@@ -65,8 +62,7 @@ func aoe_stat_debuff(source:ActiveFighter)->void:
 		if unit in source.enemy_team.units:
 
 			if source is NpcFighter:
-				if not unit in source.hit_targets:
-					source.hit_targets.append(unit)
+				source.catch_hit_target(unit);
 
 			for stat:String in source.base.stats_to_debuff:
 				## stat debuff values are multiplied by - 1 here

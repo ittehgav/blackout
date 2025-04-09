@@ -24,7 +24,7 @@ func disable_panel()->void:
 		mouse_exited.disconnect(hide_panel);
 	
 
-func set_sample(target:Sprite2D)->void:
+func set_sample(target:Sprite2D, color_scheme_index:int)->void:
 	if target_base and not autostart:
 		target_base.queue_free();
 	
@@ -36,7 +36,7 @@ func set_sample(target:Sprite2D)->void:
 	if target_base is FighterBase:
 		target_base.offset = target_base.sample_offset + Vector2(30, -20);
 		
-		ColorCoder.color_code_fighter(target_base, 1, true);
+		ColorCoder.color_code_fighter(target_base, color_scheme_index, true);
 		if not target_base is PlayerFighterBase:
 			target_base.set_material(null)
 			set_rectangle();
@@ -44,7 +44,7 @@ func set_sample(target:Sprite2D)->void:
 
 	if target_base is Weapon:
 		$bob_timer.stop()
-		ColorCoder.color_code_weapon(target_base);
+		ColorCoder.color_code_weapon(target_base, Entities.player.color_scheme_index);
 			
 		target_base.offset = Vector2.ZERO;
 		target_base.scale = Vector2(2, 2);

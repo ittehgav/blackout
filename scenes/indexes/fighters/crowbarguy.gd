@@ -1,5 +1,6 @@
 extends FighterBase
 
+const skill_windup = true;
 
 const skill_effects = ["direct_damage"];
 const skill_visuals = ["lunge_forward", "recoil_target"]

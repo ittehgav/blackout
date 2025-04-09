@@ -1,5 +1,6 @@
 extends FighterBase
 
+const skill_windup = true;
 
 const skill_effects = ["aoe_damage", "aoe_stat_debuff"];
 const skill_visuals = ["lunge_forward", "shrink_target"]

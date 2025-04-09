@@ -33,14 +33,13 @@ func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 
 func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = source.base.status_duration * source.technique)->void:
 	if source is NpcFighter:
-		if not target in source.hit_targets:
-			source.hit_targets.append(target);
+		source.catch_hit_target(target);
 
 	Statuses.apply_status(source, target, "stun", duration)
 
 
 func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, stat:String)->void:
-		var duration = 0;
+		var duration:float = 0;
 		if "status_duration" in source.base:
 			duration = source.base.status_duration * source.technique;
 		var status_data := {
@@ -57,8 +56,8 @@ const def_mitigation_breakpoints = {
 	## subsequent DEF point yield less damage mitigation
 	20.0:1,
 	50.0:.5,
-	100:.25,
-	200:.2
+	100.0:.25,
+	200.0:.2
 }
 
 ## after 200, every 100 def points make the next 100 yield half as much, towards infinity
@@ -67,13 +66,13 @@ const excess_def_falloff_divider = 2;
 const base_excess_mitigation = 42.5
 
 func defense_mitigation(unit:ActiveFighter)->float:
-	var def_left:int = unit.defense;
+	var def_left:float = unit.defense;
 	var total_mitigation:float = 0.0
-	var previous_point:int=0;
+	var previous_point:float=0;
 
 	if unit.defense < 200:
-		for point in def_mitigation_breakpoints.keys():
-			var point_range = point - previous_point;
+		for point:float in def_mitigation_breakpoints.keys():
+			var point_range:float = point - previous_point;
 			if def_left > point_range:
 				def_left -= point - previous_point;
 				total_mitigation += (point - previous_point) * def_mitigation_breakpoints[point];
@@ -84,7 +83,7 @@ func defense_mitigation(unit:ActiveFighter)->float:
 	else:
 		def_left -= 200;
 		total_mitigation += base_excess_mitigation;
-		var point_value = def_mitigation_breakpoints[200];
+		var point_value:float = def_mitigation_breakpoints[200.0];
 		
 		while def_left > 100:
 			def_left -= 100

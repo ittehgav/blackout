@@ -11,7 +11,7 @@ func _on_next_frame_timeout() -> void:
 		pointer.offset.y += 2.5;
 		frame += 1;
 	
-func show_in_position(target:Vector2):
+func show_in_position(target:Vector2)->void:
 	position = target + Vector2(5, 5);
 	show();
 

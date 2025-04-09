@@ -58,6 +58,15 @@ const flavor_colors = {
 	"blackout":Color.MEDIUM_ORCHID
 }
 
+
+const stat_colors = {
+	"max_hp": Color.WEB_GREEN,
+	"attack": Color(.8, 0, 0),
+	"defense": Color.SKY_BLUE,
+	"agility": Color(.8, .8, 0), ## darkish yellow
+	"technique": Color.DEEP_PINK
+}
+
 func get_color_tag(key:String)->String:
 	var color:Color;
 	if key in resource_colors:
@@ -74,13 +83,6 @@ const misc_colors = {
 	"no_dmg":Color.LIGHT_BLUE
 }
 
-const stat_colors = {
-	"max_hp": Color.WEB_GREEN,
-	"attack": Color(.8, 0, 0),
-	"defense": Color.SKY_BLUE,
-	"agility": Color(.8, .8, 0), ## darkish yellow
-	"technique": Color.DEEP_PINK
-}
 
 const item_rarity_colors:={
 	1: Color.LIGHT_GRAY,
@@ -93,7 +95,7 @@ const stat_descriptions = {
 	"attack": "The damage the unit's skill will deal (some units deal no damage.)",
 	"defense": "Reduces the damage taken by the unit.",
 	"agility": "Increases the speed at which the unit uses their skill.",
-	"technique": "Multiplier applied to special effects in units' skills"
+	"technique": "Improves special effects in units' skills"
 }
 
 

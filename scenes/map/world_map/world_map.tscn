@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="4_4aisy"]
 [ext_resource type="PackedScene" uid="uid://bghgbhdlygqcs" path="res://scenes/indexes/settlements/generic/scrapyard.tscn" id="4_8x8fu"]
 [ext_resource type="Script" uid="uid://m3pegw86khqm" path="res://scenes/map/world_map/bg_tiles.gd" id="4_f6xbr"]
-[ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/map/parties/player/in_map_player.tscn" id="4_vgkop"]
+[ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/indexes/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="5_akvl2"]
 [ext_resource type="Script" uid="uid://d1epphgokcyg0" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
 [ext_resource type="Texture2D" uid="uid://bpm3w0wvrmw71" path="res://assets/visual/sprites/props/small/cactus.png" id="6_jbv7y"]
@@ -62,7 +62,7 @@
 [ext_resource type="PackedScene" uid="uid://6qbhmvo1b1n1" path="res://scenes/indexes/settlements/stadium.tscn" id="56_anjvn"]
 [ext_resource type="PackedScene" uid="uid://cqyc1v8qqn3xv" path="res://scenes/map/ui/pre_battle/pre_battle.tscn" id="57_1ogav"]
 [ext_resource type="PackedScene" uid="uid://bl2gyiuhaw0j2" path="res://scenes/map/map_party/npc_map_party.tscn" id="60_gmjui"]
-[ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/map/parties/generic/thugs.tscn" id="61_sjqk0"]
+[ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/indexes/parties/generic/thugs.tscn" id="61_sjqk0"]
 [ext_resource type="PackedScene" uid="uid://c83u8udv4ox01" path="res://scenes/indexes/vehicles/uno.tscn" id="62_1ogav"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gyjr"]

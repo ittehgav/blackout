@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c0vg6gq1edsw"]
 
-[ext_resource type="Script" uid="uid://cno7hu4sfyc12" path="res://scenes/map/parties/player/in_map_player.gd" id="1_h5u0f"]
+[ext_resource type="Script" uid="uid://cno7hu4sfyc12" path="res://scenes/indexes/parties/player/in_map_player.gd" id="1_h5u0f"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
-[ext_resource type="Script" uid="uid://c0wbe3ugd608g" path="res://scenes/map/parties/player/in_map_camera.gd" id="4_ibn0u"]
+[ext_resource type="Script" uid="uid://c0wbe3ugd608g" path="res://scenes/indexes/parties/player/in_map_camera.gd" id="4_ibn0u"]
 [ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/indexes/vehicles/gol.tscn" id="7_swjnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]

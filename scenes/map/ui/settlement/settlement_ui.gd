@@ -29,7 +29,7 @@ signal settlement_left;
 
 
 var current_settlement:Settlement;
-var sky_base_color = Color.LIGHT_SKY_BLUE;
+var sky_base_color:Color = Color.LIGHT_SKY_BLUE;
 
 @onready var basic_options:Array[Button] = [
 	trade_btn,
@@ -74,8 +74,8 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	
 	Tweens.ui_fade_in(self)
 
-func color_bg():
-	var sky_color = Entities.world_map.get_hour_sky_color();
+func color_bg()->void:
+	var sky_color:Color = Entities.world_map.get_hour_sky_color();
 	
 	var prop_opaque_color:Color;
 	var prop_reflective_color:Color;
@@ -104,7 +104,7 @@ func color_bg():
 	$background.material.set_shader_parameter("ground_opaque", ground_opaque_color)
 	 
 
-func refresh_data():
+func refresh_data()->void:
 	relation_label.text = "Relation: " + current_settlement.relation_level_string()
 	relationship_progress.max_value = current_settlement.relation_progress_for_next_level()
 	relationship_progress.value = current_settlement.relation_progress;

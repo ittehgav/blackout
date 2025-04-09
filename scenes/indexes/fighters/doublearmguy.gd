@@ -1,5 +1,6 @@
 extends FighterBase
 
+const skill_windup = true;
 
 const skill_effects = ["aoe_damage", "aoe_stun"];
 const skill_visuals = ["lunge_forward"]
@@ -24,7 +25,7 @@ const long_description = "Very resistant and disruptive."
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Meta.get_unit_damage_string(unit);
-	var stun_duration_str:String = Meta.get_technique_scaled_string(unit, "stun_duration");
+	var stun_duration_str:String = Meta.get_technique_scaled_string(unit, "status_duration");
 	
 	var string:String = "Slams the ground with both arms, dealing " + damage_str +\
 	" damage to enemies in a large area and stunning them for " + stun_duration_str + " seconds."

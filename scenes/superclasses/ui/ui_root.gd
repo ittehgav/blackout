@@ -13,10 +13,9 @@ func _ready()->void:
 
 func resize()->void:
 	size = get_window().size
-	if size >= Vector2(1280, 720) * 2:
-		scale = Vector2(2, 2)
 
-func recursive_connect_ui_feedback(node:Control)->void:
+
+func recursive_connect_ui_feedback(node:Node)->void:
 	if "pressed" in node:
 		node.pressed.connect(ui_sfx.ui_click_sound.bind(node));
 	

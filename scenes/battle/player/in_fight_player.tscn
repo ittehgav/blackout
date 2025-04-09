@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/combat/generic/swing.wav" id="5_1g51p"]
 [ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/player/active_weapon.gd" id="6_cbwmk"]
 [ext_resource type="AudioStream" uid="uid://c0xyiomr261fb" path="res://assets/sound/combat/special/lightning_light.wav" id="6_g6u4u"]
+[ext_resource type="AudioStream" uid="uid://bytgnuo5pfxd" path="res://assets/sound/combat/special/accelerate.wav" id="7_3ir4e"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="7_6mba4"]
 [ext_resource type="Script" uid="uid://bbow6qj3s5hyu" path="res://scenes/battle/player/weapon_sfx.gd" id="7_avuby"]
 [ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/combat/generic/shoot.ogg" id="7_g4l1e"]
@@ -21,7 +22,6 @@
 [ext_resource type="Script" uid="uid://cqdrpx6jmvux1" path="res://scenes/battle/arena/tactics.gd" id="14_0y57y"]
 [ext_resource type="AudioStream" uid="uid://b51a48pddixp1" path="res://assets/sound/combat/damage_taken.ogg" id="15_clyj1"]
 [ext_resource type="Script" uid="uid://c1mom3xvj15xj" path="res://scenes/battle/player/sfx.gd" id="16_sjuhg"]
-[ext_resource type="PackedScene" uid="uid://brumfwmtyejcs" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.tscn" id="22_3ir4e"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
 radius = 29.2
@@ -66,7 +66,7 @@ swing = ExtResource("5_1g51p")
 lightning_small = ExtResource("6_g6u4u")
 lightning_big = ExtResource("6_g6u4u")
 defense_up = ExtResource("6_g6u4u")
-engine = ExtResource("6_g6u4u")
+engine = ExtResource("7_3ir4e")
 shoot = ExtResource("7_g4l1e")
 gravity = ExtResource("8_8al0b")
 heal = ExtResource("9_dax2e")
@@ -205,25 +205,14 @@ mouse_filter = 2
 [node name="floating_icon_anchor" type="Node2D" parent="hud_overlay"]
 position = Vector2(116, 3)
 
-[node name="FighterOverlay" parent="." node_paths=PackedStringArray("cooldown_timer", "unit") instance=ExtResource("22_3ir4e")]
-offset_left = -38.0
-offset_top = -49.0
-offset_right = -38.0
-offset_bottom = -49.0
-cooldown_timer = NodePath("../weapon/weapon_cd")
-unit = NodePath("..")
-
-[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
+[connection signal="damage_taken" from="." to="." method="update_overlay"]
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
 [connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]
-[connection signal="status_applied" from="." to="FighterOverlay" method="_on_fighter_status_applied"]
-[connection signal="used" from="weapon" to="FighterOverlay" method="_on_weapon_used"]
 [connection signal="mouse_entered" from="hud_overlay/tactics/tactic_left" to="hud_overlay/tactics" method="_on_tactic_left_mouse_entered"]
 [connection signal="mouse_exited" from="hud_overlay/tactics/tactic_left" to="hud_overlay/tactics" method="_on_tactic_left_mouse_exited"]
 [connection signal="mouse_entered" from="hud_overlay/tactics/tactic_right" to="hud_overlay/tactics" method="_on_tactic_right_mouse_entered"]
 [connection signal="mouse_exited" from="hud_overlay/tactics/tactic_right" to="hud_overlay/tactics" method="_on_tactic_right_mouse_exited"]
 
 [editable path="fighter_timers"]
-[editable path="FighterOverlay"]

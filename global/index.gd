@@ -1,5 +1,22 @@
 extends Node
 
+
+var color_schemes:Array[Array] = [
+	[Color.RED, Color.CYAN],
+	[Color.GREEN, Color.MAGENTA],
+	[Color.BLUE, Color.YELLOW],
+	[Color.PURPLE, Color.LIME],
+	[Color.ORANGE, Color.AZURE],
+	
+	#[Color.BLACK, Color.WHITE],
+	#[Color.DARK_RED, Color.TEAL],
+	#[Color.GOLD, Color.NAVY_BLUE],
+	#[Color.PINK, Color.DARK_GREEN],
+	#[Color.MAROON, Color.MINT_CREAM]
+]
+
+
+
 var all_fighter_base_scenes:Array[PackedScene] = [
 	preload("res://scenes/indexes/fighters/armguy.tscn"),
 	preload("res://scenes/indexes/fighters/coilguy.tscn"),

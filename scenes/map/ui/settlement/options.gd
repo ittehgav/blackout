@@ -13,7 +13,7 @@ extends PanelContainer
 @onready var current_view:Control = main_view;
 
 func trade() -> void:
-	var t1 = create_tween();
+	var t1:Tween = create_tween();
 	t1.tween_property(main_view, "modulate:a", 0, .25);
 	t1.tween_callback(main_view.hide);
 	
@@ -29,20 +29,20 @@ func recruit_units() -> void:
 func listen_around() -> void:
 	
 	settlement_ui.sky_props.generate_sky();
-	var camera_tween = create_tween();
+	var camera_tween:Tween = create_tween();
 	camera_tween.tween_property(main_view, "modulate:a", 0, .5)
 	camera_tween.set_trans(Tween.TRANS_SINE)
 	camera_tween.parallel().tween_property(settlement_ui, "position:y", settlement_ui.size.y/1.5, 2)
 	
 	await camera_tween.finished
-	var hour = Entities.world_map.current_hour;
-	var colors = [];
+	
+	var colors:Array[Color] = [];
 	for i in 3:
 		Entities.world_map.hour_passed.emit();
 		colors.append(Entities.world_map.get_hour_sky_color() * settlement_ui.sky_base_color);
 	settlement_ui.color_bg();
-	var sky_tween = create_tween();
-	for color in colors:
+	var sky_tween:Tween = create_tween();
+	for color:Color in colors:
 		sky_tween.tween_property(settlement_ui.sky_bg, "modulate", color, .5);
 
 	await sky_tween.finished;
@@ -62,12 +62,12 @@ func listen_around() -> void:
 
 	var found:Array[Memo];
 	while len(found) < 3:
-		var pick = all_anomalies.pick_random();
+		var pick:TradeAnomaly = all_anomalies.pick_random();
 		if not (pick in found):
 			found.append(all_anomalies.pick_random())
 
 	for anomaly:TradeAnomaly in found:
-		var label = memo_label.duplicate(true);
+		var label:Label = memo_label.duplicate(true);
 		label.show()
 		label.text = anomaly.generate_description();
 		post_listen_around_list.add_child(label);
@@ -78,7 +78,7 @@ func listen_around() -> void:
 	post_listen_around.modulate.a = 0;
 	post_listen_around.show();
 	
-	var return_tween = create_tween();
+	var return_tween:Tween = create_tween();
 	return_tween.set_trans(Tween.TRANS_CUBIC)
 	return_tween.tween_property(settlement_ui, "position:y", 0, 1);
 	return_tween.tween_property(post_listen_around, "modulate:a", 1, 1)

@@ -8,10 +8,14 @@ signal skill_hit(target_hit:ActiveFighter);
 
 @export var unit:FighterUnit;
 @export var hit_scan:Area2D;
+
 @export var cooldown_timer:Timer;
 @export var skill_retry_timer:Timer;
+@export var skill_windup_timer:Timer;
 
 @export var stunnable_timers:Node;
+
+
 
 var current_animation:String = "idle";
 
@@ -21,7 +25,8 @@ var target_in_range:bool = false;
 ## for the skill_hit signal to not repeat itself
 var hit_targets:Array[ActiveFighter]
 
-func load_fighter(new_unit:FighterUnit)->void:
+func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
+	in_player_team = in_player_party;
 	unit = new_unit
 	base = unit.base.duplicate();
 	add_child(base)
@@ -29,6 +34,7 @@ func load_fighter(new_unit:FighterUnit)->void:
 
 	$hitbox.shape.radius = base.hitbox_radius;
 	$hitbox.shape.height = base.hitbox_height;
+
 	
 	if "hit_scan_radius" in base or "hit_scan_type" in base:
 		if "hit_scan_type" in base:
@@ -42,7 +48,7 @@ func load_fighter(new_unit:FighterUnit)->void:
 					var shape:RectangleShape2D = RectangleShape2D.new();
 					shape.size = Vector2(base.hit_scan_length, base.hit_scan_width);
 					$hit_scan/shape.shape = shape;
-				"surounding":
+				"surrounding":
 					var shape:CollisionShape2D = $hit_scan/shape;
 					shape.shape.radius = base.hit_scan_radius;
 					shape.position.x = 0;
@@ -52,7 +58,6 @@ func load_fighter(new_unit:FighterUnit)->void:
 		hit_scan.queue_free();
 	$skill_range/shape.shape.radius = base.skill_range;
 	
-	## eventually will add persistant values from leveling/other modifiers;
 	max_hp = unit.stats.max_hp;
 	hp = unit.stats.max_hp;
 	
@@ -64,9 +69,17 @@ func load_fighter(new_unit:FighterUnit)->void:
 	technique = unit.stats.technique
 	move_speed = unit.stats.move_speed
 	
+	var cooldown:float = unit.final_skill_cooldown()
+	cooldown_timer.wait_time = cooldown
 	
-	var skill_cooldown = unit.final_skill_cooldown()
-	cooldown_timer.wait_time = base.skill_cooldown;
+	if "skill_windup" in base and not in_player_party:
+		if "hit_scan_radius" in base:
+			$hit_scan/shape.show_projection = true;
+			skill_used.connect($hit_scan/shape.hide)
+			
+		skill_windup_timer.wait_time = cooldown - cooldown/3;
+		skill_windup_timer.autostart = true
+		
 	
 	
 	if "special_setup" in base:
@@ -74,13 +87,13 @@ func load_fighter(new_unit:FighterUnit)->void:
 
 
 func find_target()->void:
+	## overrideable?
 	var target:ActiveFighter;
 	match base.target_type:
 		"nearest_enemy":
 			var current_distance:float;
 			for enemy in enemy_team.units:
 				var distance:float = position.distance_to(enemy.position)
-				@warning_ignore("unassigned_variable")
 				if not target or distance < current_distance:
 					target = enemy;
 					current_distance = distance;
@@ -92,7 +105,7 @@ func find_target()->void:
 	if target != target_unit:
 		target_unit = target;
 		target_changed.emit();
-
+	
 	target_in_range = target_unit in $skill_range.get_overlapping_bodies();
 
 
@@ -108,7 +121,7 @@ func _physics_process(_delta: float) -> void:
 			velocity = direction * move_speed
 			move_and_slide()
 		else:
-			if current_animation != "skill":
+			if current_animation != "skill" and current_animation != "windup":
 				current_animation = "idle";
 		
 
@@ -130,6 +143,15 @@ func skill_cooldown() -> void:
 		skill_retry_timer.start();
 
 
+func _on_windup_timer_timeout() -> void:
+	if target_in_range:
+		if "hit_scan_radius" in base:
+			$hit_scan/shape.start_aoe_highlight()
+		base.frame_coords = Vector2(1, 2);
+		current_animation = "windup"
+		
+
+
 func use_skill()->void:
 	hit_targets = []
 	current_animation = "skill";
@@ -148,10 +170,14 @@ func use_skill()->void:
 			"grow":
 				Tweens.growth_tween(self)
 	skill_used.emit();
+	
 	for target:ActiveFighter in hit_targets:
 		skill_hit.emit(target);
 	
 
+func catch_hit_target(unit:ActiveFighter)->void:
+	if not unit in hit_targets:
+		hit_targets.append(unit);
 
 func next_frame() -> void:
 	match current_animation:

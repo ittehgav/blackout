@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqb34e0bl7mr7"]
+
+[ext_resource type="Texture2D" uid="uid://c3sieu5720tpa" path="res://assets/visual/icons/items/modules/metallic_shell.png" id="1_tpyep"]
+[ext_resource type="Script" uid="uid://dccgke2bi7otk" path="res://scenes/indexes/items/modules/metallic_shell.gd" id="2_jsric"]
+
+[node name="Metallic Shell" type="Sprite2D"]
+texture = ExtResource("1_tpyep")
+script = ExtResource("2_jsric")

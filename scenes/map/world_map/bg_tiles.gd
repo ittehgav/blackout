@@ -22,7 +22,7 @@ var small_prop_sprites:Array[Sprite2D];
 var prop_sprites:Array[Sprite2D]
 
 
-var taken_positions:Array[Vector2]
+#var taken_positions:Array[Vector2]
 
 @export var tile_colors:Array[Color];
 
@@ -40,12 +40,12 @@ func _ready()->void:
 	Entities.world_map.day_passed.emit()
 	
 
-func set_tiles():
+func set_tiles()->void:
 	noise = noise_height_texture.noise
-	var width = map_size/cell_size;
-	var height = map_size/cell_size
-	for x in width * 2:
-		for y in height * 2:
+	var width:float = float(map_size)/float(cell_size);
+	var height:float = float(map_size)/float(cell_size)
+	for x:int in width * 2:
+		for y:int in height * 2:
 			var cell_coords:Vector2 = Vector2(x-width, y-height)
 			fog_layer.set_cell(cell_coords, 0, Vector2.ZERO);
 			var roll:float = noise.get_noise_2d(x - width, y - height);
@@ -84,13 +84,13 @@ func generate_settlements()->void:
 
 	set_neighbors(all_settlements);
 	
-func set_neighbors(settlements:Array[Settlement]):
+func set_neighbors(settlements:Array[Settlement])->void:
 	for s:Settlement in settlements:
-		var distances = {};
-		var highest_distance = 0;
+		var distances:Dictionary = {};
+		var highest_distance:float = 0;
 		for to_check:Settlement in settlements:
 			if to_check != s:
-				var distance = s.position.distance_to(to_check.position);
+				var distance:float = s.position.distance_to(to_check.position);
 				
 				if not len(distances.keys()) == 5:
 					distances[distance] = to_check;
@@ -101,14 +101,14 @@ func set_neighbors(settlements:Array[Settlement]):
 					distances[distance] = to_check;
 					
 					highest_distance = distances.keys().max();
-		var keys = distances.keys();
+		var keys:Array = distances.keys();
 		keys.sort()
-		for d in keys:
+		for d:float in keys:
 			s.neighbors.append(distances[d]);
 
-func set_small_props():
+func set_small_props()->void:
 	for texture in small_prop_textures:
-		var sprite = Sprite2D.new();
+		var sprite:Sprite2D = Sprite2D.new();
 		sprite.texture = texture;
 		ColorCoder.color_code_prop(sprite);
 		sprite.scale = Vector2(2, 2)
@@ -120,9 +120,9 @@ func set_small_props():
 		for i in prop_amounts:
 			set_prop(prop, taken_positions, 10, true)
 
-func set_props():
+func set_props()->void:
 	for texture in prop_textures:
-		var sprite = Sprite2D.new();
+		var sprite:Sprite2D= Sprite2D.new();
 		sprite.texture = texture;
 		ColorCoder.color_code_prop(sprite)
 		sprite.scale = Vector2(2, 2);
@@ -135,7 +135,7 @@ func set_props():
 			set_prop(prop, taken_positions);
 
 
-func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, small=false)->void:
+func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, small:bool=false)->void:
 	var prop:Sprite2D = which.duplicate();
 	var x_roll := randi_range(map_size * -1, map_size);
 	var y_roll := randi_range(map_size*-1, map_size );
@@ -148,8 +148,8 @@ func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, 
 	taken_positions.append(target_position);
 	
 	prop.position = target_position;
-	var grid_position = prop.position/cell_size;
-	var noise_roll = noise.get_noise_2d(grid_position.x, grid_position.y)
+	var grid_position:Vector2 = prop.position/cell_size;
+	var noise_roll:float = noise.get_noise_2d(grid_position.x, grid_position.y)
 	
 	if noise_roll < -.6:
 		prop.modulate = tile_colors[0]
@@ -174,14 +174,14 @@ func position_taken(to_check:Vector2, taken_positions:Array[Vector2], min_gap:fl
 			return true;
 	return false;
 	
-func update_fog():
-	var player_grid_position = Vector2i(Entities.in_map_player.position/cell_size)
-	var grid_radius = Entities.in_map_player.sight_shape.shape.radius/cell_size + 4;
+func update_fog()->void:
+	var player_grid_position:Vector2i = Vector2i(Entities.in_map_player.position/cell_size)
+	var grid_radius:float = Entities.in_map_player.sight_shape.shape.radius/cell_size + 4;
 	for x in range(grid_radius * 2):
 		for y in range(grid_radius * 2):
-			var cell = Vector2i(x - grid_radius, y - grid_radius);
-			var distance = cell.distance_to(Vector2.ZERO)
-			var cell_position = cell + player_grid_position;
+			var cell:Vector2i = Vector2i(x - grid_radius, y - grid_radius);
+			var distance:float = cell.distance_to(Vector2.ZERO)
+			var cell_position:Vector2 = cell + player_grid_position;
 			if distance < grid_radius - 1:
 				fog_layer.set_cell(cell_position, 0, Vector2(2, 0))
 			else:
@@ -196,6 +196,6 @@ func _on_sight_body_entered(body: Node2D) -> void:
 	if body == fog_layer:
 		update_fog();
 
-func position_in_fog(p:Vector2):
-	var cell_position = Vector2i(p/cell_size);
+func position_in_fog(p:Vector2)->bool:
+	var cell_position:Vector2i = Vector2i(p/cell_size);
 	return fog_layer.get_cell_atlas_coords(cell_position) == Vector2i(0, 0)

@@ -8,7 +8,7 @@ extends Control
 @export var weapon_cd:TextureProgressBar;
 @export var weapon_cd_timer:Timer;
 
-func _ready():
+func _ready()->void:
 	await Entities.arena.ready;
 	var over := {
 		Color.BLUE: Color.BLACK - Color(0, 0, 0, .4),
@@ -36,5 +36,16 @@ func _process(delta: float) -> void:
 
 func _on_weapon_used() -> void:
 	weapon_container.add_theme_constant_override("margin_top", -10)
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	tween.tween_property(weapon_container, "theme_override_constants/margin_top", 0, .25)
+
+
+func _on_in_fight_player_status_applied(source: ActiveFighter, data: Dictionary) -> void:
+	if data.type == "stun":
+		modulate = Color.PURPLE;
+
+
+
+func _on_in_fight_player_status_removed(status_type: String, data: Dictionary) -> void:
+	if status_type == "stun" and not player.stun_stack:
+		modulate = Color.WHITE;

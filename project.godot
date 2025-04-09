@@ -29,9 +29,11 @@ MapEvents="*res://global/map_events.gd"
 NameDatabase="*res://global/name_database.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Statuses="*res://global/statuses.gd"
+Test="*res://global/test/test.gd"
 
 [debug]
 
+gdscript/warnings/unused_signal=0
 gdscript/warnings/untyped_declaration=1
 
 [display]

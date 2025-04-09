@@ -9,6 +9,8 @@ signal death(killer:ActiveFighter);
 signal status_applied(source:ActiveFighter, data:Dictionary);
 signal status_removed(status_type:String, data:Dictionary)
 
+var in_player_team:bool;
+
 var ally_team:Team;
 var enemy_team:Team;
 
@@ -30,7 +32,3 @@ var agility:float;
 var technique:float;
 
 var move_speed:float = 220.0;
-
-func _ready()->void:
-	return
-	base.scale = Vector2(2, 2)

@@ -20,7 +20,7 @@ shader_parameter/number_of_images = Vector2(1, 1)
 material = SubResource("ShaderMaterial_71g0g")
 texture = ExtResource("2_tn4cm")
 hframes = 6
-vframes = 2
+vframes = 3
 script = ExtResource("3_dsuet")
 ticker = NodePath("animation_ticker")
 

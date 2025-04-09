@@ -27,7 +27,7 @@ const hitbox_radius = 50;
 const hitbox_height = 100;
 const hitbox_offset = Vector2(5, 0);
 
-const hit_scan_radius = 200;
+const hit_scan_radius = 100;
 const skill_range = MELEE_RANGE;
 
 const tags = [
@@ -43,17 +43,17 @@ const hit_scan_type = "surrounding";
 
 const skill_cooldown = 3;
 
+
 func _ready()->void:
-	dmg_timer.timeout.connect(aoe_damage);
+	dmg_timer.timeout.connect(Combat.aoe_damage.bind(fighter));
 
 func special_skill()->void:
 	if not dmg_timer.is_stopped():
 		dmg_timer.wait_time -= (dmg_timer.wait_time/10)*(fighter.technique/2);
 	else:
 		dmg_timer.start();
-
-
-func aoe_damage() -> void:
-	Combat.aoe_damage(fighter)
-	for target in fighter.hit_targets:
-		fighter.skill_hit.emit(target);
+		
+		var shape = fighter.get_node("hit_scan/shape")
+		shape.show()
+		shape.show_projection = true;
+		shape.start_aoe_highlight();

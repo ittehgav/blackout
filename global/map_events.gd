@@ -13,9 +13,9 @@ func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->
 	pass
 
 
-func scare_speaking_party():
+func scare_speaking_party()->void:
 	pass
 
 
-func pacify_speaking_party():
+func pacify_speaking_party()->void:
 	pass

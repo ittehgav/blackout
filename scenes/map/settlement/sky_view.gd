@@ -10,7 +10,7 @@ extends Control
 
 
 
-func generate_sky():
+func generate_sky()->void:
 	for c in clouds.get_children():
 		c.queue_free();
 	clouds.position.x = 0;
@@ -19,29 +19,29 @@ func generate_sky():
 	const props_y = 3;
 	
 	var window_size:Vector2 = get_window().size;
-	var window_x_fraction = window_size.x/props_x;
-	var window_y_fraction = window_size.y/props_y;
+	var window_x_fraction:float = window_size.x/props_x;
+	var window_y_fraction:float = window_size.y/props_y;
 	
 	const drift_range = 100;
 	for y in props_y:
 
 		for x in props_x:
-			var texture = cloud_textures.pick_random();
+			var texture:Texture = cloud_textures.pick_random();
 			var sprite:Sprite2D = Sprite2D.new();
 			sprite.scale = Vector2(8,8);
 			sprite.texture = texture;
 			
-			var x_offset = x * window_x_fraction + window_x_fraction/2 + randi_range(drift_range * -1, drift_range);
-			var y_offset = y * window_y_fraction + window_y_fraction/2 +randi_range(drift_range * -1, drift_range)
+			var x_offset:float = x * window_x_fraction + window_x_fraction/2 + randi_range(drift_range * -1, drift_range);
+			var y_offset:float = y * window_y_fraction + window_y_fraction/2 +randi_range(drift_range * -1, drift_range)
 			sprite.position = Vector2(x_offset,y_offset);
 			clouds.add_child(sprite);
 			
-			var y_drift = randi_range(drift_range * -1, drift_range)
-			var tween = create_tween();
+			var y_drift:int = randi_range(drift_range * -1, drift_range)
+			var tween:Tween = create_tween();
 			tween.tween_property(sprite, "position:y", sprite.position.y + y_drift, 10)
 	
-	var clouds_tween = create_tween();
-	var x_drift = randi_range(100, 150);
+	var clouds_tween:Tween = create_tween();
+	var x_drift:int = randi_range(100, 150);
 	if randf_range(0, 1) > .5:
 		x_drift *= -1;
 	clouds_tween.tween_property(clouds, "position:x", position.x + x_drift, 10)
@@ -49,12 +49,12 @@ func generate_sky():
 	var wait_acm:float = 0;
 	for i in 3:
 		const x_margin = 300;
-		var chatter = chatter_box.duplicate();
+		var chatter:Label = chatter_box.duplicate();
 		chatter.position = Vector2(randi_range(x_margin, window_size.x - x_margin), window_size.y + 200 + randi_range(10, 50));
 		add_child(chatter)
 		
 		
-		var tween = create_tween();
+		var tween:Tween = create_tween();
 		tween.set_trans(Tween.TRANS_QUAD)
 		wait_acm += .5
 		tween.tween_interval(wait_acm);

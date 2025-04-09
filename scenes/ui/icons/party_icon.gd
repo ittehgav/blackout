@@ -5,15 +5,15 @@ class_name PartyIcon
 @export var count_label:Label;
 var leader:Leader;
 
-func _ready():
+func _ready()->void:
 	Entities.player.party_changed.connect(refresh)
 	refresh();
 	
-func refresh():
+func refresh()->void:
 	if not leader:
 		leader = Entities.player;
-	var available_count = 0;
-	var downed_count = 0;
+	var available_count:int = 0;
+	var downed_count:int = 0;
 	for unit:FighterUnit in leader.roster.units:
 		if unit.remaining_downed_minutes:
 			downed_count += 1;

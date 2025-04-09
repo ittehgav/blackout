@@ -16,7 +16,7 @@ const skill_name = "Shockwave"
 const description = "Knocks back and stuns enemies."
 
 func full_skill_description(unit:FighterUnit)->String:
-	var stun_duration_string:String = Meta.get_technique_scaled_string(unit, "stun_duration");
+	var stun_duration_string:String = Meta.get_technique_scaled_string(unit, "status_duration");
 	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
 	+ stun_duration_string + " seconds.";
 	return string;

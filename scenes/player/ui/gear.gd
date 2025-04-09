@@ -11,7 +11,7 @@ func refresh_samples()->void:
 		weapon_sample.target_base.queue_free();
 
 	var weapon_to_sample:Weapon = Entities.player.equipped_weapon;
-	weapon_sample.set_sample(weapon_to_sample);
+	weapon_sample.set_sample(weapon_to_sample, Entities.player.color_scheme_index);
 	weapon_sample.tooltip.hint.queue_free();
 	
 	weapon_to_sample.scale = Vector2(2, 2);

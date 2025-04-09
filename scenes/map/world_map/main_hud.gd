@@ -12,10 +12,10 @@ const party_status_panel_mouseover_shift = Vector2(5, 5);
 
 
 func update_clock() -> void:
-	var hour = Entities.world_map.current_hour;
-	var minute = Entities.world_map.current_minute;
+	var hour:int = Entities.world_map.current_hour;
+	var minute:int = Entities.world_map.current_minute;
 	
-	var time_string ="";
+	var time_string:String ="";
 	if hour < 10:
 		time_string += "0" 
 	time_string += str(hour);
@@ -25,10 +25,10 @@ func update_clock() -> void:
 	time_string += str(minute);
 	clock.text = time_string
 	
-	var day = Entities.world_map.current_day;
-	var month = Entities.world_map.current_month;
+	var day:int = Entities.world_map.current_day;
+	var month:int = Entities.world_map.current_month;
 	
-	var date_string = "";
+	var date_string:String = "";
 	if day < 10:
 		date_string += "0";
 	date_string += str(day);
@@ -42,26 +42,26 @@ func update_clock() -> void:
 
 
 
-func switch_to_semi_visible(_s:Node=null):
+func switch_to_semi_visible(_s:Node=null)->void:
 	for c:PanelContainer in get_children():
 		c.modulate.a = .1
 		c.mouse_entered.connect(fade_panel_in.bind(c))
 		c.mouse_exited.connect(fade_panel_out.bind(c))
 
-func fade_panel_in(panel:PanelContainer):
+func fade_panel_in(panel:PanelContainer)->void:
 	if fade_tweens[panel] and fade_tweens[panel].is_running():
 		fade_tweens[panel].kill()
 	fade_tweens[panel] = create_tween();
 	fade_tweens[panel].tween_property(panel, "modulate:a", 1, .1);
 	
 	
-func fade_panel_out(panel:PanelContainer):
+func fade_panel_out(panel:PanelContainer)->void:
 	if fade_tweens[panel] and fade_tweens[panel].is_running():
 		fade_tweens[panel].kill()
 	fade_tweens[panel] = create_tween();
 	fade_tweens[panel].tween_property(panel, "modulate:a", .1, .5);
 
-func switch_to_fully_visible():
+func switch_to_fully_visible()->void:
 	for c:PanelContainer in get_children():
 		c.modulate.a = 1
 		c.mouse_entered.disconnect(fade_panel_in.bind(c))

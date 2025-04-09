@@ -139,3 +139,20 @@ func get_hour_sky_color(hour:int=current_hour)->Color:
 	else:
 		color_index = hour
 	return sky_colors[color_index];
+
+
+
+func _process(_delta:float)->void:
+	if Input.is_action_just_pressed("world_map_zoom_in"):
+		if scale == Vector2.ONE or scale == Vector2(.5, .5):
+			var target_scale:Vector2 = scale * 2
+			
+			var tween:Tween = Entities.player.create_tween();
+			tween.tween_property(self, "scale", target_scale, 1)
+	elif Input.is_action_just_pressed("world_map_zoom_out"):
+		if scale == Vector2.ONE or scale == Vector2(2, 2):
+			var target_scale:Vector2 = scale / 2
+			
+			var tween:Tween = Entities.player.create_tween();
+			tween.tween_property(self, "scale", target_scale, 1)
+	

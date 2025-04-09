@@ -24,7 +24,7 @@ const long_description = "Utility unit.\nCan be upgraded to heal allies or for h
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Meta.get_unit_damage_string(unit);
-	var stun_duration_str:String = Meta.get_technique_scaled_string(unit, "stun_duration");
+	var stun_duration_str:String = Meta.get_technique_scaled_string(unit, "status_duration");
 	
 	var string:String = "Deals " + damage_str + " damage to a target and stuns them for "\
 	 + stun_duration_str + " seconds.";
