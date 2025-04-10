@@ -10,11 +10,12 @@ extends MarginContainer
 @export var unit_name_label:Label;
 @export var skill_name_label:Label;
 @export var skill_description_label:RichTextLabel;
+@export var flavor_label:Label;
 
 @export var tags_label:Label;
 
 @export var unit_level_label:Label;
-@export var level_progress_bar:ProgressBar;
+@export var level_progress_bar:TextureProgressBar;
 
 @export_subgroup("stat labels")
 @export var max_hp_label:Label;
@@ -33,8 +34,7 @@ extends MarginContainer
 
 
 
-func _ready()->void:
-	sample.disable_panel();
+
 
 func display_recruit(unit:FighterUnit)->void:
 	if showing_unit:
@@ -44,6 +44,7 @@ func display_recruit(unit:FighterUnit)->void:
 	showing_unit.base.set_material(null);
 	sample.set_sample(showing_unit.base, Entities.player.color_scheme_index);
 	sample.target_base.scale *= 6
+	sample.target_base.offset.y += 20
 	refresh_data();
 	fade_in()
 	
@@ -59,6 +60,7 @@ func refresh_data()->void:
 	
 	skill_name_label.text = "Skill: " + showing_unit.base.skill_name;
 	skill_description_label.text = showing_unit.base.full_skill_description(showing_unit);
+	flavor_label.text = showing_unit.base.flavor;
 	
 	max_hp_label.text = str(showing_unit.stats.max_hp)
 	attack_label.text = str(showing_unit.stats.attack)

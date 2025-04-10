@@ -7,13 +7,17 @@ const skill_use_sfx = ["shoot"]
 const skill_hit_sfx = []
 
 const sample_offset = Vector2(8, -26)
-
 const target_type = "least_hp_ally"
-
 
 const skill_name = "Healing Tether"
 var description:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Regenerates allies' health."
-const long_description = "Prioritizes wounded allies."
+const flavor = "Doesn't get paid enough to heal people out of combat.";
+
+const tags = [
+	"scientist",
+	"doctor",
+	"cyborg"
+]
 
 func full_skill_description(unit:FighterUnit)->String:
 	var total_heal:float = heal_value * total_heal_ticks;
@@ -28,23 +32,16 @@ const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 200;
-
-const skill_cooldown = 1;
+const skill_cooldown = 8;
 
 const heal_value = 5.0;
 const total_heal_ticks = 10;
 const heal_interval = 1.0;
 
-const tags = [
-	"scientist",
-	"doctor",
-	"cyborg"
-]
 
 
 func special_skill()->void:
 	recurring_heal(fighter.target_unit, total_heal_ticks);
-
 
 func recurring_heal(target:ActiveFighter, ticks_left:int)->void:
 	Combat.heal_unit(fighter, target, heal_value );

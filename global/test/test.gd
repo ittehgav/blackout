@@ -19,6 +19,7 @@ func fill_party(roster:Roster, amount:int = 5, max_level:int = 10)->void:
 		var base:FighterBase = Index.random_fighter_base();
 		
 		var fighter:FighterUnit = fighter_unit_scene.instantiate();
+		fighter.level = randi_range(0, max_level);
 		fighter.base = base;
 		roster.add_child(fighter);
 	

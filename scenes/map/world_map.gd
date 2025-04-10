@@ -11,7 +11,7 @@ var current_month:int=1;
 
 var pause_stack:int = 0;
 
-var current_hour:int=00;
+var current_hour:int=8;
 var current_minute:int=30;
 
 
@@ -19,8 +19,6 @@ var current_minute:int=30;
 @export var tile_map:TileMapLayer;
 
 @export var player:InMapPlayer
-
-
 
 @export var sky_colors:Array[Color] = [
 	Color.WHITE,
@@ -52,7 +50,6 @@ var hour_bgm_pitches:Array[float] = [
 	1,
 	1,
 	1,
-	
 ]
 var all_settlements: = {}
 

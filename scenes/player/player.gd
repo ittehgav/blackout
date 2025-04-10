@@ -22,6 +22,10 @@ signal party_changed;
 
 ## ANY ITEMS THAT BELONG TO THE PLAYER WILL BE CHILDREN OF THE INVENTORY NODE
 @export var equipped_weapon:Weapon;
+@export var alternative_weapon:Weapon=null;
+
+@export var equipped_module:Module;
+
 
 var memos:Array[Memo];
 

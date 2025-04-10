@@ -6,12 +6,14 @@ const skill_visuals = ["recoil", "recoil_target"]
 const skill_use_sfx = ["shoot"]
 const skill_hit_sfx = ["projectile_hit"]
 
+
 const sample_offset = Vector2(11, -26)
 
 const target_type = "nearest_enemy"
 
 const skill_name = "Piercing Shot"
 const description = "Fires a powerful, long-range piercing bolt."
+const flavor = "One time he tried to use hot metal bolts as arrows and got a second-degree burn."
 
 
 func damage_modifier(damage:float, unit:FighterUnit=null)->float:
@@ -35,7 +37,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	
 	var technique_str:String = Meta.get_technique_scaled_string(unit, "", 0, .5);
 	
-	var string:String = "Deals (" + base_damage_str + " * " + technique_str + ") = ("+ final_damage_str + ") damage to enemies in a straight line.";
+	var string:String = "Deals "+ final_damage_str + " (" + base_damage_str + " * " + technique_str + ") to enemies in a straight line.";
 	return string;
 
 const tags = [
@@ -54,4 +56,4 @@ const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 750;
 
-const skill_cooldown = 10;
+const skill_cooldown = 15;

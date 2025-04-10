@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=29 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="16_p8abn"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="17_7nlll"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="18_ii537"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="20_37hlw"]
 [ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/indexes/fighters/doublearmguy.tscn" id="20_s17dp"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="20_tbnf8"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="21_6llfj"]
@@ -141,21 +142,27 @@ text = "World Map
 "
 
 [node name="Thugs" parent="main_ui" instance=ExtResource("15_raeie")]
+dialogue = null
 
 [node name="leader_fighter" parent="main_ui/Thugs" index="0" node_paths=PackedStringArray("base")]
 base = NodePath("Wheel Guy")
+level = 5
 
 [node name="Wheel Guy" parent="main_ui/Thugs/leader_fighter" index="1" instance=ExtResource("21_6llfj")]
 material = SubResource("ShaderMaterial_p8abn")
 
-[node name="Player" parent="main_ui" node_paths=PackedStringArray("equipped_weapon") instance=ExtResource("16_hxu8e")]
+[node name="Player" parent="main_ui" node_paths=PackedStringArray("equipped_weapon", "equipped_module") instance=ExtResource("16_hxu8e")]
 leadership_level = 10
 leadership_exp = 5
 combat_level = 14
 combat_exp = 3
 equipped_weapon = NodePath("Inventory/Tailpipe")
+equipped_module = NodePath("Inventory/Dodge Roll")
+sight_range = 0
 
 [node name="Tailpipe" parent="main_ui/Player/Inventory" index="0" instance=ExtResource("17_7nlll")]
+
+[node name="Dodge Roll" parent="main_ui/Player/Inventory" index="1" instance=ExtResource("20_37hlw")]
 
 [node name="combat_stats" parent="main_ui/Player" index="2"]
 max_hp = 30000.0

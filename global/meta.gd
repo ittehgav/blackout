@@ -32,6 +32,52 @@ const resource_colors = {
 	"chips":Color.SKY_BLUE
 }
 
+const stat_colors = {
+	"max_hp": Color.WEB_GREEN,
+	"attack": Color(.8, 0, 0),
+	"defense": Color.SKY_BLUE,
+	"agility": Color(.8, .8, 0),
+	"technique": Color.DEEP_PINK
+}
+
+const flavor_colors = {
+	"blackout":Color.MEDIUM_ORCHID
+}
+
+const combat_effect_colors = {
+	"stun":Color.PURPLE,
+	"damage":Color(.8, .1, .1)
+}
+
+const misc_colors = {
+	"no_dmg":Color.LIGHT_BLUE
+}
+
+
+const item_rarity_colors:={
+	1: Color.LIGHT_GRAY,
+	2: Color.GREEN_YELLOW,
+	3: Color.RED
+}
+
+
+func get_color_tag(key:String)->String:
+	var color:Color;
+	if key in resource_colors:
+		color = resource_colors[key];
+	elif key in stat_colors:
+		color = stat_colors[key]
+	elif key in flavor_colors:
+		color = flavor_colors[key]
+	elif key in misc_colors:
+		color = misc_colors[key]
+	elif key in combat_effect_colors:
+		color = combat_effect_colors[key]
+	assert(color != Color(0.0, 0.0, 0.0, 1.0))
+	return "[color=" + color.to_html() + "]";
+	
+
+
 func resource_colored_name(resource:String)->String:
 	var color:String = resource_colors[resource].to_html();
 	var string:String = "[color=" + color + "]"+resource
@@ -54,41 +100,7 @@ const resource_descriptions = {
 	"chips": "Intact processor chips are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading[/color] certain units."
 }
 
-const flavor_colors = {
-	"blackout":Color.MEDIUM_ORCHID
-}
 
-
-const stat_colors = {
-	"max_hp": Color.WEB_GREEN,
-	"attack": Color(.8, 0, 0),
-	"defense": Color.SKY_BLUE,
-	"agility": Color(.8, .8, 0), ## darkish yellow
-	"technique": Color.DEEP_PINK
-}
-
-func get_color_tag(key:String)->String:
-	var color:Color;
-	if key in resource_colors:
-		color = resource_colors[key];
-	elif key in stat_colors:
-		color = stat_colors[key]
-	elif key in flavor_colors:
-		color = flavor_colors[key]
-	elif key in misc_colors:
-		color = misc_colors[key]
-	return "[color=" + color.to_html() + "]";
-	
-const misc_colors = {
-	"no_dmg":Color.LIGHT_BLUE
-}
-
-
-const item_rarity_colors:={
-	1: Color.LIGHT_GRAY,
-	2: Color.GREEN_YELLOW,
-	3: Color.RED
-}
 
 const stat_descriptions = {
 	"max_hp": "The unit's total HP at the start of battle.",
@@ -99,12 +111,12 @@ const stat_descriptions = {
 }
 
 
-func get_unit_damage_string(unit:FighterUnit)->String:
+func get_unit_damage_string(unit:FighterUnit, trailing_text:String=" damage")->String:
 	var damage:float = unit.stats.attack
 	if "damage_modifier" in unit.base:
 		damage = unit.base.damage_modifier(damage, unit)
-	var string:String = "[color=" + stat_colors.attack.to_html() + "]";
-	string += str(damage) + "[/color]"
+
+	var string:String = get_color_tag("damage") + str(int(damage)) + trailing_text + "[/color]"
 	return string
 	
 func get_technique_scaled_string(unit:FighterUnit, value_key:String="", hard_value:float = 0.0, additional_multiplier:float=1, trailing_string:String="")->String:

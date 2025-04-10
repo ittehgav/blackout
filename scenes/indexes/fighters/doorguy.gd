@@ -7,21 +7,12 @@ const skill_visuals = ["grow"]
 const skill_use_sfx = ["defense_up"]
 const skill_hit_sfx = []
 
-const sample_offset = Vector2(35, -26)
-
+const sample_offset = Vector2(25, -26)
 const target_type = "nearest_enemy"
 
 const skill_name = "Buckle up"
 var description:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields self, becoming progressively more resistant."
-
-func full_skill_description(unit:FighterUnit)->String:
-	var technique_str:String = Meta.get_technique_scaled_string(unit);
-	var base_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
-	var final_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
-	
-	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields himself, gaining " + base_value_str + " * " + technique_str\
-	 + " (" + final_value_str +") defense until the end of battle.";
-	return string
+const flavor = "Doesn't get paid enough to hit people back with the doors."
 
 const tags = [
 	"juggernaut",
@@ -29,14 +20,22 @@ const tags = [
 	"bodybuilder"
 ]
 
+func full_skill_description(unit:FighterUnit)->String:
+	var technique_str:String = Meta.get_technique_scaled_string(unit);
+	var base_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
+	var final_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
+	
+	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields himself, gaining " + final_value_str + " (" + base_value_str + " * " + technique_str\
+	 + ")"+Meta.get_color_tag("defense") + " defense [/color] until the end of battle.";
+	return string
+
 const hitbox_radius = 35;
 const hitbox_height = 80;
 const hitbox_offset = Vector2(-5, 0);
 
-const hit_scan_radius = 100;
-
 const skill_range = MELEE_RANGE;
-const skill_cooldown = 3;
+const hit_scan_radius = 100;
+const skill_cooldown = 5;
 
 const buff_type = "stat";
 

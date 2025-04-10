@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=32 format=3 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" uid="uid://xb73utl6rxmj" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="2_vr7dw"]
@@ -16,8 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://b1ii7gb6p2fb7" path="res://assets/visual/sprites/weapons/pipe.png" id="14_byfkr"]
 [ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="15_v0vqe"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="16_byfkr"]
-[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="16_kgbfd"]
+[ext_resource type="Texture2D" uid="uid://b8qimuaorji8u" path="res://assets/visual/sprites/weapons/staff_of_luc.png" id="17_awn3j"]
 [ext_resource type="Script" uid="uid://dhd1birgmrx10" path="res://scenes/battle/arena/kill_feed.gd" id="17_pmgkv"]
+[ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/icons/items/modules/dodge_roll.png" id="18_ajjla"]
+[ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="18_iln1w"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="18_kgbfd"]
 [ext_resource type="Script" uid="uid://bfcqcwall15j1" path="res://scenes/battle/arena/enemy_leader_data.gd" id="20_5bepm"]
 [ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="21_0yl87"]
@@ -78,6 +80,7 @@ team_1 = NodePath("team_1")
 team_2 = NodePath("team_2")
 
 [node name="tiles" type="TileMapLayer" parent="."]
+z_index = -2
 scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_3qo6m")
 script = ExtResource("4_jf7ja")
@@ -169,7 +172,7 @@ offset_bottom = 262.0
 theme_override_font_sizes/font_size = 128
 text = "penaz"
 
-[node name="player_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("hp_bar", "player", "weapon_container", "weapon_cd_bg", "weapon_cd", "weapon_cd_timer")]
+[node name="player_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("hp_bar", "player", "weapon_container", "weapon_cd_bg", "weapon_cd", "weapon_cd_timer", "alternative_weapon", "module_progress_bar", "module_cd_timer")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -186,32 +189,27 @@ player = NodePath("../../../team_1/in_fight_player")
 weapon_container = NodePath("HBoxContainer/PanelContainer/VBoxContainer2/MarginContainer")
 weapon_cd_bg = NodePath("HBoxContainer/PanelContainer/VBoxContainer2/MarginContainer/ProgressBar")
 weapon_cd = NodePath("HBoxContainer/PanelContainer/VBoxContainer2/MarginContainer/ProgressBar/TextureProgressBar")
-weapon_cd_timer = NodePath("../../../team_1/in_fight_player/weapon/weapon_cd")
+weapon_cd_timer = NodePath("../../../team_1/in_fight_player/equipment/weapon_control/weapon_cd")
+alternative_weapon = NodePath("HBoxContainer/Control/VBoxContainer2/Panel/alternative_weapon")
+module_progress_bar = NodePath("HBoxContainer/Control/VBoxContainer2/PanelContainer/module_cd")
+module_cd_timer = NodePath("../../../team_1/in_fight_player/equipment/module_control/module_cd")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="hud/overlay/player_data"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -64.0
-offset_right = 236.0
+offset_top = -85.0
+offset_right = 252.0
 grow_vertical = 0
 
-[node name="PanelContainer" type="Panel" parent="hud/overlay/player_data/HBoxContainer"]
-custom_minimum_size = Vector2(32, 64)
+[node name="PanelContainer" type="PanelContainer" parent="hud/overlay/player_data/HBoxContainer"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
-theme = ExtResource("16_kgbfd")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="hud/overlay/player_data/HBoxContainer/PanelContainer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -14.0
-offset_right = -1.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+theme_override_constants/separation = -1
 
 [node name="Label" type="Label" parent="hud/overlay/player_data/HBoxContainer/PanelContainer/VBoxContainer2"]
 modulate = Color(1, 1, 1, 0.556863)
@@ -238,9 +236,56 @@ layout_mode = 2
 offset_right = 32.0
 offset_bottom = 64.0
 step = 0.1
-value = 40.0
+value = 100.0
 fill_mode = 3
 texture_progress = ExtResource("14_byfkr")
+
+[node name="Control" type="Control" parent="hud/overlay/player_data/HBoxContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="hud/overlay/player_data/HBoxContainer/Control"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 28.0
+offset_bottom = 73.0
+
+[node name="Panel" type="Panel" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2"]
+custom_minimum_size = Vector2(24, 46)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="alternative_weapon" type="TextureRect" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2/Panel"]
+layout_mode = 2
+offset_left = 6.0
+offset_top = 12.0
+offset_right = 38.0
+offset_bottom = 76.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_awn3j")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2/Panel/alternative_weapon"]
+modulate = Color(1, 1, 1, 0.623529)
+layout_mode = 0
+offset_left = -10.0
+offset_top = -26.0
+offset_right = 30.0
+text = "[tab]"
+
+[node name="PanelContainer" type="PanelContainer" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2"]
+layout_mode = 2
+
+[node name="module_cd" type="TextureProgressBar" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2/PanelContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+step = 0.1
+value = 50.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("18_iln1w")
+texture_progress = ExtResource("18_ajjla")
+tint_under = Color(1, 0.180392, 1, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="hud/overlay/player_data/HBoxContainer"]
 layout_mode = 2
@@ -388,7 +433,6 @@ flip_h = true
 [connection signal="ready" from="." to="tiles" method="set_tiles"]
 [connection signal="status_applied" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_applied"]
 [connection signal="status_removed" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_removed"]
-[connection signal="used" from="team_1/in_fight_player/weapon" to="hud/overlay/player_data" method="_on_weapon_used"]
 [connection signal="value_changed" from="hud/overlay/tide_of_battle" to="hud/overlay/tide_of_battle" method="move_tide"]
 
 [editable path="team_1/in_fight_player"]

@@ -13,6 +13,8 @@ signal skill_hit(target_hit:ActiveFighter);
 @export var skill_retry_timer:Timer;
 @export var skill_windup_timer:Timer;
 
+@export var animation_timer:Timer;
+
 @export var stunnable_timers:Node;
 
 
@@ -73,22 +75,23 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	cooldown_timer.wait_time = cooldown
 	
 	if "skill_windup" in base and not in_player_party:
-		if "hit_scan_radius" in base:
-			$hit_scan/shape.show_projection = true;
-			skill_used.connect($hit_scan/shape.hide)
 			
 		skill_windup_timer.wait_time = cooldown - cooldown/3;
 		skill_windup_timer.autostart = true
 		
-	
+	if "skill_projection" in base:
+		if base.skill_projection == "basic_aoe":
+			skill_used.connect($hit_scan/shape.hide);
+		$hit_scan/shape.set_shape_fn(base.skill_projection)
 	
 	if "special_setup" in base:
 		base.special_setup();
 
 
+
 func find_target()->void:
 	## overrideable?
-	var target:ActiveFighter;
+	var target:ActiveFighter=null;
 	match base.target_type:
 		"nearest_enemy":
 			var current_distance:float;
@@ -113,16 +116,13 @@ func _physics_process(_delta: float) -> void:
 	if target_unit and is_instance_valid(target_unit):
 		if not target_in_range:
 			base.flip_h = target_unit.position.x < position.x;
-			if not current_animation == "walk":
-				current_animation = "walk";
-				next_frame();
-				$npc_timers/animation_timer.start()
+			set_current_animation("walk")
+			
 			var direction:Vector2 = (target_unit.position - position).normalized();
 			velocity = direction * move_speed
 			move_and_slide()
 		else:
-			if current_animation != "skill" and current_animation != "windup":
-				current_animation = "idle";
+			set_current_animation("idle");
 		
 
 func _on_skill_range_body_entered(body: Node2D) -> void:
@@ -148,14 +148,13 @@ func _on_windup_timer_timeout() -> void:
 		if "hit_scan_radius" in base:
 			$hit_scan/shape.start_aoe_highlight()
 		base.frame_coords = Vector2(1, 2);
-		current_animation = "windup"
+		set_current_animation("windup")
 		
 
 
 func use_skill()->void:
 	hit_targets = []
-	current_animation = "skill";
-	next_frame()
+	set_current_animation("skill")
 	for effect:String in base.skill_effects:
 		Combat.skill_effect(self, effect)
 		
@@ -175,36 +174,54 @@ func use_skill()->void:
 		skill_hit.emit(target);
 	
 
-func catch_hit_target(unit:ActiveFighter)->void:
-	if not unit in hit_targets:
-		hit_targets.append(unit);
+func catch_hit_target(hit_unit:ActiveFighter)->void:
+	if not hit_unit in hit_targets:
+		hit_targets.append(hit_unit);
+
+
+func set_current_animation(target:String, force:bool = false)->void:
+	const walk_cycle_time = .2;
+	const idle_cycle_time = .5;
+	const skill_frame_hold_time = .3
+	if current_animation != target:
+		match target:
+			"walk":
+				## idle and skill animation only have priority over eachother
+				if current_animation == "idle":
+					current_animation = target;
+					base.frame_coords = Vector2(0, 1);
+					animation_timer.wait_time = walk_cycle_time;
+					animation_timer.start()
+			"idle":
+				## idle and skill animation only have priority over eachother
+				if current_animation == "walk" or force:
+					current_animation = target;
+					base.frame_coords = Vector2(0, 0);
+					animation_timer.wait_time = idle_cycle_time;
+					animation_timer.start();
+			"skill":
+				current_animation = target;
+				base.frame_coords = Vector2(0, 2)
+				animation_timer.wait_time = skill_frame_hold_time;
+				animation_timer.start();
+			"windup":
+				## held until skill fires, when this set function will run again
+				current_animation = target;
+				base.frame_coords = Vector2(1, 2);
+				animation_timer.stop();
 
 func next_frame() -> void:
 	match current_animation:
 		"walk":
-			if base.frame_coords.y == 1:
-				$npc_timers/animation_timer.wait_time = .2;
-				$npc_timers/animation_timer.start()
-				base.frame += 1;
-				if base.frame_coords.y == 2:
-					base.frame_coords.y = 1;
+			if base.frame_coords.x == base.hframes - 1:
+				base.frame_coords.x = 0;
 			else:
-				$npc_timers/animation_timer.wait_time = .2
-				base.frame_coords = Vector2(0, 1);
+				base.frame_coords.x += 1;
 		"idle":
-			if base.frame_coords.y:
-				$npc_timers/animation_timer.wait_time = .5;
+			if base.frame == 0:
+				base.frame = 1;
+			else:
 				base.frame = 0;
-			else:
-				if base.frame == 0:
-					base.frame = 1;
-				else:
-					base.frame = 0;
 		"skill":
-			if base.frame_coords.y != 2:
-				$npc_timers/animation_timer.wait_time = .3;
-				$npc_timers/animation_timer.start()
-				base.frame_coords = Vector2(0, 2);
-			else:
-				current_animation = "idle";
-				next_frame();
+			## runs AFTER the skill animation frame
+			set_current_animation("idle", true);

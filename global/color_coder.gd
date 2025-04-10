@@ -50,8 +50,8 @@ func color_code_fighter(fighter:FighterBase, scheme:int, sample:bool=false)->voi
 
 	
 
-func color_code_vehicle(vehicle:Vehicle)->void:
-	var base_color:Color = Color.SADDLE_BROWN;
+func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
+	var base_color:Color = Index.color_schemes[leader.color_scheme_index][1];
 	var dict:= {
 		Color.BLUE:base_color.darkened(.5),
 		Color.GREEN: base_color

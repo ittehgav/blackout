@@ -8,7 +8,7 @@ signal stopped_moving;
 ##redeclaring body as base so it gets its VFX to work the same way as they do on ActiveFighter
 @export_category("Unique to Player")
 @export var body: FighterBase;
-@export var weapon:Node2D;
+@export var equipment:Node2D;
 @export var hit_scan:Area2D;
 @export var camera:Camera2D;
 @export var sfx:AudioStreamPlayer
@@ -34,10 +34,8 @@ func load_fighter()->void:
 	technique = stats.technique
 	move_speed = stats.move_speed
 	
-	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate()
-	weapon.add_child(equipped_weapon);
-	weapon.equip_weapon(equipped_weapon)
-	
+
+
 
 func get_input()->void:
 	var input_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")

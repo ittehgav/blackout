@@ -7,24 +7,14 @@ const skill_visuals = ["recoil"];
 const skill_use_sfx = []
 const skill_hit_sfx = []
 
+
 const sample_offset = Vector2(10, -26)
 
 const target_type = "nearest_enemy"
 
 const skill_name = "Chain Lightning"
 const description = "Fires powerful chain lightning Attacks."
-
-
-func full_skill_description(unit:FighterUnit)->String:
-	var damage_str:String = Meta.get_unit_damage_string(unit);
-	var technique_str:String = Meta.get_technique_scaled_string(unit, "", 0,.05, "x")
-	
-	
-	var string:String="[color=yellow]Magnetizes[/color] the nearest enemy that's not [color=yellow]magnetized[/color], then deals " +\
-	damage_str + " damage to all [color=yelow]magnetized[/color] enemies.\nDeals " + technique_str + \
-	" more damage to all targets for each [color=yellow]magnetized[/color] enemy on the battlefield."
-	return string
-	
+const flavor = "He tells the party-mates that the magnetism only affects people who make fun of his baldness.";
 
 const tags = [
 	"cyborg",
@@ -32,12 +22,22 @@ const tags = [
 	"mechanic"
 ]
 
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str:String = Meta.get_unit_damage_string(unit);
+	var technique_str:String = Meta.get_technique_scaled_string(unit, "", 0,.05, "x")
+	
+	
+	var string:String="[color=yellow]Magnetizes[/color] the nearest enemy that's not [color=yellow]magnetized[/color], then deals " +\
+	damage_str + " to all [color=yellow]magnetized[/color] enemies.\nDeals " + technique_str + \
+	" more damage to all targets for each [color=yellow]magnetized[/color] enemy on the battlefield."
+	return string
+
 const hitbox_radius = 25;
 const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 300;
-const skill_cooldown = 5;
+const skill_cooldown = 10;
 
 
 var tagged_targets:Array[ActiveFighter] = [];

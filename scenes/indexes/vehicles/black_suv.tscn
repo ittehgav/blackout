@@ -1,11 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://du842twtnhwnd"]
+[gd_scene load_steps=2 format=3 uid="uid://d2up5dueplw80"]
 
 [ext_resource type="Script" uid="uid://dqa1gjdx6lk2m" path="res://scenes/superclasses/map/vehicle.gd" id="2_pgb2m"]
 
-[sub_resource type="Resource" id="Resource_88rek"]
-metadata/__load_path__ = "res://assets/visual/sprites/vehicles/black_suv.png"
-
 [node name="BlackSuv" type="Sprite2D"]
-texture = SubResource("Resource_88rek")
 hframes = 2
 script = ExtResource("2_pgb2m")

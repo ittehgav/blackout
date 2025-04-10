@@ -7,7 +7,7 @@
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_3uxwr"]
 [ext_resource type="AudioStream" uid="uid://dgx7krdtsjf0f" path="res://assets/sound/combat/enemy_death.ogg" id="4_pldj0"]
 [ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/combat/generic/swing.wav" id="5_1g51p"]
-[ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/player/active_weapon.gd" id="6_cbwmk"]
+[ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/player/equipment.gd" id="6_cbwmk"]
 [ext_resource type="AudioStream" uid="uid://c0xyiomr261fb" path="res://assets/sound/combat/special/lightning_light.wav" id="6_g6u4u"]
 [ext_resource type="AudioStream" uid="uid://bytgnuo5pfxd" path="res://assets/sound/combat/special/accelerate.wav" id="7_3ir4e"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="7_6mba4"]
@@ -42,14 +42,13 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
 radius = 80.0
 
-[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "weapon", "hit_scan", "camera", "sfx", "base", "timers", "npc_sfx")]
+[node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "hit_scan", "camera", "sfx", "base", "timers", "npc_sfx")]
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_bxbr4")
 body = NodePath("body")
-weapon = NodePath("weapon")
 hit_scan = NodePath("hit_scan")
 camera = NodePath("camera")
 sfx = NodePath("sfx")
@@ -87,27 +86,35 @@ shape = SubResource("CapsuleShape2D_wutkk")
 [node name="body" parent="." instance=ExtResource("2_fo4cr")]
 material = SubResource("ShaderMaterial_og1r2")
 
-[node name="weapon" type="Node2D" parent="." node_paths=PackedStringArray("holder", "body", "weapon_cd", "weapon_sfx")]
+[node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("holder", "body", "weapon_cd", "weapon_sfx", "module_cd")]
 script = ExtResource("6_cbwmk")
 holder = NodePath("..")
 body = NodePath("../body")
-weapon_cd = NodePath("weapon_cd")
-weapon_sfx = NodePath("weapon_sfx")
+weapon_cd = NodePath("weapon_control/weapon_cd")
+weapon_sfx = NodePath("weapon_control/weapon_sfx")
+module_cd = NodePath("module_control/module_cd")
 
-[node name="weapon_cd" type="Timer" parent="weapon"]
+[node name="weapon_control" type="Node" parent="equipment"]
+
+[node name="weapon_cd" type="Timer" parent="equipment/weapon_control"]
 wait_time = 0.5
 one_shot = true
 
-[node name="weapon_sfx" type="AudioStreamPlayer" parent="weapon" node_paths=PackedStringArray("hit_sfx")]
+[node name="weapon_sfx" type="AudioStreamPlayer" parent="equipment/weapon_control" node_paths=PackedStringArray("hit_sfx")]
 script = ExtResource("7_avuby")
 hit_sfx = NodePath("../weapon_hit_sfx")
 swing = ExtResource("8_6prrp")
 swing_hit = ExtResource("8_og1r2")
 
-[node name="weapon_hit_sfx" type="AudioStreamPlayer" parent="weapon"]
+[node name="weapon_hit_sfx" type="AudioStreamPlayer" parent="equipment/weapon_control"]
 
-[node name="animation_ticker" type="Timer" parent="weapon"]
+[node name="animation_ticker" type="Timer" parent="equipment/weapon_control"]
 wait_time = 0.15
+
+[node name="module_control" type="Node" parent="equipment"]
+
+[node name="module_cd" type="Timer" parent="equipment/module_control"]
+one_shot = true
 
 [node name="hit_scan" type="Area2D" parent="."]
 collision_layer = 0
@@ -205,8 +212,8 @@ mouse_filter = 2
 [node name="floating_icon_anchor" type="Node2D" parent="hud_overlay"]
 position = Vector2(116, 3)
 
-[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="damage_taken" from="." to="." method="update_overlay"]
+[connection signal="damage_taken" from="." to="." method="damage_overlay_shake"]
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
 [connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
 [connection signal="healing_received" from="." to="." method="update_overlay"]

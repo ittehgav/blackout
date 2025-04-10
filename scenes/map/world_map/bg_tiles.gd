@@ -7,7 +7,13 @@ extends TileMapLayer
 @export var scrapyard_scene:PackedScene;
 @export var factory_scene:PackedScene;
 
+## generic stuff just goes into this pool to spawn
+@export var leader_scenes:Array[PackedScene];
+@export var npc_map_party_scene:PackedScene;
+@export var car_scenes:Array[PackedScene];
+
 const cell_size = 16
+const entity_spawn_range = 4000;
 
 @export var noise_height_texture:NoiseTexture2D;
 var noise:Noise;
@@ -21,12 +27,8 @@ var small_prop_sprites:Array[Sprite2D];
 @export var prop_textures:Array[Texture];
 var prop_sprites:Array[Sprite2D]
 
-
-#var taken_positions:Array[Vector2]
-
 @export var tile_colors:Array[Color];
 
-const map_size = 5000;
 
 func _ready()->void:
 	await world_map.ready
@@ -36,19 +38,20 @@ func _ready()->void:
 	generate_settlements();
 	set_props()
 	set_small_props()
+	#generate_parties();
 	update_fog()
 	Entities.world_map.day_passed.emit()
-	
 
 func set_tiles()->void:
 	noise = noise_height_texture.noise
-	var width:float = float(map_size)/float(cell_size);
-	var height:float = float(map_size)/float(cell_size)
-	for x:int in width * 2:
-		for y:int in height * 2:
-			var cell_coords:Vector2 = Vector2(x-width, y-height)
+	var width:float = entity_spawn_range/cell_size
+	var height:float = entity_spawn_range/cell_size
+	
+	for x:int in width:
+		for y:int in height:
+			var cell_coords:Vector2 = Vector2(x-width/2, y-height/2);
 			fog_layer.set_cell(cell_coords, 0, Vector2.ZERO);
-			var roll:float = noise.get_noise_2d(x - width, y - height);
+			var roll:float = noise.get_noise_2d(x - width/2, y - height/2);
 
 			if roll < -.6:
 				set_cell(cell_coords, 0, Vector2.ONE);
@@ -60,7 +63,6 @@ func set_tiles()->void:
 				set_cell(cell_coords, 0, Vector2.DOWN)
 
 func generate_settlements()->void:
-	const spawn_range = 2000;
 	var taken_positions:Array[Vector2] = [Entities.in_map_player.position]
 	var alternatives:Array[PackedScene] = [farm_scene, scrapyard_scene, factory_scene];
 	
@@ -71,9 +73,10 @@ func generate_settlements()->void:
 			settlement_name = NameDatabase.generate_name()
 		var settlement:Settlement = alternatives.pick_random().instantiate();
 		
-		var location:Vector2 = Vector2(randi_range(0, spawn_range), randi_range(0, spawn_range));
+		var location:Vector2 =  Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
+								randi_range(-entity_spawn_range/2, entity_spawn_range/2))
 		while position_taken(location, taken_positions):
-			location = Vector2(randi_range(0, spawn_range), randi_range(0, spawn_range));
+			location = Vector2(randi_range(0, entity_spawn_range), randi_range(0, entity_spawn_range));
 		taken_positions.append(location)
 		settlement.position = location;
 		settlement.name = settlement_name;
@@ -137,12 +140,12 @@ func set_props()->void:
 
 func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, small:bool=false)->void:
 	var prop:Sprite2D = which.duplicate();
-	var x_roll := randi_range(map_size * -1, map_size);
-	var y_roll := randi_range(map_size*-1, map_size );
+	var x_roll := randi_range(-entity_spawn_range/2, entity_spawn_range/2);
+	var y_roll := randi_range(-entity_spawn_range/2, entity_spawn_range/2);
 	var target_position: = Vector2(x_roll,  y_roll)
 	while position_taken(target_position, taken_positions, min_gap):
-		x_roll = randi_range(map_size * -1, map_size);
-		y_roll = randi_range(map_size*-1, map_size );
+		x_roll = randi_range(-entity_spawn_range/2, entity_spawn_range/2);
+		y_roll = randi_range(-entity_spawn_range/2, entity_spawn_range/2);
 		target_position = Vector2(x_roll,  y_roll)
 	
 	taken_positions.append(target_position);
@@ -160,13 +163,32 @@ func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, 
 	else:
 		prop.modulate = tile_colors[3]
 	
-	
-	
-	
+
 	if not small:
 		props_node.add_child(prop);
 	else:
 		small_props_node.add_child(prop);
+		
+func generate_parties()->void:
+	var taken_positions: Array[Vector2] = [];
+	for i in 20:
+		var leader:NpcLeader = leader_scenes.pick_random().instantiate();
+		var party:NpcMapParty = npc_map_party_scene.instantiate()
+		party.leader = leader;
+		var car:Vehicle = car_scenes.pick_random().instantiate();
+		
+		var party_position:Vector2 = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
+								 randi_range(-entity_spawn_range/2, entity_spawn_range/2))
+								
+		while(position_taken(party_position, taken_positions)):
+			party_position = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
+								 randi_range(-entity_spawn_range/2, entity_spawn_range/2))
+		party.position = party_position;
+		leader.generate(party_position.distance_to(Vector2.ZERO));
+		party.add_child(leader);
+		party.add_child(car);
+		Entities.world_map.add_child(party);
+
 
 func position_taken(to_check:Vector2, taken_positions:Array[Vector2], min_gap:float = 30)->bool:
 	for p in taken_positions:

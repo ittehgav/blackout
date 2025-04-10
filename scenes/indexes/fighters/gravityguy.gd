@@ -1,6 +1,5 @@
 extends FighterBase
 
-var hit_scan_shape:CollisionShape2D;
 
 const skill_effects = ["special"];
 const skill_visuals = ["recoil", "shrink_target"]
@@ -9,17 +8,11 @@ const skill_use_sfx = ["gravity"]
 const skill_hit_sfx = []
 
 const sample_offset = Vector2(1, -26)
-
 const target_type = "nearest_enemy"
 
 const skill_name = "Shockwave"
 const description = "Knocks back and stuns enemies."
-
-func full_skill_description(unit:FighterUnit)->String:
-	var stun_duration_string:String = Meta.get_technique_scaled_string(unit, "status_duration");
-	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
-	+ stun_duration_string + " seconds.";
-	return string;
+const flavor = "He's not entierly sure how it works either."
 
 const tags = [
 	"disruptor",
@@ -27,22 +20,29 @@ const tags = [
 	"doctor"
 ]
 
+func full_skill_description(unit:FighterUnit)->String:
+	var stun_duration_string:String = Meta.get_technique_scaled_string(unit, "status_duration");
+	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
+	+ stun_duration_string + " seconds.";
+	return string;
+
 const hitbox_radius = 25;
 const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
+
+const skill_range = 300;
+const skill_cooldown = 8;
 
 const hit_scan_type = "rectangle";
 const hit_scan_length = 500;
 const hit_scan_width = 100;
 
-const skill_range = 300;
-
-const skill_cooldown = 8;
-
 const knock_back_distance = 500;
 
 const status_duration = 1;
 const secondary_stun_duration = .5;
+
+var hit_scan_shape:CollisionShape2D;
 
 func special_setup()->void:
 	fighter.target_changed.connect(update_hit_scan.bind(fighter));

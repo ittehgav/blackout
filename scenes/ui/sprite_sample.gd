@@ -2,7 +2,7 @@ extends Control;
 
 class_name SpriteSample;
 
-@export var target_base:Sprite2D;
+@export var target_base:Sprite2D=null;
 @export var additional_data:Label;
 
 @export var tooltip_scene:PackedScene;
@@ -17,15 +17,10 @@ func _ready()->void:
 	if autostart:
 		$bob_timer.start()
 
-func disable_panel()->void:
-	if $panel:
-		$panel.queue_free();
-		mouse_entered.disconnect(show_panel);
-		mouse_exited.disconnect(hide_panel);
 	
 
-func set_sample(target:Sprite2D, color_scheme_index:int)->void:
-	if target_base and not autostart:
+func set_sample(target:Sprite2D, color_scheme_index:int, extra_offset:Vector2 = Vector2(30, -15))->void:
+	if target_base:
 		target_base.queue_free();
 	
 	if not autostart:
@@ -34,7 +29,7 @@ func set_sample(target:Sprite2D, color_scheme_index:int)->void:
 		add_child(target_base)
 		
 	if target_base is FighterBase:
-		target_base.offset = target_base.sample_offset + Vector2(30, -20);
+		target_base.offset = target_base.sample_offset + extra_offset;
 		
 		ColorCoder.color_code_fighter(target_base, color_scheme_index, true);
 		if not target_base is PlayerFighterBase:
@@ -56,6 +51,7 @@ func set_sample(target:Sprite2D, color_scheme_index:int)->void:
 	
 
 func set_rectangle()->void:
+
 	if enable_hover_panel:
 		var sample_size:Vector2 = target_base.texture.get_size() * target_base.scale.x;
 		custom_minimum_size = sample_size;

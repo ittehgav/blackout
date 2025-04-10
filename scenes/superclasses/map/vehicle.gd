@@ -8,7 +8,7 @@ var wheel_bounce_acm:float = 0.0;
 
 func _ready()->void:
 	party = get_parent();
-	ColorCoder.color_code_vehicle(self);
+	ColorCoder.color_code_vehicle(self, party.leader);
 
 func _physics_process(_delta: float) -> void:
 	var check_position:Vector2;
