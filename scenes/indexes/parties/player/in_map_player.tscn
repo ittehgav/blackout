@@ -26,6 +26,7 @@ vehicle = NodePath("Gol")
 shape = SubResource("CircleShape2D_n4fri")
 
 [node name="in_map_camera" type="Camera2D" parent="."]
+process_mode = 3
 position_smoothing_enabled = true
 script = ExtResource("4_ibn0u")
 

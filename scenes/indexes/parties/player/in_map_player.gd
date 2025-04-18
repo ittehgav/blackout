@@ -14,7 +14,7 @@ func _ready()->void:
 
 func _input(e:InputEvent)->void:
 	if e is InputEventMouseButton and e.pressed \
-	and e.button_index==MOUSE_BUTTON_LEFT:
+	and e.button_index==MOUSE_BUTTON_LEFT and not Entities.world_map.pause_stack:
 		var cursor_position:Vector2 = Entities.world_map.get_local_mouse_position()
 		if position.distance_to(cursor_position) > 30:
 			if Entities.map_entity_under_mouse:
@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 				target_position = position
 				stop_movement();
 				interact_with_map_entity(collision.get_collider());
-					
+
 
 func stop_movement(finish:bool =true)->void:
 	if finish:
@@ -69,7 +69,6 @@ func interact_with_map_entity(entity:MapEntity)->void:
 
 	elif entity is MapParty:
 		Entities.current_speaking_party = entity;
-		Entities.world_map.ui.settlement_ui.settlement_left.emit(entity)
 		Entities.dialogue_player.start_dialogue(entity.leader.dialogue)
 
 

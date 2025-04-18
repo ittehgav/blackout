@@ -10,7 +10,7 @@ const sample_offset = Vector2(8, -26)
 const target_type = "least_hp_ally"
 
 const skill_name = "Healing Tether"
-var description:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Regenerates allies' health."
+var description:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Regenerates allies' health."
 const flavor = "Doesn't get paid enough to heal people out of combat.";
 
 const tags = [
@@ -21,9 +21,9 @@ const tags = [
 
 func full_skill_description(unit:FighterUnit)->String:
 	var total_heal:float = heal_value * total_heal_ticks;
-	var heal_str:String = Meta.get_technique_scaled_string(unit, "", total_heal);
+	var heal_str:String = Index.get_technique_scaled_string(unit, "", total_heal);
 	
-	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Heals the most damaged ally for "\
+	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Heals the most damaged ally for "\
 	 + heal_str + " over " + str(total_heal_ticks) + " seconds.";
 	return string;
 

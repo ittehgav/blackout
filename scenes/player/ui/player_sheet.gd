@@ -40,9 +40,6 @@ class_name PlayerSheet;
 @export var agility_label:Label;
 @export var technique_label:Label;
 
-@export_subgroup("Packed Scenes")
-@export var item_icon_scene:PackedScene;
-
 const resources_names = [
 	"food", "fuel", "money", "scrap", "juice", "scrap", "chips"
 ]
@@ -146,7 +143,7 @@ func refresh_data()->void:
 
 	var inventory:Inventory = Entities.player.inventory;
 	for item:Item in inventory.consumables +inventory.trinkets + inventory.weapons:
-		var icon:ItemIcon = item_icon_scene.instantiate();
+		var icon:ItemIcon = Index.item_icon_scene.instantiate();
 		icon.item = item;
 		if item is Consumable:
 			consumables_inventory.add_child(icon)

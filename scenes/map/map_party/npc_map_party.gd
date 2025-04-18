@@ -6,8 +6,7 @@ class_name NpcMapParty
 
 var feared_entity:MapEntity;
 
-func _ready()->void:
-	find_target();
+
 
 func _physics_process(_delta: float) -> void:
 	var direction:Vector2;

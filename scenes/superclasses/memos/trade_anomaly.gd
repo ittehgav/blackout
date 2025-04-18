@@ -22,32 +22,32 @@ func generate(settlement:Settlement)->void:
 	target = settlement;
 	change = snapped(randf_range(0, .9), .1);
 	positive = randf_range(0,1)>.5;
-	resource = ["food", "fuel", "juice", "scrap", "chips"].pick_random();
+	resource = Index.all_resources.pick_random();
 
 
 func generate_description()->String:
 	var positive_event_highlight_color: = "[color=" + Color.GREEN.to_html()+ "]"
 	var negative_event_highlight_color: = "[color=" + Color.RED.to_html() + "]";
-	var string:String = Meta.tagged_settlement_name(target)
+	var string:String = Index.tagged_settlement_name(target)
 	
 	if positive:
 		if change < .3:
 			string += " has a"+positive_event_highlight_color + " Slight Surplus[/color] of "\
-			 + Meta.resource_colored_name(resource) + "[/color] and is selling it for"+positive_event_highlight_color + " cheaper than usual.";
+			 + Index.resource_colored_name(resource) + "[/color] and is selling it for"+positive_event_highlight_color + " cheaper than usual.";
 		elif change < .7:
 			string += " has a"+ positive_event_highlight_color + " Surplus[/color] of "\
-			+ Meta.resource_colored_name(resource) + "[/color] and prices are"+positive_event_highlight_color+" much lower!"
+			+ Index.resource_colored_name(resource) + "[/color] and prices are"+positive_event_highlight_color+" much lower!"
 		else:
 			string += " has a"+ positive_event_highlight_color + " Massive Surplus[/color] of "\
-			+ Meta.resource_colored_name(resource) + "[/color] and prices are" + positive_event_highlight_color + " drastically lower!"
+			+ Index.resource_colored_name(resource) + "[/color] and prices are" + positive_event_highlight_color + " drastically lower!"
 	else:
 		if change < .3:
 			string += " has a"+negative_event_highlight_color + " Slight Shortage[/color] of "\
-			 + Meta.resource_colored_name(resource) + "[/color] and is buying it for"+negative_event_highlight_color + " more than usual.";
+			 + Index.resource_colored_name(resource) + "[/color] and is buying it for"+negative_event_highlight_color + " more than usual.";
 		elif change < .7:
 			string += " has a"+ negative_event_highlight_color + " Shortage[/color] of "\
-			+ Meta.resource_colored_name(resource) + "[/color] and prices are"+negative_event_highlight_color+" much higher!."
+			+ Index.resource_colored_name(resource) + "[/color] and prices are"+negative_event_highlight_color+" much higher!."
 		else:
 			string += " has a"+ negative_event_highlight_color + " Massive Shortage[/color] of "\
-			+ Meta.resource_colored_name(resource) + "[/color] and prices are" + negative_event_highlight_color + " drastically higher!"
+			+ Index.resource_colored_name(resource) + "[/color] and prices are" + negative_event_highlight_color + " drastically higher!"
 	return string

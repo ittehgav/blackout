@@ -11,20 +11,18 @@ class_name Leader
 @export var combat_stats:CombatStats;
 
 @export var sight_range:int;
-@export_group("Scenes")
-@export var fighter_unit_scene:PackedScene
-@export var npc_fighter_scene:PackedScene;
+
 
 func load_party(team:Team, team_n:int)->void:
-	var party:Array[ActiveFighter]
 	var cols:Dictionary={"melee":[], "mid":[], "long":[]}
 
 	for unit:FighterUnit in roster.units:
+		var fighter:NpcFighter = Index.npc_fighter_scene.instantiate();
 		
-		var fighter:NpcFighter = npc_fighter_scene.instantiate();
 		team.add_child(fighter);
+		fighter.ready
 		fighter.load_fighter(unit, team_n==1);
-		fighter.base.flip_h= team_n == 2
+		fighter.base.flip_h = team_n == 2
 
 		if unit.base.skill_range == FighterBase.MELEE_RANGE:
 			cols.melee.append(fighter)
@@ -33,8 +31,9 @@ func load_party(team:Team, team_n:int)->void:
 		else:
 			cols.long.append(fighter)
 		
-		party.push_back(fighter);
-	
+		Entities.arena.tide_bar["team_" + str(team_n) + "_unit_values"][fighter] = unit.level;
+
+
 	var base_x:int = 250;
 	if team_n == 1:
 		base_x *= -1;
@@ -65,4 +64,3 @@ func load_party(team:Team, team_n:int)->void:
 	
 		if i % 2:
 			fighter.position.y *= -1;
-				

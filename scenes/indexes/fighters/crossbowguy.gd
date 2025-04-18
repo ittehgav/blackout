@@ -29,13 +29,13 @@ func damage_modifier(damage:float, unit:FighterUnit=null)->float:
 			return damage
 		
 func full_skill_description(unit:FighterUnit)->String:
-	var base_damage_str:String = Meta.get_color_tag("attack") +  str(unit.stats.attack) + "[/color]";
+	var base_damage_str:String = Index.get_color_tag("attack") +  str(unit.stats.attack) + "[/color]";
 
-	var final_damage_color_hex:String = Meta.stat_colors.attack.blend(Meta.stat_colors.technique).to_html();
-	var final_damage_str:String = Meta.get_unit_damage_string(unit);
+	var final_damage_color_hex:String = Index.stat_colors.attack.blend(Index.stat_colors.technique).to_html();
+	var final_damage_str:String = Index.get_unit_damage_string(unit);
 	final_damage_str= "[color=" + final_damage_color_hex + "]" + final_damage_str + "[/color]"
 	
-	var technique_str:String = Meta.get_technique_scaled_string(unit, "", 0, .5);
+	var technique_str:String = Index.get_technique_scaled_string(unit, "", 0, .5);
 	
 	var string:String = "Deals "+ final_damage_str + " (" + base_damage_str + " * " + technique_str + ") to enemies in a straight line.";
 	return string;

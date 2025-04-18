@@ -37,10 +37,9 @@ func downed_time_passed()->void:
 	if not remaining_downed_minutes:
 		Entities.world_map.minute_pased.disconnect(downed_time_passed)
 
-func final_skill_cooldown()->float:
+func final_skill_cooldown(agi_acm:float=stats.agility)->float:
 	var cooldown:float = base.skill_cooldown;
-	var agi_acm:float = stats.agility;
-	
+
 	while agi_acm > 5:
 		cooldown -= cooldown/20;
 		agi_acm -= 5;

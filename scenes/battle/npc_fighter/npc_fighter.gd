@@ -6,7 +6,7 @@ signal target_changed;
 signal skill_used;
 signal skill_hit(target_hit:ActiveFighter);
 
-@export var unit:FighterUnit;
+var unit:FighterUnit;
 @export var hit_scan:Area2D;
 
 @export var cooldown_timer:Timer;
@@ -17,6 +17,7 @@ signal skill_hit(target_hit:ActiveFighter);
 
 @export var stunnable_timers:Node;
 
+@export var overlay:Control;
 
 
 var current_animation:String = "idle";
@@ -26,6 +27,13 @@ var target_in_range:bool = false;
 
 ## for the skill_hit signal to not repeat itself
 var hit_targets:Array[ActiveFighter]
+
+## cooldown that gets checked when the cooldown timer is changed 
+## and is playing on a different wait time
+var true_cooldown:float;
+
+func _ready() -> void:
+	$npc_timers/find_target.start()
 
 func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	in_player_team = in_player_party;
@@ -71,22 +79,21 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	technique = unit.stats.technique
 	move_speed = unit.stats.move_speed
 	
-	var cooldown:float = unit.final_skill_cooldown()
-	cooldown_timer.wait_time = cooldown
+	true_cooldown = unit.final_skill_cooldown()
+	cooldown_timer.wait_time = true_cooldown
 	
-	if "skill_windup" in base and not in_player_party:
+	if "skill_windup" in base:
 			
-		skill_windup_timer.wait_time = cooldown - cooldown/3;
+		skill_windup_timer.wait_time = true_cooldown -true_cooldown/3;
 		skill_windup_timer.autostart = true
 		
 	if "skill_projection" in base:
 		if base.skill_projection == "basic_aoe":
 			skill_used.connect($hit_scan/shape.hide);
-		$hit_scan/shape.set_shape_fn(base.skill_projection)
+		$hit_scan/shape.set_shape_fn(base.skill_projection, in_player_party)
 	
 	if "special_setup" in base:
 		base.special_setup();
-
 
 
 func find_target()->void:
@@ -225,3 +232,39 @@ func next_frame() -> void:
 		"skill":
 			## runs AFTER the skill animation frame
 			set_current_animation("idle", true);
+
+
+func _on_stat_changed(stat:String)->void:
+	match stat:
+		"agility":
+			var previous_wait_time = true_cooldown;
+			true_cooldown = unit.final_skill_cooldown(agility)
+			
+			var advance = previous_wait_time - true_cooldown + (cooldown_timer.wait_time - cooldown_timer.time_left);
+			var redone_time_left = cooldown_timer.wait_time - advance;
+
+			cooldown_timer.start(redone_time_left)
+			if "skill_windup" in base:
+				skill_windup_timer.wait_time = cooldown_timer.wait_time - cooldown_timer.wait_time/3
+				
+				skill_windup_timer.start()
+			
+			if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
+				cooldown_timer.timeout.disconnect(correct_cooldown_timer);
+				
+			
+			cooldown_timer.timeout.connect(correct_cooldown_timer)
+			
+func correct_cooldown_timer()->void:
+	cooldown_timer.wait_time = true_cooldown;
+	if "skill_windup" in base:
+		skill_windup_timer.wait_time = true_cooldown -true_cooldown/3;
+		skill_windup_timer.start()
+		
+	cooldown_timer.start()
+	overlay.refresh_charge_bar_max();
+
+
+func _on_death(_killer: ActiveFighter) -> void:
+	ally_team.units.erase(self);
+	base.fighter_died()

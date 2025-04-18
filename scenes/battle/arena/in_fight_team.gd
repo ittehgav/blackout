@@ -2,21 +2,24 @@ extends Node2D
 
 class_name Team;
 
-@export var team_n:int;
+signal all_units_loaded
 
+
+@export var team_n:int;
+@export var enemy_team:Team;
+
+var initial_party_size:int
 var leader_fighter:ActiveFighter
 var leader:Leader;
 
 var units:Array[Node];
 
-func refresh_units()->void:
-	## buffers the children so get_children doesn't get called several times in a single process frame at times
-	units = get_children();
 
-func on_unit_death(_killer:ActiveFighter, unit:ActiveFighter)->void:
-	if unit.is_inside_tree():
-		await unit.tree_exited;
-		refresh_units();
-	else:
-		refresh_units()
-	
+func _on_child_entered_tree(unit: Node) -> void:
+	assert(unit is ActiveFighter)
+
+	units.append(unit)
+	unit.ally_team = self;
+	unit.enemy_team = enemy_team;
+	if len(units) == initial_party_size:
+		all_units_loaded.emit();

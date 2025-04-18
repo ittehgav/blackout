@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbetfnnc4fgpt"]
+
+[ext_resource type="Script" uid="uid://qs032dngx00m" path="res://scenes/indexes/items/weapons/kinematic_staff.gd" id="1_3t42n"]
+[ext_resource type="Texture2D" uid="uid://dobgwmsoypoak" path="res://assets/visual/sprites/weapons/kinematic_staff.png" id="1_uwo7j"]
+[ext_resource type="Texture2D" uid="uid://moyqlxg84rgu" path="res://assets/visual/particles/circle.png" id="3_3eo2q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ny1qo"]
+radius = 300.0
+
+[node name="Kinematic Staff" type="Sprite2D" node_paths=PackedStringArray("area", "progress_bar")]
+position = Vector2(27, 0)
+texture = ExtResource("1_uwo7j")
+script = ExtResource("1_3t42n")
+area = NodePath("area")
+progress_bar = NodePath("projection")
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area"]
+shape = SubResource("CircleShape2D_ny1qo")
+
+[node name="projection" type="TextureProgressBar" parent="."]
+custom_minimum_size = Vector2(480, 480)
+offset_left = -240.0
+offset_top = -240.0
+offset_right = 240.0
+offset_bottom = 240.0
+step = 0.1
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("3_3eo2q")
+texture_progress = ExtResource("3_3eo2q")
+tint_under = Color(0.19, 0.19, 0.19, 0.0980392)
+tint_progress = Color(0.38, 0.1862, 0.1862, 0.513726)
+
+[connection signal="equipped" from="." to="." method="_on_equipped"]
+[connection signal="unequipped" from="." to="." method="_on_unequipped"]
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]
+[connection signal="body_exited" from="area" to="." method="_on_area_body_exited"]

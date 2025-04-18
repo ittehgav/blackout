@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cqyc1v8qqn3xv"]
+[gd_scene load_steps=9 format=3 uid="uid://cqyc1v8qqn3xv"]
 
 [ext_resource type="Script" uid="uid://c4syomk56oshh" path="res://scenes/map/ui/pre_battle/pre_battle.gd" id="1_eegxm"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_1h2ec"]
-[ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_6f1ys"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="3_t1aoh"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_4jo73"]
 [ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="5_6f1ys"]
@@ -30,7 +29,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eegxm")
-arena_scene = ExtResource("2_6f1ys")
 player_name_label = NodePath("container/player_panel/VBoxContainer/player_name")
 enemy_name_label = NodePath("container/enemy_panel/VBoxContainer/opponent_name")
 enemy_party_count_label = NodePath("container/enemy_panel/VBoxContainer/HBoxContainer/party_count")
@@ -72,9 +70,6 @@ grow_vertical = 0
 [node name="body" parent="container/player_panel/player_avatar" instance=ExtResource("3_t1aoh")]
 material = SubResource("ShaderMaterial_6f1ys")
 scale = Vector2(6, 6)
-
-[node name="animation_ticker" parent="container/player_panel/player_avatar/body" index="0"]
-autostart = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="container/player_panel"]
 layout_mode = 0

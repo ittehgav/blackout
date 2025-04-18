@@ -19,8 +19,8 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 	if duration:
 		var timer:Timer = Timer.new();
 		timer.wait_time = duration;
-		target.timers.add_child(timer);
 		timer.timeout.connect(remove_status.bind(target, type, data, timer))
+		target.timers.add_child(timer)
 		timer.start()
 		
 	target.status_applied.emit(source, status_data)
@@ -29,7 +29,6 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 
 func remove_status(target:ActiveFighter, status_type:String, status_data:Dictionary, timer:Timer)->void:
 	timer.queue_free();
-	
 	match status_type:
 		"stun":
 			target.stun_stack -= 1;
@@ -44,4 +43,4 @@ func remove_stun(target:ActiveFighter)->void:
 	target.stunned = false;
 	target.set_physics_process(true);
 	if target is NpcFighter:
-		target.stunnable_timers.set_process(PROCESS_MODE_PAUSABLE)
+		target.stunnable_timers.set_process_mode(PROCESS_MODE_INHERIT)

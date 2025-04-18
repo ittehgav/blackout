@@ -118,6 +118,7 @@ func _on_settlement_left() -> void:
 	Entities.world_map.ui.self_modulate.a = 1
 	Entities.main_bgm.play_bgm("in_map")
 	Entities.world_map.unpause_map();
+	breakpoint
 
 
 func _on_trade_menu_trade_completed() -> void:

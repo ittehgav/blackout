@@ -27,8 +27,7 @@ func load_fighter()->void:
 	max_hp = stats.max_hp;
 	hp = stats.max_hp;
 	
-	## player's combat stats will be more tied to equipment?
-	attack = stats.attack
+	attack = Entities.player.equipped_weapon.damage;
 	defense = stats.defense
 	
 	technique = stats.technique

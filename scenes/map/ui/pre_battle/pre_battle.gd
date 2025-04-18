@@ -5,8 +5,6 @@ signal pre_battle_started;
 var to_fight:Leader;
 
 @export_group("visual elements")
-@export var arena_scene:PackedScene;
-
 @export var player_name_label:Label;
 @export var enemy_name_label:Label;
 
@@ -64,10 +62,9 @@ func _on_animation_ticker_timeout() -> void:
 
 
 func _on_start_battle_pressed() -> void:
-	var arena:Arena = arena_scene.instantiate();
+	var arena:Arena = Index.arena_scene.instantiate();
 	arena.start_battle(to_fight)
 	slide_out()
-	Entities.main.add_child(arena)
 
 
 func slide_in()->void:

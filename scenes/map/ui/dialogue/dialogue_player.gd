@@ -16,6 +16,7 @@ signal dialogue_ended;
 
 @export_group("Elements")
 @export var speaking_party_avatar:Control;
+@export var blip:AudioStreamPlayer;
 
 var current_speaking_sprite:Sprite2D;
 @export var player_sprite:Sprite2D
@@ -134,8 +135,11 @@ func expose_avatar(target:Sprite2D)->void:
 
 func type_out_text()->void:
 	text_label.visible_ratio = 0;
+	blip.play()
 	var tween:Tween = create_tween();
 	tween.tween_property(text_label, "visible_ratio", 1, len(text_label.text) * .025)
+	tween.tween_interval(.2)
+	tween.finished.connect(blip.stop)
 	
 func get_next_line()->void:
 	current_line = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
@@ -180,7 +184,6 @@ func parse_dialogue_text(text:String)->String:
 	if "#yield" in final_text:
 		final_text = final_text.replace("#yield", "[color=dark_red]Lose half of all your resources.");
 	
-	
 	return final_text
 	
 func roll_intimidate_odds()->String:
@@ -203,3 +206,9 @@ func _on_animation_ticker_timeout() -> void:
 		current_speaking_sprite.frame = 0;
 	else:
 		current_speaking_sprite.frame = 1;
+
+
+
+
+func _on_speech_blip_finished() -> void:
+	blip.play();

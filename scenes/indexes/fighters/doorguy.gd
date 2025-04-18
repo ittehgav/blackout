@@ -11,7 +11,7 @@ const sample_offset = Vector2(25, -26)
 const target_type = "nearest_enemy"
 
 const skill_name = "Buckle up"
-var description:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields self, becoming progressively more resistant."
+var description:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields self, becoming progressively more resistant."
 const flavor = "Doesn't get paid enough to hit people back with the doors."
 
 const tags = [
@@ -21,12 +21,12 @@ const tags = [
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
-	var technique_str:String = Meta.get_technique_scaled_string(unit);
-	var base_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
-	var final_value_str:String = Meta.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
+	var technique_str:String = Index.get_technique_scaled_string(unit);
+	var base_value_str:String = Index.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
+	var final_value_str:String = Index.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
 	
-	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields himself, gaining " + final_value_str + " (" + base_value_str + " * " + technique_str\
-	 + ")"+Meta.get_color_tag("defense") + " defense [/color] until the end of battle.";
+	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields himself, gaining " + final_value_str + " (" + base_value_str + " * " + technique_str\
+	 + ")"+Index.get_color_tag("defense") + " defense [/color] until the end of battle.";
 	return string
 
 const hitbox_radius = 35;

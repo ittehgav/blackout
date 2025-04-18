@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cfcwk4iqi2xuu"
+path="res://.godot/imported/JDSherbert - Ultimate UI SFX Pack - Error - 1.ogg-750ba1189e6192d7c11ac244807d4cf9.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sound/sfx/ui/unedited/JDSherbert - Ultimate UI SFX Pack - Error - 1.ogg"
+dest_files=["res://.godot/imported/JDSherbert - Ultimate UI SFX Pack - Error - 1.ogg-750ba1189e6192d7c11ac244807d4cf9.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

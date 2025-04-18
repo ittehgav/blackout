@@ -31,7 +31,8 @@ func aoe_highlight(cycle_time:float=.5,accelerate:bool=false)->void:
 		cycle_time *= 1.1;
 	tween.tween_callback(aoe_highlight.bind(cycle_time, accelerate))
 
-func set_shape_fn(key:String="basic_aoe")->void:
+func set_shape_fn(key:String="basic_aoe", in_player_party:bool=true)->void:
+	## TODO make this turn green when the unit is in the player's party
 	shape_fn = self[key];
 
 

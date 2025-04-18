@@ -5,12 +5,12 @@ extends Node
 ## (unless it ends up becoming massive?)
 
 func color_code_player(character:FighterBase)->void:
-	var scheme:Array = Index.color_schemes[Entities.player.color_scheme_index]
+	var scheme:Array = Index.color_schemes[Entities.player.color_scheme_index];	
 	var base_color:Color = scheme[0]
 	var off_color:Color = scheme[1];
 	
 	var dict:={
-		Color.GREEN: base_color,
+		Color.GREEN: base_color,	
 		Color.BLUE: base_color.darkened(.5),
 		Color.YELLOW: off_color,
 		Color.RED: off_color.darkened(.5)
@@ -63,11 +63,11 @@ func color_code_settlement(settlement:Settlement)->void:
 	var base_color:Color;
 	
 	if settlement is Factory:
-		base_color = Meta.resource_colors["chips"]
+		base_color = Index.resource_colors["chips"]
 	elif settlement is Farm:
-		base_color = Meta.resource_colors["food"];
+		base_color = Index.resource_colors["food"];
 	elif settlement is Scrapyard:
-		base_color = Meta.resource_colors["fuel"].lightened(.3)
+		base_color = Index.resource_colors["fuel"].lightened(.3)
 	elif settlement is Stadium:
 		base_color = Color.GOLD;
 	base_color = base_color.darkened(.5)

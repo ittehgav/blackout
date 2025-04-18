@@ -23,8 +23,8 @@ const tags = [
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str:String = Meta.get_unit_damage_string(unit);
-	var technique_str:String = Meta.get_technique_scaled_string(unit, "", 0,.05, "x")
+	var damage_str:String = Index.get_unit_damage_string(unit);
+	var technique_str:String = Index.get_technique_scaled_string(unit, "", 0,.05, "x")
 	
 	
 	var string:String="[color=yellow]Magnetizes[/color] the nearest enemy that's not [color=yellow]magnetized[/color], then deals " +\
@@ -65,9 +65,9 @@ func special_skill()->void:
 			Combat.deal_damage(fighter, unit, target_count_amplifier);
 	
 	if len(tagged_targets) > 1:
-		fighter.npc_sfx.play_sfx("lightning_big");
+		fighter.npc_sfx.play_sound_by_key("lightning_big");
 	else:
-		fighter.npc_sfx.play_sfx("lightning_small")
+		fighter.npc_sfx.play_sound_by_key("lightning_small")
 
 
 func target_count_amplifier(damage:float)->float:

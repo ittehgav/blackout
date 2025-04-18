@@ -22,7 +22,6 @@ var juice_trade:int=0;
 var scrap_trade:int=0;
 var chips_trade:int=0;
 
-const all_trade_resources = ["food", "fuel", "juice", "scrap", "chips"];
 
 @export_subgroup("middle panel elements")
 @export var relation_progress_current:ProgressBar;
@@ -87,7 +86,7 @@ func open()->void:
 	relation_progress_current.value = settlement.relation_progress
 	relation_progress_gain.value = settlement.relation_progress
 	
-	for r:String in all_trade_resources:
+	for r:String in Index.all_resources:
 		self[r + "_trade"] = 0;
 	
 	slide_in();
@@ -107,7 +106,7 @@ func slide_in()->void:
 	
 
 func clear_trade_overflows()->void:
-	for r:String in all_trade_resources:
+	for r:String in Index.all_resources:
 		var traded:float = self[r+"_trade"];
 		var min_amt:float = Entities.player.inventory[r] * -1
 		var max_amt:float = Entities.current_settlement.inventory[r];
@@ -134,7 +133,7 @@ func update_values()->void:
 	reset_btn.hide()
 	player_money.modulate = Color.WHITE;
 	settlement_money.modulate = Color.WHITE;
-	for resource:String in all_trade_resources:
+	for resource:String in Index.all_resources:
 		self[resource + "_selling_price"].text = str( settlement.resource_prices[resource]/2); 
 		self[resource + "_buying_price"].text = str( settlement.resource_prices[resource]*2); 
 		
@@ -217,14 +216,14 @@ func update_values()->void:
 
 
 func reset_trade() -> void:
-	for r:String in all_trade_resources:
+	for r:String in Index.all_resources:
 		self[r + "_trade"] = 0;
 	update_values()
 	
 
 
 func _on_confirm_trade_pressed() -> void:
-	for r:String in ["food", "fuel", "money", "juice", "scrap", "chips"]:
+	for r:String in Index.all_:
 		var trade:float = self[r+"_trade"];
 		Entities.player.inventory[r] += trade;
 		settlement.inventory[r] -= trade

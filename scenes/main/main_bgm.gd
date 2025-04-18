@@ -6,6 +6,9 @@ extends AudioStreamPlayer
 @export var intro:AudioStream;
 @export var dialogue:AudioStream;
 
+@export var victory:AudioStream;
+@export var defeat:AudioStream;
+
 func _ready()->void:
 	Entities.main_bgm = self;
 	play_bgm("intro")
@@ -16,8 +19,9 @@ func play_bgm(key:String)->void:
 	
 	if stream == in_map:
 		pitch_scale = Entities.world_map.get_hour_pitch()
-	#play();
+	play();
 
 
 func _on_finished() -> void:
-	play()
+	if stream not in [victory, defeat]:
+		play()

@@ -2,27 +2,17 @@ extends Node2D
 
 class_name Arena;
 
-@export var npc_fighter_scene:PackedScene;
 @export var overlay:Control;
 @export var kill_feed:Control;
 
 @export var team_1:Team;
 @export var team_2:Team;
+@export var projectiles:Node2D;
 
+@export var tide_bar:TextureProgressBar;
 
-## TODO: TIDE OF BATTLE
-## battles end not necessarily by one party being wiped out but the tide meter
-## going all the way to one side, usually when a party is getting really 
-## tactic mechanics will be intertwined with this probably?
-
-## SIMPLE VERSION THAT GOES INTO THE BETA:
-## tide of battle is one team's combined HP vs the other's(?)
-## battle ends when one partys has about 5x more combined HP
-## or when either party has no more means to deal damage
-
-## when the tide is too one-sided, parties may desert or the leader may take the decision to flee
-## the player's party will also flee if the tide of battle is too bad
-
+var battle_exp_value:float=0;
+var battle_loot:Inventory;
 
 
 func start_battle(enemy_leader:Leader)->void:
@@ -35,31 +25,44 @@ func start_battle(enemy_leader:Leader)->void:
 		Entities.in_map_player.camera.enabled = false
 		Entities.world_map.set_process_mode(Node.PROCESS_MODE_DISABLED);
 		Entities.world_map.hide();
-		Entities.main.add_child(self)
+	Entities.main.add_child(self)
 	
+
+	generate_battle_reward(enemy_leader);
 	
+func generate_battle_reward(enemy_leader:Leader):
+	for unit:ActiveFighter in team_2.units:
+		print("t2u?")
+		battle_exp_value += unit.unit.level;
+	
+	battle_loot = enemy_leader.inventory
+		
+
 
 func load_teams(enemy_leader:Leader)->void:
 	## happens before ready?
+	team_1.initial_party_size = len(Entities.player.roster.units) + 1;
+	
 	Entities.player.load_party(team_1, 1);
-	team_1.refresh_units();
 	team_1.leader_fighter = Entities.in_fight_player;
 	team_1.leader = Entities.player
-	## will leaders be part of the roster?
 	
-	enemy_leader.load_party(team_2, false);
-	
-	var leader_unit:NpcFighter = npc_fighter_scene.instantiate();
+
+	team_2.initial_party_size = len(enemy_leader.roster.units) + 1
+	enemy_leader.load_party(team_2, 2);
+
+	var leader_unit:NpcFighter = Index.npc_fighter_scene.instantiate();
 	leader_unit.load_fighter(enemy_leader.unit, 2)
 	team_2.leader_fighter = leader_unit
 	team_2.leader = enemy_leader;
+	tide_bar.team_2_unit_values[team_2.leader_fighter] = enemy_leader.unit.level;
+
 	team_2.add_child(leader_unit)
 
-	
-	team_2.refresh_units();
-	
-	leader_unit.position = Vector2(450, 50)
 
+	leader_unit.position = Vector2(450, 50)
+	await team_1.all_units_loaded
+	await team_2.all_units_loaded
 	match_teams(enemy_leader)
 
 func match_teams(enemy_leader:Leader)->void:
@@ -73,22 +76,14 @@ func player_died()->void:
 	battle_over(2);
 
 func battle_over(winner:int)->void:
-	get_tree().paused = true;
 	overlay.post_fight.show_post_fight(winner)
 	
 func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
 	var enemy_team_n:int = 2 if team_n == 1 else 1;
-	
+
 	unit.set_collision_layer_value(team_n, true);
 	unit.set_collision_mask_value(enemy_team_n, true)
 
-	if team_n == 1:
-		unit.ally_team = team_1;
-		unit.enemy_team = team_2
-	else:
-		unit.ally_team = team_2;
-		unit.enemy_team = team_1;
-		
 	if not unit is InFightPlayer:
 		ColorCoder.color_code_fighter(unit.base, leader.color_scheme_index);
 		
@@ -96,6 +91,7 @@ func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
 		## break this down into enemy/ally targets:?
 		match unit.base.target_type:
 			"nearest_enemy":
+
 				skill_range.set_collision_mask_value(enemy_team_n, true);
 				
 				var hit_scan:Node = unit.get_node_or_null("hit_scan");
@@ -112,9 +108,8 @@ func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
 		var hit_scan:Node = unit.get_node_or_null("hit_scan");
 		if hit_scan:
 			hit_scan.set_collision_mask_value(enemy_team_n, true)
-	
-	unit.death.connect(unit.ally_team.on_unit_death.bind(unit))
-	unit.death.connect(overlay.tide_bar.refresh_tide_value.bind(unit))
+
+	unit.death.connect(overlay.tide_bar.on_unit_death.bind(unit))
 	unit.death.connect(kill_feed.unit_died.bind(unit))
 
 func _process(_delta:float)->void:

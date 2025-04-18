@@ -1,37 +1,24 @@
-[gd_scene load_steps=26 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=23 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/npc_fighter/npc_fighter.gd" id="1_bgds5"]
-[ext_resource type="Script" uid="uid://r5su55c7yqu4" path="res://scenes/battle/active_fighter/hit_scan.gd" id="2_8jf47"]
+[ext_resource type="Script" uid="uid://r5su55c7yqu4" path="res://assets/visual/sprites/projectiles/active_fighter/hit_scan.gd" id="2_8jf47"]
 [ext_resource type="Script" uid="uid://kommjx3tflp1" path="res://scenes/battle/npc_fighter/vfx_control.gd" id="3_b68jh"]
-[ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://scenes/battle/active_fighter/fighter_timers.tscn" id="3_qq6tp"]
+[ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://assets/visual/sprites/projectiles/active_fighter/fighter_timers.tscn" id="3_qq6tp"]
 [ext_resource type="Script" uid="uid://47lks7vsfn5k" path="res://scenes/battle/npc_fighter/sfx.gd" id="5_8vs8j"]
-[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/combat/generic/swing.wav" id="6_7heog"]
-[ext_resource type="AudioStream" uid="uid://ci73y0y2n56qe" path="res://assets/sound/combat/ally_death.ogg" id="6_xquvl"]
-[ext_resource type="AudioStream" uid="uid://dgx7krdtsjf0f" path="res://assets/sound/combat/enemy_death.ogg" id="7_4e07g"]
-[ext_resource type="AudioStream" uid="uid://c0xyiomr261fb" path="res://assets/sound/combat/special/lightning_light.wav" id="7_ij1yk"]
-[ext_resource type="AudioStream" uid="uid://c82vpb256ryq1" path="res://assets/sound/combat/generic/defense_up.mp3" id="8_88til"]
-[ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/combat/generic/shoot.ogg" id="8_dd3dq"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="9_2igk4"]
-[ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/combat/generic/heal.wav" id="9_88til"]
-[ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/combat/special/gravity.ogg" id="9_dd3dq"]
-[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/ui_sfx/swing_hit.ogg" id="10_aigv4"]
-[ext_resource type="AudioStream" uid="uid://bytgnuo5pfxd" path="res://assets/sound/combat/special/accelerate.wav" id="10_nnlry"]
-[ext_resource type="AudioStream" uid="uid://cdww8uxgqysc6" path="res://assets/sound/combat/generic/slam.ogg" id="12_88til"]
+[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/swing.wav" id="6_v4rci"]
+[ext_resource type="AudioStream" uid="uid://c0xyiomr261fb" path="res://assets/sound/sfx/combat/special/lightning_light.wav" id="7_nct2u"]
+[ext_resource type="AudioStream" uid="uid://cme1mcex521ov" path="res://assets/sound/sfx/combat/special/lightning_heavy.wav" id="8_210o4"]
+[ext_resource type="AudioStream" uid="uid://c82vpb256ryq1" path="res://assets/sound/sfx/combat/generic/defense_up.mp3" id="9_r6yuq"]
+[ext_resource type="AudioStream" uid="uid://bytgnuo5pfxd" path="res://assets/sound/sfx/combat/special/accelerate.wav" id="10_eg31j"]
+[ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="11_ul33s"]
+[ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/sfx/combat/special/gravity.ogg" id="12_drybb"]
+[ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/sfx/combat/generic/heal.wav" id="13_2v0yn"]
+[ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="15_arr5u"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/ui/swing_hit.ogg" id="15_urubw"]
+[ext_resource type="AudioStream" uid="uid://cdww8uxgqysc6" path="res://assets/sound/sfx/combat/generic/slam.ogg" id="16_a37hj"]
 [ext_resource type="Script" uid="uid://c4mwiiy5huocg" path="res://scenes/battle/npc_fighter/shape.gd" id="17_nnlry"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
-[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="18_nnlry"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4e07g"]
-shader = ExtResource("9_2igk4")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g13ct"]
 resource_local_to_scene = true
@@ -44,8 +31,7 @@ height = 100.0
 resource_local_to_scene = true
 radius = 200.0
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "skill_windup_timer", "animation_timer", "stunnable_timers", "timers", "npc_sfx")]
-material = SubResource("ShaderMaterial_4e07g")
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "skill_windup_timer", "animation_timer", "stunnable_timers", "overlay", "timers", "npc_sfx")]
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
@@ -56,6 +42,7 @@ skill_retry_timer = NodePath("fighter_timers/stunnable/skill_cooldown/skill_retr
 skill_windup_timer = NodePath("fighter_timers/stunnable/skill_cooldown/windup_timer")
 animation_timer = NodePath("npc_timers/animation_timer")
 stunnable_timers = NodePath("fighter_timers/stunnable")
+overlay = NodePath("FighterOverlay")
 timers = NodePath("fighter_timers")
 npc_sfx = NodePath("sfx")
 
@@ -64,22 +51,21 @@ script = ExtResource("3_b68jh")
 unit = NodePath("..")
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
+volume_db = -5.0
 max_distance = 500.0
 script = ExtResource("5_8vs8j")
-ally_death = ExtResource("6_xquvl")
-enemy_death = ExtResource("7_4e07g")
-swing = ExtResource("6_7heog")
-lightning_small = ExtResource("7_ij1yk")
-lightning_big = ExtResource("7_ij1yk")
-defense_up = ExtResource("8_88til")
-engine = ExtResource("10_nnlry")
-shoot = ExtResource("8_dd3dq")
-gravity = ExtResource("9_dd3dq")
-heal = ExtResource("9_88til")
-projectile_hit = ExtResource("10_aigv4")
-metal = ExtResource("10_aigv4")
-small_hit = ExtResource("10_aigv4")
-slam = ExtResource("12_88til")
+swing = ExtResource("6_v4rci")
+lightning_small = ExtResource("7_nct2u")
+lightning_big = ExtResource("8_210o4")
+defense_up = ExtResource("9_r6yuq")
+engine = ExtResource("10_eg31j")
+shoot = ExtResource("11_ul33s")
+gravity = ExtResource("12_drybb")
+heal = ExtResource("13_2v0yn")
+projectile_hit = ExtResource("15_urubw")
+metal = ExtResource("15_arr5u")
+small_hit = ExtResource("15_urubw")
+slam = ExtResource("16_a37hj")
 
 [node name="fighter_timers" parent="." instance=ExtResource("3_qq6tp")]
 
@@ -103,13 +89,13 @@ autostart = true
 
 [node name="find_target" type="Timer" parent="npc_timers"]
 wait_time = 0.2
-autostart = true
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(5, 0)
 shape = SubResource("CapsuleShape2D_g13ct")
 
 [node name="hit_scan" type="Area2D" parent="." node_paths=PackedStringArray("fighter")]
+collision_mask = 0
 monitorable = false
 script = ExtResource("2_8jf47")
 fighter = NodePath("..")
@@ -129,6 +115,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_mp8l8")
 
 [node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("hp_bar", "hp_bar_trail", "charge_bar", "floating_icon_anchor", "cooldown_timer", "unit")]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -147,7 +134,6 @@ charge_bar = NodePath("VBoxContainer/charge_bar")
 floating_icon_anchor = NodePath("floating_icon_anchor")
 cooldown_timer = NodePath("../fighter_timers/stunnable/skill_cooldown")
 unit = NodePath("..")
-stat_icon_scene = ExtResource("18_nnlry")
 
 [node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
 position = Vector2(48, 43)
@@ -204,9 +190,12 @@ autostart = true
 
 [connection signal="damage_taken" from="." to="vfx_control" method="_on_npc_fighter_damage_taken"]
 [connection signal="damage_taken" from="." to="FighterOverlay" method="_on_fighter_damage_taken"]
-[connection signal="death" from="." to="sfx" method="_on_death"]
+[connection signal="death" from="." to="." method="_on_death"]
 [connection signal="healing_received" from="." to="vfx_control" method="_on_npc_fighter_healing_received"]
+[connection signal="healing_received" from="." to="FighterOverlay" method="_on_npc_fighter_healing_received"]
 [connection signal="skill_used" from="." to="hit_scan/shape" method="_on_npc_fighter_skill_used"]
+[connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
+[connection signal="stat_changed" from="." to="FighterOverlay" method="refresh_charge_bar_max"]
 [connection signal="status_applied" from="." to="vfx_control" method="_on_npc_fighter_status_applied"]
 [connection signal="status_removed" from="." to="vfx_control" method="_on_npc_fighter_status_removed"]
 [connection signal="timeout" from="fighter_timers/stunnable/skill_cooldown" to="." method="skill_cooldown"]

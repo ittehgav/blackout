@@ -1,7 +1,5 @@
 extends Panel
 
-@export var item_icon_scene:PackedScene;
-
 @export var bg:ColorRect;
 @export var item_message:Label;
 
@@ -9,7 +7,7 @@ var current_icon:ItemIcon;
 
 func use_animation(item:Item)->void:
 	## PLAY SOME DOPAMINEY SOUND
-	var icon:ItemIcon = item_icon_scene.instantiate();
+	var icon:ItemIcon = Index.item_icon_scene.instantiate();
 	icon.tooltip.queue_free();
 	icon.get_node("panel").hide()
 	icon.item = item;

@@ -1,0 +1,351 @@
+[gd_scene load_steps=14 format=3 uid="uid://b8j8soyx2828m"]
+
+[ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/ui/post_fight.gd" id="1_y6eix"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar.tscn" id="2_d4n4j"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="3_phmvj"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="4_i6t2x"]
+[ext_resource type="Script" uid="uid://cvmix0mytsurc" path="res://scenes/battle/ui/recruit_gains.gd" id="5_q5ipi"]
+[ext_resource type="Script" uid="uid://d2coujeg1x0q0" path="res://scenes/battle/ui/recruit_post_fight.gd" id="6_r8bdk"]
+[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="7_qlhvx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y14ek"]
+resource_local_to_scene = true
+shader = ExtResource("4_i6t2x")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_phmvj"]
+resource_local_to_scene = true
+shader = ExtResource("4_i6t2x")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i6t2x"]
+resource_local_to_scene = true
+shader = ExtResource("4_i6t2x")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5ipi"]
+resource_local_to_scene = true
+shader = ExtResource("4_i6t2x")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r8bdk"]
+resource_local_to_scene = true
+shader = ExtResource("4_i6t2x")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qlhvx"]
+resource_local_to_scene = true
+shader = ExtResource("4_i6t2x")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="post_fight" type="Control" node_paths=PackedStringArray("leadership_exp_progress", "combat_exp_progress", "victory_label", "player_gains_panel", "recruit_gains_panel", "exp_gain_container", "leadership_container", "combat_container", "loot_container", "resource_loot_container", "item_loot_container", "food_icon", "fuel_icon", "money_icon", "juice_icon", "scrap_icon", "chips_icon")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y6eix")
+leadership_exp_progress = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container/leadership_container/leadership_exp")
+combat_exp_progress = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container/combat_container/combat_exp")
+victory_label = NodePath("victory_view/HBoxContainer/player_gains/Label")
+player_gains_panel = NodePath("victory_view/HBoxContainer/player_gains")
+recruit_gains_panel = NodePath("victory_view/HBoxContainer/recruit_gains")
+exp_gain_container = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container")
+leadership_container = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container/leadership_container")
+combat_container = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container/combat_container")
+loot_container = NodePath("victory_view/HBoxContainer/player_gains/loot_container")
+resource_loot_container = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container")
+item_loot_container = NodePath("victory_view/HBoxContainer/player_gains/loot_container/item_loot_container")
+food_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer/resource_icon")
+fuel_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer2/resource_icon")
+money_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer/resource_icon")
+juice_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer2/resource_icon")
+scrap_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer/resource_icon")
+chips_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer2/resource_icon")
+
+[node name="bg" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.737255)
+
+[node name="victory_view" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -250.0
+offset_right = 6380.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 5000
+
+[node name="player_gains" type="Panel" parent="victory_view/HBoxContainer"]
+custom_minimum_size = Vector2(950, 500)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains"]
+layout_mode = 1
+offset_left = 62.0
+offset_top = 26.0
+offset_right = 366.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 128
+text = "Victory!"
+
+[node name="exp_gain_container" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains"]
+layout_mode = 1
+offset_left = 2755.0
+offset_top = 159.0
+offset_right = 3155.0
+offset_bottom = 1259.0
+theme_override_constants/separation = 1000
+
+[node name="leadership_container" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains/exp_gain_container"]
+layout_mode = 2
+
+[node name="leadership_exp_label" type="Label" parent="victory_view/HBoxContainer/player_gains/exp_gain_container/leadership_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Leadership EXP:"
+
+[node name="leadership_exp" parent="victory_view/HBoxContainer/player_gains/exp_gain_container/leadership_container" instance=ExtResource("2_d4n4j")]
+layout_mode = 2
+
+[node name="combat_container" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains/exp_gain_container"]
+layout_mode = 2
+
+[node name="combat_exp_label" type="Label" parent="victory_view/HBoxContainer/player_gains/exp_gain_container/combat_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Combat EXP:"
+
+[node name="combat_exp" parent="victory_view/HBoxContainer/player_gains/exp_gain_container/combat_container" instance=ExtResource("2_d4n4j")]
+layout_mode = 2
+
+[node name="loot_container" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains"]
+layout_mode = 0
+offset_left = 494.0
+offset_top = 132.0
+offset_right = 4704.0
+offset_bottom = 293.0
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains/loot_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Loot:"
+
+[node name="resource_loot_container" type="HBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container"]
+layout_mode = 2
+theme_override_constants/separation = 2000
+
+[node name="col1" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+material = SubResource("ShaderMaterial_y14ek")
+layout_mode = 2
+adjacent_items = [NodePath("../Label")]
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+material = SubResource("ShaderMaterial_phmvj")
+layout_mode = 2
+resource = "fuel"
+adjacent_items = [NodePath("../Label")]
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[node name="col2" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+material = SubResource("ShaderMaterial_i6t2x")
+layout_mode = 2
+resource = "money"
+adjacent_items = [NodePath("../Label")]
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+material = SubResource("ShaderMaterial_q5ipi")
+layout_mode = 2
+resource = "juice"
+adjacent_items = [NodePath("../Label")]
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[node name="col3" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+material = SubResource("ShaderMaterial_r8bdk")
+layout_mode = 2
+resource = "scrap"
+adjacent_items = [NodePath("../Label")]
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+material = SubResource("ShaderMaterial_qlhvx")
+layout_mode = 2
+resource = "chips"
+adjacent_items = [NodePath("../Label")]
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[node name="item_loot_container" type="GridContainer" parent="victory_view/HBoxContainer/player_gains/loot_container"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/player_gains/loot_container/item_loot_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "ITEMS COMING 
+SOON"
+
+[node name="Label2" type="Label" parent="victory_view/HBoxContainer/player_gains"]
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
+offset_left = 603.0
+offset_top = 473.0
+offset_right = 925.0
+offset_bottom = 499.0
+text = "[press any button to continue]"
+
+[node name="recruit_gains" type="Panel" parent="victory_view/HBoxContainer" node_paths=PackedStringArray("unit_display", "grid")]
+custom_minimum_size = Vector2(950, 500)
+layout_mode = 2
+script = ExtResource("5_q5ipi")
+unit_display = NodePath("GridContainer/recruit_post_fight")
+grid = NodePath("GridContainer")
+
+[node name="Label2" type="Label" parent="victory_view/HBoxContainer/recruit_gains"]
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
+offset_left = 603.0
+offset_top = 473.0
+offset_right = 925.0
+offset_bottom = 499.0
+text = "[press any button to continue]"
+
+[node name="GridContainer" type="GridContainer" parent="victory_view/HBoxContainer/recruit_gains"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 59.0
+offset_top = 33.0
+offset_right = -47.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
+
+[node name="recruit_post_fight" type="HBoxContainer" parent="victory_view/HBoxContainer/recruit_gains/GridContainer" node_paths=PackedStringArray("sample", "exp_bar")]
+visible = false
+layout_mode = 2
+script = ExtResource("6_r8bdk")
+sample = NodePath("SpriteSample")
+exp_bar = NodePath("VBoxContainer/exp_bar")
+
+[node name="SpriteSample" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight" instance=ExtResource("7_qlhvx")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer"]
+layout_mode = 2
+
+[node name="exp_bar" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer" instance=ExtResource("2_d4n4j")]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+
+[node name="defeat_view" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

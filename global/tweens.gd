@@ -24,15 +24,26 @@ func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 func arc_vfx(target:Polygon2D)->Tween:
 	var clone:Polygon2D = target.duplicate();
 	Entities.in_fight_player.hit_scan.add_child(clone)
-	clone.position = Vector2(60, -20)
 	clone.show();
 	
 	var tween:Tween = create_tween();
+	tween.tween_property(clone, "scale", Vector2(1.5, 1.5), .1);
 	tween.parallel().tween_property(clone, "modulate:a", .2, .1)
 	tween.tween_callback(clone.queue_free)
 	
 	return tween;
 	
+func gun_recoil(gun:Weapon)->Tween:
+	gun.offset =  Vector2(-30, -30);
+	gun.rotation_degrees = -30;
+	
+	const tween_duration = .25;
+	var tween: = create_tween();
+	tween.set_trans(Tween.TRANS_SPRING)
+	tween.tween_property(gun, "offset",Vector2.ZERO, tween_duration);
+	tween.parallel().tween_property(gun, "rotation_degrees", 0, tween_duration)
+	
+	return tween
 
 func stun_vfx(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.PURPLE);
@@ -58,12 +69,7 @@ func stat_debuff_vfx(target:ActiveFighter)->Tween:
 func stat_buff_vfx(target:ActiveFighter)->Tween:
 	return color_blink(target.base, Color.BLUE)
 
-func death_vfx(target:ActiveFighter)->Tween:
-	target.modulate = Color.DARK_RED;
-	
-	var tween:Tween = create_tween();
-	tween.tween_property(target, "modulate:a", 0, .5);
-	return tween;
+
 	
 func lunge_forward_tween(fighter:ActiveFighter)->Tween:
 	var gap:Vector2;
@@ -132,3 +138,9 @@ func color_blink(target:FighterBase, target_color:Color, duration:float = .3)->T
 	var tween:Tween = create_tween();
 	tween.tween_property(target.material, "shader_parameter/grad", 0.0, duration);
 	return tween;
+
+func weapon_grow(weapon:Weapon):
+	var tween = create_tween();
+	weapon.scale = Vector2(1.5, 1.5);
+	tween.tween_property(weapon, "scale", Vector2.ONE, .5);
+	

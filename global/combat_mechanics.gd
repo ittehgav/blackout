@@ -1,7 +1,13 @@
 extends Node
 
-func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=Callable())->void:
-	var damage:float = source.attack;
+func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=Callable(), hard_value:float=0)->void:
+	var damage:float
+	if not hard_value:
+		damage = source.attack;
+	else:
+		## hard value only overrides the source's attack stat, 
+		## not the modifier function that may come in
+		damage = hard_value;
 	if not modifier.is_null():
 		damage = modifier.bind(damage).call();
 	## there may be both i suppose but theres no case of that atm
@@ -14,15 +20,10 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=C
 	target.hp -= damage;
 	target.damage_taken.emit(damage)
 	if target.hp <= 0:
-		if not target is InFightPlayer:
-			target.ally_team.remove_child(target);
-			target.set_process(false);
-			var tween:Tween = Tweens.death_vfx(target);
-			tween.tween_callback(target.queue_free);
-		else:
+		target.death.emit(source);
+		if target is InFightPlayer:
 			Entities.arena.player_died()
 			
-		target.death.emit(source);
 
 func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	target.hp += value;
@@ -46,6 +47,7 @@ func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, 
 			"stat":stat,
 			"amount":value
 		}
+		target.stat_changed.emit(stat);
 		Statuses.apply_status(source, target, "stat_change", duration, status_data)
 
 
@@ -95,3 +97,16 @@ func defense_mitigation(unit:ActiveFighter)->float:
 	## mitigation = pecentage reduction to damage
 	## (only by defense stat rn)
 	return total_mitigation/100
+
+
+func turn_ellusive(unit:ActiveFighter, duration:float)->void:
+	var team_n:int;
+	if unit.get_collision_layer_value(1) == true:
+		team_n = 1;
+	else:
+		team_n = 2;
+
+	unit.set_collision_layer_value(team_n, false)
+	await get_tree().create_timer(duration).timeout;
+
+	unit.set_collision_layer_value(team_n, true)

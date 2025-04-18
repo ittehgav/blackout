@@ -21,8 +21,8 @@ const tags = [
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
-	var stun_duration_string:String = Meta.get_technique_scaled_string(unit, "status_duration");
-	var string:String = Meta.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
+	var stun_duration_string:String = Index.get_technique_scaled_string(unit, "status_duration");
+	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
 	+ stun_duration_string + " seconds.";
 	return string;
 
@@ -45,7 +45,7 @@ const secondary_stun_duration = .5;
 var hit_scan_shape:CollisionShape2D;
 
 func special_setup()->void:
-	fighter.target_changed.connect(update_hit_scan.bind(fighter));
+	fighter.target_changed.connect(update_hit_scan);
 	hit_scan_shape = fighter.get_node("hit_scan/shape")
 
 func _process(_delta:float)->void:
@@ -68,5 +68,6 @@ func special_skill()->void:
 	
 
 func update_hit_scan()->void:
-	fighter.hit_scan.get_node("shape").shape.size.y = fighter.target_unit.get_node("hitbox").shape.height
+	if fighter.target_unit:
+		fighter.hit_scan.get_node("shape").shape.size.y = fighter.target_unit.get_node("hitbox").shape.height
 	

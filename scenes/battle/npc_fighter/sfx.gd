@@ -1,10 +1,7 @@
-extends AudioStreamPlayer2D
+extends SfxPlayer2D
 
 
 @onready var fighter:ActiveFighter = get_parent()
-
-@export var ally_death:AudioStream;
-@export var enemy_death:AudioStream;
 
 @export_group("skill SFX")
 @export var swing:AudioStream;
@@ -24,22 +21,16 @@ extends AudioStreamPlayer2D
 func _ready()->void:
 	if fighter is NpcFighter:
 		for sfx:String in fighter.base.skill_use_sfx:
-			fighter.skill_used.connect(play_sfx.bind(sfx))
+			fighter.skill_used.connect(play_sound_by_key.bind(sfx))
 			
 		for sfx:String in fighter.base.skill_hit_sfx:
 			fighter.skill_hit.connect(skill_hit_sfx.bind(sfx))
 
-func play_sfx(key:String)->void:
-	stream = self[key];
-	play();
 
 
 
-func _on_death(_killer: ActiveFighter) -> void:
-	if fighter.ally_team == Entities.in_fight_player.ally_team:
-		play_sfx("ally_death");
-	else:
-		play_sfx("enemy_death");
+
 
 func skill_hit_sfx(target_hit:ActiveFighter, key:String)->void:
-	target_hit.npc_sfx.play_sfx(key)
+	if target_hit is NpcFighter:
+		target_hit.npc_sfx.play_sound_by_key(key)

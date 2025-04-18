@@ -11,4 +11,5 @@ arc = NodePath("arc")
 
 [node name="arc" type="Polygon2D" parent="."]
 visible = false
+position = Vector2(40, 0)
 polygon = PackedVector2Array(30, 0, 30, 20, 24, 39, 16, 57, 0, 74, 26, 62, 39, 45, 46, 24, 49, 0, 46, -24, 39, -45, 26, -62, 0, -74, 16, -57, 24, -39, 30, -20)

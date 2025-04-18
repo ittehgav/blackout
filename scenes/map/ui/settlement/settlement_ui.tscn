@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_c11hx"]
-[ext_resource type="AudioStream" uid="uid://tfrup27pkmxl" path="res://assets/sound/ui_sfx/trade_complete.wav" id="2_i581t"]
+[ext_resource type="AudioStream" uid="uid://tfrup27pkmxl" path="res://assets/sound/sfx/ui/trade_complete.wav" id="2_i581t"]
 [ext_resource type="Script" uid="uid://bahlds1d7kky5" path="res://scenes/map/ui/settlement/options.gd" id="3_2ay4q"]
 [ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://resources/themes/pixel_ui_theme/PixelTheme-Dark-Fade.tres" id="3_obgmr"]
 [ext_resource type="Shader" uid="uid://bg5d2crng34n6" path="res://scenes/map/ui/settlement/settlement_bg.gdshader" id="3_pm0ox"]

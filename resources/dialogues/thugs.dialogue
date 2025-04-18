@@ -11,6 +11,7 @@ Thugs: Maybe I'll let you choose which of your bones i'll break first!
 - Nevermind, I'll just kill you! #start_battle =>< common/battle
 - #roll_convince I just think nothing good will come out of us drawing our weapons, you know?  
 - #roll_intimidate What if you spare my time and i spare your life?
+- Just keep talking forever lmao => talk_things_out
 
 ~ intimidate_success
 Thugs: I-I... fine, let's get out of here, boys!

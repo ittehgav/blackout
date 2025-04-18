@@ -23,10 +23,10 @@ const tags = [
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str: = Meta.get_unit_damage_string(unit);
-	var atk_reduction_str:String =  Meta.get_technique_scaled_string(unit, "", stat_debuff_values.attack,1, "%");
+	var damage_str:String = Index.get_unit_damage_string(unit);
+	var atk_reduction_str:String =  Index.get_technique_scaled_string(unit, "", stat_debuff_values.attack,1, "%");
 	
-	var string:String = "Deals " + damage_str + " to enemies in an area and reduces their "+Meta.get_color_tag("attack") + \
+	var string:String = "Deals " + damage_str + " to enemies in an area and reduces their "+Index.get_color_tag("attack") + \
 	"attack [/color]by " + atk_reduction_str + " for the rest of the battle.";
 	string += "\n\nCan be upgraded to become extremely resistant or to deal great AOE damage."
 	return string;

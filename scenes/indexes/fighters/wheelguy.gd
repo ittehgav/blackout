@@ -23,8 +23,8 @@ const tags = [
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str:String = Meta.get_unit_damage_string(unit);
-	var acceleration:String = Meta.get_technique_scaled_string(unit, "", 10, .5, "%");
+	var damage_str:String = Index.get_unit_damage_string(unit);
+	var acceleration:String = Index.get_technique_scaled_string(unit, "", 10, .5, "%");
 	var string:String = "Spins a wheel that deals " + damage_str + " to surrounding enemies every second.\n"\
 	+ "Each additional activation makes the wheel go " + acceleration + " faster.";
 	return string
@@ -50,7 +50,7 @@ func _ready()->void:
 
 func special_skill()->void:
 	if not dmg_timer.is_stopped():
-		dmg_timer.wait_time -= (dmg_timer.wait_time/10)*(fighter.technique/2);
+		dmg_timer.wait_time -= (dmg_timer.wait_time/10.0)*(fighter.technique/2.0);
 	else:
 		dmg_timer.start();
 		fighter.get_node("hit_scan/shape").start_aoe_highlight();

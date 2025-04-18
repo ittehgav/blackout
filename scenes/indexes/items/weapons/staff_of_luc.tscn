@@ -1,8 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://gd04wp3cmysg"]
+[gd_scene load_steps=4 format=3 uid="uid://gd04wp3cmysg"]
 
 [ext_resource type="Texture2D" uid="uid://b8qimuaorji8u" path="res://assets/visual/sprites/weapons/staff_of_luc.png" id="1_cv0vf"]
 [ext_resource type="Script" uid="uid://x1khpbtlehdh" path="res://scenes/indexes/items/weapons/staff_of_luc.gd" id="1_pntea"]
+[ext_resource type="Script" uid="uid://b0p2kj2447jfq" path="res://scenes/indexes/items/weapons/node_2d.gd" id="3_daitr"]
 
-[node name="Staff of Luc" type="Sprite2D"]
+[node name="Staff of Luc" type="Sprite2D" node_paths=PackedStringArray("vfx")]
+position = Vector2(20, 0)
 texture = ExtResource("1_cv0vf")
 script = ExtResource("1_pntea")
+vfx = NodePath("vfx")
+
+[node name="vfx" type="Node2D" parent="." node_paths=PackedStringArray("weapon")]
+modulate = Color(0.117647, 0.905882, 0.117647, 0)
+script = ExtResource("3_daitr")
+weapon = NodePath("..")
+
+[connection signal="equipped" from="." to="." method="_on_equipped"]
+[connection signal="unequipped" from="." to="." method="_on_unequipped"]

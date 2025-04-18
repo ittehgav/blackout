@@ -26,7 +26,6 @@ var ongoing_anomalies:Array[TradeAnomaly];
 
 var neighbors:Array[Settlement];
 
-const resources = ["food", "fuel", "juice", "scrap", "chips"]
 
 func _ready()->void:
 	ColorCoder.color_code_settlement(self)
@@ -174,7 +173,7 @@ func refresh_inventory()->void:
 		"chips":chips_production
 	}
 	
-	for r:String in resources:
+	for r:String in Index.all_resources.filter(func(r:String):return r != "money"):
 		for anomaly:TradeAnomaly in ongoing_anomalies:
 			if anomaly.resource == r:
 				var price_shift:float = resource_prices[r] * anomaly.change

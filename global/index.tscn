@@ -1,0 +1,39 @@
+[gd_scene load_steps=19 format=3 uid="uid://bwtklnymx24l2"]
+
+[ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
+[ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
+[ext_resource type="PackedScene" uid="uid://dw4kenb3r4atf" path="res://scenes/map/world_map/world_map.tscn" id="3_crfhx"]
+[ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/indexes/parties/generic/thugs.tscn" id="4_itsve"]
+[ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/indexes/vehicles/doblo.tscn" id="5_8gn63"]
+[ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/indexes/vehicles/gol.tscn" id="6_7c6qx"]
+[ext_resource type="PackedScene" uid="uid://c83u8udv4ox01" path="res://scenes/indexes/vehicles/uno.tscn" id="7_jg6vw"]
+[ext_resource type="PackedScene" uid="uid://bl2gyiuhaw0j2" path="res://scenes/map/map_party/npc_map_party.tscn" id="8_4hk3t"]
+[ext_resource type="PackedScene" uid="uid://ocvlerfa58lv" path="res://scenes/indexes/settlements/generic/farm.tscn" id="9_7dxwq"]
+[ext_resource type="PackedScene" uid="uid://d01qvu00evo46" path="res://scenes/indexes/settlements/generic/factory.tscn" id="10_a1qp1"]
+[ext_resource type="PackedScene" uid="uid://bghgbhdlygqcs" path="res://scenes/indexes/settlements/generic/scrapyard.tscn" id="11_it271"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="12_f4hoh"]
+[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/npc_fighter/npc_fighter.tscn" id="13_hdigx"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="14_1v8gx"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="15_ak5x7"]
+[ext_resource type="PackedScene" uid="uid://dyfkqf4uf38r0" path="res://scenes/ui/icons/item_icon.tscn" id="16_31u8m"]
+[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="17_dh1jb"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="18_crfhx"]
+
+[node name="Index" type="Node"]
+script = ExtResource("1_pkksx")
+arena_scene = ExtResource("2_dh1jb")
+world_map_scene = ExtResource("3_crfhx")
+common_leader_scenes = Array[PackedScene]([ExtResource("4_itsve")])
+vehicle_scenes = Array[PackedScene]([ExtResource("5_8gn63"), ExtResource("6_7c6qx"), ExtResource("7_jg6vw")])
+npc_map_party_scene = ExtResource("8_4hk3t")
+farm_scene = ExtResource("9_7dxwq")
+factory_scene = ExtResource("10_a1qp1")
+scrapyard_scene = ExtResource("11_it271")
+fighter_unit_scene = ExtResource("12_f4hoh")
+npc_fighter_scene = ExtResource("13_hdigx")
+stat_icon_scene = ExtResource("14_1v8gx")
+resource_icon_scene = ExtResource("15_ak5x7")
+item_icon_scene = ExtResource("16_31u8m")
+sprite_sample_scene = ExtResource("17_dh1jb")
+tooltip_scene = ExtResource("18_crfhx")
+color_schemes = Array[Array]([[Color(0.196078, 0.196078, 0.588235, 1), Color(0.784314, 0.392157, 0, 1)], [Color(0.392157, 0, 0.392157, 1), Color(0, 0.784314, 0.784314, 1)], [Color(0.117647, 0.117647, 0.117647, 1), Color(0.784314, 0.196078, 0.196078, 1)], [Color(0.784314, 0.588235, 0, 1), Color(0, 0.313726, 0.588235, 1)], [Color(0.588235, 0.196078, 0.196078, 1), Color(0.392157, 0.784314, 0.392157, 1)]])

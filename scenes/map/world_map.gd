@@ -34,8 +34,7 @@ var current_minute:int=30;
 	Color.WHITE,
 	Color.WHITE,
 ]
-@export_subgroup("scenes")
-@export var arena_scene:PackedScene;
+
 
 var hour_bgm_pitches:Array[float] = [
 	.8,

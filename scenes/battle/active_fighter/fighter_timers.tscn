@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://evcwbpbqici3"]
-
-[ext_resource type="Script" uid="uid://dlftx2hw1xqbs" path="res://scenes/battle/active_fighter/fighter_timers.gd" id="1_c4ycd"]
-
-[node name="fighter_timers" type="Node"]
-script = ExtResource("1_c4ycd")

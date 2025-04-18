@@ -3,31 +3,33 @@ extends Weapon
 ## weapons can be weapons or tools with effects such as heals/buffs
 const rarity = 1;
 
+const angle_adjust = 30;
 
-const cooldown:float = .5;
 
 const type = "melee";
-const effect_range = 1;
-const damage = 50;
-
-var description:String = "Short range, quick, reliable weapon.\n\nDamage: [color=green]" + str(damage) + "[/color]\n\nCooldown: [color=green]" + str(cooldown) + "s[/color]";
+const cooldown:float = .5;
+const damage = 52220;
 
 const aoe_radius = 100;
+const hit_scan_offset = Vector2(60, 0)
 
-var swung:bool = false;
-var holder:Node2D;
+const projection = "melee_swing"
+
+const description:String = "Short range, quick, reliable weapon.";
+
+const use_vfx = ["swing", "arc", "camera_lunge"];
+const hit_vfx = ["freeze_camera"];
 
 const use_sfx = "swing"
 const hit_sfx = "swing_hit"
 
+
+var swung:bool = false;
+
 @export var arc:Polygon2D;
 
-
 func use()->bool:
-	Tweens.swing_tween(self);
-	Tweens.arc_vfx(arc)
-	Tweens.camera_lunge(holder)
-
+	var holder:InFightPlayer = Entities.in_fight_player;
 	Combat.aoe_damage(holder);
 	if len(holder.hit_scan.get_overlapping_bodies()):
 		return true

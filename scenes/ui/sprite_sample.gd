@@ -5,7 +5,6 @@ class_name SpriteSample;
 @export var target_base:Sprite2D=null;
 @export var additional_data:Label;
 
-@export var tooltip_scene:PackedScene;
 @export var tooltip:Tooltip;
 
 @export var add_tooltip:bool = true;
@@ -68,7 +67,7 @@ func set_tooltip()->void:
 		if tooltip:
 			tooltip.queue_free();
 
-		tooltip = tooltip_scene.instantiate();
+		tooltip = Index.tooltip_scene.instantiate();
 		tooltip.target = target_base;
 
 		add_child(tooltip)

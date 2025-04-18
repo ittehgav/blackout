@@ -12,16 +12,16 @@ var tooltip_name_color:Color;
 
 
 func _ready()->void:
-	texture = Meta.icons[stat];
-	material.set_shader_parameter("base_color", Meta.stat_colors[stat]);
+	texture = Index.icons[stat];
+	material.set_shader_parameter("base_color", Index.stat_colors[stat]);
 	name = stat.capitalize()
 	
-	tooltip_name_color = Meta.stat_colors[stat];
+	tooltip_name_color = Index.stat_colors[stat];
 	if stat == "map_hp":
 		name = "Max HP";
 		
-	description = Meta.stat_descriptions[stat]
+	description = Index.stat_descriptions[stat]
 	for item in adjacent_items:
-		item.modulate = Meta.stat_colors[stat].lightened(.2)
+		item.modulate = Index.stat_colors[stat].lightened(.2)
 		
 	$panel.custom_minimum_size = Vector2(size.x + 4, size.y + 4)
