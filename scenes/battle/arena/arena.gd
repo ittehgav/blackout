@@ -2,6 +2,16 @@ extends Node2D
 
 class_name Arena;
 
+## keep this information and only emit won/lost signal when you exit the arena
+## any interactions that depend on whether or not the player won will 
+## be bound to the signals
+var won_battle:bool;
+var battle_ongoing:bool=true;
+
+signal battle_ended
+signal battle_won;
+signal battle_lost;
+
 @export var overlay:Control;
 @export var kill_feed:Control;
 
@@ -19,20 +29,35 @@ func start_battle(enemy_leader:Leader)->void:
 	Entities.arena = self;
 
 	load_teams(enemy_leader);
-	overlay.tide_bar.set_tide_bar();
 	if Entities.world_map:
 		## for testing battle straight out of the main menu
 		Entities.in_map_player.camera.enabled = false
-		Entities.world_map.set_process_mode(Node.PROCESS_MODE_DISABLED);
-		Entities.world_map.hide();
+		Entities.world_map.hide()
+
+	overlay.tide_bar.set_tide_bar();
+
 	Entities.main.add_child(self)
-	
 
 	generate_battle_reward(enemy_leader);
+
+func return_to_world_map()->void:
+	var camera:Camera2D = Entities.in_map_player.camera;
+	camera.enabled = true
+	camera.reparent(Entities.in_map_player)
+	camera.global_position = Entities.in_map_player.global_position;
+	Entities.world_map.unpause_map();
+	Entities.world_map.show()
+	Entities.main_bgm.play_bgm("world_map");
+	battle_ended.emit()
 	
-func generate_battle_reward(enemy_leader:Leader):
+	if won_battle:
+		battle_won.emit();
+	else:
+		battle_lost.emit()
+	queue_free()
+	
+func generate_battle_reward(enemy_leader:Leader)->void:
 	for unit:ActiveFighter in team_2.units:
-		print("t2u?")
 		battle_exp_value += unit.unit.level;
 	
 	battle_loot = enemy_leader.inventory
@@ -44,7 +69,6 @@ func load_teams(enemy_leader:Leader)->void:
 	team_1.initial_party_size = len(Entities.player.roster.units) + 1;
 	
 	Entities.player.load_party(team_1, 1);
-	team_1.leader_fighter = Entities.in_fight_player;
 	team_1.leader = Entities.player
 	
 
@@ -72,10 +96,12 @@ func match_teams(enemy_leader:Leader)->void:
 	for unit:ActiveFighter in team_2.units:
 		assign_team(unit, 2, enemy_leader)
 
-func player_died()->void:
+func player_died(_killer:ActiveFighter)->void:
 	battle_over(2);
 
 func battle_over(winner:int)->void:
+	won_battle = winner == 1;
+	battle_ongoing = false
 	overlay.post_fight.show_post_fight(winner)
 	
 func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
@@ -125,4 +151,3 @@ func _process(_delta:float)->void:
 			
 			var tween:Tween = create_tween();
 			tween.tween_property(self, "scale", target_scale, 1)
-	

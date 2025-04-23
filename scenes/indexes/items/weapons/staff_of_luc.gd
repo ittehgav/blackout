@@ -25,7 +25,7 @@ const heal_value = 20;
 const buff_frac = .1;
 
 var use_sfx:String = "heal";
-var alt_mode = false;
+var alt_mode:bool = false;
 
 
 func use()->bool:

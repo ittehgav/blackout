@@ -27,8 +27,8 @@ func _ready()->void:
 	setup_adjacent_items();
 	
 
-func setup_adjacent_items(value:int=Entities.player.inventory[resource]):
-	for item in adjacent_items:
+func setup_adjacent_items(value:int=Entities.player.inventory[resource])->void:
+	for item:Node in adjacent_items:
 		item.modulate = Index.resource_colors[resource]
 		if item is Label:
 			if value == Entities.player.inventory[resource]:

@@ -21,9 +21,7 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=C
 	target.damage_taken.emit(damage)
 	if target.hp <= 0:
 		target.death.emit(source);
-		if target is InFightPlayer:
-			Entities.arena.player_died()
-			
+
 
 func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	target.hp += value;

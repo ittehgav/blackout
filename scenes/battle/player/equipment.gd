@@ -24,7 +24,7 @@ var module:Module;
 
 var current_float_tween:Tween;
 
-func _ready():
+func _ready()->void:
 	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate()
 	add_child(equipped_weapon);
 	equip_weapon(equipped_weapon)
@@ -64,7 +64,7 @@ func _process(_delta:float)->void:
 
 
 
-func module_input():
+func module_input()->void:
 	if module_cd.is_stopped():
 		module_sfx.play_sound_by_key(module.sfx_key)
 		module.use();
@@ -95,8 +95,8 @@ func use_weapon()->void:
 		weapon_sfx.play_hit_sfx(weapon.hit_sfx);
 	weapon_used.emit()
 
-func play_weapon_vfx():
-	for key in weapon.use_vfx:
+func play_weapon_vfx()->void:
+	for key:String in weapon.use_vfx:
 		match key:
 			"swing":
 				Tweens.swing_tween(weapon);
@@ -111,15 +111,15 @@ func play_weapon_vfx():
 			"grow":
 				Tweens.weapon_grow(weapon);
 
-func play_weapon_hit_vfx():
-	for vfx in weapon.hit_vfx:
+func play_weapon_hit_vfx()->void:
+	for vfx:String in weapon.hit_vfx:
 		match vfx:
 			"freeze_camera":
 				Engine.time_scale = 0
 				freeze_frame_timer.start()
 
 func switch_weapon()->void:
-	var current_weapon = weapon;
+	var current_weapon:Weapon = weapon;
 	current_weapon.hide()
 	equip_weapon(alternative_weapon);
 	alternative_weapon = current_weapon;
@@ -150,7 +150,7 @@ func equip_weapon(to_equip:Weapon)->void:
 			holder.hit_scan.follow_cursor = true;
 
 	
-	var remaining_time_left = weapon_cd.time_left;
+	var remaining_time_left:float = weapon_cd.time_left;
 	weapon_cd.wait_time = weapon.cooldown;
 	if remaining_time_left:
 		weapon_cd.start(remaining_time_left)
@@ -160,7 +160,7 @@ func equip_weapon(to_equip:Weapon)->void:
 		
 	holder.attack = weapon.damage;
 	
-func readjust_wait_time():
+func readjust_wait_time()->void:
 	weapon_cd.wait_time = weapon.cooldown;
 
 

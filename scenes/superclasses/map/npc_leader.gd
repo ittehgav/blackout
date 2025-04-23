@@ -12,7 +12,7 @@ func generate(distance:float)->void:
 	
 	## probably make this reusable for other generic map parties
 	
-	for r in Index.all_resources:
+	for r:String in Index.all_resources:
 		inventory[r] = randi_range(1, distance * 2)
 	
 	var max_level:int = distance/80;
@@ -29,9 +29,9 @@ func generate(distance:float)->void:
 	unit.add_child(leader_base);
 
 
-	var party_size = int(distance/100);
+	var party_size: = int(distance/100);
 	
-	for i in party_size:
+	for i:int in party_size:
 		var unit_base:FighterBase = Index.random_fighter_base();
 		var new_unit:FighterUnit = Index.fighter_unit_scene.instantiate();
 		new_unit.level = randi_range(min_level, max_level);

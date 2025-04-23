@@ -2,6 +2,7 @@ extends Control;
 
 class_name SpriteSample;
 
+
 @export var target_base:Sprite2D=null;
 @export var additional_data:Label;
 
@@ -50,7 +51,6 @@ func set_sample(target:Sprite2D, color_scheme_index:int, extra_offset:Vector2 = 
 	
 
 func set_rectangle()->void:
-
 	if enable_hover_panel:
 		var sample_size:Vector2 = target_base.texture.get_size() * target_base.scale.x;
 		custom_minimum_size = sample_size;

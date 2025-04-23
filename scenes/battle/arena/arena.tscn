@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=45 format=4 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" uid="uid://xb73utl6rxmj" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="3_kfkuj"]
@@ -27,6 +27,9 @@
 [ext_resource type="Script" uid="uid://bfcqcwall15j1" path="res://scenes/battle/ui/enemy_leader_data.gd" id="20_5bepm"]
 [ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="21_0yl87"]
 [ext_resource type="PackedScene" uid="uid://b8j8soyx2828m" path="res://scenes/battle/ui/post_fight.tscn" id="27_slj5k"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="28_61gvu"]
+[ext_resource type="Script" uid="uid://b7a05n61c7pja" path="res://scenes/battle/arena/pause_menu.gd" id="29_1usgs"]
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="30_w5ded"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qcibd"]
 texture = ExtResource("3_rdtky")
@@ -163,7 +166,7 @@ enemy_team = NodePath("../team_1")
 [node name="hud" type="CanvasLayer" parent="."]
 process_mode = 3
 
-[node name="overlay" type="Control" parent="hud" node_paths=PackedStringArray("in_fight_player", "post_fight", "tide_bar")]
+[node name="overlay" type="Control" parent="hud" node_paths=PackedStringArray("in_fight_player", "post_fight", "tide_bar", "pause_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -174,6 +177,7 @@ script = ExtResource("5_jp2sx")
 in_fight_player = NodePath("../../team_1/in_fight_player")
 post_fight = NodePath("post_fight")
 tide_bar = NodePath("tide_of_battle")
+pause_menu = NodePath("pause_menu")
 
 [node name="tide_of_battle" type="TextureProgressBar" parent="hud/overlay" node_paths=PackedStringArray("icon")]
 custom_minimum_size = Vector2(0, 20)
@@ -490,32 +494,94 @@ flip_h = true
 visible = false
 layout_mode = 1
 
-[node name="victory_view" parent="hud/overlay/post_fight" index="1"]
-visible = false
-
-[node name="loot_container" parent="hud/overlay/post_fight/victory_view/HBoxContainer/Panel" index="2"]
-visible = false
-
-[node name="resource_icon" parent="hud/overlay/post_fight/victory_view/HBoxContainer/Panel/loot_container/resource_loot_container/col1/HBoxContainer" index="0"]
+[node name="food" parent="hud/overlay/post_fight/victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_y14ek")
 
-[node name="resource_icon" parent="hud/overlay/post_fight/victory_view/HBoxContainer/Panel/loot_container/resource_loot_container/col1/HBoxContainer2" index="0"]
+[node name="fuel" parent="hud/overlay/post_fight/victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer2" index="0"]
 material = SubResource("ShaderMaterial_phmvj")
 
-[node name="resource_icon" parent="hud/overlay/post_fight/victory_view/HBoxContainer/Panel/loot_container/resource_loot_container/col2/HBoxContainer" index="0"]
+[node name="money" parent="hud/overlay/post_fight/victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_i6t2x")
 
-[node name="resource_icon" parent="hud/overlay/post_fight/victory_view/HBoxContainer/Panel/loot_container/resource_loot_container/col2/HBoxContainer2" index="0"]
+[node name="juice" parent="hud/overlay/post_fight/victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer2" index="0"]
 material = SubResource("ShaderMaterial_q5ipi")
 
-[node name="resource_icon" parent="hud/overlay/post_fight/victory_view/HBoxContainer/Panel/loot_container/resource_loot_container/col3/HBoxContainer" index="0"]
+[node name="scrap" parent="hud/overlay/post_fight/victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_r8bdk")
 
-[node name="resource_icon" parent="hud/overlay/post_fight/victory_view/HBoxContainer/Panel/loot_container/resource_loot_container/col3/HBoxContainer2" index="0"]
+[node name="chips" parent="hud/overlay/post_fight/victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer2" index="0"]
 material = SubResource("ShaderMaterial_qlhvx")
+
+[node name="Label2" parent="hud/overlay/post_fight/defeat_view" index="1"]
+layout_mode = 0
+
+[node name="pause_menu" type="Control" parent="hud/overlay" node_paths=PackedStringArray("ui_sfx")]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("29_1usgs")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="hud/overlay/pause_menu" instance=ExtResource("28_61gvu")]
+
+[node name="ColorRect" type="ColorRect" parent="hud/overlay/pause_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.372549)
+
+[node name="Panel" type="Panel" parent="hud/overlay/pause_menu"]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="hud/overlay/pause_menu/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -81.0
+offset_top = 49.0
+offset_right = 81.0
+offset_bottom = 75.0
+grow_horizontal = 2
+text = "Fight is Paused"
+
+[node name="resume" type="Button" parent="hud/overlay/pause_menu/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.0
+offset_top = 125.0
+offset_right = 44.0
+offset_bottom = 159.0
+grow_horizontal = 2
+theme = ExtResource("30_w5ded")
+theme_override_font_sizes/font_size = 64
+text = "Resume"
 
 [connection signal="ready" from="." to="tiles" method="set_tiles"]
 [connection signal="child_entered_tree" from="team_1" to="team_1" method="_on_child_entered_tree"]
+[connection signal="death" from="team_1/in_fight_player" to="." method="player_died"]
 [connection signal="status_applied" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_applied"]
 [connection signal="status_removed" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_removed"]
 [connection signal="timeout" from="team_1/in_fight_player/equipment/weapon_control/weapon_cd" to="hud/overlay/player_data" method="_on_weapon_cd_timeout"]
@@ -523,8 +589,10 @@ material = SubResource("ShaderMaterial_qlhvx")
 [connection signal="child_entered_tree" from="team_2" to="team_2" method="_on_child_entered_tree"]
 [connection signal="value_changed" from="hud/overlay/tide_of_battle" to="hud/overlay/tide_of_battle" method="move_tide"]
 [connection signal="finished" from="hud/overlay/tide_of_battle/sfx" to="hud/overlay/tide_of_battle" method="_on_sfx_finished"]
+[connection signal="pressed" from="hud/overlay/pause_menu/Panel/resume" to="hud/overlay/pause_menu" method="resume"]
 
 [editable path="team_1/in_fight_player"]
 [editable path="team_1/in_fight_player/body"]
 [editable path="hud/overlay/kill_feed/kill/data/icon"]
 [editable path="hud/overlay/post_fight"]
+[editable path="hud/overlay/post_fight/victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer/exp_bar"]

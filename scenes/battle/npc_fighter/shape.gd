@@ -43,5 +43,6 @@ func basic_aoe()->void:
 	draw_circle(Vector2(0, 0), circle_outside_radius, Color.RED);
 
 func wheel_spin()->void:
-	draw_circle(Vector2(0, 0), circle_outside_radius, Color.RED);
-	rotation_degrees += 1;
+	if get_parent().fighter in Entities.arena.team_2.units:
+		draw_circle(Vector2(0, 0), circle_outside_radius, circle_outside_color);
+		rotation_degrees += 1;

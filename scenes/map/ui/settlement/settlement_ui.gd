@@ -44,7 +44,7 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	crowd_rect.texture = crowd_texture
 	Entities.world_map.ui.self_modulate.a = 0
 	current_settlement = settlement;
-	Entities.main_bgm.play_bgm("in_settlement")
+	Entities.main_bgm.play_bgm("settlement")
 	ui_sfx.play_stream("settlement_entered")
 	Entities.world_map.pause_map();
 	
@@ -116,9 +116,8 @@ func exit_settlement() -> void:
 
 func _on_settlement_left() -> void:
 	Entities.world_map.ui.self_modulate.a = 1
-	Entities.main_bgm.play_bgm("in_map")
+	Entities.main_bgm.play_bgm("world_map")
 	Entities.world_map.unpause_map();
-	breakpoint
 
 
 func _on_trade_menu_trade_completed() -> void:

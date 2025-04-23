@@ -44,7 +44,6 @@ func start_dialogue(dialogue:DialogueResource)->void:
 	Entities.main_bgm.play_bgm("dialogue")
 	set_process_mode(Node.PROCESS_MODE_ALWAYS)
 	Entities.world_map.pause_map()
-	get_tree().paused = true;
 	show()
 	choices_box.hide();
 	
@@ -60,9 +59,8 @@ func start_dialogue(dialogue:DialogueResource)->void:
 func end_dialogue()->void:
 	hide()
 	set_process_mode(Node.PROCESS_MODE_DISABLED)
-	if not Entities.pre_battle.visible:
-		## lazy solution for race condition
-		dialogue_ended.emit()
+	Entities.world_map.unpause_map();
+	dialogue_ended.emit()
 
 
 func check_end()->void:

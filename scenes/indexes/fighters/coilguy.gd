@@ -76,7 +76,10 @@ func target_count_amplifier(damage:float)->float:
 	return damage;
 
 func closer_to_last_tagged(a:ActiveFighter, b:ActiveFighter)->bool:
-	return a.position.distance_to(tagged_targets[-1].position) < b.position.distance_to(tagged_targets[-1].position)
+	var check_index:int = -1;
+	while not is_instance_valid(tagged_targets[check_index]):
+		check_index -= 1;
+	return a.position.distance_to(tagged_targets[check_index].position) < b.position.distance_to(tagged_targets[check_index].position)
 	
 
 func remove_from_tagged(_killer:ActiveFighter, target:ActiveFighter)->void:

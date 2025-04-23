@@ -35,6 +35,7 @@ mouse_filter = 2
 theme = ExtResource("3_jrcuq")
 
 [node name="Arm Guy" parent="panel" instance=ExtResource("3_aynw8")]
+visible = false
 material = SubResource("ShaderMaterial_ty848")
 
 [node name="bob_timer" type="Timer" parent="."]

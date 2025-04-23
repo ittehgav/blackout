@@ -4,6 +4,8 @@ signal pre_battle_started;
 
 var to_fight:Leader;
 
+var from:String;
+
 @export_group("visual elements")
 @export var player_name_label:Label;
 @export var enemy_name_label:Label;
@@ -22,9 +24,9 @@ func _ready()->void:
 	player_name_label.text = Entities.player.name;
 	Entities.pre_battle = self;
 
-func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader)->void:
+func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader, origin:String="dialogue")->void:
 	to_fight = opponent;
-	
+	from = origin;
 	enemy_name_label.text = opponent.name;
 	enemy_party_icon.leader = opponent;
 	enemy_party_icon.refresh()
@@ -39,11 +41,10 @@ func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader)->v
 	pre_battle_started.emit();
 	
 	Entities.main_bgm.play_bgm("combat")
-
 	show()
 
 
-	
+
 func set_opponent_avatar(target:Leader)->void:
 	if opponent_sprite:
 		opponent_sprite.queue_free()
@@ -65,7 +66,14 @@ func _on_start_battle_pressed() -> void:
 	var arena:Arena = Index.arena_scene.instantiate();
 	arena.start_battle(to_fight)
 	slide_out()
-
+	Entities.arena.battle_ended.connect(Entities.world_map.ui.show)
+	Entities.arena.battle_ended.connect(hide);
+	
+	match from:
+		## add more into this when there's other ways of getting into battle
+		"dialogue":
+			Entities.arena.battle_won.connect(Entities.current_speaking_party.queue_free)
+			Entities.arena.battle_lost.connect(MapEvents.battle_lost)
 
 func slide_in()->void:
 	plates_container.add_theme_constant_override("separation", 2000);

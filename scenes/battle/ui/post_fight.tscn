@@ -1,12 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8j8soyx2828m"]
+[gd_scene load_steps=18 format=3 uid="uid://b8j8soyx2828m"]
 
 [ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/ui/post_fight.gd" id="1_y6eix"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar.tscn" id="2_d4n4j"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_qlhvx"]
+[ext_resource type="Script" uid="uid://bgpyvdb1y52qv" path="res://scenes/battle/ui/victory_view.gd" id="2_r8bdk"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="3_phmvj"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="4_i6t2x"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="4_ivyom"]
 [ext_resource type="Script" uid="uid://cvmix0mytsurc" path="res://scenes/battle/ui/recruit_gains.gd" id="5_q5ipi"]
 [ext_resource type="Script" uid="uid://d2coujeg1x0q0" path="res://scenes/battle/ui/recruit_post_fight.gd" id="6_r8bdk"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="7_qlhvx"]
+[ext_resource type="Script" uid="uid://8robaepnm2u6" path="res://scenes/battle/ui/defeat_view.gd" id="11_c4kps"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y14ek"]
 resource_local_to_scene = true
@@ -56,7 +60,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="post_fight" type="Control" node_paths=PackedStringArray("leadership_exp_progress", "combat_exp_progress", "victory_label", "player_gains_panel", "recruit_gains_panel", "exp_gain_container", "leadership_container", "combat_container", "loot_container", "resource_loot_container", "item_loot_container", "food_icon", "fuel_icon", "money_icon", "juice_icon", "scrap_icon", "chips_icon")]
+[node name="post_fight" type="Control" node_paths=PackedStringArray("victory_view", "defeat_view", "ui_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,23 +68,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y6eix")
-leadership_exp_progress = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container/leadership_container/leadership_exp")
-combat_exp_progress = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container/combat_container/combat_exp")
-victory_label = NodePath("victory_view/HBoxContainer/player_gains/Label")
-player_gains_panel = NodePath("victory_view/HBoxContainer/player_gains")
-recruit_gains_panel = NodePath("victory_view/HBoxContainer/recruit_gains")
-exp_gain_container = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container")
-leadership_container = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container/leadership_container")
-combat_container = NodePath("victory_view/HBoxContainer/player_gains/exp_gain_container/combat_container")
-loot_container = NodePath("victory_view/HBoxContainer/player_gains/loot_container")
-resource_loot_container = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container")
-item_loot_container = NodePath("victory_view/HBoxContainer/player_gains/loot_container/item_loot_container")
-food_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer/resource_icon")
-fuel_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer2/resource_icon")
-money_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer/resource_icon")
-juice_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer2/resource_icon")
-scrap_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer/resource_icon")
-chips_icon = NodePath("victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer2/resource_icon")
+victory_view = NodePath("victory_view")
+defeat_view = NodePath("defeat_view")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." instance=ExtResource("2_qlhvx")]
 
 [node name="bg" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -92,13 +84,33 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.737255)
 
-[node name="victory_view" type="Control" parent="."]
+[node name="victory_view" type="Control" parent="." node_paths=PackedStringArray("leadership_exp_progress", "combat_exp_progress", "morale_icon", "morale_label", "player_gains_panel", "recruit_gains_panel", "exp_gain_container", "leadership_container", "combat_container", "loot_container", "resource_loot_container", "item_loot_container", "food_icon", "fuel_icon", "money_icon", "juice_icon", "scrap_icon", "chips_icon")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_r8bdk")
+leadership_exp_progress = NodePath("HBoxContainer/player_gains/exp_gain_container/leadership_container/leadership_exp")
+combat_exp_progress = NodePath("HBoxContainer/player_gains/exp_gain_container/combat_container/combat_exp")
+morale_icon = NodePath("HBoxContainer/player_gains/exp_gain_container/HBoxContainer/MoraleIcon")
+morale_label = NodePath("HBoxContainer/player_gains/exp_gain_container/HBoxContainer/morale_value")
+player_gains_panel = NodePath("HBoxContainer/player_gains")
+recruit_gains_panel = NodePath("HBoxContainer/recruit_gains")
+exp_gain_container = NodePath("HBoxContainer/player_gains/exp_gain_container")
+leadership_container = NodePath("HBoxContainer/player_gains/exp_gain_container/leadership_container")
+combat_container = NodePath("HBoxContainer/player_gains/exp_gain_container/combat_container")
+loot_container = NodePath("HBoxContainer/player_gains/loot_container")
+resource_loot_container = NodePath("HBoxContainer/player_gains/loot_container/resource_loot_container")
+item_loot_container = NodePath("HBoxContainer/player_gains/loot_container/item_loot_container")
+food_icon = NodePath("HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer/food")
+fuel_icon = NodePath("HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer2/fuel")
+money_icon = NodePath("HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer/money")
+juice_icon = NodePath("HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer2/juice")
+scrap_icon = NodePath("HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer/scrap")
+chips_icon = NodePath("HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer2/chips")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="victory_view"]
 layout_mode = 1
@@ -137,6 +149,21 @@ offset_right = 3155.0
 offset_bottom = 1259.0
 theme_override_constants/separation = 1000
 
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/HBoxContainer/player_gains/exp_gain_container"]
+layout_mode = 2
+
+[node name="MoraleIcon" parent="victory_view/HBoxContainer/player_gains/exp_gain_container/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("4_ivyom")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 0
+expand_mode = 3
+adjacent_items = [NodePath("../morale_value")]
+
+[node name="morale_value" type="Label" parent="victory_view/HBoxContainer/player_gains/exp_gain_container/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "wawa"
+
 [node name="leadership_container" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains/exp_gain_container"]
 layout_mode = 2
 
@@ -160,6 +187,7 @@ text = "Combat EXP:"
 layout_mode = 2
 
 [node name="loot_container" type="VBoxContainer" parent="victory_view/HBoxContainer/player_gains"]
+visible = false
 layout_mode = 0
 offset_left = 494.0
 offset_top = 132.0
@@ -182,7 +210,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+[node name="food" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
 material = SubResource("ShaderMaterial_y14ek")
 layout_mode = 2
 adjacent_items = [NodePath("../Label")]
@@ -196,7 +224,7 @@ text = "1"
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+[node name="fuel" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col1/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
 material = SubResource("ShaderMaterial_phmvj")
 layout_mode = 2
 resource = "fuel"
@@ -214,7 +242,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+[node name="money" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
 material = SubResource("ShaderMaterial_i6t2x")
 layout_mode = 2
 resource = "money"
@@ -229,7 +257,7 @@ text = "1"
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+[node name="juice" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col2/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
 material = SubResource("ShaderMaterial_q5ipi")
 layout_mode = 2
 resource = "juice"
@@ -247,7 +275,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+[node name="scrap" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
 material = SubResource("ShaderMaterial_r8bdk")
 layout_mode = 2
 resource = "scrap"
@@ -262,7 +290,7 @@ text = "1"
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="resource_icon" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
+[node name="chips" parent="victory_view/HBoxContainer/player_gains/loot_container/resource_loot_container/col3/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_phmvj")]
 material = SubResource("ShaderMaterial_qlhvx")
 layout_mode = 2
 resource = "chips"
@@ -286,11 +314,11 @@ SOON"
 [node name="Label2" type="Label" parent="victory_view/HBoxContainer/player_gains"]
 modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 0
-offset_left = 603.0
-offset_top = 473.0
-offset_right = 925.0
-offset_bottom = 499.0
-text = "[press any button to continue]"
+offset_left = 638.0
+offset_top = 462.0
+offset_right = 960.0
+offset_bottom = 488.0
+text = "[click anywhere to continue]"
 
 [node name="recruit_gains" type="Panel" parent="victory_view/HBoxContainer" node_paths=PackedStringArray("unit_display", "grid")]
 custom_minimum_size = Vector2(950, 500)
@@ -302,11 +330,11 @@ grid = NodePath("GridContainer")
 [node name="Label2" type="Label" parent="victory_view/HBoxContainer/recruit_gains"]
 modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 0
-offset_left = 603.0
-offset_top = 473.0
-offset_right = 925.0
-offset_bottom = 499.0
-text = "[press any button to continue]"
+offset_left = 562.0
+offset_top = 456.0
+offset_right = 930.0
+offset_bottom = 482.0
+text = "[click anywhere to continue]"
 
 [node name="GridContainer" type="GridContainer" parent="victory_view/HBoxContainer/recruit_gains"]
 layout_mode = 1
@@ -319,12 +347,13 @@ offset_right = -47.0
 offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 4
+columns = 3
 
-[node name="recruit_post_fight" type="HBoxContainer" parent="victory_view/HBoxContainer/recruit_gains/GridContainer" node_paths=PackedStringArray("sample", "exp_bar")]
+[node name="recruit_post_fight" type="HBoxContainer" parent="victory_view/HBoxContainer/recruit_gains/GridContainer" node_paths=PackedStringArray("recruit_name_label", "sample", "exp_bar")]
 visible = false
 layout_mode = 2
 script = ExtResource("6_r8bdk")
+recruit_name_label = NodePath("VBoxContainer/recruit_name")
 sample = NodePath("SpriteSample")
 exp_bar = NodePath("VBoxContainer/exp_bar")
 
@@ -334,14 +363,21 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer"]
+[node name="recruit_name" type="Label" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer"]
 layout_mode = 2
+text = "wawa"
 
 [node name="exp_bar" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer" instance=ExtResource("2_d4n4j")]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 
-[node name="defeat_view" type="Control" parent="."]
+[node name="level_up" parent="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer/exp_bar" index="0"]
+offset_left = 123.0
+offset_top = -25.0
+offset_right = 197.0
+offset_bottom = 1.0
+
+[node name="defeat_view" type="Control" parent="." node_paths=PackedStringArray("morale_icon")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -349,3 +385,56 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("11_c4kps")
+morale_icon = NodePath("Panel/MoraleIcon")
+
+[node name="Panel" type="Panel" parent="defeat_view"]
+custom_minimum_size = Vector2(950, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -475.0
+offset_top = -250.0
+offset_right = 475.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="defeat_view/Panel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 24.0
+offset_right = 336.0
+offset_bottom = 126.0
+theme_override_font_sizes/font_size = 128
+text = "Defeat"
+
+[node name="MoraleIcon" parent="defeat_view/Panel" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("4_ivyom")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+offset_left = -338.0
+offset_right = -306.0
+adjacent_items = [NodePath("../morale_value")]
+
+[node name="morale_value" type="Label" parent="defeat_view/Panel"]
+layout_mode = 0
+offset_left = 222.0
+offset_top = 220.0
+offset_right = 262.0
+offset_bottom = 271.0
+theme_override_font_sizes/font_size = 64
+
+[node name="Label2" type="Label" parent="defeat_view"]
+modulate = Color(1, 1, 1, 0.501961)
+offset_left = 735.0
+offset_top = 566.0
+offset_right = 1103.0
+offset_bottom = 592.0
+text = "[click anywhere to continue]"
+
+[connection signal="bar_level_up" from="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer/exp_bar" to="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight" method="_on_exp_bar_bar_level_up"]
+
+[editable path="victory_view/HBoxContainer/recruit_gains/GridContainer/recruit_post_fight/VBoxContainer/exp_bar"]

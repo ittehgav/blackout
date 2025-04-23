@@ -4,11 +4,11 @@ extends Node
 func battle_speaking_party()->void:
 	Entities.pre_battle.start_pre_battle();
 
-	
+func battle_lost()->void:
+	print("L");
 
 	
 func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->void:
-	Entities.world_map.unpause_map()
 	print("yield")
 	pass
 

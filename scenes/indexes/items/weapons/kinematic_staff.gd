@@ -41,7 +41,7 @@ func use()->bool:
 		active = true;
 	return false
 
-func explode():
+func explode()->void:
 	active = false;
 	progress = 0;
 	progress_bar.value = 0;
@@ -50,14 +50,14 @@ func explode():
 	Entities.in_fight_player.equipment.weapon_sfx.play_sound_by_key("explosion")
 	effect_finished.emit()
 
-func _process(delta:float):
+func _process(delta:float)->void:
 	if active:
 		progress += delta;
 		progress_bar.value = progress;
 		if progress >= charge_time:
 			explode();
 
-func intensify_charge():
+func intensify_charge()->void:
 	## should never overlap with other sounds as the weapon SFX only works for the currently equipped weapon
 	var sfx:SfxPlayer = Entities.in_fight_player.equipment.weapon_sfx
 	if active:
@@ -81,7 +81,7 @@ func _on_area_body_exited(body: Node2D) -> void:
 	monitored_units.erase(body)
 	body.skill_used.disconnect(accelerate_charge)
 
-func accelerate_charge():
+func accelerate_charge()->void:
 	if active:
 		progress += 1;
 
@@ -91,7 +91,8 @@ func _on_equipped() -> void:
 
 func _on_unequipped() -> void:
 	while len(monitored_units):
-		var unit = monitored_units.pop_back();
+		var unit:Node2D = monitored_units.pop_back();
+		assert(unit is ActiveFighter)
 		unit.skill_used.disconnect(accelerate_charge)
 
 	active = false;

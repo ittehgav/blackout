@@ -73,6 +73,7 @@ grow_vertical = 2
 
 [node name="body" parent="player_avatar" instance=ExtResource("4_j4ks8")]
 material = SubResource("ShaderMaterial_8aum2")
+position = Vector2(11, 84)
 scale = Vector2(6, 6)
 
 [node name="speaking_avatar" type="Control" parent="."]

@@ -2,15 +2,15 @@ extends Node2D;
 
 @export var current_weapon:Weapon;
 var projection_draw_fn:Callable=no_projection;
-@onready var default_position = position;
+@onready var default_position:Vector2 = position;
 
 const projection_color:Color = Color(.5, .5, .5, .3)
 
-func _ready():
+func _ready()->void:
 	current_weapon = Entities.player.equipped_weapon;
 	set_weapon_projection()
 
-func _draw():
+func _draw()->void:
 	projection_draw_fn.call()
 
 func no_projection()->void:
@@ -49,5 +49,5 @@ func cone_projection()->void:
 	draw_polygon(polygon, [projection_color]);
 
 func circle_aoe_projection()->void:
-	var weapon = Entities.in_fight_player.equipment.weapon;
+	var weapon:Weapon = Entities.in_fight_player.equipment.weapon;
 	draw_circle(Vector2.ZERO, weapon.aoe_radius, projection_color);

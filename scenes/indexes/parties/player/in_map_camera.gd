@@ -9,15 +9,19 @@ func free_panning()->void:
 	reparent(Entities.world_map);
 	in_player = false;
 
-func return_to_player()->void:
+func return_to_player(instant:bool = false)->void:
 	if not in_player:
 		in_player = true;
-		var tween:Tween = create_tween();
-		tween.set_trans(Tween.TRANS_CIRC)
-		tween.tween_property(self, "position", Entities.in_map_player.position, .25);
-		await tween.finished;
-		reparent(Entities.in_map_player, true);
-		global_position = Entities.in_map_player.global_position;
+		if not instant:
+			var tween:Tween = create_tween();
+			tween.set_trans(Tween.TRANS_CIRC)
+			tween.tween_property(self, "position", Entities.in_map_player.position, .25);
+			await tween.finished;
+			reparent(Entities.in_map_player, true);
+			global_position = Entities.in_map_player.global_position;
+		else:
+			reparent(Entities.in_map_player);
+			global_position = Entities.in_map_player.global_position
 
 
 func _process(delta: float) -> void:

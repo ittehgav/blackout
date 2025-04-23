@@ -30,8 +30,14 @@ signal party_changed;
 var memos:Array[Memo];
 
 
-var morale:float=2.56664;
+var morale:float=3.7;
 
 func _ready()->void:
 	Entities.player = self;
 	
+func battle_victory_morale()->void:
+	## for now just make all morale changes go through this script
+	morale += .5;
+	
+func battle_defeat_morale()->void:
+	morale -= .5

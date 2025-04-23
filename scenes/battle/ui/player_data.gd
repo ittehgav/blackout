@@ -20,7 +20,7 @@ extends Control
 func _ready()->void:
 
 	set_weapon_textures()
-	var colors = player_color_scheme();
+	var colors:Dictionary = player_color_scheme();
 	var base_color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
 
 	module_progress_bar.texture_progress = ColorCoder.color_code_texture(Entities.player.equipped_module.texture, colors);
@@ -52,11 +52,11 @@ func player_color_scheme()->Dictionary:
 	}
 	return colors;
 
-func set_weapon_textures():
+func set_weapon_textures()->void:
 	weapon_cd_progress.max_value = weapon_cd_timer.wait_time;
 	weapon_cd_bg.max_value = weapon_cd_timer.wait_time;
 
-	var colors = player_color_scheme();
+	var colors:Dictionary = player_color_scheme();
 	var current_weapon:Weapon = equipment_node.weapon.duplicate();
 
 	ColorCoder.color_code_weapon(current_weapon, Entities.player.color_scheme_index)
@@ -68,7 +68,7 @@ func set_weapon_textures():
 	
 	weapon_cd_progress.texture_progress = ColorCoder.color_code_texture(current_weapon.texture, colors)
 	
-	var image = current_weapon.texture.get_image()
+	var image:Image = current_weapon.texture.get_image()
 	
 	if image.get_width() > 32:
 		image.rotate_90(COUNTERCLOCKWISE);

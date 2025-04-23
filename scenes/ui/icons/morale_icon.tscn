@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c57e8ymx8ba"]
+[gd_scene load_steps=8 format=3 uid="uid://c57e8ymx8ba"]
 
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_tv85l"]
 [ext_resource type="Texture2D" uid="uid://8h774ti4dqmd" path="res://assets/visual/icons/morale/high.png" id="2_bbonm"]
 [ext_resource type="Script" uid="uid://c5fsw4c16s48g" path="res://scenes/ui/icons/morale_icon.gd" id="3_m30f8"]
 [ext_resource type="Texture2D" uid="uid://cls8arw0ftbvy" path="res://assets/visual/icons/morale/low.png" id="4_s8s8e"]
 [ext_resource type="Texture2D" uid="uid://c4ek8xhdc86yb" path="res://assets/visual/icons/morale/neutral.png" id="5_jqfe8"]
+[ext_resource type="Texture2D" uid="uid://cfgpq1o6fmhsl" path="res://assets/visual/icons/morale/very_high.png" id="6_bbonm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_70nuk"]
 shader = ExtResource("1_tv85l")
@@ -32,3 +33,4 @@ script = ExtResource("3_m30f8")
 low_morale_icon = ExtResource("4_s8s8e")
 mid_morale_icon = ExtResource("5_jqfe8")
 high_morale_icon = ExtResource("2_bbonm")
+very_high_morale_icon = ExtResource("6_bbonm")

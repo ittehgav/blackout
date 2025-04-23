@@ -22,10 +22,10 @@ const use_sfx = "spray";
 @export var cone:Sprite2D;
 
 func use()->bool:
-	var new_cone = cone.duplicate();
+	var new_cone:Sprite2D = cone.duplicate();
 	new_cone.launch()
 	new_cone.hit.connect(enemy_hit)
 	return false
 
-func enemy_hit(target:ActiveFighter):
+func enemy_hit(target:ActiveFighter)->void:
 	Combat.deal_damage(Entities.in_fight_player, target);

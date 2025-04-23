@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=97 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
@@ -39,9 +39,6 @@
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="21_1aag8"]
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="22_kcivd"]
 [ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="23_3w437"]
-[ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/indexes/fighters/doublearmguy.tscn" id="24_mw666"]
-[ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/indexes/fighters/gravityguy.tscn" id="25_qkpsy"]
-[ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/indexes/fighters/mecharmguy.tscn" id="26_2cuod"]
 [ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/indexes/fighters/tailpipeguy.tscn" id="27_bp0ea"]
 [ext_resource type="PackedScene" uid="uid://3phgdfixhg5t" path="res://scenes/indexes/fighters/taserguy.tscn" id="28_5larv"]
 [ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/indexes/fighters/tetherguy.tscn" id="29_oxxdj"]
@@ -182,126 +179,6 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_48qk5"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xm6f"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbcyd"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oq2vs"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_37vhr"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7rrql"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qa630"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xuka"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4gob"]
-resource_local_to_scene = true
-shader = ExtResource("3_ircok")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0.439216, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7sj3l"]
 resource_local_to_scene = true
 shader = ExtResource("3_ircok")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -713,105 +590,35 @@ base = NodePath("Taser Guy")
 [node name="Taser Guy" parent="entities/in_map_player/Player/Roster/FighterUnit34" instance=ExtResource("28_5larv")]
 material = SubResource("ShaderMaterial_48qk5")
 
-[node name="FighterUnit" parent="entities/in_map_player/Player/Roster" index="4" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Arm Guy")
-level = 5
-
-[node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit" instance=ExtResource("18_8x8fu")]
-material = SubResource("ShaderMaterial_8xm6f")
-
-[node name="FighterUnit2" parent="entities/in_map_player/Player/Roster" index="5" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Coil Guy")
-level = 5
-
-[node name="Coil Guy" parent="entities/in_map_player/Player/Roster/FighterUnit2" instance=ExtResource("20_05i75")]
-material = SubResource("ShaderMaterial_gbcyd")
-
-[node name="FighterUnit3" parent="entities/in_map_player/Player/Roster" index="6" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Crossbow Guy")
-level = 5
-
-[node name="Crossbow Guy" parent="entities/in_map_player/Player/Roster/FighterUnit3" instance=ExtResource("21_1aag8")]
-material = SubResource("ShaderMaterial_oq2vs")
-
-[node name="FighterUnit4" parent="entities/in_map_player/Player/Roster" index="7" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Crowbar Guy")
-level = 5
-
-[node name="Crowbar Guy" parent="entities/in_map_player/Player/Roster/FighterUnit4" instance=ExtResource("22_kcivd")]
-material = SubResource("ShaderMaterial_l56xi")
-
-[node name="FighterUnit5" parent="entities/in_map_player/Player/Roster" index="8" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Door Guy")
-level = 5
-
-[node name="Door Guy" parent="entities/in_map_player/Player/Roster/FighterUnit5" instance=ExtResource("23_3w437")]
-material = SubResource("ShaderMaterial_37vhr")
-
-[node name="FighterUnit6" parent="entities/in_map_player/Player/Roster" index="9" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Double Arm Guy")
-level = 5
-
-[node name="Double Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit6" instance=ExtResource("24_mw666")]
-material = SubResource("ShaderMaterial_7rrql")
-
-[node name="FighterUnit7" parent="entities/in_map_player/Player/Roster" index="10" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Gravity Guy")
-level = 5
-
-[node name="Gravity Guy" parent="entities/in_map_player/Player/Roster/FighterUnit7" instance=ExtResource("25_qkpsy")]
-material = SubResource("ShaderMaterial_qa630")
-
-[node name="FighterUnit8" parent="entities/in_map_player/Player/Roster" index="11" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Mech Arm Guy")
-level = 5
-
-[node name="Mech Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit8" instance=ExtResource("26_2cuod")]
-material = SubResource("ShaderMaterial_3xuka")
-
-[node name="FighterUnit9" parent="entities/in_map_player/Player/Roster" index="12" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Tailpipe Guy")
-level = 5
-
-[node name="Tailpipe Guy" parent="entities/in_map_player/Player/Roster/FighterUnit9" instance=ExtResource("27_bp0ea")]
-material = SubResource("ShaderMaterial_t4gob")
-
-[node name="FighterUnit10" parent="entities/in_map_player/Player/Roster" index="13" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
-base = NodePath("Taser Guy")
-level = 5
-
-[node name="Taser Guy" parent="entities/in_map_player/Player/Roster/FighterUnit10" instance=ExtResource("28_5larv")]
-material = SubResource("ShaderMaterial_7sj3l")
-
-[node name="FighterUnit11" parent="entities/in_map_player/Player/Roster" index="14" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+[node name="FighterUnit11" parent="entities/in_map_player/Player/Roster" index="4" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Tether Guy")
 level = 5
 
 [node name="Tether Guy" parent="entities/in_map_player/Player/Roster/FighterUnit11" instance=ExtResource("29_oxxdj")]
 material = SubResource("ShaderMaterial_432xo")
 
-[node name="FighterUnit12" parent="entities/in_map_player/Player/Roster" index="15" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+[node name="FighterUnit12" parent="entities/in_map_player/Player/Roster" index="5" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Wheel Guy")
 level = 5
 
 [node name="Wheel Guy" parent="entities/in_map_player/Player/Roster/FighterUnit12" instance=ExtResource("20_opvew")]
 material = SubResource("ShaderMaterial_usv6u")
 
-[node name="FighterUnit13" parent="entities/in_map_player/Player/Roster" index="16" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+[node name="FighterUnit13" parent="entities/in_map_player/Player/Roster" index="6" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Arm Guy")
 level = 20
 
 [node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit13" instance=ExtResource("18_8x8fu")]
 material = SubResource("ShaderMaterial_dalom")
 
-[node name="FighterUnit14" parent="entities/in_map_player/Player/Roster" index="17" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+[node name="FighterUnit14" parent="entities/in_map_player/Player/Roster" index="7" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Coil Guy")
 level = 20
 
 [node name="Coil Guy" parent="entities/in_map_player/Player/Roster/FighterUnit14" instance=ExtResource("20_05i75")]
 material = SubResource("ShaderMaterial_gdjef")
 
-[node name="FighterUnit15" parent="entities/in_map_player/Player/Roster" index="18" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+[node name="FighterUnit15" parent="entities/in_map_player/Player/Roster" index="8" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Crossbow Guy")
 level = 20
 experience = 38
@@ -819,14 +626,14 @@ experience = 38
 [node name="Crossbow Guy" parent="entities/in_map_player/Player/Roster/FighterUnit15" instance=ExtResource("21_1aag8")]
 material = SubResource("ShaderMaterial_tfnpl")
 
-[node name="FighterUnit16" parent="entities/in_map_player/Player/Roster" index="19" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+[node name="FighterUnit16" parent="entities/in_map_player/Player/Roster" index="9" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Crowbar Guy")
 level = 20
 
 [node name="Crowbar Guy" parent="entities/in_map_player/Player/Roster/FighterUnit16" instance=ExtResource("22_kcivd")]
 material = SubResource("ShaderMaterial_4nt3v")
 
-[node name="FighterUnit17" parent="entities/in_map_player/Player/Roster" index="20" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
+[node name="FighterUnit17" parent="entities/in_map_player/Player/Roster" index="10" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Door Guy")
 level = 20
 
@@ -1135,7 +942,6 @@ layout_mode = 1
 [connection signal="settlement_left" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]
 [connection signal="dialogue_ended" from="ui_overlay/ui/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]
 [connection signal="dialogue_started" from="ui_overlay/ui/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]
-[connection signal="pre_battle_started" from="ui_overlay/ui/pre_battle" to="ui_overlay/ui/main_hud" method="_on_pre_battle_started"]
 [connection signal="gui_input" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_gui_input"]
 [connection signal="mouse_entered" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_mouse_entered"]
 [connection signal="mouse_exited" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_mouse_exited"]

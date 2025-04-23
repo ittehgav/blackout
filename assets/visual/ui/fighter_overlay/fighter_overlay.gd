@@ -52,7 +52,7 @@ func _on_fighter_damage_taken(damage: float) -> void:
 	hp_bar.value = unit.hp;
 
 
-func floating_number(value:int, damage = true):
+func floating_number(value:int, damage :bool= true)->void:
 	var floating_n:Label = Label.new();
 	if damage:
 		floating_n.modulate = Color.RED

@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl5wh0g2bs1n4"]
+[gd_scene load_steps=6 format=3 uid="uid://cl5wh0g2bs1n4"]
 
 [ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="1_cgmno"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="2_v1lig"]
 [ext_resource type="Script" uid="uid://dlrumf22vb77p" path="res://scenes/ui/experience_bar.gd" id="3_2ep7r"]
+[ext_resource type="Script" uid="uid://dsj0lio4vy5bi" path="res://scenes/ui/level_up_sfx.gd" id="4_2ep7r"]
+[ext_resource type="AudioStream" uid="uid://pi6xjy2cxb0a" path="res://assets/sound/sfx/ui/level_up.wav" id="5_u8n47"]
 
-[node name="exp_bar" type="TextureProgressBar" node_paths=PackedStringArray("level_up_text")]
+[node name="exp_bar" type="TextureProgressBar" node_paths=PackedStringArray("level_up_text", "level_up_sfx")]
 custom_minimum_size = Vector2(400, 20)
 step = 0.1
 value = 50.0
@@ -17,6 +19,7 @@ tint_under = Color(0, 0.341176, 0, 1)
 tint_progress = Color(0, 0.745098, 0, 1)
 script = ExtResource("3_2ep7r")
 level_up_text = NodePath("level_up")
+level_up_sfx = NodePath("level_up_sfx")
 
 [node name="level_up" type="Label" parent="."]
 visible = false
@@ -28,3 +31,7 @@ offset_right = 406.0
 offset_bottom = 11.0
 theme_override_font_sizes/font_size = 64
 text = "LVL UP!"
+
+[node name="level_up_sfx" type="AudioStreamPlayer" parent="."]
+script = ExtResource("4_2ep7r")
+level_up = ExtResource("5_u8n47")

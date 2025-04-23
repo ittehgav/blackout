@@ -17,18 +17,18 @@ func use()->void:
 			direction = Vector2(1, 0);
 		else:
 			direction = Vector2(-1, 0)
-	var target_position = Entities.in_fight_player.global_position + direction * movement_distance;
+	var target_position:Vector2 = Entities.in_fight_player.global_position + direction * movement_distance;
 	
 	Combat.turn_ellusive(Entities.in_fight_player, duration);
 	
 	Entities.in_fight_player.modulate.a = .5
 	
-	var tween = create_tween();
+	var tween: = create_tween();
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(Entities.in_fight_player, "global_position", target_position, duration/2);
 	tween.tween_callback(clear_vfx);
 	
 	
-func clear_vfx():
+func clear_vfx()->void:
 	Entities.in_fight_player.modulate.a = 1;

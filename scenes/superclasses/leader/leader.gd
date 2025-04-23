@@ -20,7 +20,6 @@ func load_party(team:Team, team_n:int)->void:
 		var fighter:NpcFighter = Index.npc_fighter_scene.instantiate();
 		
 		team.add_child(fighter);
-		fighter.ready
 		fighter.load_fighter(unit, team_n==1);
 		fighter.base.flip_h = team_n == 2
 

@@ -139,8 +139,8 @@ func color_blink(target:FighterBase, target_color:Color, duration:float = .3)->T
 	tween.tween_property(target.material, "shader_parameter/grad", 0.0, duration);
 	return tween;
 
-func weapon_grow(weapon:Weapon):
-	var tween = create_tween();
+func weapon_grow(weapon:Weapon)->void:
+	var tween: = create_tween();
 	weapon.scale = Vector2(1.5, 1.5);
 	tween.tween_property(weapon, "scale", Vector2.ONE, .5);
 	

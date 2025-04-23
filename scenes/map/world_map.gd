@@ -56,7 +56,7 @@ var all_settlements: = {}
 func _ready()->void:
 	Entities.world_map = self;
 	get_tree().paused = true;
-	Entities.main_bgm.play_bgm("in_map")
+	Entities.main_bgm.play_bgm("world_map")
 
 
 func _on_player_started_moving() -> void:
@@ -82,6 +82,7 @@ func pause_map()->void:
 func unpause_map()->void:
 	pause_stack -= 1
 	if not pause_stack:
+		Entities.main_bgm.play_bgm("world_map")
 		Entities.in_map_player.set_process_input(true)
 		process_mode = PROCESS_MODE_PAUSABLE
 		Entities.in_map_player.process_mode = Node.PROCESS_MODE_ALWAYS;
@@ -145,6 +146,7 @@ func _process(_delta:float)->void:
 			
 			var tween:Tween = Entities.player.create_tween();
 			tween.tween_property(self, "scale", target_scale, 1)
+
 	elif Input.is_action_just_pressed("world_map_zoom_out"):
 		if scale == Vector2.ONE or scale == Vector2(2, 2):
 			var target_scale:Vector2 = scale / 2

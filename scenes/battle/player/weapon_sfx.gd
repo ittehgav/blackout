@@ -11,7 +11,7 @@ extends SfxPlayer
 @export var heal:AudioStream;
 @export var buff:AudioStream;
 
-func play_weapon_sfx(key:String, loop=false)->void:
+func play_weapon_sfx(key:String)->void:
 	## need to do the pitch randomization with these so can't use the superclass function
 	pitch_scale = randf_range(.85, 1.15)
 	stream = self[key];

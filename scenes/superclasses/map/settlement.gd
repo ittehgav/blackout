@@ -173,7 +173,7 @@ func refresh_inventory()->void:
 		"chips":chips_production
 	}
 	
-	for r:String in Index.all_resources.filter(func(r:String):return r != "money"):
+	for r:String in Index.all_resources.filter(func(r:String)->bool:return r != "money"):
 		for anomaly:TradeAnomaly in ongoing_anomalies:
 			if anomaly.resource == r:
 				var price_shift:float = resource_prices[r] * anomaly.change

@@ -93,7 +93,3 @@ func _on_party_status_panel_mouse_entered() -> void:
 
 func _on_party_status_panel_mouse_exited() -> void:
 	$party_status_panel.position -= party_status_panel_mouseover_shift
-
-
-func _on_pre_battle_started() -> void:
-	hide()

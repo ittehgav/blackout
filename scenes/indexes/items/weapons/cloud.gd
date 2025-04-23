@@ -6,7 +6,7 @@ signal hit(target:ActiveFighter)
 @export var hitbox:Area2D;
 @export var polygon:CollisionPolygon2D;
 
-func launch():
+func launch()->void:
 	show();
 	const tween_duration = 5
 

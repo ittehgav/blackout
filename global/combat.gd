@@ -40,7 +40,6 @@ func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:
 
 func aoe_damage(source:ActiveFighter)->void:
 	## simply damages all valid targets within the hit scan which may take different shapes
-	var enemy_team:Team = source.enemy_team;
 	for target:Node2D in source.hit_scan.get_overlapping_bodies():
 		if source is NpcFighter:
 			source.catch_hit_target(target);

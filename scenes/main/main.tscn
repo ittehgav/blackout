@@ -1,17 +1,18 @@
-[gd_scene load_steps=34 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=35 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
 [ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="5_8yyg4"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="6_l3xhp"]
 [ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="6_ouso4"]
-[ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/in_map.ogg" id="7_blune"]
-[ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/in_settlement.ogg" id="8_th5th"]
+[ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/world_map.ogg" id="7_62atk"]
+[ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/settlement.ogg" id="8_i7in8"]
 [ext_resource type="AudioStream" uid="uid://fhr3xripjers" path="res://assets/sound/sfx/ui/button_click.ogg" id="9_7nlll"]
 [ext_resource type="AudioStream" uid="uid://cbb5k61nskf8o" path="res://assets/sound/bgm/loops/combat.ogg" id="9_7smn1"]
 [ext_resource type="AudioStream" uid="uid://0fnfsxh017op" path="res://assets/sound/sfx/ui/cancel.ogg" id="10_ii537"]
 [ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/main_menu.ogg" id="10_raeie"]
 [ext_resource type="AudioStream" uid="uid://c401hatxeek87" path="res://assets/sound/bgm/loops/dialogue.ogg" id="11_blune"]
+[ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="13_i7in8"]
 [ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="14_0bhws"]
 [ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/indexes/parties/generic/thugs.tscn" id="15_raeie"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="16_hxu8e"]
@@ -111,13 +112,13 @@ cancel = ExtResource("10_ii537")
 process_mode = 3
 volume_db = -5.0
 script = ExtResource("6_ouso4")
-in_map = ExtResource("7_blune")
-in_settlement = ExtResource("8_th5th")
+world_map = ExtResource("7_62atk")
+settlement = ExtResource("8_i7in8")
 combat = ExtResource("9_7smn1")
 intro = ExtResource("10_raeie")
 dialogue = ExtResource("11_blune")
 victory = ExtResource("14_0bhws")
-defeat = ExtResource("14_0bhws")
+defeat = ExtResource("13_i7in8")
 
 [node name="TextureRect" type="TextureRect" parent="main_ui"]
 texture_filter = 4
@@ -137,6 +138,7 @@ offset_left = 134.0
 offset_top = 428.0
 offset_right = 295.0
 offset_bottom = 522.0
+scale = Vector2(2, 2)
 
 [node name="MarginContainer" type="MarginContainer" parent="main_ui/PanelContainer"]
 layout_mode = 2
@@ -221,7 +223,7 @@ base = NodePath("Crowbar Guy")
 material = SubResource("ShaderMaterial_6w6mm")
 
 [node name="combat_stats" parent="main_ui/Player" index="2"]
-max_hp = 30000.0
+max_hp = 1000.0
 attack = 11.0
 defense = 1.0
 technique = 1.23

@@ -237,11 +237,11 @@ func next_frame() -> void:
 func _on_stat_changed(stat:String)->void:
 	match stat:
 		"agility":
-			var previous_wait_time = true_cooldown;
+			var previous_wait_time: = true_cooldown;
 			true_cooldown = unit.final_skill_cooldown(agility)
 			
-			var advance = previous_wait_time - true_cooldown + (cooldown_timer.wait_time - cooldown_timer.time_left);
-			var redone_time_left = cooldown_timer.wait_time - advance;
+			var advance:float = previous_wait_time - true_cooldown + (cooldown_timer.wait_time - cooldown_timer.time_left);
+			var redone_time_left:float = cooldown_timer.wait_time - advance;
 
 			cooldown_timer.start(redone_time_left)
 			if "skill_windup" in base:

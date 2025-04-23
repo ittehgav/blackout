@@ -28,6 +28,7 @@ shape = SubResource("CircleShape2D_n4fri")
 [node name="in_map_camera" type="Camera2D" parent="."]
 process_mode = 3
 position_smoothing_enabled = true
+position_smoothing_speed = 5.185
 script = ExtResource("4_ibn0u")
 
 [node name="Player" parent="." instance=ExtResource("2_c0i2s")]
