@@ -2,6 +2,9 @@ extends Control
 
 @export var hp_bar:TextureProgressBar;
 @export var hp_bar_trail:TextureProgressBar;
+
+@export var shield_bar:TextureProgressBar;
+
 @export var charge_bar:TextureProgressBar;
 @export var floating_icon_anchor:Node2D
 
@@ -22,6 +25,7 @@ func _ready()->void:
 	hp_bar_trail.max_value = unit.max_hp;
 	hp_bar_trail.value = unit.hp;
 
+	shield_bar.max_value = unit.max_hp;
 
 func _on_fighter_status_applied(_source: ActiveFighter, data:Dictionary) -> void:
 	## VFX from statuses will be handled here
@@ -40,10 +44,8 @@ func stat_debuff_vfx(stat:String)->void:
 	floating_icon_anchor.add_child(icon);
 	icon.material.set_shader_parameter("base_color", Color.PURPLE)
 	
-	var tween:Tween = create_tween();
-	tween.tween_property(icon, "position:y", 30, 1);
-	tween.parallel().tween_property(icon, "modulate:a", 0, 1)
-	tween.tween_callback(icon.queue_free)
+	Tweens.fade_down(icon)
+
 	
 
 
@@ -52,21 +54,23 @@ func _on_fighter_damage_taken(damage: float) -> void:
 	hp_bar.value = unit.hp;
 
 
-func floating_number(value:int, damage :bool= true)->void:
+func floating_number(value:int, type = "damage")->void:
 	var floating_n:Label = Label.new();
-	if damage:
-		floating_n.modulate = Color.RED
-	else:
-		floating_n.modulate = Color.GREEN
+	match type:
+		"damage":
+			floating_n.modulate = Color.RED
+		"heal":
+			floating_n.modulate = Color.GREEN
+		"block":
+			floating_n.modulate = Color.YELLOW.darkened(.2);
+		"shield":
+			floating_n.modulate = Color.YELLOW
+
 	
 	floating_n.text = str(value);
 	floating_icon_anchor.add_child(floating_n);
 	
-	var fn_tween:Tween = create_tween();
-	fn_tween.tween_property(floating_n, "position:y", -50, .5)
-	fn_tween.parallel().tween_property(floating_n, "modulate:a", 0, .5);
-	fn_tween.tween_callback(floating_n.queue_free)
-	
+	Tweens.fade_up(floating_n);
 
 
 func refresh_charge_bar() -> void:
@@ -76,15 +80,29 @@ func refresh_charge_bar() -> void:
 func _on_hp_bar_value_changed(value: float) -> void:
 	if not trail_tween or not trail_tween.is_running():
 		hp_bar_trail.self_modulate.a = 1;
-
+		
+		Tweens.fade(hp_bar_trail, false)
 		trail_tween = create_tween();
 		trail_tween.tween_property(hp_bar_trail, "self_modulate:a", 0, .5)
 		trail_tween.tween_callback(hp_bar_trail.set_value.bind(hp_bar.value))
 
 
 func _on_npc_fighter_healing_received(value: float) -> void:
-	floating_number(value, false);
+	floating_number(value, "heal");
 	hp_bar.value = unit.hp;
 	
 func refresh_charge_bar_max(_stat:String="")->void:
 	charge_bar.max_value = cooldown_timer.wait_time;
+
+
+func _on_npc_fighter_damage_blocked(source: ActiveFighter, value: float) -> void:
+	floating_number(value, "block");
+	shield_bar.value = unit.shield
+	
+	Tweens.squish_bar(shield_bar);
+
+
+func _on_npc_fighter_shield_gained(source: ActiveFighter, value: float) -> void:
+	floating_number(value, "shield");
+	shield_bar.value = unit.shield
+	Tweens.stretch_bar(shield_bar);

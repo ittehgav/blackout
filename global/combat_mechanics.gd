@@ -16,11 +16,22 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=C
 	
 	var mitigation:float = defense_mitigation(target);
 	damage -= damage * mitigation;
-	
-	target.hp -= damage;
-	target.damage_taken.emit(damage)
-	if target.hp <= 0:
-		target.death.emit(source);
+	if target.shield:
+		target.shield -= damage;
+		if target.shield < 0:
+			var shield_overkill:float = target.shield * -1;
+			target.hp -= shield_overkill;
+			target.shield = 0;
+			target.damage_taken.emit(shield_overkill);
+			if target.hp <= 0:
+				target.death.emit(source);
+		else:
+			target.damage_blocked.emit(source, damage);
+	else:
+		target.hp -= damage;
+		target.damage_taken.emit(damage)
+		if target.hp <= 0:
+			target.death.emit(source);
 
 
 func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
@@ -48,6 +59,9 @@ func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, 
 		target.stat_changed.emit(stat);
 		Statuses.apply_status(source, target, "stat_change", duration, status_data)
 
+func shield_unit(source:ActiveFighter, target:ActiveFighter, value:float)->void:
+	target.shield += value;
+	target.shield_gained.emit(source, value);
 
 
 

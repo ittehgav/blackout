@@ -15,6 +15,7 @@ func _input(e: InputEvent) -> void:
 func fade_out()->void:
 	main_view.modulate.a = 0;
 	main_view.show();
+	
 	var tween:Tween = create_tween();
 	tween.tween_property(self, "modulate:a", 0, .25);
 	tween.parallel().tween_property(main_view, "modulate:a", 1, .25);

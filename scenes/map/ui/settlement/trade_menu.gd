@@ -240,8 +240,7 @@ func exit_trade_menu() -> void:
 	hide();
 	get_parent().refresh_data();
 	var main_view:Control = get_parent().main_view;
-	var tween:Tween = create_tween();
-	tween.tween_property(main_view, "modulate:a", 1, .25)
+	Tweens.ui_fade_in(main_view, .25);
 	main_view.show();
 	
 func relation_level_glow()->void:

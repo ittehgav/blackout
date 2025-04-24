@@ -50,6 +50,4 @@ func skill_icon_bounce()->void:
 
 
 func damage_feedback(_damage:float)->void:
-	avatar.modulate = Color.RED;
-	var tween:Tween = create_tween();
-	tween.tween_property(avatar, "modulate", Color.WHITE, .25);
+	Tweens.color_blink(avatar, Color.RED);

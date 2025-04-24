@@ -78,8 +78,7 @@ func _on_hover_timer_timeout() -> void:
 	size.y -= 10000
 	size.y += 10
 		
-	var tween:Tween = create_tween();
-	tween.tween_property(self, "modulate:a", 1, .5);
+	Tweens.ui_fade_in(self);
 
 func stop_hover_timer()->void:
 	hide();

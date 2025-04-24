@@ -104,7 +104,8 @@ const combat_effect_colors = {
 }
 
 const misc_colors = {
-	"no_dmg":Color.LIGHT_BLUE
+	"no_dmg":Color.LIGHT_BLUE,
+	"shield":Color.YELLOW
 }
 
 
@@ -129,7 +130,6 @@ func get_color_tag(key:String)->String:
 		color = combat_effect_colors[key]
 	assert(color != Color(0.0, 0.0, 0.0, 1.0))
 	return "[color=" + color.to_html() + "]";
-	
 
 
 func resource_colored_name(resource:String)->String:
@@ -160,8 +160,8 @@ const stat_descriptions = {
 	"max_hp": "The unit's total HP at the start of battle.",
 	"attack": "The damage the unit's skill will deal (some units deal no damage.)",
 	"defense": "Reduces the damage taken by the unit.",
-	"agility": "Increases the speed at which the unit uses their skill.",
-	"technique": "Improves special effects in units' skills"
+	"agility": "Increases the speed at which the unit uses their skill/weapon.",
+	"technique": "Improves special effects in units' skills."
 }
 
 

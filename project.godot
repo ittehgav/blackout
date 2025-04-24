@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 ColorCoder="*res://global/color_coder.gd"
-Tweens="*res://global/tweens.gd"
 Entities="*res://global/entities.gd"
 Combat="*res://global/combat.gd"
 Index="*res://global/index.tscn"
@@ -28,6 +27,7 @@ MapEvents="*res://global/map_events.gd"
 NameDatabase="*res://global/name_database.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Statuses="*res://global/statuses.gd"
+Tweens="*res://global/tweens.tscn"
 
 [debug]
 

@@ -3,6 +3,7 @@ extends Node2D
 signal weapon_used;
 signal weapon_equipped(weapon:Weapon);
 signal module_used
+signal module_fumbled
 
 @export var holder:ActiveFighter;
 @export var body:FighterBase;
@@ -19,12 +20,14 @@ var module:Module;
 @export var module_cd:Timer;
 @export var module_sfx:SfxPlayer
 
-@export var freeze_frame_timer:Timer;
+var holding_module:bool;
 
+@export var freeze_frame_timer:Timer;
 
 var current_float_tween:Tween;
 
 func _ready()->void:
+	await holder.ready
 	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate()
 	add_child(equipped_weapon);
 	equip_weapon(equipped_weapon)
@@ -36,10 +39,12 @@ func _ready()->void:
 		ColorCoder.color_code_weapon(alternative_weapon, Entities.player.color_scheme_index)
 		add_child(alternative_weapon);
 		alternative_weapon.hide();
+		
 	
 	module = Entities.player.equipped_module;
 	module_cd.wait_time = module.cooldown;
-	
+	module.equipped.emit();
+
 
 func _process(_delta:float)->void:
 	if Input.is_action_pressed("use_weapon") and not holder.stunned:
@@ -55,6 +60,9 @@ func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("use_module"):
 		module_input();
 		
+	if holding_module and Input.is_action_just_released("use_module"):
+		release_module()
+		
 	if Input.is_action_just_pressed("switch_weapon") and alternative_weapon and ("active" not in weapon or not weapon.active):
 		switch_weapon();
 	
@@ -65,11 +73,22 @@ func _process(_delta:float)->void:
 
 
 func module_input()->void:
-	if module_cd.is_stopped():
+	if module_cd.is_stopped() and module.check_available():
 		module_sfx.play_sound_by_key(module.sfx_key)
 		module.use();
-		module_cd.start();
 		module_used.emit();
+		if not "continuous" in module:
+			module_cd.start();
+		else:
+			holding_module = true;
+	else:
+		module_fumbled.emit()
+		module_sfx.play_sound_by_key("module_unavailable")
+		
+func release_module()->void:
+	module_cd.start();
+	module.release();
+	holding_module = false;
 
 
 
@@ -151,17 +170,17 @@ func equip_weapon(to_equip:Weapon)->void:
 
 	
 	var remaining_time_left:float = weapon_cd.time_left;
-	weapon_cd.wait_time = weapon.cooldown;
+	refresh_weapon_cooldown()
 	if remaining_time_left:
 		weapon_cd.start(remaining_time_left)
-		weapon_cd.timeout.connect(readjust_wait_time, ConnectFlags.CONNECT_ONE_SHOT);
+		weapon_cd.timeout.connect(refresh_weapon_cooldown, ConnectFlags.CONNECT_ONE_SHOT);
 	else:
 		weapon_cd.stop();
 		
 	holder.attack = weapon.damage;
 	
-func readjust_wait_time()->void:
-	weapon_cd.wait_time = weapon.cooldown;
+func refresh_weapon_cooldown()->void:
+	weapon_cd.wait_time = weapon.cooldown - (weapon.cooldown/100*holder.agility)
 
 
 func _on_freeze_frame_control_timeout() -> void:

@@ -22,6 +22,7 @@ func skill_effect(source:ActiveFighter, effect_name:String)->void:
 		"special":
 			source.base.special_skill();
 
+
 func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant)->void:
 	var target_direction:Vector2;
 	if source is InFightPlayer:

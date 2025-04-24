@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://conwxn44dqc5l"]
+
+[ext_resource type="Script" uid="uid://colcnxy40jqq5" path="res://global/tweens.gd" id="1_g5igi"]
+
+[node name="Tweens" type="Node"]
+process_mode = 3
+script = ExtResource("1_g5igi")

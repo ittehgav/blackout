@@ -13,8 +13,7 @@ extends PanelContainer
 @onready var current_view:Control = main_view;
 
 func trade() -> void:
-	var t1:Tween = create_tween();
-	t1.tween_property(main_view, "modulate:a", 0, .25);
+	var t1:Tween = Tweens.ui_fade_out(main_view, .25);
 	t1.tween_callback(main_view.hide);
 	
 	trade_menu.open();

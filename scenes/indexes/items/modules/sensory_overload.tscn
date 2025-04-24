@@ -1,8 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://c14j25tgu3icd"]
+[gd_scene load_steps=4 format=3 uid="uid://c14j25tgu3icd"]
 
 [ext_resource type="Texture2D" uid="uid://dvgpwoqsdta66" path="res://assets/visual/icons/items/modules/sensory_overloader.png" id="1_uoo42"]
 [ext_resource type="Script" uid="uid://ba505caq6mcv" path="res://scenes/indexes/items/modules/sensory_overload.gd" id="2_qlhdj"]
 
-[node name="Sensory Overload" type="Sprite2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_uoo42"]
+radius = 100.0
+
+[node name="Sensory Overload Inducer" type="Sprite2D" node_paths=PackedStringArray("aoe_range")]
 texture = ExtResource("1_uoo42")
 script = ExtResource("2_qlhdj")
+aoe_range = NodePath("range")
+
+[node name="range" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="range"]
+shape = SubResource("CircleShape2D_uoo42")
+
+[connection signal="equipped" from="." to="." method="_on_equipped"]

@@ -22,10 +22,9 @@ func start_aoe_highlight()->void:
 	aoe_highlight();
 
 func aoe_highlight(cycle_time:float=.5,accelerate:bool=false)->void:
-	var tween:Tween = create_tween();
-	tween.tween_property(self, "modulate:a", 0, cycle_time);
-	tween.tween_property(self, "modulate:a", 1, cycle_time);
-	
+	Tweens.ui_fade_out(self, cycle_time)
+	var tween :Tween = Tweens.ui_fade_in(self, cycle_time);
+
 	if accelerate:
 		## make this match the acceleration in the same proportion as the skill accelerates?
 		cycle_time *= 1.1;

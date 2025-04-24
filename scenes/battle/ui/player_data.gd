@@ -3,6 +3,7 @@ extends Control
 @export var equipment_node:Node2D;
 
 @export var hp_bar:TextureProgressBar;
+@export var shield_bar:TextureProgressBar;
 @export var player:InFightPlayer;
 
 @export var weapon_panel:PanelContainer;
@@ -17,8 +18,9 @@ extends Control
 @export var module_progress_bar:TextureProgressBar;
 @export var module_cd_timer:Timer;
 
-func _ready()->void:
+var module_available:bool =true;
 
+func _ready()->void:
 	set_weapon_textures()
 	var colors:Dictionary = player_color_scheme();
 	var base_color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
@@ -27,18 +29,21 @@ func _ready()->void:
 	module_progress_bar.tint_under = base_color.lightened(.2) - Color(0, 0, 0, .8);
 	module_progress_bar.max_value = module_cd_timer.wait_time;
 
-	hp_bar.max_value = player.max_hp;
-	
-	
+	refresh_hp_bars()
+	update_module_availability();
+
+func update_module_availability()->void:
+	module_available = equipment_node.module.check_available()
+	if not module_available:
+		module_panel.modulate.v = .1;
 
 func _process(_delta: float) -> void:
 	if not weapon_cd_timer.is_stopped():
 		var progress:float = weapon_cd_timer.wait_time - weapon_cd_timer.time_left
 		weapon_cd_bg.value = progress
 		weapon_cd_progress.value = progress
-		
-		hp_bar.value = player.hp;
-	
+
+
 	if not module_cd_timer.is_stopped():
 		module_panel.modulate.v = .3
 		var module_cd_progress:float = module_cd_timer.wait_time - module_cd_timer.time_left;
@@ -103,8 +108,53 @@ func _on_weapon_cd_timeout() -> void:
 
 
 func _on_module_cd_timeout() -> void:
-	module_panel.modulate.v = 1;
+	if module_available:
+		module_panel.modulate.v = 1;
 
 
 func _on_equipment_weapon_equipped(_weapon: Weapon) -> void:
 	set_weapon_textures()
+
+func _module_used() -> void:
+	update_module_availability()
+
+
+func _on_equipment_module_fumbled() -> void:
+	module_panel.modulate.a = .1;
+	Tweens.ui_fade_in(module_panel, .2);
+
+
+
+func refresh_hp_bars():
+	var max_hp = Entities.in_fight_player.max_hp;
+	hp_bar.max_value = max_hp
+	shield_bar.max_value = max_hp
+	
+	print(Entities.in_fight_player.shield)
+	shield_bar.value = Entities.in_fight_player.shield;
+	hp_bar.value = Entities.in_fight_player.hp;
+
+
+func _on_in_fight_player_damage_blocked(source: ActiveFighter, value: float) -> void:
+	refresh_hp_bars();
+	Tweens.squish_bar(shield_bar);
+
+
+func _on_in_fight_player_damage_taken(damage: float) -> void:
+	refresh_hp_bars()
+	
+	Tweens.color_blink(hp_bar, Color.RED, "self_modulate");
+
+
+func _on_in_fight_player_healing_received(value: float) -> void:
+	refresh_hp_bars();
+	
+	Tweens.color_blink(hp_bar, Color.GREEN, "self_modulate");
+
+
+
+func _on_in_fight_player_shield_gained(source: ActiveFighter, value: float) -> void:
+	refresh_hp_bars();
+	
+	shield_bar.scale = Vector2(1.1, 1.5);
+	Tweens.stretch_bar(shield_bar)

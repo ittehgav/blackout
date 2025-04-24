@@ -5,7 +5,6 @@ class_name Leader
 @onready var color_scheme_index:int = randi_range(0, len(Index.color_schemes) - 1);
 
 
-@export_group("Party Data")
 @export var inventory:Inventory;
 @export var roster:Roster;
 @export var combat_stats:CombatStats;

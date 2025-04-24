@@ -26,6 +26,7 @@ var battle_loot:Inventory;
 
 
 func start_battle(enemy_leader:Leader)->void:
+	Entities.main.current_state = "battle"
 	Entities.arena = self;
 
 	load_teams(enemy_leader);
@@ -49,6 +50,7 @@ func return_to_world_map()->void:
 	Entities.world_map.show()
 	Entities.main_bgm.play_bgm("world_map");
 	battle_ended.emit()
+	Entities.main.current_state = "world_map"
 	
 	if won_battle:
 		battle_won.emit();

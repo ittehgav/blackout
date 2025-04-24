@@ -2,6 +2,8 @@ extends CharacterBody2D;
 
 class_name ActiveFighter;
 
+signal shield_gained(source:ActiveFighter, value:float);
+signal damage_blocked(source:ActiveFighter, value:float)
 signal damage_taken(damage:float);
 signal healing_received(value:float);
 signal death(killer:ActiveFighter);
@@ -30,6 +32,8 @@ var stunned:bool;
 ## combat stats (will get more complicated when it needs to)
 var max_hp:float;
 var hp:float;
+var shield:float = 0;
+
 var attack:float;
 var defense:float;
 var agility:float;

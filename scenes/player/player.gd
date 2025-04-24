@@ -41,3 +41,7 @@ func battle_victory_morale()->void:
 	
 func battle_defeat_morale()->void:
 	morale -= .5
+
+
+func _on_resources_changed() -> void:
+	pass # Replace with function body.

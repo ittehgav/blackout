@@ -84,13 +84,11 @@ func get_skill_range(fighter:FighterBase)->String:
 func fade_in()->void:
 	modulate.a = 0;
 	show();
-	var tween:Tween = create_tween();
-	tween.tween_property(self, "modulate:a", 1, .35)
+	Tweens.ui_fade_in(self, .35)
 	
 func fade_out()->void:
 	ui_sfx.play_stream("cancel")
-	var tween:Tween = create_tween();
-	tween.tween_property(self, "modulate:a", 0, .35)
+	var tween:Tween = Tweens.ui_fade_out(self, .35);
 	await tween.finished;
 	hide();
 

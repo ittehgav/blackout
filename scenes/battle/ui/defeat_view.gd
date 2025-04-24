@@ -8,8 +8,8 @@ func defeat_animation()->void:
 	Entities.player.battle_defeat_morale();
 	morale_icon.update();
 	modulate.a = 0;
-	var tween: = create_tween();
-	tween.tween_property(self, "modulate:a", 1, 1);
+	Tweens.ui_fade_in(self, 1);
+
 	
 func _input(e:InputEvent)->void:
 	if visible and e is InputEventMouseButton and e.pressed:

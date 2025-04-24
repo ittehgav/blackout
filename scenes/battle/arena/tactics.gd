@@ -29,24 +29,21 @@ func show_tactics()->void:
 
 func _on_tactic_left_mouse_entered() -> void:
 	var highlight:ColorRect = tactic_left.get_node("hover_highlight")
-	var tween:Tween = create_tween();
-	tween.tween_property(highlight, "modulate:a", 1, .5)
+	Tweens.ui_fade_in(highlight)
+
 	
 
 
 func _on_tactic_left_mouse_exited() -> void:
 	var highlight:ColorRect = tactic_left.get_node("hover_highlight")
-	var tween:Tween = create_tween();
-	tween.tween_property(highlight, "modulate:a", 0, .5)
+	Tweens.ui_fade_out(highlight)
 
 
 func _on_tactic_right_mouse_entered() -> void:
 	var highlight:ColorRect = tactic_right.get_node("hover_highlight")
-	var tween:Tween = create_tween();
-	tween.tween_property(highlight, "modulate:a", 1, .5)
+	Tweens.ui_fade_in(highlight)
 	
 
 func _on_tactic_right_mouse_exited() -> void:
 	var highlight:ColorRect = tactic_right.get_node("hover_highlight")
-	var tween:Tween = create_tween();
-	tween.tween_property(highlight, "modulate:a", 0, .5)
+	Tweens.ui_fade_out(highlight)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=46 format=4 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" uid="uid://xb73utl6rxmj" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="3_kfkuj"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="18_kgbfd"]
 [ext_resource type="Script" uid="uid://bfcqcwall15j1" path="res://scenes/battle/ui/enemy_leader_data.gd" id="20_5bepm"]
 [ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="21_0yl87"]
+[ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="23_1usgs"]
 [ext_resource type="PackedScene" uid="uid://b8j8soyx2828m" path="res://scenes/battle/ui/post_fight.tscn" id="27_slj5k"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="28_61gvu"]
 [ext_resource type="Script" uid="uid://b7a05n61c7pja" path="res://scenes/battle/arena/pause_menu.gd" id="29_1usgs"]
@@ -228,7 +229,7 @@ texture = ExtResource("6_tbs4p")
 expand_mode = 3
 flip_h = true
 
-[node name="player_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("equipment_node", "hp_bar", "player", "weapon_panel", "weapon_container", "weapon_cd_bg", "weapon_cd_progress", "weapon_cd_timer", "alternative_weapon_rect", "module_panel", "module_progress_bar", "module_cd_timer")]
+[node name="player_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("equipment_node", "hp_bar", "shield_bar", "player", "weapon_panel", "weapon_container", "weapon_cd_bg", "weapon_cd_progress", "weapon_cd_timer", "alternative_weapon_rect", "module_panel", "module_progress_bar", "module_cd_timer")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -242,6 +243,7 @@ scale = Vector2(2, 2)
 script = ExtResource("13_v0vqe")
 equipment_node = NodePath("../../../team_1/in_fight_player/equipment")
 hp_bar = NodePath("HBoxContainer/VBoxContainer/player_hp")
+shield_bar = NodePath("HBoxContainer/VBoxContainer/player_hp/shield")
 player = NodePath("../../../team_1/in_fight_player")
 weapon_panel = NodePath("HBoxContainer/weapon_panel")
 weapon_container = NodePath("HBoxContainer/weapon_panel/VBoxContainer2/MarginContainer")
@@ -261,6 +263,7 @@ anchor_bottom = 1.0
 offset_top = -85.0
 offset_right = 252.0
 grow_vertical = 0
+theme_override_constants/separation = 10
 
 [node name="weapon_panel" type="PanelContainer" parent="hud/overlay/player_data/HBoxContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -305,10 +308,14 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="hud/overlay/player_data/HBoxContainer/Control"]
-layout_mode = 2
-offset_top = 4.0
-offset_right = 28.0
-offset_bottom = 73.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -8.5
+offset_top = -94.0
+offset_right = 35.5
+grow_vertical = 0
 
 [node name="Panel" type="Panel" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2"]
 custom_minimum_size = Vector2(24, 46)
@@ -333,10 +340,13 @@ offset_right = 40.0
 text = "[e]"
 
 [node name="module_container" type="PanelContainer" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2"]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="module_cd" type="TextureProgressBar" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2/module_container"]
-custom_minimum_size = Vector2(16, 16)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 step = 0.1
 value = 50.0
@@ -353,7 +363,7 @@ size_flags_vertical = 8
 alignment = 1
 
 [node name="player_hp" type="TextureProgressBar" parent="hud/overlay/player_data/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 10)
+custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -367,6 +377,24 @@ texture_under = ExtResource("15_v0vqe")
 texture_progress = ExtResource("16_byfkr")
 tint_under = Color(0, 0.23, 0, 1)
 tint_progress = Color(0.12549, 1, 0.12549, 1)
+
+[node name="shield" type="TextureProgressBar" parent="hud/overlay/player_data/HBoxContainer/VBoxContainer/player_hp"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+allow_greater = true
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 1
+texture_progress = ExtResource("23_1usgs")
+tint_progress = Color(1, 1, 0, 1)
 
 [node name="Control" type="Control" parent="hud/overlay/player_data/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -513,7 +541,10 @@ material = SubResource("ShaderMaterial_r8bdk")
 material = SubResource("ShaderMaterial_qlhvx")
 
 [node name="Label2" parent="hud/overlay/post_fight/defeat_view" index="1"]
-layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 368.0
+offset_bottom = 26.0
 
 [node name="pause_menu" type="Control" parent="hud/overlay" node_paths=PackedStringArray("ui_sfx")]
 process_mode = 2
@@ -579,11 +610,16 @@ theme = ExtResource("30_w5ded")
 theme_override_font_sizes/font_size = 64
 text = "Resume"
 
-[connection signal="ready" from="." to="tiles" method="set_tiles"]
 [connection signal="child_entered_tree" from="team_1" to="team_1" method="_on_child_entered_tree"]
+[connection signal="damage_blocked" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_damage_blocked"]
+[connection signal="damage_taken" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_damage_taken"]
 [connection signal="death" from="team_1/in_fight_player" to="." method="player_died"]
+[connection signal="healing_received" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_healing_received"]
+[connection signal="shield_gained" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_shield_gained"]
 [connection signal="status_applied" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_applied"]
 [connection signal="status_removed" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_removed"]
+[connection signal="module_fumbled" from="team_1/in_fight_player/equipment" to="hud/overlay/player_data" method="_on_equipment_module_fumbled"]
+[connection signal="module_used" from="team_1/in_fight_player/equipment" to="hud/overlay/player_data" method="_module_used"]
 [connection signal="timeout" from="team_1/in_fight_player/equipment/weapon_control/weapon_cd" to="hud/overlay/player_data" method="_on_weapon_cd_timeout"]
 [connection signal="timeout" from="team_1/in_fight_player/equipment/module_control/module_cd" to="hud/overlay/player_data" method="_on_module_cd_timeout"]
 [connection signal="child_entered_tree" from="team_2" to="team_2" method="_on_child_entered_tree"]

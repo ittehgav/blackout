@@ -32,5 +32,4 @@ func damage_taken_blink(damage: float) -> void:
 	screen_blink.color = Color.RED;
 	screen_blink.modulate.a = target_alpha;
 	
-	var tween:Tween = create_tween();
-	tween.tween_property(screen_blink, "modulate:a", 0, .5)
+	Tweens.ui_fade_out(screen_blink);

@@ -46,10 +46,10 @@ func gun_recoil(gun:Weapon)->Tween:
 	return tween
 
 func stun_vfx(target:ActiveFighter)->Tween:
-	return color_blink(target.base, Color.PURPLE);
+	return shader_color_blink(target.base, Color.PURPLE);
 
 func heal_vfx(target:ActiveFighter, transparency:float =0.0)->Tween:
-	return color_blink(target.base, Color.GREEN - Color(0, 0, 0, transparency), 1);
+	return shader_color_blink(target.base, Color.GREEN - Color(0, 0, 0, transparency), 1);
 
 func damage_vfx(target:ActiveFighter, intensity:int)->Tween:
 	var target_color:Color = Color.RED
@@ -61,13 +61,13 @@ func damage_vfx(target:ActiveFighter, intensity:int)->Tween:
 		target_color.a -= .5;
 		duration = .3
 	
-	return color_blink(target.base, target_color, duration)
+	return shader_color_blink(target.base, target_color, duration)
 
 func stat_debuff_vfx(target:ActiveFighter)->Tween:
-	return color_blink(target.base, Color.PURPLE);
+	return shader_color_blink(target.base, Color.PURPLE);
 	
 func stat_buff_vfx(target:ActiveFighter)->Tween:
-	return color_blink(target.base, Color.BLUE)
+	return shader_color_blink(target.base, Color.BLUE)
 
 
 	
@@ -103,14 +103,19 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	return tween;
 
 
-func ui_fade_in(target:Control)->Tween:
+func ui_fade_in(target:CanvasItem, duration:float = .5)->Tween:
 	target.modulate.a = .1
 	
 	## tween goes into the control because of nodes that process when pasued
-	var tween:Tween = target.create_tween();
-	tween.tween_property(target, "modulate:a", 1, .5);
+	var tween:Tween = create_tween();
+	tween.tween_property(target, "modulate:a", 1, duration);
 	
 	return tween
+
+func ui_fade_out(target:CanvasItem, duration:float = .5)->Tween:
+	var tween:Tween = create_tween();
+	tween.tween_property(target,"modulate:a",0, duration);
+	return tween;
 
 func growth_tween(unit:ActiveFighter)->Tween:
 	unit.base.scale *= 2
@@ -131,7 +136,7 @@ func recoil_target(unit:ActiveFighter)->Tween:
 	tween.tween_property(target.base, "position", Vector2.ZERO, .25);
 	return tween;
 
-func color_blink(target:FighterBase, target_color:Color, duration:float = .3)->Tween:
+func shader_color_blink(target:FighterBase, target_color:Color, duration:float = .3)->Tween:
 	target.material.set_shader_parameter("target_color", target_color);
 	target.material.set_shader_parameter("grad", 1.0);
 
@@ -143,4 +148,48 @@ func weapon_grow(weapon:Weapon)->void:
 	var tween: = create_tween();
 	weapon.scale = Vector2(1.5, 1.5);
 	tween.tween_property(weapon, "scale", Vector2.ONE, .5);
+
+
+func fade(target:CanvasItem, free_after:bool = true, target_property:String = "modulate:a")->Tween:
+	## target_property is there so this function can do self_modulate as well (or any other property that turns to zero i suppose)
+	var tween:Tween = create_tween();
+	tween.tween_property(target, target_property, 0, .5);
+	if free_after:
+		tween.tween_callback(target.queue_free);
+	return tween;
+
+func fade_up(target:CanvasItem, free_after:bool = true)->Tween:
+	var tween:Tween = create_tween();
+	tween.tween_property(target, "position:y", target.position.y - 50, .5)
+	if free_after:
+		tween.parallel().tween_property(target, "modulate:a", 0, .5)
+		tween.tween_callback(target.queue_free);
+	return tween
 	
+func fade_down(target:CanvasItem, free_after:bool = true)->Tween:
+	var tween:Tween = create_tween();
+	tween.tween_property(target, "position:y", target.position.y + 50, .5)
+	if free_after:
+		tween.parallel().tween_property(target, "modulate:a", 0, .5)
+		tween.tween_callback(target.queue_free);
+	return tween
+	
+func squish_bar(target:TextureProgressBar)->Tween:
+	## bar can't be in a container
+	target.scale = Vector2(.9, .5);
+	var tween:Tween = create_tween();
+	tween.tween_property(target, "scale", Vector2.ONE, .2);
+	return tween;
+
+func stretch_bar(target:TextureProgressBar)->Tween:
+	## bar can't be in a container
+	target.scale = Vector2(1.1, 1.5);
+	var tween:Tween = create_tween();
+	tween.tween_property(target, "scale", Vector2.ONE, .5);
+	return tween;
+
+func color_blink(target:CanvasItem, target_color:Color, target_property:String="modulate")->Tween:
+	target[target_property] = target_color;
+	var tween:Tween = create_tween();
+	tween.tween_property(target, target_property, Color.WHITE, .2);
+	return tween

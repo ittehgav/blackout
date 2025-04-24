@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=39 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
@@ -26,9 +26,13 @@
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="24_62atk"]
 [ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="24_s17dp"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="25_i7in8"]
+[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/indexes/items/modules/adrenaline_synthethizer.tscn" id="25_tbnf8"]
 [ext_resource type="PackedScene" uid="uid://cn6wxjfhbdfcq" path="res://scenes/indexes/fighters/coilguy.tscn" id="26_gkmcc"]
+[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/indexes/items/modules/buckler.tscn" id="26_r1bmu"]
+[ext_resource type="PackedScene" uid="uid://dqb34e0bl7mr7" path="res://scenes/indexes/items/modules/metallic_shell.tscn" id="27_6w6mm"]
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="27_7nlll"]
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="28_ii537"]
+[ext_resource type="PackedScene" uid="uid://c14j25tgu3icd" path="res://scenes/indexes/items/modules/sensory_overload.tscn" id="28_os81g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p8abn"]
 resource_local_to_scene = true
@@ -184,7 +188,8 @@ combat_level = 1
 combat_exp = 3
 equipped_weapon = NodePath("Inventory/Tailpipe")
 alternative_weapon = NodePath("Inventory/Staff of Luc")
-equipped_module = NodePath("Inventory/Dodge Roll")
+equipped_module = NodePath("Inventory/Sensory Overload")
+sight_range = 500
 
 [node name="Tailpipe" parent="main_ui/Player/Inventory" index="0" instance=ExtResource("17_7nlll")]
 
@@ -197,6 +202,14 @@ equipped_module = NodePath("Inventory/Dodge Roll")
 [node name="Kinematic Staff" parent="main_ui/Player/Inventory" index="4" instance=ExtResource("23_p8abn")]
 
 [node name="Staff of Luc" parent="main_ui/Player/Inventory" index="5" instance=ExtResource("24_s17dp")]
+
+[node name="Adrenaline Synthethizer" parent="main_ui/Player/Inventory" index="6" instance=ExtResource("25_tbnf8")]
+
+[node name="Buckler" parent="main_ui/Player/Inventory" index="7" instance=ExtResource("26_r1bmu")]
+
+[node name="Metallic Shell" parent="main_ui/Player/Inventory" index="8" instance=ExtResource("27_6w6mm")]
+
+[node name="Sensory Overload" parent="main_ui/Player/Inventory" index="9" instance=ExtResource("28_os81g")]
 
 [node name="FighterUnit" parent="main_ui/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("24_62atk")]
 base = NodePath("Arm Guy")
@@ -226,6 +239,7 @@ material = SubResource("ShaderMaterial_6w6mm")
 max_hp = 1000.0
 attack = 11.0
 defense = 1.0
+agility = 10.0
 technique = 1.23
 
 [node name="leadership_stats" parent="main_ui/Player" index="3"]

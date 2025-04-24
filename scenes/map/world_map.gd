@@ -54,6 +54,7 @@ var all_settlements: = {}
 
 
 func _ready()->void:
+	Entities.main.current_state = "world_map"
 	Entities.world_map = self;
 	get_tree().paused = true;
 	Entities.main_bgm.play_bgm("world_map")

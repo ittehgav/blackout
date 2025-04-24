@@ -32,10 +32,11 @@ func load_fighter()->void:
 	
 	attack = Entities.player.equipped_weapon.damage;
 	defense = stats.defense
+	agility = stats.agility
 	
 	technique = stats.technique
 	move_speed = stats.move_speed
-	
+
 
 
 
@@ -59,3 +60,9 @@ func _physics_process(_delta:float)->void:
 	get_input()
 	move_and_slide()
 	hit_scan.look_at(get_global_mouse_position())
+
+
+func _on_stat_changed(stat: String) -> void:
+	match stat:
+		"agility":
+			equipment.refresh_weapon_cooldown()

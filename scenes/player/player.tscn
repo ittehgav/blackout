@@ -27,3 +27,5 @@ chips = 7
 
 [node name="leadership_stats" type="Node" parent="."]
 script = ExtResource("5_a3c1i")
+
+[connection signal="resources_changed" from="." to="." method="_on_resources_changed"]
