@@ -2,6 +2,9 @@ extends Module
 
 const rarity = 1;
 
+const size_x = 1;
+const size_y = 1;
+
 const sfx_key = "dash";
 
 const movement_distance = 300

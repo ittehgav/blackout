@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=95 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
@@ -10,20 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://bpm3w0wvrmw71" path="res://assets/visual/sprites/props/small/cactus.png" id="6_jbv7y"]
 [ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="7_3vru2"]
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
-[ext_resource type="PackedScene" uid="uid://u3585ur6ytmf" path="res://scenes/indexes/items/trinkets/crimson_snow_globe.tscn" id="7_wwpc6"]
 [ext_resource type="Texture2D" uid="uid://dqkqrpwcxaxqa" path="res://assets/visual/sprites/props/small/long_cactus.png" id="7_yhrnu"]
 [ext_resource type="Texture2D" uid="uid://cl6tga3pkpyq4" path="res://assets/visual/sprites/props/props_tilemap.png" id="8_05i75"]
 [ext_resource type="PackedScene" uid="uid://chgtgjl5g2lx3" path="res://scenes/indexes/items/weapons/spray_gun.tscn" id="8_magck"]
-[ext_resource type="PackedScene" uid="uid://dbloxip34nvnd" path="res://scenes/indexes/items/trinkets/chromatic_cheese.tscn" id="8_n54q8"]
-[ext_resource type="PackedScene" uid="uid://b2r0xgt02ax4m" path="res://scenes/indexes/items/consumables/hagglers_brew.tscn" id="9_6iewt"]
 [ext_resource type="Texture2D" uid="uid://d2mn1g5x7n2ey" path="res://assets/visual/sprites/props/small/stick.png" id="9_ltr5c"]
-[ext_resource type="PackedScene" uid="uid://b8b0jmbg2w2hg" path="res://scenes/indexes/items/consumables/first_aid_kit.tscn" id="10_15jho"]
 [ext_resource type="Texture2D" uid="uid://clhbdifdrlhyy" path="res://assets/visual/sprites/props/auto_sign.png" id="10_bgkna"]
-[ext_resource type="PackedScene" uid="uid://cw1dam2aacl14" path="res://scenes/indexes/items/consumables/mystery_snack_pack.tscn" id="10_w1bgm"]
-[ext_resource type="PackedScene" uid="uid://b5o7ipw23muir" path="res://scenes/indexes/items/trinkets/rare_coin.tscn" id="11_5up8w"]
 [ext_resource type="Texture2D" uid="uid://dpxpoo4n1th3u" path="res://assets/visual/sprites/props/broken_lamppost.png" id="11_h0tw4"]
 [ext_resource type="Texture2D" uid="uid://rc816161fuhg" path="res://assets/visual/sprites/props/buried_car.png" id="12_fd0ro"]
-[ext_resource type="PackedScene" uid="uid://m2wpkoi452n" path="res://scenes/indexes/items/consumables/gakka_roll.tscn" id="12_g4k6m"]
 [ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/map/ui/dialogue/dialogue_player.tscn" id="13_8dqwv"]
 [ext_resource type="Texture2D" uid="uid://c7q02tyy5x8sw" path="res://assets/visual/sprites/props/buried_car_front.png" id="13_lljjg"]
 [ext_resource type="Texture2D" uid="uid://bw582msiqpaxu" path="res://assets/visual/sprites/props/gym_sign.png" id="14_jbv7y"]
@@ -550,34 +543,16 @@ leadership_exp = 4
 leadership_points = 2
 combat_level = 3
 combat_exp = 3
-equipped_weapon = NodePath("Inventory/Tailpipe")
+equipped_weapon = NodePath("Inventory/SprayGun")
 equipped_module = NodePath("Inventory/Dodge Roll")
 
 [node name="SprayGun" parent="entities/in_map_player/Player/Inventory" index="0" instance=ExtResource("8_magck")]
 
 [node name="Tailpipe" parent="entities/in_map_player/Player/Inventory" index="1" instance=ExtResource("4_4aisy")]
 
-[node name="Crimson Snow Globe" parent="entities/in_map_player/Player/Inventory" index="2" instance=ExtResource("7_wwpc6")]
+[node name="Staff of Luc" parent="entities/in_map_player/Player/Inventory" index="2" instance=ExtResource("7_3vru2")]
 
-[node name="Chromatic Cheese" parent="entities/in_map_player/Player/Inventory" index="3" instance=ExtResource("8_n54q8")]
-
-[node name="Haggler\'s Brew" parent="entities/in_map_player/Player/Inventory" index="4" instance=ExtResource("9_6iewt")]
-
-[node name="First Aid Kit" parent="entities/in_map_player/Player/Inventory" index="5" instance=ExtResource("10_15jho")]
-
-[node name="Haggler\'s Brew2" parent="entities/in_map_player/Player/Inventory" index="6" instance=ExtResource("9_6iewt")]
-
-[node name="Mystery Snack Pack" parent="entities/in_map_player/Player/Inventory" index="7" instance=ExtResource("10_w1bgm")]
-
-[node name="Gakka Roll" parent="entities/in_map_player/Player/Inventory" index="8" instance=ExtResource("12_g4k6m")]
-
-[node name="Rare Coin" parent="entities/in_map_player/Player/Inventory" index="9" instance=ExtResource("11_5up8w")]
-
-[node name="Rare Coin2" parent="entities/in_map_player/Player/Inventory" index="10" instance=ExtResource("11_5up8w")]
-
-[node name="Staff of Luc" parent="entities/in_map_player/Player/Inventory" index="11" instance=ExtResource("7_3vru2")]
-
-[node name="Dodge Roll" parent="entities/in_map_player/Player/Inventory" index="12" instance=ExtResource("40_fn5hq")]
+[node name="Dodge Roll" parent="entities/in_map_player/Player/Inventory" index="3" instance=ExtResource("40_fn5hq")]
 
 [node name="FighterUnit25" parent="entities/in_map_player/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Arm Guy")

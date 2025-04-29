@@ -1,7 +1,9 @@
 extends Weapon
 
-
 const rarity = 2;
+
+const size_x = 2;
+const size_y = 2;
 
 const angle_adjust = 0;
 ## taser gun, stuns and damages a target

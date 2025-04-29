@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgy437yop01qu"]
+
+[ext_resource type="Script" uid="uid://batxvvss5bs67" path="res://scenes/ui/inventory_grid/inventory_grid_cell.gd" id="1_kfb6x"]
+
+[node name="grid_cell" type="ReferenceRect" node_paths=PackedStringArray("bg")]
+custom_minimum_size = Vector2(48, 48)
+border_color = Color(0.77, 0.77, 0.77, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("1_kfb6x")
+bg = NodePath("bg")
+
+[node name="bg" type="ColorRect" parent="."]
+modulate = Color(0.51, 0.51, 0.51, 0.0784314)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

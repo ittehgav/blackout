@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://0qsjppw7fils"]
+
+[ext_resource type="Script" uid="uid://bxflqfjcfcxqb" path="res://scenes/ui/inventory_grid/item_mirror.gd" id="1_f3hr4"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_sxf1m"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="2_sxf1m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vqoty"]
+resource_local_to_scene = true
+shader = ExtResource("1_sxf1m")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="ItemMirror" type="TextureRect" node_paths=PackedStringArray("outline", "bg", "tooltip", "stack_size_label")]
+z_index = 1
+material = SubResource("ShaderMaterial_vqoty")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+expand_mode = 3
+script = ExtResource("1_f3hr4")
+outline = NodePath("outline")
+bg = NodePath("MarginContainer/mirror_bg")
+tooltip = NodePath("Tooltip")
+stack_size_label = NodePath("stack_size")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="mirror_bg" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="outline" type="ReferenceRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+border_width = 5.0
+editor_only = false
+
+[node name="Tooltip" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_sxf1m")]
+layout_mode = 0
+target = NodePath("..")
+
+[node name="stack_size" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

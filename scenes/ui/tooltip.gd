@@ -66,7 +66,11 @@ func setup()->void:
 	
 	description_label.custom_minimum_size.x = size.x;
 
-
+func disable()->void:
+	hover_timer.timeout.disconnect(_on_hover_timer_timeout)
+	
+func enable()->void:
+	hover_timer.timeout.connect(_on_hover_timer_timeout)
 
 func _on_hover_timer_timeout() -> void:
 	if target is Settlement and Entities.world_map.tile_map.position_in_fog(target.position):

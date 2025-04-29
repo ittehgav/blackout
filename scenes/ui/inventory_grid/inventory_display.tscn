@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://ba833ve2fbwcf"]
+
+[ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_grid/inventory_display.gd" id="1_bv60r"]
+[ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_grid/inventory_grid_cell.tscn" id="2_ke6sf"]
+[ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_grid/item_mirror.tscn" id="3_03pit"]
+[ext_resource type="Script" uid="uid://k28ilsb15q1d" path="res://scenes/ui/inventory_grid/sfx.gd" id="3_ke6sf"]
+[ext_resource type="Script" uid="uid://bphrkwagblhbq" path="res://scenes/ui/inventory_grid/inventory_grid.gd" id="3_rchr5"]
+[ext_resource type="AudioStream" uid="uid://027kj1l582qq" path="res://assets/sound/sfx/ui/inventory/cell_hover.wav" id="4_rchr5"]
+[ext_resource type="AudioStream" uid="uid://bxquvtit675r3" path="res://assets/sound/sfx/ui/inventory/drop.wav" id="6_k4cp6"]
+[ext_resource type="AudioStream" uid="uid://bn7wgmpf137el" path="res://assets/sound/sfx/ui/inventory/pick_up.wav" id="7_7cfyp"]
+
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("item_mirrors_node", "grid", "sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bv60r")
+item_mirrors_node = NodePath("item_mirrors")
+grid_cell_scene = ExtResource("2_ke6sf")
+item_mirror_scene = ExtResource("3_03pit")
+grid = NodePath("inventory_grid")
+sfx = NodePath("sfx")
+size_x = 11
+size_y = 7
+metadata/_tab_index = 0
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+max_polyphony = 9
+script = ExtResource("3_ke6sf")
+cell_hover = ExtResource("4_rchr5")
+drop = ExtResource("6_k4cp6")
+pick_up = ExtResource("7_7cfyp")
+
+[node name="inventory_grid" type="GridContainer" parent="."]
+layout_mode = 1
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+script = ExtResource("3_rchr5")
+
+[node name="item_mirrors" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

@@ -2,6 +2,9 @@ extends Module
 
 const rarity = 3;
 
+const size_x = 1;
+const size_y = 1;
+
 const cooldown = 5;
 const chips_cost = 5;
 

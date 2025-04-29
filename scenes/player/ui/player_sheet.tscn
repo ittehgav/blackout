@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=44 format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/player/ui/player_sheet.gd" id="1_6boby"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_go8yu"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bbd3oiy16p7qa" path="res://scenes/player/ui/gear.gd" id="10_guigk"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="11_drn0r"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="12_guigk"]
+[ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_grid/inventory_display.tscn" id="14_s8tnr"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="15_ptfqp"]
 [ext_resource type="Script" uid="uid://dqpi700chh4i" path="res://scenes/player/ui/party_view.gd" id="15_s407w"]
 [ext_resource type="Script" uid="uid://c3t5hlpw6vsaq" path="res://scenes/player/ui/player.gd" id="16_4btww"]
@@ -89,6 +90,20 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8tnr"]
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hv25b"]
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ncu57"]
 resource_local_to_scene = true
 shader = ExtResource("3_0tcx5")
@@ -129,7 +144,7 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "party_view", "player_view", "left_tab_container", "container", "gear", "morale_label", "consumables_inventory", "trinkets_inventory", "weapons_inventory", "item_feedback", "recruit_full_view", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "ui_sfx")]
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "party_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "item_feedback", "recruit_full_view", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "ui_sfx")]
 process_mode = 3
 y_sort_enabled = true
 layout_mode = 3
@@ -144,13 +159,11 @@ script = ExtResource("1_6boby")
 bg = NodePath("main_bg")
 party_view = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party")
 player_view = NodePath("main_bg/MarginContainer/HBoxContainer/player")
+player_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/Panel/inventory_display")
 left_tab_container = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory")
 container = NodePath("main_bg/MarginContainer/HBoxContainer")
 gear = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear")
 morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/morale_display")
-consumables_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items/Consumables/Consumables")
-trinkets_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items/Trinkets/Trinkets")
-weapons_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items/Weapons/Weapons")
 item_feedback = NodePath("feedback_bg/item_feedback")
 recruit_full_view = NodePath("main_bg/RecruitFullView")
 open_sound = ExtResource("2_go8yu")
@@ -215,10 +228,10 @@ metadata/_tab_index = 0
 
 [node name="resources" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory"]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 356.0
-offset_bottom = 247.0
+offset_left = 415.0
+offset_top = 312.0
+offset_right = 731.0
+offset_bottom = 519.0
 
 [node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/resources"]
 layout_mode = 2
@@ -348,14 +361,18 @@ theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 text = "Chips: X"
 
-[node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" node_paths=PackedStringArray("weapon_sample")]
+[node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" node_paths=PackedStringArray("player_sample", "weapon_sample", "weapon_sample_bg", "module_sample", "module_sample_bg")]
 anchors_preset = 0
 offset_left = 420.0
 offset_top = 40.0
 offset_right = 512.0
 offset_bottom = 95.0
 script = ExtResource("10_guigk")
+player_sample = NodePath("Control/player_sample")
 weapon_sample = NodePath("VBoxContainer/weapon_sample")
+weapon_sample_bg = NodePath("VBoxContainer/weapon_sample/ColorRect")
+module_sample = NodePath("VBoxContainer/module_sample")
+module_sample_bg = NodePath("VBoxContainer/module_sample/ColorRect")
 
 [node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 2
@@ -394,61 +411,61 @@ offset_bottom = 46.0
 layout_mode = 2
 text = "Weapon"
 
-[node name="weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer" instance=ExtResource("10_2ehd5")]
+[node name="weapon_sample" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
+z_index = 1
+material = SubResource("ShaderMaterial_s8tnr")
 layout_mode = 2
+expand_mode = 5
 
-[node name="items" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 341.0
-offset_right = 779.0
-offset_bottom = 578.0
-current_tab = 0
-tab_focus_mode = 1
+[node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/weapon_sample"]
+modulate = Color(1, 1, 1, 0.117647)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Consumables" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items"]
+[node name="module" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-metadata/_tab_index = 0
+text = "Module"
 
-[node name="Consumables" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items/Consumables"]
+[node name="module_sample" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
+z_index = 1
+material = SubResource("ShaderMaterial_hv25b")
 layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 18
+expand_mode = 5
 
-[node name="Weapons" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items"]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-metadata/_tab_index = 1
+[node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/module_sample"]
+modulate = Color(1, 1, 1, 0.117647)
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Weapons" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items/Weapons"]
-layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 18
+[node name="Panel" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -277.0
+offset_right = 385.0
+offset_bottom = 289.0
+grow_vertical = 2
 
-[node name="Trinkets" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items"]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-metadata/_tab_index = 2
-
-[node name="Trinkets" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/items/Trinkets"]
-layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
-columns = 18
+[node name="inventory_display" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/Panel" instance=ExtResource("14_s8tnr")]
+layout_mode = 1
+offset_left = 19.0
+offset_top = 18.0
+offset_right = -17.0
+offset_bottom = -19.0
+size_x = 7
+size_y = 9
 
 [node name="Party" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("ui_sfx", "recruit_full_view", "recruits_grid")]
 visible = false

@@ -3,6 +3,9 @@ extends Weapon
 ## weapons can be weapons or tools with effects such as heals/buffs
 const rarity = 1;
 
+const size_x = 2;
+const size_y = 4;
+
 const angle_adjust = 30;
 
 

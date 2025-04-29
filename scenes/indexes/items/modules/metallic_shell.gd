@@ -2,6 +2,9 @@ extends Module
 
 const rarity = 2;
 
+const size_x = 1;
+const size_y = 1;
+
 const cooldown = 5;
 const scrap_cost = 5;
 

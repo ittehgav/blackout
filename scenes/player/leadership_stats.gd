@@ -56,7 +56,8 @@ var tactics_peks:Dictionary[String, String] = {
 		"If the [b]Tide of Battle[/b] is in your favor, your units gain bonus " + Index.get_color_tag("technique") + "Technique[/color] the more to your side it is.",
 	"Tactical Skill: Retreat":
 		"Unlocks a [b]Tactical Skill[/b] that makes your units run the enemy team and gain a " + Index.get_color_tag("defense") + "defense[/color] bonus for a period of time.",
-	"Tactical Skill: Laser Focus": "Unlocks a [b]Tactical Skill[/b] which instructs all units who can to [b]attack the same target[/b] and gives an " + Index.get_color_tag("attack") + " attack [/color] buff to the ally unit that's closest to it.",
+	"Tactical Skill: Laser Focus":
+		"Unlocks a [b]Tactical Skill[/b] which instructs all units who can to [b]attack the same target[/b] and gives an " + Index.get_color_tag("attack") + " attack [/color] buff to the ally unit that's closest to it.",
 	"Effective Communication":
 		"Each "+ Index.get_color_tag("tactics") + "Tactics level[/color] improves the stat buffs from [b]Tactical Skills[/b] by 10%.",
 	"Tactical Skill: Rallying Cry":

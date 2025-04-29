@@ -77,13 +77,14 @@ func tagged_settlement_name(settlement:Settlement)->String:
 
 
 const resource_colors = {
+	## really saturated here and we fix it out in-context?
 	"food":Color.YELLOW,
 	"fuel":Color.ORANGE_RED,
-	"money":Color(0, .7, 0),
+	"money":Color.GREEN,
 	
 	"juice":Color.PURPLE,
 	"scrap":Color.DIM_GRAY,
-	"chips":Color.SKY_BLUE
+	"chips":Color.CYAN
 }
 
 const stat_colors = {

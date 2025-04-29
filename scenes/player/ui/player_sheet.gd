@@ -6,16 +6,13 @@ class_name PlayerSheet;
  
 @export var party_view:Panel;
 @export var player_view:Panel;
+@export var player_inventory:Control;
 
 @export_group("elements")
 @export var left_tab_container:TabContainer;
 @export var container:HBoxContainer;
 @export var gear:Control;
 @export var morale_label:Label;
-
-@export var consumables_inventory:GridContainer;
-@export var trinkets_inventory:GridContainer;
-@export var weapons_inventory:GridContainer;
 
 @export var item_feedback:Panel;
 @export var recruit_full_view:Control;
@@ -116,27 +113,7 @@ func refresh_data(_r:String="", _change:float=0)->void:
 	chips_label.text = "Chips: " + str(inv.chips);
 
 
-	for c in consumables_inventory.get_children():
-		c.queue_free();
-	for t  in trinkets_inventory.get_children():
-		t.queue_free();
-	for w in weapons_inventory.get_children():
-		w.queue_free();
-
-	var inventory:Inventory = Entities.player.inventory;
-	for item:Item in inventory.consumables +inventory.trinkets + inventory.weapons:
-		var icon:ItemIcon = Index.item_icon_scene.instantiate();
-		icon.item = item;
-		if item is Consumable:
-			consumables_inventory.add_child(icon)
-			icon.gui_input.connect(use_consumable.bind(item))
-	
-		if item is Trinket:
-			trinkets_inventory.add_child(icon)
-		if item is Weapon and not item.get_instance_id() == Entities.player.equipped_weapon.get_instance_id():
-			weapons_inventory.add_child(icon);
-			icon.gui_input.connect(equip_weapon.bind(item));
-	
+	player_inventory.refresh_data();
 	party_view.refresh_data();
 	player_view.refresh_data();
 	

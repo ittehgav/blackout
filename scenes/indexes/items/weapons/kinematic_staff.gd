@@ -2,6 +2,9 @@ extends Weapon
 
 const rarity = 3
 
+const size_x = 2;
+const size_y = 4;
+
 const not_continuous = true;
 signal effect_finished;
 

@@ -13,6 +13,7 @@ class_name Inventory;
 @export var chips:int;
 
 @export_subgroup("Items")
+@export var containers:Array[ResourceContainer];
 @export var consumables:Array[Consumable];
 @export var trinkets:Array[Trinket];
 
@@ -33,6 +34,8 @@ func _on_child_entered_tree(node: Node) -> void:
 		modules.push_back(node);
 	elif node is Weapon:
 		weapons.push_back(node);
+	elif node is ResourceContainer:
+		containers.append(node)
 
 
 func _on_child_exiting_tree(node: Node) -> void:
@@ -45,3 +48,5 @@ func _on_child_exiting_tree(node: Node) -> void:
 		modules.erase(node);
 	elif node is Weapon:
 		weapons.erase(node);
+	elif node is ResourceContainer:
+		containers.erase(node)
