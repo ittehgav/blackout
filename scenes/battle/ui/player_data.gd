@@ -130,7 +130,6 @@ func refresh_hp_bars():
 	hp_bar.max_value = max_hp
 	shield_bar.max_value = max_hp
 	
-	print(Entities.in_fight_player.shield)
 	shield_bar.value = Entities.in_fight_player.shield;
 	hp_bar.value = Entities.in_fight_player.hp;
 
@@ -143,13 +142,13 @@ func _on_in_fight_player_damage_blocked(source: ActiveFighter, value: float) -> 
 func _on_in_fight_player_damage_taken(damage: float) -> void:
 	refresh_hp_bars()
 	
-	Tweens.color_blink(hp_bar, Color.RED, "self_modulate");
+	Tweens.color_blink(hp_bar, Color.RED, .2,  "self_modulate");
 
 
 func _on_in_fight_player_healing_received(value: float) -> void:
 	refresh_hp_bars();
 	
-	Tweens.color_blink(hp_bar, Color.GREEN, "self_modulate");
+	Tweens.color_blink(hp_bar, Color.GREEN, .2,"self_modulate");
 
 
 

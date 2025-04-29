@@ -2,6 +2,7 @@ extends Node2D
 
 class_name FighterUnit
 
+signal level_up;
 ## fighter bases dont need to be loaded for each individual Fighter node
 @export var base:FighterBase;
 
@@ -17,6 +18,7 @@ func _ready()->void:
 	if base:
 		await get_parent().get_parent().ready;
 		load_stats();
+	level_up.connect(Scaling.level_up_stats)
 
 
 func load_stats()->void:

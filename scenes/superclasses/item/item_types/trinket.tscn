@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxyc3ti0renpx"]
+[gd_scene load_steps=2 format=3 uid="uid://dombpgt55h344"]
 
 [ext_resource type="Script" uid="uid://22bfdxr3ppr7" path="res://scenes/superclasses/item/item_types/trinket.gd" id="1_78a4d"]
 

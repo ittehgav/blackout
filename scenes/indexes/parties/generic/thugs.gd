@@ -1,3 +1,3 @@
 extends NpcLeader
 
-const behavior = "agressive"
+var behavior = "agressive"

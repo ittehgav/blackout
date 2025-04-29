@@ -17,6 +17,7 @@ signal dialogue_ended;
 @export_group("Elements")
 @export var speaking_party_avatar:Control;
 @export var blip:AudioStreamPlayer;
+@export var dialogue_sfx:AudioStreamPlayer;
 
 var current_speaking_sprite:Sprite2D;
 @export var player_sprite:Sprite2D
@@ -143,8 +144,7 @@ func get_next_line()->void:
 	current_line = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
 	if current_line:
 		display_line()
-	else:
-		print("notcl??")
+
 
 
 func response_chosen(response:DialogueResponse)->void:
@@ -179,23 +179,57 @@ func parse_dialogue_text(text:String)->String:
 		final_text = final_text.replace("#roll_intimidate", roll_intimidate_odds())
 	if "#roll_convince" in final_text:
 		final_text = final_text.replace("#roll_convince", roll_convince_odds())
+	
 	if "#yield" in final_text:
 		final_text = final_text.replace("#yield", "[color=dark_red]Lose half of all your resources.");
+	if "#angry" in final_text:
+		final_text = final_text.replace("#angry", "");
+		final_text = wrap_in_bbcode_tag(final_text, "shake rate=50.0 level=40.0")
+		play_effect("angry");
+	if "#scared " in final_text:
+		final_text = final_text.replace("#scared", "");
+		final_text = wrap_in_bbcode_tag(final_text, "shake rate=10.0 level=10.0")
+		play_effect("scared");
+	if "#persuaded" in final_text:
+		final_text =  final_text.replace("#persuaded", "")
+		
+		play_effect("persuaded");
 	
 	return final_text
+
+
+func play_effect(effect:String)->void:
+	## plays both visual and sound effecrts
+	match effect:
+		"angry":
+			Tweens.color_blink(current_speaking_sprite, Color.RED, .5);
+			Tweens.y_shake(current_speaking_sprite, 2, 10);
+			dialogue_sfx.play_sound_by_key("angry")
+		"scared":
+			dialogue_sfx.play_sound_by_key("success")
+			print("scared");
+		"persuaded":
+			dialogue_sfx.play_sound_by_key("success");
+	
+func wrap_in_bbcode_tag(text:String, tag:String )->String:
+	return "[" + tag + "]" + text + "[/" + tag.split(" ")[0] + "]"
 	
 func roll_intimidate_odds()->String:
 	var odds_string:String = "[color=red]Intimidate - ";
 	var odds:float = Entities.in_map_player.intimidate_odds(Entities.current_speaking_party);
-	odds_string += str(odds * 100) + "%[/color]"
+	if odds > 1:
+		odds = 1;
+	odds_string += str(snapped(odds * 100, .01)) + "%[/color]"
 	return odds_string;
 
 func roll_convince_odds()->String:
 	var odds_string: = "[color=yellow]Convince - "
 	var odds:float = Entities.in_map_player.convince_odds(Entities.current_speaking_party);
-	odds_string += str(odds * 100) + "%[/color]"
+	odds_string += str(snapped(odds * 100, .01)) + "%[/color]"
 	return odds_string
 
+
+		
 
 func _on_animation_ticker_timeout() -> void:
 	await get_tree().create_timer(.25).timeout;

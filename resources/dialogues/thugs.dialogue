@@ -3,8 +3,13 @@ import "res://resources/dialogues/map_common.dialogue" as common
 ~ start
 Thugs: Hey you, give me everything you have!
 - You can take it from my cold, dead hands! #start_battle =>< common/battle
-- Okay, you can have it, just don't hurt me! #yield =>< common/yield
+- Okay, you can have it, just don't hurt me! #yield =>< yield
 - Maybe we can talk this out? => talk_things_out
+
+
+~ yield
+Thugs: That's right, now keep moving before I get angry!
+=>< common/yield
 
 ~ talk_things_out
 Thugs: Maybe I'll let you choose which of your bones i'll break first!
@@ -14,14 +19,14 @@ Thugs: Maybe I'll let you choose which of your bones i'll break first!
 - Just keep talking forever lmao => talk_things_out
 
 ~ intimidate_success
-Thugs: I-I... fine, let's get out of here, boys!
+Thugs: #scared I-I... fine, let's get out of here, boys!
 =>< common/scare_speaking_party
 
 ~ convince_fail
 ~ intimidate_fail
-Thugs: #!angry Just who do you think you're talking to!?!?!?!?
+Thugs: #angry JUST WHO DO YOU THINK YOU'RE TALKING TO!?!?!?!?
 =>< common/battle
 
 ~ convince_success
-Thugs: I guess you're right... Then get out of here!
+Thugs: #persuaded I guess you're right... Then get out of here!
 =>< common/pacify_speaking_party

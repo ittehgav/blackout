@@ -29,12 +29,14 @@ func _ready()->void:
 
 func setup_adjacent_items(value:int=Entities.player.inventory[resource])->void:
 	for item:Node in adjacent_items:
-		item.modulate = Index.resource_colors[resource]
+
 		if item is Label:
+			item.add_theme_color_override("font_color", Index.resource_colors[resource]);
 			if value == Entities.player.inventory[resource]:
-				Entities.player.resources_changed.connect(set_count_label.bind(item))
-			set_count_label(item, value);
+				Entities.player.resource_changed.connect(set_count_label.bind(item))
+			set_count_label(resource,0, item, value);
 	
 
-func set_count_label(target:Label, value:int)->void:
-	target.text = str(value);
+func set_count_label(r:String,_change:float, target:Label, value:int=Entities.player.inventory[resource])->void:
+	if r == resource:
+		target.text = str(value);

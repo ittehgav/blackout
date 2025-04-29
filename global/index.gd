@@ -94,6 +94,14 @@ const stat_colors = {
 	"technique": Color.DEEP_PINK
 }
 
+const leadership_stat_colors = {
+	"charisma":Color.ORANGE,
+	"navigation":Color.ORANGE,
+	"tactics":Color.ORANGE,
+	"team_management":Color.ORANGE,
+	"scavenging":Color.ORANGE,
+}
+
 const flavor_colors = {
 	"blackout":Color.MEDIUM_ORCHID
 }
@@ -105,7 +113,8 @@ const combat_effect_colors = {
 
 const misc_colors = {
 	"no_dmg":Color.LIGHT_BLUE,
-	"shield":Color.YELLOW
+	"shield":Color.YELLOW,
+	"morale":Color.YELLOW
 }
 
 
@@ -116,7 +125,7 @@ const item_rarity_colors:={
 }
 
 
-func get_color_tag(key:String)->String:
+func get_color(key:String)->Color:
 	var color:Color;
 	if key in resource_colors:
 		color = resource_colors[key];
@@ -128,7 +137,13 @@ func get_color_tag(key:String)->String:
 		color = misc_colors[key]
 	elif key in combat_effect_colors:
 		color = combat_effect_colors[key]
+	elif key in leadership_stat_colors:
+		color = leadership_stat_colors[key];
 	assert(color != Color(0.0, 0.0, 0.0, 1.0))
+	return color;
+
+func get_color_tag(key:String)->String:
+	var color:Color = get_color(key);
 	return "[color=" + color.to_html() + "]";
 
 

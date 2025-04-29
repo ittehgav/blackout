@@ -228,7 +228,7 @@ func _on_confirm_trade_pressed() -> void:
 		Entities.player.inventory[r] += trade;
 		settlement.inventory[r] -= trade
 		
-	Entities.player.resources_changed.emit();
+		Entities.player.resource_changed.emit(r, trade);
 	trade_completed.emit();
 	
 	settlement.gain_relation_progress(trade_volume/100)

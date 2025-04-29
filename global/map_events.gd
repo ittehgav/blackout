@@ -9,13 +9,18 @@ func battle_lost()->void:
 
 	
 func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->void:
-	print("yield")
-	pass
+	for r in Index.all_resources:
+		var change:float = (Entities.player.inventory[r]/2) * -1
+		if not change:
+			change = -1;
+		Entities.player.inventory[r] += int(change)
+		Entities.player.resource_changed.emit(r, change);
+	pacify_speaking_party();
 
 
 func scare_speaking_party()->void:
-	pass
+	Entities.current_speaking_party.feared_entity = Entities.in_map_player;
 
 
 func pacify_speaking_party()->void:
-	pass
+	Entities.current_speaking_party.leader.behavior = "peaceful";

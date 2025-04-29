@@ -43,6 +43,19 @@ func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader, or
 	Entities.main_bgm.play_bgm("combat")
 	show()
 
+func _on_start_battle_pressed() -> void:
+	var arena:Arena = Index.arena_scene.instantiate();
+	arena.start_battle(to_fight)
+	slide_out()
+	Entities.arena.battle_ended.connect(Entities.world_map.ui.show)
+	Entities.arena.battle_ended.connect(hide);
+	
+	match from:
+		## add more into this when there's other ways of getting into battle
+		"dialogue":
+			Entities.arena.battle_won.connect(Entities.current_speaking_party.queue_free)
+			Entities.arena.battle_lost.connect(MapEvents.battle_lost)
+			Entities.arena.battle_ended.connect(Entities.player_sheet.refresh_data)
 
 
 func set_opponent_avatar(target:Leader)->void:
@@ -62,18 +75,6 @@ func _on_animation_ticker_timeout() -> void:
 		opponent_sprite.frame = 1;
 
 
-func _on_start_battle_pressed() -> void:
-	var arena:Arena = Index.arena_scene.instantiate();
-	arena.start_battle(to_fight)
-	slide_out()
-	Entities.arena.battle_ended.connect(Entities.world_map.ui.show)
-	Entities.arena.battle_ended.connect(hide);
-	
-	match from:
-		## add more into this when there's other ways of getting into battle
-		"dialogue":
-			Entities.arena.battle_won.connect(Entities.current_speaking_party.queue_free)
-			Entities.arena.battle_lost.connect(MapEvents.battle_lost)
 
 func slide_in()->void:
 	plates_container.add_theme_constant_override("separation", 2000);

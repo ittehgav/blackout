@@ -43,10 +43,11 @@ func update_clock() -> void:
 
 
 func switch_to_semi_visible(_s:Node=null)->void:
-	for c:PanelContainer in get_children():
-		c.modulate.a = .1
-		c.mouse_entered.connect(fade_panel_in.bind(c))
-		c.mouse_exited.connect(fade_panel_out.bind(c))
+	for c:Node in get_children():
+		if c is PanelContainer:
+			c.modulate.a = .1
+			c.mouse_entered.connect(fade_panel_in.bind(c))
+			c.mouse_exited.connect(fade_panel_out.bind(c))
 
 func fade_panel_in(panel:PanelContainer)->void:
 	if fade_tweens[panel] and fade_tweens[panel].is_running():
@@ -62,10 +63,11 @@ func fade_panel_out(panel:PanelContainer)->void:
 	fade_tweens[panel].tween_property(panel, "modulate:a", .1, .5);
 
 func switch_to_fully_visible()->void:
-	for c:PanelContainer in get_children():
-		c.modulate.a = 1
-		c.mouse_entered.disconnect(fade_panel_in.bind(c))
-		c.mouse_exited.disconnect(fade_panel_out.bind(c))
+	for c:Node in get_children():
+		if c is PanelContainer:
+			c.modulate.a = 1
+			c.mouse_entered.disconnect(fade_panel_in.bind(c))
+			c.mouse_exited.disconnect(fade_panel_out.bind(c))
 
 
 func _on_party_status_panel_gui_input(e: InputEvent) -> void:

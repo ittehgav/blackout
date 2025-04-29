@@ -188,8 +188,24 @@ func stretch_bar(target:TextureProgressBar)->Tween:
 	tween.tween_property(target, "scale", Vector2.ONE, .5);
 	return tween;
 
-func color_blink(target:CanvasItem, target_color:Color, target_property:String="modulate")->Tween:
+func color_blink(target:CanvasItem, target_color:Color, duration = .2, target_property:String="modulate")->Tween:
 	target[target_property] = target_color;
 	var tween:Tween = create_tween();
-	tween.tween_property(target, target_property, Color.WHITE, .2);
+	tween.tween_property(target, target_property, Color.WHITE, duration);
 	return tween
+
+func y_shake(target:CanvasItem, shake_count:int = 2, shake_range:int = 50)->Tween:
+	var initial_y = target.position.y;
+	var roll_1 = randi_range(0, shake_range)
+	target.position.y -= roll_1
+	
+	var tween = create_tween();
+	for i in shake_count:
+		var roll = randi_range(0, shake_range)
+		if i % 2:
+			roll *= -1;
+		tween.tween_property(target, "position:y", initial_y + roll, .1)
+	tween.tween_property(target, "position:y", initial_y, .1);
+
+	return tween
+	

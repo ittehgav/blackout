@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://di0vghxs4bkgh"]
+
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_soq6g"]
+[ext_resource type="Texture2D" uid="uid://b2yjixqdjpe1t" path="res://assets/visual/icons/items/containers/scrap_pile.png" id="2_sd44b"]
+[ext_resource type="Script" uid="uid://b8x1448i2r5qp" path="res://scenes/indexes/items/containers/scrap_pile.gd" id="3_ctew6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1l24m"]
+shader = ExtResource("1_soq6g")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="Scrap Pile" type="Sprite2D"]
+material = SubResource("ShaderMaterial_1l24m")
+texture = ExtResource("2_sd44b")
+script = ExtResource("3_ctew6")
+resource = "scrap"

@@ -4,6 +4,9 @@ class_name PlayerSheet;
 
 @export var bg:ColorRect;
  
+@export var party_view:Panel;
+@export var player_view:Panel;
+
 @export_group("elements")
 @export var left_tab_container:TabContainer;
 @export var container:HBoxContainer;
@@ -61,7 +64,7 @@ const resources_names = [
 func _ready()->void:
 	super();
 	Entities.player_sheet = self;
-	Entities.player.resources_changed.connect(refresh_data)
+	Entities.player.resource_changed.connect(refresh_data)
 
 func _input(e:InputEvent)->void:
 	if e.is_action_pressed("show_player_sheet") and not visible:
@@ -98,7 +101,7 @@ func hide_player_sheet()->void:
 	hide()
 
 
-func refresh_data()->void:
+func refresh_data(_r:String="", _change:float=0)->void:
 	## will show upkeep costs when upkeep is implemented
 	morale_label.text = "Morale: " + str(snapped(Entities.player.morale, .01));
 	
@@ -112,28 +115,7 @@ func refresh_data()->void:
 	scrap_label.text = "Scrap: " + str(inv.scrap);
 	chips_label.text = "Chips: " + str(inv.chips);
 
-	var stats: LeadershipStats = Entities.player.leadership_stats;
-	charisma_label.text = "Charisma: " + str(stats.charisma);
-	navigation_label.text = "Navigation: " + str(stats.navigation);
-	tactics_label.text = "Tactics: " + str(stats.tactics);
-	logistics_label.text = "Logistics: " + str(stats.logistics)
 
-	leadership_level_label.text = "Leadership Level: " + str(Entities.player.leadership_level);
-	combat_level_label.text = "Combat Level: " + str(Entities.player.combat_level);
-
-	leadership_level_progress.max_value = Scaling.exp_for_next_level(Entities.player.leadership_level);
-	leadership_level_progress.value = Entities.player.leadership_exp;
-
-	combat_level_progress.max_value = Scaling.exp_for_next_level(Entities.player.combat_level);
-	combat_level_progress.value = Entities.player.combat_exp;
-	
-	var cstats:CombatStats = Entities.player.combat_stats;
-
-	max_hp_label.text = "Max HP: " + str(cstats.max_hp);
-	attack_label.text = "Base Attack: " + str(cstats.attack);
-	defense_label.text = "Defense: " + str(cstats.defense);
-	agility_label.text=  "Agility: " + str(cstats.agility);
-	technique_label.text = "Technique: " + str(cstats.technique);
 	for c in consumables_inventory.get_children():
 		c.queue_free();
 	for t  in trinkets_inventory.get_children():
@@ -154,6 +136,9 @@ func refresh_data()->void:
 		if item is Weapon and not item.get_instance_id() == Entities.player.equipped_weapon.get_instance_id():
 			weapons_inventory.add_child(icon);
 			icon.gui_input.connect(equip_weapon.bind(item));
+	
+	party_view.refresh_data();
+	player_view.refresh_data();
 	
 func use_consumable(e:InputEvent, item:Consumable)->void:
 	if e.is_action_pressed("use_item"):

@@ -1,11 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://di52ctdy1nihl"]
+[gd_scene load_steps=13 format=3 uid="uid://di52ctdy1nihl"]
 
 [ext_resource type="Script" uid="uid://ehyudl1u8c6p" path="res://scenes/map/ui/dialogue/dialogue_player.gd" id="1_78q7f"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="3_5y6lb"]
 [ext_resource type="PackedScene" uid="uid://bhxxi2711i5k2" path="res://scenes/map/ui/dialogue/dialogue_choice.tscn" id="3_eqxh4"]
 [ext_resource type="AudioStream" uid="uid://bgr18seksa7t7" path="res://assets/sound/sfx/ui/dialogue/2_blip.ogg" id="4_8aum2"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="4_j4ks8"]
+[ext_resource type="Script" uid="uid://dsggosbo8h3h6" path="res://scenes/map/ui/dialogue/dialogue_sfx.gd" id="5_2v7b0"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="5_ctt8r"]
+[ext_resource type="AudioStream" uid="uid://cy2khrfwrsamb" path="res://assets/sound/sfx/combat/tide/ally_death.wav" id="6_k8mrl"]
+[ext_resource type="AudioStream" uid="uid://b75ddcy25t1wf" path="res://assets/sound/sfx/combat/tide/enemy_death.wav" id="7_yfav6"]
+[ext_resource type="AudioStream" uid="uid://bqj6dsluui4i7" path="res://assets/sound/sfx/ui/dialogue/mock.mp3" id="8_wypdb"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8aum2"]
 random_pitch = 2.0
@@ -24,7 +28,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="Dialoge Player" type="Control" node_paths=PackedStringArray("input_hold_timer", "speaking_party_avatar", "blip", "player_sprite", "choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
+[node name="Dialoge Player" type="Control" node_paths=PackedStringArray("input_hold_timer", "speaking_party_avatar", "blip", "dialogue_sfx", "player_sprite", "choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
 process_mode = 4
 texture_filter = 1
 layout_mode = 3
@@ -38,6 +42,7 @@ input_hold_timer = NodePath("input_hold")
 dialogue_choice_scene = ExtResource("3_eqxh4")
 speaking_party_avatar = NodePath("speaking_avatar")
 blip = NodePath("speech_blip")
+dialogue_sfx = NodePath("dialogue_sfx")
 player_sprite = NodePath("player_avatar/body")
 choices_box = NodePath("PanelContainer")
 choices_container = NodePath("PanelContainer/VBoxContainer")
@@ -45,11 +50,17 @@ speaker_name_label = NodePath("Panel/speaker_name")
 text_label = NodePath("Panel/MarginContainer/DialogueLabel")
 ui_sfx = NodePath("ui_sfx")
 
+[node name="ui_sfx" parent="." instance=ExtResource("3_5y6lb")]
+
 [node name="speech_blip" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_8aum2")
 pitch_scale = 1.5
 
-[node name="ui_sfx" parent="." instance=ExtResource("3_5y6lb")]
+[node name="dialogue_sfx" type="AudioStreamPlayer" parent="."]
+script = ExtResource("5_2v7b0")
+angry = ExtResource("6_k8mrl")
+success = ExtResource("7_yfav6")
+mock = ExtResource("8_wypdb")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

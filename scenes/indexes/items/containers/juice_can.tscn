@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://5un73br0b5l0"]
+
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_lr23s"]
+[ext_resource type="Texture2D" uid="uid://dsultvkvwmrk5" path="res://assets/visual/icons/items/containers/juice_can.png" id="2_gket2"]
+[ext_resource type="Script" uid="uid://5c065l7nnoih" path="res://scenes/indexes/items/containers/juice_can.gd" id="3_xey65"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cum7a"]
+shader = ExtResource("1_lr23s")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="Juice Can" type="Sprite2D"]
+material = SubResource("ShaderMaterial_cum7a")
+texture = ExtResource("2_gket2")
+script = ExtResource("3_xey65")
+resource = "juice"

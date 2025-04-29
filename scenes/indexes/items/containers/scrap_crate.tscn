@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://4jkjqr85s6x"]
+
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_vhviq"]
+[ext_resource type="Texture2D" uid="uid://p10xfc72kfm8" path="res://assets/visual/icons/items/containers/scrap_crate.png" id="2_7l0fn"]
+[ext_resource type="Script" uid="uid://b0230cd7niq3c" path="res://scenes/indexes/items/containers/scrap_crate.gd" id="3_uvkyr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ym1b5"]
+shader = ExtResource("1_vhviq")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="Scrap Crate" type="Sprite2D"]
+material = SubResource("ShaderMaterial_ym1b5")
+texture = ExtResource("2_7l0fn")
+script = ExtResource("3_uvkyr")
+resource = "scrap"

@@ -35,9 +35,11 @@ func build_from_unit(fighter_unit:FighterUnit)->void:
 func level_up_target()->void:
 	if target is Player:
 		if exp_tracked == "leadership":
+			Entities.player.leadership_level_up.emit()
 			Entities.player.leadership_level += 1;
 			Entities.player.leadership_exp = 0;
 		else:
+			Entities.player.combat_level_up.emit()
 			Entities.player.combat_level += 1;
 			Entities.player.combat_exp = 0;
 	else:

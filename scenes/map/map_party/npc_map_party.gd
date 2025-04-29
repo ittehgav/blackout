@@ -6,15 +6,17 @@ class_name NpcMapParty
 
 var feared_entity:MapEntity;
 
-
+func _ready():
+	await Entities.in_map_player.ready;
+	find_target()
 
 func _physics_process(_delta: float) -> void:
 	var direction:Vector2;
-	if target_entity:
+	if feared_entity:
+		direction = (target_entity.position - position).normalized()*-1
+	elif target_entity:
 		direction= (target_entity.position - position).normalized();
 		## without multiplying by delta this behaves exacly as move_and_collide(with delta)??
-	elif feared_entity:
-		direction = (target_entity.position - position).normalized()*-1
 	else:
 		## if teheres no target entity/feared entity, the find_target function makes the npc run in a random direction
 		direction = (target_position - position).normalized();
@@ -29,7 +31,7 @@ func find_target() -> void:
 			else:
 				idle_movement()
 		"peaceful":
-			pass
+			idle_movement()
 		"scared":
 			if position.distance_to(Entities.in_map_player.position) <= leader.sight_range:
 				feared_entity =  Entities.in_map_player;

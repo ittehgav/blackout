@@ -1,5 +1,5 @@
 ~ scare_speaking_party
-do MapEvents.spook_speaking_party()
+do MapEvents.scare_speaking_party()
 => finish_dialogue
 
 ~ yield

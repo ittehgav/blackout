@@ -243,7 +243,10 @@ agility = 10.0
 technique = 1.23
 
 [node name="leadership_stats" parent="main_ui/Player" index="3"]
-charisma = 2
+charisma = 3
+tactics = 1
+team_management = 1
+scavenging = 5
 
 [connection signal="finished" from="main_ui/main_bgm" to="main_ui/main_bgm" method="_on_finished"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/test_battle" to="main_ui" method="test_battle"]

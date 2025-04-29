@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=102 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
@@ -50,10 +50,14 @@
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="52_64kp8"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="52_ebkns"]
 [ext_resource type="Texture2D" uid="uid://dkpxsjgvphgq8" path="res://assets/visual/ui/map/movement_pointer_shadow.png" id="52_piqjc"]
+[ext_resource type="Script" uid="uid://djuvkqu0m0s1o" path="res://scenes/map/world_map/resources_panel.gd" id="53_anjvn"]
 [ext_resource type="Script" uid="uid://0o04smiwwlcd" path="res://scenes/map/world_map/movement_pointer.gd" id="53_ltr5c"]
 [ext_resource type="Texture2D" uid="uid://wagrlrl1grej" path="res://assets/visual/ui/map/movement_pointer.png" id="54_anjvn"]
 [ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="54_nmq41"]
+[ext_resource type="Script" uid="uid://bocga7gku58st" path="res://scenes/map/world_map/resource_sfx.gd" id="55_64kp8"]
+[ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/resource_gain.wav" id="56_nmq41"]
 [ext_resource type="PackedScene" uid="uid://cqyc1v8qqn3xv" path="res://scenes/map/ui/pre_battle/pre_battle.tscn" id="57_1ogav"]
+[ext_resource type="AudioStream" uid="uid://bpwvg8823qiy" path="res://assets/sound/sfx/ui/resource_loss.wav" id="57_7d1fb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gyjr"]
 texture = ExtResource("3_1w3gq")
@@ -430,6 +434,14 @@ shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
+resource_local_to_scene = true
+shader = ExtResource("50_piqjc")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
 resource_local_to_scene = true
 shader = ExtResource("50_piqjc")
@@ -535,6 +547,7 @@ position = Vector2(521, 310)
 [node name="Player" parent="entities/in_map_player" index="3" node_paths=PackedStringArray("equipped_weapon", "equipped_module")]
 leadership_level = 3
 leadership_exp = 4
+leadership_points = 2
 combat_level = 3
 combat_exp = 3
 equipped_weapon = NodePath("Inventory/Tailpipe")
@@ -648,6 +661,9 @@ technique = 1.23
 
 [node name="leadership_stats" parent="entities/in_map_player/Player" index="3"]
 charisma = 2
+navigation = 3
+tactics = 1
+scavenging = 1
 
 [node name="fog" type="TileMapLayer" parent="."]
 modulate = Color(0.38, 0.38, 0.38, 1)
@@ -832,7 +848,48 @@ theme_override_constants/shadow_offset_y = -3
 theme_override_font_sizes/font_size = 64
 text = "16:20"
 
-[node name="resources_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud"]
+[node name="floating_change" type="Control" parent="ui_overlay/ui/main_hud"]
+visible = false
+anchors_preset = 0
+offset_left = 64.0
+offset_top = 529.0
+offset_right = 64.0
+offset_bottom = 529.0
+
+[node name="Panel" type="Panel" parent="ui_overlay/ui/main_hud/floating_change"]
+modulate = Color(1, 1, 1, 0.439216)
+layout_mode = 0
+offset_left = -9.0
+offset_top = -11.0
+offset_right = 93.0
+offset_bottom = 44.0
+
+[node name="resource_icon" parent="ui_overlay/ui/main_hud/floating_change" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_ltr5c")
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 1
+grow_vertical = 1
+adjacent_items = [NodePath("../value")]
+
+[node name="value" type="Label" parent="ui_overlay/ui/main_hud/floating_change"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = -10.0
+offset_right = 161.0
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 64
+text = "wawa"
+
+[node name="resources_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud" node_paths=PackedStringArray("food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "floating_change", "sfx")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -840,6 +897,20 @@ anchor_bottom = 1.0
 offset_top = -134.0
 offset_right = 324.0
 grow_vertical = 0
+script = ExtResource("53_anjvn")
+food_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/food")
+fuel_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/fuel")
+money_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/money")
+juice_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/juice")
+scrap_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/scrap")
+chips_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/chips")
+floating_change = NodePath("../floating_change")
+sfx = NodePath("sfx")
+
+[node name="sfx" type="AudioStreamPlayer" parent="ui_overlay/ui/main_hud/resources_panel"]
+script = ExtResource("55_64kp8")
+resource_gain = ExtResource("56_nmq41")
+resource_loss = ExtResource("57_7d1fb")
 
 [node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/resources_panel"]
 layout_mode = 2
@@ -859,9 +930,9 @@ theme_override_constants/separation = 10
 [node name="resource_icon" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
 material = SubResource("ShaderMaterial_fn5hq")
 layout_mode = 2
-adjacent_items = [NodePath("../Label")]
+adjacent_items = [NodePath("../food")]
 
-[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="food" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "22"
@@ -870,9 +941,9 @@ text = "22"
 material = SubResource("ShaderMaterial_k7mhn")
 layout_mode = 2
 resource = "fuel"
-adjacent_items = [NodePath("../Label2")]
+adjacent_items = [NodePath("../fuel")]
 
-[node name="Label2" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="fuel" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "11"
@@ -881,9 +952,9 @@ text = "11"
 material = SubResource("ShaderMaterial_a8suh")
 layout_mode = 2
 resource = "money"
-adjacent_items = [NodePath("../Label3")]
+adjacent_items = [NodePath("../money")]
 
-[node name="Label3" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="money" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "23"
@@ -896,9 +967,9 @@ theme_override_constants/separation = 10
 material = SubResource("ShaderMaterial_umths")
 layout_mode = 2
 resource = "juice"
-adjacent_items = [NodePath("../Label")]
+adjacent_items = [NodePath("../juice")]
 
-[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="juice" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "22"
@@ -907,9 +978,9 @@ text = "22"
 material = SubResource("ShaderMaterial_ffuc7")
 layout_mode = 2
 resource = "scrap"
-adjacent_items = [NodePath("../Label2")]
+adjacent_items = [NodePath("../scrap")]
 
-[node name="Label2" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="scrap" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "11"
@@ -918,9 +989,9 @@ text = "11"
 material = SubResource("ShaderMaterial_h2uxo")
 layout_mode = 2
 resource = "chips"
-adjacent_items = [NodePath("../Label3")]
+adjacent_items = [NodePath("../chips")]
 
-[node name="Label3" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="chips" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "23"
@@ -937,6 +1008,7 @@ layout_mode = 1
 [connection signal="timeout" from="entities/movement_pointer_shadow/next_frame" to="entities/movement_pointer_shadow" method="_on_next_frame_timeout"]
 [connection signal="started_moving" from="entities/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_started_moving"]
 [connection signal="stopped_moving" from="entities/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_stopped_moving"]
+[connection signal="resource_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/main_hud/resources_panel" method="_on_player_resource_changed"]
 [connection signal="body_entered" from="entities/in_map_player/sight" to="bg_tiles" method="_on_sight_body_entered"]
 [connection signal="settlement_entered" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]
 [connection signal="settlement_left" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]

@@ -81,7 +81,6 @@ func _on_hp_bar_value_changed(value: float) -> void:
 	if not trail_tween or not trail_tween.is_running():
 		hp_bar_trail.self_modulate.a = 1;
 		
-		Tweens.fade(hp_bar_trail, false)
 		trail_tween = create_tween();
 		trail_tween.tween_property(hp_bar_trail, "self_modulate:a", 0, .5)
 		trail_tween.tween_callback(hp_bar_trail.set_value.bind(hp_bar.value))

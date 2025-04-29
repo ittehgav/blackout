@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://jj68s6yms5mq"]
+
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_y4sw3"]
+[ext_resource type="Texture2D" uid="uid://bu3t5v0gtu846" path="res://assets/visual/icons/items/containers/juice_tank.png" id="2_urjbj"]
+[ext_resource type="Script" uid="uid://cwyd0u1e03alv" path="res://scenes/indexes/items/containers/juice_tank.gd" id="3_6drv7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_utm0g"]
+shader = ExtResource("1_y4sw3")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="Juice Tank" type="Sprite2D"]
+material = SubResource("ShaderMaterial_utm0g")
+texture = ExtResource("2_urjbj")
+script = ExtResource("3_6drv7")
+resource = "juice"

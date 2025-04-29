@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsvx7fnl7axj8"]
+
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_omtk4"]
+[ext_resource type="Texture2D" uid="uid://dwnbrv5st6qi0" path="res://assets/visual/icons/resources/food.png" id="2_pmfpv"]
+[ext_resource type="Script" uid="uid://cnatvtwt8rggx" path="res://scenes/indexes/items/containers/food.gd" id="3_0llw5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0eodl"]
+shader = ExtResource("1_omtk4")
+shader_parameter/base_color = Color(0.631373, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="Food" type="Sprite2D"]
+material = SubResource("ShaderMaterial_0eodl")
+texture = ExtResource("2_pmfpv")
+script = ExtResource("3_0llw5")
+resource = "food"

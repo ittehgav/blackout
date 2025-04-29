@@ -9,7 +9,7 @@ var use_message:String;
 func use()->bool:
 	var roll:int = randi_range(5, 100);
 	Entities.player.inventory.food += roll;
-	Entities.player.resources_changed.emit();
+	Entities.player.resource_changed.emit("food", roll);
 	use_message = "Gained " + str(roll) + " food!";
 	return true;
 	

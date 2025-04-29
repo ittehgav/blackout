@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://b31o7gkv766v0"]
+
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_c2ug2"]
+[ext_resource type="Texture2D" uid="uid://cleu7af0rrnp0" path="res://assets/visual/icons/items/containers/juice_flask.png" id="2_rjnbh"]
+[ext_resource type="Script" uid="uid://d3ihh6jli6w0x" path="res://scenes/indexes/items/containers/juice_flask.gd" id="3_65lih"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gddtg"]
+shader = ExtResource("1_c2ug2")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+
+[node name="Juice Flask" type="Sprite2D"]
+material = SubResource("ShaderMaterial_gddtg")
+texture = ExtResource("2_rjnbh")
+script = ExtResource("3_65lih")
+resource = "juice"

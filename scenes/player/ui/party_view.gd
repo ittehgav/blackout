@@ -6,7 +6,11 @@ extends Panel
 
 @export var recruits_grid:GridContainer;
 
-func _ready()->void:
+
+func refresh_data()->void:
+	for c in recruits_grid.get_children():
+		c.queue_free()
+	
 	for unit:FighterUnit in Entities.player.roster.units:
 		var sample:SpriteSample = Index.sprite_sample_scene.instantiate();
 		sample.get_node("additional_data").text = "Lv. " + str(unit.level);

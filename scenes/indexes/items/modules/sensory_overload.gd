@@ -23,9 +23,7 @@ func use()->void:
 	var player:InFightPlayer = Entities.in_fight_player;
 	for target in aoe_range.get_overlapping_bodies():
 		if target in player.ally_team.units:
-			print(target.technique)
 			Combat.apply_stat_change(player, target, target.technique, "technique");
-			print(target.technique)
 		else:
 			Combat.stun_target(player, target, 1)
 
