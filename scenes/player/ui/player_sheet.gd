@@ -4,7 +4,7 @@ class_name PlayerSheet;
 
 @export var bg:ColorRect;
  
-@export var party_view:Panel;
+@export var party_view:Control;
 @export var player_view:Panel;
 @export var player_inventory:Control;
 
@@ -25,14 +25,6 @@ class_name PlayerSheet;
 @export var equip:AudioStream;
 
 @export_category("Elements")
-@export_subgroup("Resource Labels")
-@export var food_label:Label;
-@export var fuel_label:Label;
-@export var money_label:Label;
-@export var juice_label:Label;
-@export var scrap_label:Label;
-@export var chips_label: Label;
-
 @export_subgroup("Combat Stat Labels")
 @export var max_hp_label:Label;
 @export var attack_label:Label;
@@ -51,15 +43,10 @@ const resources_names = [
 @export var combat_level_label:Label;
 @export var combat_level_progress:ProgressBar;
 
-@export_subgroup("Leadership Stat Labels")
-@export var charisma_label:Label;
-@export var navigation_label:Label;
-@export var tactics_label:Label;
-@export var logistics_label:Label;
-
 
 func _ready()->void:
 	super();
+	await Entities.player.ready;
 	Entities.player_sheet = self;
 	Entities.player.resource_changed.connect(refresh_data)
 
@@ -103,32 +90,12 @@ func refresh_data(_r:String="", _change:float=0)->void:
 	morale_label.text = "Morale: " + str(snapped(Entities.player.morale, .01));
 	
 	gear.refresh_samples()
-	var inv:Inventory = Entities.player.inventory;
-	food_label.text = "Food: " + str(inv.food);
-	fuel_label.text = "Fuel: " + str(inv.fuel);
-	money_label.text = "Money: $" + str(inv.money);
-	
-	juice_label.text = "Juice: " + str(inv.juice);
-	scrap_label.text = "Scrap: " + str(inv.scrap);
-	chips_label.text = "Chips: " + str(inv.chips);
 
 
 	player_inventory.refresh_data();
 	party_view.refresh_data();
 	player_view.refresh_data();
-	
-func use_consumable(e:InputEvent, item:Consumable)->void:
-	if e.is_action_pressed("use_item"):
-		if item.use():
-			ui_sfx.play_stream_obj(rummage)
-			await item_feedback.use_animation(item);
-			ui_sfx.play_stream_obj(consumable_used)
-			Entities.player.inventory.remove_child(item);
-			refresh_data()
 
 
-func equip_weapon(e:InputEvent, weapon:Weapon)->void:
-	if e.is_action_pressed("use_item"):
-		ui_sfx.play_stream_obj(equip)
-		Entities.player.equipped_weapon = weapon
-		refresh_data()
+func _on_player_equipment_changed() -> void:
+	gear.refresh_samples(true)

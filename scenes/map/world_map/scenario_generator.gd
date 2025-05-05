@@ -31,7 +31,7 @@ func _ready()->void:
 	generate_settlements();
 	set_props()
 	set_small_props()
-	generate_parties();
+	#generate_parties();
 	update_fog()
 	Entities.world_map.day_passed.emit()
 
@@ -60,16 +60,21 @@ func generate_settlements()->void:
 	var alternatives:Array[PackedScene] = [Index.farm_scene, Index.scrapyard_scene, Index.factory_scene];
 	
 	var all_settlements:Array[Settlement]=[];
-	for i in 20:
+	for i in 30:
 		var settlement_name:String = NameDatabase.generate_name();
 		while settlement_name in world_map.all_settlements.keys():
 			settlement_name = NameDatabase.generate_name()
 		var settlement:Settlement = alternatives.pick_random().instantiate();
+		settlement.initiate_inventory();
+		settlement.refresh_inventory()
 		
-		var location:Vector2 =  Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
-								randi_range(-entity_spawn_range/2, entity_spawn_range/2))
+		var location:Vector2 = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
+								randi_range(-entity_spawn_range/2, entity_spawn_range/2));
+
 		while position_taken(location, taken_positions):
-			location = Vector2(randi_range(0, entity_spawn_range), randi_range(0, entity_spawn_range));
+			location = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
+								randi_range(-entity_spawn_range/2, entity_spawn_range/2))
+
 		taken_positions.append(location)
 		settlement.position = location;
 		settlement.name = settlement_name;

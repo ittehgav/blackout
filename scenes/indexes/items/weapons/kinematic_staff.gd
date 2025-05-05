@@ -34,6 +34,7 @@ var progress:float = 0;
 var monitored_units:Array[Node2D]
 
 func _ready()->void:
+	area.monitoring=false
 	progress_bar.max_value = charge_time
 
 func use()->bool:
@@ -89,6 +90,7 @@ func accelerate_charge()->void:
 		progress += 1;
 
 func _on_equipped() -> void:
+	area.monitoring = true;
 	for body in area.get_overlapping_bodies():
 		body.skill_used.connect(accelerate_charge)
 

@@ -207,7 +207,6 @@ func play_effect(effect:String)->void:
 			dialogue_sfx.play_sound_by_key("angry")
 		"scared":
 			dialogue_sfx.play_sound_by_key("success")
-			print("scared");
 		"persuaded":
 			dialogue_sfx.play_sound_by_key("success");
 	

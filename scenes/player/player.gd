@@ -7,6 +7,7 @@ class_name Player;
 signal resource_changed(resource:String, change:float);
 signal morale_changed;
 signal party_changed;
+signal equipment_changed;
 
 signal leadership_level_up;
 signal combat_level_up;
@@ -39,6 +40,7 @@ var morale:float=3.7;
 
 func _ready()->void:
 	Entities.player = self;
+
 	
 func battle_victory_morale()->void:
 	## for now just make all morale changes go through this script
@@ -54,3 +56,10 @@ func _on_leadership_level_up() -> void:
 
 func _on_combat_level_up() -> void:
 	combat_stat_points += 5;
+
+func equip_weapon(weapon:Weapon)->void:
+	assert(weapon in inventory.weapons);
+	equipped_weapon = weapon;
+	weapon.inventory_position = Vector2(-1, -1);
+	
+	equipment_changed.emit();

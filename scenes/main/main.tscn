@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=38 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="6_ouso4"]
 [ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/world_map.ogg" id="7_62atk"]
 [ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/settlement.ogg" id="8_i7in8"]
-[ext_resource type="AudioStream" uid="uid://fhr3xripjers" path="res://assets/sound/sfx/ui/button_click.ogg" id="9_7nlll"]
 [ext_resource type="AudioStream" uid="uid://cbb5k61nskf8o" path="res://assets/sound/bgm/loops/combat.ogg" id="9_7smn1"]
 [ext_resource type="AudioStream" uid="uid://0fnfsxh017op" path="res://assets/sound/sfx/ui/cancel.ogg" id="10_ii537"]
 [ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/main_menu.ogg" id="10_raeie"]
@@ -109,7 +108,6 @@ opponent = NodePath("Thugs")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="main_ui" instance=ExtResource("6_l3xhp")]
-button_click = ExtResource("9_7nlll")
 cancel = ExtResource("10_ii537")
 
 [node name="main_bgm" type="AudioStreamPlayer" parent="main_ui"]

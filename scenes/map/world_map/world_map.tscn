@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=93 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
@@ -8,11 +8,9 @@
 [ext_resource type="Script" uid="uid://baol8uxoppliv" path="res://scenes/map/world_map/scenario_generator.gd" id="5_lljjg"]
 [ext_resource type="Script" uid="uid://d1epphgokcyg0" path="res://scenes/map/ui/ui.gd" id="6_d8dst"]
 [ext_resource type="Texture2D" uid="uid://bpm3w0wvrmw71" path="res://assets/visual/sprites/props/small/cactus.png" id="6_jbv7y"]
-[ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="7_3vru2"]
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
 [ext_resource type="Texture2D" uid="uid://dqkqrpwcxaxqa" path="res://assets/visual/sprites/props/small/long_cactus.png" id="7_yhrnu"]
 [ext_resource type="Texture2D" uid="uid://cl6tga3pkpyq4" path="res://assets/visual/sprites/props/props_tilemap.png" id="8_05i75"]
-[ext_resource type="PackedScene" uid="uid://chgtgjl5g2lx3" path="res://scenes/indexes/items/weapons/spray_gun.tscn" id="8_magck"]
 [ext_resource type="Texture2D" uid="uid://d2mn1g5x7n2ey" path="res://assets/visual/sprites/props/small/stick.png" id="9_ltr5c"]
 [ext_resource type="Texture2D" uid="uid://clhbdifdrlhyy" path="res://assets/visual/sprites/props/auto_sign.png" id="10_bgkna"]
 [ext_resource type="Texture2D" uid="uid://dpxpoo4n1th3u" path="res://assets/visual/sprites/props/broken_lamppost.png" id="11_h0tw4"]
@@ -30,16 +28,26 @@
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="20_opvew"]
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="21_1aag8"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/indexes/items/containers/fuel_barrel.tscn" id="21_64kp8"]
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="22_kcivd"]
 [ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="23_3w437"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/indexes/items/containers/food_basket.tscn" id="23_gmjui"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/indexes/items/containers/food_bag.tscn" id="26_piqjc"]
 [ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/indexes/fighters/tailpipeguy.tscn" id="27_bp0ea"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/indexes/items/containers/fuel_gallon.tscn" id="27_piqjc"]
 [ext_resource type="PackedScene" uid="uid://3phgdfixhg5t" path="res://scenes/indexes/fighters/taserguy.tscn" id="28_5larv"]
+[ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/indexes/items/containers/food.tscn" id="28_ltr5c"]
+[ext_resource type="PackedScene" uid="uid://chgtgjl5g2lx3" path="res://scenes/indexes/items/weapons/spray_gun.tscn" id="29_ebkns"]
+[ext_resource type="PackedScene" uid="uid://di0vghxs4bkgh" path="res://scenes/indexes/items/containers/scrap_pile.tscn" id="29_nmq41"]
 [ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/indexes/fighters/tetherguy.tscn" id="29_oxxdj"]
+[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/indexes/items/containers/juice_flask.tscn" id="30_7d1fb"]
+[ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/indexes/items/containers/scrap_crate.tscn" id="31_f2dah"]
+[ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/indexes/items/containers/chips_case.tscn" id="32_nmq41"]
+[ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="33_7d1fb"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="40_fn5hq"]
 [ext_resource type="Script" uid="uid://g1x5i5r24qtj" path="res://scenes/map/world_map/main_hud.gd" id="47_lljjg"]
 [ext_resource type="Texture2D" uid="uid://btl7carrb2i4v" path="res://assets/visual/tiles/fog_cell.png" id="48_ltr5c"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="49_yhrnu"]
-[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="50_piqjc"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="52_64kp8"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="52_ebkns"]
 [ext_resource type="Texture2D" uid="uid://dkpxsjgvphgq8" path="res://assets/visual/ui/map/movement_pointer_shadow.png" id="52_piqjc"]
@@ -283,212 +291,281 @@ physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 4
 sources/0 = SubResource("TileSetAtlasSource_ltr5c")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxtxx"]
+[sub_resource type="Shader" id="Shader_nmq41"]
 resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+code = "shader_type canvas_item;
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgyyh"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+uniform vec3 base_color:source_color;
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pm0ox"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2mhi"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_akq8h"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_05gvk"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubk1d"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvf0a"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjyf3"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bwbxe"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i581t"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6i511"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkjfj"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxa5d"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrl08"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ud2rb"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_474x4"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hn8o"]
-resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
 resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
+shader = SubResource("Shader_nmq41")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_7d1fb"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
 resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
+shader = SubResource("Shader_7d1fb")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_f2dah"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
 resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
+shader = SubResource("Shader_f2dah")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_gmjui"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
 resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
+shader = SubResource("Shader_gmjui")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_sjqk0"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
 resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
+shader = SubResource("Shader_sjqk0")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_1ogav"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
 resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
+shader = SubResource("Shader_1ogav")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_umths"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
 resource_local_to_scene = true
-shader = ExtResource("50_piqjc")
+shader = SubResource("Shader_umths")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Resource" id="Resource_fn5hq"]
+metadata/__load_path__ = "res://assets/sound/sfx/ui/equip.ogg"
 
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui", "tile_map", "player")]
 script = ExtResource("1_s4sam")
 ui = NodePath("ui_overlay/ui")
 tile_map = NodePath("bg_tiles")
 player = NodePath("entities/in_map_player")
-sky_colors = Array[Color]([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.114, 0.114, 0.15, 1), Color(0.2, 0.1736, 0.134, 1), Color(0.5, 0.376333, 0.235, 1), Color(0.6, 0.5388, 0.492, 1), Color(0.8, 0.8, 0.8, 1), Color(0.9, 0.9, 0.9, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)])
+sky_colors = Array[Color]([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.114, 0.114, 0.15, 1), Color(0.2, 0.1736, 0.134, 1), Color(0.5, 0.376333, 0.235, 1), Color(0.6, 0.508, 0.462, 1), Color(0.6624, 0.72, 0.72, 1), Color(0.5082, 0.66, 0.66, 1), Color(0.539, 0.7, 0.7, 1), Color(0.6083, 0.79, 0.79, 1), Color(0.7636, 0.92, 0.92, 1), Color(0.82, 1, 1, 1)])
 
 [node name="minute_ticker" type="Timer" parent="."]
 wait_time = 0.05
@@ -518,7 +595,7 @@ modulate = Color(0.88, 0.88, 0.88, 1)
 [node name="movement_pointer_shadow" type="Sprite2D" parent="entities" node_paths=PackedStringArray("pointer")]
 process_mode = 1
 visible = false
-z_index = 1
+z_index = 2
 scale = Vector2(2, 2)
 texture = ExtResource("52_piqjc")
 hframes = 3
@@ -543,16 +620,44 @@ leadership_exp = 4
 leadership_points = 2
 combat_level = 3
 combat_exp = 3
-equipped_weapon = NodePath("Inventory/SprayGun")
+equipped_weapon = NodePath("Inventory/Tailpipe")
 equipped_module = NodePath("Inventory/Dodge Roll")
 
-[node name="SprayGun" parent="entities/in_map_player/Player/Inventory" index="0" instance=ExtResource("8_magck")]
+[node name="Inventory" parent="entities/in_map_player/Player" index="0"]
+food = 1
+
+[node name="Fuel Barrel" parent="entities/in_map_player/Player/Inventory" index="0" instance=ExtResource("21_64kp8")]
+stack_size = 300
 
 [node name="Tailpipe" parent="entities/in_map_player/Player/Inventory" index="1" instance=ExtResource("4_4aisy")]
 
-[node name="Staff of Luc" parent="entities/in_map_player/Player/Inventory" index="2" instance=ExtResource("7_3vru2")]
+[node name="Food" parent="entities/in_map_player/Player/Inventory" index="2" instance=ExtResource("28_ltr5c")]
 
-[node name="Dodge Roll" parent="entities/in_map_player/Player/Inventory" index="3" instance=ExtResource("40_fn5hq")]
+[node name="Food Bag" parent="entities/in_map_player/Player/Inventory" index="3" instance=ExtResource("26_piqjc")]
+
+[node name="Food Basket" parent="entities/in_map_player/Player/Inventory" index="4" instance=ExtResource("23_gmjui")]
+stack_size = 42
+
+[node name="Dodge Roll" parent="entities/in_map_player/Player/Inventory" index="5" instance=ExtResource("40_fn5hq")]
+
+[node name="Fuel Gallon" parent="entities/in_map_player/Player/Inventory" index="6" instance=ExtResource("27_piqjc")]
+inventory_position = Vector2(5, 1)
+
+[node name="Spray Gun" parent="entities/in_map_player/Player/Inventory" index="7" instance=ExtResource("29_ebkns")]
+
+[node name="Scrap Pile" parent="entities/in_map_player/Player/Inventory" index="8" instance=ExtResource("29_nmq41")]
+stack_size = 9
+
+[node name="Juice Flask" parent="entities/in_map_player/Player/Inventory" index="9" instance=ExtResource("30_7d1fb")]
+stack_size = 14
+
+[node name="Scrap Crate" parent="entities/in_map_player/Player/Inventory" index="10" instance=ExtResource("31_f2dah")]
+stack_size = 14
+
+[node name="Chips Case" parent="entities/in_map_player/Player/Inventory" index="11" instance=ExtResource("32_nmq41")]
+stack_size = 5
+
+[node name="Staff of Luc" parent="entities/in_map_player/Player/Inventory" index="12" instance=ExtResource("33_7d1fb")]
 
 [node name="FighterUnit25" parent="entities/in_map_player/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Arm Guy")
@@ -666,60 +771,6 @@ date = NodePath("main_hud/clock_panel/MarginContainer/VBoxContainer2/date")
 visible = false
 layout_mode = 1
 mouse_filter = 2
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/player_trader/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_gxtxx")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_fgyyh")
-
-[node name="resource_icon2" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer2" index="0"]
-material = SubResource("ShaderMaterial_pm0ox")
-
-[node name="resource_icon3" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer3" index="0"]
-material = SubResource("ShaderMaterial_m2mhi")
-
-[node name="resource_icon4" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer4" index="0"]
-material = SubResource("ShaderMaterial_akq8h")
-
-[node name="resource_icon5" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/player_trader/resource_sell_options/VBoxContainer/HBoxContainer5" index="0"]
-material = SubResource("ShaderMaterial_05gvk")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/money_trade" index="0"]
-material = SubResource("ShaderMaterial_ubk1d")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/food_trade" index="1"]
-material = SubResource("ShaderMaterial_xvf0a")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/fuel_trade" index="1"]
-material = SubResource("ShaderMaterial_qjyf3")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/juice_trade" index="1"]
-material = SubResource("ShaderMaterial_bwbxe")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/scrap_trade" index="1"]
-material = SubResource("ShaderMaterial_i581t")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/in_trade_tween_anchor/in_trade/VBoxContainer/chips_trade" index="1"]
-material = SubResource("ShaderMaterial_6i511")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/settlement_trader/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_pkjfj")
-
-[node name="resource_icon" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_jxa5d")
-
-[node name="resource_icon2" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer2" index="0"]
-material = SubResource("ShaderMaterial_qrl08")
-
-[node name="resource_icon3" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer3" index="0"]
-material = SubResource("ShaderMaterial_ud2rb")
-
-[node name="resource_icon4" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer4" index="0"]
-material = SubResource("ShaderMaterial_474x4")
-
-[node name="resource_icon5" parent="ui_overlay/ui/settlement_ui/trade_menu/margin/hbox/settlement_trader/resource_buy_opts/VBoxContainer/HBoxContainer5" index="0"]
-material = SubResource("ShaderMaterial_6hn8o")
 
 [node name="Dialogue" parent="ui_overlay/ui" instance=ExtResource("13_8dqwv")]
 visible = false
@@ -975,6 +1026,7 @@ text = "23"
 visible = false
 z_index = 2
 layout_mode = 1
+equip = SubResource("Resource_fn5hq")
 
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
@@ -983,6 +1035,7 @@ layout_mode = 1
 [connection signal="timeout" from="entities/movement_pointer_shadow/next_frame" to="entities/movement_pointer_shadow" method="_on_next_frame_timeout"]
 [connection signal="started_moving" from="entities/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_started_moving"]
 [connection signal="stopped_moving" from="entities/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_stopped_moving"]
+[connection signal="equipment_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/PlayerSheet" method="_on_player_equipment_changed"]
 [connection signal="resource_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/main_hud/resources_panel" method="_on_player_resource_changed"]
 [connection signal="body_entered" from="entities/in_map_player/sight" to="bg_tiles" method="_on_sight_body_entered"]
 [connection signal="settlement_entered" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]

@@ -35,6 +35,7 @@ func start_battle(enemy_leader:Leader)->void:
 		Entities.in_map_player.camera.enabled = false
 		Entities.world_map.hide()
 
+			
 	overlay.tide_bar.set_tide_bar();
 
 	Entities.main.add_child(self)

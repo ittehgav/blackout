@@ -1,0 +1,251 @@
+[gd_scene load_steps=16 format=3 uid="uid://ctxqhmgpiuoss"]
+
+[ext_resource type="Script" uid="uid://bkmntak62a0ul" path="res://scenes/map/ui/settlement/trade_menu.gd" id="1_vhigs"]
+[ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_grid/inventory_display.tscn" id="2_ln21g"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_gamgw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjio2"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_an643"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ormkh"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15sfg"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7uvto"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ln21g"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gamgw"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8o88u"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yg835"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ggy66"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwk7p"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="trade_menu" type="Control" node_paths=PackedStringArray("player_inventory_display", "trader_inventory_display")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vhigs")
+player_inventory_display = NodePath("player_panel/inventory_display")
+trader_inventory_display = NodePath("trader_panel/inventory_display")
+
+[node name="player_panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(550, 700)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -350.0
+offset_right = 580.0
+offset_bottom = 350.0
+grow_vertical = 2
+
+[node name="inventory_display" parent="player_panel" instance=ExtResource("2_ln21g")]
+layout_mode = 1
+offset_top = 51.0
+offset_right = -79.0
+offset_bottom = 1.0
+context = "trade"
+
+[node name="VBoxContainer" parent="player_panel/inventory_display" index="2"]
+offset_left = 201.0
+offset_right = 293.0
+
+[node name="money_icon" parent="player_panel/inventory_display/VBoxContainer/HBoxContainer3" index="0"]
+material = SubResource("ShaderMaterial_qglwj")
+
+[node name="food_icon" parent="player_panel/inventory_display/VBoxContainer/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_jjio2")
+
+[node name="fuel_icon" parent="player_panel/inventory_display/VBoxContainer/HBoxContainer2" index="0"]
+material = SubResource("ShaderMaterial_an643")
+
+[node name="juice_icon" parent="player_panel/inventory_display/VBoxContainer/HBoxContainer4" index="0"]
+material = SubResource("ShaderMaterial_ormkh")
+
+[node name="scrap_icon" parent="player_panel/inventory_display/VBoxContainer/HBoxContainer5" index="0"]
+material = SubResource("ShaderMaterial_15sfg")
+
+[node name="chips_icon" parent="player_panel/inventory_display/VBoxContainer/HBoxContainer6" index="0"]
+material = SubResource("ShaderMaterial_7uvto")
+
+[node name="inventory_grid" parent="player_panel/inventory_display" index="3"]
+offset_left = 21.0
+offset_right = 21.0
+
+[node name="item_mirrors" parent="player_panel/inventory_display" index="4"]
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="trader_panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(550, 700)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -580.0
+offset_top = -100.0
+offset_right = -30.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="inventory_display" parent="trader_panel" instance=ExtResource("2_ln21g")]
+layout_mode = 1
+offset_top = 50.0
+context = "trade"
+
+[node name="VBoxContainer" parent="trader_panel/inventory_display" index="2"]
+offset_left = -256.0
+offset_right = -164.0
+
+[node name="money_icon" parent="trader_panel/inventory_display/VBoxContainer/HBoxContainer3" index="0"]
+material = SubResource("ShaderMaterial_ln21g")
+
+[node name="food_icon" parent="trader_panel/inventory_display/VBoxContainer/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_gamgw")
+
+[node name="fuel_icon" parent="trader_panel/inventory_display/VBoxContainer/HBoxContainer2" index="0"]
+material = SubResource("ShaderMaterial_8o88u")
+
+[node name="juice_icon" parent="trader_panel/inventory_display/VBoxContainer/HBoxContainer4" index="0"]
+material = SubResource("ShaderMaterial_yg835")
+
+[node name="scrap_icon" parent="trader_panel/inventory_display/VBoxContainer/HBoxContainer5" index="0"]
+material = SubResource("ShaderMaterial_ggy66")
+
+[node name="chips_icon" parent="trader_panel/inventory_display/VBoxContainer/HBoxContainer6" index="0"]
+material = SubResource("ShaderMaterial_pwk7p")
+
+[node name="inventory_grid" parent="trader_panel/inventory_display" index="3"]
+offset_left = 145.0
+offset_right = 145.0
+
+[node name="item_mirrors" parent="trader_panel/inventory_display" index="4"]
+offset_left = 145.0
+offset_right = 185.0
+
+[editable path="player_panel/inventory_display"]
+[editable path="trader_panel/inventory_display"]

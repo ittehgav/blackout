@@ -11,9 +11,12 @@ shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 0.75
+shader_parameter/neutral_value = 1.0
 
 [node name="ItemMirror" type="TextureRect" node_paths=PackedStringArray("outline", "bg", "tooltip", "stack_size_label")]
-z_index = 1
+z_index = 2
 material = SubResource("ShaderMaterial_vqoty")
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,9 +24,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
-expand_mode = 3
 script = ExtResource("1_f3hr4")
-outline = NodePath("outline")
+outline = NodePath("MarginContainer/outline")
 bg = NodePath("MarginContainer/mirror_bg")
 tooltip = NodePath("Tooltip")
 stack_size_label = NodePath("stack_size")
@@ -45,21 +47,28 @@ theme_override_constants/margin_bottom = 3
 layout_mode = 2
 mouse_filter = 1
 
-[node name="outline" type="ReferenceRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="outline" type="ReferenceRect" parent="MarginContainer"]
+layout_mode = 2
 mouse_filter = 1
 border_width = 5.0
 editor_only = false
 
-[node name="Tooltip" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_sxf1m")]
+[node name="Tooltip" parent="." instance=ExtResource("2_sxf1m")]
 layout_mode = 0
-target = NodePath("..")
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="hint" parent="Tooltip/Control" index="0"]
+visible = true
 
 [node name="stack_size" type="Label" parent="."]
 layout_mode = 1
@@ -79,3 +88,5 @@ theme_override_font_sizes/font_size = 32
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+
+[editable path="Tooltip"]

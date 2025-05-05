@@ -41,8 +41,6 @@ gdscript/warnings/narrowing_conversion=0
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/initial_position_type=2
-mouse_cursor/custom_image="uid://wtc13wwkeuan"
-mouse_cursor/custom_image_hotspot=Vector2(18, 17)
 
 [editor_plugins]
 

@@ -114,7 +114,7 @@ func ui_fade_in(target:CanvasItem, duration:float = .5)->Tween:
 
 func ui_fade_out(target:CanvasItem, duration:float = .5)->Tween:
 	var tween:Tween = create_tween();
-	tween.tween_property(target,"modulate:a",0, duration);
+	tween.tween_property(target,"modulate:a", 0, duration);
 	return tween;
 
 func growth_tween(unit:ActiveFighter)->Tween:

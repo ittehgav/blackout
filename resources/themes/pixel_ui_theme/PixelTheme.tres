@@ -2423,6 +2423,11 @@ cache/0/24/0/descent = 0.0
 cache/0/24/0/underline_position = 0.0
 cache/0/24/0/underline_thickness = 0.0
 cache/0/24/0/scale = 1.0
+cache/0/112/0/ascent = 0.0
+cache/0/112/0/descent = 0.0
+cache/0/112/0/underline_position = 0.0
+cache/0/112/0/underline_thickness = 0.0
+cache/0/112/0/scale = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iliap"]
 atlas = ExtResource("2")
@@ -2705,6 +2710,7 @@ Button/constants/hseparation = 2
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("3")
 Button/styles/disabled = SubResource("361")
 Button/styles/focus = SubResource("9")
 Button/styles/hover = SubResource("6")

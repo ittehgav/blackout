@@ -13,10 +13,11 @@ extends PanelContainer
 @onready var current_view:Control = main_view;
 
 func trade() -> void:
-	var t1:Tween = Tweens.ui_fade_out(main_view, .25);
-	t1.tween_callback(main_view.hide);
-	
-	trade_menu.open();
+	var tween:Tween = Tweens.ui_fade_out(main_view, .25);
+	tween.tween_callback(main_view.hide);
+	tween.tween_callback(trade_menu.show)
+	tween.tween_callback(Tweens.ui_fade_in.bind(trade_menu));
+	trade_menu.start_trade(settlement_ui.current_settlement)
 	current_view = trade_menu
 
 
@@ -26,7 +27,6 @@ func recruit_units() -> void:
 
 
 func listen_around() -> void:
-	
 	settlement_ui.sky_props.generate_sky();
 	var camera_tween:Tween = create_tween();
 	camera_tween.tween_property(main_view, "modulate:a", 0, .5)
@@ -36,20 +36,20 @@ func listen_around() -> void:
 	await camera_tween.finished
 	
 	var colors:Array[Color] = [];
+
+	var sky_tween:Tween = create_tween();
+	
 	for i in 3:
 		Entities.world_map.hour_passed.emit();
-		colors.append(Entities.world_map.get_hour_sky_color() * settlement_ui.sky_base_color);
-	settlement_ui.color_bg();
-	var sky_tween:Tween = create_tween();
-	for color:Color in colors:
-		sky_tween.tween_property(settlement_ui.sky_bg, "modulate", color, .5);
+		settlement_ui.sky_bg.color_background(true);
 
-	await sky_tween.finished;
-	if settlement_ui.crowd_rect.texture == settlement_ui.current_settlement.crowd_1:
-		settlement_ui.crowd_rect.texture = settlement_ui.current_settlement.crowd_2
-	else:
-		settlement_ui.crowd_rect.texture = settlement_ui.current_settlement.crowd_1
-		
+	await get_tree().create_timer(1.5).timeout
+	var crowd_tween = create_tween();
+	crowd_tween.tween_property(settlement_ui.crowd_rect, "modulate:a", 0, .15);
+	crowd_tween.tween_callback(settlement_ui.sky_bg.switch_crowd);
+	crowd_tween.tween_property(settlement_ui.crowd_rect, "modulate:a", 1, .15)
+	
+
 	for c in post_listen_around_list.get_children():
 		if c.visible and c is RichTextLabel:
 			c.queue_free();
@@ -66,7 +66,7 @@ func listen_around() -> void:
 			found.append(all_anomalies.pick_random())
 
 	for anomaly:TradeAnomaly in found:
-		var label:Label = memo_label.duplicate(true);
+		var label:RichTextLabel = memo_label.duplicate(true);
 		label.show()
 		label.text = anomaly.generate_description();
 		post_listen_around_list.add_child(label);
@@ -81,9 +81,6 @@ func listen_around() -> void:
 	return_tween.set_trans(Tween.TRANS_CUBIC)
 	return_tween.tween_property(settlement_ui, "position:y", 0, 1);
 	return_tween.tween_property(post_listen_around, "modulate:a", 1, 1)
-
-
-
 
 
 func show_main_view()->void:

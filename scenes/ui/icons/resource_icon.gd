@@ -11,7 +11,7 @@ var description:String;
 
 @export var adjacent_items:Array[CanvasItem];
 
-
+var source:Inventory;
 
 func _ready()->void:
 	texture = Index.icons[resource];
@@ -24,17 +24,18 @@ func _ready()->void:
 	else:
 		$Tooltip.queue_free();
 	
-	setup_adjacent_items();
-	
+	if not source:
+		setup_adjacent_items();
+
 
 func setup_adjacent_items(value:int=Entities.player.inventory[resource])->void:
 	for item:Node in adjacent_items:
 
 		if item is Label:
 			item.add_theme_color_override("font_color", Index.resource_colors[resource]);
-			if value == Entities.player.inventory[resource]:
+			if source == Entities.player.inventory:
 				Entities.player.resource_changed.connect(set_count_label.bind(item))
-			set_count_label(resource,0, item, value);
+			set_count_label(resource, 0, item, value);
 	
 
 func set_count_label(r:String,_change:float, target:Label, value:int=Entities.player.inventory[resource])->void:

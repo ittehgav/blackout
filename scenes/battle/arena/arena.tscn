@@ -60,6 +60,9 @@ shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5bepm"]
 
@@ -73,6 +76,9 @@ shader_parameter/base_color = Color(0, 0.505882, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(0, 1, 0, 1)
 shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_awn3j"]
 atlas = ExtResource("21_0yl87")
@@ -86,6 +92,9 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_phmvj"]
 resource_local_to_scene = true
@@ -94,6 +103,9 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i6t2x"]
 resource_local_to_scene = true
@@ -102,6 +114,9 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q5ipi"]
 resource_local_to_scene = true
@@ -110,6 +125,9 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8bdk"]
 resource_local_to_scene = true
@@ -118,6 +136,9 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qlhvx"]
 resource_local_to_scene = true
@@ -126,6 +147,9 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [node name="arena" type="Node2D" node_paths=PackedStringArray("overlay", "kill_feed", "team_1", "team_2", "projectiles", "tide_bar")]
 script = ExtResource("1_gosq3")
@@ -151,10 +175,10 @@ enemy_team = NodePath("../team_2")
 [node name="in_fight_player" parent="team_1" instance=ExtResource("4_n7xip")]
 position = Vector2(-45, 420)
 
-[node name="sfx" parent="team_1/in_fight_player" index="0"]
+[node name="sfx" parent="team_1/in_fight_player" index="1"]
 weapon_change = ExtResource("7_iln1w")
 
-[node name="body" parent="team_1/in_fight_player" index="3"]
+[node name="body" parent="team_1/in_fight_player" index="4"]
 material = SubResource("ShaderMaterial_og1r2")
 
 [node name="team_2" type="Node2D" parent="." node_paths=PackedStringArray("enemy_team")]
@@ -443,6 +467,19 @@ offset_left = -10.0
 offset_top = -10.0
 offset_right = 10.0
 offset_bottom = 10.0
+
+[node name="Tooltip" parent="hud/overlay/kill_feed/kill/data/icon" index="1"]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="dead" type="Label" parent="hud/overlay/kill_feed/kill/data"]
 layout_mode = 2

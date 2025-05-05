@@ -8,21 +8,7 @@ extends Panel
 @export var combat_level_label:Label;
 @export var combat_level_progress:TextureProgressBar;
 
-@export_subgroup("Leadership Stats")
-@export var charisma_label:Label;
-@export var charisma_perks:HBoxContainer;
 
-@export var navigation_label:Label;
-@export var navigation_perks:HBoxContainer;
-
-@export var tactics_label:Label;
-@export var tactics_perks:HBoxContainer;
-
-@export var team_management_label:Label;
-@export var team_management_perks:HBoxContainer;
-
-@export var scavenging_label:Label;
-@export var scavenging_perks:HBoxContainer;
 
 
 
@@ -43,12 +29,7 @@ func refresh_data():
 	combat_level_progress.max_value = Scaling.exp_for_next_level(Entities.player.combat_level);
 	combat_level_progress.value = Entities.player.combat_exp;
 	
-	var leadership_stats: LeadershipStats = Entities.player.leadership_stats;
-	for stat:String in leadership_stats.stats:
-		self[stat+"_label"].text = stat.capitalize()+": " + str(leadership_stats[stat])
-		self[stat+"_perks"].refresh_data(stat);
 
-#
 	#var cstats:CombatStats = Entities.player.combat_stats;
 #
 	#max_hp_label.text = "Max HP: " + str(cstats.max_hp);

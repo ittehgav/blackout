@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=36 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
@@ -18,6 +18,23 @@
 [ext_resource type="PackedScene" uid="uid://dyfkqf4uf38r0" path="res://scenes/ui/icons/item_icon.tscn" id="16_31u8m"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="17_dh1jb"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="18_crfhx"]
+[ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/indexes/items/containers/food.tscn" id="19_4hk3t"]
+[ext_resource type="PackedScene" uid="uid://c35c0o3u2g7aj" path="res://scenes/indexes/items/containers/fuel.tscn" id="20_7dxwq"]
+[ext_resource type="PackedScene" uid="uid://b1ohkwyjvqmfo" path="res://scenes/indexes/items/containers/juice.tscn" id="21_a1qp1"]
+[ext_resource type="PackedScene" uid="uid://di0vghxs4bkgh" path="res://scenes/indexes/items/containers/scrap_pile.tscn" id="22_it271"]
+[ext_resource type="PackedScene" uid="uid://bjmnlpi6chnbj" path="res://scenes/indexes/items/containers/chips.tscn" id="23_f4hoh"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/indexes/items/containers/food_bag.tscn" id="24_juamu"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/indexes/items/containers/food_basket.tscn" id="25_32y5d"]
+[ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/indexes/items/containers/food_barrel.tscn" id="26_dp4cy"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/indexes/items/containers/fuel_gallon.tscn" id="27_n6rtn"]
+[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/indexes/items/containers/fuel_tank.tscn" id="28_phs30"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/indexes/items/containers/fuel_barrel.tscn" id="29_h1q0l"]
+[ext_resource type="PackedScene" uid="uid://5un73br0b5l0" path="res://scenes/indexes/items/containers/juice_can.tscn" id="30_wgk3d"]
+[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/indexes/items/containers/juice_flask.tscn" id="31_ilnpy"]
+[ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/indexes/items/containers/juice_tank.tscn" id="32_lxltn"]
+[ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/indexes/items/containers/scrap_crate.tscn" id="33_m3o62"]
+[ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/indexes/items/containers/scrap_compactor.tscn" id="34_66xoq"]
+[ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/indexes/items/containers/chips_case.tscn" id="35_b8tab"]
 
 [node name="Index" type="Node"]
 script = ExtResource("1_pkksx")
@@ -36,4 +53,21 @@ resource_icon_scene = ExtResource("15_ak5x7")
 item_icon_scene = ExtResource("16_31u8m")
 sprite_sample_scene = ExtResource("17_dh1jb")
 tooltip_scene = ExtResource("18_crfhx")
+food_stack_scene = ExtResource("19_4hk3t")
+fuel_stack_scene = ExtResource("20_7dxwq")
+juice_stack_scene = ExtResource("21_a1qp1")
+scrap_stack_scene = ExtResource("22_it271")
+chips_stack_scene = ExtResource("23_f4hoh")
+food_bag_scene = ExtResource("24_juamu")
+food_basket_scene = ExtResource("25_32y5d")
+food_barrel_scene = ExtResource("26_dp4cy")
+fuel_gallon_scene = ExtResource("27_n6rtn")
+fuel_tank_scene = ExtResource("28_phs30")
+fuel_barrel_scene = ExtResource("29_h1q0l")
+juice_can_scene = ExtResource("30_wgk3d")
+juice_flask_scene = ExtResource("31_ilnpy")
+juice_tank_scene = ExtResource("32_lxltn")
+scrap_crate_scene = ExtResource("33_m3o62")
+scrap_compactor_scene = ExtResource("34_66xoq")
+chips_case_scene = ExtResource("35_b8tab")
 color_schemes = Array[Array]([[Color(0.196078, 0.196078, 0.588235, 1), Color(0.784314, 0.392157, 0, 1)], [Color(0.392157, 0, 0.392157, 1), Color(0, 0.784314, 0.784314, 1)], [Color(0.117647, 0.117647, 0.117647, 1), Color(0.784314, 0.196078, 0.196078, 1)], [Color(0.784314, 0.588235, 0, 1), Color(0, 0.313726, 0.588235, 1)], [Color(0.588235, 0.196078, 0.196078, 1), Color(0.392157, 0.784314, 0.392157, 1)]])

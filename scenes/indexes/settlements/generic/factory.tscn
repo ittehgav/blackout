@@ -27,7 +27,8 @@ material = ExtResource("1_bkqf8")
 scale = Vector2(2, 2)
 texture = ExtResource("1_cwx7e")
 
-[node name="Inventory" parent="." instance=ExtResource("3_8bllo")]
+[node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("3_8bllo")]
+holder = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i8aio")
@@ -42,10 +43,17 @@ offset_bottom = 64.0
 
 [node name="Tooltip" parent="hover_box" node_paths=PackedStringArray("target") instance=ExtResource("7_mncoa")]
 layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 50.0
 offset_top = 50.0
 offset_right = 392.0
 offset_bottom = 158.0
+grow_horizontal = 1
+grow_vertical = 1
 target = NodePath("../..")
 
 [node name="shadow" parent="." instance=ExtResource("7_r2k12")]

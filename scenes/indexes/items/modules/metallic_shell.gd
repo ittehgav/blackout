@@ -12,7 +12,7 @@ const sfx_key = "metallic_shell";
 
 @export var aoe_range:Area2D;
 
-@onready var description:String = "Consumes " + str(scrap_cost) + Index.get_color_tag("scrap") + " Scrap[/color] and"\
+@onready var description:String = "Consumes " + str(scrap_cost) + Index.resource_colored_name("scrap") + " [/color] and"\
 			+Index.get_color_tag("shield") + " shields[/color] you and nearby allies for 20% of your " + Index.get_color_tag("max_hp") + "Max HP.";
 
 func check_availability():

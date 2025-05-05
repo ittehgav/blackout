@@ -12,6 +12,9 @@ shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3h1ap"]
 resource_local_to_scene = true
@@ -46,14 +49,26 @@ panel = NodePath("Panel")
 [node name="Panel" type="Panel" parent="."]
 z_index = -1
 use_parent_material = true
-layout_mode = 0
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 38.0
-offset_bottom = 38.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3h1ap")
 
 [node name="Tooltip" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_cqd4b")]
 layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
 target = NodePath("..")

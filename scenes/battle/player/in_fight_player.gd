@@ -13,6 +13,8 @@ signal stopped_moving;
 @export var camera:Camera2D;
 @export var sfx:AudioStreamPlayer
 
+@export var shadow:Node2D;
+
 
 var moving:bool = false;
 
@@ -23,6 +25,8 @@ func _ready()->void:
 
 	## this node is the only fighter that'll always be in an arena instance
 	load_fighter()
+	var outline_color = Index.color_schemes[Entities.player.color_scheme_index];
+	material.set_shader_parameter("color", outline_color[0] )
 
 func load_fighter()->void:
 	var stats:CombatStats = Entities.player.combat_stats;

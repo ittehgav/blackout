@@ -11,7 +11,7 @@ var current_month:int=1;
 
 var pause_stack:int = 0;
 
-var current_hour:int=8;
+var current_hour:int=16;
 var current_minute:int=30;
 
 

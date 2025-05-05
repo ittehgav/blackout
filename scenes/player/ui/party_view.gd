@@ -1,4 +1,4 @@
-extends Panel
+extends Control
 
 @export var ui_sfx:AudioStreamPlayer;
 

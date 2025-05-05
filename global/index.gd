@@ -21,6 +21,31 @@ extends Node
 @export var sprite_sample_scene:PackedScene;
 @export var tooltip_scene:PackedScene;
 
+@export_subgroup("Resource Stack Scenes")
+@export var food_stack_scene:PackedScene;
+@export var fuel_stack_scene:PackedScene;
+@export var juice_stack_scene:PackedScene;
+@export var scrap_stack_scene:PackedScene
+@export var chips_stack_scene:PackedScene
+
+@export_subgroup("Resource Container Scenes")
+@export var food_bag_scene:PackedScene;
+@export var food_basket_scene:PackedScene;
+@export var food_barrel_scene:PackedScene;
+
+@export var fuel_gallon_scene:PackedScene;
+@export var fuel_tank_scene:PackedScene;
+@export var fuel_barrel_scene:PackedScene;
+
+@export var juice_can_scene:PackedScene;
+@export var juice_flask_scene:PackedScene;
+@export var juice_tank_scene:PackedScene;
+
+@export var scrap_crate_scene:PackedScene;
+@export var scrap_compactor_scene:PackedScene;
+
+@export var chips_case_scene:PackedScene;
+
 @export_group("Colors")
 @export var color_schemes:Array[Array];
 
@@ -33,7 +58,14 @@ const all_resources = [
 	"scrap",
 	"chips"
 ]
-
+const resource_base_prices = {
+	"food":1.0,
+	"fuel":1.0,
+	"juice":2.0,
+	"scrap":3.0,
+	"chips":5.0
+}
+	
 var all_fighter_base_scenes:Array[PackedScene] = [
 	preload("res://scenes/indexes/fighters/armguy.tscn"),
 	preload("res://scenes/indexes/fighters/coilguy.tscn"),
@@ -174,7 +206,7 @@ const resource_descriptions = {
 
 const stat_descriptions = {
 	"max_hp": "The unit's total HP at the start of battle.",
-	"attack": "The damage the unit's skill will deal (some units deal no damage.)",
+	"attack": "The damage the unit's skill will deal. (some units and weapons deal no damage)",
 	"defense": "Reduces the damage taken by the unit.",
 	"agility": "Increases the speed at which the unit uses their skill/weapon.",
 	"technique": "Improves special effects in units' skills."

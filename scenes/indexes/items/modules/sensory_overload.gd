@@ -13,8 +13,8 @@ const sfx_key = "overload"
 @export var aoe_range:Area2D;
 
 
-@onready var description :String = "Consumes " + str(chips_cost) + Index.get_color_tag("chips") + \
-			" Chips[/color] to stun all nearby enemies for 1 second and double the "\
+@onready var description :String = "Consumes " + str(chips_cost) + Index.resource_colored_name("chips") + \
+			" [/color] to stun all nearby enemies for 1 second and double the "\
 			 + Index.get_color_tag("technique") + \
 			"Technique[/color] of nearby allies for the rest of the battle.";
 

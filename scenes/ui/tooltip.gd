@@ -64,7 +64,9 @@ func setup()->void:
 		description_label.show();
 		description_label.text = hardcoded_description
 	
-	description_label.custom_minimum_size.x = size.x;
+
+
+
 
 func disable()->void:
 	hover_timer.timeout.disconnect(_on_hover_timer_timeout)

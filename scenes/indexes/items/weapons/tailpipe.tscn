@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpu4aip3dy4kq"]
+[gd_scene load_steps=4 format=3 uid="uid://cpu4aip3dy4kq"]
 
 [ext_resource type="Script" uid="uid://dm5uha7g5jd0t" path="res://scenes/indexes/items/weapons/tailpipe.gd" id="1_1n7ey"]
 [ext_resource type="Texture2D" uid="uid://b1ii7gb6p2fb7" path="res://assets/visual/sprites/weapons/pipe.png" id="1_4334k"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bwk15"]
+
 [node name="Tailpipe" type="Sprite2D" node_paths=PackedStringArray("arc")]
+material = SubResource("CanvasItemMaterial_bwk15")
+use_parent_material = true
 texture = ExtResource("1_4334k")
 offset = Vector2(-30, -15)
 script = ExtResource("1_1n7ey")

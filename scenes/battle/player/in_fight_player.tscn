@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=31 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="2_fo4cr"]
+[ext_resource type="Script" uid="uid://c62lxrl4t7v8k" path="res://scenes/battle/player/shadow.gd" id="2_g4l1e"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_3uxwr"]
 [ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/player/equipment.gd" id="6_cbwmk"]
 [ext_resource type="Script" uid="uid://bbow6qj3s5hyu" path="res://scenes/battle/player/weapon_sfx.gd" id="7_avuby"]
@@ -27,26 +28,26 @@
 [ext_resource type="AudioStream" uid="uid://qxjijcnx4kw8" path="res://assets/sound/sfx/combat/special/overload.wav" id="21_g6u4u"]
 [ext_resource type="AudioStream" uid="uid://deleehb8xbh34" path="res://assets/sound/sfx/combat/player/dash.wav" id="21_pldj0"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
-radius = 29.2
-height = 90.4
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_og1r2"]
-resource_local_to_scene = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g4l1e"]
 shader = ExtResource("3_3uxwr")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
+shader_parameter/color = Color(1, 0, 1, 1)
+shader_parameter/width = 2.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
+radius = 29.2
+height = 90.4
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_5q67b"]
 radius = 80.0
 
 [node name="in_fight_player" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "hit_scan", "camera", "sfx", "base", "timers")]
+material = SubResource("ShaderMaterial_g4l1e")
 collision_layer = 0
 collision_mask = 0
 motion_mode = 1
@@ -60,6 +61,11 @@ sfx = NodePath("sfx")
 base = NodePath("body")
 timers = NodePath("timers")
 
+[node name="shadow" type="Node2D" parent="."]
+use_parent_material = true
+scale = Vector2(1, 0.5)
+script = ExtResource("2_g4l1e")
+
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 script = ExtResource("16_sjuhg")
 damage_taken = ExtResource("14_pldj0")
@@ -70,9 +76,10 @@ shape = SubResource("CapsuleShape2D_wutkk")
 [node name="timers" type="Node" parent="."]
 
 [node name="body" parent="." instance=ExtResource("2_fo4cr")]
-material = SubResource("ShaderMaterial_og1r2")
+use_parent_material = true
 
 [node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("holder", "body", "hit_scan_shape", "weapon_cd", "weapon_sfx", "module_cd", "module_sfx", "freeze_frame_timer")]
+use_parent_material = true
 script = ExtResource("6_cbwmk")
 holder = NodePath("..")
 body = NodePath("../body")

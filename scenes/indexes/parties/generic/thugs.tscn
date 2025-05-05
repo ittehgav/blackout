@@ -18,7 +18,8 @@ sight_range = 500
 
 [node name="leader_fighter" parent="." instance=ExtResource("2_a3g6n")]
 
-[node name="Inventory" parent="." instance=ExtResource("2_pre44")]
+[node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_pre44")]
+holder = NodePath("..")
 
 [node name="Roster" parent="." instance=ExtResource("3_uabn6")]
 

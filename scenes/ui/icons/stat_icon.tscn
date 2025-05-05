@@ -12,6 +12,9 @@ shader_parameter/base_color = Color(0, 0.505882, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(0, 1, 0, 1)
 shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d742l"]
 bg_color = Color(1, 0, 0, 1)
@@ -22,7 +25,7 @@ border_width_bottom = 2
 border_color = Color(0, 0, 1, 1)
 
 [node name="StatIcon" type="TextureRect"]
-z_index = 1
+z_index = 2
 material = SubResource("ShaderMaterial_xoeuu")
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
@@ -42,7 +45,7 @@ texture = ExtResource("1_b7vp6")
 script = ExtResource("2_w7tyd")
 
 [node name="panel" type="Panel" parent="."]
-z_index = -1
+show_behind_parent = true
 use_parent_material = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 1

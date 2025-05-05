@@ -26,35 +26,13 @@ var ongoing_anomalies:Array[TradeAnomaly];
 
 var neighbors:Array[Settlement];
 
+var non_sellable_items:Array[Item];
 
 func _ready()->void:
 	ColorCoder.color_code_settlement(self)
 
-var resource_prices:Dictionary = {
-	"food":1.0,
-	"fuel":1.0,
-	"juice":2.0,
-	"scrap":3.0,
-	"chips":5.0
-}
 
-var resource_buying_prices:Dictionary = {
-	## RESOURCE BUYING PRICE = PLAYER BUYING
-	"food":0,
-	"fuel":0,
-	"juice":0,
-	"scrap":0,
-	"chips":0
-}
 
-var resource_selling_prices:Dictionary = {
-	## RESOURCE SELLING PRICE = PLAYER SELLING
-	"food":0,
-	"fuel":0,
-	"juice":0,
-	"scrap":0,
-	"chips":0
-}
 
 var resource_daily_balance:Dictionary = {
 	## keeps track of changes to affect pricing
@@ -148,6 +126,7 @@ func add_new_anomaly()->void:
 
 
 
+
 func refresh_inventory()->void:
 	## affects daily inventory refresh:
 	## production
@@ -156,15 +135,8 @@ func refresh_inventory()->void:
 	## TODO more price adjusting
 	
 	
-	resource_prices = {
-		## resets prices to 0 before routine
-		"food":1.0,
-		"fuel":1.0,
-		"juice":2.0,
-		"scrap":3.0,
-		"chips":5.0
-	}
-	
+	var resource_prices:Dictionary = Index.resource_base_prices.duplicate();
+
 	var to_add:Dictionary = {
 		"food":food_production,
 		"fuel":fuel_production,
@@ -190,10 +162,10 @@ func refresh_inventory()->void:
 	var relationship_modifier:float = relationship_modifiers[player_relation];
 
 	for r:String in to_add.keys():
-		resource_selling_prices[r] = resource_prices[r] / relationship_modifier;
-		resource_buying_prices[r] = resource_prices[r] * relationship_modifier;
-		inventory[r] = to_add[r];
-				
+		inventory.resource_selling_prices[r] = resource_prices[r] / relationship_modifier;
+		inventory.resource_buying_prices[r] = resource_prices[r] * relationship_modifier;
+	
+	inventory.store_resources()
 
 	
 func overlapping_anomaly(anomaly:TradeAnomaly)->bool:
