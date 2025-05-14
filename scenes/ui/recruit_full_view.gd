@@ -1,7 +1,10 @@
 extends MarginContainer
 
 
+
 @export var ui_sfx:AudioStreamPlayer;
+
+@export var evolution_panel:Panel;
 
 @export_group("data_nodes")
 @export var sample:SpriteSample;
@@ -39,6 +42,8 @@ extends MarginContainer
 func display_recruit(unit:FighterUnit)->void:
 	if showing_unit:
 		showing_unit.queue_free();
+
+	evolution_panel.setup(unit)
 
 	showing_unit = unit.duplicate();
 	showing_unit.base.set_material(null);
@@ -94,4 +99,7 @@ func fade_out()->void:
 
 func _input(e: InputEvent) -> void:
 	if e.is_action_pressed("ui_exit") and visible:
-		fade_out();
+		if evolution_panel.confirmation.get_parent().visible:
+			Tweens.ui_fade_out(evolution_panel.confirmation.get_parent(), true);
+		else:
+			fade_out();

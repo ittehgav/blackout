@@ -2,12 +2,9 @@ extends Sprite2D
 
 class_name Vehicle
 
-var party:MapParty;
-
-var wheel_bounce_acm:float = 0.0;
+@export var party:MapParty;
 
 func _ready()->void:
-	party = get_parent();
 	ColorCoder.color_code_vehicle(self, party.leader);
 
 func _physics_process(_delta: float) -> void:

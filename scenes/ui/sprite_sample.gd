@@ -21,7 +21,7 @@ func _ready()->void:
 
 func set_sample(target:Sprite2D, color_scheme_index:int, extra_offset:Vector2 = Vector2(30, -15))->void:
 	if target_base:
-		target_base.queue_free();
+		target_base.free();
 	
 	if not autostart and target:
 		## idk but it works
@@ -65,7 +65,7 @@ func set_rectangle()->void:
 func set_tooltip()->void:
 	if add_tooltip:
 		if tooltip:
-			tooltip.queue_free();
+			tooltip.free();
 
 		tooltip = Index.tooltip_scene.instantiate();
 		tooltip.target = target_base;

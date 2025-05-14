@@ -5,16 +5,16 @@ func battle_speaking_party()->void:
 	Entities.pre_battle.start_pre_battle();
 
 func battle_lost()->void:
-	print("L");
+		print("L");
 
 	
 func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->void:
-	for r in Index.all_resources:
-		var change:float = (Entities.player.inventory[r]/2) * -1
+	for r:String in Index.all_resources:
+		var change:int = int(Entities.player.inventory[r]/2);
 		if not change:
 			change = -1;
-		Entities.player.inventory[r] += int(change)
-		Entities.player.resource_changed.emit(r, change);
+		Entities.player.inventory.change_resource(r, change * -1);
+
 	pacify_speaking_party();
 
 

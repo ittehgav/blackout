@@ -22,7 +22,7 @@ func start_aoe_highlight()->void:
 	aoe_highlight();
 
 func aoe_highlight(cycle_time:float=.5,accelerate:bool=false)->void:
-	Tweens.ui_fade_out(self, cycle_time)
+	Tweens.ui_fade_out(self, false, cycle_time);
 	var tween :Tween = Tweens.ui_fade_in(self, cycle_time);
 
 	if accelerate:

@@ -1,15 +1,24 @@
 extends Control
 
+@export var sfx:AudioStreamPlayer;
+
+@onready var panel_base_z:int = party_panel.z_index;
+const panel_z_shift = 2;
 
 @export var clock:Label;
 @export var date:Label;
 
+@export var party_panel:PanelContainer;
+@export var resources_panel:PanelContainer;
+@export var clock_panel:PanelContainer;
+@export var navigation:PanelContainer;
+
 @export var fade_tweens:Dictionary[PanelContainer, Variant]={}
 
-const resoureces_panel_mouseover_shift = Vector2(5, -5);
+const resoureces_panel_mouseover_shift = Vector2(5, 5);
 const party_status_panel_mouseover_shift = Vector2(5, 5);
 
-
+@onready var all_panels:Array[PanelContainer] = [party_panel, resources_panel, clock_panel, navigation]
 
 func update_clock() -> void:
 	var hour:int = Entities.world_map.current_hour;
@@ -41,57 +50,97 @@ func update_clock() -> void:
 	date.text = date_string
 
 
+func turn_semi_visible(panel:PanelContainer)->void:
+	panel.show()
+	panel.modulate.a = .1;
+	panel.z_index -= panel_z_shift
+	panel.mouse_entered.connect(fade_panel_in.bind(panel));
+	panel.mouse_exited.connect(fade_panel_out.bind(panel))
+
+func turn_fully_visible(panel:PanelContainer)->void:
+	panel.show()
+	panel.modulate.a = 1;
+	
+	panel.z_index = panel_base_z
+	
+	for c:Dictionary in panel.mouse_entered.get_connections():
+		if c.callable == fade_panel_in.bind(panel):
+			panel.mouse_entered.disconnect(fade_panel_in);
+	
+	for c:Dictionary in panel.mouse_exited.get_connections():
+		if c.callable == fade_panel_out.bind(panel):
+			panel.mouse_exited.disconnect(fade_panel_out)
+	
+
 
 func switch_to_semi_visible(_s:Node=null)->void:
-	for c:Node in get_children():
-		if c is PanelContainer:
-			c.modulate.a = .1
-			c.mouse_entered.connect(fade_panel_in.bind(c))
-			c.mouse_exited.connect(fade_panel_out.bind(c))
+	for panel:PanelContainer in all_panels:
+		turn_semi_visible(panel)
+
+func switch_to_fully_visible()->void:
+	for panel:PanelContainer in all_panels:
+		turn_fully_visible(panel);
 
 func fade_panel_in(panel:PanelContainer)->void:
+	panel.z_index += panel_z_shift
 	if fade_tweens[panel] and fade_tweens[panel].is_running():
 		fade_tweens[panel].kill()
 	fade_tweens[panel] = create_tween();
 	fade_tweens[panel].tween_property(panel, "modulate:a", 1, .1);
-	
+
 	
 func fade_panel_out(panel:PanelContainer)->void:
+	panel.z_index = panel_base_z - panel_z_shift
 	if fade_tweens[panel] and fade_tweens[panel].is_running():
 		fade_tweens[panel].kill()
 	fade_tweens[panel] = create_tween();
 	fade_tweens[panel].tween_property(panel, "modulate:a", .1, .5);
 
-func switch_to_fully_visible()->void:
-	for c:Node in get_children():
-		if c is PanelContainer:
-			c.modulate.a = 1
-			c.mouse_entered.disconnect(fade_panel_in.bind(c))
-			c.mouse_exited.disconnect(fade_panel_out.bind(c))
-
-
-func _on_party_status_panel_gui_input(e: InputEvent) -> void:
-	if e is InputEventMouseButton and e.pressed:
-		Entities.player_sheet.show_player_sheet(1);
-
-
 
 func _on_resources_panel_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and e.pressed:
 		Entities.player_sheet.show_player_sheet();
-
+func _on_party_status_panel_gui_input(e: InputEvent) -> void:
+	if e is InputEventMouseButton and e.button_index == 1 and e.pressed:
+		Entities.player_sheet.show_player_sheet(1);
 
 func _on_resources_panel_mouse_entered() -> void:
-	$resources_panel.position += resoureces_panel_mouseover_shift;
-
-
+	resources_panel.position += resoureces_panel_mouseover_shift;
 func _on_resources_panel_mouse_exited() -> void:
-	$resources_panel.position -= resoureces_panel_mouseover_shift;
-
+	resources_panel.position -= resoureces_panel_mouseover_shift;
 
 func _on_party_status_panel_mouse_entered() -> void:
-	$party_status_panel.position += party_status_panel_mouseover_shift
-
-
+	party_panel.position += party_status_panel_mouseover_shift
 func _on_party_status_panel_mouse_exited() -> void:
-	$party_status_panel.position -= party_status_panel_mouseover_shift
+	party_panel.position -= party_status_panel_mouseover_shift
+
+func settlement_main_view(_settlement: Settlement=null) -> void:
+	turn_semi_visible(party_panel)
+	turn_semi_visible(resources_panel)
+	turn_fully_visible(clock_panel)
+	navigation.hide();
+func _on_settlement_ui_settlement_left() -> void:
+	switch_to_fully_visible()
+
+func _on_settlement_ui_trade_started() -> void:
+	resources_panel.hide();
+	party_panel.hide()
+	clock_panel.hide()
+	navigation.hide()
+func _on_settlement_ui_trade_finished() -> void:
+	settlement_main_view()
+
+func _on_settlement_ui_listen_around_started() -> void:
+	party_panel.hide();
+	resources_panel.hide();
+	clock_panel.hide()
+func _on_settlement_ui_listen_around_ended() -> void:
+	settlement_main_view();
+
+func _on_settlement_ui_recruitment_started() -> void:
+	clock_panel.hide();
+	turn_fully_visible(resources_panel);
+	turn_fully_visible(party_panel);
+	navigation.hide()
+func _on_settlement_ui_recruitment_ended() -> void:
+	settlement_main_view();

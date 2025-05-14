@@ -120,13 +120,12 @@ func _module_used() -> void:
 
 
 func _on_equipment_module_fumbled() -> void:
-	module_panel.modulate.a = .1;
 	Tweens.ui_fade_in(module_panel, .2);
 
 
 
-func refresh_hp_bars():
-	var max_hp = Entities.in_fight_player.max_hp;
+func refresh_hp_bars()->void:
+	var max_hp:int = Entities.in_fight_player.max_hp;
 	hp_bar.max_value = max_hp
 	shield_bar.max_value = max_hp
 	
@@ -134,25 +133,25 @@ func refresh_hp_bars():
 	hp_bar.value = Entities.in_fight_player.hp;
 
 
-func _on_in_fight_player_damage_blocked(source: ActiveFighter, value: float) -> void:
+func _on_in_fight_player_damage_blocked(_source: ActiveFighter, _value: float) -> void:
 	refresh_hp_bars();
 	Tweens.squish_bar(shield_bar);
 
 
-func _on_in_fight_player_damage_taken(damage: float) -> void:
+func _on_in_fight_player_damage_taken(_damage: float) -> void:
 	refresh_hp_bars()
 	
 	Tweens.color_blink(hp_bar, Color.RED, .2,  "self_modulate");
 
 
-func _on_in_fight_player_healing_received(value: float) -> void:
+func _on_in_fight_player_healing_received(_value: float) -> void:
 	refresh_hp_bars();
 	
 	Tweens.color_blink(hp_bar, Color.GREEN, .2,"self_modulate");
 
 
 
-func _on_in_fight_player_shield_gained(source: ActiveFighter, value: float) -> void:
+func _on_in_fight_player_shield_gained(_source: ActiveFighter, _value: float) -> void:
 	refresh_hp_bars();
 	
 	shield_bar.scale = Vector2(1.1, 1.5);

@@ -3,6 +3,7 @@ extends Node
 ## color-coding is applied before fights and replaces the flat RGBs for team-corresponding colors
 ## all functions of this sort will be in this script
 ## (unless it ends up becoming massive?)
+const fighter_sprite_darkening = .35
 
 func color_code_player(character:FighterBase)->void:
 	var scheme:Array = Index.color_schemes[Entities.player.color_scheme_index];	
@@ -29,7 +30,6 @@ func color_code_weapon(weapon:Sprite2D, scheme:int)->void:
 
 
 func color_code_fighter(fighter:FighterBase, scheme:int, sample:bool=false)->void:
-	const darkening = .35
 	var base_color:Color = Index.color_schemes[scheme][0];
 	var off_color:Color = Index.color_schemes[scheme][1];
 	
@@ -37,14 +37,14 @@ func color_code_fighter(fighter:FighterBase, scheme:int, sample:bool=false)->voi
 	
 	var dict:Dictionary = {
 		Color.GREEN:base_color,
-		Color.BLUE: base_color.darkened(darkening),
+		Color.BLUE: base_color.darkened(fighter_sprite_darkening),
 		Color.YELLOW:off_color,
-		Color.RED:off_color.darkened(darkening)
+		Color.RED:off_color.darkened(fighter_sprite_darkening)
 	}
 	color_code_sprite(fighter, dict)
 	
 	if not sample:
-		var outline_color:Color = off_color.darkened(darkening);
+		var outline_color:Color = off_color.darkened(fighter_sprite_darkening);
 		outline_color.a -=.5;
 		fighter.material.set_shader_parameter("color", outline_color)
 
@@ -103,6 +103,17 @@ func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:
 				var new_color:Color = pairs[color];
 				img.set_pixel(x, y, new_color);
 	return ImageTexture.create_from_image(img);
+	
+func scheme_to_sprite_color_pairs(leader:Leader)->Dictionary[Color, Color]:
+	## TODO normalize this stuff alerady
+	var scheme:Array = Index.color_schemes[leader.color_scheme_index];
+	var pairs:Dictionary[Color, Color] = {
+		Color.BLUE: scheme[0].darkened(fighter_sprite_darkening),
+		Color.GREEN:scheme[0],
+		Color.RED:scheme[1].darkened(fighter_sprite_darkening),
+		Color.YELLOW: scheme[1]
+	}
+	return pairs;
 
 func color_code_prop(prop:Sprite2D)->void:
 	const dict = {

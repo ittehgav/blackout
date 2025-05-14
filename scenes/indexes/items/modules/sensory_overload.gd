@@ -14,7 +14,7 @@ const sfx_key = "overload"
 
 
 @onready var description :String = "Consumes " + str(chips_cost) + Index.resource_colored_name("chips") + \
-			" [/color] to stun all nearby enemies for 1 second and double the "\
+			"[/color] to stun all nearby enemies for 1 second and double the "\
 			 + Index.get_color_tag("technique") + \
 			"Technique[/color] of nearby allies for the rest of the battle.";
 

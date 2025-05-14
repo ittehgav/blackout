@@ -25,8 +25,8 @@ func _ready()->void:
 
 	## this node is the only fighter that'll always be in an arena instance
 	load_fighter()
-	var outline_color = Index.color_schemes[Entities.player.color_scheme_index];
-	material.set_shader_parameter("color", outline_color[0] )
+	var outline_color:Color = Index.color_schemes[Entities.player.color_scheme_index][0];
+	material.set_shader_parameter("color", outline_color )
 
 func load_fighter()->void:
 	var stats:CombatStats = Entities.player.combat_stats;

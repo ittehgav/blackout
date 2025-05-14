@@ -9,35 +9,31 @@ signal level_up;
 @export var level:int=1;
 @export var experience:int=0;
 
-## remaining downed time in in-game minues
-var remaining_downed_minutes:int=0;
 
 @export var stats:CombatStats;
 
+var stats_loaded:bool=false;
+
 func _ready()->void:
-	if base:
+	## needs to enter tree to work properly?
+	if base and not stats_loaded:
 		await get_parent().get_parent().ready;
 		load_stats();
 	level_up.connect(Scaling.level_up_stats)
 
+func change_base(new_base:FighterBase)->void:
+	base.free();
+	base = new_base.duplicate()
+	load_stats();
 
 func load_stats()->void:
 	## runs as the fighter is instantiated
-	## stats are only changeable by levels and 
-	## gear (?)
-		
+	## stats are only changeable by levels for now
+
 	Scaling.initiate_unit_stats(self);
 	Scaling.level_up_stats(self, level)
+	stats_loaded = true;
 
-func downed()->void:
-	## only effectively applies after battle
-	remaining_downed_minutes = 24 * 60
-	Entities.world_map.minute_passed.connect(downed_time_passed)
-	
-func downed_time_passed()->void:
-	remaining_downed_minutes -= 1;
-	if not remaining_downed_minutes:
-		Entities.world_map.minute_pased.disconnect(downed_time_passed)
 
 func final_skill_cooldown(agi_acm:float=stats.agility)->float:
 	var cooldown:float = base.skill_cooldown;
@@ -49,3 +45,14 @@ func final_skill_cooldown(agi_acm:float=stats.agility)->float:
 	var final_reduction:float = (cooldown/100)*agi_acm
 	cooldown -= final_reduction
 	return cooldown
+	
+func upgrade_available()->bool:
+	if "evolutions" in base and level >= 10:
+		for e:String in base.evolutions.keys():
+			var affordable:int=0;
+			for resource:String in base.evolutions[e]:
+				if Entities.player.inventory[resource] >= base.evolutions[e][resource]:
+					affordable += 1
+			if affordable == 2:
+				return true;
+	return false

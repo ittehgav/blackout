@@ -55,3 +55,14 @@ const hitbox_offset = Vector2(0, 5)
 
 const skill_range = MELEE_RANGE;
 const skill_cooldown = 5;
+
+const evolutions = {
+	"crossbow_guy":{
+		"scrap":50,
+		"fuel":20
+	},
+	"gravity_guy":{
+		"chips":20,
+		"scrap":50
+	}
+}

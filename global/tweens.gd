@@ -103,19 +103,23 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	return tween;
 
 
-func ui_fade_in(target:CanvasItem, duration:float = .5)->Tween:
-	target.modulate.a = .1
+func ui_fade_in(target:CanvasItem, show_before:bool=true, duration:float = .5)->Tween:
+	target.show();
 	
+	target.modulate.a = .1
 	## tween goes into the control because of nodes that process when pasued
 	var tween:Tween = create_tween();
 	tween.tween_property(target, "modulate:a", 1, duration);
-	
 	return tween
 
-func ui_fade_out(target:CanvasItem, duration:float = .5)->Tween:
+func ui_fade_out(target:CanvasItem, hide_after:bool=true, duration:float = .5)->Tween:
 	var tween:Tween = create_tween();
 	tween.tween_property(target,"modulate:a", 0, duration);
-	return tween;
+	if hide_after:
+		tween.tween_callback(target.hide);
+		return tween;
+	else:
+		return tween;
 
 func growth_tween(unit:ActiveFighter)->Tween:
 	unit.base.scale *= 2
@@ -188,20 +192,20 @@ func stretch_bar(target:TextureProgressBar)->Tween:
 	tween.tween_property(target, "scale", Vector2.ONE, .5);
 	return tween;
 
-func color_blink(target:CanvasItem, target_color:Color, duration = .2, target_property:String="modulate")->Tween:
+func color_blink(target:CanvasItem, target_color:Color, duration:float = .2, target_property:String="modulate")->Tween:
 	target[target_property] = target_color;
 	var tween:Tween = create_tween();
 	tween.tween_property(target, target_property, Color.WHITE, duration);
 	return tween
 
 func y_shake(target:CanvasItem, shake_count:int = 2, shake_range:int = 50)->Tween:
-	var initial_y = target.position.y;
-	var roll_1 = randi_range(0, shake_range)
+	var initial_y:int = target.position.y;
+	var roll_1:int = randi_range(0, shake_range)
 	target.position.y -= roll_1
 	
-	var tween = create_tween();
+	var tween:Tween = create_tween();
 	for i in shake_count:
-		var roll = randi_range(0, shake_range)
+		var roll:int = randi_range(0, shake_range)
 		if i % 2:
 			roll *= -1;
 		tween.tween_property(target, "position:y", initial_y + roll, .1)

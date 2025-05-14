@@ -28,7 +28,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	
 	var string:String = "Deals " + damage_str + " to enemies in an area and reduces their "+Index.get_color_tag("attack") + \
 	"attack [/color]by " + atk_reduction_str + " for the rest of the battle.";
-	string += "\n\nCan be upgraded to become extremely resistant or to deal great AOE damage."
+	string += "\n\nCan be upgraded to become extremely resistant or to deal strong AOE damage."
 	return string;
 
 const hitbox_radius = 40;
@@ -44,4 +44,15 @@ const debuff_type = "stat";
 const stats_to_debuff = ["attack"];
 const stat_debuff_values = {
 	"attack":5
+}
+
+const evolutions = {
+	"wheel_guy":{
+		"fuel":50,
+		"scrap":50
+	},
+	"door_guy":{
+		"juice":50,
+		"scrap":50
+	}
 }

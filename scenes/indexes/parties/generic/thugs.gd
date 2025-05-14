@@ -1,3 +1,3 @@
 extends NpcLeader
 
-var behavior = "agressive"
+var behavior:String = "agressive"

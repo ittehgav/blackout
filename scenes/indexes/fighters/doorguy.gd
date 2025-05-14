@@ -1,5 +1,6 @@
 extends FighterBase
 
+const no_damage = true;
 
 const skill_effects = ["self_stat_buff"];
 const skill_visuals = ["grow"]

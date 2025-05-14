@@ -19,7 +19,7 @@ extends Panel
 @export var agility_label:Label;
 @export var technique_label:Label;
 
-func refresh_data():
+func refresh_data()->void:
 	leadership_level_label.text = "Leadership Level: " + str(Entities.player.leadership_level);
 	combat_level_label.text = "Combat Level: " + str(Entities.player.combat_level);
 

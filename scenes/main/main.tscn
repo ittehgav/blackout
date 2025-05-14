@@ -189,6 +189,12 @@ alternative_weapon = NodePath("Inventory/Staff of Luc")
 equipped_module = NodePath("Inventory/Sensory Overload")
 sight_range = 500
 
+[node name="Inventory" parent="main_ui/Player" index="0"]
+fuel = 20000
+juice = 20000
+scrap = 20000
+chips = 20000
+
 [node name="Tailpipe" parent="main_ui/Player/Inventory" index="0" instance=ExtResource("17_7nlll")]
 
 [node name="Dodge Roll" parent="main_ui/Player/Inventory" index="1" instance=ExtResource("20_37hlw")]

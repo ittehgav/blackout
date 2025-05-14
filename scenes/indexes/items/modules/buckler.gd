@@ -12,7 +12,7 @@ const sfx_key = "buckler";
 
 const continuous = true;
 
-var description = "Hold to slow down movement and take double your " + Index.get_color_tag("defense") +\
+var description:String = "Hold to slow down movement and take double your " + Index.get_color_tag("defense") +\
 "defense[/color] , if you get hit by an enemy immediately after activating Buckler, the enemy becomes stunned for 5 seconds.";
 
 var defense_gain:float;

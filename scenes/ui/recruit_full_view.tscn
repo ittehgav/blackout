@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene load_steps=43 format=3 uid="uid://1hbrworalfdw"]
 
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="1_lmv1r"]
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/recruit_full_view.gd" id="1_ywq7p"]
@@ -8,6 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="4_cwkea"]
 [ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="5_atfxm"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="5_lmv1r"]
+[ext_resource type="Theme" uid="uid://yqkvsb5q7pab" path="res://resources/themes/pixel_ui_theme/PixelTheme.tres" id="9_87570"]
+[ext_resource type="Script" uid="uid://olw5ie87mp07" path="res://scenes/ui/panel.gd" id="10_bh2lf"]
+[ext_resource type="Texture2D" uid="uid://bbefybh8ca2i5" path="res://assets/visual/sprites/fighters/mecharmguy.png" id="11_2qua6"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="12_ryym2"]
+[ext_resource type="Texture2D" uid="uid://bpaicwhk4e4vm" path="res://assets/visual/sprites/fighters/doublearmguy.png" id="13_2twa8"]
+[ext_resource type="Script" uid="uid://3gfued34eqjh" path="res://scenes/ui/evolution_confirmation.gd" id="14_bh2lf"]
+[ext_resource type="Script" uid="uid://d1rd2da7p36xi" path="res://scenes/ui/evolution_animation.gd" id="15_2qua6"]
+[ext_resource type="Texture2D" uid="uid://xdjhil3q72jh" path="res://assets/visual/sprites/fighters/crowbarguy.png" id="16_ryym2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ty848"]
 resource_local_to_scene = true
@@ -28,6 +36,9 @@ shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_atfxm"]
 resource_local_to_scene = true
@@ -36,6 +47,9 @@ shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lmv1r"]
 resource_local_to_scene = true
@@ -44,6 +58,9 @@ shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cwkea"]
 resource_local_to_scene = true
@@ -52,6 +69,9 @@ shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wpwsp"]
 resource_local_to_scene = true
@@ -60,8 +80,195 @@ shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
-[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("ui_sfx", "sample", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "tags_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label", "skill_range_label", "skill_cooldown_label")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv8af"]
+atlas = ExtResource("11_2qua6")
+region = Rect2(10, 0, 180, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_by5ee"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n2jki"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7wxw"]
+resource_local_to_scene = true
+atlas = ExtResource("13_2twa8")
+region = Rect2(10, 0, 180, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87570"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bh2lf"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh2lf"]
+region = Rect2(50, 5, 100, 90)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2twa8"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qua6"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ryym2"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nv8af"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7wxw"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qua6"]
+region = Rect2(50, 5, 100, 90)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crnqx"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_760xx"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_31ksd"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r3m1t"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nc3ik"]
+resource_local_to_scene = true
+shader = ExtResource("3_lmv1r")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvcgn"]
+shader = ExtResource("5_lmv1r")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 1, 0.419608)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2twa8"]
+atlas = ExtResource("16_ryym2")
+region = Rect2(10, 5, 180, 90)
+
+[node name="RecruitFullView" type="MarginContainer" node_paths=PackedStringArray("ui_sfx", "evolution_panel", "sample", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "tags_label", "unit_level_label", "level_progress_bar", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label", "skill_range_label", "skill_cooldown_label")]
 z_index = 1
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 8
@@ -82,6 +289,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("1_ywq7p")
 ui_sfx = NodePath("ui_sfx")
+evolution_panel = NodePath("Panel/evolution")
 sample = NodePath("Panel/SpriteSample")
 unit_name_label = NodePath("Panel/HBoxContainer/name")
 skill_name_label = NodePath("Panel/VBoxContainer/skill_name")
@@ -90,11 +298,11 @@ flavor_label = NodePath("Panel/VBoxContainer/flavor")
 tags_label = NodePath("Panel/HBoxContainer/tags")
 unit_level_label = NodePath("Panel/VBoxContainer/level")
 level_progress_bar = NodePath("Panel/VBoxContainer/ProgressBar")
-max_hp_label = NodePath("Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer/max_hp")
-attack_label = NodePath("Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer2/attack")
-defense_label = NodePath("Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer3/defense")
-agility_label = NodePath("Panel/VBoxContainer/stats/HBoxContainer/HBoxContainer4/agility")
-technique_label = NodePath("Panel/VBoxContainer/stats/HBoxContainer/HBoxContainer5/technique")
+max_hp_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer/max_hp")
+attack_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer2/attack")
+defense_label = NodePath("Panel/stats/HBoxContainer6/HBoxContainer3/defense")
+agility_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer4/agility")
+technique_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer5/technique")
 skill_range_label = NodePath("Panel/VBoxContainer/HBoxContainer/range")
 skill_cooldown_label = NodePath("Panel/VBoxContainer/HBoxContainer/cooldown")
 
@@ -124,13 +332,111 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -89.0
+offset_left = -58.0
+offset_top = -151.0
+offset_right = -58.0
+offset_bottom = -62.0
 grow_vertical = 0
 add_tooltip = false
 enable_hover_panel = false
 
 [node name="Arm Guy" parent="Panel/SpriteSample/panel" index="0"]
 material = SubResource("ShaderMaterial_ty848")
+
+[node name="stats" type="VBoxContainer" parent="Panel"]
+z_index = 1
+layout_mode = 2
+offset_left = 690.0
+offset_top = 76.0
+offset_right = 1222.0
+offset_bottom = 214.0
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/stats/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer6/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_ywq7p")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+adjacent_items = [NodePath("../max_hp")]
+
+[node name="max_hp" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "10"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/stats/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer6/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_atfxm")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+adjacent_items = [NodePath("../attack")]
+stat = "attack"
+
+[node name="attack" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "10"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/stats/HBoxContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer6/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_lmv1r")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+adjacent_items = [NodePath("../defense")]
+stat = "defense"
+
+[node name="defense" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "10"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/stats"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/stats/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_cwkea")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+adjacent_items = [NodePath("../agility")]
+stat = "agility"
+
+[node name="agility" type="Label" parent="Panel/stats/HBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "100"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Panel/stats/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatIcon" parent="Panel/stats/HBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_wpwsp")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+adjacent_items = [NodePath("../technique")]
+stat = "technique"
+
+[node name="technique" type="Label" parent="Panel/stats/HBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 custom_minimum_size = Vector2(400, 0)
@@ -140,13 +446,31 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -574.0
-offset_top = -208.0
-offset_right = -42.0
-offset_bottom = 180.0
+offset_left = -911.0
+offset_top = -167.0
+offset_right = -379.0
+offset_bottom = 251.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 10
+
+[node name="level" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Level 2"
+
+[node name="ProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("5_atfxm")
+texture_progress = ExtResource("5_atfxm")
+tint_under = Color(0.082, 0.2, 0.082, 1)
+tint_progress = Color(0.0862745, 0.8, 0.0862745, 1)
 
 [node name="skill_name" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -184,115 +508,6 @@ layout_mode = 2
 text = "cuzao"
 autowrap_mode = 3
 
-[node name="level" type="Label" parent="Panel/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Level 2"
-
-[node name="ProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-nine_patch_stretch = true
-stretch_margin_left = 2
-stretch_margin_top = 2
-stretch_margin_right = 2
-stretch_margin_bottom = 2
-texture_under = ExtResource("5_atfxm")
-texture_progress = ExtResource("5_atfxm")
-tint_under = Color(0.082, 0.2, 0.082, 1)
-tint_progress = Color(0.0862745, 0.8, 0.0862745, 1)
-
-[node name="stats" type="VBoxContainer" parent="Panel/VBoxContainer"]
-z_index = 1
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="HBoxContainer6" type="HBoxContainer" parent="Panel/VBoxContainer/stats"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/stats/HBoxContainer6"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
-material = SubResource("ShaderMaterial_ywq7p")
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-adjacent_items = [NodePath("../max_hp")]
-
-[node name="max_hp" type="Label" parent="Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "10"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/stats/HBoxContainer6"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
-material = SubResource("ShaderMaterial_atfxm")
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-adjacent_items = [NodePath("../attack")]
-stat = "attack"
-
-[node name="attack" type="Label" parent="Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "10"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer/stats/HBoxContainer6"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
-material = SubResource("ShaderMaterial_lmv1r")
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-adjacent_items = [NodePath("../defense")]
-stat = "defense"
-
-[node name="defense" type="Label" parent="Panel/VBoxContainer/stats/HBoxContainer6/HBoxContainer3"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "10"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/stats"]
-layout_mode = 2
-alignment = 1
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/VBoxContainer/stats/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="Panel/VBoxContainer/stats/HBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
-material = SubResource("ShaderMaterial_cwkea")
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-adjacent_items = [NodePath("../agility")]
-stat = "agility"
-
-[node name="agility" type="Label" parent="Panel/VBoxContainer/stats/HBoxContainer/HBoxContainer4"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "100"
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="Panel/VBoxContainer/stats/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="Panel/VBoxContainer/stats/HBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
-material = SubResource("ShaderMaterial_wpwsp")
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-adjacent_items = [NodePath("../technique")]
-stat = "technique"
-
-[node name="technique" type="Label" parent="Panel/VBoxContainer/stats/HBoxContainer/HBoxContainer5"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "1"
-
 [node name="exit" type="Label" parent="Panel"]
 layout_mode = 1
 offset_left = 23.0
@@ -301,5 +516,491 @@ offset_right = 285.0
 offset_bottom = 33.0
 theme_override_font_sizes/font_size = 32
 text = "Press [escape] or [right-click] to return"
+
+[node name="evolution" type="Panel" parent="Panel" node_paths=PackedStringArray("title_label", "confirmation", "evolution_texture_buffer", "evolution_1_sprite", "evolution_1_overlay", "evolution_1_costs_container", "evolution_1_cost_1_icon", "evolution_1_cost_1_label", "evolution_1_cost_2_icon", "evolution_1_cost_2_label", "evolution_2_sprite", "evolution_2_overlay", "evolution_2_costs_container", "evolution_2_cost_1_icon", "evolution_2_cost_1_label", "evolution_2_cost_2_icon", "evolution_2_cost_2_label")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -395.0
+offset_top = -225.0
+offset_right = -11.0
+offset_bottom = -21.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("9_87570")
+script = ExtResource("10_bh2lf")
+title_label = NodePath("evolution")
+confirmation = NodePath("../evolution_confirmation_bg/evolution_confirmation")
+evolution_texture_buffer = NodePath("../evolution_confirmation_bg/evolution_texture_buffer")
+evolution_1_sprite = NodePath("HBoxContainer/evolution_1/evolution_1")
+evolution_1_overlay = NodePath("HBoxContainer/evolution_1/evolution_1/overlay")
+evolution_1_costs_container = NodePath("HBoxContainer/evolution_1/resource_costs")
+evolution_1_cost_1_icon = NodePath("HBoxContainer/evolution_1/resource_costs/resource_icon")
+evolution_1_cost_1_label = NodePath("HBoxContainer/evolution_1/resource_costs/resource_1")
+evolution_1_cost_2_icon = NodePath("HBoxContainer/evolution_1/resource_costs/resource_icon2")
+evolution_1_cost_2_label = NodePath("HBoxContainer/evolution_1/resource_costs/resource_2")
+evolution_2_sprite = NodePath("HBoxContainer/evolution_2/evolution_2")
+evolution_2_overlay = NodePath("HBoxContainer/evolution_2/evolution_2/overlay")
+evolution_2_costs_container = NodePath("HBoxContainer/evolution_2/resource_costs")
+evolution_2_cost_1_icon = NodePath("HBoxContainer/evolution_2/resource_costs/resource_icon")
+evolution_2_cost_1_label = NodePath("HBoxContainer/evolution_2/resource_costs/resource_1")
+evolution_2_cost_2_icon = NodePath("HBoxContainer/evolution_2/resource_costs/resource_icon2")
+evolution_2_cost_2_label = NodePath("HBoxContainer/evolution_2/resource_costs/resource_2")
+
+[node name="evolution" type="Label" parent="Panel/evolution"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 7.0
+offset_right = 334.0
+offset_bottom = 62.0
+text = "Bring this unit to level 10 to
+unlock upgrades"
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -182.0
+offset_top = -149.0
+offset_right = 182.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="evolution_1" type="VBoxContainer" parent="Panel/evolution/HBoxContainer"]
+layout_mode = 2
+
+[node name="evolution_1" type="TextureRect" parent="Panel/evolution/HBoxContainer/evolution_1"]
+modulate = Color(0, 0, 0, 0.435294)
+layout_mode = 2
+texture = SubResource("AtlasTexture_nv8af")
+
+[node name="overlay" type="ColorRect" parent="Panel/evolution/HBoxContainer/evolution_1/evolution_1"]
+show_behind_parent = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -100.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.1, 0.1, 0.1, 0)
+
+[node name="resource_costs" type="HBoxContainer" parent="Panel/evolution/HBoxContainer/evolution_1"]
+layout_mode = 2
+alignment = 1
+
+[node name="resource_icon" parent="Panel/evolution/HBoxContainer/evolution_1/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
+material = SubResource("ShaderMaterial_by5ee")
+layout_mode = 2
+adjacent_items = [NodePath("../resource_1")]
+
+[node name="resource_1" type="Label" parent="Panel/evolution/HBoxContainer/evolution_1/resource_costs"]
+layout_mode = 2
+text = "22"
+
+[node name="resource_icon2" parent="Panel/evolution/HBoxContainer/evolution_1/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
+material = SubResource("ShaderMaterial_n2jki")
+layout_mode = 2
+adjacent_items = [NodePath("../resource_2")]
+
+[node name="resource_2" type="Label" parent="Panel/evolution/HBoxContainer/evolution_1/resource_costs"]
+layout_mode = 2
+text = "32"
+
+[node name="evolution_2" type="VBoxContainer" parent="Panel/evolution/HBoxContainer"]
+layout_mode = 2
+
+[node name="evolution_2" type="TextureRect" parent="Panel/evolution/HBoxContainer/evolution_2"]
+modulate = Color(0, 0, 0, 0.435294)
+layout_mode = 2
+texture = SubResource("AtlasTexture_k7wxw")
+
+[node name="overlay" type="ColorRect" parent="Panel/evolution/HBoxContainer/evolution_2/evolution_2"]
+show_behind_parent = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -100.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.1, 0.1, 0.1, 0)
+
+[node name="resource_costs" type="HBoxContainer" parent="Panel/evolution/HBoxContainer/evolution_2"]
+layout_mode = 2
+alignment = 1
+
+[node name="resource_icon" parent="Panel/evolution/HBoxContainer/evolution_2/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
+material = SubResource("ShaderMaterial_87570")
+layout_mode = 2
+adjacent_items = [NodePath("../resource_1")]
+
+[node name="resource_1" type="Label" parent="Panel/evolution/HBoxContainer/evolution_2/resource_costs"]
+layout_mode = 2
+text = "22"
+
+[node name="resource_icon2" parent="Panel/evolution/HBoxContainer/evolution_2/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
+material = SubResource("ShaderMaterial_bh2lf")
+layout_mode = 2
+adjacent_items = [NodePath("../resource_2")]
+
+[node name="resource_2" type="Label" parent="Panel/evolution/HBoxContainer/evolution_2/resource_costs"]
+layout_mode = 2
+text = "32"
+
+[node name="evolution_confirmation_bg" type="ColorRect" parent="Panel"]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.403922)
+
+[node name="evolution_confirmation" type="Panel" parent="Panel/evolution_confirmation_bg" node_paths=PackedStringArray("title", "evolution_animation", "before_sprite", "before_max_hp_label", "before_attack_label", "before_defense_label", "before_agility_label", "before_technique_label", "after_sprite", "after_max_hp_label", "after_attack_label", "after_defense_label", "after_agility_label", "after_technique_label", "after_name", "after_skill_name", "after_skill_description")]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_87570")
+script = ExtResource("14_bh2lf")
+title = NodePath("RichTextLabel")
+evolution_animation = NodePath("../../../evolution_animation")
+before_sprite = NodePath("HBoxContainer/VBoxContainer/before_sprite")
+before_max_hp_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/max_hp")
+before_attack_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/attack")
+before_defense_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/defense")
+before_agility_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/agility")
+before_technique_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer3/technique")
+after_sprite = NodePath("HBoxContainer/VBoxContainer2/after_sprite")
+after_max_hp_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer/max_hp")
+after_attack_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer/attack")
+after_defense_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/defense")
+after_agility_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/agility")
+after_technique_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer3/technique")
+after_name = NodePath("HBoxContainer/VBoxContainer3/after_name")
+after_skill_name = NodePath("HBoxContainer/VBoxContainer3/after_skill_name")
+after_skill_description = NodePath("HBoxContainer/VBoxContainer3/after_skill_description")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/evolution_confirmation_bg/evolution_confirmation"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 112.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.309804)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "Spend [color=cyan]20 chips[/color] and [color=brown] 50 scrap to upgrade pee to poo"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -391.0
+offset_right = 908.0
+offset_bottom = -13.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="before_sprite" type="TextureRect" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer"]
+texture_filter = 3
+custom_minimum_size = Vector2(300, 270)
+layout_mode = 2
+texture = SubResource("AtlasTexture_bh2lf")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_2twa8")
+layout_mode = 2
+adjacent_items = [NodePath("../max_hp")]
+
+[node name="max_hp" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "4206"
+
+[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_2qua6")
+layout_mode = 2
+adjacent_items = [NodePath("../attack")]
+stat = "attack"
+
+[node name="attack" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "4206"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_ryym2")
+layout_mode = 2
+adjacent_items = [NodePath("../defense")]
+stat = "defense"
+
+[node name="defense" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "4206"
+
+[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_nv8af")
+layout_mode = 2
+adjacent_items = [NodePath("../agility")]
+stat = "agility"
+
+[node name="agility" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "4206"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_k7wxw")
+layout_mode = 2
+adjacent_items = [NodePath("../technique")]
+stat = "technique"
+
+[node name="technique" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "4206"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="after_sprite" type="TextureRect" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(300, 270)
+layout_mode = 2
+texture = SubResource("AtlasTexture_2qua6")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_crnqx")
+layout_mode = 2
+adjacent_items = [NodePath("../max_hp")]
+
+[node name="max_hp" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "4206"
+
+[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_760xx")
+layout_mode = 2
+adjacent_items = [NodePath("../attack")]
+stat = "attack"
+
+[node name="attack" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "4206"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_31ksd")
+layout_mode = 2
+adjacent_items = [NodePath("../defense")]
+stat = "defense"
+
+[node name="defense" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "4206"
+
+[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_r3m1t")
+layout_mode = 2
+adjacent_items = [NodePath("../agility")]
+stat = "agility"
+
+[node name="agility" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "4206"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+material = SubResource("ShaderMaterial_nc3ik")
+layout_mode = 2
+adjacent_items = [NodePath("../technique")]
+stat = "technique"
+
+[node name="technique" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "4206"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="after_name" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "poo"
+
+[node name="after_skill_name" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Skill: pee"
+
+[node name="after_skill_description" type="RichTextLabel" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "piss everywhere no exception literally every cornerof the room leave everything yellow and smelly and unhospitable"
+fit_content = true
+
+[node name="confirm_btn" type="Button" parent="Panel/evolution_confirmation_bg/evolution_confirmation"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -186.0
+offset_top = -73.0
+offset_right = -18.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_lmv1r")
+theme_override_font_sizes/font_size = 64
+text = "Confirm"
+
+[node name="evolution_texture_buffer" type="Node2D" parent="Panel/evolution_confirmation_bg"]
+visible = false
+
+[node name="evolution_animation" type="ColorRect" parent="." node_paths=PackedStringArray("recruit_view", "sprite", "mask", "label", "hint")]
+visible = false
+z_index = 2
+layout_mode = 2
+color = Color(0, 0, 0, 0.980392)
+script = ExtResource("15_2qua6")
+recruit_view = NodePath("..")
+sprite = NodePath("evolving_sprite")
+mask = NodePath("evolving_sprite/mask")
+label = NodePath("Label")
+hint = NodePath("hint")
+
+[node name="evolving_sprite" type="TextureRect" parent="evolution_animation"]
+clip_children = 2
+material = SubResource("ShaderMaterial_cvcgn")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -45.0
+offset_right = 90.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+pivot_offset = Vector2(90, 50)
+texture = SubResource("AtlasTexture_2twa8")
+
+[node name="mask" type="ColorRect" parent="evolution_animation/evolving_sprite"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="evolution_animation"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 76.0
+offset_right = 20.0
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 128
+text = "UNIT UPGRADED!"
+
+[node name="hint" type="Label" parent="evolution_animation"]
+visible = false
+modulate = Color(1, 1, 1, 0.741176)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -296.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "[press anything to continue]"
+
+[connection signal="gui_input" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1/overlay" to="Panel/evolution" method="_on_ev1_overlay_gui_input"]
+[connection signal="mouse_entered" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1/overlay" to="Panel/evolution" method="_on_ev1_overlay_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1/overlay" to="Panel/evolution" method="_on_ev1_overlay_mouse_exited"]
+[connection signal="gui_input" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2/overlay" to="Panel/evolution" method="_on_ev2_overlay_gui_input"]
+[connection signal="mouse_entered" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2/overlay" to="Panel/evolution" method="_on_ev2_overlay_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2/overlay" to="Panel/evolution" method="_on_ev2_overlay_mouse_exited"]
+[connection signal="pressed" from="Panel/evolution_confirmation_bg/evolution_confirmation/confirm_btn" to="Panel/evolution_confirmation_bg/evolution_confirmation" method="_on_confirm_btn_pressed"]
 
 [editable path="Panel/SpriteSample"]

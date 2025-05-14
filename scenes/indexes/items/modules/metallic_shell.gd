@@ -12,15 +12,15 @@ const sfx_key = "metallic_shell";
 
 @export var aoe_range:Area2D;
 
-@onready var description:String = "Consumes " + str(scrap_cost) + Index.resource_colored_name("scrap") + " [/color] and"\
+@onready var description:String = "Consumes " + str(scrap_cost) + Index.resource_colored_name("scrap") + "[/color] and"\
 			+Index.get_color_tag("shield") + " shields[/color] you and nearby allies for 20% of your " + Index.get_color_tag("max_hp") + "Max HP.";
 
-func check_availability():
+func check_availability()->bool:
 	return Entities.player.inventory.scrap >= scrap_cost;
 
 func use()->void:
 	Entities.player.inventory.scrap -= scrap_cost;
-	var shield_value = Entities.in_fight_player.max_hp/2;
+	var shield_value:float = Entities.in_fight_player.max_hp/2;
 	Combat.shield_unit(Entities.in_fight_player, Entities.in_fight_player, shield_value);
 	for target in aoe_range.get_overlapping_bodies():
 		Combat.shield_unit(Entities.in_fight_player, target, shield_value);

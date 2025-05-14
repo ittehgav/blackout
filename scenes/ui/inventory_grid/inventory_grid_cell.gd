@@ -5,11 +5,11 @@ class_name InventoryGridCell
 @export var held_item_shadow_bg_color:Color;
 
 
-var filling_item:ItemMirror;
+var filling_item_mirror:ItemMirror;
 
 var filled:bool;
 @onready var original_color:Color = border_color;
-var original_bg_color;
+var original_bg_color:Color;
  
 @export var bg:ColorRect;
 @export var extension_bg:ColorRect;
@@ -24,7 +24,7 @@ func _ready()->void:
 func _on_mouse_entered() -> void:
 	hover();
 
-func hover():
+func hover()->void:
 	z_index = 1;
 
 	border_color = Color.WHITE
@@ -32,7 +32,7 @@ func hover():
 func _on_mouse_exited() -> void:
 	release();
 
-func held_item_shadow(item_mirror:ItemMirror):
+func held_item_shadow()->void:
 	bg.color = held_item_shadow_bg_color;
 
 func release()->void:
@@ -41,9 +41,7 @@ func release()->void:
 	border_color = original_color
 
 func fill_cell(item_mirror:ItemMirror)->void:
-	filling_item = item_mirror;
-	var item = filling_item.item;
-
+	filling_item_mirror = item_mirror;
 	filled = true;
 	
 func empty_cell()->void:

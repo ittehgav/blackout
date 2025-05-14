@@ -37,3 +37,15 @@ const skill_range = 300;
 const skill_cooldown = 8;
 
 const status_duration = .75
+
+
+const evolutions = {
+	"tether_guy":{
+		"juice":50,
+		"food":50
+	},
+	"coil_guy":{
+		"chips":20,
+		"scrap":50
+	}
+}

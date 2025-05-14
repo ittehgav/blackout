@@ -15,20 +15,25 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 0.75
 shader_parameter/neutral_value = 1.0
 
-[node name="ItemMirror" type="TextureRect" node_paths=PackedStringArray("outline", "bg", "tooltip", "stack_size_label")]
+[node name="ItemMirror" type="TextureRect" node_paths=PackedStringArray("outline", "bg", "being_traded_rect", "tooltip", "stack_size_label", "price_tag")]
 z_index = 2
 material = SubResource("ShaderMaterial_vqoty")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 mouse_filter = 0
 script = ExtResource("1_f3hr4")
 outline = NodePath("MarginContainer/outline")
 bg = NodePath("MarginContainer/mirror_bg")
+being_traded_rect = NodePath("being_traded")
 tooltip = NodePath("Tooltip")
 stack_size_label = NodePath("stack_size")
+price_tag = NodePath("price_tag")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 z_index = -1
@@ -48,6 +53,7 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="outline" type="ReferenceRect" parent="MarginContainer"]
+z_index = 1
 layout_mode = 2
 mouse_filter = 1
 border_width = 5.0
@@ -70,6 +76,20 @@ grow_vertical = 1
 [node name="hint" parent="Tooltip/Control" index="0"]
 visible = true
 
+[node name="price_tag" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -46.0
+offset_right = -6.0
+offset_bottom = 26.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 12
+horizontal_alignment = 2
+
 [node name="stack_size" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 3
@@ -84,6 +104,19 @@ grow_vertical = 0
 mouse_filter = 1
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="being_traded" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 0.482353, 0.360784)
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

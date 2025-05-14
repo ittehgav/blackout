@@ -1,10 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=31 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_grid/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_grid/inventory_grid_cell.tscn" id="2_ke6sf"]
 [ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_grid/item_mirror.tscn" id="3_03pit"]
 [ext_resource type="Script" uid="uid://k28ilsb15q1d" path="res://scenes/ui/inventory_grid/sfx.gd" id="3_ke6sf"]
-[ext_resource type="Script" uid="uid://bphrkwagblhbq" path="res://scenes/ui/inventory_grid/inventory_grid.gd" id="3_rchr5"]
 [ext_resource type="AudioStream" uid="uid://027kj1l582qq" path="res://assets/sound/sfx/ui/inventory/cell_hover.wav" id="4_rchr5"]
 [ext_resource type="Script" uid="uid://b67hvkww5tvpb" path="res://scenes/ui/inventory_grid/hover_sfx.gd" id="5_qglwj"]
 [ext_resource type="AudioStream" uid="uid://bxquvtit675r3" path="res://assets/sound/sfx/ui/inventory/drop.wav" id="6_k4cp6"]
@@ -18,7 +17,13 @@
 [ext_resource type="AudioStream" uid="uid://cg6ya8ntw4pr4" path="res://assets/sound/sfx/ui/inventory/resources/deposit_chips.wav" id="14_15sfg"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="16_an643"]
 [ext_resource type="AudioStream" uid="uid://cnomp6rm87ghx" path="res://assets/sound/sfx/ui/equip.mp3" id="16_jjio2"]
+[ext_resource type="AudioStream" uid="uid://ch3t7uy42ms3k" path="res://assets/sound/sfx/ui/inventory/trade/trade.wav" id="17_ormkh"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="17_qglwj"]
+[ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="18_7uvto"]
+[ext_resource type="AudioStream" uid="uid://b7cm8ur52tcnd" path="res://assets/sound/sfx/ui/inventory/trade/reset.wav" id="19_h4har"]
+[ext_resource type="AudioStream" uid="uid://887fjhopo7n2" path="res://assets/sound/sfx/ui/inventory/trade/coin.wav" id="20_fnwsv"]
+[ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_grid/resource_picker.gd" id="21_15sfg"]
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
 resource_local_to_scene = true
@@ -86,7 +91,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("item_mirrors_node", "grid", "sfx", "hover_sfx", "resources_vbox", "money_icon", "food_icon", "food_hbox", "fuel_icon", "fuel_hbox", "juice_icon", "juice_hbox", "scrap_icon", "scrap_hbox", "chips_icon", "chips_hbox")]
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("resource_picker", "item_mirrors_node", "grid", "sfx", "hover_sfx", "warning_label", "trade_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "food_icon", "food_hbox", "fuel_icon", "fuel_hbox", "juice_icon", "juice_hbox", "scrap_icon", "scrap_hbox", "chips_icon", "chips_hbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -94,14 +99,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bv60r")
+resource_picker = NodePath("resource_picker")
 item_mirrors_node = NodePath("item_mirrors")
 grid_cell_scene = ExtResource("2_ke6sf")
 item_mirror_scene = ExtResource("3_03pit")
 grid = NodePath("inventory_grid")
 sfx = NodePath("sfx")
 hover_sfx = NodePath("hover_sfx")
+warning_label = NodePath("warning")
+trade_rect = NodePath("trade_rect")
+trade_excess = NodePath("trade_excess")
+trade_excess_container = NodePath("trade_excess/trade_excess_container")
+trade_excess_label_panel = NodePath("trade_excess_label_panel")
+trade_excess_label = NodePath("trade_excess_label_panel/trade_excess_label")
 resources_vbox = NodePath("VBoxContainer")
 money_icon = NodePath("VBoxContainer/HBoxContainer3/money_icon")
+money_hbox = NodePath("VBoxContainer/HBoxContainer3")
 food_icon = NodePath("VBoxContainer/HBoxContainer/food_icon")
 food_hbox = NodePath("VBoxContainer/HBoxContainer")
 fuel_icon = NodePath("VBoxContainer/HBoxContainer2/fuel_icon")
@@ -132,6 +145,10 @@ deposit_scrap_small = ExtResource("12_jjio2")
 deposit_scrap_big = ExtResource("13_ormkh")
 deposit_chips = ExtResource("14_15sfg")
 weapon_equipped = ExtResource("16_jjio2")
+trade = ExtResource("17_ormkh")
+invalid = ExtResource("18_7uvto")
+reset = ExtResource("19_h4har")
+coin_drop = ExtResource("20_fnwsv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -196,6 +213,7 @@ theme_override_font_sizes/font_size = 48
 text = "11"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="juice_icon" parent="VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
@@ -247,12 +265,185 @@ text = "11"
 layout_mode = 1
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
-script = ExtResource("3_rchr5")
 
 [node name="item_mirrors" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="resource_picker" type="Control" parent="." node_paths=PackedStringArray("display", "choice_1", "choice_1_label", "choice_2", "choice_2_label", "choice_3", "choice_3_label")]
+visible = false
+z_index = 5
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("21_15sfg")
+display = NodePath("..")
+choice_1 = NodePath("choices/choice_1")
+choice_1_label = NodePath("choices/choice_1/Label")
+choice_2 = NodePath("choices/choice_2")
+choice_2_label = NodePath("choices/choice_2/Label")
+choice_3 = NodePath("choices/choice_3")
+choice_3_label = NodePath("choices/choice_3/Label")
+
+[node name="choices" type="HBoxContainer" parent="resource_picker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -71.0
+offset_right = 79.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="choice_1" type="ColorRect" parent="resource_picker/choices"]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+color = Color(0.1, 0.1, 0.1, 0.501961)
+
+[node name="Label" type="Label" parent="resource_picker/choices/choice_1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+
+[node name="choice_2" type="ColorRect" parent="resource_picker/choices"]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+color = Color(0.1, 0.1, 0.1, 0.501961)
+
+[node name="Label" type="Label" parent="resource_picker/choices/choice_2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+
+[node name="choice_3" type="ColorRect" parent="resource_picker/choices"]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+color = Color(0.1, 0.1, 0.1, 0.501961)
+
+[node name="Label" type="Label" parent="resource_picker/choices/choice_3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+
+[node name="warning" type="Label" parent="."]
+z_index = 20
+z_as_relative = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.796078, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.501961)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+
+[node name="trade_rect" type="ColorRect" parent="."]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.678431)
+
+[node name="operation" type="Label" parent="trade_rect"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 202.0
+offset_right = 266.0
+offset_bottom = 304.0
+theme_override_font_sizes/font_size = 128
+text = "BUY"
+
+[node name="trade_excess" type="PanelContainer" parent="."]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -12.0
+offset_right = 6.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("25_ed75d")
+
+[node name="trade_excess_container" type="VBoxContainer" parent="trade_excess"]
+layout_mode = 2
+alignment = 2
+
+[node name="trade_excess_label_panel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = 245.0
+offset_right = -156.0
+offset_bottom = 308.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("25_ed75d")
+
+[node name="trade_excess_label" type="Label" parent="trade_excess_label_panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "wawa"
+
+[connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
+[connection signal="mouse_entered" from="resource_picker/choices/choice_1" to="resource_picker" method="_on_choice_1_mouse_entered"]
+[connection signal="mouse_exited" from="resource_picker/choices/choice_1" to="resource_picker" method="_on_choice_1_mouse_exited"]
+[connection signal="mouse_entered" from="resource_picker/choices/choice_2" to="resource_picker" method="_on_choice_2_mouse_entered"]
+[connection signal="mouse_exited" from="resource_picker/choices/choice_2" to="resource_picker" method="_on_choice_2_mouse_exited"]
+[connection signal="mouse_entered" from="resource_picker/choices/choice_3" to="resource_picker" method="_on_choice_3_mouse_entered"]
+[connection signal="mouse_exited" from="resource_picker/choices/choice_3" to="resource_picker" method="_on_choice_3_mouse_exited"]
+[connection signal="mouse_entered" from="trade_excess_label_panel" to="." method="_on_trade_excess_label_panel_mouse_entered"]
+[connection signal="mouse_exited" from="trade_excess_label_panel" to="." method="_on_trade_excess_label_panel_mouse_exited"]

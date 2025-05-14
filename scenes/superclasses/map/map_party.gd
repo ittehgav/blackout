@@ -2,9 +2,10 @@ extends MapEntity
 
 class_name MapParty
 
-@warning_ignore("unused_signal")
+signal entity_entered_range(entity:MapEntity);
+signal entity_left_range(entity:MapEntity);
+
 signal started_moving;
-@warning_ignore("unused_signal")
 signal stopped_moving;
 
 
@@ -14,4 +15,4 @@ signal stopped_moving;
 var target_entity:MapEntity;
 var target_position:Vector2;
 
-var move_speed:float = 200.0;
+@export var move_speed:float = 200.0;

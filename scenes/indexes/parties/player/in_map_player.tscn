@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0vg6gq1edsw"]
+[gd_scene load_steps=8 format=3 uid="uid://c0vg6gq1edsw"]
 
 [ext_resource type="Script" uid="uid://cno7hu4sfyc12" path="res://scenes/indexes/parties/player/in_map_player.gd" id="1_h5u0f"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
@@ -6,19 +6,25 @@
 [ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/indexes/vehicles/gol.tscn" id="7_swjnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4fri"]
-radius = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_07dg6"]
 radius = 250.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4wtfu"]
+radius = 30.0
+
 [node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("camera", "sight_shape", "leader", "vehicle")]
 process_mode = 3
+collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_h5u0f")
 camera = NodePath("in_map_camera")
 sight_shape = NodePath("sight/shape")
 leader = NodePath("Player")
 vehicle = NodePath("Gol")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="Gol" parent="." instance=ExtResource("7_swjnx")]
 
@@ -41,7 +47,15 @@ collision_mask = 4
 rotation = 1.5708
 shape = SubResource("CircleShape2D_07dg6")
 
+[node name="interaction_range" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction_range"]
+shape = SubResource("CircleShape2D_4wtfu")
+
 [connection signal="started_moving" from="." to="." method="_on_started_moving"]
 [connection signal="stopped_moving" from="." to="." method="_on_stopped_moving"]
+[connection signal="body_entered" from="interaction_range" to="." method="_on_interaction_range_body_entered"]
+[connection signal="body_exited" from="interaction_range" to="." method="_on_interaction_range_body_exited"]
 
 [editable path="Player"]

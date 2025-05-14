@@ -17,10 +17,8 @@ func _input(e:InputEvent)->void:
 	and e.button_index==MOUSE_BUTTON_LEFT and not Entities.world_map.pause_stack:
 		var cursor_position:Vector2 = Entities.world_map.get_local_mouse_position()
 		if position.distance_to(cursor_position) > 30:
-			if Entities.map_entity_under_mouse:
-				move_toward_entity();
-			else: 
-				target_position = cursor_position
+
+			target_position = cursor_position
 			if not camera.in_player:
 				target_position += camera.position - position;
 			started_moving.emit();
@@ -42,20 +40,16 @@ func move_toward_entity()->void:
 
 	
 func _physics_process(delta: float) -> void:
-	if target_position != position:
+	if target_position:
 		if position.distance_to(target_position) < 2.5:
 			stop_movement();
 		else:
 			var gap:Vector2 = (target_position - position).normalized()
-			var movement:Vector2 = gap * move_speed * delta;
-			var collision:KinematicCollision2D = move_and_collide(movement)
-			if collision:
-				target_position = position
-				stop_movement();
-				interact_with_map_entity(collision.get_collider());
+			velocity = gap * move_speed;
+			move_and_slide();
 
 
-func stop_movement(finish:bool =true)->void:
+func stop_movement(finish:bool=true)->void:
 	if finish:
 		position = target_position;
 	else:
@@ -158,3 +152,15 @@ func roll_convince(target:NpcMapParty)->bool:
 		return true;
 	else:
 		return false;
+
+
+func _on_interaction_range_body_entered(body: Node2D) -> void:
+	if body is MapEntity:
+		stop_movement(false);
+		entity_entered_range.emit(body)
+		
+
+
+func _on_interaction_range_body_exited(body: Node2D) -> void:
+	if body is MapEntity:
+		entity_left_range.emit(body);

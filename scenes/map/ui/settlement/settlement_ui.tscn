@@ -1,30 +1,91 @@
-[gd_scene load_steps=16 format=3 uid="uid://cqdyfeds3f681"]
+[gd_scene load_steps=24 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_c11hx"]
-[ext_resource type="AudioStream" uid="uid://tfrup27pkmxl" path="res://assets/sound/sfx/ui/trade_complete.wav" id="2_i581t"]
-[ext_resource type="Script" uid="uid://bahlds1d7kky5" path="res://scenes/map/ui/settlement/options.gd" id="3_2ay4q"]
 [ext_resource type="Script" uid="uid://by8vn18s08uo6" path="res://scenes/map/ui/settlement/sky_bg.gd" id="3_m2mhi"]
-[ext_resource type="Theme" uid="uid://bftmxndp3g4p6" path="res://resources/themes/pixel_ui_theme/PixelTheme-Dark-Fade.tres" id="3_obgmr"]
 [ext_resource type="Shader" uid="uid://bg5d2crng34n6" path="res://scenes/map/ui/settlement/settlement_bg.gdshader" id="3_pm0ox"]
 [ext_resource type="Texture2D" uid="uid://bckvycfqlfhbi" path="res://assets/visual/backgrounds/settlements/factory/factory.png" id="4_pm0ox"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="5_36m0f"]
 [ext_resource type="PackedScene" uid="uid://ctxqhmgpiuoss" path="res://scenes/ui/trade/trade_menu.tscn" id="11_bwbxe"]
+[ext_resource type="Script" uid="uid://c3aknt2uyy8a3" path="res://scenes/map/ui/settlement/recruitment_menu.gd" id="12_bwbxe"]
+[ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/map/settlement/recruitment_card.tscn" id="13_i581t"]
 [ext_resource type="PackedScene" uid="uid://8cr8p5qofnu1" path="res://scenes/map/settlement/sky_view.tscn" id="14_6i511"]
 [ext_resource type="Script" uid="uid://lcw1ymx6e6i6" path="res://scenes/map/ui/settlement/post_listen_around.gd" id="14_fgyyh"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="14_pm0ox"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="15_m2mhi"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="16_pm0ox"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cq7yt"]
 shader = ExtResource("3_pm0ox")
-shader_parameter/prop_light = Color(0, 0, 0, 1)
-shader_parameter/prop_dark = Color(0, 0, 0, 1)
+shader_parameter/prop_light = Color(0.51, 0.51, 0.51, 1)
+shader_parameter/prop_dark = Color(0.19, 0.0931, 0.0931, 1)
 shader_parameter/ground_light = Color(0, 0, 0, 1)
-shader_parameter/ground_dark = Color(0, 0, 0, 1)
+shader_parameter/ground_dark = Color(0.144, 0.216, 0.36, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pm0ox"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fjqa"]
 
-[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_props", "sky_bg", "crowd_rect", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "main_view", "ui_sfx")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2mhi"]
+atlas = ExtResource("16_pm0ox")
+region = Rect2(0, 0, 200, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_akq8h"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pm0ox"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2mhi"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05gvk"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvf0a"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("post_listen_around", "post_listen_around_list", "memo_label", "sky_props", "sky_bg", "crowd_rect", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "main_view", "trade_menu", "recruitment_menu", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -34,6 +95,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dun4i")
+post_listen_around = NodePath("post_listen_around")
+post_listen_around_list = NodePath("post_listen_around/panel/list")
+memo_label = NodePath("post_listen_around/panel/list/memo_label")
 sky_props = NodePath("sky_view")
 sky_bg = NodePath("sky_bg")
 crowd_rect = NodePath("background/crowd")
@@ -44,7 +108,8 @@ trade_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/
 recruit_units_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/recruit_units")
 listen_around_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/listen_around")
 main_view = NodePath("main_view")
-trade_completed_sound = ExtResource("2_i581t")
+trade_menu = NodePath("trade_menu")
+recruitment_menu = NodePath("recruitment_menu")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="sky_bg" type="ColorRect" parent="." node_paths=PackedStringArray("settlement_ui", "background", "crowd")]
@@ -71,6 +136,12 @@ ground_brightest = Color(0.71, 0.6532, 0.4828, 1)
 prop_sunset = Color(0.419608, 0.0784314, 0.0784314, 1)
 ground_sunset = Color(0.45, 0.4059, 0.324, 1)
 
+[node name="sky_view" parent="." instance=ExtResource("14_6i511")]
+layout_mode = 1
+offset_top = -720.0
+offset_bottom = -720.0
+mouse_filter = 2
+
 [node name="background" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_cq7yt")
 layout_mode = 1
@@ -93,29 +164,12 @@ grow_vertical = 2
 [node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
 
 [node name="main_view" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="exit" type="Button" parent="main_view"]
-layout_mode = 2
-offset_left = 379.0
-offset_top = 10.0
-offset_right = 545.0
-offset_bottom = 44.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("3_obgmr")
-theme_override_font_sizes/font_size = 32
-shortcut = ExtResource("5_36m0f")
-shortcut_in_tooltip = false
-text = "[esc] Exit"
 
 [node name="container" type="HBoxContainer" parent="main_view"]
 layout_mode = 1
@@ -130,7 +184,6 @@ offset_right = 477.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 250
 
 [node name="text" type="PanelContainer" parent="main_view/container"]
 custom_minimum_size = Vector2(450, 600)
@@ -185,16 +238,9 @@ fit_content = true
 shortcut_keys_enabled = false
 horizontal_alignment = 1
 
-[node name="options" type="PanelContainer" parent="main_view/container" node_paths=PackedStringArray("settlement_ui", "post_listen_around", "post_listen_around_list", "memo_label", "main_view", "trade_menu")]
+[node name="options" type="PanelContainer" parent="main_view/container"]
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
-script = ExtResource("3_2ay4q")
-settlement_ui = NodePath("../../..")
-post_listen_around = NodePath("../../../post_listen_around")
-post_listen_around_list = NodePath("../../../post_listen_around/panel/list")
-memo_label = NodePath("../../../post_listen_around/panel/list/memo_label")
-main_view = NodePath("../..")
-trade_menu = NodePath("../../../trade_menu")
 
 [node name="MarginContainer" type="MarginContainer" parent="main_view/container/options"]
 layout_mode = 2
@@ -245,6 +291,15 @@ theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
 theme_override_font_sizes/font_size = 64
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
 text = "Listen Around (3h)"
+
+[node name="exit" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 0.309804)
+theme_override_font_sizes/font_size = 64
+shortcut = ExtResource("5_36m0f")
+shortcut_in_tooltip = false
+text = "[esc] Exit"
 
 [node name="post_listen_around" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "main_view")]
 visible = false
@@ -297,36 +352,305 @@ fit_content = true
 [node name="Label" type="Label" parent="post_listen_around/panel"]
 modulate = Color(1, 1, 1, 0.72549)
 layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -425.0
+offset_top = -41.0
+offset_right = 425.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "[click on a settlement to reveal it in the world map or press any key to return]"
+
+[node name="trade_menu" parent="." instance=ExtResource("11_bwbxe")]
+visible = false
+layout_mode = 1
+
+[node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_bwbxe")
+recruitment_card_scene = ExtResource("13_i581t")
+recruit_panel = NodePath("Panel")
+cards_container = NodePath("recruit_cards")
+settlement_ui = NodePath("..")
+hire_btn = NodePath("Panel/hire_btn")
+recruit_name_label = NodePath("Panel/recruit_name")
+recruit_level_label = NodePath("Panel/VBoxContainer2/level")
+tags_label = NodePath("Panel/VBoxContainer2/tags")
+recruit_skill_name_label = NodePath("Panel/VBoxContainer/skill_name")
+recruit_description_label = NodePath("Panel/VBoxContainer/recruit_description")
+recruit_flavor_label = NodePath("Panel/VBoxContainer/flavor")
+recruit_sprite = NodePath("Panel/sprite")
+recruit_max_hp_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer/max_hp")
+recruit_attack_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer2/attack")
+recruit_defense_label = NodePath("Panel/stats/HBoxContainer2/HBoxContainer/defense")
+recruit_agility_label = NodePath("Panel/stats/HBoxContainer2/HBoxContainer2/agility")
+recruit_technique_label = NodePath("Panel/stats/HBoxContainer3/HBoxContainer/technique")
+
+[node name="recruit_cards" type="VBoxContainer" parent="recruitment_menu"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -389.0
+offset_top = -306.0
+offset_right = 11.0
+offset_bottom = 306.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="recruitment_card" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card2" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card3" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card4" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="exit" type="Button" parent="recruitment_menu/recruit_cards"]
+layout_mode = 2
+shortcut = ExtResource("5_36m0f")
+text = "[esc] exit"
+
+[node name="hint" type="Label" parent="recruitment_menu"]
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
+offset_left = 134.0
+offset_top = 323.0
+offset_right = 826.0
+offset_bottom = 374.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "Click a unit for more information"
+
+[node name="Panel" type="Panel" parent="recruitment_menu"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -279.0
+offset_right = 832.0
+offset_bottom = 279.0
+grow_vertical = 2
+
+[node name="sprite" type="TextureRect" parent="recruitment_menu/Panel"]
+layout_mode = 0
+offset_left = -155.0
+offset_top = 46.0
+offset_right = 45.0
+offset_bottom = 146.0
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_m2mhi")
+expand_mode = 3
+
+[node name="recruit_name" type="Label" parent="recruitment_menu/Panel"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 25.0
+offset_right = 94.0
+offset_bottom = 76.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_font_sizes/font_size = 64
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="recruitment_menu/Panel"]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 99.0
+offset_right = 445.0
+offset_bottom = 238.0
+
+[node name="level" type="Label" parent="recruitment_menu/Panel/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Level: 30"
+
+[node name="tags" type="Label" parent="recruitment_menu/Panel/VBoxContainer2"]
+layout_mode = 2
+text = "wawa
+wawa
+waa"
+
+[node name="stats_label" type="Label" parent="recruitment_menu/Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -371.0
+offset_top = -178.0
+offset_right = -251.0
+offset_bottom = -127.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Stats:"
+
+[node name="stats" type="HBoxContainer" parent="recruitment_menu/Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -372.0
+offset_top = -123.0
+offset_right = 44.0
+offset_bottom = -23.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="recruitment_menu/Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_akq8h")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../max_hp")]
+
+[node name="max_hp" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "wawa"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_pm0ox")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../attack")]
+stat = "attack"
+
+[node name="attack" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "aga"
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="recruitment_menu/Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer2"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_m2mhi")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../defense")]
+stat = "defense"
+
+[node name="defense" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "wawa"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer2"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_05gvk")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../agility")]
+stat = "agility"
+
+[node name="agility" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "aga"
+
+[node name="HBoxContainer3" type="VBoxContainer" parent="recruitment_menu/Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer3"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer3/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_xvf0a")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../technique")]
+stat = "technique"
+
+[node name="technique" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "wawa"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="recruitment_menu/Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -77.0
+offset_right = -285.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="skill_name" type="Label" parent="recruitment_menu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "pepee"
+
+[node name="recruit_description" type="RichTextLabel" parent="recruitment_menu/Panel/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="flavor" type="RichTextLabel" parent="recruitment_menu/Panel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 2
+fit_content = true
+
+[node name="hire_btn" type="Button" parent="recruitment_menu/Panel"]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -649.0
-offset_top = -29.0
-offset_right = -7.0
-offset_bottom = 12.0
+offset_left = -117.0
+offset_top = -75.0
+offset_right = -25.0
+offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "[click on a settlement to reveal it in the world map or press any key to return]"
-
-[node name="trade_menu" parent="." instance=ExtResource("11_bwbxe")]
-layout_mode = 1
-
-[node name="sky_view" parent="." instance=ExtResource("14_6i511")]
-z_index = -1
-layout_mode = 1
-offset_top = -720.0
-offset_bottom = -720.0
-mouse_filter = 2
+theme_override_font_sizes/font_size = 64
+text = "Hire"
 
 [connection signal="settlement_entered" from="." to="." method="_on_settlement_entered"]
 [connection signal="settlement_left" from="." to="." method="_on_settlement_left"]
-[connection signal="pressed" from="main_view/exit" to="." method="exit_settlement"]
-[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/trade" to="main_view/container/options" method="trade"]
-[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/recruit_units" to="main_view/container/options" method="recruit_units"]
-[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/listen_around" to="main_view/container/options" method="listen_around"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/trade" to="." method="trade"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/recruit_units" to="." method="recruit_units"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/listen_around" to="." method="listen_around"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/exit" to="." method="exit_settlement"]
 [connection signal="gui_input" from="post_listen_around" to="post_listen_around" method="_on_gui_input"]
 [connection signal="visibility_changed" from="post_listen_around" to="post_listen_around" method="_on_visibility_changed"]
 [connection signal="meta_clicked" from="post_listen_around/panel/list/memo_label" to="post_listen_around" method="_on_memo_label_meta_clicked"]
+[connection signal="pressed" from="recruitment_menu/recruit_cards/exit" to="recruitment_menu" method="_on_exit_pressed"]
+[connection signal="pressed" from="recruitment_menu/Panel/hire_btn" to="recruitment_menu" method="_on_hire_btn_pressed"]

@@ -4,6 +4,8 @@ class_name Settlement;
 
 var ongoing_anomalies:Array[TradeAnomaly];
 
+var available_recruits:Array[FighterUnit];
+
 @export var background:Texture;
 @export var crowd_1:Texture;
 @export var crowd_2:Texture;
@@ -16,6 +18,7 @@ var ongoing_anomalies:Array[TradeAnomaly];
 @export var listen_around:bool=true;
 
 @export_subgroup("Resource Production")
+@export_range(0, 100) var money_production:int=100;
 @export_range(0, 100) var food_production:int=100;
 @export_range(0, 100) var fuel_production:int=100;
 
@@ -116,6 +119,7 @@ func daily_reset()->void:
 		add_new_anomaly()
 	
 	refresh_inventory();
+	refresh_recruits();
 
 func add_new_anomaly()->void:
 	var anomaly:TradeAnomaly = TradeAnomaly.new();
@@ -133,40 +137,57 @@ func refresh_inventory()->void:
 	## trade anomalies
 	## price hikes a little or drops a little for a resource if it was bought/sold
 	## TODO more price adjusting
-	
-	
 	var resource_prices:Dictionary = Index.resource_base_prices.duplicate();
 
-	var to_add:Dictionary = {
-		"food":food_production,
-		"fuel":fuel_production,
-		"juice":juice_production,
-		"scrap":scrap_production,
-		"chips":chips_production
-	}
+	inventory.money = randi_range(money_production/2, money_production * 1.5)
 	
-	for r:String in Index.all_resources.filter(func(r:String)->bool:return r != "money"):
-		for anomaly:TradeAnomaly in ongoing_anomalies:
-			if anomaly.resource == r:
-				var price_shift:float = resource_prices[r] * anomaly.change
-				var change:float = to_add[r] * anomaly.change;
-				if not anomaly.positive:
-					## anomalies are heavily overcorrected
-					change *= -1; 
-					resource_prices[r] -= price_shift;
-				else:
-					resource_prices[r] += price_shift
-					
-				to_add[r] += change;
+	var tradeable_resources:PackedStringArray = Index.all_resources.filter(func(r:String)->bool:return r != "money")
+	
+	for r:String in tradeable_resources:
+		var production:int = self[r+'_production'];
+		inventory[r] += randi_range(production/2, production*1.5);
+
 
 	var relationship_modifier:float = relationship_modifiers[player_relation];
-
-	for r:String in to_add.keys():
+	inventory.item_selling_multiplier = 1/relationship_modifier;
+	inventory.item_buying_multiplier = 1*relationship_modifier;
+	
+	for r:String in tradeable_resources:
+		
+		
 		inventory.resource_selling_prices[r] = resource_prices[r] / relationship_modifier;
 		inventory.resource_buying_prices[r] = resource_prices[r] * relationship_modifier;
+		
+		for a:TradeAnomaly in ongoing_anomalies.filter(func(a:TradeAnomaly)->bool:return a.resource == r):
+			inventory.resource_selling_prices[r] *= a.change;
+			inventory.resource_buying_prices[r] *= a.change
+		
+		if inventory.resource_selling_prices[r] < 1:
+			inventory.resource_selling_prices[r] = 1
+		if inventory.resource_buying_prices[r] < 1:
+			inventory.resource_buying_prices[r] = 1
 	
 	inventory.store_resources()
 
+func refresh_recruits()->void:
+	available_recruits = [];
+	while len(available_recruits) < 3:
+		var new_recruit_base:FighterBase = Index.basic_fighter_base_scenes.pick_random().instantiate();
+		var fighter_unit:FighterUnit = Index.fighter_unit_scene.instantiate();
+		fighter_unit.add_child(new_recruit_base);
+		fighter_unit.base = new_recruit_base;
+		fighter_unit.level = randi_range(1, 5);
+		fighter_unit.load_stats();
+		available_recruits.append(fighter_unit);
+	
+	var big_recruit_base:FighterBase = Index.evolved_fighter_base_scenes.pick_random().instantiate();
+	var big_fighter_unit:FighterUnit = Index.fighter_unit_scene.instantiate();
+	big_fighter_unit.add_child(big_recruit_base);
+	big_fighter_unit.base = big_recruit_base;
+	big_fighter_unit.level = randi_range(10, 20);
+	big_fighter_unit.load_stats();
+	available_recruits.append(big_fighter_unit)
+	
 	
 func overlapping_anomaly(anomaly:TradeAnomaly)->bool:
 	for a in ongoing_anomalies:

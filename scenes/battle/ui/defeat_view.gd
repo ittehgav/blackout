@@ -7,7 +7,6 @@ func defeat_animation()->void:
 	show()
 	Entities.player.battle_defeat_morale();
 	morale_icon.update();
-	modulate.a = 0;
 	Tweens.ui_fade_in(self, 1);
 
 	

@@ -24,8 +24,12 @@ inventory = NodePath("Inventory")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("5_38mel")
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
 texture = ExtResource("1_60suj")
+
+[node name="shadow" parent="sprite" instance=ExtResource("7_k2u3n")]
+position = Vector2(0, 2.66667)
+script = null
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("3_y1jku")]
 holder = NodePath("..")
@@ -56,10 +60,6 @@ offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 target = NodePath("../..")
-
-[node name="shadow" parent="." instance=ExtResource("7_k2u3n")]
-position = Vector2(-1, 11)
-scale = Vector2(2, 2)
 
 [connection signal="mouse_entered" from="hover_box" to="." method="_on_hover_box_mouse_entered"]
 [connection signal="mouse_exited" from="hover_box" to="." method="_on_hover_box_mouse_exited"]

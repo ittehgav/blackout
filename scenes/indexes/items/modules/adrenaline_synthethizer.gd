@@ -12,7 +12,7 @@ const juice_cost = 5;
 
 ## juice consumption scales with leadership_level?
 @onready var  description:String = "Cosumes " + str(juice_cost) + Index.resource_colored_name("juice") +\
-" [/color] and doubles your "+Index.get_color_tag("agility")+" Agility[/color] for the rest of the battle.";
+"[/color] and doubles your "+Index.get_color_tag("agility")+" Agility[/color] for the rest of the battle.";
 
 func check_available()->bool:
 	return Entities.player.inventory.juice >= juice_cost; 

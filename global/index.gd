@@ -45,14 +45,33 @@ extends Node
 @export var scrap_compactor_scene:PackedScene;
 
 @export var chips_case_scene:PackedScene;
+@export_subgroup("Fighter Base Scenes")
+@export var arm_guy_scene:PackedScene;
+@export var mech_arm_guy_scene:PackedScene;
+@export var double_arm_guy_scene:PackedScene;
+
+@export var crowbar_guy_scene:PackedScene;
+@export var crossbow_guy_scene:PackedScene;
+@export var gravity_guy_scene:PackedScene;
+
+@export var tailpipe_guy_scene:PackedScene;
+@export var wheel_guy_scene:PackedScene;
+@export var door_guy_scene:PackedScene;
+
+@export var taser_guy_scene:PackedScene;
+@export var tether_guy_scene:PackedScene;
+@export var coil_guy_scene:PackedScene;
+
+
 
 @export_group("Colors")
 @export var color_schemes:Array[Array];
 
 const all_resources = [
+	"money",
+	
 	"food",
 	"fuel",
-	"money",
 	
 	"juice",
 	"scrap",
@@ -65,24 +84,48 @@ const resource_base_prices = {
 	"scrap":3.0,
 	"chips":5.0
 }
-	
-var all_fighter_base_scenes:Array[PackedScene] = [
-	preload("res://scenes/indexes/fighters/armguy.tscn"),
-	preload("res://scenes/indexes/fighters/coilguy.tscn"),
-	preload("res://scenes/indexes/fighters/crossbowguy.tscn"),
-	
-	preload("res://scenes/indexes/fighters/crowbarguy.tscn"),
-	preload("res://scenes/indexes/fighters/doorguy.tscn"),
-	preload("res://scenes/indexes/fighters/doublearmguy.tscn"),
-	
-	preload("res://scenes/indexes/fighters/gravityguy.tscn"),
-	preload("res://scenes/indexes/fighters/mecharmguy.tscn"),
-	preload("res://scenes/indexes/fighters/tailpipeguy.tscn"),
-	
-	preload("res://scenes/indexes/fighters/taserguy.tscn"),
-	preload("res://scenes/indexes/fighters/tetherguy.tscn"),
-	preload("res://scenes/indexes/fighters/wheelguy.tscn")
+
+
+
+
+@onready var basic_fighter_base_scenes:Array[PackedScene] = [
+	## settlements will only sell these by default?
+	arm_guy_scene,
+	crowbar_guy_scene,
+	tailpipe_guy_scene,
+	taser_guy_scene
 ]
+
+
+@onready var evolved_fighter_base_scenes:Array[PackedScene] = [
+	mech_arm_guy_scene,
+	double_arm_guy_scene,
+	
+	crossbow_guy_scene,
+	gravity_guy_scene,
+	
+	wheel_guy_scene,
+	door_guy_scene,
+	
+	tether_guy_scene,
+	coil_guy_scene
+]
+
+@onready var all_fighter_base_scenes:Array[PackedScene] = [
+	arm_guy_scene,
+	mech_arm_guy_scene,
+	double_arm_guy_scene,
+	crowbar_guy_scene,
+	crossbow_guy_scene,
+	gravity_guy_scene,
+	tailpipe_guy_scene,
+	wheel_guy_scene,
+	door_guy_scene,
+	taser_guy_scene,
+	tether_guy_scene,
+	coil_guy_scene
+]
+
 
 func random_fighter_base()->FighterBase:
 	var base:PackedScene = all_fighter_base_scenes.pick_random();
@@ -186,14 +229,13 @@ func resource_colored_name(resource:String)->String:
 	return string
 
 
-const resource_descriptions = {
-	"food": "[color=green]Basic survival resource[/color], you and your recruits need to eat some food 
-	every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop",
+var resource_descriptions:Dictionary[String, String] = {
+	"food": get_color_tag("food") + "Basic survival resource[/color], you and your party need to eat some food every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop",
 	
-	"fuel": "[color=green]Basic travel resource[/color], consumed every hour of travel in the world map, the more units there are in the party the more fuel travelling will\
+	"fuel": get_color_tag("fuel") + "Basic travel resource[/color], consumed every hour of travel in the world map, the more units there are in the party the more fuel travelling will\
 	 cost. If you have no fuel, you will travel much slower.",
 
-	"money": "[color=green]Basic currency[/color] used for trading items and resources.",
+	"money": get_color_tag("money") + "Basic currency[/color] used for trading items and resources.",
 	
 	
 	"juice": "Strange substance with many practical uses, a [color=green]common[/color] trade comodity, required for the [color=cyan]upkeep and upgrade[/color] of certain units.",
@@ -202,14 +244,18 @@ const resource_descriptions = {
 	"chips": "Intact processor chips are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading[/color] certain units."
 }
 
+const all_combat_stats:Array[String] = [
+	"max_hp", "attack", "defense", "agility", "technique"
+]
 
 
 const stat_descriptions = {
 	"max_hp": "The unit's total HP at the start of battle.",
 	"attack": "The damage the unit's skill will deal. (some units and weapons deal no damage)",
 	"defense": "Reduces the damage taken by the unit.",
-	"agility": "Increases the speed at which the unit uses their skill/weapon.",
-	"technique": "Improves special effects in units' skills."
+	"agility": "Speed at which the unit uses their skill/weapon.",
+	"technique": "Improves special effects in weapons and units' skills."
+	## TODO make player technique matter
 }
 
 

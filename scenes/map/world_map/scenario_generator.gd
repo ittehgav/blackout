@@ -22,6 +22,9 @@ var prop_sprites:Array[Sprite2D]
 
 @export var tile_colors:Array[Color];
 
+var settlement_positions:Array[Vector2];
+var large_prop_positions:Array[Vector2]
+var small_prop_positions:Array[Vector2];
 
 func _ready()->void:
 	await world_map.ready
@@ -56,28 +59,26 @@ func set_tiles()->void:
 				set_cell(cell_coords, 0, Vector2.DOWN)
 
 func generate_settlements()->void:
-	var taken_positions:Array[Vector2] = [Entities.in_map_player.position]
 	var alternatives:Array[PackedScene] = [Index.farm_scene, Index.scrapyard_scene, Index.factory_scene];
 	
 	var all_settlements:Array[Settlement]=[];
 	for i in 30:
 		var settlement_name:String = NameDatabase.generate_name();
-		while settlement_name in world_map.all_settlements.keys():
-			settlement_name = NameDatabase.generate_name()
+
 		var settlement:Settlement = alternatives.pick_random().instantiate();
 		settlement.initiate_inventory();
-		settlement.refresh_inventory()
 		
 		var location:Vector2 = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
 								randi_range(-entity_spawn_range/2, entity_spawn_range/2));
 
-		while position_taken(location, taken_positions):
+		while position_taken(location, [settlement_positions]):
 			location = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
 								randi_range(-entity_spawn_range/2, entity_spawn_range/2))
 
-		taken_positions.append(location)
+		settlement_positions.append(location);
 		settlement.position = location;
 		settlement.name = settlement_name;
+		
 		world_map.day_passed.connect(settlement.daily_reset)
 		all_settlements.append(settlement);
 		world_map.add_child(settlement);
@@ -119,7 +120,7 @@ func set_small_props()->void:
 	const prop_amounts = 100;
 	for prop in small_prop_sprites:
 		for i in prop_amounts:
-			set_prop(prop, taken_positions, 10, true)
+			set_prop(prop, 20, true)
 
 func set_props()->void:
 	for texture in prop_textures:
@@ -129,24 +130,27 @@ func set_props()->void:
 		sprite.scale = Vector2(2, 2);
 		prop_sprites.append(sprite);
 	
-	var taken_positions:Array[Vector2] = [];
 	const prop_amounts = 30;
 	for prop in prop_sprites:
 		for i in prop_amounts:
-			set_prop(prop, taken_positions);
+			set_prop(prop, 100);
 
 
-func set_prop(which:Sprite2D, taken_positions:Array[Vector2], min_gap:float=30, small:bool=false)->void:
+func set_prop(which:Sprite2D, min_gap:float=30, small:bool=false)->void:
 	var prop:Sprite2D = which.duplicate();
 	var x_roll := randi_range(-entity_spawn_range/2, entity_spawn_range/2);
 	var y_roll := randi_range(-entity_spawn_range/2, entity_spawn_range/2);
 	var target_position: = Vector2(x_roll,  y_roll)
-	while position_taken(target_position, taken_positions, min_gap):
+	
+	var taken_positions_arrays:Array[Array] = [settlement_positions, large_prop_positions];
+	if small:
+		taken_positions_arrays.append(small_prop_positions)
+		
+	while position_taken(target_position, taken_positions_arrays, min_gap):
 		x_roll = randi_range(-entity_spawn_range/2, entity_spawn_range/2);
 		y_roll = randi_range(-entity_spawn_range/2, entity_spawn_range/2);
 		target_position = Vector2(x_roll,  y_roll)
 	
-	taken_positions.append(target_position);
 	
 	prop.position = target_position;
 	var grid_position:Vector2 = prop.position/cell_size;
@@ -178,21 +182,21 @@ func generate_parties()->void:
 		var party_position:Vector2 = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
 								 randi_range(-entity_spawn_range/2, entity_spawn_range/2))
 								
-		while(position_taken(party_position, taken_positions)):
-			party_position = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
-								 randi_range(-entity_spawn_range/2, entity_spawn_range/2))
+		#while(position_taken(party_position, taken_positions)):
+			#party_position = Vector2(randi_range(-entity_spawn_range/2, entity_spawn_range/2),\
+								 #randi_range(-entity_spawn_range/2, entity_spawn_range/2))
 		party.position = party_position;
-		#leader.generate(1);
 		leader.generate(party_position.distance_to(Vector2.ZERO));
 		party.add_child(leader);
 		party.add_child(vehicle);
 		Entities.world_map.add_child(party);
 
 
-func position_taken(to_check:Vector2, taken_positions:Array[Vector2], min_gap:float = 30)->bool:
-	for p in taken_positions:
-		if to_check.distance_to(p)< min_gap:
-			return true;
+func position_taken(to_check:Vector2, position_arrays:Array[Array], min_gap:float = 200)->bool:
+	for a:Array[Vector2] in position_arrays:
+		for p:Vector2 in a:
+			if to_check.distance_to(p)< min_gap:
+				return true;
 	return false;
 	
 func update_fog()->void:

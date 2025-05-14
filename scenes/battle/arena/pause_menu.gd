@@ -3,8 +3,6 @@ extends UIRoot
 
 func start()->void:
 	get_tree().paused = true;
-	modulate.a = 0;
-	show();
 	Tweens.ui_fade_in(self);
 
 func resume() -> void:

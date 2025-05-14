@@ -12,17 +12,8 @@ func _ready()->void:
 func refresh()->void:
 	if not leader:
 		leader = Entities.player;
-	var available_count:int = 0;
-	var downed_count:int = 0;
-	for unit:FighterUnit in leader.roster.units:
-		if unit.remaining_downed_minutes:
-			downed_count += 1;
-		else:
-			available_count += 1
-	if not downed_count:
-		count_label.text = str(len(leader.roster.units));
-	else:
-		count_label.text = str(available_count) + "(" + str(downed_count) + ")"
+	count_label.text = str(len(leader.roster.units));
+
 
 
 func _on_visibility_changed() -> void:

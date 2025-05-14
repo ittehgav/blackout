@@ -14,6 +14,10 @@ var description:String;
 var source:Inventory;
 
 func _ready()->void:
+	setup();
+	
+
+func setup()->void:
 	texture = Index.icons[resource];
 	material.set_shader_parameter("base_color", Index.resource_colors[resource])
 	
@@ -21,12 +25,11 @@ func _ready()->void:
 		name = resource.capitalize();
 		tooltip_name_color = Index.resource_colors[resource];
 		description = Index.resource_descriptions[resource]
-	else:
-		$Tooltip.queue_free();
+	elif is_instance_valid($Tooltip):
+			$Tooltip.free();
 	
 	if not source:
 		setup_adjacent_items();
-
 
 func setup_adjacent_items(value:int=Entities.player.inventory[resource])->void:
 	for item:Node in adjacent_items:
@@ -40,4 +43,4 @@ func setup_adjacent_items(value:int=Entities.player.inventory[resource])->void:
 
 func set_count_label(r:String,_change:float, target:Label, value:int=Entities.player.inventory[resource])->void:
 	if r == resource:
-		target.text = str(value);
+		target.text = str(int(value));

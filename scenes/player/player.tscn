@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_4udko"]
 [ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/player/leadership_stats.gd" id="5_a3c1i"]
 
-[node name="Forsen" type="Node" node_paths=PackedStringArray("leadership_stats", "inventory", "roster", "combat_stats")]
+[node name="Player" type="Node" node_paths=PackedStringArray("leadership_stats", "inventory", "roster", "combat_stats")]
 script = ExtResource("1_efaxt")
 leadership_stats = NodePath("leadership_stats")
 inventory = NodePath("Inventory")
@@ -30,5 +30,4 @@ chips = 7
 script = ExtResource("5_a3c1i")
 
 [connection signal="combat_level_up" from="." to="." method="_on_combat_level_up"]
-[connection signal="leadership_level_up" from="." to="." method="_on_leadership_level_up"]
 [connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

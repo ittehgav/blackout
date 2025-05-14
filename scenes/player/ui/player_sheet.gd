@@ -3,6 +3,7 @@ extends UIRoot;
 class_name PlayerSheet;
 
 @export var bg:ColorRect;
+@export var sfx:AudioStreamPlayer;
  
 @export var party_view:Control;
 @export var player_view:Panel;
@@ -46,9 +47,8 @@ const resources_names = [
 
 func _ready()->void:
 	super();
-	await Entities.player.ready;
 	Entities.player_sheet = self;
-	Entities.player.resource_changed.connect(refresh_data)
+
 
 func _input(e:InputEvent)->void:
 	if e.is_action_pressed("show_player_sheet") and not visible:
@@ -92,7 +92,7 @@ func refresh_data(_r:String="", _change:float=0)->void:
 	gear.refresh_samples()
 
 
-	player_inventory.refresh_data();
+	player_inventory.refresh_data(true);
 	party_view.refresh_data();
 	player_view.refresh_data();
 

@@ -6,7 +6,7 @@ class_name NpcMapParty
 
 var feared_entity:MapEntity;
 
-func _ready():
+func _ready()->void:
 	await Entities.in_map_player.ready;
 	find_target()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=103 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="3_1w3gq"]
@@ -46,12 +46,15 @@
 [ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="33_7d1fb"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="40_fn5hq"]
 [ext_resource type="Script" uid="uid://g1x5i5r24qtj" path="res://scenes/map/world_map/main_hud.gd" id="47_lljjg"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="48_7d1fb"]
 [ext_resource type="Texture2D" uid="uid://btl7carrb2i4v" path="res://assets/visual/tiles/fog_cell.png" id="48_ltr5c"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="49_yhrnu"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="52_64kp8"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="52_ebkns"]
+[ext_resource type="Script" uid="uid://de8nxysfk7xbs" path="res://scenes/map/world_map/sfx.gd" id="52_f2dah"]
 [ext_resource type="Texture2D" uid="uid://dkpxsjgvphgq8" path="res://assets/visual/ui/map/movement_pointer_shadow.png" id="52_piqjc"]
 [ext_resource type="Script" uid="uid://djuvkqu0m0s1o" path="res://scenes/map/world_map/resources_panel.gd" id="53_anjvn"]
+[ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="53_gmjui"]
 [ext_resource type="Script" uid="uid://0o04smiwwlcd" path="res://scenes/map/world_map/movement_pointer.gd" id="53_ltr5c"]
 [ext_resource type="Texture2D" uid="uid://wagrlrl1grej" path="res://assets/visual/ui/map/movement_pointer.png" id="54_anjvn"]
 [ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="54_nmq41"]
@@ -59,6 +62,8 @@
 [ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/resource_gain.wav" id="56_nmq41"]
 [ext_resource type="PackedScene" uid="uid://cqyc1v8qqn3xv" path="res://scenes/map/ui/pre_battle/pre_battle.tscn" id="57_1ogav"]
 [ext_resource type="AudioStream" uid="uid://bpwvg8823qiy" path="res://assets/sound/sfx/ui/resource_loss.wav" id="57_7d1fb"]
+[ext_resource type="Script" uid="uid://dc6jk73hvbvay" path="res://scenes/map/world_map/navigation.gd" id="62_sjqk0"]
+[ext_resource type="Texture2D" uid="uid://btxapn8epd61d" path="res://assets/visual/sprites/settlements/farm.png" id="63_1ogav"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gyjr"]
 texture = ExtResource("3_1w3gq")
@@ -291,192 +296,57 @@ physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 4
 sources/0 = SubResource("TileSetAtlasSource_ltr5c")
 
-[sub_resource type="Shader" id="Shader_nmq41"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_akq8h"]
 resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
-resource_local_to_scene = true
-shader = SubResource("Shader_nmq41")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
 shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_7d1fb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pm0ox"]
 resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
-resource_local_to_scene = true
-shader = SubResource("Shader_7d1fb")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
 shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_f2dah"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2mhi"]
 resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
-resource_local_to_scene = true
-shader = SubResource("Shader_f2dah")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
 shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_gmjui"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05gvk"]
 resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
-resource_local_to_scene = true
-shader = SubResource("Shader_gmjui")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
 shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_sjqk0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvf0a"]
 resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
-resource_local_to_scene = true
-shader = SubResource("Shader_sjqk0")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
 shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
@@ -508,7 +378,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
 resource_local_to_scene = true
 shader = SubResource("Shader_1ogav")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -546,9 +416,199 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
 resource_local_to_scene = true
 shader = SubResource("Shader_umths")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_ffuc7"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ffuc7")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_fn5hq"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
+resource_local_to_scene = true
+shader = SubResource("Shader_fn5hq")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_k7mhn"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
+resource_local_to_scene = true
+shader = SubResource("Shader_k7mhn")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_a8suh"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
+resource_local_to_scene = true
+shader = SubResource("Shader_a8suh")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_h2uxo"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
+resource_local_to_scene = true
+shader = SubResource("Shader_h2uxo")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -565,7 +625,7 @@ script = ExtResource("1_s4sam")
 ui = NodePath("ui_overlay/ui")
 tile_map = NodePath("bg_tiles")
 player = NodePath("entities/in_map_player")
-sky_colors = Array[Color]([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.114, 0.114, 0.15, 1), Color(0.2, 0.1736, 0.134, 1), Color(0.5, 0.376333, 0.235, 1), Color(0.6, 0.508, 0.462, 1), Color(0.6624, 0.72, 0.72, 1), Color(0.5082, 0.66, 0.66, 1), Color(0.539, 0.7, 0.7, 1), Color(0.6083, 0.79, 0.79, 1), Color(0.7636, 0.92, 0.92, 1), Color(0.82, 1, 1, 1)])
+sky_colors = Array[Color]([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.114, 0.114, 0.15, 1), Color(0.34, 0.21386, 0.1598, 1), Color(0.49, 0.28077, 0.1911, 1), Color(0.6, 0.508, 0.462, 1), Color(0.6624, 0.72, 0.72, 1), Color(0.5082, 0.66, 0.66, 1), Color(0.539, 0.7, 0.7, 1), Color(0.6083, 0.79, 0.79, 1), Color(0.7636, 0.92, 0.92, 1), Color(0.82, 1, 1, 1)])
 
 [node name="minute_ticker" type="Timer" parent="."]
 wait_time = 0.05
@@ -578,24 +638,20 @@ script = ExtResource("5_lljjg")
 world_map = NodePath("..")
 fog_layer = NodePath("../fog")
 noise_height_texture = SubResource("NoiseTexture2D_fn5hq")
-small_props_node = NodePath("../foreground_props")
-props_node = NodePath("../bg_props")
+small_props_node = NodePath("../bg_props")
+props_node = NodePath("../foreground_props")
 small_prop_textures = Array[Texture]([ExtResource("6_jbv7y"), ExtResource("7_yhrnu"), ExtResource("9_ltr5c")])
 prop_textures = Array[Texture]([ExtResource("10_bgkna"), ExtResource("11_h0tw4"), ExtResource("12_fd0ro"), ExtResource("13_lljjg"), ExtResource("14_jbv7y"), ExtResource("15_yhrnu"), ExtResource("16_piqjc"), ExtResource("17_ltr5c"), ExtResource("18_anjvn")])
 tile_colors = Array[Color]([Color(0.72549, 0.498039, 0.352941, 1), Color(0.752941, 0.67451, 0.509804, 1), Color(0.521569, 0.333333, 0.207843, 1), Color(0.231373, 0.34902, 0.231373, 1)])
 
 [node name="bg_props" type="Node2D" parent="."]
-z_index = -2
-
-[node name="foreground_props" type="Node2D" parent="."]
-modulate = Color(0.88, 0.88, 0.88, 1)
 
 [node name="entities" type="Node2D" parent="."]
 
 [node name="movement_pointer_shadow" type="Sprite2D" parent="entities" node_paths=PackedStringArray("pointer")]
 process_mode = 1
 visible = false
-z_index = 2
+z_index = 5
 scale = Vector2(2, 2)
 texture = ExtResource("52_piqjc")
 hframes = 3
@@ -613,8 +669,12 @@ autostart = true
 [node name="in_map_player" parent="entities" instance=ExtResource("4_vgkop")]
 z_index = 2
 position = Vector2(521, 310)
+move_speed = 150.0
 
-[node name="Player" parent="entities/in_map_player" index="3" node_paths=PackedStringArray("equipped_weapon", "equipped_module")]
+[node name="Gol" parent="entities/in_map_player" index="1" node_paths=PackedStringArray("party")]
+party = NodePath("..")
+
+[node name="Player" parent="entities/in_map_player" index="4" node_paths=PackedStringArray("equipped_weapon", "equipped_module")]
 leadership_level = 3
 leadership_exp = 4
 leadership_points = 2
@@ -625,42 +685,41 @@ equipped_module = NodePath("Inventory/Dodge Roll")
 
 [node name="Inventory" parent="entities/in_map_player/Player" index="0"]
 food = 1
+fuel = 2000
+juice = 2000
+scrap = 20002
+chips = 2000
 
 [node name="Fuel Barrel" parent="entities/in_map_player/Player/Inventory" index="0" instance=ExtResource("21_64kp8")]
-stack_size = 300
 
 [node name="Tailpipe" parent="entities/in_map_player/Player/Inventory" index="1" instance=ExtResource("4_4aisy")]
 
 [node name="Food" parent="entities/in_map_player/Player/Inventory" index="2" instance=ExtResource("28_ltr5c")]
 
 [node name="Food Bag" parent="entities/in_map_player/Player/Inventory" index="3" instance=ExtResource("26_piqjc")]
+stack_size = 49
 
 [node name="Food Basket" parent="entities/in_map_player/Player/Inventory" index="4" instance=ExtResource("23_gmjui")]
-stack_size = 42
 
 [node name="Dodge Roll" parent="entities/in_map_player/Player/Inventory" index="5" instance=ExtResource("40_fn5hq")]
 
 [node name="Fuel Gallon" parent="entities/in_map_player/Player/Inventory" index="6" instance=ExtResource("27_piqjc")]
-inventory_position = Vector2(5, 1)
 
 [node name="Spray Gun" parent="entities/in_map_player/Player/Inventory" index="7" instance=ExtResource("29_ebkns")]
 
 [node name="Scrap Pile" parent="entities/in_map_player/Player/Inventory" index="8" instance=ExtResource("29_nmq41")]
-stack_size = 9
 
 [node name="Juice Flask" parent="entities/in_map_player/Player/Inventory" index="9" instance=ExtResource("30_7d1fb")]
-stack_size = 14
 
 [node name="Scrap Crate" parent="entities/in_map_player/Player/Inventory" index="10" instance=ExtResource("31_f2dah")]
-stack_size = 14
 
 [node name="Chips Case" parent="entities/in_map_player/Player/Inventory" index="11" instance=ExtResource("32_nmq41")]
-stack_size = 5
 
 [node name="Staff of Luc" parent="entities/in_map_player/Player/Inventory" index="12" instance=ExtResource("33_7d1fb")]
 
 [node name="FighterUnit25" parent="entities/in_map_player/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Arm Guy")
+level = 22
 
 [node name="Arm Guy" parent="entities/in_map_player/Player/Roster/FighterUnit25" instance=ExtResource("18_8x8fu")]
 material = SubResource("ShaderMaterial_1ogav")
@@ -745,15 +804,19 @@ navigation = 3
 tactics = 1
 scavenging = 1
 
+[node name="foreground_props" type="Node2D" parent="."]
+modulate = Color(0.88, 0.88, 0.88, 1)
+z_index = 2
+
 [node name="fog" type="TileMapLayer" parent="."]
 modulate = Color(0.38, 0.38, 0.38, 1)
-z_index = 1
+z_index = 3
 position = Vector2(8, 8)
 tile_set = SubResource("TileSet_anjvn")
 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
 
-[node name="ui" type="Control" parent="ui_overlay" node_paths=PackedStringArray("settlement_ui", "clock", "date")]
+[node name="ui" type="Control" parent="ui_overlay" node_paths=PackedStringArray("settlement_ui", "clock", "date", "hud")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -766,11 +829,27 @@ script = ExtResource("6_d8dst")
 settlement_ui = NodePath("settlement_ui")
 clock = NodePath("main_hud/clock_panel/MarginContainer/VBoxContainer2/clock")
 date = NodePath("main_hud/clock_panel/MarginContainer/VBoxContainer2/date")
+hud = NodePath("main_hud")
 
 [node name="settlement_ui" parent="ui_overlay/ui" instance=ExtResource("7_b85ww")]
 visible = false
 layout_mode = 1
 mouse_filter = 2
+
+[node name="StatIcon" parent="ui_overlay/ui/settlement_ui/recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_akq8h")
+
+[node name="StatIcon" parent="ui_overlay/ui/settlement_ui/recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer2" index="0"]
+material = SubResource("ShaderMaterial_pm0ox")
+
+[node name="StatIcon" parent="ui_overlay/ui/settlement_ui/recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_m2mhi")
+
+[node name="StatIcon" parent="ui_overlay/ui/settlement_ui/recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer2" index="0"]
+material = SubResource("ShaderMaterial_05gvk")
+
+[node name="StatIcon" parent="ui_overlay/ui/settlement_ui/recruitment_menu/Panel/stats/HBoxContainer3/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_xvf0a")
 
 [node name="Dialogue" parent="ui_overlay/ui" instance=ExtResource("13_8dqwv")]
 visible = false
@@ -780,7 +859,7 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
-[node name="main_hud" type="Control" parent="ui_overlay/ui" node_paths=PackedStringArray("clock", "date", "fade_tweens")]
+[node name="main_hud" type="Control" parent="ui_overlay/ui" node_paths=PackedStringArray("sfx", "clock", "date", "party_panel", "resources_panel", "clock_panel", "navigation", "fade_tweens")]
 process_mode = 3
 z_index = 1
 layout_mode = 1
@@ -791,47 +870,168 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("47_lljjg")
+sfx = NodePath("sfx")
 clock = NodePath("clock_panel/MarginContainer/VBoxContainer2/clock")
 date = NodePath("clock_panel/MarginContainer/VBoxContainer2/date")
+party_panel = NodePath("HBoxContainer/party_panel")
+resources_panel = NodePath("HBoxContainer/resources_panel")
+clock_panel = NodePath("clock_panel")
+navigation = NodePath("navigation")
 fade_tweens = {
-NodePath("party_status_panel"): null,
+NodePath("HBoxContainer/party_panel"): null,
 NodePath("clock_panel"): null,
-NodePath("resources_panel"): null
+NodePath("HBoxContainer/resources_panel"): null
 }
 
-[node name="party_status_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud"]
-layout_mode = 0
-offset_right = 212.0
-offset_bottom = 97.0
+[node name="sfx" type="AudioStreamPlayer" parent="ui_overlay/ui/main_hud"]
+script = ExtResource("52_f2dah")
+money_change = ExtResource("53_gmjui")
 
-[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/party_status_panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 647.0
+offset_bottom = 138.0
+mouse_filter = 2
+
+[node name="resources_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud/HBoxContainer" node_paths=PackedStringArray("hud", "food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "floating_change", "sfx")]
+layout_mode = 2
+script = ExtResource("53_anjvn")
+hud = NodePath("../..")
+food_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/food")
+fuel_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/fuel")
+money_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/money")
+juice_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/juice")
+scrap_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/scrap")
+chips_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/chips")
+floating_change = NodePath("../../floating_change")
+sfx = NodePath("sfx")
+
+[node name="sfx" type="AudioStreamPlayer" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel"]
+script = ExtResource("55_64kp8")
+resource_gain = ExtResource("56_nmq41")
+resource_loss = ExtResource("57_7d1fb")
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="resource_icon" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_fn5hq")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../food")]
+
+[node name="food" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "22"
+
+[node name="resource_icon2" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_k7mhn")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+resource = "fuel"
+adjacent_items = [NodePath("../fuel")]
+
+[node name="fuel" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="resource_icon3" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_a8suh")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+resource = "money"
+adjacent_items = [NodePath("../money")]
+
+[node name="money" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "23"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="resource_icon" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_umths")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+resource = "juice"
+adjacent_items = [NodePath("../juice")]
+
+[node name="juice" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "22"
+
+[node name="resource_icon2" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_ffuc7")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+resource = "scrap"
+adjacent_items = [NodePath("../scrap")]
+
+[node name="scrap" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="resource_icon3" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
+material = SubResource("ShaderMaterial_h2uxo")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+resource = "chips"
+adjacent_items = [NodePath("../chips")]
+
+[node name="chips" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "23"
+
+[node name="party_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="MoraleIcon" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("52_64kp8")]
+[node name="MoraleIcon" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("52_64kp8")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
 adjacent_items = [NodePath("../morale_value")]
 
-[node name="morale_value" type="Label" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer/HBoxContainer"]
+[node name="morale_value" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "wawa"
 
-[node name="PartyIcon" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("count_label") instance=ExtResource("54_nmq41")]
+[node name="PartyIcon" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("count_label") instance=ExtResource("54_nmq41")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 count_label = NodePath("../Label")
 
-[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/party_status_panel/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 
@@ -915,112 +1115,82 @@ offset_bottom = 41.0
 theme_override_font_sizes/font_size = 64
 text = "wawa"
 
-[node name="resources_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud" node_paths=PackedStringArray("food_label", "fuel_label", "money_label", "juice_label", "scrap_label", "chips_label", "floating_change", "sfx")]
+[node name="navigation" type="PanelContainer" parent="ui_overlay/ui/main_hud" node_paths=PackedStringArray("destination_container", "settlement_prompt_container", "settlement_sprite", "settlement_name", "destination_label", "player")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -134.0
-offset_right = 324.0
+offset_left = 10.0
+offset_top = -70.0
+offset_right = 130.0
+offset_bottom = -10.0
 grow_vertical = 0
-script = ExtResource("53_anjvn")
-food_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/food")
-fuel_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/fuel")
-money_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/money")
-juice_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/juice")
-scrap_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/scrap")
-chips_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/chips")
-floating_change = NodePath("../floating_change")
-sfx = NodePath("sfx")
+script = ExtResource("62_sjqk0")
+destination_container = NodePath("VBoxContainer/destination")
+settlement_prompt_container = NodePath("VBoxContainer/settlement_prompt")
+settlement_sprite = NodePath("VBoxContainer/settlement_prompt/settlement_sprite")
+settlement_name = NodePath("VBoxContainer/settlement_prompt/VBoxContainer/settlement_name")
+destination_label = NodePath("VBoxContainer/destination/destination")
+player = NodePath("../../../../entities/in_map_player")
 
-[node name="sfx" type="AudioStreamPlayer" parent="ui_overlay/ui/main_hud/resources_panel"]
-script = ExtResource("55_64kp8")
-resource_gain = ExtResource("56_nmq41")
-resource_loss = ExtResource("57_7d1fb")
+[node name="refresh_distance" type="Timer" parent="ui_overlay/ui/main_hud/navigation"]
+wait_time = 0.1
+autostart = true
 
-[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/resources_panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/main_hud/navigation"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer"]
+[node name="destination" type="HBoxContainer" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination"]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-theme_override_constants/separation = 10
 
-[node name="resource_icon" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_fn5hq")
-layout_mode = 2
-adjacent_items = [NodePath("../food")]
+[node name="movement_pointer_shadow" type="Sprite2D" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination/Control" node_paths=PackedStringArray("pointer")]
+process_mode = 1
+z_index = 1
+position = Vector2(14, 36)
+scale = Vector2(2, 2)
+texture = ExtResource("52_piqjc")
+hframes = 3
+script = ExtResource("53_ltr5c")
+pointer = NodePath("pointer")
 
-[node name="food" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "22"
+[node name="pointer" type="Sprite2D" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination/Control/movement_pointer_shadow"]
+position = Vector2(0, -9.5)
+texture = ExtResource("54_anjvn")
 
-[node name="resource_icon2" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_k7mhn")
-layout_mode = 2
-resource = "fuel"
-adjacent_items = [NodePath("../fuel")]
+[node name="next_frame" type="Timer" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination/Control/movement_pointer_shadow"]
+wait_time = 0.3
+autostart = true
 
-[node name="fuel" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="destination" type="Label" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "11"
+text = "wawa"
 
-[node name="resource_icon3" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_a8suh")
+[node name="settlement_prompt" type="HBoxContainer" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer"]
+visible = false
 layout_mode = 2
-resource = "money"
-adjacent_items = [NodePath("../money")]
 
-[node name="money" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="settlement_sprite" type="TextureRect" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/settlement_prompt"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "23"
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("63_1ogav")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/settlement_prompt"]
 layout_mode = 2
-theme_override_constants/separation = 10
 
-[node name="resource_icon" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_umths")
+[node name="settlement_name" type="Label" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/settlement_prompt/VBoxContainer"]
 layout_mode = 2
-resource = "juice"
-adjacent_items = [NodePath("../juice")]
+text = "wawa wand land wa"
 
-[node name="juice" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="prompt" type="Label" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/settlement_prompt/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "22"
-
-[node name="resource_icon2" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_ffuc7")
-layout_mode = 2
-resource = "scrap"
-adjacent_items = [NodePath("../scrap")]
-
-[node name="scrap" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "11"
-
-[node name="resource_icon3" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("49_yhrnu")]
-material = SubResource("ShaderMaterial_h2uxo")
-layout_mode = 2
-resource = "chips"
-adjacent_items = [NodePath("../chips")]
-
-[node name="chips" type="Label" parent="ui_overlay/ui/main_hud/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "23"
+text = "[spacebar] Enter"
+horizontal_alignment = 1
 
 [node name="PlayerSheet" parent="ui_overlay/ui" instance=ExtResource("20_lvh7d")]
 visible = false
@@ -1033,21 +1203,37 @@ equip = SubResource("Resource_fn5hq")
 [connection signal="timeout" from="minute_ticker" to="." method="_on_minute_ticker_timeout"]
 [connection signal="timeout" from="minute_ticker" to="ui_overlay/ui/main_hud" method="update_clock"]
 [connection signal="timeout" from="entities/movement_pointer_shadow/next_frame" to="entities/movement_pointer_shadow" method="_on_next_frame_timeout"]
+[connection signal="entity_entered_range" from="entities/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_entered_range"]
+[connection signal="entity_left_range" from="entities/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_left_range"]
 [connection signal="started_moving" from="entities/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_started_moving"]
+[connection signal="started_moving" from="entities/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_started_moving"]
 [connection signal="stopped_moving" from="entities/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_stopped_moving"]
+[connection signal="stopped_moving" from="entities/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_stopped_moving"]
 [connection signal="equipment_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/PlayerSheet" method="_on_player_equipment_changed"]
-[connection signal="resource_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/main_hud/resources_panel" method="_on_player_resource_changed"]
+[connection signal="morale_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer/MoraleIcon" method="_on_player_morale_changed"]
+[connection signal="morale_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/PlayerSheet" method="refresh_data"]
+[connection signal="party_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/PlayerSheet" method="refresh_data"]
+[connection signal="resource_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/main_hud/HBoxContainer/resources_panel" method="animate_resource_change"]
+[connection signal="resource_changed" from="entities/in_map_player/Player" to="ui_overlay/ui/PlayerSheet" method="refresh_data"]
 [connection signal="body_entered" from="entities/in_map_player/sight" to="bg_tiles" method="_on_sight_body_entered"]
-[connection signal="settlement_entered" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]
-[connection signal="settlement_left" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]
+[connection signal="listen_around_ended" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_listen_around_ended"]
+[connection signal="listen_around_started" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_listen_around_started"]
+[connection signal="recruitment_ended" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_recruitment_ended"]
+[connection signal="recruitment_started" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_recruitment_started"]
+[connection signal="settlement_entered" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="settlement_main_view"]
+[connection signal="settlement_left" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_settlement_left"]
+[connection signal="trade_finished" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_trade_finished"]
+[connection signal="trade_started" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_trade_started"]
 [connection signal="dialogue_ended" from="ui_overlay/ui/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]
 [connection signal="dialogue_started" from="ui_overlay/ui/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]
-[connection signal="gui_input" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_gui_input"]
-[connection signal="mouse_entered" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_mouse_entered"]
-[connection signal="mouse_exited" from="ui_overlay/ui/main_hud/party_status_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_mouse_exited"]
-[connection signal="gui_input" from="ui_overlay/ui/main_hud/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_gui_input"]
-[connection signal="mouse_entered" from="ui_overlay/ui/main_hud/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_mouse_entered"]
-[connection signal="mouse_exited" from="ui_overlay/ui/main_hud/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_mouse_exited"]
+[connection signal="gui_input" from="ui_overlay/ui/main_hud/HBoxContainer/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_gui_input"]
+[connection signal="mouse_entered" from="ui_overlay/ui/main_hud/HBoxContainer/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_mouse_entered"]
+[connection signal="mouse_exited" from="ui_overlay/ui/main_hud/HBoxContainer/resources_panel" to="ui_overlay/ui/main_hud" method="_on_resources_panel_mouse_exited"]
+[connection signal="gui_input" from="ui_overlay/ui/main_hud/HBoxContainer/party_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_gui_input"]
+[connection signal="mouse_entered" from="ui_overlay/ui/main_hud/HBoxContainer/party_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_mouse_entered"]
+[connection signal="mouse_exited" from="ui_overlay/ui/main_hud/HBoxContainer/party_panel" to="ui_overlay/ui/main_hud" method="_on_party_status_panel_mouse_exited"]
+[connection signal="timeout" from="ui_overlay/ui/main_hud/navigation/refresh_distance" to="ui_overlay/ui/main_hud/navigation" method="refresh_distance"]
+[connection signal="timeout" from="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination/Control/movement_pointer_shadow/next_frame" to="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination/Control/movement_pointer_shadow" method="_on_next_frame_timeout"]
 
 [editable path="entities/in_map_player"]
 [editable path="entities/in_map_player/Player"]

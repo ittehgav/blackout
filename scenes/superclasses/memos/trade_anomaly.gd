@@ -20,7 +20,7 @@ var anomaly:Dictionary;
 func generate(settlement:Settlement)->void:
 	## roll = 10 - 100% increase or decrese in stock of item
 	target = settlement;
-	change = snapped(randf_range(0, .9), .1);
+	change = snapped(randf_range(0, 1.5), .1);
 	positive = randf_range(0,1)>.5;
 	resource = Index.all_resources.pick_random();
 

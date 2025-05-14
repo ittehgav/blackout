@@ -32,9 +32,9 @@ func _ready() -> void:
 
 func setup()->void:
 	if not target:
-		queue_free();
+		free();
 		return
-
+	
 	var parent:Node = get_parent();
 	parent.mouse_entered.connect(hover_timer.start);
 	parent.mouse_exited.connect(stop_hover_timer);
@@ -78,9 +78,11 @@ func _on_hover_timer_timeout() -> void:
 	if target is Settlement and Entities.world_map.tile_map.position_in_fog(target.position):
 		return
 	modulate.a = .1;
-
+	
 	show();
 	position = get_parent().get_local_mouse_position();
+	if global_position.x + size.x >= get_window().size.x:
+		position.x -= size.x
 	size.y -= 10000
 	size.y += 10
 		

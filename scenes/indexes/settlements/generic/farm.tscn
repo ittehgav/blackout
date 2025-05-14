@@ -27,8 +27,12 @@ shape = SubResource("CircleShape2D_oyln7")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("3_prkd2")
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
 texture = ExtResource("3_ks67y")
+
+[node name="shadow" parent="sprite" instance=ExtResource("6_i3mdt")]
+position = Vector2(0, 3.66667)
+script = null
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("5_ptoka")]
 holder = NodePath("..")
@@ -56,7 +60,3 @@ offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 target = NodePath("../..")
-
-[node name="shadow" parent="." instance=ExtResource("6_i3mdt")]
-position = Vector2(1, 7)
-scale = Vector2(2, 2)

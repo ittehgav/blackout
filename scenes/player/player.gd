@@ -4,7 +4,7 @@ class_name Player;
 
 @export var leadership_stats:Node;
 
-signal resource_changed(resource:String, change:float);
+signal resource_changed(resource:String, change:int);
 signal morale_changed;
 signal party_changed;
 signal equipment_changed;
@@ -50,8 +50,6 @@ func battle_defeat_morale()->void:
 	morale -= .5
 
 
-func _on_leadership_level_up() -> void:
-	leadership_points += 1;
 
 
 func _on_combat_level_up() -> void:

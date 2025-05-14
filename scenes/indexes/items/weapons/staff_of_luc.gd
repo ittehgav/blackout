@@ -20,7 +20,9 @@ const max_range = 300;
 
 const projection = "circle_aoe";
 
-var description :String= Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color]"+Index.get_color_tag("max_hp") + "Heals[/color] or gives an " + Index.get_color_tag("agility") + "Agility buff to allies in an area.\n Press [right-click] to alternate between modes.";
+var description :String= Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color]"+Index.get_color_tag("max_hp")\
+ + " Heals[/color] or gives an" + Index.get_color_tag("agility") +\
+ " Agility[/color] buff to allies in an area.\nPress [right-click] to alternate between modes.";
 
 const use_vfx = ["grow"];
 

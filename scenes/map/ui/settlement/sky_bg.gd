@@ -22,7 +22,7 @@ extends ColorRect
 
 
 
-func color_background(gradual=false, hour=Entities.world_map.current_hour)->void:
+func color_background(gradual:bool=false, hour:int=Entities.world_map.current_hour)->void:
 	var sky_color:Color = Entities.world_map.get_hour_sky_color();
 	
 	var time_key:String;
@@ -59,7 +59,7 @@ func color_background(gradual=false, hour=Entities.world_map.current_hour)->void
 	else:
 		const fade_duration = .5;
 		
-		var tween = create_tween();
+		var tween:Tween = create_tween();
 		tween.tween_property(self, "color", sky_color, fade_duration);
 		tween.parallel().tween_property(background, "material:shader_parameter/prop_dark", prop_dark_color, fade_duration) 
 		tween.parallel().tween_property(background, "material:shader_parameter/prop_light", prop_light_color, fade_duration) 

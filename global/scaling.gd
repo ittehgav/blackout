@@ -8,12 +8,18 @@ func level_up_stats(unit:FighterUnit, level:int=1)->void:
 		var gains:Dictionary = tag_stats_per_level(tag)
 		for key:String in gains.keys():
 			unit.stats[key] += gains[key] * level
+	if "no_damage" in unit.base:
+		unit.stats.attack = 0;
+
 
 func initiate_unit_stats(unit:FighterUnit)->void:
 	## gives the stats to a FighterUnit
 	## ONLY THE INITIAL VALUE FROM THEIR BASE'S TAGS
 	## will be ran when the node is first loaded and when it evolves, where it will 
 	## retroactively gain the bonuses for the current level
+	for stat:String in Index.all_combat_stats:
+		unit.stats[stat] =0;
+	
 	for tag:String in unit.base.tags:
 		match tag:
 			## tags are more or less of equal value

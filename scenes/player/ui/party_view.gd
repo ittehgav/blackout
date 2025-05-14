@@ -6,6 +6,7 @@ extends Control
 
 @export var recruits_grid:GridContainer;
 
+@export var upgrade_hint:TextureRect
 
 func refresh_data()->void:
 	for c in recruits_grid.get_children():
@@ -17,6 +18,11 @@ func refresh_data()->void:
 		sample.set_sample(unit.base, Entities.player.color_scheme_index)
 		recruits_grid.add_child(sample)
 		sample.gui_input.connect(show_more.bind(unit))
+		
+		if unit.upgrade_available():
+			var hint:TextureRect = upgrade_hint.duplicate();
+			hint.show()
+			sample.add_child(hint)
 		
 		
 func show_more(e:InputEvent, unit:FighterUnit)->void:

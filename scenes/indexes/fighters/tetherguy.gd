@@ -1,5 +1,7 @@
 extends FighterBase
 
+const no_damage = true;
+
 const skill_effects = ["special"];
 const skill_visuals = ["recoil"]
 

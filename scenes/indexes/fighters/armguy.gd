@@ -20,7 +20,7 @@ const flavor = "He's heard that joke you're thinking of a thousand times."
 
 const tags = [
 	"brawler",
-	"bodybuilder"		
+	"bodybuilder"
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
@@ -45,3 +45,14 @@ const skill_cooldown = 8;
 const hit_scan_radius = 100;
 
 const status_duration = .125;
+
+const evolutions = {
+	"double_arm_guy":{
+		"food":50,
+		"juice":50
+	},
+	"mech_arm_guy":{
+		"scrap":50,
+		"chips":20
+	}
+}

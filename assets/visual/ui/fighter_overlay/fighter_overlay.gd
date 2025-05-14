@@ -54,7 +54,7 @@ func _on_fighter_damage_taken(damage: float) -> void:
 	hp_bar.value = unit.hp;
 
 
-func floating_number(value:int, type = "damage")->void:
+func floating_number(value:int, type:String = "damage")->void:
 	var floating_n:Label = Label.new();
 	match type:
 		"damage":
