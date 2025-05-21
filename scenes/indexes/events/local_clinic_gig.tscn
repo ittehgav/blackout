@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://50su65ab1tgd"]
+
+[ext_resource type="Script" uid="uid://diiy8w6j4aumh" path="res://scenes/indexes/events/local_clinic_gig.gd" id="1_3sc6f"]
+
+[node name="Local Clinic Gig" type="Node"]
+script = ExtResource("1_3sc6f")
+tag = "doctor"
+time_cost = 3
+money_change = 30
+units_agility_gain = 1

@@ -15,7 +15,7 @@ func display_recruit_data(target:FighterUnit)->void:
 	
 	exp_bar.build_from_unit(unit);
 	
-	sample.set_sample(unit.base.duplicate(), Entities.player.color_scheme_index);
+	sample.set_sample(unit.base.duplicate());
 
 func refresh_name_label(from_level_up:bool=false)->void:
 	var name_str:String = "Lv. ";

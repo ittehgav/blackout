@@ -15,7 +15,7 @@ extends Control
 @export var new_recruit_technique:Label;
 
 
-func _ready():
+func _ready()->void:
 	for recruit:FighterUnit in all_recruits.units:
 		new_recruit_name.text = recruit.base.name;
 		
@@ -28,7 +28,7 @@ func _ready():
 		new_recruit_agility.text = str(recruit.stats.agility);
 		new_recruit_technique.text = str(recruit.stats.technique);
 		
-		var container = new_recruit_container.duplicate();
+		var container:HBoxContainer = new_recruit_container.duplicate();
 		container.show();
 		sheet.add_child(container)
 		

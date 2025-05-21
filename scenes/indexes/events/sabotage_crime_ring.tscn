@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://blebnelk0xy0u"]
+
+[ext_resource type="Script" uid="uid://clycmdm8m8vke" path="res://scenes/indexes/events/sabotage_crime_ring.gd" id="1_lesy8"]
+
+[node name="Sabotage Crime Ring" type="Node"]
+script = ExtResource("1_lesy8")
+tag = "disruptor"
+time_cost = 3
+money_change = 30
+units_attack_gain = 1
+units_technique_gain = 1

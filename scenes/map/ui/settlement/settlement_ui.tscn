@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cqdyfeds3f681"]
+[gd_scene load_steps=35 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_c11hx"]
@@ -6,14 +6,19 @@
 [ext_resource type="Shader" uid="uid://bg5d2crng34n6" path="res://scenes/map/ui/settlement/settlement_bg.gdshader" id="3_pm0ox"]
 [ext_resource type="Texture2D" uid="uid://bckvycfqlfhbi" path="res://assets/visual/backgrounds/settlements/factory/factory.png" id="4_pm0ox"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="5_36m0f"]
+[ext_resource type="PackedScene" uid="uid://dgl7yg6w4idp2" path="res://scenes/ui/memo_label.tscn" id="9_05gvk"]
 [ext_resource type="PackedScene" uid="uid://ctxqhmgpiuoss" path="res://scenes/ui/trade/trade_menu.tscn" id="11_bwbxe"]
 [ext_resource type="Script" uid="uid://c3aknt2uyy8a3" path="res://scenes/map/ui/settlement/recruitment_menu.gd" id="12_bwbxe"]
 [ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/map/settlement/recruitment_card.tscn" id="13_i581t"]
 [ext_resource type="PackedScene" uid="uid://8cr8p5qofnu1" path="res://scenes/map/settlement/sky_view.tscn" id="14_6i511"]
 [ext_resource type="Script" uid="uid://lcw1ymx6e6i6" path="res://scenes/map/ui/settlement/post_listen_around.gd" id="14_fgyyh"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="14_pm0ox"]
+[ext_resource type="Script" uid="uid://t6r4xxg5qt5f" path="res://scenes/map/ui/settlement/event_view.gd" id="15_fgyyh"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="15_m2mhi"]
+[ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/resource_gain.wav" id="16_05gvk"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="16_m2mhi"]
 [ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="16_pm0ox"]
+[ext_resource type="AudioStream" uid="uid://bqfh4rpc4trwo" path="res://assets/sound/sfx/world_map/map_events/stat_up.wav" id="17_05gvk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cq7yt"]
 shader = ExtResource("3_pm0ox")
@@ -85,7 +90,73 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="settlement_ui" type="Control" node_paths=PackedStringArray("post_listen_around", "post_listen_around_list", "memo_label", "sky_props", "sky_bg", "crowd_rect", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "main_view", "trade_menu", "recruitment_menu", "ui_sfx")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxa5d"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrl08"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ud2rb"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_474x4"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hn8o"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxtxx"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("post_listen_around", "post_listen_around_list", "memo_label", "sky_props", "sky_bg", "crowd_rect", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "local_event_btn", "local_event_btn_label", "main_view", "trade_menu", "recruitment_menu", "event_view", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -107,13 +178,18 @@ long_description_label = NodePath("main_view/container/text/MarginContainer/VBox
 trade_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade")
 recruit_units_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/recruit_units")
 listen_around_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/listen_around")
+local_event_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/local_event")
+local_event_btn_label = NodePath("main_view/container/options/MarginContainer/VBoxContainer/local_event/RichTextLabel")
 main_view = NodePath("main_view")
 trade_menu = NodePath("trade_menu")
 recruitment_menu = NodePath("recruitment_menu")
+event_view = NodePath("event_view")
 ui_sfx = NodePath("ui_sfx")
 
+[node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
+
 [node name="sky_bg" type="ColorRect" parent="." node_paths=PackedStringArray("settlement_ui", "background", "crowd")]
-z_index = -1
+z_index = -2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -136,11 +212,14 @@ ground_brightest = Color(0.71, 0.6532, 0.4828, 1)
 prop_sunset = Color(0.419608, 0.0784314, 0.0784314, 1)
 ground_sunset = Color(0.45, 0.4059, 0.324, 1)
 
-[node name="sky_view" parent="." instance=ExtResource("14_6i511")]
+[node name="sky_view" parent="." node_paths=PackedStringArray("settlement_ui", "sky_bg", "crowd_rect") instance=ExtResource("14_6i511")]
 layout_mode = 1
 offset_top = -720.0
 offset_bottom = -720.0
 mouse_filter = 2
+settlement_ui = NodePath("..")
+sky_bg = NodePath("../sky_bg")
+crowd_rect = NodePath("../background/crowd")
 
 [node name="background" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_cq7yt")
@@ -161,9 +240,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
-
 [node name="main_view" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -292,6 +370,30 @@ theme_override_font_sizes/font_size = 64
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
 text = "Listen Around (3h)"
 
+[node name="local_event" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = " 
+ "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="main_view/container/options/MarginContainer/VBoxContainer/local_event"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -13.0
+offset_right = -5.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+
 [node name="exit" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
@@ -343,11 +445,8 @@ theme_override_font_sizes/font_size = 80
 text = "Information Found:"
 horizontal_alignment = 1
 
-[node name="memo_label" type="RichTextLabel" parent="post_listen_around/panel/list"]
-visible = false
+[node name="memo_label" parent="post_listen_around/panel/list" instance=ExtResource("9_05gvk")]
 layout_mode = 2
-bbcode_enabled = true
-fit_content = true
 
 [node name="Label" type="Label" parent="post_listen_around/panel"]
 modulate = Color(1, 1, 1, 0.72549)
@@ -369,6 +468,7 @@ visible = false
 layout_mode = 1
 
 [node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -643,14 +743,326 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 64
 text = "Hire"
 
+[node name="event_view" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "stat_gain_sfx", "resource_gain_sfx", "sky_view", "confirmation_panel", "conclusion_panel", "samples_container", "name_label", "description_label", "available_units_label", "money_cost_label", "time_cost_label", "confirm_btn", "resrource_gains_container", "conclusion_samples_container")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_fgyyh")
+settlement_ui = NodePath("..")
+stat_gain_sfx = NodePath("stat_gain_sfx")
+resource_gain_sfx = NodePath("resource_gain_sfx")
+sky_view = NodePath("../sky_view")
+confirmation_panel = NodePath("confirmation")
+conclusion_panel = NodePath("conclusion")
+samples_container = NodePath("confirmation/samples")
+name_label = NodePath("confirmation/name")
+description_label = NodePath("confirmation/VBoxContainer/description")
+available_units_label = NodePath("confirmation/valid_units")
+money_cost_label = NodePath("confirmation/VBoxContainer/HBoxContainer/time_cost")
+time_cost_label = NodePath("confirmation/VBoxContainer/HBoxContainer/money_cost")
+confirm_btn = NodePath("confirmation/VBoxContainer/confirm")
+resrource_gains_container = NodePath("conclusion/resource_gains")
+conclusion_samples_container = NodePath("conclusion/units")
+
+[node name="resource_gain_sfx" type="AudioStreamPlayer" parent="event_view"]
+stream = ExtResource("16_05gvk")
+
+[node name="stat_gain_sfx" type="AudioStreamPlayer" parent="event_view"]
+stream = ExtResource("17_05gvk")
+max_polyphony = 2
+
+[node name="confirmation" type="Panel" parent="event_view"]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="return" type="Button" parent="event_view/confirmation"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 40.0
+offset_right = 159.0
+offset_bottom = 74.0
+shortcut = ExtResource("5_36m0f")
+text = "[esc] Return"
+
+[node name="name" type="Label" parent="event_view/confirmation"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 71.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "Eventge"
+horizontal_alignment = 1
+
+[node name="valid_units" type="Label" parent="event_view/confirmation"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 111.0
+offset_top = -369.0
+offset_right = 295.0
+offset_bottom = -343.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Available cyborgs:"
+
+[node name="samples" type="GridContainer" parent="event_view/confirmation"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = -340.0
+offset_right = 494.0
+grow_vertical = 0
+columns = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="event_view/confirmation"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -518.0
+offset_top = -139.0
+offset_right = -18.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="description" type="RichTextLabel" parent="event_view/confirmation/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="event_view/confirmation/VBoxContainer"]
+layout_mode = 2
+
+[node name="money_cost" type="Label" parent="event_view/confirmation/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="time_cost" type="Label" parent="event_view/confirmation/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="confirm" type="Button" parent="event_view/confirmation/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 64
+text = "Confirm"
+
+[node name="conclusion" type="Panel" parent="event_view"]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="event_view/conclusion"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 21.0
+offset_right = 160.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 128
+text = "Event Complete"
+
+[node name="Label" type="Label" parent="event_view/conclusion"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 199.0
+offset_right = 383.0
+offset_bottom = 225.0
+text = "Some units have been improved:"
+
+[node name="units" type="GridContainer" parent="event_view/conclusion"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -288.0
+offset_right = 514.0
+offset_bottom = 258.0
+grow_vertical = 0
+columns = 5
+
+[node name="resource_gains" type="VBoxContainer" parent="event_view/conclusion"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -13.0
+offset_right = -12.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="resource_gain_message" type="Label" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "You've gained resources:"
+
+[node name="money" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="money_icon" parent="event_view/conclusion/resource_gains/money" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_jxa5d")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "money"
+adjacent_items = [NodePath("../money")]
+
+[node name="money" type="Label" parent="event_view/conclusion/resource_gains/money"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="food" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="food_icon" parent="event_view/conclusion/resource_gains/food" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_qrl08")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+adjacent_items = [NodePath("../food")]
+
+[node name="food" type="Label" parent="event_view/conclusion/resource_gains/food"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="fuel" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="fuel_icon" parent="event_view/conclusion/resource_gains/fuel" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_ud2rb")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "fuel"
+adjacent_items = [NodePath("../fuel")]
+
+[node name="fuel" type="Label" parent="event_view/conclusion/resource_gains/fuel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="juice" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="juice_icon" parent="event_view/conclusion/resource_gains/juice" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_474x4")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "juice"
+adjacent_items = [NodePath("../juice")]
+
+[node name="juice" type="Label" parent="event_view/conclusion/resource_gains/juice"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="scrap" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="scrap_icon" parent="event_view/conclusion/resource_gains/scrap" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_6hn8o")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "scrap"
+adjacent_items = [NodePath("../scrap")]
+
+[node name="scrap" type="Label" parent="event_view/conclusion/resource_gains/scrap"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="chips" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="chips_icon" parent="event_view/conclusion/resource_gains/chips" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_gxtxx")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "chips"
+adjacent_items = [NodePath("../chips")]
+
+[node name="chips" type="Label" parent="event_view/conclusion/resource_gains/chips"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="cotinue" type="Button" parent="event_view/conclusion"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -213.0
+offset_top = -78.0
+offset_right = -25.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Continue"
+
 [connection signal="settlement_entered" from="." to="." method="_on_settlement_entered"]
 [connection signal="settlement_left" from="." to="." method="_on_settlement_left"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/trade" to="." method="trade"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/recruit_units" to="." method="recruit_units"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/listen_around" to="." method="listen_around"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/local_event" to="." method="_on_local_event_pressed"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/exit" to="." method="exit_settlement"]
 [connection signal="gui_input" from="post_listen_around" to="post_listen_around" method="_on_gui_input"]
 [connection signal="visibility_changed" from="post_listen_around" to="post_listen_around" method="_on_visibility_changed"]
 [connection signal="meta_clicked" from="post_listen_around/panel/list/memo_label" to="post_listen_around" method="_on_memo_label_meta_clicked"]
 [connection signal="pressed" from="recruitment_menu/recruit_cards/exit" to="recruitment_menu" method="_on_exit_pressed"]
 [connection signal="pressed" from="recruitment_menu/Panel/hire_btn" to="recruitment_menu" method="_on_hire_btn_pressed"]
+[connection signal="pressed" from="event_view/confirmation/return" to="." method="show_main_view" binds= [false]]
+[connection signal="pressed" from="event_view/confirmation/VBoxContainer/confirm" to="event_view" method="_on_confirm_pressed"]
+[connection signal="pressed" from="event_view/conclusion/cotinue" to="event_view" method="_on_cotinue_pressed"]

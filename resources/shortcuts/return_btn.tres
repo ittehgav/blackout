@@ -1,7 +1,7 @@
 [gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://vftyg7m77b8u"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_c11hx"]
-action = &"ui_cancel"
+action = &"ui_exit"
 
 [resource]
 events = [SubResource("InputEventAction_c11hx")]

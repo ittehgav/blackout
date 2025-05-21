@@ -76,7 +76,6 @@ func setup(target:FighterUnit)->void:
 			atlas.atlas = texture;
 			atlas.resource_local_to_scene = true
 			
-			var scheme:Array = Index.color_schemes[Entities.player.color_scheme_index];
 			var pairs:Dictionary[Color,Color] = ColorCoder.scheme_to_sprite_color_pairs(Entities.player)
 			self["evolution_" + str(i) + '_sprite'].texture = ColorCoder.color_code_texture(atlas, pairs)
 			

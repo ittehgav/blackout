@@ -162,6 +162,8 @@ func refresh_data(hard_reset:bool=false)->void:
 	extending_projection = false;
 	
 	if context == "trade":
+		## one display uses  the other one's trade rect 
+		trading_display.trade_rect.hide()
 		var excess:int = trade_excess_container.get_child_count();
 		if excess:
 			trade_excess_label_panel.show()
@@ -322,7 +324,6 @@ func sort_container_mirrors(a:ItemMirror, b:ItemMirror)->bool:
 
 func trade_resource(resource:String, amount:int)->void:
 	var mirrors:Array[ItemMirror] = collect_resource(resource, amount);
-	var previous_traded_amount:int = 0;
 	for mirror:ItemMirror in mirrors:
 		mirror.refresh();
 	
@@ -637,7 +638,7 @@ func update_inventory()->void:
 	sort_inventory();
 		
 			
-func _on_item_dropped(mirror:ItemMirror, from:String="move") -> void:
+func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
 	if held_item_mirror:
 		held_item_mirror.held = false;
 		held_item_mirror = null;
@@ -679,6 +680,9 @@ func _on_item_picked_up() -> void:
 
 func _on_invalid_move(message:String="") -> void:
 	sfx.play_sound_by_key("invalid")
+	if held_item_mirror:
+		held_item_mirror.held = false;
+		held_item_mirror = null;
 	if message:
 		var label:Label = warning_label.duplicate()
 		label.text = message;
@@ -692,7 +696,8 @@ func _on_invalid_move(message:String="") -> void:
 		tween.tween_property(label, "position:y", label.position.y - 20, 1.5);
 		tween.parallel().tween_property(label, "modulate:a", 0, 1.5);
 		tween.tween_callback(label.free)
-
+	
+	refresh_data();
 
 func _on_trade_excess_label_panel_mouse_entered() -> void:
 	trade_excess.show()

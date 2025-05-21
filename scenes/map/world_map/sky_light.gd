@@ -15,7 +15,7 @@ extends ColorRect
 	Color(0.20, 0.39, 0.59)        # Late evening (darkening blue)
 
 ]
-func _ready():
+func _ready()->void:
 	await get_parent().get_parent().get_parent().ready
 	update_lighting()
 

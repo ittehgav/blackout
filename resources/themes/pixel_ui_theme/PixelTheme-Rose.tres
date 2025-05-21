@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=128 format=4 uid="uid://ce3rf0fmqhydd"]
+[gd_resource type="Theme" load_steps=130 format=4 uid="uid://ce3rf0fmqhydd"]
 
 [ext_resource type="Texture2D" uid="uid://bap8dnalffjv4" path="res://resources/themes/pixel_ui_theme/8x8_ui_elements_rose.png" id="1_21irx"]
 [ext_resource type="FontFile" uid="uid://sph0kotu777o" path="res://resources/themes/pixel_ui_theme/m5x7.ttf" id="2_r0eid"]
@@ -1769,6 +1769,11 @@ cache/0/15/0/kerning_overrides/12/0 = Vector2(0, 0)
 cache/0/15/0/kerning_overrides/13/0 = Vector2(0, 0)
 cache/0/15/0/kerning_overrides/14/0 = Vector2(0, 0)
 cache/0/15/0/kerning_overrides/15/0 = Vector2(0, 0)
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
 
 [sub_resource type="Image" id="Image_uagt3"]
 data = {
@@ -2013,6 +2018,30 @@ texture = SubResource("199")
 texture_margin_left = 2.0
 texture_margin_right = 2.0
 region_rect = Rect2(0, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="507"]
+texture = ExtResource("1_21irx")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+region_rect = Rect2(8, 48, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="508"]
+content_margin_left = 2.0
+content_margin_top = 1.0
+content_margin_right = 2.0
+content_margin_bottom = 1.0
+texture = ExtResource("1_21irx")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+region_rect = Rect2(24, 24, 8, 8)
 
 [sub_resource type="AtlasTexture" id="319"]
 atlas = ExtResource("3_i3834")
@@ -2361,16 +2390,6 @@ cache/0/32/0/descent = 0.0
 cache/0/32/0/underline_position = 0.0
 cache/0/32/0/underline_thickness = 0.0
 cache/0/32/0/scale = 1.0
-cache/0/64/0/ascent = 0.0
-cache/0/64/0/descent = 0.0
-cache/0/64/0/underline_position = 0.0
-cache/0/64/0/underline_thickness = 0.0
-cache/0/64/0/scale = 1.0
-cache/0/48/0/ascent = 0.0
-cache/0/48/0/descent = 0.0
-cache/0/48/0/underline_position = 0.0
-cache/0/48/0/underline_thickness = 0.0
-cache/0/48/0/scale = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iliap"]
 atlas = ExtResource("3_i3834")
@@ -2627,7 +2646,7 @@ region_rect = Rect2(96, 8, 16, 27)
 
 [resource]
 default_font = SubResource("600")
-default_font_size = 16
+default_font_size = 32
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_color_disabled = Color(0.501961, 0.501961, 0.501961, 1)
 Button/colors/font_color_focus = Color(1, 1, 1, 1)
@@ -2725,7 +2744,6 @@ ItemList/styles/bg_focus = SubResource("462")
 ItemList/styles/cursor_unfocused = null
 ItemList/styles/selected = SubResource("476")
 ItemList/styles/selected_focus = SubResource("490")
-Label/font_sizes/font_size = 32
 LineEdit/colors/clear_button_color = Color(0.88, 0.88, 0.88, 1)
 LineEdit/colors/clear_button_color_pressed = Color(1, 1, 1, 1)
 LineEdit/colors/cursor_color = Color(0.94, 0.94, 0.94, 1)
@@ -2781,6 +2799,8 @@ PopupMenu/styles/panel_disabled = SubResource("205")
 PopupMenu/styles/separator = SubResource("206")
 ProgressBar/colors/font_color = Color(0.94, 0.94, 0.94, 1)
 ProgressBar/colors/font_color_shadow = Color(0, 0, 0, 1)
+ProgressBar/styles/bg = SubResource("507")
+ProgressBar/styles/fg = SubResource("508")
 SpinBox/icons/updown = SubResource("319")
 TabBar/colors/drop_mark_color = Color(0, 0, 0, 1)
 TabBar/colors/font_disabled_color = Color(0, 0, 0, 1)

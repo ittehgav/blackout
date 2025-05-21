@@ -21,7 +21,6 @@ extends ColorRect
 @export var ground_sunset:Color;
 
 
-
 func color_background(gradual:bool=false, hour:int=Entities.world_map.current_hour)->void:
 	var sky_color:Color = Entities.world_map.get_hour_sky_color();
 	

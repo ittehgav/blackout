@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccybw1mcrxck3"]
+
+[ext_resource type="Script" uid="uid://sca0q2x0d5xi" path="res://scenes/indexes/events/mysterious_artifact.gd" id="1_ybbvh"]
+
+[node name="Mysterious Artifact" type="Node"]
+script = ExtResource("1_ybbvh")
+tag = "cyborg"
+money_change = -70
+chips_change = 30
+units_max_hp_gain = 1
+units_attack_gain = 1
+units_defense_gain = 1
+units_agility_gain = 1
+units_technique_gain = 5

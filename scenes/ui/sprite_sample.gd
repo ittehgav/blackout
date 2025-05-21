@@ -19,7 +19,7 @@ func _ready()->void:
 
 	
 
-func set_sample(target:Sprite2D, color_scheme_index:int, extra_offset:Vector2 = Vector2(30, -15))->void:
+func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_scheme_index, extra_offset:Vector2 = Vector2(30, -15))->void:
 	if target_base:
 		target_base.free();
 	

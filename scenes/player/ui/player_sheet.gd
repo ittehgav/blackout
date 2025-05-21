@@ -7,6 +7,7 @@ class_name PlayerSheet;
  
 @export var party_view:Control;
 @export var player_view:Panel;
+@export var memos_view:Control;
 @export var player_inventory:Control;
 
 @export_group("elements")
@@ -74,7 +75,8 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
 
 
-func hide_player_sheet()->void:
+func hide_player_sheet(_meta:Variant="")->void:
+	## _meta to this gets called when meta clicked from memo labels in the memos tab
 	ui_sfx.play_stream_obj(close_sound)
 	const tween_duration = .25;
 	var tween:Tween = create_tween();
@@ -95,7 +97,11 @@ func refresh_data(_r:String="", _change:float=0)->void:
 	player_inventory.refresh_data(true);
 	party_view.refresh_data();
 	player_view.refresh_data();
-
+	memos_view.refresh_data();
 
 func _on_player_equipment_changed() -> void:
 	gear.refresh_samples(true)
+
+
+func _on_player_new_memo(_memo: Memo) -> void:
+	memos_view.refresh_data();

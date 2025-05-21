@@ -14,7 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/sfx/combat/special/gravity.ogg" id="12_drybb"]
 [ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/sfx/combat/generic/heal.wav" id="13_2v0yn"]
 [ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="15_arr5u"]
-[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/ui/swing_hit.ogg" id="15_urubw"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="15_urubw"]
 [ext_resource type="AudioStream" uid="uid://cdww8uxgqysc6" path="res://assets/sound/sfx/combat/generic/slam.ogg" id="16_a37hj"]
 [ext_resource type="Script" uid="uid://c4mwiiy5huocg" path="res://scenes/battle/npc_fighter/shape.gd" id="17_nnlry"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]

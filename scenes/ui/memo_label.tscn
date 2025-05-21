@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgl7yg6w4idp2"]
+
+[ext_resource type="Script" uid="uid://btik1ruqx08xc" path="res://scenes/ui/memo_label.gd" id="1_a2y8g"]
+
+[node name="memo_label" type="RichTextLabel"]
+visible = false
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("1_a2y8g")
+
+[connection signal="meta_clicked" from="." to="." method="_on_meta_clicked"]

@@ -26,9 +26,9 @@ func fade_out()->void:
 
 
 func _on_memo_label_meta_clicked(key: Variant) -> void:
-	var settlement:Settlement = Entities.world_map.all_settlements[key]
 	settlement_ui.exit_settlement()
-	Entities.in_map_player.camera.pan_to_target(settlement)
+	
 
+	
 func _on_visibility_changed() -> void:
 	set_process_input(visible);

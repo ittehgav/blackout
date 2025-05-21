@@ -9,6 +9,8 @@ signal morale_changed;
 signal party_changed;
 signal equipment_changed;
 
+signal new_memo(memo:Memo);
+
 signal leadership_level_up;
 signal combat_level_up;
 
@@ -61,3 +63,7 @@ func equip_weapon(weapon:Weapon)->void:
 	weapon.inventory_position = Vector2(-1, -1);
 	
 	equipment_changed.emit();
+
+
+func _on_new_memo(memo: Memo) -> void:
+	memos.append(memo)

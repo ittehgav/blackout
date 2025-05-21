@@ -63,10 +63,17 @@ func animate_resource_change(resource:String, change:int)->void:
 	
 	label.add_theme_font_size_override("font_size", 128);
 	
+	var previous_alpha:float = modulate.a;
+	var previous_z:int = z_index;
+	z_index += 10
+	modulate.a = 1;
+	
 	var tween:Tween = create_tween();
 	tween.tween_method(set_resource_label_text.bind(label), current_value, target_value, .75);
 	tween.tween_property(label, "theme_override_font_sizes/font_size", 64, .1)
-
-
+	await tween.finished;
+	
+	modulate.a = previous_alpha;
+	z_index = previous_z
 func set_resource_label_text(value:int, label:Label)->void:
 	label.text = str(value);

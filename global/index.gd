@@ -62,7 +62,8 @@ extends Node
 @export var tether_guy_scene:PackedScene;
 @export var coil_guy_scene:PackedScene;
 
-
+@export_subgroup("Events")
+@export var local_event_scenes:Array[PackedScene];
 
 @export_group("Colors")
 @export var color_schemes:Array[Array];
@@ -84,8 +85,6 @@ const resource_base_prices = {
 	"scrap":3.0,
 	"chips":5.0
 }
-
-
 
 
 @onready var basic_fighter_base_scenes:Array[PackedScene] = [
@@ -223,10 +222,19 @@ func get_color_tag(key:String)->String:
 	return "[color=" + color.to_html() + "]";
 
 
-func resource_colored_name(resource:String)->String:
+func resource_colored_name(resource:String, close_tag:bool=true)->String:
 	var color:String = resource_colors[resource].to_html();
-	var string:String = "[color=" + color + "]"+resource
+	var string:String = "[color=" + color + "]"+resource;
+	if close_tag:
+		string += "[/color]"
 	return string
+	
+func stat_colored_name(stat:String, close_tag:bool=true)->String:
+	var color:String = stat_colors[stat].to_html();
+	var string:String = "[color=" + color + "]" + stat.capitalize();
+	if close_tag:
+		string += "[/color]";
+	return string;
 
 
 var resource_descriptions:Dictionary[String, String] = {
@@ -238,9 +246,8 @@ var resource_descriptions:Dictionary[String, String] = {
 	"money": get_color_tag("money") + "Basic currency[/color] used for trading items and resources.",
 	
 	
-	"juice": "Strange substance with many practical uses, a [color=green]common[/color] trade comodity, required for the [color=cyan]upkeep and upgrade[/color] of certain units.",
-	"scrap": "Broken down pieces of metal used for all kinds of purposes, pure scrap is [color=green]rare[/color] to come across because of its trade value. Used for the 
-[color=cyan]upkeep and upgrade[/color] of certain units.",
+	"juice": "Strange substance with many practical uses, a [color=green]common[/color] trade comodity.\nUsed for the [color=cyan]upkeep and upgrading[/color] of certain units.",
+	"scrap": "Broken down pieces of metal used for all kinds of purposes, usable scrap is [color=green]rare[/color] to come across.\nUsed for the [color=cyan]upkeep and upgrade[/color] of certain units.",
 	"chips": "Intact processor chips are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading[/color] certain units."
 }
 

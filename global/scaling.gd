@@ -1,6 +1,7 @@
 extends Node
 
 
+
 func level_up_stats(unit:FighterUnit, level:int=1)->void:
 	## when the game starts, this loads every level of a given unit,
 	## otherwise it runs the moment the unit levels, to update its new stats
@@ -18,7 +19,10 @@ func initiate_unit_stats(unit:FighterUnit)->void:
 	## will be ran when the node is first loaded and when it evolves, where it will 
 	## retroactively gain the bonuses for the current level
 	for stat:String in Index.all_combat_stats:
-		unit.stats[stat] =0;
+		if stat == "technique":
+			unit.stats[stat] = 1;
+		else:
+			unit.stats[stat] = 0;
 	
 	for tag:String in unit.base.tags:
 		match tag:
@@ -156,3 +160,10 @@ func tag_stats_per_level(tag:String)->Dictionary:
 func exp_for_next_level(current_level:int)->int:
 	return (current_level + 1) ** 2;
 	
+var event_stat_value_multipliers:Dictionary[String, float] = {
+	"max_hp": 100,
+	"attack": 10,
+	"defense": 5,
+	"agility":1,
+	"technique":.15
+}

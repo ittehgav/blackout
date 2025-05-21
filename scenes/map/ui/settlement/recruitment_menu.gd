@@ -102,6 +102,6 @@ func _on_hire_btn_pressed() -> void:
 	Entities.player.roster.add_child(showing_recruit);
 
 	Entities.player.party_changed.emit();
-	Entities.player.inventory.change_resource("money", current_unit_price * -1);
+	Entities.player.inventory.change_resource("money", -current_unit_price);
 	settlement.available_recruits.erase(showing_recruit);
 	

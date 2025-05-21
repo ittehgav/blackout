@@ -36,13 +36,16 @@ signal listen_around_ended;
 @export var trade_btn:Button;
 @export var recruit_units_btn:Button;
 @export var listen_around_btn:Button;
+@export var local_event_btn:Button;
+
+@export var local_event_btn_label:RichTextLabel;
 
 @export_group("views")
 @export var main_view:Control;
 
 @export var trade_menu:Control;
 @export var recruitment_menu:Control;
-
+@export var event_view:Control;
 
 var current_settlement:Settlement;
 
@@ -52,12 +55,15 @@ var listening_around:bool=false;
 @onready var basic_options:Array[Button] = [
 	trade_btn,
 	recruit_units_btn,
-	listen_around_btn
+	listen_around_btn,
+	local_event_btn
 ]
 
 
 func _on_settlement_entered(settlement: Settlement) -> void:
-	var crowd_texture:Texture =[settlement.crowd_1, settlement.crowd_2].pick_random()
+	settlement.player_inside = true;
+	
+	var crowd_texture:Texture = [settlement.crowd_1, settlement.crowd_2].pick_random()
 	crowd_rect.texture = crowd_texture
 	Entities.world_map.ui.self_modulate.a = 0
 	current_settlement = settlement;
@@ -72,7 +78,6 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	name_label.text = settlement.name;
 	short_description_label.text = settlement.description;
 	long_description_label.text = settlement.flavor;
-	
 
 	for button:Button in basic_options:
 		button.hide();
@@ -83,10 +88,11 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 		recruit_units_btn.show();
 	if settlement.listen_around:
 		listen_around_btn.show();
+	if settlement.local_event:
+		setup_local_event();
 	
 	sky_bg.color_background()
 	Tweens.ui_fade_in(self)
-
 
 
 func exit_settlement() -> void:
@@ -94,12 +100,12 @@ func exit_settlement() -> void:
 		settlement_left.emit();
 		hide();
 
+
 func _on_settlement_left() -> void:
+	current_settlement.player_inside = false;
 	Entities.world_map.ui.self_modulate.a = 1
 	Entities.main_bgm.play_bgm("world_map")
 	Entities.world_map.unpause_map();
-
-
 
 
 func trade() -> void:
@@ -109,7 +115,6 @@ func trade() -> void:
 	tween.tween_callback(Tweens.ui_fade_in.bind(trade_menu, .25));
 	trade_menu.start_trade(current_settlement)
 	current_view = trade_menu
-
 
 
 func recruit_units() -> void:
@@ -125,27 +130,9 @@ func recruit_units() -> void:
 func listen_around() -> void:
 	listen_around_started.emit()
 	listening_around = true;
-	sky_props.generate_sky();
-	var camera_tween:Tween = create_tween();
-	camera_tween.tween_property(main_view, "modulate:a", 0, .5)
-	camera_tween.set_trans(Tween.TRANS_SINE)
-	camera_tween.parallel().tween_property(self, "position:y", size.y/1.5, 2)
-	
-	await camera_tween.finished
-	
-	var colors:Array[Color] = [];
 
-	
-	for i in 3:
-		Entities.world_map.hour_passed.emit();
-		sky_bg.color_background(true);
-
-	await get_tree().create_timer(1.5).timeout
-	var crowd_tween:Tween = create_tween();
-	crowd_tween.tween_property(crowd_rect, "modulate:a", 0, .15);
-	crowd_tween.tween_callback(sky_bg.switch_crowd);
-	crowd_tween.tween_property(crowd_rect, "modulate:a", 1, .15)
-	
+	var tween:Tween = await sky_props.pass_time(3, true);
+	await tween.finished
 
 	for c in post_listen_around_list.get_children():
 		if c.visible and c is RichTextLabel:
@@ -153,20 +140,23 @@ func listen_around() -> void:
 	
 	var all_anomalies:Array[Memo] = []
 	for neighbor:Settlement in Entities.current_settlement.neighbors:
-		for anomaly:TradeAnomaly in neighbor.ongoing_anomalies:
-			all_anomalies.append(anomaly);
+		all_anomalies.append(neighbor.ongoing_trade_anomaly);
+		if neighbor.local_event:
+			all_anomalies.append(neighbor.local_event)
 
 	var found:Array[Memo];
 	while len(found) < 3:
-		var pick:TradeAnomaly = all_anomalies.pick_random();
+		var pick:Memo = all_anomalies.pick_random();
 		if not (pick in found):
-			found.append(all_anomalies.pick_random())
+			found.append(pick)
+			
 
-	for anomaly:TradeAnomaly in found:
+	for memo:Memo in found:
 		var label:RichTextLabel = memo_label.duplicate(true);
 		label.show()
-		label.text = anomaly.generate_description();
+		label.text = memo.gossip;
 		post_listen_around_list.add_child(label);
+		memo.register_memo()
 
 	
 	main_view.hide();
@@ -174,11 +164,10 @@ func listen_around() -> void:
 	post_listen_around.modulate.a = 0;
 	post_listen_around.show();
 	
-	var return_tween:Tween = create_tween();
-	return_tween.set_trans(Tween.TRANS_CUBIC)
-	return_tween.tween_property(self, "position:y", 0, 1);
+	var return_tween:Tween = sky_props.return_camera()
 	return_tween.tween_property(post_listen_around, "modulate:a", 1, 1)
 	await return_tween.finished;
+	
 	listening_around = false
 	listen_around_ended.emit()
 
@@ -196,3 +185,25 @@ func show_main_view(just_entered:bool=false)->void:
 		recruitment_menu.hide();
 		main_view.show()
 		Tweens.ui_fade_in(main_view, .25)
+
+
+func setup_local_event()->void:
+	var event:LocalEvent = current_settlement.local_event;
+	event_view.setup_event_confirmation(event)
+	
+	local_event_btn.disabled = true;
+	local_event_btn_label.text = event.final_action_prompt;
+	local_event_btn_label.modulate.a = .5;
+	
+	for unit:FighterUnit in Entities.player.roster.units:
+		if event.tag in unit.base.tags:
+			local_event_btn.disabled = false;
+			local_event_btn_label.modulate.a = 1;
+
+	local_event_btn.show();
+
+func _on_local_event_pressed() -> void:
+	Tweens.ui_fade_out(main_view, true, .25);
+	Tweens.ui_fade_in(event_view);
+	
+	current_view = event_view;

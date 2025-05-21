@@ -15,7 +15,7 @@ func refresh_data()->void:
 	for unit:FighterUnit in Entities.player.roster.units:
 		var sample:SpriteSample = Index.sprite_sample_scene.instantiate();
 		sample.get_node("additional_data").text = "Lv. " + str(unit.level);
-		sample.set_sample(unit.base, Entities.player.color_scheme_index)
+		sample.set_sample(unit.base)
 		recruits_grid.add_child(sample)
 		sample.gui_input.connect(show_more.bind(unit))
 		

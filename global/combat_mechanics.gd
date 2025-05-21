@@ -19,7 +19,7 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=C
 	if target.shield:
 		target.shield -= damage;
 		if target.shield < 0:
-			var shield_overkill:float = target.shield * -1;
+			var shield_overkill:float = -target.shield;
 			target.hp -= shield_overkill;
 			target.shield = 0;
 			target.damage_taken.emit(shield_overkill);

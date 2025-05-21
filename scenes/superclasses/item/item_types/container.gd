@@ -11,7 +11,7 @@ func _ready()->void:
 	material.set_shader_parameter("base_color", Index.get_color(resource));
 	if "raw_stack" in self:
 		if "mirror_only" in self:
-			description = Index.resource_colored_name(resource) + "[/color] is a liquid, it will go to waste if left outside of a [b]container.[/b]"
+			description = Index.resource_colored_name(resource) + " is a liquid, it will go to waste if left outside of a [u]container.[/u]"
 		else:
 			description = "Stack of up to " + str(self["capacity"]) + " " + Index.resource_colored_name(resource) + "."
 	else:

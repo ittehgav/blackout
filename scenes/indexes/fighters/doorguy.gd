@@ -27,7 +27,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	var final_value_str:String = Index.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
 	
 	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields himself, gaining " + final_value_str + " (" + base_value_str + " * " + technique_str\
-	 + ")"+Index.get_color_tag("defense") + " defense [/color] until the end of battle.";
+	 + ")"+Index.stat_colored_name("defense") + " until the end of battle.";
 	return string
 
 const hitbox_radius = 35;

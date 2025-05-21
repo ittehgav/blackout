@@ -1,7 +1,5 @@
 extends FighterBase
 
-
-
 const skill_effects = ["special"];
 const skill_visuals = ["grow", "shake"]
 
@@ -23,8 +21,8 @@ const tags = [
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str:String = Index.get_unit_damage_string(unit);
-	var acceleration:String = Index.get_technique_scaled_string(unit, "", 10, .5, "%");
+	var damage_str:String = Index .get_unit_damage_string(unit);
+	var acceleration:String = Index .get_technique_scaled_string(unit, "", 10, .5, "%");
 	var string:String = "Spins a wheel that deals " + damage_str + " to surrounding enemies every second.\n"\
 	+ "Each additional activation makes the wheel go " + acceleration + " faster.";
 	return string

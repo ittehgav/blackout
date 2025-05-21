@@ -28,8 +28,8 @@ func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
 	var def_reduction_str:String = Index.get_technique_scaled_string(unit, "poo", stat_debuff_values.defense);
 
-	var string:String = "Deals "+damage_str + " to enemies in an area and reduces their"+Index.get_color_tag("defense")+\
-	" defense[/color] by "+  def_reduction_str + " for the rest of the battle.";
+	var string:String = "Deals "+damage_str + " to enemies in an area and reduces their "+Index.stat_colored_name("defense")+\
+	" by "+  def_reduction_str + " for the rest of the battle.";
 	return string;
 
 const hitbox_radius = 35;

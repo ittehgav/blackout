@@ -38,7 +38,7 @@ func trade_10()->void:
 func trade_max()->void:
 	var change:float;
 	if player_side:
-		change = Entities.player.inventory[resource] * -1;
+		change = -Entities.player.inventory[resource];
 	else:
 		change = Entities.current_settlement.inventory[resource];
 	trade_menu[resource+"_trade"] = change;

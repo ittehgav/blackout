@@ -7,14 +7,14 @@ extends HBoxContainer
 var skill_btns:Array[Button]=[];
 var skill_separators:Array[TextureRect]=[];
 
-func _ready():
+func _ready()->void:
 	for c in get_children():
 		if c is Button:
 			skill_btns.append(c);
 		elif c is TextureRect:
 			skill_separators.append(c)
 
-func refresh_data(stat:String):
+func refresh_data(stat:String)->void:
 	var skill_level = Entities.player.leadership_stats[stat];
 	for i in skill_level:
 		if i:

@@ -25,7 +25,6 @@ border_width_bottom = 2
 border_color = Color(0, 0, 1, 1)
 
 [node name="StatIcon" type="TextureRect"]
-z_index = 1
 material = SubResource("ShaderMaterial_xoeuu")
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
@@ -46,6 +45,7 @@ script = ExtResource("2_w7tyd")
 
 [node name="panel" type="Panel" parent="."]
 show_behind_parent = true
+z_index = -1
 use_parent_material = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 1

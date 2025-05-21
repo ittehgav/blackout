@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://behu7rnmlw745"
-path="res://.godot/imported/world_tiles.png-7030b613eeff9d8aa948bcfa57806b27.ctex"
+uid="uid://dual4ihkkkr5v"
+path="res://.godot/imported/compass.png-b0b5c3e2160eedf0f1146416a024b811.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/visual/tiles/world_tiles.png"
-dest_files=["res://.godot/imported/world_tiles.png-7030b613eeff9d8aa948bcfa57806b27.ctex"]
+source_file="res://assets/visual/ui/map/compass.png"
+dest_files=["res://.godot/imported/compass.png-b0b5c3e2160eedf0f1146416a024b811.ctex"]
 
 [params]
 

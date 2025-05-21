@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=57 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
@@ -47,6 +47,15 @@
 [ext_resource type="PackedScene" uid="uid://3phgdfixhg5t" path="res://scenes/indexes/fighters/taserguy.tscn" id="45_gry1y"]
 [ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/indexes/fighters/tetherguy.tscn" id="46_wvsvf"]
 [ext_resource type="PackedScene" uid="uid://cn6wxjfhbdfcq" path="res://scenes/indexes/fighters/coilguy.tscn" id="47_j2p12"]
+[ext_resource type="PackedScene" uid="uid://3ia2lt54jpkr" path="res://scenes/indexes/events/chop_shop_gig.tscn" id="48_gry1y"]
+[ext_resource type="PackedScene" uid="uid://br26y6pxue0oc" path="res://scenes/indexes/events/fighting_tournament.tscn" id="49_wvsvf"]
+[ext_resource type="PackedScene" uid="uid://dkdkvk8b0f5ar" path="res://scenes/indexes/events/hunting_expedition.tscn" id="50_j2p12"]
+[ext_resource type="PackedScene" uid="uid://50su65ab1tgd" path="res://scenes/indexes/events/local_clinic_gig.tscn" id="51_cuqrp"]
+[ext_resource type="PackedScene" uid="uid://ccybw1mcrxck3" path="res://scenes/indexes/events/mysterious_artifact.tscn" id="52_v8p2k"]
+[ext_resource type="PackedScene" uid="uid://blebnelk0xy0u" path="res://scenes/indexes/events/sabotage_crime_ring.tscn" id="53_38u7i"]
+[ext_resource type="PackedScene" uid="uid://drpmmjb1xgevj" path="res://scenes/indexes/events/security_gig.tscn" id="54_bfenw"]
+[ext_resource type="PackedScene" uid="uid://befk1w3k752rm" path="res://scenes/indexes/events/seminar.tscn" id="55_psl0v"]
+[ext_resource type="PackedScene" uid="uid://dmbkq4gobrt61" path="res://scenes/indexes/events/special_training.tscn" id="56_xtdb6"]
 
 [node name="Index" type="Node"]
 script = ExtResource("1_pkksx")
@@ -94,4 +103,5 @@ door_guy_scene = ExtResource("44_ruw64")
 taser_guy_scene = ExtResource("45_gry1y")
 tether_guy_scene = ExtResource("46_wvsvf")
 coil_guy_scene = ExtResource("47_j2p12")
+local_event_scenes = Array[PackedScene]([ExtResource("48_gry1y"), ExtResource("49_wvsvf"), ExtResource("50_j2p12"), ExtResource("51_cuqrp"), ExtResource("52_v8p2k"), ExtResource("53_38u7i"), ExtResource("54_bfenw"), ExtResource("55_psl0v"), ExtResource("56_xtdb6")])
 color_schemes = Array[Array]([[Color(0.196078, 0.196078, 0.588235, 1), Color(0.784314, 0.392157, 0, 1)], [Color(0.392157, 0, 0.392157, 1), Color(0, 0.784314, 0.784314, 1)], [Color(0.117647, 0.117647, 0.117647, 1), Color(0.784314, 0.196078, 0.196078, 1)], [Color(0.784314, 0.588235, 0, 1), Color(0, 0.313726, 0.588235, 1)], [Color(0.588235, 0.196078, 0.196078, 1), Color(0.392157, 0.784314, 0.392157, 1)]])

@@ -13,6 +13,8 @@ signal stopped_moving;
 @export var vehicle:Vehicle
 
 var target_entity:MapEntity;
-var target_position:Vector2;
+var target_position:Vector2=Vector2.ZERO;
 
 @export var move_speed:float = 200.0;
+
+@onready var current_quadrant:WorldMapQuadrant = get_parent();

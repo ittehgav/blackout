@@ -1,5 +1,7 @@
 extends Control
 
+@export var floating_memo:Panel;
+
 @export var sfx:AudioStreamPlayer;
 
 @onready var panel_base_z:int = party_panel.z_index;
@@ -144,3 +146,19 @@ func _on_settlement_ui_recruitment_started() -> void:
 	navigation.hide()
 func _on_settlement_ui_recruitment_ended() -> void:
 	settlement_main_view();
+
+
+func notify_new_memo(_memo: Memo) -> void:
+	if not Entities.world_map.pause_stack:
+		sfx.play_sound_by_key("new_memo");
+		
+		var memo:Panel = floating_memo.duplicate();
+		add_child(memo);
+		memo.show();
+		var tween:Tween = create_tween();
+		tween.tween_property(memo, "position:y", memo.position.y + 50, 2);
+		tween.parallel().tween_property(memo, "modulate:a", 0, 3);
+		tween.tween_callback(memo.free);
+
+	else:
+		Entities.world_map.map_unpaused.connect(notify_new_memo.bind(_memo),  CONNECT_ONE_SHOT);

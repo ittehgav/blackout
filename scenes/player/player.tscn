@@ -30,4 +30,5 @@ chips = 7
 script = ExtResource("5_a3c1i")
 
 [connection signal="combat_level_up" from="." to="." method="_on_combat_level_up"]
+[connection signal="new_memo" from="." to="." method="_on_new_memo"]
 [connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

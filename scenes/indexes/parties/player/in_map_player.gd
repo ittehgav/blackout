@@ -2,29 +2,30 @@ extends MapParty
 
 class_name InMapPlayer;
 
+@export var sfx:AudioStreamPlayer;
 @export var camera:Camera2D;
-
-@export var sight_shape:CollisionShape2D;
-
 
 
 func _ready()->void:
 	Entities.in_map_player = self;
-	target_position = position;
+
 
 func _input(e:InputEvent)->void:
 	if e is InputEventMouseButton and e.pressed \
 	and e.button_index==MOUSE_BUTTON_LEFT and not Entities.world_map.pause_stack:
-		var cursor_position:Vector2 = Entities.world_map.get_local_mouse_position()
+		var cursor_position:Vector2 = current_quadrant.get_local_mouse_position()
 		if position.distance_to(cursor_position) > 30:
 
 			target_position = cursor_position
 			if not camera.in_player:
 				target_position += camera.position - position;
 			started_moving.emit();
-
+	if e.is_action_pressed("stop_movement"):
+		stop_movement();
+	
 	if camera.in_player:
-		var camera_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		var camera_direction:Vector2 =\
+		 Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		if camera_direction and camera.in_player:
 			camera.free_panning()
 			
@@ -39,7 +40,7 @@ func move_toward_entity()->void:
 	target_entity.set_collision_layer_value(2, true)
 
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if target_position:
 		if position.distance_to(target_position) < 2.5:
 			stop_movement();
@@ -49,11 +50,11 @@ func _physics_process(delta: float) -> void:
 			move_and_slide();
 
 
-func stop_movement(finish:bool=true)->void:
-	if finish:
-		position = target_position;
-	else:
-		target_position = position
+func stop_movement(play_sound:bool=true)->void:
+	if play_sound:
+		sfx.play_sound_by_key("movement_stop")
+
+	target_position = Vector2.ZERO
 	stopped_moving.emit()
 
 func interact_with_map_entity(entity:MapEntity)->void:
@@ -67,6 +68,7 @@ func interact_with_map_entity(entity:MapEntity)->void:
 
 
 func _on_started_moving() -> void:
+	sfx.play_sound_by_key("movement_start")
 	get_tree().paused = false;
 	camera.return_to_player()
 
@@ -164,3 +166,10 @@ func _on_interaction_range_body_entered(body: Node2D) -> void:
 func _on_interaction_range_body_exited(body: Node2D) -> void:
 	if body is MapEntity:
 		entity_left_range.emit(body);
+
+
+func _on_entity_entered_range(entity: MapEntity) -> void:
+	if entity is Settlement:
+		sfx.play_sound_by_key("settlement_contact");
+	elif entity is MapParty:
+		sfx.play_sound_by_key("map_party_contact");

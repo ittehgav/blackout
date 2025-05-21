@@ -1,0 +1,112 @@
+[gd_scene load_steps=15 format=3 uid="uid://c3j3q3ivfq3aw"]
+
+[ext_resource type="Script" uid="uid://c2e0n5uqo6piv" path="res://world_map_quadrant.gd" id="1_mskbl"]
+[ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/world_tiles.png" id="2_efq4i"]
+[ext_resource type="Texture2D" uid="uid://8jc4bn5mogf8" path="res://assets/visual/tiles/off_sight_cell.png" id="3_bdq40"]
+[ext_resource type="Texture2D" uid="uid://btl7carrb2i4v" path="res://assets/visual/tiles/fog_cell.png" id="4_2kxkf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxf8w"]
+texture = ExtResource("2_efq4i")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3kaw7"]
+sources/0 = SubResource("TileSetAtlasSource_dxf8w")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fkun1"]
+texture = ExtResource("3_bdq40")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_k1cgv"]
+sources/0 = SubResource("TileSetAtlasSource_fkun1")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgcgr"]
+texture = ExtResource("4_2kxkf")
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_6hpdn"]
+sources/0 = SubResource("TileSetAtlasSource_cgcgr")
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_efq4i"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bdq40"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2kxkf"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_dxf8w"]
+
+[node name="quadrant" type="Node2D" node_paths=PackedStringArray("small_props_node", "props_node", "tile_map", "fog_tile_map", "off_sight_tile_map", "top_boundary", "right_boundary", "bottom_boundary", "left_boundary", "top_boundary_shape", "right_boundary_shape", "bottom_boundary_shape", "left_boundary_shape")]
+process_mode = 3
+script = ExtResource("1_mskbl")
+small_props_node = NodePath("small_props")
+props_node = NodePath("large_props")
+tile_map = NodePath("tile_map")
+fog_tile_map = NodePath("fog")
+off_sight_tile_map = NodePath("off_sight")
+top_boundary = NodePath("top_boundary")
+right_boundary = NodePath("right_boundary")
+bottom_boundary = NodePath("bottom_boundary")
+left_boundary = NodePath("left_boundary")
+top_boundary_shape = NodePath("top_boundary/top")
+right_boundary_shape = NodePath("right_boundary/right")
+bottom_boundary_shape = NodePath("bottom_boundary/bottom")
+left_boundary_shape = NodePath("left_boundary/left")
+
+[node name="tile_map" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_3kaw7")
+
+[node name="small_props" type="Node2D" parent="."]
+
+[node name="large_props" type="Node2D" parent="."]
+
+[node name="off_sight" type="TileMapLayer" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.745098)
+z_index = 1
+tile_set = SubResource("TileSet_k1cgv")
+
+[node name="fog" type="TileMapLayer" parent="."]
+visible = false
+modulate = Color(0.28, 0.28, 0.28, 1)
+z_index = 1
+tile_set = SubResource("TileSet_6hpdn")
+
+[node name="top_boundary" type="Area2D" parent="."]
+process_mode = 3
+collision_layer = 0
+collision_mask = 256
+monitorable = false
+
+[node name="top" type="CollisionShape2D" parent="top_boundary"]
+shape = SubResource("SegmentShape2D_efq4i")
+debug_color = Color(0.7, 0, 0.0116665, 1)
+
+[node name="right_boundary" type="Area2D" parent="."]
+process_mode = 3
+collision_layer = 256
+collision_mask = 0
+
+[node name="right" type="CollisionShape2D" parent="right_boundary"]
+shape = SubResource("SegmentShape2D_bdq40")
+debug_color = Color(0.0233333, 0, 0.7, 1)
+
+[node name="bottom_boundary" type="Area2D" parent="."]
+process_mode = 3
+collision_layer = 256
+collision_mask = 0
+
+[node name="bottom" type="CollisionShape2D" parent="bottom_boundary"]
+shape = SubResource("SegmentShape2D_2kxkf")
+debug_color = Color(0, 0.7, 0.0583333, 1)
+
+[node name="left_boundary" type="Area2D" parent="."]
+process_mode = 3
+collision_layer = 256
+collision_mask = 0
+
+[node name="left" type="CollisionShape2D" parent="left_boundary"]
+shape = SubResource("SegmentShape2D_dxf8w")
+debug_color = Color(0.665, 0.7, 0, 1)

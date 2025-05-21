@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://br26y6pxue0oc"]
+
+[ext_resource type="Script" uid="uid://b0wigl6ftmfco" path="res://scenes/indexes/events/fighting_tournament.gd" id="1_j0vmq"]
+
+[node name="Fighting Tournament" type="Node"]
+script = ExtResource("1_j0vmq")
+tag = "brawler"
+time_cost = 5
+money_change = 20
+units_max_hp_gain = 1
+units_attack_gain = 1
+units_defense_gain = 1

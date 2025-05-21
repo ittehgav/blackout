@@ -75,4 +75,4 @@ func _on_confirm_btn_pressed() -> void:
 	evolution_animation.play_animation(unit.base, new_base);
 	unit.change_base(new_base)
 	for r:String in resource_costs.keys():
-		Entities.player.inventory.change_resource(r, resource_costs[r] * -1);
+		Entities.player.inventory.change_resource(r, -resource_costs[r]);

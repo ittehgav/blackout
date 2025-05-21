@@ -1,6 +1,6 @@
 @icon("./assets/responses_menu.svg")
 
-## A [Container] for dialogue responses provided by [b]Dialogue Manager[/b].
+## A [Container] for dialogue responses provided by [u]Dialogue Manager[/b].
 class_name DialogueResponsesMenu extends Container
 
 

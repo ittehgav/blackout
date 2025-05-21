@@ -13,7 +13,13 @@ const target_type = "nearest_enemy"
 
 const skill_name = "Piercing Shot"
 const description = "Fires a powerful, long-range piercing bolt."
-const flavor = "One time he tried to use hot metal bolts as arrows and got a second-degree burn."
+const flavor = "One time he tried to use hot metal bars as arrows and got a second-degree burn."
+
+const tags = [
+	"hunter",
+	"scientist",
+	"doctor"
+]
 
 
 func damage_modifier(damage:float, unit:FighterUnit=null)->float:
@@ -40,11 +46,6 @@ func full_skill_description(unit:FighterUnit)->String:
 	var string:String = "Deals "+ final_damage_str + " (" + base_damage_str + " * " + technique_str + ") to enemies in a straight line.";
 	return string;
 
-const tags = [
-	"hunter",
-	"scientist",
-	"doctor"
-]
 
 
 const hit_scan_type = "line";

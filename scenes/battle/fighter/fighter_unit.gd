@@ -11,6 +11,7 @@ signal level_up;
 
 
 @export var stats:CombatStats;
+@export var modifier_stats:CombatStats;
 
 var stats_loaded:bool=false;
 
@@ -32,6 +33,7 @@ func load_stats()->void:
 
 	Scaling.initiate_unit_stats(self);
 	Scaling.level_up_stats(self, level)
+	apply_stat_modifiers();
 	stats_loaded = true;
 
 
@@ -56,3 +58,14 @@ func upgrade_available()->bool:
 			if affordable == 2:
 				return true;
 	return false
+
+func gain_stat_modifier(stat:String, value:float)->void:
+	## adds the stats right away so doesn't need to refresh all stats
+	modifier_stats[stat] += value;
+	stats[stat] += value;
+
+func apply_stat_modifiers()->void:
+	## only needs to run when figher unit is first loaded on when stats are refreshed
+	## (as of right now only when upgraded)
+	for stat:String in Index.all_combat_stats:
+		stats[stat] += modifier_stats[stat]

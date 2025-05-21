@@ -13,7 +13,7 @@ func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->
 		var change:int = int(Entities.player.inventory[r]/2);
 		if not change:
 			change = -1;
-		Entities.player.inventory.change_resource(r, change * -1);
+		Entities.player.inventory.change_resource(r, -change);
 
 	pacify_speaking_party();
 

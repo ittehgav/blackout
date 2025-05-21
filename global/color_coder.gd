@@ -58,10 +58,10 @@ func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
 	}
 	color_code_sprite(vehicle, dict);
 
-func color_code_settlement(settlement:Settlement)->void:
+func color_code_settlement(settlement:Settlement, tile_color:Color)->void:
 	var sprite:Sprite2D = settlement.get_node("sprite");
 	var base_color:Color;
-	
+
 	if settlement is Factory:
 		base_color = Index.resource_colors["chips"]
 	elif settlement is Farm:
@@ -70,11 +70,14 @@ func color_code_settlement(settlement:Settlement)->void:
 		base_color = Index.resource_colors["fuel"].lightened(.3)
 	elif settlement is Stadium:
 		base_color = Color.GOLD;
+
 	base_color = base_color.darkened(.5)
+	var blend:Color = tile_color.darkened(.5)
+
 	var dict:Dictionary = {
-		Color.GREEN: base_color,
-		Color.BLUE: base_color.darkened(.5),
-		Color.RED: base_color.lightened(.2)
+		Color.GREEN: base_color.blend(blend),
+		Color.BLUE: (base_color.blend(blend)).darkened(.5),
+		Color.RED: (base_color.blend(blend)).lightened(.15)
 	}
 	color_code_sprite(sprite, dict)
 	

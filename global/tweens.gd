@@ -86,7 +86,7 @@ func lunge_forward_tween(fighter:ActiveFighter)->Tween:
 
 func recoil_tween(fighter:ActiveFighter)->Tween:
 	var gap:Vector2 =  fighter.target_unit.position - fighter.position;
-	var shift:Vector2 = fighter.base.position.move_toward(gap * -1, 50);
+	var shift:Vector2 = fighter.base.position.move_toward(-gap, 50);
 	fighter.base.position = shift
 	
 	var tween:Tween = create_tween();
@@ -103,7 +103,7 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	return tween;
 
 
-func ui_fade_in(target:CanvasItem, show_before:bool=true, duration:float = .5)->Tween:
+func ui_fade_in(target:CanvasItem,  duration:float = .5)->Tween:
 	target.show();
 	
 	target.modulate.a = .1

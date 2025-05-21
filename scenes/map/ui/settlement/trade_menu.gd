@@ -77,19 +77,21 @@ func refresh_trade_balance()->void:
 
 
 	reset_btn.disabled = true;
-
+	
 	for r:String in Index.all_resources.filter(func(r:String)->bool:return r != "money"):
 		var trade:int = self[r+"_trade"]
 		if trade < 0:
 			## TRADE < 0 = PLAYER SELLING
+			## trade is negatgive here so money_trade gets subtracted and volume added
 			reset_btn.disabled = false
 			var value:int = trader_inventory_display.current_inventory.resource_selling_prices[r] * trade
-			money_trade += value;
-			trade_volume += value;
-		else:
-			reset_btn.disabled = false;
-			var value:int =trader_inventory_display.current_inventory.resource_buying_prices[r] * trade
 			money_trade -= value;
+			trade_volume += value;
+		elif trade > 0:
+			reset_btn.disabled = false;
+			var value:int = trader_inventory_display.current_inventory.resource_buying_prices[r] * trade
+			money_trade -= value;
+			trade_volume += value 
 
 	for r:String in Index.all_resources:
 		var label:Label = self[r+"_trade_label"];
@@ -111,12 +113,12 @@ func refresh_trade_balance()->void:
 				label.modulate = Color.GREEN;
 			else:
 				## TRADE < 0 = PLAYER SELLING
-				label.text = str(trade * -1);
+				label.text = str(-trade);
 				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
 				label.modulate = Color.YELLOW;
 				
 	if trader_inventory_display.current_inventory.money < money_trade or\
-	player_inventory_display.current_inventory.money < money_trade * -1:
+	player_inventory_display.current_inventory.money < -money_trade:
 		confirm_btn.disabled = true;
 		money_trade_label.add_theme_color_override("font_color", Color.GRAY.darkened(.5));
 	else:
@@ -127,7 +129,7 @@ func refresh_trade_balance()->void:
 func _on_trader_inventory_display_item_dropped(mirror:ItemMirror, from:String="move") -> void:
 	## ITEM DROPPED IN TRADER INVENTORY = SOLD
 	if from == "trade":
-		if mirror.item is ResourceContainer:
+		if mirror.item is ResourceContainer and mirror.item.stack_size - mirror.traded_resource_amount:
 			## mirror that ends up here will have the stack size of the resource that was traded
 			self[mirror.item.resource + "_trade"] -= mirror.item.stack_size - mirror.traded_resource_amount;
 		else:
@@ -139,16 +141,14 @@ func _on_trader_inventory_display_item_dropped(mirror:ItemMirror, from:String="m
 func _on_player_inventory_display_item_dropped(mirror:ItemMirror, from:String="move") -> void:
 	## ITEM DROPPED IN PLAYER INVENTORY = BOUGHT
 	if from == "trade":
-		if mirror.item is ResourceContainer:
+		if mirror.item is ResourceContainer and mirror.item.stack_size - mirror.traded_resource_amount:
 			## mirror that ends up here will have the stack size of the resource that was traded
 			## READS FROM THE RESOURCES IN THE TRADE INVENTORY DISPLAYS RATHER THAN THE COUNT ON THE INVENTORIES
 			self[mirror.item.resource + "_trade"] += mirror.item.stack_size - mirror.traded_resource_amount;
 		else:
 			non_resource_money_trade -= mirror.price;
-
 		
 		refresh_trade_balance()
-		
 
 
 func _on_confirm_pressed() -> void:

@@ -91,5 +91,5 @@ func aoe_stat_debuff(source:ActiveFighter)->void:
 
 		for stat:String in source.base.stats_to_debuff:
 			## stat debuff values are multiplied by - 1 here
-			var value:float = source.base.stat_debuff_values[stat] * source.technique * -1
+			var value:float = source.base.stat_debuff_values[stat] * -source.technique
 			apply_stat_change(source, unit, value, stat);

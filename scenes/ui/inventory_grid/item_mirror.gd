@@ -33,7 +33,7 @@ var outline_color:Color;
 var highlighted_outline_color:Color
 
 ## only matters when trading
-var price:int;
+var price:float;
 var being_traded:bool = false;
 ## only matters when trading with resource containers;
 var traded_resource_amount:int=0;
@@ -227,7 +227,7 @@ func place_on_spot()->void:
 func trade_command()->void:
 	if item is ResourceContainer:
 		if "raw_stack" in item:
-			display.trade_resource(item.resource, item.stack_size);
+			display.trade_resource(item.resource, item.stack_size - traded_resource_amount);
 			return
 		elif item.stack_size - traded_resource_amount:
 			await get_tree().create_timer(.15).timeout;
@@ -316,24 +316,21 @@ func set_price()->void:
 		if item is ResourceContainer and item.stack_size - traded_resource_amount:
 			var inventory:Inventory = Entities.current_trading_party.inventory;
 			if display.from_player:
+				## in player inventory = selling price
 				price = inventory.resource_selling_prices[item.resource];
 			else:
+				## in trader's inventory = buying price
 				price = inventory.resource_buying_prices[item.resource];
 			price *= item.stack_size - traded_resource_amount;
 		else:
-
 			## CURRENT NON-RESOURCE ITEM PRICE FORMULA
 			## (rarity + 1)² * item.size.x * item.size.y
 			price = (item.rarity + 1) ** 2
 			price *= item.size_x * item.size_y
-		
-		if display.from_player:
-			## is in player's inventory = sell value
-			price *= Entities.current_trading_party.inventory.item_selling_multiplier;
-		else:
-			price *= Entities.current_trading_party.inventory.item_buying_multiplier;
 
 		## if it's being traded, it already had it's price set
+		if price < 1:
+			price = 1;
 		price_tag.text = "$" + str(int(price));
 
 

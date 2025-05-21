@@ -13,7 +13,7 @@ func _ready()->void:
 func _physics_process(_delta: float) -> void:
 	var direction:Vector2;
 	if feared_entity:
-		direction = (target_entity.position - position).normalized()*-1
+		direction = -(target_entity.position - position).normalized()
 	elif target_entity:
 		direction= (target_entity.position - position).normalized();
 		## without multiplying by delta this behaves exacly as move_and_collide(with delta)??

@@ -2,9 +2,12 @@ extends MapEntity;
 
 class_name Settlement;
 
-var ongoing_anomalies:Array[TradeAnomaly];
+var ongoing_trade_anomaly:TradeAnomaly;
+var local_event:LocalEvent;
 
 var available_recruits:Array[FighterUnit];
+
+var player_inside:bool=false;
 
 @export var background:Texture;
 @export var crowd_1:Texture;
@@ -30,10 +33,6 @@ var available_recruits:Array[FighterUnit];
 var neighbors:Array[Settlement];
 
 var non_sellable_items:Array[Item];
-
-func _ready()->void:
-	ColorCoder.color_code_settlement(self)
-
 
 
 
@@ -91,7 +90,7 @@ func relation_progress_for_next_level()->int:
 	if player_relation >= 0:
 		return (player_relation + 2) ** 2
 	else:
-		return player_relation * -1
+		return -player_relation
 
 
 
@@ -113,21 +112,39 @@ func daily_reset()->void:
 	## every day, in the current state, settlements update their inventory
 	## replaces all non-rare items in the inventory and refreshes resource inventory
 	## based on trade anomalies and production
-	if not len(ongoing_anomalies) or len(ongoing_anomalies) < 3 and randf_range(0, 1) > .5:
-		add_new_anomaly();
-	while len(ongoing_anomalies) < 3:
-		add_new_anomaly()
-	
+	if not player_inside:
+		
+		refresh_events();
 	refresh_inventory();
 	refresh_recruits();
 
-func add_new_anomaly()->void:
-	var anomaly:TradeAnomaly = TradeAnomaly.new();
-	anomaly.generate(self);
-	while overlapping_anomaly(anomaly):
-		anomaly.generate(self);
-	ongoing_anomalies.append(anomaly);
 
+func refresh_events()->void:
+	if ongoing_trade_anomaly:
+		ongoing_trade_anomaly.time_left -= 1;
+		if not ongoing_trade_anomaly.time_left:
+			ongoing_trade_anomaly.expire();
+		ongoing_trade_anomaly = null;
+	## TODO handle behavior for registered memos
+	## or make them all work the same way regardless of whether they're registered or not?
+	if not ongoing_trade_anomaly:
+		ongoing_trade_anomaly = TradeAnomaly.new();
+		ongoing_trade_anomaly.generate(self);
+
+	if local_event:
+		local_event.time_left -= 1;
+		if not local_event.time_left:
+			local_event.expire();
+			local_event = null;
+
+	if not local_event:
+		var roll:float = randf_range(0, 1);
+		if roll:
+			var event:LocalEvent = Index.local_event_scenes.pick_random().instantiate();
+			event.location = self;
+			event.generate();
+			local_event = event;
+	
 
 
 
@@ -135,40 +152,45 @@ func refresh_inventory()->void:
 	## affects daily inventory refresh:
 	## production
 	## trade anomalies
+	## local events (or lack thereof)
 	## price hikes a little or drops a little for a resource if it was bought/sold
-	## TODO more price adjusting
 	var resource_prices:Dictionary = Index.resource_base_prices.duplicate();
-
 	inventory.money = randi_range(money_production/2, money_production * 1.5)
-	
+
 	var tradeable_resources:PackedStringArray = Index.all_resources.filter(func(r:String)->bool:return r != "money")
 	
+	var relationship_modifier:float = relationship_modifiers[player_relation];
 	for r:String in tradeable_resources:
 		var production:int = self[r+'_production'];
-		inventory[r] += randi_range(production/2, production*1.5);
-
-
-	var relationship_modifier:float = relationship_modifiers[player_relation];
-	inventory.item_selling_multiplier = 1/relationship_modifier;
-	inventory.item_buying_multiplier = 1*relationship_modifier;
-	
-	for r:String in tradeable_resources:
-		
+		inventory[r] += randi_range(production/1.5, production*1.5);
 		
 		inventory.resource_selling_prices[r] = resource_prices[r] / relationship_modifier;
 		inventory.resource_buying_prices[r] = resource_prices[r] * relationship_modifier;
 		
-		for a:TradeAnomaly in ongoing_anomalies.filter(func(a:TradeAnomaly)->bool:return a.resource == r):
-			inventory.resource_selling_prices[r] *= a.change;
-			inventory.resource_buying_prices[r] *= a.change
-		
+
 		if inventory.resource_selling_prices[r] < 1:
 			inventory.resource_selling_prices[r] = 1
 		if inventory.resource_buying_prices[r] < 1:
 			inventory.resource_buying_prices[r] = 1
-	
+
+	apply_trade_anomaly();
+
 	inventory.store_resources()
 
+func apply_trade_anomaly()->void:
+	var a:TradeAnomaly = ongoing_trade_anomaly;
+
+	if a.positive:
+		## POSITIVE ANOMALY = SURPLUS = STOCK UP PRICE DOWN
+		inventory.resource_buying_prices[a.resource] /= a.change;
+		inventory.resource_selling_prices[a.resource] /= a.change
+		inventory[a.resource] *= a.change
+	else:
+		## NEGATIVE ANOMALY = SHORTAGE = STOCK DOWN PRICE UP
+		inventory.resource_buying_prices[a.resource] *= a.change;
+		inventory.resource_selling_prices[a.resource] *= a.change
+		inventory[a.resource] /= a.change
+		
 func refresh_recruits()->void:
 	available_recruits = [];
 	while len(available_recruits) < 3:
@@ -187,13 +209,8 @@ func refresh_recruits()->void:
 	big_fighter_unit.level = randi_range(10, 20);
 	big_fighter_unit.load_stats();
 	available_recruits.append(big_fighter_unit)
-	
-	
-func overlapping_anomaly(anomaly:TradeAnomaly)->bool:
-	for a in ongoing_anomalies:
-		if a.resource == anomaly.resource:
-			return true;
-	return false
+
+
 
 func _on_hover_box_mouse_entered()->void:
 	Entities.map_entity_under_mouse = self;

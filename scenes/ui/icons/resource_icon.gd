@@ -24,7 +24,8 @@ func setup()->void:
 	if show_tooltip:
 		name = resource.capitalize();
 		tooltip_name_color = Index.resource_colors[resource];
-		description = Index.resource_descriptions[resource]
+		description = Index.resource_descriptions[resource];
+
 	elif is_instance_valid($Tooltip):
 			$Tooltip.free();
 	

@@ -2,9 +2,14 @@ extends Node2D
 
 class_name WorldMap
 
+signal time_skipped;
+
 signal minute_passed;
 signal hour_passed;
 signal day_passed;
+
+signal map_paused;
+signal map_unpaused;
 
 var current_day:int=1;
 var current_month:int=1;
@@ -14,11 +19,11 @@ var pause_stack:int = 0;
 var current_hour:int=16;
 var current_minute:int=30;
 
-
 @export var ui:Control;
-@export var tile_map:TileMapLayer;
 
 @export var player:InMapPlayer
+
+@export var quadrants:Node2D;
 
 @export var sky_colors:Array[Color] = [
 	Color.WHITE,
@@ -79,7 +84,9 @@ func pause_map()->void:
 		Entities.in_map_player.set_process_input(false)
 		process_mode = PROCESS_MODE_DISABLED
 		Entities.in_map_player.process_mode = Node.PROCESS_MODE_DISABLED;
-	
+		map_paused.emit();
+
+
 func unpause_map()->void:
 	pause_stack -= 1
 	if not pause_stack:
@@ -87,7 +94,7 @@ func unpause_map()->void:
 		Entities.in_map_player.set_process_input(true)
 		process_mode = PROCESS_MODE_PAUSABLE
 		Entities.in_map_player.process_mode = Node.PROCESS_MODE_ALWAYS;
-
+		map_unpaused.emit()
 
 
 func _on_minute_ticker_timeout() -> void:
@@ -115,13 +122,13 @@ func _on_day_passed() -> void:
 			current_month = 1;
 
 func update_light()->void:
+	var target_color:Color = get_hour_sky_color();
 	if not get_tree().paused:
-		var target_color:Color = get_hour_sky_color();
-		
 		var tween: = create_tween();
 		tween.tween_property(self, "modulate", target_color, .5)
 		tween.parallel().tween_property(Entities.main_bgm, "pitch_scale", get_hour_pitch(), 2)
-
+	else:
+		modulate = target_color;
 func get_hour_pitch(hour:int = current_hour)->float:
 	var pitch_index:int;
 	if current_hour > 11:
@@ -140,18 +147,5 @@ func get_hour_sky_color(hour:int=current_hour)->Color:
 
 
 
-func _process(_delta:float)->void:
-	if Input.is_action_just_pressed("world_map_zoom_in"):
-		if scale == Vector2.ONE or scale == Vector2(.5, .5):
-			var target_scale:Vector2 = scale * 2
-			
-			var tween:Tween = Entities.player.create_tween();
-			tween.tween_property(self, "scale", target_scale, 1)
-
-	elif Input.is_action_just_pressed("world_map_zoom_out"):
-		if scale == Vector2.ONE or scale == Vector2(2, 2):
-			var target_scale:Vector2 = scale / 2
-			
-			var tween:Tween = Entities.player.create_tween();
-			tween.tween_property(self, "scale", target_scale, 1)
-	
+func _on_settlement_ui_settlement_left() -> void:
+	update_light()
