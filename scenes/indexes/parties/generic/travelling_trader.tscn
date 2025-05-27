@@ -20,7 +20,7 @@ unit = NodePath("unit")
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("stats")
-sight_range = 300
+sight_range = 500
 
 [node name="unit" parent="." instance=ExtResource("3_au82f")]
 

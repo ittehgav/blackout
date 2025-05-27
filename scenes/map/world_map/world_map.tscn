@@ -1576,6 +1576,8 @@ horizontal_alignment = 2
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
 [connection signal="hour_passed" from="." to="quadrants/quadrant_4/in_map_player/Player" method="travel_upkeep"]
+[connection signal="returned_from_battle" from="." to="." method="_on_returned_from_battle"]
+[connection signal="returned_from_battle" from="." to="ui_overlay/ui/main_hud" method="_on_world_map_returned_from_battle"]
 [connection signal="time_skipped" from="." to="ui_overlay/ui/main_hud" method="update_clock"]
 [connection signal="entity_entered_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_entered_range"]
 [connection signal="entity_left_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_left_range"]

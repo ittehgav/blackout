@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6sqh8dwvgc4n"
-path="res://.godot/imported/legs.png-bb3efb9d6a516d72e64e93d9380097f3.ctex"
+uid="uid://okxsly37ug2q"
+path="res://.godot/imported/thugs.png-fad15355cc6dd1815f820dd5235ac6b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/clip/legs.png"
-dest_files=["res://.godot/imported/legs.png-bb3efb9d6a516d72e64e93d9380097f3.ctex"]
+source_file="res://assets/visual/icons/behaviors/thugs.png"
+dest_files=["res://.godot/imported/thugs.png-fad15355cc6dd1815f820dd5235ac6b9.ctex"]
 
 [params]
 

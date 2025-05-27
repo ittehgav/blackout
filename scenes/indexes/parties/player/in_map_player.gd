@@ -137,7 +137,6 @@ func convince_odds(target:NpcMapParty)->float:
 	per_level_decay += .025 * leader.leadership_stats.charisma;
 	for i:int in level_gap:
 		odds *= per_level_decay
-	
 	return odds
 
 func roll_intimidate(target:NpcMapParty)->bool:
@@ -170,10 +169,11 @@ func _on_interaction_range_body_exited(body: Node2D) -> void:
 func _on_entity_entered_range(entity: MapEntity) -> void:
 	if entity is Settlement:
 		sfx.play_sound_by_key("settlement_contact");
-	elif entity is MapParty:
-		match entity.leader.behavior:
-			"agressive":
-				interact_with_map_entity(entity);
+	elif entity is NpcMapParty:
+		match entity.leader.party_type:
+			"thugs":
+				if not entity.pacified:
+					interact_with_map_entity(entity);
 		sfx.play_sound_by_key("map_party_contact");
 
 

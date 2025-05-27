@@ -2,6 +2,8 @@ extends Node2D
 
 class_name WorldMap
 
+signal returned_from_battle(won:bool);
+
 signal time_skipped;
 
 signal minute_passed;
@@ -151,3 +153,8 @@ func get_hour_sky_color(hour:int=current_hour)->Color:
 
 func _on_settlement_ui_settlement_left() -> void:
 	update_light()
+
+
+func _on_returned_from_battle(won: bool) -> void:
+	## where something different will happen if you lose 
+	Entities.current_speaking_party.queue_free();

@@ -37,8 +37,15 @@ func _process(_delta:float)->void:
 	else:
 		set_estimate(player.target_position)
 
+func _input(e:InputEvent)->void:
+	## kinda silly that this is in this script?
+	if nearby_entity and e.is_action_pressed("world_map_interact") and get_tree().paused:
+		player.interact_with_map_entity(nearby_entity);
+
+
 
 func _on_in_map_player_started_moving() -> void:
+	
 	stop_prompt.show();
 	compass.rotation = player.position.angle_to_point(player.target_position)
 	set_estimate(player.target_position)
@@ -82,10 +89,6 @@ func _on_in_map_player_entity_left_range(_entity: MapEntity) -> void:
 	destination_container.show();
 	nearby_entity = null;
 	
-func _input(e:InputEvent)->void:
-	## kinda silly that this is in this script?
-	if nearby_entity and e.is_action_pressed("world_map_interact"):
-		player.interact_with_map_entity(nearby_entity);
 
 func show_enter_settlement_prompt(settlement:Settlement)->void:
 	destination_container.hide();

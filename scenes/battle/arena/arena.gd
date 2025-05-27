@@ -8,9 +8,6 @@ class_name Arena;
 var won_battle:bool;
 var battle_ongoing:bool=true;
 
-signal battle_ended
-signal battle_won;
-signal battle_lost;
 
 @export var overlay:Control;
 @export var kill_feed:Control;
@@ -35,10 +32,10 @@ func start_battle(enemy_leader:Leader)->void:
 		Entities.in_map_player.camera.enabled = false
 		Entities.world_map.hide()
 
-			
+	Entities.main.add_child(self)
+	get_tree().paused = false
 	overlay.tide_bar.set_tide_bar();
 
-	Entities.main.add_child(self)
 
 	generate_battle_reward(enemy_leader);
 
@@ -50,15 +47,13 @@ func return_to_world_map()->void:
 	Entities.world_map.unpause_map();
 	Entities.world_map.show()
 	Entities.main_bgm.play_bgm("world_map");
-	battle_ended.emit()
 	Entities.main.current_state = "world_map"
 	
-	if won_battle:
-		battle_won.emit();
-	else:
-		battle_lost.emit()
+
 	queue_free()
-	
+	Entities.main.add_child(Entities.world_map)
+	Entities.world_map.returned_from_battle.emit(won_battle);
+
 func generate_battle_reward(enemy_leader:Leader)->void:
 	for unit:ActiveFighter in team_2.units:
 		battle_exp_value += unit.unit.level;

@@ -156,7 +156,7 @@ func _on_windup_timer_timeout() -> void:
 			$hit_scan/shape.start_aoe_highlight()
 		base.frame_coords = Vector2(1, 2);
 		set_current_animation("windup")
-		
+
 
 
 func use_skill()->void:

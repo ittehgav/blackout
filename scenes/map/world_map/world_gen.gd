@@ -14,8 +14,8 @@ const small_prop_amounts = entity_spawn_range/50;
 const large_prop_amounts = entity_spawn_range/100;
 const settlement_amount = entity_spawn_range/50;
 
-const thugs_amount = 0;
-const travelling_traders_amount = entity_spawn_range/50;
+const thugs_amount = entity_spawn_range/100;
+const travelling_traders_amount = entity_spawn_range/100;
 
 @export var small_prop_textures:Array[Texture];
 var small_prop_sprites:Array[Sprite2D];

@@ -5,68 +5,76 @@ class_name NpcMapParty
 ## Leader nodes' parties, which will contain all the data that makes an NPC map party
 
 
-@export var scared_icon_texture:Texture;
-@export var passive_icon_texture:Texture;
-@export var agressive_icon_texture:Texture;
 @export var idle_icon_texture:Texture;
+@export var scared_icon_texture:Texture;
+@export var agressive_icon_texture:Texture;
+@export var salesman_icon_texture:Texture
 
 @export var behavior_icon:TextureRect;
 @export var find_target_timer:Timer;
+
 var feared_entity:MapEntity;
+var pacified:bool;
+
+var intimidate_attempted:bool = false;
+var persuade_attempted:bool=false;
 
 func _ready()->void:
-	await Entities.in_map_player.ready;
-	find_target()
-
-func _physics_process(_delta: float) -> void:
-	var direction:Vector2;
+	match leader.party_type:
+		"thugs":
+			behavior_icon.texture = agressive_icon_texture;
+		"travelling_trader":
+			behavior_icon.texture = salesman_icon_texture;
 	
-	if feared_entity or target_entity:
-		## idle movement is done through tweens
-		if feared_entity:
-			direction = -(feared_entity.global_position - global_position).normalized()
-		elif target_entity:
-			direction = (target_entity.global_position - global_position).normalized();
-			## without multiplying by delta this behaves exacly as move_and_collide(with delta)??
 
-		velocity = direction * move_speed
+func _physics_process(delta: float) -> void:
+	if target_entity:
+		var direction:Vector2;
+		## only movement towards an entity (right now only the player) is done through here
+		direction = (target_entity.global_position - global_position).normalized();
+		velocity = direction * move_speed;
 		move_and_slide();
 
 func find_target() -> void:
-	match leader.behavior:
-		"passive":
-			set_behavior_icon("passive")
-			idle_movement()
-		"agressive":
-			if global_position.distance_to(Entities.in_map_player.global_position) <= leader.sight_range:
-				set_behavior_icon("agressive")
-				target_entity =  Entities.in_map_player;
-			else:
+	match leader.party_type:
+		"thugs":
+			## behavior icons will be set on status application
+			if pacified:
 				set_behavior_icon("idle")
-				idle_movement()
-		"scared":
-			set_behavior_icon("scared")
-			if global_position.distance_to(Entities.in_map_player.global_position) <= leader.sight_range:
-				feared_entity =  Entities.in_map_player;
+				idle_movement();
 			else:
+				if global_position.distance_to(Entities.in_map_player.global_position) <= leader.sight_range:
+					if feared_entity:
+						set_behavior_icon("scared");
+						var direction:Vector2 = (global_position - feared_entity.global_position).normalized();
+						run_in_direction(direction);
+					else:
+						set_behavior_icon("agressive")
+						target_entity = Entities.in_map_player;
+						vehicle.adjust_direction(target_entity.global_position)
+				else:
+					set_behavior_icon("idle")
+					idle_movement();
+		"travelling_trader":
+			## traders will stand still if the player is nearby
+			if global_position.distance_to(Entities.in_map_player.global_position) >= leader.sight_range:
 				idle_movement();
 
+func set_behavior_icon(key:String)->void:
+	behavior_icon.texture = self[key+"_icon_texture"];
+
+func run_in_direction(direction:Vector2)->void:
+	vehicle.adjust_direction(global_position + direction);
+	var duration:float = find_target_timer.wait_time;
+	var tween:Tween = create_tween();
+	tween.tween_property(self, "global_position", global_position + direction * move_speed, duration);
 
 func idle_movement()->void:
-	var tween:Tween = create_tween();
-	var target_position:Vector2= global_position + Vector2(randi_range(-100, 100), randi_range(-100, 100));
-	vehicle.adjust_direction(target_position)
-	tween.tween_property(self, "global_position", target_position, find_target_timer.wait_time);
-
-
-func set_behavior_icon(target:String)->void:
-	behavior_icon.show();
-	match target:
-		"agressive":
-			behavior_icon.texture = agressive_icon_texture;
-		"scared":
-			behavior_icon.texture = scared_icon_texture
-		"idle":
-			behavior_icon.texture = idle_icon_texture;
-		"passive":
-			behavior_icon.texture = passive_icon_texture;
+	var direction:Vector2 = Vector2(randf_range(-1, 1), randf_range(-1, 1));
+	run_in_direction(direction);
+	
+func clear_feared_entity()->void:
+	feared_entity = null;
+	
+func depacify()->void:
+	pacified = false;

@@ -180,3 +180,7 @@ func _on_pre_battle_pre_battle_started() -> void:
 func _on_trade_menu_trade_started() -> void:
 	for p in all_panels:
 		p.hide()
+
+
+func _on_world_map_returned_from_battle(_won: bool) -> void:
+	switch_to_fully_visible()

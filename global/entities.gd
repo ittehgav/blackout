@@ -14,7 +14,7 @@ var arena:Arena;
 var world_map:WorldMap;
 
 var current_settlement:Settlement;
-var current_speaking_party:MapParty;
+var current_speaking_party:NpcMapParty;
 ## either a Leader or a Settlement
 var current_trading_party:Node;
 

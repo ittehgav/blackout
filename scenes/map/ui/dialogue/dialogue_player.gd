@@ -45,6 +45,7 @@ func _process(_delta:float)->void:
 		dialogue_next();
 
 func start_dialogue(target:Leader)->void:
+	suspended = false
 	Entities.main_bgm.play_bgm(target.party_type)
 	set_process_mode(Node.PROCESS_MODE_ALWAYS)
 	Entities.world_map.pause_map()
@@ -100,13 +101,15 @@ func show_responses()->void:
 	for c in choices_container.get_children():
 		c.queue_free()
 	for response:DialogueResponse in current_line.responses:
-		var button:DialogueChoice = dialogue_choice_scene.instantiate();
-		
 		var button_text:String = parse_dialogue_text(response.text);
-		button.build(button_text);
-		button.pressed.connect(response_chosen.bind(response))
-		
-		choices_container.add_child(button);
+		## may be invalidated based on type of choice
+		if button_text:
+			var button:DialogueChoice = dialogue_choice_scene.instantiate();
+			
+			button.build(button_text);
+			button.pressed.connect(response_chosen.bind(response))
+			
+			choices_container.add_child(button);
 
 	choices_box.show()
 
@@ -118,8 +121,10 @@ func display_line()->void:
 	if speaker:
 		speaker_name_label.text = speaker;
 	text_label.text = parse_dialogue_text(line_text);
-	
-	type_out_text();
+	if line_text[0] != "[":
+		type_out_text();
+	else:
+		text_label.visible_ratio = 1;
 	
 
 func expose_avatar(target:Sprite2D)->void:
@@ -160,11 +165,13 @@ func response_chosen(response:DialogueResponse)->void:
 	if "#roll" in response.text:
 		var key:String;
 		if "#roll_intimidate" in response.text:
+			Entities.current_speaking_party.intimidate_attempted = true;
 			if Entities.in_map_player.roll_intimidate(Entities.current_speaking_party):
 				key = "intimidate_success";
 			else:
 				key = "intimidate_fail"
 		elif "#roll_convince" in response.text:
+			Entities.current_speaking_party.persuade_attempted = true;
 			if Entities.in_map_player.roll_convince(Entities.current_speaking_party):
 				key = "convince_success";
 			else:
@@ -184,8 +191,12 @@ func parse_dialogue_text(text:String)->String:
 	if "#start_battle" in final_text:
 		final_text = final_text.replace("#start_battle", "[color=red]Engage in Battle[/color]")
 	if "#roll_intimidate" in final_text:
+		if Entities.current_speaking_party.intimidate_attempted:
+			return "";
 		final_text = final_text.replace("#roll_intimidate", roll_intimidate_odds())
 	if "#roll_convince" in final_text:
+		if Entities.current_speaking_party.persuade_attempted:
+			return "";
 		final_text = final_text.replace("#roll_convince", roll_convince_odds())
 	
 	if "#yield" in final_text:
