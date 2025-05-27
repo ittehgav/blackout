@@ -1,3 +1,12 @@
+~ improve_prices
+do MapEvents.improve_speaking_party_prices()
+
+~ strain_prices
+do MapEvents.strain_speaking_party_prices()
+
+~ start_trade
+do MapEvents.trade_with_speaking_party()
+
 ~ scare_speaking_party
 do MapEvents.scare_speaking_party()
 => finish_dialogue
@@ -12,6 +21,7 @@ do MapEvents.battle_speaking_party()
 
 ~ pacify_speaking_party
 do MapEvents.pacify_speaking_party()
+
 
 ~ finish_dialogue
 do Entities.dialogue_player.end_dialogue()

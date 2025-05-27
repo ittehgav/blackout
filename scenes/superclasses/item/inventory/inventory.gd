@@ -3,6 +3,8 @@ extends Node2D
 ## any settlement or party has an inventory
 class_name Inventory;
 
+@export var non_sellable_items:Array[Item];
+
 @export var holder:Node;
 
 @export_subgroup("Resources")
@@ -29,7 +31,7 @@ var capacity_y:int = 12;
 func _ready()->void:
 	refresh_resource_counts();
 	
-func refresh_resource_counts()->void:
+func refresh_resource_counts(_resource:String="", _amount:int=0)->void:
 	for r:String in Index.all_resources:
 		if r != "money":
 			self[r] = 0;
@@ -47,7 +49,9 @@ func _on_child_entered_tree(node: Node) -> void:
 		modules.push_back(node);
 	elif node is Weapon:
 		weapons.push_back(node);
-	elif node is ResourceContainer:
+	elif node is ResourceContainer and not (node in containers):
+		## default containers from travelling traders will be manually added to the containers array 
+		## so the resources can be restored before entering the tree
 		containers.append(node)
 
 
@@ -130,6 +134,7 @@ var resource_selling_prices:Dictionary[String, float] = {
 
 func _on_child_exiting_tree(node: Node) -> void:
 	assert(node is Item)
+
 	if node is Consumable:
 		consumables.erase(node);
 	elif node is Trinket:
@@ -154,11 +159,15 @@ func store_resources()->void:
 				if container.resource == r:
 					already_stored += container.stack_size;
 					if container.space_left():
-						containers_with_space.append(container);
-		
+						if holder == Entities.player:
+							containers_with_space.append(container);
+						else:
+							if container in non_sellable_items:
+								## sellable containers will always be empty
+								containers_with_space.append(container);
 			if len(containers_with_space):
 				containers_with_space.sort_custom(containers[0].capacity_sort)
-		
+
 			## will always be at least 0, as this function will be 
 			## ran mostly after resources have been gained
 			var to_store:int = total - already_stored;
@@ -170,23 +179,27 @@ func store_resources()->void:
 					var to_add:int = c.space_left();
 					c.stack_size += to_add;
 					to_store -= to_add;
-	
-			var raw_stack:ResourceContainer = Index[r + "_stack_scene"].instantiate();
-			if not "mirror_only" in raw_stack:
-				while to_store:
-					var stack:ResourceContainer = raw_stack.duplicate();
-					if stack.capacity < to_store:
-						stack.stack_size = stack.capacity;
-						add_child(stack)
-						to_store -= stack.capacity
-					else:
-						add_child(stack);
-						stack.stack_size = to_store
-						to_store = 0;
-			else:
-				## if stack is liquid and there's no room for it, it goes to waste
-				## settlements refuse trades for stuff they can't store?
-				self[r] -= to_store;
+			
+			if to_store and holder == Entities.player:
+				## only player inventory gets to have raw stack everyone else's stuff just goes to waste
+				## (only upon generation/trading rn)
+				var raw_stack:ResourceContainer = Index[r + "_stack_scene"].instantiate();
+				if not "mirror_only" in raw_stack:
+					while to_store:
+						var stack:ResourceContainer = raw_stack.duplicate();
+						if stack.capacity < to_store:
+							stack.stack_size = stack.capacity;
+							add_child(stack)
+							to_store -= stack.capacity
+						else:
+							add_child(stack);
+							stack.stack_size = to_store
+							to_store = 0;
+				else:
+					## if stack is liquid and there's no room for it, it goes to waste
+					## settlements refuse trades for stuff they can't store?
+					self[r] -= to_store;
+
 
 func sort_items()->void:
 	## only ever run if guaranteed that everything will fit

@@ -2,17 +2,20 @@ extends Node2D
 
 @export var world_map:WorldMap
 
-
 @export var noise_texture:NoiseTexture2D;
 @onready var noise:Noise = noise_texture.noise;
 
 const cell_size = 16;
 const entity_spawn_range = 4096;
 const quarter_tile_map_size = Vector2(entity_spawn_range/cell_size, entity_spawn_range/cell_size)
+const entity_padding = 50;
 
-const small_prop_amounts = entity_spawn_range/10;
-const large_prop_amounts = entity_spawn_range/50;
-const settlement_amount = entity_spawn_range/12;
+const small_prop_amounts = entity_spawn_range/50;
+const large_prop_amounts = entity_spawn_range/100;
+const settlement_amount = entity_spawn_range/50;
+
+const thugs_amount = 0;
+const travelling_traders_amount = entity_spawn_range/50;
 
 @export var small_prop_textures:Array[Texture];
 var small_prop_sprites:Array[Sprite2D];
@@ -82,8 +85,42 @@ func _ready() -> void:
 	
 	generate_settlements();
 	generate_props();
+	generate_parties();
+
+func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->void:
+	var leader:NpcLeader = leader_scene.instantiate();
+	var party:NpcMapParty = Index.npc_map_party_scene.instantiate();
+	
+	party.leader = leader;
+	
+	var vehicle:Vehicle = Index.vehicle_scenes.pick_random().instantiate()
+	vehicle.party = party;
+	party.vehicle = vehicle
+	var party_position:Vector2 = random_quadrant_position();
+	while position_taken(party_position, [party_positions]):
+		party_position = random_quadrant_position();
+	
+
+	## need to manually add containers to 
+	leader.generate(party_position.distance_to(Vector2.ZERO));
+	party.add_child(leader);
+	party.add_child(vehicle);
+	
+	var adjusted:Array = adjust_to_quadrants(party_position);
+	party.position = adjusted[0];
+	
+	var quadrant:WorldMapQuadrant = self["quadrant_" + str(adjusted[1])];
+	quadrant.add_child(party)
 	
 	
+func generate_parties()->void:
+	var party_positions:Array[Vector2]
+	for i:int in thugs_amount:
+		generate_party(Index.thugs_scene, party_positions)
+		
+	for i:int in travelling_traders_amount:
+		generate_party(Index.travelling_trader_scene, party_positions);
+
 func generate_props()->void:
 	for texture:Texture in small_prop_textures:
 		var sprite:Sprite2D = Sprite2D.new();
@@ -111,20 +148,15 @@ func generate_props()->void:
 
 func set_prop(which:Sprite2D, min_gap:float=30, small:bool=false)->void:
 	var prop:Sprite2D = which.duplicate();
-	var x_range:int = quarter_tile_map_size.x * cell_size;
-	var y_range:int = quarter_tile_map_size.y * cell_size
-	var x_roll := randi_range(-x_range, x_range);
-	var y_roll := randi_range(-y_range, y_range);
-	var target_position: = Vector2(x_roll,  y_roll)
+
 	
 	var taken_positions_arrays:Array[Array] = [settlement_positions, large_prop_positions];
 	if small:
 		taken_positions_arrays.append(small_prop_positions)
-		
+
+	var target_position: = random_quadrant_position();
 	while position_taken(target_position, taken_positions_arrays, min_gap):
-		x_roll = randi_range(-x_range, x_range);
-		y_roll = randi_range(-y_range, y_range);
-		target_position = Vector2(x_roll,  y_roll)
+		target_position = random_quadrant_position();
 	
 	if small:
 		small_prop_positions.append(target_position);
@@ -207,17 +239,9 @@ func generate_settlements()->void:
 		settlement.initiate_inventory();
 		settlement.name = settlement_name;
 		
-		var x_range:int = quarter_tile_map_size.x * cell_size;
-		var y_range:int = quarter_tile_map_size.y * cell_size
-		
-		var x_roll:int = randi_range(-x_range, x_range);
-		var y_roll:int = randi_range(-y_range, y_range);
-		var target_position:Vector2 = Vector2(x_roll,y_roll);
-		
+		var target_position:Vector2 = random_quadrant_position();
 		while position_taken(target_position, [settlement_positions]):
-			x_roll = randi_range(-x_range, x_range);
-			y_roll = randi_range(-y_range, y_range);
-			target_position = Vector2(x_roll,y_roll);
+			target_position = random_quadrant_position();
 			
 		settlement_positions.append(target_position)
 		
@@ -255,3 +279,13 @@ func set_neighbors(settlements:Array[Settlement])->void:
 		for d:float in keys:
 			s.neighbors.append(distances[d]);
 			
+func random_quadrant_position()->Vector2:
+	## range = x/y size of quadrant * -1 -- x/y size = anywhere within the 4 quadrants
+	const x_range = quarter_tile_map_size.x * cell_size;
+	const y_range = quarter_tile_map_size.y * cell_size;
+	
+		
+	var x_roll:int = randi_range(-x_range + entity_padding, x_range - entity_padding);
+	var y_roll:int = randi_range(-y_range + entity_padding, y_range - entity_padding);
+	
+	return Vector2(x_roll,y_roll);

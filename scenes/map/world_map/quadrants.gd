@@ -1,14 +1,15 @@
 extends "res://scenes/map/world_map/world_gen.gd"
 
+class_name WorldMapPlane
 
 @export var player_camera:Camera2D;
+
 
 var camera_top_margin:int;
 var camera_right_margin:int;
 var camera_bottom_margin:int;
 var camera_left_margin:int;
 
-var shifting:bool;
 
 
 func _ready() -> void:
@@ -16,17 +17,22 @@ func _ready() -> void:
 	super();
 	
 	set_camera_margins()
-	
+	Entities.in_map_player.position = Vector2(500, 500)
+
 	world_map.day_passed.emit()
 
+func set_corner_quadrants()->void:
+	all_quadrants.sort_custom(sort_top_left_to_bottom_right);
+
+	top_left_quadrant = all_quadrants[0];
+	bottom_right_quadrant = all_quadrants[3];
 
 func set_camera_margins()->void:
-	all_quadrants.sort_custom(func(a:WorldMapQuadrant, b:WorldMapQuadrant)->bool:return a.global_position < b.global_position);
-	top_left_quadrant = all_quadrants[0];
-	bottom_right_quadrant = top_left_quadrant.diagonal_quadrant;
-	
+	set_corner_quadrants()
+
 	var x_quadrant_extension:float = quarter_tile_map_size.x * cell_size;
 	var y_quadrant_extension:float = quarter_tile_map_size.y * cell_size;
+
 	
 	var window_size:Vector2 = get_window().size;
 	camera_top_margin = top_left_quadrant.global_position.y + window_size.y;
@@ -34,30 +40,7 @@ func set_camera_margins()->void:
 	camera_bottom_margin = bottom_right_quadrant.global_position.y + y_quadrant_extension - window_size.y;
 	camera_left_margin = top_left_quadrant.global_position.x + window_size.x;
 
-func shift_quadrants(way:Vector2)->void:
-	if not shifting:
-		shifting = true;
-		print("shfft?")
-		match way:
-			Vector2.UP:
-				var y_shift:float = quarter_tile_map_size.y * cell_size * 2
-				bottom_right_quadrant.position.y -= y_shift;
-				bottom_right_quadrant.x_adjacent_quadrant.position.y -= y_shift;
-			Vector2.RIGHT:
-				var x_shift:float = quarter_tile_map_size.x * cell_size * 2;
-				top_left_quadrant.position.x += x_shift;
-				top_left_quadrant.y_adjacent_quadrant.position.x += x_shift;
-			Vector2.DOWN:
-				var y_shift:float = quarter_tile_map_size.y * cell_size * 2
-				top_left_quadrant.position.y += y_shift
-				top_left_quadrant.x_adjacent_quadrant.position.y += y_shift 
-			Vector2.LEFT:
-				var x_shift:float = quarter_tile_map_size.x * cell_size * 2;
-				bottom_right_quadrant.position.x -= x_shift;
-				bottom_right_quadrant.y_adjacent_quadrant.position.x -= x_shift;
-		await get_tree().create_timer(.5).timeout;
-		set_camera_margins();
-		shifting = false;
+	$check_quadrant_shift.start();
 
 
 
@@ -68,8 +51,7 @@ func update_fog()->void:
 	## add a little buffer zone so you can't go back and forth too quickly? 
 	var player_grid_position:Vector2i = Vector2i(Entities.in_map_player.position/cell_size);
 	var sight_radius:float = Entities.player.sight_range/cell_size + 5;
-	## NOTE works percectly without the player getting reparented between quadrants
-	## (but we'll have to make that happen either way)
+	
 	for x in range(sight_radius * 2):
 		for y in range(sight_radius * 2):
 			var cell:Vector2i = Vector2i(x - sight_radius, y - sight_radius);
@@ -124,12 +106,45 @@ func get_quadrant_cell(cell_position:Vector2i)->Dictionary:
 	return dict
 		
 
-func _process(delta:float)->void:
+func check_quadrant_shift()->void:
 	if player_camera.global_position.y < camera_top_margin:
 		shift_quadrants(Vector2.UP)
-	elif player_camera.global_position.y >= camera_bottom_margin:
+	elif player_camera.global_position.y > camera_bottom_margin:
 		shift_quadrants(Vector2.DOWN)
-	if player_camera.global_position.x >= camera_right_margin:
+	if player_camera.global_position.x > camera_right_margin:
 		shift_quadrants(Vector2.RIGHT)
 	elif player_camera.global_position.x < camera_left_margin:
 		shift_quadrants(Vector2.LEFT)
+		
+
+func shift_quadrants(way:Vector2)->void:
+	match way:
+		Vector2.UP:
+			var y_shift:float = quarter_tile_map_size.y * cell_size * 2
+			
+			bottom_right_quadrant.position.y -= y_shift;
+			bottom_right_quadrant.x_adjacent_quadrant.position.y -= y_shift;
+		Vector2.RIGHT:
+			var x_shift:float = quarter_tile_map_size.x * cell_size * 2;
+			
+			top_left_quadrant.position.x += x_shift;
+			top_left_quadrant.y_adjacent_quadrant.position.x += x_shift;
+		Vector2.DOWN:
+			var y_shift:float = quarter_tile_map_size.y * cell_size * 2
+			
+			top_left_quadrant.position.y += y_shift
+			top_left_quadrant.x_adjacent_quadrant.position.y += y_shift
+		Vector2.LEFT:
+			var x_shift:float = quarter_tile_map_size.x * cell_size * 2;
+			
+			bottom_right_quadrant.position.x -= x_shift;
+			bottom_right_quadrant.y_adjacent_quadrant.position.x -= x_shift;
+
+	set_camera_margins();
+
+func sort_top_left_to_bottom_right(a: WorldMapQuadrant, b: WorldMapQuadrant) -> bool:
+	if a.global_position.y < b.global_position.y:
+		return true
+	if a.global_position.y > b.global_position.y:
+		return false
+	return a.global_position.x < b.global_position.x

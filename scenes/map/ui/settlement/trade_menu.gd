@@ -1,6 +1,10 @@
 extends Control
+class_name TradeMenu;
 
-@export_enum("settlement") var origin:String="settlement";
+signal trade_started;
+signal trade_finished;
+
+@export_enum("settlement", "dialogue") var origin:String="settlement";
 
 @export var player_inventory_display:InventoryDisplay;
 @export var trader_inventory_display:InventoryDisplay;
@@ -52,16 +56,24 @@ var chips_trade:int = 0;
 func start_trade(target:MapEntity)->void:
 	## initiation routines require both inventories to be assigned
 	player_name_label.text = Entities.player.name;
-	trader_name_label.text = target.name;
-	
-	player_inventory_display.current_inventory = Entities.player.inventory;
-	trader_inventory_display.current_inventory = target.inventory;
+	if target is Settlement:
+		trader_name_label.text = target.name;
+		trader_inventory_display.current_inventory = target.inventory;
+		Entities.current_trading_party = target;
+		target.inventory.sort_items();
 
-	Entities.current_trading_party = target;
+	elif target is NpcMapParty:
+		trader_name_label.text = target.leader.name;
+		trader_inventory_display.current_inventory = target.leader.inventory;
+		Entities.current_trading_party = target.leader;
+		target.leader.inventory.sort_items();
+
+
+	player_inventory_display.current_inventory = Entities.player.inventory;
+
 	player_inventory_display.set_grid()
 	player_inventory_display.refresh_data(true);
 	
-	target.inventory.sort_items();
 	trader_inventory_display.set_grid();
 	trader_inventory_display.refresh_data(true);
 	
@@ -69,6 +81,8 @@ func start_trade(target:MapEntity)->void:
 	
 	for r:String in Index.all_resources:
 		self[r + "_trade_label"].visible = player_inventory_display[r + "_hbox"].visible;
+	
+	trade_started.emit();
 
 func refresh_trade_balance()->void:
 	confirm_btn.disabled = false;
@@ -220,7 +234,11 @@ func set_label_text(label:Label, value:int)->void:
 
 
 func _on_exit_pressed() -> void:
+	trade_finished.emit();
 	if origin == "settlement":
 		var settlement_ui:UIRoot = get_parent()
 		settlement_ui.show_main_view();
 		settlement_ui.trade_finished.emit();
+	elif origin == "dialogue":
+		Entities.dialogue_player.after_trade();
+	

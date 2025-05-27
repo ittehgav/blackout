@@ -1,19 +1,42 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl2gyiuhaw0j2"]
+[gd_scene load_steps=7 format=3 uid="uid://bl2gyiuhaw0j2"]
 
 [ext_resource type="Script" uid="uid://c4fmwyrwsm6qk" path="res://scenes/map/map_party/npc_map_party.gd" id="1_lag4v"]
+[ext_resource type="Texture2D" uid="uid://ddunl8s2p0hj7" path="res://assets/visual/icons/behaviors/scared.png" id="2_3u04b"]
+[ext_resource type="Texture2D" uid="uid://dcncny6avsn1w" path="res://assets/visual/icons/behaviors/passive.png" id="3_oh505"]
+[ext_resource type="Texture2D" uid="uid://by7l0k6gjterq" path="res://assets/visual/icons/behaviors/idle.png" id="4_8niqr"]
+[ext_resource type="Texture2D" uid="uid://dm5lcd5nx7g2n" path="res://assets/visual/icons/behaviors/agressive.png" id="4_oh505"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpm2v"]
 radius = 25.0
 
-[node name="NpcMapParty" type="CharacterBody2D"]
+[node name="NpcMapParty" type="CharacterBody2D" node_paths=PackedStringArray("behavior_icon", "find_target_timer")]
+process_mode = 1
+z_index = 1
+collision_layer = 257
+collision_mask = 257
 motion_mode = 1
 script = ExtResource("1_lag4v")
+scared_icon_texture = ExtResource("2_3u04b")
+passive_icon_texture = ExtResource("3_oh505")
+agressive_icon_texture = ExtResource("4_oh505")
+idle_icon_texture = ExtResource("4_8niqr")
+behavior_icon = NodePath("behavior_icon")
+find_target_timer = NodePath("find_target")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qpm2v")
 
 [node name="find_target" type="Timer" parent="."]
-wait_time = 0.5
 autostart = true
+
+[node name="behavior_icon" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color(0.45, 0.45, 0.45, 0.537255)
+custom_minimum_size = Vector2(16, 16)
+offset_left = -16.0
+offset_top = -93.0
+offset_right = 24.0
+offset_bottom = -53.0
+texture = ExtResource("2_3u04b")
 
 [connection signal="timeout" from="find_target" to="." method="find_target"]

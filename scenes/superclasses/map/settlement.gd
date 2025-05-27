@@ -32,7 +32,6 @@ var player_inside:bool=false;
 
 var neighbors:Array[Settlement];
 
-var non_sellable_items:Array[Item];
 
 
 

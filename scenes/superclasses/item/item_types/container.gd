@@ -28,7 +28,7 @@ func drop_on_container(target:ResourceContainer, sfx_player:SfxPlayer)->bool:
 			stack_size = 0;
 			play_deposit_sfx(stack_size, sfx_player);
 			if "raw_stack" in self:
-				free()
+				queue_free()
 				return true;
 			return false
 		else:

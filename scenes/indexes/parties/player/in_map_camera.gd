@@ -7,13 +7,13 @@ var in_player:bool = true;
 @export var marker:Sprite2D;
 var zoom_tween:Tween;
 
+@export var player:InMapPlayer;
 
-const move_speed = 300;
 
+const move_speed = 600;
 
 
 func free_panning()->void:
-	position_smoothing_enabled = false
 	reparent(Entities.world_map);
 	in_player = false;
 
@@ -22,14 +22,16 @@ func return_to_player(instant:bool = false)->void:
 		in_player = true;
 		if not instant:
 			var tween:Tween = create_tween();
-			tween.set_trans(Tween.TRANS_CIRC)
-			tween.tween_property(self, "position", Entities.in_map_player.position, .25);
+			tween.set_ease(Tween.EASE_OUT);
+			tween.set_trans(Tween.TRANS_QUAD)
+			var duration:float = global_position.distance_to(player.global_position)/1000
+			tween.tween_property(self, "global_position", player.global_position, duration);
 			await tween.finished;
-			reparent(Entities.in_map_player, true);
-			global_position = Entities.in_map_player.global_position;
+			reparent(player, true);
+			position = Vector2.ZERO
 		else:
-			reparent(Entities.in_map_player);
-			global_position = Entities.in_map_player.global_position
+			reparent(player);
+			position = Vector2.ZERO
 
 
 func _process(delta: float) -> void:

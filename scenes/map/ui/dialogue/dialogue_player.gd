@@ -5,9 +5,12 @@ class_name DialoguePlayer;
 signal dialogue_started;
 signal dialogue_ended;
 
+var suspended:bool=false;
+
 @onready var manager:DialogueManager=DialogueManager;
 
 @export var current_dialogue:DialogueResource;
+@export var trade_menu:TradeMenu;
 
 @export_group("Scenes")
 @export var input_hold_timer:Timer;
@@ -33,16 +36,16 @@ var current_exposed:Sprite2D;
 var current_line:DialogueLine;
 
 func _ready()->void:
+	super();
 	manager.mutated.connect(check_end)
-	manager.dialogue_ended.connect(end_dialogue);
 	Entities.dialogue_player = self;
 	
 func _process(_delta:float)->void:
-	if Input.is_action_just_pressed("dialogue_next") and visible and not choices_box.visible:
+	if Input.is_action_just_pressed("dialogue_next") and visible and not choices_box.visible and not suspended:
 		dialogue_next();
 
-func start_dialogue(dialogue:DialogueResource)->void:
-	Entities.main_bgm.play_bgm("dialogue")
+func start_dialogue(target:Leader)->void:
+	Entities.main_bgm.play_bgm(target.party_type)
 	set_process_mode(Node.PROCESS_MODE_ALWAYS)
 	Entities.world_map.pause_map()
 	show()
@@ -50,7 +53,7 @@ func start_dialogue(dialogue:DialogueResource)->void:
 	
 	set_speaking_avatar();
 	
-	current_dialogue = dialogue;
+	current_dialogue = target.dialogue;
 	current_line = await manager.get_next_dialogue_line(current_dialogue, "start")
 	display_line()
 	
@@ -58,16 +61,19 @@ func start_dialogue(dialogue:DialogueResource)->void:
 	dialogue_started.emit()
 
 func end_dialogue()->void:
-	hide()
-	set_process_mode(Node.PROCESS_MODE_DISABLED)
-	Entities.world_map.unpause_map();
-	dialogue_ended.emit()
+	if not suspended:
+		hide()
+		set_process_mode(Node.PROCESS_MODE_DISABLED)
+		Entities.world_map.unpause_map();
+		dialogue_ended.emit()
 
 
 func check_end()->void:
-	var next_line:DialogueLine = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
-	if not next_line is DialogueLine:
-		end_dialogue()
+	if not suspended:
+		var next_line:DialogueLine = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
+		if not next_line is DialogueLine:
+			end_dialogue()
+
 
 func set_speaking_avatar()->void:
 	if current_speaking_sprite:
@@ -88,6 +94,7 @@ func dialogue_next()->void:
 	else:
 		get_next_line()
 
+
 func show_responses()->void:
 	expose_avatar(player_sprite)
 	for c in choices_container.get_children():
@@ -102,6 +109,7 @@ func show_responses()->void:
 		choices_container.add_child(button);
 
 	choices_box.show()
+
 
 func display_line()->void:
 	expose_avatar(current_speaking_sprite);
@@ -243,3 +251,16 @@ func _on_animation_ticker_timeout() -> void:
 
 func _on_speech_blip_finished() -> void:
 	blip.play();
+
+func start_trade()->void:
+	suspended = true;
+	Tweens.ui_fade_out(self)
+	Tweens.ui_fade_in(trade_menu);
+	trade_menu.start_trade(Entities.current_speaking_party);
+
+func after_trade()->void:
+	suspended = false;
+	Tweens.ui_fade_out(trade_menu);
+	Tweens.ui_fade_in(self)
+	current_line = await manager.get_next_dialogue_line(current_dialogue, "after_trade")
+	display_line()

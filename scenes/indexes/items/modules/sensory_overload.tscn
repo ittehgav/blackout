@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_uoo42"]
 radius = 100.0
 
-[node name="Sensory Overload Inducer" type="Sprite2D" node_paths=PackedStringArray("aoe_range")]
+[node name="Sensory Overload" type="Sprite2D" node_paths=PackedStringArray("aoe_range")]
 texture = ExtResource("1_uoo42")
 script = ExtResource("2_qlhdj")
 aoe_range = NodePath("range")

@@ -9,7 +9,7 @@ extends Sprite2D
 func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("place_marker") and not Entities.world_map.pause_stack:
 		if not visible:
-			show_in_position(Entities.world_map.get_local_mouse_position());
+			show_in_position(get_global_mouse_position());
 		else:
 			sfx.play_sound_by_key("marker_removed")
 			projection.hide();
@@ -46,5 +46,5 @@ func _process(_delta:float)->void:
 		
 func show_in_position(target:Vector2)->void:
 	sfx.play_sound_by_key("marker_placed")
-	position = target + Vector2(5, 5);
+	global_position = target + Vector2(5, 5);
 	show();

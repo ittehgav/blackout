@@ -51,7 +51,16 @@ func color_code_fighter(fighter:FighterBase, scheme:int, sample:bool=false)->voi
 	
 
 func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
-	var base_color:Color = Index.color_schemes[leader.color_scheme_index][1];
+	var base_color:Color;
+	
+	base_color = Index.color_schemes[leader.color_scheme_index][1]
+
+	match leader.name:
+		"Thugs":
+			base_color = Color.DARK_RED;
+		"Travelling Trader":
+			base_color = Color.LIGHT_GREEN;
+
 	var dict:= {
 		Color.BLUE:base_color.darkened(.5),
 		Color.GREEN: base_color

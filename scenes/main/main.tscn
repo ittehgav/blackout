@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=39 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
@@ -10,7 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://cbb5k61nskf8o" path="res://assets/sound/bgm/loops/combat.ogg" id="9_7smn1"]
 [ext_resource type="AudioStream" uid="uid://0fnfsxh017op" path="res://assets/sound/sfx/ui/cancel.ogg" id="10_ii537"]
 [ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/main_menu.ogg" id="10_raeie"]
-[ext_resource type="AudioStream" uid="uid://c401hatxeek87" path="res://assets/sound/bgm/loops/dialogue.ogg" id="11_blune"]
+[ext_resource type="AudioStream" uid="uid://c275jcn8n3vda" path="res://assets/sound/bgm/loops/thugs.ogg" id="10_rofvo"]
+[ext_resource type="AudioStream" uid="uid://dp1xrfwe656dj" path="res://assets/sound/bgm/loops/travelling_trader.ogg" id="11_tbnf8"]
 [ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="13_i7in8"]
 [ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="14_0bhws"]
 [ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/indexes/parties/generic/thugs.tscn" id="15_raeie"]
@@ -112,13 +113,14 @@ cancel = ExtResource("10_ii537")
 
 [node name="main_bgm" type="AudioStreamPlayer" parent="main_ui"]
 process_mode = 3
-volume_db = -5.0
+volume_db = -12.051
 script = ExtResource("6_ouso4")
 world_map = ExtResource("7_62atk")
 settlement = ExtResource("8_i7in8")
 combat = ExtResource("9_7smn1")
 intro = ExtResource("10_raeie")
-dialogue = ExtResource("11_blune")
+thugs = ExtResource("10_rofvo")
+travelling_trader = ExtResource("11_tbnf8")
 victory = ExtResource("14_0bhws")
 defeat = ExtResource("13_i7in8")
 

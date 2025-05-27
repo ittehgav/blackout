@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=32 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_grid/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_grid/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -16,7 +16,8 @@
 [ext_resource type="AudioStream" uid="uid://b6fwkkoof86w3" path="res://assets/sound/sfx/ui/inventory/resources/deposit_scrap_big.wav" id="13_ormkh"]
 [ext_resource type="AudioStream" uid="uid://cg6ya8ntw4pr4" path="res://assets/sound/sfx/ui/inventory/resources/deposit_chips.wav" id="14_15sfg"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="16_an643"]
-[ext_resource type="AudioStream" uid="uid://cnomp6rm87ghx" path="res://assets/sound/sfx/ui/equip.mp3" id="16_jjio2"]
+[ext_resource type="AudioStream" uid="uid://cnomp6rm87ghx" path="res://assets/sound/sfx/ui/inventory/weapon_equipped.mp3" id="16_jjio2"]
+[ext_resource type="AudioStream" uid="uid://byq71hx2dnw65" path="res://assets/sound/sfx/ui/inventory/module_equipped.wav" id="17_ed75d"]
 [ext_resource type="AudioStream" uid="uid://ch3t7uy42ms3k" path="res://assets/sound/sfx/ui/inventory/trade/trade.wav" id="17_ormkh"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="17_qglwj"]
 [ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="18_7uvto"]
@@ -145,6 +146,7 @@ deposit_scrap_small = ExtResource("12_jjio2")
 deposit_scrap_big = ExtResource("13_ormkh")
 deposit_chips = ExtResource("14_15sfg")
 weapon_equipped = ExtResource("16_jjio2")
+module_equipped = ExtResource("17_ed75d")
 trade = ExtResource("17_ormkh")
 invalid = ExtResource("18_7uvto")
 reset = ExtResource("19_h4har")

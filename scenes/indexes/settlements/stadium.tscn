@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://6qbhmvo1b1n1"]
+[gd_scene load_steps=8 format=3 uid="uid://6qbhmvo1b1n1"]
 
 [ext_resource type="Script" uid="uid://c0tv4lvnq0ut8" path="res://scenes/indexes/settlements/stadium.gd" id="1_c4yqw"]
 [ext_resource type="Texture2D" uid="uid://bs76wdl5mri45" path="res://assets/visual/backgrounds/settlements/stadium.png" id="2_rnr8g"]
@@ -6,7 +6,6 @@
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="3_rnr8g"]
 [ext_resource type="Texture2D" uid="uid://c8nitddjt5lpv" path="res://assets/visual/sprites/settlements/stadium.png" id="4_3i7pe"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="5_5c645"]
-[ext_resource type="PackedScene" uid="uid://dfma50xf3yute" path="res://scenes/map/settlement/settlement_shadoow.tscn" id="6_wb3yx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6g52u"]
 radius = 70.0
@@ -40,8 +39,15 @@ offset_bottom = 73.0
 
 [node name="Tooltip" parent="hover_box" node_paths=PackedStringArray("target") instance=ExtResource("5_5c645")]
 layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
 target = NodePath("../..")
-
-[node name="shadow" parent="." instance=ExtResource("6_wb3yx")]
-position = Vector2(0, 24)
-scale = Vector2(3, 3)

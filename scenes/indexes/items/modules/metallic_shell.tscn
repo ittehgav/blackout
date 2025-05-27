@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_tpyep"]
 radius = 100.0
 
-[node name="Metallic Shell Generator" type="Sprite2D" node_paths=PackedStringArray("aoe_range")]
+[node name="Metallic Shell" type="Sprite2D" node_paths=PackedStringArray("aoe_range")]
 texture = ExtResource("1_tpyep")
 script = ExtResource("2_jsric")
 aoe_range = NodePath("range")

@@ -15,12 +15,17 @@ const panel_z_shift = 2;
 @export var clock_panel:PanelContainer;
 @export var navigation:PanelContainer;
 
-@export var fade_tweens:Dictionary[PanelContainer, Variant]={}
+var fade_tweens:Dictionary[PanelContainer, Tween]={}
 
 const resoureces_panel_mouseover_shift = Vector2(5, 5);
 const party_status_panel_mouseover_shift = Vector2(5, 5);
 
 @onready var all_panels:Array[PanelContainer] = [party_panel, resources_panel, clock_panel, navigation]
+
+func _ready()->void:
+	for p in all_panels:
+		fade_tweens[p] = null;
+
 
 func update_clock() -> void:
 	var hour:int = Entities.world_map.current_hour;
@@ -102,6 +107,8 @@ func fade_panel_out(panel:PanelContainer)->void:
 func _on_resources_panel_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and e.pressed:
 		Entities.player_sheet.show_player_sheet();
+
+
 func _on_party_status_panel_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and e.button_index == 1 and e.pressed:
 		Entities.player_sheet.show_player_sheet(1);
@@ -144,6 +151,7 @@ func _on_settlement_ui_recruitment_started() -> void:
 	turn_fully_visible(resources_panel);
 	turn_fully_visible(party_panel);
 	navigation.hide()
+
 func _on_settlement_ui_recruitment_ended() -> void:
 	settlement_main_view();
 
@@ -162,3 +170,13 @@ func notify_new_memo(_memo: Memo) -> void:
 
 	else:
 		Entities.world_map.map_unpaused.connect(notify_new_memo.bind(_memo),  CONNECT_ONE_SHOT);
+
+
+func _on_pre_battle_pre_battle_started() -> void:
+	for p in all_panels:
+		p.hide()
+
+
+func _on_trade_menu_trade_started() -> void:
+	for p in all_panels:
+		p.hide()

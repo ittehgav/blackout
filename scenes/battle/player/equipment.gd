@@ -28,20 +28,20 @@ var current_float_tween:Tween;
 
 func _ready()->void:
 	await holder.ready
-	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate()
+	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate(DUPLICATE_USE_INSTANTIATION)
 	add_child(equipped_weapon);
 	equip_weapon(equipped_weapon)
 	
 	ColorCoder.color_code_weapon(equipped_weapon, Entities.player.color_scheme_index)
 	var alt_weapon:Weapon = Entities.player.alternative_weapon;
 	if alt_weapon:
-		alternative_weapon = alt_weapon.duplicate();
+		alternative_weapon = alt_weapon.duplicate(DUPLICATE_USE_INSTANTIATION);
 		ColorCoder.color_code_weapon(alternative_weapon, Entities.player.color_scheme_index)
 		add_child(alternative_weapon);
 		alternative_weapon.hide();
 		
 	
-	module = Entities.player.equipped_module;
+	module = Entities.player.equipped_module.duplicate(DUPLICATE_USE_INSTANTIATION);
 	module_cd.wait_time = module.cooldown;
 	module.equipped.emit();
 

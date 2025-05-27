@@ -24,7 +24,7 @@ func _ready()->void:
 	player_name_label.text = Entities.player.name;
 	Entities.pre_battle = self;
 
-func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader, origin:String="dialogue")->void:
+func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader, origin:String="dialogue")->void:	
 	to_fight = opponent;
 	from = origin;
 	enemy_name_label.text = opponent.name;

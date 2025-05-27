@@ -1,0 +1,44 @@
+[gd_scene load_steps=12 format=3 uid="uid://coxpycrvar2hg"]
+
+[ext_resource type="Script" uid="uid://dnt0hk8bwm38g" path="res://scenes/indexes/parties/generic/travelling_trader.gd" id="1_ure6u"]
+[ext_resource type="Resource" uid="uid://ukc4vfwshid7" path="res://resources/dialogues/travelling_trader.dialogue" id="2_7wog4"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="3_au82f"]
+[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="4_wbjwm"]
+[ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/indexes/items/containers/chips_case.tscn" id="5_au82f"]
+[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster.tscn" id="5_npx65"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="6_mhm5v"]
+[ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/indexes/items/containers/food_barrel.tscn" id="6_wbjwm"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/indexes/items/containers/fuel_barrel.tscn" id="7_mhm5v"]
+[ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/indexes/items/containers/juice_tank.tscn" id="8_bo0xd"]
+[ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/indexes/items/containers/scrap_compactor.tscn" id="9_ssmkr"]
+
+[node name="Travelling Trader" type="Node" node_paths=PackedStringArray("unit", "inventory", "roster", "combat_stats")]
+script = ExtResource("1_ure6u")
+party_type = "travelling_trader"
+dialogue = ExtResource("2_7wog4")
+unit = NodePath("unit")
+inventory = NodePath("Inventory")
+roster = NodePath("Roster")
+combat_stats = NodePath("stats")
+sight_range = 300
+
+[node name="unit" parent="." instance=ExtResource("3_au82f")]
+
+[node name="Inventory" parent="." node_paths=PackedStringArray("non_sellable_items", "holder", "containers") instance=ExtResource("4_wbjwm")]
+non_sellable_items = [NodePath("Chips Case"), NodePath("Food Barrel"), NodePath("Fuel Barrel"), NodePath("Juice Tank"), NodePath("Scrap Compactor")]
+holder = NodePath("..")
+containers = [NodePath("Chips Case"), NodePath("Food Barrel"), NodePath("Fuel Barrel"), NodePath("Juice Tank"), NodePath("Scrap Compactor")]
+
+[node name="Chips Case" parent="Inventory" instance=ExtResource("5_au82f")]
+
+[node name="Food Barrel" parent="Inventory" instance=ExtResource("6_wbjwm")]
+
+[node name="Fuel Barrel" parent="Inventory" instance=ExtResource("7_mhm5v")]
+
+[node name="Juice Tank" parent="Inventory" instance=ExtResource("8_bo0xd")]
+
+[node name="Scrap Compactor" parent="Inventory" instance=ExtResource("9_ssmkr")]
+
+[node name="Roster" parent="." instance=ExtResource("5_npx65")]
+
+[node name="stats" parent="." instance=ExtResource("6_mhm5v")]

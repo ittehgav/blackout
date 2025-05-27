@@ -122,7 +122,6 @@ func conclude_event()->void:
 	Tweens.ui_fade_in(conclusion_panel)
 	
 	var floating_changes:Array[Array];
-	var i:int = -1;
 	for stat:String in Index.all_combat_stats:
 		var gain:int = event["units_"+stat+ "_gain"];
 		if gain:

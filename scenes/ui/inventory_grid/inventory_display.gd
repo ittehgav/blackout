@@ -95,6 +95,12 @@ func _ready()->void:
 	if context == "player_sheet":
 		current_inventory = Entities.player.inventory;
 		set_grid();
+		
+	for r:String in Index.all_resources:
+		var icon:ResourceIcon = self[r+"_icon"];
+		if r != "money":
+			icon.mouse_entered.connect(highlight_resource_containers.bind(r))
+			icon.mouse_exited.connect(clear_resource_container_highlights.bind(r))
 
 func set_grid()->void:
 	if not grid_set:
@@ -138,9 +144,7 @@ func set_grid()->void:
 		var icon:ResourceIcon = self[r+"_icon"];
 		icon.source = current_inventory;
 		icon.setup_adjacent_items(current_inventory[r]);
-		if r != "money":
-			icon.mouse_entered.connect(highlight_resource_containers.bind(r))
-			icon.mouse_exited.connect(clear_resource_container_highlights.bind(r))
+
 			
 
 
@@ -171,13 +175,13 @@ func refresh_data(hard_reset:bool=false)->void:
 		else:
 			trade_excess_label_panel.hide();
 	
-	for r:String in Index.all_resources:
-		if r != "money":
-			var hbox:HBoxContainer = self[r+"_hbox"]
-			if not current_inventory[r] and not (trading_display and trading_display.current_inventory[r]):
-				hbox.hide()
-			else:
-				hbox.show();
+		for r:String in Index.all_resources:
+			if r != "money":
+				var hbox:HBoxContainer = self[r+"_hbox"]
+				if not current_inventory[r] and not (trading_display and trading_display.current_inventory[r]):
+					hbox.hide()
+				else:
+					hbox.show();
 	
 	for item_mirror:ItemMirror in item_mirrors_node.get_children():
 		item_mirror.refresh()
@@ -642,12 +646,14 @@ func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
 	if held_item_mirror:
 		held_item_mirror.held = false;
 		held_item_mirror = null;
-	if trading_display.held_item_mirror:
-		trading_display.held_item_mirror.held = false;
-		trading_display.held_item_mirror = null
+		
+
 	
 	if from == "trade":
 		sfx.play_sound_by_key("trade")
+		if trading_display.held_item_mirror:
+			trading_display.held_item_mirror.held = false;
+			trading_display.held_item_mirror = null
 	clear_hovered_cells()
 	
 	refresh_data(from=="sort");

@@ -25,7 +25,7 @@ func fade_out()->void:
 	fading = false
 
 
-func _on_memo_label_meta_clicked(key: Variant) -> void:
+func _on_memo_label_meta_clicked(_key: Variant) -> void:
 	settlement_ui.exit_settlement()
 	
 

@@ -30,14 +30,27 @@ func _ready() -> void:
 		setup();
 	## lots of places where the sample target is defined on load
 
-func setup()->void:
+func setup(first:bool=true)->void:
 	if not target:
 		free();
 		return
+	if target is Item:
+		sub_name_label.show()
+		if target is Weapon:
+			sub_name_label.text = "Weapon";
+		elif target is ResourceContainer:
+			if "raw_stack" in target:
+				sub_name_label.text = "Resource";
+			else:
+				sub_name_label.text = "Container";
+		elif target is Module:
+			sub_name_label.text = "Module";
+
 	
-	var parent:Node = get_parent();
-	parent.mouse_entered.connect(hover_timer.start);
-	parent.mouse_exited.connect(stop_hover_timer);
+	if first:
+		var parent:Node = get_parent();
+		parent.mouse_entered.connect(hover_timer.start);
+		parent.mouse_exited.connect(stop_hover_timer);
 
 	name_label.text = target.name;
 	if "sub_name" in target:

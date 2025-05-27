@@ -2,6 +2,8 @@ extends Leader
 
 class_name NpcLeader;
 
+@export_enum("thugs", "travelling_trader") var party_type:String;
+
 @export var dialogue:DialogueResource;
 @export var unit:FighterUnit
 
@@ -11,10 +13,22 @@ func generate(distance:float)->void:
 	## world conditions such as region and the player's level
 	
 	## probably make this reusable for other generic map parties
-	
 	for r:String in Index.all_resources:
-		inventory[r] = randi_range(1, distance * 2)
+		inventory[r] = randi_range(1, distance/50)
+		if party_type == "travelling_trader":
+			inventory[r] *= 2;
+	inventory.store_resources();
+		
+	var item_pool:Array[PackedScene] = Index.weapon_scenes + Index.module_scenes;
+	var roll:float = randf_range(0, 1);
+	if roll >= .5:
+		var item:Item = item_pool.pick_random().instantiate();
+		inventory.add_child(item)
 	
+	if party_type == "travelling_trader":
+		var extra_item:Item = item_pool.pick_random().instantiate();
+		inventory.add_child(extra_item);
+
 	var max_level:int = distance/80;
 	if max_level < 1:
 		max_level = 1;

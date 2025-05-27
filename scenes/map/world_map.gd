@@ -17,7 +17,7 @@ var current_month:int=1;
 var pause_stack:int = 0;
 
 var current_hour:int=16;
-var current_minute:int=30;
+var current_minute:int=50;
 
 @export var ui:Control;
 
@@ -129,6 +129,8 @@ func update_light()->void:
 		tween.parallel().tween_property(Entities.main_bgm, "pitch_scale", get_hour_pitch(), 2)
 	else:
 		modulate = target_color;
+
+
 func get_hour_pitch(hour:int = current_hour)->float:
 	var pitch_index:int;
 	if current_hour > 11:

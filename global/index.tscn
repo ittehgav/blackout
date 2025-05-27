@@ -1,10 +1,11 @@
-[gd_scene load_steps=57 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=68 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
 [ext_resource type="PackedScene" uid="uid://dw4kenb3r4atf" path="res://scenes/map/world_map/world_map.tscn" id="3_crfhx"]
 [ext_resource type="PackedScene" uid="uid://223t4ld55d7g" path="res://scenes/indexes/parties/generic/thugs.tscn" id="4_itsve"]
 [ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/indexes/vehicles/doblo.tscn" id="5_8gn63"]
+[ext_resource type="PackedScene" uid="uid://coxpycrvar2hg" path="res://scenes/indexes/parties/generic/travelling_trader.tscn" id="5_wvsvf"]
 [ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/indexes/vehicles/gol.tscn" id="6_7c6qx"]
 [ext_resource type="PackedScene" uid="uid://c83u8udv4ox01" path="res://scenes/indexes/vehicles/uno.tscn" id="7_jg6vw"]
 [ext_resource type="PackedScene" uid="uid://bl2gyiuhaw0j2" path="res://scenes/map/map_party/npc_map_party.tscn" id="8_4hk3t"]
@@ -37,14 +38,24 @@
 [ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/indexes/items/containers/chips_case.tscn" id="35_b8tab"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="36_bodi2"]
 [ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/indexes/fighters/mecharmguy.tscn" id="37_uqtag"]
+[ext_resource type="PackedScene" uid="uid://dbetfnnc4fgpt" path="res://scenes/indexes/items/weapons/kinematic_staff.tscn" id="37_wow25"]
+[ext_resource type="PackedScene" uid="uid://chgtgjl5g2lx3" path="res://scenes/indexes/items/weapons/spray_gun.tscn" id="38_mv15e"]
 [ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/indexes/fighters/doublearmguy.tscn" id="38_rhk7g"]
+[ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="39_1eftv"]
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="39_mosdq"]
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="40_q54vm"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="40_x8dpa"]
 [ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/indexes/fighters/gravityguy.tscn" id="41_c8d6o"]
+[ext_resource type="PackedScene" uid="uid://cv1ab43jxb7ky" path="res://scenes/indexes/items/weapons/taser_gun.tscn" id="41_v6ky4"]
 [ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/indexes/fighters/tailpipeguy.tscn" id="42_tu7gl"]
+[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/indexes/items/modules/adrenaline_synthethizer.tscn" id="42_xnhe2"]
+[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/indexes/items/modules/buckler.tscn" id="43_gshh2"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="43_mkby3"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="44_h637s"]
 [ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/indexes/fighters/doorguy.tscn" id="44_ruw64"]
+[ext_resource type="PackedScene" uid="uid://dqb34e0bl7mr7" path="res://scenes/indexes/items/modules/metallic_shell.tscn" id="45_bff4x"]
 [ext_resource type="PackedScene" uid="uid://3phgdfixhg5t" path="res://scenes/indexes/fighters/taserguy.tscn" id="45_gry1y"]
+[ext_resource type="PackedScene" uid="uid://c14j25tgu3icd" path="res://scenes/indexes/items/modules/sensory_overload.tscn" id="46_cg7d8"]
 [ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/indexes/fighters/tetherguy.tscn" id="46_wvsvf"]
 [ext_resource type="PackedScene" uid="uid://cn6wxjfhbdfcq" path="res://scenes/indexes/fighters/coilguy.tscn" id="47_j2p12"]
 [ext_resource type="PackedScene" uid="uid://3ia2lt54jpkr" path="res://scenes/indexes/events/chop_shop_gig.tscn" id="48_gry1y"]
@@ -61,7 +72,8 @@
 script = ExtResource("1_pkksx")
 arena_scene = ExtResource("2_dh1jb")
 world_map_scene = ExtResource("3_crfhx")
-common_leader_scenes = Array[PackedScene]([ExtResource("4_itsve")])
+thugs_scene = ExtResource("4_itsve")
+travelling_trader_scene = ExtResource("5_wvsvf")
 vehicle_scenes = Array[PackedScene]([ExtResource("5_8gn63"), ExtResource("6_7c6qx"), ExtResource("7_jg6vw")])
 npc_map_party_scene = ExtResource("8_4hk3t")
 farm_scene = ExtResource("9_7dxwq")
@@ -91,6 +103,8 @@ juice_tank_scene = ExtResource("32_lxltn")
 scrap_crate_scene = ExtResource("33_m3o62")
 scrap_compactor_scene = ExtResource("34_66xoq")
 chips_case_scene = ExtResource("35_b8tab")
+weapon_scenes = Array[PackedScene]([ExtResource("37_wow25"), ExtResource("38_mv15e"), ExtResource("39_1eftv"), ExtResource("40_x8dpa"), ExtResource("41_v6ky4")])
+module_scenes = Array[PackedScene]([ExtResource("42_xnhe2"), ExtResource("43_gshh2"), ExtResource("44_h637s"), ExtResource("45_bff4x"), ExtResource("46_cg7d8")])
 arm_guy_scene = ExtResource("36_bodi2")
 mech_arm_guy_scene = ExtResource("37_uqtag")
 double_arm_guy_scene = ExtResource("38_rhk7g")

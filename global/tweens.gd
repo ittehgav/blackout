@@ -103,7 +103,7 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	return tween;
 
 
-func ui_fade_in(target:CanvasItem,  duration:float = .5)->Tween:
+func ui_fade_in(target:CanvasItem, duration:float = .5)->Tween:
 	target.show();
 	
 	target.modulate.a = .1

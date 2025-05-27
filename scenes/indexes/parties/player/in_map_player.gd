@@ -13,12 +13,11 @@ func _ready()->void:
 func _input(e:InputEvent)->void:
 	if e is InputEventMouseButton and e.pressed \
 	and e.button_index==MOUSE_BUTTON_LEFT and not Entities.world_map.pause_stack:
-		var cursor_position:Vector2 = current_quadrant.get_local_mouse_position()
+		var cursor_position:Vector2 = get_global_mouse_position()
 		if position.distance_to(cursor_position) > 30:
 
-			target_position = cursor_position
-			if not camera.in_player:
-				target_position += camera.position - position;
+			target_position = cursor_position;
+
 			started_moving.emit();
 	if e.is_action_pressed("stop_movement"):
 		stop_movement();
@@ -42,10 +41,10 @@ func move_toward_entity()->void:
 	
 func _physics_process(_delta: float) -> void:
 	if target_position:
-		if position.distance_to(target_position) < 2.5:
+		if global_position.distance_to(target_position) < 2.5:
 			stop_movement();
 		else:
-			var gap:Vector2 = (target_position - position).normalized()
+			var gap:Vector2 = (target_position - global_position).normalized()
 			velocity = gap * move_speed;
 			move_and_slide();
 
@@ -64,7 +63,7 @@ func interact_with_map_entity(entity:MapEntity)->void:
 
 	elif entity is MapParty:
 		Entities.current_speaking_party = entity;
-		Entities.dialogue_player.start_dialogue(entity.leader.dialogue)
+		Entities.dialogue_player.start_dialogue(entity.leader)
 
 
 func _on_started_moving() -> void:
@@ -172,4 +171,11 @@ func _on_entity_entered_range(entity: MapEntity) -> void:
 	if entity is Settlement:
 		sfx.play_sound_by_key("settlement_contact");
 	elif entity is MapParty:
+		match entity.leader.behavior:
+			"agressive":
+				interact_with_map_entity(entity);
 		sfx.play_sound_by_key("map_party_contact");
+
+
+func _on_quadrant_changed(new_quadrant: WorldMapQuadrant, direction: Vector2) -> void:
+	super(new_quadrant, direction);

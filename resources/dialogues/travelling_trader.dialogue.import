@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://ukc4vfwshid7"
+path="res://.godot/imported/travelling_trader.dialogue-e6c81fe4e267fa89e2f8f7ff689b530e.tres"
+
+[deps]
+
+source_file="res://resources/dialogues/travelling_trader.dialogue"
+dest_files=["res://.godot/imported/travelling_trader.dialogue-e6c81fe4e267fa89e2f8f7ff689b530e.tres"]
+
+[params]
+
+defaults=true

@@ -9,12 +9,13 @@
 
 [node name="Thugs" type="Node" node_paths=PackedStringArray("unit", "inventory", "roster", "combat_stats")]
 script = ExtResource("1_0qe1h")
+party_type = "thugs"
 dialogue = ExtResource("2_30pqr")
 unit = NodePath("leader_fighter")
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("stats")
-sight_range = 500
+sight_range = 200
 
 [node name="leader_fighter" parent="." instance=ExtResource("2_a3g6n")]
 

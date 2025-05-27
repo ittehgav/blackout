@@ -5,7 +5,9 @@ extends Node
 @export var arena_scene:PackedScene;
 @export var world_map_scene:PackedScene;
 @export_subgroup("Map Entities")
-@export var common_leader_scenes:Array[PackedScene]
+@export var thugs_scene:PackedScene;
+@export var travelling_trader_scene:PackedScene;
+
 @export var vehicle_scenes:Array[PackedScene];
 @export var npc_map_party_scene:PackedScene;
 @export var farm_scene:PackedScene;
@@ -45,6 +47,10 @@ extends Node
 @export var scrap_compactor_scene:PackedScene;
 
 @export var chips_case_scene:PackedScene;
+@export_subgroup("Equipment Scenes")
+@export var weapon_scenes:Array[PackedScene];
+@export var module_scenes:Array[PackedScene]
+
 @export_subgroup("Fighter Base Scenes")
 @export var arm_guy_scene:PackedScene;
 @export var mech_arm_guy_scene:PackedScene;

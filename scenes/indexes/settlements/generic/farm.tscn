@@ -7,7 +7,7 @@
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="3_prkd2"]
 [ext_resource type="Texture2D" uid="uid://dvkldeq4wkpwa" path="res://assets/visual/backgrounds/settlements/farm/crowd2.png" id="4_jfju3"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="5_ptoka"]
-[ext_resource type="PackedScene" uid="uid://dfma50xf3yute" path="res://scenes/map/settlement/settlement_shadoow.tscn" id="6_i3mdt"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/settlements/shadow.png" id="7_cdknx"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_gw7tl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oyln7"]
@@ -31,9 +31,11 @@ material = ExtResource("3_prkd2")
 scale = Vector2(3, 3)
 texture = ExtResource("3_ks67y")
 
-[node name="shadow" parent="sprite" instance=ExtResource("6_i3mdt")]
-position = Vector2(0, 3.66667)
-script = null
+[node name="shadow" type="Sprite2D" parent="sprite"]
+modulate = Color(0, 0, 0, 0.34902)
+z_index = -1
+position = Vector2(0, 2.33333)
+texture = ExtResource("7_cdknx")
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("5_ptoka")]
 holder = NodePath("..")

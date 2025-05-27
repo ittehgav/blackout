@@ -11,6 +11,7 @@ class_name Leader
 
 @export var sight_range:int;
 
+@onready var party_name:String = name;
 
 func load_party(team:Team, team_n:int)->void:
 	var cols:Dictionary={"melee":[], "mid":[], "long":[]}

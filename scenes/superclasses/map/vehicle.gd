@@ -15,11 +15,22 @@ func _on_bounce_timeout() -> void:
 		frame_coords.y = 1;
 
 
+func adjust_direction(target_position:Vector2)->void:
+	flip_h =  target_position.x < global_position.x;
+	if global_position.y < target_position.y:
+		frame_coords.x = 1
+	else:
+		frame_coords.x = 0;
 
 
 func party_started_moving() -> void:
-	flip_h = party.position.x > party.target_position.x;
-	if party.position.y < party.target_position.y:
+	var target_position:Vector2;
+	if party.target_entity:
+		target_position = party.target_entity.global_position;
+	else:
+		target_position = party.target_position
+	flip_h = global_position.x > target_position.x;
+	if global_position.y < target_position.y:
 		frame_coords.x = 1;
 	else:
 		frame_coords.x = 0;

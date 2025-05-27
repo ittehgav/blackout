@@ -85,12 +85,11 @@ func load_item(target:Item, new_item:bool=false)->void:
 				tooltip.hint.text = "[right-click] to store"
 		if item is Weapon or item is Module:
 			tooltip.hint.text = "[right-click] to equip"
-			tooltip.hint.text = "[right-click] to equip"
 
 	else:
 		if display.current_inventory.holder is Settlement:
 			if item is ResourceContainer:
-				if item in display.current_inventory.holder.non_sellable_items:
+				if item in display.current_inventory.non_sellable_items:
 					tooltip.hint.text = "[right-click] to buy resources";
 				else:
 					if "raw_stack" in item:
@@ -167,6 +166,20 @@ func _on_gui_input(e: InputEvent) -> void:
 						display.item_dropped.emit(self)
 						
 						display.sfx.play_sound_by_key("weapon_equipped")
+						refresh()
+					elif item is Module:
+						var current_module:Module = Entities.player.equipped_module;
+						display.clear_cells(self);
+						Entities.player.equip_module(item);
+						item.mirror = null;
+						
+						current_module.inventory_position = inventory_position;
+						load_item(current_module, true);
+						## doesn't have to refit since all modules are the same size;
+						display.item_dropped.emit(self);
+						display.sfx.play_sound_by_key("module_equipped");
+						refresh()
+					
 				elif display.context == "trade":
 					trade_command()
 					return
@@ -241,7 +254,7 @@ func trade_command()->void:
 					display.trade_resource(item.resource, item.stack_size - traded_resource_amount);
 					return
 				else:
-					if display.from_player or not item in display.current_inventory.holder.non_sellable_items:
+					if display.from_player or not item in display.current_inventory.non_sellable_items:
 						display.trade_resource(item.resource, item.stack_size);
 						return
 					else:
@@ -250,7 +263,7 @@ func trade_command()->void:
 						display.invalid_move.emit("CONTAINER NOT FOR SALE")
 						return
 		else:
-			if display.from_player or not item in display.current_inventory.holder.non_sellable_items:
+			if display.from_player or not item in display.current_inventory.non_sellable_items:
 				display.trade_item(self);
 				return
 			else:
@@ -335,6 +348,9 @@ func set_price()->void:
 
 
 func refresh()->void:
+	tooltip.target = item;
+	tooltip.setup(false);
+	
 	if display.context == "trade":
 		set_price();
 		if being_traded:

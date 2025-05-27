@@ -42,6 +42,6 @@ func setup_action_prompt()->void:
 		if time_cost:
 			prompt += ", ";
 		## probably change this eventually
-		prompt += "$" + str(-money_change);
+		prompt +=Index.get_color_tag("money")+ "$" + str(-money_change);
 
 	final_action_prompt = prompt

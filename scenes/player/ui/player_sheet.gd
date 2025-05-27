@@ -89,18 +89,21 @@ func hide_player_sheet(_meta:Variant="")->void:
 
 func refresh_data(_r:String="", _change:float=0)->void:
 	## will show upkeep costs when upkeep is implemented
-	morale_label.text = "Morale: " + str(snapped(Entities.player.morale, .01));
-	
-	gear.refresh_samples()
+	if visible:
+		## runs when you open inventory so
+		## only needs to refresh off of signals when change happens in-context
+		morale_label.text = "Morale: " + str(snapped(Entities.player.morale, .01));
+		
+		gear.refresh_samples()
 
 
-	player_inventory.refresh_data(true);
-	party_view.refresh_data();
-	player_view.refresh_data();
-	memos_view.refresh_data();
+		player_inventory.refresh_data(true);
+		party_view.refresh_data();
+		player_view.refresh_data();
+		memos_view.refresh_data();
 
-func _on_player_equipment_changed() -> void:
-	gear.refresh_samples(true)
+func _on_player_equipment_changed(changed:Equipment) -> void:
+	gear.refresh_samples(changed)
 
 
 func _on_player_new_memo(_memo: Memo) -> void:

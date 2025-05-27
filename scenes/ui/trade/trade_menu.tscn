@@ -434,8 +434,8 @@ from_player = false
 trading_display = NodePath("../../player_panel/player_inventory_display")
 
 [node name="VBoxContainer" parent="HBoxContainer/trader_panel/trader_inventory_display" index="2"]
-offset_left = -285.0
-offset_right = -174.0
+offset_left = -276.0
+offset_right = -165.0
 offset_bottom = 456.0
 
 [node name="money_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer3" index="0"]

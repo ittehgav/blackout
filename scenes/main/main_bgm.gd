@@ -4,7 +4,9 @@ extends AudioStreamPlayer
 @export var settlement:AudioStream;
 @export var combat:AudioStream;
 @export var intro:AudioStream;
-@export var dialogue:AudioStream;
+
+@export var thugs:AudioStream;
+@export var travelling_trader:AudioStream;
 
 @export var victory:AudioStream;
 @export var defeat:AudioStream;
@@ -28,7 +30,7 @@ func play_bgm(key:String)->void:
 		if stream == world_map:
 			pitch_scale = Entities.world_map.get_hour_pitch()
 
-		#play();
+		play();
 
 
 func _on_finished() -> void:

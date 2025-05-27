@@ -5,7 +5,6 @@ extends Control
 
 
 func refresh_data()->void:
-	var registered_memos:Array[Node] = memos_container.get_children();
 	for memo:Memo in Entities.player.memos:
 		if memo.register:
 			if memo.expired:

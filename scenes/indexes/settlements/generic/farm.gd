@@ -14,18 +14,18 @@ var flavor:String = "Settlement formed around patches of fertile land.\nVery lit
 func initiate_inventory()->void:
 	var basket:ResourceContainer = Index.food_basket_scene.instantiate();
 	inventory.add_child(basket)
-	non_sellable_items.append(basket);
+	inventory.non_sellable_items.append(basket);
 	
 	var tank:ResourceContainer = Index.fuel_tank_scene.instantiate();
 	inventory.add_child(tank)
-	non_sellable_items.append(tank)
+	inventory.non_sellable_items.append(tank)
 	
 	var flask:ResourceContainer = Index.juice_flask_scene.instantiate();
 	inventory.add_child(flask);
-	non_sellable_items.append(flask);
+	inventory.non_sellable_items.append(flask);
 	
 	var crate:ResourceContainer = Index.scrap_crate_scene.instantiate();
 	inventory.add_child(crate);
-	non_sellable_items.append(crate);
+	inventory.non_sellable_items.append(crate);
 	
 	

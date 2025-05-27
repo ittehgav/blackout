@@ -404,11 +404,10 @@ alignment = 1
 [node name="party_and_inventory" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-current_tab = 2
+current_tab = 0
 tab_focus_mode = 1
 
 [node name="Inventory" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("inventory_panel", "inventory_display")]
-visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("8_hv25b")
@@ -447,6 +446,9 @@ material = SubResource("ShaderMaterial_jjio2")
 
 [node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer2" index="0"]
 material = SubResource("ShaderMaterial_an643")
+
+[node name="HBoxContainer4" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer" index="4"]
+visible = true
 
 [node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer4" index="0"]
 material = SubResource("ShaderMaterial_ormkh")
@@ -492,9 +494,9 @@ offset_bottom = 321.0
 script = ExtResource("10_guigk")
 player_sample = NodePath("Control/player_sample")
 weapon_sample = NodePath("HBoxContainer/VBoxContainer/weapon_sample")
-weapon_sample_bg = NodePath("HBoxContainer/VBoxContainer/weapon_sample/ColorRect")
+weapon_sample_bg = NodePath("HBoxContainer/VBoxContainer/weapon_sample/bg")
 module_sample = NodePath("HBoxContainer/VBoxContainer2/module_sample")
-module_sample_bg = NodePath("HBoxContainer/VBoxContainer2/module_sample/ColorRect")
+module_sample_bg = NodePath("HBoxContainer/VBoxContainer2/module_sample/bg")
 
 [node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 2
@@ -545,7 +547,7 @@ material = SubResource("ShaderMaterial_s8tnr")
 layout_mode = 2
 expand_mode = 5
 
-[node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/HBoxContainer/VBoxContainer/weapon_sample"]
+[node name="bg" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/HBoxContainer/VBoxContainer/weapon_sample"]
 modulate = Color(1, 1, 1, 0.117647)
 z_index = -1
 layout_mode = 1
@@ -568,7 +570,7 @@ material = SubResource("ShaderMaterial_hv25b")
 layout_mode = 2
 expand_mode = 5
 
-[node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/HBoxContainer/VBoxContainer2/module_sample"]
+[node name="bg" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/HBoxContainer/VBoxContainer2/module_sample"]
 modulate = Color(1, 1, 1, 0.117647)
 z_index = -1
 layout_mode = 1
@@ -659,6 +661,7 @@ texture = ExtResource("20_s8tnr")
 script = ExtResource("21_hv25b")
 
 [node name="Memos" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("memos_container", "memo_item")]
+visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("23_veb6b")
