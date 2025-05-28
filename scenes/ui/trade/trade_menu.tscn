@@ -196,7 +196,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0.556863)
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 64
 
-[node name="player_inventory_display" parent="HBoxContainer/player_panel" node_paths=PackedStringArray("trading_display") instance=ExtResource("2_ln21g")]
+[node name="player_inventory_display" parent="HBoxContainer/player_panel" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("2_ln21g")]
 layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
@@ -208,7 +208,7 @@ offset_bottom = 75.0
 grow_horizontal = 1
 grow_vertical = 1
 context = "trade"
-trading_display = NodePath("../../trader_panel/trader_inventory_display")
+exchanging_display = NodePath("../../trader_panel/trader_inventory_display")
 
 [node name="VBoxContainer" parent="HBoxContainer/player_panel/player_inventory_display" index="2"]
 offset_left = 392.0
@@ -235,9 +235,6 @@ material = SubResource("ShaderMaterial_an643")
 [node name="fuel" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer2" index="1"]
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
-
-[node name="HBoxContainer4" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer" index="4"]
-visible = true
 
 [node name="juice_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer4" index="0"]
 material = SubResource("ShaderMaterial_ormkh")
@@ -423,7 +420,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0.556863)
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 64
 
-[node name="trader_inventory_display" parent="HBoxContainer/trader_panel" node_paths=PackedStringArray("trading_display") instance=ExtResource("2_ln21g")]
+[node name="trader_inventory_display" parent="HBoxContainer/trader_panel" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("2_ln21g")]
 layout_mode = 1
 offset_left = 15.0
 offset_top = 74.0
@@ -431,7 +428,7 @@ offset_right = 15.0
 offset_bottom = 24.0
 context = "trade"
 from_player = false
-trading_display = NodePath("../../player_panel/player_inventory_display")
+exchanging_display = NodePath("../../player_panel/player_inventory_display")
 
 [node name="VBoxContainer" parent="HBoxContainer/trader_panel/trader_inventory_display" index="2"]
 offset_left = -276.0
@@ -459,9 +456,6 @@ material = SubResource("ShaderMaterial_8o88u")
 [node name="fuel" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer2" index="1"]
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
-
-[node name="HBoxContainer4" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer" index="4"]
-visible = true
 
 [node name="juice_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer4" index="0"]
 material = SubResource("ShaderMaterial_yg835")
@@ -512,7 +506,7 @@ grow_horizontal = 2
 grow_vertical = 2
 trade_menu = NodePath("../../../..")
 
-[node name="operation" parent="HBoxContainer/trader_panel/trader_inventory_display/trade_rect" index="0"]
+[node name="operation" parent="HBoxContainer/trader_panel/trader_inventory_display/send_rect" index="0"]
 text = "SELL"
 
 [node name="trade_excess" parent="HBoxContainer/trader_panel/trader_inventory_display" index="8"]

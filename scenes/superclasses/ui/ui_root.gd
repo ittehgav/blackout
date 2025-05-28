@@ -4,11 +4,9 @@ class_name UIRoot;
 
 @export var ui_sfx:UISFX;
 
-
 func _ready()->void:
 	resize()
 	recursive_connect_ui_feedback(self)
-	get_tree().root.size_changed.connect(resize);
 	
 
 func resize()->void:

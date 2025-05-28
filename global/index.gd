@@ -4,6 +4,7 @@ extends Node
 @export_subgroup("Game States")
 @export var arena_scene:PackedScene;
 @export var world_map_scene:PackedScene;
+
 @export_subgroup("Map Entities")
 @export var thugs_scene:PackedScene;
 @export var travelling_trader_scene:PackedScene;
@@ -13,9 +14,11 @@ extends Node
 @export var farm_scene:PackedScene;
 @export var factory_scene:PackedScene;
 @export var scrapyard_scene:PackedScene
+
 @export_subgroup("In Fight Entities")
 @export var fighter_unit_scene:PackedScene;
 @export var npc_fighter_scene:PackedScene;
+
 @export_subgroup("UI Scenes")
 @export var stat_icon_scene:PackedScene;
 @export var resource_icon_scene:PackedScene;
@@ -50,6 +53,14 @@ extends Node
 @export_subgroup("Equipment Scenes")
 @export var weapon_scenes:Array[PackedScene];
 @export var module_scenes:Array[PackedScene]
+
+@export_subgroup("Item Scene Groups")
+## grouping them in ways to facilitate loot genration
+## add items here as other types are implemented
+## TODO tool scripts?
+@export var rarity_1_item_scenes:Array[PackedScene];
+@export var rarity_2_item_scenes:Array[PackedScene];
+@export var rarity_3_item_scenes:Array[PackedScene];
 
 @export_subgroup("Fighter Base Scenes")
 @export var arm_guy_scene:PackedScene;

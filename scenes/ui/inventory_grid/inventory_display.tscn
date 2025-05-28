@@ -92,7 +92,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("resource_picker", "item_mirrors_node", "grid", "sfx", "hover_sfx", "warning_label", "trade_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "food_icon", "food_hbox", "fuel_icon", "fuel_hbox", "juice_icon", "juice_hbox", "scrap_icon", "scrap_hbox", "chips_icon", "chips_hbox")]
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("resource_picker", "item_mirrors_node", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "food_icon", "food_hbox", "fuel_icon", "fuel_hbox", "juice_icon", "juice_hbox", "scrap_icon", "scrap_hbox", "chips_icon", "chips_hbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -108,7 +108,7 @@ grid = NodePath("inventory_grid")
 sfx = NodePath("sfx")
 hover_sfx = NodePath("hover_sfx")
 warning_label = NodePath("warning")
-trade_rect = NodePath("trade_rect")
+send_rect = NodePath("send_rect")
 trade_excess = NodePath("trade_excess")
 trade_excess_container = NodePath("trade_excess/trade_excess_container")
 trade_excess_label_panel = NodePath("trade_excess_label_panel")
@@ -215,7 +215,6 @@ theme_override_font_sizes/font_size = 48
 text = "11"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="juice_icon" parent="VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
@@ -376,7 +375,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0.501961)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 48
 
-[node name="trade_rect" type="ColorRect" parent="."]
+[node name="send_rect" type="ColorRect" parent="."]
 visible = false
 z_index = 5
 layout_mode = 1
@@ -387,7 +386,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.678431)
 
-[node name="operation" type="Label" parent="trade_rect"]
+[node name="operation" type="Label" parent="send_rect"]
 layout_mode = 0
 offset_left = 122.0
 offset_top = 202.0

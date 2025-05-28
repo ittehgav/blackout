@@ -135,7 +135,6 @@ func change_resource(resource:String, amount:int)->void:
 
 func _on_child_exiting_tree(node: Node) -> void:
 	assert(node is Item)
-
 	if node is Consumable:
 		consumables.erase(node);
 	elif node is Trinket:

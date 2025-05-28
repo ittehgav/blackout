@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://pi6xjy2cxb0a" path="res://assets/sound/sfx/ui/level_up.wav" id="5_u8n47"]
 
 [node name="exp_bar" type="TextureProgressBar" node_paths=PackedStringArray("level_up_text", "level_up_sfx")]
-custom_minimum_size = Vector2(400, 20)
+custom_minimum_size = Vector2(200, 20)
 step = 0.1
 value = 50.0
 nine_patch_stretch = true

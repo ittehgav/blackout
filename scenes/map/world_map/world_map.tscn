@@ -852,7 +852,7 @@ diagonal_quadrant = NodePath("../quadrant_1")
 
 [node name="in_map_player" parent="quadrants/quadrant_4" instance=ExtResource("4_vgkop")]
 z_index = 2
-position = Vector2(4057, 5080)
+position = Vector2(202, 221)
 
 [node name="Gol" parent="quadrants/quadrant_4/in_map_player" index="1" node_paths=PackedStringArray("party")]
 party = NodePath("..")

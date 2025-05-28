@@ -158,3 +158,4 @@ func _on_settlement_ui_settlement_left() -> void:
 func _on_returned_from_battle(won: bool) -> void:
 	## where something different will happen if you lose 
 	Entities.current_speaking_party.queue_free();
+	Entities.player.reparent(Entities.in_map_player)

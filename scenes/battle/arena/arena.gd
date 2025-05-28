@@ -36,7 +36,6 @@ func start_battle(enemy_leader:Leader)->void:
 	get_tree().paused = false
 	overlay.tide_bar.set_tide_bar();
 
-
 	generate_battle_reward(enemy_leader);
 
 func return_to_world_map()->void:

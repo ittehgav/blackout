@@ -41,7 +41,7 @@ func _ready()->void:
 	Entities.dialogue_player = self;
 	
 func _process(_delta:float)->void:
-	if Input.is_action_just_pressed("dialogue_next") and visible and not choices_box.visible and not suspended:
+	if Input.is_action_just_pressed("dialogue_next") and visible and (not choices_box.visible) and not suspended:
 		dialogue_next();
 
 func start_dialogue(target:Leader)->void:

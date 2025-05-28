@@ -3,6 +3,8 @@ extends Control;
 class_name SpriteSample;
 
 
+
+
 @export var target_base:Sprite2D=null;
 @export var additional_data:Label;
 

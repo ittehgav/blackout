@@ -2,7 +2,7 @@ extends TextureProgressBar
 
 class_name ExperienceBar;
 
-signal bar_level_up;
+signal level_up;
 signal feedback_finished
 
 @onready var original_size:Vector2 = size;
@@ -63,6 +63,8 @@ func update_max_value()->void:
 
 	
 func animate(increase:float)->void:
+	## THIS IS WHERE ALL EXP GAIN FOR ALL 
+	## UNITS AND THE PLAYER IS APPLIED
 	var tween := create_tween();
 	if value + increase < max_value:
 		exp_gain_animation(tween, increase);
@@ -94,7 +96,7 @@ func level_up_feedback()->void:
 	var tween := create_tween()
 	stretch()
 	floating_text()
-	bar_level_up.emit()
+	level_up.emit()
 	tween.tween_property(self, "custom_minimum_size", original_size, .15);
 	tween.parallel().tween_property(self, "size", original_size, .15);
 

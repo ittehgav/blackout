@@ -48,8 +48,11 @@ func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader, or
 func _on_start_battle_pressed() -> void:
 	var arena:Arena = Index.arena_scene.instantiate();
 	arena.start_battle(to_fight)
-	slide_out()
-
+	hide();
+	## so inventory stays consitent
+	## probably make a better solution eventually
+	Entities.player.reparent(Entities.arena);
+	
 	Entities.main.remove_child(Entities.world_map)
 
 
@@ -78,8 +81,3 @@ func slide_in()->void:
 	tween.tween_property(plates_container, "theme_override_constants/separation", 200, 1);
 	tween.set_trans(Tween.TRANS_ELASTIC);
 	tween.tween_property(plates_container, "theme_override_constants/separation", 0, .5);
-
-func slide_out()->void:
-	var tween:Tween = create_tween();
-	tween.set_trans(Tween.TRANS_CIRC)
-	tween.tween_property(plates_container, "theme_override_constants/separation", 1000, 1.5)

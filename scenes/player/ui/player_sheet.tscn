@@ -110,7 +110,7 @@ shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0, 0, 0, 0.552941)
 shader_parameter/width = 2.0
-shader_parameter/pattern = 0
+shader_parameter/pattern = 1
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
@@ -446,9 +446,6 @@ material = SubResource("ShaderMaterial_jjio2")
 
 [node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer2" index="0"]
 material = SubResource("ShaderMaterial_an643")
-
-[node name="HBoxContainer4" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer" index="4"]
-visible = true
 
 [node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer4" index="0"]
 material = SubResource("ShaderMaterial_ormkh")
@@ -969,7 +966,7 @@ text = "press any key to continue"
 
 [connection signal="extension_hidden" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_inventory_display_extension_hidden"]
 [connection signal="extension_shown" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_inventory_display_extension_shown"]
-[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/VBoxContainer/store_resources" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" method="_on_store_resources_pressed"]
-[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/VBoxContainer/sort_inventory" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" method="_on_sort_inventory_pressed"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/VBoxContainer/store_resources" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" method="store_all_resources" binds= [true]]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/VBoxContainer/sort_inventory" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" method="sort_inventory"]
 
 [editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display"]

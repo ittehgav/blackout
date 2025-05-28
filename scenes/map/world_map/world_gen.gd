@@ -87,7 +87,7 @@ func _ready() -> void:
 	generate_props();
 	generate_parties();
 
-func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->void:
+func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->NpcMapParty:
 	var leader:NpcLeader = leader_scene.instantiate();
 	var party:NpcMapParty = Index.npc_map_party_scene.instantiate();
 	
@@ -101,7 +101,6 @@ func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->v
 		party_position = random_quadrant_position();
 	
 
-	## need to manually add containers to 
 	leader.generate(party_position.distance_to(Vector2.ZERO));
 	party.add_child(leader);
 	party.add_child(vehicle);
@@ -112,11 +111,15 @@ func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->v
 	var quadrant:WorldMapQuadrant = self["quadrant_" + str(adjusted[1])];
 	quadrant.add_child(party)
 	
+	return party
+	
 	
 func generate_parties()->void:
 	var party_positions:Array[Vector2]
+	var party:NpcMapParty;
 	for i:int in thugs_amount:
-		generate_party(Index.thugs_scene, party_positions)
+		party = generate_party(Index.thugs_scene, party_positions)
+	party.global_position = Vector2.ZERO
 		
 	for i:int in travelling_traders_amount:
 		generate_party(Index.travelling_trader_scene, party_positions);

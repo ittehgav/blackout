@@ -58,18 +58,18 @@ func start_trade(target:MapEntity)->void:
 	player_name_label.text = Entities.player.name;
 	if target is Settlement:
 		trader_name_label.text = target.name;
-		trader_inventory_display.current_inventory = target.inventory;
+		trader_inventory_display.inventory = target.inventory;
 		Entities.current_trading_party = target;
 		target.inventory.sort_items();
 
 	elif target is NpcMapParty:
 		trader_name_label.text = target.leader.name;
-		trader_inventory_display.current_inventory = target.leader.inventory;
+		trader_inventory_display.inventory = target.leader.inventory;
 		Entities.current_trading_party = target.leader;
 		target.leader.inventory.sort_items();
 
 
-	player_inventory_display.current_inventory = Entities.player.inventory;
+	player_inventory_display.inventory = Entities.player.inventory;
 
 	player_inventory_display.set_grid()
 	player_inventory_display.refresh_data(true);
@@ -98,12 +98,12 @@ func refresh_trade_balance()->void:
 			## TRADE < 0 = PLAYER SELLING
 			## trade is negatgive here so money_trade gets subtracted and volume added
 			reset_btn.disabled = false
-			var value:int = trader_inventory_display.current_inventory.resource_selling_prices[r] * trade
+			var value:int = trader_inventory_display.inventory.resource_selling_prices[r] * trade
 			money_trade -= value;
 			trade_volume += value;
 		elif trade > 0:
 			reset_btn.disabled = false;
-			var value:int = trader_inventory_display.current_inventory.resource_buying_prices[r] * trade
+			var value:int = trader_inventory_display.inventory.resource_buying_prices[r] * trade
 			money_trade -= value;
 			trade_volume += value 
 
@@ -131,8 +131,8 @@ func refresh_trade_balance()->void:
 				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
 				label.modulate = Color.YELLOW;
 				
-	if trader_inventory_display.current_inventory.money < money_trade or\
-	player_inventory_display.current_inventory.money < -money_trade:
+	if trader_inventory_display.inventory.money < money_trade or\
+	player_inventory_display.inventory.money < -money_trade:
 		confirm_btn.disabled = true;
 		money_trade_label.add_theme_color_override("font_color", Color.GRAY.darkened(.5));
 	else:
@@ -208,15 +208,15 @@ func finish_trade()->void:
 			
 		
 			
-			var player_after:int = player_inventory_display.current_inventory[r] + self[r+"_trade"]
+			var player_after:int = player_inventory_display.inventory[r] + self[r+"_trade"]
 		
-			var trader_after:int = trader_inventory_display.current_inventory[r] - self[r+"_trade"]
+			var trader_after:int = trader_inventory_display.inventory[r] - self[r+"_trade"]
 			
 			trade_label_tween.tween_property(trade_label, "text", str(0), tween_duration)
 			trade_label_tween.tween_callback(trade_label.set_text.bind(""))
 			
-			player_inventory_display.current_inventory[r] += trade
-			trader_inventory_display.current_inventory[r] -= trade
+			player_inventory_display.inventory[r] += trade
+			trader_inventory_display.inventory[r] -= trade
 			
 			player_label_tween.tween_property(player_value_label, "text", str(player_after), tween_duration);
 			trader_label_tween.tween_property(trader_value_label, "text", str(trader_after), tween_duration);

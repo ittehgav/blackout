@@ -26,7 +26,7 @@ var held:bool;
 var droppable:bool;
 var being_highlighted:bool;
 var vacant_spot_offset:Vector2i;
-var trade_on_drop:bool = false;
+var send_on_drop:bool = false;
 
 var shader_color:Color;
 var outline_color:Color;
@@ -87,9 +87,9 @@ func load_item(target:Item, new_item:bool=false)->void:
 			tooltip.hint.text = "[right-click] to equip"
 
 	else:
-		if display.current_inventory.holder is Settlement:
+		if display.inventory.holder is Settlement:
 			if item is ResourceContainer:
-				if item in display.current_inventory.non_sellable_items:
+				if item in display.inventory.non_sellable_items:
 					tooltip.hint.text = "[right-click] to buy resources";
 				else:
 					if "raw_stack" in item:
@@ -150,8 +150,6 @@ func _on_gui_input(e: InputEvent) -> void:
 							for stack in new_stacks:
 								display.throw_in_inventory(stack)
 							display.item_dropped.emit(self)
-							
-							
 					elif item is Weapon:
 						var current_weapon:Weapon = Entities.player.equipped_weapon;
 						display.clear_cells(self);
@@ -179,10 +177,12 @@ func _on_gui_input(e: InputEvent) -> void:
 						display.item_dropped.emit(self);
 						display.sfx.play_sound_by_key("module_equipped");
 						refresh()
-					
 				elif display.context == "trade":
 					trade_command()
 					return
+				elif display.context == "loot":
+					loot_command();
+					return;
 		else:
 			if e.button_index == MOUSE_BUTTON_LEFT:
 				put_down();
@@ -223,7 +223,7 @@ func put_down()->void:
 	if not droppable:
 		position = origin_position;
 	else:
-		if trade_on_drop:
+		if send_on_drop:
 			trade_command();
 			return
 		else:
@@ -236,6 +236,9 @@ func place_on_spot()->void:
 		projection_position += vacant_spot_offset
 	display.sfx.play_sound_by_key("drop")
 	inventory_position = projection_position;
+
+func loot_command()->void:
+	display.send_item(self);
 
 func trade_command()->void:
 	if item is ResourceContainer:
@@ -254,7 +257,7 @@ func trade_command()->void:
 					display.trade_resource(item.resource, item.stack_size - traded_resource_amount);
 					return
 				else:
-					if display.from_player or not item in display.current_inventory.non_sellable_items:
+					if display.from_player or not item in display.inventory.non_sellable_items:
 						display.trade_resource(item.resource, item.stack_size);
 						return
 					else:
@@ -263,8 +266,8 @@ func trade_command()->void:
 						display.invalid_move.emit("CONTAINER NOT FOR SALE")
 						return
 		else:
-			if display.from_player or not item in display.current_inventory.non_sellable_items:
-				display.trade_item(self);
+			if display.from_player or not item in display.inventory.non_sellable_items:
+				display.send_item(self, true);
 				return
 			else:
 				if held:
@@ -272,7 +275,7 @@ func trade_command()->void:
 				display.invalid_move.emit("CONTAINER NOT FOR SALE")
 				return
 	else:
-		display.trade_item(self);
+		display.send_item(self, true);
 
 
 func highlight_stack_label()->void:
@@ -307,7 +310,6 @@ func _on_mouse_entered() -> void:
 		var clear:bool = item.send_to_containers(display.sfx);
 		if clear:
 			queue_free();
-	outline.border_color = highlighted_outline_color;
 	outline.border_color = highlighted_outline_color;
 
 
@@ -360,6 +362,11 @@ func refresh()->void:
 				tooltip.hint.text = "[right-click] to sell";
 			else:
 				tooltip.hint.text = "[right-click] to buy"
+	elif display.context == "loot":
+		if display.inventory != Entities.player.inventory:
+			tooltip.hint.text = "[right-click] to loot"
+		else:
+			tooltip.hint.text = "[right-click] to put away"
 	
 	if item is ResourceContainer and "raw_stack" in item and item.stack_size - traded_resource_amount == 0:
 		item.queue_free();

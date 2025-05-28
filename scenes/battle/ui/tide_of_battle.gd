@@ -20,9 +20,8 @@ var team_1_unit_values:Dictionary[ActiveFighter,float];
 var team_2_unit_values:Dictionary[ActiveFighter,float];
 
 
-
 func set_tide_bar()->void:
-	await Entities.arena.ready
+
 	var team_1_power:=0;
 	var team_2_power:=0;
 	

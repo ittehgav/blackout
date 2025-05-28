@@ -35,7 +35,7 @@ func show_picker(resource:String)->void:
 	Tweens.ui_fade_in(self, 1);
 	
 	
-	var total:int = display.current_inventory[resource];
+	var total:int = display.inventory[resource];
 	
 	var resource_trade:int = trade_menu[resource+"_trade"];
 	if display.from_player:

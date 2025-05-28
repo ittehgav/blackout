@@ -13,21 +13,41 @@ func generate(distance:float)->void:
 	## world conditions such as region and the player's level
 	
 	## probably make this reusable for other generic map parties
-	for r:String in Index.all_resources:
-		inventory[r] = randi_range(1, distance/50)
-		if party_type == "travelling_trader":
-			inventory[r] *= 2;
-	inventory.store_resources();
-		
-	var item_pool:Array[PackedScene] = Index.weapon_scenes + Index.module_scenes;
-	var roll:float = randf_range(0, 1);
-	if roll >= .5:
-		var item:Item = item_pool.pick_random().instantiate();
-		inventory.add_child(item)
-	
-	if party_type == "travelling_trader":
-		var extra_item:Item = item_pool.pick_random().instantiate();
-		inventory.add_child(extra_item);
+	match party_type:
+		"travelling_trader":
+			for i in randi_range(1, distance/750):
+				var item:Item = (Index.rarity_1_item_scenes + Index.rarity_2_item_scenes + Index.rarity_3_item_scenes).pick_random().instantiate();
+				inventory.add_child(item);
+			for r:String in Index.all_resources:
+				inventory[r] = randi_range(1, distance/50) * 2
+			inventory.store_resources();
+		"thugs":
+			var total_items:int;
+			var r2_chance:float;
+			var r3_chance:float;
+			if distance < 2000:
+				total_items = randi_range(1, 2);
+				r2_chance = .18
+				r3_chance = .02;
+			elif distance < 4000:
+				total_items = randi_range(2, 4);
+				r2_chance = .25;
+				r3_chance = .5;
+			else:
+				total_items = randi_range(3, 7);
+				r2_chance = .4;
+				r3_chance = .3;
+			
+			for i in total_items:
+				var item:Item;
+				var roll:float = randf_range(0, 1);
+				if roll < r3_chance:
+					item = Index.rarity_3_item_scenes.pick_random().instantiate();
+				elif roll < r2_chance:
+					item = Index.rarity_2_item_scenes.pick_random().instantiate();
+				else:
+					item = Index.rarity_1_item_scenes.pick_random().instantiate();
+				inventory.add_child(item);
 
 	var max_level:int = distance/80;
 	if max_level < 1:

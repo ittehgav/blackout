@@ -8,6 +8,7 @@ extends UIRoot
 func _ready()->void:
 	set_process_input(false)
 
+	
 func show_post_fight(winner_n:int)->void:
 	show()
 	Entities.main_bgm.stop()
@@ -18,16 +19,12 @@ func show_post_fight(winner_n:int)->void:
 	await tween.finished
 	set_process_input(true);
 	Engine.time_scale = 1;
-	
-
-	
 	get_tree().paused = true;
-	Entities.main_bgm.stop();
+
 	if winner_n == 1:
 		victory_view.victory_animation()
 		Entities.main_bgm.play_bgm("victory");
 	else:
-		defeat_view.defeat_animation();
 		defeat_view.defeat_animation();
 		Entities.main_bgm.play_bgm("defeat")
 

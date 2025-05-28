@@ -1,0 +1,507 @@
+[gd_scene load_steps=28 format=3 uid="uid://b8j8soyx2828m"]
+
+[ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/ui/post_fight/post_fight.gd" id="1_433o0"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_7eru0"]
+[ext_resource type="Script" uid="uid://cpv3j7m2gbwne" path="res://scenes/battle/ui/post_fight/victory_view.gd" id="3_7eru0"]
+[ext_resource type="Script" uid="uid://8robaepnm2u6" path="res://scenes/battle/ui/post_fight/defeat_view.gd" id="3_uki8n"]
+[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="4_do72l"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="4_nsm0m"]
+[ext_resource type="Script" uid="uid://dtgljy2xg1ctm" path="res://scenes/battle/ui/post_fight/exp_gains.gd" id="4_r614c"]
+[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="5_y05uc"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="6_am2jd"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar.tscn" id="7_r614c"]
+[ext_resource type="PackedScene" uid="uid://wn2qetscjd4p" path="res://scenes/battle/ui/post_fight/unit_exp_gain_display.tscn" id="9_am2jd"]
+[ext_resource type="Script" uid="uid://biskar3s20qlf" path="res://scenes/battle/ui/post_fight/loot_gains.gd" id="10_r614c"]
+[ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_grid/inventory_display.tscn" id="11_apr0c"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="12_uydno"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_apr0c"]
+shader = ExtResource("6_am2jd")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjio2"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_an643"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ormkh"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15sfg"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7uvto"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dh2mc"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qaebw"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bx6rd"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3ns4"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_whl4c"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7r0vy"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="post_fight" type="Control" node_paths=PackedStringArray("victory_view", "defeat_view", "ui_sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_433o0")
+victory_view = NodePath("victory_view")
+defeat_view = NodePath("defeat_view")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." instance=ExtResource("2_7eru0")]
+
+[node name="bg" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.737255)
+
+[node name="victory_view" type="Control" parent="." node_paths=PackedStringArray("exp_gains", "loot_gains")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_7eru0")
+exp_gains = NodePath("exp_gains")
+loot_gains = NodePath("loot_gains")
+
+[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "leadership_exp_gain", "combat_exp_gain", "step_timer", "unit_exp_gain_container")]
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 29.0
+offset_right = -40.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_r614c")
+victory_title = NodePath("victory_title")
+leadership_exp_gain = NodePath("HBoxContainer/VBoxContainer/leadership_exp")
+combat_exp_gain = NodePath("HBoxContainer/VBoxContainer/combat_exp")
+step_timer = NodePath("step")
+unit_exp_gain_container = NodePath("unit_exp_gains")
+unit_exp_gain_scene = ExtResource("9_am2jd")
+
+[node name="victory_title" type="Label" parent="victory_view/exp_gains"]
+layout_mode = 1
+offset_left = 39.0
+offset_top = 10.0
+offset_right = 647.0
+offset_bottom = 213.0
+pivot_offset = Vector2(288, 50)
+theme_override_font_sizes/font_size = 256
+text = "Victory!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/exp_gains"]
+layout_mode = 0
+offset_top = 230.0
+offset_right = 504.0
+offset_bottom = 440.0
+
+[node name="SpriteSample" parent="victory_view/exp_gains/HBoxContainer" instance=ExtResource("4_do72l")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="body" parent="victory_view/exp_gains/HBoxContainer/SpriteSample" instance=ExtResource("5_y05uc")]
+material = SubResource("ShaderMaterial_apr0c")
+position = Vector2(81, 108)
+scale = Vector2(6, 6)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_view/exp_gains/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="player_name" type="Label" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Player"
+
+[node name="Label" type="Label" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Leadership Experience"
+
+[node name="leadership_exp" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
+custom_minimum_size = Vector2(300, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="Label2" type="Label" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Combat Experience"
+
+[node name="combat_exp" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
+custom_minimum_size = Vector2(300, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="unit_exp_gains" type="GridContainer" parent="victory_view/exp_gains"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+columns = 3
+
+[node name="Label" type="Label" parent="victory_view/exp_gains"]
+modulate = Color(1, 1, 1, 0.564706)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -308.0
+offset_top = -30.0
+offset_right = -18.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "[click anywhere to continue]"
+
+[node name="step" type="Timer" parent="victory_view/exp_gains"]
+wait_time = 2.5
+one_shot = true
+
+[node name="loot_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("player_inventory_display", "loot_display")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 29.0
+offset_right = -40.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_r614c")
+player_inventory_display = NodePath("player_inventory")
+loot_display = NodePath("loot")
+
+[node name="player_inventory" parent="victory_view/loot_gains" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 15.0
+offset_top = 50.0
+offset_right = 15.0
+offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
+context = "loot"
+exchanging_display = NodePath("../loot")
+
+[node name="VBoxContainer" parent="victory_view/loot_gains/player_inventory" index="2"]
+offset_left = 402.0
+offset_top = 34.0
+offset_right = 494.0
+offset_bottom = 390.0
+
+[node name="money_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer3" index="0"]
+material = SubResource("ShaderMaterial_qglwj")
+
+[node name="food_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_jjio2")
+
+[node name="fuel_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer2" index="0"]
+material = SubResource("ShaderMaterial_an643")
+
+[node name="juice_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer4" index="0"]
+material = SubResource("ShaderMaterial_ormkh")
+
+[node name="scrap_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer5" index="0"]
+material = SubResource("ShaderMaterial_15sfg")
+
+[node name="chips_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer6" index="0"]
+material = SubResource("ShaderMaterial_7uvto")
+
+[node name="operation" parent="victory_view/loot_gains/player_inventory/send_rect" index="0"]
+text = "LOOT"
+
+[node name="Label" type="Label" parent="victory_view/loot_gains"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.0
+offset_top = -9.0
+offset_right = 154.0
+offset_bottom = 93.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 128
+text = "Loot"
+
+[node name="loot" parent="victory_view/loot_gains" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -407.0
+offset_top = 50.0
+offset_right = -407.0
+offset_bottom = 50.0
+grow_horizontal = 0
+grow_vertical = 1
+context = "loot"
+exchanging_display = NodePath("../player_inventory")
+
+[node name="VBoxContainer" parent="victory_view/loot_gains/loot" index="2"]
+offset_left = 5161.0
+offset_right = 5253.0
+
+[node name="money_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer3" index="0"]
+material = SubResource("ShaderMaterial_dh2mc")
+
+[node name="food_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_qaebw")
+
+[node name="fuel_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer2" index="0"]
+material = SubResource("ShaderMaterial_bx6rd")
+
+[node name="juice_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer4" index="0"]
+material = SubResource("ShaderMaterial_c3ns4")
+
+[node name="scrap_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer5" index="0"]
+material = SubResource("ShaderMaterial_whl4c")
+
+[node name="chips_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer6" index="0"]
+material = SubResource("ShaderMaterial_7r0vy")
+
+[node name="operation" parent="victory_view/loot_gains/loot/send_rect" index="0"]
+text = "PUT AWAY"
+
+[node name="sort_inventory" type="Button" parent="victory_view/loot_gains"]
+layout_mode = 1
+offset_left = 408.0
+offset_top = 452.0
+offset_right = 524.0
+offset_bottom = 512.0
+text = "Sort 
+Inventory"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_view/loot_gains"]
+layout_mode = 0
+offset_left = 603.0
+offset_top = 402.0
+offset_right = 735.0
+offset_bottom = 486.0
+
+[node name="loot_all_btn" type="Button" parent="victory_view/loot_gains/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Loot All"
+
+[node name="continue" type="Button" parent="victory_view/loot_gains/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="defeat_view" type="Control" parent="." node_paths=PackedStringArray("morale_icon")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_uki8n")
+morale_icon = NodePath("Panel/MoraleIcon")
+
+[node name="Panel" type="Panel" parent="defeat_view"]
+custom_minimum_size = Vector2(950, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -475.0
+offset_top = -250.0
+offset_right = 475.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="defeat_view/Panel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 24.0
+offset_right = 336.0
+offset_bottom = 126.0
+theme_override_font_sizes/font_size = 128
+text = "Defeat"
+
+[node name="MoraleIcon" parent="defeat_view/Panel" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("4_nsm0m")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+offset_left = -338.0
+offset_right = -306.0
+adjacent_items = [NodePath("../morale_value")]
+
+[node name="morale_value" type="Label" parent="defeat_view/Panel"]
+layout_mode = 0
+offset_left = 222.0
+offset_top = 220.0
+offset_right = 262.0
+offset_bottom = 271.0
+theme_override_font_sizes/font_size = 64
+
+[node name="Label2" type="Label" parent="defeat_view"]
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
+offset_left = 735.0
+offset_top = 566.0
+offset_right = 1103.0
+offset_bottom = 592.0
+text = "[click anywhere to continue]"
+
+[connection signal="gui_input" from="victory_view/exp_gains" to="victory_view/exp_gains" method="_on_gui_input"]
+[connection signal="timeout" from="victory_view/exp_gains/step" to="victory_view/exp_gains" method="_on_step_timeout"]
+[connection signal="pressed" from="victory_view/loot_gains/sort_inventory" to="victory_view/loot_gains/player_inventory" method="sort_inventory"]
+[connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/loot_all_btn" to="victory_view/loot_gains" method="_on_loot_all_btn_pressed"]
+[connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/continue" to="." method="end_post_fight"]
+[connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/continue" to="victory_view/loot_gains/player_inventory" method="update_inventory"]
+
+[editable path="victory_view/loot_gains/player_inventory"]
+[editable path="victory_view/loot_gains/loot"]
