@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bktgm5xalqalo"]
+
+[ext_resource type="Texture2D" uid="uid://crcuy0k66wkxi" path="res://assets/visual/icons/resources/fuel.png" id="1_6goum"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_tumdu"]
+[ext_resource type="Script" uid="uid://chr2022x7qwvh" path="res://scenes/indexes/items/containers/storage/fuel_storage.gd" id="2_tumdu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kv3te"]
+shader = ExtResource("1_tumdu")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="Fuel" type="Sprite2D"]
+material = SubResource("ShaderMaterial_kv3te")
+texture = ExtResource("1_6goum")
+script = ExtResource("2_tumdu")
+resource = "fuel"

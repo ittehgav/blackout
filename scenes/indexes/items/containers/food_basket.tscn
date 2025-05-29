@@ -19,3 +19,4 @@ material = SubResource("ShaderMaterial_gpdj8")
 texture = ExtResource("2_vy1s6")
 script = ExtResource("3_ggnos")
 resource = "food"
+stack_size = 0

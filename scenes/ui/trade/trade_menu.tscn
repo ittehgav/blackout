@@ -196,7 +196,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0.556863)
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 64
 
-[node name="player_inventory_display" parent="HBoxContainer/player_panel" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("2_ln21g")]
+[node name="player_inventory_display" parent="HBoxContainer/player_panel" node_paths=PackedStringArray("warnings_display", "exchanging_display") instance=ExtResource("2_ln21g")]
 layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
@@ -208,6 +208,7 @@ offset_bottom = 75.0
 grow_horizontal = 1
 grow_vertical = 1
 context = "trade"
+warnings_display = NodePath("../../..")
 exchanging_display = NodePath("../../trader_panel/trader_inventory_display")
 
 [node name="VBoxContainer" parent="HBoxContainer/player_panel/player_inventory_display" index="2"]

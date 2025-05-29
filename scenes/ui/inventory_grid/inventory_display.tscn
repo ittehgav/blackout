@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=33 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_grid/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_grid/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://887fjhopo7n2" path="res://assets/sound/sfx/ui/inventory/trade/coin.wav" id="20_fnwsv"]
 [ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_grid/resource_picker.gd" id="21_15sfg"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
+[ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_grid/warnings.gd" id="26_8mqj8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
 resource_local_to_scene = true
@@ -92,7 +93,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("resource_picker", "item_mirrors_node", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "food_icon", "food_hbox", "fuel_icon", "fuel_hbox", "juice_icon", "juice_hbox", "scrap_icon", "scrap_hbox", "chips_icon", "chips_hbox")]
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "item_mirrors_node", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "food_icon", "food_hbox", "fuel_icon", "fuel_hbox", "juice_icon", "juice_hbox", "scrap_icon", "scrap_hbox", "chips_icon", "chips_hbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -100,6 +101,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bv60r")
+warnings_popup = NodePath("warnings")
 resource_picker = NodePath("resource_picker")
 item_mirrors_node = NodePath("item_mirrors")
 grid_cell_scene = ExtResource("2_ke6sf")
@@ -437,6 +439,93 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "wawa"
 
+[node name="warnings" type="Control" parent="." node_paths=PackedStringArray("inventory_display", "liquid_discard_label", "loot_discard_label")]
+visible = false
+z_index = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("26_8mqj8")
+inventory_display = NodePath("..")
+liquid_discard_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/liquid_discard")
+loot_discard_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/loot_discard")
+
+[node name="ColorRect" type="ColorRect" parent="warnings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.435294)
+
+[node name="PanelContainer" type="PanelContainer" parent="warnings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -19.0
+offset_right = 6.5
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="warnings/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="warnings/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="warning" type="Label" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Warning:"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="liquid_discard" type="RichTextLabel" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Fuel and Juice are liquid and need to be stored in containers. Otherewise they'll be discarded."
+fit_content = true
+
+[node name="loot_discard" type="Label" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Items left in the loot screen will be discarded."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="accept" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Discard items 
+and continue"
+
+[node name="auto_sort" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Auto-Sort
+and continue"
+
+[node name="return" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Return"
+
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
@@ -448,3 +537,6 @@ text = "wawa"
 [connection signal="mouse_exited" from="resource_picker/choices/choice_3" to="resource_picker" method="_on_choice_3_mouse_exited"]
 [connection signal="mouse_entered" from="trade_excess_label_panel" to="." method="_on_trade_excess_label_panel_mouse_entered"]
 [connection signal="mouse_exited" from="trade_excess_label_panel" to="." method="_on_trade_excess_label_panel_mouse_exited"]
+[connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/accept" to="warnings" method="_on_accept_pressed"]
+[connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/auto_sort" to="warnings" method="_on_auto_sort_pressed"]
+[connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/return" to="warnings" method="_on_return_pressed"]

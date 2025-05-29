@@ -19,3 +19,4 @@ material = SubResource("ShaderMaterial_utm0g")
 texture = ExtResource("2_urjbj")
 script = ExtResource("3_6drv7")
 resource = "juice"
+stack_size = 0

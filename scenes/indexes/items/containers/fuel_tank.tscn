@@ -19,3 +19,4 @@ material = SubResource("ShaderMaterial_lut13")
 texture = ExtResource("2_krahb")
 script = ExtResource("3_jmwiy")
 resource = "fuel"
+stack_size = 0

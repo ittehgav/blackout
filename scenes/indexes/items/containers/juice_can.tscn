@@ -10,9 +10,13 @@ shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [node name="Juice Can" type="Sprite2D"]
 material = SubResource("ShaderMaterial_cum7a")
 texture = ExtResource("2_gket2")
 script = ExtResource("3_xey65")
 resource = "juice"
+stack_size = 0

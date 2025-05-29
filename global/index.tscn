@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=73 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
@@ -21,9 +21,14 @@
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="18_crfhx"]
 [ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/indexes/items/containers/food.tscn" id="19_4hk3t"]
 [ext_resource type="PackedScene" uid="uid://c35c0o3u2g7aj" path="res://scenes/indexes/items/containers/fuel.tscn" id="20_7dxwq"]
+[ext_resource type="PackedScene" uid="uid://cish4lkuyfimr" path="res://scenes/indexes/items/containers/storage/chips_storage.tscn" id="20_xnhe2"]
 [ext_resource type="PackedScene" uid="uid://b1ohkwyjvqmfo" path="res://scenes/indexes/items/containers/juice.tscn" id="21_a1qp1"]
+[ext_resource type="PackedScene" uid="uid://t2mq10nsoj7c" path="res://scenes/indexes/items/containers/storage/food_storage.tscn" id="21_gshh2"]
+[ext_resource type="PackedScene" uid="uid://bktgm5xalqalo" path="res://scenes/indexes/items/containers/storage/fuel_storage.tscn" id="22_h637s"]
 [ext_resource type="PackedScene" uid="uid://di0vghxs4bkgh" path="res://scenes/indexes/items/containers/scrap_pile.tscn" id="22_it271"]
+[ext_resource type="PackedScene" uid="uid://t57gu065exkl" path="res://scenes/indexes/items/containers/storage/juice_storage.tscn" id="23_bff4x"]
 [ext_resource type="PackedScene" uid="uid://bjmnlpi6chnbj" path="res://scenes/indexes/items/containers/chips.tscn" id="23_f4hoh"]
+[ext_resource type="PackedScene" uid="uid://trljbl54r8bw" path="res://scenes/indexes/items/containers/storage/scrap_storage.tscn" id="24_cg7d8"]
 [ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/indexes/items/containers/food_bag.tscn" id="24_juamu"]
 [ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/indexes/items/containers/food_basket.tscn" id="25_32y5d"]
 [ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/indexes/items/containers/food_barrel.tscn" id="26_dp4cy"]
@@ -86,6 +91,7 @@ resource_icon_scene = ExtResource("15_ak5x7")
 item_icon_scene = ExtResource("16_31u8m")
 sprite_sample_scene = ExtResource("17_dh1jb")
 tooltip_scene = ExtResource("18_crfhx")
+resource_storage_scenes = Array[PackedScene]([ExtResource("20_xnhe2"), ExtResource("21_gshh2"), ExtResource("22_h637s"), ExtResource("23_bff4x"), ExtResource("24_cg7d8")])
 food_stack_scene = ExtResource("19_4hk3t")
 fuel_stack_scene = ExtResource("20_7dxwq")
 juice_stack_scene = ExtResource("21_a1qp1")

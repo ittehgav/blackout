@@ -27,6 +27,7 @@ extends Node
 @export var tooltip_scene:PackedScene;
 
 @export_subgroup("Resource Stack Scenes")
+@export var resource_storage_scenes:Array[PackedScene];
 @export var food_stack_scene:PackedScene;
 @export var fuel_stack_scene:PackedScene;
 @export var juice_stack_scene:PackedScene;
@@ -239,9 +240,13 @@ func get_color_tag(key:String)->String:
 	return "[color=" + color.to_html() + "]";
 
 
-func resource_colored_name(resource:String, close_tag:bool=true)->String:
+func resource_colored_name(resource:String, close_tag:bool=true, capitalize:bool=false)->String:
 	var color:String = resource_colors[resource].to_html();
-	var string:String = "[color=" + color + "]"+resource;
+	var string:String = "[color=" + color + "]";
+	if capitalize:
+		string += resource.capitalize();
+	else:
+		string += resource;
 	if close_tag:
 		string += "[/color]"
 	return string

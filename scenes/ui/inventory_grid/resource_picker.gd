@@ -19,6 +19,8 @@ var choice_3_value:int;
 
 @onready var choices_initial_size:Vector2 = choice_1.custom_minimum_size;
 
+var current_mirror:ItemMirror;
+
 var current_choice:ColorRect;
 
 var current_resource:String;
@@ -26,18 +28,20 @@ var current_resource:String;
 func _ready()->void:
 	set_process_input(false)
 
-func show_picker(resource:String)->void:
+func show_picker(mirror:ItemMirror)->void:
+	current_mirror = mirror;
+	current_resource = mirror.item.resource
 	set_process_input(true)
-	current_resource = resource;
+
 	show()
-	modulate = Index.resource_colors[resource]
+	modulate = Index.resource_colors[current_resource]
 	global_position = get_global_mouse_position()
 	Tweens.ui_fade_in(self, 1);
 	
 	
-	var total:int = display.inventory[resource];
+	var total:int = display.inventory[current_resource];
 	
-	var resource_trade:int = trade_menu[resource+"_trade"];
+	var resource_trade:int = trade_menu[current_resource+"_trade"];
 	if display.from_player:
 		total += resource_trade;
 	else:
@@ -91,11 +95,11 @@ func _on_choice_3_mouse_exited() -> void:
 func pick_choice()->void:
 	match current_choice:
 		choice_1:
-			display.trade_resource(current_resource, choice_1_value);
+			display.trade_resource(current_mirror, choice_1_value);
 		choice_2:
-			display.trade_resource(current_resource, choice_2_value)
+			display.trade_resource(current_mirror, choice_2_value)
 		choice_3:
-			display.trade_resource(current_resource, choice_3_value)
+			display.trade_resource(current_mirror, choice_3_value)
 	set_process_input(false);
 	hide();
 

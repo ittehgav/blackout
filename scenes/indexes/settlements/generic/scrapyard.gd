@@ -9,21 +9,3 @@ var description:String = "Produces and trades mostly "\
 
 var flavor:String = "Massive lots of crushed cars, a common landmark from "+Index.get_color_tag("blackout")\
  + "Pre-Blackout Civilization[/color], which get recycled and traded.";
-
-
-func initiate_inventory()->void:
-	var bag:ResourceContainer = Index.food_bag_scene.instantiate();
-	inventory.add_child(bag)
-	inventory.non_sellable_items.append(bag);
-	
-	var barrel:ResourceContainer = Index.fuel_barrel_scene.instantiate();
-	inventory.add_child(barrel)
-	inventory.non_sellable_items.append(barrel)
-	
-	var tank:ResourceContainer = Index.juice_tank_scene.instantiate();
-	inventory.add_child(tank);
-	inventory.non_sellable_items.append(tank);
-	
-	var compactor:ResourceContainer = Index.scrap_compactor_scene.instantiate();
-	inventory.add_child(compactor);
-	inventory.non_sellable_items.append(compactor);

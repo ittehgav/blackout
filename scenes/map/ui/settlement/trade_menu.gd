@@ -143,9 +143,9 @@ func refresh_trade_balance()->void:
 func _on_trader_inventory_display_item_dropped(mirror:ItemMirror, from:String="move") -> void:
 	## ITEM DROPPED IN TRADER INVENTORY = SOLD
 	if from == "trade":
-		if mirror.item is ResourceContainer and mirror.item.stack_size - mirror.traded_resource_amount:
+		if mirror.item is ResourceContainer and mirror.stack_size:
 			## mirror that ends up here will have the stack size of the resource that was traded
-			self[mirror.item.resource + "_trade"] -= mirror.item.stack_size - mirror.traded_resource_amount;
+			self[mirror.item.resource + "_trade"] -= mirror.stack_size;
 		else:
 			non_resource_money_trade += mirror.price;
 			
@@ -155,10 +155,10 @@ func _on_trader_inventory_display_item_dropped(mirror:ItemMirror, from:String="m
 func _on_player_inventory_display_item_dropped(mirror:ItemMirror, from:String="move") -> void:
 	## ITEM DROPPED IN PLAYER INVENTORY = BOUGHT
 	if from == "trade":
-		if mirror.item is ResourceContainer and mirror.item.stack_size - mirror.traded_resource_amount:
+		if mirror.item is ResourceContainer and mirror.stack_size:
 			## mirror that ends up here will have the stack size of the resource that was traded
 			## READS FROM THE RESOURCES IN THE TRADE INVENTORY DISPLAYS RATHER THAN THE COUNT ON THE INVENTORIES
-			self[mirror.item.resource + "_trade"] += mirror.item.stack_size - mirror.traded_resource_amount;
+			self[mirror.item.resource + "_trade"] += mirror.stack_size;
 		else:
 			non_resource_money_trade -= mirror.price;
 		
@@ -221,6 +221,7 @@ func finish_trade()->void:
 			player_label_tween.tween_property(player_value_label, "text", str(player_after), tween_duration);
 			trader_label_tween.tween_property(trader_value_label, "text", str(trader_after), tween_duration);
 	
+	player_inventory_display.store_all_resources()
 	player_inventory_display.update_inventory();
 	trader_inventory_display.sort_inventory();
 	

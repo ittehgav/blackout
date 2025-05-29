@@ -31,13 +31,23 @@ var capacity_y:int = 12;
 func _ready()->void:
 	refresh_resource_counts();
 	
-func refresh_resource_counts(_resource:String="", _amount:int=0)->void:
+func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:bool=false)->void:
+	var previous_amounts: = {}
 	for r:String in Index.all_resources:
+		previous_amounts[r] = self[r];
 		if r != "money":
 			self[r] = 0;
 	for c in containers:
 		self[c.resource] += c.stack_size;
+	
+	if emit_change:
+		for r:String in Index.all_resources:
+			if previous_amounts[r] != self[r]:
+				## will not make an infinite loop, but will make this 
+				## retrigger itself a few unnecessary times?
+				Entities.player.resource_changed.emit(r, self[r] - previous_amounts[r]);
 
+	
 func _on_child_entered_tree(node: Node) -> void:
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
 	assert(node is Item)
@@ -151,38 +161,38 @@ func store_resources()->void:
 	## unallocated resources to the containers with the highest capacity
 	for r:String in Index.all_resources:
 		if r != "money":
-			var total:int = self[r];
-			var already_stored:int = 0;
-			var containers_with_space:Array[ResourceContainer] 
-			
-			for container:ResourceContainer in containers:
-				if container.resource == r:
-					already_stored += container.stack_size;
-					if container.space_left():
-						if holder == Entities.player:
-							containers_with_space.append(container);
-						else:
-							if container in non_sellable_items:
-								## sellable containers will always be empty
+			if holder is Settlement:
+				var container:ResourceContainer = holder[r+"_storage"];
+				container.stack_size = self[r];
+			else:
+				var total:int = self[r];
+				var already_stored:int = 0;
+				var containers_with_space:Array[ResourceContainer];
+				
+				for container:ResourceContainer in containers:
+					if container.resource == r:
+						already_stored += container.stack_size;
+						if container.space_left():
+							if holder == Entities.player:
 								containers_with_space.append(container);
-			if len(containers_with_space):
-				containers_with_space.sort_custom(containers[0].capacity_sort)
+							else:
+								if container in non_sellable_items:
+									## sellable containers will always be empty
+									containers_with_space.append(container);
+				if len(containers_with_space):
+					containers_with_space.sort_custom(containers[0].capacity_sort)
 
-			## will always be at least 0, as this function will be 
-			## ran mostly after resources have been gained
-			var to_store:int = total - already_stored;
-			for c:ResourceContainer in containers_with_space:
-				if c.space_left() >= to_store:
-					c.stack_size += to_store;
-					to_store = 0;
-				else:
-					var to_add:int = c.space_left();
-					c.stack_size += to_add;
-					to_store -= to_add;
-			
-			if to_store and holder == Entities.player:
-				## only player inventory gets to have raw stack everyone else's stuff just goes to waste
-				## (only upon generation/trading rn)
+				var to_store:int = total - already_stored;
+				for c:ResourceContainer in containers_with_space:
+					if c.space_left() >= to_store:
+						c.stack_size += to_store;
+						to_store = 0;
+					else:
+						var to_add:int = c.space_left();
+						c.stack_size += to_add;
+						to_store -= to_add;
+				
+				
 				var raw_stack:ResourceContainer = Index[r + "_stack_scene"].instantiate();
 				if not "mirror_only" in raw_stack:
 					while to_store:
@@ -197,7 +207,7 @@ func store_resources()->void:
 							to_store = 0;
 				else:
 					## if stack is liquid and there's no room for it, it goes to waste
-					## settlements refuse trades for stuff they can't store?
+					## TODO settlements refuse trades for stuff they can't store?
 					self[r] -= to_store;
 
 

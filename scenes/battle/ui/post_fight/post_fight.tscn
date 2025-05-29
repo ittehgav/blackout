@@ -304,7 +304,7 @@ text = "[click anywhere to continue]"
 wait_time = 2.5
 one_shot = true
 
-[node name="loot_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("player_inventory_display", "loot_display")]
+[node name="loot_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("post_fight", "player_inventory_display", "loot_display")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -316,10 +316,11 @@ offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_r614c")
+post_fight = NodePath("../..")
 player_inventory_display = NodePath("player_inventory")
 loot_display = NodePath("loot")
 
-[node name="player_inventory" parent="victory_view/loot_gains" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
+[node name="player_inventory" parent="victory_view/loot_gains" node_paths=PackedStringArray("warnings_display", "exchanging_display") instance=ExtResource("11_apr0c")]
 layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
@@ -331,6 +332,7 @@ offset_bottom = 50.0
 grow_horizontal = 1
 grow_vertical = 1
 context = "loot"
+warnings_display = NodePath("../../..")
 exchanging_display = NodePath("../loot")
 
 [node name="VBoxContainer" parent="victory_view/loot_gains/player_inventory" index="2"]
@@ -500,8 +502,7 @@ text = "[click anywhere to continue]"
 [connection signal="timeout" from="victory_view/exp_gains/step" to="victory_view/exp_gains" method="_on_step_timeout"]
 [connection signal="pressed" from="victory_view/loot_gains/sort_inventory" to="victory_view/loot_gains/player_inventory" method="sort_inventory"]
 [connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/loot_all_btn" to="victory_view/loot_gains" method="_on_loot_all_btn_pressed"]
-[connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/continue" to="." method="end_post_fight"]
-[connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/continue" to="victory_view/loot_gains/player_inventory" method="update_inventory"]
+[connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/continue" to="victory_view/loot_gains" method="_on_continue_pressed"]
 
 [editable path="victory_view/loot_gains/player_inventory"]
 [editable path="victory_view/loot_gains/loot"]

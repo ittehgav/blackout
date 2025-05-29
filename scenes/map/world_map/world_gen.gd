@@ -287,7 +287,6 @@ func random_quadrant_position()->Vector2:
 	const x_range = quarter_tile_map_size.x * cell_size;
 	const y_range = quarter_tile_map_size.y * cell_size;
 	
-		
 	var x_roll:int = randi_range(-x_range + entity_padding, x_range - entity_padding);
 	var y_roll:int = randi_range(-y_range + entity_padding, y_range - entity_padding);
 	

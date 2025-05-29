@@ -35,8 +35,10 @@ var highlighted_outline_color:Color
 ## only matters when trading
 var price:float;
 var being_traded:bool = false;
-## only matters when trading with resource containers;
-var traded_resource_amount:int=0;
+
+
+## ITEM MIRRORS WILL TAKE AFTER ITEMS AND BEHAVE ON THEIR OWN UNTIL THEY CAN REPLACE ITEMS
+var stack_size:int=0;
 
 @onready var original_stack_label_font_size:int = stack_size_label.get_theme_font_size("font_size");
 
@@ -51,7 +53,10 @@ func load_item(target:Item, new_item:bool=false)->void:
 	
 	var item_color:Color;
 	if item is ResourceContainer:
+		stack_size = item.stack_size
 		item_color = Index.get_color(item.resource)
+		if new_item:
+			display[item.resource+"_containers"].append(self)
 	else:
 		item_color = Index.item_rarity_colors[item.rarity];
 	
@@ -100,7 +105,7 @@ func load_item(target:Item, new_item:bool=false)->void:
 				tooltip.hint.text = "[right-click] to buy"
 		else:
 			tooltip.hint.text = "[right-click] to sell"
-	item.tree_exiting.connect(item_freed.bind(item));
+	tree_exiting.connect(display.item_mirror_freed.bind(self, item));
 	item.mirror = self;
 
 
@@ -141,15 +146,13 @@ func _on_gui_input(e: InputEvent) -> void:
 				if display.context == "player_sheet":
 					if item is ResourceContainer:
 						if "raw_stack" in item:
-							var clear:bool = item.send_to_containers(display.sfx);
+							var clear:bool = send_to_containers();
 							display.item_dropped.emit(self);
 							if clear:
 								queue_free();
 						else:
-							var new_stacks:Array[ResourceContainer] = item.empty_storage(display.sfx);
-							for stack in new_stacks:
-								display.throw_in_inventory(stack)
-							display.item_dropped.emit(self)
+							empty_storage();
+
 					elif item is Weapon:
 						var current_weapon:Weapon = Entities.player.equipped_weapon;
 						display.clear_cells(self);
@@ -159,7 +162,7 @@ func _on_gui_input(e: InputEvent) -> void:
 						current_weapon.inventory_position = inventory_position;
 						load_item(current_weapon, true)
 		
-						if not display.check_item_fit(item, inventory_position, true):
+						if not display.check_item_fit(item, inventory_position):
 							display.throw_mirror(self);
 						display.item_dropped.emit(self)
 						
@@ -187,7 +190,38 @@ func _on_gui_input(e: InputEvent) -> void:
 			if e.button_index == MOUSE_BUTTON_LEFT:
 				put_down();
 
+func empty_storage()->void:
+	var moved:int;
+	var to_throw:Array[ItemMirror];
+	while stack_size:
+		var raw_stack:ResourceContainer = Index[item.resource+"_stack_scene"].instantiate();
+		if "mirror_only" in raw_stack:
+			raw_stack.stack_size = stack_size;
+			stack_size = 0;
+		else:
+			if stack_size <= raw_stack.capacity:
+				raw_stack.stack_size = stack_size;
+				stack_size = 0;
+			else:
+				raw_stack.stack_size = raw_stack.capacity;
+				stack_size -= raw_stack.capacity;
+		var mirror:ItemMirror = display.item_mirror_scene.instantiate();
+		mirror.display = display;
+		mirror.load_item(raw_stack, true);
+		to_throw.append(mirror);
+		
 
+	for mirror:ItemMirror in to_throw:
+		moved += mirror.stack_size
+		display.throw_mirror(mirror, true);
+		if mirror.inventory_position == Vector2i(-1, -1):
+			## takes back items that didn't fit
+			stack_size += mirror.stack_size;
+			moved -= mirror.stack_size
+			mirror.queue_free();
+	display.item_dropped.emit(self)
+	display.play_deposit_sfx(moved, item.resource)
+			
 func pick_up()->void:
 	z_index += 1;
 	display.item_picked_up.emit();
@@ -243,22 +277,23 @@ func loot_command()->void:
 func trade_command()->void:
 	if item is ResourceContainer:
 		if "raw_stack" in item:
-			display.trade_resource(item.resource, item.stack_size - traded_resource_amount);
+			display.trade_resource(self, stack_size);
 			return
-		elif item.stack_size - traded_resource_amount:
+		elif stack_size:
 			await get_tree().create_timer(.15).timeout;
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-				display.show_resource_picker(item);
+				display.resource_picker.show_picker(self);
 				tooltip.disable();
 				display.resource_picker.operation_finished.connect(tooltip.enable, CONNECT_ONE_SHOT)
 				return
 			else:
-				if item.stack_size - traded_resource_amount:
-					display.trade_resource(item.resource, item.stack_size - traded_resource_amount);
+				if stack_size:
+					print("ifss?")
+					display.trade_resource(self, stack_size);
 					return
 				else:
 					if display.from_player or not item in display.inventory.non_sellable_items:
-						display.trade_resource(item.resource, item.stack_size);
+						display.trade_resource(self, stack_size);
 						return
 					else:
 						if held:
@@ -307,19 +342,39 @@ func _on_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)\
 	and item is ResourceContainer and "raw_stack" in item and display.context == "player_sheet":
 		display.item_dropped.emit(self);
-		var clear:bool = item.send_to_containers(display.sfx);
+		var clear:bool = send_to_containers();
 		if clear:
 			queue_free();
 	outline.border_color = highlighted_outline_color;
 
-
+func send_to_containers()->bool:
+	var amount_deposited:int=0;
+	var containers:Array[ItemMirror] = display[item.resource+"_containers"];
+	containers.sort_custom(display.sort_container_mirrors);
+	for c:ItemMirror in containers:
+		var space_left:int = c.item.capacity - c.stack_size;
+		if space_left:
+			if space_left >= stack_size:
+				c.stack_size += stack_size;
+				c.highlight_stack_label();
+				c.refresh();
+				amount_deposited += stack_size;
+				display.play_deposit_sfx(amount_deposited, item.resource)
+				display.item_dropped.emit(self)
+				return true
+			else:
+				c.stack_size = c.item.capacity;
+				stack_size -= space_left;
+				c.highlight_stack_label();
+				c.refresh();
+				amount_deposited += space_left;
+	display.play_deposit_sfx(amount_deposited, item.resource)
+	display.item_dropped.emit(self)
+	return false
+			
 func _on_mouse_exited() -> void:
 	outline.border_color = outline_color;
 
-
-func item_freed(freed_item:Item) -> void:
-	if freed_item is ResourceContainer:
-		display[item.resource + "_containers"].erase(self);
 
 func extending_fade()->void:
 	self_modulate.a = .5;
@@ -328,7 +383,7 @@ func extending_fade()->void:
 func set_price()->void:
 	price_tag.show();
 	if not being_traded:
-		if item is ResourceContainer and item.stack_size - traded_resource_amount:
+		if item is ResourceContainer and stack_size:
 			var inventory:Inventory = Entities.current_trading_party.inventory;
 			if display.from_player:
 				## in player inventory = selling price
@@ -336,7 +391,7 @@ func set_price()->void:
 			else:
 				## in trader's inventory = buying price
 				price = inventory.resource_buying_prices[item.resource];
-			price *= item.stack_size - traded_resource_amount;
+			price *= stack_size;
 		else:
 			## CURRENT NON-RESOURCE ITEM PRICE FORMULA
 			## (rarity + 1)² * item.size.x * item.size.y
@@ -362,23 +417,25 @@ func refresh()->void:
 				tooltip.hint.text = "[right-click] to sell";
 			else:
 				tooltip.hint.text = "[right-click] to buy"
+
 	elif display.context == "loot":
 		if display.inventory != Entities.player.inventory:
 			tooltip.hint.text = "[right-click] to loot"
 		else:
 			tooltip.hint.text = "[right-click] to put away"
 	
-	if item is ResourceContainer and "raw_stack" in item and item.stack_size - traded_resource_amount == 0:
-		item.queue_free();
+	if item is ResourceContainer and "raw_stack" in item and stack_size == 0:
 		queue_free()
 		return
 	stack_size_label.modulate.a = 1
 	
 	if "capacity" in item:
-		stack_size_label.text = str(item.stack_size - traded_resource_amount) + "/" + str(item.capacity);
+		stack_size_label.text = str(stack_size) + "/" + str(item.capacity);
 		if "mirror_only" in item:
 			stack_size_label.modulate.a = .5
 			stack_size_label.text = stack_size_label.text.split("/")[0];
+		elif item.capacity == 0:
+			stack_size_label.text = str(stack_size);
 	else:
 		stack_size_label.hide()
 	

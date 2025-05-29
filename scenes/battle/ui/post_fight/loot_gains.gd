@@ -1,5 +1,7 @@
 extends Panel
 
+@export var post_fight:Control;
+
 @export var player_inventory_display:InventoryDisplay;
 @export var loot_display:InventoryDisplay;
 
@@ -15,5 +17,18 @@ func setup()->void:
 
 
 func _on_loot_all_btn_pressed() -> void:
-	for item in loot_display.item_mirrors_node.get_children():
+	for item:ItemMirror in loot_display.item_mirrors_node.get_children():
 		item.loot_command();
+
+
+
+func _on_continue_pressed() -> void:
+	if player_inventory_display.pending_warnings():
+		player_inventory_display.warn_player();
+		var clear:bool = await player_inventory_display.warnings_attended;
+		if clear:
+			## warnings ignored = items discarded and clear to exit post_fight
+			post_fight.end_post_fight();
+			## otherwise it just goes back to the inventory displays until the players tries to exit again
+
+	

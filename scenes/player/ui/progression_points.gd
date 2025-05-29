@@ -15,7 +15,7 @@ func _ready()->void:
 			skill_separators.append(c)
 
 func refresh_data(stat:String)->void:
-	var skill_level = Entities.player.leadership_stats[stat];
+	var skill_level:int = Entities.player.leadership_stats[stat];
 	for i in skill_level:
 		if i:
 			skill_separators[i-1].modulate = Color.DARK_GREEN;

@@ -2,6 +2,7 @@ extends MapEntity;
 
 class_name Settlement;
 
+
 var ongoing_trade_anomaly:TradeAnomaly;
 var local_event:LocalEvent;
 
@@ -32,6 +33,12 @@ var player_inside:bool=false;
 
 var neighbors:Array[Settlement];
 
+var food_storage:ResourceContainer;
+var fuel_storage:ResourceContainer;
+
+var juice_storage:ResourceContainer;
+var scrap_storage:ResourceContainer;
+var chips_storage:ResourceContainer;
 
 
 
@@ -73,6 +80,8 @@ const relationship_modifiers = {
 	5:1.2
 }
 
+
+
 var player_relation:int=0;
 ## relation progresses as the player trades with and does tasks for the settlement
 var relation_progress:float=0.0;
@@ -112,8 +121,8 @@ func daily_reset()->void:
 	## replaces all non-rare items in the inventory and refreshes resource inventory
 	## based on trade anomalies and production
 	if not player_inside:
-		
 		refresh_events();
+
 	refresh_inventory();
 	refresh_recruits();
 
@@ -161,20 +170,19 @@ func refresh_inventory()->void:
 	var relationship_modifier:float = relationship_modifiers[player_relation];
 	for r:String in tradeable_resources:
 		var production:int = self[r+'_production'];
-		inventory[r] += randi_range(production/1.5, production*1.5);
+		inventory[r] += randi_range(production/1.5, production * 1.5);
 		
 		inventory.resource_selling_prices[r] = resource_prices[r] / relationship_modifier;
 		inventory.resource_buying_prices[r] = resource_prices[r] * relationship_modifier;
-		
 
 		if inventory.resource_selling_prices[r] < 1:
 			inventory.resource_selling_prices[r] = 1
 		if inventory.resource_buying_prices[r] < 1:
 			inventory.resource_buying_prices[r] = 1
 
+	inventory.store_resources();
+	inventory.refresh_resource_counts()
 	apply_trade_anomaly();
-
-	inventory.store_resources()
 
 func apply_trade_anomaly()->void:
 	var a:TradeAnomaly = ongoing_trade_anomaly;
@@ -216,3 +224,11 @@ func _on_hover_box_mouse_entered()->void:
 	
 func _on_hover_box_mouse_exited()->void:
 	Entities.clear_map_entity_under_mouse();
+
+func initiate_inventory()->void:
+	for s:PackedScene in Index.resource_storage_scenes:
+		var storage:ResourceContainer = s.instantiate();
+		self[storage.resource+"_storage"]=storage;
+		inventory.add_child(storage);
+		inventory.containers.append(storage);
+		inventory.non_sellable_items.append(storage)
