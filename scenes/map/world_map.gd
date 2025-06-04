@@ -18,7 +18,7 @@ var current_month:int=1;
 
 var pause_stack:int = 0;
 
-var current_hour:int=16;
+var current_hour:int=23;
 var current_minute:int=50;
 
 @export var ui:Control;
@@ -84,13 +84,19 @@ func pause_map()->void:
 	pause_stack += 1;
 	if pause_stack == 1:
 		Entities.in_map_player.set_process_input(false)
+		Entities.in_map_player.stop_movement(false)
+		get_tree().paused = true;
 		process_mode = PROCESS_MODE_DISABLED
 		Entities.in_map_player.process_mode = Node.PROCESS_MODE_DISABLED;
 		map_paused.emit();
+ 
 
-
-func unpause_map()->void:
-	pause_stack -= 1
+func unpause_map(force:bool=false)->void:
+	if force:
+		pause_stack = 0;
+	else:
+		pause_stack -= 1
+	
 	if not pause_stack:
 		Entities.main_bgm.play_bgm("world_map")
 		Entities.in_map_player.set_process_input(true)
@@ -157,5 +163,16 @@ func _on_settlement_ui_settlement_left() -> void:
 
 func _on_returned_from_battle(won: bool) -> void:
 	## where something different will happen if you lose 
-	Entities.current_speaking_party.queue_free();
 	Entities.player.reparent(Entities.in_map_player)
+	unpause_map(true);
+	var party:NpcMapParty = Entities.current_speaking_party;
+	if won:
+		match party.leader.after_defeat:
+			"disappear":
+				Entities.current_speaking_party.queue_free();
+	else:
+		match party.leader.after_victory:
+			"rob_player":
+				Entities.dialogue_player.start_dialogue(party.leader, "defeated_player")
+				await Entities.dialogue_player.dialogue_ended;
+				MapEvents.yield_resources(["money"], .5);

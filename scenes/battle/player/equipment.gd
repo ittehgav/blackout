@@ -1,5 +1,6 @@
 extends Node2D
 
+signal weapon_changed
 signal weapon_used;
 signal weapon_equipped(weapon:Weapon);
 signal module_used
@@ -31,6 +32,7 @@ func _ready()->void:
 	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate(DUPLICATE_USE_INSTANTIATION)
 	add_child(equipped_weapon);
 	equip_weapon(equipped_weapon)
+
 	
 	ColorCoder.color_code_weapon(equipped_weapon, Entities.player.color_scheme_index)
 	var alt_weapon:Weapon = Entities.player.alternative_weapon;
@@ -69,7 +71,8 @@ func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("weapon_alt") and "alt_use" in weapon:
 		## for now it's fine but maybe some alt uses will send the weapon to cooldown?
 		weapon.alt_use();
-
+		weapon_sfx.play_sound_by_key(weapon.alt_use_sfx)
+		
 
 
 func module_input()->void:
@@ -125,12 +128,11 @@ func play_weapon_vfx()->void:
 				Tweens.camera_lunge(Entities.in_fight_player)
 			"gun_recoil":
 				Tweens.gun_recoil(weapon)
-			"shake":
-				Tweens.weapon_shake(weapon);
 			"grow":
 				Tweens.weapon_grow(weapon);
 
 func play_weapon_hit_vfx()->void:
+	
 	for vfx:String in weapon.hit_vfx:
 		match vfx:
 			"freeze_camera":
@@ -140,17 +142,18 @@ func play_weapon_hit_vfx()->void:
 func switch_weapon()->void:
 	var current_weapon:Weapon = weapon;
 	current_weapon.hide()
-	equip_weapon(alternative_weapon);
+	equip_weapon(alternative_weapon, false, false);
 	alternative_weapon = current_weapon;
-	
+	## weapon variable is already equipped weapon as this is emmtied
 	weapon_equipped.emit(weapon);
-	current_weapon.unequipped.emit();
-	weapon.equipped.emit()
+	weapon_changed.emit();
 	
-func equip_weapon(to_equip:Weapon)->void:
-	## for now just auto equips the exported one but it's where it'll do so at the start of battle and
-	## where it'll swap them mid-fight
-	## both weapons will be children of thsi node
+	current_weapon.refresh_request.disconnect(equip_weapon)
+	current_weapon.unequipped.emit();
+	
+	
+func equip_weapon(to_equip:Weapon, from_refresh:bool=false, from_switch:bool=false)->void:
+	## decouple the refreshing one of these days?
 		
 	to_equip.show()
 	weapon = to_equip;
@@ -176,8 +179,19 @@ func equip_weapon(to_equip:Weapon)->void:
 		weapon_cd.timeout.connect(refresh_weapon_cooldown, ConnectFlags.CONNECT_ONE_SHOT);
 	else:
 		weapon_cd.stop();
-		
-	holder.attack = weapon.damage;
+	
+	if "base_damage" in weapon:
+		holder.attack = weapon.base_damage + Entities.in_fight_player.attack;
+	else:
+		holder.attack = 0;
+	if not from_refresh:
+		weapon.refresh_request.connect(equip_weapon.bind(weapon, false))
+		weapon.equipped.emit()
+	## surley this doesn't cause any rtouble?
+	if not from_switch:
+		## gotta emit this signal after changing the alternative_weapon property
+		weapon_equipped.emit(weapon);
+	
 	
 func refresh_weapon_cooldown()->void:
 	weapon_cd.wait_time = weapon.cooldown - (weapon.cooldown/100*holder.agility)

@@ -52,3 +52,4 @@ func pacify_speaking_party()->void:
 	Entities.current_speaking_party.pacified = true;
 	Entities.current_speaking_party.apply_party_status\
 	("pacified", 25, Entities.current_speaking_party.depacify);
+	Entities.current_speaking_party.find_target();

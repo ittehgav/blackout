@@ -7,9 +7,11 @@ class_name Inventory;
 
 @export var holder:Node;
 
-@export_subgroup("Resources")
+@export_subgroup("Resource Counters")
+## resource counters and resource items remain consistant with eachother
+## and can both be used for checking and updating eachother
 @export var food:int;
-@export var money:float;
+@export var money:int;
 @export var fuel:int;
 
 @export var juice:int;
@@ -17,6 +19,8 @@ class_name Inventory;
 @export var chips:int;
 
 @export_subgroup("Items")
+@export var items:Array[Item];
+
 @export var containers:Array[ResourceContainer];
 @export var consumables:Array[Consumable];
 @export var trinkets:Array[Trinket];
@@ -48,21 +52,30 @@ func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:boo
 				Entities.player.resource_changed.emit(r, self[r] - previous_amounts[r]);
 
 	
-func _on_child_entered_tree(node: Node) -> void:
+func add_item(item: Item, generated:bool=false) -> void:
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
-	assert(node is Item)
-	if node is Consumable:
-		consumables.push_back(node);
-	elif node is Trinket:
-		trinkets.push_back(node);
-	elif node is Module:
-		modules.push_back(node);
-	elif node is Weapon:
-		weapons.push_back(node);
-	elif node is ResourceContainer and not (node in containers):
-		## default containers from travelling traders will be manually added to the containers array 
-		## so the resources can be restored before entering the tree
-		containers.append(node)
+	if not item.is_inside_tree():
+		## generated = added and needs to be operational before the inventory enterds the tree
+		add_child(item);
+	else:
+		if not is_ancestor_of(item):
+			item.reparent(self);
+	
+		
+	if not (item in items):
+		items.append(item);
+		if item is Consumable:
+			consumables.append(item);
+		elif item is Trinket:
+			trinkets.append(item);
+		elif item is Module:
+			modules.append(item);
+		elif item is Weapon:
+			weapons.append(item);
+		elif item is ResourceContainer and not (item in containers):
+			## default containers from travelling traders will be manually added to the containers array 
+			## so the resources can be restored before entering the tree
+			containers.append(item)
 
 
 func change_resource(resource:String, amount:int)->void:
@@ -142,96 +155,101 @@ func change_resource(resource:String, amount:int)->void:
 }
 
 
+func remove_item(item:Item, remove:bool=false, remove_from_tree:bool=false)->void:
+	assert(item in items);
+	if remove_from_tree:
+		item.queue_free();
+	elif remove:
+		remove_child(item);
+	items.erase(item);
+	if item is Consumable:
+		consumables.erase(item);
+	elif item is Trinket:
+		trinkets.erase(item);
+	elif item is Module:
+		modules.erase(item);
+	elif item is Weapon:
+		weapons.erase(item);
+	elif item is ResourceContainer:
+		containers.erase(item)
 
-func _on_child_exiting_tree(node: Node) -> void:
-	assert(node is Item)
-	if node is Consumable:
-		consumables.erase(node);
-	elif node is Trinket:
-		trinkets.erase(node);
-	elif node is Module:
-		modules.erase(node);
-	elif node is Weapon:
-		weapons.erase(node);
-	elif node is ResourceContainer:
-		containers.erase(node)
-		
+
+
+func clear_containers()->void:
+	for c:ResourceContainer in containers:
+		if "raw_stack" in c:
+			## cam't just queue fere because it needs to be 
+			## out of the items array in the same frame
+			remove_item(c, true, true);
+		else:
+
+			c.stack_size = 0;
+
 func store_resources()->void:
+	
 	## used after resources are gained from whatever source, allocates 
 	## unallocated resources to the containers with the highest capacity
+	clear_containers();
 	for r:String in Index.all_resources:
 		if r != "money":
-			if holder is Settlement:
-				var container:ResourceContainer = holder[r+"_storage"];
-				container.stack_size = self[r];
-			else:
-				var total:int = self[r];
-				var already_stored:int = 0;
-				var containers_with_space:Array[ResourceContainer];
-				
-				for container:ResourceContainer in containers:
-					if container.resource == r:
-						already_stored += container.stack_size;
-						if container.space_left():
-							if holder == Entities.player:
-								containers_with_space.append(container);
-							else:
-								if container in non_sellable_items:
-									## sellable containers will always be empty
-									containers_with_space.append(container);
-				if len(containers_with_space):
-					containers_with_space.sort_custom(containers[0].capacity_sort)
+				var containers_with_resource:Array[ResourceContainer]=\
+				containers.filter(func(a:ResourceContainer)->bool:return a.resource == r);
+				containers_with_resource.sort_custom(sort_containers);
 
-				var to_store:int = total - already_stored;
-				for c:ResourceContainer in containers_with_space:
-					if c.space_left() >= to_store:
-						c.stack_size += to_store;
+					
+				var to_store:int = self[r];
+
+				for c:ResourceContainer in containers_with_resource:
+					c.stack_size = 0;
+
+					if to_store:
+						if c.capacity >= to_store:
+
+							c.stack_size = to_store;
+							to_store = 0;
+						else:
+
+							c.stack_size = c.capacity;
+							to_store -= c.capacity;
+
+					
+				while to_store:
+					var raw_stack:ResourceContainer = Index[r+"_stack_scene"].instantiate()
+					if "mirror_only" in raw_stack or raw_stack.capacity >= to_store:
+
+						raw_stack.stack_size = to_store;
 						to_store = 0;
 					else:
-						var to_add:int = c.space_left();
-						c.stack_size += to_add;
-						to_store -= to_add;
-				
-				
-				var raw_stack:ResourceContainer = Index[r + "_stack_scene"].instantiate();
-				if not "mirror_only" in raw_stack:
-					while to_store:
-						var stack:ResourceContainer = raw_stack.duplicate();
-						if stack.capacity < to_store:
-							stack.stack_size = stack.capacity;
-							add_child(stack)
-							to_store -= stack.capacity
-						else:
-							add_child(stack);
-							stack.stack_size = to_store
-							to_store = 0;
-				else:
-					## if stack is liquid and there's no room for it, it goes to waste
-					## TODO settlements refuse trades for stuff they can't store?
-					self[r] -= to_store;
 
+						raw_stack.stack_size = raw_stack.capacity;
+						to_store -= raw_stack.capacity;
+					add_item(raw_stack);
 
+					
+
+					
 func sort_items()->void:
 	## only ever run if guaranteed that everything will fit
+	store_resources()
 	var all_items:Array[Item] = []
-	for item in get_children():
+	for item in items:
 		item.inventory_position = Vector2(-1, -1)
-		all_items.append(item)
-	all_items.sort_custom(size_sort);
 	
 	## merely projects a grid instead of creating the who display
 	var taken_cells:Array[Vector2];
-	for item in all_items:
+	for item in items:
 		if item != Entities.player.equipped_module and\
 		item != Entities.player.equipped_weapon and\
 		item != Entities.player.alternative_weapon:
 			throw_item(item, taken_cells);
 
+
 func size_sort(a:Item, b:Item)->bool:
 	return a.size_x * a.size_y > b.size_x * b.size_y;
 
-func throw_item(item:Item, taken_cells:Array[Vector2])->void:
+func throw_item(item:Item, taken_cells:Array[Vector2]=[])->void:
 	## every non-player inventory is top-right oriented instead of top-left
+	## ONLY ITEMS THAT FIT CAN MAKE IT HERE
 	var spot:Vector2;
 	if self == Entities.player.inventory:
 		spot = Vector2.ZERO;
@@ -268,3 +286,16 @@ func cell_in_grid(cell:Vector2)->bool:
 	if cell.y < 0 or cell.y >= capacity_y:
 		return false;
 	return true;
+
+
+func _on_child_entered_tree(node: Node) -> void:
+	assert(node is Item);
+	add_item(node);
+
+func sort_containers(a:ResourceContainer, b:ResourceContainer)->bool:
+	if a.capacity > b.capacity:
+		return true
+	elif b.capacity > a.capacity:
+		return false;
+	else:
+		return a.stack_size > b.stack_size;

@@ -39,11 +39,13 @@ func animate_resource_change(resource:String, change:int)->void:
 		z_index += 10
 		modulate.a = 1;
 		
+		if change < 0:
+			label.add_theme_color_override("font_color", Color.RED)
 		resource_tweens[resource] = create_tween();
 		resource_tweens[resource].tween_method(set_resource_label_text.bind(label), current_value, target_value, .75);
 		resource_tweens[resource].tween_property(label, "theme_override_font_sizes/font_size", 64, .1)
 		await resource_tweens[resource].finished;
-		
+		label.add_theme_color_override("font_color", Index.resource_colors[resource])
 		modulate.a = previous_alpha;
 		z_index = previous_z
 func set_resource_label_text(value:int, label:Label)->void:

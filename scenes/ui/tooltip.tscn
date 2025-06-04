@@ -1,10 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://qt3uf6vc1tww"]
 
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="1_b5j4s"]
 [ext_resource type="Script" uid="uid://bvfxh7uhjvokr" path="res://scenes/ui/tooltip.gd" id="1_ufptg"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mtwet"]
-
-[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "sub_name_label", "description_label", "icon", "hint", "hover_timer")]
+[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "sub_name_label", "description_label", "hint", "hover_timer")]
 process_mode = 3
 visible = false
 z_index = 6
@@ -20,38 +19,19 @@ offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_vertical = 4
 mouse_filter = 2
+theme = ExtResource("1_b5j4s")
 script = ExtResource("1_ufptg")
 name_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/name")
 sub_name_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/sub_name")
 description_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/description")
-icon = NodePath("MarginContainer/HBoxContainer/icon")
-hint = NodePath("Control/hint")
+hint = NodePath("MarginContainer/HBoxContainer/VBoxContainer/hint")
 hover_timer = NodePath("hover_timer")
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 2
-
-[node name="hint" type="Label" parent="Control"]
-visible = false
-modulate = Color(1, 1, 1, 0.513726)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -52.0
-offset_top = -26.0
-grow_horizontal = 0
-grow_vertical = 0
-size_flags_horizontal = 8
-text = "tooly"
-horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 4
 mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
@@ -60,23 +40,22 @@ theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 0
-mouse_filter = 2
-
-[node name="icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 48
 text = "wawa"
 
@@ -91,7 +70,7 @@ horizontal_alignment = 1
 visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 4
 mouse_filter = 2
 theme_override_font_sizes/bold_italics_font_size = 32
 theme_override_font_sizes/italics_font_size = 32
@@ -103,10 +82,13 @@ text = "edwadawdawdawdwadawd"
 fit_content = true
 scroll_active = false
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="hint" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+modulate = Color(1, 1, 1, 0.513726)
 layout_mode = 2
-theme_override_constants/separation = 20
-theme_override_styles/separator = SubResource("StyleBoxEmpty_mtwet")
+size_flags_vertical = 8
+text = "tooly"
+horizontal_alignment = 2
 
 [node name="hover_timer" type="Timer" parent="."]
 wait_time = 0.5

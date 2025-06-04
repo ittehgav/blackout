@@ -16,6 +16,7 @@ signal stopped_moving;
 @export var shadow:Node2D;
 
 
+var walking_blocked:bool=false;
 var moving:bool = false;
 
 func _ready()->void:
@@ -34,7 +35,8 @@ func load_fighter()->void:
 	max_hp = stats.max_hp;
 	hp = stats.max_hp;
 	
-	attack = Entities.player.equipped_weapon.damage;
+	## these are loaded and then used by the wepaons and modules
+	attack = stats.attack
 	defense = stats.defense
 	agility = stats.agility
 	
@@ -61,9 +63,10 @@ func get_input()->void:
 	
 
 func _physics_process(_delta:float)->void:
-	get_input()
-	move_and_slide()
-	hit_scan.look_at(get_global_mouse_position())
+	if not walking_blocked:
+		get_input()
+		move_and_slide()
+		hit_scan.look_at(get_global_mouse_position())
 
 
 func _on_stat_changed(stat: String) -> void:

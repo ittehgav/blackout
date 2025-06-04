@@ -154,28 +154,26 @@ func _on_gui_input(e: InputEvent) -> void:
 							empty_storage();
 
 					elif item is Weapon:
-						var current_weapon:Weapon = Entities.player.equipped_weapon;
-						display.clear_cells(self);
-						Entities.player.equip_weapon(item);
-						item.mirror = null;
-						
-						current_weapon.inventory_position = inventory_position;
-						load_item(current_weapon, true)
-		
-						if not display.check_item_fit(item, inventory_position):
-							display.throw_mirror(self);
-						display.item_dropped.emit(self)
+						if not Entities.player.alternative_weapon:
+							equip_weapon_command(true)
+						else:
+							if Input.is_key_pressed(KEY_ALT):
+								equip_weapon_command(true);
+							else:
+								equip_weapon_command()
 						
 						display.sfx.play_sound_by_key("weapon_equipped")
-						refresh()
+
 					elif item is Module:
-						var current_module:Module = Entities.player.equipped_module;
 						display.clear_cells(self);
-						Entities.player.equip_module(item);
-						item.mirror = null;
 						
-						current_module.inventory_position = inventory_position;
-						load_item(current_module, true);
+						var unequipped_module:Module = Entities.player.equipped_module;
+						Entities.player.equip_module(item);
+						
+						item.mirror = null;
+						unequipped_module.inventory_position = inventory_position;
+						
+						load_item(unequipped_module, true);
 						## doesn't have to refit since all modules are the same size;
 						display.item_dropped.emit(self);
 						display.sfx.play_sound_by_key("module_equipped");
@@ -205,9 +203,7 @@ func empty_storage()->void:
 			else:
 				raw_stack.stack_size = raw_stack.capacity;
 				stack_size -= raw_stack.capacity;
-		var mirror:ItemMirror = display.item_mirror_scene.instantiate();
-		mirror.display = display;
-		mirror.load_item(raw_stack, true);
+		var mirror:ItemMirror = display.generate_mirror(raw_stack);
 		to_throw.append(mirror);
 		
 
@@ -219,6 +215,7 @@ func empty_storage()->void:
 			stack_size += mirror.stack_size;
 			moved -= mirror.stack_size
 			mirror.queue_free();
+
 	display.item_dropped.emit(self)
 	display.play_deposit_sfx(moved, item.resource)
 			
@@ -238,6 +235,24 @@ func pick_up()->void:
 	held = true;
 	display.held_item_mirror = self;
 
+func drop_on_container(target:ItemMirror)->bool:
+	var deposited: = 0;
+	target.highlight_stack_label();
+	if target.space_left() >= stack_size:
+		target.stack_size += stack_size;
+		deposited = stack_size
+		stack_size = 0;
+	else:
+		deposited = target.space_left();
+		stack_size -= target.space_left();
+		target.stack_size = target.item.capacity;
+		
+	display.play_deposit_sfx(stack_size, item.resource);
+	
+	if not stack_size and "raw_stack" in item:
+		return true;
+	return false
+
 func put_down()->void:
 	modulate.a = 1;
 	z_index -= 1
@@ -247,10 +262,9 @@ func put_down()->void:
 		## only validates if there's exactly one item under this one
 		if display.context != "trade" and item is ResourceContainer and item_under.item is ResourceContainer\
 			and item.resource == item_under.item.resource:
-			var free:bool = item.drop_on_container(item_under.item, display.sfx);
+			var free:bool = drop_on_container(item_under);
 			if free:
 				queue_free();
-				await tree_exited;
 				display.item_dropped.emit(self);
 				return
 	
@@ -274,10 +288,34 @@ func place_on_spot()->void:
 func loot_command()->void:
 	display.send_item(self);
 
+func equip_weapon_command(alt:bool=false)->void:
+	display.clear_cells(self);
+	var current_weapon:Weapon;
+	if alt:
+		current_weapon = Entities.player.alternative_weapon;
+		Entities.player.equip_alt_weapon(item);
+	else:
+		current_weapon = Entities.player.equipped_weapon;
+		Entities.player.equip_weapon(item);
+		
+	if current_weapon:
+		item.mirror = null;
+		current_weapon.inventory_position = inventory_position;
+		load_item(current_weapon, true)
+		
+		if not display.check_item_fit(item, inventory_position):
+			display.throw_mirror(self);
+		display.item_dropped.emit(self);
+		refresh();
+	else:
+		## only ever happens in player sheet so it's ok to emit drop with freed mirror?
+		queue_free()
+		display.item_dropped.emit(self)
+
 func trade_command()->void:
 	if item is ResourceContainer:
 		if "raw_stack" in item:
-			display.trade_resource(self, stack_size);
+			display.send_resource(self, stack_size);
 			return
 		elif stack_size:
 			await get_tree().create_timer(.15).timeout;
@@ -288,12 +326,11 @@ func trade_command()->void:
 				return
 			else:
 				if stack_size:
-					print("ifss?")
-					display.trade_resource(self, stack_size);
+					display.send_resource(self, stack_size);
 					return
 				else:
 					if display.from_player or not item in display.inventory.non_sellable_items:
-						display.trade_resource(self, stack_size);
+						display.send_resource(self, stack_size);
 						return
 					else:
 						if held:
@@ -303,6 +340,11 @@ func trade_command()->void:
 		else:
 			if display.from_player or not item in display.inventory.non_sellable_items:
 				display.send_item(self, true);
+				if display.context == "trade" or display.context == "loot":
+					## sending the raw stack through here goes over the usual way the 
+					## resources_changed signal is emitted
+					display.resources_changed.emit(item.resource, stack_size * -1);
+					display.exchanging_display.resources_changed.emit(item.resource, stack_size) 
 				return
 			else:
 				if held:
@@ -345,30 +387,33 @@ func _on_mouse_entered() -> void:
 		var clear:bool = send_to_containers();
 		if clear:
 			queue_free();
+
 	outline.border_color = highlighted_outline_color;
 
 func send_to_containers()->bool:
 	var amount_deposited:int=0;
-	var containers:Array[ItemMirror] = display[item.resource+"_containers"];
+	var containers:Array[ItemMirror] = display[item.resource+"_containers"].filter(
+		func(c:ItemMirror)->bool:return not ("raw_stack" in c.item)
+	)
 	containers.sort_custom(display.sort_container_mirrors);
 	for c:ItemMirror in containers:
-		var space_left:int = c.item.capacity - c.stack_size;
-		if space_left:
-			if space_left >= stack_size:
-				c.stack_size += stack_size;
-				c.highlight_stack_label();
-				c.refresh();
-				amount_deposited += stack_size;
-				display.play_deposit_sfx(amount_deposited, item.resource)
-				display.item_dropped.emit(self)
-				return true
-			else:
-				c.stack_size = c.item.capacity;
-				stack_size -= space_left;
-				c.highlight_stack_label();
-				c.refresh();
-				amount_deposited += space_left;
+		if stack_size:
+			if c.space_left():	
+				if c.space_left() >= stack_size:
+					c.stack_size += stack_size;
+					c.highlight_stack_label();
+					c.refresh();
+					amount_deposited += stack_size;
+					display.play_deposit_sfx(amount_deposited, item.resource)
+					return true
+				else:
+					amount_deposited += c.space_left();
+					stack_size -= c.space_left();
+					c.stack_size = c.item.capacity;
+					c.highlight_stack_label();
+					c.refresh();
 	display.play_deposit_sfx(amount_deposited, item.resource)
+	refresh();
 	display.item_dropped.emit(self)
 	return false
 			
@@ -450,3 +495,6 @@ func refresh()->void:
 	if inventory_position.x + item.size_x > display.size_x or inventory_position.y + item.size_y > display.size_y:
 		modulate.a = .75;
 		display.extending_elements = true;
+
+func space_left()->int:
+	return item.capacity - stack_size;

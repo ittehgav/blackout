@@ -5,4 +5,6 @@ class_name Weapon;
 signal equipped;
 signal unequipped;
 
-const tooltip_hint = "[right-click] to equip"
+signal refresh_request;
+
+const tooltip_hint = "[right-click] to equip.\n[alt+right-click] to equip as secondary";

@@ -3,6 +3,8 @@ extends SfxPlayer
 @export var hit_sfx:AudioStreamPlayer;
 @export var swing:AudioStream;
 
+@export var alternate:AudioStream;
+
 @export var swing_hit:AudioStream
 @export var shoot:AudioStream;
 @export var spray:AudioStream;

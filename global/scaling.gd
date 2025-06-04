@@ -155,6 +155,65 @@ func tag_stats_per_level(tag:String)->Dictionary:
 			dict.agility = 1.5
 			dict.technique = .15
 	return dict;
+	
+func tag_upkeep_costs(tag:String)->Dictionary:
+	var costs:Dictionary[String, int];
+	match tag:
+		"juggernaut":
+			costs = {
+				"food":2,
+				"juice":2
+			}
+		"brawler":
+			costs = {
+				"food":2,
+				"juice":2
+			}
+		"hunter":
+			costs = {
+				"scrap":1,
+				"food":2
+			}
+		"disruptor":
+			costs = {
+				"scrap":1,
+				"fuel":2
+			}
+		"scientist":
+			costs = {
+				"juice":2,
+				"fuel":2
+			}
+		"mechanic":
+			costs = {
+				"fuel":2,
+				"scrap":1
+			}
+		"bodybuilder":
+			costs = {
+				"food":2,
+				"juice": 2
+			}
+		"doctor":
+			costs = {
+				"food":2,
+				"scrap":1
+			}
+		"cyborg":
+			costs = {
+				"scrap":1,
+				"fuel":2
+			}
+	
+	return costs
+	
+func unit_upkeep_money_cost(level:int)->int:
+	var cost:int = level * level;
+	if level > 2:
+		cost /= ceil(float(level)/2);
+	return cost
+	
+	
 
 
 func exp_for_next_level(current_level:int)->int:
@@ -166,4 +225,12 @@ var event_stat_value_multipliers:Dictionary[String, float] = {
 	"defense": 5,
 	"agility":1,
 	"technique":.15
+}
+
+var player_stats_per_point:Dictionary[String, float] = {
+	"max_hp":25,
+	"attack":5,
+	"defense":2.5,
+	"agility":1,
+	"technique":.5
 }

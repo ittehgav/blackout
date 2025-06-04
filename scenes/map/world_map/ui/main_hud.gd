@@ -184,3 +184,12 @@ func _on_trade_menu_trade_started() -> void:
 
 func _on_world_map_returned_from_battle(_won: bool) -> void:
 	switch_to_fully_visible()
+
+
+func _on_daily_upkeep_daily_upkeep_prompted() -> void:
+	for p in all_panels:
+		p.hide();
+
+
+func _on_daily_upkeep_daily_upkeep_finished() -> void:
+	switch_to_fully_visible();

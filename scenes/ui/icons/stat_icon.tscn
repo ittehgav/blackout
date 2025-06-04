@@ -8,7 +8,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xoeuu"]
 resource_local_to_scene = true
 shader = ExtResource("1_1s3gs")
-shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(0, 1, 0, 1)
 shader_parameter/light_color = Color(1, 0, 0, 1)
@@ -24,7 +24,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 1, 1)
 
-[node name="StatIcon" type="TextureRect"]
+[node name="StatIcon" type="TextureRect" node_paths=PackedStringArray("panel")]
 material = SubResource("ShaderMaterial_xoeuu")
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
@@ -42,8 +42,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("1_b7vp6")
 script = ExtResource("2_w7tyd")
+panel = NodePath("panel")
 
 [node name="panel" type="Panel" parent="."]
+visible = false
 show_behind_parent = true
 z_index = -1
 use_parent_material = true
@@ -58,6 +60,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_d742l")
 
 [node name="Tooltip" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_66raq")]
+use_parent_material = true
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0

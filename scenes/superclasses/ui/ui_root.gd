@@ -2,10 +2,13 @@ extends Control
 
 class_name UIRoot;
 
+
+
 @export var ui_sfx:UISFX;
 
 func _ready()->void:
 	resize()
+	get_window().size_changed.connect(resize);
 	recursive_connect_ui_feedback(self)
 	
 
@@ -16,7 +19,8 @@ func resize()->void:
 func recursive_connect_ui_feedback(node:Node)->void:
 	if "pressed" in node:
 		node.pressed.connect(ui_sfx.ui_click_sound.bind(node));
-	
+
+
 	if node is Button:
 		node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
 	if node is TabContainer:

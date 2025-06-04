@@ -96,12 +96,14 @@ func refresh_trade_balance()->void:
 		var trade:int = self[r+"_trade"]
 		if trade < 0:
 			## TRADE < 0 = PLAYER SELLING
-			## trade is negatgive here so money_trade gets subtracted and volume added
+			## trade is negative here so money_trade gets subtracted and volume added
 			reset_btn.disabled = false
 			var value:int = trader_inventory_display.inventory.resource_selling_prices[r] * trade
+			## value is subtracted because it's negative
 			money_trade -= value;
 			trade_volume += value;
 		elif trade > 0:
+			## TRADE > 0 = PLAYER BUYING
 			reset_btn.disabled = false;
 			var value:int = trader_inventory_display.inventory.resource_buying_prices[r] * trade
 			money_trade -= value;
@@ -140,28 +142,23 @@ func refresh_trade_balance()->void:
 	
 
 
+func _on_player_inventory_display_resources_changed(resource: String, amount: int) -> void:
+	## positive change on player's inventory = balance UP
+	## negative change on player's inventory = balance DOWN
+	self[resource+"_trade"] += amount;
+	refresh_trade_balance();
+
 func _on_trader_inventory_display_item_dropped(mirror:ItemMirror, from:String="move") -> void:
 	## ITEM DROPPED IN TRADER INVENTORY = SOLD
-	if from == "trade":
-		if mirror.item is ResourceContainer and mirror.stack_size:
-			## mirror that ends up here will have the stack size of the resource that was traded
-			self[mirror.item.resource + "_trade"] -= mirror.stack_size;
-		else:
-			non_resource_money_trade += mirror.price;
-			
+	if from == "trade" and (not mirror.item is ResourceContainer or not mirror.stack_size):
+		non_resource_money_trade += mirror.price;
 		refresh_trade_balance()
 
 
 func _on_player_inventory_display_item_dropped(mirror:ItemMirror, from:String="move") -> void:
 	## ITEM DROPPED IN PLAYER INVENTORY = BOUGHT
-	if from == "trade":
-		if mirror.item is ResourceContainer and mirror.stack_size:
-			## mirror that ends up here will have the stack size of the resource that was traded
-			## READS FROM THE RESOURCES IN THE TRADE INVENTORY DISPLAYS RATHER THAN THE COUNT ON THE INVENTORIES
-			self[mirror.item.resource + "_trade"] += mirror.stack_size;
-		else:
-			non_resource_money_trade -= mirror.price;
-		
+	if from == "trade" and (not mirror.item is ResourceContainer or not mirror.stack_size):
+		non_resource_money_trade -= mirror.price;
 		refresh_trade_balance()
 
 

@@ -44,7 +44,7 @@ func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("dialogue_next") and visible and (not choices_box.visible) and not suspended:
 		dialogue_next();
 
-func start_dialogue(target:Leader)->void:
+func start_dialogue(target:Leader, starting_line:String = "start")->void:
 	suspended = false
 	Entities.main_bgm.play_bgm(target.party_type)
 	set_process_mode(Node.PROCESS_MODE_ALWAYS)
@@ -55,7 +55,7 @@ func start_dialogue(target:Leader)->void:
 	set_speaking_avatar();
 	
 	current_dialogue = target.dialogue;
-	current_line = await manager.get_next_dialogue_line(current_dialogue, "start")
+	current_line = await manager.get_next_dialogue_line(current_dialogue, starting_line);
 	display_line()
 	
 	expose_avatar(current_speaking_sprite);
@@ -200,7 +200,7 @@ func parse_dialogue_text(text:String)->String:
 		final_text = final_text.replace("#roll_convince", roll_convince_odds())
 	
 	if "#yield" in final_text:
-		final_text = final_text.replace("#yield", "[color=dark_red]Lose half of all your resources.");
+		final_text = final_text.replace("#yield", "[color=dark_red]Lose half of your money.");
 	if "#angry" in final_text:
 		final_text = final_text.replace("#angry", "");
 		final_text = wrap_in_bbcode_tag(final_text, "shake rate=50.0 level=40.0")

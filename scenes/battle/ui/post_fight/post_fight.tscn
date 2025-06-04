@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b8j8soyx2828m"]
+[gd_scene load_steps=35 format=3 uid="uid://b8j8soyx2828m"]
 
 [ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/ui/post_fight/post_fight.gd" id="1_433o0"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_7eru0"]
@@ -11,8 +11,10 @@
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="6_am2jd"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar.tscn" id="7_r614c"]
 [ext_resource type="PackedScene" uid="uid://wn2qetscjd4p" path="res://scenes/battle/ui/post_fight/unit_exp_gain_display.tscn" id="9_am2jd"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="10_dh2mc"]
 [ext_resource type="Script" uid="uid://biskar3s20qlf" path="res://scenes/battle/ui/post_fight/loot_gains.gd" id="10_r614c"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_grid/inventory_display.tscn" id="11_apr0c"]
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="12_qaebw"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="12_uydno"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_apr0c"]
@@ -25,6 +27,61 @@ shader_parameter/pattern = 1
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2tjb5"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3hyth"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glk5u"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekkts"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2j832"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
 resource_local_to_scene = true
@@ -193,7 +250,7 @@ script = ExtResource("3_7eru0")
 exp_gains = NodePath("exp_gains")
 loot_gains = NodePath("loot_gains")
 
-[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "leadership_exp_gain", "combat_exp_gain", "step_timer", "unit_exp_gain_container")]
+[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "leadership_exp_gain", "combat_exp_gain", "step_timer", "unit_exp_gain_container", "combat_stat_points_label", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
 custom_minimum_size = Vector2(1000, 600)
 layout_mode = 1
 anchors_preset = 15
@@ -206,68 +263,274 @@ offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_r614c")
-victory_title = NodePath("victory_title")
-leadership_exp_gain = NodePath("HBoxContainer/VBoxContainer/leadership_exp")
-combat_exp_gain = NodePath("HBoxContainer/VBoxContainer/combat_exp")
+victory_title = NodePath("VBoxContainer/victory_title")
+leadership_exp_gain = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/leadership_exp")
+combat_exp_gain = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/combat_exp")
 step_timer = NodePath("step")
 unit_exp_gain_container = NodePath("unit_exp_gains")
 unit_exp_gain_scene = ExtResource("9_am2jd")
+combat_stat_points_label = NodePath("VBoxContainer/VBoxContainer2/combat_stat_points")
+max_hp_label = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/max_hp_label")
+add_max_hp = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/add_hp_point")
+remove_max_hp = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/remove_hp_point")
+attack_label = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2/attack_label")
+add_attack = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2/add_attack_point")
+remove_attack = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2/remove_attack_point")
+defense_label = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3/defense_label")
+add_defense = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3/add_defense_point")
+remove_defense = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3/remove_defense_point")
+agility_label = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4/agility_label")
+add_agility = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4/add_agility_point")
+remove_agility = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4/remove_agility_point")
+technique_label = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/technique_label")
+add_technique = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/add_technique_point")
+remove_technique = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/remove_technique_point")
 
-[node name="victory_title" type="Label" parent="victory_view/exp_gains"]
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_view/exp_gains"]
 layout_mode = 1
-offset_left = 39.0
-offset_top = 10.0
-offset_right = 647.0
-offset_bottom = 213.0
-pivot_offset = Vector2(288, 50)
-theme_override_font_sizes/font_size = 256
+offset_left = 21.0
+offset_right = 525.0
+offset_bottom = 316.0
+
+[node name="victory_title" type="Label" parent="victory_view/exp_gains/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
 text = "Victory!"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/exp_gains"]
-layout_mode = 0
-offset_top = 230.0
-offset_right = 504.0
-offset_bottom = 440.0
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer"]
+layout_mode = 2
 
-[node name="SpriteSample" parent="victory_view/exp_gains/HBoxContainer" instance=ExtResource("4_do72l")]
-custom_minimum_size = Vector2(200, 0)
+[node name="SpriteSample" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer" instance=ExtResource("4_do72l")]
+custom_minimum_size = Vector2(200, 304)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="body" parent="victory_view/exp_gains/HBoxContainer/SpriteSample" instance=ExtResource("5_y05uc")]
+[node name="body" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/SpriteSample" instance=ExtResource("5_y05uc")]
 material = SubResource("ShaderMaterial_apr0c")
 position = Vector2(81, 108)
 scale = Vector2(6, 6)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="victory_view/exp_gains/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="player_name" type="Label" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer"]
+[node name="player_name" type="Label" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
 text = "Player"
 
-[node name="Label" type="Label" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Leadership Experience"
 
-[node name="leadership_exp" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
+[node name="leadership_exp" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
 custom_minimum_size = Vector2(300, 20)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
 
-[node name="Label2" type="Label" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Combat Experience"
 
-[node name="combat_exp" parent="victory_view/exp_gains/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
+[node name="combat_exp" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
 custom_minimum_size = Vector2(300, 20)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="victory_view/exp_gains/VBoxContainer"]
+layout_mode = 2
+
+[node name="combat_stat_points" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Stat Points: 1"
+
+[node name="player_stats" type="GridContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+columns = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
+layout_mode = 2
+
+[node name="max_hp_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_2tjb5")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../max_hp_label")]
+from_player = true
+
+[node name="max_hp_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "iia"
+
+[node name="remove_hp_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "-"
+
+[node name="add_hp_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
+layout_mode = 2
+
+[node name="attack_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_3hyth")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../attack_label")]
+from_player = true
+stat = "attack"
+
+[node name="attack_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "iia"
+
+[node name="remove_attack_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "-"
+
+[node name="add_attack_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "+"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
+layout_mode = 2
+
+[node name="defense_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_glk5u")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../defense_label")]
+from_player = true
+stat = "defense"
+
+[node name="defense_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "iia"
+
+[node name="remove_defense_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "-"
+
+[node name="add_defense_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "+"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
+layout_mode = 2
+
+[node name="agility_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_ekkts")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../agility_label")]
+from_player = true
+stat = "agility"
+
+[node name="agility_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "iia"
+
+[node name="remove_agility_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "-"
+
+[node name="add_agility_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "+"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
+layout_mode = 2
+
+[node name="technique_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_2j832")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../technique_label")]
+from_player = true
+stat = "technique"
+
+[node name="technique_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "iia"
+
+[node name="remove_technique_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "-"
+
+[node name="add_technique_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("12_qaebw")
+theme_override_font_sizes/font_size = 64
+text = "+"
 
 [node name="unit_exp_gains" type="GridContainer" parent="victory_view/exp_gains"]
 layout_mode = 1
@@ -305,6 +568,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="loot_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("post_fight", "player_inventory_display", "loot_display")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -320,25 +584,25 @@ post_fight = NodePath("../..")
 player_inventory_display = NodePath("player_inventory")
 loot_display = NodePath("loot")
 
-[node name="player_inventory" parent="victory_view/loot_gains" node_paths=PackedStringArray("warnings_display", "exchanging_display") instance=ExtResource("11_apr0c")]
+[node name="player_inventory" parent="victory_view/loot_gains" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 15.0
 offset_top = 50.0
-offset_right = 15.0
-offset_bottom = 50.0
+offset_right = 397.0
+offset_bottom = 628.0
 grow_horizontal = 1
 grow_vertical = 1
 context = "loot"
-warnings_display = NodePath("../../..")
 exchanging_display = NodePath("../loot")
 
 [node name="VBoxContainer" parent="victory_view/loot_gains/player_inventory" index="2"]
-offset_left = 402.0
+offset_left = 212.0
 offset_top = 34.0
-offset_right = 494.0
+offset_right = 304.0
 offset_bottom = 390.0
 
 [node name="money_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer3" index="0"]
@@ -359,8 +623,35 @@ material = SubResource("ShaderMaterial_15sfg")
 [node name="chips_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_7uvto")
 
+[node name="warning" parent="victory_view/loot_gains/player_inventory" index="6"]
+visible = false
+offset_left = 12.0
+offset_right = 52.0
+offset_bottom = 38.0
+
 [node name="operation" parent="victory_view/loot_gains/player_inventory/send_rect" index="0"]
 text = "LOOT"
+
+[node name="warnings" parent="victory_view/loot_gains/player_inventory" index="10"]
+z_index = 7
+z_as_relative = false
+offset_left = 1.0
+offset_right = 738.0
+
+[node name="MarginContainer" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer" index="0"]
+mouse_filter = 0
+
+[node name="VBoxContainer" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer/MarginContainer" index="0"]
+mouse_filter = 0
+
+[node name="warning" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="0"]
+mouse_filter = 0
+
+[node name="loot_discard" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="3"]
+mouse_filter = 0
+
+[node name="HBoxContainer" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="4"]
+mouse_filter = 0
 
 [node name="Label" type="Label" parent="victory_view/loot_gains"]
 layout_mode = 1
@@ -439,7 +730,7 @@ text = "Loot All"
 layout_mode = 2
 text = "Continue"
 
-[node name="defeat_view" type="Control" parent="." node_paths=PackedStringArray("morale_icon")]
+[node name="defeat_view" type="Control" parent="." node_paths=PackedStringArray("morale_icon", "morale_label")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -449,6 +740,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_uki8n")
 morale_icon = NodePath("Panel/MoraleIcon")
+morale_label = NodePath("Panel/morale_value")
 
 [node name="Panel" type="Panel" parent="defeat_view"]
 custom_minimum_size = Vector2(950, 500)
@@ -489,16 +781,34 @@ offset_right = 262.0
 offset_bottom = 271.0
 theme_override_font_sizes/font_size = 64
 
-[node name="Label2" type="Label" parent="defeat_view"]
+[node name="Label2" type="Label" parent="defeat_view/Panel"]
 modulate = Color(1, 1, 1, 0.501961)
-layout_mode = 0
-offset_left = 735.0
-offset_top = 566.0
-offset_right = 1103.0
-offset_bottom = 592.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -316.0
+offset_top = -38.0
+offset_right = -26.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "[click anywhere to continue]"
 
 [connection signal="gui_input" from="victory_view/exp_gains" to="victory_view/exp_gains" method="_on_gui_input"]
+[connection signal="level_up" from="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer/combat_exp" to="victory_view/exp_gains" method="_on_combat_exp_level_up"]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/remove_hp_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["max_hp"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/add_hp_point" to="victory_view/exp_gains" method="add_stat_point" binds= ["max_hp"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2/remove_attack_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["attack"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2/add_attack_point" to="victory_view/exp_gains" method="add_stat_point" binds= ["attack"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3/remove_defense_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["defense"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3/add_defense_point" to="victory_view/exp_gains" method="add_stat_point" binds= ["defense"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4/remove_agility_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["agility"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4/add_agility_point" to="victory_view/exp_gains" method="add_stat_point" binds= ["agility"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/remove_technique_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["technique"]]
+[connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/add_technique_point" to="victory_view/exp_gains" method="add_stat_point" binds= ["technique"]]
 [connection signal="timeout" from="victory_view/exp_gains/step" to="victory_view/exp_gains" method="_on_step_timeout"]
 [connection signal="pressed" from="victory_view/loot_gains/sort_inventory" to="victory_view/loot_gains/player_inventory" method="sort_inventory"]
 [connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/loot_all_btn" to="victory_view/loot_gains" method="_on_loot_all_btn_pressed"]

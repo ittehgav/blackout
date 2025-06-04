@@ -229,6 +229,5 @@ func initiate_inventory()->void:
 	for s:PackedScene in Index.resource_storage_scenes:
 		var storage:ResourceContainer = s.instantiate();
 		self[storage.resource+"_storage"]=storage;
-		inventory.add_child(storage);
-		inventory.containers.append(storage);
+		inventory.add_item(storage, true);
 		inventory.non_sellable_items.append(storage)

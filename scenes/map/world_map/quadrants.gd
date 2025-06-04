@@ -19,7 +19,6 @@ func _ready() -> void:
 	set_camera_margins()
 	Entities.in_map_player.position = Vector2(500, 500)
 
-	world_map.day_passed.emit()
 
 func set_corner_quadrants()->void:
 	all_quadrants.sort_custom(sort_top_left_to_bottom_right);

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cno7hu4sfyc12" path="res://scenes/indexes/parties/player/in_map_player.gd" id="1_h5u0f"]
 [ext_resource type="Script" uid="uid://uqg2im2po8og" path="res://scenes/indexes/parties/player/navigation_sfx.gd" id="2_2oxjm"]
 [ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
-[ext_resource type="AudioStream" uid="uid://ba617xkkmt2it" path="res://assets/sound/sfx/world_map/movement_start.wav" id="3_yei6f"]
+[ext_resource type="AudioStream" uid="uid://bfbxg7q2ia2ej" path="res://assets/sound/sfx/world_map/movement_start.wav" id="3_yei6f"]
 [ext_resource type="AudioStream" uid="uid://ct4pggtfvqt8f" path="res://assets/sound/sfx/world_map/movement_stop.wav" id="4_ajdwu"]
 [ext_resource type="Script" uid="uid://c0wbe3ugd608g" path="res://scenes/indexes/parties/player/in_map_camera.gd" id="4_ibn0u"]
 [ext_resource type="AudioStream" uid="uid://iiwod51go8ml" path="res://assets/sound/sfx/world_map/settlement_contact.wav" id="5_ipyn6"]
@@ -27,7 +27,6 @@ leader = NodePath("Player")
 vehicle = NodePath("Gol")
 
 [node name="navigation_sfx" type="AudioStreamPlayer" parent="."]
-volume_db = -10.0
 script = ExtResource("2_2oxjm")
 movement_start = ExtResource("3_yei6f")
 movement_stop = ExtResource("4_ajdwu")

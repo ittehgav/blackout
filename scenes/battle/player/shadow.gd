@@ -1,5 +1,5 @@
 extends Node2D
+const shadow_color = Color(0, 0, 0, .5)
 
 func _draw()->void:
-	const shadow_color = Color(0, 0, 0, .2);
-	draw_circle(Vector2(0, 50), 15, shadow_color)
+	draw_circle(Vector2.ZERO, 25, shadow_color)

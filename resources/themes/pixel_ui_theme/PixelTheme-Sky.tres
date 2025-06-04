@@ -1769,11 +1769,6 @@ cache/0/15/0/kerning_overrides/12/0 = Vector2(0, 0)
 cache/0/15/0/kerning_overrides/13/0 = Vector2(0, 0)
 cache/0/15/0/kerning_overrides/14/0 = Vector2(0, 0)
 cache/0/15/0/kerning_overrides/15/0 = Vector2(0, 0)
-cache/0/32/0/ascent = 0.0
-cache/0/32/0/descent = 0.0
-cache/0/32/0/underline_position = 0.0
-cache/0/32/0/underline_thickness = 0.0
-cache/0/32/0/scale = 1.0
 
 [sub_resource type="Image" id="Image_3sssa"]
 data = {
@@ -2666,7 +2661,7 @@ region_rect = Rect2(96, 8, 16, 27)
 
 [resource]
 default_font = SubResource("600")
-default_font_size = 32
+default_font_size = 16
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_color_disabled = Color(0.501961, 0.501961, 0.501961, 1)
 Button/colors/font_color_focus = Color(1, 1, 1, 1)

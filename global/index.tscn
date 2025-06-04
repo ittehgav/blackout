@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=79 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
@@ -72,9 +72,16 @@
 [ext_resource type="PackedScene" uid="uid://drpmmjb1xgevj" path="res://scenes/indexes/events/security_gig.tscn" id="54_bfenw"]
 [ext_resource type="PackedScene" uid="uid://befk1w3k752rm" path="res://scenes/indexes/events/seminar.tscn" id="55_psl0v"]
 [ext_resource type="PackedScene" uid="uid://dmbkq4gobrt61" path="res://scenes/indexes/events/special_training.tscn" id="56_xtdb6"]
+[ext_resource type="Texture2D" uid="uid://dwpa1mr4yds7c" path="res://assets/visual/icons/stats/floating/max_hp.png" id="73_wonwv"]
+[ext_resource type="Texture2D" uid="uid://etmtjtsu1lx4" path="res://assets/visual/icons/stats/floating/attack.png" id="74_vco3o"]
+[ext_resource type="Texture2D" uid="uid://bs6cyn8oaeur3" path="res://assets/visual/icons/stats/floating/defense.png" id="75_ajhry"]
+[ext_resource type="Texture2D" uid="uid://70wsny5napp1" path="res://assets/visual/icons/stats/floating/technique.png" id="76_1yn38"]
+[ext_resource type="Texture2D" uid="uid://df2splxypn7my" path="res://assets/visual/icons/stats/floating/agility.png" id="77_mlmax"]
+[ext_resource type="Script" uid="uid://ckghtgobwlvh1" path="res://global/theme_settings.gd" id="78_vco3o"]
 
-[node name="Index" type="Node"]
+[node name="Index" type="Node" node_paths=PackedStringArray("color_palette")]
 script = ExtResource("1_pkksx")
+color_palette = NodePath("color_palette")
 arena_scene = ExtResource("2_dh1jb")
 world_map_scene = ExtResource("3_crfhx")
 thugs_scene = ExtResource("4_itsve")
@@ -128,3 +135,21 @@ tether_guy_scene = ExtResource("46_wvsvf")
 coil_guy_scene = ExtResource("47_j2p12")
 local_event_scenes = Array[PackedScene]([ExtResource("48_gry1y"), ExtResource("49_wvsvf"), ExtResource("50_j2p12"), ExtResource("51_cuqrp"), ExtResource("52_v8p2k"), ExtResource("53_38u7i"), ExtResource("54_bfenw"), ExtResource("55_psl0v"), ExtResource("56_xtdb6")])
 color_schemes = Array[Array]([[Color(0.196078, 0.196078, 0.588235, 1), Color(0.784314, 0.392157, 0, 1)], [Color(0.392157, 0, 0.392157, 1), Color(0, 0.784314, 0.784314, 1)], [Color(0.117647, 0.117647, 0.117647, 1), Color(0.784314, 0.196078, 0.196078, 1)], [Color(0.784314, 0.588235, 0, 1), Color(0, 0.313726, 0.588235, 1)], [Color(0.588235, 0.196078, 0.196078, 1), Color(0.392157, 0.784314, 0.392157, 1)]])
+resource_colors = Dictionary[String, Color]({
+"chips": Color(0.04, 1, 1, 1),
+"food": Color(1, 1, 0, 1),
+"fuel": Color(1, 0.270588, 0, 1),
+"juice": Color(0.627451, 0.12549, 0.941176, 1),
+"money": Color(0, 1, 0, 1),
+"scrap": Color(0.411765, 0.411765, 0.411765, 1)
+})
+max_hp_floating_icon = ExtResource("73_wonwv")
+attack_floating_icon = ExtResource("74_vco3o")
+defense_floating_icon = ExtResource("75_ajhry")
+technique_floating_icon = ExtResource("76_1yn38")
+agility_floating_icon = ExtResource("77_mlmax")
+
+[node name="color_palette" type="Node" parent="."]
+script = ExtResource("78_vco3o")
+main_color = Color(0.168627, 0.0431373, 0.0431373, 1)
+off_color = Color(0.670588, 0.494118, 0.27451, 1)

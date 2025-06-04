@@ -100,13 +100,13 @@ func setup(target:FighterUnit)->void:
 				
 			i += 1;
 		if can_evolve:
+			title_label.hide();
 			evolution_1_sprite.modulate = Color.WHITE;
 			evolution_2_sprite.modulate = Color.WHITE;
 			
 			evolution_1_costs_container.show();
 			evolution_2_costs_container.show();
 		else:
-			title_label.text = "Reach level 10 to unlock this unit's evolution";
 			evolution_1_sprite.modulate.v = 0;
 			evolution_1_sprite.modulate.a = .5;
 			

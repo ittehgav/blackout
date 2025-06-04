@@ -4,7 +4,7 @@ class_name ActiveFighter;
 
 signal shield_gained(source:ActiveFighter, value:float);
 signal damage_blocked(source:ActiveFighter, value:float)
-signal damage_taken(damage:float);
+signal damage_taken(damage:float, source:ActiveFighter);
 signal healing_received(value:float);
 signal death(killer:ActiveFighter);
 signal stat_changed(stat:String);

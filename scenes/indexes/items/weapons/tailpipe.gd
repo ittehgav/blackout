@@ -11,12 +11,13 @@ const angle_adjust = 30;
 
 const type = "melee";
 const cooldown:float = .5;
-const damage = 52220;
+const base_damage = 2220
+
 
 const aoe_radius = 100;
 const hit_scan_offset = Vector2(60, 0)
 
-const projection = "melee_swing"
+const projection = "none"
 
 const description:String = "Short range, quick, reliable weapon.";
 
@@ -29,7 +30,7 @@ const hit_sfx = "swing_hit"
 
 var swung:bool = false;
 
-@export var arc:Polygon2D;
+@export var arc:Sprite2D;
 
 func use()->bool:
 	var holder:InFightPlayer = Entities.in_fight_player;
@@ -37,3 +38,7 @@ func use()->bool:
 	if len(holder.hit_scan.get_overlapping_bodies()):
 		return true
 	return false
+
+
+func _on_equipped() -> void:
+	arc.reparent(get_parent());

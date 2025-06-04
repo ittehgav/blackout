@@ -33,7 +33,6 @@ func trade_10()->void:
 		change *= -1;
 	trade_menu[resource+"_trade"] += change;
 	trade_menu.update_values()
-	pass
 
 func trade_max()->void:
 	var change:float;

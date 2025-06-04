@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=49 format=4 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" uid="uid://xb73utl6rxmj" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="3_kfkuj"]
@@ -24,8 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/icons/items/modules/dodge_roll.png" id="18_ajjla"]
 [ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="18_iln1w"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="18_kgbfd"]
-[ext_resource type="Script" uid="uid://bfcqcwall15j1" path="res://scenes/battle/ui/enemy_leader_data.gd" id="20_5bepm"]
-[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="21_0yl87"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="23_1usgs"]
 [ext_resource type="PackedScene" uid="uid://b8j8soyx2828m" path="res://scenes/battle/ui/post_fight/post_fight.tscn" id="27_slj5k"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="28_61gvu"]
@@ -79,11 +77,6 @@ shader_parameter/light_color = Color(1, 0, 0, 1)
 shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_awn3j"]
-atlas = ExtResource("21_0yl87")
-region = Rect2(50, 0, 100, 100)
-filter_clip = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1usgs"]
 resource_local_to_scene = true
@@ -241,10 +234,10 @@ enemy_team = NodePath("../team_2")
 [node name="in_fight_player" parent="team_1" instance=ExtResource("4_n7xip")]
 position = Vector2(-45, 420)
 
-[node name="sfx" parent="team_1/in_fight_player" index="1"]
+[node name="sfx" parent="team_1/in_fight_player" index="2"]
 weapon_change = ExtResource("7_iln1w")
 
-[node name="body" parent="team_1/in_fight_player" index="4"]
+[node name="body" parent="team_1/in_fight_player" index="5"]
 material = SubResource("ShaderMaterial_og1r2")
 
 [node name="team_2" type="Node2D" parent="." node_paths=PackedStringArray("enemy_team")]
@@ -319,7 +312,7 @@ texture = ExtResource("6_tbs4p")
 expand_mode = 3
 flip_h = true
 
-[node name="player_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("equipment_node", "hp_bar", "shield_bar", "player", "weapon_panel", "weapon_container", "weapon_cd_bg", "weapon_cd_progress", "weapon_cd_timer", "alternative_weapon_rect", "module_panel", "module_progress_bar", "module_cd_timer")]
+[node name="player_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("equipment_node", "hp_bar", "shield_bar", "player", "weapon_panel", "weapon_container", "weapon_cd_bg", "weapon_cd_progress", "weapon_cd_timer", "alternative_weapon_rect", "alternative_weapon_panel", "module_panel", "module_progress_bar", "module_cd_timer")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -341,8 +334,9 @@ weapon_cd_bg = NodePath("HBoxContainer/weapon_panel/VBoxContainer2/MarginContain
 weapon_cd_progress = NodePath("HBoxContainer/weapon_panel/VBoxContainer2/MarginContainer/weapon_cd_progress")
 weapon_cd_timer = NodePath("../../../team_1/in_fight_player/equipment/weapon_control/weapon_cd")
 alternative_weapon_rect = NodePath("HBoxContainer/Control/VBoxContainer2/Panel/alternative_weapon")
-module_panel = NodePath("HBoxContainer/Control/VBoxContainer2/module_container")
-module_progress_bar = NodePath("HBoxContainer/Control/VBoxContainer2/module_container/module_cd")
+alternative_weapon_panel = NodePath("HBoxContainer/Control/VBoxContainer2/Panel")
+module_panel = NodePath("HBoxContainer/Control/VBoxContainer2/module")
+module_progress_bar = NodePath("HBoxContainer/Control/VBoxContainer2/module/module_cd")
 module_cd_timer = NodePath("../../../team_1/in_fight_player/equipment/module_control/module_cd")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="hud/overlay/player_data"]
@@ -363,7 +357,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = -1
 
-[node name="Label" type="Label" parent="hud/overlay/player_data/HBoxContainer/weapon_panel/VBoxContainer2"]
+[node name="input_hint" type="Label" parent="hud/overlay/player_data/HBoxContainer/weapon_panel/VBoxContainer2"]
 modulate = Color(1, 1, 1, 0.556863)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -402,9 +396,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -8.5
-offset_top = -94.0
-offset_right = 35.5
+offset_left = -8.0
+offset_top = -48.0
+offset_right = 40.0
 grow_vertical = 0
 
 [node name="Panel" type="Panel" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2"]
@@ -429,15 +423,19 @@ offset_top = -26.0
 offset_right = 40.0
 text = "[e]"
 
-[node name="module_container" type="PanelContainer" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2"]
+[node name="module" type="Panel" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="module_cd" type="TextureProgressBar" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2/module_container"]
+[node name="module_cd" type="TextureProgressBar" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2/module"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 42.0
+offset_bottom = 42.0
 step = 0.1
 value = 50.0
 fill_mode = 3
@@ -445,6 +443,16 @@ nine_patch_stretch = true
 texture_under = ExtResource("18_iln1w")
 texture_progress = ExtResource("18_ajjla")
 tint_under = Color(1, 0.180392, 1, 0.372549)
+
+[node name="input_hint" type="Label" parent="hud/overlay/player_data/HBoxContainer/Control/VBoxContainer2/module"]
+modulate = Color(1, 1, 1, 0.47451)
+layout_mode = 2
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 42.0
+offset_bottom = 14.0
+theme_override_font_sizes/font_size = 16
+text = "[space]"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="hud/overlay/player_data/HBoxContainer"]
 layout_mode = 2
@@ -527,7 +535,6 @@ flip_h = true
 stat = "attack"
 
 [node name="panel" parent="hud/overlay/kill_feed/kill/data/icon" index="0"]
-visible = false
 custom_minimum_size = Vector2(16, 16)
 offset_left = -10.0
 offset_top = -10.0
@@ -538,82 +545,9 @@ offset_bottom = 10.0
 layout_mode = 2
 text = "Lv. 10 Wheel Guy"
 
-[node name="enemy_leader_data" type="Control" parent="hud/overlay" node_paths=PackedStringArray("avatar", "hp_bar", "cooldown_bar")]
-process_mode = 4
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("20_5bepm")
-avatar = NodePath("HBoxContainer/PanelContainer/avatar")
-hp_bar = NodePath("HBoxContainer/VBoxContainer/hp_bar")
-cooldown_bar = NodePath("HBoxContainer/VBoxContainer/cooldown_bar")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="hud/overlay/enemy_leader_data"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -634.0
-offset_top = -226.0
-offset_right = -318.0
-offset_bottom = -114.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(2, 2)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="hud/overlay/enemy_leader_data/HBoxContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="cooldown_bar" type="TextureProgressBar" parent="hud/overlay/enemy_leader_data/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-size_flags_horizontal = 8
-step = 0.1
-fill_mode = 3
-nine_patch_stretch = true
-texture_under = ExtResource("6_tbs4p")
-texture_progress = ExtResource("6_tbs4p")
-tint_under = Color(0, 0, 0, 0.635294)
-tint_progress = Color(1, 0, 0, 1)
-
-[node name="hp_bar" type="TextureProgressBar" parent="hud/overlay/enemy_leader_data/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 10)
-layout_mode = 2
-value = 100.0
-nine_patch_stretch = true
-stretch_margin_left = 2
-stretch_margin_top = 2
-stretch_margin_right = 2
-stretch_margin_bottom = 2
-texture_under = ExtResource("15_v0vqe")
-texture_progress = ExtResource("16_byfkr")
-tint_under = Color(0, 0.23, 0, 1)
-tint_progress = Color(0.12549, 1, 0.12549, 1)
-
-[node name="PanelContainer" type="PanelContainer" parent="hud/overlay/enemy_leader_data/HBoxContainer"]
-layout_mode = 2
-
-[node name="avatar" type="TextureRect" parent="hud/overlay/enemy_leader_data/HBoxContainer/PanelContainer"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_awn3j")
-flip_h = true
-
 [node name="post_fight" parent="hud/overlay" instance=ExtResource("27_slj5k")]
 visible = false
 layout_mode = 1
-
-[node name="victory_view" parent="hud/overlay/post_fight" index="2"]
-visible = false
 
 [node name="loot_gains" parent="hud/overlay/post_fight/victory_view" index="1"]
 visible = false
@@ -654,11 +588,8 @@ material = SubResource("ShaderMaterial_vjknr")
 [node name="chips_icon" parent="hud/overlay/post_fight/victory_view/loot_gains/loot/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_tl0fu")
 
-[node name="Label2" parent="hud/overlay/post_fight/defeat_view" index="1"]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 368.0
-offset_bottom = 26.0
+[node name="defeat_view" parent="hud/overlay/post_fight" index="3"]
+visible = false
 
 [node name="pause_menu" type="Control" parent="hud/overlay" node_paths=PackedStringArray("ui_sfx")]
 process_mode = 2
@@ -734,6 +665,7 @@ text = "Resume"
 [connection signal="status_removed" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_removed"]
 [connection signal="module_fumbled" from="team_1/in_fight_player/equipment" to="hud/overlay/player_data" method="_on_equipment_module_fumbled"]
 [connection signal="module_used" from="team_1/in_fight_player/equipment" to="hud/overlay/player_data" method="_module_used"]
+[connection signal="weapon_equipped" from="team_1/in_fight_player/equipment" to="hud/overlay/player_data" method="_on_equipment_weapon_equipped"]
 [connection signal="timeout" from="team_1/in_fight_player/equipment/weapon_control/weapon_cd" to="hud/overlay/player_data" method="_on_weapon_cd_timeout"]
 [connection signal="timeout" from="team_1/in_fight_player/equipment/module_control/module_cd" to="hud/overlay/player_data" method="_on_module_cd_timeout"]
 [connection signal="child_entered_tree" from="team_2" to="team_2" method="_on_child_entered_tree"]

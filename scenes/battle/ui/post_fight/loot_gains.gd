@@ -28,7 +28,11 @@ func _on_continue_pressed() -> void:
 		var clear:bool = await player_inventory_display.warnings_attended;
 		if clear:
 			## warnings ignored = items discarded and clear to exit post_fight
-			post_fight.end_post_fight();
+			finish_looting();
 			## otherwise it just goes back to the inventory displays until the players tries to exit again
-
+	else:
+		finish_looting();
 	
+func finish_looting()->void:
+	player_inventory_display.update_inventory();
+	post_fight.end_post_fight();

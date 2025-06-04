@@ -21,14 +21,15 @@ func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 	return tween;
 
 
-func arc_vfx(target:Polygon2D)->Tween:
-	var clone:Polygon2D = target.duplicate();
+func arc_vfx(target:Sprite2D)->Tween:
+	var clone:Sprite2D = target.duplicate();
 	Entities.in_fight_player.hit_scan.add_child(clone)
-	clone.show();
+	clone.position = clone.offset * clone.scale.x;
+	clone.offset = Vector2.ZERO
 	
 	var tween:Tween = create_tween();
-	tween.tween_property(clone, "scale", Vector2(1.5, 1.5), .1);
-	tween.parallel().tween_property(clone, "modulate:a", .2, .1)
+	tween.tween_property(clone, "scale", clone.scale * 2, .15);
+	tween.parallel().tween_property(clone, "modulate:a", .2, .15)
 	tween.tween_callback(clone.queue_free)
 	
 	return tween;
@@ -51,8 +52,9 @@ func stun_vfx(target:ActiveFighter)->Tween:
 func heal_vfx(target:ActiveFighter, transparency:float =0.0)->Tween:
 	return shader_color_blink(target.base, Color.GREEN - Color(0, 0, 0, transparency), 1);
 
-func damage_vfx(target:ActiveFighter, intensity:int)->Tween:
+func damage_vfx(target:ActiveFighter, intensity:int, from_player:bool=false)->Tween:
 	var target_color:Color = Color.RED
+
 	var duration:float = 1.0;
 	if intensity == 1.0:
 		target_color.a -= .8;
@@ -60,6 +62,9 @@ func damage_vfx(target:ActiveFighter, intensity:int)->Tween:
 	elif intensity == 2.0:
 		target_color.a -= .5;
 		duration = .3
+	
+	if from_player:
+		target_color = Color.WHITE;
 	
 	return shader_color_blink(target.base, target_color, duration)
 

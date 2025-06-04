@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5o7ipw23muir"]
 
 [ext_resource type="Texture2D" uid="uid://csnspdmmo4na4" path="res://assets/visual/icons/items/trinkets/rare_coin.png" id="1_1ccfe"]
-[ext_resource type="Script" uid="uid://bevmpxmp6anwn" path="res://scenes/indexes/items/trinkets/rare_coin.gd" id="2_s4uu5"]
+[ext_resource type="Script" uid="uid://bevmpxmp6anwn" path="res://scenes/indexes/items/notyet/trinkets/rare_coin.gd" id="2_s4uu5"]
 
 [node name="Rare Coin" type="Sprite2D"]
 texture = ExtResource("1_1ccfe")

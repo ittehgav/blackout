@@ -45,7 +45,7 @@ func return_to_world_map()->void:
 	camera.global_position = Entities.in_map_player.global_position;
 	Entities.world_map.unpause_map();
 	Entities.world_map.show()
-	Entities.main_bgm.play_bgm("world_map");
+	#Entities.main_bgm.play_bgm("world_map");
 	Entities.main.current_state = "world_map"
 	
 
@@ -106,7 +106,7 @@ func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
 
 	unit.set_collision_layer_value(team_n, true);
 	unit.set_collision_mask_value(enemy_team_n, true)
-
+	unit.base.fighter = unit
 	if not unit is InFightPlayer:
 		ColorCoder.color_code_fighter(unit.base, leader.color_scheme_index);
 		

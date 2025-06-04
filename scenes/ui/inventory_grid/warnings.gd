@@ -9,13 +9,12 @@ extends Control
 func _ready()->void:
 	liquid_discard_label.text = Index.resource_colored_name("fuel", true, true) + " and " + Index.resource_colored_name("juice", true, true)\
 	 + " are [u]liquid[/u] and need to be stored in containers, otherwise they'll be discarded.";
-	reparent(inventory_display.warnings_display, false);
-	set_anchors_preset(Control.PRESET_FULL_RECT);
+
 
 func show_warnings()->void:
 	var warnings:Dictionary = inventory_display.warnings;
 	Tweens.ui_fade_in(self);
-	for key:String in warnings.keys(		):
+	for key:String in warnings.keys():
 		var label:Control= self[key + "_label"];
 		if warnings[key]:
 			label.show();
@@ -33,7 +32,7 @@ func _on_accept_pressed() -> void:
 	if inventory_display.warnings.liquid_discard:
 		for item_mirror:ItemMirror in inventory_display.liquid_item_mirrors:
 			item_mirror.free();
-	
+	inventory_display.reset_warnings();
 	Tweens.ui_fade_out(self);
 	inventory_display.warnings_attended.emit(true);
 	
@@ -41,10 +40,11 @@ func _on_accept_pressed() -> void:
 
 
 func _on_auto_sort_pressed() -> void:
-	inventory_display.store_all_resources(true);
+	inventory_display.store_all_resources();
 	inventory_display.sort_inventory();
 	Tweens.ui_fade_out(self);
 	inventory_display.warnings_attended.emit(true);
 	
+	inventory_display.reset_warnings();
 	inventory_display.update_inventory();
 	

@@ -13,8 +13,9 @@ extends Control
 @export var weapon_cd_timer:Timer;
 
 @export var alternative_weapon_rect:TextureRect;
+@export var alternative_weapon_panel:Panel;
 
-@export var module_panel:PanelContainer;
+@export var module_panel:Panel;
 @export var module_progress_bar:TextureProgressBar;
 @export var module_cd_timer:Timer;
 
@@ -28,6 +29,9 @@ func _ready()->void:
 	module_progress_bar.texture_progress = ColorCoder.color_code_texture(Entities.player.equipped_module.texture, colors);
 	module_progress_bar.tint_under = base_color.lightened(.2) - Color(0, 0, 0, .8);
 	module_progress_bar.max_value = module_cd_timer.wait_time;
+	
+	if not Entities.player.alternative_weapon:
+		alternative_weapon_panel.hide();
 
 	refresh_hp_bars()
 	update_module_availability();
@@ -138,7 +142,7 @@ func _on_in_fight_player_damage_blocked(_source: ActiveFighter, _value: float) -
 	Tweens.squish_bar(shield_bar);
 
 
-func _on_in_fight_player_damage_taken(_damage: float) -> void:
+func _on_in_fight_player_damage_taken(_damage: float, _source:ActiveFighter) -> void:
 	refresh_hp_bars()
 	
 	Tweens.color_blink(hp_bar, Color.RED, .2,  "self_modulate");

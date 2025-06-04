@@ -1,5 +1,7 @@
 extends Node
 
+@export var color_palette:Node;
+
 @export_group("Common Scenes")
 @export_subgroup("Game States")
 @export var arena_scene:PackedScene;
@@ -85,6 +87,17 @@ extends Node
 
 @export_group("Colors")
 @export var color_schemes:Array[Array];
+@export var resource_colors:Dictionary[String, Color] = {
+	## really saturated here and we fix it out in-context?
+	"food":Color.YELLOW,
+	"fuel":Color.ORANGE_RED,
+	"money":Color.GREEN,
+	
+	"juice":Color.PURPLE,
+	"scrap":Color.DIM_GRAY,
+	"chips":Color.CYAN
+}
+
 
 const all_resources = [
 	"money",
@@ -143,6 +156,13 @@ const resource_base_prices = {
 	coil_guy_scene
 ]
 
+@export_group("floating icon textures")
+@export var max_hp_floating_icon:Texture;
+@export var attack_floating_icon:Texture;
+@export var defense_floating_icon:Texture;
+@export var technique_floating_icon:Texture;
+@export var agility_floating_icon:Texture;
+
 
 func random_fighter_base()->FighterBase:
 	var base:PackedScene = all_fighter_base_scenes.pick_random();
@@ -168,16 +188,7 @@ func tagged_settlement_name(settlement:Settlement)->String:
 	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 
 
-const resource_colors = {
-	## really saturated here and we fix it out in-context?
-	"food":Color.YELLOW,
-	"fuel":Color.ORANGE_RED,
-	"money":Color.GREEN,
-	
-	"juice":Color.PURPLE,
-	"scrap":Color.DIM_GRAY,
-	"chips":Color.CYAN
-}
+
 
 const stat_colors = {
 	"max_hp": Color.WEB_GREEN,
@@ -280,11 +291,10 @@ const all_combat_stats:Array[String] = [
 
 const stat_descriptions = {
 	"max_hp": "The unit's total HP at the start of battle.",
-	"attack": "The damage the unit's skill will deal. (some units and weapons deal no damage)",
+	"attack": "The damage dealt by weapons and skills. (some units and weapons deal no damage)",
 	"defense": "Reduces the damage taken by the unit.",
-	"agility": "Speed at which the unit uses their skill/weapon.",
-	"technique": "Improves special effects in weapons and units' skills."
-	## TODO make player technique matter
+	"agility": "Speed at which the the player attacks and units use their skills.",
+	"technique": "Improves special effects in modules and units' skills."
 }
 
 

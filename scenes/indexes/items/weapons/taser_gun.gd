@@ -10,11 +10,13 @@ const angle_adjust = 0;
 const type = "ranged";
 
 
-const damage = 20;
+const base_damage = 20;
 const cooldown:float = 1
+## TODO make this scale somehow?
 const stun_duration = .5;
 
 const projection = "gun_shot"
+
 
 
 const description:String = "Long range, damages and stuns enemies."

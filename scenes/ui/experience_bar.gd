@@ -62,7 +62,8 @@ func update_max_value()->void:
 
 
 	
-func animate(increase:float)->void:
+func gain_exp(increase:float)->void:
+	assert(target)
 	## THIS IS WHERE ALL EXP GAIN FOR ALL 
 	## UNITS AND THE PLAYER IS APPLIED
 	var tween := create_tween();

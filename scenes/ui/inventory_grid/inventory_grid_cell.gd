@@ -9,15 +9,13 @@ var filling_item_mirror:ItemMirror;
 
 var filled:bool;
 @onready var original_color:Color = border_color;
-var original_bg_color:Color;
+@onready var original_bg_color:Color = bg.color;
  
 @export var bg:ColorRect;
 @export var extension_bg:ColorRect;
 
 func _ready()->void:
-	var bg_color:Color = border_color - Color(0,0,0,.6);
-	bg.color = bg_color;
-	original_bg_color = bg_color
+
 	release()
 
 
@@ -27,7 +25,7 @@ func _on_mouse_entered() -> void:
 func hover()->void:
 	z_index = 1;
 
-	border_color = Color.WHITE
+	border_color = border_color.lightened(.25)
 
 func _on_mouse_exited() -> void:
 	release();

@@ -47,9 +47,10 @@ overlay = NodePath("FighterOverlay")
 timers = NodePath("fighter_timers")
 npc_sfx = NodePath("sfx")
 
-[node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit")]
+[node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit", "floating_icon_anchor")]
 script = ExtResource("3_b68jh")
 unit = NodePath("..")
+floating_icon_anchor = NodePath("../FighterOverlay/floating_icon_anchor")
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 volume_db = -5.0
@@ -138,7 +139,7 @@ cooldown_timer = NodePath("../fighter_timers/stunnable/skill_cooldown")
 unit = NodePath("..")
 
 [node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
-position = Vector2(48, 43)
+position = Vector2(-4, 67)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FighterOverlay"]
 layout_mode = 0

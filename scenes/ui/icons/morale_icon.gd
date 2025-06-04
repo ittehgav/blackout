@@ -46,5 +46,5 @@ func icon_change_animation()->void:
 	tween.tween_property(self, "custom_minimum_size", custom_minimum_size/1.5, .2)
 
 
-func _on_player_morale_changed() -> void:	
+func _on_player_morale_changed() -> void:
 	update()

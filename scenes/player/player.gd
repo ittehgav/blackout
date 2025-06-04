@@ -55,7 +55,7 @@ func battle_defeat_morale()->void:
 
 
 func _on_combat_level_up() -> void:
-	combat_stat_points += 5;
+	combat_stat_points += 1;
 
 func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
@@ -64,11 +64,20 @@ func equip_weapon(weapon:Weapon)->void:
 	
 	equipment_changed.emit(weapon);
 
+func equip_alt_weapon(weapon:Weapon)->void:
+	assert(weapon in inventory.weapons);
+	alternative_weapon = weapon;
+	weapon.inventory_position = Vector2(-1, -1);
+	
+	equipment_changed.emit(weapon);
+	party_changed.emit(weapon);
+
 func equip_module(module:Module)->void:
 	assert(module in inventory.modules);
 	equipped_module = module;
 	module.inventory_position = Vector2(-1, -1);
-	equipment_changed.emit(module)
+	
+	equipment_changed.emit(module);
 
 func _on_new_memo(memo: Memo) -> void:
 	memos.append(memo)

@@ -1,14 +1,16 @@
-[gd_scene load_steps=31 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=33 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="2_fo4cr"]
 [ext_resource type="Script" uid="uid://c62lxrl4t7v8k" path="res://scenes/battle/player/shadow.gd" id="2_g4l1e"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_3uxwr"]
+[ext_resource type="Script" uid="uid://ce0gefe8a16v1" path="res://scenes/battle/player/vfx_control.gd" id="3_8al0b"]
 [ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/player/equipment.gd" id="6_cbwmk"]
 [ext_resource type="Script" uid="uid://bbow6qj3s5hyu" path="res://scenes/battle/player/weapon_sfx.gd" id="7_avuby"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
 [ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="10_og1r2"]
 [ext_resource type="AudioStream" uid="uid://bwgpqu6y5q62a" path="res://assets/sound/sfx/combat/player/spray.ogg" id="11_clyj1"]
+[ext_resource type="AudioStream" uid="uid://o61xjbhygbnd" path="res://assets/sound/sfx/combat/player/weapon_alternate.wav" id="11_dax2e"]
 [ext_resource type="Script" uid="uid://c5fabw4wpron0" path="res://scenes/battle/player/weapon_projection.gd" id="12_fo4cr"]
 [ext_resource type="AudioStream" uid="uid://dn3kmtrv4nq0u" path="res://assets/sound/sfx/combat/player/charge_up.wav" id="12_wyexo"]
 [ext_resource type="AudioStream" uid="uid://bdfv1vrftu78i" path="res://assets/sound/sfx/combat/player/explosion.wav" id="13_dvkxb"]
@@ -61,9 +63,13 @@ sfx = NodePath("sfx")
 base = NodePath("body")
 timers = NodePath("timers")
 
+[node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit")]
+script = ExtResource("3_8al0b")
+unit = NodePath("..")
+
 [node name="shadow" type="Node2D" parent="."]
-use_parent_material = true
-scale = Vector2(1, 0.5)
+position = Vector2(0, 30)
+scale = Vector2(1, 0.35)
 script = ExtResource("2_g4l1e")
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
@@ -100,6 +106,7 @@ one_shot = true
 script = ExtResource("7_avuby")
 hit_sfx = NodePath("../weapon_hit_sfx")
 swing = ExtResource("19_1g51p")
+alternate = ExtResource("11_dax2e")
 swing_hit = ExtResource("20_g6u4u")
 shoot = ExtResource("10_og1r2")
 spray = ExtResource("11_clyj1")
@@ -238,6 +245,10 @@ position = Vector2(116, 3)
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
 [connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
+[connection signal="status_applied" from="." to="vfx_control" method="_on_in_fight_player_status_applied"]
+[connection signal="status_removed" from="." to="vfx_control" method="_on_in_fight_player_status_removed"]
+[connection signal="weapon_changed" from="equipment" to="sfx" method="_on_equipment_weapon_changed"]
+[connection signal="weapon_equipped" from="equipment" to="hit_scan/weapon_projection" method="_on_equipment_weapon_equipped"]
 [connection signal="timeout" from="equipment/freeze_frame_control" to="equipment" method="_on_freeze_frame_control_timeout"]
 [connection signal="mouse_entered" from="hud_overlay/tactics/tactic_left" to="hud_overlay/tactics" method="_on_tactic_left_mouse_entered"]
 [connection signal="mouse_exited" from="hud_overlay/tactics/tactic_left" to="hud_overlay/tactics" method="_on_tactic_left_mouse_exited"]

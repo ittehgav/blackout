@@ -22,14 +22,14 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=C
 			var shield_overkill:float = -target.shield;
 			target.hp -= shield_overkill;
 			target.shield = 0;
-			target.damage_taken.emit(shield_overkill);
+			target.damage_taken.emit(shield_overkill, source);
 			if target.hp <= 0:
 				target.death.emit(source);
 		else:
 			target.damage_blocked.emit(source, damage);
 	else:
 		target.hp -= damage;
-		target.damage_taken.emit(damage)
+		target.damage_taken.emit(damage, source)
 		if target.hp <= 0:
 			target.death.emit(source);
 
@@ -51,6 +51,9 @@ func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = so
 func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, stat:String)->void:
 		var duration:float = 0;
 		if "status_duration" in source.base:
+			## TODO make this a parameter that's applied elsewhere
+			## just put the combat functions in the unit bases instead of 
+			## the roundabout way it is right now
 			duration = source.base.status_duration * source.technique;
 		var status_data := {
 			"stat":stat,
@@ -117,8 +120,6 @@ func turn_ellusive(unit:ActiveFighter, duration:float)->void:
 		team_n = 1;
 	else:
 		team_n = 2;
-
 	unit.set_collision_layer_value(team_n, false)
 	await get_tree().create_timer(duration).timeout;
-
 	unit.set_collision_layer_value(team_n, true)

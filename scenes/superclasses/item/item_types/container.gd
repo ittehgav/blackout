@@ -5,16 +5,20 @@ class_name ResourceContainer
 @export_enum("food", "fuel", "juice", "scrap", "chips") var resource:String;
 
 var description:String;
+var hint_description:String;
 
 func _ready()->void:
 	assert(material is ShaderMaterial)
+	hint_description = "[right-click] to store"
 	material.set_shader_parameter("base_color", Index.get_color(resource));
 	if "raw_stack" in self:
+		
 		if "mirror_only" in self:
 			description = Index.resource_colored_name(resource) + " is a liquid, it will go to waste if left outside of a [u]container.[/u]"
 		else:
 			description = "Stack of up to " + str(self["capacity"]) + " " + Index.resource_colored_name(resource) + "."
 	else:
+		hint_description = "[right-click] to empty"
 		description = "Holds up to " + str(self["capacity"]) + " " + Index.resource_colored_name(resource) + "."
 
 

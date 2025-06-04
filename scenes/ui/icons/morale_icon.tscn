@@ -13,6 +13,9 @@ shader_parameter/base_color = Color(0.435294, 0.913725, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [node name="MoraleIcon" type="TextureRect"]
 material = SubResource("ShaderMaterial_70nuk")

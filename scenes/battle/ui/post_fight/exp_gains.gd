@@ -12,15 +12,46 @@ var step_finished:bool=false;
 @export var unit_exp_gain_scene:PackedScene
 var all_recruit_exp_gains:Array[Control];
 
+@export_group("Combat level up")
+@export var combat_stat_points_label:Label;
+
+@export_subgroup("Max HP")
+@export var max_hp_label:Label;
+@export var add_max_hp:Button;
+@export var remove_max_hp:Button;
+
+@export_subgroup("Attack")
+@export var attack_label:Label;
+@export var add_attack:Button;
+@export var remove_attack:Button;
+
+@export_subgroup("Defense")
+@export var defense_label:Label;
+@export var add_defense:Button;
+@export var remove_defense:Button;
+
+@export_subgroup("Agility")
+@export var agility_label:Label;
+@export var add_agility:Button;
+@export var remove_agility:Button;
+
+@export_subgroup("Technique")
+@export var technique_label:Label;
+@export var add_technique:Button;
+@export var remove_technique:Button;
+
+var remaining_combat_stat_points:int = 0;
+
+
+
+
 func _ready()->void:
 	## runs as post_battle starts
 	## maybe keeps the game from laggin when done as arena loads rather than right as it needs to play?
 	leadership_exp_gain.build_from_player("leadership")
 	combat_exp_gain.build_from_player("combat")
-	
 
-	
-	
+
 	for unit:FighterUnit in Entities.player.roster.units:
 		var display:Control = unit_exp_gain_scene.instantiate();
 		display.build(unit);
@@ -39,11 +70,11 @@ func distribute_exp()->void:
 	
 	var exp_gain:float = Entities.arena.battle_exp_value;
 	
-	leadership_exp_gain.animate(exp_gain)
-	combat_exp_gain.animate(exp_gain);
+	leadership_exp_gain.gain_exp(exp_gain)
+	combat_exp_gain.gain_exp(exp_gain);
 	
 	for d in all_recruit_exp_gains:
-		d.exp_bar.animate(exp_gain);
+		d.exp_bar.gain_exp(exp_gain);
 
 
 func _on_step_timeout() -> void:
@@ -52,3 +83,28 @@ func _on_step_timeout() -> void:
 func _on_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and e.pressed and step_finished:
 		get_parent().show_loot();
+
+func refresh_stat_points()->void:
+	remaining_combat_stat_points += 1;
+	combat_stat_points_label.text = "Stat Points: " + str(remaining_combat_stat_points);
+
+func _on_combat_exp_level_up() -> void:
+	refresh_stat_points();
+	
+	combat_stat_points_label.show();
+	combat_stat_points_label.add_theme_font_size_override("font_size", 96);
+	
+	var tween: = create_tween();
+	tween.tween_property(combat_stat_points_label, "theme_override_constants/font_size", 64, .25);
+	for stat:String in Index.all_combat_stats:
+		self["add_"+stat].show();
+		self["remove_"+stat].show();
+	
+
+
+func remove_stat_point(stat: String) -> void:
+	print("remove ", stat)
+
+
+func add_stat_point(stat: String) -> void:
+		print("add ", stat)

@@ -16,7 +16,6 @@ class_name PlayerSheet;
 @export var gear:Control;
 @export var morale_label:Label;
 
-@export var item_feedback:Panel;
 @export var recruit_full_view:Control;
 
 @export_subgroup("sounds")
@@ -58,8 +57,9 @@ func _input(e:InputEvent)->void:
 	 or e.is_action_pressed("show_player_sheet")):
 		if not player_inventory.warnings_popup.visible:
 			hide_player_sheet();
-		else:
-			pass
+				
+
+
 func show_player_sheet(left_tab_view:int=0)->void:
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)

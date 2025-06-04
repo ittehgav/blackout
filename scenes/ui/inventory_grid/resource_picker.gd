@@ -95,11 +95,11 @@ func _on_choice_3_mouse_exited() -> void:
 func pick_choice()->void:
 	match current_choice:
 		choice_1:
-			display.trade_resource(current_mirror, choice_1_value);
+			display.send_resource(current_mirror, choice_1_value);
 		choice_2:
-			display.trade_resource(current_mirror, choice_2_value)
+			display.send_resource(current_mirror, choice_2_value)
 		choice_3:
-			display.trade_resource(current_mirror, choice_3_value)
+			display.send_resource(current_mirror, choice_3_value)
 	set_process_input(false);
 	hide();
 

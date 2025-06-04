@@ -17,7 +17,7 @@ func generate(distance:float)->void:
 		"travelling_trader":
 			for i in randi_range(1, distance/750):
 				var item:Item = (Index.rarity_1_item_scenes + Index.rarity_2_item_scenes + Index.rarity_3_item_scenes).pick_random().instantiate();
-				inventory.add_child(item);
+				inventory.add_item(item, true);
 			for r:String in Index.all_resources:
 				inventory[r] = randi_range(1, distance/50) * 2
 			inventory.store_resources();
@@ -47,7 +47,7 @@ func generate(distance:float)->void:
 					item = Index.rarity_2_item_scenes.pick_random().instantiate();
 				else:
 					item = Index.rarity_1_item_scenes.pick_random().instantiate();
-				inventory.add_child(item);
+				inventory.add_item(item, true);
 
 	var max_level:int = distance/80;
 	if max_level < 1:
@@ -61,10 +61,11 @@ func generate(distance:float)->void:
 	unit.level = randi_range(min_level, max_level + 2);
 	unit.base = leader_base
 	unit.add_child(leader_base);
+	if not is_inside_tree():
+		unit.load_stats()
 
 
 	var party_size: = int(distance/100);
-	
 	for i:int in party_size:
 		var unit_base:FighterBase = Index.random_fighter_base();
 		var new_unit:FighterUnit = Index.fighter_unit_scene.instantiate();
@@ -72,4 +73,4 @@ func generate(distance:float)->void:
 		new_unit.add_child(unit_base)
 		new_unit.base = unit_base;
 		
-		roster.add_child(new_unit)
+		roster.add_unit(new_unit)

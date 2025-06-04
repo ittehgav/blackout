@@ -56,8 +56,9 @@ folder_colors={
 
 [gui]
 
-theme/custom="uid://yqkvsb5q7pab"
+theme/custom="uid://b7n6onus7l7v3"
 theme/custom_font="uid://sph0kotu777o"
+theme/default_font_generate_mipmaps=true
 
 [input]
 

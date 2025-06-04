@@ -49,7 +49,7 @@ func stat_debuff_vfx(stat:String)->void:
 	
 
 
-func _on_fighter_damage_taken(damage: float) -> void:
+func _on_fighter_damage_taken(damage: float, _source:ActiveFighter) -> void:
 	floating_number(int(damage))
 	hp_bar.value = unit.hp;
 

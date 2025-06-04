@@ -11,17 +11,18 @@ signal effect_finished;
 const angle_adjust = 0;
 const type = "melee";
 
-const damage = 100;
 const aoe_radius = 300;
 const cooldown:float = 3;
+const base_damage = 100;
+
 
 const charge_time = 7.5;
 
 const projection = "none";
 
-const description = "Charges up a powerful AOE blast. Charging speeds up when units inside the area use their skill."
+const description = "Charges up a powerful AOE attack. Charging speeds up when units inside the area use their skill."
 
-const use_vfx = ["shake"]
+const use_vfx = ["grow"]
 
 const use_sfx = "";
 
@@ -36,6 +37,13 @@ var monitored_units:Array[Node2D]
 func _ready()->void:
 	area.monitoring=false
 	progress_bar.max_value = charge_time
+	
+func _process(delta:float)->void:
+	if active:
+		progress += delta;
+		progress_bar.value = progress;
+		if progress >= charge_time:
+			explode();
 
 func use()->bool:
 	if not active:
@@ -54,12 +62,7 @@ func explode()->void:
 	Entities.in_fight_player.equipment.weapon_sfx.play_sound_by_key("explosion")
 	effect_finished.emit()
 
-func _process(delta:float)->void:
-	if active:
-		progress += delta;
-		progress_bar.value = progress;
-		if progress >= charge_time:
-			explode();
+
 
 func intensify_charge()->void:
 	## should never overlap with other sounds as the weapon SFX only works for the currently equipped weapon

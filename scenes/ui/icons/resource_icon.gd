@@ -7,8 +7,8 @@ class_name ResourceIcon
 var tooltip_name_color:Color;
 var description:String;
 @export var show_tooltip:bool;
-@export var in_trade:bool;
 
+@export var match_player_inventory:bool=true;
 @export var adjacent_items:Array[CanvasItem];
 
 var source:Inventory;
@@ -32,16 +32,17 @@ func setup()->void:
 	if not source:
 		setup_adjacent_items();
 
-func setup_adjacent_items(value:int=Entities.player.inventory[resource])->void:
+func setup_adjacent_items()->void:
 	for item:Node in adjacent_items:
 
 		if item is Label:
 			item.add_theme_color_override("font_color", Index.resource_colors[resource]);
-			if source == Entities.player.inventory:
+			if match_player_inventory:
 				Entities.player.resource_changed.connect(set_count_label.bind(item))
-			set_count_label(resource, 0, item, value);
+				set_count_label(resource, 0, item);
 	
 
-func set_count_label(r:String,_change:float, target:Label, value:int=Entities.player.inventory[resource])->void:
+func set_count_label(r:String, _change:float, target:Label)->void:
 	if r == resource:
+		var value:int = Entities.player.inventory[r];
 		target.text = str(int(value));

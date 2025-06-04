@@ -17,7 +17,7 @@ func _process(_delta: float) -> void:
 	global_position = parent.global_position + direction * distance
 
 
-func damage_taken_blink(damage: float) -> void:
+func damage_taken_blink(damage: float, _source:ActiveFighter) -> void:
 	var target_alpha:float;
 	var player_hp:float = Entities.in_fight_player.hp;
 	if damage >= player_hp/2:

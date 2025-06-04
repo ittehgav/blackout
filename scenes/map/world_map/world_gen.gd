@@ -254,11 +254,14 @@ func generate_settlements()->void:
 		ColorCoder.color_code_settlement(settlement, get_spot_tile_color(settlement.position, quadrant_n));
 		self["quadrant_" + str(quadrant_n)].add_child(settlement);
 		
-		world_map.day_passed.connect(settlement.daily_reset)
+		
 		all_settlements.append(settlement)
 		world_map.all_settlements[settlement.name] = settlement
 
 	set_neighbors(all_settlements);
+	for s:Settlement in all_settlements:
+		## needs to be done after neighbords are set
+		s.daily_reset();
 
 func set_neighbors(settlements:Array[Settlement])->void:
 	for s:Settlement in settlements:

@@ -26,13 +26,13 @@ func _ready() -> void:
 	if not parent.is_node_ready():
 		await parent.ready
 		setup()
+		
 	else:
 		setup();
 	## lots of places where the sample target is defined on load
 
 func setup(first:bool=true)->void:
 	if not target:
-		free();
 		return
 	if target is Item:
 		sub_name_label.show()
@@ -91,11 +91,13 @@ func _on_hover_timer_timeout() -> void:
 	modulate.a = .1;
 	
 	show();
-	position = get_parent().get_local_mouse_position();
-	if global_position.x + size.x >= get_window().size.x:
+	global_position = get_global_mouse_position()
+	
+	var window_size:Vector2 = get_window().size
+	if global_position.x + size.x >= window_size.x:
 		position.x -= size.x
-	size.y -= 10000
-	size.y += 10
+	if global_position.y + size.y >= window_size.y:
+		position.y -= size.y
 		
 	Tweens.ui_fade_in(self);
 
