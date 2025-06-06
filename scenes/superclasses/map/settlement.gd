@@ -226,8 +226,4 @@ func _on_hover_box_mouse_exited()->void:
 	Entities.clear_map_entity_under_mouse();
 
 func initiate_inventory()->void:
-	for s:PackedScene in Index.resource_storage_scenes:
-		var storage:ResourceContainer = s.instantiate();
-		self[storage.resource+"_storage"]=storage;
-		inventory.add_item(storage, true);
-		inventory.non_sellable_items.append(storage)
+	inventory.generate_storages()

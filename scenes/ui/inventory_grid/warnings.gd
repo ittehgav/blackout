@@ -31,7 +31,7 @@ func _on_return_pressed() -> void:
 func _on_accept_pressed() -> void:
 	if inventory_display.warnings.liquid_discard:
 		for item_mirror:ItemMirror in inventory_display.liquid_item_mirrors:
-			item_mirror.free();
+			inventory_display.remove_mirror(item_mirror)
 	inventory_display.reset_warnings();
 	Tweens.ui_fade_out(self);
 	inventory_display.warnings_attended.emit(true);
@@ -40,7 +40,6 @@ func _on_accept_pressed() -> void:
 
 
 func _on_auto_sort_pressed() -> void:
-	inventory_display.store_all_resources();
 	inventory_display.sort_inventory();
 	Tweens.ui_fade_out(self);
 	inventory_display.warnings_attended.emit(true);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cqdyfeds3f681"]
+[gd_scene load_steps=36 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_c11hx"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ctxqhmgpiuoss" path="res://scenes/ui/trade/trade_menu.tscn" id="11_bwbxe"]
 [ext_resource type="Script" uid="uid://c3aknt2uyy8a3" path="res://scenes/map/ui/settlement/recruitment_menu.gd" id="12_bwbxe"]
 [ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/map/settlement/recruitment_card.tscn" id="13_i581t"]
+[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="13_xvf0a"]
 [ext_resource type="PackedScene" uid="uid://8cr8p5qofnu1" path="res://scenes/map/settlement/sky_view.tscn" id="14_6i511"]
 [ext_resource type="Script" uid="uid://lcw1ymx6e6i6" path="res://scenes/map/ui/settlement/post_listen_around.gd" id="14_fgyyh"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="14_pm0ox"]
@@ -465,10 +466,10 @@ grow_vertical = 0
 text = "[click on a settlement to reveal it in the world map or press any key to return]"
 
 [node name="trade_menu" parent="." instance=ExtResource("11_bwbxe")]
+visible = false
 layout_mode = 1
 
 [node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -501,10 +502,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -389.0
-offset_top = -306.0
-offset_right = 11.0
-offset_bottom = 306.0
+offset_left = -409.0
+offset_top = -325.0
+offset_right = -9.0
+offset_bottom = 325.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -522,6 +523,7 @@ layout_mode = 2
 
 [node name="exit" type="Button" parent="recruitment_menu/recruit_cards"]
 layout_mode = 2
+theme = ExtResource("13_xvf0a")
 shortcut = ExtResource("5_36m0f")
 text = "[esc] exit"
 
@@ -539,12 +541,16 @@ text = "Click a unit for more information"
 
 [node name="Panel" type="Panel" parent="recruitment_menu"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -594.0
 offset_top = -279.0
-offset_right = 832.0
+offset_right = 238.0
 offset_bottom = 279.0
+grow_horizontal = 2
 grow_vertical = 2
 
 [node name="sprite" type="TextureRect" parent="recruitment_menu/Panel"]
@@ -588,33 +594,26 @@ waa"
 
 [node name="stats_label" type="Label" parent="recruitment_menu/Panel"]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -371.0
-offset_top = -178.0
-offset_right = -251.0
-offset_bottom = -127.0
+offset_left = -342.0
+offset_top = 114.0
+offset_right = -222.0
+offset_bottom = 165.0
 grow_horizontal = 0
-grow_vertical = 2
 theme_override_font_sizes/font_size = 64
 text = "Stats:"
 
 [node name="stats" type="HBoxContainer" parent="recruitment_menu/Panel"]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -372.0
-offset_top = -123.0
-offset_right = 44.0
-offset_bottom = -23.0
+offset_left = -416.0
+offset_top = 178.0
+offset_bottom = 278.0
 grow_horizontal = 0
-grow_vertical = 2
 
 [node name="HBoxContainer" type="VBoxContainer" parent="recruitment_menu/Panel/stats"]
 layout_mode = 2
@@ -1052,8 +1051,6 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 64
 text = "Continue"
 
-[connection signal="settlement_entered" from="." to="." method="_on_settlement_entered"]
-[connection signal="settlement_left" from="." to="." method="_on_settlement_left"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/trade" to="." method="trade"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/recruit_units" to="." method="recruit_units"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/listen_around" to="." method="listen_around"]

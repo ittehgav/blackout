@@ -28,7 +28,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	
 	var string:String = "Deals " + damage_str + " to enemies in an area and reduces their "+Index.stat_colored_name("attack") + \
 	" by " + atk_reduction_str + " for the rest of the battle.";
-	string += "\n\nCan be upgraded to become extremely resistant or to deal strong AOE damage."
+	string += "\n\nCan be [u]upgraded[/u] to become extremely resistant or to deal strong AOE damage."
 	return string;
 
 const hitbox_radius = 40;

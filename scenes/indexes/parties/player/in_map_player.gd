@@ -58,8 +58,8 @@ func stop_movement(play_sound:bool=true)->void:
 
 func interact_with_map_entity(entity:MapEntity)->void:
 	if entity is Settlement:
+		Entities.player.entered_settlement.emit(entity);
 		Entities.current_settlement = entity;
-		Entities.world_map.ui.settlement_ui.settlement_entered.emit(entity)
 
 	elif entity is MapParty:
 		Entities.current_speaking_party = entity;

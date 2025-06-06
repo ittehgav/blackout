@@ -15,12 +15,13 @@ func generate(distance:float)->void:
 	## probably make this reusable for other generic map parties
 	match party_type:
 		"travelling_trader":
+			inventory.generate_storages();
 			for i in randi_range(1, distance/750):
 				var item:Item = (Index.rarity_1_item_scenes + Index.rarity_2_item_scenes + Index.rarity_3_item_scenes).pick_random().instantiate();
 				inventory.add_item(item, true);
 			for r:String in Index.all_resources:
 				inventory[r] = randi_range(1, distance/50) * 2
-			inventory.store_resources();
+			inventory.sort_items();
 		"thugs":
 			var total_items:int;
 			var r2_chance:float;

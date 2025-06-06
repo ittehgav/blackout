@@ -2439,6 +2439,11 @@ cache/0/80/0/descent = 0.0
 cache/0/80/0/underline_position = 0.0
 cache/0/80/0/underline_thickness = 0.0
 cache/0/80/0/scale = 1.0
+cache/0/112/0/ascent = 0.0
+cache/0/112/0/descent = 0.0
+cache/0/112/0/underline_position = 0.0
+cache/0/112/0/underline_thickness = 0.0
+cache/0/112/0/scale = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iliap"]
 atlas = ExtResource("3_h1e12")
@@ -2886,8 +2891,8 @@ RichTextLabel/colors/table_even_row_bg = Color(0, 0, 0, 0)
 RichTextLabel/colors/table_odd_row_bg = Color(0, 0, 0, 0)
 RichTextLabel/constants/line_separation = 0
 RichTextLabel/constants/outline_size = 0
-RichTextLabel/constants/shadow_offset_x = 1
-RichTextLabel/constants/shadow_offset_y = 1
+RichTextLabel/constants/shadow_offset_x = 0
+RichTextLabel/constants/shadow_offset_y = 0
 RichTextLabel/constants/shadow_outline_size = 1
 RichTextLabel/constants/table_h_separation = 3
 RichTextLabel/constants/table_v_separation = 3

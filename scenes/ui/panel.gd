@@ -8,8 +8,8 @@ extends Panel
 
 @export_group("Evolution 1")
 
-@export var evolution_1_sprite:TextureRect;
-@export var evolution_1_overlay:ColorRect;
+@export var evolution_1_sprite:TextureButton;
+@export var evolution_1_panel:Panel;
 
 @export var evolution_1_costs_container:HBoxContainer
 @export var evolution_1_cost_1_icon:ResourceIcon
@@ -20,8 +20,8 @@ extends Panel
 @export_group("Evolution 2")
 
 
-@export var evolution_2_sprite:TextureRect;
-@export var evolution_2_overlay:ColorRect;
+@export var evolution_2_sprite:TextureButton;
+@export var evolution_2_panel:Panel;
 
 @export var evolution_2_costs_container:HBoxContainer;
 @export var evolution_2_cost_1_icon:ResourceIcon
@@ -77,7 +77,8 @@ func setup(target:FighterUnit)->void:
 			atlas.resource_local_to_scene = true
 			
 			var pairs:Dictionary[Color,Color] = ColorCoder.scheme_to_sprite_color_pairs(Entities.player)
-			self["evolution_" + str(i) + '_sprite'].texture = ColorCoder.color_code_texture(atlas, pairs)
+			self["evolution_" + str(i) + '_sprite'].texture_normal = ColorCoder.color_code_texture(atlas, pairs)
+			self["evolution_" + str(i) + '_sprite'].texture_hover = ColorCoder.color_code_texture(atlas, pairs)
 			
 			var i2:int = 1;
 			for resource:String in unit.base.evolutions[evolution].keys():
@@ -99,14 +100,24 @@ func setup(target:FighterUnit)->void:
 				i2 += 1;
 				
 			i += 1;
+			
+		if title_label_tween and title_label_tween.is_running():
+			title_label_tween.kill();
+		
 		if can_evolve:
-			title_label.hide();
+			title_label.text = "EVOLUTION AVAILABLE!"
+			title_label.add_theme_font_size_override("font_size", 48)
+			evolution_label_highlight_tween();
 			evolution_1_sprite.modulate = Color.WHITE;
 			evolution_2_sprite.modulate = Color.WHITE;
 			
 			evolution_1_costs_container.show();
 			evolution_2_costs_container.show();
 		else:
+
+			title_label.text = "Bring this unit to level 10 to unlock upgrades."
+			title_label.add_theme_font_size_override("font_size", 32)
+			title_label.add_theme_constant_override("outline_size",0)
 			evolution_1_sprite.modulate.v = 0;
 			evolution_1_sprite.modulate.a = .5;
 			
@@ -129,31 +140,38 @@ func evolution_confirmation(evolution_index:int)->void:
 	
 	var base:FighterBase = self["evolution_" + str(evolution_index) + "_base"]
 	confirmation.generate_confirmation(unit, base, r1, c1, r2, c2 )
-#func generate_confirmation(unit:FighterUnit, new_base:FighterBase, resource_1:String, cost_1:int, resource_2:String, cost_2:int)->void:
-
-
-
-func _on_ev1_overlay_gui_input(e: InputEvent) -> void:
-	if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT and can_evolve:
-		if enough_resources_for_ev1:
-			evolution_confirmation(1);
-
-func _on_ev1_overlay_mouse_entered() -> void:
-	evolution_1_overlay.color.a = .5
-
-func _on_ev1_overlay_mouse_exited() -> void:
-	evolution_1_overlay.color.a = 0
 
 
 
 
-func _on_ev2_overlay_gui_input(e: InputEvent) -> void:
-	if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT and can_evolve:
-		if enough_resources_for_ev2:
-			evolution_confirmation(2);
 
-func _on_ev2_overlay_mouse_entered() -> void:
-	evolution_2_overlay.color.a = .5
 
-func _on_ev2_overlay_mouse_exited() -> void:
-	evolution_2_overlay.color.a = 0
+
+var title_label_tween:Tween;
+func evolution_label_highlight_tween()->void:
+	title_label_tween = create_tween();
+	title_label_tween.tween_property(title_label, "theme_override_constants/outline_size", 6, .75);
+	title_label_tween.tween_callback(title_label.add_theme_constant_override.bind("outline_size",0));
+	title_label_tween.tween_callback(evolution_label_highlight_tween)
+
+
+func _on_evolution_1_pressed() -> void:
+	evolution_confirmation(1)
+
+
+func _on_evolution_2_pressed() -> void:
+	evolution_confirmation(2)
+
+
+func _on_evolution_1_mouse_entered() -> void:
+	evolution_1_panel.show()
+
+func _on_evolution_2_mouse_entered() -> void:
+	evolution_2_panel.show()
+
+func _on_evolution_1_mouse_exited() -> void:
+	evolution_1_panel.hide()
+
+
+func _on_evolution_2_mouse_exited() -> void:
+	evolution_2_panel.hide();

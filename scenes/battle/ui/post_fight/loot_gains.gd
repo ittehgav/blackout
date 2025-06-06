@@ -35,4 +35,6 @@ func _on_continue_pressed() -> void:
 	
 func finish_looting()->void:
 	player_inventory_display.update_inventory();
+	## WAIT UNTIL ITEM NODES MOVE INVENTORIES BEFORE RETURNING TO WORLDMAPOL
+	await Tweens.ui_fade_out(Entities.arena).finished;
 	post_fight.end_post_fight();

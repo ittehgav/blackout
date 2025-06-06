@@ -12,10 +12,10 @@ const entity_padding = 50;
 
 const small_prop_amounts = entity_spawn_range/50;
 const large_prop_amounts = entity_spawn_range/100;
-const settlement_amount = entity_spawn_range/50;
+const settlement_amount = entity_spawn_range/15;
 
-const thugs_amount = entity_spawn_range/100;
-const travelling_traders_amount = entity_spawn_range/100;
+const thugs_amount = entity_spawn_range/10000;
+const travelling_traders_amount = entity_spawn_range/50;
 
 @export var small_prop_textures:Array[Texture];
 var small_prop_sprites:Array[Sprite2D];
@@ -119,7 +119,6 @@ func generate_parties()->void:
 	var party:NpcMapParty;
 	for i:int in thugs_amount:
 		party = generate_party(Index.thugs_scene, party_positions)
-	party.global_position = Vector2.ZERO
 		
 	for i:int in travelling_traders_amount:
 		generate_party(Index.travelling_trader_scene, party_positions);

@@ -288,9 +288,14 @@ remove_technique = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxConta
 
 [node name="VBoxContainer" type="VBoxContainer" parent="victory_view/exp_gains"]
 layout_mode = 1
-offset_left = 21.0
-offset_right = 525.0
-offset_bottom = 316.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 82.0
+offset_top = -274.0
+offset_right = 586.0
+offset_bottom = 246.0
+grow_vertical = 2
 
 [node name="victory_title" type="Label" parent="victory_view/exp_gains/VBoxContainer"]
 layout_mode = 2
@@ -568,7 +573,6 @@ wait_time = 2.5
 one_shot = true
 
 [node name="loot_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("post_fight", "player_inventory_display", "loot_display")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -581,154 +585,123 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_r614c")
 post_fight = NodePath("../..")
-player_inventory_display = NodePath("player_inventory")
-loot_display = NodePath("loot")
+player_inventory_display = NodePath("HBoxContainer/player_inventory")
+loot_display = NodePath("HBoxContainer/loot")
 
-[node name="player_inventory" parent="victory_view/loot_gains" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
-custom_minimum_size = Vector2(300, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/loot_gains"]
 layout_mode = 1
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 15.0
-offset_top = 50.0
-offset_right = 397.0
-offset_bottom = 628.0
-grow_horizontal = 1
-grow_vertical = 1
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 770.0
+offset_bottom = 210.0
+theme_override_constants/separation = 30
+
+[node name="player_inventory" parent="victory_view/loot_gains/HBoxContainer" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
+custom_minimum_size = Vector2(544, 578)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 context = "loot"
 exchanging_display = NodePath("../loot")
 
-[node name="VBoxContainer" parent="victory_view/loot_gains/player_inventory" index="2"]
-offset_left = 212.0
+[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="2"]
+offset_left = 145.0
 offset_top = 34.0
-offset_right = 304.0
+offset_right = 237.0
 offset_bottom = 390.0
 
-[node name="money_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer3" index="0"]
+[node name="money_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer3" index="0"]
 material = SubResource("ShaderMaterial_qglwj")
 
-[node name="food_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer" index="0"]
+[node name="food_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_jjio2")
 
-[node name="fuel_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer2" index="0"]
+[node name="fuel_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer2" index="0"]
 material = SubResource("ShaderMaterial_an643")
 
-[node name="juice_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer4" index="0"]
+[node name="juice_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer4" index="0"]
 material = SubResource("ShaderMaterial_ormkh")
 
-[node name="scrap_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer5" index="0"]
+[node name="scrap_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer5" index="0"]
 material = SubResource("ShaderMaterial_15sfg")
 
-[node name="chips_icon" parent="victory_view/loot_gains/player_inventory/VBoxContainer/HBoxContainer6" index="0"]
+[node name="chips_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_7uvto")
 
-[node name="warning" parent="victory_view/loot_gains/player_inventory" index="6"]
+[node name="warning" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="6"]
 visible = false
 offset_left = 12.0
 offset_right = 52.0
 offset_bottom = 38.0
 
-[node name="operation" parent="victory_view/loot_gains/player_inventory/send_rect" index="0"]
+[node name="operation" parent="victory_view/loot_gains/HBoxContainer/player_inventory/send_rect" index="0"]
 text = "LOOT"
 
-[node name="warnings" parent="victory_view/loot_gains/player_inventory" index="10"]
+[node name="warnings" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="10"]
 z_index = 7
 z_as_relative = false
-offset_left = 1.0
-offset_right = 738.0
 
-[node name="MarginContainer" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer" index="0"]
+[node name="MarginContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory/warnings/PanelContainer" index="0"]
 mouse_filter = 0
 
-[node name="VBoxContainer" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory/warnings/PanelContainer/MarginContainer" index="0"]
 mouse_filter = 0
 
-[node name="warning" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="0"]
+[node name="warning" parent="victory_view/loot_gains/HBoxContainer/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="0"]
 mouse_filter = 0
 
-[node name="loot_discard" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="3"]
+[node name="loot_discard" parent="victory_view/loot_gains/HBoxContainer/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="3"]
 mouse_filter = 0
 
-[node name="HBoxContainer" parent="victory_view/loot_gains/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="4"]
+[node name="HBoxContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory/warnings/PanelContainer/MarginContainer/VBoxContainer" index="4"]
 mouse_filter = 0
 
-[node name="Label" type="Label" parent="victory_view/loot_gains"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -46.0
-offset_top = -9.0
-offset_right = 154.0
-offset_bottom = 93.0
-grow_horizontal = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 128
 text = "Loot"
 
-[node name="loot" parent="victory_view/loot_gains" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_bottom = 0.0
-offset_left = -407.0
-offset_top = 50.0
-offset_right = -407.0
-offset_bottom = 50.0
-grow_horizontal = 0
-grow_vertical = 1
-context = "loot"
-exchanging_display = NodePath("../player_inventory")
-
-[node name="VBoxContainer" parent="victory_view/loot_gains/loot" index="2"]
-offset_left = 5161.0
-offset_right = 5253.0
-
-[node name="money_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer3" index="0"]
-material = SubResource("ShaderMaterial_dh2mc")
-
-[node name="food_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_qaebw")
-
-[node name="fuel_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer2" index="0"]
-material = SubResource("ShaderMaterial_bx6rd")
-
-[node name="juice_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer4" index="0"]
-material = SubResource("ShaderMaterial_c3ns4")
-
-[node name="scrap_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer5" index="0"]
-material = SubResource("ShaderMaterial_whl4c")
-
-[node name="chips_icon" parent="victory_view/loot_gains/loot/VBoxContainer/HBoxContainer6" index="0"]
-material = SubResource("ShaderMaterial_7r0vy")
-
-[node name="operation" parent="victory_view/loot_gains/loot/send_rect" index="0"]
-text = "PUT AWAY"
-
-[node name="sort_inventory" type="Button" parent="victory_view/loot_gains"]
-layout_mode = 1
-offset_left = 408.0
-offset_top = 452.0
-offset_right = 524.0
-offset_bottom = 512.0
-text = "Sort 
-Inventory"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="victory_view/loot_gains"]
-layout_mode = 0
-offset_left = 603.0
-offset_top = 402.0
-offset_right = 735.0
-offset_bottom = 486.0
-
-[node name="loot_all_btn" type="Button" parent="victory_view/loot_gains/VBoxContainer"]
+[node name="loot_all_btn" type="Button" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Loot All"
 
-[node name="continue" type="Button" parent="victory_view/loot_gains/VBoxContainer"]
+[node name="continue" type="Button" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Continue"
+
+[node name="loot" parent="victory_view/loot_gains/HBoxContainer" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
+layout_mode = 2
+context = "loot"
+exchanging_display = NodePath("../player_inventory")
+
+[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/loot" index="2"]
+offset_left = 5161.0
+offset_right = 5253.0
+
+[node name="money_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer3" index="0"]
+material = SubResource("ShaderMaterial_dh2mc")
+
+[node name="food_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_qaebw")
+
+[node name="fuel_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer2" index="0"]
+material = SubResource("ShaderMaterial_bx6rd")
+
+[node name="juice_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer4" index="0"]
+material = SubResource("ShaderMaterial_c3ns4")
+
+[node name="scrap_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer5" index="0"]
+material = SubResource("ShaderMaterial_whl4c")
+
+[node name="chips_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer6" index="0"]
+material = SubResource("ShaderMaterial_7r0vy")
+
+[node name="operation" parent="victory_view/loot_gains/HBoxContainer/loot/send_rect" index="0"]
+text = "PUT AWAY"
 
 [node name="defeat_view" type="Control" parent="." node_paths=PackedStringArray("morale_icon", "morale_label")]
 visible = false
@@ -810,9 +783,8 @@ text = "[click anywhere to continue]"
 [connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/remove_technique_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["technique"]]
 [connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/add_technique_point" to="victory_view/exp_gains" method="add_stat_point" binds= ["technique"]]
 [connection signal="timeout" from="victory_view/exp_gains/step" to="victory_view/exp_gains" method="_on_step_timeout"]
-[connection signal="pressed" from="victory_view/loot_gains/sort_inventory" to="victory_view/loot_gains/player_inventory" method="sort_inventory"]
-[connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/loot_all_btn" to="victory_view/loot_gains" method="_on_loot_all_btn_pressed"]
-[connection signal="pressed" from="victory_view/loot_gains/VBoxContainer/continue" to="victory_view/loot_gains" method="_on_continue_pressed"]
+[connection signal="pressed" from="victory_view/loot_gains/HBoxContainer/VBoxContainer/loot_all_btn" to="victory_view/loot_gains" method="_on_loot_all_btn_pressed"]
+[connection signal="pressed" from="victory_view/loot_gains/HBoxContainer/VBoxContainer/continue" to="victory_view/loot_gains" method="_on_continue_pressed"]
 
-[editable path="victory_view/loot_gains/player_inventory"]
-[editable path="victory_view/loot_gains/loot"]
+[editable path="victory_view/loot_gains/HBoxContainer/player_inventory"]
+[editable path="victory_view/loot_gains/HBoxContainer/loot"]

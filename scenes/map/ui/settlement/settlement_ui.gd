@@ -1,8 +1,6 @@
 extends UIRoot;
 
 
-signal settlement_entered(settlement:Settlement);
-signal settlement_left;
 
 signal trade_started;
 signal trade_finished;
@@ -97,11 +95,12 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 
 func exit_settlement() -> void:
 	if not listening_around:
-		settlement_left.emit();
+		Entities.player.left_settlement.emit();
 		hide();
 
 
-func _on_settlement_left() -> void:
+func _on_player_left_settlement() -> void:
+	Entities.current_settlement = null;
 	current_settlement.player_inside = false;
 	Entities.world_map.ui.self_modulate.a = 1
 	Entities.main_bgm.play_bgm("world_map")

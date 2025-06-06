@@ -1,6 +1,5 @@
-[gd_scene load_steps=44 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene load_steps=45 format=3 uid="uid://1hbrworalfdw"]
 
-[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="1_lmv1r"]
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/recruit_full_view.gd" id="1_ywq7p"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_atfxm"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="3_atfxm"]
@@ -9,14 +8,24 @@
 [ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="5_atfxm"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="5_lmv1r"]
 [ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="8_2twa8"]
-[ext_resource type="Theme" uid="uid://yqkvsb5q7pab" path="res://resources/themes/pixel_ui_theme/PixelTheme.tres" id="9_87570"]
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="9_nv8af"]
 [ext_resource type="Script" uid="uid://olw5ie87mp07" path="res://scenes/ui/panel.gd" id="10_bh2lf"]
-[ext_resource type="Texture2D" uid="uid://bbefybh8ca2i5" path="res://assets/visual/sprites/fighters/mecharmguy.png" id="11_2qua6"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="12_ryym2"]
-[ext_resource type="Texture2D" uid="uid://bpaicwhk4e4vm" path="res://assets/visual/sprites/fighters/doublearmguy.png" id="13_2twa8"]
 [ext_resource type="Script" uid="uid://3gfued34eqjh" path="res://scenes/ui/evolution_confirmation.gd" id="14_bh2lf"]
 [ext_resource type="Script" uid="uid://d1rd2da7p36xi" path="res://scenes/ui/evolution_animation.gd" id="15_2qua6"]
+[ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="15_2twa8"]
 [ext_resource type="Texture2D" uid="uid://xdjhil3q72jh" path="res://assets/visual/sprites/fighters/crowbarguy.png" id="16_ryym2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ci8v7"]
+shader = ExtResource("5_lmv1r")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ty848"]
 resource_local_to_scene = true
@@ -85,9 +94,9 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryym2"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_nv8af"]
-atlas = ExtResource("11_2qua6")
-region = Rect2(10, 0, 180, 100)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_by5ee"]
 resource_local_to_scene = true
@@ -111,10 +120,9 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k7wxw"]
-resource_local_to_scene = true
-atlas = ExtResource("13_2twa8")
-region = Rect2(10, 0, 180, 100)
+[sub_resource type="AtlasTexture" id="AtlasTexture_by5ee"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2jki"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_87570"]
 resource_local_to_scene = true
@@ -283,6 +291,7 @@ offset_right = 640.0
 offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("8_2twa8")
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -328,6 +337,7 @@ text = "Arm Guy"
 layout_mode = 2
 
 [node name="SpriteSample" parent="Panel" instance=ExtResource("4_cwkea")]
+material = SubResource("ShaderMaterial_ci8v7")
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -339,6 +349,9 @@ offset_bottom = -62.0
 grow_vertical = 0
 add_tooltip = false
 enable_hover_panel = false
+
+[node name="panel" parent="Panel/SpriteSample" index="0"]
+use_parent_material = true
 
 [node name="Arm Guy" parent="Panel/SpriteSample/panel" index="0"]
 material = SubResource("ShaderMaterial_ty848")
@@ -367,6 +380,8 @@ adjacent_items = [NodePath("../max_hp")]
 
 [node name="max_hp" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.168627, 0.0431373, 0.0431373, 1)
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 64
 text = "10"
 
@@ -383,6 +398,8 @@ stat = "attack"
 
 [node name="attack" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.168627, 0.0431373, 0.0431373, 1)
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 64
 text = "10"
 
@@ -399,6 +416,8 @@ stat = "defense"
 
 [node name="defense" type="Label" parent="Panel/stats/HBoxContainer6/HBoxContainer3"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.168627, 0.0431373, 0.0431373, 1)
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 64
 text = "10"
 
@@ -419,6 +438,8 @@ stat = "agility"
 
 [node name="agility" type="Label" parent="Panel/stats/HBoxContainer/HBoxContainer4"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.168627, 0.0431373, 0.0431373, 1)
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 64
 text = "100"
 
@@ -435,6 +456,8 @@ stat = "technique"
 
 [node name="technique" type="Label" parent="Panel/stats/HBoxContainer/HBoxContainer5"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.168627, 0.0431373, 0.0431373, 1)
+theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 64
 text = "1"
 
@@ -446,9 +469,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -911.0
+offset_left = -924.0
 offset_top = -167.0
-offset_right = -379.0
+offset_right = -339.0
 offset_bottom = 251.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -460,8 +483,9 @@ theme_override_font_sizes/font_size = 64
 text = "Level 2"
 
 [node name="ProgressBar" type="TextureProgressBar" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
+size_flags_horizontal = 0
 nine_patch_stretch = true
 stretch_margin_left = 2
 stretch_margin_top = 2
@@ -482,28 +506,24 @@ layout_mode = 2
 theme_override_constants/separation = 70
 
 [node name="cooldown" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
-modulate = Color(0.525217, 1, 0.464516, 1)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.06, 1, 0.122667, 1)
 text = "Cooldown: 1.2s"
 
 [node name="range" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
-modulate = Color(0.525217, 1, 0.464516, 1)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.0588235, 1, 0.121569, 1)
 text = "Melee"
 
 [node name="skill_description" type="RichTextLabel" parent="Panel/VBoxContainer"]
+modulate = Color(0.76, 0.76, 0.76, 1)
 layout_mode = 2
-theme_override_font_sizes/bold_italics_font_size = 32
-theme_override_font_sizes/italics_font_size = 32
-theme_override_font_sizes/mono_font_size = 32
-theme_override_font_sizes/normal_font_size = 32
-theme_override_font_sizes/bold_font_size = 32
 bbcode_enabled = true
 text = "opesnfçasejnfçasoerinfg´~"
 fit_content = true
 
 [node name="flavor" type="Label" parent="Panel/VBoxContainer"]
-modulate = Color(0.83, 0.83, 0.83, 0.686275)
+modulate = Color(0.72, 0.72, 0.72, 0.584314)
 layout_mode = 2
 text = "cuzao"
 autowrap_mode = 3
@@ -517,7 +537,7 @@ offset_bottom = 33.0
 theme_override_font_sizes/font_size = 32
 text = "Press [escape] or [right-click] to return"
 
-[node name="evolution" type="Panel" parent="Panel" node_paths=PackedStringArray("title_label", "confirmation", "evolution_texture_buffer", "evolution_1_sprite", "evolution_1_overlay", "evolution_1_costs_container", "evolution_1_cost_1_icon", "evolution_1_cost_1_label", "evolution_1_cost_2_icon", "evolution_1_cost_2_label", "evolution_2_sprite", "evolution_2_overlay", "evolution_2_costs_container", "evolution_2_cost_1_icon", "evolution_2_cost_1_label", "evolution_2_cost_2_icon", "evolution_2_cost_2_label")]
+[node name="evolution" type="Panel" parent="Panel" node_paths=PackedStringArray("title_label", "confirmation", "evolution_texture_buffer", "evolution_1_sprite", "evolution_1_panel", "evolution_1_costs_container", "evolution_1_cost_1_icon", "evolution_1_cost_1_label", "evolution_1_cost_2_icon", "evolution_1_cost_2_label", "evolution_2_sprite", "evolution_2_panel", "evolution_2_costs_container", "evolution_2_cost_1_icon", "evolution_2_cost_1_label", "evolution_2_cost_2_icon", "evolution_2_cost_2_label")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -530,20 +550,20 @@ offset_right = -11.0
 offset_bottom = -21.0
 grow_horizontal = 0
 grow_vertical = 0
-theme = ExtResource("8_2twa8")
+theme = ExtResource("9_nv8af")
 script = ExtResource("10_bh2lf")
 title_label = NodePath("evolution")
 confirmation = NodePath("../evolution_confirmation_bg/evolution_confirmation")
 evolution_texture_buffer = NodePath("../evolution_confirmation_bg/evolution_texture_buffer")
 evolution_1_sprite = NodePath("HBoxContainer/evolution_1/evolution_1")
-evolution_1_overlay = NodePath("HBoxContainer/evolution_1/evolution_1/overlay")
+evolution_1_panel = NodePath("HBoxContainer/evolution_1/evolution_1/Panel")
 evolution_1_costs_container = NodePath("HBoxContainer/evolution_1/resource_costs")
 evolution_1_cost_1_icon = NodePath("HBoxContainer/evolution_1/resource_costs/resource_icon")
 evolution_1_cost_1_label = NodePath("HBoxContainer/evolution_1/resource_costs/resource_1")
 evolution_1_cost_2_icon = NodePath("HBoxContainer/evolution_1/resource_costs/resource_icon2")
 evolution_1_cost_2_label = NodePath("HBoxContainer/evolution_1/resource_costs/resource_2")
 evolution_2_sprite = NodePath("HBoxContainer/evolution_2/evolution_2")
-evolution_2_overlay = NodePath("HBoxContainer/evolution_2/evolution_2/overlay")
+evolution_2_panel = NodePath("HBoxContainer/evolution_2/evolution_2/Panel")
 evolution_2_costs_container = NodePath("HBoxContainer/evolution_2/resource_costs")
 evolution_2_cost_1_icon = NodePath("HBoxContainer/evolution_2/resource_costs/resource_icon")
 evolution_2_cost_1_label = NodePath("HBoxContainer/evolution_2/resource_costs/resource_1")
@@ -551,12 +571,18 @@ evolution_2_cost_2_icon = NodePath("HBoxContainer/evolution_2/resource_costs/res
 evolution_2_cost_2_label = NodePath("HBoxContainer/evolution_2/resource_costs/resource_2")
 
 [node name="evolution" type="Label" parent="Panel/evolution"]
-layout_mode = 0
-offset_left = 26.0
-offset_top = 7.0
-offset_right = 334.0
-offset_bottom = 62.0
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_right = 154.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.921569, 0.67451, 0.376471, 1)
 text = "Bring this unit to level 10 to unlock upgrades."
+horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution"]
@@ -576,26 +602,23 @@ grow_vertical = 0
 [node name="evolution_1" type="VBoxContainer" parent="Panel/evolution/HBoxContainer"]
 layout_mode = 2
 
-[node name="evolution_1" type="TextureRect" parent="Panel/evolution/HBoxContainer/evolution_1"]
+[node name="evolution_1" type="TextureButton" parent="Panel/evolution/HBoxContainer/evolution_1"]
 modulate = Color(0, 0, 0, 0.435294)
 layout_mode = 2
-texture = SubResource("AtlasTexture_nv8af")
+texture_normal = SubResource("AtlasTexture_ryym2")
+texture_hover = SubResource("AtlasTexture_nv8af")
 
-[node name="overlay" type="ColorRect" parent="Panel/evolution/HBoxContainer/evolution_1/evolution_1"]
+[node name="Panel" type="Panel" parent="Panel/evolution/HBoxContainer/evolution_1/evolution_1"]
+visible = false
 show_behind_parent = true
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(90, 80)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -100.0
-offset_right = 50.0
 grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.1, 0.1, 0.1, 0)
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="resource_costs" type="HBoxContainer" parent="Panel/evolution/HBoxContainer/evolution_1"]
 layout_mode = 2
@@ -622,26 +645,23 @@ text = "32"
 [node name="evolution_2" type="VBoxContainer" parent="Panel/evolution/HBoxContainer"]
 layout_mode = 2
 
-[node name="evolution_2" type="TextureRect" parent="Panel/evolution/HBoxContainer/evolution_2"]
+[node name="evolution_2" type="TextureButton" parent="Panel/evolution/HBoxContainer/evolution_2"]
 modulate = Color(0, 0, 0, 0.435294)
 layout_mode = 2
-texture = SubResource("AtlasTexture_k7wxw")
+texture_normal = SubResource("AtlasTexture_by5ee")
+texture_disabled = SubResource("AtlasTexture_n2jki")
 
-[node name="overlay" type="ColorRect" parent="Panel/evolution/HBoxContainer/evolution_2/evolution_2"]
+[node name="Panel" type="Panel" parent="Panel/evolution/HBoxContainer/evolution_2/evolution_2"]
+visible = false
 show_behind_parent = true
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(90, 80)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -100.0
-offset_right = 50.0
 grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.1, 0.1, 0.1, 0)
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="resource_costs" type="HBoxContainer" parent="Panel/evolution/HBoxContainer/evolution_2"]
 layout_mode = 2
@@ -666,7 +686,6 @@ layout_mode = 2
 text = "32"
 
 [node name="evolution_confirmation_bg" type="ColorRect" parent="Panel"]
-visible = false
 z_index = 2
 layout_mode = 1
 anchors_preset = 15
@@ -690,27 +709,27 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("9_87570")
 script = ExtResource("14_bh2lf")
 title = NodePath("RichTextLabel")
 evolution_animation = NodePath("../../../evolution_animation")
 before_sprite = NodePath("HBoxContainer/VBoxContainer/before_sprite")
-before_max_hp_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/max_hp")
-before_attack_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/attack")
-before_defense_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/defense")
-before_agility_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2/agility")
-before_technique_label = NodePath("HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer3/technique")
+before_max_hp_label = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer/max_hp")
+before_attack_label = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer/attack")
+before_defense_label = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/defense")
+before_agility_label = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/agility")
+before_technique_label = NodePath("HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3/technique")
 after_sprite = NodePath("HBoxContainer/VBoxContainer2/after_sprite")
-after_max_hp_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer/max_hp")
-after_attack_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer/attack")
-after_defense_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/defense")
-after_agility_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/agility")
-after_technique_label = NodePath("HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer3/technique")
+after_max_hp_label = NodePath("HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer/max_hp")
+after_attack_label = NodePath("HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer/attack")
+after_defense_label = NodePath("HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer2/defense")
+after_agility_label = NodePath("HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer2/agility")
+after_technique_label = NodePath("HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer3/technique")
 after_name = NodePath("HBoxContainer/VBoxContainer3/after_name")
 after_skill_name = NodePath("HBoxContainer/VBoxContainer3/after_skill_name")
 after_skill_description = NodePath("HBoxContainer/VBoxContainer3/after_skill_description")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/evolution_confirmation_bg/evolution_confirmation"]
+modulate = Color(0.59, 0.59, 0.59, 1)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -718,7 +737,6 @@ offset_top = 10.0
 offset_bottom = 112.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.309804)
-theme_override_constants/outline_size = 16
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "Spend [color=cyan]20 chips[/color] and [color=brown] 50 scrap to upgrade pee to poo"
@@ -746,69 +764,95 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_bh2lf")
 expand_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/before_sprite"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 37.0
+offset_top = 3.0
+offset_right = 81.0
+offset_bottom = 79.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 1.5708
+texture = ExtResource("15_2twa8")
+
+[node name="PanelContainer" type="PanelContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_nv8af")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_2twa8")
 layout_mode = 2
 adjacent_items = [NodePath("../max_hp")]
 
-[node name="max_hp" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="max_hp" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
-[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_2qua6")
 layout_mode = 2
 adjacent_items = [NodePath("../attack")]
 stat = "attack"
 
-[node name="attack" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="attack" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_ryym2")
 layout_mode = 2
 adjacent_items = [NodePath("../defense")]
 stat = "defense"
 
-[node name="defense" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="defense" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
-[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_nv8af")
 layout_mode = 2
 adjacent_items = [NodePath("../agility")]
 stat = "agility"
 
-[node name="agility" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="agility" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_k7wxw")
 layout_mode = 2
 adjacent_items = [NodePath("../technique")]
 stat = "technique"
 
-[node name="technique" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="technique" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer"]
@@ -821,69 +865,79 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_2qua6")
 expand_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_nv8af")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_crnqx")
 layout_mode = 2
 adjacent_items = [NodePath("../max_hp")]
 
-[node name="max_hp" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="max_hp" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
-[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_760xx")
 layout_mode = 2
 adjacent_items = [NodePath("../attack")]
 stat = "attack"
 
-[node name="attack" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="attack" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_31ksd")
 layout_mode = 2
 adjacent_items = [NodePath("../defense")]
 stat = "defense"
 
-[node name="defense" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="defense" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
-[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon2" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_r3m1t")
 layout_mode = 2
 adjacent_items = [NodePath("../agility")]
 stat = "agility"
 
-[node name="agility" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="agility" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
+[node name="StatIcon" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("2_atfxm")]
 material = SubResource("ShaderMaterial_nc3ik")
 layout_mode = 2
 adjacent_items = [NodePath("../technique")]
 stat = "technique"
 
-[node name="technique" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+[node name="technique" type="Label" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer2/PanelContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "4206"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer"]
@@ -900,28 +954,36 @@ layout_mode = 2
 text = "Skill: pee"
 
 [node name="after_skill_description" type="RichTextLabel" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer3"]
+modulate = Color(0.65, 0.65, 0.65, 1)
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 bbcode_enabled = true
 text = "piss everywhere no exception literally every cornerof the room leave everything yellow and smelly and unhospitable"
 fit_content = true
 
-[node name="confirm_btn" type="Button" parent="Panel/evolution_confirmation_bg/evolution_confirmation"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/evolution_confirmation_bg/evolution_confirmation"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -186.0
-offset_top = -73.0
-offset_right = -18.0
-offset_bottom = -14.0
-grow_horizontal = 0
-grow_vertical = 0
-theme = ExtResource("1_lmv1r")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 297.0
+offset_top = 155.0
+offset_right = 465.0
+offset_bottom = 214.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_nv8af")
+
+[node name="confirm_btn" type="Button" parent="Panel/evolution_confirmation_bg/evolution_confirmation/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Confirm"
+
+[node name="return_btn" type="Button" parent="Panel/evolution_confirmation_bg/evolution_confirmation/VBoxContainer"]
+layout_mode = 2
+text = "Return"
 
 [node name="evolution_texture_buffer" type="Node2D" parent="Panel/evolution_confirmation_bg"]
 visible = false
@@ -966,16 +1028,19 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="evolution_animation"]
-visible = false
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -20.0
-offset_top = 76.0
-offset_right = 20.0
-offset_bottom = 102.0
+anchor_bottom = 1.0
+offset_left = -282.0
+offset_top = -223.0
+offset_right = 350.0
+offset_bottom = -121.0
 grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_font_sizes/font_size = 128
 text = "UNIT UPGRADED!"
 
@@ -994,12 +1059,13 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "[press anything to continue]"
 
-[connection signal="gui_input" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1/overlay" to="Panel/evolution" method="_on_ev1_overlay_gui_input"]
-[connection signal="mouse_entered" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1/overlay" to="Panel/evolution" method="_on_ev1_overlay_mouse_entered"]
-[connection signal="mouse_exited" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1/overlay" to="Panel/evolution" method="_on_ev1_overlay_mouse_exited"]
-[connection signal="gui_input" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2/overlay" to="Panel/evolution" method="_on_ev2_overlay_gui_input"]
-[connection signal="mouse_entered" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2/overlay" to="Panel/evolution" method="_on_ev2_overlay_mouse_entered"]
-[connection signal="mouse_exited" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2/overlay" to="Panel/evolution" method="_on_ev2_overlay_mouse_exited"]
-[connection signal="pressed" from="Panel/evolution_confirmation_bg/evolution_confirmation/confirm_btn" to="Panel/evolution_confirmation_bg/evolution_confirmation" method="_on_confirm_btn_pressed"]
+[connection signal="mouse_entered" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1" to="Panel/evolution" method="_on_evolution_1_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1" to="Panel/evolution" method="_on_evolution_1_mouse_exited"]
+[connection signal="pressed" from="Panel/evolution/HBoxContainer/evolution_1/evolution_1" to="Panel/evolution" method="_on_evolution_1_pressed"]
+[connection signal="mouse_entered" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2" to="Panel/evolution" method="_on_evolution_2_mouse_entered"]
+[connection signal="mouse_exited" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2" to="Panel/evolution" method="_on_evolution_2_mouse_exited"]
+[connection signal="pressed" from="Panel/evolution/HBoxContainer/evolution_2/evolution_2" to="Panel/evolution" method="_on_evolution_2_pressed"]
+[connection signal="pressed" from="Panel/evolution_confirmation_bg/evolution_confirmation/VBoxContainer/confirm_btn" to="Panel/evolution_confirmation_bg/evolution_confirmation" method="_on_confirm_btn_pressed"]
+[connection signal="pressed" from="Panel/evolution_confirmation_bg/evolution_confirmation/VBoxContainer/return_btn" to="Panel/evolution_confirmation_bg/evolution_confirmation" method="_on_return_btn_pressed"]
 
 [editable path="Panel/SpriteSample"]

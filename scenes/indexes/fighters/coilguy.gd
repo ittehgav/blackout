@@ -25,11 +25,13 @@ const tags = [
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
 	var technique_str:String = Index.get_technique_scaled_string(unit, "", 0,.05, "x")
+	var magnetized_color_tag:String = "[color=" + Color.YELLOW.darkened(.2).to_html() + "]"
 	
 	
-	var string:String="[color=yellow]Magnetizes[/color] the nearest enemy that's not [color=yellow]magnetized[/color], then deals " +\
-	damage_str + " to all [color=yellow]magnetized[/color] enemies.\nDeals " + technique_str + \
-	" more damage to all targets for each [color=yellow]magnetized[/color] enemy on the battlefield."
+	var string:String= magnetized_color_tag+"Magnetizes[/color] the nearest enemy that's not "+magnetized_color_tag+\
+	"magnetized[/color], then deals " + damage_str + " to all "+magnetized_color_tag+"magnetized[/color] enemies.\nDeals "\
+	 + technique_str + \
+	" more damage to all targets for each "+magnetized_color_tag+"magnetized[/color] enemy on the battlefield."
 	return string
 
 const hitbox_radius = 25;
@@ -77,8 +79,9 @@ func target_count_amplifier(damage:float)->float:
 
 func closer_to_last_tagged(a:ActiveFighter, b:ActiveFighter)->bool:
 	var check_index:int = -1;
-	while not is_instance_valid(tagged_targets[check_index]):
-		check_index -= 1;
+	## TODO IDKSOMETHINGWRO
+	if not is_instance_valid(tagged_targets[check_index]):
+		return false
 	return a.position.distance_to(tagged_targets[check_index].position) < b.position.distance_to(tagged_targets[check_index].position)
 	
 

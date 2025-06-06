@@ -55,8 +55,6 @@ func load_item(target:Item, new_item:bool=false)->void:
 	if item is ResourceContainer:
 		stack_size = item.stack_size
 		item_color = Index.get_color(item.resource)
-		if new_item:
-			display[item.resource+"_containers"].append(self)
 	else:
 		item_color = Index.item_rarity_colors[item.rarity];
 	
@@ -105,7 +103,6 @@ func load_item(target:Item, new_item:bool=false)->void:
 				tooltip.hint.text = "[right-click] to buy"
 		else:
 			tooltip.hint.text = "[right-click] to sell"
-	tree_exiting.connect(display.item_mirror_freed.bind(self, item));
 	item.mirror = self;
 
 
@@ -147,9 +144,9 @@ func _on_gui_input(e: InputEvent) -> void:
 					if item is ResourceContainer:
 						if "raw_stack" in item:
 							var clear:bool = send_to_containers();
-							display.item_dropped.emit(self);
 							if clear:
-								queue_free();
+								display.remove_mirror(self)
+								display.item_dropped.emit(self)
 						else:
 							empty_storage();
 
@@ -191,6 +188,7 @@ func _on_gui_input(e: InputEvent) -> void:
 func empty_storage()->void:
 	var moved:int;
 	var to_throw:Array[ItemMirror];
+
 	while stack_size:
 		var raw_stack:ResourceContainer = Index[item.resource+"_stack_scene"].instantiate();
 		if "mirror_only" in raw_stack:
@@ -203,19 +201,25 @@ func empty_storage()->void:
 			else:
 				raw_stack.stack_size = raw_stack.capacity;
 				stack_size -= raw_stack.capacity;
+
 		var mirror:ItemMirror = display.generate_mirror(raw_stack);
 		to_throw.append(mirror);
-		
-
+	
+	var to_remove:Array[ItemMirror];
 	for mirror:ItemMirror in to_throw:
 		moved += mirror.stack_size
+		
 		display.throw_mirror(mirror, true);
 		if mirror.inventory_position == Vector2i(-1, -1):
 			## takes back items that didn't fit
 			stack_size += mirror.stack_size;
 			moved -= mirror.stack_size
-			mirror.queue_free();
-
+			to_remove.append(mirror)
+		
+	for mirror:ItemMirror in to_remove:
+		display.remove_mirror(mirror)
+	
+	highlight_stack_label()
 	display.item_dropped.emit(self)
 	display.play_deposit_sfx(moved, item.resource)
 			
@@ -247,7 +251,7 @@ func drop_on_container(target:ItemMirror)->bool:
 		stack_size -= target.space_left();
 		target.stack_size = target.item.capacity;
 		
-	display.play_deposit_sfx(stack_size, item.resource);
+	display.play_deposit_sfx(deposited, item.resource);
 	
 	if not stack_size and "raw_stack" in item:
 		return true;
@@ -264,7 +268,7 @@ func put_down()->void:
 			and item.resource == item_under.item.resource:
 			var free:bool = drop_on_container(item_under);
 			if free:
-				queue_free();
+				display.remove_mirror(self)
 				display.item_dropped.emit(self);
 				return
 	
@@ -305,12 +309,16 @@ func equip_weapon_command(alt:bool=false)->void:
 		
 		if not display.check_item_fit(item, inventory_position):
 			display.throw_mirror(self);
-		display.item_dropped.emit(self);
-		refresh();
+		if inventory_position == Vector2i(-1, -1):
+			display.sort_inventory();
+		else:
+			display.item_dropped.emit(self);
+			refresh();
 	else:
 		## only ever happens in player sheet so it's ok to emit drop with freed mirror?
-		queue_free()
+		display.remove_mirror(self)
 		display.item_dropped.emit(self)
+	
 
 func trade_command()->void:
 	if item is ResourceContainer:
@@ -386,20 +394,22 @@ func _on_mouse_entered() -> void:
 		display.item_dropped.emit(self);
 		var clear:bool = send_to_containers();
 		if clear:
-			queue_free();
+			display.remove_mirror(self)
+
 
 	outline.border_color = highlighted_outline_color;
 
 func send_to_containers()->bool:
 	var amount_deposited:int=0;
-	var containers:Array[ItemMirror] = display[item.resource+"_containers"].filter(
+	var containers:Array = display[item.resource+"_containers"].filter(
 		func(c:ItemMirror)->bool:return not ("raw_stack" in c.item)
 	)
 	containers.sort_custom(display.sort_container_mirrors);
 	for c:ItemMirror in containers:
 		if stack_size:
-			if c.space_left():	
+			if c.space_left():
 				if c.space_left() >= stack_size:
+					
 					c.stack_size += stack_size;
 					c.highlight_stack_label();
 					c.refresh();
@@ -412,8 +422,6 @@ func send_to_containers()->bool:
 					c.stack_size = c.item.capacity;
 					c.highlight_stack_label();
 					c.refresh();
-	display.play_deposit_sfx(amount_deposited, item.resource)
-	refresh();
 	display.item_dropped.emit(self)
 	return false
 			
@@ -470,7 +478,7 @@ func refresh()->void:
 			tooltip.hint.text = "[right-click] to put away"
 	
 	if item is ResourceContainer and "raw_stack" in item and stack_size == 0:
-		queue_free()
+		display.remove_mirror(self)
 		return
 	stack_size_label.modulate.a = 1
 	

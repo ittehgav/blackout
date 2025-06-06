@@ -57,7 +57,7 @@ func setup(first:bool=true)->void:
 		sub_name_label.show()
 		sub_name_label.text = target.sub_name;
 	if "tooltip_name_color" in target:
-		name_label.modulate = target.tooltip_name_color;
+		name_label.add_theme_color_override("font_color", target.tooltip_name_color);
 	if "icon_texture" in target:
 		icon.show()
 		icon.texture = target.icon_texture;

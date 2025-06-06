@@ -66,6 +66,7 @@ func start_trade(target:MapEntity)->void:
 		trader_name_label.text = target.leader.name;
 		trader_inventory_display.inventory = target.leader.inventory;
 		Entities.current_trading_party = target.leader;
+
 		target.leader.inventory.sort_items();
 
 
@@ -126,12 +127,12 @@ func refresh_trade_balance()->void:
 				## TRADE > 0 = PLAYER BUYING
 				label.text = str(trade);
 				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;
-				label.modulate = Color.GREEN;
+				label.add_theme_color_override("font_color", Color.GREEN);
 			else:
-				## TRADE < 0 = PLAYER SELLING
+				## TRADE < 0 = PLAYER SELLING	
 				label.text = str(-trade);
 				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
-				label.modulate = Color.YELLOW;
+				label.add_theme_color_override("font_color", Color.YELLOW);
 				
 	if trader_inventory_display.inventory.money < money_trade or\
 	player_inventory_display.inventory.money < -money_trade:
@@ -218,10 +219,10 @@ func finish_trade()->void:
 			player_label_tween.tween_property(player_value_label, "text", str(player_after), tween_duration);
 			trader_label_tween.tween_property(trader_value_label, "text", str(trader_after), tween_duration);
 	
-	player_inventory_display.store_all_resources()
-	player_inventory_display.update_inventory();
+
 	trader_inventory_display.sort_inventory();
-	
+	player_inventory_display.update_inventory();
+
 	for i in int(sqrt(trade_volume)):
 		player_inventory_display.sfx.play_sound_by_key("coin_drop");
 		await get_tree().create_timer(.05).timeout;

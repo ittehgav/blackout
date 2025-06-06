@@ -43,6 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/indexes/items/containers/scrap_crate.tscn" id="31_f2dah"]
 [ext_resource type="PackedScene" uid="uid://c14j25tgu3icd" path="res://scenes/indexes/items/modules/sensory_overload.tscn" id="32_cxe47"]
 [ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/indexes/items/containers/chips_case.tscn" id="32_nmq41"]
+[ext_resource type="PackedScene" uid="uid://cv1ab43jxb7ky" path="res://scenes/indexes/items/weapons/taser_gun.tscn" id="33_3xuka"]
 [ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="33_7d1fb"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="40_fn5hq"]
 [ext_resource type="Script" uid="uid://b66cs0vry3tqy" path="res://scenes/map/world_map/marker.gd" id="45_fn5hq"]
@@ -53,7 +54,6 @@
 [ext_resource type="AudioStream" uid="uid://bc0n3qch276bg" path="res://assets/sound/sfx/world_map/remove_marker.wav" id="49_h2uxo"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="49_yhrnu"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="52_64kp8"]
-[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="52_ebkns"]
 [ext_resource type="Script" uid="uid://de8nxysfk7xbs" path="res://scenes/map/world_map/sfx.gd" id="52_f2dah"]
 [ext_resource type="Texture2D" uid="uid://dkpxsjgvphgq8" path="res://assets/visual/ui/map/movement_pointer_shadow.png" id="52_piqjc"]
 [ext_resource type="Script" uid="uid://djuvkqu0m0s1o" path="res://scenes/map/world_map/ui/resources_panel.gd" id="53_anjvn"]
@@ -78,7 +78,7 @@
 [ext_resource type="Script" uid="uid://bhax2ccag4127" path="res://scenes/map/world_map/ui/daily_upkeep.gd" id="76_37vhr"]
 [ext_resource type="Script" uid="uid://ciofrvvkbc1im" path="res://scenes/map/world_map/ui/daily_reset.gd" id="77_7rrql"]
 [ext_resource type="PackedScene" uid="uid://dmxnmavfuear0" path="res://scenes/map/world_map/ui/recruit_upkeep_display.tscn" id="77_l56xi"]
-[ext_resource type="AudioStream" uid="uid://okx3iqiqvlka" path="res://assets/sound/sfx/world_map/daily_upkeep.wav" id="78_3xuka"]
+[ext_resource type="AudioStream" uid="uid://deq14qsr5oxcf" path="res://assets/sound/sfx/world_map/daily_upkeep.wav" id="78_3xuka"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="78_37vhr"]
 [ext_resource type="AudioStream" uid="uid://cvv1mjf2g8wus" path="res://assets/sound/sfx/world_map/daily_upkeep_paid.wav" id="79_t4gob"]
 
@@ -936,7 +936,7 @@ leadership_exp = 4
 leadership_points = 2
 combat_level = 3
 combat_exp = 3
-equipped_weapon = NodePath("Inventory/Tailpipe")
+equipped_weapon = NodePath("Inventory/Taser Gun")
 equipped_module = NodePath("Inventory/Dodge Roll")
 sight_range = 300
 
@@ -979,6 +979,8 @@ stack_size = 50
 [node name="Staff of Luc" parent="quadrants/quadrant_4/in_map_player/Player/Inventory" index="12" instance=ExtResource("33_7d1fb")]
 
 [node name="Sensory Overload" parent="quadrants/quadrant_4/in_map_player/Player/Inventory" index="13" instance=ExtResource("32_cxe47")]
+
+[node name="Taser Gun" parent="quadrants/quadrant_4/in_map_player/Player/Inventory" index="14" instance=ExtResource("33_3xuka")]
 
 [node name="FighterUnit25" parent="quadrants/quadrant_4/in_map_player/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("18_p3eby")]
 base = NodePath("Arm Guy")
@@ -1378,7 +1380,6 @@ anchor_right = 1.0
 offset_left = -144.0
 offset_bottom = 146.0
 grow_horizontal = 0
-theme = ExtResource("52_ebkns")
 
 [node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/main_hud/clock_panel"]
 layout_mode = 2
@@ -1617,15 +1618,13 @@ color = Color(0.23, 0.23, 0.23, 0.333333)
 
 [node name="Panel" type="Panel" parent="ui_overlay/ui/daily_upkeep"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -500.0
-offset_top = -300.0
-offset_right = 500.0
-offset_bottom = 300.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 70.0
+offset_right = -100.0
+offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -1898,9 +1897,9 @@ material = SubResource("ShaderMaterial_a04dl")
 horizontal_alignment = 2
 
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
-[connection signal="day_passed" from="." to="ui_overlay/ui/daily_upkeep" method="daily_upkeep"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
 [connection signal="hour_passed" from="." to="quadrants/quadrant_4/in_map_player/Player" method="travel_upkeep"]
+[connection signal="hour_passed" from="." to="ui_overlay/ui/daily_upkeep" method="_on_world_map_hour_passed"]
 [connection signal="returned_from_battle" from="." to="." method="_on_returned_from_battle"]
 [connection signal="returned_from_battle" from="." to="ui_overlay/ui/main_hud" method="_on_world_map_returned_from_battle"]
 [connection signal="time_skipped" from="." to="ui_overlay/ui/main_hud" method="update_clock"]
@@ -1910,7 +1909,12 @@ horizontal_alignment = 2
 [connection signal="started_moving" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_started_moving"]
 [connection signal="stopped_moving" from="quadrants/quadrant_4/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_stopped_moving"]
 [connection signal="stopped_moving" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_stopped_moving"]
+[connection signal="entered_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/settlement_ui" method="_on_settlement_entered"]
+[connection signal="entered_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud" method="settlement_main_view"]
 [connection signal="equipment_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/PlayerSheet" method="_on_player_equipment_changed"]
+[connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="." method="_on_player_left_settlement"]
+[connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/settlement_ui" method="_on_player_left_settlement"]
+[connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud" method="_on_player_left_settlement"]
 [connection signal="morale_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer/MoraleIcon" method="_on_player_morale_changed"]
 [connection signal="morale_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/PlayerSheet" method="refresh_data"]
 [connection signal="new_memo" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud" method="notify_new_memo"]
@@ -1927,9 +1931,6 @@ horizontal_alignment = 2
 [connection signal="listen_around_started" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_listen_around_started"]
 [connection signal="recruitment_ended" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_recruitment_ended"]
 [connection signal="recruitment_started" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_recruitment_started"]
-[connection signal="settlement_entered" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="settlement_main_view"]
-[connection signal="settlement_left" from="ui_overlay/ui/settlement_ui" to="." method="_on_settlement_ui_settlement_left"]
-[connection signal="settlement_left" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_settlement_left"]
 [connection signal="trade_finished" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_trade_finished"]
 [connection signal="trade_started" from="ui_overlay/ui/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_trade_started"]
 [connection signal="dialogue_ended" from="ui_overlay/ui/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]

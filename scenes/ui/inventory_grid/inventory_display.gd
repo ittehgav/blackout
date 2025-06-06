@@ -73,21 +73,29 @@ var extending_projection:bool;
 
 @export var money_icon:ResourceIcon;
 @export var money_hbox:HBoxContainer;
+@export var money_label:Label
 
 @export var food_icon:ResourceIcon;
 @export var food_hbox:HBoxContainer;
+@export var food_label:Label;
 
 @export var fuel_icon:ResourceIcon;
 @export var fuel_hbox:HBoxContainer;
+@export var fuel_label:Label;
 
 @export var juice_icon:ResourceIcon;
 @export var juice_hbox:HBoxContainer;
+@export var juice_label:Label;
 
 @export var scrap_icon:ResourceIcon;
 @export var scrap_hbox:HBoxContainer;
+@export var scrap_label:Label;
 
 @export var chips_icon:ResourceIcon;
 @export var chips_hbox:HBoxContainer;
+@export var chips_label:Label;
+
+var all_mirrors:Array[ItemMirror];
 
 var food_containers:Array[ItemMirror]
 var fuel_containers:Array[ItemMirror]
@@ -99,16 +107,27 @@ var chips_containers:Array[ItemMirror]
 var held_item_mirror:ItemMirror;
 
 
-var traded_in_items:Array[Item];
 
 var grid_set:bool=false;
 
 var traded_back:int;
 
+func add_mirror(mirror:ItemMirror)->void:
+	item_mirrors_node.add_child(mirror);
+	all_mirrors.append(mirror);
+
+func remove_mirror(mirror:ItemMirror)->void:
+	all_mirrors.erase(mirror)
+	mirror.queue_free();
+
+
+
 func _ready()->void:
 	if context == "player_sheet":
 		inventory = Entities.player.inventory;
 		set_grid();
+		
+			
 		
 	for r:String in Index.all_resources:
 		var icon:ResourceIcon = self[r+"_icon"];
@@ -159,7 +178,10 @@ func set_grid()->void:
 
 func refresh_data(hard_reset:bool=false)->void:
 	if hard_reset:
+		for r:String in Index.all_resources:
+			self[r+"_label"].text = str(inventory[r]);
 		clear_item_mirrors();
+		
 		var unplaced:Array[Item];
 		for item:Item in inventory.items:
 			mirror_item(item, unplaced);
@@ -196,7 +218,7 @@ func refresh_data(hard_reset:bool=false)->void:
 	liquid_item_mirrors = []
 	reset_warnings();
 
-	for item_mirror:ItemMirror in item_mirrors_node.get_children():
+	for item_mirror:ItemMirror in all_mirrors:
 		item_mirror.refresh()
 		if "raw_stack" in item_mirror.item and "mirror_only" in item_mirror.item:
 			liquid_item_mirrors.append(item_mirror);
@@ -204,24 +226,36 @@ func refresh_data(hard_reset:bool=false)->void:
 	
 	if context == "loot":
 		if inventory == Entities.player.inventory:
-			if exchanging_display.item_mirrors_node.get_child_count():
+			if len(exchanging_display.all_mirrors):
 				warnings["loot_discard"] = true;
 		else:
-			if item_mirrors_node.get_child_count():
+			if len(all_mirrors):
 				exchanging_display.warnings["loot_discard"] = true;
-			
-	
+	refresh_container_mirrors();
 	refresh_extension()
 
+func refresh_container_mirrors()->void:
+	for r:String in Index.all_resources:
+		if r != "money": 
+			self[r+"_containers"].clear()
+
+	for c:Node in all_mirrors:
+		assert(c is ItemMirror)
+		if c.item is ResourceContainer:
+			self[c.item.resource+"_containers"].append(c);
+
+
+			
 func clear_item_mirrors()->void:
 	for r:String in Index.all_resources:
 		if r != "money":
 			var array:Array[ItemMirror] = self[r+"_containers"];
 			array.clear();
-
-	for c:ItemMirror in item_mirrors_node.get_children() + trade_excess_container.get_children():
-		c.free();
-	for item:Item in inventory.get_children():
+	
+	while len(all_mirrors):
+		remove_mirror(all_mirrors[0])
+	
+	for item:Item in inventory.items:
 		item.mirror = null;
 
 func mirror_item(item:Item, unplaced:Array[Item]=[])->void:
@@ -234,7 +268,7 @@ func mirror_item(item:Item, unplaced:Array[Item]=[])->void:
 
 	var mirror:ItemMirror = generate_mirror(item);
 	mirror.inventory_position = item.inventory_position;
-	item_mirrors_node.add_child(mirror)
+	add_mirror(mirror)
 	mirror.refresh()
 
 func generate_mirror(item:Item)->ItemMirror:
@@ -243,7 +277,7 @@ func generate_mirror(item:Item)->ItemMirror:
 	mirror.load_item(item, true);
 	return mirror;
 	
-	
+		
 func highlight_resource_containers(resource:String)->void:
 	for mirror:ItemMirror in self[resource+"_containers"]:
 		mirror.highlight_item()
@@ -305,10 +339,11 @@ func throw_mirror(item_mirror:ItemMirror, add_to_grid:bool=false, allow_extend:b
 			if check_item_fit(item_mirror.item, Vector2i(x, y)):
 				item_mirror.inventory_position = Vector2i(x, y)
 				if add_to_grid:
-					item_mirrors_node.add_child(item_mirror);
+					add_mirror(item_mirror)
 					item_mirror.refresh();
+					return
 				return;
-
+	item_mirror.inventory_position = Vector2(-1, -1)
 
 func receive_resource(amount:int, resource:String)->void:
 	resources_changed.emit(resource, amount);
@@ -341,40 +376,46 @@ func send_resource(source:ItemMirror, amount:int)->void:
 	resources_changed.emit(source.item.resource, amount * -1);
 		
 func send_item(item_mirror:ItemMirror, trade:bool = false, new_instance:bool=false)->void:
-	if item_mirror.being_traded:
-		traded_in_items.erase(item_mirror.item);
-	exchanging_display.receive_item(item_mirror,trade, new_instance)
-	
+	all_mirrors.erase(item_mirror)
 
-func receive_item(item_mirror:ItemMirror,trade:bool, new_instance:bool)->void:
+	if not exchanging_display.receive_item(item_mirror,trade, new_instance):
+		all_mirrors.append(item_mirror)
+
+
+func receive_item(item_mirror:ItemMirror,trade:bool, new_instance:bool)->bool:
 	## make this only apply to empty containers and non-resources?
-	item_mirror.display = self;
-	item_mirror.being_traded = not item_mirror.being_traded;
-	if item_mirror.being_traded:
-		traded_in_items.append(item_mirror.item);
+
 
 	var spot:Vector2i = find_clear_cell(item_mirror.item)
 	if spot == Vector2i(-1, -1):
 		if inventory == Entities.player.inventory:
-			send_item(item_mirror);
-			invalid_move.emit("NOT ENOUGH ROOM");
-			return
-		if new_instance: 
-			trade_excess_container.add_child(item_mirror);
-		else:
-			item_mirror.reparent(trade_excess_container);
+			if context == "loot":
+				send_item(item_mirror);
+				## NOTWORKDSADPIOJAPF´~IAJWEF´~OPEAIWJ
+				invalid_move.emit("NOT ENOUGH ROOM");
+				return false
+			else:
+				if new_instance: 
+					trade_excess_container.add_child(item_mirror);
+				else:
+					item_mirror.reparent(trade_excess_container);
 	else:
 		if not new_instance:
 			item_mirror.reparent(item_mirrors_node, false);
+			all_mirrors.append(item_mirror)
 		else:
-			item_mirrors_node.add_child(item_mirror);
+			add_mirror(item_mirror)
 
+	item_mirror.display = self;
+	item_mirror.being_traded = not item_mirror.being_traded;
+	
 	item_mirror.inventory_position = spot
 	if trade:
 		item_dropped.emit(item_mirror, "trade");
 	else:
 		sfx.play_sound_by_key("loot")
 		item_dropped.emit(item_mirror, "loot");
+	return true
 
 func find_clear_cell(item:Item, allow_expand:bool=false)->Vector2i:
 	## traded items are anchored at the bottom of the inventory display
@@ -554,7 +595,7 @@ func clear_hovered_cells()->void:
 	
 
 
-func inside_grid(coords:Vector2, extended:bool = true)->bool:
+func inside_grid(coords:Vector2, extended:bool = false)->bool:
 	if coords.x < 0 or coords.y < 0:
 		return false;
 	if extended:
@@ -569,14 +610,15 @@ func inside_grid(coords:Vector2, extended:bool = true)->bool:
 
 func sort_inventory()->void:
 	inventory.sort_items();
+	
 	refresh_data(true)
 	sfx.play_sound_by_key("reset")
-
+	board_shake(10, .5)
 
 func store_resource(amount:int, resource:String)->int:
-	var initial_amount:int = amount;	
+	var initial_amount:int = amount;
 	var remaining:int = amount;
-	if inventory.holder is Settlement:
+	if inventory.holder is Settlement or inventory.holder is NpcLeader:
 		var storage:ResourceContainer = inventory.holder[resource+"_storage"];
 		storage.mirror.stack_size += amount;
 		storage.mirror.highlight_stack_label();
@@ -626,15 +668,16 @@ func update_inventory()->void:
 	## right now also auto-sorts it because it covers a lot of problems i dont wanna think of
 	var new_inventory:Array[Item];
 	
-	for item_mirror:Node in item_mirrors_node.get_children():
+	for item_mirror:Node in all_mirrors:
+		
 		item_mirror.item.inventory_position = item_mirror.inventory_position;
 		new_inventory.append(item_mirror.item);
 		if item_mirror.item in inventory.items:
 			item_mirror.item.stack_size = item_mirror.stack_size;
 		else:
-			inventory.add_item(item_mirror.item)
+			item_mirror.item.reparent(inventory);
 
-			
+	var to_remove:Array[Item];
 	for item:Item in inventory.items:
 		## an array for equipped items instead of this?
 		if not item in new_inventory and not(\
@@ -643,8 +686,13 @@ func update_inventory()->void:
 		or item == Entities.player.alternative_weapon):
 			## if item is mirrored in the other display, it will be 
 			## sent over when that inventory is updated
-			inventory.remove_item(item, true);
+			to_remove.append(item);
+
+	for item:Item in to_remove:
+		inventory.remove_item(item)
 	inventory.refresh_resource_counts("", 0, true);
+
+	
 		
 			
 func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
@@ -665,31 +713,22 @@ func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
 	if exchanging_display:
 		exchanging_display.refresh_data()
 	refresh_data(from=="sort");
-	
-	const shake_range = 5;
-	var x_shift:int = randi_range(-shake_range, shake_range)
-	var y_shift:int = randi_range(-shake_range, shake_range)
-	var shift:Vector2 = Vector2(x_shift, y_shift);
-	
-	position += shift;
-	
-	var tween:Tween = create_tween();
-	tween.tween_property(self, "position", original_position, .1);
-	
-	send_rect.hide();
-
+	board_shake(5)
 
 func _on_item_picked_up() -> void:
-	const shake_range = 3
-	var x_shift:int = randi_range(-shake_range, shake_range)
-	var y_shift:int = randi_range(-shake_range, shake_range)
+	board_shake(3)
+
+func board_shake(intensity:int, return_duration:float=.1)->void:
+	var to_shake:Array = [item_mirrors_node, grid]
 	
-	var shift:Vector2 = Vector2(x_shift, y_shift)
-	
-	position += shift;
-	
+	var x_shift:int = randi_range(-intensity, intensity)
+	var y_shift:int = randi_range(-intensity, intensity)
+	var shift: = Vector2(x_shift, y_shift);
 	var tween:Tween = create_tween();
-	tween.tween_property(self, "position", original_position, .1);
+	for node:Control in to_shake:
+		node.position += shift;
+		tween.parallel().tween_property(node, "position", Vector2(0, 0), return_duration )
+	send_rect.hide();
 
 
 func _on_invalid_move(message:String="") -> void:
@@ -755,9 +794,7 @@ func play_deposit_sfx(amount_deposited:int, resource:String)->void:
 		"chips":
 			sfx.play_sound_by_key("deposit_chips")
 
-func item_mirror_freed(item_mirror:ItemMirror, item:Item)->void:
-	if item is ResourceContainer:
-		self[item_mirror.item.resource+"_containers"].erase(item_mirror);
+
 
 func sort_container_mirrors(a:ItemMirror, b:ItemMirror)->bool:
 	if a.item.capacity > b.item.capacity:

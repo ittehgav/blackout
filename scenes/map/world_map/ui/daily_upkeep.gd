@@ -32,7 +32,15 @@ var total_costs:Dictionary[String, int];
 var total_cancelled:int;
 var total_displays:int;
 
+
+func _on_world_map_hour_passed() -> void:
+	if Entities.world_map.current_hour == 12:
+		daily_upkeep()
+
 func daily_upkeep()->void:
+	if Entities.current_settlement:
+		Entities.player.left_settlement.connect(daily_upkeep, CONNECT_ONE_SHOT)
+		return
 	Entities.world_map.pause_map();
 	
 	ui_sfx.play_stream("daily_upkeep");
@@ -135,6 +143,7 @@ func find_insufficient_resource()->String:
 
 
 func _on_confirm_pressed() -> void:
+	confirm_btn.disabled = true
 	var tween:Tween=create_tween();
 	ui_sfx.play_stream("daily_upkeep_paid")
 	for r:String in Index.all_resources:

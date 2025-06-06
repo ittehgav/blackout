@@ -10,8 +10,8 @@ const angle_adjust = 0;
 const type = "ranged";
 
 
-const base_damage = 20;
-const cooldown:float = 1
+const base_damage = 20000;
+const cooldown:float = .2
 ## TODO make this scale somehow?
 const stun_duration = .5;
 

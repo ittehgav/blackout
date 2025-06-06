@@ -26,7 +26,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	
 	var string:String = "Deals " + damage_str + " to a target and stuns them for "\
 	 + stun_duration_str + " seconds.";
-	string += "\n\nCan be upgraded to heal allies or to deal heavy damage."
+	string += "\n\nCan be [u]upgraded[/u] to heal allies or to deal heavy damage."
 	return string
 
 const hitbox_radius = 25;

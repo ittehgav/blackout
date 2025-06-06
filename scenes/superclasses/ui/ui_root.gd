@@ -13,15 +13,18 @@ func _ready()->void:
 	
 
 func resize()->void:
-	size = get_window().size
-
+	if is_inside_tree():
+		size = get_window().size
+	else:
+		await visibility_changed
+		resize()
 
 func recursive_connect_ui_feedback(node:Node)->void:
 	if "pressed" in node:
 		node.pressed.connect(ui_sfx.ui_click_sound.bind(node));
 
 
-	if node is Button:
+	if node is BaseButton:
 		node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
 	if node is TabContainer:
 		node.tab_hovered.connect(ui_sfx.tab_mouseover_sound.bind(node))

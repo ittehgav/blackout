@@ -76,3 +76,7 @@ func _on_confirm_btn_pressed() -> void:
 	unit.change_base(new_base)
 	for r:String in resource_costs.keys():
 		Entities.player.inventory.change_resource(r, -resource_costs[r]);
+
+
+func _on_return_btn_pressed() -> void:
+	Tweens.ui_fade_out(get_parent())

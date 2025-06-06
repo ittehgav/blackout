@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=35 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_grid/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_grid/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_grid/resource_picker.gd" id="21_15sfg"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
 [ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_grid/warnings.gd" id="26_8mqj8"]
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="27_c5he3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
 resource_local_to_scene = true
@@ -94,7 +95,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "item_mirrors_node", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "food_icon", "food_hbox", "fuel_icon", "fuel_hbox", "juice_icon", "juice_hbox", "scrap_icon", "scrap_hbox", "chips_icon", "chips_hbox")]
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "item_mirrors_node", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "money_label", "food_icon", "food_hbox", "food_label", "fuel_icon", "fuel_hbox", "fuel_label", "juice_icon", "juice_hbox", "juice_label", "scrap_icon", "scrap_hbox", "scrap_label", "chips_icon", "chips_hbox", "chips_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -119,16 +120,22 @@ trade_excess_label = NodePath("trade_excess_label_panel/trade_excess_label")
 resources_vbox = NodePath("VBoxContainer")
 money_icon = NodePath("VBoxContainer/HBoxContainer3/money_icon")
 money_hbox = NodePath("VBoxContainer/HBoxContainer3")
+money_label = NodePath("VBoxContainer/HBoxContainer3/money")
 food_icon = NodePath("VBoxContainer/HBoxContainer/food_icon")
 food_hbox = NodePath("VBoxContainer/HBoxContainer")
+food_label = NodePath("VBoxContainer/HBoxContainer/food")
 fuel_icon = NodePath("VBoxContainer/HBoxContainer2/fuel_icon")
 fuel_hbox = NodePath("VBoxContainer/HBoxContainer2")
+fuel_label = NodePath("VBoxContainer/HBoxContainer2/fuel")
 juice_icon = NodePath("VBoxContainer/HBoxContainer4/juice_icon")
 juice_hbox = NodePath("VBoxContainer/HBoxContainer4")
+juice_label = NodePath("VBoxContainer/HBoxContainer4/juice")
 scrap_icon = NodePath("VBoxContainer/HBoxContainer5/scrap_icon")
 scrap_hbox = NodePath("VBoxContainer/HBoxContainer5")
+scrap_label = NodePath("VBoxContainer/HBoxContainer5/scrap")
 chips_icon = NodePath("VBoxContainer/HBoxContainer6/chips_icon")
 chips_hbox = NodePath("VBoxContainer/HBoxContainer6")
+chips_label = NodePath("VBoxContainer/HBoxContainer6/chips")
 metadata/_tab_index = 0
 
 [node name="hover_sfx" type="AudioStreamPlayer" parent="."]
@@ -450,6 +457,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("27_c5he3")
 script = ExtResource("26_8mqj8")
 inventory_display = NodePath("..")
 liquid_discard_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/liquid_discard")

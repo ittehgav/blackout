@@ -5,7 +5,7 @@ class_name ExperienceBar;
 signal level_up;
 signal feedback_finished
 
-@onready var original_size:Vector2 = size;
+@onready var initial_tint:Color = tint_over;
 
 @export var level_up_text:Label;
 @export var level_up_sfx:AudioStreamPlayer;
@@ -94,12 +94,14 @@ func level_up_animation(tween:Tween)->void:
 
 func level_up_feedback()->void:
 	level_up_sfx.play();
-	var tween := create_tween()
-	stretch()
+	
 	floating_text()
 	level_up.emit()
-	tween.tween_property(self, "custom_minimum_size", original_size, .15);
-	tween.parallel().tween_property(self, "size", original_size, .15);
+	
+	tint_over = Color.WHITE
+	
+	var tween := create_tween()
+	tween.tween_property(self, "tint_over", initial_tint, .5);
 
 func floating_text()->void:
 	var text: = level_up_text.duplicate();
@@ -108,10 +110,6 @@ func floating_text()->void:
 	var tween: = create_tween();
 	tween.tween_property(text, "position:y", text.position.y - 20, .5);
 	tween.tween_callback(text.queue_free)
-
-func stretch()->void:
-	custom_minimum_size = original_size * 1.1;
-	size = original_size * 1.1
 
 func reset_value()->void:
 	value = 0;

@@ -13,6 +13,8 @@ extends PanelContainer
 @export var floating_change:Control;
 @export var sfx:AudioStreamPlayer;
 
+var being_highlighted:bool=false
+
 var resource_tweens:Dictionary[String, Tween];
 var tween_queue:Array;
 
@@ -21,32 +23,43 @@ func _ready()->void:
 		resource_tweens[r] = create_tween();
 		resource_tweens[r].kill()
 
-		
+var previous_alpha:float;
+var previous_z:int;
 func animate_resource_change(resource:String, change:int)->void:
 	if resource == "money":
 		hud.sfx.play_sound_by_key('money_change');
 
-	
+
 	if not resource_tweens[resource].is_running():
 		var label:Label = self[resource+"_label"];
 		var current_value:int = int(label.text);
 		var target_value :int = current_value + change;
 		
 		label.add_theme_font_size_override("font_size", 128);
+		if not being_highlighted:
+			being_highlighted = true
+			previous_z = z_index;
+			z_index += 10
+			
+			previous_alpha = modulate.a;
+			modulate.a = 1;
 		
-		var previous_alpha:float = modulate.a;
-		var previous_z:int = z_index;
-		z_index += 10
-		modulate.a = 1;
+
 		
 		if change < 0:
 			label.add_theme_color_override("font_color", Color.RED)
 		resource_tweens[resource] = create_tween();
 		resource_tweens[resource].tween_method(set_resource_label_text.bind(label), current_value, target_value, .75);
 		resource_tweens[resource].tween_property(label, "theme_override_font_sizes/font_size", 64, .1)
+		
 		await resource_tweens[resource].finished;
-		label.add_theme_color_override("font_color", Index.resource_colors[resource])
-		modulate.a = previous_alpha;
-		z_index = previous_z
+		label.add_theme_color_override("font_color", Index.resource_colors[resource]);
+		if being_highlighted:
+			## only runs after all other resource tweens have been resolved
+			## in cases of multiple resourecs changed
+			modulate.a = previous_alpha
+			z_index = previous_z
+			being_highlighted = false
+
 func set_resource_label_text(value:int, label:Label)->void:
 	label.text = str(value);

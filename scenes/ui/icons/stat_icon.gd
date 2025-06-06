@@ -34,8 +34,9 @@ func _ready()->void:
 			
 		description = Index.stat_descriptions[stat]
 		for item in adjacent_items:
-			item.modulate = Index.stat_colors[stat].lightened(.2)
-			if from_player and item is Label:
-				item.text = str(Entities.player.combat_stats[stat]);
+			if item is Label:
+				item.add_theme_color_override("font_color", Index.stat_colors[stat].lightened(.2))
+				if from_player:
+					item.text = str(Entities.player.combat_stats[stat]);
 			
 		$panel.custom_minimum_size = Vector2(size.x + 4, size.y + 4)

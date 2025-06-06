@@ -29,8 +29,8 @@ class_name Inventory;
 @export var weapons:Array[Weapon];
 @export var modules:Array[Module];
 
-var capacity_x:int = 8;
-var capacity_y:int = 12;
+@export var capacity_x:int = 8;
+@export var capacity_y:int = 12;
 
 func _ready()->void:
 	refresh_resource_counts();
@@ -52,30 +52,7 @@ func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:boo
 				Entities.player.resource_changed.emit(r, self[r] - previous_amounts[r]);
 
 	
-func add_item(item: Item, generated:bool=false) -> void:
-	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
-	if not item.is_inside_tree():
-		## generated = added and needs to be operational before the inventory enterds the tree
-		add_child(item);
-	else:
-		if not is_ancestor_of(item):
-			item.reparent(self);
-	
-		
-	if not (item in items):
-		items.append(item);
-		if item is Consumable:
-			consumables.append(item);
-		elif item is Trinket:
-			trinkets.append(item);
-		elif item is Module:
-			modules.append(item);
-		elif item is Weapon:
-			weapons.append(item);
-		elif item is ResourceContainer and not (item in containers):
-			## default containers from travelling traders will be manually added to the containers array 
-			## so the resources can be restored before entering the tree
-			containers.append(item)
+
 
 
 func change_resource(resource:String, amount:int)->void:
@@ -127,7 +104,7 @@ func change_resource(resource:String, amount:int)->void:
 							## sometimes there won't be enough room?
 							raw_stack.stack_size = raw_stack.capacty;
 							to_add -= raw_stack.capacity;
-							add_child(raw_stack)
+							add_item(raw_stack)
 				i += 1
 	else:
 		money += amount
@@ -154,13 +131,33 @@ func change_resource(resource:String, amount:int)->void:
 	"chips":Index.resource_base_prices["chips"]/2
 }
 
+func add_item(item: Item, generated:bool=false) -> void:
+	assert(not item in items)
+	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
+	if not item.is_inside_tree():
+		add_child(item);
+	else:
+		item.reparent(self);
+		
+	items.append(item);
+	if item is Consumable:
+		consumables.append(item);
+	elif item is Trinket:
+		trinkets.append(item);
+	elif item is Module:
+		modules.append(item);
+	elif item is Weapon:
+		weapons.append(item);
+	elif item is ResourceContainer:
+		## default containers from travelling traders will be manually added to the containers array 
+		## so the resources can be restored before entering the tree
+		containers.append(item)
 
-func remove_item(item:Item, remove:bool=false, remove_from_tree:bool=false)->void:
+		
+
+func remove_item(item:Item)->void:
 	assert(item in items);
-	if remove_from_tree:
-		item.queue_free();
-	elif remove:
-		remove_child(item);
+
 	items.erase(item);
 	if item is Consumable:
 		consumables.erase(item);
@@ -175,63 +172,65 @@ func remove_item(item:Item, remove:bool=false, remove_from_tree:bool=false)->voi
 
 
 
+
 func clear_containers()->void:
+	## CANT ITERATE OVER AN ARRAY WHILE MOVING/DELETINGS ITS ELEMENTS XDD
+	var to_remove:Array[ResourceContainer]
 	for c:ResourceContainer in containers:
 		if "raw_stack" in c:
 			## cam't just queue fere because it needs to be 
 			## out of the items array in the same frame
-			remove_item(c, true, true);
+			to_remove.append(c)
 		else:
-
 			c.stack_size = 0;
+			
+	for c:ResourceContainer in to_remove:
+		## CANT ITERATE OVER AN ARRAY WHILE MOVING/DELETINGS ITS ELEMENTS XDD
+		remove_item(c);
 
 func store_resources()->void:
 	
 	## used after resources are gained from whatever source, allocates 
 	## unallocated resources to the containers with the highest capacity
 	clear_containers();
+	
 	for r:String in Index.all_resources:
 		if r != "money":
+			var to_store:int = self[r];
+			if holder is Settlement or holder is NpcLeader:
+				var storage:ResourceContainer = holder[r+"_storage"];
+				storage.stack_size += to_store;
+			else:
 				var containers_with_resource:Array[ResourceContainer]=\
 				containers.filter(func(a:ResourceContainer)->bool:return a.resource == r);
 				containers_with_resource.sort_custom(sort_containers);
-
-					
-				var to_store:int = self[r];
-
 				for c:ResourceContainer in containers_with_resource:
 					c.stack_size = 0;
-
 					if to_store:
 						if c.capacity >= to_store:
-
 							c.stack_size = to_store;
 							to_store = 0;
+							
 						else:
-
 							c.stack_size = c.capacity;
 							to_store -= c.capacity;
-
-					
 				while to_store:
 					var raw_stack:ResourceContainer = Index[r+"_stack_scene"].instantiate()
 					if "mirror_only" in raw_stack or raw_stack.capacity >= to_store:
-
 						raw_stack.stack_size = to_store;
 						to_store = 0;
 					else:
-
 						raw_stack.stack_size = raw_stack.capacity;
 						to_store -= raw_stack.capacity;
 					add_item(raw_stack);
-
+					
 					
 
 					
 func sort_items()->void:
 	## only ever run if guaranteed that everything will fit
 	store_resources()
-	var all_items:Array[Item] = []
+		
 	for item in items:
 		item.inventory_position = Vector2(-1, -1)
 	
@@ -247,7 +246,7 @@ func sort_items()->void:
 func size_sort(a:Item, b:Item)->bool:
 	return a.size_x * a.size_y > b.size_x * b.size_y;
 
-func throw_item(item:Item, taken_cells:Array[Vector2]=[])->void:
+func throw_item(item:Item, taken_cells:Array[Vector2])->void:
 	## every non-player inventory is top-right oriented instead of top-left
 	## ONLY ITEMS THAT FIT CAN MAKE IT HERE
 	var spot:Vector2;
@@ -266,6 +265,7 @@ func throw_item(item:Item, taken_cells:Array[Vector2]=[])->void:
 			if spot.x == - 1:
 				spot.x = capacity_x - 1;
 				spot.y += 1;
+
 	item.inventory_position = spot;
 	for x:int in item.size_x:
 		for y:int in item.size_y:
@@ -290,7 +290,9 @@ func cell_in_grid(cell:Vector2)->bool:
 
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
-	add_item(node);
+	if not node in items:
+		## ONLY EVER FROM INVENTORIES THAT WERE MADE IN-EDITOR
+		add_item(node);
 
 func sort_containers(a:ResourceContainer, b:ResourceContainer)->bool:
 	if a.capacity > b.capacity:
@@ -299,3 +301,10 @@ func sort_containers(a:ResourceContainer, b:ResourceContainer)->bool:
 		return false;
 	else:
 		return a.stack_size > b.stack_size;
+
+func generate_storages()->void:
+	for s:PackedScene in Index.resource_storage_scenes:
+		var storage:ResourceContainer = s.instantiate();
+		holder[storage.resource+"_storage"]=storage;
+		add_item(storage, true);
+		non_sellable_items.append(storage)

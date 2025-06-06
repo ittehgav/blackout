@@ -18,7 +18,7 @@ var current_month:int=1;
 
 var pause_stack:int = 0;
 
-var current_hour:int=23;
+var current_hour:int=11;
 var current_minute:int=50;
 
 @export var ui:Control;
@@ -157,7 +157,7 @@ func get_hour_sky_color(hour:int=current_hour)->Color:
 
 
 
-func _on_settlement_ui_settlement_left() -> void:
+func _on_player_left_settlement() -> void:
 	update_light()
 
 

@@ -4,6 +4,9 @@ class_name Player;
 
 @export var leadership_stats:Node;
 
+signal entered_settlement(settlement:Settlement);
+signal left_settlement;
+
 signal resource_changed(resource:String, change:int);
 signal morale_changed;
 signal party_changed;
@@ -70,7 +73,6 @@ func equip_alt_weapon(weapon:Weapon)->void:
 	weapon.inventory_position = Vector2(-1, -1);
 	
 	equipment_changed.emit(weapon);
-	party_changed.emit(weapon);
 
 func equip_module(module:Module)->void:
 	assert(module in inventory.modules);
@@ -84,6 +86,7 @@ func _on_new_memo(memo: Memo) -> void:
 
 func travel_upkeep()->void:
 	## food and fuel start at 1 to account for player's expenses
+
 	var food_cost:float = 1;
 	var fuel_cost:float =  1;
 	
@@ -109,13 +112,15 @@ func travel_upkeep()->void:
 	else:
 		missing_fuel = fuel_cost - inventory.fuel;
 		inventory.change_resource("fuel", inventory.fuel * -1);
-		
+	
+	var sfx_key:String
+	
 	if not missing_food and not missing_fuel:
-		Entities.world_map.ui.hud.sfx.play_sound_by_key("travel_upkeep")
+		sfx_key = "travel_upkeep"
 		
 	
 	if missing_food:
-		Entities.world_map.ui.hud.sfx.play_sound_by_key("food_shortage")
+		sfx_key = "food_shortage"
 		if missing_food > food_cost/2:
 			morale /= 3;
 		else:
@@ -123,10 +128,15 @@ func travel_upkeep()->void:
 		morale_changed.emit();
 
 	if missing_fuel:
-		Entities.world_map.ui.hud.sfx.play_sound_by_key("fuel_shortage")
+		sfx_key = "fuel_shortage"
 		## speed will halve every hour down to a bottom cap
 		Entities.in_map_player.move_speed /= 2;
 		if Entities.in_map_player.move_speed < 50:
 			Entities.in_map_player.move_speed = 50;
 	else:
+		## make this not take an hour to reset
+		## (or not and it's like a properly measured punishment?)
 		Entities.in_map_player.move_speed = Entities.in_map_player.navigation*50;
+	
+	if Entities.world_map.current_hour != 12:
+		Entities.world_map.ui.hud.sfx.play_sound_by_key(sfx_key);

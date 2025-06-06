@@ -77,7 +77,7 @@ shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
 [node name="recruit_upkeep_display" type="Panel" node_paths=PackedStringArray("exp_bar", "sample", "costs_container", "name_label", "food_hbox", "food_label", "fuel_hbox", "fuel_label", "money_hbox", "money_label", "juice_hbox", "juice_label", "scrap_hbox", "scrap_label", "skip_payment_btn")]
-custom_minimum_size = Vector2(150, 90)
+custom_minimum_size = Vector2(180, 90)
 offset_right = 200.0
 offset_bottom = 150.0
 script = ExtResource("1_ib4at")
@@ -133,6 +133,8 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = -13.0
+offset_right = -13.0
 grow_horizontal = 0
 grow_vertical = 2
 columns = 3
@@ -252,4 +254,12 @@ offset_right = -17.0
 offset_bottom = 23.0
 grow_horizontal = 2
 
+[node name="level_up" parent="exp_bar" index="0"]
+offset_left = 35.0
+offset_top = -11.0
+offset_right = 183.0
+offset_bottom = 40.0
+
 [connection signal="pressed" from="skip_payment" to="." method="toggle_payment"]
+
+[editable path="exp_bar"]

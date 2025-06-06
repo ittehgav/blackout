@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=52 format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/player/ui/player_sheet.gd" id="1_6boby"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_go8yu"]
@@ -21,17 +21,15 @@
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="15_ptfqp"]
 [ext_resource type="Script" uid="uid://dqpi700chh4i" path="res://scenes/player/ui/party_view.gd" id="15_s407w"]
 [ext_resource type="Script" uid="uid://c3t5hlpw6vsaq" path="res://scenes/player/ui/player.gd" id="16_4btww"]
-[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="17_8o2td"]
-[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="18_3vgn1"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="18_jpfxv"]
 [ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/recruit_full_view.tscn" id="18_vtwi5"]
-[ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_s8tnr"]
 [ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="20_s8tnr"]
 [ext_resource type="Script" uid="uid://4586apxxsg85" path="res://scenes/player/ui/upgrade_hint.gd" id="21_hv25b"]
 [ext_resource type="Script" uid="uid://ee3s0lv0tm6c" path="res://scenes/player/ui/memo.gd" id="23_bqvqp"]
 [ext_resource type="Texture2D" uid="uid://dccf64w20dhcf" path="res://assets/visual/icons/misc/memo.png" id="23_on68a"]
 [ext_resource type="Script" uid="uid://blgukvl5328lw" path="res://scenes/player/ui/memos.gd" id="23_veb6b"]
 [ext_resource type="PackedScene" uid="uid://dgl7yg6w4idp2" path="res://scenes/ui/memo_label.tscn" id="25_jpfxv"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar.tscn" id="28_hv25b"]
 
 [sub_resource type="Resource" id="Resource_d23kd"]
 metadata/__load_path__ = "res://assets/sound/sfx/ui/equip.ogg"
@@ -102,7 +100,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_veb6b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_on68a"]
 resource_local_to_scene = true
 shader = ExtResource("12_guigk")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -144,7 +142,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_bqvqp"]
+[sub_resource type="Shader" id="Shader_veb6b"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -172,6 +170,44 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ncu57"]
+resource_local_to_scene = true
+shader = SubResource("Shader_veb6b")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_bqvqp"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsjwg"]
 resource_local_to_scene = true
 shader = SubResource("Shader_bqvqp")
 shader_parameter/base_color = Color(0, 0, 0, 1)
@@ -209,7 +245,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsjwg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_um8mn"]
 resource_local_to_scene = true
 shader = SubResource("Shader_jpfxv")
 shader_parameter/base_color = Color(0, 0, 0, 1)
@@ -247,7 +283,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_um8mn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fwr53"]
 resource_local_to_scene = true
 shader = SubResource("Shader_dme3v")
 shader_parameter/base_color = Color(0, 0, 0, 1)
@@ -285,47 +321,9 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fwr53"]
-resource_local_to_scene = true
-shader = SubResource("Shader_xi146")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_ofpjn"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gcm86"]
 resource_local_to_scene = true
-shader = SubResource("Shader_ofpjn")
+shader = SubResource("Shader_xi146")
 shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -559,7 +557,7 @@ target_base = NodePath("body")
 autostart = true
 
 [node name="body" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/Control/player_sample" instance=ExtResource("11_drn0r")]
-material = SubResource("ShaderMaterial_veb6b")
+material = SubResource("ShaderMaterial_on68a")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 0
@@ -815,27 +813,19 @@ visible = true
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 
-[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" node_paths=PackedStringArray("leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress")]
+[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" node_paths=PackedStringArray("leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 script = ExtResource("16_4btww")
 leadership_level_label = NodePath("VBoxContainer/PanelContainer/VBoxContainer/leadership_level")
-leadership_level_progress = NodePath("VBoxContainer/PanelContainer/VBoxContainer/leadership_level_progress")
-combat_level_label = NodePath("VBoxContainer/PanelContainer2/VBoxContainer/combat_level")
-combat_level_progress = NodePath("VBoxContainer/PanelContainer2/VBoxContainer/combat_level_progress")
-
-[node name="player_name" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -64.0
-offset_top = 12.0
-offset_right = 64.0
-offset_bottom = 63.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 64
-text = "Player"
+leadership_level_progress = NodePath("VBoxContainer/PanelContainer/VBoxContainer/exp_bar")
+combat_level_label = NodePath("VBoxContainer/PanelContainer/VBoxContainer/combat_level")
+combat_level_progress = NodePath("VBoxContainer/PanelContainer/VBoxContainer/exp_bar2")
+max_hp_label = NodePath("stats/Combat Stats/VBoxContainer/HBoxContainer/max_hp")
+attack_label = NodePath("stats/Combat Stats/VBoxContainer/HBoxContainer2/attack")
+defense_label = NodePath("stats/Combat Stats/VBoxContainer/HBoxContainer3/defense")
+agility_label = NodePath("stats/Combat Stats/VBoxContainer/HBoxContainer4/agility")
+technique_label = NodePath("stats/Combat Stats/VBoxContainer/HBoxContainer5/technique")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
 layout_mode = 1
@@ -843,65 +833,71 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -163.0
-offset_top = 73.0
+offset_top = 15.0
 offset_right = 163.0
-offset_bottom = 189.0
+offset_bottom = 223.0
 grow_horizontal = 2
-theme_override_constants/separation = 0
+
+[node name="player_name" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 80
+text = "Player"
 
 [node name="PanelContainer" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("17_8o2td")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
 [node name="leadership_level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -1
 theme_override_constants/shadow_offset_y = -1
 theme_override_constants/outline_size = 1
 text = "Leadership Level: 1"
 
-[node name="leadership_level_progress" type="TextureProgressBar" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer/VBoxContainer"]
-modulate = Color(1, 1, 0, 1)
-custom_minimum_size = Vector2(0, 14)
-layout_mode = 2
-value = 31.0
-nine_patch_stretch = true
-stretch_margin_left = 2
-stretch_margin_right = 2
-texture_under = ExtResource("18_3vgn1")
-texture_progress = ExtResource("19_s8tnr")
-tint_under = Color(0.17, 0.17, 0.17, 1)
+[node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer/VBoxContainer/leadership_level" node_paths=PackedStringArray("target") instance=ExtResource("18_jpfxv")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
+target = NodePath("..")
+hardcoded_name = "Leadership Level"
+hardcoded_description = "Increases Maximum party size."
 
-[node name="PanelContainer2" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("17_8o2td")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer2"]
+[node name="exp_bar" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("28_hv25b")]
 layout_mode = 2
 
-[node name="combat_level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="combat_level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -1
 theme_override_constants/shadow_offset_y = -1
 theme_override_constants/outline_size = 1
 text = "Combat Level: 1"
 
-[node name="combat_level_progress" type="TextureProgressBar" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer2/VBoxContainer"]
-modulate = Color(0.415686, 0, 0, 1)
-custom_minimum_size = Vector2(0, 14)
+[node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer/VBoxContainer/combat_level" node_paths=PackedStringArray("target") instance=ExtResource("18_jpfxv")]
+layout_mode = 1
+offset_top = -66.5
+offset_bottom = 23.5
+target = NodePath("..")
+hardcoded_name = "Combat Level"
+hardcoded_description = "Improves combat stats."
+
+[node name="exp_bar2" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("28_hv25b")]
 layout_mode = 2
-value = 31.0
-nine_patch_stretch = true
-stretch_margin_left = 2
-stretch_margin_right = 2
-texture_under = ExtResource("18_3vgn1")
-texture_progress = ExtResource("19_s8tnr")
-tint_under = Color(0.17, 0.17, 0.17, 1)
 
 [node name="stats" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
 layout_mode = 1
@@ -916,7 +912,7 @@ offset_right = 180.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("17_8o2td")
+theme = ExtResource("9_f66i1")
 theme_override_font_sizes/font_size = 32
 current_tab = 0
 tab_focus_mode = 1

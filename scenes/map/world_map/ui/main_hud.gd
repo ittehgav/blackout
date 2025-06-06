@@ -128,7 +128,9 @@ func settlement_main_view(_settlement: Settlement=null) -> void:
 	turn_semi_visible(resources_panel)
 	turn_fully_visible(clock_panel)
 	navigation.hide();
-func _on_settlement_ui_settlement_left() -> void:
+
+
+func _on_player_left_settlement() -> void:
 	switch_to_fully_visible()
 
 func _on_settlement_ui_trade_started() -> void:
@@ -147,10 +149,7 @@ func _on_settlement_ui_listen_around_ended() -> void:
 	settlement_main_view();
 
 func _on_settlement_ui_recruitment_started() -> void:
-	clock_panel.hide();
-	turn_fully_visible(resources_panel);
-	turn_fully_visible(party_panel);
-	navigation.hide()
+	switch_to_semi_visible()
 
 func _on_settlement_ui_recruitment_ended() -> void:
 	settlement_main_view();
@@ -173,8 +172,7 @@ func notify_new_memo(_memo: Memo) -> void:
 
 
 func _on_pre_battle_pre_battle_started() -> void:
-	for p in all_panels:
-		p.hide()
+	switch_to_semi_visible();
 
 
 func _on_trade_menu_trade_started() -> void:
