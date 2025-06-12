@@ -26,7 +26,6 @@ func use()->void:
 	var technique:float = Entities.in_fight_player.technique;
 	if technique > 1:
 		frac *= technique
-	var bonus_agility:float = Entities.in_fight_player.agility * frac
+	var bonus_agility:float = Entities.in_fight_player.agility + 1 * frac
 	Entities.player.inventory.juice -= juice_cost;
-	
 	Combat.apply_stat_change(Entities.in_fight_player, Entities.in_fight_player, bonus_agility, "agility");

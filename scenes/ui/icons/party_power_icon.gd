@@ -18,7 +18,7 @@ func get_party_power()->int:
 	if leader is Player:
 		total_power += leader.combat_level + leader.leadership_level;
 	else:
-		total_power += leader.unit.level * 2;
+		total_power += leader.leader_unit.level * 2;
 		
 	for unit in leader.roster.units:
 		total_power += unit.level;

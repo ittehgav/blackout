@@ -10,7 +10,7 @@ func world_map() -> void:
 
 func test_battle()->void:
 	var enemy_leader:NpcLeader = Index.thugs_scene.instantiate();
-	enemy_leader.generate(1110);
+	enemy_leader.generate(500);
 	
 	var arena:Arena = Index.arena_scene.instantiate()
 	arena.start_battle(enemy_leader)

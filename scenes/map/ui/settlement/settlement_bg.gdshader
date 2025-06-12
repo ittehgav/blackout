@@ -12,9 +12,9 @@ void fragment() {
 		}else if (COLOR.rgb == vec3(1, 0, 0)){
 			COLOR = prop_dark;
 		}else if (COLOR.rgb == vec3(0, 0, 1)){
-			COLOR = ground_light;
-		}else if(COLOR.rgb == vec3(0, 1, 0)){
 			COLOR = ground_dark;
+		}else if(COLOR.rgb == vec3(0, 1, 0)){
+			COLOR = ground_light;
 		}
 	}
 

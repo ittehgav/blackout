@@ -1,7 +1,8 @@
 extends Node
 
 func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, duration:float=0, data:Dictionary={})->void:
-	var status_data:Dictionary = {"type":type}
+	var status_data:Dictionary = {"type":type, "duration":duration}
+
 	match type:
 		"stun":
 			target.stunned = true;
@@ -10,6 +11,7 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 				target.stunnable_timers.set_process_mode(Node.PROCESS_MODE_DISABLED)
 
 			target.stun_stack += 1;
+			
 			
 		"stat_change":
 			status_data["amount"] = data.amount;

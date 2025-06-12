@@ -39,7 +39,7 @@ func setup(first:bool=true)->void:
 		if target is Weapon:
 			sub_name_label.text = "Weapon";
 		elif target is ResourceContainer:
-			if "raw_stack" in target:
+			if target.raw_stack:
 				sub_name_label.text = "Resource";
 			else:
 				sub_name_label.text = "Container";

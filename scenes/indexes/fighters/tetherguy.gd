@@ -2,8 +2,9 @@ extends FighterBase
 
 const no_damage = true;
 
-const skill_effects = ["special"];
+@export var projectile:Projectile;
 const skill_visuals = ["recoil"]
+const projection_vfx = [];
 
 const skill_use_sfx = ["shoot"]
 const skill_hit_sfx = []
@@ -33,7 +34,7 @@ const hitbox_radius = 25;
 const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
-const skill_range = 200;
+const skill_range = 400;
 const skill_cooldown = 8;
 
 const heal_value = 5.0;
@@ -42,10 +43,16 @@ const heal_interval = 1.0;
 
 
 
-func special_skill()->void:
-	recurring_heal(fighter.target_unit, total_heal_ticks);
 
-func recurring_heal(target:ActiveFighter, ticks_left:int)->void:
+
+
+func skill()->void:
+	if fighter.target_unit == fighter:
+		recurring_heal(fighter);
+	else:
+		Combat.shoot_projectile(projectile, fighter, recurring_heal);
+
+func recurring_heal(target:ActiveFighter, ticks_left:int=5)->void:
 	Combat.heal_unit(fighter, target, heal_value );
 	ticks_left -= 1
 	if ticks_left and get_tree():

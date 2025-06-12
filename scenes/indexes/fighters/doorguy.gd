@@ -2,10 +2,10 @@ extends FighterBase
 
 const no_damage = true;
 
-const skill_effects = ["self_stat_buff"];
 const skill_visuals = ["grow"]
+const projection_vfx = [];
 
-const skill_use_sfx = ["defense_up"]
+const skill_use_sfx = []
 const skill_hit_sfx = []
 
 const sample_offset = Vector2(25, -26)
@@ -44,3 +44,7 @@ const stats_to_buff = ["defense"]
 const stat_buff_values = {
 	"defense":5
 }
+
+func skill()->void:
+	Combat.self_stat_buff(fighter);
+	fighter.catch_hit_target(fighter);

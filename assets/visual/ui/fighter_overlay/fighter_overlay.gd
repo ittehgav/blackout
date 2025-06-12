@@ -5,6 +5,8 @@ extends Control
 
 @export var shield_bar:TextureProgressBar;
 
+
+@export var vfx_control:Node;
 @export var charge_bar:TextureProgressBar;
 @export var floating_icon_anchor:Node2D
 
@@ -27,26 +29,6 @@ func _ready()->void:
 
 	shield_bar.max_value = unit.max_hp;
 
-func _on_fighter_status_applied(_source: ActiveFighter, data:Dictionary) -> void:
-	## VFX from statuses will be handled here
-	match data.type:
-		"stat_change":
-			if data.amount < 0:
-				stat_debuff_vfx(data.stat)
-
-func stat_debuff_vfx(stat:String)->void:
-	var icon:StatIcon = Index.stat_icon_scene.instantiate();
-	icon.stat = stat;
-	icon.position = Vector2.ZERO
-	icon.custom_minimum_size = Vector2(16, 16)
-	icon.size = Vector2(16, 16)
-	icon.get_node("panel").hide()
-	floating_icon_anchor.add_child(icon);
-	icon.material.set_shader_parameter("base_color", Color.PURPLE)
-	
-	Tweens.fade_down(icon)
-
-	
 
 
 func _on_fighter_damage_taken(damage: float, _source:ActiveFighter) -> void:

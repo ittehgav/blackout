@@ -10,6 +10,7 @@ extends Panel
 
 @export var evolution_1_sprite:TextureButton;
 @export var evolution_1_panel:Panel;
+@export var evolution_1_highlight:ColorRect
 
 @export var evolution_1_costs_container:HBoxContainer
 @export var evolution_1_cost_1_icon:ResourceIcon
@@ -22,6 +23,7 @@ extends Panel
 
 @export var evolution_2_sprite:TextureButton;
 @export var evolution_2_panel:Panel;
+@export var evolution_2_highlight:ColorRect
 
 @export var evolution_2_costs_container:HBoxContainer;
 @export var evolution_2_cost_1_icon:ResourceIcon
@@ -58,14 +60,27 @@ func setup(target:FighterUnit)->void:
 	enough_resources_for_ev1 = true
 	enough_resources_for_ev2 = true
 	
+	evolution_2_highlight.modulate.a = 0;
+	evolution_1_highlight.modulate.a = 0;
+
+	if evolution_1_highlight_tween and evolution_1_highlight_tween.is_running():
+		evolution_1_highlight_tween.kill()
+	if evolution_2_highlight_tween and evolution_2_highlight_tween.is_running():
+		evolution_2_highlight_tween.kill()
+			
+	
 	if "evolutions" in unit.base:
 		show();
 		var i:int = 1;
 		can_evolve = unit.level >= 10;
 		
 		for evolution:String in unit.base.evolutions.keys():
-			self["evolution_" + str(i) + "_base"] = Index[evolution+"_scene"].instantiate();
-			evolution_texture_buffer.add_child(self["evolution_" + str(i) + "_base"]);
+			
+			var button:TextureButton = self["evolution_"+str(i)+"_sprite"];
+			
+			var base:FighterBase = Index[evolution+"_scene"].instantiate()
+			self["evolution_" + str(i) + "_base"] = base;
+			evolution_texture_buffer.add_child(base);
 			
 			var image:Image = Image.load_from_file("res://assets/visual/sprites/fighters/"+evolution.replace("_", "")+".png")
 			var texture:Texture2D = ImageTexture.create_from_image(image);
@@ -77,10 +92,12 @@ func setup(target:FighterUnit)->void:
 			atlas.resource_local_to_scene = true
 			
 			var pairs:Dictionary[Color,Color] = ColorCoder.scheme_to_sprite_color_pairs(Entities.player)
-			self["evolution_" + str(i) + '_sprite'].texture_normal = ColorCoder.color_code_texture(atlas, pairs)
-			self["evolution_" + str(i) + '_sprite'].texture_hover = ColorCoder.color_code_texture(atlas, pairs)
+			button.texture_normal = ColorCoder.color_code_texture(atlas, pairs)
+			button.texture_hover = ColorCoder.color_code_texture(atlas, pairs)
+			button.texture_disabled = ColorCoder.color_code_texture(atlas, pairs)
 			
 			var i2:int = 1;
+			button.disabled = false;
 			for resource:String in unit.base.evolutions[evolution].keys():
 				self["evolution_" + str(i) + "_resource_" + str(i2)] = resource;
 				
@@ -91,19 +108,25 @@ func setup(target:FighterUnit)->void:
 				icon.resource = resource
 				icon.setup()
 				
+				button.modulate.a = 1;
 				if Entities.player.inventory[resource] < cost:
 					self["enough_resources_for_ev" + str(i)] = false;
-				
-				var label:Label = self["evolution_" + str(i) + "_cost_" + str(i2) + '_label']
-				label.text = str(cost);
-				
+					button.disabled = true;
+
+					var label:Label = self["evolution_" + str(i) + "_cost_" + str(i2) + '_label']
+					label.text = str(cost);
+					
 				i2 += 1;
-				
+			
+			if not button.disabled and can_evolve:
+				evolution_highlight_tween_loop(i);
+	
 			i += 1;
 			
 		if title_label_tween and title_label_tween.is_running():
 			title_label_tween.kill();
-		
+
+			
 		if can_evolve:
 			title_label.text = "EVOLUTION AVAILABLE!"
 			title_label.add_theme_font_size_override("font_size", 48)
@@ -144,8 +167,19 @@ func evolution_confirmation(evolution_index:int)->void:
 
 
 
-
-
+var evolution_1_highlight_tween:Tween
+var evolution_2_highlight_tween:Tween
+func evolution_highlight_tween_loop(target:int)->void:
+	var highlight:ColorRect = self["evolution_" + str(target) + "_highlight"]
+	 
+	self["evolution_"+str(target)+"_highlight_tween"] = create_tween();
+	var tween:Tween = self["evolution_"+str(target)+"_highlight_tween"];
+	tween.tween_property(highlight, "modulate:a", 1,.5)
+	tween.tween_property(highlight, "modulate:a", .1,.5)
+	tween.tween_callback(evolution_highlight_tween_loop.bind(target))
+	
+	
+	
 
 var title_label_tween:Tween;
 func evolution_label_highlight_tween()->void:

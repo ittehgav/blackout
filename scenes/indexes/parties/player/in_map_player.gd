@@ -15,9 +15,7 @@ func _input(e:InputEvent)->void:
 	and e.button_index==MOUSE_BUTTON_LEFT and not Entities.world_map.pause_stack:
 		var cursor_position:Vector2 = get_global_mouse_position()
 		if position.distance_to(cursor_position) > 30:
-
 			target_position = cursor_position;
-
 			started_moving.emit();
 	if e.is_action_pressed("stop_movement"):
 		stop_movement();
@@ -90,7 +88,7 @@ func intimidate_odds(target:NpcMapParty)->float:
 	for unit:FighterUnit in leader.roster.units:
 		combined_level += unit.level;
 		
-	var target_combined_level:int = target.leader.unit.level * 2;
+	var target_combined_level:int = target.leader.leader_unit.level * 2;
 	for unit:FighterUnit in target.leader.roster.units:
 		target_combined_level += unit.level;
 	
@@ -123,8 +121,8 @@ func intimidate_odds(target:NpcMapParty)->float:
 
 func convince_odds(target:NpcMapParty)->float:
 	var level_gap: = 0;
-	var leadership_lvl_gap:int = leader.leadership_level - target.leader.unit.level;
-	var combat_lvl_gap:int = leader.combat_level - target.leader.unit.level;
+	var leadership_lvl_gap:int = leader.leadership_level - target.leader.leader_unit.level;
+	var combat_lvl_gap:int = leader.combat_level - target.leader.leader_unit.level;
 	
 	if abs(leadership_lvl_gap) < abs(combat_lvl_gap):
 		level_gap = abs(leadership_lvl_gap);

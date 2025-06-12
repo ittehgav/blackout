@@ -10,6 +10,10 @@ radius = 100.0
 texture = ExtResource("1_tpyep")
 script = ExtResource("2_jsric")
 aoe_range = NodePath("range")
+projection_color = Color(1, 0.976471, 0.54902, 0.376471)
+projection_range = 150
+projection_texture_index = 3
+show_aoe_vfx = true
 
 [node name="range" type="Area2D" parent="."]
 collision_layer = 0

@@ -5,10 +5,7 @@ class_name NpcMapParty
 ## Leader nodes' parties, which will contain all the data that makes an NPC map party
 
 
-@export var idle_icon_texture:Texture;
-@export var scared_icon_texture:Texture;
-@export var agressive_icon_texture:Texture;
-@export var salesman_icon_texture:Texture
+
 
 @export var behavior_icon:TextureRect;
 @export var find_target_timer:Timer;
@@ -22,9 +19,9 @@ var persuade_attempted:bool=false;
 func _ready()->void:
 	match leader.party_type:
 		"thugs":
-			behavior_icon.texture = agressive_icon_texture;
+			behavior_icon.texture = Index.agressive_icon_texture;
 		"travelling_trader":
-			behavior_icon.texture = salesman_icon_texture;
+			behavior_icon.texture = Index.salesman_icon_texture;
 	
 
 func _physics_process(delta: float) -> void:
@@ -61,7 +58,7 @@ func find_target() -> void:
 				idle_movement();
 
 func set_behavior_icon(key:String)->void:
-	behavior_icon.texture = self[key+"_icon_texture"];
+	behavior_icon.texture = Index[key+"_icon_texture"];
 
 func run_in_direction(direction:Vector2)->void:
 	vehicle.adjust_direction(global_position + direction);

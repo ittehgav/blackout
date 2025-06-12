@@ -1,7 +1,7 @@
 extends FighterBase
 
-const skill_effects = ["aoe_damage"];
-const skill_visuals = ["recoil", "recoil_target"]
+const skill_visuals = ["recoil", "recoil_target", "beam"]
+const projection_vfx = ["beam"]
 
 const skill_use_sfx = ["shoot"]
 const skill_hit_sfx = ["projectile_hit"]
@@ -57,4 +57,7 @@ const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 750;
 
-const skill_cooldown = 15;
+const skill_cooldown = 10;
+
+func skill()->void:
+	Combat.aoe_damage(fighter);

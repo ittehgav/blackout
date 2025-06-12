@@ -1,8 +1,8 @@
 extends FighterBase
 
 
-const skill_effects = ["special"];
 const skill_visuals = ["recoil", "shrink_target"]
+const projection_vfx = ["gravity"];
 
 const skill_use_sfx = ["gravity"]
 const skill_hit_sfx = []
@@ -54,7 +54,7 @@ func _process(_delta:float)->void:
 		hit_scan_shape.position.x += hit_scan_shape.shape.size.x/2;
 
 
-func special_skill()->void:
+func skill()->void:
 	Combat.stun_target(fighter, fighter.target_unit);
 	
 	for target:Node in fighter.hit_scan.get_overlapping_bodies():

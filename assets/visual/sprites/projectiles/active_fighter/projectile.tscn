@@ -4,23 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://dxrtmcmiv07al" path="res://assets/visual/sprites/projectiles/arrow.png" id="2_tex48"]
 [ext_resource type="Texture2D" uid="uid://r2051wxqx2mi" path="res://assets/visual/sprites/projectiles/syringe.png" id="3_xmxyh"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_13m3r"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_r36q7"]
 
-[node name="Projectile" type="RigidBody2D" node_paths=PackedStringArray("sprite", "despawn_timer")]
+[node name="Projectile" type="Node2D" node_paths=PackedStringArray("sprite", "despawn_timer", "hitbox")]
 visible = false
 modulate = Color(1, 0.192157, 1, 1)
-collision_layer = 0
-collision_mask = 0
-can_sleep = false
-contact_monitor = true
 script = ExtResource("1_r36q7")
 sprite = NodePath("sprite")
 despawn_timer = NodePath("despawn_timer")
+hitbox = NodePath("hitbox")
 arrow_texture = ExtResource("2_tex48")
 syringe_texture = ExtResource("3_xmxyh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_13m3r")
 
 [node name="sprite" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -30,4 +24,12 @@ texture = ExtResource("3_xmxyh")
 wait_time = 10.0
 one_shot = true
 
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_r36q7")
+
 [connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://hxhb4smcxcs3"]
+
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_0mb4a"]
+
+[resource]
+shader = ExtResource("1_0mb4a")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0

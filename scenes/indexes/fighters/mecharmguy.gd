@@ -1,14 +1,13 @@
 extends FighterBase
 
 
-const skill_effects = ["aoe_damage", "aoe_stat_debuff"];
-const skill_visuals = ["lunge_forward", "shrink_target"]
+const skill_visuals = ["lunge_forward", "shrink_target", "hook"]
+const projection_vfx = ["aoe_circle"];
 
 const skill_use_sfx = ["swing"]
 const skill_hit_sfx = ["metal"]
 
 const skill_windup = true;
-const skill_projection = "basic_aoe"
 
 const sample_offset = Vector2(25, -26)
 
@@ -46,3 +45,8 @@ const stats_to_debuff = ["defense"];
 const stat_debuff_values = {
 	"defense":5
 }
+
+func skill()->void:
+	Combat.aoe_damage(fighter);
+	Combat.aoe_stat_debuff(fighter);
+	

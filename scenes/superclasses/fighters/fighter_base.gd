@@ -7,7 +7,7 @@ var fighter:ActiveFighter;
 
 @export var need_target:bool=true;
 
-const MELEE_RANGE = 50
+const MELEE_RANGE = 70
 
 func fighter_died()->void:
 	modulate.v = .5;

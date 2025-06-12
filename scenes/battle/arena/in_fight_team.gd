@@ -14,12 +14,7 @@ var leader:Leader;
 
 var units:Array[Node];
 
-
-func _on_child_entered_tree(unit: Node) -> void:
-	assert(unit is ActiveFighter)
-
-	units.append(unit)
+func assign_unit(unit:ActiveFighter)->void:
 	unit.ally_team = self;
+	units.append(unit);
 	unit.enemy_team = enemy_team;
-	if len(units) == initial_party_size:
-		all_units_loaded.emit();

@@ -1,21 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c552rf01ufsjl"]
+[gd_scene load_steps=4 format=3 uid="uid://c552rf01ufsjl"]
 
-[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_beawt"]
+[ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_beawt"]
 [ext_resource type="Texture2D" uid="uid://srxd472k7xi" path="res://assets/visual/icons/items/containers/food_barrel.png" id="2_vqw6r"]
 [ext_resource type="Script" uid="uid://bplbukoqb20kb" path="res://scenes/indexes/items/containers/food_barrel.gd" id="3_15850"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2m3bt"]
-shader = ExtResource("1_beawt")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
 [node name="Food Barrel" type="Sprite2D"]
-material = SubResource("ShaderMaterial_2m3bt")
+material = ExtResource("1_beawt")
 texture = ExtResource("2_vqw6r")
 script = ExtResource("3_15850")
 resource = "food"

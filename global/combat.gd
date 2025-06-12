@@ -1,28 +1,6 @@
 extends "res://global/combat_mechanics.gd"
 
 
-func skill_effect(source:ActiveFighter, effect_name:String)->void:
-	match effect_name:
-		"direct_damage":
-			deal_damage(source, source.target_unit);
-			if source is NpcFighter:
-				source.catch_hit_target(source.target_unit)
-		"aoe_damage":
-			aoe_damage(source);
-		"stun_target":
-			stun_target(source, source.target_unit);
-		"aoe_stun":
-			aoe_stun(source);
-		"self_stat_buff":
-			self_stat_buff(source);
-			if source is NpcFighter:
-				source.catch_hit_target(source);
-		"aoe_stat_debuff":
-			aoe_stat_debuff(source);
-		"special":
-			source.base.special_skill();
-
-
 func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant)->void:
 	var target_direction:Vector2;
 	if source is InFightPlayer:

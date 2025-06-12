@@ -22,14 +22,14 @@ var player_inside:bool=false;
 @export var listen_around:bool=true;
 
 @export_subgroup("Resource Production")
-@export_range(0, 100) var money_production:int=100;
-@export_range(0, 100) var food_production:int=100;
-@export_range(0, 100) var fuel_production:int=100;
+@export var money_production:int=100;
+@export var food_production:int=100;
+@export var fuel_production:int=100;
 
 
-@export_range(0, 100) var juice_production:int=100;
-@export_range(0, 100) var scrap_production:int=100;
-@export_range(0, 100) var chips_production:int=100;
+@export var juice_production:int=100;
+@export var scrap_production:int=100;
+@export var chips_production:int=100;
 
 var neighbors:Array[Settlement];
 
@@ -110,11 +110,7 @@ func gain_relation_progress(amount:float)->void:
 	else:
 		relation_progress += amount;
 
-func get_production_multiplier(resource:String)->float:
-	var production:int = self[resource + "_production"];
-	if production == 0:
-		production = 5;
-	return 5.0/production
+
 
 func daily_reset()->void:
 	## every day, in the current state, settlements update their inventory

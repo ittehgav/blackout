@@ -16,7 +16,7 @@ func color_code_player(character:FighterBase)->void:
 		Color.YELLOW: off_color,
 		Color.RED: off_color.darkened(.5)
 	} 
-	color_code_sprite(character, dict);
+	color_code_sprite(character, dict, "player");
 
 
 func color_code_weapon(weapon:Sprite2D, scheme:int)->void:
@@ -25,7 +25,7 @@ func color_code_weapon(weapon:Sprite2D, scheme:int)->void:
 		Color.GREEN:base_color,
 		Color.BLUE:base_color.darkened(.5)
 	}
-	color_code_sprite(weapon, dict)
+	color_code_sprite(weapon, dict, weapon.name);
 
 
 
@@ -41,7 +41,7 @@ func color_code_fighter(fighter:FighterBase, scheme:int, sample:bool=false)->voi
 		Color.YELLOW:off_color,
 		Color.RED:off_color.darkened(fighter_sprite_darkening)
 	}
-	color_code_sprite(fighter, dict)
+	color_code_sprite(fighter, dict, fighter.name);
 	
 	if not sample:
 		var outline_color:Color = off_color.darkened(fighter_sprite_darkening);
@@ -65,7 +65,7 @@ func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
 		Color.BLUE:base_color.darkened(.5),
 		Color.GREEN: base_color
 	}
-	color_code_sprite(vehicle, dict);
+	color_code_sprite(vehicle, dict, leader.name);
 
 func color_code_settlement(settlement:Settlement, tile_color:Color)->void:
 	var sprite:Sprite2D = settlement.get_node("sprite");
@@ -88,18 +88,21 @@ func color_code_settlement(settlement:Settlement, tile_color:Color)->void:
 		Color.BLUE: (base_color.blend(blend)).darkened(.5),
 		Color.RED: (base_color.blend(blend)).lightened(.15)
 	}
-	color_code_sprite(sprite, dict)
+	color_code_sprite(sprite, dict, settlement.settlement_type_name)
 	
 	var box:Control = settlement.get_node("hover_box");
 	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", base_color.lightened(.6) - Color(0, 0, 0, .3)));
 	box.mouse_exited.connect(sprite.material.set_shader_parameter.bind("color", Color(0,0,0,0)));
 
+var texture_cache:Dictionary[Array, Texture]
 
-func color_code_sprite(sprite:Sprite2D, pairs:Dictionary)->void:
-	sprite.texture = color_code_texture(sprite.texture, pairs);
-	
+func color_code_sprite(sprite:Sprite2D, pairs:Dictionary, sprite_key:String)->void:
+	if texture_cache.has([sprite_key, pairs] ):
+		sprite.texture = texture_cache[[sprite_key, pairs]];
+	else:
+		sprite.texture = color_code_texture(sprite.texture, pairs, sprite_key);
 
-func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:
+func color_code_texture(texture:Texture2D, pairs:Dictionary, cache_key:String="")->Texture:
 	var img:Image = texture.get_image();
 	
 	var width:int = img.get_width();
@@ -114,7 +117,10 @@ func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:
 			if color.a and color in keys:
 				var new_color:Color = pairs[color];
 				img.set_pixel(x, y, new_color);
-	return ImageTexture.create_from_image(img);
+	var final_texture:Texture =  ImageTexture.create_from_image(img);
+	if cache_key:
+		texture_cache[[cache_key, pairs]] = final_texture
+	return final_texture
 	
 func scheme_to_sprite_color_pairs(leader:Leader)->Dictionary[Color, Color]:
 	## TODO normalize this stuff alerady
@@ -133,5 +139,6 @@ func color_code_prop(prop:Sprite2D)->void:
 		Color.BLUE: Color(.3, .3, .3),
 		Color.GREEN: Color(.9, .9, .9)
 	}
+
 
 	prop.texture = color_code_texture(prop.texture, dict);

@@ -6,6 +6,11 @@ signal weapon_equipped(weapon:Weapon);
 signal module_used
 signal module_fumbled
 
+@export var module_projection:TextureRect;
+@export var module_aoe_vfx:TextureRect;
+
+
+
 @export var holder:ActiveFighter;
 @export var body:FighterBase;
 
@@ -41,11 +46,8 @@ func _ready()->void:
 		ColorCoder.color_code_weapon(alternative_weapon, Entities.player.color_scheme_index)
 		add_child(alternative_weapon);
 		alternative_weapon.hide();
-		
 	
-	module = Entities.player.equipped_module.duplicate(DUPLICATE_USE_INSTANTIATION);
-	module_cd.wait_time = module.cooldown;
-	module.equipped.emit();
+	equip_module();
 
 
 func _process(_delta:float)->void:
@@ -72,13 +74,46 @@ func _process(_delta:float)->void:
 		## for now it's fine but maybe some alt uses will send the weapon to cooldown?
 		weapon.alt_use();
 		weapon_sfx.play_sound_by_key(weapon.alt_use_sfx)
+
+
+func equip_module()->void:
+	module = Entities.player.equipped_module.duplicate(DUPLICATE_USE_INSTANTIATION);
+	module.hide();
+	
+	add_child(module)
+	module_cd.wait_time = module.cooldown;
+	
+	if module.custom_projection_texture:
+		module_aoe_vfx.texture = module.custom_projection_texture
+		module_aoe_vfx.size = Vector2(2, 2) * module.projection_range;
+		module_aoe_vfx.modulate = module.projection_color
+		module_aoe_vfx.position = Vector2(module.projection_range, module.projection_range) * -1;
+
+	
+	if module.projection_range:
+		module_projection.show();
+		module_projection.modulate = module.projection_color;
+		module_projection.texture = Index.hollow_circle_textures[module.projection_texture_index];
+	
+		module_projection.size = Vector2(module.projection_range * 2, module.projection_range * 2);
+		module_projection.position = Vector2(module.projection_range, module.projection_range) * -1;
 		
+		if module.show_aoe_vfx:
+			module_aoe_vfx.texture = Index.circle_textures[module.projection_texture_index];
+			module_aoe_vfx.size = Vector2(2, 2) * module.projection_range
+			module_aoe_vfx.modulate = module.projection_color;
+			module_used.connect(play_module_aoe_vfx);
+			module_aoe_vfx.position = Vector2(module.projection_range, module.projection_range) * -1;
+
+	module.equipped.emit();
 
 
 func module_input()->void:
 	if module_cd.is_stopped() and module.check_available():
 		module_sfx.play_sound_by_key(module.sfx_key)
 		module.use();
+
+		
 		module_used.emit();
 		if not "continuous" in module:
 			module_cd.start();
@@ -87,7 +122,16 @@ func module_input()->void:
 	else:
 		module_fumbled.emit()
 		module_sfx.play_sound_by_key("module_unavailable")
-		
+
+func play_module_aoe_vfx()->void:
+	module_aoe_vfx.show();
+	module_aoe_vfx.modulate.a = 1;
+	var tween:Tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(module_aoe_vfx, "modulate:a", 0, .5)
+	
+
 func release_module()->void:
 	module_cd.start();
 	module.release();
@@ -194,7 +238,7 @@ func equip_weapon(to_equip:Weapon, from_refresh:bool=false, from_switch:bool=fal
 	
 	
 func refresh_weapon_cooldown()->void:
-	weapon_cd.wait_time = weapon.cooldown - (weapon.cooldown/100*holder.agility)
+	weapon_cd.wait_time = weapon.cooldown - (weapon.cooldown/10)*holder.agility
 
 
 func _on_freeze_frame_control_timeout() -> void:

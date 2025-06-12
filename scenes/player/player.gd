@@ -83,60 +83,63 @@ func equip_module(module:Module)->void:
 
 func _on_new_memo(memo: Memo) -> void:
 	memos.append(memo)
+	
+func travel_upkeep_cost()->Dictionary:
+	var cost:Dictionary = {
+		"food":1.0,
+		"fuel":1.0
+	}
+	for unit:FighterUnit in roster.units:
+		cost.food += .25 * len(unit.base.tags)
+		cost.fuel += .25 * len(unit.base.tags)
+	
+	cost.food = int(cost.food);
+	cost.fuel = int(cost.fuel)
+	
+	return cost;
 
 func travel_upkeep()->void:
 	## food and fuel start at 1 to account for player's expenses
-
-	var food_cost:float = 1;
-	var fuel_cost:float =  1;
-	
-	for unit:FighterUnit in roster.units:
-		for _tag:String in unit.base.tags:
-			food_cost += .25;
-			fuel_cost += .25;
-	
-	food_cost = int(food_cost);
-	fuel_cost = int(fuel_cost);
-	
-	var missing_food:int = 0;
-	var missing_fuel:int = 0;
-	
-	if inventory.food >= food_cost:
-		inventory.change_resource("food", food_cost * -1);
-	else:
-		missing_food = food_cost - inventory.food;
-		inventory.change_resource("food", inventory.food * -1)
+	if not Entities.current_settlement:
+		var cost:Dictionary = travel_upkeep_cost();
+		var missing_food:int = 0;
+		var missing_fuel:int = 0;
 		
-	if inventory.fuel >= fuel_cost:
-		inventory.change_resource("fuel", fuel_cost * -1)
-	else:
-		missing_fuel = fuel_cost - inventory.fuel;
-		inventory.change_resource("fuel", inventory.fuel * -1);
-	
-	var sfx_key:String
-	
-	if not missing_food and not missing_fuel:
-		sfx_key = "travel_upkeep"
-		
-	
-	if missing_food:
-		sfx_key = "food_shortage"
-		if missing_food > food_cost/2:
-			morale /= 3;
+		if inventory.food >= cost.food:
+			inventory.change_resource("food", cost.food * -1);
 		else:
-			morale /= 2;
-		morale_changed.emit();
+			missing_food = cost.food - inventory.food;
+			inventory.change_resource("food", inventory.food * -1)
+			
+		if inventory.fuel >= cost.fuel:
+			inventory.change_resource("fuel", cost.fuel * -1)
+		else:
+			missing_fuel = cost.fuel - inventory.fuel;
+			inventory.change_resource("fuel", inventory.fuel * -1);
+		
+		var sfx_key:String
+		
+		if not missing_food and not missing_fuel:
+			sfx_key = "travel_upkeep"
+			
+		
+		if missing_food:
+			sfx_key = "food_shortage"
+			if missing_food > cost.food/2:
+				morale /= 3;
+			else:
+				morale /= 2;
+			morale_changed.emit();
 
-	if missing_fuel:
-		sfx_key = "fuel_shortage"
-		## speed will halve every hour down to a bottom cap
-		Entities.in_map_player.move_speed /= 2;
-		if Entities.in_map_player.move_speed < 50:
-			Entities.in_map_player.move_speed = 50;
-	else:
-		## make this not take an hour to reset
-		## (or not and it's like a properly measured punishment?)
-		Entities.in_map_player.move_speed = Entities.in_map_player.navigation*50;
-	
-	if Entities.world_map.current_hour != 12:
+		if missing_fuel:
+			sfx_key = "fuel_shortage"
+			## speed will halve every hour down to a bottom cap
+			Entities.in_map_player.move_speed /= 2;
+			if Entities.in_map_player.move_speed < 50:
+				Entities.in_map_player.move_speed = 50;
+		else:
+			## make this not take an hour to reset
+			## (or not and it's like a properly measured punishment?)
+			Entities.in_map_player.move_speed = Entities.in_map_player.navigation*50;
+		
 		Entities.world_map.ui.hud.sfx.play_sound_by_key(sfx_key);

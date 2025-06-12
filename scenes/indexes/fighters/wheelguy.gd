@@ -1,7 +1,9 @@
 extends FighterBase
 
-const skill_effects = ["special"];
+@export var wheel_vfx:TextureRect;
+
 const skill_visuals = ["grow", "shake"]
+const projection_vfx = [];
 
 const skill_use_sfx = ["engine"]
 const skill_hit_sfx = ["small_hit"]
@@ -41,14 +43,15 @@ func damage_modifier(damage:float, _unit:FighterUnit=null)->float:
 	return damage/10
 
 @export var dmg_timer:Timer;
-const skill_projection = "wheel_spin"
-
-func _ready()->void:
-	dmg_timer.timeout.connect(Combat.aoe_damage.bind(fighter));
-
-func special_skill()->void:
+func skill()->void:
 	if not dmg_timer.is_stopped():
 		dmg_timer.wait_time -= (dmg_timer.wait_time/10.0)*(fighter.technique/2.0);
+		wheel_vfx.rps *= 1.25
 	else:
+		wheel_vfx.set_process_mode(Node.PROCESS_MODE_INHERIT);
+		wheel_vfx.show();
 		dmg_timer.start();
-		fighter.get_node("hit_scan/shape").start_aoe_highlight();
+
+
+func _on_aoe_dmg_timeout() -> void:
+	Combat.aoe_damage(fighter);

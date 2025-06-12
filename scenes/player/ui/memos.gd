@@ -8,8 +8,7 @@ func refresh_data()->void:
 	for memo:Memo in Entities.player.memos:
 		if memo.register:
 			if memo.expired:
-				memo.register.modulate.a = .5;
-				memo.register.mouse_filter = Control.MOUSE_FILTER_IGNORE;
+				memo.queue_free()
 		else:
 			var item:HBoxContainer = memo_item.duplicate();
 			item.setup(memo);

@@ -228,6 +228,7 @@ defeat_view = NodePath("defeat_view")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("2_7eru0")]
+bus = &"sfx"
 
 [node name="bg" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -628,16 +629,13 @@ material = SubResource("ShaderMaterial_15sfg")
 [node name="chips_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_7uvto")
 
-[node name="warning" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="6"]
+[node name="warning" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="5"]
 visible = false
 offset_left = 12.0
 offset_right = 52.0
 offset_bottom = 38.0
 
-[node name="operation" parent="victory_view/loot_gains/HBoxContainer/player_inventory/send_rect" index="0"]
-text = "LOOT"
-
-[node name="warnings" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="10"]
+[node name="warnings" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="8"]
 z_index = 7
 z_as_relative = false
 
@@ -699,9 +697,6 @@ material = SubResource("ShaderMaterial_whl4c")
 
 [node name="chips_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_7r0vy")
-
-[node name="operation" parent="victory_view/loot_gains/HBoxContainer/loot/send_rect" index="0"]
-text = "PUT AWAY"
 
 [node name="defeat_view" type="Control" parent="." node_paths=PackedStringArray("morale_icon", "morale_label")]
 visible = false

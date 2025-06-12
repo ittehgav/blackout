@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhxxwme6lff0h"]
+[gd_scene load_steps=5 format=3 uid="uid://dhxxwme6lff0h"]
 
 [ext_resource type="Script" uid="uid://ctni6ou4ixbak" path="res://scenes/ui/sprite_sample.gd" id="1_jrdjo"]
-[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="2_aynw8"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="3_aynw8"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_ax5g0"]
 
@@ -18,7 +17,6 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="SpriteSample" type="TextureButton" node_paths=PackedStringArray("additional_data")]
-theme = ExtResource("2_aynw8")
 script = ExtResource("1_jrdjo")
 additional_data = NodePath("additional_data")
 

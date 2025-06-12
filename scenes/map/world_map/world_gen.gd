@@ -12,10 +12,10 @@ const entity_padding = 50;
 
 const small_prop_amounts = entity_spawn_range/50;
 const large_prop_amounts = entity_spawn_range/100;
-const settlement_amount = entity_spawn_range/15;
+const settlement_amount = entity_spawn_range/50;
 
-const thugs_amount = entity_spawn_range/10000;
-const travelling_traders_amount = entity_spawn_range/50;
+const thugs_amount = entity_spawn_range/100;
+const travelling_traders_amount = entity_spawn_range/200;
 
 @export var small_prop_textures:Array[Texture];
 var small_prop_sprites:Array[Sprite2D];
@@ -40,12 +40,20 @@ var settlement_positions:Array[Vector2];
 var large_prop_positions:Array[Vector2]
 var small_prop_positions:Array[Vector2];
 
-const noise_roll_breakpoints = [
-	-.5, ## dark mud
-	-.2, ## sand
-	.0 ## light mud
-	## up to .6 - grass
-]
+const noise_roll_breakpoints = {
+	-.5:Vector2(0, 0),## grass 1
+	-.4:Vector2(0, 1),## grass 2
+	-.3:Vector2(1, 0),## grass 3
+	-.2:Vector2(1, 1),## grass 4
+	-.1:Vector2(0, 2),## sand/grass 1
+	0.0:Vector2(0, 2),## sand/grass 2
+	.1:Vector2(0, 3),## sand/grass 3
+	.2:Vector2(1, 2),## sand/grass 4
+	.3:Vector2(2, 0), ## mud
+	.4:Vector2(2, 1),## 2
+	.5:Vector2(3, 0),## 3
+	1.0:Vector2(3, 1)##4
+}
 
 
 func _ready() -> void:
@@ -60,6 +68,7 @@ func _ready() -> void:
 	for q:WorldMapQuadrant in all_quadrants:
 		var width:float = quarter_tile_map_size.x
 		var height:float = quarter_tile_map_size.y;
+		var points:Array = noise_roll_breakpoints.keys();
 		for x:int in width:
 			for y:int in height:
 				var cell_coords:Vector2 = Vector2(x, y);
@@ -74,18 +83,16 @@ func _ready() -> void:
 						quadrant_3:
 							roll_coords.x -= width;
 				var roll:float = noise.get_noise_2dv(roll_coords);
-				if roll < noise_roll_breakpoints[0]:
-					q.tile_map.set_cell(cell_coords, 0, Vector2.ONE);
-				elif roll < noise_roll_breakpoints[1]:
-					q.tile_map.set_cell(cell_coords, 0, Vector2.ZERO);
-				elif roll < noise_roll_breakpoints[2]:
-					q.tile_map.set_cell(cell_coords, 0, Vector2.RIGHT)
-				else:
-					q.tile_map.set_cell(cell_coords, 0, Vector2.DOWN)
+
+				for point:float in points:
+					if roll < point:
+						q.tile_map.set_cell(cell_coords,0, noise_roll_breakpoints[point])
+						break;
 	
 	generate_settlements();
 	generate_props();
 	generate_parties();
+	
 
 func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->NpcMapParty:
 	var leader:NpcLeader = leader_scene.instantiate();
@@ -189,14 +196,13 @@ func get_spot_tile_color(from:Vector2, quadrant_n:int=0)->Color:
 	else:
 		noise_roll = noise.get_noise_2d(from.x/cell_size, from.y/cell_size)
 		
-	if noise_roll < noise_roll_breakpoints[0]:
+	if noise_roll < .2:
 		return tile_colors[0]
-	elif noise_roll < noise_roll_breakpoints[1]:
+	elif noise_roll < .3:
 		return tile_colors[2]
-	elif noise_roll < noise_roll_breakpoints[2]:
-		return tile_colors[1]
 	else:
-		return tile_colors[3]
+		return tile_colors[1]
+
 
 func position_taken(to_check:Vector2, position_arrays:Array[Array], min_gap:float = 200)->bool:
 	for a:Array[Vector2] in position_arrays:

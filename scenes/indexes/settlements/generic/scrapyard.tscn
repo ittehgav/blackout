@@ -22,6 +22,12 @@ background = ExtResource("2_nxvsu")
 crowd_1 = ExtResource("3_nxvsu")
 crowd_2 = ExtResource("4_lqfi7")
 inventory = NodePath("Inventory")
+money_production = 250
+food_production = 50
+fuel_production = 200
+juice_production = 120
+scrap_production = 150
+chips_production = 20
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("5_38mel")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=143 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=148 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Script" uid="uid://v56h85jo7vsu" path="res://scenes/map/world_map/quadrants.gd" id="2_gbcyd"]
@@ -81,23 +81,17 @@
 [ext_resource type="AudioStream" uid="uid://deq14qsr5oxcf" path="res://assets/sound/sfx/world_map/daily_upkeep.wav" id="78_3xuka"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="78_37vhr"]
 [ext_resource type="AudioStream" uid="uid://cvv1mjf2g8wus" path="res://assets/sound/sfx/world_map/daily_upkeep_paid.wav" id="79_t4gob"]
+[ext_resource type="AudioStream" uid="uid://bjruiutxfjb2w" path="res://assets/sound/sfx/world_map/daily_upkeep_missed.mp3" id="80_t4gob"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_cxe47"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t4gob"]
+frequency = 0.0062
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0jkk0"]
 width = 64
 height = 64
-noise = SubResource("FastNoiseLite_cxe47")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbcyd"]
-shader = ExtResource("48_7d1fb")
-shader_parameter/base_color = Color(1, 0.71, 0.71, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(0, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_t4gob")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ogav"]
 resource_local_to_scene = true
@@ -231,6 +225,16 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbcyd"]
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(1, 0.71, 0.71, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8xm6f"]
 shader = ExtResource("48_7d1fb")
 shader_parameter/base_color = Color(1, 0, 0, 1)
@@ -362,44 +366,6 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_3xuka"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
-resource_local_to_scene = true
-shader = SubResource("Shader_3xuka")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
 [sub_resource type="Shader" id="Shader_t4gob"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
@@ -427,7 +393,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
 resource_local_to_scene = true
 shader = SubResource("Shader_t4gob")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -465,7 +431,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
 resource_local_to_scene = true
 shader = SubResource("Shader_7sj3l")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -503,7 +469,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
 resource_local_to_scene = true
 shader = SubResource("Shader_432xo")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -541,7 +507,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
 resource_local_to_scene = true
 shader = SubResource("Shader_usv6u")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -579,7 +545,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
 resource_local_to_scene = true
 shader = SubResource("Shader_dalom")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -617,7 +583,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
 resource_local_to_scene = true
 shader = SubResource("Shader_gdjef")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -655,9 +621,47 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
 resource_local_to_scene = true
 shader = SubResource("Shader_tfnpl")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_4nt3v"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4nt3v")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -800,6 +804,50 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5yui1"]
+resource_local_to_scene = true
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w084n"]
+resource_local_to_scene = true
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rw1cx"]
+resource_local_to_scene = true
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6aqk"]
+resource_local_to_scene = true
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1sa2f"]
 resource_local_to_scene = true
 shader = ExtResource("48_7d1fb")
@@ -871,7 +919,7 @@ script = ExtResource("1_s4sam")
 ui = NodePath("ui_overlay/ui")
 player = NodePath("quadrants/quadrant_4/in_map_player")
 quadrants = NodePath("quadrants")
-sky_colors = Array[Color]([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.114, 0.114, 0.15, 1), Color(0.34, 0.21386, 0.1598, 1), Color(0.49, 0.28077, 0.1911, 1), Color(0.6, 0.508, 0.462, 1), Color(0.6624, 0.72, 0.72, 1), Color(0.5082, 0.66, 0.66, 1), Color(0.539, 0.7, 0.7, 1), Color(0.6083, 0.79, 0.79, 1), Color(0.7636, 0.92, 0.92, 1), Color(0.82, 1, 1, 1)])
+sky_colors = Array[Color]([Color(0.06, 0.167333, 0.2, 1), Color(0.06, 0.167333, 0.2, 1), Color(0.06, 0.167333, 0.2, 1), Color(0.387, 0.4, 0.34, 1), Color(0.385067, 0.4, 0.344, 1), Color(0.387, 0.4, 0.34, 1), Color(0.7, 0.501667, 0, 1), Color(0.7, 0.501667, 0, 1), Color(0.7, 0.501667, 0, 1), Color(0.960784, 0.67451, 0.278431, 1), Color(0.960784, 0.67451, 0.278431, 1), Color(0.960784, 0.67451, 0.278431, 1)])
 
 [node name="quadrants" type="Node2D" parent="." node_paths=PackedStringArray("player_camera", "world_map", "quadrant_1", "quadrant_2", "quadrant_3", "quadrant_4")]
 process_mode = 3
@@ -881,7 +929,7 @@ world_map = NodePath("..")
 noise_texture = SubResource("NoiseTexture2D_0jkk0")
 small_prop_textures = Array[Texture]([ExtResource("6_jbv7y"), ExtResource("7_yhrnu"), ExtResource("9_ltr5c"), ExtResource("6_h2uxo")])
 large_prop_textures = Array[Texture]([ExtResource("10_bgkna"), ExtResource("11_h0tw4"), ExtResource("12_fd0ro"), ExtResource("13_lljjg"), ExtResource("14_jbv7y"), ExtResource("15_yhrnu"), ExtResource("16_piqjc"), ExtResource("17_ltr5c")])
-tile_colors = Array[Color]([Color(0.521569, 0.333333, 0.207843, 1), Color(0.752941, 0.67451, 0.509804, 1), Color(0.729412, 0.501961, 0.356863, 1), Color(0.231373, 0.34902, 0.231373, 1)])
+tile_colors = Array[Color]([Color(0.286275, 0.396078, 0.286275, 1), Color(0.752941, 0.67451, 0.509804, 1), Color(0.678431, 0.54902, 0.384314, 1)])
 quadrant_1 = NodePath("quadrant_1")
 quadrant_2 = NodePath("quadrant_2")
 quadrant_3 = NodePath("quadrant_3")
@@ -921,14 +969,6 @@ party = NodePath("..")
 [node name="in_map_camera" parent="quadrants/quadrant_4/in_map_player" index="3" node_paths=PackedStringArray("world_map", "marker")]
 world_map = NodePath("../../../..")
 marker = NodePath("../../../../entities/marker")
-
-[node name="marker_projection" type="Sprite2D" parent="quadrants/quadrant_4/in_map_player/in_map_camera" index="0"]
-visible = false
-z_index = 8
-material = SubResource("ShaderMaterial_gbcyd")
-position = Vector2(-521, 44)
-scale = Vector2(4, 4)
-texture = ExtResource("54_anjvn")
 
 [node name="Player" parent="quadrants/quadrant_4/in_map_player" index="4" node_paths=PackedStringArray("equipped_weapon", "equipped_module")]
 leadership_level = 3
@@ -1071,6 +1111,14 @@ navigation = 3
 tactics = 1
 scavenging = 1
 
+[node name="marker_projection" type="Sprite2D" parent="quadrants/quadrant_4"]
+visible = false
+z_index = 8
+material = SubResource("ShaderMaterial_gbcyd")
+position = Vector2(-319, 265)
+scale = Vector2(4, 4)
+texture = ExtResource("54_anjvn")
+
 [node name="update_fog" type="Timer" parent="quadrants"]
 wait_time = 0.1
 autostart = true
@@ -1117,7 +1165,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("52_piqjc")
 hframes = 3
 script = ExtResource("45_fn5hq")
-projection = NodePath("../../quadrants/quadrant_4/in_map_player/in_map_camera/marker_projection")
+projection = NodePath("../../quadrants/quadrant_4/marker_projection")
 camera = NodePath("../../quadrants/quadrant_4/in_map_player/in_map_camera")
 sfx = NodePath("marker_sfx")
 
@@ -1217,6 +1265,7 @@ clock_panel = NodePath("clock_panel")
 navigation = NodePath("navigation")
 
 [node name="sfx" type="AudioStreamPlayer" parent="ui_overlay/ui/main_hud"]
+bus = &"sfx"
 script = ExtResource("52_f2dah")
 money_change = ExtResource("53_gmjui")
 new_memo = ExtResource("59_48qk5")
@@ -1246,6 +1295,7 @@ floating_change = NodePath("../../floating_change")
 sfx = NodePath("sfx")
 
 [node name="sfx" type="AudioStreamPlayer" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel"]
+bus = &"sfx"
 script = ExtResource("55_64kp8")
 resource_gain = ExtResource("56_nmq41")
 resource_loss = ExtResource("57_7d1fb")
@@ -1271,6 +1321,7 @@ adjacent_items = [NodePath("../food")]
 
 [node name="food" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "22"
 
@@ -1283,6 +1334,7 @@ adjacent_items = [NodePath("../fuel")]
 
 [node name="fuel" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "11"
 
@@ -1295,6 +1347,7 @@ adjacent_items = [NodePath("../money")]
 
 [node name="money" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "23"
 
@@ -1310,6 +1363,7 @@ adjacent_items = [NodePath("../juice")]
 
 [node name="juice" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "22"
 
@@ -1322,6 +1376,7 @@ adjacent_items = [NodePath("../scrap")]
 
 [node name="scrap" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "11"
 
@@ -1334,6 +1389,7 @@ adjacent_items = [NodePath("../chips")]
 
 [node name="chips" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "23"
 
@@ -1360,6 +1416,7 @@ adjacent_items = [NodePath("../morale_value")]
 
 [node name="morale_value" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "wawa"
 
@@ -1370,7 +1427,9 @@ count_label = NodePath("../Label")
 
 [node name="Label" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
+text = "e"
 
 [node name="clock_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud"]
 layout_mode = 1
@@ -1393,9 +1452,7 @@ layout_mode = 2
 
 [node name="date" type="Label" parent="ui_overlay/ui/main_hud/clock_panel/MarginContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -3
-theme_override_constants/shadow_offset_y = -3
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "20/04"
 
@@ -1404,9 +1461,7 @@ layout_mode = 2
 
 [node name="clock" type="Label" parent="ui_overlay/ui/main_hud/clock_panel/MarginContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -3
-theme_override_constants/shadow_offset_y = -3
+theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "16:20"
 
@@ -1606,6 +1661,7 @@ ui_sfx = NodePath("ui_sfx")
 script = ExtResource("77_7rrql")
 daily_upkeep = ExtResource("78_3xuka")
 daily_upkeep_paid = ExtResource("79_t4gob")
+daily_upkeep_missed = ExtResource("80_t4gob")
 
 [node name="ColorRect" type="ColorRect" parent="ui_overlay/ui/daily_upkeep"]
 layout_mode = 1
@@ -1860,6 +1916,18 @@ material = SubResource("ShaderMaterial_g6khw")
 [node name="chips_icon" parent="ui_overlay/ui/trade_menu/HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_yrlwn")
 
+[node name="resource_icon" parent="ui_overlay/ui/trade_menu/HBoxContainer/player_panel/VBoxContainer/1_h_cost" index="0"]
+material = SubResource("ShaderMaterial_5yui1")
+
+[node name="resource_icon2" parent="ui_overlay/ui/trade_menu/HBoxContainer/player_panel/VBoxContainer/1_h_cost" index="2"]
+material = SubResource("ShaderMaterial_w084n")
+
+[node name="resource_icon" parent="ui_overlay/ui/trade_menu/HBoxContainer/player_panel/VBoxContainer/24_h_cost" index="0"]
+material = SubResource("ShaderMaterial_rw1cx")
+
+[node name="resource_icon2" parent="ui_overlay/ui/trade_menu/HBoxContainer/player_panel/VBoxContainer/24_h_cost" index="2"]
+material = SubResource("ShaderMaterial_l6aqk")
+
 [node name="money_icon" parent="ui_overlay/ui/trade_menu/HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer3" index="0"]
 material = SubResource("ShaderMaterial_1sa2f")
 
@@ -1899,7 +1967,6 @@ horizontal_alignment = 2
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
 [connection signal="hour_passed" from="." to="quadrants/quadrant_4/in_map_player/Player" method="travel_upkeep"]
-[connection signal="hour_passed" from="." to="ui_overlay/ui/daily_upkeep" method="_on_world_map_hour_passed"]
 [connection signal="returned_from_battle" from="." to="." method="_on_returned_from_battle"]
 [connection signal="returned_from_battle" from="." to="ui_overlay/ui/main_hud" method="_on_world_map_returned_from_battle"]
 [connection signal="time_skipped" from="." to="ui_overlay/ui/main_hud" method="update_clock"]

@@ -3,6 +3,9 @@ extends Item
 class_name ResourceContainer
 
 @export_enum("food", "fuel", "juice", "scrap", "chips") var resource:String;
+@export var raw_stack:bool=false;
+@export var mirror_only:bool=false
+@export var storage:bool=false;
 
 var description:String;
 var hint_description:String;
@@ -11,9 +14,9 @@ func _ready()->void:
 	assert(material is ShaderMaterial)
 	hint_description = "[right-click] to store"
 	material.set_shader_parameter("base_color", Index.get_color(resource));
-	if "raw_stack" in self:
+	if raw_stack:
 		
-		if "mirror_only" in self:
+		if mirror_only:
 			description = Index.resource_colored_name(resource) + " is a liquid, it will go to waste if left outside of a [u]container.[/u]"
 		else:
 			description = "Stack of up to " + str(self["capacity"]) + " " + Index.resource_colored_name(resource) + "."
@@ -33,7 +36,7 @@ func space_left()->int:
 	return self["capacity"] - stack_size;
 
 func check_empty()->bool:
-	if stack_size == 0 and "raw_stack" in self:
+	if stack_size == 0 and raw_stack:
 		queue_free();
 		return true
 	return false;

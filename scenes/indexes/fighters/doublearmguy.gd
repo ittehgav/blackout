@@ -1,14 +1,12 @@
 extends FighterBase
 
 
-const skill_effects = ["aoe_damage", "aoe_stun"];
-const skill_visuals = ["lunge_forward"]
+const skill_visuals = ["lunge_forward", "hook"]
+const projection_vfx = ["aoe_circle"];
 ## not stunning??
 const skill_use_sfx = ["swing"]
 const skill_hit_sfx = ["slam"]
 
-const skill_windup = true;
-const skill_projection = "basic_aoe"
 
 
 const sample_offset = Vector2(23, -37)
@@ -42,3 +40,7 @@ const hit_scan_radius = 200;
 
 
 const status_duration = .25;
+
+func skill()->void:
+	Combat.aoe_damage(fighter);
+	Combat.aoe_stun(fighter);

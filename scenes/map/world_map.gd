@@ -18,14 +18,14 @@ var current_month:int=1;
 
 var pause_stack:int = 0;
 
-var current_hour:int=11;
+var current_hour:int=6;
 var current_minute:int=50;
 
 @export var ui:Control;
 
 @export var player:InMapPlayer
 
-@export var quadrants:Node2D;
+@export var quadrants:WorldMapPlane;
 
 @export var sky_colors:Array[Color] = [
 	Color.WHITE,
@@ -85,8 +85,8 @@ func pause_map()->void:
 	if pause_stack == 1:
 		Entities.in_map_player.set_process_input(false)
 		Entities.in_map_player.stop_movement(false)
-		get_tree().paused = true;
 		process_mode = PROCESS_MODE_DISABLED
+		Entities.in_map_player.camera.process_mode =Node.PROCESS_MODE_DISABLED
 		Entities.in_map_player.process_mode = Node.PROCESS_MODE_DISABLED;
 		map_paused.emit();
  
@@ -102,6 +102,7 @@ func unpause_map(force:bool=false)->void:
 		Entities.in_map_player.set_process_input(true)
 		process_mode = PROCESS_MODE_PAUSABLE
 		Entities.in_map_player.process_mode = Node.PROCESS_MODE_ALWAYS;
+		Entities.in_map_player.camera.process_mode = Node.PROCESS_MODE_ALWAYS 
 		map_unpaused.emit()
 
 

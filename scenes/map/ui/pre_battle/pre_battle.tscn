@@ -1,14 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqyc1v8qqn3xv"]
+[gd_scene load_steps=8 format=3 uid="uid://cqyc1v8qqn3xv"]
 
 [ext_resource type="Script" uid="uid://c4syomk56oshh" path="res://scenes/map/ui/pre_battle/pre_battle.gd" id="1_eegxm"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_1h2ec"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="3_t1aoh"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_4jo73"]
 [ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="5_6f1ys"]
-[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="5_pmmrj"]
 [ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="6_uopen"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmmrj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4jo73"]
 resource_local_to_scene = true
 shader = ExtResource("4_4jo73")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -68,7 +67,7 @@ offset_bottom = -354.0
 grow_vertical = 0
 
 [node name="body" parent="container/player_panel/player_avatar" instance=ExtResource("3_t1aoh")]
-material = SubResource("ShaderMaterial_pmmrj")
+material = SubResource("ShaderMaterial_4jo73")
 scale = Vector2(6, 6)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="container/player_panel"]
@@ -183,7 +182,6 @@ offset_right = 6.0
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("5_pmmrj")
 theme_override_font_sizes/font_size = 64
 text = "Start Battle"
 

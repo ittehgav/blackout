@@ -40,10 +40,20 @@ func _on_accept_pressed() -> void:
 
 
 func _on_auto_sort_pressed() -> void:
-	inventory_display.sort_inventory();
-	Tweens.ui_fade_out(self);
-	inventory_display.warnings_attended.emit(true);
+	if inventory_display.context == "player_sheet":
+		inventory_display.sort_inventory();
+		Tweens.ui_fade_out(self);
+		
+		inventory_display.reset_warnings();
+		inventory_display.update_inventory();
+	elif inventory_display.context == "trade":
+		Tweens.ui_fade_out(self);
+		for r:String in ["fuel", "juice"]:
+			for mirror:ItemMirror in inventory_display.all_mirrors:
+				if mirror.item is ResourceContainer and mirror.item.mirror_only:
+					inventory_display.send_resource(mirror, mirror.stack_size);
+			inventory_display.reset_warnings();
 	
-	inventory_display.reset_warnings();
-	inventory_display.update_inventory();
+	inventory_display.warnings_attended.emit(true);
+
 	

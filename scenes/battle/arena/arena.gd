@@ -54,8 +54,8 @@ func return_to_world_map()->void:
 	Entities.world_map.returned_from_battle.emit(won_battle);
 
 func generate_battle_reward(enemy_leader:Leader)->void:
-	for unit:ActiveFighter in team_2.units:
-		battle_exp_value += unit.unit.level;
+	for fighter:ActiveFighter in team_2.units:
+		battle_exp_value += fighter.unit.level;
 	
 	battle_loot = enemy_leader.inventory
 		
@@ -63,8 +63,10 @@ func generate_battle_reward(enemy_leader:Leader)->void:
 
 func load_teams(enemy_leader:Leader)->void:
 	## happens before ready?
-	team_1.initial_party_size = len(Entities.player.roster.units) + 1;
 	
+	team_1.initial_party_size = len(Entities.player.roster.units) + 1;
+	## ugly way to assign player fighter
+	assign_team(team_1.get_child(0), 1, Entities.player);
 	Entities.player.load_party(team_1, 1);
 	team_1.leader = Entities.player
 	
@@ -72,26 +74,9 @@ func load_teams(enemy_leader:Leader)->void:
 	team_2.initial_party_size = len(enemy_leader.roster.units) + 1
 	enemy_leader.load_party(team_2, 2);
 
-	var leader_unit:NpcFighter = Index.npc_fighter_scene.instantiate();
-	leader_unit.load_fighter(enemy_leader.unit, 2)
-	team_2.leader_fighter = leader_unit
-	team_2.leader = enemy_leader;
-	tide_bar.team_2_unit_values[team_2.leader_fighter] = enemy_leader.unit.level;
-
-	team_2.add_child(leader_unit)
 
 
-	leader_unit.position = Vector2(450, 50)
-	await team_1.all_units_loaded
-	await team_2.all_units_loaded
-	match_teams(enemy_leader)
 
-func match_teams(enemy_leader:Leader)->void:
-	for unit:ActiveFighter in team_1.units:
-		assign_team(unit, 1, Entities.player);
-
-	for unit:ActiveFighter in team_2.units:
-		assign_team(unit, 2, enemy_leader)
 
 func player_died(_killer:ActiveFighter)->void:
 	battle_over(2);
@@ -103,13 +88,14 @@ func battle_over(winner:int)->void:
 	
 func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
 	var enemy_team_n:int = 2 if team_n == 1 else 1;
-
+	var ally_team:Team = self["team_" + str(team_n)];
+	ally_team.assign_unit(unit);
+	
 	unit.set_collision_layer_value(team_n, true);
 	unit.set_collision_mask_value(enemy_team_n, true)
-	unit.base.fighter = unit
+	
+	
 	if not unit is InFightPlayer:
-		ColorCoder.color_code_fighter(unit.base, leader.color_scheme_index);
-		
 		var skill_range:Area2D = unit.get_node("skill_range")
 		## break this down into enemy/ally targets:?
 		match unit.base.target_type:

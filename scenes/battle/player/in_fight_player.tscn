@@ -23,12 +23,12 @@
 [ext_resource type="AudioStream" uid="uid://cf5r6sya87ovr" path="res://assets/sound/sfx/combat/player/adrenaline.wav" id="18_3ir4e"]
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="19_1g51p"]
 [ext_resource type="AudioStream" uid="uid://db0qsxl1ljgpd" path="res://assets/sound/sfx/combat/player/module_unavailable.mp3" id="19_3sqae"]
-[ext_resource type="AudioStream" uid="uid://dcs0b2l6f5lqt" path="res://assets/sound/sfx/combat/player/metallic_shell.ogg" id="19_pldj0"]
 [ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="20_1g51p"]
 [ext_resource type="Script" uid="uid://xv6fqqwy0nel" path="res://scenes/battle/player/module_sfx.gd" id="20_3sqae"]
 [ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="20_g6u4u"]
-[ext_resource type="AudioStream" uid="uid://qxjijcnx4kw8" path="res://assets/sound/sfx/combat/special/overload.wav" id="21_g6u4u"]
+[ext_resource type="AudioStream" uid="uid://c8q1nsc7cl0f0" path="res://assets/sound/sfx/combat/special/overload.wav" id="21_g6u4u"]
 [ext_resource type="AudioStream" uid="uid://deleehb8xbh34" path="res://assets/sound/sfx/combat/player/dash.wav" id="21_pldj0"]
+[ext_resource type="AudioStream" uid="uid://0ykkqmvak3d7" path="res://assets/sound/sfx/combat/player/metallic_shell.wav" id="22_dax2e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g4l1e"]
 shader = ExtResource("3_3uxwr")
@@ -63,16 +63,32 @@ sfx = NodePath("sfx")
 base = NodePath("body")
 timers = NodePath("timers")
 
-[node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit")]
+[node name="floating_icon_anchor" type="Node2D" parent="."]
+position = Vector2(-30, -19)
+
+[node name="module_projection" type="TextureRect" parent="."]
+process_mode = 4
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="module_aoe_vfx" type="TextureRect" parent="."]
+process_mode = 4
+visible = false
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit", "floating_icon_anchor")]
 script = ExtResource("3_8al0b")
 unit = NodePath("..")
+floating_icon_anchor = NodePath("../floating_icon_anchor")
 
 [node name="shadow" type="Node2D" parent="."]
 position = Vector2(0, 30)
-scale = Vector2(1, 0.35)
+scale = Vector2(0.5, 0.175)
 script = ExtResource("2_g4l1e")
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
+bus = &"sfx"
 script = ExtResource("16_sjuhg")
 damage_taken = ExtResource("14_pldj0")
 
@@ -84,9 +100,11 @@ shape = SubResource("CapsuleShape2D_wutkk")
 [node name="body" parent="." instance=ExtResource("2_fo4cr")]
 use_parent_material = true
 
-[node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("holder", "body", "hit_scan_shape", "weapon_cd", "weapon_sfx", "module_cd", "module_sfx", "freeze_frame_timer")]
+[node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("module_projection", "module_aoe_vfx", "holder", "body", "hit_scan_shape", "weapon_cd", "weapon_sfx", "module_cd", "module_sfx", "freeze_frame_timer")]
 use_parent_material = true
 script = ExtResource("6_cbwmk")
+module_projection = NodePath("../module_projection")
+module_aoe_vfx = NodePath("../module_aoe_vfx")
 holder = NodePath("..")
 body = NodePath("../body")
 hit_scan_shape = NodePath("../hit_scan/shape")
@@ -103,6 +121,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="weapon_sfx" type="AudioStreamPlayer" parent="equipment/weapon_control" node_paths=PackedStringArray("hit_sfx")]
+bus = &"sfx"
 script = ExtResource("7_avuby")
 hit_sfx = NodePath("../weapon_hit_sfx")
 swing = ExtResource("19_1g51p")
@@ -116,6 +135,7 @@ heal = ExtResource("14_evdtg")
 buff = ExtResource("15_3ir4e")
 
 [node name="weapon_hit_sfx" type="AudioStreamPlayer" parent="equipment/weapon_control"]
+bus = &"sfx"
 
 [node name="animation_ticker" type="Timer" parent="equipment/weapon_control"]
 wait_time = 0.15
@@ -127,10 +147,11 @@ one_shot = true
 
 [node name="module_sfx" type="AudioStreamPlayer" parent="equipment/module_control"]
 max_polyphony = 2
+bus = &"sfx"
 script = ExtResource("20_3sqae")
 dash = ExtResource("21_pldj0")
 adrenaline = ExtResource("18_3ir4e")
-metallic_shell = ExtResource("19_pldj0")
+metallic_shell = ExtResource("22_dax2e")
 buckler = ExtResource("20_1g51p")
 overload = ExtResource("21_g6u4u")
 module_unavailable = ExtResource("19_3sqae")
@@ -156,11 +177,10 @@ script = ExtResource("12_fo4cr")
 
 [node name="camera" type="Camera2D" parent="." node_paths=PackedStringArray("screen_blink")]
 position_smoothing_enabled = true
-position_smoothing_speed = 20.0
+position_smoothing_speed = 10.0
 editor_draw_drag_margin = true
 script = ExtResource("8_ccswf")
 screen_blink = NodePath("../hud_overlay/screen_blink")
-max_distance_from_parent = 50.0
 
 [node name="hud_overlay" type="CanvasLayer" parent="."]
 

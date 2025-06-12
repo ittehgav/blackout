@@ -64,9 +64,8 @@ func setup_event_confirmation(target:LocalEvent)->void:
 		confirm_btn.text = "Confirm";
 		confirm_btn.disabled = false;
 	
-	
 	for c:Node in samples_container.get_children():
-		c.free()
+		c.queue_free()
 	
 	for unit:FighterUnit in Entities.player.roster.units:
 		if event.tag in unit.base.tags:

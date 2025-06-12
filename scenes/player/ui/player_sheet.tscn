@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=51 format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/player/ui/player_sheet.gd" id="1_6boby"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_go8yu"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://4xy3dgtjm31i" path="res://scenes/player/ui/inventory_tab.gd" id="8_hv25b"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="9_f66i1"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="10_2ehd5"]
-[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="10_bqvqp"]
 [ext_resource type="Script" uid="uid://bbd3oiy16p7qa" path="res://scenes/player/ui/gear.gd" id="10_guigk"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="11_drn0r"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="12_guigk"]
@@ -364,8 +363,10 @@ equip = SubResource("Resource_d23kd")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("3_vnktq")]
+bus = &"sfx"
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
+bus = &"sfx"
 script = ExtResource("7_8o2td")
 unit_upgrade = ExtResource("8_3vgn1")
 
@@ -420,7 +421,6 @@ offset_top = -299.0
 offset_right = 531.0
 offset_bottom = 304.0
 grow_vertical = 2
-theme = ExtResource("10_bqvqp")
 
 [node name="inventory_display" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" instance=ExtResource("14_s8tnr")]
 layout_mode = 1

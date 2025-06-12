@@ -157,7 +157,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="settlement_ui" type="Control" node_paths=PackedStringArray("post_listen_around", "post_listen_around_list", "memo_label", "sky_props", "sky_bg", "crowd_rect", "name_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "local_event_btn", "local_event_btn_label", "main_view", "trade_menu", "recruitment_menu", "event_view", "ui_sfx")]
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("post_listen_around", "post_listen_around_list", "memo_label", "sky_props", "sky_bg", "crowd_rect", "name_label", "settlement_type_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "local_event_btn", "local_event_btn_label", "main_view", "trade_menu", "recruitment_menu", "event_view", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -174,6 +174,7 @@ sky_props = NodePath("sky_view")
 sky_bg = NodePath("sky_bg")
 crowd_rect = NodePath("background/crowd")
 name_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/settlement_name")
+settlement_type_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/settlement_type")
 short_description_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/short_description")
 long_description_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/long_description")
 trade_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade")
@@ -202,6 +203,7 @@ script = ExtResource("3_m2mhi")
 settlement_ui = NodePath("..")
 background = NodePath("../background")
 crowd = NodePath("../background/crowd")
+sky_colors = Array[Color]([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.14902, 0.113725, 0.14902, 1), Color(0.44, 0.206433, 0.154, 1), Color(0.556863, 0.282353, 0.192157, 1), Color(0.56, 0.474133, 0.4312, 1), Color(0.607843, 0.580392, 0.580392, 1), Color(0.5082, 0.66, 0.66, 1), Color(0.539, 0.7, 0.7, 1), Color(0.6083, 0.79, 0.79, 1), Color(0.7055, 0.85, 0.85, 1), Color(0.738, 0.9, 0.9, 1)])
 prop_darkest = Color(0.0313726, 0.0666667, 0.145098, 1)
 ground_darkest = Color(0.1118, 0.38614, 0.86, 1)
 prop_sunrise = Color(0.42, 0.0798, 0.0798, 1)
@@ -213,7 +215,7 @@ ground_brightest = Color(0.71, 0.6532, 0.4828, 1)
 prop_sunset = Color(0.419608, 0.0784314, 0.0784314, 1)
 ground_sunset = Color(0.45, 0.4059, 0.324, 1)
 
-[node name="sky_view" parent="." node_paths=PackedStringArray("settlement_ui", "sky_bg", "crowd_rect") instance=ExtResource("14_6i511")]
+[node name="sky_view" parent="." node_paths=PackedStringArray("settlement_ui", "sky_bg", "crowd_rect", "background") instance=ExtResource("14_6i511")]
 layout_mode = 1
 offset_top = -720.0
 offset_bottom = -720.0
@@ -221,6 +223,7 @@ mouse_filter = 2
 settlement_ui = NodePath("..")
 sky_bg = NodePath("../sky_bg")
 crowd_rect = NodePath("../background/crowd")
+background = NodePath("../background")
 
 [node name="background" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_cq7yt")
@@ -242,7 +245,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="main_view" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -281,14 +283,14 @@ theme_override_constants/separation = 10
 
 [node name="settlement_name" type="Label" parent="main_view/container/text/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"settlement_title"
-theme_override_colors/font_shadow_color = Color(0.5, 0.5, 0.5, 1)
-theme_override_constants/shadow_offset_x = -2
-theme_override_constants/shadow_offset_y = -2
 theme_override_font_sizes/font_size = 64
 text = "Factory"
 horizontal_alignment = 1
-autowrap_mode = 3
+
+[node name="settlement_type" type="Label" parent="main_view/container/text/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Factory"
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="main_view/container/text/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -333,9 +335,7 @@ layout_mode = 2
 
 [node name="options_title" type="Label" parent="main_view/container/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = -32
-theme_override_constants/outline_size = 14
 theme_override_font_sizes/font_size = 112
 theme_override_styles/normal = SubResource("StyleBoxEmpty_pm0ox")
 text = "What Will You Do?"
@@ -470,6 +470,7 @@ visible = false
 layout_mode = 1
 
 [node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -790,11 +791,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="return" type="Button" parent="event_view/confirmation"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 40.0
-offset_right = 159.0
-offset_bottom = 74.0
+modulate = Color(0.84, 0.84, 0.84, 0.486275)
+layout_mode = 1
+offset_left = 24.0
+offset_top = 21.0
+offset_right = 160.0
+offset_bottom = 55.0
 shortcut = ExtResource("5_36m0f")
 text = "[esc] Return"
 
@@ -873,6 +875,7 @@ theme_override_font_sizes/font_size = 64
 text = "Confirm"
 
 [node name="conclusion" type="Panel" parent="event_view"]
+visible = false
 custom_minimum_size = Vector2(1000, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -1059,6 +1062,7 @@ text = "Continue"
 [connection signal="gui_input" from="post_listen_around" to="post_listen_around" method="_on_gui_input"]
 [connection signal="visibility_changed" from="post_listen_around" to="post_listen_around" method="_on_visibility_changed"]
 [connection signal="meta_clicked" from="post_listen_around/panel/list/memo_label" to="post_listen_around" method="_on_memo_label_meta_clicked"]
+[connection signal="meta_clicked" from="post_listen_around/panel/list/memo_label" to="post_listen_around/panel/list/memo_label" method="_on_meta_clicked"]
 [connection signal="pressed" from="recruitment_menu/recruit_cards/exit" to="recruitment_menu" method="_on_exit_pressed"]
 [connection signal="pressed" from="recruitment_menu/Panel/hire_btn" to="recruitment_menu" method="_on_hire_btn_pressed"]
 [connection signal="pressed" from="event_view/confirmation/return" to="." method="show_main_view" binds= [false]]

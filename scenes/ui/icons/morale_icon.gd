@@ -36,7 +36,8 @@ func update()->void:
 	material.set_shader_parameter("base_color", target_color);
 	
 	for item in adjacent_items:
-		item.modulate = target_color;
+		if item is Label:
+			item.add_theme_color_override("font_color", target_color);
 		if item.name == "morale_value":
 			item.text = str(snapped(Entities.player.morale, .01));
 

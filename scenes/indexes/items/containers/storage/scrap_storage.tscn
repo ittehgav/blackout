@@ -1,21 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://trljbl54r8bw"]
+[gd_scene load_steps=4 format=3 uid="uid://trljbl54r8bw"]
 
-[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_iwnw4"]
+[ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_iwnw4"]
 [ext_resource type="Texture2D" uid="uid://6sf7pcvpmhmr" path="res://assets/visual/icons/resources/scrap.png" id="2_6ufr5"]
 [ext_resource type="Script" uid="uid://cf7isxm3c731" path="res://scenes/indexes/items/containers/storage/scrap_storage.gd" id="3_1fpti"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o7g5i"]
-shader = ExtResource("1_iwnw4")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
 [node name="Scrap" type="Sprite2D"]
-material = SubResource("ShaderMaterial_o7g5i")
+material = ExtResource("1_iwnw4")
 texture = ExtResource("2_6ufr5")
 script = ExtResource("3_1fpti")
 resource = "scrap"
+storage = true
+fixed = true

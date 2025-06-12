@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=93 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
@@ -72,12 +72,26 @@
 [ext_resource type="PackedScene" uid="uid://drpmmjb1xgevj" path="res://scenes/indexes/events/security_gig.tscn" id="54_bfenw"]
 [ext_resource type="PackedScene" uid="uid://befk1w3k752rm" path="res://scenes/indexes/events/seminar.tscn" id="55_psl0v"]
 [ext_resource type="PackedScene" uid="uid://dmbkq4gobrt61" path="res://scenes/indexes/events/special_training.tscn" id="56_xtdb6"]
+[ext_resource type="Texture2D" uid="uid://07xmhqaquw88" path="res://assets/visual/particles/circles/circle_hollow_4x4.png" id="73_utn0t"]
 [ext_resource type="Texture2D" uid="uid://dwpa1mr4yds7c" path="res://assets/visual/icons/stats/floating/max_hp.png" id="73_wonwv"]
+[ext_resource type="Texture2D" uid="uid://dxn3vii4n7mar" path="res://assets/visual/particles/circles/circle_hollow_8x8.png" id="74_l4ld4"]
 [ext_resource type="Texture2D" uid="uid://etmtjtsu1lx4" path="res://assets/visual/icons/stats/floating/attack.png" id="74_vco3o"]
 [ext_resource type="Texture2D" uid="uid://bs6cyn8oaeur3" path="res://assets/visual/icons/stats/floating/defense.png" id="75_ajhry"]
+[ext_resource type="Texture2D" uid="uid://cf7qn7nec5bvw" path="res://assets/visual/particles/circles/circle_hollow_16x16.png" id="75_mwnqg"]
 [ext_resource type="Texture2D" uid="uid://70wsny5napp1" path="res://assets/visual/icons/stats/floating/technique.png" id="76_1yn38"]
+[ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="76_5481b"]
 [ext_resource type="Texture2D" uid="uid://df2splxypn7my" path="res://assets/visual/icons/stats/floating/agility.png" id="77_mlmax"]
+[ext_resource type="Texture2D" uid="uid://cui2boa6gcv18" path="res://assets/visual/particles/circles/circle_hollow_64x64.png" id="77_q20m7"]
+[ext_resource type="Texture2D" uid="uid://by7l0k6gjterq" path="res://assets/visual/icons/behaviors/idle.png" id="78_5ova7"]
 [ext_resource type="Script" uid="uid://ckghtgobwlvh1" path="res://global/theme_settings.gd" id="78_vco3o"]
+[ext_resource type="Texture2D" uid="uid://bkvwsq6raaf6p" path="res://assets/visual/particles/circles/circle_4x4.png" id="78_x7l0t"]
+[ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="79_epdxe"]
+[ext_resource type="Texture2D" uid="uid://ddunl8s2p0hj7" path="res://assets/visual/icons/behaviors/scared.png" id="79_uah8p"]
+[ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="80_5243g"]
+[ext_resource type="Texture2D" uid="uid://dm5lcd5nx7g2n" path="res://assets/visual/icons/behaviors/agressive.png" id="80_efyjx"]
+[ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="81_i7wen"]
+[ext_resource type="Texture2D" uid="uid://ckfoo7nfwxueb" path="res://assets/visual/icons/behaviors/salesman.png" id="81_t2t3a"]
+[ext_resource type="Texture2D" uid="uid://fvqn3burk27x" path="res://assets/visual/particles/circles/circle_64x64.png" id="82_er4df"]
 
 [node name="Index" type="Node" node_paths=PackedStringArray("color_palette")]
 script = ExtResource("1_pkksx")
@@ -143,11 +157,24 @@ resource_colors = Dictionary[String, Color]({
 "money": Color(0, 1, 0, 1),
 "scrap": Color(0.411765, 0.411765, 0.411765, 1)
 })
+hollow_circle_textures = Array[Texture]([ExtResource("73_utn0t"), ExtResource("74_l4ld4"), ExtResource("75_mwnqg"), ExtResource("76_5481b"), ExtResource("77_q20m7")])
+circle_textures = Array[Texture]([ExtResource("78_x7l0t"), ExtResource("79_epdxe"), ExtResource("80_5243g"), ExtResource("81_i7wen"), ExtResource("82_er4df")])
+stat_colors = Dictionary[String, Color]({
+"agility": Color(1, 1, 0.133333, 1),
+"attack": Color(0.8, 0, 0, 1),
+"defense": Color(0.529412, 0.807843, 0.921569, 1),
+"max_hp": Color(0, 0.501961, 0, 1),
+"technique": Color(1, 0.0784314, 0.576471, 1)
+})
 max_hp_floating_icon = ExtResource("73_wonwv")
 attack_floating_icon = ExtResource("74_vco3o")
 defense_floating_icon = ExtResource("75_ajhry")
 technique_floating_icon = ExtResource("76_1yn38")
 agility_floating_icon = ExtResource("77_mlmax")
+idle_icon_texture = ExtResource("78_5ova7")
+scared_icon_texture = ExtResource("79_uah8p")
+agressive_icon_texture = ExtResource("80_efyjx")
+salesman_icon_texture = ExtResource("81_t2t3a")
 
 [node name="color_palette" type="Node" parent="."]
 script = ExtResource("78_vco3o")

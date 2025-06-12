@@ -1,9 +1,8 @@
 extends FighterBase
 
-const skill_windup = true;
+const skill_visuals = ["lunge_forward", "recoil_target", "overhead"]
+const projection_vfx = [];
 
-const skill_effects = ["direct_damage"];
-const skill_visuals = ["lunge_forward", "recoil_target"]
 
 const skill_use_sfx = ["swing"]
 const skill_hit_sfx = ["metal"]
@@ -66,3 +65,7 @@ const evolutions = {
 		"scrap":50
 	}
 }
+
+func skill()->void:
+	Combat.deal_damage(fighter);
+	fighter.catch_hit_target(fighter.target_unit)

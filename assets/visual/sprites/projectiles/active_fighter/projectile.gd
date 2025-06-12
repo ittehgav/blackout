@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Node2D;
 
 class_name Projectile
 
@@ -6,42 +6,60 @@ signal hit(fighter:ActiveFighter);
 
 var move_target:Vector2;
 
+@export var hit_allies:bool=false;
+@export var hit_enemies:bool=true;
+
 @export var shooter:ActiveFighter;
 
 @export var sprite:Sprite2D;
 @export var despawn_timer:Timer;
+@export var hitbox:Area2D;
 
-const flight_speed = 50;
+const flight_speed = 1200;
 
-@export_enum("arrow", "needle") var type:String="arrow";
+@export_enum("arrow", "syringe") var type:String="arrow";
 
 @export var arrow_texture:Texture;
 @export var syringe_texture:Texture;
 
+var self_target:bool = false;
+var ally_mask:int;
+var enemy_mask:int;
+
 var source:bool=false;
 ## projectile nodes will fire clones of themselves, the original projectile is never truly fired.
 ## projectile will mimick the holder's collision mask
+
+
 
 func setup(new_shooter:ActiveFighter)->void:
 	shooter = new_shooter;
 	source = true
 	## can only run after assigning shooter
 	var shooter_team_n:int = shooter.ally_team.team_n;
-	var target_mask:int;
+	var enemy_team_n:int = shooter.enemy_team.team_n;
+	
 	if shooter_team_n == 1:
-		target_mask = 2
+		ally_mask = 1;
+		enemy_mask = 2
 	else:
-		target_mask = 1;
+		ally_mask = 2;
+		enemy_mask = 1;
+	
+	if hit_enemies:
+		hitbox.set_collision_mask_value(enemy_mask, true);
+	if hit_allies:
+		hitbox.set_collision_mask_value(ally_mask, true)
 		
-	set_collision_mask_value(target_mask, true);
 	sprite.texture = self[type + "_texture"];
+	
 
-func shoot(target_direction:Vector2)->Projectile:
+
+func shoot(target_direction:Vector2, self_target:bool=false)->Projectile:
 	## expose the projectiles hit signal to the weapon nodeç;
 	var clone:Projectile = duplicate();
 	clone.shooter = shooter;
 	clone.start_flight(target_direction);
-	
 	return clone;
 	
 func start_flight(target_direction:Vector2)->void:
@@ -53,15 +71,20 @@ func start_flight(target_direction:Vector2)->void:
 	global_position = shooter.global_position;
 	sprite.look_at(position + target_direction)
 	
-func _physics_process(_delta: float) -> void:
-	if not source:
-		var direction:Vector2 = move_target * flight_speed;
-		var collision:KinematicCollision2D = move_and_collide(direction);
-		if collision:
-			hit.emit(collision.get_collider())
+func _physics_process(delta: float) -> void:
+	position += move_target * flight_speed * delta;
 
-func _on_hit(_fighter: ActiveFighter) -> void:
-	queue_free();
+
+func _on_hit(fighter: ActiveFighter) -> void:
+	queue_free()
 
 func _on_despawn_timer_timeout() -> void:
 	queue_free();
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if hit_allies:
+		if body != shooter:
+			hit.emit(body);
+	else:
+		hit.emit(body);

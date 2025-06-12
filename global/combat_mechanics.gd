@@ -1,6 +1,6 @@
 extends Node
 
-func deal_damage(source:ActiveFighter, target:ActiveFighter, modifier:Callable=Callable(), hard_value:float=0)->void:
+func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, modifier:Callable=Callable(), hard_value:float=0)->void:
 	var damage:float
 	if not hard_value:
 		damage = source.attack;
@@ -41,7 +41,7 @@ func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
 
 	target.healing_received.emit(value)
 
-func stun_target(source:ActiveFighter, target:ActiveFighter, duration:float = source.base.status_duration * source.technique)->void:
+func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, duration:float = source.base.status_duration * source.technique)->void:
 	if source is NpcFighter:
 		source.catch_hit_target(target);
 

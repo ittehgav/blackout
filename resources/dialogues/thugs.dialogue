@@ -1,7 +1,7 @@
 import "res://resources/dialogues/map_common.dialogue" as common
 
 ~ start
-Thugs: Hey you, give all your money!
+Thugs: Hey you, give me your money!
 - You can take it from my cold, dead hands! #start_battle =>< common/battle
 - Okay, you can have it, just don't hurt me! #yield =>< yield
 - Maybe we can talk this out? => talk_things_out

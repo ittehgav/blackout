@@ -50,6 +50,7 @@ func _ready()->void:
 	Entities.player_sheet = self;
 
 
+
 func _input(e:InputEvent)->void:
 	if e.is_action_pressed("show_player_sheet") and not visible:
 		show_player_sheet()

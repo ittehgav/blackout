@@ -11,6 +11,7 @@
 stream = ExtResource("1_igjwg")
 volume_db = -10.0
 max_polyphony = 5
+bus = &"sfx"
 script = ExtResource("2_qkd3f")
 mouseover_sounds = Array[AudioStream]([ExtResource("3_xbfpv"), ExtResource("4_4v0va")])
 disabled_mouseover = ExtResource("1_igjwg")

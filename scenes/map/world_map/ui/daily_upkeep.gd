@@ -33,6 +33,7 @@ var total_cancelled:int;
 var total_displays:int;
 
 
+
 func _on_world_map_hour_passed() -> void:
 	if Entities.world_map.current_hour == 12:
 		daily_upkeep()
@@ -144,24 +145,28 @@ func find_insufficient_resource()->String:
 
 func _on_confirm_pressed() -> void:
 	confirm_btn.disabled = true
-	var tween:Tween=create_tween();
-	ui_sfx.play_stream("daily_upkeep_paid")
-	for r:String in Index.all_resources:
-		if r != "chips":
-			self[r+"_after"].hide();
-			var before:int = Entities.player.inventory[r]
-			Entities.player.inventory.change_resource(r, total_costs[r] * -1)
-			tween.parallel().tween_method(set_before_label.bind(r), before, Entities.player.inventory[r], 1);
-	
-	var exp:int = get_upkeep_exp();
-	
-	for display:Control in grid.get_children():
-		if display.paying:
-			display.commit_payment(exp);
-	await tween.finished;
-	daily_upkeep_finished.emit();
-	Entities.world_map.unpause_map();
-	Tweens.ui_fade_out(self);
+	if total_displays - total_cancelled:
+		var tween:Tween=create_tween();
+		ui_sfx.play_stream("daily_upkeep_paid")
+		for r:String in Index.all_resources:
+			if r != "chips":
+				self[r+"_after"].hide();
+				var before:int = Entities.player.inventory[r]
+				Entities.player.inventory.change_resource(r, total_costs[r] * -1)
+				tween.parallel().tween_method(set_before_label.bind(r), before, Entities.player.inventory[r], 1);
+		
+		var exp:int = get_upkeep_exp();
+		
+		for display:Control in grid.get_children():
+			if display.paying:
+				display.commit_payment(exp);
+		await tween.finished;
+		daily_upkeep_finished.emit();
+		Entities.world_map.unpause_map();
+		Tweens.ui_fade_out(self);
+	else:
+		ui_sfx.play_stream("daily_upkeep_missed")
+		Tweens.ui_fade_out(self)
 
 func set_before_label(value:int, resource:String)->void:
 	var label:Label = self[resource + "_before"];

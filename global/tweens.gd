@@ -3,7 +3,16 @@ extends Node
 ## ALL TWEENS WILL BE DONE HERE
 ## all tween functions will return their tween
 
-
+func shake_fighter(fighter:ActiveFighter)->Tween:
+	var x_shake:int = randi_range(-20, 20);
+	var y_shake:int = randi_range(-20, 20);
+	
+	fighter.base.position += Vector2(x_shake, y_shake);
+	var tween:= create_tween();
+	tween.tween_property(fighter.base, "position", Vector2.ZERO, .1);
+	return tween;
+	
+	
 func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 	var target_rotation:float;
 	if target.swung:
@@ -145,6 +154,15 @@ func recoil_target(unit:ActiveFighter)->Tween:
 	tween.tween_property(target.base, "position", Vector2.ZERO, .25);
 	return tween;
 
+func shrink_target(unit:ActiveFighter)->Tween:
+	var target:ActiveFighter = unit.target_unit;
+	target.base.scale /= 2;
+	
+	var tween:=create_tween();
+	tween.tween_property(target.base, "scale", Vector2.ONE, .5);
+	
+	return tween;
+
 func shader_color_blink(target:FighterBase, target_color:Color, duration:float = .3)->Tween:
 	target.material.set_shader_parameter("target_color", target_color);
 	target.material.set_shader_parameter("grad", 1.0);
@@ -175,14 +193,7 @@ func fade_up(target:CanvasItem, free_after:bool = true)->Tween:
 		tween.tween_callback(target.queue_free);
 	return tween
 	
-func fade_down(target:CanvasItem, free_after:bool = true)->Tween:
-	var tween:Tween = create_tween();
-	tween.tween_property(target, "position:y", target.position.y + 50, .5)
-	if free_after:
-		tween.parallel().tween_property(target, "modulate:a", 0, .5)
-		tween.tween_callback(target.queue_free);
-	return tween
-	
+
 func squish_bar(target:TextureProgressBar)->Tween:
 	## bar can't be in a container
 	target.scale = Vector2(.9, .5);

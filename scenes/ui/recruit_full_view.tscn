@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene load_steps=43 format=3 uid="uid://1hbrworalfdw"]
 
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/recruit_full_view.gd" id="1_ywq7p"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_atfxm"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="4_cwkea"]
 [ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="5_atfxm"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="5_lmv1r"]
-[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="8_2twa8"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="9_nv8af"]
 [ext_resource type="Script" uid="uid://olw5ie87mp07" path="res://scenes/ui/panel.gd" id="10_bh2lf"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="12_ryym2"]
@@ -121,8 +120,6 @@ shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_by5ee"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n2jki"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_87570"]
 resource_local_to_scene = true
@@ -291,7 +288,6 @@ offset_right = 640.0
 offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("8_2twa8")
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -537,7 +533,7 @@ offset_bottom = 33.0
 theme_override_font_sizes/font_size = 32
 text = "Press [escape] or [right-click] to return"
 
-[node name="evolution" type="Panel" parent="Panel" node_paths=PackedStringArray("title_label", "confirmation", "evolution_texture_buffer", "evolution_1_sprite", "evolution_1_panel", "evolution_1_costs_container", "evolution_1_cost_1_icon", "evolution_1_cost_1_label", "evolution_1_cost_2_icon", "evolution_1_cost_2_label", "evolution_2_sprite", "evolution_2_panel", "evolution_2_costs_container", "evolution_2_cost_1_icon", "evolution_2_cost_1_label", "evolution_2_cost_2_icon", "evolution_2_cost_2_label")]
+[node name="evolution" type="Panel" parent="Panel" node_paths=PackedStringArray("title_label", "confirmation", "evolution_texture_buffer", "evolution_1_sprite", "evolution_1_panel", "evolution_1_highlight", "evolution_1_costs_container", "evolution_1_cost_1_icon", "evolution_1_cost_1_label", "evolution_1_cost_2_icon", "evolution_1_cost_2_label", "evolution_2_sprite", "evolution_2_panel", "evolution_2_highlight", "evolution_2_costs_container", "evolution_2_cost_1_icon", "evolution_2_cost_1_label", "evolution_2_cost_2_icon", "evolution_2_cost_2_label")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -557,6 +553,7 @@ confirmation = NodePath("../evolution_confirmation_bg/evolution_confirmation")
 evolution_texture_buffer = NodePath("../evolution_confirmation_bg/evolution_texture_buffer")
 evolution_1_sprite = NodePath("HBoxContainer/evolution_1/evolution_1")
 evolution_1_panel = NodePath("HBoxContainer/evolution_1/evolution_1/Panel")
+evolution_1_highlight = NodePath("HBoxContainer/evolution_1/evolution_1/highlight")
 evolution_1_costs_container = NodePath("HBoxContainer/evolution_1/resource_costs")
 evolution_1_cost_1_icon = NodePath("HBoxContainer/evolution_1/resource_costs/resource_icon")
 evolution_1_cost_1_label = NodePath("HBoxContainer/evolution_1/resource_costs/resource_1")
@@ -564,6 +561,7 @@ evolution_1_cost_2_icon = NodePath("HBoxContainer/evolution_1/resource_costs/res
 evolution_1_cost_2_label = NodePath("HBoxContainer/evolution_1/resource_costs/resource_2")
 evolution_2_sprite = NodePath("HBoxContainer/evolution_2/evolution_2")
 evolution_2_panel = NodePath("HBoxContainer/evolution_2/evolution_2/Panel")
+evolution_2_highlight = NodePath("HBoxContainer/evolution_2/evolution_2/highlight")
 evolution_2_costs_container = NodePath("HBoxContainer/evolution_2/resource_costs")
 evolution_2_cost_1_icon = NodePath("HBoxContainer/evolution_2/resource_costs/resource_icon")
 evolution_2_cost_1_label = NodePath("HBoxContainer/evolution_2/resource_costs/resource_1")
@@ -607,15 +605,41 @@ modulate = Color(0, 0, 0, 0.435294)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_ryym2")
 texture_hover = SubResource("AtlasTexture_nv8af")
+texture_disabled = SubResource("AtlasTexture_nv8af")
+
+[node name="highlight" type="ColorRect" parent="Panel/evolution/HBoxContainer/evolution_1/evolution_1"]
+modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -30.0
+offset_right = 60.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 0.301961, 0.368627)
 
 [node name="Panel" type="Panel" parent="Panel/evolution/HBoxContainer/evolution_1/evolution_1"]
 visible = false
 show_behind_parent = true
-custom_minimum_size = Vector2(90, 80)
+custom_minimum_size = Vector2(120, 60)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -40.0
+offset_right = 45.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -644,21 +668,48 @@ text = "32"
 
 [node name="evolution_2" type="VBoxContainer" parent="Panel/evolution/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="evolution_2" type="TextureButton" parent="Panel/evolution/HBoxContainer/evolution_2"]
 modulate = Color(0, 0, 0, 0.435294)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_by5ee")
-texture_disabled = SubResource("AtlasTexture_n2jki")
+texture_hover = SubResource("AtlasTexture_by5ee")
+texture_disabled = SubResource("AtlasTexture_by5ee")
+
+[node name="highlight" type="ColorRect" parent="Panel/evolution/HBoxContainer/evolution_2/evolution_2"]
+modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -30.0
+offset_right = 60.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 0.301961, 0.368627)
 
 [node name="Panel" type="Panel" parent="Panel/evolution/HBoxContainer/evolution_2/evolution_2"]
 visible = false
 show_behind_parent = true
-custom_minimum_size = Vector2(90, 80)
+custom_minimum_size = Vector2(120, 60)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -40.0
+offset_right = 45.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -686,6 +737,7 @@ layout_mode = 2
 text = "32"
 
 [node name="evolution_confirmation_bg" type="ColorRect" parent="Panel"]
+visible = false
 z_index = 2
 layout_mode = 1
 anchors_preset = 15
@@ -729,7 +781,6 @@ after_skill_name = NodePath("HBoxContainer/VBoxContainer3/after_skill_name")
 after_skill_description = NodePath("HBoxContainer/VBoxContainer3/after_skill_description")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/evolution_confirmation_bg/evolution_confirmation"]
-modulate = Color(0.59, 0.59, 0.59, 1)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -954,7 +1005,6 @@ layout_mode = 2
 text = "Skill: pee"
 
 [node name="after_skill_description" type="RichTextLabel" parent="Panel/evolution_confirmation_bg/evolution_confirmation/HBoxContainer/VBoxContainer3"]
-modulate = Color(0.65, 0.65, 0.65, 1)
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 bbcode_enabled = true

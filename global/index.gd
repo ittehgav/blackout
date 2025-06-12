@@ -97,6 +97,17 @@ extends Node
 	"scrap":Color.DIM_GRAY,
 	"chips":Color.CYAN
 }
+@export var hollow_circle_textures:Array[Texture];
+@export var circle_textures:Array[Texture];
+
+
+@export var  stat_colors:Dictionary[String, Color] = {
+	"max_hp": Color.WEB_GREEN,
+	"attack": Color(.8, 0, 0),
+	"defense": Color.SKY_BLUE,
+	"agility": Color(.8, .8, 0),
+	"technique": Color.DEEP_PINK
+}
 
 
 const all_resources = [
@@ -184,19 +195,17 @@ func random_fighter_base()->FighterBase:
 	"chips":load("res://assets/visual/icons/resources/chips.png"),
 }
 
+@export_group("party behavior icons")
+@export var idle_icon_texture:Texture;
+@export var scared_icon_texture:Texture;
+@export var agressive_icon_texture:Texture;
+@export var salesman_icon_texture:Texture
+
 func tagged_settlement_name(settlement:Settlement)->String:
 	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 
 
 
-
-const stat_colors = {
-	"max_hp": Color.WEB_GREEN,
-	"attack": Color(.8, 0, 0),
-	"defense": Color.SKY_BLUE,
-	"agility": Color(.8, .8, 0),
-	"technique": Color.DEEP_PINK
-}
 
 const leadership_stat_colors = {
 	"charisma":Color.ORANGE,

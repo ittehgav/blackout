@@ -4,6 +4,10 @@ extends ColorRect
 @export var background:TextureRect;
 @export var crowd:TextureRect;
 @export_group("colors")
+@export_subgroup("sky")
+@export var sky_colors:Array[Color] = ([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.114, 0.114, 0.15, 1), Color(0.34, 0.21386, 0.1598, 1), Color(0.49, 0.28077, 0.1911, 1), Color(0.6, 0.508, 0.462, 1), Color(0.6624, 0.72, 0.72, 1), Color(0.5082, 0.66, 0.66, 1), Color(0.539, 0.7, 0.7, 1), Color(0.6083, 0.79, 0.79, 1), Color(0.7636, 0.92, 0.92, 1), Color(0.82, 1, 1, 1)])
+
+
 @export_subgroup("darkest")
 @export var prop_darkest:Color;
 @export var ground_darkest:Color;
@@ -20,9 +24,19 @@ extends ColorRect
 @export var prop_sunset:Color;
 @export var ground_sunset:Color;
 
+func _ready() -> void:
+	get_window().size_changed.connect(resize);
 
+func resize()->void:
+	var window_size:Vector2 = get_window().size;
+	custom_minimum_size.x = window_size.x;
+	custom_minimum_size.y = window_size.y * 2;
+	
+	size.x = window_size.x;
+	size.y = window_size.y * 2;
+	position = Vector2(0, size.y/2 * -1)
+	
 func color_background(gradual:bool=false, hour:int=Entities.world_map.current_hour)->void:
-	var sky_color:Color = Entities.world_map.get_hour_sky_color();
 	
 	var time_key:String;
 	if hour >= 21 or hour < 3:
@@ -48,7 +62,9 @@ func color_background(gradual:bool=false, hour:int=Entities.world_map.current_ho
 	
 	var ground_dark_color:Color = ground_color.darkened(.5);
 	var ground_light_color:Color = ground_color;
+	
 	if not gradual:
+		var sky_color:Color = get_hour_sky_color(hour);
 		color = sky_color;
 		background.material.set_shader_parameter("prop_dark", prop_dark_color)
 		background.material.set_shader_parameter("prop_light", prop_light_color)
@@ -59,6 +75,7 @@ func color_background(gradual:bool=false, hour:int=Entities.world_map.current_ho
 		const fade_duration = .5;
 		
 		var tween:Tween = create_tween();
+		var sky_color:Color=get_hour_sky_color(hour);
 		tween.tween_property(self, "color", sky_color, fade_duration);
 		tween.parallel().tween_property(background, "material:shader_parameter/prop_dark", prop_dark_color, fade_duration) 
 		tween.parallel().tween_property(background, "material:shader_parameter/prop_light", prop_light_color, fade_duration) 
@@ -66,6 +83,13 @@ func color_background(gradual:bool=false, hour:int=Entities.world_map.current_ho
 		tween.parallel().tween_property(background, "material:shader_parameter/ground_dark", ground_dark_color, fade_duration) 
 		tween.parallel().tween_property(background, "material:shader_parameter/ground_light", ground_light_color, fade_duration) 
 
+func get_hour_sky_color(hour:int)->Color:
+	var color_index:int;
+	if hour > 11:
+		color_index = 11-(hour-12)
+	else:
+		color_index = hour
+	return sky_colors[color_index];
 
 
 func switch_crowd()->void:

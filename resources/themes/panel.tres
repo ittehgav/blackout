@@ -1,0 +1,12 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://egjxviynrbi2"]
+
+[ext_resource type="Texture2D" uid="uid://pwgn6mnghr6v" path="res://resources/themes/panel.png" id="1_6jvxy"]
+
+[resource]
+resource_local_to_scene = true
+texture = ExtResource("1_6jvxy")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 0, 18, 18)

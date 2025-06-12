@@ -93,7 +93,7 @@ func change_resource(resource:String, amount:int)->void:
 						c.stack_size += c.space_left();
 				else:
 					var raw_stack:ResourceContainer = Index[resource + "_stack_scene"].instantiate();
-					if "mirror_only" in raw_stack:
+					if raw_stack.mirror_only:
 						## somehow signal that resources went to waste?
 						to_add = 0;
 					else:
@@ -131,14 +131,9 @@ func change_resource(resource:String, amount:int)->void:
 	"chips":Index.resource_base_prices["chips"]/2
 }
 
-func add_item(item: Item, generated:bool=false) -> void:
+func add_item(item: Item, and_add_child:bool=true, and_reparent:bool=false) -> void:
 	assert(not item in items)
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
-	if not item.is_inside_tree():
-		add_child(item);
-	else:
-		item.reparent(self);
-		
 	items.append(item);
 	if item is Consumable:
 		consumables.append(item);
@@ -152,12 +147,17 @@ func add_item(item: Item, generated:bool=false) -> void:
 		## default containers from travelling traders will be manually added to the containers array 
 		## so the resources can be restored before entering the tree
 		containers.append(item)
+	##  NEEDS TO BE ADDED TO TREE AFTER INDEXING SO IT DOESN'T RETRIGGER ENTERED_TREE
+	if and_add_child:
+		add_child(item);
+	elif and_reparent:
+		item.reparent(self)
 
 		
 
-func remove_item(item:Item)->void:
+func remove_item(item:Item, and_free:bool=false)->void:
 	assert(item in items);
-
+	
 	items.erase(item);
 	if item is Consumable:
 		consumables.erase(item);
@@ -169,6 +169,9 @@ func remove_item(item:Item)->void:
 		weapons.erase(item);
 	elif item is ResourceContainer:
 		containers.erase(item)
+	
+	if and_free:
+		item.queue_free();
 
 
 
@@ -177,7 +180,7 @@ func clear_containers()->void:
 	## CANT ITERATE OVER AN ARRAY WHILE MOVING/DELETINGS ITS ELEMENTS XDD
 	var to_remove:Array[ResourceContainer]
 	for c:ResourceContainer in containers:
-		if "raw_stack" in c:
+		if c.raw_stack:
 			## cam't just queue fere because it needs to be 
 			## out of the items array in the same frame
 			to_remove.append(c)
@@ -186,29 +189,29 @@ func clear_containers()->void:
 			
 	for c:ResourceContainer in to_remove:
 		## CANT ITERATE OVER AN ARRAY WHILE MOVING/DELETINGS ITS ELEMENTS XDD
-		remove_item(c);
-
+		remove_item(c, true);
+	
 func store_resources()->void:
 	
 	## used after resources are gained from whatever source, allocates 
 	## unallocated resources to the containers with the highest capacity
 	clear_containers();
-	
 	for r:String in Index.all_resources:
 		if r != "money":
-			var to_store:int = self[r];
+			
 			if holder is Settlement or holder is NpcLeader:
 				var storage:ResourceContainer = holder[r+"_storage"];
-				storage.stack_size += to_store;
+				storage.stack_size += self[r];
 			else:
+				var to_store:int = self[r];
+				
 				var containers_with_resource:Array[ResourceContainer]=\
 				containers.filter(func(a:ResourceContainer)->bool:return a.resource == r);
 				containers_with_resource.sort_custom(sort_containers);
-				for c:ResourceContainer in containers_with_resource:
-					c.stack_size = 0;
+				for c:ResourceContainer in containers_with_resource:	
 					if to_store:
 						if c.capacity >= to_store:
-							c.stack_size = to_store;
+							c.stack_size += to_store;
 							to_store = 0;
 							
 						else:
@@ -216,7 +219,7 @@ func store_resources()->void:
 							to_store -= c.capacity;
 				while to_store:
 					var raw_stack:ResourceContainer = Index[r+"_stack_scene"].instantiate()
-					if "mirror_only" in raw_stack or raw_stack.capacity >= to_store:
+					if raw_stack.mirror_only or raw_stack.capacity >= to_store:
 						raw_stack.stack_size = to_store;
 						to_store = 0;
 					else:
@@ -292,7 +295,7 @@ func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
 	if not node in items:
 		## ONLY EVER FROM INVENTORIES THAT WERE MADE IN-EDITOR
-		add_item(node);
+		add_item(node, false);
 
 func sort_containers(a:ResourceContainer, b:ResourceContainer)->bool:
 	if a.capacity > b.capacity:
@@ -306,5 +309,5 @@ func generate_storages()->void:
 	for s:PackedScene in Index.resource_storage_scenes:
 		var storage:ResourceContainer = s.instantiate();
 		holder[storage.resource+"_storage"]=storage;
-		add_item(storage, true);
+		add_item(storage);
 		non_sellable_items.append(storage)

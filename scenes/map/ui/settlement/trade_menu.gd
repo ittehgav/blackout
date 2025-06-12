@@ -1,4 +1,4 @@
-extends Control
+extends UIRoot
 class_name TradeMenu;
 
 signal trade_started;
@@ -52,6 +52,15 @@ var chips_trade:int = 0;
 @export var trader_juice_label:Label;
 @export var trader_scrap_label:Label;
 @export var trader_chips_label:Label;
+@export_group("Quick-Buy")
+var food_hourly_cost:int;
+var fuel_hourly_cost:int;
+
+@export var food_hourly_cost_label:Label;
+@export var food_daily_cost_label:Label;
+
+@export var fuel_hourly_cost_label:Label;
+@export var fuel_daily_cost_label:Label;
 
 func start_trade(target:MapEntity)->void:
 	## initiation routines require both inventories to be assigned
@@ -79,11 +88,23 @@ func start_trade(target:MapEntity)->void:
 	trader_inventory_display.refresh_data(true);
 	
 	reset_trade_balance()
+	player_inventory_display.warnings_popup.hide();
 	
 	for r:String in Index.all_resources:
 		self[r + "_trade_label"].visible = player_inventory_display[r + "_hbox"].visible;
 	
 	trade_started.emit();
+
+	var hourly_cost:Dictionary = Entities.player.travel_upkeep_cost();
+	food_hourly_cost = hourly_cost.food;
+	fuel_hourly_cost = hourly_cost.fuel;
+	
+	food_hourly_cost_label.text = str(food_hourly_cost)
+	food_daily_cost_label.text = str(food_hourly_cost * 24)
+	
+	fuel_hourly_cost_label.text = str(fuel_hourly_cost)
+	fuel_daily_cost_label.text = str(fuel_hourly_cost * 24)
+	
 
 func refresh_trade_balance()->void:
 	confirm_btn.disabled = false;
@@ -92,7 +113,7 @@ func refresh_trade_balance()->void:
 
 
 	reset_btn.disabled = true;
-	
+
 	for r:String in Index.all_resources.filter(func(r:String)->bool:return r != "money"):
 		var trade:int = self[r+"_trade"]
 		if trade < 0:
@@ -149,22 +170,30 @@ func _on_player_inventory_display_resources_changed(resource: String, amount: in
 	self[resource+"_trade"] += amount;
 	refresh_trade_balance();
 
-func _on_trader_inventory_display_item_dropped(mirror:ItemMirror, from:String="move") -> void:
+func _on_trader_inventory_display_item_received(mirror:ItemMirror, from:String="move") -> void:
 	## ITEM DROPPED IN TRADER INVENTORY = SOLD
-	if from == "trade" and (not mirror.item is ResourceContainer or not mirror.stack_size):
+	if from == "trade" and (not mirror.item is ResourceContainer or \
+	(not mirror.item.raw_stack and mirror.stack_size == 0)):
 		non_resource_money_trade += mirror.price;
 		refresh_trade_balance()
 
 
-func _on_player_inventory_display_item_dropped(mirror:ItemMirror, from:String="move") -> void:
+func _on_player_inventory_display_item_received(mirror:ItemMirror, from:String="move") -> void:
 	## ITEM DROPPED IN PLAYER INVENTORY = BOUGHT
-	if from == "trade" and (not mirror.item is ResourceContainer or not mirror.stack_size):
+	if from == "trade" and (not mirror.item is ResourceContainer or \
+	(not mirror.item.raw_stack and mirror.stack_size == 0)):
 		non_resource_money_trade -= mirror.price;
 		refresh_trade_balance()
 
 
 func _on_confirm_pressed() -> void:
-	finish_trade();
+	if player_inventory_display.pending_warnings():
+		player_inventory_display.warn_player();
+		var clear:bool = await player_inventory_display.warnings_attended;
+		if clear:
+			finish_trade();
+	else:
+		finish_trade();
 
 
 func _on_reset_pressed() -> void:
@@ -241,3 +270,28 @@ func _on_exit_pressed() -> void:
 	elif origin == "dialogue":
 		Entities.dialogue_player.after_trade();
 	
+
+
+
+
+
+func _on__hour_upkeep_pressed() -> void:
+	var trader_food_total:int = trader_inventory_display.current_resource_amount("food")
+	var trader_fuel_total:int = trader_inventory_display.current_resource_amount("fuel")
+	
+	var food_to_get:int = min(trader_food_total, food_hourly_cost)
+	var fuel_to_get:int = min(trader_fuel_total, fuel_hourly_cost)
+	
+	trader_inventory_display.send_resource_by_amount("food", food_to_get)
+	trader_inventory_display.send_resource_by_amount("fuel", fuel_to_get)
+
+
+func _on_24_hour_upkeep_pressed() -> void:
+	var trader_food_total:int = trader_inventory_display.current_resource_amount("food")
+	var trader_fuel_total:int = trader_inventory_display.current_resource_amount("fuel")
+	
+	var food_to_get:int = min(trader_food_total, food_hourly_cost*24)
+	var fuel_to_get:int = min(trader_fuel_total, fuel_hourly_cost*24)
+	
+	trader_inventory_display.send_resource_by_amount("food", food_to_get)
+	trader_inventory_display.send_resource_by_amount("fuel", fuel_to_get)

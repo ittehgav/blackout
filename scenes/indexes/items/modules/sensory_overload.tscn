@@ -4,12 +4,15 @@
 [ext_resource type="Script" uid="uid://ba505caq6mcv" path="res://scenes/indexes/items/modules/sensory_overload.gd" id="2_qlhdj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uoo42"]
-radius = 100.0
+radius = 150.0
 
 [node name="Sensory Overload" type="Sprite2D" node_paths=PackedStringArray("aoe_range")]
 texture = ExtResource("1_uoo42")
 script = ExtResource("2_qlhdj")
 aoe_range = NodePath("range")
+projection_color = Color(0, 1, 1, 0.368627)
+projection_range = 150
+show_aoe_vfx = true
 
 [node name="range" type="Area2D" parent="."]
 collision_layer = 0

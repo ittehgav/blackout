@@ -15,7 +15,7 @@ var camera_left_margin:int;
 func _ready() -> void:
 	await world_map.ready;
 	super();
-	
+	world_map.update_light();
 	set_camera_margins()
 	Entities.in_map_player.position = Vector2(500, 500)
 
@@ -34,11 +34,10 @@ func set_camera_margins()->void:
 
 	
 	var window_size:Vector2 = get_window().size;
-	camera_top_margin = top_left_quadrant.global_position.y + window_size.y;
-	camera_right_margin = bottom_right_quadrant.global_position.x + x_quadrant_extension - window_size.x;
-	camera_bottom_margin = bottom_right_quadrant.global_position.y + y_quadrant_extension - window_size.y;
-	camera_left_margin = top_left_quadrant.global_position.x + window_size.x;
-
+	camera_top_margin = top_left_quadrant.global_position.y + window_size.y / player_camera.zoom.y;
+	camera_right_margin = bottom_right_quadrant.global_position.x + x_quadrant_extension - window_size.x / player_camera.zoom.x;
+	camera_bottom_margin = bottom_right_quadrant.global_position.y + y_quadrant_extension - window_size.y / player_camera.zoom.y;
+	camera_left_margin = top_left_quadrant.global_position.x + window_size.x/player_camera.zoom.x;
 	$check_quadrant_shift.start();
 
 

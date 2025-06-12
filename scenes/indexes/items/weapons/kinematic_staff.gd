@@ -20,7 +20,7 @@ const charge_time = 7.5;
 
 const projection = "none";
 
-const description = "Charges up a powerful AOE attack. Charging speeds up when units inside the area use their skill."
+const description = "Charges up a powerful AOE attack. Charge speeds up when units inside the area use their skill."
 
 const use_vfx = ["grow"]
 
@@ -47,6 +47,9 @@ func _process(delta:float)->void:
 
 func use()->bool:
 	if not active:
+		progress_bar.scale = Vector2.ONE
+		progress_bar.modulate.a = 1;
+		progress_bar.show()
 		var sfx:SfxPlayer = Entities.in_fight_player.equipment.weapon_sfx
 		sfx.play_sound_by_key("charge_up")
 		sfx.finished.connect(intensify_charge, CONNECT_ONE_SHOT)
@@ -54,6 +57,7 @@ func use()->bool:
 	return false
 
 func explode()->void:
+	
 	active = false;
 	progress = 0;
 	progress_bar.value = 0;
@@ -61,6 +65,11 @@ func explode()->void:
 	
 	Entities.in_fight_player.equipment.weapon_sfx.play_sound_by_key("explosion")
 	effect_finished.emit()
+	
+	var tween:= create_tween();
+	tween.tween_property(progress_bar, "scale", Vector2(1.25, 1.25), .2);
+	tween.parallel().tween_property(progress_bar, "modulate:a", 0, .2);
+	tween.tween_callback(progress_bar.hide)
 
 
 
@@ -79,23 +88,30 @@ func intensify_charge()->void:
 
 func _on_area_body_entered(body: Node2D) -> void:
 	assert (body is ActiveFighter)
-	monitored_units.append(body)
-	body.skill_used.connect(accelerate_charge)
+	if body is NpcFighter:
+		## no reason to monitor self
+		monitored_units.append(body)
+		body.skill_used.connect(accelerate_charge)
 
 
 func _on_area_body_exited(body: Node2D) -> void:
 	assert(body is ActiveFighter);
-	monitored_units.erase(body)
-	body.skill_used.disconnect(accelerate_charge)
+	if body is NpcFighter:
+		monitored_units.erase(body)
+		body.skill_used.disconnect(accelerate_charge)
 
 func accelerate_charge()->void:
+	progress_bar.tint_progress.a = 1;
+	var tween:Tween = create_tween();
+	tween.tween_property(progress_bar, "tint_progress:a",.5, .1);
 	if active:
 		progress += 1;
 
 func _on_equipped() -> void:
 	area.monitoring = true;
 	for body in area.get_overlapping_bodies():
-		body.skill_used.connect(accelerate_charge)
+		if body is NpcFighter:
+			body.skill_used.connect(accelerate_charge)
 
 func _on_unequipped() -> void:
 	while len(monitored_units):

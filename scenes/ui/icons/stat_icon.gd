@@ -19,7 +19,7 @@ func _ready()->void:
 		
 		texture = Index[stat+"_floating_icon"];
 		panel.hide()
-		modulate = Index.stat_colors[stat] - Color(0, 0, 0, .2)
+		modulate = Index.stat_colors[stat] - Color(0, 0, 0, .5)
 		custom_minimum_size = Vector2(24, 24)
 		size = Vector2(24, 24)
 	else:
@@ -27,7 +27,6 @@ func _ready()->void:
 
 		material.set_shader_parameter("base_color", Index.stat_colors[stat]);
 		name = stat.capitalize()
-		
 		tooltip_name_color = Index.stat_colors[stat];
 		if stat == "map_hp":
 			name = "Max HP";

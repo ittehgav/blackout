@@ -15,7 +15,6 @@ signal listen_around_ended;
 @export var post_listen_around_list:VBoxContainer;
 @export var memo_label:RichTextLabel;
 
-
 @onready var current_view:Control = main_view;
 
 @export var sky_props:Control;
@@ -27,6 +26,7 @@ signal listen_around_ended;
 @export var relationship_progress:ProgressBar;
 @export var relation_label:RichTextLabel;
 @export var name_label:Label;
+@export var settlement_type_label:Label;
 @export var short_description_label:RichTextLabel;
 @export var long_description_label:RichTextLabel;
 
@@ -74,6 +74,7 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	$background.texture = settlement.background;
 
 	name_label.text = settlement.name;
+	settlement_type_label.text = settlement.settlement_type_name
 	short_description_label.text = settlement.description;
 	long_description_label.text = settlement.flavor;
 
@@ -92,7 +93,7 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	sky_bg.color_background()
 	Tweens.ui_fade_in(self)
 
-
+ 
 func exit_settlement() -> void:
 	if not listening_around:
 		Entities.player.left_settlement.emit();

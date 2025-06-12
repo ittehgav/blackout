@@ -49,7 +49,7 @@ func start_dialogue(target:Leader, starting_line:String = "start")->void:
 	Entities.main_bgm.play_bgm(target.party_type)
 	set_process_mode(Node.PROCESS_MODE_ALWAYS)
 	Entities.world_map.pause_map()
-	show()
+	Tweens.ui_fade_in(self);
 	choices_box.hide();
 	
 	set_speaking_avatar();
@@ -82,7 +82,7 @@ func set_speaking_avatar()->void:
 	
 	var leader:Leader = Entities.current_speaking_party.leader;
 	
-	current_speaking_sprite = leader.unit.base.duplicate();
+	current_speaking_sprite = leader.leader_unit.base.duplicate();
 	current_speaking_sprite.offset = current_speaking_sprite.sample_offset
 	ColorCoder.color_code_fighter(current_speaking_sprite, leader.color_scheme_index);
 

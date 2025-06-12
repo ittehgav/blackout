@@ -1,13 +1,11 @@
 extends FighterBase
 
-const skill_effects = ["aoe_damage", "aoe_stun"];
-const skill_visuals = ["lunge_forward"]
+const skill_visuals = ["lunge_forward", "hook"]
+const projection_vfx = ["aoe_circle"]
 
 const skill_use_sfx = ["swing"]
 const skill_hit_sfx = ["slam"]
 
-const skill_windup = true;
-const skill_projection = "basic_aoe"
 
 ## offset to be used on sprite samples
 const sample_offset = Vector2(19, -42);
@@ -46,6 +44,7 @@ const hit_scan_radius = 100;
 
 const status_duration = .125;
 
+
 const evolutions = {
 	"double_arm_guy":{
 		"food":50,
@@ -56,3 +55,7 @@ const evolutions = {
 		"chips":20
 	}
 }
+
+func skill()->void:
+	Combat.aoe_damage(fighter);
+	Combat.aoe_stun(fighter);

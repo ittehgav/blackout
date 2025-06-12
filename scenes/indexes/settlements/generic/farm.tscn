@@ -22,6 +22,11 @@ background = ExtResource("2_cdknx")
 crowd_1 = ExtResource("3_cdknx")
 crowd_2 = ExtResource("4_jfju3")
 inventory = NodePath("Inventory")
+money_production = 200
+food_production = 200
+juice_production = 50
+scrap_production = 50
+chips_production = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oyln7")

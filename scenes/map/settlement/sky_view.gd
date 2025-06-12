@@ -6,18 +6,31 @@ extends Control
 
 @export var sky_bg:ColorRect;
 @export var crowd_rect:TextureRect;
+@export var background:TextureRect;
+
 
 @export var cloud_textures:Array[Texture]
 @export var star_textures:Array[Texture]
 
 @export var chatter_box:Label;
 
+func _ready()->void:
+	get_window().size_changed.connect(resize);
+
+func resize()->void:
+	var window_size:Vector2 = get_window().size;
+	
+	size = window_size;
+	position.y = size.y * -1
+	background.size = window_size
+	
+
 func pass_time(time:int, floating_chatter:bool=false)->Tween:
 	generate_sky(floating_chatter);
+	
 	var tween:Tween = create_tween();
 	tween.set_trans(Tween.TRANS_SINE);
 	tween.parallel().tween_property(settlement_ui, "position:y", settlement_ui.position.y + settlement_ui.size.y, 2.5);
-	
 	await tween.finished;
 	
 	for i in time:

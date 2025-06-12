@@ -6,22 +6,18 @@ signal operation_finished;
 @export var trade_menu:Control
 
 var choice_1_value:int = 1;
-@export var choice_1:ColorRect;
 @export var choice_1_label:Label;
 
 var choice_2_value:int;
-@export var choice_2:ColorRect
 @export var choice_2_label:Label;
 
 var choice_3_value:int;
-@export var choice_3:ColorRect
 @export var choice_3_label:Label;
 
-@onready var choices_initial_size:Vector2 = choice_1.custom_minimum_size;
 
 var current_mirror:ItemMirror;
 
-var current_choice:ColorRect;
+var current_choice:Button;
 
 var current_resource:String;
 
@@ -33,10 +29,11 @@ func show_picker(mirror:ItemMirror)->void:
 	current_resource = mirror.item.resource
 	set_process_input(true)
 
-	show()
-	modulate = Index.resource_colors[current_resource]
+
+	for label:Label in [choice_1_label, choice_2_label, choice_3_label]:
+		label.add_theme_color_override("font_color", Index.get_color(mirror.item.resource))
 	global_position = get_global_mouse_position()
-	Tweens.ui_fade_in(self, 1);
+	Tweens.ui_fade_in(self);
 	
 	
 	var total:int = display.inventory[current_resource];
@@ -62,47 +59,25 @@ func show_picker(mirror:ItemMirror)->void:
 	choice_3_label.text = text + str(total)
 	choice_3_value = total
 	
-	expose_choice(choice_1);
-
-func expose_choice(choice:ColorRect)->void:
-	current_choice = choice;
-	var tween:Tween = create_tween();
-	tween.tween_property(choice, "custom_minimum_size", choices_initial_size * 1.5, .2);
-	tween.parallel().tween_property(choice, "color:a", 1, .1)
-
-func unexpose_choice(choice:ColorRect)->void:
-	var tween:Tween = create_tween();
-	tween.tween_property(choice, "custom_minimum_size", choices_initial_size, .1);
-	tween.parallel().tween_property(choice, "color:a", .5, .1)
 
 
-func _on_choice_1_mouse_entered() -> void:
-	expose_choice(choice_1)
-func _on_choice_1_mouse_exited() -> void:
-	unexpose_choice(choice_1)
+func _on_choice_1_pressed() -> void:
+	display.send_resource(current_mirror, 1)
+	hide()
 
-func _on_choice_2_mouse_entered() -> void:
-	expose_choice(choice_2)
-func _on_choice_2_mouse_exited() -> void:
-	unexpose_choice(choice_2)
-
-func _on_choice_3_mouse_entered() -> void:
-	expose_choice(choice_3)
-func _on_choice_3_mouse_exited() -> void:
-	unexpose_choice(choice_3)
+func _on_choice_2_pressed() -> void:
+	display.send_resource(current_mirror, choice_2_value)
+	hide()
 
 
-func pick_choice()->void:
-	match current_choice:
-		choice_1:
-			display.send_resource(current_mirror, choice_1_value);
-		choice_2:
-			display.send_resource(current_mirror, choice_2_value)
-		choice_3:
-			display.send_resource(current_mirror, choice_3_value)
-	set_process_input(false);
-	hide();
+func _on_choice_3_pressed() -> void:
+	display.send_resource(current_mirror, choice_3_value)
+	hide()
 
-func _input(e:InputEvent)->void:
-	if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_RIGHT and not e.pressed:
-		pick_choice()
+
+
+
+
+
+func _on_mouse_exited() -> void:
+	Tweens.ui_fade_out(self)

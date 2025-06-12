@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=29 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/npc_fighter/npc_fighter.gd" id="1_bgds5"]
 [ext_resource type="Script" uid="uid://r5su55c7yqu4" path="res://assets/visual/sprites/projectiles/active_fighter/hit_scan.gd" id="2_8jf47"]
+[ext_resource type="Script" uid="uid://c62lxrl4t7v8k" path="res://scenes/battle/player/shadow.gd" id="2_stwlc"]
 [ext_resource type="Script" uid="uid://kommjx3tflp1" path="res://scenes/battle/npc_fighter/vfx_control.gd" id="3_b68jh"]
 [ext_resource type="PackedScene" uid="uid://evcwbpbqici3" path="res://assets/visual/sprites/projectiles/active_fighter/fighter_timers.tscn" id="3_qq6tp"]
 [ext_resource type="Script" uid="uid://47lks7vsfn5k" path="res://scenes/battle/npc_fighter/sfx.gd" id="5_8vs8j"]
@@ -16,10 +17,14 @@
 [ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="15_arr5u"]
 [ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="15_urubw"]
 [ext_resource type="AudioStream" uid="uid://cdww8uxgqysc6" path="res://assets/sound/sfx/combat/generic/slam.ogg" id="16_a37hj"]
-[ext_resource type="Script" uid="uid://c4mwiiy5huocg" path="res://scenes/battle/npc_fighter/shape.gd" id="17_nnlry"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
+[ext_resource type="Texture2D" uid="uid://d21853oks0esf" path="res://assets/visual/particles/hook.png" id="19_v38rx"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="20_stwlc"]
+[ext_resource type="Texture2D" uid="uid://dhgrkfqpr7u3l" path="res://assets/visual/particles/overhead.png" id="20_v4rci"]
+[ext_resource type="Texture2D" uid="uid://3od6wberfu0n" path="res://assets/visual/particles/beam.png" id="21_v38rx"]
+[ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="24_nct2u"]
+[ext_resource type="Texture2D" uid="uid://ofroxfgshmkr" path="res://assets/visual/particles/aim.png" id="24_v4rci"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g13ct"]
 resource_local_to_scene = true
@@ -32,8 +37,8 @@ height = 100.0
 resource_local_to_scene = true
 radius = 200.0
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "skill_windup_timer", "animation_timer", "stunnable_timers", "overlay", "timers", "npc_sfx")]
-collision_layer = 0
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("hit_scan", "cooldown_timer", "skill_retry_timer", "skill_windup_timer", "aim_sprite", "animation_timer", "stunnable_timers", "overlay", "timers", "npc_sfx")]
+collision_layer = 256
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_bgds5")
@@ -41,20 +46,22 @@ hit_scan = NodePath("hit_scan")
 cooldown_timer = NodePath("fighter_timers/stunnable/skill_cooldown")
 skill_retry_timer = NodePath("fighter_timers/stunnable/skill_cooldown/skill_retry")
 skill_windup_timer = NodePath("fighter_timers/stunnable/skill_cooldown/windup_timer")
+aim_sprite = NodePath("aim_signal")
 animation_timer = NodePath("npc_timers/animation_timer")
 stunnable_timers = NodePath("fighter_timers/stunnable")
 overlay = NodePath("FighterOverlay")
 timers = NodePath("fighter_timers")
 npc_sfx = NodePath("sfx")
 
-[node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit", "floating_icon_anchor")]
-script = ExtResource("3_b68jh")
-unit = NodePath("..")
-floating_icon_anchor = NodePath("../FighterOverlay/floating_icon_anchor")
+[node name="shadow" type="Node2D" parent="."]
+position = Vector2(0, 26)
+scale = Vector2(0.6, 0.175)
+script = ExtResource("2_stwlc")
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 volume_db = -5.0
 max_distance = 500.0
+bus = &"sfx"
 script = ExtResource("5_8vs8j")
 swing = ExtResource("6_v4rci")
 lightning_small = ExtResource("7_nct2u")
@@ -82,6 +89,7 @@ wait_time = 0.1
 
 [node name="windup_timer" type="Timer" parent="fighter_timers/stunnable/skill_cooldown"]
 one_shot = true
+autostart = true
 
 [node name="npc_timers" type="Node" parent="."]
 
@@ -97,6 +105,7 @@ position = Vector2(5, 0)
 shape = SubResource("CapsuleShape2D_g13ct")
 
 [node name="hit_scan" type="Area2D" parent="." node_paths=PackedStringArray("fighter")]
+collision_layer = 0
 collision_mask = 0
 monitorable = false
 script = ExtResource("2_8jf47")
@@ -108,15 +117,16 @@ self_modulate = Color(1, 1, 1, 0.243137)
 z_index = -1
 position = Vector2(50, 0)
 shape = SubResource("CircleShape2D_2qjd5")
-script = ExtResource("17_nnlry")
 
 [node name="skill_range" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="skill_range"]
 shape = SubResource("CircleShape2D_mp8l8")
 
-[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "unit")]
+[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("hp_bar", "hp_bar_trail", "shield_bar", "vfx_control", "charge_bar", "floating_icon_anchor", "cooldown_timer", "unit")]
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -133,10 +143,21 @@ script = ExtResource("17_stwlc")
 hp_bar = NodePath("VBoxContainer/hp_bar_trail/hp_bar")
 hp_bar_trail = NodePath("VBoxContainer/hp_bar_trail")
 shield_bar = NodePath("VBoxContainer/hp_bar_trail/shield")
+vfx_control = NodePath("vfx_control")
 charge_bar = NodePath("VBoxContainer/charge_bar")
 floating_icon_anchor = NodePath("floating_icon_anchor")
 cooldown_timer = NodePath("../fighter_timers/stunnable/skill_cooldown")
 unit = NodePath("..")
+
+[node name="vfx_control" type="Node" parent="FighterOverlay" node_paths=PackedStringArray("unit", "floating_icon_anchor", "status_timers", "status_bar")]
+script = ExtResource("3_b68jh")
+unit = NodePath("../..")
+floating_icon_anchor = NodePath("../floating_icon_anchor")
+hook_particle = ExtResource("19_v38rx")
+overhead_particle = ExtResource("20_v4rci")
+beam_particle = ExtResource("21_v38rx")
+status_timers = NodePath("../VBoxContainer/status_timers")
+status_bar = NodePath("../VBoxContainer/status_timers/status_display")
 
 [node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
 position = Vector2(-4, 67)
@@ -205,25 +226,43 @@ stretch_margin_right = 2
 texture_progress = ExtResource("19_arr5u")
 tint_progress = Color(0, 0, 1, 1)
 
+[node name="status_timers" type="HBoxContainer" parent="FighterOverlay/VBoxContainer"]
+layout_mode = 2
+
+[node name="status_display" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/status_timers"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+fill_mode = 4
+texture_progress = ExtResource("24_nct2u")
+
 [node name="refresh_bar" type="Timer" parent="FighterOverlay"]
 wait_time = 0.05
 autostart = true
 
+[node name="aim_signal" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 0.584314)
+position = Vector2(0, -44)
+scale = Vector2(2, 2)
+texture = ExtResource("24_v4rci")
+
 [connection signal="damage_blocked" from="." to="FighterOverlay" method="_on_npc_fighter_damage_blocked"]
-[connection signal="damage_taken" from="." to="vfx_control" method="_on_npc_fighter_damage_taken"]
 [connection signal="damage_taken" from="." to="FighterOverlay" method="_on_fighter_damage_taken"]
+[connection signal="damage_taken" from="." to="FighterOverlay/vfx_control" method="_on_npc_fighter_damage_taken"]
 [connection signal="death" from="." to="." method="_on_death"]
-[connection signal="healing_received" from="." to="vfx_control" method="_on_npc_fighter_healing_received"]
 [connection signal="healing_received" from="." to="FighterOverlay" method="_on_npc_fighter_healing_received"]
+[connection signal="healing_received" from="." to="FighterOverlay/vfx_control" method="_on_npc_fighter_healing_received"]
 [connection signal="shield_gained" from="." to="FighterOverlay" method="_on_npc_fighter_shield_gained"]
 [connection signal="skill_used" from="." to="hit_scan/shape" method="_on_npc_fighter_skill_used"]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
 [connection signal="stat_changed" from="." to="FighterOverlay" method="refresh_charge_bar_max"]
-[connection signal="status_applied" from="." to="vfx_control" method="_on_npc_fighter_status_applied"]
-[connection signal="status_removed" from="." to="vfx_control" method="_on_npc_fighter_status_removed"]
+[connection signal="status_applied" from="." to="FighterOverlay/vfx_control" method="_on_npc_fighter_status_applied"]
+[connection signal="status_removed" from="." to="FighterOverlay/vfx_control" method="_on_npc_fighter_status_removed"]
 [connection signal="timeout" from="fighter_timers/stunnable/skill_cooldown" to="." method="skill_cooldown"]
 [connection signal="timeout" from="fighter_timers/stunnable/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
 [connection signal="timeout" from="fighter_timers/stunnable/skill_cooldown/windup_timer" to="." method="_on_windup_timer_timeout"]
+[connection signal="timeout" from="fighter_timers/stunnable/skill_cooldown/windup_timer" to="FighterOverlay/vfx_control" method="_on_windup_timer_timeout"]
 [connection signal="timeout" from="npc_timers/animation_timer" to="." method="next_frame"]
 [connection signal="timeout" from="npc_timers/find_target" to="." method="find_target"]
 [connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]

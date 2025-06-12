@@ -9,9 +9,11 @@ signal skill_hit(target_hit:ActiveFighter);
 var unit:FighterUnit;
 @export var hit_scan:Area2D;
 
+
 @export var cooldown_timer:Timer;
 @export var skill_retry_timer:Timer;
 @export var skill_windup_timer:Timer;
+@export var aim_sprite:Sprite2D
 
 @export var animation_timer:Timer;
 
@@ -34,6 +36,13 @@ var true_cooldown:float;
 
 func _ready() -> void:
 	$npc_timers/find_target.start()
+	aim_tween();
+
+func aim_tween()->void:
+	var tween:Tween = create_tween();
+	tween.tween_property(aim_sprite, "modulate:a", 0, .5);
+	tween.tween_property(aim_sprite, "modulate:a", .5, .5);
+	tween.tween_callback(aim_tween);
 
 func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	in_player_team = in_player_party;
@@ -82,15 +91,8 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	true_cooldown = unit.final_skill_cooldown()
 	cooldown_timer.wait_time = true_cooldown
 	
-	if "skill_windup" in base:
-			
-		skill_windup_timer.wait_time = true_cooldown -true_cooldown/3;
-		skill_windup_timer.autostart = true
-		
-	if "skill_projection" in base:
-		if base.skill_projection == "basic_aoe":
-			skill_used.connect($hit_scan/shape.hide);
-		$hit_scan/shape.set_shape_fn(base.skill_projection, in_player_party)
+	skill_windup_timer.wait_time = true_cooldown - true_cooldown/6;
+
 	
 	if "special_setup" in base:
 		base.special_setup();
@@ -110,9 +112,13 @@ func find_target()->void:
 
 		"least_hp_ally":
 			for ally in ally_team.units:
-				if not target or target.hp < ally.hp:
+				if not target or target.max_hp - target.hp < ally.max_hp - ally.hp:
 					target = ally;
 	if target != target_unit:
+		if target == Entities.in_fight_player:
+			aim_sprite.show();
+		else:
+			aim_sprite.hide();
 		target_unit = target;
 		target_changed.emit();
 	
@@ -146,14 +152,13 @@ func skill_cooldown() -> void:
 		use_skill()
 		skill_retry_timer.stop()
 		$fighter_timers/stunnable/skill_cooldown.start()
+		skill_windup_timer.start();
 	else:
 		skill_retry_timer.start();
 
 
 func _on_windup_timer_timeout() -> void:
 	if target_in_range:
-		if "hit_scan_radius" in base:
-			$hit_scan/shape.start_aoe_highlight()
 		base.frame_coords = Vector2(1, 2);
 		set_current_animation("windup")
 
@@ -162,10 +167,11 @@ func _on_windup_timer_timeout() -> void:
 func use_skill()->void:
 	hit_targets = []
 	set_current_animation("skill")
-	for effect:String in base.skill_effects:
-		Combat.skill_effect(self, effect)
+	base.skill();
 		
 	for visual:String in base.skill_visuals:
+		## also afflicted by the useless chain reference 
+		## that was going on in the skill effects 
 		match visual:
 			"lunge_forward":
 				Tweens.lunge_forward_tween(self)
@@ -175,6 +181,20 @@ func use_skill()->void:
 				Tweens.recoil_target(self)
 			"grow":
 				Tweens.growth_tween(self)
+			"shrink_target":
+				Tweens.shrink_target(self)
+			"shake":
+				Tweens.shake_fighter(self)
+			"overhead":
+				overlay.vfx_control.particle_animation("overhead");
+			"hook":
+				overlay.vfx_control.particle_animation("hook")
+			"beam":
+				overlay.vfx_control.particle_animation("beam")
+			_:
+				assert(false);
+				
+
 	skill_used.emit();
 	
 	for target:ActiveFighter in hit_targets:
@@ -231,6 +251,7 @@ func next_frame() -> void:
 				base.frame = 0;
 		"skill":
 			## runs AFTER the skill animation frame
+			## runs AFTER the skill animation frame
 			set_current_animation("idle", true);
 
 
@@ -244,22 +265,18 @@ func _on_stat_changed(stat:String)->void:
 			var redone_time_left:float = cooldown_timer.wait_time - advance;
 
 			cooldown_timer.start(redone_time_left)
-			if "skill_windup" in base:
-				skill_windup_timer.wait_time = cooldown_timer.wait_time - cooldown_timer.wait_time/3
-				
-				skill_windup_timer.start()
+
 			
 			if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
 				cooldown_timer.timeout.disconnect(correct_cooldown_timer);
 				
 			
-			cooldown_timer.timeout.connect(correct_cooldown_timer)
+			cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);
 			
 func correct_cooldown_timer()->void:
 	cooldown_timer.wait_time = true_cooldown;
-	if "skill_windup" in base:
-		skill_windup_timer.wait_time = true_cooldown -true_cooldown/3;
-		skill_windup_timer.start()
+	skill_windup_timer.wait_time = true_cooldown - true_cooldown/6;
+
 		
 	cooldown_timer.start()
 	overlay.refresh_charge_bar_max();

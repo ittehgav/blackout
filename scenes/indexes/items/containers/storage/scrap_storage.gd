@@ -1,7 +1,6 @@
 extends ResourceContainer;
 
 const rarity = 2;
-const storage = true;
 
 const size_x = 2;
 const size_y = 2;

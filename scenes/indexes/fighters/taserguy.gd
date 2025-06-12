@@ -1,11 +1,13 @@
 extends FighterBase
 
+@export var projectile:Projectile;
 
-const skill_effects = ["stun_target", "direct_damage"];
 const skill_visuals = ["recoil"]
+const projection_vfx = [];
 
 const skill_use_sfx = ["shoot"]
 const skill_hit_sfx = ["projectile_hit"]
+
 
 const sample_offset = Vector2(8, -26)
 
@@ -49,3 +51,13 @@ const evolutions = {
 		"scrap":50
 	}
 }
+
+
+
+func skill()->void:
+	Combat.shoot_projectile(projectile, fighter, projectile_hit);
+
+
+func projectile_hit(target:ActiveFighter)->void:
+	Combat.deal_damage(fighter);
+	Combat.stun_target(fighter, target)

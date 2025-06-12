@@ -1,19 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c3j3q3ivfq3aw"]
+[gd_scene load_steps=11 format=3 uid="uid://c3j3q3ivfq3aw"]
 
 [ext_resource type="Script" uid="uid://c2e0n5uqo6piv" path="res://world_map_quadrant.gd" id="1_mskbl"]
-[ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/world_tiles.png" id="2_efq4i"]
+[ext_resource type="TileSet" uid="uid://d2pxm2uqscmkg" path="res://resources/world_tile_set.tres" id="2_efq4i"]
 [ext_resource type="Texture2D" uid="uid://8jc4bn5mogf8" path="res://assets/visual/tiles/off_sight_cell.png" id="3_bdq40"]
 [ext_resource type="Texture2D" uid="uid://btl7carrb2i4v" path="res://assets/visual/tiles/fog_cell.png" id="4_2kxkf"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dxf8w"]
-texture = ExtResource("2_efq4i")
-0:0/0 = 0
-1:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_3kaw7"]
-sources/0 = SubResource("TileSetAtlasSource_dxf8w")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fkun1"]
 texture = ExtResource("3_bdq40")
@@ -48,7 +38,7 @@ top_boundary_shape = NodePath("top_boundary/top")
 right_boundary_shape = NodePath("right_boundary/right")
 
 [node name="tile_map" type="TileMapLayer" parent="."]
-tile_set = SubResource("TileSet_3kaw7")
+tile_set = ExtResource("2_efq4i")
 
 [node name="small_props" type="Node2D" parent="."]
 
@@ -60,7 +50,7 @@ z_index = 2
 tile_set = SubResource("TileSet_k1cgv")
 
 [node name="fog" type="TileMapLayer" parent="."]
-modulate = Color(0.28, 0.28, 0.28, 1)
+modulate = Color(0, 0, 0, 1)
 z_index = 2
 tile_set = SubResource("TileSet_6hpdn")
 

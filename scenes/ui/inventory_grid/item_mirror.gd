@@ -82,7 +82,7 @@ func load_item(target:Item, new_item:bool=false)->void:
 		
 	if display.context == "player_sheet":
 		if item is ResourceContainer:
-			if not "raw_stack" in item:
+			if not item.raw_stack:
 				tooltip.hint.text = "[right-click] to empty";
 			else:
 				tooltip.hint.text = "[right-click] to store"
@@ -95,7 +95,7 @@ func load_item(target:Item, new_item:bool=false)->void:
 				if item in display.inventory.non_sellable_items:
 					tooltip.hint.text = "[right-click] to buy resources";
 				else:
-					if "raw_stack" in item:
+					if item.raw_stack:
 						tooltip.hint.text = "[right-click] to buy"
 					else:
 						tooltip.hint.text = "[right-click] to buy container"
@@ -138,11 +138,15 @@ func _on_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton:
 		if e.pressed:
 			if e.button_index == MOUSE_BUTTON_LEFT:
+				if item is ResourceContainer and item.storage:
+					display.resource_picker.show_picker(self);
+					return
 				pick_up()
+				return
 			elif e.button_index == MOUSE_BUTTON_RIGHT:
 				if display.context == "player_sheet":
 					if item is ResourceContainer:
-						if "raw_stack" in item:
+						if item.raw_stack:
 							var clear:bool = send_to_containers();
 							if clear:
 								display.remove_mirror(self)
@@ -191,7 +195,7 @@ func empty_storage()->void:
 
 	while stack_size:
 		var raw_stack:ResourceContainer = Index[item.resource+"_stack_scene"].instantiate();
-		if "mirror_only" in raw_stack:
+		if raw_stack.mirror_only:
 			raw_stack.stack_size = stack_size;
 			stack_size = 0;
 		else:
@@ -225,19 +229,20 @@ func empty_storage()->void:
 			
 func pick_up()->void:
 	z_index += 1;
-	display.item_picked_up.emit();
-	item_under = self;
-	display.sfx.play_sound_by_key("pick_up");
-	tooltip.disable()
-	just_picked_up = true
+	if not item.fixed:
+		display.item_picked_up.emit();
+		item_under = self;
+		display.sfx.play_sound_by_key("pick_up");
+		tooltip.disable()
+		just_picked_up = true
 
-	var cell_size:int = display.grid_cell_size;
-	origin_position = position;
-	display.clear_cells(self)
-	
-	cursor_offset = (Vector2i((get_global_mouse_position() - global_position)/cell_size)*cell_size) + Vector2i(cell_size/2, cell_size/2);
-	held = true;
-	display.held_item_mirror = self;
+		var cell_size:int = display.grid_cell_size;
+		origin_position = position;
+		display.clear_cells(self)
+		
+		cursor_offset = (Vector2i((get_global_mouse_position() - global_position)/cell_size)*cell_size) + Vector2i(cell_size/2, cell_size/2);
+		held = true;
+		display.held_item_mirror = self;
 
 func drop_on_container(target:ItemMirror)->bool:
 	var deposited: = 0;
@@ -253,7 +258,7 @@ func drop_on_container(target:ItemMirror)->bool:
 		
 	display.play_deposit_sfx(deposited, item.resource);
 	
-	if not stack_size and "raw_stack" in item:
+	if not stack_size and item.raw_stack:
 		return true;
 	return false
 
@@ -322,15 +327,12 @@ func equip_weapon_command(alt:bool=false)->void:
 
 func trade_command()->void:
 	if item is ResourceContainer:
-		if "raw_stack" in item:
+		if item.raw_stack:
 			display.send_resource(self, stack_size);
 			return
 		elif stack_size:
-			await get_tree().create_timer(.15).timeout;
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 				display.resource_picker.show_picker(self);
-				tooltip.disable();
-				display.resource_picker.operation_finished.connect(tooltip.enable, CONNECT_ONE_SHOT)
 				return
 			else:
 				if stack_size:
@@ -390,7 +392,7 @@ func undo_container_highlight(smooth:bool=false)->void:
 
 func _on_mouse_entered() -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)\
-	and item is ResourceContainer and "raw_stack" in item and display.context == "player_sheet":
+	and item is ResourceContainer and item.raw_stack and display.context == "player_sheet":
 		display.item_dropped.emit(self);
 		var clear:bool = send_to_containers();
 		if clear:
@@ -402,7 +404,7 @@ func _on_mouse_entered() -> void:
 func send_to_containers()->bool:
 	var amount_deposited:int=0;
 	var containers:Array = display[item.resource+"_containers"].filter(
-		func(c:ItemMirror)->bool:return not ("raw_stack" in c.item)
+		func(c:ItemMirror)->bool:return not (c.item.raw_stack)
 	)
 	containers.sort_custom(display.sort_container_mirrors);
 	for c:ItemMirror in containers:
@@ -477,14 +479,14 @@ func refresh()->void:
 		else:
 			tooltip.hint.text = "[right-click] to put away"
 	
-	if item is ResourceContainer and "raw_stack" in item and stack_size == 0:
+	if item is ResourceContainer and item.raw_stack and stack_size == 0:
 		display.remove_mirror(self)
 		return
 	stack_size_label.modulate.a = 1
 	
 	if "capacity" in item:
 		stack_size_label.text = str(stack_size) + "/" + str(item.capacity);
-		if "mirror_only" in item:
+		if item.mirror_only:
 			stack_size_label.modulate.a = .5
 			stack_size_label.text = stack_size_label.text.split("/")[0];
 		elif item.capacity == 0:

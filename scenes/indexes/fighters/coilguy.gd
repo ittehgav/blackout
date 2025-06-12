@@ -1,7 +1,9 @@
 extends FighterBase
 
-const skill_effects = ["special"];
 const skill_visuals = ["recoil"];
+const projection_vfx = []
+
+@export var lightning_vfx:Node2D;
 
 ## sounds for this guy are played through the special_skill function
 const skill_use_sfx = []
@@ -39,13 +41,13 @@ const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 300;
-const skill_cooldown = 10;
+const skill_cooldown = 8;
 
 
 var tagged_targets:Array[ActiveFighter] = [];
 ##TODO: make the chain lighjtning VFX thingy
 
-func special_skill()->void:
+func skill()->void:
 	if not len(tagged_targets):
 		tagged_targets.push_back(fighter.target_unit);
 		fighter.target_unit.death.connect(remove_from_tagged.bind(fighter.target_unit))
@@ -70,6 +72,7 @@ func special_skill()->void:
 		fighter.npc_sfx.play_sound_by_key("lightning_big");
 	else:
 		fighter.npc_sfx.play_sound_by_key("lightning_small")
+	lightning_vfx.shoot(tagged_targets)
 
 
 func target_count_amplifier(damage:float)->float:
