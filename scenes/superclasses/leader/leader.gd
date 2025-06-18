@@ -49,32 +49,49 @@ func load_party(team:Team, team_n:int)->void:
 			cols.long.append(fighter)
 		team.add_child(fighter);
 
+	if self is Player:
+		## ugly
+		cols.mid.append(Entities.arena.team_1.get_child(0));
 	var base_x:int = 250;
+	var col_spacing: = 30;
+	const units_per_col = 8;
+	
 	if team_n == 1:
 		base_x *= -1;
-
+		col_spacing *= -1
+	var col_count: = 0;
 
 	const y_shift = 60;
-
 	for i:int in len(cols.melee):
 		var fighter:ActiveFighter = cols.melee[i]
-		fighter.position.x = base_x;
-		fighter.position.y = y_shift * i
 		
+		fighter.position.x = base_x + col_count * col_spacing;
+		if i % units_per_col == 0:
+			col_count += 1;
+		
+		fighter.position.y = y_shift * i
 		if i % 2:
 			fighter.position.y *= -1;
-			
+
+	col_count += 1
+	
 	for i:int in len(cols.mid):
 		var fighter:ActiveFighter = cols.mid[i];
-		fighter.position.x = base_x * 2
+		fighter.position.x = base_x + col_count * col_spacing;
+		
+		if i % units_per_col == 0:
+			col_count += 1;
+			
 		fighter.position.y = y_shift * i
-	
 		if i % 2:
 			fighter.position.y *= -1;
-			
+	col_count += 1;
 	for i:int in len(cols.long):
 		var fighter:ActiveFighter = cols.long[i];
-		fighter.position.x = base_x * 4
+		fighter.position.x = base_x + col_count * col_spacing;
+		if i % units_per_col == 0:
+			col_count += 1;
+			
 		fighter.position.y = y_shift * i
 	
 		if i % 2:

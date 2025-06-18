@@ -6,6 +6,7 @@ extends Panel
 @export var combat_exp_gain:ExperienceBar;
 @export var step_timer:Timer;
 
+@export var continue_btn:Button;
 var step_finished:bool=false;
 
 @export var unit_exp_gain_container:GridContainer;
@@ -42,7 +43,14 @@ var all_recruit_exp_gains:Array[Control];
 
 var remaining_combat_stat_points:int = 0;
 
-
+var assigned_stat_points:Dictionary[String, int] = {
+	## only 
+	"max_hp":0,
+	"attack":0,
+	"defense":0,
+	"agility":0,
+	"technique":0
+}
 
 
 func _ready()->void:
@@ -80,22 +88,30 @@ func distribute_exp()->void:
 func _on_step_timeout() -> void:
 	step_finished = true
 
-func _on_gui_input(e: InputEvent) -> void:
-	if e is InputEventMouseButton and e.pressed and step_finished:
-		get_parent().show_loot();
+
 
 func refresh_stat_points()->void:
-	remaining_combat_stat_points += 1;
 	combat_stat_points_label.text = "Stat Points: " + str(remaining_combat_stat_points);
-
+	continue_btn.disabled= remaining_combat_stat_points;
+	for stat:String in Index.all_combat_stats:
+		var label:Label = self[stat+"_label"];
+		var add_btn:Button = self["add_"+stat];
+		var remove_btn:Button = self["remove_"+stat]
+		
+		remove_btn.disabled = assigned_stat_points[stat] == 0;
+		add_btn.disabled = not remaining_combat_stat_points;
+		
+		var final_stat_value:int = Entities.player.combat_stats[stat] + Scaling.player_stats_per_point[stat] * assigned_stat_points[stat];
+		label.text = str(final_stat_value)
 func _on_combat_exp_level_up() -> void:
+	remaining_combat_stat_points += 1;
 	refresh_stat_points();
 	
 	combat_stat_points_label.show();
 	combat_stat_points_label.add_theme_font_size_override("font_size", 96);
 	
 	var tween: = create_tween();
-	tween.tween_property(combat_stat_points_label, "theme_override_constants/font_size", 64, .25);
+	tween.tween_property(combat_stat_points_label, "theme_override_font_sizes/font_size", 64, .25);
 	for stat:String in Index.all_combat_stats:
 		self["add_"+stat].show();
 		self["remove_"+stat].show();
@@ -103,8 +119,18 @@ func _on_combat_exp_level_up() -> void:
 
 
 func remove_stat_point(stat: String) -> void:
-	print("remove ", stat)
+	remaining_combat_stat_points += 1;
+	assigned_stat_points[stat] -= 1
+	refresh_stat_points()
 
 
 func add_stat_point(stat: String) -> void:
-		print("add ", stat)
+	remaining_combat_stat_points -= 1;
+	assigned_stat_points[stat] += 1
+	refresh_stat_points()
+
+
+func _on_continue_pressed() -> void:
+	for stat:String in Index.all_combat_stats:
+		Entities.player.combat_stats[stat] += Scaling.player_stats_per_point[stat] * assigned_stat_points[stat]
+	get_parent().show_loot()

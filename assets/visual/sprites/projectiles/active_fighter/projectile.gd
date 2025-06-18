@@ -76,6 +76,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hit(fighter: ActiveFighter) -> void:
+	hitbox.set_collision_mask_value(1, false);
+	hitbox.set_collision_mask_value(2, false);
 	queue_free()
 
 func _on_despawn_timer_timeout() -> void:

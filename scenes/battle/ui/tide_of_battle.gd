@@ -54,10 +54,10 @@ func on_unit_death(_killer:ActiveFighter, victim:ActiveFighter)->void:
 
 func move_tide(_value: float) -> void:
 	if value == 0:
-		Entities.arena.battle_over(2);
+		Entities.arena.end_battle(2);
 		return
 	elif value == max_value:
-		Entities.arena.battle_over(1);
+		Entities.arena.end_battle(1);
 		return
 	## where a flashy animation will go eventually
 	var tide_fraction:float = 1/max_value * value

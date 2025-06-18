@@ -24,17 +24,7 @@ const tags = [
 	"mechanic"
 ]
 
-func full_skill_description(unit:FighterUnit)->String:
-	var damage_str:String = Index.get_unit_damage_string(unit);
-	var technique_str:String = Index.get_technique_scaled_string(unit, "", 0,.05, "x")
-	var magnetized_color_tag:String = "[color=" + Color.YELLOW.darkened(.2).to_html() + "]"
-	
-	
-	var string:String= magnetized_color_tag+"Magnetizes[/color] the nearest enemy that's not "+magnetized_color_tag+\
-	"magnetized[/color], then deals " + damage_str + " to all "+magnetized_color_tag+"magnetized[/color] enemies.\nDeals "\
-	 + technique_str + \
-	" more damage to all targets for each "+magnetized_color_tag+"magnetized[/color] enemy on the battlefield."
-	return string
+
 
 const hitbox_radius = 25;
 const hitbox_height = 60;
@@ -42,6 +32,19 @@ const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 300;
 const skill_cooldown = 8;
+
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str:String = Index.get_unit_damage_string(unit);
+	
+	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique/20, .01))+"x[/color]"
+	
+	var magnetized_color_tag:String = "[color=" + Color.YELLOW.darkened(.2).to_html() + "]"
+	
+	
+	var string:String= magnetized_color_tag+"Magnetizes[/color] the nearest enemy that's not "+magnetized_color_tag+\
+	"magnetized[/color], then deals " + damage_str + " to all "+magnetized_color_tag+"magnetized[/color] enemies.\nDeals "\
+	 + technique_str + " more damage to all targets for each "+magnetized_color_tag+"magnetized[/color] enemy on the battlefield."
+	return string
 
 
 var tagged_targets:Array[ActiveFighter] = [];
@@ -63,7 +66,7 @@ func skill()->void:
 		var target:ActiveFighter = untagged_targets[0];
 		tagged_targets.push_back(target);
 		target.death.connect(remove_from_tagged.bind(target));
-
+	
 	for unit:ActiveFighter in fighter.enemy_team.units:
 		if unit in tagged_targets:
 			Combat.deal_damage(fighter, unit, target_count_amplifier);

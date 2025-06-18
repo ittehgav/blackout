@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://di52ctdy1nihl"]
 
 [ext_resource type="Script" uid="uid://ehyudl1u8c6p" path="res://scenes/map/ui/dialogue/dialogue_player.gd" id="1_78q7f"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="3_5y6lb"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="3_5y6lb"]
 [ext_resource type="PackedScene" uid="uid://bhxxi2711i5k2" path="res://scenes/map/ui/dialogue/dialogue_choice.tscn" id="3_eqxh4"]
 [ext_resource type="AudioStream" uid="uid://bgr18seksa7t7" path="res://assets/sound/sfx/ui/dialogue/2_blip.ogg" id="4_8aum2"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="4_j4ks8"]

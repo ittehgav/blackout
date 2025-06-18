@@ -39,16 +39,10 @@ func weapon_heal()->float:
 	var heal: = base_heal;
 	var technique:float = Entities.player.combat_stats.technique;
 	if technique > 1:
-		heal *= technique;
+		heal = Scaling.technique_scaled_value(heal, Entities.in_fight_player.technique, "heal");
 	return heal;
 	
-func weapon_buff_frac()->float:
-	var frac:= base_buff_frac;
 
-	var technique:float = Entities.player.combat_stats.technique;
-	if technique > 1:
-		frac *= technique
-	return frac;
 
 var use_sfx:String = "heal";
 const alt_use_sfx = "alternate"
@@ -59,7 +53,7 @@ func use()->bool:
 	if not alt_mode:
 		Combat.aoe_heal(Entities.in_fight_player, weapon_heal())
 	else:
-		Combat.aoe_stat_buff(Entities.in_fight_player,"agility", weapon_buff_frac())
+		Combat.aoe_stat_buff(Entities.in_fight_player,"agility", base_buff_frac)
 	vfx.play_vfx()
 	return false;
 

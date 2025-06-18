@@ -1,9 +1,9 @@
-[gd_scene load_steps=35 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=18 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
 [ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="5_8yyg4"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="6_l3xhp"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="6_l3xhp"]
 [ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="6_ouso4"]
 [ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/world_map.ogg" id="7_62atk"]
 [ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/settlement.ogg" id="8_i7in8"]
@@ -15,69 +15,8 @@
 [ext_resource type="AudioStream" uid="uid://dp1xrfwe656dj" path="res://assets/sound/bgm/loops/travelling_trader.ogg" id="11_tbnf8"]
 [ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="13_i7in8"]
 [ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="14_0bhws"]
-[ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="15_raeie"]
-[ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/indexes/items/weapons/staff_of_luc.tscn" id="16_r4lks"]
-[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/indexes/items/modules/adrenaline_synthethizer.tscn" id="16_s17dp"]
-[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/indexes/items/modules/buckler.tscn" id="17_0bhws"]
-[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="17_ou6is"]
-[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="18_m4h2d"]
-[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="18_pg34l"]
-[ext_resource type="PackedScene" uid="uid://dqb34e0bl7mr7" path="res://scenes/indexes/items/modules/metallic_shell.tscn" id="19_m4h2d"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="20_p8abn"]
-[ext_resource type="PackedScene" uid="uid://dbetfnnc4fgpt" path="res://scenes/indexes/items/weapons/kinematic_staff.tscn" id="20_s17dp"]
-[ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/indexes/items/containers/juice_tank.tscn" id="22_37hlw"]
-[ext_resource type="PackedScene" uid="uid://c14j25tgu3icd" path="res://scenes/indexes/items/modules/sensory_overload.tscn" id="23_6llfj"]
-[ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="26_i7in8"]
-[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="28_62atk"]
-[ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/indexes/fighters/wheelguy.tscn" id="29_i7in8"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gkmcc"]
-resource_local_to_scene = true
-shader = ExtResource("20_p8abn")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i7in8"]
-resource_local_to_scene = true
-shader = ExtResource("20_p8abn")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_62atk"]
-resource_local_to_scene = true
-shader = ExtResource("20_p8abn")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nlll"]
-resource_local_to_scene = true
-shader = ExtResource("20_p8abn")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
+[ext_resource type="Script" uid="uid://c5ydkff6c2nyn" path="res://scenes/main/control.gd" id="31_ii537"]
+[ext_resource type="Texture2D" uid="uid://drce0fgyc1x5i" path="res://assets/visual/splash/barrel.jpg" id="32_ii537"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_8gx17")
@@ -156,87 +95,31 @@ text = "World Map
 layout_mode = 2
 text = "Arena"
 
-[node name="Player" parent="." node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") instance=ExtResource("15_raeie")]
-leadership_level = 3
-leadership_exp = 4
-leadership_points = 2
-combat_level = 3
-combat_exp = 3
-equipped_weapon = NodePath("Inventory/Kinematic Staff")
-alternative_weapon = NodePath("Inventory/Tailpipe")
-equipped_module = NodePath("Inventory/Dodge Roll")
-sight_range = 300
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
-[node name="Inventory" parent="Player" index="0"]
-food = 1
-money = 0
-fuel = 2000
-juice = 2000
-scrap = 20002
-chips = 2000
+[node name="loading_overlay" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("splash")]
+visible = false
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("31_ii537")
+splash = NodePath("TextureRect")
 
-[node name="Adrenaline Synthethizer" parent="Player/Inventory" index="0" instance=ExtResource("16_s17dp")]
-
-[node name="Buckler" parent="Player/Inventory" index="1" instance=ExtResource("17_0bhws")]
-
-[node name="Staff of Luc" parent="Player/Inventory" index="2" instance=ExtResource("16_r4lks")]
-
-[node name="Dodge Roll" parent="Player/Inventory" index="3" instance=ExtResource("17_ou6is")]
-
-[node name="Tailpipe" parent="Player/Inventory" index="4" instance=ExtResource("18_m4h2d")]
-
-[node name="Metallic Shell" parent="Player/Inventory" index="5" instance=ExtResource("19_m4h2d")]
-
-[node name="Kinematic Staff" parent="Player/Inventory" index="6" instance=ExtResource("20_s17dp")]
-
-[node name="Juice Tank" parent="Player/Inventory" index="7" instance=ExtResource("22_37hlw")]
-stack_size = 100
-
-[node name="Sensory Overload" parent="Player/Inventory" index="8" instance=ExtResource("23_6llfj")]
-
-[node name="FighterUnit" parent="Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("18_pg34l")]
-base = NodePath("Crossbow Guy")
-level = 8
-
-[node name="Crossbow Guy" parent="Player/Roster/FighterUnit" instance=ExtResource("26_i7in8")]
-material = SubResource("ShaderMaterial_gkmcc")
-
-[node name="FighterUnit2" parent="Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("18_pg34l")]
-base = NodePath("Arm Guy")
-level = 8
-
-[node name="Arm Guy" parent="Player/Roster/FighterUnit2" instance=ExtResource("28_62atk")]
-material = SubResource("ShaderMaterial_i7in8")
-
-[node name="FighterUnit3" parent="Player/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("18_pg34l")]
-base = NodePath("Arm Guy")
-level = 8
-
-[node name="Arm Guy" parent="Player/Roster/FighterUnit3" instance=ExtResource("28_62atk")]
-material = SubResource("ShaderMaterial_62atk")
-
-[node name="FighterUnit4" parent="Player/Roster" index="3" node_paths=PackedStringArray("base") instance=ExtResource("18_pg34l")]
-base = NodePath("Wheel Guy")
-level = 8
-
-[node name="Wheel Guy" parent="Player/Roster/FighterUnit4" instance=ExtResource("29_i7in8")]
-material = SubResource("ShaderMaterial_7nlll")
-
-[node name="combat_stats" parent="Player" index="2"]
-max_hp = 100000.0
-attack = 11.0
-defense = 1.0
-agility = 1.0
-technique = 1.23
-
-[node name="leadership_stats" parent="Player" index="3"]
-charisma = 2
-navigation = 3
-tactics = 1
-scavenging = 1
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/loading_overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("32_ii537")
+expand_mode = 5
 
 [connection signal="finished" from="main_bgm" to="main_bgm" method="_on_finished"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/world_map" to="main_ui" method="world_map"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/test_battle" to="main_ui" method="test_battle"]
-
-[editable path="Player"]

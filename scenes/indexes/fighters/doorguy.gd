@@ -8,7 +8,7 @@ const projection_vfx = [];
 const skill_use_sfx = []
 const skill_hit_sfx = []
 
-const sample_offset = Vector2(25, -26)
+const sample_offset = Vector2(15, -26)
 const target_type = "nearest_enemy"
 
 const skill_name = "Buckle up"
@@ -22,12 +22,12 @@ const tags = [
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
-	var technique_str:String = Index.get_technique_scaled_string(unit);
+	var technique_str:String = Index.get_technique_scaled_string(unit, "stat_buff", "", stat_buff_values["defense"]);
 	var base_value_str:String = Index.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
 	var final_value_str:String = Index.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
 	
 	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields himself, gaining " + final_value_str + " (" + base_value_str + " * " + technique_str\
-	 + ")"+Index.stat_colored_name("defense") + " until the end of battle.";
+	 + ") "+Index.stat_colored_name("defense") + " until the end of battle.";
 	return string
 
 const hitbox_radius = 35;

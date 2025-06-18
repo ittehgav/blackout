@@ -721,7 +721,7 @@ func update_inventory()->void:
 
 	for item:Item in to_remove:
 		inventory.remove_item(item)
-	inventory.refresh_resource_counts("", 0, true);
+	inventory.refresh_resource_counts();
 
 
 func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:

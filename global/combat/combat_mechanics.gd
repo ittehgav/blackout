@@ -34,14 +34,14 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 			target.death.emit(source);
 
 
-func heal_unit(_source:ActiveFighter, target:ActiveFighter, value:float)->void:
+func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.technique_scaled_value(source.base.heal_value,source.technique, "heal"))->void:
 	target.hp += value;
 	if target.hp > target.max_hp:
 		target.hp = target.max_hp;
 
 	target.healing_received.emit(value)
 
-func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, duration:float = source.base.status_duration * source.technique)->void:
+func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, duration:float = Scaling.technique_scaled_value(source.base.status_duration,source.technique, "stun"))->void:
 	if source is NpcFighter:
 		source.catch_hit_target(target);
 
@@ -49,18 +49,19 @@ func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 
 
 func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, stat:String)->void:
-		var duration:float = 0;
-		if "status_duration" in source.base:
-			## TODO make this a parameter that's applied elsewhere
-			## just put the combat functions in the unit bases instead of 
-			## the roundabout way it is right now
-			duration = source.base.status_duration * source.technique;
-		var status_data := {
-			"stat":stat,
-			"amount":value
-		}
-		target.stat_changed.emit(stat);
-		Statuses.apply_status(source, target, "stat_change", duration, status_data)
+	## ALL MODIFIERS HAVE ALREADY BEEN APPLIED BY HERE
+	var duration:float = 0;
+	if "status_duration" in source.base:
+		## TODO make this a parameter that's applied elsewhere
+		## just put the combat functions in the unit bases instead of 
+		## the roundabout way it is right now
+		duration = source.base.status_duration;
+	var status_data := {
+		"stat":stat,
+		"amount":value
+	}
+	target.stat_changed.emit(stat);
+	Statuses.apply_status(source, target, "stat_change", duration, status_data)
 
 func shield_unit(source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	target.shield += value;

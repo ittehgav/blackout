@@ -37,7 +37,11 @@ func load_stats()->void:
 	stats_loaded = true;
 
 
+
+
+
 func final_skill_cooldown(agi_acm:float=stats.agility)->float:
+	## can check from active fighter and from fighter unit
 	var cooldown:float = base.skill_cooldown;
 
 	while agi_acm > 5:

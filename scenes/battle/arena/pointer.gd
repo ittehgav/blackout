@@ -4,6 +4,8 @@ extends Control
 @export var area:Area2D;
 @export var polygon:CollisionPolygon2D;
 
+var distance_to_center:Vector2;
+
 var x_min:int=20
 var y_min:int=50;
 
@@ -18,6 +20,18 @@ func _ready()->void:
 	set_physics_process(false)
 	resize_polygon();
 	get_window().size_changed.connect(resize_polygon)
+	arrow_blink_loop();
+	
+func arrow_blink_loop()->void:
+	var tween:Tween = create_tween();
+	tween.tween_property(arrow, "modulate:a", 1, .25);
+	tween.parallel().tween_property(arrow, "modulate:v", .9, .25)
+	
+	tween.tween_property(arrow, "modulate:a", .5, .25);
+	tween.parallel().tween_property(arrow, "modulate:v", .25, .25);
+	tween.tween_interval(.25);
+	tween.tween_callback(arrow_blink_loop);
+
 
 func _physics_process(_delta:float)->void:
 	if not is_instance_valid(target):
@@ -27,24 +41,27 @@ func _physics_process(_delta:float)->void:
 	
 
 
-func show_pointer()->void:
+func show_pointer(_signal_arg:Variant=null)->void:
+	
 	var targets:Array = player.enemy_team.units
+	if not len(targets):
+		return
 	targets.sort_custom(sort_by_distance)
-	target= targets[0];
+	target = targets[0];
 	target.death.connect(show_pointer);
 	
 	show();
 	set_physics_process(true)
 	
-	var relative_position:Vector2 = target.position - player.position;
+	var relative_position:Vector2 = target.position - player.position + distance_to_center; 
 
 	if relative_position.x > x_max:
-		relative_position.x = x_max;
+		relative_position.x = x_max - 24;
 	elif relative_position.x < x_min:
 		relative_position.x = x_min
 	
 	if relative_position.y > y_max:
-		relative_position.y = y_max;
+		relative_position.y = y_max - 44;
 	elif relative_position.y < y_min:
 		relative_position.y = y_min
 	
@@ -73,8 +90,8 @@ func resize_polygon()->void:
 	
 	var window_size:Vector2 = get_window().size;
 	
-	x_min = x_padding + 50
-	y_min = top_padding + 50
+	x_min = x_padding
+	y_min = top_padding
 	
 	x_max = window_size.x - x_padding 
 	y_max = window_size.y - bottom_padding
@@ -85,3 +102,9 @@ func resize_polygon()->void:
 	
 	area.position.x = -window_size.x/2;
 	area.position.y = -window_size.y/2;
+	
+	distance_to_center = Vector2(window_size.x/2, window_size.y/2);
+
+
+func _on_arena_battle_over(winner: int) -> void:
+	set_physics_process(false);

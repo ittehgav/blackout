@@ -62,6 +62,7 @@ func _input(e:InputEvent)->void:
 
 
 func show_player_sheet(left_tab_view:int=0)->void:
+	Entities.world_map.ui_canvas.layer += 1;
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
 	show()
@@ -79,6 +80,7 @@ func show_player_sheet(left_tab_view:int=0)->void:
 
 
 func hide_player_sheet(_meta:Variant="")->void:
+	
 	## _meta to this gets called when meta clicked from memo labels in the memos tab
 	if player_inventory.pending_warnings():
 		player_inventory.warn_player();
@@ -86,6 +88,7 @@ func hide_player_sheet(_meta:Variant="")->void:
 		if clear:
 			hide_player_sheet();
 	else:
+		Entities.world_map.ui_canvas.layer -= 1;
 		player_inventory.update_inventory();
 		ui_sfx.play_stream_obj(close_sound)
 		const tween_duration = .25;

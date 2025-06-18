@@ -16,6 +16,7 @@ const move_speed = 600;
 func free_panning()->void:
 	reparent(Entities.world_map);
 	in_player = false;
+	Entities.current_camera = self;
 
 func return_to_player(instant:bool = false)->void:
 	if not in_player:
@@ -67,3 +68,7 @@ func pan_to_target(target:MapEntity, add_marker:bool=false)->void:
 		await get_tree().create_timer(.5).timeout;
 		marker.modulate.a = 1;
 	
+
+
+func _on_world_map_returned_from_battle(_won: bool) -> void:
+	Entities.current_camera = self

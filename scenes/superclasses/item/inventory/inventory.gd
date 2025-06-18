@@ -32,10 +32,8 @@ class_name Inventory;
 @export var capacity_x:int = 8;
 @export var capacity_y:int = 12;
 
-func _ready()->void:
-	refresh_resource_counts();
-	
-func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:bool=false)->void:
+
+func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:bool=true)->void:
 	var previous_amounts: = {}
 	for r:String in Index.all_resources:
 		previous_amounts[r] = self[r];
@@ -43,7 +41,6 @@ func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:boo
 			self[r] = 0;
 	for c in containers:
 		self[c.resource] += c.stack_size;
-	
 	if emit_change:
 		for r:String in Index.all_resources:
 			if previous_amounts[r] != self[r]:
@@ -51,7 +48,10 @@ func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:boo
 				## retrigger itself a few unnecessary times?
 				Entities.player.resource_changed.emit(r, self[r] - previous_amounts[r]);
 
-	
+func off_tree_setup()->void:
+	for c:Node in get_children():
+		add_item(c)
+	refresh_resource_counts("",0,false)
 
 
 
@@ -232,24 +232,33 @@ func store_resources()->void:
 					
 func sort_items()->void:
 	## only ever run if guaranteed that everything will fit
-	store_resources()
-		
-	for item in items:
-		item.inventory_position = Vector2(-1, -1)
 	
-	## merely projects a grid instead of creating the who display
+	## backup if sort gets an infinite loop
+	var original_positions:Dictionary[Item, Vector2];
+	store_resources()
+	
+	for item in items:
+		original_positions[item] = item.inventory_position;
+		item.inventory_position = Vector2(-1, -1)
+
+	var aborted:bool = false;
 	var taken_cells:Array[Vector2];
 	for item in items:
 		if item != Entities.player.equipped_module and\
 		item != Entities.player.equipped_weapon and\
 		item != Entities.player.alternative_weapon:
-			throw_item(item, taken_cells);
-
+			var fit:bool = throw_item(item, taken_cells);
+			if not fit:
+				aborted = true;
+				break;
+	
+	for item in items:
+		item.inventory_position = original_positions[item];
 
 func size_sort(a:Item, b:Item)->bool:
 	return a.size_x * a.size_y > b.size_x * b.size_y;
 
-func throw_item(item:Item, taken_cells:Array[Vector2])->void:
+func throw_item(item:Item, taken_cells:Array[Vector2])->bool:
 	## every non-player inventory is top-right oriented instead of top-left
 	## ONLY ITEMS THAT FIT CAN MAKE IT HERE
 	var spot:Vector2;
@@ -268,11 +277,14 @@ func throw_item(item:Item, taken_cells:Array[Vector2])->void:
 			if spot.x == - 1:
 				spot.x = capacity_x - 1;
 				spot.y += 1;
+		if spot.y == capacity_y + 1:
+			return false;
 
 	item.inventory_position = spot;
 	for x:int in item.size_x:
 		for y:int in item.size_y:
 			taken_cells.append(Vector2(x + spot.x, y + spot.y))
+	return true
 	
 	
 func fits_in_spot(item:Item, spot:Vector2, taken_cells:Array[Vector2])->bool:

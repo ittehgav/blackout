@@ -2,6 +2,11 @@ extends Node2D
 
 class_name WorldMap
 
+@export var player_party:InMapPlayer;
+@export var ui_canvas:CanvasLayer;
+
+signal finished_generating;
+
 signal returned_from_battle(won:bool);
 
 signal time_skipped;
@@ -21,7 +26,7 @@ var pause_stack:int = 0;
 var current_hour:int=6;
 var current_minute:int=50;
 
-@export var ui:Control;
+@export var ui:Control
 
 @export var player:InMapPlayer
 
@@ -61,7 +66,9 @@ var all_settlements: = {}
 
 
 func _ready()->void:
+	## Entities.player needs to be ready to go before world map enters the tree
 	Entities.main.current_state = "world_map"
+
 	Entities.world_map = self;
 	get_tree().paused = true;
 	Entities.main_bgm.play_bgm("world_map")

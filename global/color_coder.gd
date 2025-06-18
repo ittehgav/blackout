@@ -45,7 +45,6 @@ func color_code_fighter(fighter:FighterBase, scheme:int, sample:bool=false)->voi
 	
 	if not sample:
 		var outline_color:Color = off_color.darkened(fighter_sprite_darkening);
-		outline_color.a -=.5;
 		fighter.material.set_shader_parameter("color", outline_color)
 
 	
@@ -91,7 +90,7 @@ func color_code_settlement(settlement:Settlement, tile_color:Color)->void:
 	color_code_sprite(sprite, dict, settlement.settlement_type_name)
 	
 	var box:Control = settlement.get_node("hover_box");
-	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", base_color.lightened(.6) - Color(0, 0, 0, .3)));
+	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", dict[Color.GREEN].lightened(.5) - Color(0, 0, 0, .3)));
 	box.mouse_exited.connect(sprite.material.set_shader_parameter.bind("color", Color(0,0,0,0)));
 
 var texture_cache:Dictionary[Array, Texture]

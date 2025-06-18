@@ -9,7 +9,7 @@ const skill_hit_sfx = ["slam"]
 
 
 
-const sample_offset = Vector2(23, -37)
+const sample_offset = Vector2(15, -37)
 const target_type = "nearest_enemy"
 
 const skill_name = "Throw Both Hands"
@@ -24,7 +24,7 @@ const tags = [
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
-	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "status_duration");
+	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "stun", "status_duration");
 	
 	var string:String = "Slams the ground with both arms, dealing " + damage_str +\
 	" to enemies in a large area and stunning them for " + stun_duration_str + " seconds."

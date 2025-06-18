@@ -46,9 +46,13 @@ func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader, or
 
 
 func _on_start_battle_pressed() -> void:
-	var arena:Arena = Index.arena_scene.instantiate();
-	arena.start_battle(to_fight)
+	await Tweens.ui_fade_in(Entities.loading_screen).finished;
 	hide();
+	
+	var arena:Arena = Index.arena_scene.instantiate();
+	arena.finished_loading.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
+	
+	arena.start_battle(to_fight)
 	## so inventory stays consitent
 	## probably make a better solution eventually
 	Entities.player.reparent(Entities.arena);

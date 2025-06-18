@@ -6,26 +6,13 @@ class_name InMapPlayer;
 @export var camera:Camera2D;
 
 
-func _ready()->void:
+func setup()->void:
 	Entities.in_map_player = self;
+	Entities.player = leader;
+	print(leader)
+	leader.inventory.off_tree_setup()
 
 
-func _input(e:InputEvent)->void:
-	if e is InputEventMouseButton and e.pressed \
-	and e.button_index==MOUSE_BUTTON_LEFT and not Entities.world_map.pause_stack:
-		var cursor_position:Vector2 = get_global_mouse_position()
-		if position.distance_to(cursor_position) > 30:
-			target_position = cursor_position;
-			started_moving.emit();
-	if e.is_action_pressed("stop_movement"):
-		stop_movement();
-	
-	if camera.in_player:
-		var camera_direction:Vector2 =\
-		 Input.get_vector("move_left", "move_right", "move_up", "move_down")
-		if camera_direction and camera.in_player:
-			camera.free_panning()
-			
 func move_toward_entity()->void:
 	target_entity = Entities.map_entity_under_mouse
 	target_position = target_entity.position;
@@ -36,7 +23,7 @@ func move_toward_entity()->void:
 	target_entity.set_collision_layer_value(1, false)
 	target_entity.set_collision_layer_value(2, true)
 
-	
+
 func _physics_process(_delta: float) -> void:
 	if target_position:
 		if global_position.distance_to(target_position) < 2.5:
@@ -100,7 +87,7 @@ func intimidate_odds(target:NpcMapParty)->float:
 		return frac * .45
 	elif frac >= 1.75:
 		## fract == 1.75 - odds = .8
-		return frac * .8/1.75 
+		return frac * .8/1.75
 	elif frac >= 1.5:
 		## frac == 1.5 - odds = .7
 		return frac * .7/1.5;

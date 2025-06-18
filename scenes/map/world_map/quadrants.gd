@@ -18,6 +18,7 @@ func _ready() -> void:
 	world_map.update_light();
 	set_camera_margins()
 	Entities.in_map_player.position = Vector2(500, 500)
+	Entities.world_map.finished_generating.emit()
 
 
 func set_corner_quadrants()->void:

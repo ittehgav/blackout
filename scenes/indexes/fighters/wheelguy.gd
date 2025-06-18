@@ -23,8 +23,8 @@ const tags = [
 ]
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage_str:String = Index .get_unit_damage_string(unit);
-	var acceleration:String = Index .get_technique_scaled_string(unit, "", 10, .5, "%");
+	var damage_str:String = Index.get_unit_damage_string(unit);
+	var acceleration:String = Index.get_color_tag("technique") + str(snapped((base_acceleration_frac * unit.stats.technique/2)*100, .01))+"%[/color]"
 	var string:String = "Spins a wheel that deals " + damage_str + " to surrounding enemies every second.\n"\
 	+ "Each additional activation makes the wheel go " + acceleration + " faster.";
 	return string
@@ -38,6 +38,7 @@ const skill_cooldown = 5;
 const hit_scan_radius = 100;
 
 const hit_scan_type = "surrounding";
+const base_acceleration_frac = .1
 
 func damage_modifier(damage:float, _unit:FighterUnit=null)->float:
 	return damage/10
@@ -45,7 +46,7 @@ func damage_modifier(damage:float, _unit:FighterUnit=null)->float:
 @export var dmg_timer:Timer;
 func skill()->void:
 	if not dmg_timer.is_stopped():
-		dmg_timer.wait_time -= (dmg_timer.wait_time/10.0)*(fighter.technique/2.0);
+		dmg_timer.wait_time -= (dmg_timer.wait_time * base_acceleration_frac)*(fighter.technique/2.0);
 		wheel_vfx.rps *= 1.25
 	else:
 		wheel_vfx.set_process_mode(Node.PROCESS_MODE_INHERIT);

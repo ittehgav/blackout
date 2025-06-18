@@ -315,13 +315,15 @@ func get_unit_damage_string(unit:FighterUnit, trailing_text:String=" damage")->S
 	var string:String = get_color_tag("damage") + str(int(damage)) + trailing_text + "[/color]"
 	return string
 	
-func get_technique_scaled_string(unit:FighterUnit, value_key:String="", hard_value:float = 0.0, additional_multiplier:float=1, trailing_string:String="")->String:
-	var string:String = "[color=" + stat_colors.technique.to_html() + "]";
+func get_technique_scaled_string(unit:FighterUnit, mechanic:String, value_key:String="", hard_value:float = 0.0)->String:
+	var string:String = Index.get_color_tag("technique");
 	if hard_value:
-		string += str(snapped(hard_value * unit.stats.technique * additional_multiplier, .01)) + trailing_string + "[/color]"
-	elif not value_key:
-		string += str(snapped(unit.stats.technique * additional_multiplier, .01)) + trailing_string + "[/color]"
+		## WILL COME FROM EITHER A HARD-SET VALUE OR A KEY FROM THE SOURCE'S BASE
+		var final_value:float = snapped(Scaling.technique_scaled_value(hard_value, unit.stats.technique, mechanic) , .01)
+		string += str(final_value)
 	else:
-		string += str(snapped(unit.base[value_key] * unit.stats.technique * additional_multiplier, .01)) + trailing_string + "[/color]";
-	return string;
+		var final_value:float = snapped(Scaling.technique_scaled_value(unit.base[value_key], unit.stats.technique, mechanic), .01)
+		string += str(final_value)
+		
+	return string + "[/color]";
 	

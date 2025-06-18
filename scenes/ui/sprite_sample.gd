@@ -15,6 +15,8 @@ class_name SpriteSample;
 
 @export var autostart:bool;
 
+
+
 func _ready()->void:
 	if autostart:
 		$bob_timer.start()

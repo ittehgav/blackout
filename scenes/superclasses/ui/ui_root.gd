@@ -14,10 +14,8 @@ func _ready()->void:
 
 func resize()->void:
 	if is_inside_tree():
-		size = get_window().size
-	else:
-		await visibility_changed
-		resize()
+		set_deferred("size", get_window().size)
+
 
 func recursive_connect_ui_feedback(node:Node)->void:
 	if "pressed" in node:

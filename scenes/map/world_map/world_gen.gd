@@ -55,12 +55,31 @@ const noise_roll_breakpoints = {
 	1.0:Vector2(3, 1)##4
 }
 
+var new_game:bool=true;
+
+func load_game(world_data:Dictionary)->void:
+	## RUNS BEFORE WORLD MAP ENTERS TREE
+	new_game = false;
+	noise_texture.noise = FastNoiseLite.new();
+	noise.seed =  world_data.seed;
+	
+	
 
 func _ready() -> void:
-	noise_texture.noise = FastNoiseLite.new();
-	noise = noise_texture.noise;
-	noise.seed = randi();
+	if new_game:
+		noise_texture.noise = FastNoiseLite.new();
+		noise = noise_texture.noise;
+		noise.seed = randi();
+		## only settlements persist right now
+		generate_settlements();
 
+	generate_quadrants();
+	
+	## parties and props are randomized every time the player opens the game
+	generate_props();
+	generate_parties();
+
+func generate_quadrants()->void:
 	quadrant_1.position -= Vector2(quarter_tile_map_size.x*cell_size, quarter_tile_map_size.y*cell_size);
 	quadrant_2.position.y -= quarter_tile_map_size.y*cell_size
 	quadrant_3.position.x -= quarter_tile_map_size.x*cell_size
@@ -89,11 +108,6 @@ func _ready() -> void:
 						q.tile_map.set_cell(cell_coords,0, noise_roll_breakpoints[point])
 						break;
 	
-	generate_settlements();
-	generate_props();
-	generate_parties();
-	
-
 func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->NpcMapParty:
 	var leader:NpcLeader = leader_scene.instantiate();
 	var party:NpcMapParty = Index.npc_map_party_scene.instantiate();
@@ -123,9 +137,9 @@ func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->N
 	
 func generate_parties()->void:
 	var party_positions:Array[Vector2]
-	var party:NpcMapParty;
+
 	for i:int in thugs_amount:
-		party = generate_party(Index.thugs_scene, party_positions)
+		generate_party(Index.thugs_scene, party_positions)
 		
 	for i:int in travelling_traders_amount:
 		generate_party(Index.travelling_trader_scene, party_positions);

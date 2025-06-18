@@ -177,7 +177,7 @@ func refresh_inventory()->void:
 			inventory.resource_buying_prices[r] = 1
 
 	inventory.store_resources();
-	inventory.refresh_resource_counts()
+	inventory.refresh_resource_counts("",0,false)
 	apply_trade_anomaly();
 
 func apply_trade_anomaly()->void:
@@ -213,6 +213,11 @@ func refresh_recruits()->void:
 	big_fighter_unit.load_stats();
 	available_recruits.append(big_fighter_unit)
 
+func initiate_inventory()->void:
+	inventory.generate_storages()
+
+func _on_hover_box_gui_input(event: InputEvent) -> void:
+	Entities.world_map.ui.movement_overlay._on_gui_input(event);
 
 
 func _on_hover_box_mouse_entered()->void:
@@ -220,6 +225,3 @@ func _on_hover_box_mouse_entered()->void:
 	
 func _on_hover_box_mouse_exited()->void:
 	Entities.clear_map_entity_under_mouse();
-
-func initiate_inventory()->void:
-	inventory.generate_storages()

@@ -186,7 +186,7 @@ func _on_gui_input(e: InputEvent) -> void:
 					loot_command();
 					return;
 		else:
-			if e.button_index == MOUSE_BUTTON_LEFT:
+			if e.button_index == MOUSE_BUTTON_LEFT and not item.fixed:
 				put_down();
 
 func empty_storage()->void:
@@ -228,8 +228,8 @@ func empty_storage()->void:
 	display.play_deposit_sfx(moved, item.resource)
 			
 func pick_up()->void:
-	z_index += 1;
 	if not item.fixed:
+		z_index += 1;
 		display.item_picked_up.emit();
 		item_under = self;
 		display.sfx.play_sound_by_key("pick_up");

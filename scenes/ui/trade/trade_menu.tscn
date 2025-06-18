@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://ctxqhmgpiuoss"]
 
 [ext_resource type="Script" uid="uid://bkmntak62a0ul" path="res://scenes/map/ui/settlement/trade_menu.gd" id="1_vhigs"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_5yui1"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="2_5yui1"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_grid/inventory_display.tscn" id="2_ln21g"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_gamgw"]
 [ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="4_gamgw"]
@@ -225,7 +225,6 @@ fuel_daily_cost_label = NodePath("HBoxContainer/player_panel/VBoxContainer/24_h_
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("2_5yui1")]
-bus = &"sfx"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

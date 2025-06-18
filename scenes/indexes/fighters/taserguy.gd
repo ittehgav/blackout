@@ -24,7 +24,7 @@ const tags = [
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
-	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "status_duration");
+	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "stun", "status_duration");
 	
 	var string:String = "Deals " + damage_str + " to a target and stuns them for "\
 	 + stun_duration_str + " seconds.";

@@ -1,5 +1,7 @@
 extends TileMapLayer
 
+@export var light:DirectionalLight2D
+
 func _ready()->void:
 	if Entities.world_map:
 		set_tiles()
@@ -35,10 +37,12 @@ func set_tiles()->void:
 			
 	var hour:int = Entities.world_map.current_hour;
 	if hour <= 3 or hour >= 21:
-		modulate.v = .1
+		## late night hours
+		light.color = Color.MIDNIGHT_BLUE;
 	elif hour <= 6 or hour >= 18:
-		modulate.v = .5
-	elif hour >= 12:
+		light.color = Color.DARK_ORANGE
+	elif hour >= 12: ## and < 18
+		light.color = Color.YELLOW
 		get_parent().team_1.modulate.v = .7
 		get_parent().team_2.modulate.v = .7
 		

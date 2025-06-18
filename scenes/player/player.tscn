@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxonxw6koom7v"]
+[gd_scene load_steps=6 format=3 uid="uid://cicrr5baffqaa"]
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_efaxt"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="2_w3kr7"]
@@ -12,15 +12,10 @@ leadership_stats = NodePath("leadership_stats")
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("combat_stats")
+sight_range = 256
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_w3kr7")]
 holder = NodePath("..")
-food = 2
-money = 110.0
-fuel = 4
-juice = 5
-scrap = 6
-chips = 7
 
 [node name="Roster" parent="." instance=ExtResource("3_5khbq")]
 

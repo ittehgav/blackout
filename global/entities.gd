@@ -3,10 +3,13 @@ extends Node
 
 var main:Node;
 var main_bgm:AudioStreamPlayer;
+var current_camera:Camera2D;
 
 var player:Player;
 var in_fight_player:InFightPlayer;
 var in_map_player:InMapPlayer;
+
+var loading_screen:UIRoot;
 
 var player_sheet:PlayerSheet;
 

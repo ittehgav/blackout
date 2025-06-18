@@ -20,11 +20,6 @@ const tags = [
 	"doctor"
 ]
 
-func full_skill_description(unit:FighterUnit)->String:
-	var stun_duration_string:String = Index.get_technique_scaled_string(unit, "status_duration");
-	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
-	+ stun_duration_string + " seconds.";
-	return string;
 
 const hitbox_radius = 25;
 const hitbox_height = 60;
@@ -39,10 +34,16 @@ const hit_scan_width = 100;
 
 const knock_back_distance = 500;
 
-const status_duration = 1;
-const secondary_stun_duration = .5;
+const status_duration = .5;
 
 var hit_scan_shape:CollisionShape2D;
+
+func full_skill_description(unit:FighterUnit)->String:
+	var stun_duration_string:String = Index.get_technique_scaled_string(unit, "stun", "status_duration");
+	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and stuns them and any enemies they collide with for "\
+	+ stun_duration_string + " seconds.";
+	return string;
+
 
 func special_setup()->void:
 	fighter.target_changed.connect(update_hit_scan);
@@ -58,7 +59,7 @@ func skill()->void:
 	Combat.stun_target(fighter, fighter.target_unit);
 	
 	for target:Node in fighter.hit_scan.get_overlapping_bodies():
-		Combat.stun_target(fighter, target, secondary_stun_duration)
+		Combat.stun_target(fighter, target)
 	
 	var direction:Vector2 = fighter.position.direction_to(fighter.target_unit.position).normalized();
 	var target_position:Vector2 = fighter.target_unit.position + direction * knock_back_distance;

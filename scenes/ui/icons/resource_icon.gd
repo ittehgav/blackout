@@ -38,11 +38,14 @@ func setup_adjacent_items()->void:
 		if item is Label:
 			item.add_theme_color_override("font_color", Index.resource_colors[resource]);
 			if match_player_inventory:
+
 				Entities.player.resource_changed.connect(set_count_label.bind(item))
 				set_count_label(resource, 0, item);
 	
 
 func set_count_label(r:String, _change:float, target:Label)->void:
 	if r == resource:
-		var value:int = Entities.player.inventory[r];
-		target.text = str(int(value));
+		var value:int
+		if match_player_inventory:
+			value = Entities.player.inventory[r];
+		target.text = str(value);

@@ -5,6 +5,7 @@ class_name Vehicle
 @export var party:MapParty;
 
 func _ready()->void:
+	await party.ready
 	ColorCoder.color_code_vehicle(self, party.leader);
 
 

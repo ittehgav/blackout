@@ -13,7 +13,7 @@ const juice_cost = 5;
 const base_agility_frac = .5
 
 ## juice consumption scales with leadership_level?
-@onready var  description:String = "Cosumes " + str(juice_cost) + Index.resource_colored_name("juice") +\
+@onready var  description:String = "Cosumes " + str(juice_cost)+" " + Index.resource_colored_name("juice") +\
 " and increases your "+Index.stat_colored_name("agility")+" for the rest of the battle.";
 
 

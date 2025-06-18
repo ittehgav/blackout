@@ -2,11 +2,14 @@ extends Node2D
 
 class_name Arena;
 
+signal finished_loading;
+signal battle_over(winner:int)
+
+
 ## keep this information and only emit won/lost signal when you exit the arena
 ## any interactions that depend on whether or not the player won will 
 ## be bound to the signals
 var won_battle:bool;
-var battle_ongoing:bool=true;
 
 
 @export var overlay:Control;
@@ -37,15 +40,16 @@ func start_battle(enemy_leader:Leader)->void:
 	overlay.tide_bar.set_tide_bar();
 
 	generate_battle_reward(enemy_leader);
+	finished_loading.emit()
 
 func return_to_world_map()->void:
+	Entities.world_map.returned_from_battle.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
 	var camera:Camera2D = Entities.in_map_player.camera;
 	camera.enabled = true
 	camera.reparent(Entities.in_map_player)
 	camera.global_position = Entities.in_map_player.global_position;
 	Entities.world_map.unpause_map();
 	Entities.world_map.show()
-	#Entities.main_bgm.play_bgm("world_map");
 	Entities.main.current_state = "world_map"
 	
 
@@ -79,12 +83,12 @@ func load_teams(enemy_leader:Leader)->void:
 
 
 func player_died(_killer:ActiveFighter)->void:
-	battle_over(2);
+	end_battle(2);
 
-func battle_over(winner:int)->void:
+func end_battle(winner:int)->void:
 	won_battle = winner == 1;
-	battle_ongoing = false
 	overlay.post_fight.show_post_fight(winner)
+	battle_over.emit(winner)
 	
 func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
 	var enemy_team_n:int = 2 if team_n == 1 else 1;

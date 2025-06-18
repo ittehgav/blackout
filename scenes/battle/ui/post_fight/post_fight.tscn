@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://b8j8soyx2828m"]
 
 [ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/ui/post_fight/post_fight.gd" id="1_433o0"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_7eru0"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="2_7eru0"]
 [ext_resource type="Script" uid="uid://cpv3j7m2gbwne" path="res://scenes/battle/ui/post_fight/victory_view.gd" id="3_7eru0"]
 [ext_resource type="Script" uid="uid://8robaepnm2u6" path="res://scenes/battle/ui/post_fight/defeat_view.gd" id="3_uki8n"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="4_do72l"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="10_dh2mc"]
 [ext_resource type="Script" uid="uid://biskar3s20qlf" path="res://scenes/battle/ui/post_fight/loot_gains.gd" id="10_r614c"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_grid/inventory_display.tscn" id="11_apr0c"]
-[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="12_qaebw"]
+[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="12_qaebw"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="12_uydno"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_apr0c"]
@@ -228,7 +228,6 @@ defeat_view = NodePath("defeat_view")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("2_7eru0")]
-bus = &"sfx"
 
 [node name="bg" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -251,7 +250,7 @@ script = ExtResource("3_7eru0")
 exp_gains = NodePath("exp_gains")
 loot_gains = NodePath("loot_gains")
 
-[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "leadership_exp_gain", "combat_exp_gain", "step_timer", "unit_exp_gain_container", "combat_stat_points_label", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
+[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "leadership_exp_gain", "combat_exp_gain", "step_timer", "continue_btn", "unit_exp_gain_container", "combat_stat_points_label", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
 custom_minimum_size = Vector2(1000, 600)
 layout_mode = 1
 anchors_preset = 15
@@ -268,6 +267,7 @@ victory_title = NodePath("VBoxContainer/victory_title")
 leadership_exp_gain = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/leadership_exp")
 combat_exp_gain = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/combat_exp")
 step_timer = NodePath("step")
+continue_btn = NodePath("continue")
 unit_exp_gain_container = NodePath("unit_exp_gains")
 unit_exp_gain_scene = ExtResource("9_am2jd")
 combat_stat_points_label = NodePath("VBoxContainer/VBoxContainer2/combat_stat_points")
@@ -376,22 +376,22 @@ text = "iia"
 
 [node name="remove_hp_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "-"
 
 [node name="add_hp_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "+"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
@@ -412,22 +412,22 @@ text = "iia"
 
 [node name="remove_attack_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "-"
 
 [node name="add_attack_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "+"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
@@ -448,22 +448,22 @@ text = "iia"
 
 [node name="remove_defense_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "-"
 
 [node name="add_defense_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "+"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
@@ -484,22 +484,22 @@ text = "iia"
 
 [node name="remove_agility_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "-"
 
 [node name="add_agility_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "+"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
@@ -520,22 +520,22 @@ text = "iia"
 
 [node name="remove_technique_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "-"
 
 [node name="add_technique_point" type="Button" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "+"
 
 [node name="unit_exp_gains" type="GridContainer" parent="victory_view/exp_gains"]
@@ -553,27 +553,28 @@ grow_vertical = 2
 mouse_filter = 2
 columns = 3
 
-[node name="Label" type="Label" parent="victory_view/exp_gains"]
-modulate = Color(1, 1, 1, 0.564706)
+[node name="step" type="Timer" parent="victory_view/exp_gains"]
+wait_time = 2.5
+one_shot = true
+
+[node name="continue" type="Button" parent="victory_view/exp_gains"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -308.0
-offset_top = -30.0
-offset_right = -18.0
-offset_bottom = -4.0
+offset_left = -116.0
+offset_top = -46.0
+offset_right = -16.0
+offset_bottom = -12.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "[click anywhere to continue]"
-
-[node name="step" type="Timer" parent="victory_view/exp_gains"]
-wait_time = 2.5
-one_shot = true
+theme_override_font_sizes/font_size = 64
+text = "Continue"
 
 [node name="loot_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("post_fight", "player_inventory_display", "loot_display")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -778,6 +779,7 @@ text = "[click anywhere to continue]"
 [connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/remove_technique_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["technique"]]
 [connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5/add_technique_point" to="victory_view/exp_gains" method="add_stat_point" binds= ["technique"]]
 [connection signal="timeout" from="victory_view/exp_gains/step" to="victory_view/exp_gains" method="_on_step_timeout"]
+[connection signal="pressed" from="victory_view/exp_gains/continue" to="victory_view/exp_gains" method="_on_continue_pressed"]
 [connection signal="pressed" from="victory_view/loot_gains/HBoxContainer/VBoxContainer/loot_all_btn" to="victory_view/loot_gains" method="_on_loot_all_btn_pressed"]
 [connection signal="pressed" from="victory_view/loot_gains/HBoxContainer/VBoxContainer/continue" to="victory_view/loot_gains" method="_on_continue_pressed"]
 

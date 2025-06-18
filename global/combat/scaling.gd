@@ -13,6 +13,7 @@ func level_up_stats(unit:FighterUnit, level:int=1)->void:
 		unit.stats.attack = 0;
 
 
+
 func initiate_unit_stats(unit:FighterUnit)->void:
 	## gives the stats to a FighterUnit
 	## ONLY THE INITIAL VALUE FROM THEIR BASE'S TAGS
@@ -84,7 +85,6 @@ func initiate_unit_stats(unit:FighterUnit)->void:
 				unit.stats.defense += 15;
 			_:
 				printerr("MISSIGNTAGA ", tag)
-
 
 func tag_stats_per_level(tag:String)->Dictionary:
 	## will the difference between some technique and no technique feel huge?
@@ -234,3 +234,31 @@ var player_stats_per_point:Dictionary[String, float] = {
 	"agility":1,
 	"technique":.5
 }
+	
+const agility_yield_breakpoints = {
+	## how much of a percentage of cooldown reduction each indifividual agility
+	## point will give
+	10:1.5,
+	30:1,
+	50:.75,
+	100:.5
+}
+
+const technique_mechanic_multipliers = {
+	"stun":.1,
+	"stat_buff":.2,
+	"stat_debuff":.2,
+	"heal":.25,
+	"damage":.25
+}
+
+func technique_scaled_value(value:float,source_technique:float, mechanic:String)->float:
+	match mechanic:
+		## some mechanics are directly multiplied by the value and some are added to themselves times the multiplier
+		"stun", "stat_buff", "stat_debuff":
+			return value + value * source_technique * technique_mechanic_multipliers[mechanic]
+		_:
+			if technique_mechanic_multipliers[mechanic] * source_technique < 1:
+				return value;
+			return value * source_technique * technique_mechanic_multipliers[mechanic]
+			

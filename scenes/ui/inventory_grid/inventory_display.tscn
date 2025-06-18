@@ -320,7 +320,6 @@ offset_left = -107.0
 offset_top = -40.0
 offset_right = 148.0
 offset_bottom = 76.0
-mouse_filter = 1
 script = ExtResource("21_15sfg")
 display = NodePath("..")
 choice_1_label = NodePath("choices/choice_1/Label")

@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="18_kgbfd"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="23_1usgs"]
 [ext_resource type="PackedScene" uid="uid://b8j8soyx2828m" path="res://scenes/battle/ui/post_fight/post_fight.tscn" id="27_slj5k"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="28_61gvu"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="28_61gvu"]
 [ext_resource type="Script" uid="uid://b7a05n61c7pja" path="res://scenes/battle/arena/pause_menu.gd" id="29_1usgs"]
 [ext_resource type="Script" uid="uid://81xhv6lcyjj" path="res://scenes/battle/arena/pointer.gd" id="30_1usgs"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="30_w5ded"]
@@ -269,11 +269,12 @@ team_2 = NodePath("team_2")
 projectiles = NodePath("projectiles")
 tide_bar = NodePath("hud/overlay/tide_of_battle")
 
-[node name="tiles" type="TileMapLayer" parent="."]
+[node name="tiles" type="TileMapLayer" parent="." node_paths=PackedStringArray("light")]
 z_index = -2
 scale = Vector2(2, 2)
 tile_set = ExtResource("2_524le")
 script = ExtResource("4_jf7ja")
+light = NodePath("../light")
 
 [node name="team_1" type="Node2D" parent="." node_paths=PackedStringArray("enemy_team")]
 script = ExtResource("3_kfkuj")
@@ -611,6 +612,27 @@ offset_bottom = 10.0
 layout_mode = 2
 text = "Lv. 10 Wheel Guy"
 
+[node name="pointer" type="Control" parent="hud/overlay" node_paths=PackedStringArray("player", "area", "polygon", "arrow")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("30_1usgs")
+player = NodePath("../../../team_1/in_fight_player")
+area = NodePath("../../../team_1/in_fight_player/off_screen_checker")
+polygon = NodePath("../../../team_1/in_fight_player/off_screen_checker/CollisionPolygon2D")
+arrow = NodePath("arrow")
+
+[node name="arrow" type="Sprite2D" parent="hud/overlay/pointer"]
+modulate = Color(0.63, 0, 0, 0.498039)
+position = Vector2(-549, -221)
+scale = Vector2(4, 3)
+texture = ExtResource("31_w5ded")
+
 [node name="post_fight" parent="hud/overlay" instance=ExtResource("27_slj5k")]
 visible = false
 layout_mode = 1
@@ -632,9 +654,6 @@ material = SubResource("ShaderMaterial_ekkts")
 
 [node name="technique_icon" parent="hud/overlay/post_fight/victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5" index="0"]
 material = SubResource("ShaderMaterial_2j832")
-
-[node name="loot_gains" parent="hud/overlay/post_fight/victory_view" index="1"]
-visible = false
 
 [node name="money_icon" parent="hud/overlay/post_fight/victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer3" index="0"]
 material = SubResource("ShaderMaterial_524le")
@@ -671,27 +690,6 @@ material = SubResource("ShaderMaterial_ttp6m")
 
 [node name="chips_icon" parent="hud/overlay/post_fight/victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_djei2")
-
-[node name="pointer" type="Control" parent="hud/overlay" node_paths=PackedStringArray("player", "area", "polygon", "arrow")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 35.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("30_1usgs")
-player = NodePath("../../../team_1/in_fight_player")
-area = NodePath("../../../team_1/in_fight_player/off_screen_checker")
-polygon = NodePath("../../../team_1/in_fight_player/off_screen_checker/CollisionPolygon2D")
-arrow = NodePath("arrow")
-
-[node name="arrow" type="Sprite2D" parent="hud/overlay/pointer"]
-modulate = Color(1, 0, 0, 0.662745)
-position = Vector2(-549, -221)
-scale = Vector2(2, 4)
-texture = ExtResource("31_w5ded")
 
 [node name="pause_menu" type="Control" parent="hud/overlay" node_paths=PackedStringArray("ui_sfx")]
 process_mode = 2
@@ -766,6 +764,11 @@ physics_material_override = SubResource("PhysicsMaterial_524le")
 position = Vector2(-1571, -5423)
 polygon = PackedVector2Array(-2528, 9530, 5667, 9519, 5667, 1327, -2525, 1327, -2528, 12000, -4453, 11958, -4517, -520, 7634, -886, 7687, 1254, 7814, 11747, 5597, 11789, -2528, 12000)
 
+[node name="light" type="DirectionalLight2D" parent="."]
+position = Vector2(-2238, 173)
+blend_mode = 2
+
+[connection signal="battle_over" from="." to="hud/overlay/pointer" method="_on_arena_battle_over"]
 [connection signal="damage_blocked" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_damage_blocked"]
 [connection signal="damage_taken" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_damage_taken"]
 [connection signal="death" from="team_1/in_fight_player" to="." method="player_died"]

@@ -8,12 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://dvkldeq4wkpwa" path="res://assets/visual/backgrounds/settlements/farm/crowd2.png" id="4_jfju3"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="5_ptoka"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/settlements/shadow.png" id="7_cdknx"]
-[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="7_gw7tl"]
+[ext_resource type="PackedScene" uid="uid://b7m55l8qbi0tw" path="res://scenes/map/settlement/hover_box.tscn" id="9_cdknx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oyln7"]
 radius = 40.0
 
-[node name="Farm" type="CharacterBody2D" node_paths=PackedStringArray("inventory")]
+[node name="Farm" type="CharacterBody2D" node_paths=PackedStringArray("inventory") groups=["all_settlements"]]
 z_index = 1
 input_pickable = true
 motion_mode = 1
@@ -45,26 +45,17 @@ texture = ExtResource("7_cdknx")
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("5_ptoka")]
 holder = NodePath("..")
 
-[node name="hover_box" type="Control" parent="."]
-z_index = 4
-layout_mode = 3
-anchors_preset = 0
-offset_left = -23.0
-offset_top = -21.0
-offset_right = 77.0
-offset_bottom = 79.0
+[node name="hover_box" parent="." instance=ExtResource("9_cdknx")]
+offset_left = -54.0
+offset_top = -54.0
+offset_right = 54.0
+offset_bottom = 54.0
 
-[node name="Tooltip" parent="hover_box" node_paths=PackedStringArray("target") instance=ExtResource("7_gw7tl")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 322.0
-offset_bottom = 90.0
-grow_horizontal = 1
-grow_vertical = 1
+[node name="Tooltip" parent="hover_box" index="0" node_paths=PackedStringArray("target")]
 target = NodePath("../..")
+
+[connection signal="gui_input" from="hover_box" to="." method="_on_hover_box_gui_input"]
+[connection signal="mouse_entered" from="hover_box" to="." method="_on_hover_box_mouse_entered"]
+[connection signal="mouse_exited" from="hover_box" to="." method="_on_hover_box_mouse_exited"]
+
+[editable path="hover_box"]

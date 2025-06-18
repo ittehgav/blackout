@@ -14,6 +14,7 @@ var settlement:Settlement;
 @export var hire_btn:Button;
 
 var current_unit_price:int;
+@export var hired_stamp:ColorRect
 
 @export_group("Showing Recruit Data")
 var showing_recruit:FighterUnit;
@@ -55,6 +56,7 @@ func card_clicked(card:RecruitmentCard, hire_price:int)->void:
 	display_recruit(card.unit, hire_price, card);
 
 func display_recruit(unit:FighterUnit, hire_price:int, card:RecruitmentCard)->void:
+	hired_stamp.hide();
 	showing_recruit_card = card
 	showing_recruit = unit;
 	settlement_ui.ui_sfx.play_stream("button_click");
@@ -105,3 +107,8 @@ func _on_hire_btn_pressed() -> void:
 	Entities.player.inventory.change_resource("money", -current_unit_price);
 	settlement.available_recruits.erase(showing_recruit);
 	
+	hired_stamp.show()
+	hired_stamp.scale = Vector2(1.25, 1.25)
+	var tween: = create_tween();
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(hired_stamp, "scale", Vector2.ONE, .5)

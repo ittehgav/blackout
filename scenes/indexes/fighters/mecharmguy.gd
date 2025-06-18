@@ -9,7 +9,7 @@ const skill_hit_sfx = ["metal"]
 
 const skill_windup = true;
 
-const sample_offset = Vector2(25, -26)
+const sample_offset = Vector2(15, -26)
 
 const target_type = "nearest_enemy"
 
@@ -25,7 +25,7 @@ const tags = [
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
-	var def_reduction_str:String = Index.get_technique_scaled_string(unit, "poo", stat_debuff_values.defense);
+	var def_reduction_str:String = Index.get_technique_scaled_string(unit,"stat_debuff", "", stat_debuff_values.defense);
 
 	var string:String = "Deals "+damage_str + " to enemies in an area and reduces their "+Index.stat_colored_name("defense")+\
 	" by "+  def_reduction_str + " for the rest of the battle.";

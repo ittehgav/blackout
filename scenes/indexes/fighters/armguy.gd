@@ -23,13 +23,13 @@ const tags = [
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage:String = Index.get_unit_damage_string(unit);
-	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "status_duration")
+	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "stun", "status_duration")
 	
 	var string:String = "Punches forward, dealing " + damage + \
 	" to enemies in a small area and "+Index.get_color_tag("stun") + "stunning[/color] them for "\
 	 + stun_duration_str + " seconds.";
 
-	string += "\n\nCan be upgraded to deal much more damage or to apply crowd control over a large area."
+	string += "\n\nCan be [u]upgraded[/u] to deal much more damage or to apply crowd control over a large area."
 	return string;
 
 

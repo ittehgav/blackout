@@ -1,10 +1,10 @@
-[gd_scene load_steps=51 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=54 format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/player/ui/player_sheet.gd" id="1_6boby"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_go8yu"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_0tcx5"]
 [ext_resource type="AudioStream" uid="uid://cidv5tcb082h5" path="res://assets/sound/sfx/ui/close_player_sheet.wav" id="3_5uudl"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="3_vnktq"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="3_vnktq"]
 [ext_resource type="AudioStream" uid="uid://w0cjicar8g7f" path="res://assets/sound/sfx/ui/consumable_use.wav" id="5_b563s"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="6_1fayv"]
 [ext_resource type="AudioStream" uid="uid://dupgq35vdx1m4" path="res://assets/sound/sfx/ui/rummage.wav" id="6_fcyhu"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://c3t5hlpw6vsaq" path="res://scenes/player/ui/player.gd" id="16_4btww"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="18_jpfxv"]
 [ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/recruit_full_view.tscn" id="18_vtwi5"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="20_hv25b"]
 [ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="20_s8tnr"]
 [ext_resource type="Script" uid="uid://4586apxxsg85" path="res://scenes/player/ui/upgrade_hint.gd" id="21_hv25b"]
 [ext_resource type="Script" uid="uid://ee3s0lv0tm6c" path="res://scenes/player/ui/memo.gd" id="23_bqvqp"]
@@ -124,6 +125,28 @@ shader_parameter/neutral_value = 1.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hv25b"]
 shader = ExtResource("3_0tcx5")
 shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_veb6b"]
+resource_local_to_scene = true
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bqvqp"]
+resource_local_to_scene = true
+shader = ExtResource("3_0tcx5")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -363,7 +386,6 @@ equip = SubResource("Resource_d23kd")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("3_vnktq")]
-bus = &"sfx"
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 bus = &"sfx"
@@ -687,14 +709,16 @@ offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("ui_sfx", "recruit_full_view", "recruits_grid", "upgrade_hint")]
+[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "recruit_full_view", "recruits_grid", "upgrade_hint")]
 visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("15_s407w")
+food_cost = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/food_cost")
+fuel_cost = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/fuel_cost")
 ui_sfx = NodePath("../../../../../ui_sfx")
 recruit_full_view = NodePath("../../../../RecruitFullView")
-recruits_grid = NodePath("recruits")
+recruits_grid = NodePath("VBoxContainer/recruits")
 upgrade_hint = NodePath("upgrade_hint")
 metadata/_tab_index = 1
 
@@ -709,6 +733,8 @@ theme_override_constants/separation = 15
 [node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("15_ptfqp")]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 adjacent_items = [NodePath("../morale_display")]
 
 [node name="morale_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer"]
@@ -716,21 +742,60 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Morale: 5"
 
-[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Travel
+Upkeep:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("20_hv25b")]
+material = SubResource("ShaderMaterial_veb6b")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+match_player_inventory = false
+adjacent_items = [NodePath("../food_cost")]
+
+[node name="food_cost" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "22"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("20_hv25b")]
+material = SubResource("ShaderMaterial_bqvqp")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+resource = "fuel"
+match_player_inventory = false
+adjacent_items = [NodePath("../fuel_cost")]
+
+[node name="fuel_cost" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "22"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
 layout_mode = 0
-offset_left = 65.0
-offset_top = 158.0
-offset_right = 233.0
-offset_bottom = 209.0
+offset_left = 35.0
+offset_top = 140.0
+offset_right = 139.0
+offset_bottom = 195.0
+
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Units"
 
-[node name="recruits" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 207.0
-offset_right = 61.0
-offset_bottom = 247.0
+[node name="recruits" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
+layout_mode = 2
 columns = 7
 
 [node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]

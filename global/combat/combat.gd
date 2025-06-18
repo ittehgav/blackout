@@ -1,4 +1,4 @@
-extends "res://global/combat_mechanics.gd"
+extends "res://global/combat/combat_mechanics.gd"
 
 
 func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant)->void:
@@ -25,7 +25,7 @@ func aoe_damage(source:ActiveFighter)->void:
 			
 		deal_damage(source, target);
 
-func aoe_heal(source:ActiveFighter, value:float)->void:
+func aoe_heal(source:ActiveFighter, value:float=Scaling.technique_scaled_value(source.base.heal_value, source.technique, "heal"))->void:
 	var targets:Array[Node2D] = source.hit_scan.get_overlapping_bodies();
 	for target in targets:
 		if source is NpcFighter:
@@ -47,7 +47,8 @@ func self_stat_buff(source:ActiveFighter)->void:
 	## TODO make stat buffs/debuffs apply in individual calls and the npcFighter
 	##  node will break them down based on data from the base
 	for stat:String in source.base.stats_to_buff:
-			var value:float = source.base.stat_buff_values[stat] * source.technique;
+			var value:float = source.base.stat_buff_values[stat];
+			value = Scaling.technique_scaled_value(value, source.technique, "stat_buff")
 			apply_stat_change(source, source, value, stat)
 
 func aoe_stat_buff(source:ActiveFighter, stat:String, frac:float)->void:
@@ -56,11 +57,11 @@ func aoe_stat_buff(source:ActiveFighter, stat:String, frac:float)->void:
 		if source is NpcFighter:
 			source.catch_hit_target(target);
 
-		var value:float = (target[stat] * frac) * source.technique;
+		var value:float = Scaling.technique_scaled_value((target[stat] * frac), source.technique, "stat_buff");
 		apply_stat_change(source, target, value, stat);
 		
 
-func aoe_stat_debuff(source:ActiveFighter)->void:
+func aoe_stat_debuff(source:ActiveFighter, percentage:bool=false)->void:
 	## TODO make this work the same way as aoe buff
 	var targets:Array[Node2D] = source.hit_scan.get_overlapping_bodies();
 	for unit in targets:
@@ -69,5 +70,10 @@ func aoe_stat_debuff(source:ActiveFighter)->void:
 
 		for stat:String in source.base.stats_to_debuff:
 			## stat debuff values are multiplied by - 1 here
-			var value:float = source.base.stat_debuff_values[stat] * -source.technique
+			var value:float;
+			if percentage:
+				var fraction:float = (unit[stat]/100) * source.base.stat_debuff_values[stat];
+				value = -Scaling.technique_scaled_value(fraction, source.technique, "stat_debuff");
+			else:
+				value = -Scaling.technique_scaled_value(source.base.stat_debuff_values[stat], source.technique, "stat_debuff")
 			apply_stat_change(source, unit, value, stat);

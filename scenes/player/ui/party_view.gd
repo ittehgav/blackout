@@ -1,8 +1,11 @@
 extends Control
 
+@export var food_cost:Label;
+@export var fuel_cost:Label;
+
 @export var ui_sfx:AudioStreamPlayer;
 
-@export var recruit_full_view:Container;
+@export var recruit_full_view:Panel;
 
 @export var recruits_grid:GridContainer;
 
@@ -23,6 +26,10 @@ func refresh_data()->void:
 			var hint:TextureRect = upgrade_hint.duplicate();
 			hint.show()
 			sample.add_child(hint)
+	
+	var travel_expenses:Dictionary = Entities.player.travel_upkeep_cost();
+	food_cost.text = str(travel_expenses.food) + "/hour"
+	fuel_cost.text = str(travel_expenses.fuel) + "/hour"
 		
 		
 func show_more(e:InputEvent, unit:FighterUnit)->void:

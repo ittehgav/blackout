@@ -2,6 +2,7 @@ extends MapEntity
 
 class_name MapParty
 
+
 signal quadrant_changed(new_quadrant:WorldMapQuadrant, direction:Vector2);
 
 signal entity_entered_range(entity:MapEntity);

@@ -28,7 +28,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	var final_damage_str:String = Index.get_unit_damage_string(unit);
 	final_damage_str= "[color=" + final_damage_color_hex + "]" + final_damage_str + "[/color]"
 	
-	var technique_str:String = Index.get_technique_scaled_string(unit, "", 0, .5);
+	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique * Scaling.technique_mechanic_multipliers["damage"], .01)) + "[/color]"
 	
 	var string:String = "Deals " + final_damage_str + " (" + base_damage_str + " * " + technique_str + ") to the nearest enemy.";
 
@@ -38,15 +38,10 @@ func full_skill_description(unit:FighterUnit)->String:
 
 func damage_modifier(damage:float, unit:FighterUnit=null)->float:
 	if not unit:
-		if fighter.technique >= 2:
-			return damage * fighter.technique/2;
-		else:
-			return damage
+		return Scaling.technique_scaled_value(damage, fighter.technique, "damage")
 	else:
-		if unit.stats.technique >= 2:
-			return damage * unit.stats.technique/2;
-		else:
-			return damage
+		return Scaling.technique_scaled_value(damage, unit.stats.technique, "damage")
+
 
 const hitbox_radius = 25;
 const hitbox_height = 60;

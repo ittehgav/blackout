@@ -22,9 +22,12 @@ func _ready()->void:
 	for r:String in Index.all_resources:
 		resource_tweens[r] = create_tween();
 		resource_tweens[r].kill()
-
+		set_resource_label_text(Entities.player.inventory[r], self[r+"_label"]);
 var previous_alpha:float;
 var previous_z:int;
+
+
+
 func animate_resource_change(resource:String, change:int)->void:
 	if resource == "money":
 		hud.sfx.play_sound_by_key('money_change');

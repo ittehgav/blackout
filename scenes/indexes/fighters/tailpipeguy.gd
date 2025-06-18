@@ -7,7 +7,7 @@ const skill_use_sfx = ["swing"]
 const skill_hit_sfx = ["metal"]
 
 
-const sample_offset = Vector2(5, -26)
+const sample_offset = Vector2(10, -26)
 
 const target_type = "nearest_enemy"
 
@@ -20,14 +20,6 @@ const tags = [
 	"mechanic"
 ]
 
-func full_skill_description(unit:FighterUnit)->String:
-	var damage_str:String = Index.get_unit_damage_string(unit);
-	var atk_reduction_str:String =  Index.get_technique_scaled_string(unit, "", stat_debuff_values.attack,1, "%");
-	
-	var string:String = "Deals " + damage_str + " to enemies in an area and reduces their "+Index.stat_colored_name("attack") + \
-	" by " + atk_reduction_str + " for the rest of the battle.";
-	string += "\n\nCan be [u]upgraded[/u] to become extremely resistant or to deal strong AOE damage."
-	return string;
 
 const hitbox_radius = 40;
 const hitbox_height = 100;
@@ -41,6 +33,7 @@ const debuff_type = "stat";
 
 const stats_to_debuff = ["attack"];
 const stat_debuff_values = {
+	## PERCENTUAL
 	"attack":5
 }
 
@@ -55,6 +48,16 @@ const evolutions = {
 	}
 }
 
+func full_skill_description(unit:FighterUnit)->String:
+	var damage_str:String = Index.get_unit_damage_string(unit);
+	var atk_reduction_str:String =  Index.get_technique_scaled_string(unit, "stat_debuff", "", stat_debuff_values["attack"]);
+	
+	var string:String = "Deals " + damage_str + " to enemies in an area and reduces their "+Index.stat_colored_name("attack") + \
+	" by " + atk_reduction_str + "% for the rest of the battle.";
+	string += "\n\nCan be [u]upgraded[/u] to become extremely resistant or to deal strong AOE damage."
+	return string;
+
+
 func skill()->void:
 	Combat.aoe_damage(fighter);
-	Combat.aoe_stat_debuff(fighter);
+	Combat.aoe_stat_debuff(fighter, true);

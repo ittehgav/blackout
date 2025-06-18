@@ -1,7 +1,7 @@
 [gd_scene load_steps=36 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/ui_sfx.tscn" id="2_c11hx"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="2_c11hx"]
 [ext_resource type="Script" uid="uid://by8vn18s08uo6" path="res://scenes/map/ui/settlement/sky_bg.gd" id="3_m2mhi"]
 [ext_resource type="Shader" uid="uid://bg5d2crng34n6" path="res://scenes/map/ui/settlement/settlement_bg.gdshader" id="3_pm0ox"]
 [ext_resource type="Texture2D" uid="uid://bckvycfqlfhbi" path="res://assets/visual/backgrounds/settlements/factory/factory.png" id="4_pm0ox"]
@@ -288,7 +288,9 @@ text = "Factory"
 horizontal_alignment = 1
 
 [node name="settlement_type" type="Label" parent="main_view/container/text/MarginContainer/VBoxContainer"]
+modulate = Color(0.5, 0.5, 0.5, 0.741176)
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "Factory"
 horizontal_alignment = 1
 
@@ -469,7 +471,7 @@ text = "[click on a settlement to reveal it in the world map or press any key to
 visible = false
 layout_mode = 1
 
-[node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
+[node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "hired_stamp", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -483,6 +485,7 @@ recruit_panel = NodePath("Panel")
 cards_container = NodePath("recruit_cards")
 settlement_ui = NodePath("..")
 hire_btn = NodePath("Panel/hire_btn")
+hired_stamp = NodePath("Panel/hired")
 recruit_name_label = NodePath("Panel/recruit_name")
 recruit_level_label = NodePath("Panel/VBoxContainer2/level")
 tags_label = NodePath("Panel/VBoxContainer2/tags")
@@ -742,6 +745,35 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 64
 text = "Hire"
+
+[node name="hired" type="ColorRect" parent="recruitment_menu/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65098)
+
+[node name="Label" type="Label" parent="recruitment_menu/Panel/hired"]
+modulate = Color(0.74, 0.74, 0.74, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -104.0
+offset_right = 254.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.261799
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 192
+text = "HIRED"
 
 [node name="event_view" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "stat_gain_sfx", "resource_gain_sfx", "sky_view", "confirmation_panel", "conclusion_panel", "samples_container", "name_label", "description_label", "available_units_label", "money_cost_label", "time_cost_label", "confirm_btn", "resrource_gains_container", "conclusion_samples_container")]
 visible = false

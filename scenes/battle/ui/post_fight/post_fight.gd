@@ -6,6 +6,7 @@ extends UIRoot
 
 
 func _ready()->void:
+	super();
 	set_process_input(false)
 
 	
@@ -31,6 +32,6 @@ func show_post_fight(winner_n:int)->void:
 
 func end_post_fight()->void:
 	if Entities.world_map:
-		await Tweens.ui_fade_out(self).finished;
+		await Tweens.ui_fade_in(Entities.loading_screen).finished;
 		## to differentiate from when the battle was a test battle press in the main vieW
 		Entities.arena.return_to_world_map();

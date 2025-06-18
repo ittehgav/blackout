@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0vg6gq1edsw"]
+[gd_scene load_steps=11 format=3 uid="uid://c0vg6gq1edsw"]
 
 [ext_resource type="Script" uid="uid://cno7hu4sfyc12" path="res://scenes/indexes/parties/player/in_map_player.gd" id="1_h5u0f"]
 [ext_resource type="Script" uid="uid://uqg2im2po8og" path="res://scenes/indexes/parties/player/navigation_sfx.gd" id="2_2oxjm"]
-[ext_resource type="PackedScene" uid="uid://dxonxw6koom7v" path="res://scenes/player/player.tscn" id="2_c0i2s"]
 [ext_resource type="AudioStream" uid="uid://bfbxg7q2ia2ej" path="res://assets/sound/sfx/world_map/movement_start.wav" id="3_yei6f"]
 [ext_resource type="AudioStream" uid="uid://ct4pggtfvqt8f" path="res://assets/sound/sfx/world_map/movement_stop.wav" id="4_ajdwu"]
 [ext_resource type="Script" uid="uid://c0wbe3ugd608g" path="res://scenes/indexes/parties/player/in_map_camera.gd" id="4_ibn0u"]
@@ -15,7 +14,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_4wtfu"]
 radius = 30.0
 
-[node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("sfx", "camera", "leader", "vehicle")]
+[node name="in_map_player" type="CharacterBody2D" node_paths=PackedStringArray("sfx", "camera", "vehicle")]
 process_mode = 3
 collision_layer = 256
 collision_mask = 256
@@ -23,7 +22,6 @@ motion_mode = 1
 script = ExtResource("1_h5u0f")
 sfx = NodePath("navigation_sfx")
 camera = NodePath("in_map_camera")
-leader = NodePath("Player")
 vehicle = NodePath("Gol")
 
 [node name="navigation_sfx" type="AudioStreamPlayer" parent="."]
@@ -34,7 +32,8 @@ movement_stop = ExtResource("4_ajdwu")
 settlement_contact = ExtResource("5_ipyn6")
 map_party_contact = ExtResource("6_xsqjv")
 
-[node name="Gol" parent="." instance=ExtResource("7_swjnx")]
+[node name="Gol" parent="." node_paths=PackedStringArray("party") instance=ExtResource("7_swjnx")]
+party = NodePath("..")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_n4fri")
@@ -44,8 +43,6 @@ process_callback = 0
 position_smoothing_speed = 5.185
 script = ExtResource("4_ibn0u")
 player = NodePath("..")
-
-[node name="Player" parent="." instance=ExtResource("2_c0i2s")]
 
 [node name="interaction_range" type="Area2D" parent="."]
 collision_layer = 0
@@ -60,5 +57,3 @@ shape = SubResource("CircleShape2D_4wtfu")
 [connection signal="stopped_moving" from="." to="." method="_on_stopped_moving"]
 [connection signal="body_entered" from="interaction_range" to="." method="_on_interaction_range_body_entered"]
 [connection signal="body_exited" from="interaction_range" to="." method="_on_interaction_range_body_exited"]
-
-[editable path="Player"]

@@ -39,7 +39,7 @@ func _process(_delta:float)->void:
 
 func _input(e:InputEvent)->void:
 	## kinda silly that this is in this script?
-	if nearby_entity and e.is_action_pressed("world_map_interact") and get_tree().paused:
+	if nearby_entity and e.is_action_pressed("world_map_interact") and get_tree().paused and not Entities.world_map.pause_stack:
 		player.interact_with_map_entity(nearby_entity);
 
 
