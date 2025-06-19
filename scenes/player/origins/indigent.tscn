@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://dkrp38iwqs33y"]
+
+[ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_ahft4"]
+[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="2_3xh6s"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="3_vupg8"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="4_ow5pe"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/indexes/items/containers/food_bag.tscn" id="5_aiie3"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/indexes/items/containers/fuel_gallon.tscn" id="6_4sir4"]
+[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster.tscn" id="7_gi2fp"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="8_qme7h"]
+[ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/player/leadership_stats.gd" id="9_hk2cr"]
+
+[node name="Indigent" type="Node" node_paths=PackedStringArray("leadership_stats", "equipped_weapon", "equipped_module", "inventory", "roster", "combat_stats")]
+script = ExtResource("1_ahft4")
+leadership_stats = NodePath("leadership_stats")
+equipped_weapon = NodePath("Inventory/Tailpipe")
+equipped_module = NodePath("Inventory/Dodge Roll")
+inventory = NodePath("Inventory")
+roster = NodePath("Roster")
+combat_stats = NodePath("combat_stats")
+sight_range = 256
+
+[node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_3xh6s")]
+holder = NodePath("..")
+
+[node name="Tailpipe" parent="Inventory" instance=ExtResource("3_vupg8")]
+
+[node name="Dodge Roll" parent="Inventory" instance=ExtResource("4_ow5pe")]
+
+[node name="Food Bag" parent="Inventory" instance=ExtResource("5_aiie3")]
+stack_size = 50
+
+[node name="Fuel Gallon" parent="Inventory" instance=ExtResource("6_4sir4")]
+stack_size = 50
+
+[node name="Roster" parent="." instance=ExtResource("7_gi2fp")]
+
+[node name="combat_stats" parent="." instance=ExtResource("8_qme7h")]
+max_hp = 100.0
+
+[node name="leadership_stats" type="Node" parent="."]
+script = ExtResource("9_hk2cr")
+
+[connection signal="combat_level_up" from="." to="." method="_on_combat_level_up"]
+[connection signal="new_memo" from="." to="." method="_on_new_memo"]
+[connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

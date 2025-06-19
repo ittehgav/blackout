@@ -26,7 +26,7 @@ func _ready() -> void:
 	if not parent.is_node_ready():
 		await parent.ready
 		setup()
-		
+
 	else:
 		setup();
 	## lots of places where the sample target is defined on load

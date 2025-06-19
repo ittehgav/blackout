@@ -105,6 +105,7 @@ func _on_player_left_settlement() -> void:
 	current_settlement.player_inside = false;
 	Entities.world_map.ui.self_modulate.a = 1
 	Entities.main_bgm.play_bgm("world_map")
+	
 	Entities.world_map.unpause_map();
 
 

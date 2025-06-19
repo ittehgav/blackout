@@ -1,0 +1,91 @@
+[gd_scene load_steps=16 format=3 uid="uid://d0blxyg3y6dq6"]
+
+[ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_difbx"]
+[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="2_ylhkj"]
+[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster.tscn" id="3_45c4c"]
+[ext_resource type="PackedScene" uid="uid://cv1ab43jxb7ky" path="res://scenes/indexes/items/weapons/taser_gun.tscn" id="3_ctxbb"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_7ppvm"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="4_q5xkx"]
+[ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/player/leadership_stats.gd" id="5_560op"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/indexes/items/containers/food_basket.tscn" id="5_gsj6j"]
+[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/indexes/items/containers/fuel_tank.tscn" id="6_8ex1r"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/battle/fighter/fighter_unit.tscn" id="6_gsj6j"]
+[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/indexes/items/containers/juice_flask.tscn" id="7_8aq5y"]
+[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="7_8ex1r"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_8aq5y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rwxv"]
+resource_local_to_scene = true
+shader = ExtResource("8_8aq5y")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fg1y0"]
+resource_local_to_scene = true
+shader = ExtResource("8_8aq5y")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Aristocrat" type="Node" node_paths=PackedStringArray("leadership_stats", "equipped_weapon", "equipped_module", "inventory", "roster", "combat_stats")]
+script = ExtResource("1_difbx")
+leadership_stats = NodePath("leadership_stats")
+equipped_weapon = NodePath("Inventory/Taser Gun")
+equipped_module = NodePath("Inventory/Dodge Roll")
+inventory = NodePath("Inventory")
+roster = NodePath("Roster")
+combat_stats = NodePath("combat_stats")
+sight_range = 256
+
+[node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_ylhkj")]
+holder = NodePath("..")
+
+[node name="Taser Gun" parent="Inventory" instance=ExtResource("3_ctxbb")]
+
+[node name="Dodge Roll" parent="Inventory" instance=ExtResource("4_q5xkx")]
+
+[node name="Food Basket" parent="Inventory" instance=ExtResource("5_gsj6j")]
+
+[node name="Fuel Tank" parent="Inventory" instance=ExtResource("6_8ex1r")]
+
+[node name="Juice Flask" parent="Inventory" instance=ExtResource("7_8aq5y")]
+
+[node name="Roster" parent="." node_paths=PackedStringArray("units") instance=ExtResource("3_45c4c")]
+units = [NodePath("FighterUnit"), NodePath("FighterUnit2")]
+
+[node name="FighterUnit" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("6_gsj6j")]
+base = NodePath("Arm Guy")
+
+[node name="Arm Guy" parent="Roster/FighterUnit" instance=ExtResource("7_8ex1r")]
+material = SubResource("ShaderMaterial_4rwxv")
+
+[node name="FighterUnit2" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("6_gsj6j")]
+base = NodePath("Arm Guy")
+
+[node name="Arm Guy" parent="Roster/FighterUnit2" instance=ExtResource("7_8ex1r")]
+material = SubResource("ShaderMaterial_fg1y0")
+
+[node name="combat_stats" parent="." instance=ExtResource("4_7ppvm")]
+max_hp = 200.0
+attack = 10.0
+defense = 5.0
+agility = 1.0
+technique = 3.0
+
+[node name="leadership_stats" type="Node" parent="."]
+script = ExtResource("5_560op")
+
+[connection signal="combat_level_up" from="." to="." method="_on_combat_level_up"]
+[connection signal="new_memo" from="." to="." method="_on_new_memo"]
+[connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

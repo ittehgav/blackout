@@ -3,6 +3,8 @@ extends UIRoot
 @export var load_menu:Control;
 @export var main_options_container:Container;
 
+@export var new_game_overlay:Control;
+
 func world_map() -> void:
 	hide()
 	await Tweens.ui_fade_in(Entities.loading_screen).finished
@@ -29,3 +31,8 @@ func _on_load_pressed() -> void:
 	Tweens.ui_fade_in(load_menu);
 	load_menu.load_files();
 	
+
+
+func _on_new_game_pressed() -> void:
+	Tweens.ui_fade_out(main_options_container)
+	Tweens.ui_fade_in(new_game_overlay);

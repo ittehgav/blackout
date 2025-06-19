@@ -14,7 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://cy2khrfwrsamb" path="res://assets/sound/sfx/combat/tide/ally_death.wav" id="13_524le"]
 [ext_resource type="Script" uid="uid://di16ygj4n1cdp" path="res://scenes/battle/ui/player_data.gd" id="13_v0vqe"]
 [ext_resource type="AudioStream" uid="uid://b75ddcy25t1wf" path="res://assets/sound/sfx/combat/tide/enemy_death.wav" id="14_61gvu"]
-[ext_resource type="Texture2D" uid="uid://b1ii7gb6p2fb7" path="res://assets/visual/sprites/weapons/pipe.png" id="14_byfkr"]
+[ext_resource type="Texture2D" uid="uid://b1ii7gb6p2fb7" path="res://assets/visual/icons/items/modules/pipe.png" id="14_byfkr"]
 [ext_resource type="AudioStream" uid="uid://gacwt6o61svl" path="res://assets/sound/sfx/combat/tide/tide_low.wav" id="15_1usgs"]
 [ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="15_v0vqe"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="16_byfkr"]

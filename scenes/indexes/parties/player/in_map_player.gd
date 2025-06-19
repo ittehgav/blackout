@@ -6,7 +6,12 @@ class_name InMapPlayer;
 @export var camera:Camera2D;
 
 
-func setup()->void:
+func setup(origin:Player=null)->void:
+	if origin:
+		leader.load_origin(origin);
+		
+		
+	
 	Entities.in_map_player = self;
 	Entities.player = leader;
 

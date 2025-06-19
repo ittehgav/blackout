@@ -9,7 +9,7 @@ class_name Roster;
 ## calculating speed/theat level type stuff
 func add_unit(unit:FighterUnit)->void:
 	if unit.is_inside_tree():
-		reparent(unit)
+		unit.reparent(self)
 	else:
 		add_child(unit);
 	if not is_inside_tree():
@@ -23,7 +23,7 @@ func add_unit(unit:FighterUnit)->void:
 func _on_child_entered_tree(unit: Node) -> void:
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
 	assert(unit is FighterUnit)
-	if not unit in units:
+	if not( unit in units):
 		add_unit(unit)
 
 

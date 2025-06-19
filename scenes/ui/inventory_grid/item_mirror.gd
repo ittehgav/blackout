@@ -42,7 +42,7 @@ var stack_size:int=0;
 
 @onready var original_stack_label_font_size:int = stack_size_label.get_theme_font_size("font_size");
 
-func load_item(target:Item, new_item:bool=false)->void:
+func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 	## only ever added as a child of an InventoryDisplay's item_mirrors node;
 	item = target;
 	texture = item.texture;
@@ -79,35 +79,41 @@ func load_item(target:Item, new_item:bool=false)->void:
 	else:
 		for l:Label in labels:
 			l.add_theme_font_size_override("font_size", 16);
-		
-	if display.context == "player_sheet":
-		if item is ResourceContainer:
-			if not item.raw_stack:
-				tooltip.hint.text = "[right-click] to empty";
-			else:
-				tooltip.hint.text = "[right-click] to store"
-		if item is Weapon or item is Module:
-			tooltip.hint.text = "[right-click] to equip"
-
-	else:
-		if display.inventory.holder is Settlement:
+	
+	if not off_display:
+		if display.context == "player_sheet":
 			if item is ResourceContainer:
-				if item in display.inventory.non_sellable_items:
-					tooltip.hint.text = "[right-click] to buy resources";
+				if not item.raw_stack:
+					tooltip.hint.text = "[right-click] to empty";
 				else:
-					if item.raw_stack:
-						tooltip.hint.text = "[right-click] to buy"
-					else:
-						tooltip.hint.text = "[right-click] to buy container"
-			else:
-				tooltip.hint.text = "[right-click] to buy"
+					tooltip.hint.text = "[right-click] to store"
+			if item is Weapon or item is Module:
+				tooltip.hint.text = "[right-click] to equip"
+
 		else:
-			tooltip.hint.text = "[right-click] to sell"
-	item.mirror = self;
+			if display.inventory.holder is Settlement:
+				if item is ResourceContainer:
+					if item in display.inventory.non_sellable_items:
+						tooltip.hint.text = "[right-click] to buy resources";
+					else:
+						if item.raw_stack:
+							tooltip.hint.text = "[right-click] to buy"
+						else:
+							tooltip.hint.text = "[right-click] to buy container"
+				else:
+					tooltip.hint.text = "[right-click] to buy"
+			else:
+				tooltip.hint.text = "[right-click] to sell"
+		item.mirror = self;
+		if not new_item:
+			refresh()
+	else:
+		stack_size_label.show()
+		gui_input.disconnect(_on_gui_input)
+		mouse_entered.disconnect(_on_mouse_entered);
+		mouse_exited.disconnect(_on_mouse_exited)
 
 
-	if not new_item:
-		refresh()
 
 
 func _process(_delta:float)->void:

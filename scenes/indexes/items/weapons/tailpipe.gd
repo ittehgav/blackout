@@ -41,4 +41,5 @@ func use()->bool:
 
 
 func _on_equipped() -> void:
+	arc.show();
 	arc.reparent(get_parent());

@@ -16,7 +16,7 @@ func color_code_player(character:FighterBase)->void:
 		Color.YELLOW: off_color,
 		Color.RED: off_color.darkened(.5)
 	} 
-	color_code_sprite(character, dict, "player");
+	color_code_sprite(character, dict, "player_cs");
 
 
 func color_code_weapon(weapon:Sprite2D, scheme:int)->void:

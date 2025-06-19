@@ -4,7 +4,7 @@
 
 [resource]
 shader = ExtResource("1_0mb4a")
-shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/base_color = Color(0.2898, 0.56994, 0.69, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)

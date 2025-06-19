@@ -20,14 +20,14 @@ signal combat_level_up;
 ## leadership skills will be a special tree that grants a special bonus at each level
 ## you can win leadership EXP by fighting (based on the amount of units is the party?)
 ## and by completing quests (auto-generated tasks from settlements?)
-@export var leadership_level:int = 0;
+@export var leadership_level:int = 1;
 @export var leadership_exp:int = 0;
-@export var leadership_points:int=0;
+@export var leadership_points:int = 0;
 
 
 ## combat exp will be gained in parallel with leadership levels, 
 ## you win combat EXP when fighting
-@export var combat_level:int = 0;
+@export var combat_level:int = 1;
 @export var combat_exp:int = 0;
 @export var combat_stat_points:int=0;
 
@@ -43,8 +43,7 @@ var memos:Array[Memo];
 
 var morale:float=3.7;
 
-func _ready()->void:
-	Entities.player = self;
+
 
 	
 func battle_victory_morale()->void:
@@ -143,3 +142,36 @@ func travel_upkeep()->void:
 			Entities.in_map_player.move_speed = Entities.in_map_player.navigation*50;
 		
 		Entities.world_map.ui.hud.sfx.play_sound_by_key(sfx_key);
+
+func load_origin(origin:Player)->void:
+	## easier to do this than to have to reconnect the signals from the 
+	## world map player node
+	while len(origin.roster.units):
+		var unit:FighterUnit = origin.roster.units[0]
+		roster.add_unit(unit)
+
+	
+	inventory.queue_free();
+	var new_inventory:Inventory = origin.inventory;
+	new_inventory.reparent(self);
+	inventory = new_inventory;
+
+	combat_stats.queue_free();
+	var new_combat_stats:CombatStats = origin.combat_stats;
+	new_combat_stats.reparent(self);
+	combat_stats = new_combat_stats;
+	
+	sight_range = origin.sight_range;
+	
+	color_scheme_index = origin.color_scheme_index;
+	
+	party_name = origin.name;
+	name = origin.name;
+
+	leadership_level = origin.leadership_level;
+	
+	combat_level = origin.combat_level;
+	
+	equipped_weapon = origin.equipped_weapon;
+	equipped_module = origin.equipped_module;
+	

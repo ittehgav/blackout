@@ -24,9 +24,10 @@ extends Node
 @export_subgroup("UI Scenes")
 @export var stat_icon_scene:PackedScene;
 @export var resource_icon_scene:PackedScene;
-@export var item_icon_scene:PackedScene;
 @export var sprite_sample_scene:PackedScene;
 @export var tooltip_scene:PackedScene;
+
+@export var item_mirror_scene:PackedScene
 
 @export_subgroup("Resource Stack Scenes")
 @export var resource_storage_scenes:Array[PackedScene];

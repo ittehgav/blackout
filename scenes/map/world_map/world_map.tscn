@@ -1718,7 +1718,6 @@ world_map = NodePath("../../../..")
 marker = NodePath("../../../../entities/marker")
 
 [node name="Player" parent="quadrants/quadrant_4/in_map_player" instance=ExtResource("52_gmjui")]
-leadership_level = 1
 leadership_exp = 1
 leadership_points = 1
 combat_level = 5
@@ -1856,4 +1855,3 @@ texture = ExtResource("54_anjvn")
 [editable path="ui_overlay/ui/full_screen_guis/trade_menu/HBoxContainer/player_panel/player_inventory_display"]
 [editable path="ui_overlay/ui/full_screen_guis/trade_menu/HBoxContainer/trader_panel/trader_inventory_display"]
 [editable path="quadrants/quadrant_4/in_map_player"]
-[editable path="quadrants/quadrant_4/in_map_player/Player"]

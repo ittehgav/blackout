@@ -2,8 +2,6 @@ extends Module;
 
 @export var parry_timer:Timer;
 
-
-
 const rarity = 1;
 
 const size_x = 1;

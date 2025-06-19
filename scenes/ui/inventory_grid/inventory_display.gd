@@ -34,7 +34,6 @@ var warnings:Dictionary[String, bool] = {
 @export var cargo:Control;
 
 @export var grid_cell_scene:PackedScene;
-@export var item_mirror_scene:PackedScene;
 
 @export var grid:GridContainer;
 @export var sfx:AudioStreamPlayer;
@@ -275,7 +274,7 @@ func mirror_item(item:Item, unplaced:Array[Item]=[])->void:
 	mirror.refresh()
 
 func generate_mirror(item:Item)->ItemMirror:
-	var mirror:ItemMirror = item_mirror_scene.instantiate();
+	var mirror:ItemMirror = Index.item_mirror_scene.instantiate();
 	mirror.display = self;
 	mirror.load_item(item, true);
 	return mirror;
