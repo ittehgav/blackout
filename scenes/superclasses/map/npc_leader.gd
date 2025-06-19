@@ -63,7 +63,7 @@ func generate(distance:float)->void:
 	leader_unit.base = leader_base
 	leader_unit.add_child(leader_base);
 	if not is_inside_tree():
-		leader_unit.load_stats()
+		leader_unit.update_stats()
 
 
 	var party_size: = int(distance/100);

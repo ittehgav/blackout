@@ -54,7 +54,7 @@ func generate_confirmation(target_unit:FighterUnit, target_base:FighterBase, res
 	var after:FighterUnit = Index.fighter_unit_scene.instantiate();
 	after.base = new_base;
 	after.level = unit.level;
-	after.load_stats();
+	after.update_stats();
 	
 	
 	for stat:String in Index.all_combat_stats:

@@ -15,9 +15,10 @@ func save_data()->void:
 	
 	for settlement:Settlement in get_tree().get_nodes_in_group("all_settlements"):
 		save_file.settlements[settlement.name] = store_settlement_data(settlement)
-	var save_data:String = JSON.stringify(save_file);
+		
+	var to_save:String = JSON.stringify(save_file);
 	var file:FileAccess = FileAccess.open("user://savegame.json", FileAccess.WRITE);
-	file.store_line(save_data)
+	file.store_line(to_save)
 	
 func store_player_data()->Dictionary:
 	var player:Player = Entities.player;
@@ -85,19 +86,58 @@ func store_world_data()->Dictionary:
 		"minute" : world.current_minute,
 		"hour" : world.current_hour,
 		"day" : world.current_day,
-		"month" : world.current_month
+		"month" : world.current_month,
+		"fog":store_fog_data()
 	};
 	return data
+
+func store_fog_data()->Array:
+	var data:Array[Array];
+	var quadrants:WorldMapPlane = Entities.world_map.quadrants;
+
+	var x_center: = quadrants.quarter_tile_map_size.x;
+	var y_center: = quadrants.quarter_tile_map_size.y;
 	
+
+	const coords_indexes:PackedVector2Array = [
+		Vector2(0, 0),
+		Vector2(0, 1),
+		Vector2(1, 0),
+		Vector2(1, 1)
+	]
+	
+	for quadrant:WorldMapQuadrant in quadrants.all_quadrants:
+		var current_streak:int=0;
+		var current_type:int=coords_indexes.find(quadrant.fog_tile_map.get_cell_atlas_coords(Vector2.ZERO));
+		var rle_array:Array[Array];
+		for y:int in quadrants.quarter_tile_map_size.y:
+			for x:int in quadrants.quarter_tile_map_size.x:
+				var coords:Vector2i = quadrant.fog_tile_map.get_cell_atlas_coords(Vector2i(x, y));
+				var type:int = coords_indexes.find(coords);
+				if current_type != type:
+					rle_array.append([current_type, current_streak]);
+					current_streak = 0;
+					current_type = type;
+					
+				current_streak += 1;
+		rle_array.append([current_type, current_streak]);
+		data.append(rle_array);
+	return data
+
+
 func store_settlement_data(settlement:Settlement)->Dictionary:
 	var data:Dictionary = {
+		"type":settlement.settlement_type_name,
 		"global_position":settlement.global_position,
 		"inventory":store_inventory_data(settlement.inventory),
-		"recruits":[]
+		"recruits":[],
+		"neighbor_names":[]
 	}
 	for r:FighterUnit in settlement.available_recruits:
 		data.recruits.append(store_unit_data(r))
 	
+	for n:Settlement in settlement.neighbors:
+		data.neighbor_names.append(n.name)
 	return data
 	
 func store_unit_data(unit:FighterUnit)->Dictionary:
@@ -143,6 +183,7 @@ func store_inventory_data(inventory:Inventory)->Dictionary:
 func store_item_data(item:Item, prefix:String="")->Dictionary:
 	var data:Dictionary = {
 		"filename":raw_file_name(item, prefix),
+		"inventory_position":item.inventory_position,
 		"stack_size":item.stack_size
 	}
 	return data;

@@ -6,8 +6,9 @@ class_name PartyIcon
 var leader:Leader;
 
 func _ready()->void:
-	Entities.player.party_changed.connect(refresh)
-	refresh();
+	if Entities.player:
+		Entities.player.party_changed.connect(refresh)
+		refresh();
 	
 func refresh()->void:
 	if not leader:

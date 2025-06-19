@@ -48,10 +48,7 @@ func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:boo
 				## retrigger itself a few unnecessary times?
 				Entities.player.resource_changed.emit(r, self[r] - previous_amounts[r]);
 
-func off_tree_setup()->void:
-	for c:Node in get_children():
-		add_item(c)
-	refresh_resource_counts("",0,false)
+
 
 
 
@@ -174,7 +171,11 @@ func remove_item(item:Item, and_free:bool=false)->void:
 		item.queue_free();
 
 
-
+func assign_storage()->void:
+	## for settlements that have been loaded
+	for item:ResourceContainer in containers:
+		if item.storage:
+			holder[item.resource+"_storage"] = item;
 
 func clear_containers()->void:
 	## CANT ITERATE OVER AN ARRAY WHILE MOVING/DELETINGS ITS ELEMENTS XDD
@@ -305,7 +306,7 @@ func cell_in_grid(cell:Vector2)->bool:
 
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
-	if not node in items:
+	if not (node in items):
 		## ONLY EVER FROM INVENTORIES THAT WERE MADE IN-EDITOR
 		add_item(node, false);
 

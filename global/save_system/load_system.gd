@@ -1,0 +1,71 @@
+extends Node
+
+## may cause problems if i ever end up having items 
+## of different classes with the exact same name?
+var scene_cache:Dictionary[String, PackedScene];
+
+func load_inventory(inventory:Inventory, data:Dictionary)->void:
+	## loads the data INTO AN EXISTING INVENTORY INSTANCE
+	inventory.money = data.money
+	
+	for container_data:Dictionary in data.containers:
+		var item:ResourceContainer = load_item(container_data, "container")
+		inventory.add_item(item);
+	
+	inventory.assign_storage()
+	inventory.refresh_resource_counts("", 0, false)
+	
+	for weapon_data:Dictionary in data.weapons:
+		inventory.add_item(load_item(weapon_data, "weapon"));
+	
+	for module_data:Dictionary in data.modules:
+		inventory.add_item(load_item(module_data, "module"));
+	
+func load_item(data:Dictionary, item_type:String)->Item:
+	## GENERATES A NEW ITEM INSTANCE and returns it
+	
+	if not (data.filename in scene_cache):
+		scene_cache[data.filename] = load("res://scenes/indexes/items/" + item_type+"s/" + data.filename+".tscn");
+	var item:Item = scene_cache[data.filename].instantiate()
+	
+	item.inventory_position = load_vector2(data.inventory_position);
+	
+	if item is ResourceContainer:
+		item.stack_size = data.stack_size;
+
+	return item
+	
+func load_roster(roster:Roster, data:Array)->void:
+	## LOADS DATA INTO EXISTING ROSTER INSTANCE
+	## leaving it ready and operation
+	for unit_data:Dictionary in data:
+		roster.add_unit(load_fighter_unit(unit_data))
+
+func load_fighter_unit(data:Dictionary)->FighterUnit:
+	var unit:FighterUnit = Index.fighter_unit_scene.instantiate();
+	if not (data.base_filename in scene_cache):
+		scene_cache[data.base_filename] = load("res://scenes/indexes/fighters/"+data.base_filename+".tscn")
+	
+	unit.level = data.level;
+	unit.experience = data.exp;
+	
+	var base:FighterBase = scene_cache[data.base_filename].instantiate();
+	unit.add_child(base);
+	unit.base = base
+	
+	for stat:String in Index.all_combat_stats:
+		unit.modifier_stats[stat] = data.modifier_stats[stat];
+	
+	unit.update_stats();
+	return unit
+
+func load_vector2(data:String)->Vector2:
+	var x:int = int(data.split(",")[0].split("(")[1]);
+	var y:int = int(data.split(",")[1].split(")")[0]);
+	
+	return Vector2(x, y);
+	
+	
+	
+	
+	

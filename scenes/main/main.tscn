@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=26 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="1_v0lew"]
@@ -15,8 +15,26 @@
 [ext_resource type="AudioStream" uid="uid://dp1xrfwe656dj" path="res://assets/sound/bgm/loops/travelling_trader.ogg" id="11_tbnf8"]
 [ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="13_i7in8"]
 [ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="14_0bhws"]
+[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="16_p8abn"]
+[ext_resource type="Script" uid="uid://4aosun8uw6h4" path="res://scenes/main/save_files.gd" id="17_37hlw"]
+[ext_resource type="Script" uid="uid://bhbgetrgpojab" path="res://scenes/main/save_file_option.gd" id="17_s17dp"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="18_37hlw"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="19_6llfj"]
+[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="20_0bhws"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="21_62atk"]
 [ext_resource type="Script" uid="uid://c5ydkff6c2nyn" path="res://scenes/main/control.gd" id="31_ii537"]
 [ext_resource type="Texture2D" uid="uid://drce0fgyc1x5i" path="res://assets/visual/splash/barrel.jpg" id="32_ii537"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i7in8"]
+resource_local_to_scene = true
+shader = ExtResource("19_6llfj")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_8gx17")
@@ -35,7 +53,7 @@ travelling_trader = ExtResource("11_tbnf8")
 victory = ExtResource("14_0bhws")
 defeat = ExtResource("13_i7in8")
 
-[node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("ui_sfx")]
+[node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("load_menu", "main_options_container", "ui_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,6 +62,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("11_gkmcc")
 script = ExtResource("1_v0lew")
+load_menu = NodePath("save_files")
+main_options_container = NodePath("PanelContainer")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="main_ui" instance=ExtResource("6_l3xhp")]
@@ -69,9 +89,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -80.5
-offset_top = -47.0
+offset_top = -66.0
 offset_right = 80.5
-offset_bottom = 47.0
+offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -94,6 +114,145 @@ text = "World Map
 [node name="test_battle" type="Button" parent="main_ui/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Arena"
+
+[node name="load" type="Button" parent="main_ui/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "load game"
+
+[node name="save_files" type="PanelContainer" parent="main_ui" node_paths=PackedStringArray("save_file_button", "options_container")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -56.0
+offset_right = 256.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("16_p8abn")
+script = ExtResource("17_37hlw")
+save_file_button = NodePath("_save_file_option")
+options_container = NodePath("save_file_list")
+
+[node name="_save_file_option" type="Button" parent="main_ui/save_files" node_paths=PackedStringArray("save_file_name", "save_file_play_time", "save_file_money", "save_file_party_size", "save_file_morale", "save_file_leadership_level", "save_file_combat_level")]
+visible = false
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+theme = ExtResource("11_gkmcc")
+script = ExtResource("17_s17dp")
+save_file_name = NodePath("name")
+save_file_play_time = NodePath("play_time")
+save_file_money = NodePath("metadata/HBoxContainer/money")
+save_file_party_size = NodePath("metadata/HBoxContainer/party_size")
+save_file_morale = NodePath("metadata/HBoxContainer/morale")
+save_file_leadership_level = NodePath("metadata/HBoxContainer2/leadership_level")
+save_file_combat_level = NodePath("metadata/HBoxContainer3/combat_level")
+
+[node name="name" type="Label" parent="main_ui/save_files/_save_file_option"]
+layout_mode = 1
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 110.0
+offset_bottom = 57.0
+theme_override_font_sizes/font_size = 64
+text = "Name"
+
+[node name="play_time" type="Label" parent="main_ui/save_files/_save_file_option"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -32.0
+offset_right = 118.0
+offset_bottom = -6.0
+grow_vertical = 0
+text = "5h, 20 min."
+
+[node name="metadata" type="VBoxContainer" parent="main_ui/save_files/_save_file_option"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -230.0
+offset_top = 3.0
+offset_right = -10.0
+offset_bottom = 201.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui/save_files/_save_file_option/metadata"]
+layout_mode = 2
+
+[node name="resource_icon" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("18_37hlw")]
+material = SubResource("ShaderMaterial_i7in8")
+layout_mode = 2
+resource = "money"
+match_player_inventory = false
+adjacent_items = [NodePath("../money")]
+
+[node name="money" type="Label" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer"]
+layout_mode = 2
+text = "111"
+
+[node name="Party Icon" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer" instance=ExtResource("20_0bhws")]
+layout_mode = 2
+
+[node name="party_size" type="Label" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer"]
+layout_mode = 2
+text = "11"
+
+[node name="MoraleIcon" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer" instance=ExtResource("21_62atk")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="morale" type="Label" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer"]
+layout_mode = 2
+text = "4.33"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="main_ui/save_files/_save_file_option/metadata"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer2"]
+layout_mode = 2
+text = "Leadership Level: "
+
+[node name="leadership_level" type="Label" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer2"]
+layout_mode = 2
+text = "21"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="main_ui/save_files/_save_file_option/metadata"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer3"]
+layout_mode = 2
+text = "Combat Level: "
+
+[node name="combat_level" type="Label" parent="main_ui/save_files/_save_file_option/metadata/HBoxContainer3"]
+layout_mode = 2
+text = "22"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/save_files/_save_file_option"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="date" type="Label" parent="main_ui/save_files/_save_file_option/VBoxContainer"]
+layout_mode = 2
+
+[node name="time" type="Label" parent="main_ui/save_files/_save_file_option/VBoxContainer"]
+layout_mode = 2
+
+[node name="save_file_list" type="VBoxContainer" parent="main_ui/save_files"]
+layout_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -123,3 +282,4 @@ expand_mode = 5
 [connection signal="finished" from="main_bgm" to="main_bgm" method="_on_finished"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/world_map" to="main_ui" method="world_map"]
 [connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/test_battle" to="main_ui" method="test_battle"]
+[connection signal="pressed" from="main_ui/PanelContainer/MarginContainer/VBoxContainer/load" to="main_ui" method="_on_load_pressed"]

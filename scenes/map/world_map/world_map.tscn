@@ -1,10 +1,9 @@
-[gd_scene load_steps=118 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=115 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Script" uid="uid://k7tsmmqrmjmu" path="res://scenes/map/world_map/ui_overlay.gd" id="2_fn5hq"]
 [ext_resource type="Script" uid="uid://v56h85jo7vsu" path="res://scenes/map/world_map/quadrants.gd" id="2_gbcyd"]
 [ext_resource type="PackedScene" uid="uid://c3j3q3ivfq3aw" path="res://world_map_quadrant.tscn" id="3_oq2vs"]
-[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="4_4aisy"]
 [ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/indexes/parties/player/in_map_player.tscn" id="4_vgkop"]
 [ext_resource type="Texture2D" uid="uid://c7o80mfyae726" path="res://assets/visual/sprites/props/small/wheel.png" id="6_h2uxo"]
 [ext_resource type="Texture2D" uid="uid://bpm3w0wvrmw71" path="res://assets/visual/sprites/props/small/cactus.png" id="6_jbv7y"]
@@ -22,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://d321t0t5ou0c4" path="res://assets/visual/sprites/props/wall.png" id="17_ltr5c"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
 [ext_resource type="Script" uid="uid://ddm5su5vt1e23" path="res://scenes/map/world_map/pause_menu.gd" id="37_gmjui"]
-[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="40_fn5hq"]
 [ext_resource type="Script" uid="uid://b66cs0vry3tqy" path="res://scenes/map/world_map/marker.gd" id="45_fn5hq"]
 [ext_resource type="Script" uid="uid://qna7oy72g434" path="res://scenes/map/world_map/marker_sfx.gd" id="47_a8suh"]
 [ext_resource type="Script" uid="uid://g1x5i5r24qtj" path="res://scenes/map/world_map/ui/main_hud.gd" id="47_lljjg"]
@@ -41,7 +39,6 @@
 [ext_resource type="Script" uid="uid://0o04smiwwlcd" path="res://scenes/map/world_map/movement_pointer.gd" id="53_ltr5c"]
 [ext_resource type="Texture2D" uid="uid://wagrlrl1grej" path="res://assets/visual/ui/map/movement_pointer.png" id="54_anjvn"]
 [ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="54_nmq41"]
-[ext_resource type="PackedScene" uid="uid://dbetfnnc4fgpt" path="res://scenes/indexes/items/weapons/kinematic_staff.tscn" id="54_sjqk0"]
 [ext_resource type="Script" uid="uid://bocga7gku58st" path="res://scenes/map/world_map/ui/resource_sfx.gd" id="55_64kp8"]
 [ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/resource_gain.wav" id="56_nmq41"]
 [ext_resource type="PackedScene" uid="uid://cqyc1v8qqn3xv" path="res://scenes/map/ui/pre_battle/pre_battle.tscn" id="57_1ogav"]
@@ -63,6 +60,120 @@
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="78_37vhr"]
 [ext_resource type="AudioStream" uid="uid://cvv1mjf2g8wus" path="res://assets/sound/sfx/world_map/daily_upkeep_paid.wav" id="79_t4gob"]
 [ext_resource type="AudioStream" uid="uid://bjruiutxfjb2w" path="res://assets/sound/sfx/world_map/daily_upkeep_missed.mp3" id="80_t4gob"]
+
+[sub_resource type="Shader" id="Shader_7d1fb"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
+resource_local_to_scene = true
+shader = SubResource("Shader_7d1fb")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_f2dah"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
+resource_local_to_scene = true
+shader = SubResource("Shader_f2dah")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_gmjui"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
+resource_local_to_scene = true
+shader = SubResource("Shader_gmjui")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="Shader" id="Shader_sjqk0"]
 resource_local_to_scene = true
@@ -91,7 +202,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
 resource_local_to_scene = true
 shader = SubResource("Shader_sjqk0")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -129,7 +240,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
 resource_local_to_scene = true
 shader = SubResource("Shader_1ogav")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -167,7 +278,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
 resource_local_to_scene = true
 shader = SubResource("Shader_umths")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -205,7 +316,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
 resource_local_to_scene = true
 shader = SubResource("Shader_ffuc7")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -243,123 +354,9 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
-resource_local_to_scene = true
-shader = SubResource("Shader_fn5hq")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_k7mhn"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
-resource_local_to_scene = true
-shader = SubResource("Shader_k7mhn")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_a8suh"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
-resource_local_to_scene = true
-shader = SubResource("Shader_a8suh")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_h2uxo"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
 resource_local_to_scene = true
-shader = SubResource("Shader_h2uxo")
+shader = SubResource("Shader_fn5hq")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -1672,7 +1669,7 @@ text = "Save Game"
 layout_mode = 2
 text = "Load Game"
 
-[node name="quadrants" type="Node2D" parent="." node_paths=PackedStringArray("player_camera", "world_map", "quadrant_1", "quadrant_2", "quadrant_3", "quadrant_4")]
+[node name="quadrants" type="Node2D" parent="." node_paths=PackedStringArray("player_camera", "world_map", "quadrant_1", "quadrant_2", "quadrant_3", "quadrant_4", "all_quadrants")]
 process_mode = 3
 script = ExtResource("2_gbcyd")
 player_camera = NodePath("quadrant_4/in_map_player/in_map_camera")
@@ -1685,6 +1682,7 @@ quadrant_1 = NodePath("quadrant_1")
 quadrant_2 = NodePath("quadrant_2")
 quadrant_3 = NodePath("quadrant_3")
 quadrant_4 = NodePath("quadrant_4")
+all_quadrants = [NodePath("quadrant_1"), NodePath("quadrant_2"), NodePath("quadrant_3"), NodePath("quadrant_4")]
 
 [node name="quadrant_1" parent="quadrants" node_paths=PackedStringArray("x_adjacent_quadrant", "y_adjacent_quadrant", "diagonal_quadrant") instance=ExtResource("3_oq2vs")]
 quadrant_n = 1
@@ -1719,21 +1717,12 @@ leader = NodePath("Player")
 world_map = NodePath("../../../..")
 marker = NodePath("../../../../entities/marker")
 
-[node name="Player" parent="quadrants/quadrant_4/in_map_player" node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") instance=ExtResource("52_gmjui")]
+[node name="Player" parent="quadrants/quadrant_4/in_map_player" instance=ExtResource("52_gmjui")]
 leadership_level = 1
 leadership_exp = 1
 leadership_points = 1
 combat_level = 5
 combat_exp = 2
-equipped_weapon = NodePath("Inventory/Tailpipe")
-alternative_weapon = NodePath("Inventory/Kinematic Staff")
-equipped_module = NodePath("Inventory/Dodge Roll")
-
-[node name="Kinematic Staff" parent="quadrants/quadrant_4/in_map_player/Player/Inventory" index="0" instance=ExtResource("54_sjqk0")]
-
-[node name="Tailpipe" parent="quadrants/quadrant_4/in_map_player/Player/Inventory" index="1" instance=ExtResource("4_4aisy")]
-
-[node name="Dodge Roll" parent="quadrants/quadrant_4/in_map_player/Player/Inventory" index="2" instance=ExtResource("40_fn5hq")]
 
 [node name="update_fog" type="Timer" parent="quadrants"]
 wait_time = 0.1

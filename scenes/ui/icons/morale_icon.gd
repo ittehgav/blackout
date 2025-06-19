@@ -9,8 +9,9 @@ extends TextureRect
 @export var adjacent_items:Array[CanvasItem];
 
 func _ready()->void:
-	Entities.player.morale_changed.connect(update)
-	update();
+	if Entities.player:
+		Entities.player.morale_changed.connect(update)
+		update();
 
 func update()->void:
 	var previous_texture:Texture = texture;

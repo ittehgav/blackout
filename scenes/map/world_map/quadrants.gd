@@ -17,7 +17,6 @@ func _ready() -> void:
 	super();
 	world_map.update_light();
 	set_camera_margins()
-	Entities.in_map_player.position = Vector2(500, 500)
 	Entities.world_map.finished_generating.emit()
 
 
@@ -46,8 +45,7 @@ func set_camera_margins()->void:
 
 func update_fog()->void:
 	## PLAYER GETS REPARENTED AS THEY MOVE QUADRANTS
-	## may stutter if trying to refresh right as player crosses quadrants
-	## add a little buffer zone so you can't go back and forth too quickly? 
+
 	var player_grid_position:Vector2i = Vector2i(Entities.in_map_player.position/cell_size);
 	var sight_radius:float = Entities.player.sight_range/cell_size + 5;
 	
@@ -65,6 +63,7 @@ func update_fog()->void:
 				quadrant.off_sight_tile_map.erase_cell(cell);
 			else:
 				quadrant.off_sight_tile_map.set_cell(cell, 0, Vector2.ZERO);
+				
 				if distance < sight_radius + 1:
 					if quadrant.fog_tile_map.get_cell_atlas_coords(cell) != Vector2i(2, 0):
 						quadrant.fog_tile_map.set_cell(cell, 0, Vector2(1, 0));

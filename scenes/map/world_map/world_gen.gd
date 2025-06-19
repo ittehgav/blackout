@@ -30,7 +30,7 @@ var large_prop_sprites:Array[Sprite2D]
 @export var quadrant_3:WorldMapQuadrant; ## bottom-left
 @export var quadrant_4:WorldMapQuadrant; ## bottom-right
 
-@onready var all_quadrants:Array[WorldMapQuadrant] = [quadrant_1, quadrant_2, quadrant_3, quadrant_4];
+@export var all_quadrants:Array[WorldMapQuadrant];
 
 ## keep track of those for shifting
 var top_left_quadrant:WorldMapQuadrant;
@@ -57,14 +57,40 @@ const noise_roll_breakpoints = {
 
 var new_game:bool=true;
 
-func load_game(world_data:Dictionary)->void:
+func load_game(data:Dictionary)->void:
 	## RUNS BEFORE WORLD MAP ENTERS TREE
 	new_game = false;
 	noise_texture.noise = FastNoiseLite.new();
-	noise.seed =  world_data.seed;
+	noise = noise_texture.noise
+	noise.seed =  data.world.seed;
 	
 	
-
+	for settlement_name:String in data.settlements.keys():
+		var s:Dictionary = data.settlements[settlement_name];
+		var settlement:Settlement = Index[s.type.to_lower() + "_scene"].instantiate();
+		world_map.all_settlements[settlement_name] = settlement
+		
+		settlement.name = settlement_name;
+		
+		LoadSystem.load_inventory(settlement.inventory, s.inventory);
+		
+		var target_position:Vector2 = LoadSystem.load_vector2(s.global_position)
+		var quadrant:WorldMapQuadrant = Entities.world_map.quadrant_for_global_position(target_position)
+		quadrant.add_child(settlement);
+		settlement.global_position = target_position;
+		ColorCoder.color_code_settlement(settlement, get_spot_tile_color(settlement.position, quadrant.quadrant_n))
+		
+	for name:String in world_map.all_settlements.keys():
+		var settlement_data:Dictionary = data.settlements[name];
+		var settlement:Settlement = world_map.all_settlements[name];
+		
+		for neighbor_name:String in settlement_data.neighbor_names:
+			settlement.neighbors.append(world_map.all_settlements[neighbor_name])
+	for i in 4:
+		var fog_data:Array = data.world.fog[i];
+		var quadrant:WorldMapQuadrant = all_quadrants[i];
+		quadrant.load_fog(fog_data)
+		
 func _ready() -> void:
 	if new_game:
 		noise_texture.noise = FastNoiseLite.new();

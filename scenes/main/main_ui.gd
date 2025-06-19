@@ -1,11 +1,13 @@
 extends UIRoot
 
-
+@export var load_menu:Control;
+@export var main_options_container:Container;
 
 func world_map() -> void:
 	hide()
 	await Tweens.ui_fade_in(Entities.loading_screen).finished
 	var map:WorldMap = Index.world_map_scene.instantiate();
+	Entities.world_map = map;
 	map.finished_generating.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
 	map.player_party.setup();
 	get_parent().add_child(map);
@@ -20,3 +22,10 @@ func test_battle()->void:
 	arena.start_battle(enemy_leader)
 	Entities.main_bgm.play_bgm("combat");
 	hide();
+
+
+func _on_load_pressed() -> void:
+	await Tweens.ui_fade_out(main_options_container)
+	Tweens.ui_fade_in(load_menu);
+	load_menu.load_files();
+	

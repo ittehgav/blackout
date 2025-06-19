@@ -9,9 +9,36 @@ class_name InMapPlayer;
 func setup()->void:
 	Entities.in_map_player = self;
 	Entities.player = leader;
-	print(leader)
-	leader.inventory.off_tree_setup()
 
+func load_data(player_data:Dictionary)->void:
+	var loaded_position:Vector2 = LoadSystem.load_vector2(player_data.world_map_position)
+	var quadrant:WorldMapQuadrant = Entities.world_map.quadrant_for_global_position(loaded_position);
+	reparent(quadrant);
+	global_position = loaded_position
+	leader.name = player_data.name;
+	
+	leader.leadership_level = player_data.leadership_level;
+	leader.leadership_exp = player_data.leadership_exp
+	
+	leader.combat_level = player_data.combat_level;
+	leader.combat_exp = player_data.combat_exp
+	
+	leader.morale = player_data.morale;
+	
+	LoadSystem.load_inventory(leader.inventory, player_data.inventory);
+	
+	leader.equipped_weapon = leader.inventory.weapons[player_data.equipped_weapon_index];
+	leader.equipped_module = leader.inventory.modules[player_data.equipped_module_index]
+	
+	if player_data.alt_weapon_index != -1:
+		leader.alternative_weapon = leader.inventory.weapons[player_data.alt_weapon_index];
+	
+	
+	for stat:String in Index.all_combat_stats:
+		leader.combat_stats[stat] = player_data.combat_stats[stat];
+	LoadSystem.load_roster(leader.roster, player_data.roster)
+	
+	
 
 func move_toward_entity()->void:
 	target_entity = Entities.map_entity_under_mouse

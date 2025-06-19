@@ -19,15 +19,15 @@ func _ready()->void:
 	## needs to enter tree to work properly?
 	if base and not stats_loaded:
 		await get_parent().get_parent().ready;
-		load_stats();
+		update_stats();
 	level_up.connect(Scaling.level_up_stats)
 
 func change_base(new_base:FighterBase)->void:
 	base.free();
 	base = new_base.duplicate()
-	load_stats();
+	update_stats();
 
-func load_stats()->void:
+func update_stats()->void:
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels for now
 

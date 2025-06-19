@@ -64,12 +64,13 @@ var hour_bgm_pitches:Array[float] = [
 ]
 var all_settlements: = {}
 
+var session_start_time:float;
 
 func _ready()->void:
 	## Entities.player needs to be ready to go before world map enters the tree
+	session_start_time = Time.get_unix_time_from_system()
 	Entities.main.current_state = "world_map"
 
-	Entities.world_map = self;
 	get_tree().paused = true;
 	Entities.main_bgm.play_bgm("world_map")
 
@@ -168,7 +169,15 @@ func get_hour_sky_color(hour:int=current_hour)->Color:
 func _on_player_left_settlement() -> void:
 	update_light()
 
+func load_game(data:Dictionary)->void:
+	current_day = data.world.day;
+	current_hour = data.world.hour;
+	current_minute = data.world.minute;
+	
+	quadrants.load_game(data)
+	player_party.load_data(data.player)
 
+	
 func _on_returned_from_battle(won: bool) -> void:
 	## where something different will happen if you lose 
 	Entities.player.reparent(Entities.in_map_player)
@@ -184,3 +193,13 @@ func _on_returned_from_battle(won: bool) -> void:
 				Entities.dialogue_player.start_dialogue(party.leader, "defeated_player")
 				await Entities.dialogue_player.dialogue_ended;
 				MapEvents.yield_resources(["money"], .5);
+
+func quadrant_for_global_position(p:Vector2)->WorldMapQuadrant:
+	if p.x < 0 and p.y < 0:
+		return quadrants.quadrant_1;
+	elif p.y < 0:
+		return quadrants.quadrant_2;
+	elif p.x < 0:
+		return quadrants.quadrant_3;
+	else:
+		return quadrants.quadrant_4;
