@@ -7,6 +7,8 @@ class_name NpcLeader;
 @export var dialogue:DialogueResource;
 @export var leader_unit:FighterUnit
 
+@export_color_no_alpha var outline_color:Color;
+
 
 func generate(distance:float)->void:
 	## generic map parties will be generated based on 

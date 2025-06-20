@@ -1,11 +1,15 @@
 extends Control
 
-@export var player_body:TextureRect;
+@export var main_menu:Control;
 
+@export_group("origins")
 @export var brigand:Player;
 @export var aristocrat:Player;
 @export var indigent:Player;
 
+@export_group("visual elements")
+@export_subgroup("data")
+@export var player_body:TextureRect;
 @export var colors_outline:ReferenceRect;
 @export var main_color_sample:ColorRect;
 @export var off_color_sample:Polygon2D
@@ -17,12 +21,14 @@ extends Control
 
 @export var items_container:GridContainer
 
+@export_subgroup("stat labels")
 @export var max_hp_label:Label;
 @export var attack_label:Label;
 @export var defense_label:Label;
 @export var agility_label:Label;
 @export var technique_label:Label;
 
+@export_subgroup("samples")
 @export var weapon_sample:TextureRect;
 @export var weapon_sample_bg:ColorRect;
 
@@ -189,6 +195,7 @@ func refresh_origin_data()->void:
 	var module_tooltip:Tooltip = module_sample.get_node("Tooltip");
 	module_tooltip.target = origin.equipped_module;
 	module_tooltip.setup();
+	module_tooltip.hint.hide()
 
 
 func _on_previous_scheme_pressed() -> void:
@@ -221,3 +228,9 @@ func start_new_game() -> void:
 	
 	Entities.main.add_child(map);
 	get_parent().get_parent().remove_child(get_parent())
+
+
+func _on_return_pressed() -> void:
+	if visible:
+		Tweens.ui_fade_out(self);
+		Tweens.ui_fade_in(main_menu)

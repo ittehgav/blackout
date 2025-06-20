@@ -2,7 +2,7 @@ extends Node
 
 class_name Leader
 
-@onready var color_scheme_index:int = randi_range(0, len(Index.color_schemes) - 1);
+var color_scheme_index:int;
 
 
 @export var inventory:Inventory;

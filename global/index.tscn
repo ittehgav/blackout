@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=94 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="17_dh1jb"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="18_crfhx"]
 [ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/indexes/items/containers/food.tscn" id="19_4hk3t"]
+[ext_resource type="PackedScene" uid="uid://c7p87ik4k71ub" path="res://scenes/ui/save_system/save_file_display.tscn" id="19_l4ld4"]
 [ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_grid/item_mirror.tscn" id="19_utn0t"]
 [ext_resource type="PackedScene" uid="uid://c35c0o3u2g7aj" path="res://scenes/indexes/items/containers/fuel.tscn" id="20_7dxwq"]
 [ext_resource type="PackedScene" uid="uid://cish4lkuyfimr" path="res://scenes/indexes/items/containers/storage/chips_storage.tscn" id="20_xnhe2"]
@@ -111,6 +112,7 @@ stat_icon_scene = ExtResource("14_1v8gx")
 resource_icon_scene = ExtResource("15_ak5x7")
 sprite_sample_scene = ExtResource("17_dh1jb")
 tooltip_scene = ExtResource("18_crfhx")
+save_file_display_scene = ExtResource("19_l4ld4")
 item_mirror_scene = ExtResource("19_utn0t")
 resource_storage_scenes = Array[PackedScene]([ExtResource("20_xnhe2"), ExtResource("21_gshh2"), ExtResource("22_h637s"), ExtResource("23_bff4x"), ExtResource("24_cg7d8")])
 food_stack_scene = ExtResource("19_4hk3t")
@@ -148,14 +150,14 @@ taser_guy_scene = ExtResource("45_gry1y")
 tether_guy_scene = ExtResource("46_wvsvf")
 coil_guy_scene = ExtResource("47_j2p12")
 local_event_scenes = Array[PackedScene]([ExtResource("48_gry1y"), ExtResource("49_wvsvf"), ExtResource("50_j2p12"), ExtResource("51_cuqrp"), ExtResource("52_v8p2k"), ExtResource("53_38u7i"), ExtResource("54_bfenw"), ExtResource("55_psl0v"), ExtResource("56_xtdb6")])
-color_schemes = Array[Array]([[Color(0.831373, 0.65098, 0.701961, 1), Color(0.8, 0.376, 0.5244, 1)], [Color(0.541176, 0.607843, 0.407843, 1), Color(0, 0.3, 0, 1)], [Color(0.415686, 0.498039, 0.858824, 1), Color(0, 0.32, 0.8, 1)], [Color(0.66, 0.5478, 0.5478, 1), Color(0.8, 0.32, 0, 1)]])
+color_schemes = Array[Array]([[Color(0.415686, 0.498039, 0.858824, 1), Color(0, 0.32, 0.8, 1)], [Color(0.541176, 0.607843, 0.407843, 1), Color(0, 0.3, 0, 1)], [Color(0.66, 0.5478, 0.5478, 1), Color(0.8, 0.32, 0, 1)], [Color(0.831373, 0.65098, 0.701961, 1), Color(0.57, 0.2679, 0.373635, 1)]])
 resource_colors = Dictionary[String, Color]({
 "chips": Color(0.04, 1, 1, 1),
-"food": Color(1, 1, 0, 1),
+"food": Color(1, 1, 0.0392157, 1),
 "fuel": Color(1, 0.270588, 0, 1),
-"juice": Color(0.627451, 0.12549, 0.941176, 1),
-"money": Color(0, 1, 0, 1),
-"scrap": Color(0.411765, 0.411765, 0.411765, 1)
+"juice": Color(0.627451, 0, 0.941176, 1),
+"money": Color(0, 0.862745, 0, 1),
+"scrap": Color(0.5, 0.5, 0.5, 1)
 })
 hollow_circle_textures = Array[Texture]([ExtResource("73_utn0t"), ExtResource("74_l4ld4"), ExtResource("75_mwnqg"), ExtResource("76_5481b"), ExtResource("77_q20m7")])
 circle_textures = Array[Texture]([ExtResource("78_x7l0t"), ExtResource("79_epdxe"), ExtResource("80_5243g"), ExtResource("81_i7wen"), ExtResource("82_er4df")])

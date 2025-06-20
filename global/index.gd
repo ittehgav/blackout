@@ -26,6 +26,7 @@ extends Node
 @export var resource_icon_scene:PackedScene;
 @export var sprite_sample_scene:PackedScene;
 @export var tooltip_scene:PackedScene;
+@export var save_file_display_scene:PackedScene;
 
 @export var item_mirror_scene:PackedScene
 

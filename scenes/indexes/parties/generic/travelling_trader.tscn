@@ -12,6 +12,7 @@ script = ExtResource("1_ure6u")
 party_type = "travelling_trader"
 dialogue = ExtResource("2_7wog4")
 leader_unit = NodePath("Roster/unit")
+outline_color = Color(0, 0.392157, 0, 1)
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("stats")

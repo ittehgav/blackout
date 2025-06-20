@@ -18,13 +18,12 @@ var being_highlighted:bool=false
 var resource_tweens:Dictionary[String, Tween];
 var tween_queue:Array;
 
+
 func _ready()->void:
 	for r:String in Index.all_resources:
 		resource_tweens[r] = create_tween();
 		resource_tweens[r].kill()
 		set_resource_label_text(Entities.player.inventory[r], self[r+"_label"]);
-var previous_alpha:float;
-var previous_z:int;
 
 
 
@@ -39,6 +38,9 @@ func animate_resource_change(resource:String, change:int)->void:
 		var target_value :int = current_value + change;
 		
 		label.add_theme_font_size_override("font_size", 128);
+		var previous_alpha:float;
+		var previous_z:int;
+
 		if not being_highlighted:
 			being_highlighted = true
 			previous_z = z_index;

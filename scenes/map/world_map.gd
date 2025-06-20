@@ -170,12 +170,14 @@ func _on_player_left_settlement() -> void:
 	update_light()
 
 func load_game(data:Dictionary)->void:
+	player_party.load_data(data.player)
+	
 	current_day = data.world.day;
 	current_hour = data.world.hour;
 	current_minute = data.world.minute;
 	
 	quadrants.load_game(data)
-	player_party.load_data(data.player)
+
 
 	
 func _on_returned_from_battle(won: bool) -> void:
@@ -193,6 +195,7 @@ func _on_returned_from_battle(won: bool) -> void:
 				Entities.dialogue_player.start_dialogue(party.leader, "defeated_player")
 				await Entities.dialogue_player.dialogue_ended;
 				MapEvents.yield_resources(["money"], .5);
+	
 
 func quadrant_for_global_position(p:Vector2)->WorldMapQuadrant:
 	if p.x < 0 and p.y < 0:

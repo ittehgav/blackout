@@ -3,7 +3,6 @@
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="1_aqx4w"]
 
 [resource]
-resource_local_to_scene = true
 shader = ExtResource("1_aqx4w")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
@@ -11,5 +10,5 @@ shader_parameter/color = Color(1, 0, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(6, 3)

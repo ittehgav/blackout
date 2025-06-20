@@ -30,8 +30,6 @@ func recursive_connect_ui_feedback(node:Node)->void:
 	if node is Icon:
 		node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
 
-
-
 	for c in node.get_children():
 		if c is Control:
 			recursive_connect_ui_feedback(c);

@@ -58,6 +58,7 @@ holder = NodePath("..")
 [node name="Food Basket" parent="Inventory" instance=ExtResource("5_gsj6j")]
 
 [node name="Fuel Tank" parent="Inventory" instance=ExtResource("6_8ex1r")]
+stack_size = 50
 
 [node name="Juice Flask" parent="Inventory" instance=ExtResource("7_8aq5y")]
 

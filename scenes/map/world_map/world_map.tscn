@@ -1601,7 +1601,7 @@ material = SubResource("ShaderMaterial_a04dl")
 [node name="chips" parent="ui_overlay/ui/full_screen_guis/trade_menu/HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer6" index="1"]
 horizontal_alignment = 2
 
-[node name="pause_menu" type="Control" parent="ui_overlay/ui/full_screen_guis"]
+[node name="pause_menu" type="Control" parent="ui_overlay/ui/full_screen_guis" node_paths=PackedStringArray("main_panel", "save_panel", "save_options_container", "load_panel", "load_options_container", "ui_sfx")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1610,6 +1610,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("37_gmjui")
+main_panel = NodePath("main_panel")
+save_panel = NodePath("save_game_panel")
+save_options_container = NodePath("save_game_panel/save_files_container")
+load_panel = NodePath("load_game_panel")
+load_options_container = NodePath("load_game_panel/load_files_container")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="ui_overlay/ui/full_screen_guis/pause_menu" instance=ExtResource("78_37vhr")]
 
 [node name="TextureRect" type="ColorRect" parent="ui_overlay/ui/full_screen_guis/pause_menu"]
 layout_mode = 1
@@ -1618,10 +1626,68 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.431373)
+color = Color(0, 0, 0, 0.490196)
 
-[node name="Panel" type="Panel" parent="ui_overlay/ui/full_screen_guis/pause_menu"]
-custom_minimum_size = Vector2(300, 600)
+[node name="main_panel" type="Panel" parent="ui_overlay/ui/full_screen_guis/pause_menu"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -162.0
+offset_top = -124.0
+offset_right = 162.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Game is Paused"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="resume" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Resume"
+
+[node name="save" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Save Game"
+
+[node name="load" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Load Game"
+
+[node name="main_menu" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Main Menu"
+
+[node name="save_game_panel" type="PanelContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1635,39 +1701,89 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu/Panel"]
+[node name="save_files_container" type="VBoxContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu/save_game_panel"]
+layout_mode = 2
+theme_override_constants/separation = -3
+
+[node name="return" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/save_game_panel/save_files_container"]
+modulate = Color(0.72, 0.72, 0.72, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("71_8xm6f")
+text = "[esc] return"
+
+[node name="load_game_panel" type="PanelContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -81.0
-offset_top = -13.0
-offset_right = 81.0
-offset_bottom = 13.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="ui_overlay/ui/full_screen_guis/pause_menu/Panel/VBoxContainer"]
+[node name="load_files_container" type="VBoxContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu/load_game_panel"]
 layout_mode = 2
-text = "Game is Paused"
-horizontal_alignment = 1
+theme_override_constants/separation = -3
 
-[node name="HSeparator" type="HSeparator" parent="ui_overlay/ui/full_screen_guis/pause_menu/Panel/VBoxContainer"]
+[node name="return" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/load_game_panel/load_files_container"]
+modulate = Color(0.72, 0.72, 0.72, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("71_8xm6f")
+text = "[esc] return"
+
+[node name="main_menu_confirmation" type="PanelContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer"]
 layout_mode = 2
 
-[node name="resume" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/Panel/VBoxContainer"]
+[node name="Label" type="Label" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Resume"
+theme_override_font_sizes/font_size = 64
+text = "Return to main menu?"
 
-[node name="save" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/Panel/VBoxContainer"]
+[node name="Label2" type="Label" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Save Game"
+text = "All unsaved Progress will be lost."
 
-[node name="load" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/Panel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Load Game"
+size_flags_horizontal = 4
+
+[node name="return_confirm" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Return To
+Main Menu"
+
+[node name="return_cancel" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "[esc] cancel"
 
 [node name="quadrants" type="Node2D" parent="." node_paths=PackedStringArray("player_camera", "world_map", "quadrant_1", "quadrant_2", "quadrant_3", "quadrant_4", "all_quadrants")]
 process_mode = 3
@@ -1823,8 +1939,13 @@ texture = ExtResource("54_anjvn")
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/HBoxContainer/VBoxContainer/cancel_all" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="cancel_all"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/HBoxContainer/VBoxContainer/auto_pick" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="auto_pick"]
 [connection signal="trade_started" from="ui_overlay/ui/full_screen_guis/trade_menu" to="ui_overlay/ui/main_hud" method="_on_trade_menu_trade_started"]
-[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/Panel/VBoxContainer/resume" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_resume_pressed"]
-[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/Panel/VBoxContainer/save" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_save_pressed"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/resume" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_resume_pressed"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/save" to="ui_overlay/ui/full_screen_guis/pause_menu" method="save_menu"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/load" to="ui_overlay/ui/full_screen_guis/pause_menu" method="load_menu"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/main_menu" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/save_game_panel/save_files_container/return" to="ui_overlay/ui/full_screen_guis/pause_menu" method="return_to_main_view"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer/HBoxContainer/return_confirm" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_return_confirm_pressed"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer/HBoxContainer/return_cancel" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_return_cancel_pressed"]
 [connection signal="entity_entered_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_entity_entered_range"]
 [connection signal="entity_entered_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_entered_range"]
 [connection signal="entity_left_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_entity_left_range"]

@@ -71,26 +71,26 @@ func color_code_settlement(settlement:Settlement, tile_color:Color)->void:
 	var base_color:Color;
 
 	if settlement is Factory:
-		base_color = Index.resource_colors["chips"]
+		base_color = Index.resource_colors["scrap"]
 	elif settlement is Farm:
-		base_color = Index.resource_colors["food"];
+		base_color = Index.resource_colors["food"].darkened(.25);
 	elif settlement is Scrapyard:
-		base_color = Index.resource_colors["fuel"].lightened(.3)
+		base_color = Index.resource_colors["fuel"].darkened(.2)
 	elif settlement is Stadium:
 		base_color = Color.GOLD;
 
-	base_color = base_color.darkened(.5)
-	var blend:Color = tile_color.darkened(.5)
-
+	base_color = base_color
+	#var blend:Color = (tile_color/5).blend(base_color);
+	#base_color = base_color.blend(blend)
 	var dict:Dictionary = {
-		Color.GREEN: base_color.blend(blend),
-		Color.BLUE: (base_color.blend(blend)).darkened(.5),
-		Color.RED: (base_color.blend(blend)).lightened(.15)
+		Color.GREEN: base_color,
+		Color.BLUE: base_color.darkened(.5),
+		Color.RED: base_color.lightened(.15)
 	}
 	color_code_sprite(sprite, dict, settlement.settlement_type_name)
 	
 	var box:Control = settlement.get_node("hover_box");
-	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", dict[Color.GREEN].lightened(.5) - Color(0, 0, 0, .3)));
+	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", dict[Color.GREEN]));
 	box.mouse_exited.connect(sprite.material.set_shader_parameter.bind("color", Color(0,0,0,0)));
 
 var texture_cache:Dictionary[Array, Texture]

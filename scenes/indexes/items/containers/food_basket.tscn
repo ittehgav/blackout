@@ -9,4 +9,4 @@ material = ExtResource("1_jbhue")
 texture = ExtResource("2_vy1s6")
 script = ExtResource("3_ggnos")
 resource = "food"
-stack_size = 0
+stack_size = 100

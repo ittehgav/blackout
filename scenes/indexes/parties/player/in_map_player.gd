@@ -9,9 +9,7 @@ class_name InMapPlayer;
 func setup(origin:Player=null)->void:
 	if origin:
 		leader.load_origin(origin);
-		
-		
-	
+
 	Entities.in_map_player = self;
 	Entities.player = leader;
 
@@ -43,6 +41,7 @@ func load_data(player_data:Dictionary)->void:
 		leader.combat_stats[stat] = player_data.combat_stats[stat];
 	LoadSystem.load_roster(leader.roster, player_data.roster)
 	
+	setup();
 	
 
 func move_toward_entity()->void:

@@ -138,6 +138,10 @@ func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->N
 	var leader:NpcLeader = leader_scene.instantiate();
 	var party:NpcMapParty = Index.npc_map_party_scene.instantiate();
 	
+	leader.color_scheme_index = randi_range(0, len(Index.color_schemes) - 1);
+	while leader.color_scheme_index == Entities.player.color_scheme_index:
+		leader.color_scheme_index = randi_range(0, len(Index.color_schemes) - 1);
+	
 	party.leader = leader;
 	
 	var vehicle:Vehicle = Index.vehicle_scenes.pick_random().instantiate()
@@ -157,6 +161,8 @@ func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->N
 	
 	var quadrant:WorldMapQuadrant = self["quadrant_" + str(adjusted[1])];
 	quadrant.add_child(party)
+	
+	party.material.set_shader_parameter("color", leader.outline_color)
 	
 	return party
 	

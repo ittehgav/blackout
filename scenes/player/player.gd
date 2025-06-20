@@ -155,6 +155,7 @@ func load_origin(origin:Player)->void:
 	var new_inventory:Inventory = origin.inventory;
 	new_inventory.reparent(self);
 	inventory = new_inventory;
+	inventory.refresh_resource_counts("", 0, false)
 
 	combat_stats.queue_free();
 	var new_combat_stats:CombatStats = origin.combat_stats;

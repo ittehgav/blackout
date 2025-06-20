@@ -2,7 +2,7 @@ extends Node
 
 
 
-func save_data()->void:
+func save_data(file_path:String)->void:
 	var save_file:Dictionary[String, Dictionary]={
 		"world":{},
 		"player":{},
@@ -17,8 +17,8 @@ func save_data()->void:
 		save_file.settlements[settlement.name] = store_settlement_data(settlement)
 		
 	var to_save:String = JSON.stringify(save_file);
-	var file:FileAccess = FileAccess.open("user://savegame.json", FileAccess.WRITE);
-	file.store_line(to_save)
+	var file:FileAccess = FileAccess.open(file_path, FileAccess.WRITE);
+	file.store_string(to_save)
 	
 func store_player_data()->Dictionary:
 	var player:Player = Entities.player;
@@ -192,3 +192,7 @@ func raw_file_name(node:Node, prefix:String = "")->String:
 	var path:String = node.get_scene_file_path();
 	var raw_name:String = path.split("/")[-1].split(".tscn")[0];
 	return prefix + raw_name
+
+func delete_file(path:String)->void:
+	var file:FileAccess = FileAccess.open(path, FileAccess.WRITE);
+	file.store_string("")
