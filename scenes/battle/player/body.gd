@@ -24,7 +24,7 @@ func switch_animation(type:String)->void:
 		"idle":
 			frame = 0;
 			ticker.wait_time = .5;
-	if not Entities.in_fight_player.stunned:
+	if not Entities.player_fighter.stunned:
 		ticker.start();
 
 func next_frame() -> void:

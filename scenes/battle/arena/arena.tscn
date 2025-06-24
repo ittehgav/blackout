@@ -260,8 +260,9 @@ shader_parameter/neutral_value = 1.0
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_524le"]
 bounce = 1.0
 
-[node name="arena" type="Node2D" node_paths=PackedStringArray("overlay", "kill_feed", "team_1", "team_2", "projectiles", "tide_bar")]
+[node name="arena" type="Node2D" node_paths=PackedStringArray("player_fighter", "overlay", "kill_feed", "team_1", "team_2", "projectiles", "tide_bar")]
 script = ExtResource("1_gosq3")
+player_fighter = NodePath("team_1/player_fighter")
 overlay = NodePath("hud/overlay")
 kill_feed = NodePath("hud/overlay/kill_feed")
 team_1 = NodePath("team_1")
@@ -281,25 +282,25 @@ script = ExtResource("3_kfkuj")
 team_n = 1
 enemy_team = NodePath("../team_2")
 
-[node name="in_fight_player" parent="team_1" instance=ExtResource("4_n7xip")]
+[node name="player_fighter" parent="team_1" instance=ExtResource("4_n7xip")]
 position = Vector2(158, 474)
 
-[node name="sfx" parent="team_1/in_fight_player" index="5"]
+[node name="sfx" parent="team_1/player_fighter" index="5"]
 weapon_change = ExtResource("7_iln1w")
 
-[node name="body" parent="team_1/in_fight_player" index="8"]
+[node name="body" parent="team_1/player_fighter" index="8"]
 material = SubResource("ShaderMaterial_og1r2")
 
-[node name="off_screen_checker" type="Area2D" parent="team_1/in_fight_player"]
+[node name="off_screen_checker" type="Area2D" parent="team_1/player_fighter"]
 process_mode = 3
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="team_1/in_fight_player/off_screen_checker"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="team_1/player_fighter/off_screen_checker"]
 polygon = PackedVector2Array(0, 0, 20, 700, 1260, 700, 1260, 51)
 
-[node name="sweep" type="Timer" parent="team_1/in_fight_player/off_screen_checker"]
+[node name="sweep" type="Timer" parent="team_1/player_fighter/off_screen_checker"]
 autostart = true
 
 [node name="team_2" type="Node2D" parent="." node_paths=PackedStringArray("enemy_team")]
@@ -312,7 +313,7 @@ enemy_team = NodePath("../team_1")
 [node name="hud" type="CanvasLayer" parent="."]
 process_mode = 3
 
-[node name="overlay" type="Control" parent="hud" node_paths=PackedStringArray("in_fight_player", "post_fight", "tide_bar", "pause_menu")]
+[node name="overlay" type="Control" parent="hud" node_paths=PackedStringArray("post_fight", "tide_bar", "pause_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -320,7 +321,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_jp2sx")
-in_fight_player = NodePath("../../team_1/in_fight_player")
 post_fight = NodePath("post_fight")
 tide_bar = NodePath("tide_of_battle")
 pause_menu = NodePath("pause_menu")
@@ -390,20 +390,20 @@ offset_bottom = -87.0
 grow_vertical = 0
 scale = Vector2(2, 2)
 script = ExtResource("13_v0vqe")
-equipment_node = NodePath("../../../team_1/in_fight_player/equipment")
+equipment_node = NodePath("../../../team_1/player_fighter/equipment")
 hp_bar = NodePath("HBoxContainer/VBoxContainer/player_hp")
 shield_bar = NodePath("HBoxContainer/VBoxContainer/player_hp/shield")
-player = NodePath("../../../team_1/in_fight_player")
+player = NodePath("../../../team_1/player_fighter")
 weapon_panel = NodePath("HBoxContainer/weapon_panel")
 weapon_container = NodePath("HBoxContainer/weapon_panel/VBoxContainer2/MarginContainer")
 weapon_cd_bg = NodePath("HBoxContainer/weapon_panel/VBoxContainer2/MarginContainer/ProgressBar")
 weapon_cd_progress = NodePath("HBoxContainer/weapon_panel/VBoxContainer2/MarginContainer/weapon_cd_progress")
-weapon_cd_timer = NodePath("../../../team_1/in_fight_player/equipment/weapon_control/weapon_cd")
+weapon_cd_timer = NodePath("../../../team_1/player_fighter/equipment/weapon_control/weapon_cd")
 alternative_weapon_rect = NodePath("HBoxContainer/Control/VBoxContainer2/Panel/alternative_weapon")
 alternative_weapon_panel = NodePath("HBoxContainer/Control/VBoxContainer2/Panel")
 module_panel = NodePath("HBoxContainer/Control/VBoxContainer2/module")
 module_progress_bar = NodePath("HBoxContainer/Control/VBoxContainer2/module/module_cd")
-module_cd_timer = NodePath("../../../team_1/in_fight_player/equipment/module_control/module_cd")
+module_cd_timer = NodePath("../../../team_1/player_fighter/equipment/module_control/module_cd")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="hud/overlay/player_data"]
 layout_mode = 1
@@ -622,9 +622,9 @@ offset_top = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("30_1usgs")
-player = NodePath("../../../team_1/in_fight_player")
-area = NodePath("../../../team_1/in_fight_player/off_screen_checker")
-polygon = NodePath("../../../team_1/in_fight_player/off_screen_checker/CollisionPolygon2D")
+player = NodePath("../../../team_1/player_fighter")
+area = NodePath("../../../team_1/player_fighter/off_screen_checker")
+polygon = NodePath("../../../team_1/player_fighter/off_screen_checker/CollisionPolygon2D")
 arrow = NodePath("arrow")
 
 [node name="arrow" type="Sprite2D" parent="hud/overlay/pointer"]
@@ -769,25 +769,25 @@ position = Vector2(-2238, 173)
 blend_mode = 2
 
 [connection signal="battle_over" from="." to="hud/overlay/pointer" method="_on_arena_battle_over"]
-[connection signal="damage_blocked" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_damage_blocked"]
-[connection signal="damage_taken" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_damage_taken"]
-[connection signal="death" from="team_1/in_fight_player" to="." method="player_died"]
-[connection signal="healing_received" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_healing_received"]
-[connection signal="shield_gained" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_shield_gained"]
-[connection signal="status_applied" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_applied"]
-[connection signal="status_removed" from="team_1/in_fight_player" to="hud/overlay/player_data" method="_on_in_fight_player_status_removed"]
-[connection signal="module_fumbled" from="team_1/in_fight_player/equipment" to="hud/overlay/player_data" method="_on_equipment_module_fumbled"]
-[connection signal="module_used" from="team_1/in_fight_player/equipment" to="hud/overlay/player_data" method="_module_used"]
-[connection signal="weapon_equipped" from="team_1/in_fight_player/equipment" to="hud/overlay/player_data" method="_on_equipment_weapon_equipped"]
-[connection signal="timeout" from="team_1/in_fight_player/equipment/weapon_control/weapon_cd" to="hud/overlay/player_data" method="_on_weapon_cd_timeout"]
-[connection signal="timeout" from="team_1/in_fight_player/equipment/module_control/module_cd" to="hud/overlay/player_data" method="_on_module_cd_timeout"]
-[connection signal="timeout" from="team_1/in_fight_player/off_screen_checker/sweep" to="hud/overlay/pointer" method="_on_sweep_timeout"]
+[connection signal="damage_blocked" from="team_1/player_fighter" to="hud/overlay/player_data" method="_on_in_fight_player_damage_blocked"]
+[connection signal="damage_taken" from="team_1/player_fighter" to="hud/overlay/player_data" method="_on_in_fight_player_damage_taken"]
+[connection signal="death" from="team_1/player_fighter" to="." method="player_died"]
+[connection signal="healing_received" from="team_1/player_fighter" to="hud/overlay/player_data" method="_on_in_fight_player_healing_received"]
+[connection signal="shield_gained" from="team_1/player_fighter" to="hud/overlay/player_data" method="_on_in_fight_player_shield_gained"]
+[connection signal="status_applied" from="team_1/player_fighter" to="hud/overlay/player_data" method="_on_in_fight_player_status_applied"]
+[connection signal="status_removed" from="team_1/player_fighter" to="hud/overlay/player_data" method="_on_in_fight_player_status_removed"]
+[connection signal="module_fumbled" from="team_1/player_fighter/equipment" to="hud/overlay/player_data" method="_on_equipment_module_fumbled"]
+[connection signal="module_used" from="team_1/player_fighter/equipment" to="hud/overlay/player_data" method="_module_used"]
+[connection signal="weapon_equipped" from="team_1/player_fighter/equipment" to="hud/overlay/player_data" method="_on_equipment_weapon_equipped"]
+[connection signal="timeout" from="team_1/player_fighter/equipment/weapon_control/weapon_cd" to="hud/overlay/player_data" method="_on_weapon_cd_timeout"]
+[connection signal="timeout" from="team_1/player_fighter/equipment/module_control/module_cd" to="hud/overlay/player_data" method="_on_module_cd_timeout"]
+[connection signal="timeout" from="team_1/player_fighter/off_screen_checker/sweep" to="hud/overlay/pointer" method="_on_sweep_timeout"]
 [connection signal="value_changed" from="hud/overlay/tide_of_battle" to="hud/overlay/tide_of_battle" method="move_tide"]
 [connection signal="finished" from="hud/overlay/tide_of_battle/sfx" to="hud/overlay/tide_of_battle" method="_on_sfx_finished"]
 [connection signal="pressed" from="hud/overlay/pause_menu/Panel/resume" to="hud/overlay/pause_menu" method="resume"]
 
-[editable path="team_1/in_fight_player"]
-[editable path="team_1/in_fight_player/body"]
+[editable path="team_1/player_fighter"]
+[editable path="team_1/player_fighter/body"]
 [editable path="hud/overlay/kill_feed/kill/data/icon"]
 [editable path="hud/overlay/post_fight"]
 [editable path="hud/overlay/post_fight/victory_view/loot_gains/HBoxContainer/player_inventory"]

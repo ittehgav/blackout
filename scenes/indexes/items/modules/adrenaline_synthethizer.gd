@@ -4,8 +4,7 @@ const rarity = 2;
 
 const cooldown = 5;
 
-const size_x = 1;
-const size_y = 1;
+
 
 const sfx_key = "adrenaline"
 const juice_cost = 5;
@@ -23,9 +22,9 @@ func check_available()->bool:
 
 func use()->void:
 	var frac: = base_agility_frac
-	var technique:float = Entities.in_fight_player.technique;
+	var technique:float = Entities.player_fighter.technique;
 	if technique > 1:
 		frac *= technique
-	var bonus_agility:float = Entities.in_fight_player.agility + 1 * frac
+	var bonus_agility:float = Entities.player_fighter.agility + 1 * frac
 	Entities.player.inventory.juice -= juice_cost;
-	Combat.apply_stat_change(Entities.in_fight_player, Entities.in_fight_player, bonus_agility, "agility");
+	Combat.apply_stat_change(Entities.player_fighter, Entities.player_fighter, bonus_agility, "agility");

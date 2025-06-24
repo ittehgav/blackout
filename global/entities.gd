@@ -6,8 +6,8 @@ var main_bgm:AudioStreamPlayer;
 var current_camera:Camera2D;
 
 var player:Player;
-var in_fight_player:InFightPlayer;
-var in_map_player:InMapPlayer;
+var player_fighter:InFightPlayer;
+var player_map_party:InMapPlayer;
 
 var loading_screen:UIRoot;
 

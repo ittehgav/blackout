@@ -39,12 +39,9 @@ func _on_npc_fighter_healing_received(value: float) -> void:
 
 func _on_npc_fighter_status_applied(_source: ActiveFighter, data: Dictionary) -> void:
 	## VFX from statuses will be handled her
-	
 	var timer_bar:TextureProgressBar = status_bar.duplicate();
-	
 	match data.type:
 		"stun":
-			unit.base.modulate = Color.PURPLE
 			Tweens.stun_vfx(unit);
 			timer_bar.modulate = Color.PURPLE
 		"stat_change":
@@ -76,7 +73,7 @@ func _on_npc_fighter_status_applied(_source: ActiveFighter, data: Dictionary) ->
 func _on_npc_fighter_status_removed(status_type: String, _data: Dictionary) -> void:
 	match status_type:
 		"stun":
-			unit.base.modulate = Color.WHITE;
+			pass
 
 func particle_animation(key:String)->void:
 	if key == "beam":

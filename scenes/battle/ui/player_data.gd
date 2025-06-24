@@ -129,12 +129,12 @@ func _on_equipment_module_fumbled() -> void:
 
 
 func refresh_hp_bars()->void:
-	var max_hp:int = Entities.in_fight_player.max_hp;
+	var max_hp:int = Entities.player_fighter.max_hp;
 	hp_bar.max_value = max_hp
 	shield_bar.max_value = max_hp
 	
-	shield_bar.value = Entities.in_fight_player.shield;
-	hp_bar.value = Entities.in_fight_player.hp;
+	shield_bar.value = Entities.player_fighter.shield;
+	hp_bar.value = Entities.player_fighter.hp;
 
 
 func _on_in_fight_player_damage_blocked(_source: ActiveFighter, _value: float) -> void:

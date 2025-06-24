@@ -249,7 +249,7 @@ func finish_trade()->void:
 			trader_label_tween.tween_property(trader_value_label, "text", str(trader_after), tween_duration);
 	
 
-	trader_inventory_display.sort_inventory();
+	trader_inventory_display.update_inventory();
 	player_inventory_display.update_inventory();
 
 	for i in int(sqrt(trade_volume)):

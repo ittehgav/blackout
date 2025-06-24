@@ -39,7 +39,7 @@ func weapon_heal()->float:
 	var heal: = base_heal;
 	var technique:float = Entities.player.combat_stats.technique;
 	if technique > 1:
-		heal = Scaling.technique_scaled_value(heal, Entities.in_fight_player.technique, "heal");
+		heal = Scaling.technique_scaled_value(heal, Entities.player_fighter.technique, "heal");
 	return heal;
 	
 
@@ -51,9 +51,9 @@ var alt_mode:bool = false;
 
 func use()->bool:
 	if not alt_mode:
-		Combat.aoe_heal(Entities.in_fight_player, weapon_heal())
+		Combat.aoe_heal(Entities.player_fighter, weapon_heal())
 	else:
-		Combat.aoe_stat_buff(Entities.in_fight_player,"agility", base_buff_frac)
+		Combat.aoe_stat_buff(Entities.player_fighter,"agility", base_buff_frac)
 	vfx.play_vfx()
 	return false;
 
@@ -68,10 +68,10 @@ func alt_use()->void:
 	refresh_request.emit();
 
 func _on_equipped() -> void:
-	Entities.in_fight_player.hit_scan.set_collision_mask_value(2, false)
-	Entities.in_fight_player.hit_scan.set_collision_mask_value(1, true)
+	Entities.player_fighter.hit_scan.set_collision_mask_value(2, false)
+	Entities.player_fighter.hit_scan.set_collision_mask_value(1, true)
 
 
 func _on_unequipped() -> void:
-	Entities.in_fight_player.hit_scan.set_collision_mask_value(1, false)
-	Entities.in_fight_player.hit_scan.set_collision_mask_value(2, true)
+	Entities.player_fighter.hit_scan.set_collision_mask_value(1, false)
+	Entities.player_fighter.hit_scan.set_collision_mask_value(2, true)

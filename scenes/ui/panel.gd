@@ -72,7 +72,7 @@ func setup(target:FighterUnit)->void:
 	if "evolutions" in unit.base:
 		show();
 		var i:int = 1;
-		can_evolve = unit.level >= 10;
+		can_evolve = unit.level >= 5;
 		
 		for evolution:String in unit.base.evolutions.keys():
 			
@@ -138,7 +138,7 @@ func setup(target:FighterUnit)->void:
 			evolution_2_costs_container.show();
 		else:
 
-			title_label.text = "Bring this unit to level 10 to unlock upgrades."
+			title_label.text = "Bring this unit to level 5 to unlock upgrades."
 			title_label.add_theme_font_size_override("font_size", 32)
 			title_label.add_theme_constant_override("outline_size",0)
 			evolution_1_sprite.modulate.v = 0;

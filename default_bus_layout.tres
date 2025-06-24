@@ -2,7 +2,8 @@
 
 [sub_resource type="AudioEffectHardLimiter" id="AudioEffectHardLimiter_j3pel"]
 resource_name = "HardLimiter"
-pre_gain_db = -7.93
+pre_gain_db = -10.0
+ceiling_db = -10.55
 
 [resource]
 bus/1/name = &"music"

@@ -29,8 +29,9 @@ func load_save_file(path:String, target_operation:String = "")->void:
 		$save_data.show()
 		data = JSON.parse_string(file)
 		
+		
 		save_file_name.text = data.player.name;
-		save_file_play_time.text = "erm";
+		save_file_play_time.text = parse_play_time();
 		
 		save_file_money.text = str(int(data.player.inventory.money));
 		save_file_party_size.text = str(len(data.player.roster));
@@ -59,6 +60,29 @@ func save_game()->void:
 	else:
 		SaveSystem.save_data(file_path)
 		game_saved.emit();
+
+func parse_play_time()->String:
+	var total_seconds:int = data.world.play_time;
+	var total_minutes:int =0;
+	var total_hours:int = 0;
+	while total_seconds > 60:
+		total_seconds -= 60;
+		total_minutes += 1;
+		if total_minutes == 60:
+			total_minutes = 0;
+			total_hours += 1;
+
+	
+	var final_string:String = "Play Time: ";
+
+	if total_hours:
+		final_string += str(total_hours) + "h, ";
+
+	final_string += str(total_minutes) +"m";
+	if not total_hours:
+		final_string += ", " + str(total_seconds) + "s"
+	
+	return final_string
 
 func load_game()->void:
 	## button is disabled if there's no data to load

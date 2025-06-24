@@ -169,7 +169,9 @@ func play_weapon_vfx()->void:
 			"arc":
 				Tweens.arc_vfx(weapon.arc);
 			"camera_lunge":
-				Tweens.camera_lunge(Entities.in_fight_player)
+				Tweens.camera_lunge(Entities.player_fighter)
+			"camera_recoil":
+				Tweens.camera_recoil(Entities.player_fighter)
 			"gun_recoil":
 				Tweens.gun_recoil(weapon)
 			"grow":
@@ -225,7 +227,7 @@ func equip_weapon(to_equip:Weapon, from_refresh:bool=false, from_switch:bool=fal
 		weapon_cd.stop();
 	
 	if "base_damage" in weapon:
-		holder.attack = weapon.base_damage + Entities.in_fight_player.attack;
+		holder.attack = weapon.base_damage + Entities.player_fighter.attack;
 	else:
 		holder.attack = 0;
 	if not from_refresh:

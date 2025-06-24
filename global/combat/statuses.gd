@@ -24,7 +24,6 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 		timer.timeout.connect(remove_status.bind(target, type, data, timer))
 		target.timers.add_child(timer)
 		timer.start()
-		
 	target.status_applied.emit(source, status_data)
 
 

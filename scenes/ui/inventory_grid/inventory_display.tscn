@@ -1,8 +1,7 @@
-[gd_scene load_steps=35 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=34 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_grid/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_grid/inventory_grid_cell.tscn" id="2_ke6sf"]
-[ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_grid/item_mirror.tscn" id="3_03pit"]
 [ext_resource type="Script" uid="uid://k28ilsb15q1d" path="res://scenes/ui/inventory_grid/sfx.gd" id="3_ke6sf"]
 [ext_resource type="AudioStream" uid="uid://027kj1l582qq" path="res://assets/sound/sfx/ui/inventory/cell_hover.wav" id="4_rchr5"]
 [ext_resource type="Script" uid="uid://b67hvkww5tvpb" path="res://scenes/ui/inventory_grid/hover_sfx.gd" id="5_qglwj"]
@@ -108,7 +107,6 @@ resource_picker = NodePath("resource_picker")
 item_mirrors_node = NodePath("cargo/item_mirrors")
 cargo = NodePath("cargo")
 grid_cell_scene = ExtResource("2_ke6sf")
-item_mirror_scene = ExtResource("3_03pit")
 grid = NodePath("cargo/inventory_grid")
 sfx = NodePath("sfx")
 hover_sfx = NodePath("hover_sfx")

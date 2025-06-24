@@ -20,7 +20,7 @@ func refresh_data()->void:
 		sample.get_node("additional_data").text = "Lv. " + str(unit.level);
 		sample.set_sample(unit.base)
 		recruits_grid.add_child(sample)
-		sample.gui_input.connect(show_more.bind(unit))
+		sample.pressed.connect(show_more.bind(unit))
 		
 		if unit.upgrade_available():
 			var hint:TextureRect = upgrade_hint.duplicate();
@@ -32,7 +32,6 @@ func refresh_data()->void:
 	fuel_cost.text = str(travel_expenses.fuel) + "/hour"
 		
 		
-func show_more(e:InputEvent, unit:FighterUnit)->void:
-	if e is InputEventMouseButton and e.pressed:
-		ui_sfx.play_stream("button_click")
-		recruit_full_view.display_recruit(unit)
+func show_more(unit:FighterUnit)->void:
+	ui_sfx.play_stream("button_click")
+	recruit_full_view.display_recruit(unit)

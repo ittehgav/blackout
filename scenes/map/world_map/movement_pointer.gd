@@ -17,7 +17,7 @@ func show_in_position(target:Vector2)->void:
 
 
 func _on_in_map_player_started_moving() -> void:
-	show_in_position(Entities.in_map_player.target_position)
+	show_in_position(Entities.player_map_party.target_position)
 
 
 func _on_in_map_player_stopped_moving() -> void:

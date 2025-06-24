@@ -9,6 +9,7 @@ class_name NpcMapParty
 
 @export var behavior_icon:TextureRect;
 @export var find_target_timer:Timer;
+@export var party_size_label:Label;
 
 var feared_entity:MapEntity;
 var pacified:bool;
@@ -20,6 +21,7 @@ func _ready()->void:
 	match leader.party_type:
 		"thugs":
 			behavior_icon.texture = Index.agressive_icon_texture;
+			party_size_label.text = str(len(leader.roster.units))
 		"travelling_trader":
 			behavior_icon.texture = Index.salesman_icon_texture;
 	
@@ -40,21 +42,21 @@ func find_target() -> void:
 				set_behavior_icon("idle")
 				idle_movement();
 			else:
-				if global_position.distance_to(Entities.in_map_player.global_position) <= leader.sight_range:
+				if global_position.distance_to(Entities.player_map_party.global_position) <= leader.sight_range:
 					if feared_entity:
 						set_behavior_icon("scared");
 						var direction:Vector2 = (global_position - feared_entity.global_position).normalized();
 						run_in_direction(direction);
 					else:
 						set_behavior_icon("agressive")
-						target_entity = Entities.in_map_player;
+						target_entity = Entities.player_map_party;
 						vehicle.adjust_direction(target_entity.global_position)
 				else:
 					set_behavior_icon("idle")
 					idle_movement();
 		"travelling_trader":
 			## traders will stand still if the player is nearby
-			if global_position.distance_to(Entities.in_map_player.global_position) >= leader.sight_range:
+			if global_position.distance_to(Entities.player_map_party.global_position) >= leader.sight_range:
 				idle_movement();
 
 func set_behavior_icon(key:String)->void:

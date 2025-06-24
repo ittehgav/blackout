@@ -250,7 +250,7 @@ script = ExtResource("3_7eru0")
 exp_gains = NodePath("exp_gains")
 loot_gains = NodePath("loot_gains")
 
-[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "leadership_exp_gain", "combat_exp_gain", "step_timer", "continue_btn", "unit_exp_gain_container", "combat_stat_points_label", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
+[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "leadership_exp_gain", "combat_exp_gain", "step_timer", "continue_btn", "unit_exp_gain_container", "combat_stat_points_label", "assign_points_mesage", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
 custom_minimum_size = Vector2(1000, 600)
 layout_mode = 1
 anchors_preset = 15
@@ -271,6 +271,7 @@ continue_btn = NodePath("continue")
 unit_exp_gain_container = NodePath("unit_exp_gains")
 unit_exp_gain_scene = ExtResource("9_am2jd")
 combat_stat_points_label = NodePath("VBoxContainer/VBoxContainer2/combat_stat_points")
+assign_points_mesage = NodePath("VBoxContainer/VBoxContainer2/assign points")
 max_hp_label = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/max_hp_label")
 add_max_hp = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/add_hp_point")
 remove_max_hp = NodePath("VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/remove_hp_point")
@@ -537,6 +538,12 @@ size_flags_vertical = 4
 theme = ExtResource("12_qaebw")
 theme_override_font_sizes/font_size = 48
 text = "+"
+
+[node name="assign points" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Assign stat points to continue"
 
 [node name="unit_exp_gains" type="GridContainer" parent="victory_view/exp_gains"]
 layout_mode = 1

@@ -128,8 +128,8 @@ func change_resource(resource:String, amount:int)->void:
 	"chips":Index.resource_base_prices["chips"]/2
 }
 
-func add_item(item: Item, and_add_child:bool=true, and_reparent:bool=false) -> void:
-	assert(not item in items)
+func add_item(item: Item) -> void:
+	assert(not items.has(item))
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
 	items.append(item);
 	if item is Consumable:
@@ -144,13 +144,11 @@ func add_item(item: Item, and_add_child:bool=true, and_reparent:bool=false) -> v
 		## default containers from travelling traders will be manually added to the containers array 
 		## so the resources can be restored before entering the tree
 		containers.append(item)
-	##  NEEDS TO BE ADDED TO TREE AFTER INDEXING SO IT DOESN'T RETRIGGER ENTERED_TREE
-	if and_add_child:
-		add_child(item);
-	elif and_reparent:
-		item.reparent(self)
 
-		
+
+func send_item(item:Item, target:Inventory)->void:
+	remove_item(item);
+	target.add_item(item);
 
 func remove_item(item:Item, and_free:bool=false)->void:
 	assert(item in items);
@@ -178,7 +176,6 @@ func assign_storage()->void:
 			holder[item.resource+"_storage"] = item;
 
 func clear_containers()->void:
-	## CANT ITERATE OVER AN ARRAY WHILE MOVING/DELETINGS ITS ELEMENTS XDD
 	var to_remove:Array[ResourceContainer]
 	for c:ResourceContainer in containers:
 		if c.raw_stack:
@@ -193,7 +190,6 @@ func clear_containers()->void:
 		remove_item(c, true);
 	
 func store_resources()->void:
-	
 	## used after resources are gained from whatever source, allocates 
 	## unallocated resources to the containers with the highest capacity
 	clear_containers();
@@ -306,9 +302,11 @@ func cell_in_grid(cell:Vector2)->bool:
 
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
-	if not (node in items):
+	## so editor-made nodes work and are easy to edit
+	if not items.has(node):
 		## ONLY EVER FROM INVENTORIES THAT WERE MADE IN-EDITOR
-		add_item(node, false);
+		add_item(node);
+	remove_child.call_deferred(node);
 
 func sort_containers(a:ResourceContainer, b:ResourceContainer)->bool:
 	if a.capacity > b.capacity:

@@ -13,4 +13,3 @@ func refresh_data()->void:
 			var item:HBoxContainer = memo_item.duplicate();
 			item.setup(memo);
 			memos_container.add_child(item)
-			item.memo_label.meta_clicked.connect(Entities.player_sheet.hide_player_sheet);

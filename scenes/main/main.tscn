@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=21 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
-[ext_resource type="PackedScene" uid="uid://d0n0kjgpxpjit" path="res://scenes/ui/main_menu_ui.tscn" id="2_th5th"]
+[ext_resource type="PackedScene" uid="uid://d0n0kjgpxpjit" path="res://scenes/ui/main_menu.tscn" id="2_th5th"]
 [ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="6_ouso4"]
 [ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/world_map.ogg" id="7_62atk"]
 [ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/settlement.ogg" id="8_i7in8"]
@@ -9,10 +9,77 @@
 [ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/main_menu.ogg" id="10_raeie"]
 [ext_resource type="AudioStream" uid="uid://c275jcn8n3vda" path="res://assets/sound/bgm/loops/thugs.ogg" id="10_rofvo"]
 [ext_resource type="AudioStream" uid="uid://dp1xrfwe656dj" path="res://assets/sound/bgm/loops/travelling_trader.ogg" id="11_tbnf8"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="12_7smn1"]
 [ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="13_i7in8"]
 [ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="14_0bhws"]
 [ext_resource type="Script" uid="uid://c5ydkff6c2nyn" path="res://scenes/main/control.gd" id="31_ii537"]
 [ext_resource type="Texture2D" uid="uid://drce0fgyc1x5i" path="res://assets/visual/splash/barrel.jpg" id="32_ii537"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nlll"]
+resource_local_to_scene = true
+shader = ExtResource("12_7smn1")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ii537"]
+resource_local_to_scene = true
+shader = ExtResource("12_7smn1")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rofvo"]
+resource_local_to_scene = true
+shader = ExtResource("12_7smn1")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbnf8"]
+resource_local_to_scene = true
+shader = ExtResource("12_7smn1")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r1bmu"]
+resource_local_to_scene = true
+shader = ExtResource("12_7smn1")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ud2m"]
+resource_local_to_scene = true
+shader = ExtResource("12_7smn1")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_8gx17")
@@ -34,10 +101,31 @@ defeat = ExtResource("13_i7in8")
 
 [node name="main_menu" parent="." instance=ExtResource("2_th5th")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="new_game" parent="main_menu/main_ui" index="4"]
+visible = false
+
+[node name="StatIcon" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/max_hp" index="0"]
+material = SubResource("ShaderMaterial_7nlll")
+
+[node name="StatIcon" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/attack" index="0"]
+material = SubResource("ShaderMaterial_ii537")
+
+[node name="StatIcon" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/defense" index="0"]
+material = SubResource("ShaderMaterial_rofvo")
+
+[node name="StatIcon" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/agility" index="0"]
+material = SubResource("ShaderMaterial_tbnf8")
+
+[node name="StatIcon" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/technique" index="0"]
+material = SubResource("ShaderMaterial_r1bmu")
+
+[node name="resource_icon" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer2/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_6ud2m")
+
+[node name="loading" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="loading_overlay" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("splash")]
+[node name="loading_overlay" type="Control" parent="loading" node_paths=PackedStringArray("splash")]
 visible = false
 z_index = 10
 layout_mode = 3
@@ -49,7 +137,7 @@ grow_vertical = 2
 script = ExtResource("31_ii537")
 splash = NodePath("TextureRect")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/loading_overlay"]
+[node name="TextureRect" type="TextureRect" parent="loading/loading_overlay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,3 +148,5 @@ texture = ExtResource("32_ii537")
 expand_mode = 5
 
 [connection signal="finished" from="main_bgm" to="main_bgm" method="_on_finished"]
+
+[editable path="main_menu"]

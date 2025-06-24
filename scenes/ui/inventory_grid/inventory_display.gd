@@ -705,21 +705,8 @@ func update_inventory()->void:
 		if item_mirror.item in inventory.items:
 			item_mirror.item.stack_size = item_mirror.stack_size;
 		else:
-			inventory.add_item(item_mirror.item, false, true);	
+			exchanging_display.inventory.send_item(item_mirror.item, inventory);
 
-	var to_remove:Array[Item];
-	for item:Item in inventory.items:
-		## an array for equipped items instead of this?
-		if not item in new_inventory and not(\
-		item == Entities.player.equipped_weapon\
-		or item == Entities.player.equipped_module\
-		or item == Entities.player.alternative_weapon):
-			## if item is mirrored in the other display, it will be 
-			## sent over when that inventory is updated
-			to_remove.append(item);
-
-	for item:Item in to_remove:
-		inventory.remove_item(item)
 	inventory.refresh_resource_counts();
 
 

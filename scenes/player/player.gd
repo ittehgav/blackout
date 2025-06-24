@@ -133,13 +133,13 @@ func travel_upkeep()->void:
 		if missing_fuel:
 			sfx_key = "fuel_shortage"
 			## speed will halve every hour down to a bottom cap
-			Entities.in_map_player.move_speed /= 2;
-			if Entities.in_map_player.move_speed < 50:
-				Entities.in_map_player.move_speed = 50;
+			Entities.player_map_party.move_speed /= 2;
+			if Entities.player_map_party.move_speed < 50:
+				Entities.player_map_party.move_speed = 50;
 		else:
 			## make this not take an hour to reset
 			## (or not and it's like a properly measured punishment?)
-			Entities.in_map_player.move_speed = Entities.in_map_player.navigation*50;
+			Entities.player_map_party.move_speed = Entities.player_map_party.navigation*50;
 		
 		Entities.world_map.ui.hud.sfx.play_sound_by_key(sfx_key);
 
@@ -148,6 +148,7 @@ func load_origin(origin:Player)->void:
 	## world map player node
 	while len(origin.roster.units):
 		var unit:FighterUnit = origin.roster.units[0]
+		origin.roster.units.erase(unit)
 		roster.add_unit(unit)
 
 	

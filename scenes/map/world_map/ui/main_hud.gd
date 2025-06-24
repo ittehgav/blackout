@@ -130,14 +130,12 @@ func settlement_main_view(_settlement: Settlement=null) -> void:
 	navigation.hide();
 
 
-func _on_player_left_settlement() -> void:
-	switch_to_fully_visible()
-
 func _on_settlement_ui_trade_started() -> void:
 	resources_panel.hide();
 	party_panel.hide()
 	clock_panel.hide()
 	navigation.hide()
+
 func _on_settlement_ui_trade_finished() -> void:
 	settlement_main_view()
 
@@ -145,6 +143,7 @@ func _on_settlement_ui_listen_around_started() -> void:
 	party_panel.hide();
 	resources_panel.hide();
 	clock_panel.hide()
+
 func _on_settlement_ui_listen_around_ended() -> void:
 	settlement_main_view();
 
@@ -180,8 +179,6 @@ func _on_trade_menu_trade_started() -> void:
 		p.hide()
 
 
-func _on_world_map_returned_from_battle(_won: bool) -> void:
-	switch_to_fully_visible()
 
 
 func _on_daily_upkeep_daily_upkeep_prompted() -> void:
@@ -189,5 +186,6 @@ func _on_daily_upkeep_daily_upkeep_prompted() -> void:
 		p.hide();
 
 
-func _on_daily_upkeep_daily_upkeep_finished() -> void:
-	switch_to_fully_visible();
+
+func _on_world_map_map_unpaused() -> void:
+	switch_to_fully_visible()

@@ -42,7 +42,7 @@ func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->
 
 
 func scare_speaking_party()->void:
-	Entities.current_speaking_party.feared_entity = Entities.in_map_player;
+	Entities.current_speaking_party.feared_entity = Entities.player_map_party;
 	Entities.current_speaking_party.apply_party_status\
 	("scared", 24, Entities.current_speaking_party.clear_feared_entity)
 	Entities.current_speaking_party.find_target();

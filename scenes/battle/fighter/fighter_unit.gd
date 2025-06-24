@@ -53,7 +53,7 @@ func final_skill_cooldown(agi_acm:float=stats.agility)->float:
 	return cooldown
 	
 func upgrade_available()->bool:
-	if "evolutions" in base and level >= 10:
+	if "evolutions" in base and level >= 5:
 		for e:String in base.evolutions.keys():
 			var affordable:int=0;
 			for resource:String in base.evolutions[e]:

@@ -33,6 +33,6 @@ func load_game(path:String)->void:
 
 
 func _on_return_pressed() -> void:
-	if visible:
+	if modulate.a == 1:
 		Tweens.ui_fade_out(self);
 		Tweens.ui_fade_in(main_menu)

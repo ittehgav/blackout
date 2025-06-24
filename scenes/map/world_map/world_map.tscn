@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bob8aj6xwa0ki" path="res://assets/visual/sprites/props/tree.png" id="16_piqjc"]
 [ext_resource type="Texture2D" uid="uid://d321t0t5ou0c4" path="res://assets/visual/sprites/props/wall.png" id="17_ltr5c"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
+[ext_resource type="Texture2D" uid="uid://c5upctkf3dbln" path="res://assets/visual/particles/off_screen_pointer.png" id="25_f2dah"]
 [ext_resource type="Script" uid="uid://ddm5su5vt1e23" path="res://scenes/map/world_map/pause_menu.gd" id="37_gmjui"]
 [ext_resource type="Script" uid="uid://b66cs0vry3tqy" path="res://scenes/map/world_map/marker.gd" id="45_fn5hq"]
 [ext_resource type="Script" uid="uid://qna7oy72g434" path="res://scenes/map/world_map/marker_sfx.gd" id="47_a8suh"]
@@ -47,6 +48,7 @@
 [ext_resource type="AudioStream" uid="uid://dyopaiydf4a8l" path="res://assets/sound/sfx/ui/new_memo.wav" id="59_48qk5"]
 [ext_resource type="AudioStream" uid="uid://m6ibvpdinqyi" path="res://assets/sound/sfx/ui/inventory/food_shortage.wav" id="59_gbcyd"]
 [ext_resource type="AudioStream" uid="uid://dlg5nk3tof2av" path="res://assets/sound/sfx/ui/inventory/fuel_shortage.wav" id="60_oq2vs"]
+[ext_resource type="Texture2D" uid="uid://c52gmpk6hbtcn" path="res://assets/visual/ui/map/movement_pointer_white.png" id="62_gmjui"]
 [ext_resource type="Script" uid="uid://dc6jk73hvbvay" path="res://scenes/map/world_map/navigation.gd" id="62_sjqk0"]
 [ext_resource type="Texture2D" uid="uid://btxapn8epd61d" path="res://assets/visual/sprites/settlements/farm.png" id="63_1ogav"]
 [ext_resource type="Texture2D" uid="uid://dual4ihkkkr5v" path="res://assets/visual/ui/map/compass.png" id="63_umths"]
@@ -60,82 +62,6 @@
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="78_37vhr"]
 [ext_resource type="AudioStream" uid="uid://cvv1mjf2g8wus" path="res://assets/sound/sfx/world_map/daily_upkeep_paid.wav" id="79_t4gob"]
 [ext_resource type="AudioStream" uid="uid://bjruiutxfjb2w" path="res://assets/sound/sfx/world_map/daily_upkeep_missed.mp3" id="80_t4gob"]
-
-[sub_resource type="Shader" id="Shader_7d1fb"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
-resource_local_to_scene = true
-shader = SubResource("Shader_7d1fb")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_f2dah"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
-resource_local_to_scene = true
-shader = SubResource("Shader_f2dah")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
 
 [sub_resource type="Shader" id="Shader_gmjui"]
 resource_local_to_scene = true
@@ -164,7 +90,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
 resource_local_to_scene = true
 shader = SubResource("Shader_gmjui")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -202,7 +128,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
 resource_local_to_scene = true
 shader = SubResource("Shader_sjqk0")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -240,7 +166,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
 resource_local_to_scene = true
 shader = SubResource("Shader_1ogav")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -278,7 +204,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
 resource_local_to_scene = true
 shader = SubResource("Shader_umths")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -316,7 +242,7 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
 resource_local_to_scene = true
 shader = SubResource("Shader_ffuc7")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -354,9 +280,85 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
 resource_local_to_scene = true
 shader = SubResource("Shader_fn5hq")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_k7mhn"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
+resource_local_to_scene = true
+shader = SubResource("Shader_k7mhn")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="Shader" id="Shader_a8suh"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec3 base_color:source_color;
+
+uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
+uniform vec3 mid_color:source_color = vec3(1, 0, 0);
+uniform vec3 light_color: source_color = vec3(0, 1, 0);
+
+uniform float shadow_value:hint_range(0.0, 2.0)=.25;
+uniform float light_value:hint_range(0.0, 2.0)=1.75;
+uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
+
+
+
+void fragment() {
+		if (COLOR.rgb == mid_color){
+			COLOR.rgb = base_color.rgb * neutral_value;
+		}else if (COLOR.rgb == shadow_color){
+			COLOR.rgb = base_color.rgb * shadow_value;
+		}else if (COLOR.rgb == light_color){
+			COLOR.rgb = base_color.rgb * light_value;
+		}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
+resource_local_to_scene = true
+shader = SubResource("Shader_a8suh")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -740,26 +742,6 @@ generate_mipmaps = false
 seamless = true
 noise = SubResource("FastNoiseLite_t4gob")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xm6f"]
-shader = ExtResource("48_7d1fb")
-shader_parameter/base_color = Color(1, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(0, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbcyd"]
-shader = ExtResource("48_7d1fb")
-shader_parameter/base_color = Color(1, 0.71, 0.71, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(0, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("player_party", "ui_canvas", "ui", "player", "quadrants")]
 script = ExtResource("1_s4sam")
 player_party = NodePath("quadrants/quadrant_4/in_map_player")
@@ -772,7 +754,7 @@ sky_colors = Array[Color]([Color(0.06, 0.167333, 0.2, 1), Color(0.06, 0.167333, 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
 layer = 0
 
-[node name="ui" type="Control" parent="ui_overlay" node_paths=PackedStringArray("settlement_ui", "clock", "date", "hud", "movement_overlay")]
+[node name="ui" type="Control" parent="ui_overlay" node_paths=PackedStringArray("settlement_ui", "clock", "date", "hud", "movement_overlay", "marker", "interact_btn")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -786,6 +768,8 @@ clock = NodePath("main_hud/clock_panel/MarginContainer/VBoxContainer2/clock")
 date = NodePath("main_hud/clock_panel/MarginContainer/VBoxContainer2/date")
 hud = NodePath("main_hud")
 movement_overlay = NodePath("movement")
+marker = NodePath("../../entities/marker")
+interact_btn = NodePath("interact_btns/interact_btn")
 
 [node name="movement" type="Control" parent="ui_overlay/ui" node_paths=PackedStringArray("player")]
 layout_mode = 1
@@ -811,7 +795,6 @@ movement_overlay = NodePath("../movement")
 
 [node name="interact_btn" type="Button" parent="ui_overlay/ui/interact_btns"]
 visible = false
-z_index = 1
 layout_mode = 0
 offset_right = 12.0
 offset_bottom = 8.0
@@ -966,6 +949,11 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(0.07, 0, 0, 1)
 theme_override_font_sizes/font_size = 64
 text = "0"
+
+[node name="Label" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer"]
+modulate = Color(0.64, 0.64, 0.64, 1)
+layout_mode = 2
+text = "[tab] open inventory"
 
 [node name="party_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud/HBoxContainer"]
 layout_mode = 2
@@ -1208,6 +1196,34 @@ offset_bottom = 51.0
 theme_override_font_sizes/font_size = 64
 text = "+"
 
+[node name="pointer_axis" type="Control" parent="ui_overlay/ui/main_hud"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="ui_overlay/ui/main_hud/pointer_axis"]
+modulate = Color(0, 0, 0, 0.545098)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 60.0
+offset_top = -2.0
+offset_right = 100.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.33)
+texture = ExtResource("25_f2dah")
+
 [node name="full_screen_guis" type="Control" parent="ui_overlay/ui"]
 z_index = 18
 layout_mode = 1
@@ -1222,6 +1238,9 @@ mouse_filter = 2
 visible = false
 layout_mode = 1
 mouse_filter = 2
+
+[node name="recruitment_menu" parent="ui_overlay/ui/full_screen_guis/settlement_ui" index="7"]
+visible = false
 
 [node name="StatIcon" parent="ui_overlay/ui/full_screen_guis/settlement_ui/recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_akq8h")
@@ -1262,7 +1281,6 @@ layout_mode = 1
 trade_menu = NodePath("../trade_menu")
 
 [node name="pre_battle" parent="ui_overlay/ui/full_screen_guis" instance=ExtResource("57_1ogav")]
-visible = false
 layout_mode = 1
 
 [node name="daily_upkeep" type="Control" parent="ui_overlay/ui/full_screen_guis" node_paths=PackedStringArray("food_before", "food_after", "fuel_before", "fuel_after", "money_before", "money_after", "juice_before", "juice_after", "scrap_before", "scrap_after", "pay_all_btn", "cancel_all_btn", "auto_pick_btn", "grid", "confirm_btn", "ui_sfx")]
@@ -1826,7 +1844,7 @@ diagonal_quadrant = NodePath("../quadrant_1")
 
 [node name="in_map_player" parent="quadrants/quadrant_4" node_paths=PackedStringArray("leader") instance=ExtResource("4_vgkop")]
 z_index = 2
-position = Vector2(365, 221)
+position = Vector2(1916, 1085)
 leader = NodePath("Player")
 
 [node name="in_map_camera" parent="quadrants/quadrant_4/in_map_player" index="3" node_paths=PackedStringArray("world_map", "marker")]
@@ -1879,20 +1897,15 @@ autostart = true
 [node name="marker" type="Sprite2D" parent="entities" node_paths=PackedStringArray("projection", "camera", "sfx")]
 process_mode = 3
 visible = false
-z_index = 5
+z_index = 30
 position = Vector2(0, 354)
 scale = Vector2(4, 4)
 texture = ExtResource("52_piqjc")
 hframes = 3
 script = ExtResource("45_fn5hq")
-projection = NodePath("../marker_projection")
+projection = NodePath("../../ui_overlay/ui/main_hud/pointer_axis")
 camera = NodePath("../../quadrants/quadrant_4/in_map_player/in_map_camera")
 sfx = NodePath("marker_sfx")
-
-[node name="pointer" type="Sprite2D" parent="entities/marker"]
-material = SubResource("ShaderMaterial_8xm6f")
-position = Vector2(0, -5.75)
-texture = ExtResource("54_anjvn")
 
 [node name="marker_sfx" type="AudioStreamPlayer" parent="entities/marker"]
 pitch_scale = 0.64
@@ -1900,18 +1913,14 @@ script = ExtResource("47_a8suh")
 marker_placed = ExtResource("48_h2uxo")
 marker_removed = ExtResource("49_h2uxo")
 
-[node name="marker_projection" type="Sprite2D" parent="entities"]
-visible = false
-z_index = 8
-material = SubResource("ShaderMaterial_gbcyd")
-position = Vector2(-319, 265)
-scale = Vector2(4, 4)
-texture = ExtResource("54_anjvn")
+[node name="Sprite2D" type="Sprite2D" parent="entities/marker"]
+position = Vector2(0, -5)
+texture = ExtResource("62_gmjui")
 
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
+[connection signal="map_unpaused" from="." to="ui_overlay/ui/main_hud" method="_on_world_map_map_unpaused"]
 [connection signal="returned_from_battle" from="." to="." method="_on_returned_from_battle"]
-[connection signal="returned_from_battle" from="." to="ui_overlay/ui/main_hud" method="_on_world_map_returned_from_battle"]
 [connection signal="returned_from_battle" from="." to="quadrants/quadrant_4/in_map_player/in_map_camera" method="_on_world_map_returned_from_battle"]
 [connection signal="time_skipped" from="." to="ui_overlay/ui/main_hud" method="update_clock"]
 [connection signal="gui_input" from="ui_overlay/ui/movement" to="ui_overlay/ui/movement" method="_on_gui_input"]
@@ -1932,7 +1941,6 @@ texture = ExtResource("54_anjvn")
 [connection signal="dialogue_ended" from="ui_overlay/ui/full_screen_guis/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]
 [connection signal="dialogue_started" from="ui_overlay/ui/full_screen_guis/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]
 [connection signal="pre_battle_started" from="ui_overlay/ui/full_screen_guis/pre_battle" to="ui_overlay/ui/main_hud" method="_on_pre_battle_pre_battle_started"]
-[connection signal="daily_upkeep_finished" from="ui_overlay/ui/full_screen_guis/daily_upkeep" to="ui_overlay/ui/main_hud" method="_on_daily_upkeep_daily_upkeep_finished"]
 [connection signal="daily_upkeep_prompted" from="ui_overlay/ui/full_screen_guis/daily_upkeep" to="ui_overlay/ui/main_hud" method="_on_daily_upkeep_daily_upkeep_prompted"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/confirm" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="_on_confirm_pressed"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/HBoxContainer/VBoxContainer/pay_all" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="pay_all"]

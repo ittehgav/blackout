@@ -32,7 +32,7 @@ func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 
 func arc_vfx(target:Sprite2D)->Tween:
 	var clone:Sprite2D = target.duplicate();
-	Entities.in_fight_player.hit_scan.add_child(clone)
+	Entities.player_fighter.hit_scan.add_child(clone)
 	clone.position = clone.offset * clone.scale.x;
 	clone.offset = Vector2.ZERO
 	
@@ -87,7 +87,7 @@ func stat_buff_vfx(target:ActiveFighter)->Tween:
 	
 func lunge_forward_tween(fighter:ActiveFighter)->Tween:
 	var gap:Vector2;
-	if fighter.name != "in_fight_player":
+	if fighter.name != "player_fighter":
 		gap =  fighter.target_unit.position - fighter.position;
 	else:
 		gap = fighter.get_node("hit_scan/shape").position
@@ -116,6 +116,14 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
 	return tween;
 
+func camera_recoil(fighter:ActiveFighter)->Tween:
+	var gap:Vector2 = Vector2(-30, -10)
+	var shift:Vector2 = fighter.base.position.move_toward(gap, 100);
+	fighter.camera.offset = shift
+	
+	var tween:Tween = create_tween();
+	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
+	return tween;
 
 func ui_fade_in(target:CanvasItem, duration:float = .5)->Tween:
 	target.show();

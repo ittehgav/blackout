@@ -32,4 +32,4 @@ func use()->bool:
 	return false
 
 func enemy_hit(target:ActiveFighter)->void:
-	Combat.deal_damage(Entities.in_fight_player, target);
+	Combat.deal_damage(Entities.player_fighter, target);

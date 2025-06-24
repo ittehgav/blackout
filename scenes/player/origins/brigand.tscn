@@ -64,6 +64,7 @@ sight_range = 256
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_pud2m")]
 holder = NodePath("..")
+money = 25
 
 [node name="Food Bag" parent="Inventory" instance=ExtResource("3_tbil6")]
 stack_size = 50
@@ -77,8 +78,7 @@ stack_size = 50
 
 [node name="Juice Flask" parent="Inventory" instance=ExtResource("7_suxqt")]
 
-[node name="Roster" parent="." node_paths=PackedStringArray("units") instance=ExtResource("3_tvk0n")]
-units = [NodePath("FighterUnit"), NodePath("FighterUnit2"), NodePath("FighterUnit3")]
+[node name="Roster" parent="." instance=ExtResource("3_tvk0n")]
 
 [node name="FighterUnit" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("4_l64oq")]
 base = NodePath("Arm Guy")
@@ -103,6 +103,7 @@ max_hp = 300.0
 attack = 15.0
 defense = 10.0
 agility = 5.0
+move_speed = 250.0
 
 [node name="leadership_stats" type="Node" parent="."]
 script = ExtResource("5_aqepk")

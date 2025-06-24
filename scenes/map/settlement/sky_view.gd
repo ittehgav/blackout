@@ -18,11 +18,12 @@ func _ready()->void:
 	get_window().size_changed.connect(resize);
 
 func resize()->void:
-	var window_size:Vector2 = get_window().size;
-	
-	size = window_size;
-	position.y = size.y * -1
-	background.size = window_size
+	if is_inside_tree():
+		var window_size:Vector2 = get_window().size;
+		
+		size = window_size;
+		position.y = size.y * -1
+		background.size = window_size
 	
 
 func pass_time(time:int, floating_chatter:bool=false)->Tween:

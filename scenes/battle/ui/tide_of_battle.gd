@@ -25,7 +25,6 @@ func set_tide_bar()->void:
 	var team_1_power:=0;
 	var team_2_power:=0;
 	
-	
 	for key:ActiveFighter in team_1_unit_values.keys():
 		team_1_power += team_1_unit_values[key]
 	for key:ActiveFighter in team_2_unit_values.keys():
@@ -36,6 +35,7 @@ func set_tide_bar()->void:
 
 
 func on_unit_death(_killer:ActiveFighter, victim:ActiveFighter)->void:
+	## THIS IS RUNNING MORE OFTEN THAN IT SHOULDITSEEMS
 	if victim is InFightPlayer:
 		## this will end up triggering even though the battle will end
 		return

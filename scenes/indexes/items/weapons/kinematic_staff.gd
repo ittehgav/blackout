@@ -50,7 +50,7 @@ func use()->bool:
 		progress_bar.scale = Vector2.ONE
 		progress_bar.modulate.a = 1;
 		progress_bar.show()
-		var sfx:SfxPlayer = Entities.in_fight_player.equipment.weapon_sfx
+		var sfx:SfxPlayer = Entities.player_fighter.equipment.weapon_sfx
 		sfx.play_sound_by_key("charge_up")
 		sfx.finished.connect(intensify_charge, CONNECT_ONE_SHOT)
 		active = true;
@@ -61,9 +61,9 @@ func explode()->void:
 	active = false;
 	progress = 0;
 	progress_bar.value = 0;
-	Combat.aoe_damage(Entities.in_fight_player)
+	Combat.aoe_damage(Entities.player_fighter)
 	
-	Entities.in_fight_player.equipment.weapon_sfx.play_sound_by_key("explosion")
+	Entities.player_fighter.equipment.weapon_sfx.play_sound_by_key("explosion")
 	effect_finished.emit()
 	
 	var tween:= create_tween();
@@ -75,7 +75,7 @@ func explode()->void:
 
 func intensify_charge()->void:
 	## should never overlap with other sounds as the weapon SFX only works for the currently equipped weapon
-	var sfx:SfxPlayer = Entities.in_fight_player.equipment.weapon_sfx
+	var sfx:SfxPlayer = Entities.player_fighter.equipment.weapon_sfx
 	if active:
 		sfx.pitch_scale = 1 + (1/charge_time) * progress + (1/charge_time) * progress
 		sfx.play()

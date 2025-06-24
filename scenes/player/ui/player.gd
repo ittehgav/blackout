@@ -1,5 +1,7 @@
 extends Panel
 
+@export var name_label:Label;
+
 
 @export_subgroup("Levels")
 @export var leadership_level_label:Label;
@@ -19,6 +21,9 @@ extends Panel
 @export var agility_label:Label;
 @export var technique_label:Label;
 
+
+func _ready()->void:
+	name_label.text = Entities.player.name
 
 func refresh_data()->void:
 	leadership_level_label.text = "Leadership Level: " + str(Entities.player.leadership_level);

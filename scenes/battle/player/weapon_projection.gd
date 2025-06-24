@@ -54,5 +54,5 @@ func cone_projection()->void:
 	draw_polygon(polygon, [Color.WHITE]);
 
 func circle_aoe_projection()->void:
-	var weapon:Weapon = Entities.in_fight_player.equipment.weapon;
+	var weapon:Weapon = Entities.player_fighter.equipment.weapon;
 	draw_circle(Vector2.ZERO, weapon.aoe_radius, Color.WHITE);

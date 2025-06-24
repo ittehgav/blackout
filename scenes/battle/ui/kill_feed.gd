@@ -15,7 +15,7 @@ func unit_died(killer:ActiveFighter, dead:ActiveFighter)->void:
 
 	var dead_name:String = "Lv. " + str(dead.unit.level) + " " + str(dead.base.name)
 
-	if killer.ally_team == Entities.in_fight_player.ally_team:
+	if killer.ally_team == Entities.player_fighter.ally_team:
 		$kill/data/dead.modulate = Color.RED;
 		$kill/data/killer.modulate = Color.GREEN;
 		

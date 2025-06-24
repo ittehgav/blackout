@@ -3,6 +3,7 @@
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="1_aqx4w"]
 
 [resource]
+resource_local_to_scene = true
 shader = ExtResource("1_aqx4w")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0

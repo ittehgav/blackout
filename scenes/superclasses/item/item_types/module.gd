@@ -14,6 +14,9 @@ signal equipped;
 func _ready()->void:
 	name = "Module - " + name
 	
+const size_x = 2;
+const size_y = 2;
+	
 func check_available()->bool:
 	return true;
 const tooltip_hint = "[right-click] to equip.";

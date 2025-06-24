@@ -45,6 +45,7 @@ func _process(_delta:float)->void:
 		dialogue_next();
 
 func start_dialogue(target:Leader, starting_line:String = "start")->void:
+	Entities.world_map.ui.interact_btn.hide();
 	suspended = false
 	Entities.main_bgm.play_bgm(target.party_type)
 	set_process_mode(Node.PROCESS_MODE_ALWAYS)
@@ -166,13 +167,13 @@ func response_chosen(response:DialogueResponse)->void:
 		var key:String;
 		if "#roll_intimidate" in response.text:
 			Entities.current_speaking_party.intimidate_attempted = true;
-			if Entities.in_map_player.roll_intimidate(Entities.current_speaking_party):
+			if Entities.player_map_party.roll_intimidate(Entities.current_speaking_party):
 				key = "intimidate_success";
 			else:
 				key = "intimidate_fail"
 		elif "#roll_convince" in response.text:
 			Entities.current_speaking_party.persuade_attempted = true;
-			if Entities.in_map_player.roll_convince(Entities.current_speaking_party):
+			if Entities.player_map_party.roll_convince(Entities.current_speaking_party):
 				key = "convince_success";
 			else:
 				key = "convince_fail"
@@ -198,6 +199,8 @@ func parse_dialogue_text(text:String)->String:
 		if Entities.current_speaking_party.persuade_attempted:
 			return "";
 		final_text = final_text.replace("#roll_convince", roll_convince_odds())
+	if "#start_trade" in final_text:
+		final_text = final_text.replace("#start_trade", Index.get_color_tag("money") + "Start Trade")
 	
 	if "#yield" in final_text:
 		final_text = final_text.replace("#yield", "[color=dark_red]Lose half of your food, fuel and money.");
@@ -234,7 +237,7 @@ func wrap_in_bbcode_tag(text:String, tag:String )->String:
 	
 func roll_intimidate_odds()->String:
 	var odds_string:String = "[color=red]Intimidate - ";
-	var odds:float = Entities.in_map_player.intimidate_odds(Entities.current_speaking_party);
+	var odds:float = Entities.player_map_party.intimidate_odds(Entities.current_speaking_party);
 	if odds > 1:
 		odds = 1;
 	odds_string += str(snapped(odds * 100, .01)) + "%[/color]"
@@ -242,7 +245,7 @@ func roll_intimidate_odds()->String:
 
 func roll_convince_odds()->String:
 	var odds_string: = "[color=yellow]Convince - "
-	var odds:float = Entities.in_map_player.convince_odds(Entities.current_speaking_party);
+	var odds:float = Entities.player_map_party.convince_odds(Entities.current_speaking_party);
 	odds_string += str(snapped(odds * 100, .01)) + "%[/color]"
 	return odds_string
 

@@ -139,6 +139,7 @@ func refresh_events()->void:
 		local_event.time_left -= 1;
 		if not local_event.time_left:
 			local_event.expire();
+			local_event.expire();
 			local_event = null;
 
 	if not local_event:

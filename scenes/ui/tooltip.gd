@@ -31,7 +31,13 @@ func _ready() -> void:
 		setup();
 	## lots of places where the sample target is defined on load
 
-func setup(first:bool=true)->void:
+func setup(make_connection:bool=true)->void:
+	var connections:Array = get_parent().mouse_entered.get_connections();
+	if make_connection:
+		for c:Dictionary in connections:
+			if c.callable == hover_timer.start:
+				make_connection = false;
+	
 	if not target:
 		return
 	if target is Item:
@@ -47,7 +53,7 @@ func setup(first:bool=true)->void:
 			sub_name_label.text = "Module";
 
 	
-	if first:
+	if make_connection:
 		var parent:Node = get_parent();
 		parent.mouse_entered.connect(hover_timer.start);
 		parent.mouse_exited.connect(stop_hover_timer);

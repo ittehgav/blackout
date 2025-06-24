@@ -10,8 +10,8 @@ const angle_adjust = 0;
 const type = "ranged";
 
 
-const base_damage = 20000;
-const cooldown:float = .2
+const base_damage = 20;
+const cooldown:float = .75
 ## TODO make this scale somehow?
 const stun_duration = .5;
 
@@ -21,7 +21,7 @@ const projection = "gun_shot"
 
 const description:String = "Long range, damages and stuns enemies."
 
-const use_vfx = ["gun_recoil"];
+const use_vfx = ["gun_recoil", "camera_recoil"];
 
 
 const use_sfx = "shoot";
@@ -30,15 +30,15 @@ const use_sfx = "shoot";
 @export var projectile:Projectile;
 
 func use()->bool:
-	Combat.shoot_projectile(projectile, Entities.in_fight_player, projectile_hit);
+	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit);
 	return false
 	
 func projectile_hit(target:ActiveFighter)->void:
 	## for weapons we just make the function here, for NPCs things will get more generic i suppose
-	var holder:InFightPlayer = Entities.in_fight_player;
+	var holder:InFightPlayer = Entities.player_fighter;
 	Combat.deal_damage(holder, target);
 	Combat.stun_target(holder, target, stun_duration)
-	Entities.in_fight_player.equipment.weapon_sfx.play_hit_sfx("swing_hit")
+	Entities.player_fighter.equipment.weapon_sfx.play_hit_sfx("swing_hit")
 
 func _on_equipped() -> void:
-	projectile.setup(Entities.in_fight_player);
+	projectile.setup(Entities.player_fighter);

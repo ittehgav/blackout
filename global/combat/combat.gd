@@ -4,7 +4,7 @@ extends "res://global/combat/combat_mechanics.gd"
 func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant)->void:
 	var target_direction:Vector2;
 	if source is InFightPlayer:
-		target_direction = Entities.in_fight_player.global_position.direction_to(Entities.arena.get_global_mouse_position())
+		target_direction = Entities.player_fighter.global_position.direction_to(Entities.arena.get_global_mouse_position())
 	elif source is NpcFighter:
 		target_direction = source.global_position.direction_to(source.target_unit.global_position);
 	

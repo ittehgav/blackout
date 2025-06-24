@@ -15,6 +15,7 @@ var all_recruit_exp_gains:Array[Control];
 
 @export_group("Combat level up")
 @export var combat_stat_points_label:Label;
+@export var assign_points_mesage:Label
 
 @export_subgroup("Max HP")
 @export var max_hp_label:Label;
@@ -58,15 +59,20 @@ func _ready()->void:
 	## maybe keeps the game from laggin when done as arena loads rather than right as it needs to play?
 	leadership_exp_gain.build_from_player("leadership")
 	combat_exp_gain.build_from_player("combat")
-
+	assign_points_message_blink();
 
 	for unit:FighterUnit in Entities.player.roster.units:
 		var display:Control = unit_exp_gain_scene.instantiate();
 		display.build(unit);
 		unit_exp_gain_container.add_child(display)
 		all_recruit_exp_gains.append(display)
-	
 		
+func assign_points_message_blink()->void:
+	var tween: = create_tween();
+	tween.tween_property(assign_points_mesage, "modulate:v", .1, .75);
+	tween.tween_property(assign_points_mesage, "modulate:v", 1, .75);
+	
+	tween.tween_callback(assign_points_message_blink)
 
 func distribute_exp()->void:
 	step_timer.start()
@@ -92,7 +98,11 @@ func _on_step_timeout() -> void:
 
 func refresh_stat_points()->void:
 	combat_stat_points_label.text = "Stat Points: " + str(remaining_combat_stat_points);
-	continue_btn.disabled= remaining_combat_stat_points;
+	continue_btn.disabled = remaining_combat_stat_points;
+	if remaining_combat_stat_points:
+		assign_points_mesage.show();
+	else:
+		assign_points_mesage.hide()
 	for stat:String in Index.all_combat_stats:
 		var label:Label = self[stat+"_label"];
 		var add_btn:Button = self["add_"+stat];
@@ -101,8 +111,9 @@ func refresh_stat_points()->void:
 		remove_btn.disabled = assigned_stat_points[stat] == 0;
 		add_btn.disabled = not remaining_combat_stat_points;
 		
-		var final_stat_value:int = Entities.player.combat_stats[stat] + Scaling.player_stats_per_point[stat] * assigned_stat_points[stat];
+		var final_stat_value:float = snapped(Entities.player.combat_stats[stat] + Scaling.player_stats_per_point[stat] * assigned_stat_points[stat], .01);
 		label.text = str(final_stat_value)
+
 func _on_combat_exp_level_up() -> void:
 	remaining_combat_stat_points += 1;
 	refresh_stat_points();

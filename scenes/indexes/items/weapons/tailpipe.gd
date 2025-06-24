@@ -10,8 +10,8 @@ const angle_adjust = 30;
 
 
 const type = "melee";
-const cooldown:float = .5;
-const base_damage = 2220
+const cooldown:float = 1.5;
+const base_damage = 20
 
 
 const aoe_radius = 100;
@@ -33,7 +33,7 @@ var swung:bool = false;
 @export var arc:Sprite2D;
 
 func use()->bool:
-	var holder:InFightPlayer = Entities.in_fight_player;
+	var holder:InFightPlayer = Entities.player_fighter;
 	Combat.aoe_damage(holder);
 	if len(holder.hit_scan.get_overlapping_bodies()):
 		return true

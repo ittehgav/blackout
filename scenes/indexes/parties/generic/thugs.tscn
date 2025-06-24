@@ -16,7 +16,7 @@ outline_color = Color(0.392157, 0, 0, 1)
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("stats")
-sight_range = 500
+sight_range = 200
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_pre44")]
 holder = NodePath("..")

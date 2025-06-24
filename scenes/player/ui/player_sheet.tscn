@@ -354,7 +354,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "sfx", "party_view", "player_view", "memos_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "recruit_full_view", "ui_sfx")]
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "sfx", "party_view", "inventory_view", "player_view", "memos_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "recruit_full_view", "ui_sfx")]
 process_mode = 3
 z_index = 5
 y_sort_enabled = true
@@ -370,6 +370,7 @@ script = ExtResource("1_6boby")
 bg = NodePath("main_bg")
 sfx = NodePath("sfx")
 party_view = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party")
+inventory_view = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory")
 player_view = NodePath("main_bg/MarginContainer/HBoxContainer/player")
 memos_view = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Memos")
 player_inventory = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display")
@@ -681,6 +682,7 @@ text = "Module"
 [node name="module_sample" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer2"]
 z_index = 1
 material = SubResource("ShaderMaterial_hv25b")
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 expand_mode = 5
 
@@ -858,12 +860,12 @@ offset_bottom = -73.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="memo" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Memos/VBoxContainer" node_paths=PackedStringArray("icon", "memo_label")]
+[node name="memo" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Memos/VBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 script = ExtResource("23_bqvqp")
-icon = NodePath("TextureRect")
-memo_label = NodePath("memo_label")
+memo_label_scene = ExtResource("25_jpfxv")
 
 [node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Memos/VBoxContainer/memo"]
 material = SubResource("ShaderMaterial_jpfxv")
@@ -873,15 +875,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("23_on68a")
 
-[node name="memo_label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Memos/VBoxContainer/memo" instance=ExtResource("25_jpfxv")]
-visible = true
-custom_minimum_size = Vector2(700, 0)
-layout_mode = 2
-
-[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" node_paths=PackedStringArray("leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label")]
+[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" node_paths=PackedStringArray("name_label", "leadership_level_label", "leadership_level_progress", "combat_level_label", "combat_level_progress", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 script = ExtResource("16_4btww")
+name_label = NodePath("VBoxContainer/player_name")
 leadership_level_label = NodePath("VBoxContainer/PanelContainer/VBoxContainer/leadership_level")
 leadership_level_progress = NodePath("VBoxContainer/PanelContainer/VBoxContainer/exp_bar")
 combat_level_label = NodePath("VBoxContainer/PanelContainer/VBoxContainer/combat_level")

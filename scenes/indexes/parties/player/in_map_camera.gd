@@ -36,8 +36,8 @@ func return_to_player(instant:bool = false)->void:
 
 
 func _process(delta: float) -> void:
-	var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	position += direction * delta * move_speed * 1/zoom.x;
+	#var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	#position += direction * delta * move_speed * 1/zoom.x;
 	
 
 	if Input.is_action_just_pressed("world_map_zoom_in") \
@@ -51,14 +51,16 @@ func _process(delta: float) -> void:
 
 
 func pan_to_target(target:MapEntity, add_marker:bool=false)->void:
+	set_process_mode(PROCESS_MODE_ALWAYS)
 	free_panning()
 	var tween:Tween = create_tween()
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "global_position", target.global_position, 2);
+	tween.tween_callback(set_process_mode.bind(PROCESS_MODE_INHERIT))
 	
 	if add_marker:
 		await tween.finished
-		marker.show_in_position(target.position);
+		marker.show_in_position(target.global_position);
 		await get_tree().create_timer(.5).timeout;
 		marker.modulate.a = 0;
 		await get_tree().create_timer(.5).timeout;

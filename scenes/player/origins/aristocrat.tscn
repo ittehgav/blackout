@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="7_8ex1r"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_8aq5y"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rwxv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ex1r"]
 resource_local_to_scene = true
 shader = ExtResource("8_8aq5y")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -26,7 +26,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fg1y0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8aq5y"]
 resource_local_to_scene = true
 shader = ExtResource("8_8aq5y")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -50,6 +50,7 @@ sight_range = 256
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_ylhkj")]
 holder = NodePath("..")
+money = 100
 
 [node name="Taser Gun" parent="Inventory" instance=ExtResource("3_ctxbb")]
 
@@ -62,20 +63,19 @@ stack_size = 50
 
 [node name="Juice Flask" parent="Inventory" instance=ExtResource("7_8aq5y")]
 
-[node name="Roster" parent="." node_paths=PackedStringArray("units") instance=ExtResource("3_45c4c")]
-units = [NodePath("FighterUnit"), NodePath("FighterUnit2")]
+[node name="Roster" parent="." instance=ExtResource("3_45c4c")]
 
 [node name="FighterUnit" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("6_gsj6j")]
 base = NodePath("Arm Guy")
 
 [node name="Arm Guy" parent="Roster/FighterUnit" instance=ExtResource("7_8ex1r")]
-material = SubResource("ShaderMaterial_4rwxv")
+material = SubResource("ShaderMaterial_8ex1r")
 
 [node name="FighterUnit2" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("6_gsj6j")]
 base = NodePath("Arm Guy")
 
 [node name="Arm Guy" parent="Roster/FighterUnit2" instance=ExtResource("7_8ex1r")]
-material = SubResource("ShaderMaterial_fg1y0")
+material = SubResource("ShaderMaterial_8aq5y")
 
 [node name="combat_stats" parent="." instance=ExtResource("4_7ppvm")]
 max_hp = 200.0
@@ -83,6 +83,7 @@ attack = 10.0
 defense = 5.0
 agility = 1.0
 technique = 3.0
+move_speed = 200.0
 
 [node name="leadership_stats" type="Node" parent="."]
 script = ExtResource("5_560op")

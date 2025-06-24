@@ -67,7 +67,7 @@ func refresh_distance() -> void:
 		if Entities.map_entity_under_mouse:
 			set_distance_label(Entities.map_entity_under_mouse.global_position)
 		else:
-			set_distance_label(get_global_mouse_position())
+			set_distance_label(Entities.world_map.get_global_mouse_position())
 
 func set_distance_label(target:Vector2)->void:
 	var distance: = (player.global_position.distance_to(target)*pixel_to_meters);
@@ -97,6 +97,7 @@ func show_enter_settlement_prompt(settlement:Settlement)->void:
 	
 	for icon in entity_icons:
 		icon.hide();
+		
 	settlement_sprite.show();
 	
 	

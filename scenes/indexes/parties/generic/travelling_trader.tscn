@@ -11,19 +11,18 @@
 script = ExtResource("1_ure6u")
 party_type = "travelling_trader"
 dialogue = ExtResource("2_7wog4")
-leader_unit = NodePath("Roster/unit")
+leader_unit = NodePath("Roster/leader_unit")
 outline_color = Color(0, 0.392157, 0, 1)
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("stats")
 sight_range = 500
 
-[node name="Inventory" parent="." node_paths=PackedStringArray("non_sellable_items", "holder") instance=ExtResource("4_wbjwm")]
-non_sellable_items = [null, null, null, null, null]
+[node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("4_wbjwm")]
 holder = NodePath("..")
 
 [node name="Roster" parent="." instance=ExtResource("5_npx65")]
 
-[node name="unit" parent="Roster" instance=ExtResource("3_au82f")]
+[node name="leader_unit" parent="Roster" instance=ExtResource("3_au82f")]
 
 [node name="stats" parent="." instance=ExtResource("6_mhm5v")]

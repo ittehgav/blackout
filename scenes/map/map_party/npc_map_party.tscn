@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpm2v"]
 radius = 25.0
 
-[node name="NpcMapParty" type="CharacterBody2D" node_paths=PackedStringArray("behavior_icon", "find_target_timer")]
+[node name="NpcMapParty" type="CharacterBody2D" node_paths=PackedStringArray("behavior_icon", "find_target_timer", "party_size_label")]
 process_mode = 1
 z_index = 1
 material = ExtResource("1_xyheu")
@@ -15,22 +15,32 @@ collision_layer = 257
 collision_mask = 257
 motion_mode = 1
 script = ExtResource("1_lag4v")
-behavior_icon = NodePath("behavior_icon")
+behavior_icon = NodePath("HBoxContainer/behavior_icon")
 find_target_timer = NodePath("find_target")
+party_size_label = NodePath("HBoxContainer/party_size")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qpm2v")
 
 [node name="find_target" type="Timer" parent="."]
+wait_time = 5.0
 autostart = true
 
-[node name="behavior_icon" type="TextureRect" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = -26.0
+offset_top = -70.0
+offset_right = 42.0
+offset_bottom = -30.0
+mouse_filter = 2
+
+[node name="behavior_icon" type="TextureRect" parent="HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0.784314)
-custom_minimum_size = Vector2(16, 16)
-offset_left = -16.0
-offset_top = -93.0
-offset_right = 24.0
-offset_bottom = -53.0
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
 texture = ExtResource("2_3u04b")
+
+[node name="party_size" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 
 [connection signal="timeout" from="find_target" to="." method="find_target"]

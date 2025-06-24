@@ -79,6 +79,7 @@ func _ready()->void:
 
 
 func _on_top_boundary_body_exited(body: Node2D) -> void:
+	assert(body is MapParty or body is StaticBody2D)
 	if body is MapParty:
 		if is_ancestor_of(body):
 			if body.global_position.y < top_boundary.global_position.y:
@@ -99,13 +100,13 @@ func _on_top_boundary_body_exited(body: Node2D) -> void:
 
 
 func _on_right_boundary_body_exited(body: Node2D) -> void:
-	assert(body is MapParty)
+	assert(body is MapParty or body is StaticBody2D)
 	if body is MapParty:
 		if is_ancestor_of(body):
 			if body.global_position.x > right_boundary.global_position.x:
 				## shifting left
 				## exiting to the left quadrant
-				## signal fires BEFORE reparenting
+				## signal fires BEFORE reparenting_
 				body.quadrant_changed.emit(x_adjacent_quadrant, Vector2.RIGHT)
 				body.call_deferred("reparent", x_adjacent_quadrant, false);
 				adjust_position_quadrant_shift(body, Vector2.RIGHT)

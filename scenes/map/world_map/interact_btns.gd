@@ -9,7 +9,6 @@ const btn_offset = Vector2(-100, -40);
 
 
 
-	
 func btn_fade_in()->void:
 	interact_btn.show();
 	interact_btn.modulate.a = .5;
@@ -20,16 +19,19 @@ func btn_fade_in()->void:
 func _on_in_map_player_entity_entered_range(entity: MapEntity) -> void:
 	btn_fade_in();
 	current_entity = entity;
-	interact_btn.reparent(entity);
-	interact_btn.position = Vector2(-30, 50)
+	var window_size:Vector2 = get_window().size;
+	var origin:Vector2 = window_size/2;
 	
 	if entity is Settlement:
 		interact_btn.text = "Enter";
-	else:
+	elif entity is InMapPlayer:
 		interact_btn.text = "Talk"
+	
+	var shift:Vector2 = entity.global_position  - Entities.player_map_party.global_position;
+	interact_btn.position = origin + shift + Vector2(-40, 45)
 
-func _on_button_pressed() -> void:
-	Entities.in_map_player.interact_with_map_entity(current_entity)
+	
+
 
 
 func _on_in_map_player_entity_left_range(entity: MapEntity) -> void:
@@ -39,4 +41,4 @@ func _on_in_map_player_entity_left_range(entity: MapEntity) -> void:
 
 
 func _on_interact_btn_pressed() -> void:
-	Entities.in_map_player.interact_with_map_entity(current_entity);
+	Entities.player_map_party.interact_with_map_entity(current_entity);

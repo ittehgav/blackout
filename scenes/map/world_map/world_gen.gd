@@ -6,9 +6,8 @@ extends Node2D
 @onready var noise:Noise = noise_texture.noise;
 
 const cell_size = 16;
-const entity_spawn_range = 4096;
+const entity_spawn_range = 6144;
 const quarter_tile_map_size = Vector2(entity_spawn_range/cell_size, entity_spawn_range/cell_size)
-const entity_padding = 50;
 
 const small_prop_amounts = entity_spawn_range/50;
 const large_prop_amounts = entity_spawn_range/100;
@@ -72,6 +71,13 @@ func load_game(data:Dictionary)->void:
 		
 		settlement.name = settlement_name;
 		
+		settlement.refresh_events();
+		
+		for unit_data:Dictionary in s.recruits:
+			var unit:FighterUnit = LoadSystem.load_fighter_unit(unit_data);
+			settlement.available_recruits.append(unit);
+
+		
 		LoadSystem.load_inventory(settlement.inventory, s.inventory);
 		
 		var target_position:Vector2 = LoadSystem.load_vector2(s.global_position)
@@ -92,6 +98,7 @@ func load_game(data:Dictionary)->void:
 		quadrant.load_fog(fog_data)
 		
 func _ready() -> void:
+	generate_quadrants();
 	if new_game:
 		noise_texture.noise = FastNoiseLite.new();
 		noise = noise_texture.noise;
@@ -99,7 +106,6 @@ func _ready() -> void:
 		## only settlements persist right now
 		generate_settlements();
 
-	generate_quadrants();
 	
 	## parties and props are randomized every time the player opens the game
 	generate_props();
@@ -148,10 +154,9 @@ func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->N
 	vehicle.party = party;
 	party.vehicle = vehicle
 	var party_position:Vector2 = random_quadrant_position();
-	while position_taken(party_position, [party_positions]):
+	while position_taken(party_position, [party_positions], 100):
 		party_position = random_quadrant_position();
 	
-
 	leader.generate(party_position.distance_to(Vector2.ZERO));
 	party.add_child(leader);
 	party.add_child(vehicle);
@@ -314,34 +319,32 @@ func generate_settlements()->void:
 		## needs to be done after neighbords are set
 		s.daily_reset();
 
+
+func sort_by_distance(target_1:Settlement, target_2:Settlement)->bool:
+	return target_1.global_position.distance_to(current_origin) < target_2.global_position.distance_to(current_origin)
+	
+var current_origin:Vector2;
 func set_neighbors(settlements:Array[Settlement])->void:
 	for s:Settlement in settlements:
 		var distances:Dictionary = {};
 		var highest_distance:float = 0;
-		for to_check:Settlement in settlements:
-			if to_check != s:
-				var distance:float = s.global_position.distance_to(to_check.global_position);
-				
-				if not len(distances.keys()) == 5:
-					distances[distance] = to_check;
-					if distance > highest_distance:
-						highest_distance = distance;
-				elif distance < highest_distance:
-					distances.erase(highest_distance);
-					distances[distance] = to_check;
-					
-					highest_distance = distances.keys().max();
-		var keys:Array = distances.keys();
-		keys.sort()
-		for d:float in keys:
-			s.neighbors.append(distances[d]);
+		current_origin = s.global_position
+		var to_check:Array[Settlement] = settlements
+		to_check.sort_custom(sort_by_distance)
+		s.neighbors = [
+			## to_check[0] will be the settlement itself
+			to_check[1],
+			to_check[2],
+			to_check[3]
+		]
+		
 			
 func random_quadrant_position()->Vector2:
 	## range = x/y size of quadrant * -1 -- x/y size = anywhere within the 4 quadrants
 	const x_range = quarter_tile_map_size.x * cell_size;
 	const y_range = quarter_tile_map_size.y * cell_size;
 	
-	var x_roll:int = randi_range(-x_range + entity_padding, x_range - entity_padding);
-	var y_roll:int = randi_range(-y_range + entity_padding, y_range - entity_padding);
+	var x_roll:int = randi_range(-x_range, x_range);
+	var y_roll:int = randi_range(-y_range, y_range);
 	
 	return Vector2(x_roll,y_roll);

@@ -6,6 +6,7 @@ class_name PlayerSheet;
 @export var sfx:AudioStreamPlayer;
  
 @export var party_view:Control;
+@export var inventory_view:Control;
 @export var player_view:Panel;
 @export var memos_view:Control;
 @export var player_inventory:InventoryDisplay;
@@ -54,10 +55,12 @@ func _ready()->void:
 func _input(e:InputEvent)->void:
 	if e.is_action_pressed("show_player_sheet") and not visible:
 		show_player_sheet()
+		set_process_input(false);
 	elif visible and not recruit_full_view.visible and (e.is_action_pressed("ui_cancel")\
 	 or e.is_action_pressed("show_player_sheet")):
 		if not player_inventory.warnings_popup.visible:
 			hide_player_sheet();
+			set_process_input(false)
 				
 
 
@@ -67,7 +70,7 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	ui_sfx.play_stream_obj(open_sound)
 	show()
 	refresh_data();
-	Entities.in_map_player.stop_movement(false)
+	Entities.player_map_party.stop_movement(false)
 	get_tree().paused = true;
 	Entities.world_map.pause_map()
 	bg.self_modulate.a = 0;
@@ -77,12 +80,13 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(bg, "self_modulate:a", 1, tween_duration);
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
+	tween.finished.connect(set_process_input.bind(true));
 
-
-func hide_player_sheet(_meta:Variant="")->void:
+func hide_player_sheet(_meta:Variant="", force:bool = false)->void:
 	
 	## _meta to this gets called when meta clicked from memo labels in the memos tab
 	if player_inventory.pending_warnings():
+		inventory_view.show();
 		player_inventory.warn_player();
 		var clear:bool = await player_inventory.warnings_attended;
 		if clear:
@@ -96,6 +100,7 @@ func hide_player_sheet(_meta:Variant="")->void:
 		tween.tween_property(container, "theme_override_constants/separation", 1700, tween_duration);
 		tween.parallel().tween_property(bg, "self_modulate:a", 0, tween_duration)
 		await tween.finished
+		set_process_input(true)
 		Entities.world_map.unpause_map()
 		hide()
 

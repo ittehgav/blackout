@@ -177,9 +177,6 @@ const resource_base_prices = {
 @export var agility_floating_icon:Texture;
 
 
-func random_fighter_base()->FighterBase:
-	var base:PackedScene = all_fighter_base_scenes.pick_random();
-	return base.instantiate();
 
 @onready var icons:Dictionary = {
 	"defense":load("res://assets/visual/icons/stats/defense.png"),

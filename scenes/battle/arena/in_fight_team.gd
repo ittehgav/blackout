@@ -8,7 +8,6 @@ signal all_units_loaded
 @export var team_n:int;
 @export var enemy_team:Team;
 
-var initial_party_size:int
 var leader_fighter:ActiveFighter
 var leader:Leader;
 

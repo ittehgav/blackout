@@ -69,9 +69,12 @@ func display_recruit(unit:FighterUnit, hire_price:int, card:RecruitmentCard)->vo
 		tags_text += tag.capitalize() + "\n"
 	tags_label.text = tags_text
 	
-	
-	hire_btn.disabled = Entities.player.inventory.money < hire_price;
-	hire_btn.text = "Hire - $" + str(hire_price)
+	var cant_pay:bool = Entities.player.inventory.money < hire_price;
+	hire_btn.disabled = cant_pay
+	if cant_pay:
+		hire_btn.text = "Not Enough Money - $" + str(hire_price);
+	else:
+		hire_btn.text = "Hire - $" + str(hire_price)
 	
 	recruit_skill_name_label.text = "Skill: "+  unit.base.skill_name
 	recruit_description_label.text = unit.base.full_skill_description(unit)
@@ -101,7 +104,7 @@ func _on_hire_btn_pressed() -> void:
 	hire_btn.disabled = true;
 	hire_btn.text = "HIRED";
 	
-	Entities.player.roster.add_child(showing_recruit);
+	Entities.player.roster.unit(showing_recruit);
 
 	Entities.player.party_changed.emit();
 	Entities.player.inventory.change_resource("money", -current_unit_price);

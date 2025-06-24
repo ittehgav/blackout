@@ -11,9 +11,6 @@ signal recruitment_ended;
 signal listen_around_started;
 signal listen_around_ended;
 
-@export var post_listen_around:Control;
-@export var post_listen_around_list:VBoxContainer;
-@export var memo_label:RichTextLabel;
 
 @onready var current_view:Control = main_view;
 
@@ -128,49 +125,7 @@ func recruit_units() -> void:
 	recruitment_menu.start();
 
 
-func listen_around() -> void:
-	listen_around_started.emit()
-	listening_around = true;
 
-	var tween:Tween = await sky_props.pass_time(3, true);
-	await tween.finished
-
-	for c in post_listen_around_list.get_children():
-		if c.visible and c is RichTextLabel:
-			c.queue_free();
-	
-	var all_anomalies:Array[Memo] = []
-	for neighbor:Settlement in Entities.current_settlement.neighbors:
-		all_anomalies.append(neighbor.ongoing_trade_anomaly);
-		if neighbor.local_event:
-			all_anomalies.append(neighbor.local_event)
-
-	var found:Array[Memo];
-	while len(found) < 3:
-		var pick:Memo = all_anomalies.pick_random();
-		if not (pick in found):
-			found.append(pick)
-			
-
-	for memo:Memo in found:
-		var label:RichTextLabel = memo_label.duplicate(true);
-		label.show()
-		label.text = memo.gossip;
-		post_listen_around_list.add_child(label);
-		memo.register_memo()
-
-	
-	main_view.hide();
-	main_view.modulate.a = 1;
-	post_listen_around.modulate.a = 0;
-	post_listen_around.show();
-	
-	var return_tween:Tween = sky_props.return_camera()
-	return_tween.tween_property(post_listen_around, "modulate:a", 1, 1)
-	await return_tween.finished;
-	
-	listening_around = false
-	listen_around_ended.emit()
 
 
 func show_main_view(just_entered:bool=false)->void:

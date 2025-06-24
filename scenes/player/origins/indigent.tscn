@@ -28,15 +28,16 @@ holder = NodePath("..")
 [node name="Dodge Roll" parent="Inventory" instance=ExtResource("4_ow5pe")]
 
 [node name="Food Bag" parent="Inventory" instance=ExtResource("5_aiie3")]
-stack_size = 50
+stack_size = 10
 
 [node name="Fuel Gallon" parent="Inventory" instance=ExtResource("6_4sir4")]
-stack_size = 50
+stack_size = 10
 
 [node name="Roster" parent="." instance=ExtResource("7_gi2fp")]
 
 [node name="combat_stats" parent="." instance=ExtResource("8_qme7h")]
 max_hp = 100.0
+move_speed = 200.0
 
 [node name="leadership_stats" type="Node" parent="."]
 script = ExtResource("9_hk2cr")

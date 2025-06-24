@@ -22,7 +22,7 @@ func set_tiles()->void:
 	
 
 	var noise:Noise = Entities.world_map.quadrants.noise;
-	var center_tile:Vector2i = Vector2i(Entities.in_map_player.global_position/16);
+	var center_tile:Vector2i = Vector2i(Entities.player_map_party.global_position/16);
 	for x in range(-x_range, x_range):
 		for y in range(-y_range, y_range):
 			var cell_coords:Vector2i = Vector2i(center_tile.x, center_tile.y)

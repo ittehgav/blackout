@@ -115,7 +115,7 @@ func find_target()->void:
 				if not target or target.max_hp - target.hp < ally.max_hp - ally.hp:
 					target = ally;
 	if target != target_unit:
-		if target == Entities.in_fight_player:
+		if target == Entities.player_fighter:
 			aim_sprite.show();
 		else:
 			aim_sprite.hide();

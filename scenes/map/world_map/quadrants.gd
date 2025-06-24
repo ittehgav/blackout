@@ -46,7 +46,7 @@ func set_camera_margins()->void:
 func update_fog()->void:
 	## PLAYER GETS REPARENTED AS THEY MOVE QUADRANTS
 
-	var player_grid_position:Vector2i = Vector2i(Entities.in_map_player.position/cell_size);
+	var player_grid_position:Vector2i = Vector2i(Entities.player_map_party.position/cell_size);
 	var sight_radius:float = Entities.player.sight_range/cell_size + 5;
 	
 	for x in range(sight_radius * 2):
@@ -70,7 +70,7 @@ func update_fog()->void:
 			
 
 func get_quadrant_cell(cell_position:Vector2i)->Dictionary:
-	var quadrant:WorldMapQuadrant = Entities.in_map_player.current_quadrant;
+	var quadrant:WorldMapQuadrant = Entities.player_map_party.current_quadrant;
 	var dict:Dictionary = {
 		"quadrant":quadrant,
 		"cell":cell_position
@@ -105,6 +105,7 @@ func get_quadrant_cell(cell_position:Vector2i)->Dictionary:
 		
 
 func check_quadrant_shift()->void:
+	## only doesn't happen when camera is panning
 	if player_camera.global_position.y < camera_top_margin:
 		shift_quadrants(Vector2.UP)
 	elif player_camera.global_position.y > camera_bottom_margin:

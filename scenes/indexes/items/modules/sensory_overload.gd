@@ -2,8 +2,7 @@ extends Module
 
 const rarity = 3;
 
-const size_x = 1;
-const size_y = 1;
+
 
 const cooldown = 5;
 const chips_cost = 5;
@@ -26,14 +25,14 @@ func use()->void:
 	
 	var technique_frac:= base_technique_frac;
 	var stun_duration:= base_stun_duration;
-	var player_technique := Entities.in_fight_player.technique;
+	var player_technique := Entities.player_fighter.technique;
 	
 	if player_technique > 1:
 		technique_frac *= player_technique;
 		stun_duration *= player_technique
 	
 	Entities.player.inventory.chips -= chips_cost;
-	var player:InFightPlayer = Entities.in_fight_player;
+	var player:InFightPlayer = Entities.player_fighter;
 	for target in aoe_range.get_overlapping_bodies():
 		if target in player.ally_team.units:
 			Combat.apply_stat_change(player, target, target.technique * technique_frac, "technique");
@@ -42,4 +41,4 @@ func use()->void:
 
 
 func _on_equipped() -> void:
-	aoe_range.reparent(Entities.in_fight_player, false)
+	aoe_range.reparent(Entities.player_fighter, false)

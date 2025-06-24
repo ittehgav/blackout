@@ -2,8 +2,7 @@ extends Module
 
 const rarity = 2;
 
-const size_x = 1;
-const size_y = 1;
+
 
 const cooldown = 5;
 const scrap_cost = 5;
@@ -22,17 +21,17 @@ func check_availability()->bool:
 
 func use()->void:
 	var hp_frac := base_hp_frac;
-	var technique: = Entities.in_fight_player.technique;
+	var technique: = Entities.player_fighter.technique;
 	if technique > 1:
 		hp_frac *= technique
-	var shield_value:float = Entities.in_fight_player.max_hp * hp_frac;
+	var shield_value:float = Entities.player_fighter.max_hp * hp_frac;
 	
 	Entities.player.inventory.scrap -= scrap_cost;
 	
-	Combat.shield_unit(Entities.in_fight_player, Entities.in_fight_player, shield_value);
+	Combat.shield_unit(Entities.player_fighter, Entities.player_fighter, shield_value);
 	for target in aoe_range.get_overlapping_bodies():
-		Combat.shield_unit(Entities.in_fight_player, target, shield_value);
+		Combat.shield_unit(Entities.player_fighter, target, shield_value);
 
 
 func _on_equipped() -> void:
-	aoe_range.reparent(Entities.in_fight_player, false);
+	aoe_range.reparent(Entities.player_fighter, false);

@@ -64,7 +64,8 @@ var hour_bgm_pitches:Array[float] = [
 ]
 var all_settlements: = {}
 
-var session_start_time:float;
+var session_start_time:int;
+var play_time_acm:int = 0;
 
 func _ready()->void:
 	## Entities.player needs to be ready to go before world map enters the tree
@@ -91,11 +92,10 @@ func pause_map()->void:
 	## (when there's a menu open)
 	pause_stack += 1;
 	if pause_stack == 1:
-		Entities.in_map_player.set_process_input(false)
-		Entities.in_map_player.stop_movement(false)
+		Entities.player_map_party.set_process_input(false)
+		Entities.player_map_party.stop_movement(false)
 		process_mode = PROCESS_MODE_DISABLED
-		Entities.in_map_player.camera.process_mode =Node.PROCESS_MODE_DISABLED
-		Entities.in_map_player.process_mode = Node.PROCESS_MODE_DISABLED;
+		Entities.player_map_party.process_mode = Node.PROCESS_MODE_DISABLED;
 		map_paused.emit();
  
 
@@ -107,10 +107,10 @@ func unpause_map(force:bool=false)->void:
 	
 	if not pause_stack:
 		Entities.main_bgm.play_bgm("world_map")
-		Entities.in_map_player.set_process_input(true)
+		Entities.player_map_party.set_process_input(true)
 		process_mode = PROCESS_MODE_PAUSABLE
-		Entities.in_map_player.process_mode = Node.PROCESS_MODE_ALWAYS;
-		Entities.in_map_player.camera.process_mode = Node.PROCESS_MODE_ALWAYS 
+		Entities.player_map_party.process_mode = Node.PROCESS_MODE_ALWAYS;
+		Entities.player_map_party.camera.process_mode = Node.PROCESS_MODE_ALWAYS 
 		map_unpaused.emit()
 
 
@@ -171,6 +171,7 @@ func _on_player_left_settlement() -> void:
 
 func load_game(data:Dictionary)->void:
 	player_party.load_data(data.player)
+	play_time_acm += data.world.play_time
 	
 	current_day = data.world.day;
 	current_hour = data.world.hour;
@@ -182,7 +183,7 @@ func load_game(data:Dictionary)->void:
 	
 func _on_returned_from_battle(won: bool) -> void:
 	## where something different will happen if you lose 
-	Entities.player.reparent(Entities.in_map_player)
+	Entities.player.reparent(Entities.player_map_party)
 	unpause_map(true);
 	var party:NpcMapParty = Entities.current_speaking_party;
 	if won:

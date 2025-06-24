@@ -11,7 +11,7 @@ func save_data(file_path:String)->void:
 	## send these functions to the scripts of the scenes themselves?
 	save_file.world = store_world_data();
 	save_file.player = store_player_data();
-	
+
 	
 	for settlement:Settlement in get_tree().get_nodes_in_group("all_settlements"):
 		save_file.settlements[settlement.name] = store_settlement_data(settlement)
@@ -43,7 +43,7 @@ func store_player_data()->Dictionary:
 		i += 1;
 	
 	var data:Dictionary = {
-		"world_map_position":Entities.in_map_player.global_position,
+		"world_map_position":Entities.player_map_party.global_position,
 		
 		"name":player.name,
 		"color_sceme_index":player.color_scheme_index,
@@ -83,6 +83,7 @@ func store_world_data()->Dictionary:
 	var world:WorldMap = Entities.world_map;
 	var data:Dictionary = {
 		"seed":world.quadrants.noise_texture.noise.seed,
+		"play_time" : Time.get_unix_time_from_system() - world.session_start_time + world.play_time_acm,
 		"minute" : world.current_minute,
 		"hour" : world.current_hour,
 		"day" : world.current_day,

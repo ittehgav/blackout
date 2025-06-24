@@ -51,7 +51,6 @@ text_label = NodePath("Panel/MarginContainer/DialogueLabel")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("3_5y6lb")]
-bus = &"sfx"
 
 [node name="speech_blip" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_8aum2")

@@ -1776,6 +1776,11 @@ cache/0/32/0/descent = 0.0
 cache/0/32/0/underline_position = 0.0
 cache/0/32/0/underline_thickness = 0.0
 cache/0/32/0/scale = 1.0
+cache/0/48/0/ascent = 0.0
+cache/0/48/0/descent = 0.0
+cache/0/48/0/underline_position = 0.0
+cache/0/48/0/underline_thickness = 0.0
+cache/0/48/0/scale = 1.0
 
 [sub_resource type="Image" id="Image_lytg1"]
 data = {
@@ -2820,8 +2825,8 @@ Label/colors/font_outline_color = Color(0.670588, 0.494118, 0.27451, 1)
 Label/colors/font_shadow_color = Color(0.670588, 0.494118, 0.27451, 1)
 Label/constants/line_spacing = 3
 Label/constants/outline_size = 0
-Label/constants/shadow_offset_x = 0
-Label/constants/shadow_offset_y = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 0
 Label/styles/normal = SubResource("StyleBoxEmpty_sh57d")
 LineEdit/colors/clear_button_color = Color(0.88, 0.88, 0.88, 1)

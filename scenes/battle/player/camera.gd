@@ -21,7 +21,7 @@ func _process(_delta: float) -> void:
 
 func damage_taken_blink(damage: float, _source:ActiveFighter) -> void:
 	var target_alpha:float;
-	var player_hp:float = Entities.in_fight_player.hp;
+	var player_hp:float = Entities.player_fighter.hp;
 	if damage >= player_hp/2:
 		target_alpha = .7;
 	elif damage >= player_hp/3:

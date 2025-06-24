@@ -69,7 +69,7 @@ func show_pointer(_signal_arg:Variant=null)->void:
 	
 
 func sort_by_distance(a:NpcFighter, b:NpcFighter)->bool:
-	return Entities.in_fight_player.position.distance_to(a.position) < Entities.in_fight_player.position.distance_to(b.position);
+	return Entities.player_fighter.position.distance_to(a.position) < Entities.player_fighter.position.distance_to(b.position);
 
 
 func _on_sweep_timeout() -> void:

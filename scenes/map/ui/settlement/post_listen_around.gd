@@ -1,9 +1,56 @@
 extends Control
 
+@export var memo_label_scene:PackedScene
+
 @export var settlement_ui:UIRoot;
 @export var main_view:Control;
 
+@export var post_listen_around_list:VBoxContainer;
+
 var fading:bool = false;
+
+func listen_around() -> void:
+	settlement_ui.listen_around_started.emit()
+	settlement_ui.listening_around = true;
+
+	var tween:Tween = await settlement_ui.sky_props.pass_time(3, true);
+	await tween.finished
+
+	for c in post_listen_around_list.get_children():
+		if c.visible and c is RichTextLabel:
+			c.queue_free();
+	
+	var all_anomalies:Array[Memo] = []
+	for neighbor:Settlement in Entities.current_settlement.neighbors:
+		all_anomalies.append(neighbor.ongoing_trade_anomaly);
+		if neighbor.local_event:
+			all_anomalies.append(neighbor.local_event)
+
+	var found:Array[Memo];
+	while len(found) < 3:
+		var pick:Memo = all_anomalies.pick_random();
+		if not (pick in found):
+			found.append(pick)
+			
+
+	for memo:Memo in found:
+		var label:RichTextLabel = memo_label_scene.instantiate()
+		label.show()
+		label.text = memo.gossip;
+		post_listen_around_list.add_child(label);
+		memo.register_memo()
+
+	
+	main_view.hide();
+	main_view.modulate.a = 1;
+	modulate.a = 0;
+	show();
+	
+	var return_tween:Tween = settlement_ui.sky_props.return_camera()
+	return_tween.tween_property(self, "modulate:a", 1, 1)
+	await return_tween.finished;
+	settlement_ui.listening_around = false
+	settlement_ui.listen_around_ended.emit()
 
 func _ready()->void:
 	set_process_input(false)

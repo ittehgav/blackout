@@ -41,7 +41,8 @@ func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.t
 
 	target.healing_received.emit(value)
 
-func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, duration:float = Scaling.technique_scaled_value(source.base.status_duration,source.technique, "stun"))->void:
+func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, duration:float = \
+				Scaling.technique_scaled_value(source.base.status_duration,source.technique, "stun"))->void:
 	if source is NpcFighter:
 		source.catch_hit_target(target);
 

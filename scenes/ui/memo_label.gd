@@ -8,6 +8,9 @@ func setup(target:Memo)->void:
 	text = memo.gossip;
 
 func _on_meta_clicked(key: Variant) -> void:
+	if Entities.current_settlement:
+		Entities.world_map.ui.settlement_ui.exit_settlement();
+	else:
+		Entities.player_sheet.hide_player_sheet();
 	var settlement:Settlement = Entities.world_map.all_settlements[key]
-	var camera:Camera2D = Entities.in_map_player.camera;
-	camera.pan_to_target(settlement, true)
+	Entities.world_map.ui.marker.mark_settlement(settlement)

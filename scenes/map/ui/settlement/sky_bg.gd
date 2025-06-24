@@ -28,13 +28,14 @@ func _ready() -> void:
 	get_window().size_changed.connect(resize);
 
 func resize()->void:
-	var window_size:Vector2 = get_window().size;
-	custom_minimum_size.x = window_size.x;
-	custom_minimum_size.y = window_size.y * 2;
-	
-	size.x = window_size.x;
-	size.y = window_size.y * 2;
-	position = Vector2(0, size.y/2 * -1)
+	if is_inside_tree():
+		var window_size:Vector2 = get_window().size;
+		custom_minimum_size.x = window_size.x;
+		custom_minimum_size.y = window_size.y * 2;
+		
+		size.x = window_size.x;
+		size.y = window_size.y * 2;
+		position = Vector2(0, size.y/2 * -1)
 	
 func color_background(gradual:bool=false, hour:int=Entities.world_map.current_hour)->void:
 	

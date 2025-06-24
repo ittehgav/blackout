@@ -20,7 +20,8 @@ var walking_blocked:bool=false;
 var moving:bool = false;
 
 func _ready()->void:
-	Entities.in_fight_player = self;
+	name = Entities.player.name;
+	Entities.player_fighter = self;
 	Entities.arena.team_1.leader_fighter = self;
 	Entities.arena.tide_bar.team_1_unit_values[self] = Entities.player.combat_level;
 

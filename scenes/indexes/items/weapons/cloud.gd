@@ -12,8 +12,8 @@ func launch()->void:
 
 	
 	Entities.arena.projectiles.add_child(self)
-	global_position = Entities.in_fight_player.global_position
-	rotation = Entities.in_fight_player.hit_scan.rotation;
+	global_position = Entities.player_fighter.global_position
+	rotation = Entities.player_fighter.hit_scan.rotation;
 	position += global_position.direction_to(get_global_mouse_position()) * 100
 	
 	

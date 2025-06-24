@@ -21,6 +21,7 @@ shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="pre_battle" type="Control" node_paths=PackedStringArray("player_name_label", "enemy_name_label", "enemy_party_count_label", "enemy_party_power_icon", "enemy_party_icon", "plates_container", "opponent_avatar", "ui_sfx")]
 process_mode = 4
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -2,7 +2,7 @@ import "res://resources/dialogues/map_common.dialogue" as common
 
 ~ start
 Wandering Trader: Care to browse my wares?
-- Sure thing, let me see what you have for sale. => start_trade
+- Sure thing, let me see what you have for sale. #start_trade => start_trade
 - #roll_convince Don't you think those prices are a bit unfair?
 - See you later. [leave] => common/finish_dialogue
 

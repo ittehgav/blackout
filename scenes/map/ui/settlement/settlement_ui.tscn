@@ -157,7 +157,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="settlement_ui" type="Control" node_paths=PackedStringArray("post_listen_around", "post_listen_around_list", "memo_label", "sky_props", "sky_bg", "crowd_rect", "name_label", "settlement_type_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "local_event_btn", "local_event_btn_label", "main_view", "trade_menu", "recruitment_menu", "event_view", "ui_sfx")]
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_props", "sky_bg", "crowd_rect", "name_label", "settlement_type_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "local_event_btn", "local_event_btn_label", "main_view", "trade_menu", "recruitment_menu", "event_view", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -167,9 +167,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dun4i")
-post_listen_around = NodePath("post_listen_around")
-post_listen_around_list = NodePath("post_listen_around/panel/list")
-memo_label = NodePath("post_listen_around/panel/list/memo_label")
 sky_props = NodePath("sky_view")
 sky_bg = NodePath("sky_bg")
 crowd_rect = NodePath("background/crowd")
@@ -245,6 +242,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="main_view" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -407,7 +405,7 @@ shortcut = ExtResource("5_36m0f")
 shortcut_in_tooltip = false
 text = "[esc] Exit"
 
-[node name="post_listen_around" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "main_view")]
+[node name="post_listen_around" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "main_view", "post_listen_around_list")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -416,8 +414,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("14_fgyyh")
+memo_label_scene = ExtResource("9_05gvk")
 settlement_ui = NodePath("..")
 main_view = NodePath("../main_view")
+post_listen_around_list = NodePath("panel/list")
 
 [node name="panel" type="Panel" parent="post_listen_around"]
 custom_minimum_size = Vector2(731.429, 411.429)
@@ -449,9 +449,6 @@ theme_override_font_sizes/font_size = 80
 text = "Information Found:"
 horizontal_alignment = 1
 
-[node name="memo_label" parent="post_listen_around/panel/list" instance=ExtResource("9_05gvk")]
-layout_mode = 2
-
 [node name="Label" type="Label" parent="post_listen_around/panel"]
 modulate = Color(1, 1, 1, 0.72549)
 layout_mode = 1
@@ -472,7 +469,6 @@ visible = false
 layout_mode = 1
 
 [node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "hired_stamp", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -499,38 +495,6 @@ recruit_defense_label = NodePath("Panel/stats/HBoxContainer2/HBoxContainer/defen
 recruit_agility_label = NodePath("Panel/stats/HBoxContainer2/HBoxContainer2/agility")
 recruit_technique_label = NodePath("Panel/stats/HBoxContainer3/HBoxContainer/technique")
 
-[node name="recruit_cards" type="VBoxContainer" parent="recruitment_menu"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -409.0
-offset_top = -325.0
-offset_right = -9.0
-offset_bottom = 325.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="recruitment_card" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
-layout_mode = 2
-
-[node name="recruitment_card2" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
-layout_mode = 2
-
-[node name="recruitment_card3" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
-layout_mode = 2
-
-[node name="recruitment_card4" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
-layout_mode = 2
-
-[node name="exit" type="Button" parent="recruitment_menu/recruit_cards"]
-layout_mode = 2
-theme = ExtResource("13_xvf0a")
-shortcut = ExtResource("5_36m0f")
-text = "[esc] exit"
-
 [node name="hint" type="Label" parent="recruitment_menu"]
 modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 0
@@ -545,16 +509,13 @@ text = "Click a unit for more information"
 
 [node name="Panel" type="Panel" parent="recruitment_menu"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -594.0
+offset_left = 16.0
 offset_top = -279.0
-offset_right = 238.0
+offset_right = 848.0
 offset_bottom = 279.0
-grow_horizontal = 2
 grow_vertical = 2
 
 [node name="sprite" type="TextureRect" parent="recruitment_menu/Panel"]
@@ -775,6 +736,38 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 192
 text = "HIRED"
 
+[node name="recruit_cards" type="VBoxContainer" parent="recruitment_menu"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -409.0
+offset_top = -325.0
+offset_right = -9.0
+offset_bottom = 325.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="recruitment_card" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card2" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card3" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card4" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="exit" type="Button" parent="recruitment_menu/recruit_cards"]
+layout_mode = 2
+theme = ExtResource("13_xvf0a")
+shortcut = ExtResource("5_36m0f")
+text = "[esc] exit"
+
 [node name="event_view" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "stat_gain_sfx", "resource_gain_sfx", "sky_view", "confirmation_panel", "conclusion_panel", "samples_container", "name_label", "description_label", "available_units_label", "money_cost_label", "time_cost_label", "confirm_btn", "resrource_gains_container", "conclusion_samples_container")]
 visible = false
 layout_mode = 1
@@ -802,10 +795,12 @@ conclusion_samples_container = NodePath("conclusion/units")
 
 [node name="resource_gain_sfx" type="AudioStreamPlayer" parent="event_view"]
 stream = ExtResource("16_05gvk")
+bus = &"sfx"
 
 [node name="stat_gain_sfx" type="AudioStreamPlayer" parent="event_view"]
 stream = ExtResource("17_05gvk")
 max_polyphony = 2
+bus = &"sfx"
 
 [node name="confirmation" type="Panel" parent="event_view"]
 custom_minimum_size = Vector2(1000, 500)
@@ -1088,15 +1083,13 @@ text = "Continue"
 
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/trade" to="." method="trade"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/recruit_units" to="." method="recruit_units"]
-[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/listen_around" to="." method="listen_around"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/listen_around" to="post_listen_around" method="listen_around"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/local_event" to="." method="_on_local_event_pressed"]
 [connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/exit" to="." method="exit_settlement"]
 [connection signal="gui_input" from="post_listen_around" to="post_listen_around" method="_on_gui_input"]
 [connection signal="visibility_changed" from="post_listen_around" to="post_listen_around" method="_on_visibility_changed"]
-[connection signal="meta_clicked" from="post_listen_around/panel/list/memo_label" to="post_listen_around" method="_on_memo_label_meta_clicked"]
-[connection signal="meta_clicked" from="post_listen_around/panel/list/memo_label" to="post_listen_around/panel/list/memo_label" method="_on_meta_clicked"]
-[connection signal="pressed" from="recruitment_menu/recruit_cards/exit" to="recruitment_menu" method="_on_exit_pressed"]
 [connection signal="pressed" from="recruitment_menu/Panel/hire_btn" to="recruitment_menu" method="_on_hire_btn_pressed"]
+[connection signal="pressed" from="recruitment_menu/recruit_cards/exit" to="recruitment_menu" method="_on_exit_pressed"]
 [connection signal="pressed" from="event_view/confirmation/return" to="." method="show_main_view" binds= [false]]
 [connection signal="pressed" from="event_view/confirmation/VBoxContainer/confirm" to="event_view" method="_on_confirm_pressed"]
 [connection signal="pressed" from="event_view/conclusion/cotinue" to="event_view" method="_on_cotinue_pressed"]

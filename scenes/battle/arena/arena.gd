@@ -5,6 +5,8 @@ class_name Arena;
 signal finished_loading;
 signal battle_over(winner:int)
 
+@export var player_fighter:InFightPlayer
+
 
 ## keep this information and only emit won/lost signal when you exit the arena
 ## any interactions that depend on whether or not the player won will 
@@ -28,11 +30,11 @@ var battle_loot:Inventory;
 func start_battle(enemy_leader:Leader)->void:
 	Entities.main.current_state = "battle"
 	Entities.arena = self;
-
+	assign_team(player_fighter, 1, Entities.player)
 	load_teams(enemy_leader);
 	if Entities.world_map:
 		## for testing battle straight out of the main menu
-		Entities.in_map_player.camera.enabled = false
+		Entities.player_map_party.camera.enabled = false
 		Entities.world_map.hide()
 
 	Entities.main.add_child(self)
@@ -44,10 +46,10 @@ func start_battle(enemy_leader:Leader)->void:
 
 func return_to_world_map()->void:
 	Entities.world_map.returned_from_battle.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
-	var camera:Camera2D = Entities.in_map_player.camera;
+	var camera:Camera2D = Entities.player_map_party.camera;
 	camera.enabled = true
-	camera.reparent(Entities.in_map_player)
-	camera.global_position = Entities.in_map_player.global_position;
+	camera.reparent(Entities.player_map_party)
+	camera.global_position = Entities.player_map_party.global_position;
 	Entities.world_map.unpause_map();
 	Entities.world_map.show()
 	Entities.main.current_state = "world_map"
@@ -68,14 +70,12 @@ func generate_battle_reward(enemy_leader:Leader)->void:
 func load_teams(enemy_leader:Leader)->void:
 	## happens before ready?
 	
-	team_1.initial_party_size = len(Entities.player.roster.units) + 1;
 	## ugly way to assign player fighter
-	assign_team(team_1.get_child(0), 1, Entities.player);
 	Entities.player.load_party(team_1, 1);
 	team_1.leader = Entities.player
 	
+	
 
-	team_2.initial_party_size = len(enemy_leader.roster.units) + 1
 	enemy_leader.load_party(team_2, 2);
 
 

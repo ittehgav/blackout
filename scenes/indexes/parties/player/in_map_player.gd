@@ -10,7 +10,7 @@ func setup(origin:Player=null)->void:
 	if origin:
 		leader.load_origin(origin);
 
-	Entities.in_map_player = self;
+	Entities.player_map_party = self;
 	Entities.player = leader;
 
 func load_data(player_data:Dictionary)->void:
@@ -171,15 +171,16 @@ func roll_convince(target:NpcMapParty)->bool:
 
 
 func _on_interaction_range_body_entered(body: Node2D) -> void:
-	if body is MapEntity:
-		stop_movement(false);
-		entity_entered_range.emit(body)
+	assert(body is MapEntity)
+	stop_movement(false);
+
+	entity_entered_range.emit(body)
 		
 
 
 func _on_interaction_range_body_exited(body: Node2D) -> void:
-	if body is MapEntity:
-		entity_left_range.emit(body);
+	assert(body is MapEntity)
+	entity_left_range.emit(body);
 
 
 func _on_entity_entered_range(entity: MapEntity) -> void:
@@ -189,7 +190,7 @@ func _on_entity_entered_range(entity: MapEntity) -> void:
 		match entity.leader.party_type:
 			"thugs":
 				if not entity.pacified:
-					interact_with_map_entity(entity);
+					interact_with_map_entity.call_deferred(entity);
 		sfx.play_sound_by_key("map_party_contact");
 
 
