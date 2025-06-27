@@ -353,6 +353,7 @@ context_menu_enabled = false
 emoji_menu_enabled = false
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
+select_all_on_focus = true
 caret_blink = true
 caret_blink_interval = 0.5
 

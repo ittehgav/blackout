@@ -14,7 +14,9 @@ signal status_removed(status_type:String, data:Dictionary)
 
 var in_player_team:bool;
 
-
+## used to prevent multiple death signals when getting hit by multiple 
+## lethal blows at the exact same time
+var dead:bool=false;
 
 ## make a more comprehensive form of extending activeFighter?
 ## right now base can exclusively serve as the sprite and data from npcFighter bases

@@ -76,14 +76,14 @@ func refresh_charge_bar_max(_stat:String="")->void:
 	charge_bar.max_value = cooldown_timer.wait_time;
 
 
-func _on_npc_fighter_damage_blocked(source: ActiveFighter, value: float) -> void:
+func _on_npc_fighter_damage_blocked(_source: ActiveFighter, value: float) -> void:
 	floating_number(value, "block");
 	shield_bar.value = unit.shield
 	
 	Tweens.squish_bar(shield_bar);
 
 
-func _on_npc_fighter_shield_gained(source: ActiveFighter, value: float) -> void:
+func _on_npc_fighter_shield_gained(_source: ActiveFighter, value: float) -> void:
 	floating_number(value, "shield");
 	shield_bar.value = unit.shield
 	Tweens.stretch_bar(shield_bar);

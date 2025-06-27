@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsqsovrg4vb55"]
+[gd_scene load_steps=6 format=3 uid="uid://bsqsovrg4vb55"]
 
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_wiewg"]
 [ext_resource type="Texture2D" uid="uid://3qi1uqw3t1rg" path="res://assets/visual/icons/misc/party.png" id="2_6k8qx"]
 [ext_resource type="Script" uid="uid://qrm3ifbcbbpm" path="res://scenes/ui/icons/party_icon.gd" id="3_skp0e"]
+[ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="4_6k8qx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5mg1o"]
 shader = ExtResource("1_wiewg")
@@ -10,8 +11,11 @@ shader_parameter/base_color = Color(1, 1, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
-[node name="Party Icon" type="TextureRect"]
+[node name="Party Icon" type="TextureRect" node_paths=PackedStringArray("upgrade_arrow")]
 material = SubResource("ShaderMaterial_5mg1o")
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
@@ -29,5 +33,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("2_6k8qx")
 script = ExtResource("3_skp0e")
+upgrade_arrow = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0, 0.7, 0, 1)
+position = Vector2(42, 29)
+scale = Vector2(4, 4)
+texture = ExtResource("4_6k8qx")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

@@ -31,7 +31,7 @@ const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 300;
-const skill_cooldown = 8;
+const skill_cooldown = 6;
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);

@@ -135,12 +135,7 @@ func refresh_origin_data()->void:
 	colors_outline.border_color = base_color;
 	off_color_sample.color = off_color;
 	
-	var pairs:={
-		Color.GREEN: base_color,
-		Color.BLUE: base_color.darkened(.5),
-		Color.YELLOW: off_color,
-		Color.RED: off_color.darkened(.5)
-	} 
+
 	for c:Node in party_units_container.get_children():
 		if c.visible:
 			c.queue_free();
@@ -176,9 +171,9 @@ func refresh_origin_data()->void:
 				mirror.stack_size_label.text = str(item.stack_size)+"/"+str(item.capacity);
 			items_container.add_child(mirror)
 			mirror.set_anchors_preset(Control.PRESET_CENTER)
-			var size: = Vector2(item.size_x * 32, item.size_y * 32)
-			mirror.custom_minimum_size = size;
-			mirror.size = size
+			var mirror_size: = Vector2(item.size_x * 32, item.size_y * 32)
+			mirror.custom_minimum_size = mirror_size;
+			mirror.size = mirror_size
 	player_body.texture.atlas = scheme_player_textures[current_color_scheme]
 	player_body.material.set_shader_parameter("color", off_color.darkened(.5))
 
@@ -234,6 +229,7 @@ func _on_next_scheme_pressed() -> void:
 func start_new_game() -> void:
 	if len(name_edit.text) < 3:
 		const interval = .15
+		name_edit.grab_focus();
 		var tween:Tween = create_tween();
 		for i in 3:
 			tween.tween_property(name_edit, "modulate", Color.RED, interval);

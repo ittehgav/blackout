@@ -43,7 +43,6 @@ func update_stats()->void:
 func final_skill_cooldown(agi_acm:float=stats.agility)->float:
 	## can check from active fighter and from fighter unit
 	var cooldown:float = base.skill_cooldown;
-
 	while agi_acm > 5:
 		cooldown -= cooldown/20;
 		agi_acm -= 5;
@@ -53,14 +52,17 @@ func final_skill_cooldown(agi_acm:float=stats.agility)->float:
 	return cooldown
 	
 func upgrade_available()->bool:
-	if "evolutions" in base and level >= 5:
-		for e:String in base.evolutions.keys():
-			var affordable:int=0;
-			for resource:String in base.evolutions[e]:
-				if Entities.player.inventory[resource] >= base.evolutions[e][resource]:
-					affordable += 1
-			if affordable == 2:
-				return true;
+
+	return "evolutions" in base and level >= 5;
+
+func upgrade_affordable()->bool:
+	for e:String in base.evolutions.keys():
+		var affordable:int=0;
+		for resource:String in base.evolutions[e]:
+			if Entities.player.inventory[resource] >= base.evolutions[e][resource]:
+				affordable += 1
+		if affordable == 2:
+			return true;
 	return false
 
 func gain_stat_modifier(stat:String, value:float)->void:

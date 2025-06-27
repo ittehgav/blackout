@@ -121,7 +121,7 @@ func add_mirror(mirror:ItemMirror)->void:
 	all_mirrors.append(mirror);
 
 func remove_mirror(mirror:ItemMirror)->void:
-	if mirror.item is ResourceContainer:
+	if mirror.item and mirror.item is ResourceContainer:
 		self[mirror.item.resource +"_containers"].erase(mirror)
 	
 	all_mirrors.erase(mirror)
@@ -136,7 +136,6 @@ func _ready()->void:
 		set_grid();
 		
 			
-		
 	for r:String in Index.all_resources:
 		var icon:ResourceIcon = self[r+"_icon"];
 		if r != "money":
@@ -170,17 +169,16 @@ func set_grid()->void:
 			for i in len(grid_cols):
 				grid_cols[i].append(row[i])
 				
-		send_rect.size = Vector2(size_x * grid_cell_size, size_y * grid_cell_size);
+		send_rect.set_size.call_deferred(Vector2(size_x * grid_cell_size, size_y * grid_cell_size))
 		if not from_player:
 			send_rect.position = Vector2.ZERO 	
 		grid_set = true;
 
-	for r:String in Index.all_resources:
-		var icon:ResourceIcon = self[r+"_icon"];
 
 
 func refresh_data(hard_reset:bool=false)->void:
 	if hard_reset:
+		resource_picker.hide();
 		for r:String in Index.all_resources:
 			self[r+"_label"].text = str(inventory[r]);
 		clear_item_mirrors();
@@ -220,12 +218,13 @@ func refresh_data(hard_reset:bool=false)->void:
 	reset_warnings();
 
 	for item_mirror:ItemMirror in all_mirrors:
-		item_mirror.refresh()
-		if item_mirror.item is ResourceContainer and \
-		item_mirror.item.raw_stack and item_mirror.item.mirror_only:
-			liquid_item_mirrors.append(item_mirror);
-			warnings["liquid_discard"] = true;
-	
+		if is_instance_valid(item_mirror):
+			item_mirror.refresh()
+			if item_mirror.item is ResourceContainer and \
+			item_mirror.item.raw_stack and item_mirror.item.mirror_only:
+				liquid_item_mirrors.append(item_mirror);
+				warnings["liquid_discard"] = true;
+		
 	if context == "loot":
 		if inventory == Entities.player.inventory:
 			if len(exchanging_display.all_mirrors):
@@ -378,7 +377,6 @@ func current_resource_amount(resource:String)->int:
 	return count
 
 func send_resource_by_amount(resource:String, amount:int)->void:
-	var left:int = amount;
 	var mirrors:Array[ItemMirror] = self[resource+"_containers"];
 	mirrors.sort_custom(sort_container_mirrors);
 	mirrors.reverse();
@@ -386,11 +384,9 @@ func send_resource_by_amount(resource:String, amount:int)->void:
 	for mirror:ItemMirror in mirrors:
 		if mirror.stack_size >= amount:
 			send_resource(mirror, amount);
-			left = 0;
 			## always ends up here because this function will never run if there's not enough to send
 			break;
 		else:
-			left -= mirror.stack_size;
 			send_resource(mirror, mirror.stack_size)
 
 func send_resource(source:ItemMirror, amount:int)->void:
@@ -697,17 +693,30 @@ func sort_by_capacity(a:ResourceContainer, b:ResourceContainer)->bool:
 func update_inventory()->void:
 	## applies the movements/changes to the inventory itself
 	## right now also auto-sorts it because it covers a lot of problems i dont wanna think of
-	var new_inventory:Array[Item];
-	
 	for item_mirror:Node in all_mirrors:
 		item_mirror.item.inventory_position = item_mirror.inventory_position;
-		new_inventory.append(item_mirror.item);
 		if item_mirror.item in inventory.items:
 			item_mirror.item.stack_size = item_mirror.stack_size;
 		else:
-			exchanging_display.inventory.send_item(item_mirror.item, inventory);
+			if exchanging_display and item_mirror.item in exchanging_display.inventory.items:
+				exchanging_display.inventory.send_item(item_mirror.item, inventory);
+			else:
+				inventory.add_item(item_mirror.item);
+	
+	## duplicate so it can safely remove items from inventory while iterating over it
+	var items:Array[Item] = inventory.items.duplicate()
+	for item:Item in items:
+		if is_instance_valid(item):
+			if (not item.mirror or not all_mirrors.has(item.mirror))\
+			 and item.inventory_position != Vector2(-1, -1):
+				if not exchanging_display:
+					inventory.remove_item(item);
+				else:
+					if not exchanging_display.all_mirrors.has(item.mirror):
+						inventory.remove_item(item)
 
 	inventory.refresh_resource_counts();
+
 
 
 func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
@@ -733,6 +742,7 @@ func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
 func _on_item_picked_up() -> void:
 	board_shake(3)
 
+var shake_tween:Tween;
 func board_shake(intensity:int, return_duration:float=.1)->void:
 	
 	var x_shift:int = randi_range(-intensity, intensity)
@@ -742,8 +752,9 @@ func board_shake(intensity:int, return_duration:float=.1)->void:
 	var origin:Vector2 = cargo.position;
 	cargo.position += shift;
 	
-	var tween:Tween = create_tween();
-	tween.tween_property(cargo, "position", origin, return_duration)
+	if not shake_tween or not shake_tween.is_running():
+		shake_tween= create_tween();
+		shake_tween.tween_property(cargo, "position", origin, return_duration)
 	
 	
 	send_rect.hide();

@@ -9,11 +9,11 @@ const cell_size = 16;
 const entity_spawn_range = 6144;
 const quarter_tile_map_size = Vector2(entity_spawn_range/cell_size, entity_spawn_range/cell_size)
 
-const small_prop_amounts = entity_spawn_range/50;
-const large_prop_amounts = entity_spawn_range/100;
+const small_prop_amounts = entity_spawn_range/100;
+const large_prop_amounts = entity_spawn_range/200;
 const settlement_amount = entity_spawn_range/50;
 
-const thugs_amount = entity_spawn_range/100;
+const thugs_amount = entity_spawn_range/75;
 const travelling_traders_amount = entity_spawn_range/200;
 
 @export var small_prop_textures:Array[Texture];
@@ -68,6 +68,7 @@ func load_game(data:Dictionary)->void:
 		var s:Dictionary = data.settlements[settlement_name];
 		var settlement:Settlement = Index[s.type.to_lower() + "_scene"].instantiate();
 		world_map.all_settlements[settlement_name] = settlement
+
 		
 		settlement.name = settlement_name;
 		
@@ -84,14 +85,17 @@ func load_game(data:Dictionary)->void:
 		var quadrant:WorldMapQuadrant = Entities.world_map.quadrant_for_global_position(target_position)
 		quadrant.add_child(settlement);
 		settlement.global_position = target_position;
-		ColorCoder.color_code_settlement(settlement, get_spot_tile_color(settlement.position, quadrant.quadrant_n))
+		ColorCoder.color_code_settlement(settlement)
 		
-	for name:String in world_map.all_settlements.keys():
-		var settlement_data:Dictionary = data.settlements[name];
-		var settlement:Settlement = world_map.all_settlements[name];
+	
+		
+	for settlement_name:String in world_map.all_settlements.keys():
+		var settlement_data:Dictionary = data.settlements[settlement_name];
+		var settlement:Settlement = world_map.all_settlements[settlement_name];
 		
 		for neighbor_name:String in settlement_data.neighbor_names:
 			settlement.neighbors.append(world_map.all_settlements[neighbor_name])
+
 	for i in 4:
 		var fog_data:Array = data.world.fog[i];
 		var quadrant:WorldMapQuadrant = all_quadrants[i];
@@ -154,7 +158,7 @@ func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->N
 	vehicle.party = party;
 	party.vehicle = vehicle
 	var party_position:Vector2 = random_quadrant_position();
-	while position_taken(party_position, [party_positions], 100):
+	while position_taken(party_position, [party_positions]):
 		party_position = random_quadrant_position();
 	
 	leader.generate(party_position.distance_to(Vector2.ZERO));
@@ -255,7 +259,7 @@ func get_spot_tile_color(from:Vector2, quadrant_n:int=0)->Color:
 		return tile_colors[1]
 
 
-func position_taken(to_check:Vector2, position_arrays:Array[Array], min_gap:float = 200)->bool:
+func position_taken(to_check:Vector2, position_arrays:Array[Array], min_gap:float = 100)->bool:
 	for a:Array[Vector2] in position_arrays:
 		for p:Vector2 in a:
 			if to_check.distance_to(p) < min_gap:
@@ -307,7 +311,7 @@ func generate_settlements()->void:
 		var adjust:Array = adjust_to_quadrants(target_position);
 		settlement.position = adjust[0];
 		var quadrant_n:int = adjust[1];
-		ColorCoder.color_code_settlement(settlement, get_spot_tile_color(settlement.position, quadrant_n));
+		ColorCoder.color_code_settlement(settlement);
 		self["quadrant_" + str(quadrant_n)].add_child(settlement);
 		
 		
@@ -326,10 +330,8 @@ func sort_by_distance(target_1:Settlement, target_2:Settlement)->bool:
 var current_origin:Vector2;
 func set_neighbors(settlements:Array[Settlement])->void:
 	for s:Settlement in settlements:
-		var distances:Dictionary = {};
-		var highest_distance:float = 0;
 		current_origin = s.global_position
-		var to_check:Array[Settlement] = settlements
+		var to_check:Array[Settlement] = settlements.duplicate()
 		to_check.sort_custom(sort_by_distance)
 		s.neighbors = [
 			## to_check[0] will be the settlement itself

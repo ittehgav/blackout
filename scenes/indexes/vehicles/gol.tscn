@@ -19,8 +19,8 @@ autostart = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.392157)
 show_behind_parent = true
-position = Vector2(3, -3)
-scale = Vector2(0.75, 1)
+position = Vector2(2, -7)
+scale = Vector2(0.5, 1.25)
 texture = ExtResource("3_lqibu")
 
 [connection signal="timeout" from="bounce" to="." method="_on_bounce_timeout"]

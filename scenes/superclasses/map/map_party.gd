@@ -27,7 +27,7 @@ var target_position:Vector2=Vector2.ZERO;
 
 @onready var current_quadrant:WorldMapQuadrant = get_parent();
 
-func _on_quadrant_changed(new_quadrant: WorldMapQuadrant, direction: Vector2) -> void:
+func _on_quadrant_changed(new_quadrant: WorldMapQuadrant, _direction: Vector2) -> void:
 	current_quadrant = new_quadrant;
 
 func apply_party_status(type:String, duration_hours:int, removal_fn:Callable)->void:

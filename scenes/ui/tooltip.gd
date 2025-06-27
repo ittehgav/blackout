@@ -13,7 +13,6 @@ class_name Tooltip;
 
 @export var hover_timer:Timer;
 
-@onready var window_size:Vector2 = DisplayServer.screen_get_size();
 
 @export_group("hardcode")
 @export var hardcoded_name:String;
@@ -26,7 +25,6 @@ func _ready() -> void:
 	if not parent.is_node_ready():
 		await parent.ready
 		setup()
-
 	else:
 		setup();
 	## lots of places where the sample target is defined on load
@@ -94,19 +92,18 @@ func enable()->void:
 	hover_timer.timeout.connect(_on_hover_timer_timeout)
 
 func _on_hover_timer_timeout() -> void:
-	modulate.a = .1;
+	Tweens.ui_fade_in(self);
+	var window_size:Vector2 = get_window().size;
 	
-	show();
-	global_position = get_global_mouse_position()
+	var target_position:Vector2 = get_global_mouse_position();
+	global_position = target_position
 	
-	var window_size:Vector2 = get_window().size
-	if global_position.x + size.x >= window_size.x:
+	if target_position.x + size.x >= window_size.x - 50:
 		position.x -= size.x
-	if global_position.y + size.y >= window_size.y:
+	if target_position.y + size.y >= window_size.y -10:
 		position.y -= size.y
 		
-	Tweens.ui_fade_in(self);
-
 func stop_hover_timer()->void:
+	if not hover_timer.is_stopped():
+		hover_timer.stop();
 	hide();
-	hover_timer.stop();

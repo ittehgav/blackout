@@ -50,13 +50,16 @@ func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 	size = Vector2.ZERO;
 	custom_minimum_size = Vector2(item.size_x, item.size_y) * display.grid_cell_size;
 	tooltip.target = item;
-	
+	tooltip.setup();
 	var item_color:Color;
 	if item is ResourceContainer:
 		stack_size = item.stack_size
 		item_color = Index.get_color(item.resource)
+		if item.storage:
+			tooltip.disable()
 	else:
 		item_color = Index.item_rarity_colors[item.rarity];
+	
 	
 	material.set_shader_parameter("base_color", item_color)
 	var dark_color:Color = item_color.darkened(.8);
@@ -90,20 +93,19 @@ func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 			if item is Weapon or item is Module:
 				tooltip.hint.text = "[right-click] to equip"
 
-		else:
-			if display.inventory.holder is Settlement:
-				if item is ResourceContainer:
-					if item in display.inventory.non_sellable_items:
-						tooltip.hint.text = "[right-click] to buy resources";
-					else:
-						if item.raw_stack:
-							tooltip.hint.text = "[right-click] to buy"
-						else:
-							tooltip.hint.text = "[right-click] to buy container"
+		if display.inventory.holder is Settlement:
+			if item is ResourceContainer:
+				if item in display.inventory.non_sellable_items:
+					tooltip.hint.text = "[right-click] to buy resources";
 				else:
-					tooltip.hint.text = "[right-click] to buy"
+					if item.raw_stack:
+						tooltip.hint.text = "[right-click] to buy"
+					else:
+						tooltip.hint.text = "[right-click] to buy container"
 			else:
-				tooltip.hint.text = "[right-click] to sell"
+				tooltip.hint.text = "[right-click] to buy"
+		else:
+			tooltip.hint.text = "[right-click] to sell"
 		item.mirror = self;
 		if not new_item:
 			refresh()
@@ -144,7 +146,7 @@ func _on_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton:
 		if e.pressed:
 			if e.button_index == MOUSE_BUTTON_LEFT:
-				if item is ResourceContainer and item.storage:
+				if item is ResourceContainer and item.storage and item.stack_size:
 					display.resource_picker.show_picker(self);
 					return
 				pick_up()
@@ -196,7 +198,7 @@ func _on_gui_input(e: InputEvent) -> void:
 				put_down();
 
 func empty_storage()->void:
-	var moved:int;
+	var moved:int=0;
 	var to_throw:Array[ItemMirror];
 
 	while stack_size:

@@ -164,6 +164,41 @@ deposit_scrap_small = ExtResource("12_jjio2")
 deposit_scrap_big = ExtResource("13_ormkh")
 deposit_chips = ExtResource("14_15sfg")
 
+[node name="cargo" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="inventory_grid" type="GridContainer" parent="cargo"]
+layout_mode = 1
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+
+[node name="item_mirrors" type="Control" parent="cargo"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="send_rect" type="ColorRect" parent="cargo"]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.678431)
+
+[node name="operation" type="Label" parent="cargo/send_rect"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 202.0
+offset_right = 266.0
+offset_bottom = 304.0
+theme_override_font_sizes/font_size = 128
+text = "BUY"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
@@ -275,42 +310,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "11"
 
-[node name="cargo" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="inventory_grid" type="GridContainer" parent="cargo"]
-layout_mode = 1
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-
-[node name="item_mirrors" type="Control" parent="cargo"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="send_rect" type="ColorRect" parent="cargo"]
-visible = false
-z_index = 5
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.678431)
-
-[node name="operation" type="Label" parent="cargo/send_rect"]
-layout_mode = 0
-offset_left = 122.0
-offset_top = 202.0
-offset_right = 266.0
-offset_bottom = 304.0
-theme_override_font_sizes/font_size = 128
-text = "BUY"
-
-[node name="resource_picker" type="Control" parent="." node_paths=PackedStringArray("display", "choice_1_label", "choice_2_label", "choice_3_label")]
+[node name="resource_picker" type="Control" parent="." node_paths=PackedStringArray("display", "slider", "add_1_btn", "add_5_btn", "add_max_btn", "add_custom")]
 visible = false
 z_index = 10
 anchors_preset = 0
@@ -320,86 +320,53 @@ offset_right = 148.0
 offset_bottom = 76.0
 script = ExtResource("21_15sfg")
 display = NodePath("..")
-choice_1_label = NodePath("choices/choice_1/Label")
-choice_2_label = NodePath("choices/choice_2/Label")
-choice_3_label = NodePath("choices/choice_3/Label")
+slider = NodePath("PanelContainer/VBoxContainer/slider")
+add_1_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_1")
+add_5_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_5")
+add_max_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_max")
+add_custom = NodePath("PanelContainer/VBoxContainer/add_custom")
 
-[node name="choices" type="HBoxContainer" parent="resource_picker"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -109.0
-offset_top = -35.0
-offset_right = 109.0
-offset_bottom = 35.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelContainer" type="PanelContainer" parent="resource_picker"]
+layout_mode = 0
+offset_right = 12.0
+offset_bottom = 12.0
 
-[node name="choice_1" type="Button" parent="resource_picker/choices"]
-custom_minimum_size = Vector2(70, 70)
+[node name="VBoxContainer" type="VBoxContainer" parent="resource_picker/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="resource_picker/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="pick_1" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
+text = "BUY
+ 1"
 
-[node name="Label" type="Label" parent="resource_picker/choices/choice_1"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -19.0
-offset_right = 20.0
-offset_bottom = 19.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 16
-
-[node name="choice_2" type="Button" parent="resource_picker/choices"]
-custom_minimum_size = Vector2(70, 70)
+[node name="pick_5" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
+text = "BUY
+ 5"
 
-[node name="Label" type="Label" parent="resource_picker/choices/choice_2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -19.0
-offset_right = 20.0
-offset_bottom = 19.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 16
-
-[node name="choice_3" type="Button" parent="resource_picker/choices"]
-custom_minimum_size = Vector2(70, 70)
+[node name="pick_max" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
+text = "BUY 
+MAX"
 
-[node name="Label" type="Label" parent="resource_picker/choices/choice_3"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -19.0
-offset_right = 20.0
-offset_bottom = 19.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 16
+[node name="slider" type="HSlider" parent="resource_picker/PanelContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+rounded = true
+
+[node name="add_custom" type="Button" parent="resource_picker/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+text = "Confirm"
+
+[node name="disappear" type="Timer" parent="resource_picker"]
 
 [node name="warning" type="Label" parent="."]
 z_index = 20
@@ -545,10 +512,14 @@ text = "Return"
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
-[connection signal="mouse_exited" from="resource_picker" to="resource_picker" method="_on_mouse_exited"]
-[connection signal="pressed" from="resource_picker/choices/choice_1" to="resource_picker" method="_on_choice_1_pressed"]
-[connection signal="pressed" from="resource_picker/choices/choice_2" to="resource_picker" method="_on_choice_2_pressed"]
-[connection signal="pressed" from="resource_picker/choices/choice_3" to="resource_picker" method="_on_choice_3_pressed"]
+[connection signal="mouse_entered" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_entered"]
+[connection signal="mouse_exited" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_exited"]
+[connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_1" to="resource_picker" method="_on_pick_1_pressed"]
+[connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_5" to="resource_picker" method="_on_pick_5_pressed"]
+[connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_max" to="resource_picker" method="_on_pick_max_pressed"]
+[connection signal="value_changed" from="resource_picker/PanelContainer/VBoxContainer/slider" to="resource_picker" method="_on_slider_value_changed"]
+[connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/add_custom" to="resource_picker" method="_on_add_custom_pressed"]
+[connection signal="timeout" from="resource_picker/disappear" to="resource_picker" method="_on_disappear_timeout"]
 [connection signal="mouse_entered" from="trade_excess_label_panel" to="." method="_on_trade_excess_label_panel_mouse_entered"]
 [connection signal="mouse_exited" from="trade_excess_label_panel" to="." method="_on_trade_excess_label_panel_mouse_exited"]
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/accept" to="warnings" method="_on_accept_pressed"]

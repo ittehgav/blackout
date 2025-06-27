@@ -104,7 +104,7 @@ func _on_hire_btn_pressed() -> void:
 	hire_btn.disabled = true;
 	hire_btn.text = "HIRED";
 	
-	Entities.player.roster.unit(showing_recruit);
+	Entities.player.roster.add_unit(showing_recruit);
 
 	Entities.player.party_changed.emit();
 	Entities.player.inventory.change_resource("money", -current_unit_price);

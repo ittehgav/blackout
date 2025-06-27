@@ -1,5 +1,10 @@
 extends Node
 
+@export_group("Unit Data")
+@export var status_timers:HBoxContainer;
+@export var status_bar:TextureProgressBar;
+@export var cooldown_timer:Timer;
+
 @export var unit:NpcFighter;
 @export var floating_icon_anchor:Node2D;
 
@@ -8,8 +13,6 @@ extends Node
 @export var overhead_particle:Texture;
 @export var beam_particle:Texture;
 
-@export var status_timers:HBoxContainer;
-@export var status_bar:TextureProgressBar;
 
 
 func _on_npc_fighter_damage_taken(damage: float,source:ActiveFighter) -> void:
@@ -82,9 +85,9 @@ func particle_animation(key:String)->void:
 		beam.modulate.a = .6;
 		unit.add_child(beam);
 		
-		var tween: = create_tween();
-		tween.tween_property(beam, "modulate:a", 0, .5);
-		tween.tween_callback(beam.free);
+		var beam_tween: = create_tween();
+		beam_tween.tween_property(beam, "modulate:a", 0, .5);
+		beam_tween.tween_callback(beam.free);
 		
 		return
 	
@@ -123,7 +126,7 @@ func beam_projection()->void:
 	unit.add_child(beam);
 	beam.global_position = unit.global_position;
 
-	projection_blink(beam);
+	projection_fade_in(beam);
 
 	await unit.skill_used;
 	beam.queue_free();
@@ -139,17 +142,17 @@ func gravity_projection()->void:
 	unit.add_child(vfx);
 	vfx.global_position = unit.target_unit.global_position;
 	
-	projection_blink(vfx);
+	projection_fade_in(vfx);
 	var tween:Tween = create_tween();
 	tween.set_trans(Tween.TRANS_BOUNCE)
 	tween.tween_property(vfx, "scale", Vector2(2, 2), 1);
 	
 	await unit.skill_used;
-	vfx.queue_free();
+	if is_instance_valid(vfx):
+		vfx.queue_free();
 	
 
 func aoe_circle_projection()->void:
-	var vfx:Node2D = Node2D.new();
 	var rect: = TextureRect.new();
 	
 	var aoe_radius:int = unit.base.hit_scan_radius;
@@ -166,23 +169,23 @@ func aoe_circle_projection()->void:
 	var offset :float = aoe_radius / 2 * -1;
 	rect.modulate = Color(.2, .2, .2, .2)
 	
-	projection_blink(rect)
+	projection_fade_in(rect)
 	unit.add_child(rect);
 	rect.global_position = unit.target_unit.global_position;
 	rect.position += Vector2(offset,offset);
 	await unit.skill_used;
-	rect.queue_free()
+	if is_instance_valid(rect):
+		rect.queue_free()
 	
-func projection_blink(projection:CanvasItem)->void:
+func projection_fade_in(projection:CanvasItem)->void:
 	if not is_instance_valid(projection):
 		return;
+	projection.modulate.a = .1
 	var tween: = create_tween();
-	var current_alpha:float = projection.modulate.a;
-	tween.tween_property(projection, "modulate:a", 0, .5);
-	var current_scale:Vector2 = projection.scale;
+	tween.tween_property(projection, "modulate:a", 1, cooldown_timer.wait_time/6);
+	unit.skill_attempted.connect(projection.queue_free, CONNECT_ONE_SHOT);
 
-	tween.tween_property(projection, "modulate:a", current_alpha, .5);
-	tween.tween_callback(projection_blink.bind(projection))
+
 	
 
 func generate_beam()->Node2D:

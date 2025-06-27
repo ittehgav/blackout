@@ -53,9 +53,8 @@ func _ready()->void:
 
 
 func _input(e:InputEvent)->void:
-	if e.is_action_pressed("show_player_sheet") and not visible:
+	if e.is_action_pressed("show_player_sheet") and not visible and not Entities.world_map.pause_stack:
 		show_player_sheet()
-		set_process_input(false);
 	elif visible and not recruit_full_view.visible and (e.is_action_pressed("ui_cancel")\
 	 or e.is_action_pressed("show_player_sheet")):
 		if not player_inventory.warnings_popup.visible:
@@ -65,6 +64,8 @@ func _input(e:InputEvent)->void:
 
 
 func show_player_sheet(left_tab_view:int=0)->void:
+	set_process_input(false);
+	
 	Entities.world_map.ui_canvas.layer += 1;
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
@@ -82,8 +83,7 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
 	tween.finished.connect(set_process_input.bind(true));
 
-func hide_player_sheet(_meta:Variant="", force:bool = false)->void:
-	
+func hide_player_sheet(_meta:Variant="")->void:
 	## _meta to this gets called when meta clicked from memo labels in the memos tab
 	if player_inventory.pending_warnings():
 		inventory_view.show();
@@ -91,7 +91,9 @@ func hide_player_sheet(_meta:Variant="", force:bool = false)->void:
 		var clear:bool = await player_inventory.warnings_attended;
 		if clear:
 			hide_player_sheet();
-	else:
+		else:
+			set_process_input(true)
+	else: 
 		Entities.world_map.ui_canvas.layer -= 1;
 		player_inventory.update_inventory();
 		ui_sfx.play_stream_obj(close_sound)

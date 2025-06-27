@@ -53,7 +53,7 @@ const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 750;
 
-const skill_cooldown = 10;
+const skill_cooldown = 8;
 
 func skill()->void:
 	Combat.aoe_damage(fighter);

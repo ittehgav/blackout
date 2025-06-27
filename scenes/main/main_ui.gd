@@ -21,7 +21,7 @@ func _ready()->void:
 
 
 func _on_load_pressed() -> void:
-	await Tweens.ui_fade_out(main_options_container)
+	await Tweens.ui_fade_out(main_options_container).finished
 	Tweens.ui_fade_in(load_menu);
 	load_menu.load_files();
 	

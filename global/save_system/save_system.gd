@@ -27,6 +27,7 @@ func store_player_data()->Dictionary:
 	if not player.alternative_weapon:
 		alt_weapon_index = -1;
 	var i: = 0;
+	
 	for weapon:Weapon in player.inventory.weapons:
 		if weapon == player.equipped_weapon:
 			equipped_weapon_index = i;
@@ -41,7 +42,6 @@ func store_player_data()->Dictionary:
 		if m == player.equipped_module:
 			equipped_module_index = i;
 		i += 1;
-	
 	var data:Dictionary = {
 		"world_map_position":Entities.player_map_party.global_position,
 		
@@ -96,8 +96,6 @@ func store_fog_data()->Array:
 	var data:Array[Array];
 	var quadrants:WorldMapPlane = Entities.world_map.quadrants;
 
-	var x_center: = quadrants.quarter_tile_map_size.x;
-	var y_center: = quadrants.quarter_tile_map_size.y;
 	
 
 	const coords_indexes:PackedVector2Array = [
@@ -162,7 +160,7 @@ func store_combat_stats(stats:CombatStats)->Dictionary:
 func store_inventory_data(inventory:Inventory)->Dictionary:
 	var data:Dictionary = {
 		## other resources will be stored by the containers/stacks of resourecs
-		"money":0,
+		"money":inventory.money,
 		
 		"containers":[],
 		"weapons":[],

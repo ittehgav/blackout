@@ -10,13 +10,14 @@ const sfx_key = "buckler";
 
 const continuous = true;
 
-var description:String = "Hold to slow down movement and greatly increase your " + Index.stat_colored_name("defense") +\
+var description:String = "Hold to reduce speed and damage and greatly increase your " + Index.stat_colored_name("defense") +\
 ", if an enemy attacks you immediately after activating [u]Module - Buckler[/u], the enemy is stunned.";
 
 const base_defense_frac = .5;
 const base_stun_duration = 3;
 
 var defense_gain:float;
+var attack_loss:float
 var move_speed_loss:float;
 
 var projection:TextureRect;
@@ -33,11 +34,13 @@ func use()->void:
 	if technique > 1:
 		defense_frac *= technique
 	defense_gain = Entities.player_fighter.defense * defense_frac;
+	attack_loss = Entities.player_fighter.attack/2
 	
 	move_speed_loss = Entities.player_fighter.move_speed - Entities.player_fighter.move_speed/2
 	
 	var player:InFightPlayer = Entities.player_fighter
 	Combat.apply_stat_change(player, player, defense_gain, "defense")
+	Combat.apply_stat_change(player, player, attack_loss * -1, "attack")
 	Combat.apply_stat_change(player, player, -move_speed_loss, "move_speed")
 	
 	
@@ -54,6 +57,7 @@ func projection_blink()->void:
 func release()->void:
 	var player:InFightPlayer = Entities.player_fighter
 	Combat.apply_stat_change(player, player, -defense_gain, "defense");
+	Combat.apply_stat_change(player, player, attack_loss, "attack")
 	Combat.apply_stat_change(player, player, move_speed_loss, "move_speed");
 	projection.hide();
 

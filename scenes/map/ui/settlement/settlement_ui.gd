@@ -11,6 +11,7 @@ signal recruitment_ended;
 signal listen_around_started;
 signal listen_around_ended;
 
+@export var overlay:CanvasLayer
 
 @onready var current_view:Control = main_view;
 
@@ -26,6 +27,10 @@ signal listen_around_ended;
 @export var settlement_type_label:Label;
 @export var short_description_label:RichTextLabel;
 @export var long_description_label:RichTextLabel;
+
+@export var anomaly_resource_icon:ResourceIcon;
+@export var anomaly_arrows:Array[TextureRect]
+@export var anomaly_sign:Label;
 
 @export_group("buttons")
 @export var trade_btn:Button;
@@ -47,6 +52,7 @@ var current_settlement:Settlement;
 var listening_around:bool=false;
 
 
+
 @onready var basic_options:Array[Button] = [
 	trade_btn,
 	recruit_units_btn,
@@ -56,6 +62,38 @@ var listening_around:bool=false;
 
 
 func _on_settlement_entered(settlement: Settlement) -> void:
+	overlay.layer += 1
+	var anomaly:TradeAnomaly = settlement.ongoing_trade_anomaly;
+	anomaly_resource_icon.resource = anomaly.resource;
+	anomaly_resource_icon.setup();
+	
+	if anomaly.positive:
+		## ARROW DOWN = PRICE DOWN = STOCK UP
+		anomaly_sign.add_theme_color_override("font_color", Color.RED)
+		for arrow in anomaly_arrows:
+			arrow.flip_v = true
+			arrow.modulate = Color.GREEN
+	else:
+		## ARROW UP = PRICE UP = STOCK DOWN
+		anomaly_sign.add_theme_color_override("font_color", Color.GREEN)
+		for arrow in anomaly_arrows:
+			arrow.flip_v = false
+			arrow.modulate = Color.RED;
+			
+	var breakpoints:Array[float]  = TradeAnomaly.intensity_breakpoints;
+	if anomaly.change < breakpoints[0]:
+		anomaly_arrows[0].show()
+		anomaly_arrows[1].hide()
+		anomaly_arrows[2].hide()
+	elif anomaly.change < breakpoints[1]:
+		anomaly_arrows[0].show()
+		anomaly_arrows[1].show()
+		anomaly_arrows[2].hide()
+	else:
+		anomaly_arrows[0].show()
+		anomaly_arrows[1].show()
+		anomaly_arrows[2].show()
+	
 	settlement.player_inside = true;
 	
 	var crowd_texture:Texture = [settlement.crowd_1, settlement.crowd_2].pick_random()
@@ -90,8 +128,10 @@ func _on_settlement_entered(settlement: Settlement) -> void:
 	sky_bg.color_background()
 	Tweens.ui_fade_in(self)
 
+	
  
 func exit_settlement() -> void:
+	overlay.layer -= 1;
 	if not listening_around:
 		Entities.player.left_settlement.emit();
 		hide();

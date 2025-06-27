@@ -22,7 +22,8 @@ func generate(distance:float)->void:
 				var item:Item = (Index.rarity_1_item_scenes + Index.rarity_2_item_scenes + Index.rarity_3_item_scenes).pick_random().instantiate();
 				inventory.add_item(item);
 			for r:String in Index.all_resources:
-				inventory[r] = randi_range(1, distance/50) * 2
+				var roll:int = max(randi_range(15, 25), randi_range(1, distance/50) * 2)
+				inventory.change_resource(r, roll)
 			inventory.refresh_resource_counts("", 0, false);
 		"thugs":
 			var total_items:int;
@@ -54,9 +55,11 @@ func generate(distance:float)->void:
 					item = Index.rarity_2_item_scenes.pick_random().instantiate();
 				else:
 					item = Index.rarity_1_item_scenes.pick_random().instantiate();
+				if item is ResourceContainer:
+					item.stack_size = randi_range(0, item.capacity/2)
 				inventory.add_item(item);
 	
-	var max_level:int = distance/500;
+	var max_level:int = distance/1000;
 	if max_level < 1:
 		max_level = 1;
 	var min_level:int = max_level/3
@@ -65,7 +68,7 @@ func generate(distance:float)->void:
 
 
 	var leader_base:FighterBase = Index.evolved_fighter_base_scenes.pick_random().instantiate();
-	leader_unit.level = min(5, randi_range(min_level, max_level + 2));
+	leader_unit.level = max(5, randi_range(min_level, max_level + 2));
 	leader_unit.base = leader_base
 	leader_unit.add_child(leader_base);
 	roster.add_unit(leader_unit)

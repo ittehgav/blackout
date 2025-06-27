@@ -162,8 +162,8 @@ resource_colors = Dictionary[String, Color]({
 hollow_circle_textures = Array[Texture]([ExtResource("73_utn0t"), ExtResource("74_l4ld4"), ExtResource("75_mwnqg"), ExtResource("76_5481b"), ExtResource("77_q20m7")])
 circle_textures = Array[Texture]([ExtResource("78_x7l0t"), ExtResource("79_epdxe"), ExtResource("80_5243g"), ExtResource("81_i7wen"), ExtResource("82_er4df")])
 stat_colors = Dictionary[String, Color]({
-"agility": Color(1, 1, 0.133333, 1),
-"attack": Color(0.8, 0, 0, 1),
+"agility": Color(1, 1, 0, 1),
+"attack": Color(0.7, 0, 0, 1),
 "defense": Color(0.529412, 0.807843, 0.921569, 1),
 "max_hp": Color(0, 0.501961, 0, 1),
 "technique": Color(1, 0.0784314, 0.576471, 1)

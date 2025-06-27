@@ -4,10 +4,10 @@ extends Node
 ## all tween functions will return their tween
 
 func shake_fighter(fighter:ActiveFighter)->Tween:
-	var x_shake:int = randi_range(-20, 20);
-	var y_shake:int = randi_range(-20, 20);
+	var x_shake_roll:int = randi_range(-20, 20);
+	var y_shake_roll:int = randi_range(-20, 20);
 	
-	fighter.base.position += Vector2(x_shake, y_shake);
+	fighter.base.position += Vector2(x_shake_roll, y_shake_roll);
 	var tween:= create_tween();
 	tween.tween_property(fighter.base, "position", Vector2.ZERO, .1);
 	return tween;

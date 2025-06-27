@@ -19,7 +19,7 @@ func generate_fighter(unit:FighterUnit, team_n:int)->ActiveFighter:
 	
 	fighter.load_fighter(unit, team_n==1);
 	
-	Entities.arena.assign_team(fighter, team_n, self);
+	Entities.arena.assign_team(fighter, team_n);
 	if team_n == 2:
 		if unit == self["leader_unit"]:
 			fighter.ally_team.leader = self;
@@ -96,3 +96,6 @@ func load_party(team:Team, team_n:int)->void:
 	
 		if i % 2:
 			fighter.position.y *= -1;
+
+
+	

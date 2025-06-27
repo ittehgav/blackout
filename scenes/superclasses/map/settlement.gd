@@ -144,7 +144,7 @@ func refresh_events()->void:
 
 	if not local_event:
 		var roll:float = randf_range(0, 1);
-		if roll:
+		if roll > .75:
 			var event:LocalEvent = Index.local_event_scenes.pick_random().instantiate();
 			event.location = self;
 			event.generate();
@@ -164,7 +164,8 @@ func refresh_inventory()->void:
 
 	var tradeable_resources:PackedStringArray = Index.all_resources.filter(func(r:String)->bool:return r != "money")
 	
-	var relationship_modifier:float = relationship_modifiers[player_relation];
+	## not implementing relationship level just yet
+	var relationship_modifier:float = 1;
 	for r:String in tradeable_resources:
 		var production:int = self[r+'_production'];
 		inventory[r] += randi_range(production/1.5, production * 1.5);
@@ -176,6 +177,19 @@ func refresh_inventory()->void:
 			inventory.resource_selling_prices[r] = 1
 		if inventory.resource_buying_prices[r] < 1:
 			inventory.resource_buying_prices[r] = 1
+			
+	for i in randi_range(1, 3):
+		## for now just impossible to overflow on its own
+		var rarity_roll: = randf_range(0, 1);
+		var item:Item;
+		if rarity_roll > .9:
+			item = Index.rarity_3_item_scenes.pick_random().instantiate();
+		elif rarity_roll > .6:
+			item = Index.rarity_2_item_scenes.pick_random().instantiate();
+		else:
+			item = Index.rarity_1_item_scenes.pick_random().instantiate();
+		inventory.add_item(item)
+			
 
 	inventory.store_resources();
 	inventory.refresh_resource_counts("",0,false)

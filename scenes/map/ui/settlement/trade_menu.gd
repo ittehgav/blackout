@@ -232,23 +232,22 @@ func finish_trade()->void:
 			var player_value_label:Label = self["player_" + r + "_label"];
 			var trader_value_label:Label = self["trader_" + r + "_label"];
 			var trade_label:Label = self[r+"_trade_label"];
-			
-		
-			
+
 			var player_after:int = player_inventory_display.inventory[r] + self[r+"_trade"]
-		
 			var trader_after:int = trader_inventory_display.inventory[r] - self[r+"_trade"]
 			
 			trade_label_tween.tween_property(trade_label, "text", str(0), tween_duration)
 			trade_label_tween.tween_callback(trade_label.set_text.bind(""))
-			
-			player_inventory_display.inventory[r] += trade
-			trader_inventory_display.inventory[r] -= trade
-			
+
 			player_label_tween.tween_property(player_value_label, "text", str(player_after), tween_duration);
 			trader_label_tween.tween_property(trader_value_label, "text", str(trader_after), tween_duration);
 	
-
+	player_inventory_display.inventory.money += money_trade
+	if money_trade:
+		Entities.player.resource_changed.emit.call_deferred("money", money_trade)
+	
+	trader_inventory_display.inventory.money -= money_trade
+	
 	trader_inventory_display.update_inventory();
 	player_inventory_display.update_inventory();
 

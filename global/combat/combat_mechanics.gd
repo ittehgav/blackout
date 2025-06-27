@@ -23,14 +23,14 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 			target.hp -= shield_overkill;
 			target.shield = 0;
 			target.damage_taken.emit(shield_overkill, source);
-			if target.hp <= 0:
+			if target.hp <= 0 and not target.dead:
 				target.death.emit(source);
 		else:
 			target.damage_blocked.emit(source, damage);
 	else:
 		target.hp -= damage;
 		target.damage_taken.emit(damage, source)
-		if target.hp <= 0:
+		if target.hp <= 0 and not target.dead:
 			target.death.emit(source);
 
 

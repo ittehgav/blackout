@@ -66,7 +66,7 @@ func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
 	}
 	color_code_sprite(vehicle, dict, leader.name);
 
-func color_code_settlement(settlement:Settlement, tile_color:Color)->void:
+func color_code_settlement(settlement:Settlement)->void:
 	var sprite:Sprite2D = settlement.get_node("sprite");
 	var base_color:Color;
 
@@ -80,8 +80,7 @@ func color_code_settlement(settlement:Settlement, tile_color:Color)->void:
 		base_color = Color.GOLD;
 
 	base_color = base_color
-	#var blend:Color = (tile_color/5).blend(base_color);
-	#base_color = base_color.blend(blend)
+
 	var dict:Dictionary = {
 		Color.GREEN: base_color,
 		Color.BLUE: base_color.darkened(.5),

@@ -37,7 +37,6 @@ func space_left()->int:
 
 func check_empty()->bool:
 	if stack_size == 0 and raw_stack:
-		queue_free();
 		return true
 	return false;
 

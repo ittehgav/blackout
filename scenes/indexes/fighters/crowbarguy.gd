@@ -48,7 +48,7 @@ const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
 const skill_range = MELEE_RANGE;
-const skill_cooldown = 5;
+const skill_cooldown = 1.5;
 
 const evolutions = {
 	"crossbow_guy":{

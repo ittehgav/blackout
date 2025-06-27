@@ -39,7 +39,7 @@ const hitbox_offset = Vector2(0, 10)
 
 
 const skill_range = MELEE_RANGE;
-const skill_cooldown = 8;
+const skill_cooldown = 4;
 const hit_scan_radius = 100;
 
 const status_duration = .125;

@@ -3,8 +3,12 @@ extends ActiveFighter;
 class_name NpcFighter
 
 signal target_changed;
+
+signal skill_attempted;
 signal skill_used;
 signal skill_hit(target_hit:ActiveFighter);
+
+
 
 var unit:FighterUnit;
 @export var hit_scan:Area2D;
@@ -146,8 +150,10 @@ func _on_skill_range_body_entered(body: Node2D) -> void:
 func _on_skill_range_body_exited(body: Node2D) -> void:
 	if body == target_unit:
 		target_in_range = false;
-			
+
+
 func skill_cooldown() -> void:
+	skill_attempted.emit();
 	if target_in_range or not base.need_target:
 		use_skill()
 		skill_retry_timer.stop()
@@ -283,5 +289,6 @@ func correct_cooldown_timer()->void:
 
 
 func _on_death(_killer: ActiveFighter) -> void:
+	dead = true;
 	ally_team.units.erase(self);
 	base.fighter_died()

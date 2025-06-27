@@ -109,6 +109,7 @@ func setup(target:FighterUnit)->void:
 				icon.setup()
 				
 				button.modulate.a = 1;
+				print(resource, " cost ", cost)
 				if Entities.player.inventory[resource] < cost:
 					self["enough_resources_for_ev" + str(i)] = false;
 					button.disabled = true;

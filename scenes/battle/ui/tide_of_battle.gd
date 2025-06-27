@@ -29,7 +29,6 @@ func set_tide_bar()->void:
 		team_1_power += team_1_unit_values[key]
 	for key:ActiveFighter in team_2_unit_values.keys():
 		team_2_power += team_2_unit_values[key];
-	
 	max_value = team_1_power + team_2_power;
 	value = team_1_power;
 

@@ -106,5 +106,5 @@ func resize_polygon()->void:
 	distance_to_center = Vector2(window_size.x/2, window_size.y/2);
 
 
-func _on_arena_battle_over(winner: int) -> void:
+func _on_arena_battle_over(_winner: int) -> void:
 	set_physics_process(false);

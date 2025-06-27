@@ -17,7 +17,6 @@ var exp_tracked:String;
 func build_from_player(which:String)->void:
 	target = Entities.player;
 	exp_tracked = which;
-	level_up_sfx.volume_db = -5;
 	match which:
 		"leadership":
 			max_value = Scaling.exp_for_next_level(Entities.player.leadership_level);
@@ -26,12 +25,24 @@ func build_from_player(which:String)->void:
 			max_value = Scaling.exp_for_next_level(Entities.player.combat_level)
 			value = Entities.player.combat_exp;
 
+func refresh()->void:
+	update_max_value(true);
+
 func build_from_unit(fighter_unit:FighterUnit)->void:
 	level_up_sfx.volume_db = -10;
 	target = fighter_unit;
 	max_value = Scaling.exp_for_next_level(fighter_unit.level);
 	value = fighter_unit.experience;
 
+func set_target_exp(value:int)->void:
+	if target is Player:
+		if exp_tracked == "leadership":
+			Entities.player.leadership_exp = value
+		else:
+			Entities.player.combat_exp = value
+	else:
+		target.experience = value
+	
 func level_up_target()->void:
 	if target is Player:
 		if exp_tracked == "leadership":
@@ -47,7 +58,7 @@ func level_up_target()->void:
 		target.experience = 0;
 	update_max_value();
 	
-func update_max_value()->void:
+func update_max_value(update_value:bool=false)->void:
 	value = 0;
 	if target is Player:
 		if exp_tracked == "leadership":
@@ -57,8 +68,15 @@ func update_max_value()->void:
 	else:
 		assert(target is FighterUnit);
 		max_value = Scaling.exp_for_next_level(target.level)
-		
-
+	if update_value:
+		if target is Player:
+			if exp_tracked == "leadership":
+				value = Entities.player.leadership_exp
+			else:
+				value = Entities.player.combat_exp;
+		else:
+			assert(target is FighterUnit);
+			value = target.experience;
 
 
 	
@@ -68,8 +86,9 @@ func gain_exp(increase:float)->void:
 	## UNITS AND THE PLAYER IS APPLIED
 	var tween := create_tween();
 	if value + increase < max_value:
+		## VALUE AS THIS RUN IS SET TO THE TARGET'S EXP
+		set_target_exp(value + increase)
 		exp_gain_animation(tween, increase);
-		
 	else:
 		var levels_gained :int= 0;
 		var exp_left :int= increase;
@@ -80,6 +99,7 @@ func gain_exp(increase:float)->void:
 
 		for l:int in levels_gained:
 			level_up_animation(tween);
+		set_target_exp(exp_left);
 		exp_gain_animation(tween, exp_left)
 		
 func exp_gain_animation(tween:Tween, increase:int)->void:

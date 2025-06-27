@@ -29,15 +29,15 @@ const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 400;
-const skill_cooldown = 8;
+const skill_cooldown = 5;
 
-const heal_value = 5.0;
+const heal_value = 4.0;
 const total_heal_ticks = 10;
 const heal_interval = 1.0;
 
 func full_skill_description(unit:FighterUnit)->String:
-	var total_heal:float = heal_value * total_heal_ticks;
-	var heal_str:String = Index.get_technique_scaled_string(unit, "heal", "", heal_value * total_heal_ticks/heal_interval);
+	var total_heal:float = heal_value * total_heal_ticks/heal_interval;
+	var heal_str:String = Index.get_technique_scaled_string(unit, "heal", "", total_heal);
 	
 	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Heals the most damaged ally for "\
 	 + heal_str + " over " + str(total_heal_ticks) + " seconds.";

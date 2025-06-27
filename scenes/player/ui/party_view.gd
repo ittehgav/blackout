@@ -26,6 +26,10 @@ func refresh_data()->void:
 			var hint:TextureRect = upgrade_hint.duplicate();
 			hint.show()
 			sample.add_child(hint)
+			if not unit.upgrade_affordable():
+				hint.modulate.v = 0;
+				hint.modulate.a = .5;
+		
 	
 	var travel_expenses:Dictionary = Entities.player.travel_upkeep_cost();
 	food_cost.text = str(travel_expenses.food) + "/hour"

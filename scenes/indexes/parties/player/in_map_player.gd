@@ -185,6 +185,8 @@ func _on_interaction_range_body_exited(body: Node2D) -> void:
 
 func _on_entity_entered_range(entity: MapEntity) -> void:
 	if entity is Settlement:
+		if entity.is_ancestor_of(Entities.world_map.ui.marker):
+			Entities.world_map.ui.marker.clear();
 		sfx.play_sound_by_key("settlement_contact");
 	elif entity is NpcMapParty:
 		match entity.leader.party_type:

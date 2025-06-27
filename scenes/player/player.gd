@@ -89,8 +89,8 @@ func travel_upkeep_cost()->Dictionary:
 		"fuel":1.0
 	}
 	for unit:FighterUnit in roster.units:
-		cost.food += .25 * len(unit.base.tags)
-		cost.fuel += .25 * len(unit.base.tags)
+		cost.food += .5 * len(unit.base.tags)
+		cost.fuel += .5 * len(unit.base.tags)
 	
 	cost.food = int(cost.food);
 	cost.fuel = int(cost.fuel)
@@ -141,6 +141,7 @@ func travel_upkeep()->void:
 			## (or not and it's like a properly measured punishment?)
 			Entities.player_map_party.move_speed = Entities.player_map_party.navigation*50;
 		
+		inventory.refresh_resource_counts("", 0, false)
 		Entities.world_map.ui.hud.sfx.play_sound_by_key(sfx_key);
 
 func load_origin(origin:Player)->void:
@@ -157,7 +158,6 @@ func load_origin(origin:Player)->void:
 	new_inventory.reparent(self);
 	inventory = new_inventory;
 	inventory.refresh_resource_counts("", 0, false)
-
 	combat_stats.queue_free();
 	var new_combat_stats:CombatStats = origin.combat_stats;
 	new_combat_stats.reparent(self);

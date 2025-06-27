@@ -548,18 +548,18 @@ evolution_1_sprite = NodePath("HBoxContainer/evolution_1/evolution_1")
 evolution_1_panel = NodePath("HBoxContainer/evolution_1/evolution_1/Panel")
 evolution_1_highlight = NodePath("HBoxContainer/evolution_1/evolution_1/highlight")
 evolution_1_costs_container = NodePath("HBoxContainer/evolution_1/resource_costs")
-evolution_1_cost_1_icon = NodePath("HBoxContainer/evolution_1/resource_costs/resource_icon")
-evolution_1_cost_1_label = NodePath("HBoxContainer/evolution_1/resource_costs/resource_1")
-evolution_1_cost_2_icon = NodePath("HBoxContainer/evolution_1/resource_costs/resource_icon2")
-evolution_1_cost_2_label = NodePath("HBoxContainer/evolution_1/resource_costs/resource_2")
+evolution_1_cost_1_icon = NodePath("HBoxContainer/evolution_1/resource_costs/e1_resource_icon")
+evolution_1_cost_1_label = NodePath("HBoxContainer/evolution_1/resource_costs/e1_resource_1")
+evolution_1_cost_2_icon = NodePath("HBoxContainer/evolution_1/resource_costs/e1_resource_icon2")
+evolution_1_cost_2_label = NodePath("HBoxContainer/evolution_1/resource_costs/e1_resource_2")
 evolution_2_sprite = NodePath("HBoxContainer/evolution_2/evolution_2")
 evolution_2_panel = NodePath("HBoxContainer/evolution_2/evolution_2/Panel")
 evolution_2_highlight = NodePath("HBoxContainer/evolution_2/evolution_2/highlight")
 evolution_2_costs_container = NodePath("HBoxContainer/evolution_2/resource_costs")
-evolution_2_cost_1_icon = NodePath("HBoxContainer/evolution_2/resource_costs/resource_icon")
-evolution_2_cost_1_label = NodePath("HBoxContainer/evolution_2/resource_costs/resource_1")
-evolution_2_cost_2_icon = NodePath("HBoxContainer/evolution_2/resource_costs/resource_icon2")
-evolution_2_cost_2_label = NodePath("HBoxContainer/evolution_2/resource_costs/resource_2")
+evolution_2_cost_1_icon = NodePath("HBoxContainer/evolution_2/resource_costs/e2_resource_icon")
+evolution_2_cost_1_label = NodePath("HBoxContainer/evolution_2/resource_costs/e2_resource_1")
+evolution_2_cost_2_icon = NodePath("HBoxContainer/evolution_2/resource_costs/e2_resource_icon2")
+evolution_2_cost_2_label = NodePath("HBoxContainer/evolution_2/resource_costs/e2_resource_2")
 
 [node name="evolution" type="Label" parent="evolution"]
 z_index = 1
@@ -641,21 +641,23 @@ mouse_filter = 2
 layout_mode = 2
 alignment = 1
 
-[node name="resource_icon" parent="evolution/HBoxContainer/evolution_1/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
+[node name="e1_resource_icon" parent="evolution/HBoxContainer/evolution_1/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
 material = SubResource("ShaderMaterial_by5ee")
 layout_mode = 2
-adjacent_items = [NodePath("../resource_1")]
+match_player_inventory = false
+adjacent_items = [NodePath("../e1_resource_1")]
 
-[node name="resource_1" type="Label" parent="evolution/HBoxContainer/evolution_1/resource_costs"]
+[node name="e1_resource_1" type="Label" parent="evolution/HBoxContainer/evolution_1/resource_costs"]
 layout_mode = 2
 text = "22"
 
-[node name="resource_icon2" parent="evolution/HBoxContainer/evolution_1/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
+[node name="e1_resource_icon2" parent="evolution/HBoxContainer/evolution_1/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
 material = SubResource("ShaderMaterial_n2jki")
 layout_mode = 2
-adjacent_items = [NodePath("../resource_2")]
+match_player_inventory = false
+adjacent_items = [NodePath("../e1_resource_2")]
 
-[node name="resource_2" type="Label" parent="evolution/HBoxContainer/evolution_1/resource_costs"]
+[node name="e1_resource_2" type="Label" parent="evolution/HBoxContainer/evolution_1/resource_costs"]
 layout_mode = 2
 text = "32"
 
@@ -711,21 +713,23 @@ mouse_filter = 2
 layout_mode = 2
 alignment = 1
 
-[node name="resource_icon" parent="evolution/HBoxContainer/evolution_2/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
+[node name="e2_resource_icon" parent="evolution/HBoxContainer/evolution_2/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
 material = SubResource("ShaderMaterial_87570")
 layout_mode = 2
-adjacent_items = [NodePath("../resource_1")]
+match_player_inventory = false
+adjacent_items = [NodePath("../e2_resource_1")]
 
-[node name="resource_1" type="Label" parent="evolution/HBoxContainer/evolution_2/resource_costs"]
+[node name="e2_resource_1" type="Label" parent="evolution/HBoxContainer/evolution_2/resource_costs"]
 layout_mode = 2
 text = "22"
 
-[node name="resource_icon2" parent="evolution/HBoxContainer/evolution_2/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
+[node name="e2_resource_icon2" parent="evolution/HBoxContainer/evolution_2/resource_costs" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("12_ryym2")]
 material = SubResource("ShaderMaterial_bh2lf")
 layout_mode = 2
-adjacent_items = [NodePath("../resource_2")]
+match_player_inventory = false
+adjacent_items = [NodePath("../e2_resource_2")]
 
-[node name="resource_2" type="Label" parent="evolution/HBoxContainer/evolution_2/resource_costs"]
+[node name="e2_resource_2" type="Label" parent="evolution/HBoxContainer/evolution_2/resource_costs"]
 layout_mode = 2
 text = "32"
 
@@ -1035,12 +1039,18 @@ text = "Return"
 [node name="evolution_texture_buffer" type="Node2D" parent="evolution_confirmation_bg"]
 visible = false
 
-[node name="evolution_animation" type="ColorRect" parent="." node_paths=PackedStringArray("sprite", "mask", "label", "hint")]
+[node name="evolution_animation" type="ColorRect" parent="." node_paths=PackedStringArray("recruit_view", "sprite", "mask", "label", "hint")]
 visible = false
 z_index = 2
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 0.980392)
 script = ExtResource("15_2qua6")
+recruit_view = NodePath("..")
 sprite = NodePath("evolving_sprite")
 mask = NodePath("evolving_sprite/mask")
 label = NodePath("Label")
@@ -1074,6 +1084,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="evolution_animation"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

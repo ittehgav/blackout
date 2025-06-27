@@ -50,7 +50,7 @@ sight_range = 256
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_ylhkj")]
 holder = NodePath("..")
-money = 100
+money = 150
 
 [node name="Taser Gun" parent="Inventory" instance=ExtResource("3_ctxbb")]
 

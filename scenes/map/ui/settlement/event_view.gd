@@ -151,7 +151,7 @@ func conclude_event()->void:
 			stat_gain_sfx.play()
 			container.show();
 			var tween:Tween = create_tween();
-			tween.tween_property(container, "position:y", container.position.y-20, .25);
+			tween.tween_property(container, "position:y", container.position.y-20, .5);
 			tween.parallel().tween_property(container, "modulate:a", 0, .35);
 			tween.tween_callback(container.queue_free);
 		await get_tree().create_timer(.5).timeout

@@ -37,7 +37,6 @@ func setup(new_shooter:ActiveFighter)->void:
 	source = true
 	## can only run after assigning shooter
 	var shooter_team_n:int = shooter.ally_team.team_n;
-	var enemy_team_n:int = shooter.enemy_team.team_n;
 	
 	if shooter_team_n == 1:
 		ally_mask = 1;
@@ -55,7 +54,7 @@ func setup(new_shooter:ActiveFighter)->void:
 	
 
 
-func shoot(target_direction:Vector2, self_target:bool=false)->Projectile:
+func shoot(target_direction:Vector2)->Projectile:
 	## expose the projectiles hit signal to the weapon nodeç;
 	var clone:Projectile = duplicate();
 	clone.shooter = shooter;
@@ -75,7 +74,7 @@ func _physics_process(delta: float) -> void:
 	position += move_target * flight_speed * delta;
 
 
-func _on_hit(fighter: ActiveFighter) -> void:
+func _on_hit(_fighter: ActiveFighter) -> void:
 	hitbox.set_collision_mask_value(1, false);
 	hitbox.set_collision_mask_value(2, false);
 	queue_free()

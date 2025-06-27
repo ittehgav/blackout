@@ -33,3 +33,6 @@ func use()->bool:
 
 func enemy_hit(target:ActiveFighter)->void:
 	Combat.deal_damage(Entities.player_fighter, target);
+
+func modifier(damage:float)->float:
+	return damage/3

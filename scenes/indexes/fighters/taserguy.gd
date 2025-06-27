@@ -36,7 +36,7 @@ const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 300;
-const skill_cooldown = 8;
+const skill_cooldown = 5;
 
 const status_duration = .75
 

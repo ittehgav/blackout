@@ -9,6 +9,8 @@ var suspended:bool=false;
 
 @onready var manager:DialogueManager=DialogueManager;
 
+@export var canvas:CanvasLayer
+
 @export var current_dialogue:DialogueResource;
 @export var trade_menu:TradeMenu;
 
@@ -37,6 +39,8 @@ var current_line:DialogueLine;
 
 func _ready()->void:
 	super();
+	var color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
+	player_sprite.material.set_shader_parameter("color", color)
 	manager.mutated.connect(check_end)
 	Entities.dialogue_player = self;
 	
@@ -45,6 +49,7 @@ func _process(_delta:float)->void:
 		dialogue_next();
 
 func start_dialogue(target:Leader, starting_line:String = "start")->void:
+	canvas.layer += 1;
 	Entities.world_map.ui.interact_btn.hide();
 	suspended = false
 	Entities.main_bgm.play_bgm(target.party_type)
@@ -64,6 +69,7 @@ func start_dialogue(target:Leader, starting_line:String = "start")->void:
 
 func end_dialogue()->void:
 	if not suspended:
+		canvas.layer =0;
 		hide()
 		set_process_mode(Node.PROCESS_MODE_DISABLED)
 		Entities.world_map.unpause_map();

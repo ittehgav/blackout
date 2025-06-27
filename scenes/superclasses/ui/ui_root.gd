@@ -7,7 +7,7 @@ class_name UIRoot;
 @export var ui_sfx:UISFX;
 
 func _ready()->void:
-	resize()
+	resize.call_deferred()
 	get_window().size_changed.connect(resize);
 	recursive_connect_ui_feedback(self)
 	

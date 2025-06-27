@@ -26,7 +26,7 @@ const hitbox_height = 100;
 const hitbox_offset = Vector2(0, -5)
 
 const skill_range = MELEE_RANGE;
-const skill_cooldown = 5;
+const skill_cooldown = 4;
 const hit_scan_radius = 100;
 
 const debuff_type = "stat";

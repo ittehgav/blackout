@@ -24,7 +24,7 @@ func _on_in_map_player_entity_entered_range(entity: MapEntity) -> void:
 	
 	if entity is Settlement:
 		interact_btn.text = "Enter";
-	elif entity is InMapPlayer:
+	elif entity is MapParty:
 		interact_btn.text = "Talk"
 	
 	var shift:Vector2 = entity.global_position  - Entities.player_map_party.global_position;
@@ -34,7 +34,7 @@ func _on_in_map_player_entity_entered_range(entity: MapEntity) -> void:
 
 
 
-func _on_in_map_player_entity_left_range(entity: MapEntity) -> void:
+func _on_in_map_player_entity_left_range(_entity: MapEntity) -> void:
 	current_entity = null;
 	interact_btn.hide();
 	interact_btn.reparent(self);
@@ -42,3 +42,8 @@ func _on_in_map_player_entity_left_range(entity: MapEntity) -> void:
 
 func _on_interact_btn_pressed() -> void:
 	Entities.player_map_party.interact_with_map_entity(current_entity);
+
+
+func _on_in_map_player_started_moving() -> void:
+	if current_entity:
+		Entities.player_map_party.entity_left_range.emit(current_entity)

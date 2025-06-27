@@ -155,11 +155,11 @@ func _on_confirm_pressed() -> void:
 				Entities.player.inventory.change_resource(r, total_costs[r] * -1)
 				tween.parallel().tween_method(set_before_label.bind(r), before, Entities.player.inventory[r], 1);
 		
-		var exp:int = get_upkeep_exp();
+		var experience:int = get_upkeep_exp();
 		
 		for display:Control in grid.get_children():
 			if display.paying:
-				display.commit_payment(exp);
+				display.commit_payment(experience);
 		await tween.finished;
 		daily_upkeep_finished.emit();
 		Entities.world_map.unpause_map();

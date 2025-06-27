@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=116 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Script" uid="uid://k7tsmmqrmjmu" path="res://scenes/map/world_map/ui_overlay.gd" id="2_fn5hq"]
@@ -370,6 +370,17 @@ shader_parameter/neutral_value = 1.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oq2vs"]
 shader = ExtResource("48_7d1fb")
 shader_parameter/base_color = Color(0.839216, 0.745098, 0.454902, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkjfj"]
+resource_local_to_scene = true
+shader = ExtResource("48_7d1fb")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
 shader_parameter/light_color = Color(0, 1, 0, 1)
@@ -985,6 +996,7 @@ text = "wawa"
 [node name="PartyIcon" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer" node_paths=PackedStringArray("count_label") instance=ExtResource("54_nmq41")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+display_upgradeable = true
 count_label = NodePath("../Label")
 
 [node name="Label" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer"]
@@ -1234,13 +1246,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="settlement_ui" parent="ui_overlay/ui/full_screen_guis" instance=ExtResource("7_b85ww")]
+[node name="settlement_ui" parent="ui_overlay/ui/full_screen_guis" node_paths=PackedStringArray("overlay") instance=ExtResource("7_b85ww")]
 visible = false
 layout_mode = 1
 mouse_filter = 2
+overlay = NodePath("../../..")
 
-[node name="recruitment_menu" parent="ui_overlay/ui/full_screen_guis/settlement_ui" index="7"]
-visible = false
+[node name="anomaly_resource" parent="ui_overlay/ui/full_screen_guis/settlement_ui/main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly" index="0"]
+material = SubResource("ShaderMaterial_pkjfj")
 
 [node name="StatIcon" parent="ui_overlay/ui/full_screen_guis/settlement_ui/recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_akq8h")
@@ -1275,9 +1288,10 @@ material = SubResource("ShaderMaterial_6hn8o")
 [node name="chips_icon" parent="ui_overlay/ui/full_screen_guis/settlement_ui/event_view/conclusion/resource_gains/chips" index="0"]
 material = SubResource("ShaderMaterial_gxtxx")
 
-[node name="Dialogue" parent="ui_overlay/ui/full_screen_guis" node_paths=PackedStringArray("trade_menu") instance=ExtResource("13_8dqwv")]
+[node name="Dialogue" parent="ui_overlay/ui/full_screen_guis" node_paths=PackedStringArray("canvas", "trade_menu") instance=ExtResource("13_8dqwv")]
 visible = false
 layout_mode = 1
+canvas = NodePath("../../..")
 trade_menu = NodePath("../trade_menu")
 
 [node name="pre_battle" parent="ui_overlay/ui/full_screen_guis" instance=ExtResource("57_1ogav")]
@@ -1919,6 +1933,7 @@ texture = ExtResource("62_gmjui")
 
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
+[connection signal="hour_passed" from="." to="quadrants/quadrant_4/in_map_player/Player" method="travel_upkeep"]
 [connection signal="map_unpaused" from="." to="ui_overlay/ui/main_hud" method="_on_world_map_map_unpaused"]
 [connection signal="returned_from_battle" from="." to="." method="_on_returned_from_battle"]
 [connection signal="returned_from_battle" from="." to="quadrants/quadrant_4/in_map_player/in_map_camera" method="_on_world_map_returned_from_battle"]
@@ -1958,6 +1973,7 @@ texture = ExtResource("62_gmjui")
 [connection signal="entity_entered_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_entered_range"]
 [connection signal="entity_left_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_entity_left_range"]
 [connection signal="entity_left_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_left_range"]
+[connection signal="started_moving" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_started_moving"]
 [connection signal="started_moving" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_started_moving"]
 [connection signal="started_moving" from="quadrants/quadrant_4/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_started_moving"]
 [connection signal="stopped_moving" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_stopped_moving"]
@@ -1966,6 +1982,7 @@ texture = ExtResource("62_gmjui")
 [connection signal="entered_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/settlement_ui" method="_on_settlement_entered"]
 [connection signal="equipment_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/PlayerSheet" method="_on_player_equipment_changed"]
 [connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud" method="_on_player_left_settlement"]
+[connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud/HBoxContainer/resources_panel" method="silent_refresh"]
 [connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/settlement_ui" method="_on_player_left_settlement"]
 [connection signal="morale_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer/MoraleIcon" method="_on_player_morale_changed"]
 [connection signal="new_memo" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud" method="notify_new_memo"]

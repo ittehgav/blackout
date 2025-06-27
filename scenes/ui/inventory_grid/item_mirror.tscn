@@ -74,6 +74,9 @@ offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[node name="description" parent="Tooltip/MarginContainer/HBoxContainer/VBoxContainer" index="2"]
+visible = true
+
 [node name="price_tag" type="Label" parent="."]
 visible = false
 layout_mode = 1

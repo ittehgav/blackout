@@ -34,10 +34,11 @@ func listen_around() -> void:
 			
 
 	for memo:Memo in found:
-		var label:RichTextLabel = memo_label_scene.instantiate()
+		var label:MemoLabel = memo_label_scene.instantiate()
 		label.show()
 		label.text = memo.gossip;
 		post_listen_around_list.add_child(label);
+		label.adjust_size();
 		memo.register_memo()
 
 	

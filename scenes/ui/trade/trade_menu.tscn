@@ -280,50 +280,44 @@ grow_vertical = 1
 context = "trade"
 exchanging_display = NodePath("../../trader_panel/trader_inventory_display")
 
-[node name="VBoxContainer" parent="HBoxContainer/player_panel/player_inventory_display" index="2"]
-offset_left = 407.0
-offset_right = 518.0
+[node name="VBoxContainer" parent="HBoxContainer/player_panel/player_inventory_display" index="3"]
+offset_left = 397.0
+offset_right = 508.0
 
 [node name="money_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer3" index="0"]
 material = SubResource("ShaderMaterial_qglwj")
 
 [node name="money" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer3" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="food_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_jjio2")
 
 [node name="food" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="fuel_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer2" index="0"]
 material = SubResource("ShaderMaterial_an643")
 
 [node name="fuel" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer2" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="juice_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer4" index="0"]
 material = SubResource("ShaderMaterial_ormkh")
 
 [node name="juice" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer4" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="scrap_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer5" index="0"]
 material = SubResource("ShaderMaterial_15sfg")
 
 [node name="scrap" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer5" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="chips_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_7uvto")
 
 [node name="chips" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer6" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="resource_picker" parent="HBoxContainer/player_panel/player_inventory_display" index="4" node_paths=PackedStringArray("trade_menu")]
@@ -363,9 +357,9 @@ offset_bottom = 635.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/player_panel"]
 layout_mode = 0
-offset_left = 396.0
+offset_left = 406.0
 offset_top = 450.0
-offset_right = 528.0
+offset_right = 538.0
 offset_bottom = 684.0
 mouse_filter = 2
 
@@ -375,8 +369,8 @@ text = "Quick-buy"
 
 [node name="1_hour_upkeep" type="Button" parent="HBoxContainer/player_panel/VBoxContainer"]
 layout_mode = 2
-text = "1 hour's
-Travel Cost"
+text = "1 Hour
+Upkeep"
 
 [node name="1_h_cost" type="HBoxContainer" parent="HBoxContainer/player_panel/VBoxContainer"]
 layout_mode = 2
@@ -406,8 +400,8 @@ text = "22"
 
 [node name="24_hour_upkeep" type="Button" parent="HBoxContainer/player_panel/VBoxContainer"]
 layout_mode = 2
-text = "24 hours'
-Travel Cost"
+text = "24 Hours
+Upkeep"
 
 [node name="24_h_cost" type="HBoxContainer" parent="HBoxContainer/player_panel/VBoxContainer"]
 layout_mode = 2
@@ -453,6 +447,7 @@ offset_bottom = 59.0
 grow_horizontal = 2
 theme = ExtResource("5_ggy66")
 shortcut = ExtResource("6_yg835")
+shortcut_in_tooltip = false
 text = "[esc] Exit"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/in_trade"]
@@ -560,7 +555,11 @@ context = "trade"
 from_player = false
 exchanging_display = NodePath("../../player_panel/player_inventory_display")
 
-[node name="VBoxContainer" parent="HBoxContainer/trader_panel/trader_inventory_display" index="2"]
+[node name="cargo" parent="HBoxContainer/trader_panel/trader_inventory_display" index="2"]
+offset_left = 133.0
+offset_right = 173.0
+
+[node name="VBoxContainer" parent="HBoxContainer/trader_panel/trader_inventory_display" index="3"]
 offset_left = -266.0
 offset_right = -155.0
 offset_bottom = 456.0
@@ -569,7 +568,6 @@ offset_bottom = 456.0
 material = SubResource("ShaderMaterial_ln21g")
 
 [node name="money" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer3" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="food_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer" index="0"]
@@ -577,7 +575,6 @@ material = SubResource("ShaderMaterial_gamgw")
 match_player_inventory = false
 
 [node name="food" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 text = "we"
 
@@ -586,7 +583,6 @@ material = SubResource("ShaderMaterial_8o88u")
 match_player_inventory = false
 
 [node name="fuel" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer2" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="juice_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer4" index="0"]
@@ -594,7 +590,6 @@ material = SubResource("ShaderMaterial_yg835")
 match_player_inventory = false
 
 [node name="juice" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer4" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="scrap_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer5" index="0"]
@@ -602,7 +597,6 @@ material = SubResource("ShaderMaterial_ggy66")
 match_player_inventory = false
 
 [node name="scrap" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer5" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
 
 [node name="chips_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer6" index="0"]
@@ -610,12 +604,7 @@ material = SubResource("ShaderMaterial_pwk7p")
 match_player_inventory = false
 
 [node name="chips" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer6" index="1"]
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.741176)
 theme_override_constants/outline_size = 16
-
-[node name="cargo" parent="HBoxContainer/trader_panel/trader_inventory_display" index="3"]
-offset_left = 133.0
-offset_right = 173.0
 
 [node name="resource_picker" parent="HBoxContainer/trader_panel/trader_inventory_display" index="4" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 1

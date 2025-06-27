@@ -25,6 +25,9 @@ func _ready()->void:
 		resource_tweens[r].kill()
 		set_resource_label_text(Entities.player.inventory[r], self[r+"_label"]);
 
+func silent_refresh()->void:
+	for r:String in Index.all_resources:
+		self[r+"_label"].text = str(Entities.player.inventory[r])
 
 
 func animate_resource_change(resource:String, change:int)->void:
@@ -35,7 +38,7 @@ func animate_resource_change(resource:String, change:int)->void:
 	if not resource_tweens[resource].is_running():
 		var label:Label = self[resource+"_label"];
 		var current_value:int = int(label.text);
-		var target_value :int = current_value + change;
+		var target_value :int = Entities.player.inventory[resource]
 		
 		label.add_theme_font_size_override("font_size", 128);
 

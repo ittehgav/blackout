@@ -418,15 +418,17 @@ theme_override_constants/margin_bottom = 20
 [node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/separation = 1700
 alignment = 1
 
 [node name="party_and_inventory" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-current_tab = 0
+current_tab = 1
 
 [node name="Inventory" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("inventory_panel", "inventory_display")]
+visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("8_hv25b")
@@ -451,7 +453,7 @@ offset_left = 7.0
 offset_top = 10.0
 offset_right = -2.0
 
-[node name="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="2"]
+[node name="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="3"]
 anchors_preset = 0
 anchor_left = 0.0
 anchor_right = 0.0
@@ -712,7 +714,6 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "recruit_full_view", "recruits_grid", "upgrade_hint")]
-visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("15_s407w")

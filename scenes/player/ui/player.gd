@@ -22,15 +22,17 @@ extends Panel
 @export var technique_label:Label;
 
 
-func _ready()->void:
+func _ready()->void: 
 	name_label.text = Entities.player.name
+	leadership_level_progress.build_from_player("leadership")
+	combat_level_progress.build_from_player("combat")
 
 func refresh_data()->void:
 	leadership_level_label.text = "Leadership Level: " + str(Entities.player.leadership_level);
 	combat_level_label.text = "Combat Level: " + str(Entities.player.combat_level);
 	
-	leadership_level_progress.build_from_player("leadership")
-	combat_level_progress.build_from_player("combat")
+	leadership_level_progress.update_max_value(true)
+	combat_level_progress.update_max_value(true)
 	
 	var player_stats:CombatStats = Entities.player.combat_stats;
 	for stat:String in Index.all_combat_stats:

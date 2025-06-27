@@ -15,12 +15,12 @@ Wandering Trader: Pleasure doing business with you!
 
 ~ convince_success
 Wandering Trader: #persuaded I see you have a touch for bargain, that's hard to come by in these lands.\n
-[resource trade prices have been improved by 10%] => start
+[resource prices have been improved by 10%] => start
 =>< common/improve_prices
 => start
  
 ~ convince_fail
 Wandering Trader: #angry If you don't like my prices, then go buy someplace else!\n
-[resource trade have been worsened by 10%] => start
+[resource prices have been worsened by 10%] => start
 =>< common/strain_prices
 => start

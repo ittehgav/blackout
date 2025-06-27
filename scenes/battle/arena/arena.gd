@@ -24,13 +24,14 @@ var won_battle:bool;
 @export var tide_bar:TextureProgressBar;
 
 var battle_exp_value:float=0;
+var battle_money_loot:int;
 var battle_loot:Inventory;
 
 
 func start_battle(enemy_leader:Leader)->void:
 	Entities.main.current_state = "battle"
 	Entities.arena = self;
-	assign_team(player_fighter, 1, Entities.player)
+	assign_team(player_fighter, 1)
 	load_teams(enemy_leader);
 	if Entities.world_map:
 		## for testing battle straight out of the main menu
@@ -44,42 +45,24 @@ func start_battle(enemy_leader:Leader)->void:
 	generate_battle_reward(enemy_leader);
 	finished_loading.emit()
 
-func return_to_world_map()->void:
-	Entities.world_map.returned_from_battle.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
-	var camera:Camera2D = Entities.player_map_party.camera;
-	camera.enabled = true
-	camera.reparent(Entities.player_map_party)
-	camera.global_position = Entities.player_map_party.global_position;
-	Entities.world_map.unpause_map();
-	Entities.world_map.show()
-	Entities.main.current_state = "world_map"
-	
 
-	queue_free()
-	Entities.main.add_child(Entities.world_map)
-	Entities.world_map.returned_from_battle.emit(won_battle);
 
 func generate_battle_reward(enemy_leader:Leader)->void:
 	for fighter:ActiveFighter in team_2.units:
 		battle_exp_value += fighter.unit.level;
 	
+	battle_money_loot = randi_range(battle_exp_value/2, battle_exp_value * 2);
 	battle_loot = enemy_leader.inventory
-		
+
 
 
 func load_teams(enemy_leader:Leader)->void:
-	## happens before ready?
-	
+	## happens before ready
 	## ugly way to assign player fighter
 	Entities.player.load_party(team_1, 1);
 	team_1.leader = Entities.player
-	
-	
 
 	enemy_leader.load_party(team_2, 2);
-
-
-
 
 
 func player_died(_killer:ActiveFighter)->void:
@@ -90,7 +73,7 @@ func end_battle(winner:int)->void:
 	overlay.post_fight.show_post_fight(winner)
 	battle_over.emit(winner)
 	
-func assign_team(unit:ActiveFighter, team_n:int, leader:Leader)->void:
+func assign_team(unit:ActiveFighter, team_n:int)->void:
 	var enemy_team_n:int = 2 if team_n == 1 else 1;
 	var ally_team:Team = self["team_" + str(team_n)];
 	ally_team.assign_unit(unit);
@@ -138,3 +121,18 @@ func _process(_delta:float)->void:
 			
 			var tween:Tween = create_tween();
 			tween.tween_property(self, "scale", target_scale, 1)
+			
+func return_to_world_map()->void:
+	Entities.world_map.returned_from_battle.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
+	var camera:Camera2D = Entities.player_map_party.camera;
+	camera.enabled = true
+	camera.reparent(Entities.player_map_party)
+	camera.global_position = Entities.player_map_party.global_position;
+	Entities.world_map.unpause_map();
+	Entities.world_map.show()
+	Entities.main.current_state = "world_map"
+
+	queue_free()
+	Entities.main.add_child(Entities.world_map)
+	Entities.player.reparent(Entities.world_map.player)
+	Entities.world_map.returned_from_battle.emit(won_battle);

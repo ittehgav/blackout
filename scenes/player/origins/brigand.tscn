@@ -64,7 +64,7 @@ sight_range = 256
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_pud2m")]
 holder = NodePath("..")
-money = 25
+money = 50
 
 [node name="Food Bag" parent="Inventory" instance=ExtResource("3_tbil6")]
 stack_size = 50
@@ -99,9 +99,9 @@ base = NodePath("Crowbar Guy")
 material = SubResource("ShaderMaterial_suxqt")
 
 [node name="combat_stats" parent="." instance=ExtResource("4_a2s3y")]
-max_hp = 300.0
+max_hp = 600.0
 attack = 15.0
-defense = 10.0
+defense = 20.0
 agility = 5.0
 move_speed = 250.0
 

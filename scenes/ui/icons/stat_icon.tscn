@@ -12,9 +12,9 @@ shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(0, 1, 0, 1)
 shader_parameter/light_color = Color(1, 0, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
+shader_parameter/shadow_value = 0.1
+shader_parameter/light_value = 1.5
+shader_parameter/neutral_value = 0.75
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d742l"]
 bg_color = Color(1, 0, 0, 1)
@@ -45,9 +45,7 @@ script = ExtResource("2_w7tyd")
 panel = NodePath("panel")
 
 [node name="panel" type="Panel" parent="."]
-visible = false
 show_behind_parent = true
-z_index = -1
 use_parent_material = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 1

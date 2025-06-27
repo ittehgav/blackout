@@ -58,9 +58,7 @@ func refresh_samples(just_changed:Equipment=null)->void:
 	var module_to_sample:Module = Entities.player.equipped_module;
 	module_sample.texture = module_to_sample.texture;
 	
-	module_sample.custom_minimum_size = module_to_sample.texture.get_image().get_size() * 2
-	module_sample.size = module_to_sample.texture.get_image().get_size() * 2
-	
+
 	module_sample.material.set_shader_parameter("base_color", gear_color);
 	module_sample_bg.color = gear_color.lightened(.5)
 	

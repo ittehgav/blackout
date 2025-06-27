@@ -13,7 +13,7 @@ arc = NodePath("projection")
 
 [node name="projection" type="Sprite2D" parent="."]
 visible = false
-modulate = Color(1, 1, 1, 0.623529)
+modulate = Color(0, 0, 0, 0.333333)
 rotation = -0.523598
 scale = Vector2(6, 6)
 texture = ExtResource("3_eoeo2")

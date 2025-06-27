@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b8j8soyx2828m"]
+[gd_scene load_steps=38 format=3 uid="uid://b8j8soyx2828m"]
 
 [ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/ui/post_fight/post_fight.gd" id="1_433o0"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="2_7eru0"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_grid/inventory_display.tscn" id="11_apr0c"]
 [ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="12_qaebw"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="12_uydno"]
+[ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="14_c3ns4"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="15_bx6rd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_apr0c"]
 shader = ExtResource("6_am2jd")
@@ -149,6 +151,17 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ylgj"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dh2mc"]
 resource_local_to_scene = true
 shader = ExtResource("12_uydno")
@@ -240,6 +253,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.737255)
 
 [node name="victory_view" type="Control" parent="." node_paths=PackedStringArray("exp_gains", "loot_gains")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -580,43 +594,47 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 64
 text = "Continue"
 
-[node name="loot_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("post_fight", "player_inventory_display", "loot_display")]
+[node name="loot_gains" type="PanelContainer" parent="victory_view" node_paths=PackedStringArray("post_fight", "loot_sfx", "player_inventory_display", "loot_display", "money_gain_label", "money_sfx")]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = 29.0
-offset_right = -40.0
-offset_bottom = -31.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -295.0
+offset_right = 400.0
+offset_bottom = 295.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_r614c")
 post_fight = NodePath("../..")
+loot_sfx = NodePath("money_gain_sfx")
 player_inventory_display = NodePath("HBoxContainer/player_inventory")
 loot_display = NodePath("HBoxContainer/loot")
+money_gain_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/money_gain")
+money_sfx = NodePath("money_gain_sfx")
+
+[node name="money_gain_sfx" type="AudioStreamPlayer" parent="victory_view/loot_gains"]
+stream = ExtResource("14_c3ns4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="victory_view/loot_gains"]
-layout_mode = 1
-offset_left = 24.0
-offset_top = 20.0
-offset_right = 770.0
-offset_bottom = 210.0
+layout_mode = 2
 theme_override_constants/separation = 30
 
 [node name="player_inventory" parent="victory_view/loot_gains/HBoxContainer" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
-custom_minimum_size = Vector2(544, 578)
+custom_minimum_size = Vector2(600, 500)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 context = "loot"
 exchanging_display = NodePath("../loot")
 
-[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="2"]
-offset_left = 145.0
+[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="3"]
+offset_left = 100.0
 offset_top = 34.0
-offset_right = 237.0
+offset_right = 192.0
 offset_bottom = 390.0
 
 [node name="money_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer3" index="0"]
@@ -679,12 +697,29 @@ text = "Loot All"
 layout_mode = 2
 text = "Continue"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="resource_icon" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("15_bx6rd")]
+material = SubResource("ShaderMaterial_2ylgj")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "money"
+match_player_inventory = false
+adjacent_items = [NodePath("../money_gain")]
+
+[node name="money_gain" type="Label" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "+23"
+
 [node name="loot" parent="victory_view/loot_gains/HBoxContainer" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("11_apr0c")]
+custom_minimum_size = Vector2(400, 500)
 layout_mode = 2
 context = "loot"
 exchanging_display = NodePath("../player_inventory")
 
-[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/loot" index="2"]
+[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/loot" index="3"]
 offset_left = 5161.0
 offset_right = 5253.0
 

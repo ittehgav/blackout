@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/player/equipment.gd" id="6_cbwmk"]
 [ext_resource type="Script" uid="uid://bbow6qj3s5hyu" path="res://scenes/battle/player/weapon_sfx.gd" id="7_avuby"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/player/camera.gd" id="8_ccswf"]
-[ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="10_og1r2"]
+[ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="10_og1r2"]
 [ext_resource type="AudioStream" uid="uid://bwgpqu6y5q62a" path="res://assets/sound/sfx/combat/player/spray.ogg" id="11_clyj1"]
 [ext_resource type="AudioStream" uid="uid://o61xjbhygbnd" path="res://assets/sound/sfx/combat/player/weapon_alternate.wav" id="11_dax2e"]
 [ext_resource type="Script" uid="uid://c5fabw4wpron0" path="res://scenes/battle/player/weapon_projection.gd" id="12_fo4cr"]
@@ -171,6 +171,7 @@ position = Vector2(60, 0)
 shape = SubResource("CircleShape2D_5q67b")
 
 [node name="weapon_projection" type="Node2D" parent="hit_scan"]
+z_index = -1
 position = Vector2(30, 0)
 scale = Vector2(1, 1.5)
 script = ExtResource("12_fo4cr")

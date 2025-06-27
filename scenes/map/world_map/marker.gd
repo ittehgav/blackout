@@ -19,7 +19,10 @@ func _process(_delta:float)->void:
 	if visible:
 		projection.rotation = Entities.player_map_party.global_position.angle_to_point(global_position)
 		
-		
+func clear()->void:
+	hide();
+	projection.hide()
+	
 func show_in_position(target:Vector2)->void:
 	reparent(origin)
 	sfx.play_sound_by_key("marker_placed")

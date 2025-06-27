@@ -9,9 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/swing.wav" id="6_v4rci"]
 [ext_resource type="AudioStream" uid="uid://c0xyiomr261fb" path="res://assets/sound/sfx/combat/special/lightning_light.wav" id="7_nct2u"]
 [ext_resource type="AudioStream" uid="uid://cme1mcex521ov" path="res://assets/sound/sfx/combat/special/lightning_heavy.wav" id="8_210o4"]
+[ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="9_nct2u"]
 [ext_resource type="AudioStream" uid="uid://c82vpb256ryq1" path="res://assets/sound/sfx/combat/generic/defense_up.mp3" id="9_r6yuq"]
 [ext_resource type="AudioStream" uid="uid://bytgnuo5pfxd" path="res://assets/sound/sfx/combat/special/accelerate.wav" id="10_eg31j"]
-[ext_resource type="AudioStream" uid="uid://bohutyh6cuwes" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="11_ul33s"]
 [ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/sfx/combat/special/gravity.ogg" id="12_drybb"]
 [ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/sfx/combat/generic/heal.wav" id="13_2v0yn"]
 [ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="15_arr5u"]
@@ -68,7 +68,7 @@ lightning_small = ExtResource("7_nct2u")
 lightning_big = ExtResource("8_210o4")
 defense_up = ExtResource("9_r6yuq")
 engine = ExtResource("10_eg31j")
-shoot = ExtResource("11_ul33s")
+shoot = ExtResource("9_nct2u")
 gravity = ExtResource("12_drybb")
 heal = ExtResource("13_2v0yn")
 projectile_hit = ExtResource("15_urubw")
@@ -149,15 +149,16 @@ floating_icon_anchor = NodePath("floating_icon_anchor")
 cooldown_timer = NodePath("../fighter_timers/stunnable/skill_cooldown")
 unit = NodePath("..")
 
-[node name="vfx_control" type="Node" parent="FighterOverlay" node_paths=PackedStringArray("unit", "floating_icon_anchor", "status_timers", "status_bar")]
+[node name="vfx_control" type="Node" parent="FighterOverlay" node_paths=PackedStringArray("status_timers", "status_bar", "cooldown_timer", "unit", "floating_icon_anchor")]
 script = ExtResource("3_b68jh")
+status_timers = NodePath("../VBoxContainer/status_timers")
+status_bar = NodePath("../VBoxContainer/status_timers/status_display")
+cooldown_timer = NodePath("../../fighter_timers/stunnable/skill_cooldown")
 unit = NodePath("../..")
 floating_icon_anchor = NodePath("../floating_icon_anchor")
 hook_particle = ExtResource("19_v38rx")
 overhead_particle = ExtResource("20_v4rci")
 beam_particle = ExtResource("21_v38rx")
-status_timers = NodePath("../VBoxContainer/status_timers")
-status_bar = NodePath("../VBoxContainer/status_timers/status_display")
 
 [node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
 position = Vector2(-4, 67)

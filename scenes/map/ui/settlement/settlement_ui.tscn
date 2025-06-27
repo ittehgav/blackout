@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cqdyfeds3f681"]
+[gd_scene load_steps=39 format=3 uid="uid://cqdyfeds3f681"]
 
 [ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="2_c11hx"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bckvycfqlfhbi" path="res://assets/visual/backgrounds/settlements/factory/factory.png" id="4_pm0ox"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="5_36m0f"]
 [ext_resource type="PackedScene" uid="uid://dgl7yg6w4idp2" path="res://scenes/ui/memo_label.tscn" id="9_05gvk"]
+[ext_resource type="Texture2D" uid="uid://etp7xxiib17j" path="res://assets/visual/ui/settlement/anomaly_arrow.png" id="9_jxa5d"]
+[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="10_qrl08"]
 [ext_resource type="PackedScene" uid="uid://ctxqhmgpiuoss" path="res://scenes/ui/trade/trade_menu.tscn" id="11_bwbxe"]
 [ext_resource type="Script" uid="uid://c3aknt2uyy8a3" path="res://scenes/map/ui/settlement/recruitment_menu.gd" id="12_bwbxe"]
 [ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/map/settlement/recruitment_card.tscn" id="13_i581t"]
@@ -31,6 +33,17 @@ shader_parameter/ground_dark = Color(0.144, 0.216, 0.36, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pm0ox"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fjqa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkjfj"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m2mhi"]
 atlas = ExtResource("16_pm0ox")
@@ -157,7 +170,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_props", "sky_bg", "crowd_rect", "name_label", "settlement_type_label", "short_description_label", "long_description_label", "trade_btn", "recruit_units_btn", "listen_around_btn", "local_event_btn", "local_event_btn_label", "main_view", "trade_menu", "recruitment_menu", "event_view", "ui_sfx")]
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_props", "sky_bg", "crowd_rect", "name_label", "settlement_type_label", "short_description_label", "long_description_label", "anomaly_resource_icon", "anomaly_arrows", "anomaly_sign", "trade_btn", "recruit_units_btn", "listen_around_btn", "local_event_btn", "local_event_btn_label", "main_view", "trade_menu", "recruitment_menu", "event_view", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -174,6 +187,9 @@ name_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/se
 settlement_type_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/settlement_type")
 short_description_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/short_description")
 long_description_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/long_description")
+anomaly_resource_icon = NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/anomaly_resource")
+anomaly_arrows = [NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/anomaly_arrow1"), NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/anomally_arrow2"), NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/anomaly_arrow3")]
+anomaly_sign = NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/money_sign")
 trade_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade")
 recruit_units_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/recruit_units")
 listen_around_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/listen_around")
@@ -242,7 +258,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="main_view" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -351,7 +366,46 @@ theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 
 theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
 theme_override_font_sizes/font_size = 64
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
-text = "Trade"
+text = "   Trade"
+alignment = 0
+
+[node name="anomaly" type="HBoxContainer" parent="main_view/container/options/MarginContainer/VBoxContainer/trade"]
+layout_mode = 0
+offset_left = 243.0
+offset_top = 4.0
+offset_right = 463.0
+offset_bottom = 55.0
+
+[node name="anomaly_resource" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly" instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_pkjfj")
+layout_mode = 2
+match_player_inventory = false
+
+[node name="money_sign" type="Label" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "$"
+
+[node name="anomaly_arrow1" type="TextureRect" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_jxa5d")
+
+[node name="anomally_arrow2" type="TextureRect" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_jxa5d")
+
+[node name="anomaly_arrow3" type="TextureRect" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_jxa5d")
 
 [node name="recruit_units" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -360,8 +414,14 @@ theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 
 theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
 theme_override_font_sizes/font_size = 64
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
-text = "Recruit Fighters
-"
+text = " Recruit Units"
+alignment = 0
+
+[node name="Party Icon" parent="main_view/container/options/MarginContainer/VBoxContainer/recruit_units" instance=ExtResource("10_qrl08")]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+offset_left = 124.0
+offset_right = 156.0
 
 [node name="listen_around" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -469,6 +529,7 @@ visible = false
 layout_mode = 1
 
 [node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "hired_stamp", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -509,13 +570,16 @@ text = "Click a unit for more information"
 
 [node name="Panel" type="Panel" parent="recruitment_menu"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 16.0
+offset_left = -605.0
 offset_top = -279.0
-offset_right = 848.0
+offset_right = 227.0
 offset_bottom = 279.0
+grow_horizontal = 2
 grow_vertical = 2
 
 [node name="sprite" type="TextureRect" parent="recruitment_menu/Panel"]

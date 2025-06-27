@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=56 format=3 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" uid="uid://xb73utl6rxmj" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="TileSet" uid="uid://d2pxm2uqscmkg" path="res://resources/world_tile_set.tres" id="2_524le"]
@@ -181,6 +181,17 @@ shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xs7fa"]
+resource_local_to_scene = true
+shader = ExtResource("7_dheq7")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ylgj"]
 resource_local_to_scene = true
 shader = ExtResource("7_dheq7")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -637,9 +648,6 @@ texture = ExtResource("31_w5ded")
 visible = false
 layout_mode = 1
 
-[node name="victory_view" parent="hud/overlay/post_fight" index="2"]
-visible = false
-
 [node name="max_hp_icon" parent="hud/overlay/post_fight/victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_2tjb5")
 
@@ -672,6 +680,9 @@ material = SubResource("ShaderMaterial_p7mpf")
 
 [node name="chips_icon" parent="hud/overlay/post_fight/victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_xs7fa")
+
+[node name="resource_icon" parent="hud/overlay/post_fight/victory_view/loot_gains/HBoxContainer/VBoxContainer/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_2ylgj")
 
 [node name="money_icon" parent="hud/overlay/post_fight/victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer3" index="0"]
 material = SubResource("ShaderMaterial_6diul")
@@ -765,6 +776,7 @@ position = Vector2(-1571, -5423)
 polygon = PackedVector2Array(-2528, 9530, 5667, 9519, 5667, 1327, -2525, 1327, -2528, 12000, -4453, 11958, -4517, -520, 7634, -886, 7687, 1254, 7814, 11747, 5597, 11789, -2528, 12000)
 
 [node name="light" type="DirectionalLight2D" parent="."]
+modulate = Color(1, 1, 1, 0.537255)
 position = Vector2(-2238, 173)
 blend_mode = 2
 

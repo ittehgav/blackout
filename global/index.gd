@@ -123,8 +123,8 @@ const all_resources = [
 	"chips"
 ]
 const resource_base_prices = {
-	"food":1.0,
-	"fuel":1.0,
+	"food":1.25,
+	"fuel":1.5,
 	"juice":2.0,
 	"scrap":3.0,
 	"chips":5.0
@@ -287,9 +287,9 @@ var resource_descriptions:Dictionary[String, String] = {
 	"money": get_color_tag("money") + "Basic currency[/color] used for trading items and resources.",
 	
 	
-	"juice": "Strange substance with many practical uses, a [color=green]common[/color] trade comodity.\nUsed for the [color=cyan]upkeep and upgrading[/color] of certain units.",
-	"scrap": "Broken down pieces of metal used for all kinds of purposes, usable scrap is [color=green]rare[/color] to come across.\nUsed for the [color=cyan]upkeep and upgrade[/color] of certain units.",
-	"chips": "Intact processor chips are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading[/color] certain units."
+	"juice": "Strange substance with many practical uses, a [color=green]common[/color] trade comodity.\nUsed for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for equipment[/color].",
+	"scrap": "Broken down pieces of metal used for all kinds of purposes, usable scrap is [color=green]rare[/color] to come across.\nUsed for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for equipment[/color].",
+	"chips": "Intact processor chips are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for equipment[/color]."
 }
 
 const all_combat_stats:Array[String] = [

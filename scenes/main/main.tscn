@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=23 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="PackedScene" uid="uid://d0n0kjgpxpjit" path="res://scenes/ui/main_menu.tscn" id="2_th5th"]
@@ -10,10 +10,23 @@
 [ext_resource type="AudioStream" uid="uid://c275jcn8n3vda" path="res://assets/sound/bgm/loops/thugs.ogg" id="10_rofvo"]
 [ext_resource type="AudioStream" uid="uid://dp1xrfwe656dj" path="res://assets/sound/bgm/loops/travelling_trader.ogg" id="11_tbnf8"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="12_7smn1"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="12_raeie"]
 [ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="13_i7in8"]
 [ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="14_0bhws"]
 [ext_resource type="Script" uid="uid://c5ydkff6c2nyn" path="res://scenes/main/control.gd" id="31_ii537"]
 [ext_resource type="Texture2D" uid="uid://drce0fgyc1x5i" path="res://assets/visual/splash/barrel.jpg" id="32_ii537"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxu8e"]
+resource_local_to_scene = true
+shader = ExtResource("12_raeie")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(6, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7nlll"]
 resource_local_to_scene = true
@@ -103,6 +116,9 @@ defeat = ExtResource("13_i7in8")
 
 [node name="new_game" parent="main_menu/main_ui" index="4"]
 visible = false
+
+[node name="player_body" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer" index="0"]
+material = SubResource("ShaderMaterial_hxu8e")
 
 [node name="StatIcon" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/max_hp" index="0"]
 material = SubResource("ShaderMaterial_7nlll")

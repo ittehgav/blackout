@@ -183,7 +183,6 @@ func load_game(data:Dictionary)->void:
 	
 func _on_returned_from_battle(won: bool) -> void:
 	## where something different will happen if you lose 
-	Entities.player.reparent(Entities.player_map_party)
 	unpause_map(true);
 	var party:NpcMapParty = Entities.current_speaking_party;
 	if won:
@@ -195,7 +194,7 @@ func _on_returned_from_battle(won: bool) -> void:
 			"rob_player":
 				Entities.dialogue_player.start_dialogue(party.leader, "defeated_player")
 				await Entities.dialogue_player.dialogue_ended;
-				MapEvents.yield_resources(["money"], .5);
+				MapEvents.yield_resources();
 	
 
 func quadrant_for_global_position(p:Vector2)->WorldMapQuadrant:

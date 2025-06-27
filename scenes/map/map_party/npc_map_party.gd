@@ -26,7 +26,7 @@ func _ready()->void:
 			behavior_icon.texture = Index.salesman_icon_texture;
 	
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if target_entity:
 		var direction:Vector2;
 		## only movement towards an entity (right now only the player) is done through here

@@ -97,7 +97,7 @@ func generate_sky(floating_chatter:bool)->void:
 			chatter_box.modulate = Color.BLACK
 		await get_tree().create_timer(1.25).timeout
 		var wait_acm:float = 0;
-		for i in randi_range(2, 5):
+		for i in 3:
 			const x_margin = 300;
 			var chatter:Label = chatter_box.duplicate();
 			chatter.position = Vector2(randi_range(x_margin, window_size.x - x_margin), window_size.y + randi_range(10, 50));

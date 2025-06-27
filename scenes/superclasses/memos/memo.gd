@@ -24,6 +24,7 @@ func register_memo()->void:
 	
 
 func expire()->void:
+	## happens no matter what if the player didn't register and it finished ocurring
 	if registered:
 		expired = true;
 	else:
