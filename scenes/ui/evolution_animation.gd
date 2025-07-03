@@ -32,6 +32,8 @@ func play_animation(old_base:FighterBase, new_base:FighterBase)->void:
 	tween.tween_callback(set_process_input.bind(true));
 
 func after_animation()->void:
+	Entities.player.inventory.refresh_resource_counts();
+	recruit_view.unit_upgraded.emit()
 	label.show()
 	hint.show();
 	set_process_input(true);

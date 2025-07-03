@@ -51,11 +51,11 @@ const skill_range = MELEE_RANGE;
 const skill_cooldown = 1.5;
 
 const evolutions = {
-	"crossbow_guy":{
+	"Crossbow Guy":{
 		"scrap":50,
 		"fuel":20
 	},
-	"gravity_guy":{
+	"Gravity Guy":{
 		"chips":20,
 		"scrap":50
 	}

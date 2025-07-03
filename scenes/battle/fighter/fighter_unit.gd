@@ -23,8 +23,7 @@ func _ready()->void:
 	level_up.connect(Scaling.level_up_stats)
 
 func change_base(new_base:FighterBase)->void:
-	base.free();
-	base = new_base.duplicate()
+	base = new_base;
 	update_stats();
 
 func update_stats()->void:
@@ -35,8 +34,6 @@ func update_stats()->void:
 	Scaling.level_up_stats(self, level)
 	apply_stat_modifiers();
 	stats_loaded = true;
-
-
 
 
 
@@ -75,3 +72,12 @@ func apply_stat_modifiers()->void:
 	## (as of right now only when upgraded)
 	for stat:String in Index.all_combat_stats:
 		stats[stat] += modifier_stats[stat]
+
+
+func _on_child_entered_tree(node: Node) -> void:
+	if node is FighterBase:
+		assert(not base);
+		await Index.ready
+		var i:int = Index.all_fighter_bases.find_custom(func(b:FighterBase)->bool:return b.name == node.name);
+		base = Index.all_fighter_bases[i];
+		remove_child(node)

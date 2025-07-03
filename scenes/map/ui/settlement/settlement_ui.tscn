@@ -429,7 +429,7 @@ theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 
 theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
 theme_override_font_sizes/font_size = 64
 theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
-text = "Listen Around (3h)"
+text = "Investigate (3h)"
 
 [node name="local_event" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
 layout_mode = 2

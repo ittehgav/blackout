@@ -39,20 +39,20 @@ func initiate_unit_stats(unit:FighterUnit)->void:
 			"bodybuilder":
 				## bodybuilder - tank with focus on HP
 				unit.stats.max_hp += 150;
-				unit.stats.attack += 10;
+				unit.stats.attack += 5;
 				unit.stats.defense += 5;
 				
 			"brawler":
 				## brawler - still tanky with a slight bias towards attack
 				unit.stats.max_hp += 75;
-				unit.stats.attack += 15;
+				unit.stats.attack += 7;
 				unit.stats.defense += 5;
 				
 			"mechanic":
 				## mechanic - tanky with a slight focus on technique 
 				## (doesn't really show in this function)
 				unit.stats.max_hp += 75;
-				unit.stats.attack += 15;
+				unit.stats.attack += 7;
 				unit.stats.defense += 7.5;
 				
 			"disruptor":
@@ -64,13 +64,13 @@ func initiate_unit_stats(unit:FighterUnit)->void:
 			"hunter":
 				## hunter - squishy, fully focused on damage
 				unit.stats.max_hp += 50;
-				unit.stats.attack += 30;
+				unit.stats.attack += 10;
 				unit.stats.defense += 2;
 				
 			"scientist":
 				## scientist - squishy, focus on technique
 				unit.stats.max_hp += 50;
-				unit.stats.attack += 10;
+				unit.stats.attack += 5;
 				unit.stats.defense += 1;
 				
 			"doctor":
@@ -81,7 +81,7 @@ func initiate_unit_stats(unit:FighterUnit)->void:
 			"cyborg":
 				## cyborg - low HP, high defense and ATK
 				unit.stats.max_hp += 50
-				unit.stats.attack += 10
+				unit.stats.attack += 7
 				unit.stats.defense += 15;
 			_:
 				printerr("MISSIGNTAGA ", tag)
@@ -93,28 +93,28 @@ func tag_stats_per_level(tag:String)->Dictionary:
 	match tag:
 		"juggernaut":
 			dict.max_hp = 50;
-			dict.attack = 5;
+			dict.attack = 2;
 			dict.defense = 4;
 			
 			dict.agility = 1
 			dict.technique = .1
 		"brawler":
 			dict.max_hp = 40;
-			dict.attack = 10;
+			dict.attack = 5;
 			dict.defense = 2
 			
 			dict.agility = 1.5
 			dict.technique = .1
 		"hunter":
 			dict.max_hp = 10;
-			dict.attack = 15;
+			dict.attack = 10;
 			dict.defense = .5;
 			
 			dict.agility = 1.5;
 			dict.technique = .125
 		"disruptor":
 			dict.max_hp = 15;
-			dict.attack = 5;
+			dict.attack = 3;
 			dict.defense = .5;
 			
 			dict.agility = .75;
@@ -128,28 +128,28 @@ func tag_stats_per_level(tag:String)->Dictionary:
 			dict.technique = .15;
 		"mechanic":
 			dict.max_hp = 25;
-			dict.attack = 7.5;
+			dict.attack = 5;
 			dict.defense = 1.5;
 			
 			dict.agility = 1.25
 			dict.technique = .125
 		"bodybuilder":
 			dict.max_hp = 75;
-			dict.attack = 5;
+			dict.attack = 3;
 			dict.defense = 2;
 			
 			dict.agility = 1
 			dict.technique = .1
 		"doctor":
 			dict.max_hp = 20;
-			dict.attack = 5;
+			dict.attack = 1;
 			dict.defense = .5;
 			
 			dict.agility = 1
 			dict.technique = .15;
 		"cyborg":
 			dict.max_hp = 20;
-			dict.attack = 12.5;
+			dict.attack = 10;
 			dict.defense = 3;
 			
 			dict.agility = 1.5

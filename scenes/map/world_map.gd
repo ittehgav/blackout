@@ -23,8 +23,8 @@ var current_month:int=1;
 
 var pause_stack:int = 0;
 
-var current_hour:int=6;
-var current_minute:int=50;
+var current_hour:int=12;
+var current_minute:int=0;
 
 @export var ui:Control
 
@@ -74,6 +74,7 @@ func _ready()->void:
 
 	get_tree().paused = true;
 	Entities.main_bgm.play_bgm("world_map")
+	minute_passed.emit()
 
 
 func _on_player_started_moving() -> void:
@@ -178,7 +179,6 @@ func load_game(data:Dictionary)->void:
 	current_minute = data.world.minute;
 	
 	quadrants.load_game(data)
-
 
 	
 func _on_returned_from_battle(won: bool) -> void:

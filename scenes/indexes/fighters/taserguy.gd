@@ -42,11 +42,11 @@ const status_duration = .75
 
 
 const evolutions = {
-	"tether_guy":{
+	"Tether Guy":{
 		"juice":50,
 		"food":50
 	},
-	"coil_guy":{
+	"Coil Guy":{
 		"chips":20,
 		"scrap":50
 	}

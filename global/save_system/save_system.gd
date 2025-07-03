@@ -1,6 +1,7 @@
 extends Node
 
-
+func auto_save()->void:
+	pass
 
 func save_data(file_path:String)->void:
 	var save_file:Dictionary[String, Dictionary]={
@@ -141,7 +142,7 @@ func store_settlement_data(settlement:Settlement)->Dictionary:
 	
 func store_unit_data(unit:FighterUnit)->Dictionary:
 	var data:Dictionary = {
-		"base_filename":raw_file_name(unit.base),
+		"base_name":unit.base.name,
 		"level":unit.level,
 		"exp":unit.experience,
 		## non-modifier stats are all derived from levels

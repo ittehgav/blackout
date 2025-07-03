@@ -7,7 +7,7 @@ const skill_use_sfx = ["swing"]
 const skill_hit_sfx = ["metal"]
 
 
-const sample_offset = Vector2(10, -26)
+const sample_offset = Vector2(10, -16)
 
 const target_type = "nearest_enemy"
 
@@ -38,11 +38,11 @@ const stat_debuff_values = {
 }
 
 const evolutions = {
-	"wheel_guy":{
+	"Wheel Guy":{
 		"fuel":50,
 		"scrap":50
 	},
-	"door_guy":{
+	"Door Guy":{
 		"juice":50,
 		"scrap":50
 	}

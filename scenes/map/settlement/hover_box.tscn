@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7m55l8qbi0tw"]
+[gd_scene load_steps=3 format=3 uid="uid://b7m55l8qbi0tw"]
 
+[ext_resource type="Script" uid="uid://dlsmgqrjhxb0l" path="res://scenes/map/settlement/hover_box.gd" id="1_qune7"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="1_vf1bo"]
 
 [node name="hover_box" type="Control"]
@@ -11,6 +12,7 @@ offset_top = -21.0
 offset_right = 77.0
 offset_bottom = 79.0
 mouse_filter = 1
+script = ExtResource("1_qune7")
 
 [node name="Tooltip" parent="." instance=ExtResource("1_vf1bo")]
 layout_mode = 0

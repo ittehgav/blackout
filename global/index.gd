@@ -131,6 +131,7 @@ const resource_base_prices = {
 }
 
 
+
 @onready var basic_fighter_base_scenes:Array[PackedScene] = [
 	## settlements will only sell these by default?
 	arm_guy_scene,
@@ -154,20 +155,22 @@ const resource_base_prices = {
 	coil_guy_scene
 ]
 
-@onready var all_fighter_base_scenes:Array[PackedScene] = [
-	arm_guy_scene,
-	mech_arm_guy_scene,
-	double_arm_guy_scene,
-	crowbar_guy_scene,
-	crossbow_guy_scene,
-	gravity_guy_scene,
-	tailpipe_guy_scene,
-	wheel_guy_scene,
-	door_guy_scene,
-	taser_guy_scene,
-	tether_guy_scene,
-	coil_guy_scene
-]
+
+var all_fighter_bases:Array[FighterBase];
+var basic_fighter_bases:Array[FighterBase];
+var evolved_fighter_bases:Array[FighterBase];
+
+func _ready()->void:
+	for scene:PackedScene in basic_fighter_base_scenes:
+		var base:FighterBase = scene.instantiate();
+		basic_fighter_bases.append(base);
+		all_fighter_bases.append(base);
+		
+	for scene:PackedScene in evolved_fighter_base_scenes:
+		var base:FighterBase = scene.instantiate();
+		evolved_fighter_bases.append(base);
+		all_fighter_bases.append(base);
+
 
 @export_group("floating icon textures")
 @export var max_hp_floating_icon:Texture;

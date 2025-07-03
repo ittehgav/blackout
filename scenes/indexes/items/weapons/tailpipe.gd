@@ -10,8 +10,8 @@ const angle_adjust = 30;
 
 
 const type = "melee";
-const cooldown:float = 1.5;
-const base_damage = 20
+const cooldown:float = 2;
+const base_damage = 50
 
 
 const aoe_radius = 100;
@@ -31,6 +31,8 @@ const hit_sfx = "swing_hit"
 var swung:bool = false;
 
 @export var arc:Sprite2D;
+var arc_duplicate:Sprite2D;
+
 
 func use()->bool:
 	var holder:InFightPlayer = Entities.player_fighter;
@@ -41,5 +43,10 @@ func use()->bool:
 
 
 func _on_equipped() -> void:
-	arc.show();
-	arc.reparent(get_parent());
+	arc_duplicate = arc.duplicate()
+	arc_duplicate.show();
+	get_parent().add_child(arc_duplicate);
+
+
+func _on_unequipped() -> void:
+	arc_duplicate.queue_free();

@@ -18,7 +18,6 @@ extends PanelContainer
 @export var entity_icons:Array[TextureRect];
 
 @export var estimate:Label;
-@export var stop_prompt:Label;
 @export var destination_label:Label;
 @export var player:InMapPlayer;
 
@@ -45,15 +44,12 @@ func _input(e:InputEvent)->void:
 
 
 func _on_in_map_player_started_moving() -> void:
-	
-	stop_prompt.show();
 	compass.rotation = player.position.angle_to_point(player.target_position)
 	set_estimate(player.target_position)
 	player_moving = true;
 
 
 func _on_in_map_player_stopped_moving() -> void:
-	stop_prompt.hide();
 	player_moving = false
 
 

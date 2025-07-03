@@ -80,7 +80,8 @@ func _on_slider_value_changed(value: float) -> void:
 
 
 func _on_panel_container_mouse_exited() -> void:
-	$disappear.start();
+	if modulate.a == 1:
+		$disappear.start();
 
 
 func _on_disappear_timeout() -> void:

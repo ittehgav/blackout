@@ -54,12 +54,12 @@ Start with two bodyguards.",
 	
 	"brigand":
 	"You're the son of a brigand fighter, who was the son of a brigand fighter, who was the grandson of a brigand.
-[color=green]Bonus Combat Stats.
+[color=green]High Initial Stats.
 Start with a small warband.",
 	
 	"indigent":
 "You woke up one day all alone in the middle of nowhere and remember nothing prior to that.
-[color=red]You get nothing."
+[color=red]You get (basically) nothing."
 }
 
 var scheme_player_textures:Array[Texture]
@@ -91,7 +91,14 @@ func _ready()->void:
 		
 		for origin:Player in [aristocrat, brigand, indigent]:
 			var textures:Dictionary;
-			for unit in origin.roster.units:
+			for unit:FighterUnit in origin.roster.units:
+				if not unit.base:
+					var children:Array[Node] = unit.get_children()
+					var i:int = children.find_custom(func(t:Node)->bool:return t is FighterBase);
+					var base:FighterBase = children[i];
+					i = Index.all_fighter_bases.find_custom(func(t:FighterBase)->bool:return t == base);
+					unit.base = Index.all_fighter_bases[i];
+					base.queue_free();
 				textures[unit] = ColorCoder.color_code_texture(unit.base.texture, pairs);
 			origins_parties_textures[origin].append(textures);
 	refresh_origin_data()
@@ -237,6 +244,7 @@ func start_new_game() -> void:
 	else:
 		await Tweens.ui_fade_in(Entities.loading_screen).finished;
 		get_parent().hide();
+		
 		var map:WorldMap = Index.world_map_scene.instantiate();
 		Entities.world_map = map;
 		map.finished_generating.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
@@ -248,8 +256,9 @@ func start_new_game() -> void:
 		
 		map.player_party.setup(origin)
 		
-		Entities.main.add_child(map);
-		get_parent().get_parent().remove_child(get_parent())
+		Entities.main.add_child.call_deferred(map);
+		Entities.main.move_child.call_deferred(map, 0)
+		get_parent().get_parent().queue_free()
 
 
 func _on_return_pressed() -> void:

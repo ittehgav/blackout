@@ -43,15 +43,15 @@ func load_roster(roster:Roster, data:Array)->void:
 
 func load_fighter_unit(data:Dictionary)->FighterUnit:
 	var unit:FighterUnit = Index.fighter_unit_scene.instantiate();
-	if not (data.base_filename in scene_cache):
-		scene_cache[data.base_filename] = load("res://scenes/indexes/fighters/"+data.base_filename+".tscn")
-	
+	var base_index:int = Index.all_fighter_bases.find_custom(func(base:FighterBase)->bool:return base.name == data.base_name)
+	var base:FighterBase = Index.all_fighter_bases[base_index];
+	unit.base = base
 	unit.level = data.level;
 	unit.experience = data.exp;
 	
-	var base:FighterBase = scene_cache[data.base_filename].instantiate();
-	unit.add_child(base);
-	unit.base = base
+	## bases don't have to be in the tree to do all that they do right now
+	## they never get referenced from the children of the fighter
+
 	
 	for stat:String in Index.all_combat_stats:
 		unit.modifier_stats[stat] = data.modifier_stats[stat];

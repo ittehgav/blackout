@@ -25,7 +25,7 @@ func strain_speaking_party_prices()->void:
 
 func battle_speaking_party()->void:
 	Entities.pre_battle.start_pre_battle();
-	## TODO follow-up dialogues from battles will have to reset the dialogue player
+
 	Entities.dialogue_player.end_dialogue();
 
 
@@ -37,7 +37,7 @@ func yield_resources(to_lose:Array=["fuel","money","food"], fraction:float=.5)->
 		if not change:
 			change = -1;
 		Entities.player.inventory.change_resource(r, -change);
-
+	Entities.player.inventory.refresh_resource_counts();
 	pacify_speaking_party();
 
 

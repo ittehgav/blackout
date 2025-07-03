@@ -39,7 +39,6 @@ func aoe_stun(source:ActiveFighter)->void:
 	for target in targets:
 		if source is NpcFighter:
 			source.catch_hit_target(target);
-			
 		stun_target(source, target)
 
 

@@ -96,7 +96,6 @@ func _on_exit_pressed() -> void:
 
 
 func _on_hire_btn_pressed() -> void:
-	showing_recruit_card.hired_overlay.show()
 	Tweens.ui_fade_in(showing_recruit_card.hired_overlay)
 	
 	Entities.current_settlement.inventory.money += current_unit_price;
@@ -112,6 +111,7 @@ func _on_hire_btn_pressed() -> void:
 	
 	hired_stamp.show()
 	hired_stamp.scale = Vector2(1.25, 1.25)
+	
 	var tween: = create_tween();
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(hired_stamp, "scale", Vector2.ONE, .5)

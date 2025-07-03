@@ -24,6 +24,7 @@ func _ready()->void:
 			party_size_label.text = str(len(leader.roster.units))
 		"travelling_trader":
 			behavior_icon.texture = Index.salesman_icon_texture;
+	find_target.call_deferred();
 	
 
 func _physics_process(_delta: float) -> void:

@@ -75,15 +75,14 @@ func setup(target:FighterUnit)->void:
 		can_evolve = unit.level >= 5;
 		
 		for evolution:String in unit.base.evolutions.keys():
-			
 			var button:TextureButton = self["evolution_"+str(i)+"_sprite"];
 			
-			var base:FighterBase = Index[evolution+"_scene"].instantiate()
+			var evolution_base_index:int = Index.all_fighter_bases.find_custom(func(b:FighterBase)->bool:return b.name == evolution)
+			var base:FighterBase = Index.all_fighter_bases[evolution_base_index].duplicate();
 			self["evolution_" + str(i) + "_base"] = base;
 			evolution_texture_buffer.add_child(base);
 			
-			var image:Image = Image.load_from_file("res://assets/visual/sprites/fighters/"+evolution.replace("_", "")+".png")
-			var texture:Texture2D = ImageTexture.create_from_image(image);
+			var texture:Texture2D = base.texture.duplicate();
 			var atlas:AtlasTexture = AtlasTexture.new();
 			atlas.region.position.x = 10;
 			atlas.region.size.x = 180;
@@ -107,15 +106,15 @@ func setup(target:FighterUnit)->void:
 				var icon:ResourceIcon = self["evolution_" + str(i) + "_cost_" + str(i2) + '_icon']
 				icon.resource = resource
 				icon.setup()
+			
+				var label:Label = self["evolution_" + str(i) + "_cost_" + str(i2) + '_label']
+				label.text = str(cost);
 				
 				button.modulate.a = 1;
-				print(resource, " cost ", cost)
 				if Entities.player.inventory[resource] < cost:
 					self["enough_resources_for_ev" + str(i)] = false;
 					button.disabled = true;
 
-					var label:Label = self["evolution_" + str(i) + "_cost_" + str(i2) + '_label']
-					label.text = str(cost);
 					
 				i2 += 1;
 			

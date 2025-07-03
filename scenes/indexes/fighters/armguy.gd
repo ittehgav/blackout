@@ -46,11 +46,11 @@ const status_duration = .125;
 
 
 const evolutions = {
-	"double_arm_guy":{
+	"Double Arm Guy":{
 		"food":50,
 		"juice":50
 	},
-	"mech_arm_guy":{
+	"Mech Arm Guy":{
 		"scrap":50,
 		"chips":20
 	}

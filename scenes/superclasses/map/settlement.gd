@@ -193,6 +193,7 @@ func refresh_inventory()->void:
 
 	inventory.store_resources();
 	inventory.refresh_resource_counts("",0,false)
+	inventory.sort_items()
 	apply_trade_anomaly();
 
 func apply_trade_anomaly()->void:
@@ -212,17 +213,15 @@ func apply_trade_anomaly()->void:
 func refresh_recruits()->void:
 	available_recruits = [];
 	while len(available_recruits) < 3:
-		var new_recruit_base:FighterBase = Index.basic_fighter_base_scenes.pick_random().instantiate();
+		var new_recruit_base:FighterBase = Index.basic_fighter_bases.pick_random();
 		var fighter_unit:FighterUnit = Index.fighter_unit_scene.instantiate();
-		fighter_unit.add_child(new_recruit_base);
 		fighter_unit.base = new_recruit_base;
 		fighter_unit.level = randi_range(1, 5);
 		fighter_unit.update_stats();
 		available_recruits.append(fighter_unit);
 	
-	var big_recruit_base:FighterBase = Index.evolved_fighter_base_scenes.pick_random().instantiate();
+	var big_recruit_base:FighterBase = Index.evolved_fighter_bases.pick_random();
 	var big_fighter_unit:FighterUnit = Index.fighter_unit_scene.instantiate();
-	big_fighter_unit.add_child(big_recruit_base);
 	big_fighter_unit.base = big_recruit_base;
 	big_fighter_unit.level = randi_range(10, 20);
 	big_fighter_unit.update_stats();

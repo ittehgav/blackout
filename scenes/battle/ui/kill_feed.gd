@@ -1,7 +1,6 @@
 extends Control
 
 var queue:Array[Control] = []
-@onready var current_kill_tween:Tween=create_tween();
 
 func unit_died(killer:ActiveFighter, dead:ActiveFighter)->void:
 	var killer_name:String;

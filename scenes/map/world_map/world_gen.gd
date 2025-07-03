@@ -13,7 +13,7 @@ const small_prop_amounts = entity_spawn_range/100;
 const large_prop_amounts = entity_spawn_range/200;
 const settlement_amount = entity_spawn_range/50;
 
-const thugs_amount = entity_spawn_range/75;
+const thugs_amount = entity_spawn_range/50;
 const travelling_traders_amount = entity_spawn_range/200;
 
 @export var small_prop_textures:Array[Texture];
@@ -51,7 +51,7 @@ const noise_roll_breakpoints = {
 	.3:Vector2(2, 0), ## mud
 	.4:Vector2(2, 1),## 2
 	.5:Vector2(3, 0),## 3
-	1.0:Vector2(3, 1)##4
+	10.0:Vector2(3, 1)##4, maxmimum possible value needs to be a bsearch hit on the keys still
 }
 
 var new_game:bool=true;
@@ -62,8 +62,6 @@ func load_game(data:Dictionary)->void:
 	noise_texture.noise = FastNoiseLite.new();
 	noise = noise_texture.noise
 	noise.seed =  data.world.seed;
-	
-	
 	for settlement_name:String in data.settlements.keys():
 		var s:Dictionary = data.settlements[settlement_name];
 		var settlement:Settlement = Index[s.type.to_lower() + "_scene"].instantiate();
@@ -77,7 +75,6 @@ func load_game(data:Dictionary)->void:
 		for unit_data:Dictionary in s.recruits:
 			var unit:FighterUnit = LoadSystem.load_fighter_unit(unit_data);
 			settlement.available_recruits.append(unit);
-
 		
 		LoadSystem.load_inventory(settlement.inventory, s.inventory);
 		
@@ -86,7 +83,7 @@ func load_game(data:Dictionary)->void:
 		quadrant.add_child(settlement);
 		settlement.global_position = target_position;
 		ColorCoder.color_code_settlement(settlement)
-		
+	
 	
 		
 	for settlement_name:String in world_map.all_settlements.keys():
@@ -114,35 +111,37 @@ func _ready() -> void:
 	## parties and props are randomized every time the player opens the game
 	generate_props();
 	generate_parties();
+	
 
 func generate_quadrants()->void:
 	quadrant_1.position -= Vector2(quarter_tile_map_size.x*cell_size, quarter_tile_map_size.y*cell_size);
 	quadrant_2.position.y -= quarter_tile_map_size.y*cell_size
 	quadrant_3.position.x -= quarter_tile_map_size.x*cell_size
+
+	const width:float = quarter_tile_map_size.x
+	const height:float = quarter_tile_map_size.y;
+	var points:Array = noise_roll_breakpoints.keys();
 	
+	const quadrant_offsets:PackedVector2Array= [
+		Vector2(width, height),
+		Vector2(0, height),
+		Vector2(width, 0)
+	]
+	var i:int = 0;
 	for q:WorldMapQuadrant in all_quadrants:
-		var width:float = quarter_tile_map_size.x
-		var height:float = quarter_tile_map_size.y;
-		var points:Array = noise_roll_breakpoints.keys();
 		for x:int in width:
 			for y:int in height:
 				var cell_coords:Vector2 = Vector2(x, y);
-				var roll_coords:Vector2 = Vector2(x, y);
+				var roll_coords:Vector2 = cell_coords;
 				
 				if q != quadrant_4:
-					match q:
-						quadrant_1:
-							roll_coords -= Vector2(width, height);
-						quadrant_2:
-							roll_coords.y -= height
-						quadrant_3:
-							roll_coords.x -= width;
+					roll_coords -= quadrant_offsets[i];
 				var roll:float = noise.get_noise_2dv(roll_coords);
-
-				for point:float in points:
-					if roll < point:
-						q.tile_map.set_cell(cell_coords,0, noise_roll_breakpoints[point])
-						break;
+				
+				var target_point:float = points.bsearch(roll)
+				var target_tile:Vector2 = noise_roll_breakpoints[points[target_point]];
+				q.tile_map.set_cell(cell_coords,0, target_tile)
+		i += 1;
 	
 func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->NpcMapParty:
 	var leader:NpcLeader = leader_scene.instantiate();

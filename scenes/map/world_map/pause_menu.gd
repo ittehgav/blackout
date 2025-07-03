@@ -3,6 +3,7 @@ extends UIRoot
 @export var main_panel:Panel;
 @export var save_panel:PanelContainer;
 @export var save_options_container:VBoxContainer;
+@export var sound_settings:Control;
 
 @export var load_panel:PanelContainer;
 @export var load_options_container:VBoxContainer;
@@ -21,7 +22,6 @@ func _input(e: InputEvent) -> void:
 			elif save_panel.visible:
 				Tweens.ui_fade_out(save_panel);
 				Tweens.ui_fade_in(main_panel)
-			
 			elif load_panel.visible:
 				Tweens.ui_fade_out(load_panel);
 				Tweens.ui_fade_in(main_panel)
@@ -95,6 +95,7 @@ func load_game(data:Dictionary)->void:
 	new_map.load_game(data);
 	
 	Entities.main.add_child(new_map);
+	Entities.main.move_child(new_map, 0)
 
 
 func _on_return_confirm_pressed() -> void:
@@ -110,3 +111,7 @@ func _on_return_cancel_pressed() -> void:
 func _on_main_menu_pressed() -> void:
 	Tweens.ui_fade_out($main_panel);
 	Tweens.ui_fade_in($main_menu_confirmation);
+
+
+func _on_sound_settings_pressed() -> void:
+	sound_settings.show_settings($main_panel)

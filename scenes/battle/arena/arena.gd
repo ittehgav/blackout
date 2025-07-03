@@ -39,6 +39,7 @@ func start_battle(enemy_leader:Leader)->void:
 		Entities.world_map.hide()
 
 	Entities.main.add_child(self)
+	Entities.main.move_child(self, 0)
 	get_tree().paused = false
 	overlay.tide_bar.set_tide_bar();
 
@@ -107,20 +108,20 @@ func assign_team(unit:ActiveFighter, team_n:int)->void:
 
 	unit.death.connect(overlay.tide_bar.on_unit_death.bind(unit))
 	unit.death.connect(kill_feed.unit_died.bind(unit))
-
-func _process(_delta:float)->void:
-	if Input.is_action_just_pressed("world_map_zoom_in"):
-		if scale == Vector2.ONE or scale == Vector2(.5, .5):
-			var target_scale:Vector2 = scale * 2
-			
-			var tween:Tween = create_tween();
-			tween.tween_property(self, "scale", target_scale, 1)
-	elif Input.is_action_just_pressed("world_map_zoom_out"):
-		if scale == Vector2.ONE or scale == Vector2(2, 2):
-			var target_scale:Vector2 = scale / 2
-			
-			var tween:Tween = create_tween();
-			tween.tween_property(self, "scale", target_scale, 1)
+#
+#func _process(_delta:float)->void:
+	#if Input.is_action_just_pressed("world_map_zoom_in"):
+		#if scale == Vector2.ONE or scale == Vector2(.5, .5):
+			#var target_scale:Vector2 = scale * 2
+			#
+			#var tween:Tween = create_tween();
+			#tween.tween_property(self, "scale", target_scale, 1)
+	#elif Input.is_action_just_pressed("world_map_zoom_out"):
+		#if scale == Vector2.ONE or scale == Vector2(2, 2):
+			#var target_scale:Vector2 = scale / 2
+			#
+			#var tween:Tween = create_tween();
+			#tween.tween_property(self, "scale", target_scale, 1)
 			
 func return_to_world_map()->void:
 	Entities.world_map.returned_from_battle.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
@@ -134,5 +135,6 @@ func return_to_world_map()->void:
 
 	queue_free()
 	Entities.main.add_child(Entities.world_map)
+	Entities.main.move_child(Entities.world_map, 0)
 	Entities.player.reparent(Entities.world_map.player)
 	Entities.world_map.returned_from_battle.emit(won_battle);

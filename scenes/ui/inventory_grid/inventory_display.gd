@@ -702,6 +702,7 @@ func update_inventory()->void:
 				exchanging_display.inventory.send_item(item_mirror.item, inventory);
 			else:
 				inventory.add_item(item_mirror.item);
+				item_mirror.item.stack_size = item_mirror.stack_size	
 	
 	## duplicate so it can safely remove items from inventory while iterating over it
 	var items:Array[Item] = inventory.items.duplicate()

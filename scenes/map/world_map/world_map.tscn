@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=123 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Script" uid="uid://k7tsmmqrmjmu" path="res://scenes/map/world_map/ui_overlay.gd" id="2_fn5hq"]
@@ -22,6 +22,13 @@
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
 [ext_resource type="Texture2D" uid="uid://c5upctkf3dbln" path="res://assets/visual/particles/off_screen_pointer.png" id="25_f2dah"]
 [ext_resource type="Script" uid="uid://ddm5su5vt1e23" path="res://scenes/map/world_map/pause_menu.gd" id="37_gmjui"]
+[ext_resource type="Script" uid="uid://dlml5dyca8pjb" path="res://scenes/main/settings.gd" id="39_k7mhn"]
+[ext_resource type="Texture2D" uid="uid://bonwmm7hdckej" path="res://assets/visual/ui/settings/sfx.png" id="40_a8suh"]
+[ext_resource type="Texture2D" uid="uid://8usne1muqcrq" path="res://assets/visual/ui/settings/disabled.png" id="41_h2uxo"]
+[ext_resource type="Texture2D" uid="uid://dg7p3tjl0sxbk" path="res://assets/visual/ui/settings/music.png" id="42_cxe47"]
+[ext_resource type="Texture2D" uid="uid://mqb4ehy4w2c8" path="res://assets/visual/ui/settings/reset.png" id="43_0jkk0"]
+[ext_resource type="Texture2D" uid="uid://b7i7ppbqan5v1" path="res://assets/visual/ui/settings/reset_hover.png" id="44_48qk5"]
+[ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="45_a8suh"]
 [ext_resource type="Script" uid="uid://b66cs0vry3tqy" path="res://scenes/map/world_map/marker.gd" id="45_fn5hq"]
 [ext_resource type="Script" uid="uid://qna7oy72g434" path="res://scenes/map/world_map/marker_sfx.gd" id="47_a8suh"]
 [ext_resource type="Script" uid="uid://g1x5i5r24qtj" path="res://scenes/map/world_map/ui/main_hud.gd" id="47_lljjg"]
@@ -63,7 +70,7 @@
 [ext_resource type="AudioStream" uid="uid://cvv1mjf2g8wus" path="res://assets/sound/sfx/world_map/daily_upkeep_paid.wav" id="79_t4gob"]
 [ext_resource type="AudioStream" uid="uid://bjruiutxfjb2w" path="res://assets/sound/sfx/world_map/daily_upkeep_missed.mp3" id="80_t4gob"]
 
-[sub_resource type="Shader" id="Shader_gmjui"]
+[sub_resource type="Shader" id="Shader_a8suh"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -92,7 +99,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
 resource_local_to_scene = true
-shader = SubResource("Shader_gmjui")
+shader = SubResource("Shader_a8suh")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -101,7 +108,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_sjqk0"]
+[sub_resource type="Shader" id="Shader_h2uxo"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -130,7 +137,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
 resource_local_to_scene = true
-shader = SubResource("Shader_sjqk0")
+shader = SubResource("Shader_h2uxo")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -139,7 +146,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_1ogav"]
+[sub_resource type="Shader" id="Shader_cxe47"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -168,7 +175,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
 resource_local_to_scene = true
-shader = SubResource("Shader_1ogav")
+shader = SubResource("Shader_cxe47")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -177,7 +184,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_umths"]
+[sub_resource type="Shader" id="Shader_0jkk0"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -206,7 +213,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
 resource_local_to_scene = true
-shader = SubResource("Shader_umths")
+shader = SubResource("Shader_0jkk0")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -215,7 +222,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_ffuc7"]
+[sub_resource type="Shader" id="Shader_48qk5"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -244,7 +251,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
 resource_local_to_scene = true
-shader = SubResource("Shader_ffuc7")
+shader = SubResource("Shader_48qk5")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -253,7 +260,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_fn5hq"]
+[sub_resource type="Shader" id="Shader_8xm6f"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -282,7 +289,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
 resource_local_to_scene = true
-shader = SubResource("Shader_fn5hq")
+shader = SubResource("Shader_8xm6f")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -291,7 +298,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_k7mhn"]
+[sub_resource type="Shader" id="Shader_gbcyd"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -320,7 +327,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
 resource_local_to_scene = true
-shader = SubResource("Shader_k7mhn")
+shader = SubResource("Shader_gbcyd")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -329,7 +336,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_a8suh"]
+[sub_resource type="Shader" id="Shader_oq2vs"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -358,7 +365,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
 resource_local_to_scene = true
-shader = SubResource("Shader_a8suh")
+shader = SubResource("Shader_oq2vs")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -1082,7 +1089,7 @@ offset_bottom = 41.0
 theme_override_font_sizes/font_size = 64
 text = "wawa"
 
-[node name="navigation" type="PanelContainer" parent="ui_overlay/ui/main_hud" node_paths=PackedStringArray("minute_ticker", "destination_container", "compass", "interact_prompt_container", "map_entity_name", "interact_prompt_label", "settlement_sprite", "trader_icon", "entity_icons", "estimate", "stop_prompt", "destination_label", "player")]
+[node name="navigation" type="PanelContainer" parent="ui_overlay/ui/main_hud" node_paths=PackedStringArray("minute_ticker", "destination_container", "compass", "interact_prompt_container", "map_entity_name", "interact_prompt_label", "settlement_sprite", "trader_icon", "entity_icons", "estimate", "destination_label", "player")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1104,7 +1111,6 @@ settlement_sprite = NodePath("VBoxContainer/interact_prompt/settlement_sprite")
 trader_icon = NodePath("VBoxContainer/interact_prompt/trader_icon")
 entity_icons = [NodePath("VBoxContainer/interact_prompt/trader_icon"), NodePath("VBoxContainer/interact_prompt/settlement_sprite")]
 estimate = NodePath("VBoxContainer/destination/VBoxContainer/estimate")
-stop_prompt = NodePath("VBoxContainer/destination/VBoxContainer/stop_prompt")
 destination_label = NodePath("VBoxContainer/destination/VBoxContainer/destination")
 player = NodePath("../../../../quadrants/quadrant_4/in_map_player")
 
@@ -1141,10 +1147,6 @@ text = "wawa"
 
 [node name="estimate" type="Label" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination/VBoxContainer"]
 layout_mode = 2
-
-[node name="stop_prompt" type="Label" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer/destination/VBoxContainer"]
-layout_mode = 2
-text = "[spacebar] stop"
 
 [node name="interact_prompt" type="HBoxContainer" parent="ui_overlay/ui/main_hud/navigation/VBoxContainer"]
 visible = false
@@ -1237,7 +1239,7 @@ scale = Vector2(0.75, 0.33)
 texture = ExtResource("25_f2dah")
 
 [node name="full_screen_guis" type="Control" parent="ui_overlay/ui"]
-z_index = 18
+z_index = 10
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1633,7 +1635,7 @@ material = SubResource("ShaderMaterial_a04dl")
 [node name="chips" parent="ui_overlay/ui/full_screen_guis/trade_menu/HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer6" index="1"]
 horizontal_alignment = 2
 
-[node name="pause_menu" type="Control" parent="ui_overlay/ui/full_screen_guis" node_paths=PackedStringArray("main_panel", "save_panel", "save_options_container", "load_panel", "load_options_container", "ui_sfx")]
+[node name="pause_menu" type="Control" parent="ui_overlay/ui/full_screen_guis" node_paths=PackedStringArray("main_panel", "save_panel", "save_options_container", "sound_settings", "load_panel", "load_options_container", "ui_sfx")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1645,6 +1647,7 @@ script = ExtResource("37_gmjui")
 main_panel = NodePath("main_panel")
 save_panel = NodePath("save_game_panel")
 save_options_container = NodePath("save_game_panel/save_files_container")
+sound_settings = NodePath("../sound_settings")
 load_panel = NodePath("load_game_panel")
 load_options_container = NodePath("load_game_panel/load_files_container")
 ui_sfx = NodePath("ui_sfx")
@@ -1658,6 +1661,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.490196)
 
 [node name="main_panel" type="Panel" parent="ui_overlay/ui/full_screen_guis/pause_menu"]
@@ -1683,9 +1687,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -162.0
-offset_top = -124.0
+offset_top = -187.0
 offset_right = 162.0
-offset_bottom = 124.0
+offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -1702,6 +1706,11 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Resume"
+
+[node name="sound_settings" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Volume"
 
 [node name="save" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
 layout_mode = 2
@@ -1816,6 +1825,133 @@ Main Menu"
 [node name="return_cancel" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "[esc] cancel"
+
+[node name="sound_settings" type="Control" parent="ui_overlay/ui/full_screen_guis" node_paths=PackedStringArray("sfx_icon", "music_icon", "sfx_muted_icon", "music_muted_icon", "music_slider", "sfx_slider", "ui_sfx")]
+visible = false
+z_index = 11
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("39_k7mhn")
+sfx_icon = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/sfx")
+music_icon = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/music")
+sfx_muted_icon = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/sfx/disabled")
+music_muted_icon = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/music/disabled")
+music_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/music_slider")
+sfx_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/sfx_slider")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="ui_overlay/ui/full_screen_guis/sound_settings" instance=ExtResource("78_37vhr")]
+
+[node name="PanelContainer" type="PanelContainer" parent="ui_overlay/ui/full_screen_guis/sound_settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -162.0
+offset_right = 21.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="MarginContainer" type="MarginContainer" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Sound"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="sfx" type="TextureButton" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+self_modulate = Color(0.314316, 0.314316, 0.314316, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture_normal = ExtResource("40_a8suh")
+stretch_mode = 5
+
+[node name="disabled" type="TextureRect" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/sfx"]
+visible = false
+modulate = Color(1, 0.19, 0.19, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("41_h2uxo")
+
+[node name="sfx_slider" type="HSlider" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+size_flags_vertical = 1
+value = 75.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="music" type="TextureButton" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.314316, 0.314316, 0.314316, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture_normal = ExtResource("42_cxe47")
+stretch_mode = 5
+
+[node name="disabled" type="TextureRect" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/music"]
+visible = false
+modulate = Color(1, 0.19, 0.19, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("41_h2uxo")
+
+[node name="music_slider" type="HSlider" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+size_flags_vertical = 1
+value = 75.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="return" type="Button" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 16
+shortcut = ExtResource("45_a8suh")
+shortcut_in_tooltip = false
+text = "[esc] return"
+
+[node name="reset" type="TextureButton" parent="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+texture_normal = ExtResource("43_0jkk0")
+texture_hover = ExtResource("44_48qk5")
+stretch_mode = 0
 
 [node name="quadrants" type="Node2D" parent="." node_paths=PackedStringArray("player_camera", "world_map", "quadrant_1", "quadrant_2", "quadrant_3", "quadrant_4", "all_quadrants")]
 process_mode = 3
@@ -1963,12 +2099,19 @@ texture = ExtResource("62_gmjui")
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/HBoxContainer/VBoxContainer/auto_pick" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="auto_pick"]
 [connection signal="trade_started" from="ui_overlay/ui/full_screen_guis/trade_menu" to="ui_overlay/ui/main_hud" method="_on_trade_menu_trade_started"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/resume" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_resume_pressed"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/sound_settings" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_sound_settings_pressed"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/save" to="ui_overlay/ui/full_screen_guis/pause_menu" method="save_menu"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/load" to="ui_overlay/ui/full_screen_guis/pause_menu" method="load_menu"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/main_menu" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/save_game_panel/save_files_container/return" to="ui_overlay/ui/full_screen_guis/pause_menu" method="return_to_main_view"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer/HBoxContainer/return_confirm" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_return_confirm_pressed"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_menu_confirmation/MarginContainer/VBoxContainer/HBoxContainer/return_cancel" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_return_cancel_pressed"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/sfx" to="ui_overlay/ui/full_screen_guis/sound_settings" method="toggle_sfx"]
+[connection signal="value_changed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/sfx_slider" to="ui_overlay/ui/full_screen_guis/sound_settings" method="_on_sfx_slider_value_changed"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/music" to="ui_overlay/ui/full_screen_guis/sound_settings" method="toggle_music" binds= [true]]
+[connection signal="value_changed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/music_slider" to="ui_overlay/ui/full_screen_guis/sound_settings" method="_on_music_slider_value_changed"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/return" to="ui_overlay/ui/full_screen_guis/sound_settings" method="return_from_settings"]
+[connection signal="pressed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/reset" to="ui_overlay/ui/full_screen_guis/sound_settings" method="_on_reset_pressed"]
 [connection signal="entity_entered_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_entity_entered_range"]
 [connection signal="entity_entered_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_entered_range"]
 [connection signal="entity_left_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_entity_left_range"]

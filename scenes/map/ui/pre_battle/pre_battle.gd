@@ -64,7 +64,7 @@ func set_opponent_avatar(target:Leader)->void:
 	if opponent_sprite:
 		opponent_sprite.queue_free()
 	
-	opponent_sprite = target.leader_unit.base.duplicate();
+	opponent_sprite = target.leader_unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
 	opponent_sprite.offset = opponent_sprite.sample_offset
 	ColorCoder.color_code_fighter(opponent_sprite,target.color_scheme_index);
 	opponent_avatar.add_child(opponent_sprite);

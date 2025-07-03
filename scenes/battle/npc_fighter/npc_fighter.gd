@@ -51,7 +51,8 @@ func aim_tween()->void:
 func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	in_player_team = in_player_party;
 	unit = new_unit
-	base = unit.base.duplicate();
+	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
+	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the 
 	add_child(base)
 	base.fighter = self;
 

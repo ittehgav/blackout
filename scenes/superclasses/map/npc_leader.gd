@@ -67,10 +67,9 @@ func generate(distance:float)->void:
 		min_level = 1;
 
 
-	var leader_base:FighterBase = Index.evolved_fighter_base_scenes.pick_random().instantiate();
+	var leader_base:FighterBase = Index.evolved_fighter_bases.pick_random();
 	leader_unit.level = max(5, randi_range(min_level, max_level + 2));
 	leader_unit.base = leader_base
-	leader_unit.add_child(leader_base);
 	roster.add_unit(leader_unit)
 	if not is_inside_tree():
 		leader_unit.update_stats()
@@ -79,16 +78,15 @@ func generate(distance:float)->void:
 	var party_size: = randi_range(int(distance/800), int(distance/400));
 	for i:int in party_size:
 		var level:int = randi_range(min_level, max_level);
-		var bases:Array[PackedScene] = Index.basic_fighter_base_scenes;
+		var bases:Array[FighterBase] = Index.basic_fighter_bases;
 		if level >= 10:
-			bases.append_array(Index.evolved_fighter_base_scenes);
+			bases.append_array(Index.evolved_fighter_bases);
 		
-		var unit_base:FighterBase = bases.pick_random().instantiate();
+		var unit_base:FighterBase = bases.pick_random();
 		var new_unit:FighterUnit = Index.fighter_unit_scene.instantiate();
 		
 		new_unit.level = level
 
-		new_unit.add_child(unit_base)
 		new_unit.base = unit_base;
 		new_unit.update_stats();
 		

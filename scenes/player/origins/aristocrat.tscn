@@ -65,14 +65,12 @@ stack_size = 50
 
 [node name="Roster" parent="." instance=ExtResource("3_45c4c")]
 
-[node name="FighterUnit" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("6_gsj6j")]
-base = NodePath("Arm Guy")
+[node name="FighterUnit" parent="Roster" instance=ExtResource("6_gsj6j")]
 
 [node name="Arm Guy" parent="Roster/FighterUnit" instance=ExtResource("7_8ex1r")]
 material = SubResource("ShaderMaterial_8ex1r")
 
-[node name="FighterUnit2" parent="Roster" node_paths=PackedStringArray("base") instance=ExtResource("6_gsj6j")]
-base = NodePath("Arm Guy")
+[node name="FighterUnit2" parent="Roster" instance=ExtResource("6_gsj6j")]
 
 [node name="Arm Guy" parent="Roster/FighterUnit2" instance=ExtResource("7_8ex1r")]
 material = SubResource("ShaderMaterial_8aq5y")

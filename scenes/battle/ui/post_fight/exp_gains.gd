@@ -2,6 +2,7 @@ extends Panel
 
 
 @export var victory_title:Label
+@export var player_name_label:Label;
 @export var leadership_exp_gain:ExperienceBar;
 @export var combat_exp_gain:ExperienceBar;
 @export var step_timer:Timer;
@@ -60,6 +61,8 @@ func _ready()->void:
 	leadership_exp_gain.build_from_player("leadership")
 	combat_exp_gain.build_from_player("combat")
 	assign_points_message_blink();
+	
+	player_name_label.text = Entities.player.name;
 
 	for unit:FighterUnit in Entities.player.roster.units:
 		var display:Control = unit_exp_gain_scene.instantiate();

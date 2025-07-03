@@ -129,7 +129,8 @@ func beam_projection()->void:
 	projection_fade_in(beam);
 
 	await unit.skill_used;
-	beam.queue_free();
+	if is_instance_valid(beam):
+		beam.queue_free();
 	
 func gravity_projection()->void:
 	var vfx:Node2D = Node2D.new();

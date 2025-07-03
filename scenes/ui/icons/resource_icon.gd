@@ -25,9 +25,9 @@ func setup()->void:
 		name = resource.capitalize();
 		tooltip_name_color = Index.resource_colors[resource];
 		description = Index.resource_descriptions[resource];
-
-	elif is_instance_valid($Tooltip):
-			$Tooltip.free();
+	
+	elif get_node_or_null("Tooltip"):
+		$Tooltip.free();
 	
 	if not source:
 		setup_adjacent_items();

@@ -1,6 +1,6 @@
 extends Panel
 
-
+signal unit_upgraded;
 
 @export var ui_sfx:AudioStreamPlayer;
 

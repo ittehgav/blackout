@@ -35,17 +35,17 @@ func return_to_player(instant:bool = false)->void:
 			position = Vector2.ZERO
 
 
-func _process(_delta: float) -> void:
-	#var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	#position += direction * delta * move_speed * 1/zoom.x;
-	if Input.is_action_just_pressed("world_map_zoom_in") \
-	and zoom < Vector2(2, 2) and(not zoom_tween or not zoom_tween.is_running()) and not Entities.world_map.pause_stack:
-		zoom_tween= create_tween();
-		zoom_tween.tween_property(self, "zoom", zoom*2, 1);
-	elif Input.is_action_just_pressed("world_map_zoom_out")\
-	 and zoom > Vector2(.5, .5) and (not zoom_tween or not zoom_tween.is_running()) and not Entities.world_map.pause_stack:
-		zoom_tween = create_tween();
-		zoom_tween.tween_property(self, "zoom",zoom/2, 1);
+#func _process(_delta: float) -> void:
+	##var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	##position += direction * delta * move_speed * 1/zoom.x;
+	#if Input.is_action_just_pressed("world_map_zoom_in") \
+	#and zoom < Vector2(2, 2) and(not zoom_tween or not zoom_tween.is_running()) and not Entities.world_map.pause_stack:
+		#zoom_tween= create_tween();
+		#zoom_tween.tween_property(self, "zoom", zoom*2, 1);
+	#elif Input.is_action_just_pressed("world_map_zoom_out")\
+	 #and zoom > Vector2(.5, .5) and (not zoom_tween or not zoom_tween.is_running()) and not Entities.world_map.pause_stack:
+		#zoom_tween = create_tween();
+		#zoom_tween.tween_property(self, "zoom",zoom/2, 1);
 
 
 func pan_to_target(target:MapEntity, add_marker:bool=false)->void:

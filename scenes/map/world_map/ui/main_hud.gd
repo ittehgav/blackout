@@ -27,6 +27,7 @@ func _ready()->void:
 		fade_tweens[p] = null;
 
 
+
 func update_clock() -> void:
 	var hour:int = Entities.world_map.current_hour;
 	var minute:int = Entities.world_map.current_minute;
@@ -61,8 +62,9 @@ func turn_semi_visible(panel:PanelContainer)->void:
 	panel.show()
 	panel.modulate.a = .1;
 	panel.z_index -= panel_z_shift
-	panel.mouse_entered.connect(fade_panel_in.bind(panel));
-	panel.mouse_exited.connect(fade_panel_out.bind(panel))
+	if not len(panel.mouse_entered.get_connections()):
+		panel.mouse_entered.connect(fade_panel_in.bind(panel));
+		panel.mouse_exited.connect(fade_panel_out.bind(panel))
 
 func turn_fully_visible(panel:PanelContainer)->void:
 	panel.show()

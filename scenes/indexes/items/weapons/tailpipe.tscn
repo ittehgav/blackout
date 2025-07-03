@@ -20,3 +20,4 @@ texture = ExtResource("3_eoeo2")
 offset = Vector2(8, 0)
 
 [connection signal="equipped" from="." to="." method="_on_equipped"]
+[connection signal="unequipped" from="." to="." method="_on_unequipped"]

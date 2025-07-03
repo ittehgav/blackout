@@ -114,8 +114,8 @@ defeat = ExtResource("13_i7in8")
 
 [node name="main_menu" parent="." instance=ExtResource("2_th5th")]
 
-[node name="new_game" parent="main_menu/main_ui" index="4"]
-visible = false
+[node name="TextureRect" parent="main_menu/main_ui" index="0"]
+stretch_mode = 5
 
 [node name="player_body" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_hxu8e")
@@ -138,10 +138,10 @@ material = SubResource("ShaderMaterial_r1bmu")
 [node name="resource_icon" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer2/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_6ud2m")
 
-[node name="loading" type="CanvasLayer" parent="."]
-layer = 2
+[node name="global_overlays" type="CanvasLayer" parent="."]
+layer = 5
 
-[node name="loading_overlay" type="Control" parent="loading" node_paths=PackedStringArray("splash")]
+[node name="loading_overlay" type="Control" parent="global_overlays" node_paths=PackedStringArray("splash")]
 visible = false
 z_index = 10
 layout_mode = 3
@@ -153,7 +153,7 @@ grow_vertical = 2
 script = ExtResource("31_ii537")
 splash = NodePath("TextureRect")
 
-[node name="TextureRect" type="TextureRect" parent="loading/loading_overlay"]
+[node name="TextureRect" type="TextureRect" parent="global_overlays/loading_overlay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -161,7 +161,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("32_ii537")
-expand_mode = 5
+expand_mode = 3
 
 [connection signal="finished" from="main_bgm" to="main_bgm" method="_on_finished"]
 

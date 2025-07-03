@@ -89,7 +89,7 @@ func set_speaking_avatar()->void:
 	
 	var leader:Leader = Entities.current_speaking_party.leader;
 	
-	current_speaking_sprite = leader.leader_unit.base.duplicate();
+	current_speaking_sprite = leader.leader_unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
 	current_speaking_sprite.offset = current_speaking_sprite.sample_offset
 	ColorCoder.color_code_fighter(current_speaking_sprite, leader.color_scheme_index);
 

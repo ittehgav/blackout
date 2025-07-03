@@ -92,7 +92,7 @@ func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 					tooltip.hint.text = "[right-click] to store"
 			if item is Weapon or item is Module:
 				tooltip.hint.text = "[right-click] to equip"
-
+		
 		if display.inventory.holder is Settlement:
 			if item is ResourceContainer:
 				if item in display.inventory.non_sellable_items:

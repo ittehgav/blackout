@@ -253,7 +253,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.737255)
 
 [node name="victory_view" type="Control" parent="." node_paths=PackedStringArray("exp_gains", "loot_gains")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -264,7 +263,7 @@ script = ExtResource("3_7eru0")
 exp_gains = NodePath("exp_gains")
 loot_gains = NodePath("loot_gains")
 
-[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "leadership_exp_gain", "combat_exp_gain", "step_timer", "continue_btn", "unit_exp_gain_container", "combat_stat_points_label", "assign_points_mesage", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
+[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "player_name_label", "leadership_exp_gain", "combat_exp_gain", "step_timer", "continue_btn", "unit_exp_gain_container", "combat_stat_points_label", "assign_points_mesage", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
 custom_minimum_size = Vector2(1000, 600)
 layout_mode = 1
 anchors_preset = 15
@@ -278,6 +277,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_r614c")
 victory_title = NodePath("VBoxContainer/victory_title")
+player_name_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/player_name")
 leadership_exp_gain = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/leadership_exp")
 combat_exp_gain = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/combat_exp")
 step_timer = NodePath("step")

@@ -1,7 +1,7 @@
 extends Control
 
 @export var main_ui:UIRoot
-@export var main_menu:PanelContainer
+@export var main_menu:Control
 @export var options_container:VBoxContainer
 
 func load_files()->void:
@@ -20,14 +20,16 @@ func load_game(path:String)->void:
 	get_parent().hide();
 	
 	var data:Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
-	
 	var map:WorldMap = Index.world_map_scene.instantiate();
 	Entities.world_map = map;
 	map.finished_generating.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
 	map.load_game(data)
 	
 	Entities.main.add_child(map);
-	get_parent().get_parent().remove_child(get_parent());
+	Entities.main.move_child(map, 0)
+	get_parent().get_parent().queue_free()
+
+
 	
 	
 
