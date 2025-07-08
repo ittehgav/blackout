@@ -277,7 +277,7 @@ layout_mode = 2
 [node name="return" type="Button" parent="main_ui/load_menu/PanelContainer/save_file_list"]
 layout_mode = 2
 shortcut = ExtResource("8_jthsy")
-text = "[esc] return"
+text = "[tab] return"
 
 [node name="new_game" type="Control" parent="main_ui" node_paths=PackedStringArray("main_menu", "brigand", "aristocrat", "indigent", "player_body", "colors_outline", "main_color_sample", "off_color_sample", "money_label", "name_edit", "origin_name_label", "origin_description_label", "origins_container", "items_container", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label", "weapon_sample", "weapon_sample_bg", "module_sample", "module_sample_bg", "party_member_sample", "party_units_container")]
 visible = false
@@ -330,13 +330,14 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="return" type="Button" parent="main_ui/new_game/Panel"]
+visible = false
 layout_mode = 0
 offset_left = 21.0
 offset_top = -37.0
 offset_right = 155.0
 offset_bottom = -3.0
 shortcut = ExtResource("8_jthsy")
-text = "[esc] return"
+text = "[tab] return"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="main_ui/new_game/Panel"]
 layout_mode = 1
@@ -358,7 +359,7 @@ theme_override_colors/font_shadow_color = Color(0.000693898, 0.000693898, 0.0006
 theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = -2
 theme_override_font_sizes/font_size = 64
-text = "Choose an Origin:"
+text = "Choose an Origin"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker"]
@@ -518,7 +519,7 @@ layout_mode = 2
 [node name="weapon" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Weapon:"
+text = "Weapon"
 
 [node name="weapon_sample" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer"]
 material = ExtResource("15_13ags")
@@ -569,7 +570,7 @@ layout_mode = 2
 [node name="module" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Module:"
+text = "Module"
 
 [node name="module_sample" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2"]
 material = ExtResource("15_13ags")
@@ -619,7 +620,7 @@ grow_vertical = 1
 [node name="Label" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Stats:"
+text = "Stats"
 
 [node name="stats" type="GridContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data"]
 layout_mode = 2
@@ -727,7 +728,7 @@ layout_mode = 2
 [node name="party" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-text = "Party:"
+text = "Party"
 
 [node name="party_units_container" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2

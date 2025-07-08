@@ -631,6 +631,9 @@ size_flags_vertical = 0
 context = "loot"
 exchanging_display = NodePath("../loot")
 
+[node name="operation" parent="victory_view/loot_gains/HBoxContainer/player_inventory/cargo/send_rect" index="0"]
+text = "LOOT"
+
 [node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="3"]
 offset_left = 100.0
 offset_top = 34.0
@@ -664,6 +667,7 @@ offset_bottom = 38.0
 [node name="warnings" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="8"]
 z_index = 7
 z_as_relative = false
+offset_right = -206.0
 
 [node name="MarginContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory/warnings/PanelContainer" index="0"]
 mouse_filter = 0
@@ -718,6 +722,9 @@ custom_minimum_size = Vector2(400, 500)
 layout_mode = 2
 context = "loot"
 exchanging_display = NodePath("../player_inventory")
+
+[node name="operation" parent="victory_view/loot_gains/HBoxContainer/loot/cargo/send_rect" index="0"]
+text = "DEPOSIT"
 
 [node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/loot" index="3"]
 offset_left = 5161.0

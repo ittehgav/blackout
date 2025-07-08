@@ -25,9 +25,12 @@ var projection_modulate:Color = main_projection_modulate;
 
 const projection = "circle_aoe";
 
-var description :String= Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color]"+Index.get_color_tag("max_hp")\
+var description :String
+
+func set_hint_data()->void:
+	description = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color]"+Index.get_color_tag("max_hp")\
  + " Heals[/color] or gives an " + Index.stat_colored_name("agility") +\
- " buff to allies in an area.\nPress [right-click] to alternate between modes.";
+ " buff to allies in an area.\nPress [right-click] in combat to alternate between modes.";
 
 const use_vfx = ["grow"];
 

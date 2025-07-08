@@ -12,6 +12,8 @@ const base_duration = .75
 
 const description  = "Quickly dashes in a direction, briefly becoming invulnerable and able to move through enemies.";
 
+
+
 func use()->void:
 	var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if direction == Vector2.ZERO:

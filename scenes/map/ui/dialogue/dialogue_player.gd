@@ -212,7 +212,7 @@ func parse_dialogue_text(text:String)->String:
 		final_text = final_text.replace("#yield", "[color=dark_red]Lose half of your food, fuel and money.");
 	if "#angry" in final_text:
 		final_text = final_text.replace("#angry", "");
-		final_text = wrap_in_bbcode_tag(final_text, "shake rate=50.0 level=40.0")
+		final_text = wrap_in_bbcode_tag(final_text, "shake rate=50.0 level=20.0")
 		play_effect("angry");
 	if "#scared " in final_text:
 		final_text = final_text.replace("#scared", "");

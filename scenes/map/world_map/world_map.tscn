@@ -971,7 +971,8 @@ text = "0"
 [node name="Label" type="Label" parent="ui_overlay/ui/main_hud/HBoxContainer/resources_panel/MarginContainer/VBoxContainer"]
 modulate = Color(0.64, 0.64, 0.64, 1)
 layout_mode = 2
-text = "[tab] open inventory"
+text = "[tab] open inventory
+[p] save menu"
 
 [node name="party_panel" type="PanelContainer" parent="ui_overlay/ui/main_hud/HBoxContainer"]
 layout_mode = 2
@@ -1705,7 +1706,7 @@ layout_mode = 2
 [node name="resume" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-text = "Resume"
+text = "[p] Resume"
 
 [node name="sound_settings" type="Button" parent="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer"]
 layout_mode = 2

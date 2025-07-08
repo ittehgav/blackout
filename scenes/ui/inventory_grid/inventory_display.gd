@@ -391,7 +391,7 @@ func send_resource_by_amount(resource:String, amount:int)->void:
 
 func send_resource(source:ItemMirror, amount:int)->void:
 	var sent:int = amount;
-	if amount == source.stack_size and source.item.raw_stack:
+	if( amount == source.stack_size and source.item.raw_stack) or context == "loot":
 		send_item(source, true);
 		exchanging_display.resources_changed.emit(source.item.resource, source.stack_size);
 	else:
@@ -405,8 +405,8 @@ func send_resource(source:ItemMirror, amount:int)->void:
 		
 func send_item(item_mirror:ItemMirror, trade:bool = false, new_instance:bool=false)->void:
 	all_mirrors.erase(item_mirror)
-
 	if not exchanging_display.receive_item(item_mirror,trade, new_instance):
+		## needs to be erased prior to other display refreshing so warnings behave properly
 		all_mirrors.append(item_mirror)
 
 
@@ -414,16 +414,9 @@ func receive_item(item_mirror:ItemMirror,trade:bool, new_instance:bool)->bool:
 	## make this only apply to empty containers and non-resources?
 	var spot:Vector2i = find_clear_cell(item_mirror.item)
 	if spot == Vector2i(-1, -1):
-		if inventory == Entities.player.inventory:
-			if context == "loot":
-				send_item(item_mirror);
-				invalid_move.emit("NOT ENOUGH ROOM");
-				return false
-			else:
-				if new_instance: 
-					trade_excess_container.add_child(item_mirror);
-				else:
-					item_mirror.reparent(trade_excess_container);
+		invalid_move.emit("NOT ENOUGH ROOM", item_mirror);
+		return false
+
 	else:
 		if not new_instance:
 			item_mirror.reparent(item_mirrors_node, false);
@@ -645,7 +638,7 @@ func sort_inventory()->void:
 func store_resource(amount:int, resource:String)->int:
 	var initial_amount:int = amount;
 	var remaining:int = amount;
-	if inventory.holder is Settlement or inventory.holder is NpcLeader:
+	if (context != "loot") and inventory.holder is Settlement or inventory.holder is NpcLeader:
 		var storage:ResourceContainer = inventory.holder[resource+"_storage"];
 		storage.mirror.stack_size += amount;
 		storage.mirror.highlight_stack_label();
@@ -761,7 +754,7 @@ func board_shake(intensity:int, return_duration:float=.1)->void:
 	send_rect.hide();
 
 
-func _on_invalid_move(message:String="") -> void:
+func _on_invalid_move(message:String="", _item_mirror:ItemMirror=null) -> void:
 	sfx.play_sound_by_key("invalid")
 	if held_item_mirror:
 		held_item_mirror.held = false;

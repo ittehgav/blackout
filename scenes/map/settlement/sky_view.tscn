@@ -22,11 +22,11 @@ chatter_box = NodePath("chatter")
 [node name="chatter" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_top = -206.0
-offset_right = 152.0
-offset_bottom = -155.0
+offset_top = 10.0
+offset_right = 184.0
+offset_bottom = 61.0
 theme_override_font_sizes/font_size = 64
-text = "chatter"
+text = "*chatter*"
 
 [node name="clouds" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0.490196)

@@ -209,7 +209,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -720.0
+offset_top = -2547.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_m2mhi")
@@ -463,7 +463,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.309804)
 theme_override_font_sizes/font_size = 64
 shortcut = ExtResource("5_36m0f")
 shortcut_in_tooltip = false
-text = "[esc] Exit"
+text = "[tab] Exit"
 
 [node name="post_listen_around" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "main_view", "post_listen_around_list")]
 visible = false
@@ -830,7 +830,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("13_xvf0a")
 shortcut = ExtResource("5_36m0f")
-text = "[esc] exit"
+text = "[tab] exit"
 
 [node name="event_view" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "stat_gain_sfx", "resource_gain_sfx", "sky_view", "confirmation_panel", "conclusion_panel", "samples_container", "name_label", "description_label", "available_units_label", "money_cost_label", "time_cost_label", "confirm_btn", "resrource_gains_container", "conclusion_samples_container")]
 visible = false
@@ -889,7 +889,7 @@ offset_top = 21.0
 offset_right = 160.0
 offset_bottom = 55.0
 shortcut = ExtResource("5_36m0f")
-text = "[esc] Return"
+text = "[tab] Return"
 
 [node name="name" type="Label" parent="event_view/confirmation"]
 layout_mode = 1

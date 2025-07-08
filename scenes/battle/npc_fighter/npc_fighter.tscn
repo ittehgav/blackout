@@ -61,6 +61,7 @@ script = ExtResource("2_stwlc")
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 volume_db = -5.0
 max_distance = 500.0
+attenuation = 0.189465
 bus = &"sfx"
 script = ExtResource("5_8vs8j")
 swing = ExtResource("6_v4rci")

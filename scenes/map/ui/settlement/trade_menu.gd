@@ -255,6 +255,8 @@ func finish_trade()->void:
 		player_inventory_display.sfx.play_sound_by_key("coin_drop");
 		await get_tree().create_timer(.05).timeout;
 	reset_trade_balance();
+	
+	Entities.player.inventory.refresh_resource_counts();
 
 func set_label_text(label:Label, value:int)->void:
 	label.text = str(value);
@@ -294,3 +296,15 @@ func _on_24_hour_upkeep_pressed() -> void:
 	
 	trader_inventory_display.send_resource_by_amount("food", food_to_get)
 	trader_inventory_display.send_resource_by_amount("fuel", fuel_to_get)
+
+
+func _on_player_inventory_display_invalid_move(_message: String, returned_item_mirror:ItemMirror=null) -> void:
+	if returned_item_mirror:
+		money_trade += returned_item_mirror.price;
+		
+	
+
+
+func _on_trader_inventory_display_invalid_move(_message: String, returned_item_mirror:ItemMirror=null) -> void:
+		if returned_item_mirror:
+			money_trade -= returned_item_mirror.price;

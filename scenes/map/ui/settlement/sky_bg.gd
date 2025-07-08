@@ -55,8 +55,7 @@ func color_background(gradual:bool=false, hour:int=Entities.world_map.current_ho
 		
 	var prop_color:Color = self["prop_" + time_key];
 	var ground_color:Color = self["ground_" + time_key];
-	
-	
+
 	
 	var prop_dark_color:Color = prop_color.darkened(.5);
 	var prop_light_color:Color = prop_color;

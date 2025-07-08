@@ -14,9 +14,13 @@ const sfx_key = "overload"
 const base_stun_duration = 2;
 const base_technique_frac = .5;
 
-@onready var description :String = "Consumes " + str(chips_cost) +" " + Index.resource_colored_name("chips") + \
+var description :String;
+
+func set_hint_data()->void:
+	description = "Consumes " + str(chips_cost) +" " + Index.resource_colored_name("chips") + \
 			" to stun all nearby enemies for second and greatly increase the "\
 			 + Index.stat_colored_name("technique") + " of nearby allies for the rest of the battle.";
+
 
 func check_availability()->bool:
 	return Entities.player.inventory.chips >= chips_cost;

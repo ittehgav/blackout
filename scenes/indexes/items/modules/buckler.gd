@@ -10,8 +10,11 @@ const sfx_key = "buckler";
 
 const continuous = true;
 
-var description:String = "Hold to reduce speed and damage and greatly increase your " + Index.stat_colored_name("defense") +\
-", if an enemy attacks you immediately after activating [u]Module - Buckler[/u], the enemy is stunned.";
+var description:String;
+func set_hint_data()->void:
+	description = "Hold to reduce speed and damage and greatly increase your " + Index.stat_colored_name("defense") +\
+	", if an enemy damages you immediately after activating [u]Module - Buckler[/u], the enemy is stunned.";
+
 
 const base_defense_frac = .5;
 const base_stun_duration = 3;

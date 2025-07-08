@@ -448,7 +448,7 @@ grow_horizontal = 2
 theme = ExtResource("5_ggy66")
 shortcut = ExtResource("6_yg835")
 shortcut_in_tooltip = false
-text = "[esc] Exit"
+text = "[tab] Exit"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/in_trade"]
 layout_mode = 1
@@ -527,7 +527,7 @@ text = "Confirm"
 layout_mode = 2
 theme = ExtResource("5_ggy66")
 theme_override_font_sizes/font_size = 48
-text = "Reset"
+text = "[r] Reset"
 
 [node name="trader_panel" type="Panel" parent="HBoxContainer"]
 custom_minimum_size = Vector2(550, 700)
@@ -558,6 +558,9 @@ exchanging_display = NodePath("../../player_panel/player_inventory_display")
 [node name="cargo" parent="HBoxContainer/trader_panel/trader_inventory_display" index="2"]
 offset_left = 133.0
 offset_right = 173.0
+
+[node name="operation" parent="HBoxContainer/trader_panel/trader_inventory_display/cargo/send_rect" index="0"]
+text = "SELL"
 
 [node name="VBoxContainer" parent="HBoxContainer/trader_panel/trader_inventory_display" index="3"]
 offset_left = -266.0
@@ -636,6 +639,7 @@ offset_bottom = -51.77
 offset_left = 128.0
 offset_right = 252.0
 
+[connection signal="invalid_move" from="HBoxContainer/player_panel/player_inventory_display" to="." method="_on_player_inventory_display_invalid_move"]
 [connection signal="item_received" from="HBoxContainer/player_panel/player_inventory_display" to="." method="_on_player_inventory_display_item_received"]
 [connection signal="resources_changed" from="HBoxContainer/player_panel/player_inventory_display" to="." method="_on_player_inventory_display_resources_changed"]
 [connection signal="pressed" from="HBoxContainer/player_panel/VBoxContainer/1_hour_upkeep" to="." method="_on__hour_upkeep_pressed"]
@@ -643,6 +647,7 @@ offset_right = 252.0
 [connection signal="pressed" from="HBoxContainer/in_trade/exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="HBoxContainer/in_trade/VBoxContainer2/confirm" to="." method="_on_confirm_pressed"]
 [connection signal="pressed" from="HBoxContainer/in_trade/VBoxContainer2/reset" to="." method="_on_reset_pressed"]
+[connection signal="invalid_move" from="HBoxContainer/trader_panel/trader_inventory_display" to="." method="_on_trader_inventory_display_invalid_move"]
 [connection signal="item_received" from="HBoxContainer/trader_panel/trader_inventory_display" to="." method="_on_trader_inventory_display_item_received"]
 
 [editable path="HBoxContainer/player_panel/player_inventory_display"]

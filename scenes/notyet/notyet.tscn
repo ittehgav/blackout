@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://mf7kkfkmyksb"]
+
+[ext_resource type="Script" uid="uid://cqdrpx6jmvux1" path="res://scenes/battle/arena/tactics.gd" id="1_86wux"]
+
+[node name="Notyet" type="Node2D"]
+
+[node name="tactics" type="Control" parent="." node_paths=PackedStringArray("tactic_left", "tactic_right")]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_86wux")
+tactic_left = NodePath("tactic_left")
+tactic_right = NodePath("tactic_right")
+
+[node name="tactic_left" type="ColorRect" parent="tactics"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 500.0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="hover_highlight" type="ColorRect" parent="tactics/tactic_left"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.74, 0.74, 0.74, 0.529412)
+
+[node name="tactic_right" type="ColorRect" parent="tactics"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 778.0
+offset_right = 1278.0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="hover_highlight" type="ColorRect" parent="tactics/tactic_right"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.74, 0.74, 0.74, 0.529412)
+
+[connection signal="mouse_entered" from="tactics/tactic_left" to="tactics" method="_on_tactic_left_mouse_entered"]
+[connection signal="mouse_exited" from="tactics/tactic_left" to="tactics" method="_on_tactic_left_mouse_exited"]
+[connection signal="mouse_entered" from="tactics/tactic_right" to="tactics" method="_on_tactic_right_mouse_entered"]
+[connection signal="mouse_exited" from="tactics/tactic_right" to="tactics" method="_on_tactic_right_mouse_exited"]

@@ -22,6 +22,7 @@ const projection = "none";
 
 const description = "Charges up a powerful AOE attack. Charge speeds up when units inside the area use their skill."
 
+
 const use_vfx = ["grow"]
 
 const use_sfx = "";
@@ -57,7 +58,6 @@ func use()->bool:
 	return false
 
 func explode()->void:
-	
 	active = false;
 	progress = 0;
 	progress_bar.value = 0;
@@ -98,7 +98,8 @@ func _on_area_body_exited(body: Node2D) -> void:
 	assert(body is ActiveFighter);
 	if body is NpcFighter:
 		monitored_units.erase(body)
-		body.skill_used.disconnect(accelerate_charge)
+		if len(body.skill_used.get_connections()):
+			body.skill_used.disconnect(accelerate_charge)
 
 func accelerate_charge()->void:
 	progress_bar.tint_progress.a = 1;

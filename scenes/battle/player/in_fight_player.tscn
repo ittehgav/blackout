@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=32 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/player/in_fight_player.gd" id="1_bxbr4"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="2_fo4cr"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" uid="uid://c5fabw4wpron0" path="res://scenes/battle/player/weapon_projection.gd" id="12_fo4cr"]
 [ext_resource type="AudioStream" uid="uid://dn3kmtrv4nq0u" path="res://assets/sound/sfx/combat/player/charge_up.wav" id="12_wyexo"]
 [ext_resource type="AudioStream" uid="uid://bdfv1vrftu78i" path="res://assets/sound/sfx/combat/player/explosion.wav" id="13_dvkxb"]
-[ext_resource type="Script" uid="uid://cqdrpx6jmvux1" path="res://scenes/battle/arena/tactics.gd" id="14_0y57y"]
 [ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/sfx/combat/generic/heal.wav" id="14_evdtg"]
 [ext_resource type="AudioStream" uid="uid://b51a48pddixp1" path="res://assets/sound/sfx/combat/damage_taken.ogg" id="14_pldj0"]
 [ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="15_3ir4e"]
@@ -196,61 +195,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="tactics" type="Control" parent="hud_overlay" node_paths=PackedStringArray("tactic_left", "tactic_right")]
-process_mode = 3
-modulate = Color(1, 1, 1, 0)
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("14_0y57y")
-tactic_left = NodePath("tactic_left")
-tactic_right = NodePath("tactic_right")
-
-[node name="tactic_left" type="ColorRect" parent="hud_overlay/tactics"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 500.0
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.784314)
-
-[node name="hover_highlight" type="ColorRect" parent="hud_overlay/tactics/tactic_left"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.74, 0.74, 0.74, 0.529412)
-
-[node name="tactic_right" type="ColorRect" parent="hud_overlay/tactics"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 778.0
-offset_right = 1278.0
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.784314)
-
-[node name="hover_highlight" type="ColorRect" parent="hud_overlay/tactics/tactic_right"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.74, 0.74, 0.74, 0.529412)
-
 [node name="screen_blink" type="ColorRect" parent="hud_overlay"]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -271,9 +215,5 @@ position = Vector2(116, 3)
 [connection signal="weapon_changed" from="equipment" to="sfx" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_equipped" from="equipment" to="hit_scan/weapon_projection" method="_on_equipment_weapon_equipped"]
 [connection signal="timeout" from="equipment/freeze_frame_control" to="equipment" method="_on_freeze_frame_control_timeout"]
-[connection signal="mouse_entered" from="hud_overlay/tactics/tactic_left" to="hud_overlay/tactics" method="_on_tactic_left_mouse_entered"]
-[connection signal="mouse_exited" from="hud_overlay/tactics/tactic_left" to="hud_overlay/tactics" method="_on_tactic_left_mouse_exited"]
-[connection signal="mouse_entered" from="hud_overlay/tactics/tactic_right" to="hud_overlay/tactics" method="_on_tactic_right_mouse_entered"]
-[connection signal="mouse_exited" from="hud_overlay/tactics/tactic_right" to="hud_overlay/tactics" method="_on_tactic_right_mouse_exited"]
 
 [editable path="body"]

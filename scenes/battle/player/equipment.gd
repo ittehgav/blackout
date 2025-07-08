@@ -152,7 +152,8 @@ func use_weapon()->void:
 	if not "not_continuous" in weapon:
 		weapon_cd.start()
 	else:
-		weapon.effect_finished.connect(weapon_cd.start, ConnectFlags.CONNECT_ONE_SHOT);
+		if weapon.has_finish:
+			weapon.effect_finished.connect(weapon_cd.start, ConnectFlags.CONNECT_ONE_SHOT);
 	
 	var hit:bool = weapon.use();
 	if hit:

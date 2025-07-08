@@ -19,7 +19,7 @@ const hit_scan_offset = Vector2(60, 0)
 
 const projection = "none"
 
-const description:String = "Short range, quick, reliable weapon.";
+const description:String = "Short range, reliable weapon.";
 
 const use_vfx = ["swing", "arc", "camera_lunge"];
 const hit_vfx = ["freeze_camera"];

@@ -13,6 +13,7 @@ texture = ExtResource("1_uwo7j")
 script = ExtResource("1_3t42n")
 area = NodePath("area")
 progress_bar = NodePath("projection")
+has_finish = true
 
 [node name="area" type="Area2D" parent="."]
 collision_layer = 0

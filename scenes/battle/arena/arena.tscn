@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cocy8mo80801o"]
+[gd_scene load_steps=55 format=3 uid="uid://cocy8mo80801o"]
 
 [ext_resource type="Script" uid="uid://xb73utl6rxmj" path="res://scenes/battle/arena/arena.gd" id="1_gosq3"]
 [ext_resource type="TileSet" uid="uid://d2pxm2uqscmkg" path="res://resources/world_tile_set.tres" id="2_524le"]
@@ -29,7 +29,6 @@
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="28_61gvu"]
 [ext_resource type="Script" uid="uid://b7a05n61c7pja" path="res://scenes/battle/arena/pause_menu.gd" id="29_1usgs"]
 [ext_resource type="Script" uid="uid://81xhv6lcyjj" path="res://scenes/battle/arena/pointer.gd" id="30_1usgs"]
-[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="30_w5ded"]
 [ext_resource type="Texture2D" uid="uid://c5upctkf3dbln" path="res://assets/visual/particles/off_screen_pointer.png" id="31_w5ded"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_og1r2"]
@@ -309,7 +308,7 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="team_1/player_fighter/off_screen_checker"]
-polygon = PackedVector2Array(0, 0, 20, 700, 1260, 700, 1260, 51)
+polygon = PackedVector2Array(20, 51, 20, 700, 1260, 700, 1260, 51)
 
 [node name="sweep" type="Timer" parent="team_1/player_fighter/off_screen_checker"]
 autostart = true
@@ -648,6 +647,9 @@ texture = ExtResource("31_w5ded")
 visible = false
 layout_mode = 1
 
+[node name="victory_view" parent="hud/overlay/post_fight" index="2"]
+visible = false
+
 [node name="max_hp_icon" parent="hud/overlay/post_fight/victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer" index="0"]
 material = SubResource("ShaderMaterial_2tjb5")
 
@@ -702,7 +704,7 @@ material = SubResource("ShaderMaterial_ttp6m")
 [node name="chips_icon" parent="hud/overlay/post_fight/victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer6" index="0"]
 material = SubResource("ShaderMaterial_djei2")
 
-[node name="pause_menu" type="Control" parent="hud/overlay" node_paths=PackedStringArray("ui_sfx")]
+[node name="pause_menu" type="Control" parent="hud/overlay" node_paths=PackedStringArray("post_fight", "ui_sfx")]
 process_mode = 2
 visible = false
 layout_mode = 1
@@ -712,6 +714,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("29_1usgs")
+post_fight = NodePath("../post_fight")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="hud/overlay/pause_menu" instance=ExtResource("28_61gvu")]
@@ -740,31 +743,34 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="hud/overlay/pause_menu/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="hud/overlay/pause_menu/Panel"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -81.0
-offset_top = 49.0
-offset_right = 81.0
-offset_bottom = 75.0
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -44.5
+offset_right = 82.0
+offset_bottom = 44.5
 grow_horizontal = 2
-text = "Fight is Paused"
+grow_vertical = 2
 
-[node name="resume" type="Button" parent="hud/overlay/pause_menu/Panel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -44.0
-offset_top = 125.0
-offset_right = 44.0
-offset_bottom = 159.0
-grow_horizontal = 2
-theme = ExtResource("30_w5ded")
+[node name="Label" type="Label" parent="hud/overlay/pause_menu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Fight
+Paused"
+
+[node name="resume" type="Button" parent="hud/overlay/pause_menu/Panel/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Resume"
+
+[node name="restart" type="Button" parent="hud/overlay/pause_menu/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Restart Battle"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 259
@@ -796,7 +802,8 @@ blend_mode = 2
 [connection signal="timeout" from="team_1/player_fighter/off_screen_checker/sweep" to="hud/overlay/pointer" method="_on_sweep_timeout"]
 [connection signal="value_changed" from="hud/overlay/tide_of_battle" to="hud/overlay/tide_of_battle" method="move_tide"]
 [connection signal="finished" from="hud/overlay/tide_of_battle/sfx" to="hud/overlay/tide_of_battle" method="_on_sfx_finished"]
-[connection signal="pressed" from="hud/overlay/pause_menu/Panel/resume" to="hud/overlay/pause_menu" method="resume"]
+[connection signal="pressed" from="hud/overlay/pause_menu/Panel/VBoxContainer/resume" to="hud/overlay/pause_menu" method="resume"]
+[connection signal="pressed" from="hud/overlay/pause_menu/Panel/VBoxContainer/restart" to="hud/overlay/pause_menu" method="restart_battle"]
 
 [editable path="team_1/player_fighter"]
 [editable path="team_1/player_fighter/body"]

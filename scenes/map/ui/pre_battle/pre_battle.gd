@@ -7,6 +7,8 @@ var to_fight:Leader;
 var from:String;
 
 @export_group("visual elements")
+@export var player_body:Sprite2D;
+
 @export var player_name_label:Label;
 @export var enemy_name_label:Label;
 
@@ -35,6 +37,9 @@ func start_pre_battle(opponent:Leader=Entities.current_speaking_party.leader, or
 	enemy_party_power_icon.leader = opponent;
 	enemy_party_power_icon.refresh()
 	set_opponent_avatar(opponent)
+	
+	var outline_color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
+	player_body.material.set_shader_parameter("color", outline_color)
 
 	set_process_mode(PROCESS_MODE_ALWAYS)
 	Entities.world_map.pause_map()

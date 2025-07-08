@@ -19,7 +19,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="pre_battle" type="Control" node_paths=PackedStringArray("player_name_label", "enemy_name_label", "enemy_party_count_label", "enemy_party_power_icon", "enemy_party_icon", "plates_container", "opponent_avatar", "ui_sfx")]
+[node name="pre_battle" type="Control" node_paths=PackedStringArray("player_body", "player_name_label", "enemy_name_label", "enemy_party_count_label", "enemy_party_power_icon", "enemy_party_icon", "plates_container", "opponent_avatar", "ui_sfx")]
 process_mode = 4
 visible = false
 layout_mode = 3
@@ -29,6 +29,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eegxm")
+player_body = NodePath("container/player_panel/player_avatar/body")
 player_name_label = NodePath("container/player_panel/VBoxContainer/player_name")
 enemy_name_label = NodePath("container/enemy_panel/VBoxContainer/opponent_name")
 enemy_party_count_label = NodePath("container/enemy_panel/VBoxContainer/HBoxContainer/party_count")

@@ -56,6 +56,10 @@ func setup(make_connection:bool=true)->void:
 		parent.mouse_entered.connect(hover_timer.start);
 		parent.mouse_exited.connect(stop_hover_timer);
 
+	if target is Item:
+		if not target.description:
+			target.set_hint_data();
+
 	name_label.text = target.name;
 	if "sub_name" in target:
 		sub_name_label.show()

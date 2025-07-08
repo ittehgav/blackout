@@ -38,11 +38,11 @@ func set_tiles()->void:
 	var hour:int = Entities.world_map.current_hour;
 	if hour <= 3 or hour >= 21:
 		## late night hours
-		light.color = Color.MIDNIGHT_BLUE;
+		light.color = Color.MIDNIGHT_BLUE - Color(0, 0, 0, .5);
 	elif hour <= 6 or hour >= 18:
-		light.color = Color.DARK_ORANGE
+		light.color = Color.DARK_ORANGE - Color(0, 0, 0, .5);
 	elif hour >= 12: ## and < 18
-		light.color = Color.YELLOW
+		light.color = Color.YELLOW- Color.from_hsv(0, 0, .1, .5)
 		get_parent().team_1.modulate.v = .7
 		get_parent().team_2.modulate.v = .7
 		

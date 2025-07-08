@@ -282,7 +282,7 @@ func stat_colored_name(stat:String, close_tag:bool=true)->String:
 
 
 var resource_descriptions:Dictionary[String, String] = {
-	"food": get_color_tag("food") + "Basic survival resource[/color], you and your party need to eat some food every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop",
+	"food": get_color_tag("food") + "Basic survival resource[/color], you and your party need to eat some food every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop.",
 	
 	"fuel": get_color_tag("fuel") + "Basic travel resource[/color], consumed every hour of travel in the world map, the more units there are in the party the more fuel travelling will\
 	 cost. If you have no fuel, you will travel much slower.",

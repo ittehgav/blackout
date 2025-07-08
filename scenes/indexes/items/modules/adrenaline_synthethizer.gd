@@ -12,10 +12,11 @@ const juice_cost = 5;
 const base_agility_frac = .5
 
 ## juice consumption scales with leadership_level?
-@onready var  description:String = "Cosumes " + str(juice_cost)+" " + Index.resource_colored_name("juice") +\
-" and increases your "+Index.stat_colored_name("agility")+" for the rest of the battle.";
+var description:String;
 
-
+func set_hint_data()->void:
+	description = "Cosumes " + str(juice_cost)+" " + Index.resource_colored_name("juice") +\
+	" and increases your "+Index.stat_colored_name("agility")+" for the rest of the battle.";
 
 func check_available()->bool:
 	return Entities.player.inventory.juice >= juice_cost; 

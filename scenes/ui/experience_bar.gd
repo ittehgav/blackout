@@ -34,7 +34,7 @@ func build_from_unit(fighter_unit:FighterUnit)->void:
 	max_value = Scaling.exp_for_next_level(fighter_unit.level);
 	value = fighter_unit.experience;
 
-func set_target_exp(value:int)->void:
+func set_target_exp(_value:int)->void:
 	if target is Player:
 		if exp_tracked == "leadership":
 			Entities.player.leadership_exp = value

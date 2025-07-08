@@ -8,6 +8,7 @@ signal battle_over(winner:int)
 @export var player_fighter:InFightPlayer
 
 
+
 ## keep this information and only emit won/lost signal when you exit the arena
 ## any interactions that depend on whether or not the player won will 
 ## be bound to the signals

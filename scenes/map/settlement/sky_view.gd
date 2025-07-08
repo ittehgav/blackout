@@ -39,7 +39,7 @@ func pass_time(time:int, floating_chatter:bool=false)->Tween:
 		Entities.world_map.hour_passed.emit();
 		await sky_bg.color_background(true)
 	
-	await get_tree().create_timer(time/3).timeout;
+	await get_tree().create_timer(time/2).timeout;
 	var crowd_tween:Tween = create_tween();
 	crowd_tween.tween_property(crowd_rect, "modulate:a", 1, .15);
 	crowd_tween.tween_callback(sky_bg.switch_crowd);
@@ -100,7 +100,7 @@ func generate_sky(floating_chatter:bool)->void:
 		for i in 3:
 			const x_margin = 300;
 			var chatter:Label = chatter_box.duplicate();
-			chatter.position = Vector2(randi_range(x_margin, window_size.x - x_margin), window_size.y + randi_range(10, 50));
+			chatter.position = Vector2(randi_range(x_margin, window_size.x - x_margin), window_size.y + 20);
 			add_child(chatter)
 			 
 			
@@ -109,5 +109,5 @@ func generate_sky(floating_chatter:bool)->void:
 			wait_acm += .5
 			tween.tween_interval(wait_acm);
 			tween.tween_callback(chatter.show)
-			tween.tween_property(chatter, "position:y", chatter.position.y - randi_range(200, 600), 1);
-			tween.parallel().tween_property(chatter, "modulate:a", 0, 1)
+			tween.tween_property(chatter, "position:y", chatter.position.y - randi_range(500, 1000), 1.5);
+			tween.parallel().tween_property(chatter, "modulate:a", 0, 2)
