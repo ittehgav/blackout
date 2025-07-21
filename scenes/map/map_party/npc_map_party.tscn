@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bl2gyiuhaw0j2"]
+[gd_scene load_steps=4 format=3 uid="uid://bl2gyiuhaw0j2"]
 
 [ext_resource type="Script" uid="uid://c4fmwyrwsm6qk" path="res://scenes/map/map_party/npc_map_party.gd" id="1_lag4v"]
-[ext_resource type="Material" uid="uid://cfjkwhefvulwq" path="res://resources/shaders/materials/npc_map_party.tres" id="1_xyheu"]
 [ext_resource type="Texture2D" uid="uid://ddunl8s2p0hj7" path="res://assets/visual/icons/behaviors/scared.png" id="2_3u04b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpm2v"]
@@ -10,7 +9,6 @@ radius = 25.0
 [node name="NpcMapParty" type="CharacterBody2D" node_paths=PackedStringArray("behavior_icon", "find_target_timer", "party_size_label")]
 process_mode = 1
 z_index = 1
-material = ExtResource("1_xyheu")
 collision_layer = 257
 collision_mask = 257
 motion_mode = 1

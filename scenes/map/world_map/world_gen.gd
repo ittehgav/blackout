@@ -170,7 +170,6 @@ func generate_party(leader_scene:PackedScene, party_positions:Array[Vector2])->N
 	var quadrant:WorldMapQuadrant = self["quadrant_" + str(adjusted[1])];
 	quadrant.add_child(party)
 	
-	party.material.set_shader_parameter("color", leader.outline_color)
 	
 	return party
 	
@@ -185,10 +184,14 @@ func generate_parties()->void:
 		generate_party(Index.travelling_trader_scene, party_positions);
 
 func generate_props()->void:
+	var small_prop_i:int = 0;
 	for texture:Texture in small_prop_textures:
 		var sprite:Sprite2D = Sprite2D.new();
 		sprite.texture = texture;
-		ColorCoder.color_code_prop(sprite);
+		
+		ColorCoder.color_code_prop(sprite, small_prop_i);
+		small_prop_i  += 1;
+		
 		sprite.scale = Vector2(2, 2);
 		sprite.z_index += 1
 		small_prop_sprites.append(sprite);
@@ -197,11 +200,14 @@ func generate_props()->void:
 		for i in small_prop_amounts:
 			set_prop(prop, 50, true)
 	
+	var large_prop_i:int = 0;
 	for texture:Texture in large_prop_textures:
 		var sprite:Sprite2D = Sprite2D.new();
 		sprite.z_index += 1
+		
 		sprite.texture = texture;
-		ColorCoder.color_code_prop(sprite);
+		ColorCoder.color_code_prop(sprite,large_prop_i, true);
+		
 		sprite.scale = Vector2(2, 2);
 		large_prop_sprites.append(sprite)
 	

@@ -18,6 +18,7 @@ var intimidate_attempted:bool = false;
 var persuade_attempted:bool=false;
 
 func _ready()->void:
+	super()
 	match leader.party_type:
 		"thugs":
 			behavior_icon.texture = Index.agressive_icon_texture;

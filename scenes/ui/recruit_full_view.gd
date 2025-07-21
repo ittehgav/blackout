@@ -98,7 +98,7 @@ func fade_out()->void:
 	hide();
 
 func _input(e: InputEvent) -> void:
-	if e.is_action_pressed("ui_exit") and visible:
+	if e.is_action_pressed("ui_exit") or e.is_action_pressed("ui_quick_exit") and visible:
 		if evolution_panel.confirmation.get_parent().visible:
 			Tweens.ui_fade_out(evolution_panel.confirmation.get_parent(), true);
 		else:

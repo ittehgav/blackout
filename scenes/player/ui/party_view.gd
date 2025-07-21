@@ -10,7 +10,7 @@ extends Control
 @export var recruits_grid:GridContainer;
 
 @export var upgrade_hint:TextureRect
-
+#MAKERECRUITFULLVIEWINSTANTIATEDINSTEADOFBEINGRARDED
 func refresh_data()->void:
 	for c in recruits_grid.get_children():
 		c.queue_free()

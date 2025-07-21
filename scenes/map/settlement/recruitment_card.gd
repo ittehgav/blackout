@@ -27,8 +27,7 @@ func setup(fighter_unit:FighterUnit)->void:
 	else:
 		level_multiplier = unit.level ** 2
 	
-	var pairs:Dictionary[Color,Color] = ColorCoder.scheme_to_sprite_color_pairs(Entities.player);
-	recruit_base_texture.texture.atlas = ColorCoder.color_code_texture(unit.base.texture, pairs);
+	recruit_base_texture.texture.atlas = ColorCoder.color_code_fighter_base_texture(fighter_unit.base, Entities.player.color_scheme_index);
 	
 	unit_price = len(unit.base.tags) * level_multiplier;
 

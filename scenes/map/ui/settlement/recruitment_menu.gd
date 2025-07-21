@@ -80,9 +80,7 @@ func display_recruit(unit:FighterUnit, hire_price:int, card:RecruitmentCard)->vo
 	recruit_description_label.text = unit.base.full_skill_description(unit)
 	recruit_flavor_label.text = unit.base.flavor;
 	
-	
-	var pairs:Dictionary[Color,Color] = ColorCoder.scheme_to_sprite_color_pairs(Entities.player)
-	recruit_sprite.texture.atlas = ColorCoder.color_code_texture(unit.base.texture, pairs);
+	recruit_sprite.texture.atlas = ColorCoder.color_code_fighter_base_texture(unit.base, Entities.player.color_scheme_index);
 	
 	for stat:String in Index.all_combat_stats:
 		self["recruit_" + stat + "_label"].text = str(unit.stats[stat]);

@@ -1,6 +1,20 @@
 extends Node
 
-@export var color_palette:Node;
+@export var all_fighter_base_scenes:Array[PackedScene]
+var all_fighter_bases:Dictionary[String, FighterBase]
+var basic_fighter_bases:Array[FighterBase];
+var evolved_fighter_bases:Array[FighterBase];
+
+
+func _ready()->void:
+	for scene:PackedScene in all_fighter_base_scenes:
+		var base:FighterBase = scene.instantiate();
+		all_fighter_bases[base.name] = base;
+		if len(base.tags) == 2:
+			basic_fighter_bases.append(base);
+		else:
+			evolved_fighter_bases.append(base)
+
 
 @export_group("Common Scenes")
 @export_subgroup("Game States")
@@ -67,22 +81,6 @@ extends Node
 @export var rarity_2_item_scenes:Array[PackedScene];
 @export var rarity_3_item_scenes:Array[PackedScene];
 
-@export_subgroup("Fighter Base Scenes")
-@export var arm_guy_scene:PackedScene;
-@export var mech_arm_guy_scene:PackedScene;
-@export var double_arm_guy_scene:PackedScene;
-
-@export var crowbar_guy_scene:PackedScene;
-@export var crossbow_guy_scene:PackedScene;
-@export var gravity_guy_scene:PackedScene;
-
-@export var tailpipe_guy_scene:PackedScene;
-@export var wheel_guy_scene:PackedScene;
-@export var door_guy_scene:PackedScene;
-
-@export var taser_guy_scene:PackedScene;
-@export var tether_guy_scene:PackedScene;
-@export var coil_guy_scene:PackedScene;
 
 @export_subgroup("Events")
 @export var local_event_scenes:Array[PackedScene];
@@ -102,6 +100,8 @@ extends Node
 @export var hollow_circle_textures:Array[Texture];
 @export var circle_textures:Array[Texture];
 
+@export var day_reflection_color:Color;
+@export var night_reflection_color:Color;
 
 @export var  stat_colors:Dictionary[String, Color] = {
 	"max_hp": Color.WEB_GREEN,
@@ -132,44 +132,10 @@ const resource_base_prices = {
 
 
 
-@onready var basic_fighter_base_scenes:Array[PackedScene] = [
-	## settlements will only sell these by default?
-	arm_guy_scene,
-	crowbar_guy_scene,
-	tailpipe_guy_scene,
-	taser_guy_scene
-]
 
 
-@onready var evolved_fighter_base_scenes:Array[PackedScene] = [
-	mech_arm_guy_scene,
-	double_arm_guy_scene,
-	
-	crossbow_guy_scene,
-	gravity_guy_scene,
-	
-	wheel_guy_scene,
-	door_guy_scene,
-	
-	tether_guy_scene,
-	coil_guy_scene
-]
 
 
-var all_fighter_bases:Array[FighterBase];
-var basic_fighter_bases:Array[FighterBase];
-var evolved_fighter_bases:Array[FighterBase];
-
-func _ready()->void:
-	for scene:PackedScene in basic_fighter_base_scenes:
-		var base:FighterBase = scene.instantiate();
-		basic_fighter_bases.append(base);
-		all_fighter_bases.append(base);
-		
-	for scene:PackedScene in evolved_fighter_base_scenes:
-		var base:FighterBase = scene.instantiate();
-		evolved_fighter_bases.append(base);
-		all_fighter_bases.append(base);
 
 
 @export_group("floating icon textures")

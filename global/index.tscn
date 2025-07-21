@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=93 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index.gd" id="1_pkksx"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="2_dh1jb"]
@@ -84,7 +84,6 @@
 [ext_resource type="Texture2D" uid="uid://df2splxypn7my" path="res://assets/visual/icons/stats/floating/agility.png" id="77_mlmax"]
 [ext_resource type="Texture2D" uid="uid://cui2boa6gcv18" path="res://assets/visual/particles/circles/circle_hollow_64x64.png" id="77_q20m7"]
 [ext_resource type="Texture2D" uid="uid://by7l0k6gjterq" path="res://assets/visual/icons/behaviors/idle.png" id="78_5ova7"]
-[ext_resource type="Script" uid="uid://ckghtgobwlvh1" path="res://global/theme_settings.gd" id="78_vco3o"]
 [ext_resource type="Texture2D" uid="uid://bkvwsq6raaf6p" path="res://assets/visual/particles/circles/circle_4x4.png" id="78_x7l0t"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="79_epdxe"]
 [ext_resource type="Texture2D" uid="uid://ddunl8s2p0hj7" path="res://assets/visual/icons/behaviors/scared.png" id="79_uah8p"]
@@ -94,9 +93,9 @@
 [ext_resource type="Texture2D" uid="uid://ckfoo7nfwxueb" path="res://assets/visual/icons/behaviors/salesman.png" id="81_t2t3a"]
 [ext_resource type="Texture2D" uid="uid://fvqn3burk27x" path="res://assets/visual/particles/circles/circle_64x64.png" id="82_er4df"]
 
-[node name="Index" type="Node" node_paths=PackedStringArray("color_palette")]
+[node name="Index" type="Node"]
 script = ExtResource("1_pkksx")
-color_palette = NodePath("color_palette")
+all_fighter_base_scenes = Array[PackedScene]([ExtResource("36_bodi2"), ExtResource("47_j2p12"), ExtResource("40_q54vm"), ExtResource("39_mosdq"), ExtResource("44_ruw64"), ExtResource("38_rhk7g"), ExtResource("41_c8d6o"), ExtResource("37_uqtag"), ExtResource("42_tu7gl"), ExtResource("45_gry1y"), ExtResource("46_wvsvf"), ExtResource("43_mkby3")])
 arena_scene = ExtResource("2_dh1jb")
 world_map_scene = ExtResource("3_crfhx")
 thugs_scene = ExtResource("4_itsve")
@@ -137,18 +136,6 @@ module_scenes = Array[PackedScene]([ExtResource("42_xnhe2"), ExtResource("43_gsh
 rarity_1_item_scenes = Array[PackedScene]([ExtResource("24_juamu"), ExtResource("28_phs30"), ExtResource("30_wgk3d"), ExtResource("43_gshh2"), ExtResource("44_h637s"), ExtResource("40_x8dpa")])
 rarity_2_item_scenes = Array[PackedScene]([ExtResource("35_b8tab"), ExtResource("25_32y5d"), ExtResource("27_n6rtn"), ExtResource("31_ilnpy"), ExtResource("33_m3o62"), ExtResource("42_xnhe2"), ExtResource("45_bff4x"), ExtResource("46_cg7d8"), ExtResource("39_1eftv"), ExtResource("41_v6ky4")])
 rarity_3_item_scenes = Array[PackedScene]([ExtResource("26_dp4cy"), ExtResource("29_h1q0l"), ExtResource("32_lxltn"), ExtResource("34_66xoq"), ExtResource("37_wow25"), ExtResource("38_mv15e")])
-arm_guy_scene = ExtResource("36_bodi2")
-mech_arm_guy_scene = ExtResource("37_uqtag")
-double_arm_guy_scene = ExtResource("38_rhk7g")
-crowbar_guy_scene = ExtResource("39_mosdq")
-crossbow_guy_scene = ExtResource("40_q54vm")
-gravity_guy_scene = ExtResource("41_c8d6o")
-tailpipe_guy_scene = ExtResource("42_tu7gl")
-wheel_guy_scene = ExtResource("43_mkby3")
-door_guy_scene = ExtResource("44_ruw64")
-taser_guy_scene = ExtResource("45_gry1y")
-tether_guy_scene = ExtResource("46_wvsvf")
-coil_guy_scene = ExtResource("47_j2p12")
 local_event_scenes = Array[PackedScene]([ExtResource("48_gry1y"), ExtResource("49_wvsvf"), ExtResource("50_j2p12"), ExtResource("51_cuqrp"), ExtResource("52_v8p2k"), ExtResource("53_38u7i"), ExtResource("54_bfenw"), ExtResource("55_psl0v"), ExtResource("56_xtdb6")])
 color_schemes = Array[Array]([[Color(0.541176, 0.607843, 0.407843, 1), Color(0, 0.3, 0, 1)], [Color(0.5418, 0.600137, 0.86, 1), Color(0, 0.256, 0.64, 1)], [Color(0.66, 0.5478, 0.5478, 1), Color(0.61, 0.244, 0, 1)], [Color(0.831373, 0.65098, 0.701961, 1), Color(0.75, 0.1725, 0.374625, 1)], [Color(0.69, 0.6739, 0.4485, 1), Color(0.35, 0.2744, 0.0665, 1)], [Color(0.703523, 0.4851, 0.77, 1), Color(0.33572, 0.0588, 0.42, 1)]])
 resource_colors = Dictionary[String, Color]({
@@ -161,6 +148,8 @@ resource_colors = Dictionary[String, Color]({
 })
 hollow_circle_textures = Array[Texture]([ExtResource("73_utn0t"), ExtResource("74_l4ld4"), ExtResource("75_mwnqg"), ExtResource("76_5481b"), ExtResource("77_q20m7")])
 circle_textures = Array[Texture]([ExtResource("78_x7l0t"), ExtResource("79_epdxe"), ExtResource("80_5243g"), ExtResource("81_i7wen"), ExtResource("82_er4df")])
+day_reflection_color = Color(0.2, 0.0392157, 0.0392157, 1)
+night_reflection_color = Color(0.487, 0.46, 1, 1)
 stat_colors = Dictionary[String, Color]({
 "agility": Color(1, 1, 0, 1),
 "attack": Color(0.7, 0, 0, 1),
@@ -177,8 +166,3 @@ idle_icon_texture = ExtResource("78_5ova7")
 scared_icon_texture = ExtResource("79_uah8p")
 agressive_icon_texture = ExtResource("80_efyjx")
 salesman_icon_texture = ExtResource("81_t2t3a")
-
-[node name="color_palette" type="Node" parent="."]
-script = ExtResource("78_vco3o")
-main_color = Color(0.168627, 0.0431373, 0.0431373, 1)
-off_color = Color(0.670588, 0.494118, 0.27451, 1)

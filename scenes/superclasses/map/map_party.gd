@@ -27,6 +27,11 @@ var target_position:Vector2=Vector2.ZERO;
 
 @onready var current_quadrant:WorldMapQuadrant = get_parent();
 
+func _ready()->void:
+	ColorCoder.color_code_vehicle(vehicle, leader)
+	vehicle.party = self;
+	started_moving.connect(vehicle.adjust_direction);
+
 func _on_quadrant_changed(new_quadrant: WorldMapQuadrant, _direction: Vector2) -> void:
 	current_quadrant = new_quadrant;
 

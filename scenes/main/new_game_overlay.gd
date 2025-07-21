@@ -93,11 +93,8 @@ func _ready()->void:
 			var textures:Dictionary;
 			for unit:FighterUnit in origin.roster.units:
 				if not unit.base:
-					var children:Array[Node] = unit.get_children()
-					var i:int = children.find_custom(func(t:Node)->bool:return t is FighterBase);
-					var base:FighterBase = children[i];
-					i = Index.all_fighter_bases.find_custom(func(t:FighterBase)->bool:return t == base);
-					unit.base = Index.all_fighter_bases[i];
+					var base:FighterBase =  unit.get_child(-1)
+					unit.base = Index.all_fighter_bases[base.name]
 					base.queue_free();
 				textures[unit] = ColorCoder.color_code_texture(unit.base.texture, pairs);
 			origins_parties_textures[origin].append(textures);

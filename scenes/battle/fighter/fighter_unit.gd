@@ -78,6 +78,5 @@ func _on_child_entered_tree(node: Node) -> void:
 	if node is FighterBase:
 		assert(not base);
 		await Index.ready
-		var i:int = Index.all_fighter_bases.find_custom(func(b:FighterBase)->bool:return b.name == node.name);
-		base = Index.all_fighter_bases[i];
+		base = Index.all_fighter_bases[node.name];
 		remove_child(node)

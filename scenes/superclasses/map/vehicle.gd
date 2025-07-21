@@ -2,36 +2,52 @@ extends Sprite2D
 
 class_name Vehicle
 
-@export var party:MapParty;
-
-func _ready()->void:
-	await party.ready
-	ColorCoder.color_code_vehicle(self, party.leader);
+var party:MapParty;
+@export var bounce_timer:Timer;
+@export var auto_rotate_timer:Timer;
 
 
-func _on_bounce_timeout() -> void:
-	if frame_coords.y:
+
+
+func adjust_direction(target_position:Vector2 = party.target_position)->void:
+	if party.target_entity:
+		auto_rotate_timer.start();
+	var angle:float = rad_to_deg(global_position.angle_to_point(target_position)) + 90;
+	if angle < 0:
+		angle += 360
+	if angle < 30 or angle > 330:## north
+		frame = 0;
+	elif angle < 60:## north west
+		frame = 1;
+		flip_h = false;
+	elif angle < 120:## west
+		frame = 2;
+		flip_h = false;
+	elif angle < 150:## south west
+		frame = 3;
+		flip_h = false;
+	elif angle < 210:## south
+		frame = 4;
+	elif angle < 240:## south east
+		frame = 3;
+		flip_h = true;
+	elif angle < 300:## east
+		frame = 2;
+		flip_h = true;
+	else:## north west
+		frame = 1;
+		flip_h = true;
+
+
+
+
+
+
+func _on_timer_timeout() -> void:
+	if frame_coords.y == 2:
+		bounce_timer.wait_time = .15
 		frame_coords.y = 0;
 	else:
-		frame_coords.y = 1;
-
-
-func adjust_direction(target_position:Vector2)->void:
-	flip_h =  target_position.x < global_position.x;
-	if global_position.y < target_position.y:
-		frame_coords.x = 1
-	else:
-		frame_coords.x = 0;
-
-
-func party_started_moving() -> void:
-	var target_position:Vector2;
-	if party.target_entity:
-		target_position = party.target_entity.global_position;
-	else:
-		target_position = party.target_position
-	flip_h = global_position.x > target_position.x;
-	if global_position.y < target_position.y:
-		frame_coords.x = 1;
-	else:
-		frame_coords.x = 0;
+		frame_coords.y +=1;
+		if frame_coords.y == 2:
+			bounce_timer.wait_time = .25

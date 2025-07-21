@@ -77,23 +77,15 @@ func setup(target:FighterUnit)->void:
 		for evolution:String in unit.base.evolutions.keys():
 			var button:TextureButton = self["evolution_"+str(i)+"_sprite"];
 			
-			var evolution_base_index:int = Index.all_fighter_bases.find_custom(func(b:FighterBase)->bool:return b.name == evolution)
-			var base:FighterBase = Index.all_fighter_bases[evolution_base_index].duplicate();
+			var base:FighterBase = Index.all_fighter_bases[evolution].duplicate();
 			self["evolution_" + str(i) + "_base"] = base;
 			evolution_texture_buffer.add_child(base);
 			
-			var texture:Texture2D = base.texture.duplicate();
-			var atlas:AtlasTexture = AtlasTexture.new();
-			atlas.region.position.x = 10;
-			atlas.region.size.x = 180;
-			atlas.region.size.y = 100;
-			atlas.atlas = texture;
-			atlas.resource_local_to_scene = true
+			var base_texture:Texture = ColorCoder.color_code_fighter_base_texture(base, Entities.player.color_scheme_index)
 			
-			var pairs:Dictionary[Color,Color] = ColorCoder.scheme_to_sprite_color_pairs(Entities.player)
-			button.texture_normal = ColorCoder.color_code_texture(atlas, pairs)
-			button.texture_hover = ColorCoder.color_code_texture(atlas, pairs)
-			button.texture_disabled = ColorCoder.color_code_texture(atlas, pairs)
+			button.texture_normal.atlas = base_texture
+			button.texture_hover.atlas = base_texture
+			button.texture_disabled.atlas = base_texture
 			
 			var i2:int = 1;
 			button.disabled = false;
@@ -110,14 +102,15 @@ func setup(target:FighterUnit)->void:
 				var label:Label = self["evolution_" + str(i) + "_cost_" + str(i2) + '_label']
 				label.text = str(cost);
 				
-				button.modulate.a = 1;
 				if Entities.player.inventory[resource] < cost:
 					self["enough_resources_for_ev" + str(i)] = false;
 					button.disabled = true;
-
-					
 				i2 += 1;
-			
+		
+			button.modulate = Color.WHITE;
+			if button.disabled or not can_evolve:
+				button.modulate = Color.from_hsv(1, 1, 0, .5)
+		
 			if not button.disabled and can_evolve:
 				evolution_highlight_tween_loop(i);
 	

@@ -43,8 +43,8 @@ func load_roster(roster:Roster, data:Array)->void:
 
 func load_fighter_unit(data:Dictionary)->FighterUnit:
 	var unit:FighterUnit = Index.fighter_unit_scene.instantiate();
-	var base_index:int = Index.all_fighter_bases.find_custom(func(base:FighterBase)->bool:return base.name == data.base_name)
-	var fighter_base:FighterBase = Index.all_fighter_bases[base_index];
+	var fighter_base:FighterBase = Index.all_fighter_bases[data.base_name];
+	
 	unit.base = fighter_base
 	unit.level = data.level;
 	unit.experience = data.exp;

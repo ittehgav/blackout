@@ -1,0 +1,1158 @@
+[gd_scene load_steps=39 format=3 uid="uid://cqdyfeds3f681"]
+
+[ext_resource type="Script" uid="uid://bgm4cxsphxlpr" path="res://scenes/map/ui/settlement/settlement_ui.gd" id="1_dun4i"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="2_c11hx"]
+[ext_resource type="Script" uid="uid://by8vn18s08uo6" path="res://scenes/map/ui/settlement/sky_bg.gd" id="3_m2mhi"]
+[ext_resource type="Shader" uid="uid://bg5d2crng34n6" path="res://scenes/map/ui/settlement/settlement_bg.gdshader" id="3_pm0ox"]
+[ext_resource type="Texture2D" uid="uid://bckvycfqlfhbi" path="res://assets/visual/backgrounds/settlements/factory/factory.png" id="4_pm0ox"]
+[ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="5_36m0f"]
+[ext_resource type="PackedScene" uid="uid://dgl7yg6w4idp2" path="res://scenes/ui/memo_label.tscn" id="9_05gvk"]
+[ext_resource type="Texture2D" uid="uid://etp7xxiib17j" path="res://assets/visual/ui/settlement/anomaly_arrow.png" id="9_jxa5d"]
+[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="10_qrl08"]
+[ext_resource type="PackedScene" uid="uid://ctxqhmgpiuoss" path="res://scenes/ui/trade/trade_menu.tscn" id="11_bwbxe"]
+[ext_resource type="Script" uid="uid://c3aknt2uyy8a3" path="res://scenes/map/ui/settlement/recruitment_menu.gd" id="12_bwbxe"]
+[ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/map/settlement/recruitment_card.tscn" id="13_i581t"]
+[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="13_xvf0a"]
+[ext_resource type="PackedScene" uid="uid://8cr8p5qofnu1" path="res://scenes/map/settlement/sky_view.tscn" id="14_6i511"]
+[ext_resource type="Script" uid="uid://lcw1ymx6e6i6" path="res://scenes/map/ui/settlement/post_listen_around.gd" id="14_fgyyh"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="14_pm0ox"]
+[ext_resource type="Script" uid="uid://t6r4xxg5qt5f" path="res://scenes/map/ui/settlement/event_view.gd" id="15_fgyyh"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="15_m2mhi"]
+[ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/resource_gain.wav" id="16_05gvk"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="16_m2mhi"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="16_pm0ox"]
+[ext_resource type="AudioStream" uid="uid://bqfh4rpc4trwo" path="res://assets/sound/sfx/world_map/map_events/stat_up.wav" id="17_05gvk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cq7yt"]
+shader = ExtResource("3_pm0ox")
+shader_parameter/prop_light = Color(0.51, 0.51, 0.51, 1)
+shader_parameter/prop_dark = Color(0.19, 0.0931, 0.0931, 1)
+shader_parameter/ground_light = Color(0, 0, 0, 1)
+shader_parameter/ground_dark = Color(0.144, 0.216, 0.36, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pm0ox"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1fjqa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkjfj"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2mhi"]
+atlas = ExtResource("16_pm0ox")
+region = Rect2(0, 0, 200, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_akq8h"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pm0ox"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2mhi"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05gvk"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvf0a"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxa5d"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrl08"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ud2rb"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_474x4"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hn8o"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxtxx"]
+resource_local_to_scene = true
+shader = ExtResource("15_m2mhi")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="settlement_ui" type="Control" node_paths=PackedStringArray("sky_props", "sky_bg", "crowd_rect", "name_label", "settlement_type_label", "short_description_label", "long_description_label", "anomaly_resource_icon", "anomaly_arrows", "anomaly_sign", "trade_btn", "recruit_units_btn", "listen_around_btn", "local_event_btn", "local_event_btn_label", "main_view", "trade_menu", "recruitment_menu", "event_view", "ui_sfx")]
+process_mode = 3
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dun4i")
+sky_props = NodePath("sky_view")
+sky_bg = NodePath("sky_bg")
+crowd_rect = NodePath("background/crowd")
+name_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/settlement_name")
+settlement_type_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/settlement_type")
+short_description_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/short_description")
+long_description_label = NodePath("main_view/container/text/MarginContainer/VBoxContainer/long_description")
+anomaly_resource_icon = NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/anomaly_resource")
+anomaly_arrows = [NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/anomaly_arrow1"), NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/anomally_arrow2"), NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/anomaly_arrow3")]
+anomaly_sign = NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly/money_sign")
+trade_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/trade")
+recruit_units_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/recruit_units")
+listen_around_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/listen_around")
+local_event_btn = NodePath("main_view/container/options/MarginContainer/VBoxContainer/local_event")
+local_event_btn_label = NodePath("main_view/container/options/MarginContainer/VBoxContainer/local_event/RichTextLabel")
+main_view = NodePath("main_view")
+trade_menu = NodePath("trade_menu")
+recruitment_menu = NodePath("recruitment_menu")
+event_view = NodePath("event_view")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." instance=ExtResource("2_c11hx")]
+
+[node name="sky_bg" type="ColorRect" parent="." node_paths=PackedStringArray("settlement_ui", "background", "crowd")]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2547.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_m2mhi")
+settlement_ui = NodePath("..")
+background = NodePath("../background")
+crowd = NodePath("../background/crowd")
+sky_colors = Array[Color]([Color(0.052, 0.052, 0.1, 1), Color(0.052, 0.052, 0.1, 1), Color(0.14902, 0.113725, 0.14902, 1), Color(0.44, 0.206433, 0.154, 1), Color(0.556863, 0.282353, 0.192157, 1), Color(0.56, 0.474133, 0.4312, 1), Color(0.607843, 0.580392, 0.580392, 1), Color(0.5082, 0.66, 0.66, 1), Color(0.539, 0.7, 0.7, 1), Color(0.6083, 0.79, 0.79, 1), Color(0.7055, 0.85, 0.85, 1), Color(0.738, 0.9, 0.9, 1)])
+prop_darkest = Color(0.0313726, 0.0666667, 0.145098, 1)
+ground_darkest = Color(0.1118, 0.38614, 0.86, 1)
+prop_sunrise = Color(0.42, 0.0798, 0.0798, 1)
+ground_sunrise = Color(0.58, 0.485267, 0.377, 1)
+prop_bright = Color(0.71, 0.3195, 0.3195, 1)
+ground_bright = Color(0.81, 0.7533, 0.5832, 1)
+prop_brightest = Color(0.71, 0.284, 0.284, 1)
+ground_brightest = Color(0.71, 0.6532, 0.4828, 1)
+prop_sunset = Color(0.419608, 0.0784314, 0.0784314, 1)
+ground_sunset = Color(0.45, 0.4059, 0.324, 1)
+
+[node name="sky_view" parent="." node_paths=PackedStringArray("settlement_ui", "sky_bg", "crowd_rect", "background") instance=ExtResource("14_6i511")]
+layout_mode = 1
+offset_top = -720.0
+offset_bottom = -720.0
+mouse_filter = 2
+settlement_ui = NodePath("..")
+sky_bg = NodePath("../sky_bg")
+crowd_rect = NodePath("../background/crowd")
+background = NodePath("../background")
+
+[node name="background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_cq7yt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_pm0ox")
+
+[node name="crowd" type="TextureRect" parent="background"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="main_view" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="container" type="HBoxContainer" parent="main_view"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -477.0
+offset_top = -300.0
+offset_right = 477.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="text" type="PanelContainer" parent="main_view/container"]
+custom_minimum_size = Vector2(450, 600)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="main_view/container/text"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_view/container/text/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="settlement_name" type="Label" parent="main_view/container/text/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Factory"
+horizontal_alignment = 1
+
+[node name="settlement_type" type="Label" parent="main_view/container/text/MarginContainer/VBoxContainer"]
+modulate = Color(0.5, 0.5, 0.5, 0.741176)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Factory"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="main_view/container/text/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="short_description" type="RichTextLabel" parent="main_view/container/text/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Produces and trades mostly [color=green]Fuel, Juice and Scrap.[/color]"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+
+[node name="long_description" type="RichTextLabel" parent="main_view/container/text/MarginContainer/VBoxContainer"]
+modulate = Color(0.73, 0.73, 0.73, 1)
+layout_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "Region full of manufacturing buildings from [color=blue]Pre-Blackout Civilization[/color], repurposed for production of mechanical and chemical goods."
+fit_content = true
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+
+[node name="options" type="PanelContainer" parent="main_view/container"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="main_view/container/options"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_view/container/options/MarginContainer"]
+layout_mode = 2
+
+[node name="options_title" type="Label" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = -32
+theme_override_font_sizes/font_size = 112
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pm0ox")
+text = "What Will You Do?"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="trade" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 1)
+theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
+text = "   Trade"
+alignment = 0
+
+[node name="anomaly" type="HBoxContainer" parent="main_view/container/options/MarginContainer/VBoxContainer/trade"]
+layout_mode = 0
+offset_left = 243.0
+offset_top = 4.0
+offset_right = 463.0
+offset_bottom = 55.0
+
+[node name="anomaly_resource" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly" instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_pkjfj")
+layout_mode = 2
+match_player_inventory = false
+
+[node name="money_sign" type="Label" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "$"
+
+[node name="anomaly_arrow1" type="TextureRect" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_jxa5d")
+
+[node name="anomally_arrow2" type="TextureRect" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_jxa5d")
+
+[node name="anomaly_arrow3" type="TextureRect" parent="main_view/container/options/MarginContainer/VBoxContainer/trade/anomaly"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_jxa5d")
+
+[node name="recruit_units" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 1)
+theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
+text = " Recruit Units"
+alignment = 0
+
+[node name="Party Icon" parent="main_view/container/options/MarginContainer/VBoxContainer/recruit_units" instance=ExtResource("10_qrl08")]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+offset_left = 124.0
+offset_right = 156.0
+
+[node name="listen_around" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0.838897, 0.838897, 0.838897, 1)
+theme_override_colors/font_hover_color = Color(0.458405, 0.458405, 0.458405, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1fjqa")
+text = "Investigate (3h)"
+
+[node name="local_event" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = " 
+ "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="main_view/container/options/MarginContainer/VBoxContainer/local_event"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -13.0
+offset_right = -5.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+
+[node name="exit" type="Button" parent="main_view/container/options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 0.309804)
+theme_override_font_sizes/font_size = 64
+shortcut = ExtResource("5_36m0f")
+shortcut_in_tooltip = false
+text = "[tab] Exit"
+
+[node name="post_listen_around" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "main_view", "post_listen_around_list")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_fgyyh")
+memo_label_scene = ExtResource("9_05gvk")
+settlement_ui = NodePath("..")
+main_view = NodePath("../main_view")
+post_listen_around_list = NodePath("panel/list")
+
+[node name="panel" type="Panel" parent="post_listen_around"]
+custom_minimum_size = Vector2(731.429, 411.429)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -487.0
+offset_top = -205.714
+offset_right = 487.0
+offset_bottom = 205.714
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="list" type="VBoxContainer" parent="post_listen_around/panel"]
+layout_mode = 2
+offset_left = 44.0
+offset_top = 6.0
+offset_right = 968.0
+offset_bottom = 318.0
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="post_listen_around/panel/list"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Information Found:"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="post_listen_around/panel"]
+modulate = Color(1, 1, 1, 0.72549)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -425.0
+offset_top = -41.0
+offset_right = 425.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "[click on a settlement to reveal it in the world map or press any key to return]"
+
+[node name="trade_menu" parent="." instance=ExtResource("11_bwbxe")]
+visible = false
+layout_mode = 1
+
+[node name="recruitment_menu" type="Control" parent="." node_paths=PackedStringArray("recruit_panel", "cards_container", "settlement_ui", "hire_btn", "hired_stamp", "recruit_name_label", "recruit_level_label", "tags_label", "recruit_skill_name_label", "recruit_description_label", "recruit_flavor_label", "recruit_sprite", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_bwbxe")
+recruitment_card_scene = ExtResource("13_i581t")
+recruit_panel = NodePath("Panel")
+cards_container = NodePath("recruit_cards")
+settlement_ui = NodePath("..")
+hire_btn = NodePath("Panel/hire_btn")
+hired_stamp = NodePath("Panel/hired")
+recruit_name_label = NodePath("Panel/recruit_name")
+recruit_level_label = NodePath("Panel/VBoxContainer2/level")
+tags_label = NodePath("Panel/VBoxContainer2/tags")
+recruit_skill_name_label = NodePath("Panel/VBoxContainer/skill_name")
+recruit_description_label = NodePath("Panel/VBoxContainer/recruit_description")
+recruit_flavor_label = NodePath("Panel/VBoxContainer/flavor")
+recruit_sprite = NodePath("Panel/sprite")
+recruit_max_hp_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer/max_hp")
+recruit_attack_label = NodePath("Panel/stats/HBoxContainer/HBoxContainer2/attack")
+recruit_defense_label = NodePath("Panel/stats/HBoxContainer2/HBoxContainer/defense")
+recruit_agility_label = NodePath("Panel/stats/HBoxContainer2/HBoxContainer2/agility")
+recruit_technique_label = NodePath("Panel/stats/HBoxContainer3/HBoxContainer/technique")
+
+[node name="hint" type="Label" parent="recruitment_menu"]
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
+offset_left = 134.0
+offset_top = 323.0
+offset_right = 826.0
+offset_bottom = 374.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "Click a unit for more information"
+
+[node name="Panel" type="Panel" parent="recruitment_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -605.0
+offset_top = -279.0
+offset_right = 227.0
+offset_bottom = 279.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sprite" type="TextureRect" parent="recruitment_menu/Panel"]
+layout_mode = 0
+offset_left = -155.0
+offset_top = 46.0
+offset_right = 45.0
+offset_bottom = 146.0
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_m2mhi")
+expand_mode = 3
+
+[node name="recruit_name" type="Label" parent="recruitment_menu/Panel"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 25.0
+offset_right = 94.0
+offset_bottom = 76.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_font_sizes/font_size = 64
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="recruitment_menu/Panel"]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 99.0
+offset_right = 445.0
+offset_bottom = 238.0
+
+[node name="level" type="Label" parent="recruitment_menu/Panel/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Level: 30"
+
+[node name="tags" type="Label" parent="recruitment_menu/Panel/VBoxContainer2"]
+layout_mode = 2
+text = "wawa
+wawa
+waa"
+
+[node name="stats_label" type="Label" parent="recruitment_menu/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -342.0
+offset_top = 114.0
+offset_right = -222.0
+offset_bottom = 165.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 64
+text = "Stats:"
+
+[node name="stats" type="HBoxContainer" parent="recruitment_menu/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -416.0
+offset_top = 178.0
+offset_bottom = 278.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="recruitment_menu/Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_akq8h")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../max_hp")]
+
+[node name="max_hp" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "wawa"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_pm0ox")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../attack")]
+stat = "attack"
+
+[node name="attack" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "aga"
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="recruitment_menu/Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer2"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_m2mhi")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../defense")]
+stat = "defense"
+
+[node name="defense" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "wawa"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer2"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_05gvk")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../agility")]
+stat = "agility"
+
+[node name="agility" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "aga"
+
+[node name="HBoxContainer3" type="VBoxContainer" parent="recruitment_menu/Panel/stats"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="recruitment_menu/Panel/stats/HBoxContainer3"]
+layout_mode = 2
+
+[node name="StatIcon" parent="recruitment_menu/Panel/stats/HBoxContainer3/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("14_pm0ox")]
+material = SubResource("ShaderMaterial_xvf0a")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+adjacent_items = [NodePath("../technique")]
+stat = "technique"
+
+[node name="technique" type="Label" parent="recruitment_menu/Panel/stats/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "wawa"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="recruitment_menu/Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -77.0
+offset_right = -285.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="skill_name" type="Label" parent="recruitment_menu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "pepee"
+
+[node name="recruit_description" type="RichTextLabel" parent="recruitment_menu/Panel/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="flavor" type="RichTextLabel" parent="recruitment_menu/Panel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.403922)
+layout_mode = 2
+fit_content = true
+
+[node name="hire_btn" type="Button" parent="recruitment_menu/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -117.0
+offset_top = -75.0
+offset_right = -25.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Hire"
+
+[node name="hired" type="ColorRect" parent="recruitment_menu/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65098)
+
+[node name="Label" type="Label" parent="recruitment_menu/Panel/hired"]
+modulate = Color(0.74, 0.74, 0.74, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -104.0
+offset_right = 254.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.261799
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 192
+text = "HIRED"
+
+[node name="recruit_cards" type="VBoxContainer" parent="recruitment_menu"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -409.0
+offset_top = -325.0
+offset_right = -9.0
+offset_bottom = 325.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="recruitment_card" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card2" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card3" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="recruitment_card4" parent="recruitment_menu/recruit_cards" instance=ExtResource("13_i581t")]
+layout_mode = 2
+
+[node name="exit" type="Button" parent="recruitment_menu/recruit_cards"]
+layout_mode = 2
+theme = ExtResource("13_xvf0a")
+shortcut = ExtResource("5_36m0f")
+text = "[tab] exit"
+
+[node name="event_view" type="Control" parent="." node_paths=PackedStringArray("settlement_ui", "stat_gain_sfx", "resource_gain_sfx", "sky_view", "confirmation_panel", "conclusion_panel", "samples_container", "name_label", "description_label", "available_units_label", "money_cost_label", "time_cost_label", "confirm_btn", "resrource_gains_container", "conclusion_samples_container")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_fgyyh")
+settlement_ui = NodePath("..")
+stat_gain_sfx = NodePath("stat_gain_sfx")
+resource_gain_sfx = NodePath("resource_gain_sfx")
+sky_view = NodePath("../sky_view")
+confirmation_panel = NodePath("confirmation")
+conclusion_panel = NodePath("conclusion")
+samples_container = NodePath("confirmation/samples")
+name_label = NodePath("confirmation/name")
+description_label = NodePath("confirmation/VBoxContainer/description")
+available_units_label = NodePath("confirmation/valid_units")
+money_cost_label = NodePath("confirmation/VBoxContainer/HBoxContainer/time_cost")
+time_cost_label = NodePath("confirmation/VBoxContainer/HBoxContainer/money_cost")
+confirm_btn = NodePath("confirmation/VBoxContainer/confirm")
+resrource_gains_container = NodePath("conclusion/resource_gains")
+conclusion_samples_container = NodePath("conclusion/units")
+
+[node name="resource_gain_sfx" type="AudioStreamPlayer" parent="event_view"]
+stream = ExtResource("16_05gvk")
+bus = &"sfx"
+
+[node name="stat_gain_sfx" type="AudioStreamPlayer" parent="event_view"]
+stream = ExtResource("17_05gvk")
+max_polyphony = 2
+bus = &"sfx"
+
+[node name="confirmation" type="Panel" parent="event_view"]
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="return" type="Button" parent="event_view/confirmation"]
+modulate = Color(0.84, 0.84, 0.84, 0.486275)
+layout_mode = 1
+offset_left = 24.0
+offset_top = 21.0
+offset_right = 160.0
+offset_bottom = 55.0
+shortcut = ExtResource("5_36m0f")
+text = "[tab] Return"
+
+[node name="name" type="Label" parent="event_view/confirmation"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 71.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "Eventge"
+horizontal_alignment = 1
+
+[node name="valid_units" type="Label" parent="event_view/confirmation"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 111.0
+offset_top = -369.0
+offset_right = 295.0
+offset_bottom = -343.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Available cyborgs:"
+
+[node name="samples" type="GridContainer" parent="event_view/confirmation"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = -340.0
+offset_right = 494.0
+grow_vertical = 0
+columns = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="event_view/confirmation"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -518.0
+offset_top = -139.0
+offset_right = -18.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="description" type="RichTextLabel" parent="event_view/confirmation/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="event_view/confirmation/VBoxContainer"]
+layout_mode = 2
+
+[node name="money_cost" type="Label" parent="event_view/confirmation/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="time_cost" type="Label" parent="event_view/confirmation/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="confirm" type="Button" parent="event_view/confirmation/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 64
+text = "Confirm"
+
+[node name="conclusion" type="Panel" parent="event_view"]
+visible = false
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -250.0
+offset_right = 500.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="event_view/conclusion"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 21.0
+offset_right = 160.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 128
+text = "Event Complete"
+
+[node name="Label" type="Label" parent="event_view/conclusion"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 199.0
+offset_right = 383.0
+offset_bottom = 225.0
+text = "Some units have been improved:"
+
+[node name="units" type="GridContainer" parent="event_view/conclusion"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -288.0
+offset_right = 514.0
+offset_bottom = 258.0
+grow_vertical = 0
+columns = 5
+
+[node name="resource_gains" type="VBoxContainer" parent="event_view/conclusion"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -13.0
+offset_right = -12.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="resource_gain_message" type="Label" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "You've gained resources:"
+
+[node name="money" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="money_icon" parent="event_view/conclusion/resource_gains/money" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_jxa5d")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "money"
+adjacent_items = [NodePath("../money")]
+
+[node name="money" type="Label" parent="event_view/conclusion/resource_gains/money"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="food" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="food_icon" parent="event_view/conclusion/resource_gains/food" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_qrl08")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+adjacent_items = [NodePath("../food")]
+
+[node name="food" type="Label" parent="event_view/conclusion/resource_gains/food"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="fuel" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="fuel_icon" parent="event_view/conclusion/resource_gains/fuel" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_ud2rb")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "fuel"
+adjacent_items = [NodePath("../fuel")]
+
+[node name="fuel" type="Label" parent="event_view/conclusion/resource_gains/fuel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="juice" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="juice_icon" parent="event_view/conclusion/resource_gains/juice" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_474x4")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "juice"
+adjacent_items = [NodePath("../juice")]
+
+[node name="juice" type="Label" parent="event_view/conclusion/resource_gains/juice"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="scrap" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="scrap_icon" parent="event_view/conclusion/resource_gains/scrap" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_6hn8o")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "scrap"
+adjacent_items = [NodePath("../scrap")]
+
+[node name="scrap" type="Label" parent="event_view/conclusion/resource_gains/scrap"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="chips" type="HBoxContainer" parent="event_view/conclusion/resource_gains"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="chips_icon" parent="event_view/conclusion/resource_gains/chips" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_m2mhi")]
+material = SubResource("ShaderMaterial_gxtxx")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "chips"
+adjacent_items = [NodePath("../chips")]
+
+[node name="chips" type="Label" parent="event_view/conclusion/resource_gains/chips"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="cotinue" type="Button" parent="event_view/conclusion"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -213.0
+offset_top = -78.0
+offset_right = -25.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Continue"
+
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/trade" to="." method="trade"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/recruit_units" to="." method="recruit_units"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/listen_around" to="post_listen_around" method="listen_around"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/local_event" to="." method="_on_local_event_pressed"]
+[connection signal="pressed" from="main_view/container/options/MarginContainer/VBoxContainer/exit" to="." method="exit_settlement"]
+[connection signal="gui_input" from="post_listen_around" to="post_listen_around" method="_on_gui_input"]
+[connection signal="visibility_changed" from="post_listen_around" to="post_listen_around" method="_on_visibility_changed"]
+[connection signal="pressed" from="recruitment_menu/Panel/hire_btn" to="recruitment_menu" method="_on_hire_btn_pressed"]
+[connection signal="pressed" from="recruitment_menu/recruit_cards/exit" to="recruitment_menu" method="_on_exit_pressed"]
+[connection signal="pressed" from="event_view/confirmation/return" to="." method="show_main_view" binds= [false]]
+[connection signal="pressed" from="event_view/confirmation/VBoxContainer/confirm" to="event_view" method="_on_confirm_pressed"]
+[connection signal="pressed" from="event_view/conclusion/cotinue" to="event_view" method="_on_cotinue_pressed"]

@@ -45,9 +45,10 @@ func generate_confirmation(target_unit:FighterUnit, target_base:FighterBase, res
 	" into " + new_base.name + "?"
 
 	
-	var pairs:Dictionary[Color, Color] = ColorCoder.scheme_to_sprite_color_pairs(Entities.player)
-	before_sprite.texture.atlas = ColorCoder.color_code_texture(unit.base.texture, pairs);
-	after_sprite.texture.atlas = ColorCoder.color_code_texture(new_base.texture, pairs);
+	var texture:Texture = ColorCoder.color_code_fighter_base_texture(unit.base, Entities.player.color_scheme_index)
+	before_sprite.texture.atlas = texture
+	after_sprite.texture.atlas = texture
+	
 	for stat:String in Index.all_combat_stats:
 		self["before_" + stat + "_label"].text = str(unit.stats[stat]);	
 	

@@ -244,16 +244,19 @@ func sort_items()->void:
 		item.inventory_position = Vector2(-1, -1)
 
 	var taken_cells:Array[Vector2];
+	var reset:bool = false;
 	for item in items:
 		if item != Entities.player.equipped_module and\
 		item != Entities.player.equipped_weapon and\
 		item != Entities.player.alternative_weapon:
 			var fit:bool = throw_item(item, taken_cells);
 			if not fit:
+				reset = true
 				break;
 	
-	for item in items:
-		item.inventory_position = original_positions[item];
+	if reset:
+		for item in items:
+			item.inventory_position = original_positions[item];
 
 func size_sort(a:Item, b:Item)->bool:
 	return a.size_x * a.size_y > b.size_x * b.size_y;

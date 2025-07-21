@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dyp3b8gftu3t7"]
+
+[ext_resource type="Shader" uid="uid://bok276aaq3cfi" path="res://scenes/map/map_party/vehicle.gdshader" id="1_vhydx"]
+
+[resource]
+shader = ExtResource("1_vhydx")
+shader_parameter/night_light = false
+shader_parameter/reflection_color = Color(0.486275, 0.458824, 1, 1)

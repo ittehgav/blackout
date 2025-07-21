@@ -21,8 +21,7 @@ func play_animation(old_base:FighterBase, new_base:FighterBase)->void:
 	
 	sprite.pivot_offset.x += x_shift
 	
-	var pairs:Dictionary = ColorCoder.scheme_to_sprite_color_pairs(Entities.player)
-	var new_texture:Texture = ColorCoder.color_code_texture(new_base.texture, pairs)
+	var new_texture:Texture = ColorCoder.color_code_fighter_base_texture(new_base, Entities.player.color_scheme_index)
 	var tween:Tween = create_tween();
 	tween.tween_property(sprite, "pivot_offset:x", 90, 1.5);
 	tween.parallel().tween_property(sprite, "scale", Vector2(5, 5), 1);

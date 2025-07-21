@@ -3,8 +3,8 @@
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="1_xp77x"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="2_gwvec"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="3_7wtwh"]
+[ext_resource type="Texture2D" uid="uid://d3c2ks6mdeiw" path="res://assets/clip/backgrounde/neu/gym.jpg" id="3_ktljq"]
 [ext_resource type="AudioStream" uid="uid://0fnfsxh017op" path="res://assets/sound/sfx/ui/cancel.ogg" id="4_d4fs2"]
-[ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="5_7cpa2"]
 [ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="5_gwvec"]
 [ext_resource type="Script" uid="uid://4aosun8uw6h4" path="res://scenes/main/save_files.gd" id="6_8utms"]
 [ext_resource type="Script" uid="uid://bvpxv2xeftx3x" path="res://scenes/main/new_game_overlay.gd" id="7_iqlsg"]
@@ -122,6 +122,15 @@ new_game_overlay = NodePath("new_game")
 full_screen_hint_arrow = NodePath("full_screen_hint/arrow")
 ui_sfx = NodePath("ui_sfx")
 
+[node name="ColorRect" type="ColorRect" parent="main_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.33, 0.33, 1)
+
 [node name="TextureRect" type="TextureRect" parent="main_ui"]
 texture_filter = 4
 layout_mode = 1
@@ -130,7 +139,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_7cpa2")
+texture = ExtResource("3_ktljq")
 expand_mode = 5
 flip_h = true
 
