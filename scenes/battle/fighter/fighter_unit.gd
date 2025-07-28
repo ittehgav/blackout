@@ -29,7 +29,6 @@ func change_base(new_base:FighterBase)->void:
 func update_stats()->void:
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels for now
-
 	Scaling.initiate_unit_stats(self);
 	Scaling.level_up_stats(self, level)
 	apply_stat_modifiers();

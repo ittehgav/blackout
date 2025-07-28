@@ -12,7 +12,6 @@ func load_inventory(inventory:Inventory, data:Dictionary)->void:
 		var item:ResourceContainer = load_item(container_data, "container")
 		inventory.add_item(item);
 	
-	inventory.assign_storage()
 	inventory.refresh_resource_counts("", 0, false)
 	
 	for weapon_data:Dictionary in data.weapons:

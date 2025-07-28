@@ -114,7 +114,7 @@ defeat = ExtResource("13_i7in8")
 
 [node name="main_menu" parent="." instance=ExtResource("2_th5th")]
 
-[node name="TextureRect" parent="main_menu/main_ui" index="0"]
+[node name="TextureRect" parent="main_menu/main_ui" index="1"]
 stretch_mode = 5
 
 [node name="player_body" parent="main_menu/main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer" index="0"]

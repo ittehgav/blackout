@@ -55,8 +55,6 @@ func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 	if item is ResourceContainer:
 		stack_size = item.stack_size
 		item_color = Index.get_color(item.resource)
-		if item.storage:
-			tooltip.disable()
 	else:
 		item_color = Index.item_rarity_colors[item.rarity];
 	
@@ -146,9 +144,6 @@ func _on_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton:
 		if e.pressed:
 			if e.button_index == MOUSE_BUTTON_LEFT:
-				if item is ResourceContainer and item.storage and item.stack_size:
-					display.resource_picker.show_picker(self);
-					return
 				pick_up()
 				return
 			elif e.button_index == MOUSE_BUTTON_RIGHT:

@@ -57,9 +57,6 @@ func store_player_data()->Dictionary:
 		"combat_exp":player.combat_exp,
 	
 		"morale":player.morale,
-		"memos":[],
-		## TODO for now just reset these at runtime since memos are still too raw of a concept
-		
 		
 		
 		## TODO verify this works consistently
@@ -89,39 +86,7 @@ func store_world_data()->Dictionary:
 		"hour" : world.current_hour,
 		"day" : world.current_day,
 		"month" : world.current_month,
-		"fog":store_fog_data()
 	};
-	return data
-
-func store_fog_data()->Array:
-	var data:Array[Array];
-	var quadrants:WorldMapPlane = Entities.world_map.quadrants;
-
-	
-
-	const coords_indexes:PackedVector2Array = [
-		Vector2(0, 0),
-		Vector2(0, 1),
-		Vector2(1, 0),
-		Vector2(1, 1)
-	]
-	
-	for quadrant:WorldMapQuadrant in quadrants.all_quadrants:
-		var current_streak:int=0;
-		var current_type:int=coords_indexes.find(quadrant.fog_tile_map.get_cell_atlas_coords(Vector2.ZERO));
-		var rle_array:Array[Array];
-		for y:int in quadrants.quarter_tile_map_size.y:
-			for x:int in quadrants.quarter_tile_map_size.x:
-				var coords:Vector2i = quadrant.fog_tile_map.get_cell_atlas_coords(Vector2i(x, y));
-				var type:int = coords_indexes.find(coords);
-				if current_type != type:
-					rle_array.append([current_type, current_streak]);
-					current_streak = 0;
-					current_type = type;
-					
-				current_streak += 1;
-		rle_array.append([current_type, current_streak]);
-		data.append(rle_array);
 	return data
 
 
@@ -169,10 +134,7 @@ func store_inventory_data(inventory:Inventory)->Dictionary:
 	}
 	for item in inventory.items:
 		if item is ResourceContainer:
-			if item.storage:
-				data.containers.append(store_item_data(item, "storage/"));
-			else:
-				data.containers.append(store_item_data(item));
+			data.containers.append(store_item_data(item));
 		elif item is Weapon:
 			data.weapons.append(store_item_data(item))
 		elif item is Module:

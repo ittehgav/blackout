@@ -12,7 +12,6 @@ signal morale_changed;
 signal party_changed;
 signal equipment_changed(equipment:Equipment);
 
-signal new_memo(memo:Memo);
 
 signal leadership_level_up;
 signal combat_level_up;
@@ -38,12 +37,13 @@ signal combat_level_up;
 @export var equipped_module:Module;
 
 
-var memos:Array[Memo];
 
 
 var morale:float=3.7;
 
-
+func _ready()->void:
+	## TODO remove this once the new world map scene loads from proper context
+	Entities.player = self;
 
 	
 func battle_victory_morale()->void:
@@ -80,9 +80,7 @@ func equip_module(module:Module)->void:
 	
 	equipment_changed.emit(module);
 
-func _on_new_memo(memo: Memo) -> void:
-	memos.append(memo)
-	
+
 func travel_upkeep_cost()->Dictionary:
 	var cost:Dictionary = {
 		"food":1.0,

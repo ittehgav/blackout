@@ -60,6 +60,7 @@ folder_colors={
 [global_group]
 
 all_settlements="Nodes that get saved"
+all_buildings="all buildings, for calling routines associates with the global clock"
 
 [gui]
 

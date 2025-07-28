@@ -7,7 +7,7 @@ var current_camera:Camera2D;
 
 var player:Player;
 var player_fighter:InFightPlayer;
-var player_map_party:InMapPlayer;
+var player_party:PlayerParty;
 
 var loading_screen:UIRoot;
 
@@ -15,6 +15,7 @@ var player_sheet:PlayerSheet;
 
 var arena:Arena;
 var world_map:WorldMap;
+var road:RoadGrid;
 
 var current_settlement:Settlement;
 var current_speaking_party:NpcMapParty;

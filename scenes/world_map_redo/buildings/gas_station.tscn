@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://capijufintoqv"]
+
+[ext_resource type="Script" uid="uid://sn6xkddphxxl" path="res://scenes/world_map_redo/superclasses/resource_trader.gd" id="1_vgbht"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/superclasses/item/inventory/npc_inventory.tscn" id="2_vgbht"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/indexes/items/containers/fuel_barrel.tscn" id="3_vgbht"]
+
+[node name="GasStation" type="Node2D" node_paths=PackedStringArray("inventory") groups=["all_buildings"]]
+script = ExtResource("1_vgbht")
+to_trade = Dictionary[String, bool]({
+"chips": false,
+"food": false,
+"fuel": true,
+"juice": false,
+"scrap": true
+})
+inventory = NodePath("NpcInventory")
+trade_option = true
+metadata/_custom_type_script = "uid://sn6xkddphxxl"
+
+[node name="NpcInventory" parent="." node_paths=PackedStringArray("fixed_items") instance=ExtResource("2_vgbht")]
+fixed_items = [NodePath("Fuel Barrel"), NodePath("Fuel Barrel2")]
+
+[node name="Fuel Barrel" parent="NpcInventory" instance=ExtResource("3_vgbht")]
+
+[node name="Fuel Barrel2" parent="NpcInventory" instance=ExtResource("3_vgbht")]
+
+[connection signal="daily_reset" from="." to="NpcInventory" method="refresh_inventory"]

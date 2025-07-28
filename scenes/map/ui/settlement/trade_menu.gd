@@ -62,7 +62,7 @@ var fuel_hourly_cost:int;
 @export var fuel_hourly_cost_label:Label;
 @export var fuel_daily_cost_label:Label;
 
-func start_trade(target:MapEntity)->void:
+func start_trade(target:Variant)->void:
 	## initiation routines require both inventories to be assigned
 	player_name_label.text = Entities.player.name;
 	if target is Settlement:

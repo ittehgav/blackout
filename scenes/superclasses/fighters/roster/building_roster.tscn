@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5awhsy8qymmm"]
+
+[ext_resource type="Script" uid="uid://b03rfuj7p4xxr" path="res://scenes/superclasses/fighters/roster/building_roster.gd" id="1_kysec"]
+
+[node name="Building Roster" type="Node"]
+script = ExtResource("1_kysec")

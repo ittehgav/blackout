@@ -1,6 +1,5 @@
 extends Node2D
 
-class_name WorldMap
 
 @export var player_party:InMapPlayer;
 @export var ui_canvas:CanvasLayer;
@@ -30,7 +29,7 @@ var current_minute:int=0;
 
 @export var player:InMapPlayer
 
-@export var quadrants:WorldMapPlane;
+
 
 @export var sky_colors:Array[Color] = [
 	Color.WHITE,
@@ -178,7 +177,6 @@ func load_game(data:Dictionary)->void:
 	current_hour = data.world.hour;
 	current_minute = data.world.minute;
 	
-	quadrants.load_game(data)
 
 	
 func _on_returned_from_battle(won: bool) -> void:
@@ -196,13 +194,3 @@ func _on_returned_from_battle(won: bool) -> void:
 				await Entities.dialogue_player.dialogue_ended;
 				MapEvents.yield_resources();
 	
-
-func quadrant_for_global_position(p:Vector2)->WorldMapQuadrant:
-	if p.x < 0 and p.y < 0:
-		return quadrants.quadrant_1;
-	elif p.y < 0:
-		return quadrants.quadrant_2;
-	elif p.x < 0:
-		return quadrants.quadrant_3;
-	else:
-		return quadrants.quadrant_4;

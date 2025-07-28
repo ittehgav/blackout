@@ -4,23 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://db46xs600k1pd" path="res://assets/visual/sprites/vehicles/doblo.png" id="1_r0fof"]
 [ext_resource type="Script" uid="uid://dqa1gjdx6lk2m" path="res://scenes/superclasses/map/vehicle.gd" id="2_47qof"]
 
-[node name="Doblo" type="Sprite2D" node_paths=PackedStringArray("bounce_timer", "auto_rotate_timer")]
+[node name="Doblo" type="Sprite2D" node_paths=PackedStringArray("bounce_timer")]
 material = ExtResource("1_m6oij")
-use_parent_material = true
 scale = Vector2(2, 2)
 texture = ExtResource("1_r0fof")
 hframes = 5
 vframes = 3
+frame = 7
 script = ExtResource("2_47qof")
 bounce_timer = NodePath("bounce")
-auto_rotate_timer = NodePath("auto_rotate")
 
 [node name="bounce" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
-[node name="auto_rotate" type="Timer" parent="."]
-wait_time = 0.75
-
-[connection signal="timeout" from="bounce" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="auto_rotate" to="." method="adjust_direction"]
+[connection signal="timeout" from="bounce" to="." method="bounce_animation"]

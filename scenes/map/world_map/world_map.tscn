@@ -1,24 +1,11 @@
-[gd_scene load_steps=123 format=3 uid="uid://dw4kenb3r4atf"]
+[gd_scene load_steps=107 format=3 uid="uid://dw4kenb3r4atf"]
 
 [ext_resource type="Script" uid="uid://boq7st76nistl" path="res://scenes/map/world_map.gd" id="1_s4sam"]
 [ext_resource type="Script" uid="uid://k7tsmmqrmjmu" path="res://scenes/map/world_map/ui_overlay.gd" id="2_fn5hq"]
 [ext_resource type="Script" uid="uid://v56h85jo7vsu" path="res://scenes/map/world_map/quadrants.gd" id="2_gbcyd"]
 [ext_resource type="PackedScene" uid="uid://c3j3q3ivfq3aw" path="res://world_map_quadrant.tscn" id="3_oq2vs"]
-[ext_resource type="PackedScene" uid="uid://c0vg6gq1edsw" path="res://scenes/indexes/parties/player/in_map_player.tscn" id="4_vgkop"]
-[ext_resource type="Texture2D" uid="uid://c7o80mfyae726" path="res://assets/visual/sprites/props/small/wheel.png" id="6_h2uxo"]
-[ext_resource type="Texture2D" uid="uid://bpm3w0wvrmw71" path="res://assets/visual/sprites/props/small/cactus.png" id="6_jbv7y"]
 [ext_resource type="PackedScene" uid="uid://cqdyfeds3f681" path="res://scenes/map/ui/settlement/settlement_ui.tscn" id="7_b85ww"]
-[ext_resource type="Texture2D" uid="uid://dqkqrpwcxaxqa" path="res://assets/visual/sprites/props/small/long_cactus.png" id="7_yhrnu"]
-[ext_resource type="Texture2D" uid="uid://d2mn1g5x7n2ey" path="res://assets/visual/sprites/props/small/stick.png" id="9_ltr5c"]
-[ext_resource type="Texture2D" uid="uid://clhbdifdrlhyy" path="res://assets/visual/sprites/props/auto_sign.png" id="10_bgkna"]
-[ext_resource type="Texture2D" uid="uid://dpxpoo4n1th3u" path="res://assets/visual/sprites/props/broken_lamppost.png" id="11_h0tw4"]
-[ext_resource type="Texture2D" uid="uid://rc816161fuhg" path="res://assets/visual/sprites/props/buried_car.png" id="12_fd0ro"]
 [ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/map/ui/dialogue/dialogue_player.tscn" id="13_8dqwv"]
-[ext_resource type="Texture2D" uid="uid://c7q02tyy5x8sw" path="res://assets/visual/sprites/props/buried_car_front.png" id="13_lljjg"]
-[ext_resource type="Texture2D" uid="uid://bw582msiqpaxu" path="res://assets/visual/sprites/props/gym_sign.png" id="14_jbv7y"]
-[ext_resource type="Texture2D" uid="uid://bmsq6vmoh7k4e" path="res://assets/visual/sprites/props/standing_lamppost.png" id="15_yhrnu"]
-[ext_resource type="Texture2D" uid="uid://bob8aj6xwa0ki" path="res://assets/visual/sprites/props/tree.png" id="16_piqjc"]
-[ext_resource type="Texture2D" uid="uid://d321t0t5ou0c4" path="res://assets/visual/sprites/props/wall.png" id="17_ltr5c"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/player/ui/player_sheet.tscn" id="20_lvh7d"]
 [ext_resource type="Texture2D" uid="uid://c5upctkf3dbln" path="res://assets/visual/particles/off_screen_pointer.png" id="25_f2dah"]
 [ext_resource type="Script" uid="uid://ddm5su5vt1e23" path="res://scenes/map/world_map/pause_menu.gd" id="37_gmjui"]
@@ -40,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="52_64kp8"]
 [ext_resource type="Script" uid="uid://c4q12hj8f3fav" path="res://scenes/map/world_map/movement.gd" id="52_432xo"]
 [ext_resource type="Script" uid="uid://de8nxysfk7xbs" path="res://scenes/map/world_map/sfx.gd" id="52_f2dah"]
-[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="52_gmjui"]
 [ext_resource type="Texture2D" uid="uid://dkpxsjgvphgq8" path="res://assets/visual/ui/map/movement_pointer_shadow.png" id="52_piqjc"]
 [ext_resource type="Script" uid="uid://djuvkqu0m0s1o" path="res://scenes/map/world_map/ui/resources_panel.gd" id="53_anjvn"]
 [ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="53_gmjui"]
@@ -70,7 +56,7 @@
 [ext_resource type="AudioStream" uid="uid://cvv1mjf2g8wus" path="res://assets/sound/sfx/world_map/daily_upkeep_paid.wav" id="79_t4gob"]
 [ext_resource type="AudioStream" uid="uid://bjruiutxfjb2w" path="res://assets/sound/sfx/world_map/daily_upkeep_missed.mp3" id="80_t4gob"]
 
-[sub_resource type="Shader" id="Shader_a8suh"]
+[sub_resource type="Shader" id="Shader_ltr5c"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -99,7 +85,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5hq"]
 resource_local_to_scene = true
-shader = SubResource("Shader_a8suh")
+shader = SubResource("Shader_ltr5c")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -108,7 +94,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_h2uxo"]
+[sub_resource type="Shader" id="Shader_anjvn"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -137,7 +123,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k7mhn"]
 resource_local_to_scene = true
-shader = SubResource("Shader_h2uxo")
+shader = SubResource("Shader_anjvn")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -146,7 +132,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_cxe47"]
+[sub_resource type="Shader" id="Shader_ebkns"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -175,7 +161,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a8suh"]
 resource_local_to_scene = true
-shader = SubResource("Shader_cxe47")
+shader = SubResource("Shader_ebkns")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -184,7 +170,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_0jkk0"]
+[sub_resource type="Shader" id="Shader_64kp8"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -213,7 +199,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_umths"]
 resource_local_to_scene = true
-shader = SubResource("Shader_0jkk0")
+shader = SubResource("Shader_64kp8")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -222,7 +208,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_48qk5"]
+[sub_resource type="Shader" id="Shader_nmq41"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -251,7 +237,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ffuc7"]
 resource_local_to_scene = true
-shader = SubResource("Shader_48qk5")
+shader = SubResource("Shader_nmq41")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -260,7 +246,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_8xm6f"]
+[sub_resource type="Shader" id="Shader_7d1fb"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -289,7 +275,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h2uxo"]
 resource_local_to_scene = true
-shader = SubResource("Shader_8xm6f")
+shader = SubResource("Shader_7d1fb")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -298,7 +284,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_gbcyd"]
+[sub_resource type="Shader" id="Shader_f2dah"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -327,7 +313,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltr5c"]
 resource_local_to_scene = true
-shader = SubResource("Shader_gbcyd")
+shader = SubResource("Shader_f2dah")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -336,7 +322,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_oq2vs"]
+[sub_resource type="Shader" id="Shader_gmjui"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -365,7 +351,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l56xi"]
 resource_local_to_scene = true
-shader = SubResource("Shader_oq2vs")
+shader = SubResource("Shader_gmjui")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -750,23 +736,10 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_t4gob"]
-frequency = 0.0062
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0jkk0"]
-width = 64
-height = 64
-generate_mipmaps = false
-seamless = true
-noise = SubResource("FastNoiseLite_t4gob")
-
-[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("player_party", "ui_canvas", "ui", "player", "quadrants")]
+[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("ui_canvas", "ui")]
 script = ExtResource("1_s4sam")
-player_party = NodePath("quadrants/quadrant_4/in_map_player")
 ui_canvas = NodePath("ui_overlay")
 ui = NodePath("ui_overlay/ui")
-player = NodePath("quadrants/quadrant_4/in_map_player")
-quadrants = NodePath("quadrants")
 sky_colors = Array[Color]([Color(0.06, 0.167333, 0.2, 1), Color(0.06, 0.167333, 0.2, 1), Color(0.06, 0.167333, 0.2, 1), Color(0.387, 0.4, 0.34, 1), Color(0.385067, 0.4, 0.344, 1), Color(0.387, 0.4, 0.34, 1), Color(0.7, 0.501667, 0, 1), Color(0.7, 0.501667, 0, 1), Color(0.7, 0.501667, 0, 1), Color(0.960784, 0.67451, 0.278431, 1), Color(0.960784, 0.67451, 0.278431, 1), Color(0.960784, 0.67451, 0.278431, 1)])
 
 [node name="ui_overlay" type="CanvasLayer" parent="."]
@@ -789,7 +762,7 @@ movement_overlay = NodePath("movement")
 marker = NodePath("../../entities/marker")
 interact_btn = NodePath("interact_btns/interact_btn")
 
-[node name="movement" type="Control" parent="ui_overlay/ui" node_paths=PackedStringArray("player")]
+[node name="movement" type="Control" parent="ui_overlay/ui"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -797,9 +770,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("52_432xo")
-player = NodePath("../../../quadrants/quadrant_4/in_map_player")
 
-[node name="interact_btns" type="Control" parent="ui_overlay/ui" node_paths=PackedStringArray("interact_btn", "movement_overlay")]
+[node name="interact_btns" type="Control" parent="ui_overlay/ui"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -808,8 +780,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("52_7sj3l")
-interact_btn = NodePath("interact_btn")
-movement_overlay = NodePath("../movement")
 
 [node name="interact_btn" type="Button" parent="ui_overlay/ui/interact_btns"]
 visible = false
@@ -1090,7 +1060,7 @@ offset_bottom = 41.0
 theme_override_font_sizes/font_size = 64
 text = "wawa"
 
-[node name="navigation" type="PanelContainer" parent="ui_overlay/ui/main_hud" node_paths=PackedStringArray("minute_ticker", "destination_container", "compass", "interact_prompt_container", "map_entity_name", "interact_prompt_label", "settlement_sprite", "trader_icon", "entity_icons", "estimate", "destination_label", "player")]
+[node name="navigation" type="PanelContainer" parent="ui_overlay/ui/main_hud" node_paths=PackedStringArray("minute_ticker", "destination_container", "compass", "interact_prompt_container", "map_entity_name", "interact_prompt_label", "settlement_sprite", "trader_icon", "estimate", "destination_label")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1110,10 +1080,8 @@ map_entity_name = NodePath("VBoxContainer/interact_prompt/VBoxContainer/entity_n
 interact_prompt_label = NodePath("VBoxContainer/interact_prompt/VBoxContainer/prompt")
 settlement_sprite = NodePath("VBoxContainer/interact_prompt/settlement_sprite")
 trader_icon = NodePath("VBoxContainer/interact_prompt/trader_icon")
-entity_icons = [NodePath("VBoxContainer/interact_prompt/trader_icon"), NodePath("VBoxContainer/interact_prompt/settlement_sprite")]
 estimate = NodePath("VBoxContainer/destination/VBoxContainer/estimate")
 destination_label = NodePath("VBoxContainer/destination/VBoxContainer/destination")
-player = NodePath("../../../../quadrants/quadrant_4/in_map_player")
 
 [node name="refresh_distance" type="Timer" parent="ui_overlay/ui/main_hud/navigation"]
 wait_time = 0.1
@@ -1954,59 +1922,17 @@ texture_normal = ExtResource("43_0jkk0")
 texture_hover = ExtResource("44_48qk5")
 stretch_mode = 0
 
-[node name="quadrants" type="Node2D" parent="." node_paths=PackedStringArray("player_camera", "world_map", "quadrant_1", "quadrant_2", "quadrant_3", "quadrant_4", "all_quadrants")]
+[node name="quadrants" type="Node2D" parent="."]
 process_mode = 3
 script = ExtResource("2_gbcyd")
-player_camera = NodePath("quadrant_4/in_map_player/in_map_camera")
-world_map = NodePath("..")
-noise_texture = SubResource("NoiseTexture2D_0jkk0")
-small_prop_textures = Array[Texture]([ExtResource("6_jbv7y"), ExtResource("7_yhrnu"), ExtResource("9_ltr5c"), ExtResource("6_h2uxo")])
-large_prop_textures = Array[Texture]([ExtResource("10_bgkna"), ExtResource("11_h0tw4"), ExtResource("12_fd0ro"), ExtResource("13_lljjg"), ExtResource("14_jbv7y"), ExtResource("15_yhrnu"), ExtResource("16_piqjc"), ExtResource("17_ltr5c")])
-tile_colors = Array[Color]([Color(0.244, 0.4, 0.244, 1), Color(0.75, 0.643125, 0.4125, 1), Color(0.68, 0.456053, 0.3264, 1)])
-quadrant_1 = NodePath("quadrant_1")
-quadrant_2 = NodePath("quadrant_2")
-quadrant_3 = NodePath("quadrant_3")
-quadrant_4 = NodePath("quadrant_4")
-all_quadrants = [NodePath("quadrant_1"), NodePath("quadrant_2"), NodePath("quadrant_3"), NodePath("quadrant_4")]
 
-[node name="quadrant_1" parent="quadrants" node_paths=PackedStringArray("x_adjacent_quadrant", "y_adjacent_quadrant", "diagonal_quadrant") instance=ExtResource("3_oq2vs")]
-quadrant_n = 1
-x_adjacent_quadrant = NodePath("../quadrant_2")
-y_adjacent_quadrant = NodePath("../quadrant_3")
-diagonal_quadrant = NodePath("../quadrant_4")
+[node name="quadrant_1" parent="quadrants" instance=ExtResource("3_oq2vs")]
 
-[node name="quadrant_2" parent="quadrants" node_paths=PackedStringArray("x_adjacent_quadrant", "y_adjacent_quadrant", "diagonal_quadrant") instance=ExtResource("3_oq2vs")]
-quadrant_n = 2
-x_adjacent_quadrant = NodePath("../quadrant_1")
-y_adjacent_quadrant = NodePath("../quadrant_4")
-diagonal_quadrant = NodePath("../quadrant_3")
+[node name="quadrant_2" parent="quadrants" instance=ExtResource("3_oq2vs")]
 
-[node name="quadrant_3" parent="quadrants" node_paths=PackedStringArray("x_adjacent_quadrant", "y_adjacent_quadrant", "diagonal_quadrant") instance=ExtResource("3_oq2vs")]
-quadrant_n = 3
-x_adjacent_quadrant = NodePath("../quadrant_4")
-y_adjacent_quadrant = NodePath("../quadrant_1")
-diagonal_quadrant = NodePath("../quadrant_2")
+[node name="quadrant_3" parent="quadrants" instance=ExtResource("3_oq2vs")]
 
-[node name="quadrant_4" parent="quadrants" node_paths=PackedStringArray("x_adjacent_quadrant", "y_adjacent_quadrant", "diagonal_quadrant") instance=ExtResource("3_oq2vs")]
-quadrant_n = 4
-x_adjacent_quadrant = NodePath("../quadrant_3")
-y_adjacent_quadrant = NodePath("../quadrant_2")
-diagonal_quadrant = NodePath("../quadrant_1")
-
-[node name="in_map_player" parent="quadrants/quadrant_4" node_paths=PackedStringArray("leader") instance=ExtResource("4_vgkop")]
-z_index = 2
-position = Vector2(1916, 1085)
-leader = NodePath("Player")
-
-[node name="in_map_camera" parent="quadrants/quadrant_4/in_map_player" index="3" node_paths=PackedStringArray("world_map", "marker")]
-world_map = NodePath("../../../..")
-marker = NodePath("../../../../entities/marker")
-
-[node name="Player" parent="quadrants/quadrant_4/in_map_player" instance=ExtResource("52_gmjui")]
-leadership_exp = 1
-leadership_points = 1
-combat_level = 5
-combat_exp = 2
+[node name="quadrant_4" parent="quadrants" instance=ExtResource("3_oq2vs")]
 
 [node name="update_fog" type="Timer" parent="quadrants"]
 wait_time = 0.1
@@ -2045,7 +1971,7 @@ texture = ExtResource("54_anjvn")
 wait_time = 0.3
 autostart = true
 
-[node name="marker" type="Sprite2D" parent="entities" node_paths=PackedStringArray("projection", "camera", "sfx")]
+[node name="marker" type="Sprite2D" parent="entities" node_paths=PackedStringArray("projection", "sfx")]
 process_mode = 3
 visible = false
 z_index = 30
@@ -2055,7 +1981,6 @@ texture = ExtResource("52_piqjc")
 hframes = 3
 script = ExtResource("45_fn5hq")
 projection = NodePath("../../ui_overlay/ui/main_hud/pointer_axis")
-camera = NodePath("../../quadrants/quadrant_4/in_map_player/in_map_camera")
 sfx = NodePath("marker_sfx")
 
 [node name="marker_sfx" type="AudioStreamPlayer" parent="entities/marker"]
@@ -2070,10 +1995,8 @@ texture = ExtResource("62_gmjui")
 
 [connection signal="day_passed" from="." to="." method="_on_day_passed"]
 [connection signal="hour_passed" from="." to="." method="_on_hour_passed"]
-[connection signal="hour_passed" from="." to="quadrants/quadrant_4/in_map_player/Player" method="travel_upkeep"]
 [connection signal="map_unpaused" from="." to="ui_overlay/ui/main_hud" method="_on_world_map_map_unpaused"]
 [connection signal="returned_from_battle" from="." to="." method="_on_returned_from_battle"]
-[connection signal="returned_from_battle" from="." to="quadrants/quadrant_4/in_map_player/in_map_camera" method="_on_world_map_returned_from_battle"]
 [connection signal="time_skipped" from="." to="ui_overlay/ui/main_hud" method="update_clock"]
 [connection signal="gui_input" from="ui_overlay/ui/movement" to="ui_overlay/ui/movement" method="_on_gui_input"]
 [connection signal="pressed" from="ui_overlay/ui/interact_btns/interact_btn" to="ui_overlay/ui/interact_btns" method="_on_interact_btn_pressed"]
@@ -2090,15 +2013,12 @@ texture = ExtResource("62_gmjui")
 [connection signal="recruitment_started" from="ui_overlay/ui/full_screen_guis/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_recruitment_started"]
 [connection signal="trade_finished" from="ui_overlay/ui/full_screen_guis/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_trade_finished"]
 [connection signal="trade_started" from="ui_overlay/ui/full_screen_guis/settlement_ui" to="ui_overlay/ui/main_hud" method="_on_settlement_ui_trade_started"]
-[connection signal="dialogue_ended" from="ui_overlay/ui/full_screen_guis/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_fully_visible"]
-[connection signal="dialogue_started" from="ui_overlay/ui/full_screen_guis/Dialogue" to="ui_overlay/ui/main_hud" method="switch_to_semi_visible"]
 [connection signal="pre_battle_started" from="ui_overlay/ui/full_screen_guis/pre_battle" to="ui_overlay/ui/main_hud" method="_on_pre_battle_pre_battle_started"]
 [connection signal="daily_upkeep_prompted" from="ui_overlay/ui/full_screen_guis/daily_upkeep" to="ui_overlay/ui/main_hud" method="_on_daily_upkeep_daily_upkeep_prompted"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/confirm" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="_on_confirm_pressed"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/HBoxContainer/VBoxContainer/pay_all" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="pay_all"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/HBoxContainer/VBoxContainer/cancel_all" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="cancel_all"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/daily_upkeep/Panel/HBoxContainer/VBoxContainer/auto_pick" to="ui_overlay/ui/full_screen_guis/daily_upkeep" method="auto_pick"]
-[connection signal="trade_started" from="ui_overlay/ui/full_screen_guis/trade_menu" to="ui_overlay/ui/main_hud" method="_on_trade_menu_trade_started"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/resume" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_resume_pressed"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/sound_settings" to="ui_overlay/ui/full_screen_guis/pause_menu" method="_on_sound_settings_pressed"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/pause_menu/main_panel/VBoxContainer/save" to="ui_overlay/ui/full_screen_guis/pause_menu" method="save_menu"]
@@ -2113,27 +2033,6 @@ texture = ExtResource("62_gmjui")
 [connection signal="value_changed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/music_slider" to="ui_overlay/ui/full_screen_guis/sound_settings" method="_on_music_slider_value_changed"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/return" to="ui_overlay/ui/full_screen_guis/sound_settings" method="return_from_settings"]
 [connection signal="pressed" from="ui_overlay/ui/full_screen_guis/sound_settings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/reset" to="ui_overlay/ui/full_screen_guis/sound_settings" method="_on_reset_pressed"]
-[connection signal="entity_entered_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_entity_entered_range"]
-[connection signal="entity_entered_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_entered_range"]
-[connection signal="entity_left_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_entity_left_range"]
-[connection signal="entity_left_range" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_entity_left_range"]
-[connection signal="started_moving" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/interact_btns" method="_on_in_map_player_started_moving"]
-[connection signal="started_moving" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_started_moving"]
-[connection signal="started_moving" from="quadrants/quadrant_4/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_started_moving"]
-[connection signal="stopped_moving" from="quadrants/quadrant_4/in_map_player" to="ui_overlay/ui/main_hud/navigation" method="_on_in_map_player_stopped_moving"]
-[connection signal="stopped_moving" from="quadrants/quadrant_4/in_map_player" to="entities/movement_pointer_shadow" method="_on_in_map_player_stopped_moving"]
-[connection signal="entered_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud" method="settlement_main_view"]
-[connection signal="entered_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/settlement_ui" method="_on_settlement_entered"]
-[connection signal="equipment_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/PlayerSheet" method="_on_player_equipment_changed"]
-[connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud" method="_on_player_left_settlement"]
-[connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud/HBoxContainer/resources_panel" method="silent_refresh"]
-[connection signal="left_settlement" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/settlement_ui" method="_on_player_left_settlement"]
-[connection signal="morale_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud/HBoxContainer/party_panel/MarginContainer/HBoxContainer/MoraleIcon" method="_on_player_morale_changed"]
-[connection signal="new_memo" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud" method="notify_new_memo"]
-[connection signal="new_memo" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/PlayerSheet" method="_on_player_new_memo"]
-[connection signal="party_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/PlayerSheet" method="refresh_data"]
-[connection signal="resource_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/main_hud/HBoxContainer/resources_panel" method="animate_resource_change"]
-[connection signal="resource_changed" from="quadrants/quadrant_4/in_map_player/Player" to="ui_overlay/ui/full_screen_guis/PlayerSheet" method="refresh_data"]
 [connection signal="timeout" from="quadrants/update_fog" to="quadrants" method="update_fog"]
 [connection signal="timeout" from="quadrants/check_quadrant_shift" to="quadrants" method="check_quadrant_shift"]
 [connection signal="timeout" from="minute_ticker" to="." method="_on_minute_ticker_timeout"]
@@ -2144,4 +2043,3 @@ texture = ExtResource("62_gmjui")
 [editable path="ui_overlay/ui/full_screen_guis/trade_menu"]
 [editable path="ui_overlay/ui/full_screen_guis/trade_menu/HBoxContainer/player_panel/player_inventory_display"]
 [editable path="ui_overlay/ui/full_screen_guis/trade_menu/HBoxContainer/trader_panel/trader_inventory_display"]
-[editable path="quadrants/quadrant_4/in_map_player"]

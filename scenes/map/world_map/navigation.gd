@@ -53,31 +53,6 @@ func _on_in_map_player_stopped_moving() -> void:
 	player_moving = false
 
 
-func refresh_distance() -> void:
-	if player_moving:
-		if player.target_entity:
-			set_distance_label(player.target_entity.global_position)
-		else:
-			set_distance_label(player.target_position);
-	else:
-		if Entities.map_entity_under_mouse:
-			set_distance_label(Entities.map_entity_under_mouse.global_position)
-		else:
-			set_distance_label(Entities.world_map.get_global_mouse_position())
-
-func set_distance_label(target:Vector2)->void:
-	var distance: = (player.global_position.distance_to(target)*pixel_to_meters);
-	if distance > 1000:
-		destination_label.text = str(snapped(distance/1000, .01)) + "km"
-	else:	
-		destination_label.text = str(int(distance))+ "m"
-
-func _on_in_map_player_entity_entered_range(entity: MapEntity) -> void:
-	nearby_entity = entity;
-	if entity is Settlement:
-		show_enter_settlement_prompt(entity);
-	if entity is NpcMapParty:
-		show_interact_with_party_prompt(entity);
 
 
 func _on_in_map_player_entity_left_range(_entity: MapEntity) -> void:

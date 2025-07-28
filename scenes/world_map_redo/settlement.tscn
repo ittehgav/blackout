@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://buyf7yy7iuctf"]
+
+[ext_resource type="Script" uid="uid://du81q231ub1bd" path="res://scenes/world_map_redo/settlement.gd" id="1_wrcnd"]
+[ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/visual/sprites/settlements/factory.png" id="2_c5ra0"]
+[ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="2_vl27p"]
+
+[node name="Settlement" type="Node2D" node_paths=PackedStringArray("sprite", "hover_box") groups=["all_settlements"]]
+material = ExtResource("2_vl27p")
+script = ExtResource("1_wrcnd")
+sprite = NodePath("sprite")
+hover_box = NodePath("hover_box")
+
+[node name="sprite" type="Sprite2D" parent="."]
+material = ExtResource("2_vl27p")
+scale = Vector2(3, 3)
+texture = ExtResource("2_c5ra0")
+
+[node name="hover_box" type="TextureButton" parent="."]
+process_mode = 3
+offset_left = -44.0
+offset_top = -49.0
+offset_right = 46.0
+offset_bottom = 40.0
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="mouse_entered" from="hover_box" to="." method="_on_hover_box_mouse_entered"]
+[connection signal="mouse_exited" from="hover_box" to="." method="_on_hover_box_mouse_exited"]
+[connection signal="pressed" from="hover_box" to="." method="_on_hover_box_pressed"]

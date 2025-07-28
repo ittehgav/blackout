@@ -1,6 +1,5 @@
 extends MapEntity;
 
-class_name Settlement;
 
 
 var ongoing_trade_anomaly:TradeAnomaly;
@@ -33,12 +32,6 @@ var player_inside:bool=false;
 
 var neighbors:Array[Settlement];
 
-var food_storage:ResourceContainer;
-var fuel_storage:ResourceContainer;
-
-var juice_storage:ResourceContainer;
-var scrap_storage:ResourceContainer;
-var chips_storage:ResourceContainer;
 
 
 
@@ -133,7 +126,7 @@ func refresh_events()->void:
 	## or make them all work the same way regardless of whether they're registered or not?
 	if not ongoing_trade_anomaly:
 		ongoing_trade_anomaly = TradeAnomaly.new();
-		ongoing_trade_anomaly.generate(self);
+
 
 	if local_event:
 		local_event.time_left -= 1;
@@ -158,7 +151,7 @@ func refresh_inventory()->void:
 	## production
 	## trade anomalies
 	## local events (or lack thereof)
-	## price hikes a little or drops a little for a resource if it was bought/sold
+	## price hikes or drops a little for a resource if it was bought/sold
 	var resource_prices:Dictionary = Index.resource_base_prices.duplicate();
 	inventory.money = randi_range(money_production/2, money_production * 1.5)
 
@@ -227,8 +220,6 @@ func refresh_recruits()->void:
 	big_fighter_unit.update_stats();
 	available_recruits.append(big_fighter_unit)
 
-func initiate_inventory()->void:
-	inventory.generate_storages()
 
 func _on_hover_box_gui_input(event: InputEvent) -> void:
 	Entities.world_map.ui.movement_overlay._on_gui_input(event);

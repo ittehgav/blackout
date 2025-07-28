@@ -2,7 +2,7 @@ extends Node
 
 class_name Leader
 
-var color_scheme_index:int;
+@export var color_scheme_index:int;
 
 
 @export var inventory:Inventory;

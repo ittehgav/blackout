@@ -1,6 +1,7 @@
 extends Node
 
 @export var all_fighter_base_scenes:Array[PackedScene]
+@export var all_fighter_tags:Array[String];
 var all_fighter_bases:Dictionary[String, FighterBase]
 var basic_fighter_bases:Array[FighterBase];
 var evolved_fighter_bases:Array[FighterBase];
@@ -45,7 +46,6 @@ func _ready()->void:
 @export var item_mirror_scene:PackedScene
 
 @export_subgroup("Resource Stack Scenes")
-@export var resource_storage_scenes:Array[PackedScene];
 @export var food_stack_scene:PackedScene;
 @export var fuel_stack_scene:PackedScene;
 @export var juice_stack_scene:PackedScene;
@@ -81,9 +81,6 @@ func _ready()->void:
 @export var rarity_2_item_scenes:Array[PackedScene];
 @export var rarity_3_item_scenes:Array[PackedScene];
 
-
-@export_subgroup("Events")
-@export var local_event_scenes:Array[PackedScene];
 
 @export_group("Colors")
 @export var color_schemes:Array[Array];
@@ -133,11 +130,6 @@ const resource_base_prices = {
 
 
 
-
-
-
-
-
 @export_group("floating icon textures")
 @export var max_hp_floating_icon:Texture;
 @export var attack_floating_icon:Texture;
@@ -170,6 +162,7 @@ const resource_base_prices = {
 @export var salesman_icon_texture:Texture
 
 func tagged_settlement_name(settlement:Settlement)->String:
+	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 
 

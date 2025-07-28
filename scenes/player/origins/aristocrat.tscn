@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_difbx"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="2_ylhkj"]
-[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster.tscn" id="3_45c4c"]
+[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster/roster.tscn" id="3_45c4c"]
 [ext_resource type="PackedScene" uid="uid://cv1ab43jxb7ky" path="res://scenes/indexes/items/weapons/taser_gun.tscn" id="3_ctxbb"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_7ppvm"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="4_q5xkx"]

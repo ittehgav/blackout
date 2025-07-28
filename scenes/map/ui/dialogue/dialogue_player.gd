@@ -276,7 +276,6 @@ func start_trade()->void:
 	suspended = true;
 	Tweens.ui_fade_out(self)
 	Tweens.ui_fade_in(trade_menu);
-	trade_menu.start_trade(Entities.current_speaking_party);
 
 func after_trade()->void:
 	suspended = false;

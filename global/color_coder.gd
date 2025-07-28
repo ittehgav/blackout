@@ -73,7 +73,6 @@ func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
 		if not leader.name in vehicle_texture_cache:
 			var target_color:Color = Index.color_schemes[leader.color_scheme_index][1];
 			var from_player:bool=false
-			
 
 			var dict:= {
 				Color.RED: Index.day_reflection_color,

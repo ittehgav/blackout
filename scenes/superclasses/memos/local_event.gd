@@ -2,7 +2,7 @@ extends Memo;
 
 class_name LocalEvent
 
-var location:Settlement;
+var settlement:Settlement;
 
 @export_enum("brawler", "bodybuilder", "cyborg", "hunter", "scientist", "doctor", "juggernaut", "disruptor", "mechanic") var tag:String;
 

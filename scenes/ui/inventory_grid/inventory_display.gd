@@ -638,11 +638,6 @@ func sort_inventory()->void:
 func store_resource(amount:int, resource:String)->int:
 	var initial_amount:int = amount;
 	var remaining:int = amount;
-	if (context != "loot") and inventory.holder is Settlement or inventory.holder is NpcLeader:
-		var storage:ResourceContainer = inventory.holder[resource+"_storage"];
-		storage.mirror.stack_size += amount;
-		storage.mirror.highlight_stack_label();
-		return 0;
 		
 	var containers:Array[ItemMirror] = self[resource+"_containers"].filter(\
 		func(mirror:ItemMirror)->bool:return not mirror.item.raw_stack);

@@ -1,5 +1,7 @@
 extends UIRoot
 
+@export var new_world_map_scene:PackedScene;
+
 @export var load_menu:Control;
 @export var main_view:Control;
 
@@ -52,3 +54,7 @@ func _on_full_scree_pressed() -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
+
+
+func _on_button_pressed() -> void:
+	pass # Replace with function body.

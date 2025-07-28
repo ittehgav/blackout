@@ -249,6 +249,10 @@ text = "New Game"
 layout_mode = 2
 text = "Load Game"
 
+[node name="Button" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "world map"
+
 [node name="ui_sfx" parent="main_ui" instance=ExtResource("3_7wtwh")]
 cancel = ExtResource("4_d4fs2")
 invalid = ExtResource("5_gwvec")
@@ -774,6 +778,7 @@ text = "Start New Game"
 
 [connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/new_game" to="main_ui" method="_on_new_game_pressed"]
 [connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/load_game" to="main_ui" method="_on_load_pressed"]
+[connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/Button" to="main_ui" method="_on_button_pressed"]
 [connection signal="pressed" from="main_ui/load_menu/PanelContainer/save_file_list/return" to="main_ui/load_menu" method="_on_return_pressed"]
 [connection signal="pressed" from="main_ui/new_game/Panel/return" to="main_ui/new_game" method="_on_return_pressed"]
 [connection signal="pressed" from="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer/previous" to="main_ui/new_game" method="_on_previous_pressed"]

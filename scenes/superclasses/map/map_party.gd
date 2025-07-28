@@ -1,6 +1,5 @@
-extends MapEntity
+extends MapParty
 
-class_name MapParty
 
 
 signal quadrant_changed(new_quadrant:WorldMapQuadrant, direction:Vector2);
