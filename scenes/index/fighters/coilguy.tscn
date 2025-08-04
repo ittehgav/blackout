@@ -1,0 +1,24 @@
+[gd_scene load_steps=9 format=3 uid="uid://cn6wxjfhbdfcq"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_2s41m"]
+[ext_resource type="Texture2D" uid="uid://tsefuarfxuhu" path="res://assets/visual/sprites/fighters/coilguy.png" id="1_5yy3e"]
+[ext_resource type="Script" uid="uid://b74na1yept4yy" path="res://scenes/index/fighters/coilguy.gd" id="2_aqke5"]
+[ext_resource type="Script" uid="uid://d0vdtfwjmusot" path="res://scenes/index/fighters/lightning.gd" id="4_xvqui"]
+[ext_resource type="Texture2D" uid="uid://cq36m6e8s2okg" path="res://assets/visual/particles/lightning/lightning_1.png" id="5_ao8pl"]
+[ext_resource type="Texture2D" uid="uid://babwjw0xyvgg7" path="res://assets/visual/particles/lightning/lightning_2.png" id="6_63fup"]
+[ext_resource type="Texture2D" uid="uid://ck17xoqwu4ysq" path="res://assets/visual/particles/lightning/lightning_3.png" id="7_1g4vg"]
+[ext_resource type="Texture2D" uid="uid://ccx16b2nekxsc" path="res://assets/visual/particles/lightning/lightning_4.png" id="8_ols1n"]
+
+[node name="Coil Guy" type="Sprite2D" node_paths=PackedStringArray("lightning_vfx")]
+material = ExtResource("1_2s41m")
+texture = ExtResource("1_5yy3e")
+hframes = 6
+vframes = 3
+script = ExtResource("2_aqke5")
+lightning_vfx = NodePath("lightning")
+
+[node name="lightning" type="Node2D" parent="." node_paths=PackedStringArray("base")]
+scale = Vector2(2, 2)
+script = ExtResource("4_xvqui")
+lightning_textures = Array[Texture]([ExtResource("5_ao8pl"), ExtResource("6_63fup"), ExtResource("7_1g4vg"), ExtResource("8_ols1n")])
+base = NodePath("..")

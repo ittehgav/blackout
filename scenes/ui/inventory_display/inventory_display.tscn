@@ -1,0 +1,527 @@
+[gd_scene load_steps=34 format=3 uid="uid://ba833ve2fbwcf"]
+
+[ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
+[ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
+[ext_resource type="Script" uid="uid://k28ilsb15q1d" path="res://scenes/ui/inventory_display/sfx.gd" id="3_ke6sf"]
+[ext_resource type="AudioStream" uid="uid://027kj1l582qq" path="res://assets/sound/sfx/ui/inventory/cell_hover.wav" id="4_rchr5"]
+[ext_resource type="Script" uid="uid://b67hvkww5tvpb" path="res://scenes/ui/inventory_display/hover_sfx.gd" id="5_qglwj"]
+[ext_resource type="AudioStream" uid="uid://bxquvtit675r3" path="res://assets/sound/sfx/ui/inventory/drop.wav" id="6_k4cp6"]
+[ext_resource type="AudioStream" uid="uid://bn7wgmpf137el" path="res://assets/sound/sfx/ui/inventory/pick_up.wav" id="7_7cfyp"]
+[ext_resource type="AudioStream" uid="uid://bq6bhdc3fxxf7" path="res://assets/sound/sfx/ui/inventory/resources/deposit_food_small.wav" id="8_7cfyp"]
+[ext_resource type="AudioStream" uid="uid://db6nr5d7cblaq" path="res://assets/sound/sfx/ui/inventory/resources/deposit_food_big.wav" id="9_odn8d"]
+[ext_resource type="AudioStream" uid="uid://bo843b1jpdnre" path="res://assets/sound/sfx/ui/inventory/resources/deposit_liquid_small.wav" id="10_an643"]
+[ext_resource type="AudioStream" uid="uid://dii0q6g35g68o" path="res://assets/sound/sfx/ui/inventory/resources/deposit_liquid_big.wav" id="11_qglwj"]
+[ext_resource type="AudioStream" uid="uid://cavubig57jevv" path="res://assets/sound/sfx/ui/inventory/resources/deposit_scrap_small.wav" id="12_jjio2"]
+[ext_resource type="AudioStream" uid="uid://b6fwkkoof86w3" path="res://assets/sound/sfx/ui/inventory/resources/deposit_scrap_big.wav" id="13_ormkh"]
+[ext_resource type="AudioStream" uid="uid://cg6ya8ntw4pr4" path="res://assets/sound/sfx/ui/inventory/resources/deposit_chips.wav" id="14_15sfg"]
+[ext_resource type="AudioStream" uid="uid://cmthuuhpkrahu" path="res://assets/sound/sfx/ui/inventory/loot.wav" id="15_n8bvc"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="16_an643"]
+[ext_resource type="AudioStream" uid="uid://cnomp6rm87ghx" path="res://assets/sound/sfx/ui/inventory/weapon_equipped.mp3" id="16_jjio2"]
+[ext_resource type="AudioStream" uid="uid://byq71hx2dnw65" path="res://assets/sound/sfx/ui/inventory/module_equipped.wav" id="17_ed75d"]
+[ext_resource type="AudioStream" uid="uid://ch3t7uy42ms3k" path="res://assets/sound/sfx/ui/inventory/trade/trade.wav" id="17_ormkh"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="17_qglwj"]
+[ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="18_7uvto"]
+[ext_resource type="AudioStream" uid="uid://b7cm8ur52tcnd" path="res://assets/sound/sfx/ui/inventory/trade/reset.wav" id="19_h4har"]
+[ext_resource type="AudioStream" uid="uid://887fjhopo7n2" path="res://assets/sound/sfx/ui/inventory/trade/coin.wav" id="20_fnwsv"]
+[ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_display/resource_picker.gd" id="21_15sfg"]
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
+[ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_display/warnings.gd" id="26_8mqj8"]
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="27_c5he3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
+resource_local_to_scene = true
+shader = ExtResource("17_qglwj")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjio2"]
+resource_local_to_scene = true
+shader = ExtResource("17_qglwj")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_an643"]
+resource_local_to_scene = true
+shader = ExtResource("17_qglwj")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ormkh"]
+resource_local_to_scene = true
+shader = ExtResource("17_qglwj")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15sfg"]
+resource_local_to_scene = true
+shader = ExtResource("17_qglwj")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7uvto"]
+resource_local_to_scene = true
+shader = ExtResource("17_qglwj")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "item_mirrors_node", "cargo", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "money_label", "food_icon", "food_hbox", "food_label", "fuel_icon", "fuel_hbox", "fuel_label", "juice_icon", "juice_hbox", "juice_label", "scrap_icon", "scrap_hbox", "scrap_label", "chips_icon", "chips_hbox", "chips_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bv60r")
+warnings_popup = NodePath("warnings")
+resource_picker = NodePath("resource_picker")
+item_mirrors_node = NodePath("cargo/item_mirrors")
+cargo = NodePath("cargo")
+grid_cell_scene = ExtResource("2_ke6sf")
+grid = NodePath("cargo/inventory_grid")
+sfx = NodePath("sfx")
+hover_sfx = NodePath("hover_sfx")
+warning_label = NodePath("warning")
+send_rect = NodePath("cargo/send_rect")
+trade_excess = NodePath("trade_excess")
+trade_excess_container = NodePath("trade_excess/trade_excess_container")
+trade_excess_label_panel = NodePath("trade_excess_label_panel")
+trade_excess_label = NodePath("trade_excess_label_panel/trade_excess_label")
+resources_vbox = NodePath("VBoxContainer")
+money_icon = NodePath("VBoxContainer/HBoxContainer3/money_icon")
+money_hbox = NodePath("VBoxContainer/HBoxContainer3")
+money_label = NodePath("VBoxContainer/HBoxContainer3/money")
+food_icon = NodePath("VBoxContainer/HBoxContainer/food_icon")
+food_hbox = NodePath("VBoxContainer/HBoxContainer")
+food_label = NodePath("VBoxContainer/HBoxContainer/food")
+fuel_icon = NodePath("VBoxContainer/HBoxContainer2/fuel_icon")
+fuel_hbox = NodePath("VBoxContainer/HBoxContainer2")
+fuel_label = NodePath("VBoxContainer/HBoxContainer2/fuel")
+juice_icon = NodePath("VBoxContainer/HBoxContainer4/juice_icon")
+juice_hbox = NodePath("VBoxContainer/HBoxContainer4")
+juice_label = NodePath("VBoxContainer/HBoxContainer4/juice")
+scrap_icon = NodePath("VBoxContainer/HBoxContainer5/scrap_icon")
+scrap_hbox = NodePath("VBoxContainer/HBoxContainer5")
+scrap_label = NodePath("VBoxContainer/HBoxContainer5/scrap")
+chips_icon = NodePath("VBoxContainer/HBoxContainer6/chips_icon")
+chips_hbox = NodePath("VBoxContainer/HBoxContainer6")
+chips_label = NodePath("VBoxContainer/HBoxContainer6/chips")
+metadata/_tab_index = 0
+
+[node name="hover_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_rchr5")
+max_polyphony = 5
+bus = &"sfx"
+script = ExtResource("5_qglwj")
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+max_polyphony = 9
+bus = &"sfx"
+script = ExtResource("3_ke6sf")
+drop = ExtResource("6_k4cp6")
+pick_up = ExtResource("7_7cfyp")
+weapon_equipped = ExtResource("16_jjio2")
+module_equipped = ExtResource("17_ed75d")
+trade = ExtResource("17_ormkh")
+invalid = ExtResource("18_7uvto")
+reset = ExtResource("19_h4har")
+coin_drop = ExtResource("20_fnwsv")
+loot = ExtResource("15_n8bvc")
+deposit_food_small = ExtResource("8_7cfyp")
+deposit_food_big = ExtResource("9_odn8d")
+deposit_liquid_small = ExtResource("10_an643")
+deposit_liquid_big = ExtResource("11_qglwj")
+deposit_scrap_small = ExtResource("12_jjio2")
+deposit_scrap_big = ExtResource("13_ormkh")
+deposit_chips = ExtResource("14_15sfg")
+
+[node name="cargo" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="inventory_grid" type="GridContainer" parent="cargo"]
+layout_mode = 1
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+
+[node name="item_mirrors" type="Control" parent="cargo"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="send_rect" type="ColorRect" parent="cargo"]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.678431)
+
+[node name="operation" type="Label" parent="cargo/send_rect"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 202.0
+offset_right = 266.0
+offset_bottom = 304.0
+theme_override_font_sizes/font_size = 128
+text = "BUY"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 404.0
+offset_top = 10.0
+offset_right = 496.0
+offset_bottom = 366.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="money_icon" parent="VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
+material = SubResource("ShaderMaterial_qglwj")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "money"
+show_tooltip = true
+adjacent_items = [NodePath("../money")]
+
+[node name="money" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="food_icon" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
+material = SubResource("ShaderMaterial_jjio2")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+show_tooltip = true
+adjacent_items = [NodePath("../food")]
+
+[node name="food" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="fuel_icon" parent="VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
+material = SubResource("ShaderMaterial_an643")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "fuel"
+show_tooltip = true
+adjacent_items = [NodePath("../fuel")]
+
+[node name="fuel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="juice_icon" parent="VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
+material = SubResource("ShaderMaterial_ormkh")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "juice"
+show_tooltip = true
+adjacent_items = [NodePath("../juice")]
+
+[node name="juice" type="Label" parent="VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="scrap_icon" parent="VBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
+material = SubResource("ShaderMaterial_15sfg")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "scrap"
+show_tooltip = true
+adjacent_items = [NodePath("../scrap")]
+
+[node name="scrap" type="Label" parent="VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="chips_icon" parent="VBoxContainer/HBoxContainer6" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
+material = SubResource("ShaderMaterial_7uvto")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "chips"
+show_tooltip = true
+adjacent_items = [NodePath("../chips")]
+
+[node name="chips" type="Label" parent="VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="resource_picker" type="Control" parent="." node_paths=PackedStringArray("display", "slider", "add_1_btn", "add_5_btn", "add_max_btn", "add_custom")]
+visible = false
+z_index = 10
+anchors_preset = 0
+offset_left = -107.0
+offset_top = -40.0
+offset_right = 148.0
+offset_bottom = 76.0
+script = ExtResource("21_15sfg")
+display = NodePath("..")
+slider = NodePath("PanelContainer/VBoxContainer/slider")
+add_1_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_1")
+add_5_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_5")
+add_max_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_max")
+add_custom = NodePath("PanelContainer/VBoxContainer/add_custom")
+
+[node name="PanelContainer" type="PanelContainer" parent="resource_picker"]
+layout_mode = 0
+offset_right = 12.0
+offset_bottom = 12.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="resource_picker/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="resource_picker/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="pick_1" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "BUY
+ 1"
+
+[node name="pick_5" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "BUY
+ 5"
+
+[node name="pick_max" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "BUY 
+MAX"
+
+[node name="slider" type="HSlider" parent="resource_picker/PanelContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+rounded = true
+
+[node name="add_custom" type="Button" parent="resource_picker/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+text = "Confirm"
+
+[node name="disappear" type="Timer" parent="resource_picker"]
+
+[node name="warning" type="Label" parent="."]
+z_index = 20
+z_as_relative = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.796078, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.501961)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+
+[node name="trade_excess" type="PanelContainer" parent="."]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -12.0
+offset_right = 6.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme = ExtResource("25_ed75d")
+
+[node name="trade_excess_container" type="VBoxContainer" parent="trade_excess"]
+layout_mode = 2
+alignment = 2
+
+[node name="trade_excess_label_panel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = 245.0
+offset_right = -156.0
+offset_bottom = 308.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("25_ed75d")
+
+[node name="trade_excess_label" type="Label" parent="trade_excess_label_panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "wawa"
+
+[node name="warnings" type="Control" parent="." node_paths=PackedStringArray("inventory_display", "liquid_discard_label", "loot_discard_label")]
+visible = false
+z_index = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("27_c5he3")
+script = ExtResource("26_8mqj8")
+inventory_display = NodePath("..")
+liquid_discard_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/liquid_discard")
+loot_discard_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/loot_discard")
+
+[node name="ColorRect" type="ColorRect" parent="warnings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.435294)
+
+[node name="PanelContainer" type="PanelContainer" parent="warnings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -19.0
+offset_right = 6.5
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="warnings/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="warnings/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="warning" type="Label" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Warning:"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="liquid_discard" type="RichTextLabel" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Fuel and Juice are liquid and need to be stored in containers. Otherewise they'll be discarded."
+fit_content = true
+
+[node name="loot_discard" type="Label" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Items left in the loot screen will be discarded."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="accept" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Discard items 
+and continue"
+
+[node name="auto_sort" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Auto-Sort
+and continue"
+
+[node name="return" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Return"
+
+[connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
+[connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
+[connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
+[connection signal="mouse_entered" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_entered"]
+[connection signal="mouse_exited" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_exited"]
+[connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_1" to="resource_picker" method="_on_pick_1_pressed"]
+[connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_5" to="resource_picker" method="_on_pick_5_pressed"]
+[connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_max" to="resource_picker" method="_on_pick_max_pressed"]
+[connection signal="value_changed" from="resource_picker/PanelContainer/VBoxContainer/slider" to="resource_picker" method="_on_slider_value_changed"]
+[connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/add_custom" to="resource_picker" method="_on_add_custom_pressed"]
+[connection signal="timeout" from="resource_picker/disappear" to="resource_picker" method="_on_disappear_timeout"]
+[connection signal="mouse_entered" from="trade_excess_label_panel" to="." method="_on_trade_excess_label_panel_mouse_entered"]
+[connection signal="mouse_exited" from="trade_excess_label_panel" to="." method="_on_trade_excess_label_panel_mouse_exited"]
+[connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/accept" to="warnings" method="_on_accept_pressed"]
+[connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/auto_sort" to="warnings" method="_on_auto_sort_pressed"]
+[connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/return" to="warnings" method="_on_return_pressed"]

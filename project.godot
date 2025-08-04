@@ -22,7 +22,7 @@ boot_splash/minimum_display_time=500
 ColorCoder="*res://global/color_coder.gd"
 Entities="*res://global/entities.gd"
 Combat="*res://global/combat/combat.gd"
-Index="*res://global/index.tscn"
+Index="*res://global/index/index.tscn"
 Trade="*res://global/world_map/trade.gd"
 Scaling="*res://global/combat/scaling.gd"
 MapEvents="*res://global/world_map/map_events.gd"
@@ -195,7 +195,7 @@ ui_quick_exit={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://resources/dialogues/thugs.dialogue", "res://resources/dialogues/map_common.dialogue", "res://resources/dialogues/travelling_trader.dialogue")
+locale/translations_pot_files=PackedStringArray("res://resources/dialogues/map_common.dialogue", "res://resources/dialogues/buildings/chop_shop.dialogue", "res://resources/dialogues/buildings/farmer.dialogue", "res://resources/dialogues/buildings/gas_station.dialogue", "res://resources/dialogues/buildings/gym.dialogue", "res://resources/dialogues/buildings/tech_shop.dialogue", "res://resources/dialogues/parties/thugs.dialogue", "res://resources/dialogues/parties/travelling_trader.dialogue")
 
 [layer_names]
 

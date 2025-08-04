@@ -1,0 +1,7 @@
+import "res://resources/dialogues/map_common.dialogue" as common
+
+~ start
+Tech Specialist: Hello, looking to upgrade your hardware?
+- Let me see what you have for sale. #start_trade => common/start_trade
+- Do you know of any cyborgs looking for work? #recruit_cyborg => common/recruit_units
+- Maybe later. [leave] => common/finish_dialogue

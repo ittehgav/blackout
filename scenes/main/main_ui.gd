@@ -1,6 +1,5 @@
 extends UIRoot
 
-@export var new_world_map_scene:PackedScene;
 
 @export var load_menu:Control;
 @export var main_view:Control;

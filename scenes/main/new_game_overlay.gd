@@ -94,7 +94,7 @@ func _ready()->void:
 			for unit:FighterUnit in origin.roster.units:
 				if not unit.base:
 					var base:FighterBase =  unit.get_child(-1)
-					unit.base = Index.all_fighter_bases[base.name]
+					unit.base = Index.fighters.find_base(base.name)
 					base.queue_free();
 				textures[unit] = ColorCoder.color_code_texture(unit.base.texture, pairs);
 			origins_parties_textures[origin].append(textures);
@@ -154,7 +154,7 @@ func refresh_origin_data()->void:
 		party_units_container.add_child(rect);
 		rect.show()
 
-		var tooltip:Tooltip = Index.tooltip_scene.instantiate();
+		var tooltip:Tooltip = Index.scenes.ui.tooltip.instantiate();
 		tooltip.target = unit.base;
 		rect.add_child(tooltip)
 		tooltip.setup();
@@ -168,7 +168,7 @@ func refresh_origin_data()->void:
 	for item:Item in origin.inventory.items:
 		if item != origin.equipped_module and\
 		item != origin.equipped_weapon:
-			var mirror:ItemMirror = Index.item_mirror_scene.instantiate();
+			var mirror:ItemMirror = Index.scenes.ui.item_mirror.instantiate();
 			mirror.load_item(item, false, true);
 			if item is ResourceContainer:
 				mirror.stack_size_label.show();
@@ -242,7 +242,7 @@ func start_new_game() -> void:
 		await Tweens.ui_fade_in(Entities.loading_screen).finished;
 		get_parent().hide();
 		
-		var map:WorldMap = Index.world_map_scene.instantiate();
+		var map:WorldMap = Index.scenes.world_map.instantiate();
 		Entities.world_map = map;
 		map.finished_generating.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
 		

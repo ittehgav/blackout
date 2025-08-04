@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3q2rj3eol6t"]
+
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="2_tn4cm"]
+[ext_resource type="Script" uid="uid://cuk2slytdd26o" path="res://scenes/battle/fighter/player/body.gd" id="3_dsuet"]
+
+[node name="body" type="Sprite2D" node_paths=PackedStringArray("ticker")]
+texture = ExtResource("2_tn4cm")
+hframes = 6
+vframes = 3
+script = ExtResource("3_dsuet")
+ticker = NodePath("animation_ticker")
+
+[node name="animation_ticker" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="animation_ticker" to="." method="next_frame"]

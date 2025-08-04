@@ -1,0 +1,788 @@
+[gd_scene load_steps=38 format=3 uid="uid://d0n0kjgpxpjit"]
+
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="1_st2cm"]
+[ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="2_sohg7"]
+[ext_resource type="Texture2D" uid="uid://d3c2ks6mdeiw" path="res://assets/clip/backgrounde/neu/gym.jpg" id="3_tjuln"]
+[ext_resource type="Texture2D" uid="uid://ctrdkvpa28p08" path="res://assets/visual/icons/portrait.png" id="4_n08up"]
+[ext_resource type="Texture2D" uid="uid://t0008chby5ff" path="res://icon.svg" id="5_bucyr"]
+[ext_resource type="Texture2D" uid="uid://etp7xxiib17j" path="res://assets/visual/ui/settlement/anomaly_arrow.png" id="6_133hv"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="7_cmqat"]
+[ext_resource type="AudioStream" uid="uid://0fnfsxh017op" path="res://assets/sound/sfx/ui/cancel.ogg" id="8_aankc"]
+[ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="9_psipu"]
+[ext_resource type="Script" uid="uid://4aosun8uw6h4" path="res://scenes/main/save_files.gd" id="10_vsmr0"]
+[ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="11_vinog"]
+[ext_resource type="Script" uid="uid://bvpxv2xeftx3x" path="res://scenes/main/new_game_overlay.gd" id="12_oi3le"]
+[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="13_l08fs"]
+[ext_resource type="Texture2D" uid="uid://c5ptbtwvc4daa" path="res://assets/visual/origins/aristocrat.png" id="14_p6du6"]
+[ext_resource type="Texture2D" uid="uid://d1nbssaegd81h" path="res://assets/visual/origins/brigand.png" id="15_wm55u"]
+[ext_resource type="Texture2D" uid="uid://dolnbhlvnbfrw" path="res://assets/visual/origins/indigent.png" id="16_pxbve"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="17_wbx0f"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="18_hg8bg"]
+[ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="19_aikux"]
+[ext_resource type="Texture2D" uid="uid://b1ii7gb6p2fb7" path="res://assets/visual/icons/items/modules/pipe.png" id="20_bm225"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="21_iaiw5"]
+[ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/icons/items/modules/dodge_roll.png" id="22_1fkyb"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="23_8qovt"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="24_50vq3"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="25_v6h5j"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="26_blxo6"]
+[ext_resource type="PackedScene" uid="uid://dmrjgq36evxqy" path="res://scenes/player/origins/brigand.tscn" id="27_j3n1c"]
+[ext_resource type="PackedScene" uid="uid://d0blxyg3y6dq6" path="res://scenes/player/origins/aristocrat.tscn" id="28_ptc88"]
+[ext_resource type="PackedScene" uid="uid://dkrp38iwqs33y" path="res://scenes/player/origins/indigent.tscn" id="29_pw343"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62f45"]
+atlas = ExtResource("18_hg8bg")
+region = Rect2(90, 32, 17, 45)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nlll"]
+resource_local_to_scene = true
+shader = ExtResource("24_50vq3")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ii537"]
+resource_local_to_scene = true
+shader = ExtResource("24_50vq3")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rofvo"]
+resource_local_to_scene = true
+shader = ExtResource("24_50vq3")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbnf8"]
+resource_local_to_scene = true
+shader = ExtResource("24_50vq3")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r1bmu"]
+resource_local_to_scene = true
+shader = ExtResource("24_50vq3")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ud2m"]
+resource_local_to_scene = true
+shader = ExtResource("24_50vq3")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nwjq"]
+atlas = ExtResource("26_blxo6")
+region = Rect2(57, 20, 75, 80)
+
+[node name="main_menu" type="CanvasLayer"]
+
+[node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("load_menu", "main_view", "load_btn", "new_game_overlay", "full_screen_hint_arrow", "ui_sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_st2cm")
+script = ExtResource("2_sohg7")
+load_menu = NodePath("load_menu")
+main_view = NodePath("main_view")
+load_btn = NodePath("main_view/main_options/MarginContainer/VBoxContainer/load_game")
+new_game_overlay = NodePath("new_game")
+full_screen_hint_arrow = NodePath("full_screen_hint/arrow")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ColorRect" type="ColorRect" parent="main_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.33, 0.33, 1)
+
+[node name="TextureRect" type="TextureRect" parent="main_ui"]
+texture_filter = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tjuln")
+expand_mode = 5
+flip_h = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 358.0
+grow_vertical = 0
+
+[node name="TextureRect2" type="TextureRect" parent="main_ui/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_n08up")
+flip_h = true
+
+[node name="Label" type="Label" parent="main_ui/HBoxContainer"]
+layout_mode = 2
+text = "Created by	
+Vodok"
+
+[node name="TextureRect" type="TextureRect" parent="main_ui/HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_bucyr")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="main_ui/HBoxContainer"]
+layout_mode = 2
+text = "Powered By
+Godot"
+
+[node name="full_screen_hint" type="Control" parent="main_ui"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -39.0
+offset_right = -103.0
+offset_bottom = -39.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="main_ui/full_screen_hint"]
+layout_mode = 0
+offset_left = -177.0
+offset_top = -114.0
+offset_right = 99.0
+offset_bottom = -9.0
+theme_override_font_sizes/font_size = 64
+text = "Full Screen
+Recommended"
+
+[node name="arrow" type="TextureRect" parent="main_ui/full_screen_hint"]
+modulate = Color(0.9, 0.66105, 0.369, 1)
+layout_mode = 2
+offset_left = 9.0
+offset_right = 49.0
+offset_bottom = 80.0
+rotation = 1.5708
+texture = ExtResource("6_133hv")
+
+[node name="main_view" type="Control" parent="main_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="main_options" type="PanelContainer" parent="main_ui/main_view"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = -69.0
+offset_right = 273.0
+offset_bottom = 25.0
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="MarginContainer" type="MarginContainer" parent="main_ui/main_view/main_options"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/main_view/main_options/MarginContainer"]
+layout_mode = 2
+
+[node name="new_game" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="load_game" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load Game"
+
+[node name="Button" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "world map"
+
+[node name="ui_sfx" parent="main_ui" instance=ExtResource("7_cmqat")]
+cancel = ExtResource("8_aankc")
+invalid = ExtResource("9_psipu")
+
+[node name="load_menu" type="Control" parent="main_ui" node_paths=PackedStringArray("main_ui", "main_menu", "options_container")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_vsmr0")
+main_ui = NodePath("..")
+main_menu = NodePath("../main_view")
+options_container = NodePath("PanelContainer/save_file_list")
+
+[node name="PanelContainer" type="PanelContainer" parent="main_ui/load_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="save_file_list" type="VBoxContainer" parent="main_ui/load_menu/PanelContainer"]
+layout_mode = 2
+
+[node name="return" type="Button" parent="main_ui/load_menu/PanelContainer/save_file_list"]
+layout_mode = 2
+shortcut = ExtResource("11_vinog")
+text = "[tab] return"
+
+[node name="new_game" type="Control" parent="main_ui" node_paths=PackedStringArray("main_menu", "brigand", "aristocrat", "indigent", "player_body", "colors_outline", "main_color_sample", "off_color_sample", "money_label", "name_edit", "origin_name_label", "origin_description_label", "origins_container", "items_container", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label", "weapon_sample", "weapon_sample_bg", "module_sample", "module_sample_bg", "party_member_sample", "party_units_container")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_oi3le")
+main_menu = NodePath("../main_view")
+brigand = NodePath("origins/Brigand")
+aristocrat = NodePath("origins/Aristocrat")
+indigent = NodePath("origins/Indigent")
+player_body = NodePath("Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/player_body")
+colors_outline = NodePath("Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ColorRect/ReferenceRect")
+main_color_sample = NodePath("Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ColorRect")
+off_color_sample = NodePath("Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ColorRect/Polygon2D")
+money_label = NodePath("Panel/HBoxContainer/gameplay_data/HBoxContainer2/HBoxContainer/money_label")
+name_edit = NodePath("Panel/HBoxContainer/character/PanelContainer/VBoxContainer/name_edit")
+origin_name_label = NodePath("Panel/HBoxContainer/character/origin_name")
+origin_description_label = NodePath("Panel/HBoxContainer/character/origin_description")
+origins_container = NodePath("Panel/HBoxContainer/origin_picker/HBoxContainer/Panel/origins_textures")
+items_container = NodePath("Panel/HBoxContainer/gameplay_data/items")
+max_hp_label = NodePath("Panel/HBoxContainer/gameplay_data/stats/max_hp/max_hp")
+attack_label = NodePath("Panel/HBoxContainer/gameplay_data/stats/attack/attack")
+defense_label = NodePath("Panel/HBoxContainer/gameplay_data/stats/defense/defense")
+agility_label = NodePath("Panel/HBoxContainer/gameplay_data/stats/agility/agility")
+technique_label = NodePath("Panel/HBoxContainer/gameplay_data/stats/technique/technique")
+weapon_sample = NodePath("Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer/weapon_sample")
+weapon_sample_bg = NodePath("Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer/weapon_sample/weapon_bg")
+module_sample = NodePath("Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2/module_sample")
+module_sample_bg = NodePath("Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2/module_sample/module_bg")
+party_member_sample = NodePath("Panel/HBoxContainer/VBoxContainer/party_units_container/recruit_sample")
+party_units_container = NodePath("Panel/HBoxContainer/VBoxContainer/party_units_container")
+
+[node name="Panel" type="Panel" parent="main_ui/new_game"]
+custom_minimum_size = Vector2(1280, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="return" type="Button" parent="main_ui/new_game/Panel"]
+visible = false
+layout_mode = 0
+offset_left = 21.0
+offset_top = -37.0
+offset_right = 155.0
+offset_bottom = -3.0
+shortcut = ExtResource("11_vinog")
+text = "[tab] return"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui/new_game/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -283.0
+offset_right = 710.0
+offset_bottom = 259.0
+grow_vertical = 2
+
+[node name="origin_picker" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="choose" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.000693898, 0.000693898, 0.000693898, 1)
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = -2
+theme_override_font_sizes/font_size = 64
+text = "Choose an Origin"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker"]
+layout_mode = 2
+
+[node name="previous" type="Button" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("13_l08fs")
+theme_override_font_sizes/font_size = 128
+text = "<
+"
+
+[node name="Panel" type="Panel" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer"]
+clip_children = 2
+custom_minimum_size = Vector2(250, 500)
+layout_mode = 2
+theme = ExtResource("13_l08fs")
+
+[node name="origins_textures" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer/Panel"]
+layout_mode = 2
+offset_right = 250.0
+offset_bottom = 1508.0
+mouse_filter = 2
+
+[node name="aristocrat" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer/Panel/origins_textures"]
+custom_minimum_size = Vector2(250, 500)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("14_p6du6")
+
+[node name="brigand" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer/Panel/origins_textures"]
+custom_minimum_size = Vector2(250, 500)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("15_wm55u")
+
+[node name="indigent" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer/Panel/origins_textures"]
+custom_minimum_size = Vector2(250, 500)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("16_pxbve")
+
+[node name="next" type="Button" parent="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("13_l08fs")
+theme_override_font_sizes/font_size = 128
+text = ">"
+
+[node name="character" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="main_ui/new_game/Panel/HBoxContainer/character"]
+layout_mode = 2
+theme = ExtResource("13_l08fs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer"]
+layout_mode = 2
+
+[node name="name_edit" type="LineEdit" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_placeholder_color = Color(0.2, 0.0392157, 0.0392157, 1)
+theme_override_font_sizes/font_size = 48
+placeholder_text = "Choose your name:"
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+select_all_on_focus = true
+caret_blink = true
+caret_blink_interval = 0.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="player_body" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer"]
+material = ExtResource("17_wbx0f")
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_62f45")
+expand_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Choose your
+faction's colors:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="previous_scheme" type="Button" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_st2cm")
+text = "<"
+
+[node name="ColorRect" type="ColorRect" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ColorRect"]
+position = Vector2(-24, 0)
+color = Color(0.485703, 0.485704, 0.485703, 1)
+polygon = PackedVector2Array(26, 62, 86, 2, 86, 55, 79, 62)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 5.0
+editor_only = false
+
+[node name="next_scheme" type="Button" parent="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_st2cm")
+text = ">"
+
+[node name="origin_name" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/character"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -3
+theme_override_constants/shadow_offset_y = -3
+theme_override_font_sizes/font_size = 80
+text = "Brigand"
+
+[node name="origin_description" type="RichTextLabel" parent="main_ui/new_game/Panel/HBoxContainer/character"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "You're the son of a brigand fighter, who was the son of a brigand fighter, who was the grandson of a brigand fighter.
+[color=green]Bonus Combat Stats
+[color=green]Start with a small party"
+fit_content = true
+
+[node name="gameplay_data" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer"]
+layout_mode = 2
+
+[node name="weapon" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Weapon"
+
+[node name="weapon_sample" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer"]
+material = ExtResource("19_aikux")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("20_bm225")
+
+[node name="weapon_bg" type="ColorRect" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer/weapon_sample"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.670588, 0.494118, 0.27451, 1)
+
+[node name="rect" type="ReferenceRect" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer/weapon_sample/weapon_bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_width = 4.0
+editor_only = false
+
+[node name="Tooltip" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer/weapon_sample" instance=ExtResource("21_iaiw5")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer"]
+layout_mode = 2
+
+[node name="module" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Module"
+
+[node name="module_sample" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2"]
+material = ExtResource("19_aikux")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 0
+texture = ExtResource("22_1fkyb")
+
+[node name="module_bg" type="ColorRect" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2/module_sample"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.670588, 0.494118, 0.27451, 1)
+
+[node name="rect" type="ReferenceRect" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2/module_sample/module_bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_width = 4.0
+editor_only = false
+
+[node name="Tooltip" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer/VBoxContainer2/module_sample" instance=ExtResource("21_iaiw5")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Label" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Stats"
+
+[node name="stats" type="GridContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data"]
+layout_mode = 2
+columns = 3
+
+[node name="max_hp" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats"]
+layout_mode = 2
+
+[node name="StatIcon" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/max_hp" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("23_8qovt")]
+material = SubResource("ShaderMaterial_7nlll")
+layout_mode = 2
+adjacent_items = [NodePath("../max_hp")]
+
+[node name="max_hp" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/max_hp"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "1"
+
+[node name="attack" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats"]
+layout_mode = 2
+
+[node name="StatIcon" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/attack" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("23_8qovt")]
+material = SubResource("ShaderMaterial_ii537")
+layout_mode = 2
+adjacent_items = [NodePath("../attack")]
+stat = "attack"
+
+[node name="attack" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/attack"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "1"
+
+[node name="defense" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats"]
+layout_mode = 2
+
+[node name="StatIcon" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/defense" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("23_8qovt")]
+material = SubResource("ShaderMaterial_rofvo")
+layout_mode = 2
+adjacent_items = [NodePath("../defense")]
+stat = "defense"
+
+[node name="defense" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/defense"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "1"
+
+[node name="agility" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats"]
+layout_mode = 2
+
+[node name="StatIcon" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/agility" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("23_8qovt")]
+material = SubResource("ShaderMaterial_tbnf8")
+layout_mode = 2
+adjacent_items = [NodePath("../agility")]
+stat = "agility"
+
+[node name="agility" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/agility"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "1"
+
+[node name="technique" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats"]
+layout_mode = 2
+
+[node name="StatIcon" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/technique" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("23_8qovt")]
+material = SubResource("ShaderMaterial_r1bmu")
+layout_mode = 2
+adjacent_items = [NodePath("../technique")]
+stat = "technique"
+
+[node name="technique" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/stats/technique"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "1"
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="cargo" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Cargo:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer2"]
+layout_mode = 2
+
+[node name="resource_icon" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer2/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_v6h5j")]
+material = SubResource("ShaderMaterial_6ud2m")
+layout_mode = 2
+resource = "money"
+match_player_inventory = false
+adjacent_items = [NodePath("../money_label")]
+
+[node name="money_label" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="items" type="GridContainer" parent="main_ui/new_game/Panel/HBoxContainer/gameplay_data"]
+layout_mode = 2
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="party" type="Label" parent="main_ui/new_game/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Party"
+
+[node name="party_units_container" type="VBoxContainer" parent="main_ui/new_game/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="recruit_sample" type="TextureRect" parent="main_ui/new_game/Panel/HBoxContainer/VBoxContainer/party_units_container"]
+visible = false
+layout_mode = 2
+texture = SubResource("AtlasTexture_5nwjq")
+expand_mode = 5
+
+[node name="start_new_game" type="Button" parent="main_ui/new_game/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -278.0
+offset_top = -62.0
+offset_right = -17.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Start New Game"
+
+[node name="origins" type="Node" parent="main_ui/new_game"]
+
+[node name="Brigand" parent="main_ui/new_game/origins" instance=ExtResource("27_j3n1c")]
+
+[node name="Aristocrat" parent="main_ui/new_game/origins" instance=ExtResource("28_ptc88")]
+
+[node name="Indigent" parent="main_ui/new_game/origins" instance=ExtResource("29_pw343")]
+
+[connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/new_game" to="main_ui" method="_on_new_game_pressed"]
+[connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/load_game" to="main_ui" method="_on_load_pressed"]
+[connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/Button" to="main_ui" method="_on_button_pressed"]
+[connection signal="pressed" from="main_ui/load_menu/PanelContainer/save_file_list/return" to="main_ui/load_menu" method="_on_return_pressed"]
+[connection signal="pressed" from="main_ui/new_game/Panel/return" to="main_ui/new_game" method="_on_return_pressed"]
+[connection signal="pressed" from="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer/previous" to="main_ui/new_game" method="_on_previous_pressed"]
+[connection signal="pressed" from="main_ui/new_game/Panel/HBoxContainer/origin_picker/HBoxContainer/next" to="main_ui/new_game" method="_on_next_pressed"]
+[connection signal="pressed" from="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/previous_scheme" to="main_ui/new_game" method="_on_previous_scheme_pressed"]
+[connection signal="pressed" from="main_ui/new_game/Panel/HBoxContainer/character/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/next_scheme" to="main_ui/new_game" method="_on_next_scheme_pressed"]
+[connection signal="pressed" from="main_ui/new_game/Panel/start_new_game" to="main_ui/new_game" method="start_new_game"]

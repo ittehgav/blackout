@@ -2,7 +2,7 @@ extends Leader
 
 class_name Player;
 
-@export var leadership_stats:Node;
+@export var disciplines:DisciplineTree;
 
 signal entered_settlement(settlement:Settlement);
 signal left_settlement;
@@ -13,22 +13,15 @@ signal party_changed;
 signal equipment_changed(equipment:Equipment);
 
 
-signal leadership_level_up;
-signal combat_level_up;
-
-## leadership skills will be a special tree that grants a special bonus at each level
-## you can win leadership EXP by fighting (based on the amount of units is the party?)
-## and by completing quests (auto-generated tasks from settlements?)
-@export var leadership_level:int = 1;
-@export var leadership_exp:int = 0;
-@export var leadership_points:int = 0;
+signal level_up;
 
 
-## combat exp will be gained in parallel with leadership levels, 
-## you win combat EXP when fighting
-@export var combat_level:int = 1;
-@export var combat_exp:int = 0;
-@export var combat_stat_points:int=0;
+@export var experience:int = 0;
+@export var discipline_points:int = 0;
+@export var stat_points:int = 0;
+
+
+
 
 ## ANY ITEMS THAT BELONG TO THE PLAYER WILL BE CHILDREN OF THE INVENTORY NODE
 @export var equipped_weapon:Weapon;
@@ -56,8 +49,9 @@ func battle_defeat_morale()->void:
 
 
 
-func _on_combat_level_up() -> void:
-	combat_stat_points += 1;
+func _on_level_up() -> void:
+	discipline_points += 1
+	stat_points += 1;
 
 func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
@@ -169,9 +163,9 @@ func load_origin(origin:Player)->void:
 	party_name = origin.name;
 	name = origin.name;
 
-	leadership_level = origin.leadership_level;
+	level = origin.level;
 	
-	combat_level = origin.combat_level;
+
 	
 	equipped_weapon = origin.equipped_weapon;
 	equipped_module = origin.equipped_module;

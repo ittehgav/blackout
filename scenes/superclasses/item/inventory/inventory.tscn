@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bomnv5gygjm3n"]
-
-[ext_resource type="Script" uid="uid://bjl8ll4agrd73" path="res://scenes/superclasses/item/inventory/inventory.gd" id="1_0ke8j"]
-
-[node name="Inventory" type="Node2D"]
-visible = false
-script = ExtResource("1_0ke8j")
-
-[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

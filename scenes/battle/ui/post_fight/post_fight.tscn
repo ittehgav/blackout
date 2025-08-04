@@ -1,19 +1,19 @@
 [gd_scene load_steps=38 format=3 uid="uid://b8j8soyx2828m"]
 
 [ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/ui/post_fight/post_fight.gd" id="1_433o0"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/main/ui_sfx.tscn" id="2_7eru0"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_7eru0"]
 [ext_resource type="Script" uid="uid://cpv3j7m2gbwne" path="res://scenes/battle/ui/post_fight/victory_view.gd" id="3_7eru0"]
 [ext_resource type="Script" uid="uid://8robaepnm2u6" path="res://scenes/battle/ui/post_fight/defeat_view.gd" id="3_uki8n"]
-[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="4_do72l"]
+[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="4_do72l"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="4_nsm0m"]
 [ext_resource type="Script" uid="uid://dtgljy2xg1ctm" path="res://scenes/battle/ui/post_fight/exp_gains.gd" id="4_r614c"]
-[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/player/body.tscn" id="5_y05uc"]
+[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="5_y05uc"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="6_am2jd"]
-[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar.tscn" id="7_r614c"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="7_r614c"]
 [ext_resource type="PackedScene" uid="uid://wn2qetscjd4p" path="res://scenes/battle/ui/post_fight/unit_exp_gain_display.tscn" id="9_am2jd"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="10_dh2mc"]
 [ext_resource type="Script" uid="uid://biskar3s20qlf" path="res://scenes/battle/ui/post_fight/loot_gains.gd" id="10_r614c"]
-[ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_grid/inventory_display.tscn" id="11_apr0c"]
+[ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="11_apr0c"]
 [ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="12_qaebw"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="12_uydno"]
 [ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="14_c3ns4"]
@@ -263,7 +263,7 @@ script = ExtResource("3_7eru0")
 exp_gains = NodePath("exp_gains")
 loot_gains = NodePath("loot_gains")
 
-[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "player_name_label", "leadership_exp_gain", "combat_exp_gain", "step_timer", "continue_btn", "unit_exp_gain_container", "combat_stat_points_label", "assign_points_mesage", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
+[node name="exp_gains" type="Panel" parent="victory_view" node_paths=PackedStringArray("victory_title", "player_name_label", "player_exp_bar", "step_timer", "continue_btn", "unit_exp_gain_container", "combat_stat_points_label", "assign_points_mesage", "max_hp_label", "add_max_hp", "remove_max_hp", "attack_label", "add_attack", "remove_attack", "defense_label", "add_defense", "remove_defense", "agility_label", "add_agility", "remove_agility", "technique_label", "add_technique", "remove_technique")]
 custom_minimum_size = Vector2(1000, 600)
 layout_mode = 1
 anchors_preset = 15
@@ -278,8 +278,7 @@ grow_vertical = 2
 script = ExtResource("4_r614c")
 victory_title = NodePath("VBoxContainer/victory_title")
 player_name_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/player_name")
-leadership_exp_gain = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/leadership_exp")
-combat_exp_gain = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/combat_exp")
+player_exp_bar = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/exp_bar")
 step_timer = NodePath("step")
 continue_btn = NodePath("continue")
 unit_exp_gain_container = NodePath("unit_exp_gains")
@@ -341,25 +340,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 128
 text = "Player"
 
-[node name="Label" type="Label" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="exp_bar" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-text = "Leadership Experience"
-
-[node name="leadership_exp" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
-custom_minimum_size = Vector2(300, 20)
-layout_mode = 2
-size_flags_horizontal = 0
-mouse_filter = 2
-
-[node name="Label2" type="Label" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Combat Experience"
-
-[node name="combat_exp" parent="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_r614c")]
-custom_minimum_size = Vector2(300, 20)
-layout_mode = 2
-size_flags_horizontal = 0
-mouse_filter = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="victory_view/exp_gains/VBoxContainer"]
 layout_mode = 2
@@ -816,7 +799,6 @@ grow_vertical = 0
 text = "[click anywhere to continue]"
 
 [connection signal="gui_input" from="victory_view/exp_gains" to="victory_view/exp_gains" method="_on_gui_input"]
-[connection signal="level_up" from="victory_view/exp_gains/VBoxContainer/HBoxContainer/VBoxContainer/combat_exp" to="victory_view/exp_gains" method="_on_combat_exp_level_up"]
 [connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/remove_hp_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["max_hp"]]
 [connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer/add_hp_point" to="victory_view/exp_gains" method="add_stat_point" binds= ["max_hp"]]
 [connection signal="pressed" from="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2/remove_attack_point" to="victory_view/exp_gains" method="remove_stat_point" binds= ["attack"]]

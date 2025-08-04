@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://csmjpaj3gbwco"]
+
+[ext_resource type="Script" uid="uid://dbtkk5slc2333" path="res://scenes/location/speaker.gd" id="1_vvp1l"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="2_hnnq3"]
+[ext_resource type="Texture2D" uid="uid://br4sa081ylalm" path="res://assets/visual/icons/resources/money.png" id="3_6gxum"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vatkg"]
+shader = ExtResource("2_hnnq3")
+shader_parameter/base_color = Color(0.313726, 1, 0.301961, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 1.0
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hnnq3"]
+resource_local_to_scene = true
+radius = 173.003
+
+[node name="Speaker" type="Node2D" node_paths=PackedStringArray("prompt")]
+script = ExtResource("1_vvp1l")
+prompt = NodePath("Label")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_vatkg")
+position = Vector2(0, -89)
+scale = Vector2(3, 3)
+texture = ExtResource("3_6gxum")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hnnq3")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = 49.0
+offset_top = -45.0
+offset_right = 233.0
+offset_bottom = 6.0
+theme_override_font_sizes/font_size = 48
+text = "[E] Speak"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

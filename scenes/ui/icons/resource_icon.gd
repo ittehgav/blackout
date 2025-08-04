@@ -18,7 +18,7 @@ func _ready()->void:
 	
 
 func setup()->void:
-	texture = Index.icons[resource];
+	texture = Index.textures.icons[resource];
 	material.set_shader_parameter("base_color", Index.resource_colors[resource])
 	
 	if show_tooltip:

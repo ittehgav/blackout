@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c08u0afsm4bct"]
-
-[ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/icons/items/modules/dodge_roll.png" id="1_uq2vo"]
-[ext_resource type="Script" uid="uid://diisa0tddj0gc" path="res://scenes/indexes/items/modules/dodge_roll.gd" id="2_jqmff"]
-
-[node name="Dodge Roll" type="Sprite2D"]
-texture = ExtResource("1_uq2vo")
-script = ExtResource("2_jqmff")

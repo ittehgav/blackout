@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://c72ogqn4mwwbu"]
+
+[ext_resource type="Texture2D" uid="uid://c732rp3kuwg47" path="res://assets/visual/buildings/chop_shop.png" id="1_45w8o"]
+[ext_resource type="Script" uid="uid://dy4crh0bwxl3o" path="res://scenes/location/buildings/front_porch.gd" id="2_qmtip"]
+[ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/location/speaker.tscn" id="3_6m5sa"]
+[ext_resource type="Resource" uid="uid://syh5lwpfwcij" path="res://resources/dialogues/buildings/chop_shop.dialogue" id="4_guqay"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5w5tx"]
+resource_local_to_scene = true
+radius = 115.352
+
+[node name="ChopShopFrontPorch" type="TextureRect"]
+offset_left = -104.0
+offset_right = 536.0
+offset_bottom = 1000.0
+texture = ExtResource("1_45w8o")
+script = ExtResource("2_qmtip")
+right_side_trailing_space = -64
+metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(480, 310)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-391, 26)
+polygon = PackedVector2Array(383.01, 146.9, 371.01, 154.9, 371.01, 210.9, 383.01, 227.9, 482.01, 230.9, 503.01, 225.9, 507.01, 214.9, 507.01, 157.9, 502.01, 149.9, 493.01, 147.9, 460.01, 146.9, 438, 118, 433, 85, 419, 76, 399, 87, 407, 116)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, -16)
+polygon = PackedVector2Array(-10, 95, -10, -63, -274, -63, -274, -55, -238, -55, -202, -35, -188, 5, -188, 35, -190, 53, -194, 63, -206, 79, -220, 79, -226, 69, -226, 65, -274, 65, -274, 91, -300, 91, -328, 35, -356, 35, -356, 95, -360, 103, -364, 107, -374, 107, -436, -17, -436, -259, 40, -259, 96, -151, 96, 105, 0, 105, -2, 107, -6, 103)
+
+[node name="Speaker" parent="." instance=ExtResource("3_6m5sa")]
+position = Vector2(514, 498)
+dialogue = ExtResource("4_guqay")
+
+[node name="Area2D" parent="Speaker" index="1"]
+position = Vector2(6, 18)
+
+[node name="CollisionShape2D" parent="Speaker/Area2D" index="0"]
+shape = SubResource("CircleShape2D_5w5tx")
+
+[editable path="Speaker"]

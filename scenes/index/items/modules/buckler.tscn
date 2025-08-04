@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcbeey2233tbx"]
+
+[ext_resource type="Texture2D" uid="uid://g5tyfnvg4mb1" path="res://assets/visual/icons/items/modules/buckler.png" id="1_bn410"]
+[ext_resource type="Script" uid="uid://tck3osf7tfmr" path="res://scenes/index/items/modules/buckler.gd" id="2_gf6e3"]
+[ext_resource type="Texture2D" uid="uid://bs6cyn8oaeur3" path="res://assets/visual/icons/stats/floating/defense.png" id="3_gf6e3"]
+
+[node name="Buckler" type="Sprite2D" node_paths=PackedStringArray("parry_timer")]
+texture = ExtResource("1_bn410")
+script = ExtResource("2_gf6e3")
+parry_timer = NodePath("parry_timer")
+projection_color = Color(0, 1, 1, 1)
+custom_projection_texture = ExtResource("3_gf6e3")
+
+[node name="parry_timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+ignore_time_scale = true
+
+[connection signal="equipped" from="." to="." method="_on_equipped"]

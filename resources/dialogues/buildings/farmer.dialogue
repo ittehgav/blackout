@@ -1,0 +1,6 @@
+import "res://resources/dialogues/map_common.dialogue" as common
+
+~ start
+Farmer: Hello, sir, I assure you, we have the best produce in the region!
+- Let me see what you have for sale. #start_trade => common/start_trade
+- No, thanks. [leave] => common/finish_dialogue

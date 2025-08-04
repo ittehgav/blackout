@@ -1,5 +1,7 @@
 extends Node
 
+## TODO keep a persistant note of what gets saved?
+## next time we get to the save system
 func auto_save()->void:
 	pass
 

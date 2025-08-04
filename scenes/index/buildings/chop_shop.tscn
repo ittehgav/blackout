@@ -1,0 +1,48 @@
+[gd_scene load_steps=11 format=3 uid="uid://1ardsa0qdcfv"]
+
+[ext_resource type="Script" uid="uid://sn6xkddphxxl" path="res://scenes/location/buildings/building_subclasses/resource_trader.gd" id="1_nmsa8"]
+[ext_resource type="Script" uid="uid://qpc1krgf6oe2" path="res://scenes/leader/inventory/npc_inventory.gd" id="2_nmsa8"]
+[ext_resource type="PackedScene" uid="uid://dqb34e0bl7mr7" path="res://scenes/index/items/modules/metallic_shell.tscn" id="3_3g7rs"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="4_aoxg6"]
+[ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/index/items/containers/scrap_crate.tscn" id="5_ryyd8"]
+[ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="6_72jfi"]
+[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="7_54agu"]
+[ext_resource type="PackedScene" uid="uid://gd04wp3cmysg" path="res://scenes/index/items/weapons/staff_of_luc.tscn" id="8_pr28f"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="9_qtvjw"]
+[ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="10_nmsa8"]
+
+[node name="Chop Shop" type="Node2D" node_paths=PackedStringArray("inventory", "roster") groups=["all_buildings"]]
+script = ExtResource("1_nmsa8")
+front_porch_key = "chop_shop"
+inventory = NodePath("NpcInventory")
+roster = NodePath("Building Roster")
+trade_option = true
+recruit_option = true
+metadata/_custom_type_script = "uid://sn6xkddphxxl"
+
+[node name="NpcInventory" type="Node2D" parent="." node_paths=PackedStringArray("fixed_items", "item_pool", "holder")]
+visible = false
+script = ExtResource("2_nmsa8")
+fixed_items = [NodePath("Scrap Compactor")]
+item_pool = [NodePath("Scrap Compactor2"), NodePath("Scrap Crate"), NodePath("Fuel Tank"), NodePath("Fuel Gallon"), NodePath("Metallic Shell"), NodePath("Tailpipe"), NodePath("Staff of Luc")]
+holder = NodePath("..")
+metadata/_custom_type_script = "uid://qpc1krgf6oe2"
+
+[node name="Metallic Shell" parent="NpcInventory" instance=ExtResource("3_3g7rs")]
+
+[node name="Fuel Gallon" parent="NpcInventory" instance=ExtResource("4_aoxg6")]
+
+[node name="Scrap Crate" parent="NpcInventory" instance=ExtResource("5_ryyd8")]
+
+[node name="Scrap Compactor" parent="NpcInventory" instance=ExtResource("6_72jfi")]
+
+[node name="Fuel Tank" parent="NpcInventory" instance=ExtResource("7_54agu")]
+
+[node name="Scrap Compactor2" parent="NpcInventory" instance=ExtResource("6_72jfi")]
+
+[node name="Staff of Luc" parent="NpcInventory" instance=ExtResource("8_pr28f")]
+
+[node name="Tailpipe" parent="NpcInventory" instance=ExtResource("9_qtvjw")]
+
+[node name="Building Roster" parent="." instance=ExtResource("10_nmsa8")]
+mechanic_recruiting = true

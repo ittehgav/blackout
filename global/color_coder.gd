@@ -84,38 +84,6 @@ func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
 		vehicle.texture = vehicle_texture_cache[leader.name]
 
 
-var settlement_texture_cache:Dictionary[String, Texture];
-var settlement_outline_color_cache:Dictionary[String, Color]
-func color_code_settlement(settlement:Settlement)->void:
-	
-	var sprite:Sprite2D = settlement.get_node("sprite");
-	if not settlement.settlement_type_name in settlement_texture_cache:
-		var target_color:Color;
-
-		if settlement is Factory:
-			target_color = Index.resource_colors["scrap"]
-		elif settlement is Farm:
-			target_color = Index.resource_colors["food"].darkened(.25);
-		elif settlement is Scrapyard:
-			target_color = Index.resource_colors["fuel"].darkened(.2)
-		elif settlement is Stadium:
-			target_color = Color.GOLD;
-
-
-		var dict:Dictionary = {
-			Color.GREEN: target_color,
-			Color.BLUE: target_color.darkened(.5),
-			Color.RED: target_color.lightened(.15)
-		}
-
-		settlement_texture_cache[settlement.settlement_type_name] = color_code_texture(sprite.texture, dict);
-		settlement_outline_color_cache[settlement.settlement_type_name] = target_color
-	sprite.texture = settlement_texture_cache[settlement.settlement_type_name];
-	
-	var box:Control = settlement.get_node("hover_box");
-	var outline_color:Color = settlement_outline_color_cache[settlement.settlement_type_name];
-	box.mouse_entered.connect(sprite.material.set_shader_parameter.bind("color", outline_color));
-	box.mouse_exited.connect(sprite.material.set_shader_parameter.bind("color", Color(0,0,0,0)));
 
 var prop_texture_cache:Dictionary[int, Texture]
 var large_prop_texture_cache:Dictionary[int, Texture];

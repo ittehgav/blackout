@@ -17,13 +17,13 @@ func _ready()->void:
 	if floating:
 		## make this cleaner somehow:?
 		
-		texture = Index[stat+"_floating_icon"];
+		texture = Index.textures[stat+"_floating_icon"];
 		panel.hide()
 		modulate = Index.stat_colors[stat] - Color(0, 0, 0, .5)
 		custom_minimum_size = Vector2(24, 24)
 		size = Vector2(24, 24)
 	else:
-		texture = Index.icons[stat];
+		texture = Index.textures.icons[stat];
 
 		material.set_shader_parameter("base_color", Index.stat_colors[stat]);
 		name = stat.capitalize()

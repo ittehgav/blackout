@@ -1,0 +1,26 @@
+import "res://resources/dialogues/map_common.dialogue" as common
+
+~ start
+Wandering Trader: Hello! Care to browse my wares?
+- Sure thing, let me see what you have for sale. #start_trade => common/start_trade
+- #roll_convince Don't you think those prices are a bit unfair?
+- See you later. [leave] => common/finish_dialogue
+
+~ start_trade
+Wandering Trader: Please, have a look!
+=>< common/start_trade
+~ after_trade
+Wandering Trader: Pleasure doing business with you! 
+=> start
+
+~ convince_success
+Wandering Trader: #persuaded I see you have a touch for bargain, that's hard to come by in these lands.\n
+[resource prices have been improved by 10%] => start
+=>< common/improve_prices
+=> start
+ 
+~ convince_fail
+Wandering Trader: #angry If you don't like my prices, then go shop somewhere else!\n
+[resource prices have been worsened by 10%] => start
+=>< common/strain_prices
+=> start

@@ -237,3 +237,11 @@ func y_shake(target:CanvasItem, shake_count:int = 2, shake_range:int = 50)->Twee
 
 	return tween
 	
+func tween_count_label(target:Label, final_value:int, duration:float = .5)->Tween:
+	var tween:Tween = create_tween();
+	var current_value:int = int(target.text)
+	tween.tween_method(set_label_text.bind(target), current_value, final_value, duration );
+	return tween
+
+func set_label_text(label:Label, target:int)->void:
+	label.text = str(target)

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://u3585ur6ytmf"]
+
+[ext_resource type="Texture2D" uid="uid://fpq0xo61n6a2" path="res://assets/visual/icons/items/trinkets/crimson_snow_globe.png" id="1_mclh1"]
+[ext_resource type="Script" uid="uid://bq7wyh8qg7fkd" path="res://scenes/index/items/notyet/trinkets/crimson_snow_globe.gd" id="2_2kiil"]
+
+[node name="Crimson Snow Globe" type="Sprite2D"]
+texture = ExtResource("1_mclh1")
+script = ExtResource("2_2kiil")

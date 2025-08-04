@@ -22,7 +22,9 @@ do MapEvents.battle_speaking_party()
 ~ pacify_speaking_party
 do MapEvents.pacify_speaking_party()
 
+~ recruit_units
+do Entities.dialogue_player.start_recruitment()
 
 ~ finish_dialogue
 do Entities.dialogue_player.end_dialogue()
-=>END
+

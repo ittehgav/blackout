@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_1s3gs"]
 [ext_resource type="Texture2D" uid="uid://dj1i0pekcb7xu" path="res://assets/visual/icons/stats/max_hp.png" id="1_b7vp6"]
 [ext_resource type="Script" uid="uid://4jfq03dphmd2" path="res://scenes/ui/icons/stat_icon.gd" id="2_w7tyd"]
-[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="4_66raq"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="4_66raq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xoeuu"]
 resource_local_to_scene = true

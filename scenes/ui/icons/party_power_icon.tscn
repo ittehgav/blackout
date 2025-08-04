@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_8ilsa"]
 [ext_resource type="Texture2D" uid="uid://bnodj0olc5drs" path="res://assets/visual/icons/stats/attack.png" id="2_ttxnn"]
 [ext_resource type="Script" uid="uid://b3kn11lxf6yer" path="res://scenes/ui/icons/party_power_icon.gd" id="3_eu2l2"]
-[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/tooltip.tscn" id="4_ttxnn"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="4_ttxnn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ssxhn"]
 shader = ExtResource("1_8ilsa")

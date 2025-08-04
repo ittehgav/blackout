@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ug7b4apvtj65"]
+
+[ext_resource type="Script" uid="uid://qpc1krgf6oe2" path="res://scenes/leader/inventory/npc_inventory.gd" id="1_vem84"]
+
+[node name="NpcInventory" type="Node2D"]
+visible = false
+script = ExtResource("1_vem84")
+money = 100
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

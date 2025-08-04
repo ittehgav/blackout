@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq506jywmcjbm"]
+
+[ext_resource type="Script" uid="uid://sn6xkddphxxl" path="res://scenes/location/buildings/building_subclasses/resource_trader.gd" id="1_2qms2"]
+[ext_resource type="Script" uid="uid://qpc1krgf6oe2" path="res://scenes/leader/inventory/npc_inventory.gd" id="2_qoku4"]
+[ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/index/items/containers/chips_case.tscn" id="3_afyx4"]
+[ext_resource type="Script" uid="uid://b03rfuj7p4xxr" path="res://scenes/leader/roster/building_roster.gd" id="4_tx4j3"]
+
+[node name="TechShop" type="Node2D" node_paths=PackedStringArray("inventory", "roster") groups=["all_buildings"]]
+script = ExtResource("1_2qms2")
+to_trade = Dictionary[String, bool]({
+"chips": true,
+"food": false,
+"fuel": false,
+"juice": false,
+"scrap": true
+})
+front_porch_key = "tech_shop"
+inventory = NodePath("NpcInventory")
+roster = NodePath("BuildingRoster")
+trade_option = true
+recruit_option = true
+metadata/_custom_type_script = "uid://sn6xkddphxxl"
+
+[node name="NpcInventory" type="Node2D" parent="." node_paths=PackedStringArray("fixed_items", "item_pool", "holder")]
+visible = false
+script = ExtResource("2_qoku4")
+fixed_items = [NodePath("Chips Case")]
+item_pool = [NodePath("Chips Case2")]
+holder = NodePath("..")
+metadata/_custom_type_script = "uid://qpc1krgf6oe2"
+
+[node name="Chips Case" parent="NpcInventory" instance=ExtResource("3_afyx4")]
+
+[node name="Chips Case2" parent="NpcInventory" instance=ExtResource("3_afyx4")]
+
+[node name="BuildingRoster" type="Node" parent="."]
+script = ExtResource("4_tx4j3")
+cyborg_recruiting = true
+disruptor_recruiting = true
+metadata/_custom_type_script = "uid://b03rfuj7p4xxr"

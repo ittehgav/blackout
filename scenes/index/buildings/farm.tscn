@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmbg58lf6gxtp"]
+
+[ext_resource type="Script" uid="uid://sn6xkddphxxl" path="res://scenes/location/buildings/building_subclasses/resource_trader.gd" id="1_et15n"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="2_wj5t2"]
+[ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="3_h3neu"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="4_4n25o"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="5_s21v8"]
+
+[node name="Farm" type="Node2D" node_paths=PackedStringArray("inventory") groups=["all_buildings"]]
+script = ExtResource("1_et15n")
+to_trade = Dictionary[String, bool]({
+"chips": false,
+"food": true,
+"fuel": true,
+"juice": false,
+"scrap": false
+})
+size = 3
+front_porch_key = "farm"
+inventory = NodePath("NpcInventory")
+metadata/_custom_type_script = "uid://sn6xkddphxxl"
+
+[node name="NpcInventory" parent="." node_paths=PackedStringArray("fixed_items", "item_pool", "holder") instance=ExtResource("2_wj5t2")]
+fixed_items = [NodePath("Food Barrel"), NodePath("Food Barrel2")]
+item_pool = [NodePath("Food Bag"), NodePath("Food Basket")]
+holder = NodePath("..")
+
+[node name="Food Barrel" parent="NpcInventory" instance=ExtResource("3_h3neu")]
+
+[node name="Food Barrel2" parent="NpcInventory" instance=ExtResource("3_h3neu")]
+
+[node name="Food Bag" parent="NpcInventory" instance=ExtResource("4_4n25o")]
+
+[node name="Food Basket" parent="NpcInventory" instance=ExtResource("5_s21v8")]

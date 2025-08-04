@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://syh5lwpfwcij"
+path="res://.godot/imported/chop_shop.dialogue-e323686592abd46ba91df6c766b51f6e.tres"
+
+[deps]
+
+source_file="res://resources/dialogues/buildings/chop_shop.dialogue"
+dest_files=["res://.godot/imported/chop_shop.dialogue-e323686592abd46ba91df6c766b51f6e.tres"]
+
+[params]
+
+defaults=true

@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://dkrp38iwqs33y"]
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_ahft4"]
-[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/superclasses/item/inventory/inventory.tscn" id="2_3xh6s"]
-[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/indexes/items/weapons/tailpipe.tscn" id="3_vupg8"]
-[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/indexes/items/modules/dodge_roll.tscn" id="4_ow5pe"]
-[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/indexes/items/containers/food_bag.tscn" id="5_aiie3"]
-[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/indexes/items/containers/fuel_gallon.tscn" id="6_4sir4"]
-[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/superclasses/fighters/roster/roster.tscn" id="7_gi2fp"]
+[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/leader/inventory/inventory.tscn" id="2_3xh6s"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="3_vupg8"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="4_ow5pe"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="5_aiie3"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="6_4sir4"]
+[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/leader/roster/roster.tscn" id="7_gi2fp"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="8_qme7h"]
-[ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/player/leadership_stats.gd" id="9_hk2cr"]
+[ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/ui/player_sheet/disciplines.gd" id="9_hk2cr"]
 
 [node name="Indigent" type="Node" node_paths=PackedStringArray("leadership_stats", "equipped_weapon", "equipped_module", "inventory", "roster", "combat_stats")]
 script = ExtResource("1_ahft4")

@@ -1,0 +1,98 @@
+[gd_scene load_steps=3 format=3 uid="uid://qt3uf6vc1tww"]
+
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="1_b5j4s"]
+[ext_resource type="Script" uid="uid://bvfxh7uhjvokr" path="res://scenes/ui/samples/tooltip.gd" id="1_ufptg"]
+
+[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "sub_name_label", "description_label", "hint", "hover_timer")]
+process_mode = 3
+visible = false
+z_index = 6
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -161.0
+offset_top = -45.0
+offset_right = 161.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("1_b5j4s")
+script = ExtResource("1_ufptg")
+name_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/name")
+sub_name_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/sub_name")
+description_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/description")
+hint = NodePath("MarginContainer/HBoxContainer/VBoxContainer/hint")
+hover_timer = NodePath("hover_timer")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0.168627, 0.0431373, 0.0431373, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "wawa"
+
+[node name="sub_name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+modulate = Color(1, 1, 1, 0.556863)
+layout_mode = 2
+text = "subname"
+horizontal_alignment = 1
+
+[node name="description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "edwadawdawdawdwadawd"
+fit_content = true
+scroll_active = false
+
+[node name="hint" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
+modulate = Color(1, 1, 1, 0.513726)
+layout_mode = 2
+size_flags_vertical = 8
+text = "tooly"
+horizontal_alignment = 2
+
+[node name="hover_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="hover_timer" to="." method="_on_hover_timer_timeout"]

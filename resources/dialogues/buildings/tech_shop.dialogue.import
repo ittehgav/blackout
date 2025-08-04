@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://bm3a1egl8dpev"
+path="res://.godot/imported/tech_shop.dialogue-d929c9736bc3845453ed176b75114790.tres"
+
+[deps]
+
+source_file="res://resources/dialogues/buildings/tech_shop.dialogue"
+dest_files=["res://.godot/imported/tech_shop.dialogue-d929c9736bc3845453ed176b75114790.tres"]
+
+[params]
+
+defaults=true

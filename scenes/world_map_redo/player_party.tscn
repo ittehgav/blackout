@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://pqgqmqskja8a"]
-
-[ext_resource type="Script" uid="uid://d3vljfitvcc4" path="res://scenes/world_map_redo/player_party.gd" id="1_gxa4y"]
-
-[node name="PlayerParty" type="Node2D"]
-script = ExtResource("1_gxa4y")

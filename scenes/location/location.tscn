@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://drf3xuyj0tmjy"]
+
+[ext_resource type="Script" uid="uid://w8pni6sq83ap" path="res://scenes/location/location.gd" id="1_kl1gh"]
+[ext_resource type="PackedScene" uid="uid://dage1xn2hqykd" path="res://scenes/location/unit/player/player_unit.tscn" id="2_khu3q"]
+
+[node name="Location" type="Node2D" node_paths=PackedStringArray("buildings_node", "reloationship_data")]
+script = ExtResource("1_kl1gh")
+buildings_node = NodePath("buildings")
+reloationship_data = NodePath("relationship_data")
+
+[node name="relationship_data" type="Node" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -1546.0
+offset_top = -478.0
+offset_right = 15693.0
+offset_bottom = 4677.0
+color = Color(0.603922, 0.419608, 0.235294, 1)
+
+[node name="buildings" type="Node2D" parent="."]
+
+[node name="PlayerUnit" parent="." instance=ExtResource("2_khu3q")]
+position = Vector2(207, 440)
+
+[node name="Camera2D" type="Camera2D" parent="PlayerUnit"]

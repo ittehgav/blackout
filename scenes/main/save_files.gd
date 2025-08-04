@@ -8,7 +8,7 @@ func load_files()->void:
 	if options_container.get_child_count() == 1:
 		for i:int in 5:
 			var filename:String = "user://save_"+str(i + 1)+".json"
-			var option:SaveFileDisplay = Index.save_file_display_scene.instantiate();
+			var option:SaveFileDisplay = Index.scenes.ui.save_file_display.instantiate();
 			option.load_save_file(filename, "load")
 			option.pressed.connect(load_game.bind(filename));
 			options_container.add_child(option)
@@ -20,7 +20,7 @@ func load_game(path:String)->void:
 	get_parent().hide();
 	
 	var data:Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
-	var map:WorldMap = Index.world_map_scene.instantiate();
+	var map:WorldMap = Index.scenes.world_map.instantiate();
 	Entities.world_map = map;
 	map.finished_generating.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
 	map.load_game(data)

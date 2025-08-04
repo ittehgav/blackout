@@ -68,19 +68,27 @@ const female_settlement_main_names:Array[String] = [
 	"Bahia"
 ]
 
+## only really matters when generating the names for the first time
+## only names are randomzied when creating new save file?
+var taken_names:Array[String] = [];
+
 func generate_name()->String:
-	var main_name_pool:Array[String] = male_settlement_main_names + female_settlement_main_names;
-	var main_name:String = main_name_pool.pick_random();
-	
-	var adjacent_name_pool:Array[String] = gendered_settlement_adjacent_names + non_gendered_settlement_adjacent_names;
-	var adjacent_name:String = adjacent_name_pool.pick_random();
-	
-	if main_name in male_settlement_main_names and adjacent_name in gendered_settlement_adjacent_names:
-		var to_switch:int = adjacent_name.rfind("a");
-		adjacent_name[to_switch] = "o";
-	
-	if adjacent_name[0] == " ":
-		return main_name + adjacent_name;
-	else:
-		return adjacent_name + main_name
+	var new_name:String;
+	while not new_name or new_name in taken_names:
+		var main_name_pool:Array[String] = male_settlement_main_names + female_settlement_main_names;
+		var main_name:String = main_name_pool.pick_random();
+		
+		var adjacent_name_pool:Array[String] = gendered_settlement_adjacent_names + non_gendered_settlement_adjacent_names;
+		var adjacent_name:String = adjacent_name_pool.pick_random();
+		
+		if main_name in male_settlement_main_names and adjacent_name in gendered_settlement_adjacent_names:
+			var to_switch:int = adjacent_name.rfind("a");
+			adjacent_name[to_switch] = "o";
+		
+		if adjacent_name[0] == " ":
+			new_name = main_name + adjacent_name;
+		else:
+			new_name = adjacent_name + main_name
+	taken_names.append(new_name);
+	return new_name
 		

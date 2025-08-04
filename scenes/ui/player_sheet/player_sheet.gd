@@ -1,0 +1,116 @@
+extends UIRoot;
+
+class_name PlayerSheet;
+
+@export var bg:ColorRect;
+@export var sfx:AudioStreamPlayer;
+ 
+@export var party_view:Control;
+@export var inventory_view:Control;
+@export var player_view:Panel;
+@export var player_inventory:InventoryDisplay;
+
+@export_group("elements")
+@export var left_tab_container:TabContainer;
+@export var container:HBoxContainer;
+@export var gear:Control;
+@export var morale_label:Label;
+
+@export var recruit_full_view:Control;
+
+@export_subgroup("sounds")
+@export var open_sound:AudioStream;
+@export var close_sound:AudioStream;
+@export var rummage:AudioStream;
+@export var consumable_used:AudioStream;
+@export var equip:AudioStream;
+
+
+
+func _ready()->void:
+	super();
+	Entities.player_sheet = self;
+
+
+
+func _input(e:InputEvent)->void:
+	if e.is_action_pressed("show_player_sheet") and not visible and get_tree().paused:
+		show_player_sheet()
+	elif visible and not recruit_full_view.visible and (e.is_action_pressed("ui_cancel")\
+	 or e.is_action_pressed("show_player_sheet")):
+		if not player_inventory.warnings_popup.visible:
+			hide_player_sheet();
+			set_process_input(false)
+				
+
+
+func show_player_sheet(left_tab_view:int=0)->void:
+	set_process_input(false);
+	
+
+	left_tab_container.get_child(left_tab_view).show()
+	ui_sfx.play_stream_obj(open_sound)
+	show()
+	refresh_data();
+	get_tree().paused = true;
+	bg.self_modulate.a = 0;
+	
+	const tween_duration = .4;
+	var tween:Tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(bg, "self_modulate:a", 1, tween_duration);
+	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
+	## so the player can't mash tab and bug the UI
+	tween.finished.connect(set_process_input.bind(true));
+
+func hide_player_sheet(_meta:Variant="")->void:
+	## _meta to this gets called when meta clicked from memo labels in the memos tab
+	if player_inventory.pending_warnings():
+		inventory_view.show();
+		player_inventory.warn_player();
+		var clear:bool = await player_inventory.warnings_attended;
+		if clear:
+			hide_player_sheet();
+		else:
+			set_process_input(true)
+	else: 
+		player_inventory.update_inventory();
+		ui_sfx.play_stream_obj(close_sound)
+		const tween_duration = .25;
+		var tween:Tween = create_tween();
+		tween.tween_property(container, "theme_override_constants/separation", 1700, tween_duration);
+		tween.parallel().tween_property(bg, "self_modulate:a", 0, tween_duration)
+		await tween.finished
+		set_process_input(true)
+		hide()
+
+
+func refresh_data(_r:String="", _change:float=0)->void:
+	## will show upkeep costs when upkeep is implemented
+	if visible:
+		## runs when you open inventory so
+		## only needs to refresh off of signals when change happens in-context
+		morale_label.text = "Morale: " + str(snapped(Entities.player.morale, .01));
+		
+		gear.refresh_samples()
+
+
+		player_inventory.refresh_data(true);
+		party_view.refresh_data();
+		player_view.refresh_data();
+
+func _on_player_equipment_changed(changed:Equipment) -> void:
+	gear.refresh_samples(changed)
+
+
+
+
+func _on_inventory_display_warnings_shown() -> void:
+	left_tab_container.set_tab_disabled(1, true)
+	left_tab_container.set_tab_disabled(2, true)
+
+
+func _on_inventory_display_warnings_attended(_clear: bool) -> void:
+	left_tab_container.set_tab_disabled(1, false)
+	left_tab_container.set_tab_disabled(2, false)
+	

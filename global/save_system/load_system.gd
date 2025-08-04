@@ -41,8 +41,8 @@ func load_roster(roster:Roster, data:Array)->void:
 		roster.add_unit(load_fighter_unit(unit_data))
 
 func load_fighter_unit(data:Dictionary)->FighterUnit:
-	var unit:FighterUnit = Index.fighter_unit_scene.instantiate();
-	var fighter_base:FighterBase = Index.all_fighter_bases[data.base_name];
+	var unit:FighterUnit = Index.scenes.fighter_unit.instantiate();
+	var fighter_base:FighterBase = Index.fighters.find_base(data.base_name);
 	
 	unit.base = fighter_base
 	unit.level = data.level;

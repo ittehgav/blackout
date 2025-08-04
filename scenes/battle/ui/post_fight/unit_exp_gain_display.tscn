@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://wn2qetscjd4p"]
 
 [ext_resource type="Script" uid="uid://cl8f4cjso2dqh" path="res://scenes/battle/ui/post_fight/unit_exp_gain.gd" id="1_k7wtn"]
-[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/sprite_sample.tscn" id="2_8y4i5"]
+[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="2_8y4i5"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="3_g3i11"]
-[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar.tscn" id="5_tg5e1"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="5_tg5e1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ty848"]
 resource_local_to_scene = true

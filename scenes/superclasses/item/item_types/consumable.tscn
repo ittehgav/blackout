@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://6ojox3u3x061"]
-
-[ext_resource type="Script" uid="uid://dvhpfp5dj4gno" path="res://scenes/superclasses/item/item_types/consumable.gd" id="1_ti25i"]
-
-[node name="Consumable" type="Sprite2D"]
-script = ExtResource("1_ti25i")

@@ -14,7 +14,7 @@ func resume() -> void:
 func restart_battle()->void:
 	await Tweens.ui_fade_in(Entities.loading_screen).finished;
 	var enemy_leader:Leader = Entities.arena.team_2.leader;
-	var new_arena:Arena = Index.arena_scene.instantiate();
+	var new_arena:Arena = Index.scenes.arena.instantiate();
 	Entities.player.reparent(new_arena);
 	Entities.arena.queue_free();
 	new_arena.finished_loading.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
