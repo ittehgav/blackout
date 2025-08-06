@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://0et87sb7ldb8"]
 
 [ext_resource type="Texture2D" uid="uid://bcqrxejf1uq4d" path="res://assets/visual/icons/items/modules/adrenaline_synthethizer.png" id="1_58m51"]
-[ext_resource type="Script" uid="uid://dwsdxh85q0h4v" path="res://scenes/index/items/modules/adrenaline_synthethizer.gd" id="2_vxjm1"]
+[ext_resource type="Script" uid="uid://dwsdxh85q0h4v" path="res://scenes/index/items/modules/scripts/adrenaline_synthethizer.gd" id="2_vxjm1"]
 
 [node name="Adrenaline Synthethizer" type="Sprite2D"]
 texture = ExtResource("1_58m51")

@@ -2,8 +2,8 @@
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_2s41m"]
 [ext_resource type="Texture2D" uid="uid://tsefuarfxuhu" path="res://assets/visual/sprites/fighters/coilguy.png" id="1_5yy3e"]
-[ext_resource type="Script" uid="uid://b74na1yept4yy" path="res://scenes/index/fighters/coilguy.gd" id="2_aqke5"]
-[ext_resource type="Script" uid="uid://d0vdtfwjmusot" path="res://scenes/index/fighters/lightning.gd" id="4_xvqui"]
+[ext_resource type="Script" uid="uid://b74na1yept4yy" path="res://scenes/index/fighters/scripts/coilguy.gd" id="2_aqke5"]
+[ext_resource type="Script" uid="uid://d0vdtfwjmusot" path="res://scenes/index/fighters/scripts/lightning.gd" id="4_xvqui"]
 [ext_resource type="Texture2D" uid="uid://cq36m6e8s2okg" path="res://assets/visual/particles/lightning/lightning_1.png" id="5_ao8pl"]
 [ext_resource type="Texture2D" uid="uid://babwjw0xyvgg7" path="res://assets/visual/particles/lightning/lightning_2.png" id="6_63fup"]
 [ext_resource type="Texture2D" uid="uid://ck17xoqwu4ysq" path="res://assets/visual/particles/lightning/lightning_3.png" id="7_1g4vg"]

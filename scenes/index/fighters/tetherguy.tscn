@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://43ll080ti47n"]
 
-[ext_resource type="Script" uid="uid://du846ayif484l" path="res://scenes/index/fighters/tetherguy.gd" id="1_0oa0c"]
+[ext_resource type="Script" uid="uid://du846ayif484l" path="res://scenes/index/fighters/scripts/tetherguy.gd" id="1_0oa0c"]
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_kjmio"]
 [ext_resource type="Texture2D" uid="uid://02uaa4r14ql3" path="res://assets/visual/sprites/fighters/tetherguy.png" id="2_yetav"]
 [ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="4_88ogh"]

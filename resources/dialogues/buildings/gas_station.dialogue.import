@@ -1,6 +1,7 @@
 [remap]
 
-importer="dialogue_manager_compiler_14"
+importer="dialogue_manager"
+importer_version=15
 type="Resource"
 uid="uid://depibfurfok0y"
 path="res://.godot/imported/gas_station.dialogue-c507db763e72b07697954719ded43af7.tres"

@@ -3,6 +3,7 @@ extends Control
 
 @export var display:InventoryDisplay;
 @export var trade_menu:Control
+@export var panel:PanelContainer;
 
 @export var slider:HSlider;
 
@@ -29,13 +30,20 @@ func show_picker(mirror:ItemMirror)->void:
 		
 	for item:Button in [add_1_btn, add_5_btn, add_max_btn, add_custom]:
 		item.add_theme_color_override("font_color", Index.get_color(mirror.item.resource))
-	global_position = get_global_mouse_position() - Vector2(5, 5);
 	Tweens.ui_fade_in(self);
 	
 	current_mirror = mirror;
 	
 	slider.max_value = mirror.stack_size;
 	slider.value = 10;
+	
+	global_position = get_global_mouse_position() - Vector2(5, 5);
+	var window_size:Vector2 = get_window().size;
+	if global_position.x + panel.size.x > window_size.x:
+		global_position.x -= panel.size.x;
+	
+	if global_position.y + panel.size.y > window_size.y:
+		global_position.y -= panel.size.y;
 	
 	refresh();
 

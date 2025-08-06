@@ -26,9 +26,7 @@ func play_bgm(key:String)->void:
 
 		pitch_scale = 1;
 		stream = target_stream;
-	
-		if stream == world_map:
-			pitch_scale = Entities.world_map.get_hour_pitch()
+
 
 		#play();
 

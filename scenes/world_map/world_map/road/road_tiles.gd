@@ -47,8 +47,8 @@ func connect_neighbors(l1:Settlement, l2:Settlement)->void:
 	var reversed_path: = final_path.duplicate()
 	reversed_path.reverse();
 	l2.neighbor_paths[l1] = reversed_path; 
-	
-	set_cells_terrain_connect(final_path, 0, 2);
+
+	set_cells_terrain_path(final_path, 0, 0);
 
 
 

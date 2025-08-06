@@ -106,7 +106,7 @@ region = Rect2(57, 20, 75, 80)
 
 [node name="main_menu" type="CanvasLayer"]
 
-[node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("load_menu", "main_view", "load_btn", "new_game_overlay", "full_screen_hint_arrow", "ui_sfx")]
+[node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("load_menu", "main_view", "new_game_overlay", "full_screen_hint_arrow", "ui_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,7 +117,6 @@ theme = ExtResource("1_st2cm")
 script = ExtResource("2_sohg7")
 load_menu = NodePath("load_menu")
 main_view = NodePath("main_view")
-load_btn = NodePath("main_view/main_options/MarginContainer/VBoxContainer/load_game")
 new_game_overlay = NodePath("new_game")
 full_screen_hint_arrow = NodePath("full_screen_hint/arrow")
 ui_sfx = NodePath("ui_sfx")
@@ -240,14 +239,6 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_ui/main_view/main_options/MarginContainer"]
 layout_mode = 2
-
-[node name="new_game" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "New Game"
-
-[node name="load_game" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Load Game"
 
 [node name="Button" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -776,8 +767,6 @@ text = "Start New Game"
 
 [node name="Indigent" parent="main_ui/new_game/origins" instance=ExtResource("29_pw343")]
 
-[connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/new_game" to="main_ui" method="_on_new_game_pressed"]
-[connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/load_game" to="main_ui" method="_on_load_pressed"]
 [connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/Button" to="main_ui" method="_on_button_pressed"]
 [connection signal="pressed" from="main_ui/load_menu/PanelContainer/save_file_list/return" to="main_ui/load_menu" method="_on_return_pressed"]
 [connection signal="pressed" from="main_ui/new_game/Panel/return" to="main_ui/new_game" method="_on_return_pressed"]

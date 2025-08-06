@@ -1,6 +1,7 @@
 [remap]
 
-importer="dialogue_manager_compiler_14"
+importer="dialogue_manager"
+importer_version=15
 type="Resource"
 uid="uid://dokhfju851vld"
 path="res://.godot/imported/gym.dialogue-5f52205c79f73ab2bf6dfbfd238cc6e8.tres"

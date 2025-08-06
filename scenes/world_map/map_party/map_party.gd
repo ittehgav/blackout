@@ -9,6 +9,8 @@ signal settlement_visited(settlement:Settlement)
 signal settlement_entered(settlement:Settlement);
 
 ## match this to the road tilemap directly one of these days
+@export var status:MapPartyStatus;
+
 @onready var road_cell_size:int = Entities.road.tile_set.tile_size.x * Entities.road.scale.x;
 
 
@@ -16,10 +18,9 @@ signal settlement_entered(settlement:Settlement);
 @export var vehicle:Vehicle;
 @export var current_settlement:Settlement;
 
-## right now measures:
-## 1 block = 10km 
-## on default speed (1) = 60 km/h = 1 block/10 minutes
-@export var navigation_speed:float = 1;
+## NAVIGATION SPEED = KM/H
+@export var navigation_speed:float = 60;
+var km_per_second:float;
 
 var stops:Array[Settlement]
 var current_path:Array;
@@ -32,6 +33,13 @@ var next_cell:Vector2;
 
 func _ready()->void:
 	ColorCoder.color_code_vehicle(vehicle, leader);
+	refresh_speed();
+
+func refresh_speed()->void:
+	km_per_second  = (navigation_speed/3600) * Index.irl_time_scale * (Index.world_map_cell_size/Index.cell_to_km)
+	
+	
+
 
 func move_to_settlement(target:Settlement)->void:
 	if target in current_settlement.neighbor_paths:
@@ -69,11 +77,11 @@ func get_next_cell()->void:
 		vehicle.adjust_direction(direction_vector)
 
 	
-func _process(delta:float)->void:
+func _physics_process(delta:float)->void:
 	if moving:
-		position = position.move_toward(next_cell, delta * 500 * navigation_speed)
+		position = position.move_toward(next_cell, delta * km_per_second)
 		if position == next_cell:
-			if position == movement_target.position:
+			if len(current_path) == 1:
 				movement_origin = null;
 				current_settlement = movement_target;
 				settlement_visited.emit(movement_target)

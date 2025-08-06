@@ -7,6 +7,8 @@ class_name UISceneIndex
 @export var sprite_sample:PackedScene;
 @export var tooltip:PackedScene;
 @export var save_file_display:PackedScene;
+@export var dialogue_player:PackedScene
 
 
+@export var trade_menu:PackedScene
 @export var item_mirror:PackedScene

@@ -1,7 +1,12 @@
 extends PanelContainer
+@export var world_map:WorldMap
 
 @export var date_label:Label;
 @export var hour_label:Label;
+
+func _ready()->void:
+	await world_map.ready;
+	refresh_clock()
 
 func refresh_date()->void:
 	var day:int = Entities.world_map.current_day;
@@ -38,5 +43,4 @@ func refresh_clock()->void:
 
 
 func _on_minute_ticker_timeout() -> void:
-	if not Entities.world_map.current_minute % 5:
-		refresh_clock();
+	refresh_clock();

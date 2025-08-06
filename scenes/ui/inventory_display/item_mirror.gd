@@ -54,7 +54,7 @@ func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 	var item_color:Color;
 	if item is ResourceContainer:
 		stack_size = item.stack_size
-		item_color = Index.get_color(item.resource)
+		item_color = Index.get_color(item.resource);
 	else:
 		item_color = Index.item_rarity_colors[item.rarity];
 	
@@ -352,7 +352,7 @@ func trade_command()->void:
 						display.invalid_move.emit("CONTAINER NOT FOR SALE")
 						return
 		else:
-			if display.from_player or not item in display.inventory.non_sellable_items:
+			if display.from_player or not item in display.inventory.fixed_items:
 				display.send_item(self, true);
 				if display.context == "trade" or display.context == "loot":
 					## sending the raw stack through here goes over the usual way the 
@@ -443,13 +443,14 @@ func set_price()->void:
 	price_tag.show();
 	if not being_traded:
 		if item is ResourceContainer and stack_size:
-			var inventory:Inventory = Entities.current_trading_party.inventory;
+			
+		
 			if display.from_player:
 				## in player inventory = selling price
-				price = inventory.resource_selling_prices[item.resource];
+				price = display.exchanging_display.inventory.resource_selling_prices[item.resource];
 			else:
 				## in trader's inventory = buying price
-				price = inventory.resource_buying_prices[item.resource];
+				price = display.inventory.resource_buying_prices[item.resource];
 			price *= stack_size;
 		else:
 			## CURRENT NON-RESOURCE ITEM PRICE FORMULA

@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_bwsvk"]
 [ext_resource type="Texture2D" uid="uid://cl0h580lq18te" path="res://assets/visual/icons/items/containers/fuel_barrel.png" id="2_8j2fx"]
-[ext_resource type="Script" uid="uid://xso10lsy0cwb" path="res://scenes/index/items/containers/fuel_barrel.gd" id="3_dv082"]
+[ext_resource type="Script" uid="uid://xso10lsy0cwb" path="res://scenes/index/items/containers/scripts/fuel_barrel.gd" id="3_dv082"]
 
 [node name="Fuel Barrel" type="Sprite2D"]
 material = ExtResource("1_bwsvk")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ctxqhmgpiuoss"]
+[gd_scene load_steps=28 format=3 uid="uid://ctxqhmgpiuoss"]
 
 [ext_resource type="Script" uid="uid://bkmntak62a0ul" path="res://scenes/ui/inventory_display/trade/trade_menu.gd" id="1_vhigs"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_5yui1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Theme" uid="uid://yqkvsb5q7pab" path="res://resources/themes/pixel_ui_theme/PixelTheme.tres" id="5_8o88u"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="5_ggy66"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="6_yg835"]
+[ext_resource type="InputEventAction" uid="uid://daklc08dpi106" path="res://resources/shortcuts/reset.tres" id="10_5jtfv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
 resource_local_to_scene = true
@@ -120,6 +121,9 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
+[sub_resource type="Shortcut" id="Shortcut_t54sf"]
+events = [ExtResource("10_5jtfv")]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ln21g"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
@@ -187,6 +191,7 @@ shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
 [node name="trade_menu" type="Control" node_paths=PackedStringArray("player_inventory_display", "trader_inventory_display", "confirm_btn", "reset_btn", "player_name_label", "trader_name_label", "money_trade_label", "food_trade_label", "fuel_trade_label", "juice_trade_label", "scrap_trade_label", "chips_trade_label", "player_money_label", "player_food_label", "player_fuel_label", "player_juice_label", "player_scrap_label", "player_chips_label", "trader_money_label", "trader_food_label", "trader_fuel_label", "trader_juice_label", "trader_scrap_label", "trader_chips_label", "food_hourly_cost_label", "food_daily_cost_label", "fuel_hourly_cost_label", "fuel_daily_cost_label", "ui_sfx")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -527,6 +532,7 @@ text = "Confirm"
 layout_mode = 2
 theme = ExtResource("5_ggy66")
 theme_override_font_sizes/font_size = 48
+shortcut = SubResource("Shortcut_t54sf")
 text = "[r] Reset"
 
 [node name="trader_panel" type="Panel" parent="HBoxContainer"]

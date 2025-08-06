@@ -1,7 +1,6 @@
 extends SfxPlayer
 
 @export var movement_started:AudioStream;
-
 @export var settlement_visited:AudioStream;
 
 

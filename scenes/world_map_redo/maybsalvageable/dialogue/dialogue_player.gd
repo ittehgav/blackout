@@ -3,16 +3,13 @@ extends UIRoot
 class_name DialoguePlayer;
 
 signal dialogue_started;
-signal dialogue_ended;
 
-var suspended:bool=false;
+
 
 @onready var manager:DialogueManager=DialogueManager;
 
-@export var canvas:CanvasLayer
 
 @export var current_dialogue:DialogueResource;
-@export var trade_menu:TradeMenu;
 
 @export_group("Scenes")
 @export var input_hold_timer:Timer;
@@ -42,56 +39,41 @@ func _ready()->void:
 	var color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
 	player_sprite.material.set_shader_parameter("color", color)
 	manager.mutated.connect(check_end)
-	Entities.dialogue_player = self;
+	manager.dialogue_ended.connect(end_dialogue)
+
+	start_dialogue();
+	
 	
 func _process(_delta:float)->void:
-	if Input.is_action_just_pressed("dialogue_next") and visible and (not choices_box.visible) and not suspended:
+	if Input.is_action_just_pressed("dialogue_next") and visible and not choices_box.visible:
 		dialogue_next();
 
-func start_dialogue(target:Leader, starting_line:String = "start")->void:
-	canvas.layer += 1;
-	Entities.world_map.ui.interact_btn.hide();
-	suspended = false
-	Entities.main_bgm.play_bgm(target.party_type)
-	set_process_mode(Node.PROCESS_MODE_ALWAYS)
-	Entities.world_map.pause_map()
+func start_dialogue(starting_line:String = "start", speaker:Leader=null)->void:
 	Tweens.ui_fade_in(self);
 	choices_box.hide();
 	
-	set_speaking_avatar();
+	if speaker:
+		set_speaking_avatar(speaker);
 	
-	current_dialogue = target.dialogue;
 	current_line = await manager.get_next_dialogue_line(current_dialogue, starting_line);
 	display_line()
-	
-	expose_avatar(current_speaking_sprite);
 	dialogue_started.emit()
 
-func end_dialogue()->void:
-	if not suspended:
-		canvas.layer =0;
-		hide()
-		set_process_mode(Node.PROCESS_MODE_DISABLED)
-		Entities.world_map.unpause_map();
-		dialogue_ended.emit()
-
+func end_dialogue(_manager:DialogueResource=null)->void:
+	queue_free()
 
 func check_end()->void:
-	if not suspended:
-		var next_line:DialogueLine = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
-		if not next_line is DialogueLine:
-			end_dialogue()
+	var next_line:DialogueLine = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
+	if not next_line is DialogueLine:
+		end_dialogue()
 
 
-func set_speaking_avatar()->void:
-	if current_speaking_sprite:
-		current_speaking_sprite.queue_free();
+func set_speaking_avatar(speaker:Leader)->void:
 	
-	var leader:Leader = Entities.current_speaking_party.leader;
-	
-	current_speaking_sprite = leader.leader_unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
+	## eventually this will allow sprites other than fighter bases
+	current_speaking_sprite = speaker.leader_unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
 	current_speaking_sprite.offset = current_speaking_sprite.sample_offset
-	ColorCoder.color_code_fighter(current_speaking_sprite, leader.color_scheme_index);
+	ColorCoder.color_code_fighter(current_speaking_sprite, speaker.color_scheme_index);
 
 	speaking_party_avatar.add_child(current_speaking_sprite)
 
@@ -122,7 +104,9 @@ func show_responses()->void:
 
 
 func display_line()->void:
-	expose_avatar(current_speaking_sprite);
+	if current_speaking_sprite:
+		expose_avatar(current_speaking_sprite);
+		
 	var speaker:String = current_line.character;
 	var line_text:String = current_line.text;
 	if speaker:
@@ -258,28 +242,9 @@ func roll_convince_odds()->String:
 
 		
 
-func _on_animation_ticker_timeout() -> void:
-	await get_tree().create_timer(.25).timeout;
-	
-	if current_speaking_sprite.frame:
-		current_speaking_sprite.frame = 0;
-	else:
-		current_speaking_sprite.frame = 1;
 
 
 
 
 func _on_speech_blip_finished() -> void:
 	blip.play();
-
-func start_trade()->void:
-	suspended = true;
-	Tweens.ui_fade_out(self)
-	Tweens.ui_fade_in(trade_menu);
-
-func after_trade()->void:
-	suspended = false;
-	Tweens.ui_fade_out(trade_menu);
-	Tweens.ui_fade_in(self)
-	current_line = await manager.get_next_dialogue_line(current_dialogue, "after_trade")
-	display_line()

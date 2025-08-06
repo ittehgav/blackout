@@ -30,7 +30,7 @@ var battle_loot:Inventory;
 
 
 func start_battle(enemy_leader:Leader)->void:
-	Entities.main.current_state = "battle"
+	Entities.main.state = "battle"
 	Entities.arena = self;
 	assign_team(player_fighter, 1)
 	load_teams(enemy_leader);
@@ -130,9 +130,8 @@ func return_to_world_map()->void:
 	camera.enabled = true
 	camera.reparent(Entities.player_map_party)
 	camera.global_position = Entities.player_map_party.global_position;
-	Entities.world_map.unpause_map();
 	Entities.world_map.show()
-	Entities.main.current_state = "world_map"
+	Entities.main.state = "world_map"
 
 	queue_free()
 	Entities.main.add_child(Entities.world_map)

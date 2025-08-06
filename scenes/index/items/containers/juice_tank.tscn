@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_y4sw3"]
 [ext_resource type="Texture2D" uid="uid://bu3t5v0gtu846" path="res://assets/visual/icons/items/containers/juice_tank.png" id="2_urjbj"]
-[ext_resource type="Script" uid="uid://cwyd0u1e03alv" path="res://scenes/index/items/containers/juice_tank.gd" id="3_6drv7"]
+[ext_resource type="Script" uid="uid://cwyd0u1e03alv" path="res://scenes/index/items/containers/scripts/juice_tank.gd" id="3_6drv7"]
 
 [node name="Juice Tank" type="Sprite2D"]
 material = ExtResource("1_y4sw3")

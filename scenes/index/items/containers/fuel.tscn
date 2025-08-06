@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c35c0o3u2g7aj"]
 
-[ext_resource type="Script" uid="uid://bcpjjec3jdey6" path="res://scenes/index/items/containers/fuel.gd" id="1_akbjx"]
+[ext_resource type="Script" uid="uid://bcpjjec3jdey6" path="res://scenes/index/items/containers/scripts/fuel.gd" id="1_akbjx"]
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_ruqqy"]
 [ext_resource type="Texture2D" uid="uid://crcuy0k66wkxi" path="res://assets/visual/icons/resources/fuel.png" id="2_ruqqy"]
 

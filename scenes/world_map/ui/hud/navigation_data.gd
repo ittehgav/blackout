@@ -1,6 +1,7 @@
 extends PanelContainer
 
 ## TODO unexport this when entities are declared before loading htis scene
+@export var sfx:SfxPlayer
 @export var player_party:PlayerParty
 
 @export var title_label:Label;
@@ -27,6 +28,8 @@ func display_current_settlement(target:Settlement = Entities.player_party.curren
 	distance_label.text = target.name;
 	location_sprite.texture = target.get_node("sprite").texture;
 
+
+
 func display_travel_data(target:Settlement)->void:
 	if target == player_party.current_settlement:
 		return;
@@ -34,11 +37,11 @@ func display_travel_data(target:Settlement)->void:
 	
 	title_label.text = target.name;
 	var cell_distance:int = Entities.road.get_settlement_distance(player_party.current_settlement, target);
-	var km_distance:int = cell_distance * 10;
+	var km_distance:int = Index.cell_to_km * cell_distance;
 	
 	distance_label.text = str(km_distance) + " km"
-	var travel_hours:int=0;
-	var travel_minutes:int = cell_distance * player_party.navigation_speed * 10
+	var travel_hours:int;
+	var travel_minutes:float = (km_distance/player_party.navigation_speed) * 60
 	
 	while travel_minutes > 60:
 		travel_hours += 1;
@@ -64,6 +67,19 @@ func display_travel_data(target:Settlement)->void:
 	
 	
 	var costs:Dictionary = Entities.player.travel_upkeep_cost();
-	food_cost_label.text = str(costs.food * (travel_minutes + travel_hours));
-	fuel_cost_label.text = str(costs.fuel * (travel_minutes + travel_hours));
+	var upkeep_hits:int = (travel_hours + travel_minutes/60) * 2
+	food_cost_label.text = str(costs.food * upkeep_hits);
+	fuel_cost_label.text = str(costs.fuel * upkeep_hits);
 		
+
+
+func _on_player_upkeep_food_shortage() -> void:
+	sfx.play_sound_by_key("food_shortage")
+
+
+func _on_player_upkeep_fuel_shortage() -> void:
+	sfx.play_sound_by_key("fuel_shortage")
+
+
+func _on_player_upkeep_paid_fully() -> void:
+	sfx.play_sound_by_key("upkeep_paid")

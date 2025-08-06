@@ -7,10 +7,16 @@ class_name Player;
 signal entered_settlement(settlement:Settlement);
 signal left_settlement;
 
+signal sheet_changed
+
 signal resource_changed(resource:String, change:int);
 signal morale_changed;
 signal party_changed;
 signal equipment_changed(equipment:Equipment);
+
+signal upkeep_paid_fully;
+signal upkeep_food_shortage;
+signal upkeep_fuel_shortage
 
 
 signal level_up;
@@ -52,6 +58,7 @@ func battle_defeat_morale()->void:
 func _on_level_up() -> void:
 	discipline_points += 1
 	stat_points += 1;
+	sheet_changed.emit()
 
 func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
@@ -75,7 +82,8 @@ func equip_module(module:Module)->void:
 	equipment_changed.emit(module);
 
 
-func travel_upkeep_cost()->Dictionary:
+func travel_upkeep_cost(per_hour:bool=false)->Dictionary:
+	## EVERY 30 MINUTES
 	var cost:Dictionary = {
 		"food":1.0,
 		"fuel":1.0
@@ -83,15 +91,16 @@ func travel_upkeep_cost()->Dictionary:
 	for unit:FighterUnit in roster.units:
 		cost.food += .5 * len(unit.base.tags)
 		cost.fuel += .5 * len(unit.base.tags)
-	
-	cost.food = int(cost.food);
-	cost.fuel = int(cost.fuel)
+	if per_hour:
+		cost.food *= 2;
+		cost.fuel *= 2;
 	
 	return cost;
 
 func travel_upkeep()->void:
 	## food and fuel start at 1 to account for player's expenses
-	if not Entities.current_settlement:
+	if not Entities.player_party.current_settlement:
+		## EVERY 30 IGT MINUTES
 		var cost:Dictionary = travel_upkeep_cost();
 		var missing_food:int = 0;
 		var missing_fuel:int = 0;
@@ -108,14 +117,13 @@ func travel_upkeep()->void:
 			missing_fuel = cost.fuel - inventory.fuel;
 			inventory.change_resource("fuel", inventory.fuel * -1);
 		
-		var sfx_key:String
 		
 		if not missing_food and not missing_fuel:
-			sfx_key = "travel_upkeep"
+			upkeep_paid_fully.emit();
 			
 		
 		if missing_food:
-			sfx_key = "food_shortage"
+			upkeep_food_shortage.emit()
 			if missing_food > cost.food/2:
 				morale /= 3;
 			else:
@@ -123,18 +131,15 @@ func travel_upkeep()->void:
 			morale_changed.emit();
 
 		if missing_fuel:
-			sfx_key = "fuel_shortage"
+			upkeep_fuel_shortage.emit()
 			## speed will halve every hour down to a bottom cap
-			Entities.player_map_party.move_speed /= 2;
-			if Entities.player_map_party.move_speed < 50:
-				Entities.player_map_party.move_speed = 50;
-		else:
-			## make this not take an hour to reset
-			## (or not and it's like a properly measured punishment?)
-			Entities.player_map_party.move_speed = Entities.player_map_party.navigation*50;
+			Entities.player_party.navigation_speed /= 2;
+			Entities.player_party.refresh_speed()
+			if Entities.player_party.navigation_speed < 50:
+				Entities.player_party.navigation_speed = 50;
+		
 		
 		inventory.refresh_resource_counts("", 0, false)
-		Entities.world_map.ui.hud.sfx.play_sound_by_key(sfx_key);
 
 func load_origin(origin:Player)->void:
 	## easier to do this than to have to reconnect the signals from the 
@@ -170,3 +175,8 @@ func load_origin(origin:Player)->void:
 	equipped_weapon = origin.equipped_weapon;
 	equipped_module = origin.equipped_module;
 	
+
+
+func _on_minute_ticker_timeout() -> void:
+	if not (Entities.world_map.current_minute%30):
+		travel_upkeep()

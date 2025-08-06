@@ -9,6 +9,10 @@ class_name Speaker;
 var source:Building;
 var contact:bool = false;
 
+func _ready()->void:
+	## make this cleaner when speakers appear in other contexts
+	source = get_parent().building
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == Entities.player_unit:
 		show_prompt()
@@ -28,5 +32,5 @@ func hide_prompt()->void:
 	prompt.hide()
 	
 func _input(e:InputEvent)->void:
-	if contact and e.is_action_pressed("active_interact"):
-		pass
+	if contact and e.is_action_pressed("interact") and not get_tree().paused:
+		Dialogue.start_dialogue(dialogue, source);

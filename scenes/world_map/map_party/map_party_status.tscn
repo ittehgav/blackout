@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5gn7jaeh3stn"]
+
+[ext_resource type="Script" uid="uid://d28iseh7h1xsn" path="res://scenes/world_map/map_party/map_party_status.gd" id="1_j36tr"]
+
+[node name="map_party_status" type="Node"]
+script = ExtResource("1_j36tr")

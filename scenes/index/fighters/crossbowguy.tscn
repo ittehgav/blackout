@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_61vnb"]
 [ext_resource type="Texture2D" uid="uid://bmh0bym5ta8qg" path="res://assets/visual/sprites/fighters/crossbowguy.png" id="1_dyesl"]
-[ext_resource type="Script" uid="uid://m0gvx3pff55d" path="res://scenes/index/fighters/crossbowguy.gd" id="2_th07v"]
+[ext_resource type="Script" uid="uid://m0gvx3pff55d" path="res://scenes/index/fighters/scripts/crossbowguy.gd" id="2_th07v"]
 
 [node name="Crossbow Guy" type="Sprite2D"]
 material = ExtResource("1_61vnb")

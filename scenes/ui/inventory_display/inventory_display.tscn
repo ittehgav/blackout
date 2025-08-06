@@ -176,8 +176,6 @@ theme_override_constants/v_separation = 0
 
 [node name="item_mirrors" type="Control" parent="cargo"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="send_rect" type="ColorRect" parent="cargo"]
 visible = false
@@ -310,7 +308,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "11"
 
-[node name="resource_picker" type="Control" parent="." node_paths=PackedStringArray("display", "slider", "add_1_btn", "add_5_btn", "add_max_btn", "add_custom")]
+[node name="resource_picker" type="Control" parent="." node_paths=PackedStringArray("display", "panel", "slider", "add_1_btn", "add_5_btn", "add_max_btn", "add_custom")]
 visible = false
 z_index = 10
 anchors_preset = 0
@@ -320,6 +318,7 @@ offset_right = 148.0
 offset_bottom = 76.0
 script = ExtResource("21_15sfg")
 display = NodePath("..")
+panel = NodePath("PanelContainer")
 slider = NodePath("PanelContainer/VBoxContainer/slider")
 add_1_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_1")
 add_5_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_5")

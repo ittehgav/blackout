@@ -6,6 +6,17 @@ extends Node
 @export var fighters:FighterIndex;
 @export var textures:TextureIndex;
 
+## make this catch the size properly?
+@export var world_map_cell_size:int = 32;
+@export var irl_time_scale:float;
+@export var cell_to_km:float;
+
+func _ready()->void:
+	for scene:PackedScene in fighters.all_fighter_base_scenes:
+		## because FighterBases need index to be ready
+		## TODO work out a better solution for this if there's too much trouble
+		## with this method
+		fighters.all_fighter_bases.append(scene.instantiate())
 
 ## colors and metadata stay in this file to facilitate fetching in UI
 @export_group("Colors")

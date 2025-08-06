@@ -75,7 +75,7 @@ func apply_stat_modifiers()->void:
 
 func _on_child_entered_tree(node: Node) -> void:
 	if node is FighterBase:
-		assert(not base);
+		#assert(not base);
 		await Index.ready
 		base = Index.fighters.find_base(node.name);
 		remove_child(node)

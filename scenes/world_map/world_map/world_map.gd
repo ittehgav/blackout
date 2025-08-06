@@ -68,44 +68,15 @@ func neighbor_distance_sort(a:Settlement, b:Settlement, target:Settlement)->bool
 	return target.position.distance_to(a.position) < target.position.distance_to(b.position);
 
 
-func _on_minute_ticker_timeout() -> void:
-	current_minute += 1;
-	if current_minute == 60:
-		current_minute = 0;
-		advance_hour();
-
-func advance_hour()->void:
-	hour_passed.emit();
-	current_hour += 1;
-	if current_hour == 24:
-		current_hour = 0;
-		advance_day()
-
-func advance_day()->void:
-	day_passed.emit()
-	current_day += 1;
-	if current_day == 32:
-		advance_month();
-		current_day = 0;
-
-func advance_month()->void:
-	current_month += 1;
-	if current_month == 13:
-		advance_year();
-
-func advance_year()->void:
-	current_year += 1;
-
-
 func _on_enter_pressed() -> void:
 	enter_settlement();
-	
+
+
 func enter_settlement(target:Settlement = Entities.player_party.current_settlement)->void:
 	## TODO add loading screen when this starts to run from the main scene tree
 	var location:Location = Index.scenes.location.instantiate();
 	location.load_settlement(target)
-	#location.tree_entered.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
-	#await Entities.loading_screen.fade_in.finished;
+
 	var parent:Node = get_parent();
 	get_parent().remove_child(self);
 	parent.add_child(location)

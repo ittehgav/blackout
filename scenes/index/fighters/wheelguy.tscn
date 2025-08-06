@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://40ih8jb8k5rg" path="res://assets/visual/sprites/fighters/wheelguy.png" id="1_gtayi"]
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_oplm5"]
-[ext_resource type="Script" uid="uid://kvys5ejm6loc" path="res://scenes/index/fighters/wheelguy.gd" id="1_qf76y"]
+[ext_resource type="Script" uid="uid://kvys5ejm6loc" path="res://scenes/index/fighters/scripts/wheelguy.gd" id="1_qf76y"]
 [ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="4_xynai"]
-[ext_resource type="Script" uid="uid://5ioyduudj6p1" path="res://scenes/index/fighters/wheel_vfx.gd" id="5_xynai"]
+[ext_resource type="Script" uid="uid://5ioyduudj6p1" path="res://scenes/index/fighters/scripts/wheel_vfx.gd" id="5_xynai"]
 [ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="6_funue"]
 
 [node name="Wheel Guy" type="Sprite2D" node_paths=PackedStringArray("wheel_vfx", "dmg_timer")]

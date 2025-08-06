@@ -29,7 +29,7 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="Dialoge Player" type="Control" node_paths=PackedStringArray("input_hold_timer", "speaking_party_avatar", "blip", "dialogue_sfx", "player_sprite", "choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
-process_mode = 4
+process_mode = 3
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -179,6 +179,5 @@ layout_mode = 2
 wait_time = 0.25
 
 [connection signal="finished" from="speech_blip" to="." method="_on_speech_blip_finished"]
-[connection signal="timeout" from="player_avatar/body/animation_ticker" to="." method="_on_animation_ticker_timeout"]
 
 [editable path="player_avatar/body"]

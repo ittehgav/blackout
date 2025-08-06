@@ -56,4 +56,8 @@ func _on_full_scree_pressed() -> void:
 
 
 func _on_button_pressed() -> void:
-	pass # Replace with function body.
+	var world_map:WorldMap = Index.scenes.world_map.instantiate();
+	Entities.main.state = "world_map";
+	Entities.main.add_child(world_map);
+	Entities.main_bgm.play_bgm("world_map");
+	get_parent().queue_free();

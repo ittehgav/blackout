@@ -4,7 +4,6 @@ class_name TradeMenu;
 signal trade_started;
 signal trade_finished;
 
-@export_enum("settlement", "dialogue") var origin:String="settlement";
 
 @export var player_inventory_display:InventoryDisplay;
 @export var trader_inventory_display:InventoryDisplay;
@@ -62,21 +61,13 @@ var fuel_hourly_cost:int;
 @export var fuel_hourly_cost_label:Label;
 @export var fuel_daily_cost_label:Label;
 
-func start_trade(target:Variant)->void:
+func start_trade(target:Inventory, target_name:String)->void:
 	## initiation routines require both inventories to be assigned
 	player_name_label.text = Entities.player.name;
-	if target is Settlement:
-		trader_name_label.text = target.name;
-		trader_inventory_display.inventory = target.inventory;
-		Entities.current_trading_party = target;
-		target.inventory.sort_items();
+	trader_name_label.text = target_name
 
-	#elif target is NpcMapParty:
-		#trader_name_label.text = target.leader.name;
-		#trader_inventory_display.inventory = target.leader.inventory;
-		#Entities.current_trading_party = target.leader;
-#
-		#target.leader.inventory.sort_items();
+	trader_inventory_display.inventory = target;
+	target.sort_items()
 
 
 	player_inventory_display.inventory = Entities.player.inventory;
@@ -93,11 +84,13 @@ func start_trade(target:Variant)->void:
 	for r:String in Index.all_resources:
 		self[r + "_trade_label"].visible = player_inventory_display[r + "_hbox"].visible;
 	
+	
+	
 	trade_started.emit();
 
-	var hourly_cost:Dictionary = Entities.player.travel_upkeep_cost();
-	food_hourly_cost = hourly_cost.food;
-	fuel_hourly_cost = hourly_cost.fuel;
+	var upkeep_cost:Dictionary = Entities.player.travel_upkeep_cost();
+	food_hourly_cost = upkeep_cost.food * 3;
+	fuel_hourly_cost = upkeep_cost.fuel * 3;
 	
 	food_hourly_cost_label.text = str(food_hourly_cost)
 	food_daily_cost_label.text = str(food_hourly_cost * 24)
@@ -264,12 +257,8 @@ func set_label_text(label:Label, value:int)->void:
 
 func _on_exit_pressed() -> void:
 	trade_finished.emit();
-	if origin == "settlement":
-		var settlement_ui:UIRoot = get_parent()
-		settlement_ui.show_main_view();
-		settlement_ui.trade_finished.emit();
-	elif origin == "dialogue":
-		Entities.dialogue_player.after_trade();
+	queue_free();
+	
 	
 
 

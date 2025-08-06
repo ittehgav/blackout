@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://w8pni6sq83ap" path="res://scenes/location/location.gd" id="1_kl1gh"]
 [ext_resource type="PackedScene" uid="uid://dage1xn2hqykd" path="res://scenes/location/unit/player/player_unit.tscn" id="2_khu3q"]
 
-[node name="Location" type="Node2D" node_paths=PackedStringArray("buildings_node", "reloationship_data")]
+[node name="Location" type="Node2D" node_paths=PackedStringArray("ui", "buildings_node", "reloationship_data")]
 script = ExtResource("1_kl1gh")
+ui = NodePath("CanvasLayer/ui")
 buildings_node = NodePath("buildings")
 reloationship_data = NodePath("relationship_data")
 
@@ -23,3 +24,13 @@ color = Color(0.603922, 0.419608, 0.235294, 1)
 position = Vector2(207, 440)
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ui" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

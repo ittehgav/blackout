@@ -1,7 +1,9 @@
 extends Node
 
+@export_enum("main", "world_map", "location", "battle") var state:String;
+
 @export var main_menu_ui_scene:PackedScene;
-var current_state:String = "main"
+
 
 func _ready()->void:
 	Entities.main = self;

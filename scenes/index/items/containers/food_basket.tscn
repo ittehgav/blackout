@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_jbhue"]
 [ext_resource type="Texture2D" uid="uid://dr5yrjeoncmrq" path="res://assets/visual/icons/items/containers/food_basket.png" id="2_vy1s6"]
-[ext_resource type="Script" uid="uid://c44rlv1qalqt6" path="res://scenes/index/items/containers/food_basket.gd" id="3_ggnos"]
+[ext_resource type="Script" uid="uid://c44rlv1qalqt6" path="res://scenes/index/items/containers/scripts/food_basket.gd" id="3_ggnos"]
 
 [node name="Food Basket" type="Sprite2D"]
 material = ExtResource("1_jbhue")

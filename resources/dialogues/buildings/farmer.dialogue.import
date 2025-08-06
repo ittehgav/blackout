@@ -1,6 +1,7 @@
 [remap]
 
-importer="dialogue_manager_compiler_14"
+importer="dialogue_manager"
+importer_version=15
 type="Resource"
 uid="uid://bx1q17j7gqkr8"
 path="res://.godot/imported/farmer.dialogue-03a2f335948358048289f0ebf93ccf86.tres"

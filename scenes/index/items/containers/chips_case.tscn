@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_rvxrh"]
 [ext_resource type="Texture2D" uid="uid://bfbthb2qkjo63" path="res://assets/visual/icons/items/containers/chips_case.png" id="2_0fwnk"]
-[ext_resource type="Script" uid="uid://dj1g80ptilraa" path="res://scenes/index/items/containers/chips_case.gd" id="3_lwigv"]
+[ext_resource type="Script" uid="uid://dj1g80ptilraa" path="res://scenes/index/items/containers/scripts/chips_case.gd" id="3_lwigv"]
 
 [node name="Chips Case" type="Sprite2D"]
 material = ExtResource("1_rvxrh")

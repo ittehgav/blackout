@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://1ardsa0qdcfv"]
 
 [ext_resource type="Script" uid="uid://sn6xkddphxxl" path="res://scenes/location/buildings/building_subclasses/resource_trader.gd" id="1_nmsa8"]
-[ext_resource type="Script" uid="uid://qpc1krgf6oe2" path="res://scenes/leader/inventory/npc_inventory.gd" id="2_nmsa8"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="2_uwulv"]
 [ext_resource type="PackedScene" uid="uid://dqb34e0bl7mr7" path="res://scenes/index/items/modules/metallic_shell.tscn" id="3_3g7rs"]
 [ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="4_aoxg6"]
 [ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/index/items/containers/scrap_crate.tscn" id="5_ryyd8"]
@@ -20,13 +20,10 @@ trade_option = true
 recruit_option = true
 metadata/_custom_type_script = "uid://sn6xkddphxxl"
 
-[node name="NpcInventory" type="Node2D" parent="." node_paths=PackedStringArray("fixed_items", "item_pool", "holder")]
-visible = false
-script = ExtResource("2_nmsa8")
+[node name="NpcInventory" parent="." node_paths=PackedStringArray("fixed_items", "item_pool", "holder") instance=ExtResource("2_uwulv")]
 fixed_items = [NodePath("Scrap Compactor")]
-item_pool = [NodePath("Scrap Compactor2"), NodePath("Scrap Crate"), NodePath("Fuel Tank"), NodePath("Fuel Gallon"), NodePath("Metallic Shell"), NodePath("Tailpipe"), NodePath("Staff of Luc")]
+item_pool = [NodePath("Metallic Shell"), NodePath("Fuel Gallon"), NodePath("Scrap Crate"), NodePath("Fuel Tank"), NodePath("Scrap Compactor2"), NodePath("Staff of Luc"), NodePath("Tailpipe")]
 holder = NodePath("..")
-metadata/_custom_type_script = "uid://qpc1krgf6oe2"
 
 [node name="Metallic Shell" parent="NpcInventory" instance=ExtResource("3_3g7rs")]
 

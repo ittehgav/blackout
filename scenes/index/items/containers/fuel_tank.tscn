@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_0sx3s"]
 [ext_resource type="Texture2D" uid="uid://c4onm3gpg4ic6" path="res://assets/visual/icons/items/containers/fuel_tank.png" id="2_krahb"]
-[ext_resource type="Script" uid="uid://bypbrh2tsnhav" path="res://scenes/index/items/containers/fuel_tank.gd" id="3_jmwiy"]
+[ext_resource type="Script" uid="uid://bypbrh2tsnhav" path="res://scenes/index/items/containers/scripts/fuel_tank.gd" id="3_jmwiy"]
 
 [node name="Fuel Tank" type="Sprite2D"]
 material = ExtResource("1_0sx3s")
