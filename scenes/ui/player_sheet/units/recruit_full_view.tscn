@@ -8,13 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="5_atfxm"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="5_lmv1r"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="9_nv8af"]
-[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="10_2qua6"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy/armguy.png" id="10_2qua6"]
 [ext_resource type="Script" uid="uid://olw5ie87mp07" path="res://scenes/ui/player_sheet/units/panel.gd" id="10_bh2lf"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="12_ryym2"]
 [ext_resource type="Script" uid="uid://3gfued34eqjh" path="res://scenes/ui/player_sheet/units/evolution_confirmation.gd" id="14_bh2lf"]
 [ext_resource type="Script" uid="uid://d1rd2da7p36xi" path="res://scenes/ui/player_sheet/units/evolution_animation.gd" id="15_2qua6"]
 [ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="15_2twa8"]
-[ext_resource type="Texture2D" uid="uid://xdjhil3q72jh" path="res://assets/visual/sprites/fighters/crowbarguy.png" id="16_ryym2"]
+[ext_resource type="Texture2D" uid="uid://xdjhil3q72jh" path="res://assets/visual/sprites/fighters/crowbar_guy/crowbarguy.png" id="16_ryym2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ci8v7"]
 shader = ExtResource("5_lmv1r")

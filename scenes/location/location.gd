@@ -6,6 +6,8 @@ class_name Location
 
 var building_offset:int = 0;
 
+@export var exit_prompt:Control;
+
 @export var ui:Control;
 
 @export var buildings_node:Node2D;
@@ -41,3 +43,14 @@ func load_building(building:Building)->void:
 	building_offset += front_porch.size.x - back_side_offset
 	
 	previous_building = front_porch;
+
+
+func return_to_world_map()->void:
+	var parent:Node = get_parent();
+	parent.add_child(Entities.world_map)
+	var tween :Tween= Tweens.ui_fade_out(self);
+	tween.finished.connect(queue_free)
+
+func _on_exit_body_entered(body: Node2D) -> void:
+	if body == Entities.player_unit:
+		exit_prompt.exit_prompt();

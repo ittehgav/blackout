@@ -1,18 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://clriirxnk3pso"]
+[gd_scene load_steps=8 format=3 uid="uid://clriirxnk3pso"]
 
 [ext_resource type="Texture2D" uid="uid://ba15pmywnr2u6" path="res://assets/visual/buildings/gas_station.png" id="1_assm1"]
 [ext_resource type="Script" uid="uid://dy4crh0bwxl3o" path="res://scenes/location/buildings/front_porch.gd" id="2_8n4yi"]
 [ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/location/speaker.tscn" id="3_u2be3"]
 [ext_resource type="Resource" uid="uid://depibfurfok0y" path="res://resources/dialogues/buildings/gas_station.dialogue" id="4_gn0w3"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="5_bstpj"]
+[ext_resource type="Texture2D" uid="uid://bqswaxkybn1hc" path="res://assets/visual/buildings/npcs/gas_station_clerk.png" id="5_r71wr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2fkry"]
 resource_local_to_scene = true
-radius = 270.267
+radius = 130.015
 
 [node name="GasStationFrontPorch" type="TextureRect"]
-offset_top = -492.0
-offset_right = 1280.0
-offset_bottom = 688.0
+offset_left = -222.0
+offset_top = -354.0
+offset_right = 1058.0
+offset_bottom = 646.0
 texture = ExtResource("1_assm1")
 script = ExtResource("2_8n4yi")
 metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
@@ -20,18 +23,24 @@ metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(0, 824, 150, 824, 154, 830, 218, 830, 218, 824, 300, 824, 308, 784, 316, 770, 318, 728, 318, 698, 300, 638, 286, 624, 218, 624, 218, 420, 496, 420, 456, 450, 448, 480, 446, 504, 438, 698, 428, 794, 428, 804, 432, 808, 438, 808, 522, 810, 536, 824, 632, 824, 632, 826, 636, 830, 700, 830, 700, 824, 782, 824, 792, 798, 800, 786, 802, 700, 802, 696, 798, 688, 792, 682, 790, 680, 782, 638, 768, 624, 700, 624, 700, 520, 1280, 520, 1280, 0, 0, 0)
+polygon = PackedVector2Array(220, 680, 48, 508, 48, 311, 0, 262, 0, 114, 884, 114, 1058, 288, 1198, 288, 1224, 314, 1224, 510, 1222, 512, 1026, 512, 1000, 486, 1000, 476, 990, 476, 990, 578, 1024, 578, 1030, 584, 1036, 604, 1038, 609, 1038, 630, 1036, 636, 1034, 644, 1032, 654, 1030, 678, 990, 678, 990, 680, 956, 680, 956, 678, 908, 678, 855, 678, 852, 676, 844, 608, 828, 584, 826, 574, 826, 538, 690, 538, 690, 578, 724, 578, 730, 584, 730, 604, 736, 604, 738, 608, 740, 613, 740, 615, 738, 630, 734, 644, 732, 654, 730, 679, 690, 680, 656, 680, 608, 678, 600, 670, 597, 658, 592, 634, 592, 612, 556, 588, 530, 586, 528, 584, 526, 574, 526, 556, 526, 538, 346, 538, 346, 680)
 
-[node name="Speaker" parent="." instance=ExtResource("3_u2be3")]
-position = Vector2(486, 722)
+[node name="Speaker" parent="." node_paths=PackedStringArray("clerk_sprite") instance=ExtResource("3_u2be3")]
+position = Vector2(876, 624)
 dialogue = ExtResource("4_gn0w3")
+clerk_sprite = NodePath("Sprite2D2")
 
 [node name="Sprite2D" parent="Speaker" index="0"]
-position = Vector2(-8, -177)
+position = Vector2(10, -117)
 scale = Vector2(5, 5)
 
 [node name="CollisionShape2D" parent="Speaker/Area2D" index="0"]
-position = Vector2(0, 78)
+position = Vector2(-8, 18)
 shape = SubResource("CircleShape2D_2fkry")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Speaker"]
+material = ExtResource("5_bstpj")
+scale = Vector2(2, 2)
+texture = ExtResource("5_r71wr")
 
 [editable path="Speaker"]

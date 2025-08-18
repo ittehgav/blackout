@@ -1,12 +1,10 @@
 extends Node
 
-@export var unit:InFightPlayer;
+@export var unit:PlayerFighter;
 @export var floating_icon_anchor:Node2D;
 
 func _on_in_fight_player_status_applied(_source: ActiveFighter, data: Dictionary) -> void:
 	match data.type:
-		"stun":
-			unit.body.switch_animation("idle")
 		"stat_change":
 			if data.stat != "move_speed":
 				var icon:StatIcon = Index.scenes.ui.stat_icon.instantiate();

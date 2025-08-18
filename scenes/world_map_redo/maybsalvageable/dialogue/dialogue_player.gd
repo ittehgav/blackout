@@ -17,7 +17,7 @@ signal dialogue_started;
 @export var dialogue_choice_scene:PackedScene;
 
 @export_group("Elements")
-@export var speaking_party_avatar:Control;
+@export var speaker_sprite:Sprite2D;
 @export var blip:AudioStreamPlayer;
 @export var dialogue_sfx:AudioStreamPlayer;
 
@@ -34,10 +34,10 @@ var current_exposed:Sprite2D;
 
 var current_line:DialogueLine;
 
+var speaker_texture:Texture; ## may or may not be used in a dialogue
 func _ready()->void:
 	super();
 	var color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
-	player_sprite.material.set_shader_parameter("color", color)
 	manager.mutated.connect(check_end)
 	manager.dialogue_ended.connect(end_dialogue)
 
@@ -48,12 +48,11 @@ func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("dialogue_next") and visible and not choices_box.visible:
 		dialogue_next();
 
-func start_dialogue(starting_line:String = "start", speaker:Leader=null)->void:
+func start_dialogue(starting_line:String = "start")->void:
 	Tweens.ui_fade_in(self);
 	choices_box.hide();
-	
-	if speaker:
-		set_speaking_avatar(speaker);
+	if speaker_texture:
+		speaker_sprite.texture = speaker_texture;
 	
 	current_line = await manager.get_next_dialogue_line(current_dialogue, starting_line);
 	display_line()
@@ -68,14 +67,7 @@ func check_end()->void:
 		end_dialogue()
 
 
-func set_speaking_avatar(speaker:Leader)->void:
-	
-	## eventually this will allow sprites other than fighter bases
-	current_speaking_sprite = speaker.leader_unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
-	current_speaking_sprite.offset = current_speaking_sprite.sample_offset
-	ColorCoder.color_code_fighter(current_speaking_sprite, speaker.color_scheme_index);
 
-	speaking_party_avatar.add_child(current_speaking_sprite)
 
 
 func dialogue_next()->void:

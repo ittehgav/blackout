@@ -42,6 +42,4 @@ move_speed = 200.0
 [node name="leadership_stats" type="Node" parent="."]
 script = ExtResource("9_hk2cr")
 
-[connection signal="combat_level_up" from="." to="." method="_on_combat_level_up"]
-[connection signal="new_memo" from="." to="." method="_on_new_memo"]
 [connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

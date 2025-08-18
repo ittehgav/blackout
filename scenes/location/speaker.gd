@@ -5,6 +5,8 @@ class_name Speaker;
 @export var dialogue:DialogueResource
 @export var prompt:Label;
 
+@export var clerk_sprite:Sprite2D;
+
 ## where the dialogue will look for inventories and rosters for trading/recruiting
 var source:Building;
 var contact:bool = false;
@@ -24,13 +26,20 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func show_prompt()->void:
 	## will include some sort of highlight eventually so already leaving it in 
 	## separate method
+	if clerk_sprite:
+		clerk_sprite.material.set_shader_parameter("width", 1);
 	contact = true
 	prompt.show()
 	
 func hide_prompt()->void:
+	if clerk_sprite:
+		clerk_sprite.material.set_shader_parameter("width", 0);
 	contact = false;
 	prompt.hide()
 	
 func _input(e:InputEvent)->void:
 	if contact and e.is_action_pressed("interact") and not get_tree().paused:
-		Dialogue.start_dialogue(dialogue, source);
+		var clerk_texture:Texture;
+		if clerk_sprite:
+			clerk_texture = clerk_sprite.texture;
+		Dialogue.start_dialogue(dialogue, source, clerk_texture);

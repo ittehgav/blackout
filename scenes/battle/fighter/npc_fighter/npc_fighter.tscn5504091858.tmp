@@ -1,0 +1,384 @@
+[gd_scene load_steps=20 format=3 uid="uid://dd47t7xuh3au2"]
+
+[ext_resource type="Script" uid="uid://47lks7vsfn5k" path="res://scenes/battle/fighter/npc_fighter/sfx.gd" id="5_8vs8j"]
+[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/swing.wav" id="6_v4rci"]
+[ext_resource type="AudioStream" uid="uid://c0xyiomr261fb" path="res://assets/sound/sfx/combat/special/lightning_light.wav" id="7_nct2u"]
+[ext_resource type="AudioStream" uid="uid://cme1mcex521ov" path="res://assets/sound/sfx/combat/special/lightning_heavy.wav" id="8_210o4"]
+[ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="9_nct2u"]
+[ext_resource type="AudioStream" uid="uid://c82vpb256ryq1" path="res://assets/sound/sfx/combat/generic/defense_up.mp3" id="9_r6yuq"]
+[ext_resource type="AudioStream" uid="uid://bytgnuo5pfxd" path="res://assets/sound/sfx/combat/special/accelerate.wav" id="10_eg31j"]
+[ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/sfx/combat/special/gravity.ogg" id="12_drybb"]
+[ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/sfx/combat/generic/heal.wav" id="13_2v0yn"]
+[ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="15_arr5u"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="15_urubw"]
+[ext_resource type="AudioStream" uid="uid://cdww8uxgqysc6" path="res://assets/sound/sfx/combat/generic/slam.ogg" id="16_a37hj"]
+[ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
+[ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
+[ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="20_stwlc"]
+[ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="24_nct2u"]
+
+[sub_resource type="GDScript" id="GDScript_w3ytt"]
+script/source = "extends ActiveFighter;
+
+class_name NpcFighter
+
+signal target_changed;
+
+signal skill_attempted;
+signal skill_used;
+signal skill_hit(target_hit:ActiveFighter);
+
+
+
+var unit:FighterUnit;
+
+@export var npc_sfx:AudioStreamPlayer2D;
+
+@export var cooldown_timer:Timer;
+@export var skill_retry_timer:Timer;
+
+
+@export var overlay:Control;
+
+
+var target_unit:ActiveFighter;
+var target_in_range:bool = false;
+## for the skill_hit signal to not repeat itself
+var hit_targets:Array[ActiveFighter]
+
+## cooldown that gets checked when the cooldown timer is changed 
+## and is playing on a different wait time
+var true_cooldown:float;
+
+func _ready() -> void:
+	## TODO hide AOE projection if unit is in player's team
+	## or show it if in enemy?
+	if not base:
+		## for testing, otherwise base will be loaded by the time this enters the tree
+		var children:Array[Node] = get_children();
+		var i:int = children.find_custom(func(n:Node)->bool:return n is FighterUnit)
+		var fighter:FighterUnit = children[i];
+		load_fighter(fighter, get_parent().name == \"team_1\")
+	elif base.special:
+		$npc_timers/find_target.stop();
+		max_hp = 500000;
+		hp = max_hp
+
+
+func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
+	in_player_team = in_player_party;
+	unit = new_unit
+	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
+	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the 
+	add_child(base)
+	base.fighter = self;
+	
+	$skill_range/shape.shape.radius = base.skill_range;
+	
+	
+	max_hp = unit.stats.max_hp;
+	hp = unit.stats.max_hp;
+	
+	attack = unit.stats.attack;
+	defense = unit.stats.defense;
+	
+	agility = unit.stats.agility;
+	
+	technique = unit.stats.technique
+	move_speed = unit.stats.move_speed
+	
+	true_cooldown = unit.final_skill_cooldown()
+	cooldown_timer.wait_time = true_cooldown
+	
+
+	
+	if \"special_setup\" in base:
+		base.special_setup();
+	
+	## need to start it manually after assignin the cooldown
+	cooldown_timer.start()
+
+
+func find_target()->void:
+	## overrideable?
+	var target:ActiveFighter=null;
+	match base.target_type:
+		\"nearest_enemy\":
+			var current_distance:float;
+			for enemy in enemy_team.units:
+				var distance:float = position.distance_to(enemy.position)
+				if not target or distance < current_distance:
+					target = enemy;
+					current_distance = distance;
+
+		\"least_hp_ally\":
+			for ally in ally_team.units:
+				if not target or target.max_hp - target.hp < ally.max_hp - ally.hp:
+					target = ally;
+	if target != target_unit:
+		target_unit = target;
+		target_changed.emit();
+	
+	target_in_range = target_unit in $skill_range.get_overlapping_bodies();
+
+
+func _physics_process(delta: float) -> void:
+	if target_unit and is_instance_valid(target_unit):
+		if not target_in_range:
+			base.flip_h = target_unit.position.x < position.x;
+			velocity = (target_unit.position - position).normalized() * move_speed * delta;
+		
+			move_and_slide()
+			
+	if velocity and not moving:
+		started_moving.emit()
+	elif not velocity and moving:
+		stopped_moving.emit();
+
+
+func _on_skill_range_body_entered(body: Node2D) -> void:
+	if body == target_unit:
+		target_in_range = true;
+
+
+func _on_skill_range_body_exited(body: Node2D) -> void:
+	if body == target_unit:
+		target_in_range = false;
+
+
+func skill_cooldown() -> void:
+	skill_attempted.emit();
+	if target_in_range or not base.need_target:
+		use_skill()
+		skill_retry_timer.stop()
+		cooldown_timer.start()
+	else:
+		skill_retry_timer.start();
+
+
+func use_skill()->void:
+	hit_targets = []
+	base.skill();
+
+	skill_used.emit();
+	
+	await base.skill_finished
+	for target:ActiveFighter in hit_targets:
+		skill_hit.emit(target);
+	
+
+func catch_hit_target(hit_unit:ActiveFighter)->void:
+	if not hit_unit in hit_targets:
+		hit_targets.append(hit_unit);
+
+
+func _on_stat_changed(stat:String)->void:
+	## some of these are the same for npcs and the player?
+	match stat:
+		\"agility\":
+			var previous_wait_time: = true_cooldown;
+			true_cooldown = unit.final_skill_cooldown(agility)
+			
+			var advance:float = previous_wait_time - true_cooldown + (cooldown_timer.wait_time - cooldown_timer.time_left);
+			var redone_time_left:float = cooldown_timer.wait_time - advance;
+
+			cooldown_timer.start(redone_time_left)
+			if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
+				cooldown_timer.timeout.disconnect(correct_cooldown_timer);
+			cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);
+			
+func correct_cooldown_timer()->void:
+	cooldown_timer.wait_time = true_cooldown;
+
+	cooldown_timer.start()
+	overlay.refresh_charge_bar_max();
+
+
+func _on_death(_killer: ActiveFighter) -> void:
+	dead = true;
+	ally_team.units.erase(self);
+	base.fighter_died()
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g13ct"]
+resource_local_to_scene = true
+radius = 50.0
+height = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mp8l8"]
+resource_local_to_scene = true
+radius = 200.0
+
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("npc_sfx", "cooldown_timer", "skill_retry_timer", "overlay", "timers")]
+collision_layer = 256
+collision_mask = 0
+motion_mode = 1
+script = SubResource("GDScript_w3ytt")
+npc_sfx = NodePath("sfx")
+cooldown_timer = NodePath("npc_timers/skill_cooldown")
+skill_retry_timer = NodePath("npc_timers/skill_cooldown/skill_retry")
+overlay = NodePath("FighterOverlay")
+timers = NodePath("npc_timers")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+volume_db = -5.0
+max_distance = 500.0
+attenuation = 0.189465
+bus = &"sfx"
+script = ExtResource("5_8vs8j")
+swing = ExtResource("6_v4rci")
+lightning_small = ExtResource("7_nct2u")
+lightning_big = ExtResource("8_210o4")
+defense_up = ExtResource("9_r6yuq")
+engine = ExtResource("10_eg31j")
+shoot = ExtResource("9_nct2u")
+gravity = ExtResource("12_drybb")
+heal = ExtResource("13_2v0yn")
+projectile_hit = ExtResource("15_urubw")
+metal = ExtResource("15_arr5u")
+small_hit = ExtResource("15_urubw")
+slam = ExtResource("16_a37hj")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="npc_timers" type="Node" parent="."]
+
+[node name="find_target" type="Timer" parent="npc_timers"]
+wait_time = 0.2
+autostart = true
+
+[node name="skill_cooldown" type="Timer" parent="npc_timers"]
+one_shot = true
+
+[node name="skill_retry" type="Timer" parent="npc_timers/skill_cooldown"]
+wait_time = 0.1
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(5, 0)
+shape = SubResource("CapsuleShape2D_g13ct")
+
+[node name="skill_range" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="skill_range"]
+shape = SubResource("CircleShape2D_mp8l8")
+
+[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "unit")]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -85.0
+offset_right = 3.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("17_stwlc")
+hp_bar = NodePath("VBoxContainer/hp_bar_trail/hp_bar")
+hp_bar_trail = NodePath("VBoxContainer/hp_bar_trail")
+shield_bar = NodePath("VBoxContainer/hp_bar_trail/shield")
+charge_bar = NodePath("VBoxContainer/charge_bar")
+floating_icon_anchor = NodePath("floating_icon_anchor")
+cooldown_timer = NodePath("../npc_timers/skill_cooldown")
+unit = NodePath("..")
+
+[node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
+position = Vector2(-4, 67)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FighterOverlay"]
+layout_mode = 0
+offset_left = -32.0
+offset_right = 21.0
+offset_bottom = 38.0
+scale = Vector2(1.04, 1)
+theme_override_constants/separation = -4
+
+[node name="hp_bar_trail" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_progress = ExtResource("19_arr5u")
+tint_progress = Color(1, 0, 0, 1)
+
+[node name="hp_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_trail"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+offset_right = 53.0
+offset_bottom = 10.0
+value = 33.0
+allow_greater = true
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_progress = ExtResource("19_arr5u")
+tint_progress = Color(0.054902, 0.796078, 0, 1)
+
+[node name="shield" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_trail"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+allow_greater = true
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_progress = ExtResource("20_stwlc")
+tint_progress = Color(1, 1, 0, 1)
+
+[node name="charge_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+step = 0.1
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+texture_progress = ExtResource("19_arr5u")
+tint_progress = Color(0, 0, 1, 1)
+
+[node name="status_timers" type="HBoxContainer" parent="FighterOverlay/VBoxContainer"]
+layout_mode = 2
+
+[node name="status_display" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/status_timers"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+fill_mode = 4
+texture_progress = ExtResource("24_nct2u")
+
+[node name="refresh_bar" type="Timer" parent="FighterOverlay"]
+wait_time = 0.05
+autostart = true
+
+[connection signal="damage_blocked" from="." to="FighterOverlay" method="_on_npc_fighter_damage_blocked"]
+[connection signal="damage_taken" from="." to="FighterOverlay" method="_on_fighter_damage_taken"]
+[connection signal="death" from="." to="." method="_on_death"]
+[connection signal="healing_received" from="." to="FighterOverlay" method="_on_npc_fighter_healing_received"]
+[connection signal="shield_gained" from="." to="FighterOverlay" method="_on_npc_fighter_shield_gained"]
+[connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
+[connection signal="stat_changed" from="." to="FighterOverlay" method="refresh_charge_bar_max"]
+[connection signal="timeout" from="npc_timers/find_target" to="." method="find_target"]
+[connection signal="timeout" from="npc_timers/skill_cooldown" to="." method="skill_cooldown"]
+[connection signal="timeout" from="npc_timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
+[connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]
+[connection signal="body_exited" from="skill_range" to="." method="_on_skill_range_body_exited"]
+[connection signal="value_changed" from="FighterOverlay/VBoxContainer/hp_bar_trail/hp_bar" to="FighterOverlay" method="_on_hp_bar_value_changed"]
+[connection signal="timeout" from="FighterOverlay/refresh_bar" to="FighterOverlay" method="refresh_charge_bar"]

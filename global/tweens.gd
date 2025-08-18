@@ -1,18 +1,9 @@
 extends Node
 
-## ALL TWEENS WILL BE DONE HERE
+## ALL TWEENS THAT SHOW UP IN MORE THAN ONE SCRIPT WILL BE HERE
 ## all tween functions will return their tween
 
-func shake_fighter(fighter:ActiveFighter)->Tween:
-	var x_shake_roll:int = randi_range(-20, 20);
-	var y_shake_roll:int = randi_range(-20, 20);
-	
-	fighter.base.position += Vector2(x_shake_roll, y_shake_roll);
-	var tween:= create_tween();
-	tween.tween_property(fighter.base, "position", Vector2.ZERO, .1);
-	return tween;
-	
-	
+
 func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 	var target_rotation:float;
 	if target.swung:
@@ -32,7 +23,7 @@ func swing_tween(target:Sprite2D, duration:float = .05)->Tween:
 
 func arc_vfx(target:Sprite2D)->Tween:
 	var clone:Sprite2D = target.duplicate();
-	Entities.player_fighter.hit_scan.add_child(clone)
+	Entities.player_fighter.equipment.add_child(clone)
 	clone.position = clone.offset * clone.scale.x;
 	clone.offset = Vector2.ZERO
 	
@@ -108,8 +99,7 @@ func recoil_tween(fighter:ActiveFighter)->Tween:
 	return tween
 
 func camera_lunge(fighter:ActiveFighter)->Tween:
-	var gap:Vector2 = fighter.get_node("hit_scan/shape").position
-	var shift:Vector2 = fighter.base.position.move_toward(gap, 100);
+	var shift:Vector2 = fighter.camera.position.move_toward(fighter.camera.get_local_mouse_position(), 1);
 	fighter.camera.offset = shift
 	
 	var tween:Tween = create_tween();
@@ -118,7 +108,7 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 
 func camera_recoil(fighter:ActiveFighter)->Tween:
 	var gap:Vector2 = Vector2(-30, -10)
-	var shift:Vector2 = fighter.base.position.move_toward(gap, 100);
+	var shift:Vector2 = fighter.base.position.move_toward(gap,20);
 	fighter.camera.offset = shift
 	
 	var tween:Tween = create_tween();
@@ -143,33 +133,7 @@ func ui_fade_out(target:CanvasItem, hide_after:bool=true, duration:float = .5)->
 	else:
 		return tween;
 
-func growth_tween(unit:ActiveFighter)->Tween:
-	unit.base.scale *= 2
-	var return_scale:Vector2 = unit.base.scale/2
-	
-	var tween:Tween = create_tween();
-	tween.tween_property(unit.base, "scale", return_scale, .2);
-	
-	return tween;
 
-func recoil_target(unit:ActiveFighter)->Tween:
-	var target:ActiveFighter = unit.target_unit
-	var rel:Vector2 = (target.position - unit.position).normalized();
-	var target_recoil:Vector2 = rel * 50;
-	target.base.position = target_recoil;
-	
-	var tween:Tween = create_tween();
-	tween.tween_property(target.base, "position", Vector2.ZERO, .25);
-	return tween;
-
-func shrink_target(unit:ActiveFighter)->Tween:
-	var target:ActiveFighter = unit.target_unit;
-	target.base.scale /= 2;
-	
-	var tween:=create_tween();
-	tween.tween_property(target.base, "scale", Vector2.ONE, .5);
-	
-	return tween;
 
 func shader_color_blink(target:FighterBase, target_color:Color, duration:float = .3)->Tween:
 	target.material.set_shader_parameter("target_color", target_color);
@@ -185,13 +149,7 @@ func weapon_grow(weapon:Weapon)->void:
 	tween.tween_property(weapon, "scale", Vector2.ONE, .5);
 
 
-func fade(target:CanvasItem, free_after:bool = true, target_property:String = "modulate:a")->Tween:
-	## target_property is there so this function can do self_modulate as well (or any other property that turns to zero i suppose)
-	var tween:Tween = create_tween();
-	tween.tween_property(target, target_property, 0, .5);
-	if free_after:
-		tween.tween_callback(target.queue_free);
-	return tween;
+
 
 func fade_up(target:CanvasItem, free_after:bool = true)->Tween:
 	var tween:Tween = create_tween();

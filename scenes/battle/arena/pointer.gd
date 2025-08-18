@@ -1,6 +1,6 @@
 extends Control
 
-@export var player:InFightPlayer
+@export var player:PlayerFighter
 @export var area:Area2D;
 @export var polygon:CollisionPolygon2D;
 

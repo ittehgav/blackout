@@ -1,8 +1,10 @@
 extends TileMapLayer
 
 @export var buffer:TileMapLayer;
+@export var over_horizon:TileMapLayer
 
-const off_road_sight = 3;
+@export var road:TileMapLayer
+
 @export var player_party:PlayerParty;
 @export var world_map:WorldMap
 
@@ -16,14 +18,29 @@ func refresh_fog(current_settlement:Settlement=player_party.current_settlement)-
 		if not settlement.data.seen:
 			settlement.reveal();
 
+const off_road_sight = 6;
+const horizon_gap:int = 2;
+@onready var horizon_limits: = set_horizon_limits();
+func set_horizon_limits()->Array[int]:
+	var limits:Array[int];
+	for i in range(off_road_sight - horizon_gap, off_road_sight + 1):
+		limits.append(i)
+		limits.append(-i)
+	return limits;
 func reveal_path(path:PackedVector2Array)->void:
 	var to_clear:PackedVector2Array
 	for cell:Vector2i in path:
+		var converted_cell:Vector2i = local_to_map(road.map_to_local(cell))
 		for x in range(-off_road_sight, off_road_sight):
 			for y in range(-off_road_sight, off_road_sight):
-				var target_cell:Vector2i = Vector2i(cell.x + x, cell.y + y)
-				erase_cell(target_cell);
-				to_clear.append(target_cell);
+				var target_cell:Vector2i = Vector2i(converted_cell.x + x, converted_cell.y + y)
+				over_horizon.erase_cell(target_cell)
+				if not (x in horizon_limits) and not (y in horizon_limits):
+					erase_cell(target_cell);
+					to_clear.append(target_cell);
+
+					
+				
 	var tween:Tween = create_tween();
 	tween.tween_property(buffer, "modulate:a", 0, 1);
 	tween.tween_callback(refresh_buffer.bind(to_clear))

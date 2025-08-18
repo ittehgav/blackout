@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="3_umabv"]
 
 [node name="FighterUnit" type="Node2D" node_paths=PackedStringArray("stats", "modifier_stats")]
-visible = false
 script = ExtResource("1_tcogk")
 stats = NodePath("stats")
 modifier_stats = NodePath("modifier_stats")

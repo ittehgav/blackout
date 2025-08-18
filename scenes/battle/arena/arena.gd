@@ -5,7 +5,7 @@ class_name Arena;
 signal finished_loading;
 signal battle_over(winner:int)
 
-@export var player_fighter:InFightPlayer
+@export var player_fighter:PlayerFighter
 
 
 
@@ -84,7 +84,7 @@ func assign_team(unit:ActiveFighter, team_n:int)->void:
 	unit.set_collision_mask_value(enemy_team_n, true)
 	
 	
-	if not unit is InFightPlayer:
+	if not unit is PlayerFighter:
 		var skill_range:Area2D = unit.get_node("skill_range")
 		## break this down into enemy/ally targets:?
 		match unit.base.target_type:

@@ -38,9 +38,8 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="Aristocrat" type="Node" node_paths=PackedStringArray("leadership_stats", "equipped_weapon", "equipped_module", "inventory", "roster", "combat_stats")]
+[node name="Aristocrat" type="Node" node_paths=PackedStringArray("equipped_weapon", "equipped_module", "inventory", "roster", "combat_stats")]
 script = ExtResource("1_difbx")
-leadership_stats = NodePath("leadership_stats")
 equipped_weapon = NodePath("Inventory/Taser Gun")
 equipped_module = NodePath("Inventory/Dodge Roll")
 inventory = NodePath("Inventory")
@@ -86,6 +85,4 @@ move_speed = 200.0
 [node name="leadership_stats" type="Node" parent="."]
 script = ExtResource("5_560op")
 
-[connection signal="combat_level_up" from="." to="." method="_on_combat_level_up"]
-[connection signal="new_memo" from="." to="." method="_on_new_memo"]
 [connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

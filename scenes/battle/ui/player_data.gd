@@ -4,7 +4,7 @@ extends Control
 
 @export var hp_bar:TextureProgressBar;
 @export var shield_bar:TextureProgressBar;
-@export var player:InFightPlayer;
+@export var player:PlayerFighter;
 
 @export var weapon_panel:PanelContainer;
 @export var weapon_container:MarginContainer;

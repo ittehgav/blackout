@@ -3,11 +3,6 @@ extends FighterBase
 const no_damage = true;
 
 @export var projectile:Projectile;
-const skill_visuals = ["recoil"]
-const projection_vfx = [];
-
-const skill_use_sfx = ["shoot"]
-const skill_hit_sfx = []
 
 const sample_offset = Vector2(8, -26)
 const target_type = "least_hp_ally"
@@ -16,11 +11,11 @@ const skill_name = "Healing Tether"
 var description:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Regenerates allies' health."
 const flavor = "Doesn't get paid enough to heal people out of combat.";
 
-const tags = [
-	"scientist",
-	"doctor",
-	"cyborg"
-]
+#const tags = [
+	#"scientist",
+	#"doctor",
+	#"cyborg"
+#]
 
 
 

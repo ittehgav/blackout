@@ -19,7 +19,6 @@ func _on_started_moving() -> void:
 
 
 func _on_settlement_visited(settlement: Settlement) -> void:
-	print("osv???")
 	settlement.data.visited = true;
 	stopped_moving.emit();
 	get_tree().call_group("all_settlements", "player_stopped_moving");

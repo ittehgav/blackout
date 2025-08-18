@@ -1,4 +1,4 @@
-extends CharacterBody2D;
+extends ActiveUnit;
 
 class_name ActiveFighter;
 
@@ -22,8 +22,12 @@ var dead:bool=false;
 ## right now base can exclusively serve as the sprite and data from npcFighter bases
 @export var base:FighterBase;
 @export var timers:Node;
-## player node just gets one for now
-@export var npc_sfx:AudioStreamPlayer2D;
+@export var status_timers:Node;
+
+
+## for now only special statuses are simple
+var special_statuses:Array[String];
+
 
 var ally_team:Team;
 var enemy_team:Team;
@@ -40,5 +44,3 @@ var attack:float;
 var defense:float;
 var agility:float;
 var technique:float;
-
-var move_speed:float = 220.0;

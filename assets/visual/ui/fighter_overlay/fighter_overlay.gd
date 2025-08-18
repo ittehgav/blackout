@@ -11,29 +11,31 @@ extends Control
 @export var floating_icon_anchor:Node2D
 
 @export var cooldown_timer:Timer;
-@export var unit:ActiveFighter
+@export var fighter:ActiveFighter
 
 
 var trail_tween:Tween;
 
 
 func _ready()->void:
-	await unit.ready;
+	await fighter.ready;
 	charge_bar.max_value = cooldown_timer.wait_time;
 	
-	hp_bar.max_value = unit.max_hp;
-	hp_bar.value = unit.hp;
+	hp_bar.max_value = fighter.max_hp;
+	hp_bar.value = fighter.hp;
 
-	hp_bar_trail.max_value = unit.max_hp;
-	hp_bar_trail.value = unit.hp;
+	hp_bar_trail.max_value = fighter.max_hp;
+	hp_bar_trail.value = fighter.hp;
 
-	shield_bar.max_value = unit.max_hp;
+	shield_bar.max_value = fighter.max_hp;
 
 
 
-func _on_fighter_damage_taken(damage: float, _source:ActiveFighter) -> void:
+func _on_fighter_damage_taken(damage: float, source:ActiveFighter) -> void:
+	if source is PlayerFighter:
+		Tweens.shader_color_blink(fighter.base, Color.WHITE)
 	floating_number(int(damage))
-	hp_bar.value = unit.hp;
+	hp_bar.value = fighter.hp;
 
 
 func floating_number(value:int, type:String = "damage")->void:
@@ -70,7 +72,7 @@ func _on_hp_bar_value_changed(value: float) -> void:
 
 func _on_npc_fighter_healing_received(value: float) -> void:
 	floating_number(value, "heal");
-	hp_bar.value = unit.hp;
+	hp_bar.value = fighter.hp;
 	
 func refresh_charge_bar_max(_stat:String="")->void:
 	charge_bar.max_value = cooldown_timer.wait_time;
@@ -78,12 +80,12 @@ func refresh_charge_bar_max(_stat:String="")->void:
 
 func _on_npc_fighter_damage_blocked(_source: ActiveFighter, value: float) -> void:
 	floating_number(value, "block");
-	shield_bar.value = unit.shield
+	shield_bar.value = fighter.shield
 	
 	Tweens.squish_bar(shield_bar);
 
 
 func _on_npc_fighter_shield_gained(_source: ActiveFighter, value: float) -> void:
 	floating_number(value, "shield");
-	shield_bar.value = unit.shield
+	shield_bar.value = fighter.shield
 	Tweens.stretch_bar(shield_bar);

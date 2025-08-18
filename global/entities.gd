@@ -9,7 +9,7 @@ var current_location:Location;
 
 var player:Player;
 var player_unit:ActiveUnit;
-var player_fighter:InFightPlayer;
+var player_fighter:PlayerFighter;
 var player_party:PlayerParty;
 
 var loading_screen:UIRoot;

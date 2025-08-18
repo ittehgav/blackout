@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://d2pxm2uqscmkg" path="res://resources/world_tile_set.tres" id="2_524le"]
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="3_kfkuj"]
 [ext_resource type="Script" uid="uid://dub078lw4l51s" path="res://scenes/battle/arena/tiles.gd" id="4_jf7ja"]
-[ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/in_fight_player.tscn" id="4_n7xip"]
+[ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/player_fighter.tscn" id="4_n7xip"]
 [ext_resource type="Script" uid="uid://d0ji6wb36bxta" path="res://scenes/battle/ui/overlay.gd" id="5_jp2sx"]
 [ext_resource type="Script" uid="uid://csxx5rp5jofmp" path="res://scenes/battle/ui/tide_of_battle.gd" id="5_mjben"]
 [ext_resource type="Texture2D" uid="uid://bnodj0olc5drs" path="res://assets/visual/icons/stats/attack.png" id="6_tbs4p"]
@@ -295,10 +295,10 @@ enemy_team = NodePath("../team_2")
 [node name="player_fighter" parent="team_1" instance=ExtResource("4_n7xip")]
 position = Vector2(158, 474)
 
-[node name="sfx" parent="team_1/player_fighter" index="5"]
+[node name="sfx" parent="team_1/player_fighter" index="4"]
 weapon_change = ExtResource("7_iln1w")
 
-[node name="body" parent="team_1/player_fighter" index="8"]
+[node name="body" parent="team_1/player_fighter" index="7"]
 material = SubResource("ShaderMaterial_og1r2")
 
 [node name="off_screen_checker" type="Area2D" parent="team_1/player_fighter"]

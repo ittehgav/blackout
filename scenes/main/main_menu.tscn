@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="23_8qovt"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="24_50vq3"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="25_v6h5j"]
-[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="26_blxo6"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy/armguy.png" id="26_blxo6"]
 [ext_resource type="PackedScene" uid="uid://dmrjgq36evxqy" path="res://scenes/player/origins/brigand.tscn" id="27_j3n1c"]
 [ext_resource type="PackedScene" uid="uid://d0blxyg3y6dq6" path="res://scenes/player/origins/aristocrat.tscn" id="28_ptc88"]
 [ext_resource type="PackedScene" uid="uid://dkrp38iwqs33y" path="res://scenes/player/origins/indigent.tscn" id="29_pw343"]

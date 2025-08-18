@@ -10,10 +10,10 @@ const angle_adjust = 30;
 
 
 const type = "melee";
-const cooldown:float = 2;
+const cooldown:float = 1;
 const base_damage = 50
 
-
+@export var hit_scan:Area2D;
 const aoe_radius = 100;
 const hit_scan_offset = Vector2(60, 0)
 
@@ -35,18 +35,23 @@ var arc_duplicate:Sprite2D;
 
 
 func use()->bool:
-	var holder:InFightPlayer = Entities.player_fighter;
-	Combat.aoe_damage(holder);
-	if len(holder.hit_scan.get_overlapping_bodies()):
+	var holder:PlayerFighter = Entities.player_fighter;
+	Combat.aoe_damage(holder, hit_scan);
+	if len(hit_scan.get_overlapping_bodies()):
 		return true
 	return false
 
 
 func _on_equipped() -> void:
-	arc_duplicate = arc.duplicate()
-	arc_duplicate.show();
-	get_parent().add_child(arc_duplicate);
+	var parent:Node = get_parent();
+	hit_scan.reparent(parent)
+	arc.reparent(parent);
+	arc.show()
+
+
 
 
 func _on_unequipped() -> void:
-	arc_duplicate.queue_free();
+	hit_scan.reparent(self)
+	arc.hide();
+	arc.reparent(self);

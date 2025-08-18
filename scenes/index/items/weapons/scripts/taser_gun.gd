@@ -35,7 +35,7 @@ func use()->bool:
 	
 func projectile_hit(target:ActiveFighter)->void:
 	## for weapons we just make the function here, for NPCs things will get more generic i suppose
-	var holder:InFightPlayer = Entities.player_fighter;
+	var holder:PlayerFighter = Entities.player_fighter;
 	Combat.deal_damage(holder, target);
 	Combat.stun_target(holder, target, stun_duration)
 	Entities.player_fighter.equipment.weapon_sfx.play_hit_sfx("swing_hit")

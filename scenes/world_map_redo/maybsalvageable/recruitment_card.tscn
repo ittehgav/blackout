@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cqyd4aj1d1d57"]
 
 [ext_resource type="Script" uid="uid://cjy4eec2ch65i" path="res://scenes/world_map_redo/maybsalvageable/recruitment_card.gd" id="1_4dx5q"]
-[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="2_bsnkq"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy/armguy.png" id="2_bsnkq"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_p40ot"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_bsnkq"]
 

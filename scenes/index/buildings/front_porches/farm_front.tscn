@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dh7vo1ykxx7g6"]
+[gd_scene load_steps=8 format=3 uid="uid://dh7vo1ykxx7g6"]
 
 [ext_resource type="Texture2D" uid="uid://bi56aot43301s" path="res://assets/visual/buildings/farm.png" id="1_fjqvt"]
 [ext_resource type="Script" uid="uid://dy4crh0bwxl3o" path="res://scenes/location/buildings/front_porch.gd" id="2_mxsvn"]
 [ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/location/speaker.tscn" id="3_ra0vx"]
 [ext_resource type="Resource" uid="uid://bx1q17j7gqkr8" path="res://resources/dialogues/buildings/farmer.dialogue" id="4_1wy1q"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="4_145yp"]
+[ext_resource type="Texture2D" uid="uid://crcrtlnih67pf" path="res://assets/visual/buildings/npcs/farm_clerk.png" id="6_n7hc2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mcjgf"]
 resource_local_to_scene = true
@@ -20,14 +22,21 @@ metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
 position = Vector2(480, 209)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+visible = false
 position = Vector2(-495.01, -49.9)
 polygon = PackedVector2Array(1057.01, 386.9, 1147.01, 386.9, 1137.01, 264.9, 1173.01, 334.9, 1465.01, 334.9, 1470.01, 153.9, 1935.01, 154.9, 1935.01, -158.1, 15.0099, -159.1, 15.01, 172.9, 587.01, 172.9, 689.01, 164.9, 1133.01, 164.9, 1133.01, 250.9, 1083.01, 250.9, 1077.01, 252.9, 1065.01, 258.9, 1057.01, 266.9)
 
-[node name="Speaker" parent="." instance=ExtResource("3_ra0vx")]
-position = Vector2(1294, 379)
+[node name="Speaker" parent="." node_paths=PackedStringArray("clerk_sprite") instance=ExtResource("3_ra0vx")]
+material = ExtResource("4_145yp")
+position = Vector2(1294, 308)
 dialogue = ExtResource("4_1wy1q")
+clerk_sprite = NodePath("Sprite2D2")
 
 [node name="CollisionShape2D" parent="Speaker/Area2D" index="0"]
 shape = SubResource("CircleShape2D_mcjgf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Speaker"]
+scale = Vector2(2, 2)
+texture = ExtResource("6_n7hc2")
 
 [editable path="Speaker"]

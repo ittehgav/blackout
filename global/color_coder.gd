@@ -56,24 +56,22 @@ func color_code_weapon(weapon:Sprite2D, scheme_index:int)->void:
 		weapon_texture_cache[scheme_index] = color_code_texture(weapon.texture, dict);
 	weapon.texture = weapon_texture_cache[scheme_index]
 
+
 var fighter_base_texture_cache:Dictionary[int, Dictionary]
 func cache_fighter_base_texture(texture:Texture, scheme_index:int, base_name:String)->void:
 	## because this cache is hit by 2 different methods
+	## TODO hue-based color-coding more comprehensible
 	if not scheme_index in fighter_base_texture_cache:
 		fighter_base_texture_cache[scheme_index] = {};
-
+	var hue_1:float = .2;
+	var hue_2:float;
+	match scheme_index:
+		1:
+			hue_2 = .37;
+		2:
+			hue_2 = 0
 	
-	var scheme:Array = Index.color_schemes[scheme_index]
-	var base_color:Color = scheme[0];
-	var off_color:Color = scheme[1]
-
-	var dict:Dictionary = {
-		Color.GREEN:base_color,
-		Color.BLUE: base_color.darkened(fighter_sprite_darkening),
-		Color.YELLOW:off_color,
-		Color.RED:off_color.darkened(fighter_sprite_darkening)
-	}
-	var new_texture:Texture = color_code_texture(texture, dict);
+	var new_texture:Texture = hue_shift_texture(texture, hue_1, hue_2);
 	fighter_base_texture_cache[scheme_index][base_name] = new_texture;
 
 func color_code_fighter(base:FighterBase, scheme_index:int, sample:bool=false)->void:
@@ -93,6 +91,25 @@ func color_code_fighter_base_texture(base:FighterBase, scheme_index:int)->Textur
 		cache_fighter_base_texture(base.texture, scheme_index, base.name);
 
 	return fighter_base_texture_cache[scheme_index][base.name];
+
+
+func hue_shift_texture(texture:Texture2D, main_hue:float = .5, secondary_hue:float = .2)->Texture:
+	var img:Image = texture.get_image();
+	
+	var width:int = img.get_width();
+	var height:int = img.get_height();
+	for y in height:
+		for x in width:
+			var color:Color = img.get_pixel(x, y);
+			if color.a:
+				if color.h == 0:
+					color.h = secondary_hue;
+				else:
+					color.h = main_hue
+			img.set_pixel(x, y, color);
+	var final_texture: = ImageTexture.create_from_image(img)
+	return final_texture
+
 
 var vehicle_texture_cache:Dictionary[String, Texture];
 func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
@@ -128,7 +145,10 @@ func color_code_prop(prop:Sprite2D, texture_index:int, large:bool=false)->void:
 		cache[texture_index] = color_code_texture(prop.texture, dict);
 	prop.texture = cache[texture_index];
 
-
+var unit_texture_cache:Dictionary[String, Texture]
+func color_code_unit(sprite:Sprite2D)->void:
+	sprite.texture = hue_shift_texture(sprite.texture);
+	
 
 func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:
 	var img:Image = texture.get_image();

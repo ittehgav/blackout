@@ -14,7 +14,8 @@ signal module_fumbled
 @export var holder:ActiveFighter;
 @export var body:FighterBase;
 
-@export var hit_scan_shape:CollisionShape2D;
+
+
 
 var weapon:Weapon;
 @export var weapon_cd:Timer;
@@ -201,22 +202,8 @@ func switch_weapon()->void:
 	
 func equip_weapon(to_equip:Weapon, from_refresh:bool=false, from_switch:bool=false)->void:
 	## decouple the refreshing one of these days?
-		
 	to_equip.show()
 	weapon = to_equip;
-	
-	if "aoe_radius" in weapon:
-		hit_scan_shape.shape = CircleShape2D.new();
-		hit_scan_shape.shape.radius = weapon.aoe_radius;
-		
-	holder.hit_scan.follow_cursor = false;
-	hit_scan_shape.position = Vector2.ZERO;
-	holder.hit_scan.position = Vector2.ZERO;
-	if "hit_scan_offset" in weapon:
-		if weapon.hit_scan_offset is Vector2:
-			hit_scan_shape.position = weapon.hit_scan_offset;
-		elif weapon.hit_scan_offset == "follow_cursor":
-			holder.hit_scan.follow_cursor = true;
 
 	
 	var remaining_time_left:float = weapon_cd.time_left;

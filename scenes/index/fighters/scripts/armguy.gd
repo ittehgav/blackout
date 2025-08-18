@@ -1,10 +1,5 @@
 extends FighterBase
 
-const skill_visuals = ["lunge_forward", "hook"]
-const projection_vfx = ["aoe_circle"]
-
-const skill_use_sfx = ["swing"]
-const skill_hit_sfx = ["slam"]
 
 
 ## offset to be used on sprite samples
@@ -16,10 +11,7 @@ const skill_name = "Throw Hands"
 const description = "Slow and tough, damages and stuns enemies in an area."
 const flavor = "He's heard that joke you're thinking of a thousand times."
 
-const tags = [
-	"brawler",
-	"bodybuilder"
-]
+
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage:String = Index.get_unit_damage_string(unit);
@@ -40,7 +32,6 @@ const hitbox_offset = Vector2(0, 10)
 
 const skill_range = MELEE_RANGE;
 const skill_cooldown = 4;
-const hit_scan_radius = 100;
 
 const status_duration = .125;
 
@@ -57,5 +48,15 @@ const evolutions = {
 }
 
 func skill()->void:
-	Combat.aoe_damage(fighter);
-	Combat.aoe_stun(fighter);
+	## pass this stuff to npcfighter if everyone ends up getting some version of it?:
+	Combat.set_windup_angle(fighter)
+
+	animation_player.play("armguy/skill")
+	animation_player.queue("fighter_base/idle")
+
+func skill_impact()->void:
+	if fighter.dead:
+		return;
+	Combat.deal_damage(fighter);
+	Combat.stun_target(fighter)
+	skill_finished.emit();

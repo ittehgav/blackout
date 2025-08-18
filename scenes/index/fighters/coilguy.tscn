@@ -1,24 +1,435 @@
-[gd_scene load_steps=9 format=3 uid="uid://cn6wxjfhbdfcq"]
+[gd_scene load_steps=18 format=3 uid="uid://cn6wxjfhbdfcq"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_2s41m"]
-[ext_resource type="Texture2D" uid="uid://tsefuarfxuhu" path="res://assets/visual/sprites/fighters/coilguy.png" id="1_5yy3e"]
+[ext_resource type="Texture2D" uid="uid://tsefuarfxuhu" path="res://assets/visual/sprites/fighters/coil_guy/coilguy.png" id="1_5yy3e"]
 [ext_resource type="Script" uid="uid://b74na1yept4yy" path="res://scenes/index/fighters/scripts/coilguy.gd" id="2_aqke5"]
-[ext_resource type="Script" uid="uid://d0vdtfwjmusot" path="res://scenes/index/fighters/scripts/lightning.gd" id="4_xvqui"]
-[ext_resource type="Texture2D" uid="uid://cq36m6e8s2okg" path="res://assets/visual/particles/lightning/lightning_1.png" id="5_ao8pl"]
-[ext_resource type="Texture2D" uid="uid://babwjw0xyvgg7" path="res://assets/visual/particles/lightning/lightning_2.png" id="6_63fup"]
-[ext_resource type="Texture2D" uid="uid://ck17xoqwu4ysq" path="res://assets/visual/particles/lightning/lightning_3.png" id="7_1g4vg"]
-[ext_resource type="Texture2D" uid="uid://ccx16b2nekxsc" path="res://assets/visual/particles/lightning/lightning_4.png" id="8_ols1n"]
+[ext_resource type="AudioStream" uid="uid://cme1mcex521ov" path="res://assets/sound/sfx/combat/special/lightning_heavy.wav" id="4_6ggxi"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_atdii"]
+[ext_resource type="Texture2D" uid="uid://cg3jpt7nnnh8x" path="res://assets/visual/sprites/fighters/coil_guy/blur.png" id="5_b6ny0"]
+[ext_resource type="Texture2D" uid="uid://diqyd2d068yvx" path="res://assets/visual/sprites/fighters/coil_guy/chargeup.png" id="6_robj6"]
+[ext_resource type="Texture2D" uid="uid://chfw46htejogd" path="res://assets/visual/sprites/fighters/coil_guy/lightning.png" id="8_j2d5x"]
 
-[node name="Coil Guy" type="Sprite2D" node_paths=PackedStringArray("lightning_vfx")]
+[sub_resource type="Animation" id="Animation_robj6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blur:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("blur:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("chargeup:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("chargeup:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ggxi"]
+_data = {
+&"RESET": SubResource("Animation_robj6")
+}
+
+[sub_resource type="Animation" id="Animation_j2d5x"]
+resource_name = "skill"
+length = 1.25
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.55, 1.05, 1.1),
+"transitions": PackedFloat32Array(1e+06, 1.02837, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(30, 0), Vector2(50, 0), Vector2(0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.55),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"skill_impact"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("blur:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.55, 0.7, 0.85, 1, 1.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("blur:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 0.85, 0.95, 1, 1.1, 1.15, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("blur:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(14.42, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("blur:offset")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1.05816, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(50, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("sfx:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("chargeup:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.08),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("chargeup:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_umb2g"]
+_data = {
+&"skill": SubResource("Animation_j2d5x")
+}
+
+[sub_resource type="Shader" id="Shader_fhbb7"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ggxi"]
+resource_local_to_scene = true
+shader = SubResource("Shader_fhbb7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 0, 1)
+shader_parameter/width = 0.2
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(3, 2)
+
+[sub_resource type="Animation" id="Animation_38q3p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_umb2g"]
+resource_name = "lightning"
+length = 0.45
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lb8qq"]
+_data = {
+&"RESET": SubResource("Animation_38q3p"),
+&"lightning": SubResource("Animation_umb2g")
+}
+
+[node name="Coil Guy" type="Sprite2D" node_paths=PackedStringArray("lightning", "lightning_animation", "animation_player")]
 material = ExtResource("1_2s41m")
-texture = ExtResource("1_5yy3e")
-hframes = 6
-vframes = 3
-script = ExtResource("2_aqke5")
-lightning_vfx = NodePath("lightning")
-
-[node name="lightning" type="Node2D" parent="." node_paths=PackedStringArray("base")]
 scale = Vector2(2, 2)
-script = ExtResource("4_xvqui")
-lightning_textures = Array[Texture]([ExtResource("5_ao8pl"), ExtResource("6_63fup"), ExtResource("7_1g4vg"), ExtResource("8_ols1n")])
-base = NodePath("..")
+texture = ExtResource("1_5yy3e")
+hframes = 3
+vframes = 3
+frame = 4
+script = ExtResource("2_aqke5")
+lightning = NodePath("lightning")
+lightning_animation = NodePath("lightning/lightning_animation")
+animation_player = NodePath("AnimationPlayer")
+tags = Dictionary[String, bool]({
+"bodybuilder": false,
+"brawler": true,
+"cyborg": true,
+"disruptor": false,
+"doctor": false,
+"hunter": false,
+"juggernaut": false,
+"mechanic": true,
+"scientist": false
+})
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_6ggxi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6ggxi"),
+&"coilguy": SubResource("AnimationLibrary_umb2g"),
+&"fighter_base": ExtResource("4_atdii")
+}
+autoplay = "fighter_base/idle"
+
+[node name="blur" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_6ggxi")
+texture = ExtResource("5_b6ny0")
+offset = Vector2(50, 0)
+hframes = 3
+vframes = 2
+frame = 3
+
+[node name="chargeup" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("6_robj6")
+hframes = 3
+
+[node name="lightning" type="Sprite2D" parent="."]
+visible = false
+top_level = true
+position = Vector2(117.5, -16.5)
+scale = Vector2(2, 2)
+texture = ExtResource("8_j2d5x")
+centered = false
+offset = Vector2(0, -64)
+vframes = 5
+
+[node name="lightning_animation" type="AnimationPlayer" parent="lightning"]
+libraries = {
+&"": SubResource("AnimationLibrary_lb8qq")
+}

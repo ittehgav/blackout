@@ -35,7 +35,7 @@ func set_tide_bar()->void:
 
 func on_unit_death(_killer:ActiveFighter, victim:ActiveFighter)->void:
 	## THIS IS RUNNING MORE OFTEN THAN IT SHOULDITSEEMS
-	if victim is InFightPlayer:
+	if victim is PlayerFighter:
 		## this will end up triggering even though the battle will end
 		return
 	if victim.ally_team == Entities.arena.team_1:

@@ -19,7 +19,7 @@ extends SfxPlayer2D
 @export var slam:AudioStream;
 
 func _ready()->void:
-	if fighter is NpcFighter:
+	if fighter.base and not fighter.base.special:
 		for sfx:String in fighter.base.skill_use_sfx:
 			fighter.skill_used.connect(play_sound_by_key.bind(sfx))
 			

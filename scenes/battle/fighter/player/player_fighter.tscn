@@ -1,0 +1,285 @@
+[gd_scene load_steps=28 format=3 uid="uid://clxl0g1dnu81h"]
+
+[ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/fighter/player/player_fighter.gd" id="2_2bwky"]
+[ext_resource type="Script" uid="uid://ce0gefe8a16v1" path="res://scenes/battle/fighter/player/vfx_control.gd" id="3_r3ibm"]
+[ext_resource type="Script" uid="uid://c1mom3xvj15xj" path="res://scenes/battle/fighter/player/sfx.gd" id="4_dxwve"]
+[ext_resource type="AudioStream" uid="uid://b51a48pddixp1" path="res://assets/sound/sfx/combat/damage_taken.ogg" id="5_0y55v"]
+[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="6_bbywa"]
+[ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/fighter/player/equipment.gd" id="7_skhxj"]
+[ext_resource type="Script" uid="uid://bbow6qj3s5hyu" path="res://scenes/battle/fighter/player/weapon_sfx.gd" id="8_ve4yf"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="9_ne7mt"]
+[ext_resource type="AudioStream" uid="uid://o61xjbhygbnd" path="res://assets/sound/sfx/combat/player/weapon_alternate.wav" id="10_fqu03"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="11_02s8w"]
+[ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="12_nfw2r"]
+[ext_resource type="AudioStream" uid="uid://bwgpqu6y5q62a" path="res://assets/sound/sfx/combat/player/spray.ogg" id="13_01bd8"]
+[ext_resource type="AudioStream" uid="uid://dn3kmtrv4nq0u" path="res://assets/sound/sfx/combat/player/charge_up.wav" id="14_24ria"]
+[ext_resource type="AudioStream" uid="uid://bdfv1vrftu78i" path="res://assets/sound/sfx/combat/player/explosion.wav" id="15_jveve"]
+[ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/sfx/combat/generic/heal.wav" id="16_iaywu"]
+[ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="17_ci28d"]
+[ext_resource type="Script" uid="uid://xv6fqqwy0nel" path="res://scenes/battle/fighter/player/module_sfx.gd" id="18_fhee6"]
+[ext_resource type="AudioStream" uid="uid://deleehb8xbh34" path="res://assets/sound/sfx/combat/player/dash.wav" id="19_dvwcs"]
+[ext_resource type="AudioStream" uid="uid://cf5r6sya87ovr" path="res://assets/sound/sfx/combat/player/adrenaline.wav" id="20_adss1"]
+[ext_resource type="AudioStream" uid="uid://0ykkqmvak3d7" path="res://assets/sound/sfx/combat/player/metallic_shell.wav" id="21_q8hr2"]
+[ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="22_46jw3"]
+[ext_resource type="AudioStream" uid="uid://c8q1nsc7cl0f0" path="res://assets/sound/sfx/combat/special/overload.wav" id="23_fk6bs"]
+[ext_resource type="AudioStream" uid="uid://db0qsxl1ljgpd" path="res://assets/sound/sfx/combat/player/module_unavailable.mp3" id="24_x6dxu"]
+[ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/fighter/player/camera.gd" id="27_rxaql"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
+radius = 29.2
+height = 90.4
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iubqv"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(3, 2)
+
+[node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "status_timers")]
+collision_layer = 256
+collision_mask = 256
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("2_2bwky")
+body = NodePath("body")
+equipment = NodePath("equipment")
+camera = NodePath("camera")
+sfx = NodePath("sfx")
+base = NodePath("body")
+timers = NodePath("timers")
+status_timers = NodePath("status_timers")
+
+[node name="floating_icon_anchor" type="Node2D" parent="."]
+position = Vector2(-30, -19)
+
+[node name="module_projection" type="TextureRect" parent="."]
+process_mode = 4
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="module_aoe_vfx" type="TextureRect" parent="."]
+process_mode = 4
+visible = false
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit", "floating_icon_anchor")]
+script = ExtResource("3_r3ibm")
+unit = NodePath("..")
+floating_icon_anchor = NodePath("../floating_icon_anchor")
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+bus = &"sfx"
+script = ExtResource("4_dxwve")
+damage_taken = ExtResource("5_0y55v")
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_wutkk")
+
+[node name="status_timers" type="Node" parent="."]
+
+[node name="timers" type="Node" parent="."]
+
+[node name="body" parent="." node_paths=PackedStringArray("fighter") instance=ExtResource("6_bbywa")]
+material = SubResource("ShaderMaterial_iubqv")
+use_parent_material = true
+fighter = NodePath("..")
+
+[node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("module_projection", "module_aoe_vfx", "holder", "body", "weapon_cd", "weapon_sfx", "module_cd", "module_sfx", "freeze_frame_timer")]
+use_parent_material = true
+script = ExtResource("7_skhxj")
+module_projection = NodePath("../module_projection")
+module_aoe_vfx = NodePath("../module_aoe_vfx")
+holder = NodePath("..")
+body = NodePath("../body")
+weapon_cd = NodePath("weapon_control/weapon_cd")
+weapon_sfx = NodePath("weapon_control/weapon_sfx")
+module_cd = NodePath("module_control/module_cd")
+module_sfx = NodePath("module_control/module_sfx")
+freeze_frame_timer = NodePath("freeze_frame_control")
+
+[node name="weapon_control" type="Node" parent="equipment"]
+
+[node name="weapon_cd" type="Timer" parent="equipment/weapon_control"]
+wait_time = 0.5
+one_shot = true
+
+[node name="weapon_sfx" type="AudioStreamPlayer" parent="equipment/weapon_control" node_paths=PackedStringArray("hit_sfx")]
+bus = &"sfx"
+script = ExtResource("8_ve4yf")
+hit_sfx = NodePath("../weapon_hit_sfx")
+swing = ExtResource("9_ne7mt")
+alternate = ExtResource("10_fqu03")
+swing_hit = ExtResource("11_02s8w")
+shoot = ExtResource("12_nfw2r")
+spray = ExtResource("13_01bd8")
+charge_up = ExtResource("14_24ria")
+explosion = ExtResource("15_jveve")
+heal = ExtResource("16_iaywu")
+buff = ExtResource("17_ci28d")
+
+[node name="weapon_hit_sfx" type="AudioStreamPlayer" parent="equipment/weapon_control"]
+bus = &"sfx"
+
+[node name="animation_ticker" type="Timer" parent="equipment/weapon_control"]
+wait_time = 0.15
+
+[node name="module_control" type="Node" parent="equipment"]
+
+[node name="module_cd" type="Timer" parent="equipment/module_control"]
+one_shot = true
+
+[node name="module_sfx" type="AudioStreamPlayer" parent="equipment/module_control"]
+max_polyphony = 2
+bus = &"sfx"
+script = ExtResource("18_fhee6")
+dash = ExtResource("19_dvwcs")
+adrenaline = ExtResource("20_adss1")
+metallic_shell = ExtResource("21_q8hr2")
+buckler = ExtResource("22_46jw3")
+overload = ExtResource("23_fk6bs")
+module_unavailable = ExtResource("24_x6dxu")
+
+[node name="freeze_frame_control" type="Timer" parent="equipment"]
+wait_time = 0.05
+one_shot = true
+ignore_time_scale = true
+
+[node name="camera" type="Camera2D" parent="." node_paths=PackedStringArray("screen_blink")]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+editor_draw_drag_margin = true
+script = ExtResource("27_rxaql")
+screen_blink = NodePath("../hud_overlay/screen_blink")
+
+[node name="hud_overlay" type="CanvasLayer" parent="."]
+
+[node name="hud" type="Control" parent="hud_overlay"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="screen_blink" type="ColorRect" parent="hud_overlay"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="floating_icon_anchor" type="Node2D" parent="hud_overlay"]
+position = Vector2(116, 3)
+
+[connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
+[connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
+[connection signal="started_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/walk"]]
+[connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
+[connection signal="status_applied" from="." to="vfx_control" method="_on_in_fight_player_status_applied"]
+[connection signal="status_removed" from="." to="vfx_control" method="_on_in_fight_player_status_removed"]
+[connection signal="stopped_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/idle"]]
+[connection signal="weapon_changed" from="equipment" to="sfx" method="_on_equipment_weapon_changed"]
+[connection signal="timeout" from="equipment/freeze_frame_control" to="equipment" method="_on_freeze_frame_control_timeout"]
+
+[editable path="body"]

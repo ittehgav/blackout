@@ -1,34 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://di52ctdy1nihl"]
+[gd_scene load_steps=11 format=3 uid="uid://di52ctdy1nihl"]
 
 [ext_resource type="Script" uid="uid://ehyudl1u8c6p" path="res://scenes/world_map_redo/maybsalvageable/dialogue/dialogue_player.gd" id="1_78q7f"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="3_5y6lb"]
 [ext_resource type="PackedScene" uid="uid://bhxxi2711i5k2" path="res://scenes/world_map_redo/maybsalvageable/dialogue/dialogue_choice.tscn" id="3_eqxh4"]
 [ext_resource type="AudioStream" uid="uid://bgr18seksa7t7" path="res://assets/sound/sfx/ui/dialogue/2_blip.ogg" id="4_8aum2"]
-[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="4_j4ks8"]
 [ext_resource type="Script" uid="uid://dsggosbo8h3h6" path="res://scenes/world_map_redo/maybsalvageable/dialogue/dialogue_sfx.gd" id="5_2v7b0"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="5_ctt8r"]
 [ext_resource type="AudioStream" uid="uid://cy2khrfwrsamb" path="res://assets/sound/sfx/combat/tide/ally_death.wav" id="6_k8mrl"]
 [ext_resource type="AudioStream" uid="uid://bhl3r4bkkw14k" path="res://assets/sound/sfx/ui/dialogue/event_success.wav" id="7_2v7b0"]
 [ext_resource type="AudioStream" uid="uid://bqj6dsluui4i7" path="res://assets/sound/sfx/ui/dialogue/mock.mp3" id="8_wypdb"]
+[ext_resource type="PackedScene" uid="uid://0hq1p5cvpx5s" path="res://scenes/player/unit/player_body.tscn" id="9_fnvl8"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8aum2"]
 random_pitch = 2.0
 streams_count = 2
 stream_1/stream = ExtResource("4_8aum2")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3v3gh"]
-resource_local_to_scene = true
-shader = ExtResource("5_ctt8r")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[node name="Dialoge Player" type="Control" node_paths=PackedStringArray("input_hold_timer", "speaking_party_avatar", "blip", "dialogue_sfx", "player_sprite", "choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
+[node name="Dialoge Player" type="Control" node_paths=PackedStringArray("input_hold_timer", "speaker_sprite", "blip", "dialogue_sfx", "player_sprite", "choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
 process_mode = 3
 texture_filter = 1
 layout_mode = 3
@@ -40,7 +27,7 @@ grow_vertical = 2
 script = ExtResource("1_78q7f")
 input_hold_timer = NodePath("input_hold")
 dialogue_choice_scene = ExtResource("3_eqxh4")
-speaking_party_avatar = NodePath("speaking_avatar")
+speaker_sprite = NodePath("speaking_avatar/Sprite2D")
 blip = NodePath("speech_blip")
 dialogue_sfx = NodePath("dialogue_sfx")
 player_sprite = NodePath("player_avatar/body")
@@ -75,33 +62,34 @@ color = Color(0.0901961, 0.0431373, 0.0235294, 0.309804)
 
 [node name="player_avatar" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 92.0
-offset_top = -477.0
-offset_right = 132.0
-offset_bottom = -437.0
-grow_vertical = 0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
 
-[node name="body" parent="player_avatar" instance=ExtResource("4_j4ks8")]
-material = SubResource("ShaderMaterial_3v3gh")
-position = Vector2(11, 84)
+[node name="body" parent="player_avatar" instance=ExtResource("9_fnvl8")]
+position = Vector2(134, -33)
 scale = Vector2(6, 6)
 
 [node name="speaking_avatar" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = 6
 anchor_left = 1.0
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 offset_left = -40.0
-offset_top = -203.0
-offset_bottom = -163.0
+offset_top = -98.0
+offset_bottom = -58.0
 grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(-7, 7)
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="speaking_avatar"]
+position = Vector2(-69, -14)
+scale = Vector2(6, 6)
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -179,5 +167,3 @@ layout_mode = 2
 wait_time = 0.25
 
 [connection signal="finished" from="speech_blip" to="." method="_on_speech_blip_finished"]
-
-[editable path="player_avatar/body"]

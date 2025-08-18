@@ -3,10 +3,12 @@ extends Node
 var current_player:DialoguePlayer;
 var current_speaker:Variant
 
-func start_dialogue(dialogue:DialogueResource, speaker:Variant)->void:
+func start_dialogue(dialogue:DialogueResource, speaker:Variant, speaker_texture:Texture)->void:
 	get_tree().paused = true;
 	current_speaker = speaker
 	current_player = Index.scenes.ui.dialogue_player.instantiate()
+	if speaker_texture:
+		current_player.speaker_texture = speaker_texture;
 	current_player.current_dialogue = dialogue;
 	var target:Control;
 	match Entities.main.state:

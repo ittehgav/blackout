@@ -1,10 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://drf3xuyj0tmjy"]
+[gd_scene load_steps=12 format=3 uid="uid://drf3xuyj0tmjy"]
 
 [ext_resource type="Script" uid="uid://w8pni6sq83ap" path="res://scenes/location/location.gd" id="1_kl1gh"]
+[ext_resource type="Texture2D" uid="uid://53cyjuwjbine" path="res://assets/visual/buildings/streets/street.png" id="2_cd8v0"]
 [ext_resource type="PackedScene" uid="uid://dage1xn2hqykd" path="res://scenes/location/unit/player/player_unit.tscn" id="2_khu3q"]
+[ext_resource type="PackedScene" uid="uid://b27bfm5u044iy" path="res://scenes/location/props/lamppost.tscn" id="4_i264g"]
+[ext_resource type="Script" uid="uid://dq403f5gmik45" path="res://scenes/location/exit_prompt.gd" id="4_t654o"]
 
-[node name="Location" type="Node2D" node_paths=PackedStringArray("ui", "buildings_node", "reloationship_data")]
+[sub_resource type="InputEventAction" id="InputEventAction_4rt7u"]
+action = &"ui_confirm"
+
+[sub_resource type="Shortcut" id="Shortcut_ltgk1"]
+events = [SubResource("InputEventAction_4rt7u")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ggjlx"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_8wdj8"]
+events = [SubResource("InputEventAction_ggjlx")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i264g"]
+resource_local_to_scene = true
+size = Vector2(154, 1041)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t654o"]
+size = Vector2(2180, 112)
+
+[node name="Location" type="Node2D" node_paths=PackedStringArray("exit_prompt", "ui", "buildings_node", "reloationship_data")]
 script = ExtResource("1_kl1gh")
+exit_prompt = NodePath("CanvasLayer/ui/exit_prompt")
 ui = NodePath("CanvasLayer/ui")
 buildings_node = NodePath("buildings")
 reloationship_data = NodePath("relationship_data")
@@ -20,10 +43,20 @@ color = Color(0.603922, 0.419608, 0.235294, 1)
 
 [node name="buildings" type="Node2D" parent="."]
 
+[node name="street" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1000.0
+texture = ExtResource("2_cd8v0")
+
 [node name="PlayerUnit" parent="." instance=ExtResource("2_khu3q")]
+z_index = 2
 position = Vector2(207, 440)
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 842
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -34,3 +67,120 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="exit_prompt" type="Control" parent="CanvasLayer/ui"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_t654o")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ui/exit_prompt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45098)
+
+[node name="Panel" type="Panel" parent="CanvasLayer/ui/exit_prompt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -266.0
+offset_top = -173.0
+offset_right = 266.0
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/ui/exit_prompt/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.0
+offset_top = -107.0
+offset_right = 182.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Leave and return
+ to world map?"
+
+[node name="leave" type="Button" parent="CanvasLayer/ui/exit_prompt/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = 13.0
+offset_right = -2.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+shortcut = SubResource("Shortcut_ltgk1")
+text = "[spacebar]
+Leave"
+
+[node name="stay" type="Button" parent="CanvasLayer/ui/exit_prompt/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = 13.0
+offset_right = 183.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+shortcut = SubResource("Shortcut_8wdj8")
+text = "[tab]
+Stay"
+
+[node name="foreground_props" type="Node2D" parent="."]
+z_index = 2
+
+[node name="lamppost" parent="foreground_props" instance=ExtResource("4_i264g")]
+position = Vector2(444, 552)
+
+[node name="lamppost2" parent="foreground_props" instance=ExtResource("4_i264g")]
+position = Vector2(844, 552)
+
+[node name="lamppost3" parent="foreground_props" instance=ExtResource("4_i264g")]
+position = Vector2(1244, 552)
+
+[node name="exit" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="exit"]
+position = Vector2(-39, 532)
+shape = SubResource("RectangleShape2D_i264g")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="exit"]
+position = Vector2(985, 993)
+shape = SubResource("RectangleShape2D_t654o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="exit"]
+position = Vector2(1958, 532)
+shape = SubResource("RectangleShape2D_i264g")
+
+[connection signal="pressed" from="CanvasLayer/ui/exit_prompt/Panel/leave" to="CanvasLayer/ui/exit_prompt" method="_on_leave_pressed"]
+[connection signal="pressed" from="CanvasLayer/ui/exit_prompt/Panel/stay" to="CanvasLayer/ui/exit_prompt" method="_on_stay_pressed"]
+[connection signal="body_entered" from="exit" to="." method="_on_exit_body_entered"]

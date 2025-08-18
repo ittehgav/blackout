@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b27bfm5u044iy"]
+
+[ext_resource type="Texture2D" uid="uid://dfrcr7ltooole" path="res://assets/visual/buildings/streets/lamppost.png" id="1_2pbyo"]
+[ext_resource type="Texture2D" uid="uid://baomtvkym7jpf" path="res://assets/visual/buildings/streets/lamppost_shadow.png" id="2_qwq6v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t654o"]
+radius = 20.0
+
+[node name="lamppost" type="StaticBody2D"]
+
+[node name="lamppost" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_2pbyo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-26, 21)
+shape = SubResource("CircleShape2D_t654o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(2, 2)
+texture = ExtResource("2_qwq6v")

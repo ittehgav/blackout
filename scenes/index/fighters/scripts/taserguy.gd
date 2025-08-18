@@ -2,12 +2,6 @@ extends FighterBase
 
 @export var projectile:Projectile;
 
-const skill_visuals = ["recoil"]
-const projection_vfx = [];
-
-const skill_use_sfx = ["shoot"]
-const skill_hit_sfx = ["projectile_hit"]
-
 
 const sample_offset = Vector2(8, -26)
 
@@ -16,11 +10,11 @@ const target_type = "nearest_enemy"
 const skill_name = "Taser Shot"
 const description = "Deals light damage and stuns target."
 const flavor = "The most violent form of non-violence."
-
-const tags = [
-	"disruptor",
-	"scientist"
-]
+#
+#const tags = [
+	#"disruptor",
+	#"scientist"
+#]
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);

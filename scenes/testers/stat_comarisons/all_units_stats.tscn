@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/index/fighters/mecharmguy.tscn" id="14_t84ss"]
 [ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/index/fighters/tetherguy.tscn" id="15_w81eq"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/index/fighters/wheelguy.tscn" id="16_d6jj1"]
-[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy.png" id="17_yokmf"]
+[ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy/armguy.png" id="17_yokmf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y110n"]
 atlas = ExtResource("17_yokmf")

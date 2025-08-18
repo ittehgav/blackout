@@ -16,6 +16,9 @@ func _ready()->void:
 		## because FighterBases need index to be ready
 		## TODO work out a better solution for this if there's too much trouble
 		## with this method
+		var base:FighterBase = scene.instantiate();
+		for c:Node in base.get_children():
+			c.queue_free();
 		fighters.all_fighter_bases.append(scene.instantiate())
 
 ## colors and metadata stay in this file to facilitate fetching in UI

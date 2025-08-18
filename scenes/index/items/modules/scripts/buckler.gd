@@ -41,7 +41,7 @@ func use()->void:
 	
 	move_speed_loss = Entities.player_fighter.move_speed - Entities.player_fighter.move_speed/2
 	
-	var player:InFightPlayer = Entities.player_fighter
+	var player:PlayerFighter = Entities.player_fighter
 	Combat.apply_stat_change(player, player, defense_gain, "defense")
 	Combat.apply_stat_change(player, player, attack_loss * -1, "attack")
 	Combat.apply_stat_change(player, player, -move_speed_loss, "move_speed")
@@ -58,7 +58,7 @@ func projection_blink()->void:
 	tween.parallel().tween_property(projection, "modulate:a", .5, parry_timer.wait_time)
 	
 func release()->void:
-	var player:InFightPlayer = Entities.player_fighter
+	var player:PlayerFighter = Entities.player_fighter
 	Combat.apply_stat_change(player, player, -defense_gain, "defense");
 	Combat.apply_stat_change(player, player, attack_loss, "attack")
 	Combat.apply_stat_change(player, player, move_speed_loss, "move_speed");

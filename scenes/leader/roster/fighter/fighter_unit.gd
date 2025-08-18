@@ -13,12 +13,12 @@ signal level_up;
 @export var stats:CombatStats;
 @export var modifier_stats:CombatStats;
 
+
 var stats_loaded:bool=false;
 
 func _ready()->void:
 	## needs to enter tree to work properly?
 	if base and not stats_loaded:
-		await get_parent().get_parent().ready;
 		update_stats();
 	level_up.connect(Scaling.level_up_stats)
 

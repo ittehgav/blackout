@@ -1,12 +1,5 @@
 extends FighterBase
 
-const skill_visuals = ["lunge_forward", "recoil_target", "overhead"]
-const projection_vfx = [];
-
-
-const skill_use_sfx = ["swing"]
-const skill_hit_sfx = ["metal"]
-
 
 const sample_offset = Vector2(13, -26)
 
@@ -16,10 +9,6 @@ const skill_name =  "Crowbar Swing"
 const description = "Low resistance, high melee damage."
 const flavor = "Surprisingly strong for just a scientist with a crowbar."
 
-const tags = [
-	"hunter",
-	"scientist"
-]
 
 func full_skill_description(unit:FighterUnit)->String:
 	var base_damage_str:String = Index.get_color_tag("attack") +  str(unit.stats.attack) + "[/color]";
@@ -62,5 +51,13 @@ const evolutions = {
 }
 
 func skill()->void:
+	Combat.set_windup_angle(fighter);
+	
+	animation_player.play("crowbar/skill");
+	animation_player.queue("fighter_base/idle")
+	
+func skill_impact()->void:
+	if fighter.dead:
+		return;
 	Combat.deal_damage(fighter);
 	fighter.catch_hit_target(fighter.target_unit)

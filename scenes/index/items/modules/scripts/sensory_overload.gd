@@ -36,7 +36,7 @@ func use()->void:
 		stun_duration *= player_technique
 	
 	Entities.player.inventory.chips -= chips_cost;
-	var player:InFightPlayer = Entities.player_fighter;
+	var player:PlayerFighter = Entities.player_fighter;
 	for target in aoe_range.get_overlapping_bodies():
 		if target in player.ally_team.units:
 			Combat.apply_stat_change(player, target, target.technique * technique_frac, "technique");
