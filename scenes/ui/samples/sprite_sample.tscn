@@ -34,9 +34,6 @@ mouse_filter = 2
 visible = false
 material = SubResource("ShaderMaterial_aynw8")
 
-[node name="bob_timer" type="Timer" parent="."]
-autostart = true
-
 [node name="additional_data" type="Label" parent="."]
 z_index = 1
 layout_mode = 1
@@ -49,5 +46,3 @@ offset_bottom = 26.0
 grow_horizontal = 2
 theme_override_constants/outline_size = 4
 horizontal_alignment = 1
-
-[connection signal="timeout" from="bob_timer" to="." method="_on_timer_timeout"]

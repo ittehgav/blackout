@@ -13,6 +13,8 @@ signal level_up;
 @export var stats:CombatStats;
 @export var modifier_stats:CombatStats;
 
+## can put them in enemy units too btw
+@export var equipped_accessory:Accessory
 
 var stats_loaded:bool=false;
 

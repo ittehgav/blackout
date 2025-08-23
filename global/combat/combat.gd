@@ -1,7 +1,7 @@
 extends "res://global/combat/combat_mechanics.gd"
 
 
-func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant)->void:
+func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant)->Projectile:
 	var target_direction:Vector2;
 	if source is PlayerFighter:
 		target_direction = Entities.player_fighter.global_position.direction_to(Entities.arena.get_global_mouse_position())
@@ -15,6 +15,7 @@ func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:
 	elif hit_callback is Array:
 		for c:Callable in hit_callback:
 			shot.hit.connect(c);
+	return shot;
 		
 
 func aoe_damage(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan, modifier:Callable = Callable())->void:

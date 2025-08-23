@@ -11,6 +11,7 @@ signal refresh_request;
 
 const tooltip_hint = "[right-click] to equip.\n[alt+right-click] to equip as secondary";
 
+@export var cooldown:float;
 
 
 func set_hint_data()->void:

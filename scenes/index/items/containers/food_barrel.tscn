@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c552rf01ufsjl"]
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_beawt"]
-[ext_resource type="Texture2D" uid="uid://srxd472k7xi" path="res://assets/visual/icons/items/containers/food_barrel.png" id="2_vqw6r"]
+[ext_resource type="Texture2D" uid="uid://srxd472k7xi" path="res://assets/visual/items/containers/food_barrel.png" id="2_vqw6r"]
 [ext_resource type="Script" uid="uid://bplbukoqb20kb" path="res://scenes/index/items/containers/scripts/food_barrel.gd" id="3_15850"]
 
 [node name="Food Barrel" type="Sprite2D"]

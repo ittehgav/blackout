@@ -7,12 +7,11 @@ extends PanelContainer
 @export var scrap_label:Label;
 @export var chips_label:Label;
 
-func _ready()->void:
-	refresh_counters();
+
 	
 
 func refresh_counters()->void:
-	for r:String in Index.all_resources:
+	for r:String in ["food", "money", "fuel"]:
 		var label:Label = self[r+"_label"];
 		var current_amount:int = int(label.text);
 		if current_amount != Entities.player.inventory[r]:

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://j3tt7eipwb1t"]
+
+[ext_resource type="Script" uid="uid://bxc7q5bkvniad" path="res://scenes/index/items/consumables/scripts/eye_chart.gd" id="1_qblw1"]
+
+[node name="EyeChart" type="Sprite2D"]
+script = ExtResource("1_qblw1")
+metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

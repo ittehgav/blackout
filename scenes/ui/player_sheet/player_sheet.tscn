@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=54 format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/ui/player_sheet/player_sheet.gd" id="1_nlbt1"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_hamfw"]
@@ -12,11 +12,17 @@
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="10_a1oup"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="11_0wwji"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="12_rdvn7"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="13_7sc2c"]
 [ext_resource type="Script" uid="uid://bbd3oiy16p7qa" path="res://scenes/ui/player_sheet/gear.gd" id="13_iou5p"]
+[ext_resource type="Script" uid="uid://drbs7jvhuaxxn" path="res://scenes/ui/player_sheet/gear_sfx.gd" id="13_tg7cy"]
+[ext_resource type="Texture2D" uid="uid://mqb4ehy4w2c8" path="res://assets/visual/ui/settings/reset.png" id="14_7sc2c"]
+[ext_resource type="AudioStream" uid="uid://cnomp6rm87ghx" path="res://assets/sound/sfx/ui/inventory/weapon_equipped.mp3" id="14_14bae"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="14_nvl42"]
+[ext_resource type="AudioStream" uid="uid://byq71hx2dnw65" path="res://assets/sound/sfx/ui/inventory/module_equipped.wav" id="15_in2cn"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="15_o0vop"]
+[ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="15_vq5ye"]
+[ext_resource type="AudioStream" uid="uid://bwgkjo3dybjj2" path="res://assets/sound/sfx/ui/inventory/accessory_equipped.wav" id="16_7ydhy"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="16_e0imn"]
-[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="17_jpn0v"]
 [ext_resource type="Script" uid="uid://dqpi700chh4i" path="res://scenes/ui/player_sheet/units/party_view.gd" id="18_7ju3y"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="19_utjw6"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="20_dcru6"]
@@ -26,11 +32,12 @@
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="24_7b7li"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="25_hcu6r"]
 [ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/recruit_full_view.tscn" id="26_uhm6n"]
+[ext_resource type="PackedScene" uid="uid://cknkn00l4yg0g" path="res://scenes/ui/icons/discipline_icon.tscn" id="29_in2cn"]
 
 [sub_resource type="Resource" id="Resource_d23kd"]
 metadata/__load_path__ = "res://assets/sound/sfx/ui/equip.ogg"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_in2cn"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -41,7 +48,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjio2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ydhy"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -52,7 +59,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_an643"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8oj3i"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -63,7 +70,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ormkh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kgp2d"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -74,7 +81,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_15sfg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ihftv"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -85,7 +92,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7uvto"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41eqv"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -96,39 +103,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tggo3"]
-resource_local_to_scene = true
-shader = ExtResource("16_e0imn")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0, 0, 0, 0.552941)
-shader_parameter/width = 2.0
-shader_parameter/pattern = 1
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8tnr"]
-shader = ExtResource("11_0wwji")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hv25b"]
-shader = ExtResource("11_0wwji")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_veb6b"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2eyh"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -139,7 +114,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bqvqp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05eqd"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -150,7 +125,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_7sc2c"]
+[sub_resource type="Shader" id="Shader_s3o1i"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -179,7 +154,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ncu57"]
 resource_local_to_scene = true
-shader = SubResource("Shader_7sc2c")
+shader = SubResource("Shader_s3o1i")
 shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -188,7 +163,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_ie205"]
+[sub_resource type="Shader" id="Shader_2iguy"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -217,7 +192,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nsjwg"]
 resource_local_to_scene = true
-shader = SubResource("Shader_ie205")
+shader = SubResource("Shader_2iguy")
 shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -226,7 +201,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_04xcj"]
+[sub_resource type="Shader" id="Shader_nvsay"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -255,7 +230,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_um8mn"]
 resource_local_to_scene = true
-shader = SubResource("Shader_04xcj")
+shader = SubResource("Shader_nvsay")
 shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -264,7 +239,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_tg7cy"]
+[sub_resource type="Shader" id="Shader_6ti70"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -293,7 +268,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fwr53"]
 resource_local_to_scene = true
-shader = SubResource("Shader_tg7cy")
+shader = SubResource("Shader_6ti70")
 shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -302,7 +277,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_14bae"]
+[sub_resource type="Shader" id="Shader_bflq7"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 
@@ -331,7 +306,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gcm86"]
 resource_local_to_scene = true
-shader = SubResource("Shader_14bae")
+shader = SubResource("Shader_bflq7")
 shader_parameter/base_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -339,6 +314,18 @@ shader_parameter/light_color = Color(0, 1, 0, 1)
 shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tggo3"]
+resource_local_to_scene = true
+shader = ExtResource("16_e0imn")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0, 0, 0, 0.552941)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "sfx", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "recruit_full_view", "ui_sfx")]
 process_mode = 3
@@ -437,63 +424,49 @@ offset_left = 7.0
 offset_top = 10.0
 offset_right = -2.0
 
-[node name="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="3"]
-anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-offset_left = 393.0
-offset_top = 0.0
-offset_right = 485.0
-offset_bottom = 356.0
-grow_horizontal = 1
+[node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="3" node_paths=PackedStringArray("resource_labels", "resource_hboxes", "resource_icons")]
+resource_labels = {
+"chips": NodePath("chips/chips"),
+"food": NodePath("food/food"),
+"fuel": NodePath("fuel/fuel"),
+"juice": NodePath("juice/juice"),
+"money": NodePath("money/money"),
+"scrap": NodePath("scrap/scrap")
+}
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
 
-[node name="money_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer3" index="0"]
-material = SubResource("ShaderMaterial_qglwj")
+[node name="money_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/money" index="0"]
+material = SubResource("ShaderMaterial_in2cn")
 
-[node name="money" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer3" index="1"]
-theme = ExtResource("12_rdvn7")
-theme_override_constants/shadow_offset_x = -2
-theme_override_constants/shadow_offset_y = -2
+[node name="food_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/food" index="0"]
+material = SubResource("ShaderMaterial_7ydhy")
 
-[node name="food_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_jjio2")
+[node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/fuel" index="0"]
+material = SubResource("ShaderMaterial_8oj3i")
 
-[node name="food" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer" index="1"]
-theme = ExtResource("12_rdvn7")
-theme_override_constants/shadow_offset_x = -2
-theme_override_constants/shadow_offset_y = -2
+[node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/juice" index="0"]
+material = SubResource("ShaderMaterial_kgp2d")
 
-[node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer2" index="0"]
-material = SubResource("ShaderMaterial_an643")
+[node name="scrap_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/scrap" index="0"]
+material = SubResource("ShaderMaterial_ihftv")
 
-[node name="fuel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer2" index="1"]
-theme = ExtResource("12_rdvn7")
-theme_override_constants/shadow_offset_x = -2
-theme_override_constants/shadow_offset_y = -2
-
-[node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer4" index="0"]
-material = SubResource("ShaderMaterial_ormkh")
-
-[node name="juice" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer4" index="1"]
-theme = ExtResource("12_rdvn7")
-theme_override_constants/shadow_offset_x = -2
-theme_override_constants/shadow_offset_y = -2
-
-[node name="scrap_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer5" index="0"]
-material = SubResource("ShaderMaterial_15sfg")
-
-[node name="scrap" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer5" index="1"]
-theme = ExtResource("12_rdvn7")
-theme_override_constants/shadow_offset_x = -2
-theme_override_constants/shadow_offset_y = -2
-
-[node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer6" index="0"]
-material = SubResource("ShaderMaterial_7uvto")
-
-[node name="chips" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/VBoxContainer/HBoxContainer6" index="1"]
-theme = ExtResource("12_rdvn7")
-theme_override_constants/shadow_offset_x = -2
-theme_override_constants/shadow_offset_y = -2
+[node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/chips" index="0"]
+material = SubResource("ShaderMaterial_41eqv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display"]
 layout_mode = 1
@@ -510,12 +483,13 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="sort_inventory" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("12_rdvn7")
 text = "Auto
 Organize"
 
-[node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" node_paths=PackedStringArray("player_sample", "main_weapon_sample", "main_weapon_sample_bg", "main_weapon_tooltip", "alt_weapon_label", "alt_weapon_sample", "alt_weapon_sample_bg", "alt_weapon_tooltip", "module_sample", "module_sample_bg", "module_tooltip")]
+[node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" node_paths=PackedStringArray("sfx", "player_inventory_display", "weapon_sample", "alt_weapon_sample", "module_sample", "accessory_1_sample", "accessory_2_sample", "switch_alt_button")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -527,175 +501,125 @@ offset_bottom = 591.0
 grow_horizontal = 2
 mouse_filter = 2
 script = ExtResource("13_iou5p")
-player_sample = NodePath("Control/player_sample")
-main_weapon_sample = NodePath("VBoxContainer/weapon_sample")
-main_weapon_sample_bg = NodePath("VBoxContainer/weapon_sample/bg")
-main_weapon_tooltip = NodePath("VBoxContainer/weapon_sample/Tooltip")
-alt_weapon_label = NodePath("equipped_items/VBoxContainer/alt_weapon")
-alt_weapon_sample = NodePath("equipped_items/VBoxContainer/alt_weapon_sample")
-alt_weapon_sample_bg = NodePath("equipped_items/VBoxContainer/alt_weapon_sample/bg")
-alt_weapon_tooltip = NodePath("equipped_items/VBoxContainer/alt_weapon_sample/Tooltip")
-module_sample = NodePath("equipped_items/VBoxContainer2/module_sample")
-module_sample_bg = NodePath("equipped_items/VBoxContainer2/module_sample/bg")
-module_tooltip = NodePath("equipped_items/VBoxContainer2/module_sample/Tooltip")
+sfx = NodePath("gear_sfx")
+player_inventory_display = NodePath("../inventory_display/inventory_display")
+weapon_sample = NodePath("main_weapon/weapon_sample")
+alt_weapon_sample = NodePath("alt_weapon/alt_weapon_sample")
+module_sample = NodePath("module/module_sample")
+accessory_1_sample = NodePath("accessories/HBoxContainer/accessory_1_sample")
+accessory_2_sample = NodePath("accessories/HBoxContainer/accessory_2_sample")
+switch_alt_button = NodePath("switch_alt")
+gear_color = Color(1, 0.5, 0.5, 1)
+
+[node name="gear_sfx" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+volume_db = -10.0
+script = ExtResource("13_tg7cy")
+weapon_equipped = ExtResource("14_14bae")
+module_equipped = ExtResource("15_in2cn")
+accessory_equipped = ExtResource("16_7ydhy")
+invalid = ExtResource("15_vq5ye")
+metadata/_custom_type_script = "uid://yn55dca3qplf"
 
 [node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 1
-offset_right = 92.0
-offset_bottom = 51.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.513726)
-theme_override_constants/outline_size = 16
+offset_left = 74.0
+offset_top = -20.0
+offset_right = 166.0
+offset_bottom = 31.0
 theme_override_font_sizes/font_size = 64
 text = "Gear"
 
-[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+[node name="switch_alt" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 98.0
+offset_top = 55.0
+offset_right = 132.0
+offset_bottom = 89.0
+
+[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt"]
+modulate = Color(0.670588, 0.494118, 0.27451, 1)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = 0
-offset_top = 67.0
-offset_right = 92.0
-offset_bottom = 67.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("14_7sc2c")
 
-[node name="player_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("14_nvl42")]
+[node name="main_weapon" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 0
-offset_left = 42.0
-offset_top = 66.0
-offset_right = 42.0
-offset_bottom = 66.0
-scale = Vector2(4, 4)
-target_base = NodePath("body")
-autostart = true
-
-[node name="body" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/Control/player_sample" instance=ExtResource("15_o0vop")]
-material = SubResource("ShaderMaterial_tggo3")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
-layout_mode = 0
-offset_left = 134.0
+offset_left = 18.0
 offset_top = 37.0
-offset_right = 210.0
-offset_bottom = 77.0
+offset_right = 94.0
+offset_bottom = 195.0
 
-[node name="weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
+[node name="weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/main_weapon"]
 layout_mode = 2
 text = "Weapon"
 
-[node name="weapon_sample" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
-z_index = 1
-material = SubResource("ShaderMaterial_s8tnr")
-layout_mode = 2
-mouse_filter = 0
-expand_mode = 5
-
-[node name="bg" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/weapon_sample"]
-modulate = Color(1, 1, 1, 0.117647)
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/weapon_sample" instance=ExtResource("17_jpn0v")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 322.0
-offset_bottom = 90.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="equipped_items" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
-layout_mode = 1
-offset_top = 280.0
-offset_right = 262.0
-offset_bottom = 344.0
-mouse_filter = 2
-theme_override_constants/separation = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items"]
+[node name="weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/main_weapon" instance=ExtResource("13_7sc2c")]
 layout_mode = 2
 
-[node name="alt_weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer"]
+[node name="alt_weapon" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 2
-text = "alt.
-weapon"
+offset_left = 101.0
+offset_top = 89.0
+offset_right = 177.0
+offset_bottom = 183.0
 
-[node name="alt_weapon_sample" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer"]
-z_index = 1
-material = SubResource("ShaderMaterial_s8tnr")
+[node name="alt_weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/alt_weapon"]
 layout_mode = 2
-expand_mode = 5
+text = "Alt.
+Weapon"
 
-[node name="bg" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer/alt_weapon_sample"]
-modulate = Color(1, 1, 1, 0.117647)
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer/alt_weapon_sample" instance=ExtResource("17_jpn0v")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 322.0
-offset_bottom = 90.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items"]
+[node name="alt_weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/alt_weapon" instance=ExtResource("13_7sc2c")]
+custom_minimum_size = Vector2(32, 64)
 layout_mode = 2
 
-[node name="module" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer2"]
+[node name="module" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+layout_mode = 2
+offset_top = 260.0
+offset_right = 70.0
+offset_bottom = 418.0
+
+[node name="module" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/module"]
 layout_mode = 2
 text = "Module"
 
-[node name="module_sample" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer2"]
-z_index = 1
-material = SubResource("ShaderMaterial_hv25b")
+[node name="module_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/module" instance=ExtResource("13_7sc2c")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-expand_mode = 5
 
-[node name="bg" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer2/module_sample"]
-modulate = Color(1, 1, 1, 0.117647)
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/equipped_items/VBoxContainer2/module_sample" instance=ExtResource("17_jpn0v")]
+[node name="accessories" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 322.0
-offset_bottom = 90.0
-grow_horizontal = 1
-grow_vertical = 1
+offset_left = 110.0
+offset_top = 260.0
+offset_right = 242.0
+offset_bottom = 422.0
+
+[node name="accessories" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories"]
+layout_mode = 2
+text = "Accessories"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories"]
+layout_mode = 2
+
+[node name="accessory_1_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="accessory_2_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
 
 [node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "recruit_full_view", "recruits_grid", "upgrade_hint")]
 visible = false
@@ -743,8 +667,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("20_dcru6")]
-material = SubResource("ShaderMaterial_veb6b")
-custom_minimum_size = Vector2(48, 48)
+material = SubResource("ShaderMaterial_i2eyh")
 layout_mode = 2
 match_player_inventory = false
 adjacent_items = [NodePath("../food_cost")]
@@ -758,8 +681,7 @@ text = "22"
 layout_mode = 2
 
 [node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("20_dcru6")]
-material = SubResource("ShaderMaterial_bqvqp")
-custom_minimum_size = Vector2(48, 48)
+material = SubResource("ShaderMaterial_05eqd")
 layout_mode = 2
 resource = "fuel"
 match_player_inventory = false
@@ -831,18 +753,18 @@ attack_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer2/attack")
 defense_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer3/defense")
 agility_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer4/agility")
 technique_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer5/technique")
-charisma_label = NodePath("stats/Disciplines/VBoxContainer/charisma")
-navigation_label = NodePath("stats/Disciplines/VBoxContainer/navigation")
-tactics_label = NodePath("stats/Disciplines/VBoxContainer/tactics")
-leadership_label = NodePath("stats/Disciplines/VBoxContainer/leadership")
-scavenging_label = NodePath("stats/Disciplines/VBoxContainer/scavenging")
+charisma_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer/charisma")
+navigation_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer2/navigation")
+tactics_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer3/tactics")
+leadership_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer4/leadership")
+scavenging_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer5/scavenging")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -163.0
+offset_left = -37.0
 offset_top = 15.0
 offset_right = 163.0
 offset_bottom = 223.0
@@ -861,6 +783,7 @@ horizontal_alignment = 1
 
 [node name="exp_bar" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer" instance=ExtResource("24_7b7li")]
 layout_mode = 2
+tint_under = Color(0.1914, 0.29, 0.1914, 1)
 from_player = true
 
 [node name="stats" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
@@ -877,25 +800,27 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("12_rdvn7")
-theme_override_font_sizes/font_size = 32
-current_tab = 1
+theme_override_font_sizes/font_size = 48
+current_tab = 0
 tab_focus_mode = 1
 
 [node name="Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player/stats"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -129.0
-offset_top = 30.0
-offset_right = 129.0
-offset_bottom = 206.0
+anchor_bottom = 0.5
+offset_left = -149.0
+offset_top = -140.0
+offset_right = 149.0
+offset_bottom = 140.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
@@ -904,6 +829,7 @@ theme_override_constants/separation = 10
 
 [node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
 material = SubResource("ShaderMaterial_ncu57")
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 adjacent_items = [NodePath("../max_hp")]
 
@@ -912,7 +838,7 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -3
 theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 64
 text = "Max HP: 10"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
@@ -921,6 +847,7 @@ theme_override_constants/separation = 10
 
 [node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
 material = SubResource("ShaderMaterial_nsjwg")
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 adjacent_items = [NodePath("../attack")]
 stat = "attack"
@@ -931,7 +858,7 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -3
 theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 64
 text = "Base Attack: 10"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
@@ -940,6 +867,7 @@ theme_override_constants/separation = 10
 
 [node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
 material = SubResource("ShaderMaterial_um8mn")
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 adjacent_items = [NodePath("../defense")]
 stat = "defense"
@@ -950,7 +878,7 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -3
 theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 64
 text = "Defense: 10"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
@@ -959,6 +887,7 @@ theme_override_constants/separation = 10
 
 [node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
 material = SubResource("ShaderMaterial_fwr53")
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 adjacent_items = [NodePath("../agility")]
 stat = "agility"
@@ -969,7 +898,7 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -3
 theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 64
 text = "Agility: 100"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
@@ -978,6 +907,7 @@ theme_override_constants/separation = 10
 
 [node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
 material = SubResource("ShaderMaterial_gcm86")
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 adjacent_items = [NodePath("../technique")]
 stat = "technique"
@@ -988,10 +918,11 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = -3
 theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 64
 text = "Technique: 1"
 
 [node name="Disciplines" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player/stats"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -1009,30 +940,96 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="charisma" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
 layout_mode = 2
+
+[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer" instance=ExtResource("29_in2cn")]
+layout_mode = 2
+size_flags_horizontal = 4
+discipline = "charisma"
+
+[node name="charisma" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
 theme_override_font_sizes/font_size = 64
 text = "Charisma: 1"
 
-[node name="navigation" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
 layout_mode = 2
+
+[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer2" instance=ExtResource("29_in2cn")]
+layout_mode = 2
+discipline = "navigation"
+
+[node name="navigation" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
 theme_override_font_sizes/font_size = 64
 text = "Navigation: 1"
 
-[node name="tactics" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
 layout_mode = 2
+
+[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer3" instance=ExtResource("29_in2cn")]
+layout_mode = 2
+discipline = "tactics"
+
+[node name="tactics" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
 theme_override_font_sizes/font_size = 64
 text = "Tactics: 1"
 
-[node name="leadership" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
 layout_mode = 2
+
+[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer4" instance=ExtResource("29_in2cn")]
+layout_mode = 2
+discipline = "leadership"
+
+[node name="leadership" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
 theme_override_font_sizes/font_size = 64
 text = "Leadership: 1"
 
-[node name="scavenging" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
 layout_mode = 2
+
+[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer5" instance=ExtResource("29_in2cn")]
+layout_mode = 2
+discipline = "scavenging"
+
+[node name="scavenging" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
 theme_override_font_sizes/font_size = 64
 text = "Scavenging: 1"
+
+[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 67.0
+offset_right = 92.0
+offset_bottom = 67.0
+
+[node name="player_sample" parent="main_bg/MarginContainer/HBoxContainer/player/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("14_nvl42")]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 19.0
+offset_right = 102.0
+offset_bottom = 19.0
+target_base = NodePath("body")
+
+[node name="body" parent="main_bg/MarginContainer/HBoxContainer/player/Control/player_sample" instance=ExtResource("15_o0vop")]
+process_mode = 4
+material = SubResource("ShaderMaterial_tggo3")
+position = Vector2(-12, -28)
+scale = Vector2(3, 3)
+
+[node name="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/player_sample/body" index="0"]
+process_mode = 3
+speed_scale = 0.75
 
 [node name="RecruitFullView" parent="main_bg" instance=ExtResource("26_uhm6n")]
 visible = false
@@ -1043,6 +1040,13 @@ layout_mode = 1
 [connection signal="warnings_attended" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="." method="_on_inventory_display_warnings_attended"]
 [connection signal="warnings_shown" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="." method="_on_inventory_display_warnings_shown"]
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/VBoxContainer/sort_inventory" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" method="sort_inventory"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_switch_alt_pressed"]
+[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/main_weapon/weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_weapon_sample_gui_input"]
+[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/alt_weapon/alt_weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_alt_weapon_sample_gui_input"]
+[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer/accessory_1_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_1_sample_gui_input"]
+[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer/accessory_2_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_2_sample_gui_input"]
 [connection signal="unit_upgraded" from="main_bg/RecruitFullView" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" method="refresh_data"]
 
 [editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display"]
+[editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown"]
+[editable path="main_bg/MarginContainer/HBoxContainer/player/Control/player_sample/body"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dojka81peou6a"]
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_0fwk8"]
-[ext_resource type="Texture2D" uid="uid://be73tgi7r702i" path="res://assets/visual/icons/items/containers/fuel_gallon.png" id="2_e7qeg"]
+[ext_resource type="Texture2D" uid="uid://be73tgi7r702i" path="res://assets/visual/items/containers/fuel_gallon.png" id="2_e7qeg"]
 [ext_resource type="Script" uid="uid://b3mhhc0vlhchp" path="res://scenes/index/items/containers/scripts/fuel_gallon.gd" id="3_iqaet"]
 
 [node name="Fuel Gallon" type="Sprite2D"]

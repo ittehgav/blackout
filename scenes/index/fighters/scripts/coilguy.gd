@@ -16,7 +16,7 @@ const hitbox_height = 60;
 const hitbox_offset = Vector2(0, 5)
 
 const skill_range = MELEE_RANGE;
-const skill_cooldown = 2;
+const skill_cooldown = 5;
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
@@ -75,10 +75,12 @@ func target_count_amplifier(damage:float)->float:
 		damage += damage * fighter.technique/20;
 	return damage;
 
+
 func tag_fighter(target:ActiveFighter)->void:
 	## TODO make a more proper special status system where the statuses
 	## get icon textures from the source
-	target.special_statuses.append("magnetized")
+	target.special_statuses["magnetized"] = {};
+
 
 func get_tagged_fighters()->Array[ActiveFighter]:
 	var enemies:Array[Node] = fighter.enemy_team.units.filter(filter_magnetized)
@@ -86,12 +88,14 @@ func get_tagged_fighters()->Array[ActiveFighter]:
 	final_array.assign(enemies)
 	return final_array
 
+
 func lightning_hit(t1:ActiveFighter, t2:ActiveFighter)->void:
 	lightning.global_position = t1.global_position;
 	var angle:float = t1.position.angle_to_point(t2.position)
 	lightning.global_rotation = angle
 	
 	Combat.deal_damage(fighter, t2, target_count_amplifier);
+
 
 func closest_to_source(a:ActiveFighter, b:ActiveFighter)->bool:
 	return fighter.position.distance_squared_to(a.position) > fighter.position.distance_squared_to(b.position);

@@ -66,17 +66,11 @@ func start_trade(target:Inventory, target_name:String)->void:
 	player_name_label.text = Entities.player.name;
 	trader_name_label.text = target_name
 
-	trader_inventory_display.inventory = target;
-	target.sort_items()
-
-
-	player_inventory_display.inventory = Entities.player.inventory;
-
 	player_inventory_display.set_grid()
-	player_inventory_display.refresh_data(true);
+	player_inventory_display.load_inventory(Entities.player.inventory)
 	
 	trader_inventory_display.set_grid();
-	trader_inventory_display.refresh_data(true);
+	trader_inventory_display.load_inventory(target);
 	
 	reset_trade_balance()
 	player_inventory_display.warnings_popup.hide();
@@ -190,8 +184,8 @@ func _on_confirm_pressed() -> void:
 
 
 func _on_reset_pressed() -> void:
-	player_inventory_display.refresh_data(true)
-	trader_inventory_display.refresh_data(true)
+	player_inventory_display.refresh_data()
+	trader_inventory_display.refresh_data()
 	reset_trade_balance()
 	
 	player_inventory_display.sfx.play_sound_by_key("reset");

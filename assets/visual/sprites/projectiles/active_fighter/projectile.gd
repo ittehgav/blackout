@@ -49,8 +49,7 @@ func setup(new_shooter:ActiveFighter)->void:
 		hitbox.set_collision_mask_value(enemy_mask, true);
 	if hit_allies:
 		hitbox.set_collision_mask_value(ally_mask, true)
-		
-	sprite.texture = self[type + "_texture"];
+
 	
 
 
@@ -65,7 +64,7 @@ func start_flight(target_direction:Vector2)->void:
 	show();
 	move_target = target_direction;
 	hit.connect(_on_hit);
-	Entities.arena.projectiles.add_child(self);
+	shooter.ally_team.projectiles.add_child(self);
 	
 	global_position = shooter.global_position;
 	sprite.look_at(position + target_direction)

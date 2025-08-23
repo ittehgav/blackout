@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_70d1k"]
 [ext_resource type="Script" uid="uid://dbqmufi0ke5mr" path="res://scenes/index/items/containers/scripts/food_bag.gd" id="1_nnti4"]
-[ext_resource type="Texture2D" uid="uid://bphy8kjlk4th0" path="res://assets/visual/icons/items/containers/food_bag.png" id="2_70d1k"]
+[ext_resource type="Texture2D" uid="uid://bphy8kjlk4th0" path="res://assets/visual/items/containers/food_bag.png" id="2_70d1k"]
 
 [node name="Food Bag" type="Sprite2D"]
 material = ExtResource("1_70d1k")

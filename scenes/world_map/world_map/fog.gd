@@ -30,7 +30,7 @@ func set_horizon_limits()->Array[int]:
 func reveal_path(path:PackedVector2Array)->void:
 	var to_clear:PackedVector2Array
 	for cell:Vector2i in path:
-		var converted_cell:Vector2i = local_to_map(road.map_to_local(cell))
+		var converted_cell:Vector2i = local_to_map(road.map_to_local(cell) * road.scale.x) /scale.x
 		for x in range(-off_road_sight, off_road_sight):
 			for y in range(-off_road_sight, off_road_sight):
 				var target_cell:Vector2i = Vector2i(converted_cell.x + x, converted_cell.y + y)

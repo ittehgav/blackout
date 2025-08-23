@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4s2cufch0vvv"]
+
+[ext_resource type="Texture2D" uid="uid://cg8537sp5w1gg" path="res://assets/visual/items/accessories/external_processing_unit.png" id="1_b7l2g"]
+[ext_resource type="Script" uid="uid://1v4qj12rcgsy" path="res://scenes/index/items/accessories/scripts/external_processing_unit.gd" id="1_feqme"]
+
+[node name="External Processing Unit" type="Sprite2D"]
+texture = ExtResource("1_b7l2g")
+script = ExtResource("1_feqme")
+equippable = Dictionary[String, bool]({
+"player": false,
+"unit": true
+})
+exclusive_tag = "cyborg"
+metadata/_custom_type_script = "uid://22bfdxr3ppr7"

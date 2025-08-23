@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://xvtt4f2djs13"]
+
+[ext_resource type="Script" uid="uid://55luvo5ela5n" path="res://scenes/index/items/consumables/scripts/mystery_snack_pack.gd" id="1_x0cwa"]
+
+[node name="MysterySnack" type="Sprite2D"]
+script = ExtResource("1_x0cwa")
+metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

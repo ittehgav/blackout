@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpe6djjx0cu5o"]
+[gd_scene load_steps=15 format=3 uid="uid://cpe6djjx0cu5o"]
 
 [ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy/armguy.png" id="1_exc21"]
 [ext_resource type="Script" uid="uid://cdiptr0n70x5i" path="res://scenes/index/fighters/scripts/armguy.gd" id="2_04vbq"]
@@ -6,6 +6,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_wv6fa"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="5_wv6fa"]
 [ext_resource type="Texture2D" uid="uid://lnqgt25pbp2l" path="res://assets/visual/sprites/fighters/armguy/blur.png" id="6_akus7"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="7_ogbnw"]
 
 [sub_resource type="Shader" id="Shader_fhbb7"]
 code = "shader_type canvas_item;
@@ -177,7 +178,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_wv6fa"]
 resource_name = "skill"
-length = 0.8
+length = 1.45
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -265,11 +266,25 @@ tracks/6/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/7/type = "animation"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("dust/dust_animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": PackedStringArray("dust"),
+"times": PackedFloat32Array(0.45)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_akus7"]
 _data = {
 &"skill": SubResource("Animation_wv6fa")
 }
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ogbnw"]
+radius = 19.0
+height = 67.0
 
 [node name="Arm Guy" type="Sprite2D" node_paths=PackedStringArray("animation_player")]
 material = SubResource("ShaderMaterial_vo64q")
@@ -277,7 +292,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_exc21")
 hframes = 3
 vframes = 3
-frame = 4
 script = ExtResource("2_04vbq")
 animation_player = NodePath("AnimationPlayer")
 tags = Dictionary[String, bool]({
@@ -315,3 +329,12 @@ z_index = -1
 position = Vector2(0, 33)
 scale = Vector2(5, 1)
 texture = ExtResource("5_wv6fa")
+
+[node name="dust" parent="." instance=ExtResource("7_ogbnw")]
+position = Vector2(-25, 22)
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 14)
+shape = SubResource("CapsuleShape2D_ogbnw")
+
+[editable path="dust"]

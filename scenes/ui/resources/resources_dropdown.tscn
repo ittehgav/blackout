@@ -1,0 +1,207 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0cfd3mr7dsam"]
+
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="1_lfol1"]
+[ext_resource type="Script" uid="uid://mxtxljd7fw3s" path="res://scenes/ui/resources/resources_dropdown.gd" id="1_lsvr5"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="2_lsvr5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lsvr5"]
+resource_local_to_scene = true
+shader = ExtResource("2_lsvr5")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_76hp1"]
+resource_local_to_scene = true
+shader = ExtResource("2_lsvr5")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ogw0g"]
+resource_local_to_scene = true
+shader = ExtResource("2_lsvr5")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcqcm"]
+resource_local_to_scene = true
+shader = ExtResource("2_lsvr5")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tgs5m"]
+resource_local_to_scene = true
+shader = ExtResource("2_lsvr5")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_34wod"]
+resource_local_to_scene = true
+shader = ExtResource("2_lsvr5")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="resources_dropdown" type="VBoxContainer" node_paths=PackedStringArray("resource_labels", "resource_hboxes", "resource_icons")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 404.0
+offset_top = 10.0
+offset_right = 496.0
+offset_bottom = 366.0
+grow_horizontal = 2
+mouse_filter = 2
+script = ExtResource("1_lsvr5")
+resource_labels = {
+"chips": NodePath("chips/chips"),
+"food": NodePath("food/food"),
+"fuel": NodePath("fuel/fuel"),
+"juice": NodePath("juice/juice"),
+"money": NodePath("money/money"),
+"scrap": NodePath("scrap/scrap")
+}
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+
+[node name="money" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="money_icon" parent="money" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("1_lfol1")]
+material = SubResource("ShaderMaterial_lsvr5")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "money"
+show_tooltip = true
+adjacent_items = [NodePath("../money")]
+
+[node name="money" type="Label" parent="money"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="food" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="food_icon" parent="food" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("1_lfol1")]
+material = SubResource("ShaderMaterial_76hp1")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+show_tooltip = true
+adjacent_items = [NodePath("../food")]
+
+[node name="food" type="Label" parent="food"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="fuel" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="fuel_icon" parent="fuel" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("1_lfol1")]
+material = SubResource("ShaderMaterial_ogw0g")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "fuel"
+show_tooltip = true
+adjacent_items = [NodePath("../fuel")]
+
+[node name="fuel" type="Label" parent="fuel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="juice" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="juice_icon" parent="juice" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("1_lfol1")]
+material = SubResource("ShaderMaterial_vcqcm")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "juice"
+show_tooltip = true
+adjacent_items = [NodePath("../juice")]
+
+[node name="juice" type="Label" parent="juice"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="scrap" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="scrap_icon" parent="scrap" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("1_lfol1")]
+material = SubResource("ShaderMaterial_tgs5m")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "scrap"
+show_tooltip = true
+adjacent_items = [NodePath("../scrap")]
+
+[node name="scrap" type="Label" parent="scrap"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"
+
+[node name="chips" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="chips_icon" parent="chips" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("1_lfol1")]
+material = SubResource("ShaderMaterial_34wod")
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "chips"
+show_tooltip = true
+adjacent_items = [NodePath("../chips")]
+
+[node name="chips" type="Label" parent="chips"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "11"

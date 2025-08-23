@@ -45,6 +45,7 @@ script = ExtResource("2_w7tyd")
 panel = NodePath("panel")
 
 [node name="panel" type="Panel" parent="."]
+visible = false
 show_behind_parent = true
 use_parent_material = true
 custom_minimum_size = Vector2(36, 36)

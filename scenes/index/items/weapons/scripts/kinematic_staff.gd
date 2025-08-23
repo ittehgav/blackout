@@ -12,7 +12,6 @@ const angle_adjust = 0;
 const type = "melee";
 
 const aoe_radius = 300;
-const cooldown:float = 3;
 const base_damage = 100;
 
 

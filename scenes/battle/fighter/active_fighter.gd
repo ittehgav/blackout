@@ -25,8 +25,9 @@ var dead:bool=false;
 @export var status_timers:Node;
 
 
-## for now only special statuses are simple
-var special_statuses:Array[String];
+## special statuses simply hold metadata and any effects from them
+## are managed in the source's base script
+var special_statuses:Dictionary[String, Dictionary];
 
 
 var ally_team:Team;

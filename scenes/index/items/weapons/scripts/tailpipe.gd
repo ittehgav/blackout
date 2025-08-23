@@ -10,7 +10,6 @@ const angle_adjust = 30;
 
 
 const type = "melee";
-const cooldown:float = 1;
 const base_damage = 50
 
 @export var hit_scan:Area2D;

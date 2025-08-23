@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ofss0u0pyra0"]
+[gd_scene load_steps=13 format=3 uid="uid://ofss0u0pyra0"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_61vnb"]
 [ext_resource type="Texture2D" uid="uid://bmh0bym5ta8qg" path="res://assets/visual/sprites/fighters/crossbow_guy/crossbowguy.png" id="1_dyesl"]
 [ext_resource type="Script" uid="uid://m0gvx3pff55d" path="res://scenes/index/fighters/scripts/crossbowguy.gd" id="2_th07v"]
 [ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="4_hntcd"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_ot1i0"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="6_3aykr"]
 
 [sub_resource type="Animation" id="Animation_3aykr"]
 length = 0.001
@@ -116,6 +117,16 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0.12549), Color(0.44, 0.44, 0.44, 0.65098), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/6/type = "animation"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("dust/dust_animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": PackedStringArray("dust"),
+"times": PackedFloat32Array(0.8)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jlows"]
 _data = {
@@ -125,13 +136,16 @@ _data = {
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_hntcd"]
 b = Vector2(1000, 0)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3aykr"]
+radius = 12.0
+height = 46.0
+
 [node name="Crossbow Guy" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan")]
 material = ExtResource("1_61vnb")
 scale = Vector2(2, 2)
 texture = ExtResource("1_dyesl")
 hframes = 3
 vframes = 3
-frame = 4
 script = ExtResource("2_th07v")
 animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("Area2D")
@@ -172,3 +186,12 @@ polygon = PackedVector2Array(0, 1.5, 0, -1.5, 1000, -1.5, 1000, 1.5)
 [node name="shape" type="CollisionShape2D" parent="Area2D"]
 visible = false
 shape = SubResource("SegmentShape2D_hntcd")
+
+[node name="dust" parent="." instance=ExtResource("6_3aykr")]
+position = Vector2(-51.5, 24.5)
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 14)
+shape = SubResource("CapsuleShape2D_3aykr")
+
+[editable path="dust"]

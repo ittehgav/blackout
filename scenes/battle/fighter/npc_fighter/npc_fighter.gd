@@ -46,6 +46,7 @@ func _ready() -> void:
 		fighter.update_stats()
 		load_fighter(fighter, get_parent().name == "team_1")
 	elif base.special:
+		base.get_node("hurtbox").reparent(self);
 		$timers/find_target.stop();
 		max_hp = 500000;
 		hp = max_hp
@@ -58,9 +59,14 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the 
 	base.fighter = self;
 	add_child(base)
+	base.get_node("hurtbox").reparent(self)
+
+
 	
 	$skill_range/shape.shape.radius = base.skill_range;
 	
+	if "projectile" in base:
+		base.projectile.setup(self);
 	
 	max_hp = unit.stats.max_hp;
 	hp = unit.stats.max_hp;
@@ -80,10 +86,7 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	stopped_moving.connect(base.fighter_stopped_moving)
 	
 
-	
-	if "special_setup" in base:
-		base.special_setup();
-	
+
 	## need to start it manually after assignin the cooldown
 	cooldown_timer.start()
 

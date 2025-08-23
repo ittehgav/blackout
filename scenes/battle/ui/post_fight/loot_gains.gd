@@ -10,14 +10,12 @@ extends PanelContainer
 @export var money_sfx:AudioStreamPlayer;
 
 func setup()->void:
-	player_inventory_display.inventory = Entities.player.inventory;
 	player_inventory_display.set_grid();
-	player_inventory_display.refresh_data(true);
+	player_inventory_display.load_inventory(Entities.player.inventory);
 	
 	var loot:Inventory = Entities.arena.battle_loot;
-	loot_display.inventory = loot;
 	loot_display.set_grid();
-	loot_display.refresh_data(true);
+	loot_display.load_inventory(loot);
 	
 	money_gain_label.text = "+ " + str(Entities.arena.battle_money_loot);
 

@@ -1,0 +1,95 @@
+extends FighterBase;
+
+const sample_offsec = Vector2(11, -26);
+
+const target_type = "nearest_enemy";
+
+const skill_sname = "Swarm";
+const description = "Flings a clould of insects that flies chaotically and attachest itself to the first enemy it hits, dealing damage and dereasing their agility.";
+
+const flavor = "He can't fall asleep without feeling the stings.";
+
+func damage_modifier(damage:float, unit:FighterUnit = null)->float:
+	## TODO attack improves sting damage, technique improges agility reduction
+	if not unit:
+		return Scaling.technique_scaled_value(damage/5, fighter.technique, "damage")
+	else:
+		return Scaling.technique_scaled_value(damage/5, unit.stats.technique, "damage")
+
+
+func full_skill_description(unit:FighterUnit)->String:
+	var base_damage_str:String = Index.get_color_tag("attack") +  str(damage_modifier(unit.stats.attack)) + "[/color]";
+
+	var final_damage_color_hex:String = Index.stat_colors.attack.blend(Index.stat_colors.technique).to_html();
+	var final_damage_str:String = Index.get_unit_damage_string(unit);
+	
+	final_damage_str = "[color=" + final_damage_color_hex + "]" + final_damage_str + "[/color]"
+	
+	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique * Scaling.technique_mechanic_multipliers["damage"], .01)) + "[/color]"
+	var final_string:String = "Flings a swarm that deals " + final_damage_str + "(" + base_damage_str + "*" + technique_str + ") damage per second over 5 seconds and reduces the target's agility by 15%.\n
+	The effect can stack.";
+	return final_string;
+	
+
+const hitbox_radius = 25;
+const hitbox_height = 60;
+const hitbox_offest = Vector2(0, 5);
+
+const skill_cooldown = 3;
+const skill_range = 400
+
+@export var projectile:Projectile;
+@export var bees:Sprite2D;
+
+
+func skill()->void:
+	Combat.set_windup_angle(fighter);
+	animation_player.play("keeper/skill");
+	animation_player.queue("fighter_base/idle")
+	
+func skill_impact()->void:
+	var projectile:Projectile = Combat.shoot_projectile(projectile, fighter, bees_hit);
+
+
+func bees_hit(target:ActiveFighter)->void:
+	if not "swarm" in target.special_statuses:
+		var new_bees:Sprite2D = bees.duplicate(DUPLICATE_SIGNALS+ DUPLICATE_SCRIPTS);
+		target.add_child(new_bees);
+		new_bees.global_position = target.global_position;
+		new_bees.scale = Vector2(2, 2)
+		new_bees.offset = Vector2(10, 0);
+		
+		var sting_timer:Timer = new_bees.get_node("sting")
+		sting_timer.start();
+		sting_timer.timeout.connect(bees_sting.bind(target))
+		
+		new_bees.get_node("shuffle").start();
+
+		
+		new_bees.frame_coords.y = 4;
+		var status:Dictionary = {
+			"bees":new_bees
+		}
+		target.special_statuses["swarm"] = status;
+	else:
+		var status:Dictionary = target.special_statuses.swarm;
+		var bees:Sprite2D = status.bees;
+		
+		var sting_timer:Timer = bees.get_node("sting")
+		sting_timer.wait_time -= sting_timer.wait_time/10;
+		
+		var shuffle_timer:Timer = bees.get_node("shuffle");
+		shuffle_timer.wait_time -= shuffle_timer.wait_time/10;
+		
+		if bees.frame_coords.y < 4:
+			bees.frame_coords.y += 1;
+			
+		var tween:Tween = create_tween();
+		const interval = .2
+		tween.tween_property(bees, "scale", Vector2(4, 4), interval);
+		tween.tween_property(bees, "scale", Vector2(2, 2), interval)
+
+
+func bees_sting(target:ActiveFighter)->void:
+	## TODO make them reduce the target's agility in an impactful but not too ridiculous way
+	Combat.deal_damage(fighter, target, damage_modifier)

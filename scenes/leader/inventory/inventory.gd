@@ -22,7 +22,7 @@ class_name Inventory;
 
 @export var containers:Array[ResourceContainer];
 @export var consumables:Array[Consumable];
-@export var trinkets:Array[Trinket];
+@export var accessories:Array[Accessory];
 
 @export_subgroup("Equipment")
 @export var weapons:Array[Weapon];
@@ -119,8 +119,8 @@ func add_item(item: Item) -> void:
 	items.append(item);
 	if item is Consumable:
 		consumables.append(item);
-	elif item is Trinket:
-		trinkets.append(item);
+	elif item is Accessory:
+		accessories.append(item);
 	elif item is Module:
 		modules.append(item);
 	elif item is Weapon:
@@ -141,8 +141,8 @@ func remove_item(item:Item, and_free:bool=false)->void:
 	items.erase(item);
 	if item is Consumable:
 		consumables.erase(item);
-	elif item is Trinket:
-		trinkets.erase(item);
+	elif item is Accessory:
+		accessories.erase(item);
 	elif item is Module:
 		modules.erase(item);
 	elif item is Weapon:
@@ -217,9 +217,7 @@ func sort_items()->void:
 	var taken_cells:Array[Vector2];
 	var reset:bool = false;
 	for item in items:
-		if item != Entities.player.equipped_module and\
-		item != Entities.player.equipped_weapon and\
-		item != Entities.player.alternative_weapon:
+		if item not in Entities.player.equipment:
 			var fit:bool = throw_item(item, taken_cells);
 			if not fit:
 				reset = true
@@ -280,6 +278,18 @@ func cell_in_grid(cell:Vector2)->bool:
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
 	## so editor-made nodes work and are easy to edit
+	if holder is Player:
+		## will need to do something similar for npc leaders and equipment?
+		## NPCs just have infinite inventory space that shrinks to fit their items however?
+		if node in [
+			holder.equipped_weapon,
+			holder.alternative_weapon,
+			holder.equipped_module,
+			holder.equipped_accessory_1,
+			holder.equipped_accessory_2
+		]:
+			holder.equipment.append(node)
+	
 	if not items.has(node):
 		## ONLY EVER FROM INVENTORIES THAT WERE MADE IN-EDITOR
 		add_item(node);

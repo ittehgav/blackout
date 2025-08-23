@@ -30,6 +30,7 @@ class_name PlayerSheet;
 func _ready()->void:
 	super();
 	Entities.player_sheet = self;
+	
 
 
 
@@ -46,7 +47,6 @@ func _input(e:InputEvent)->void:
 
 func show_player_sheet(left_tab_view:int=0)->void:
 	set_process_input(false);
-	
 
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
@@ -62,6 +62,7 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
 	## so the player can't mash tab and bug the UI
 	tween.finished.connect(set_process_input.bind(true));
+
 
 func hide_player_sheet(_meta:Variant="")->void:
 	## _meta to this gets called when meta clicked from memo labels in the memos tab
@@ -95,7 +96,7 @@ func refresh_data(_r:String="", _change:float=0)->void:
 		gear.refresh_samples()
 
 
-		player_inventory.refresh_data(true);
+		player_inventory.refresh_data();
 		party_view.refresh_data();
 		player_view.refresh_data();
 

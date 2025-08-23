@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c08u0afsm4bct"]
+[gd_scene load_steps=4 format=3 uid="uid://c08u0afsm4bct"]
 
-[ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/icons/items/modules/dodge_roll.png" id="1_uq2vo"]
+[ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/items/modules/dodge_roll.png" id="1_uq2vo"]
 [ext_resource type="Script" uid="uid://diisa0tddj0gc" path="res://scenes/index/items/modules/scripts/dodge_roll.gd" id="2_jqmff"]
+[ext_resource type="AudioStream" uid="uid://deleehb8xbh34" path="res://assets/sound/sfx/combat/player/dash.wav" id="3_hcgxl"]
 
 [node name="Dodge Roll" type="Sprite2D"]
 texture = ExtResource("1_uq2vo")
 script = ExtResource("2_jqmff")
+sfx = ExtResource("3_hcgxl")

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnjcf4clj2cxd"]
+
+[ext_resource type="Script" uid="uid://b72gmha7qjoj7" path="res://scenes/index/items/consumables/scripts/motivational_speech_draft.gd" id="1_ctr3f"]
+
+[node name="MotivationalSpeechDraft" type="Sprite2D"]
+script = ExtResource("1_ctr3f")
+metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

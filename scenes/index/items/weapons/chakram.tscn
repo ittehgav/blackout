@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://by4mpa2wb2t7b"]
+
+[ext_resource type="Texture2D" uid="uid://cbptl4cvn7pul" path="res://assets/visual/items/weapons/chakram.png" id="1_6ewex"]
+[ext_resource type="Script" uid="uid://btpyltd5vb6p4" path="res://scenes/index/items/weapons/scripts/chakram.gd" id="2_h5wbs"]
+
+[node name="Chakram" type="Sprite2D"]
+texture = ExtResource("1_6ewex")
+script = ExtResource("2_h5wbs")
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"

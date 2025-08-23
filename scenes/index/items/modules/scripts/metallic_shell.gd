@@ -4,12 +4,10 @@ const rarity = 2;
 
 
 
-const cooldown = 5;
 const scrap_cost = 5;
 
 const base_hp_frac = .2;
 
-const sfx_key = "metallic_shell";
 
 @export var aoe_range:Area2D;
 

@@ -10,16 +10,15 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 			if target is NpcFighter:
 				target.timers.set_process_mode(Node.PROCESS_MODE_DISABLED)
 			target.move_speed = 0;
-			
 
 			target.stun_stack += 1;
-			
-			
+
 		"stat_change":
 			status_data["amount"] = data.amount;
 			status_data["stat"] = data.stat;
 			target[data.stat] += data.amount;
 		"taunt":
+			assert(status_data.duration)
 			target.taunted = true;
 			target.target_unit = source;
 			
@@ -30,6 +29,7 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 		timer.timeout.connect(remove_status.bind(target, type, data, timer))
 		target.status_timers.add_child(timer)
 		timer.start()
+
 	target.status_applied.emit(source, status_data)
 
 

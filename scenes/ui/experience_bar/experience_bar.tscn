@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cl5wh0g2bs1n4"]
 
-[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="1_cgmno"]
+[ext_resource type="Texture2D" uid="uid://jf43d3xkw3uu" path="res://assets/visual/ui/bars/complete_fill_bar.png" id="1_eqtnn"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="2_v1lig"]
 [ext_resource type="Script" uid="uid://dlrumf22vb77p" path="res://scenes/ui/experience_bar/experience_bar.gd" id="3_2ep7r"]
 [ext_resource type="Script" uid="uid://dsj0lio4vy5bi" path="res://scenes/ui/sound/level_up_sfx.gd" id="4_2ep7r"]
@@ -11,11 +11,11 @@ custom_minimum_size = Vector2(200, 20)
 step = 0.1
 value = 50.0
 nine_patch_stretch = true
-stretch_margin_left = 2
-stretch_margin_right = 2
-texture_under = ExtResource("1_cgmno")
+stretch_margin_left = 4
+stretch_margin_right = 4
+texture_under = ExtResource("1_eqtnn")
 texture_progress = ExtResource("2_v1lig")
-tint_under = Color(0.1015, 0.35, 0.1015, 0.392157)
+tint_under = Color(0.67, 0.67, 0.67, 1)
 tint_progress = Color(0.27, 1, 0.27, 0.533333)
 script = ExtResource("3_2ep7r")
 level_up_text = NodePath("level_up")

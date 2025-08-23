@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce1p6ul7ivkdu"]
+
+[ext_resource type="Texture2D" uid="uid://cvl6mvo2h4hvv" path="res://assets/visual/items/consumables/protein_shake.png" id="1_43q6u"]
+[ext_resource type="Script" uid="uid://bv2o3lkncyelo" path="res://scenes/index/items/consumables/scripts/protein_shake.gd" id="2_cyrng"]
+
+[node name="Protein Shake" type="Sprite2D"]
+texture = ExtResource("1_43q6u")
+script = ExtResource("2_cyrng")
+metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

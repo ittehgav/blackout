@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bp6be4yyu4i6o"]
+[gd_scene load_steps=17 format=3 uid="uid://bp6be4yyu4i6o"]
 
 [ext_resource type="Texture2D" uid="uid://bpaicwhk4e4vm" path="res://assets/visual/sprites/fighters/double_arm_guy/doublearmguy.png" id="1_fta4o"]
 [ext_resource type="Script" uid="uid://ck7sg5h7e1k8v" path="res://scenes/index/fighters/scripts/doublearmguy.gd" id="2_f03mh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="5_w2hql"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="6_vymcx"]
 [ext_resource type="Texture2D" uid="uid://3lqwfjikd712" path="res://assets/visual/sprites/fighters/double_arm_guy/blur.png" id="6_ysuh8"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="8_3hqcn"]
 
 [sub_resource type="Shader" id="Shader_dwet0"]
 code = "shader_type canvas_item;
@@ -222,10 +223,10 @@ tracks/1/path = NodePath(".:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.6),
+"times": PackedFloat32Array(0, 0.45, 0.75),
 "transitions": PackedFloat32Array(1e+06, 1.02837, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(50, 0), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(70, 0), Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -320,10 +321,20 @@ tracks/9/path = NodePath("sfx:playing")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0.4),
+"times": PackedFloat32Array(0.45),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/10/type = "animation"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("dust/dust_animation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"clips": PackedStringArray("dust"),
+"times": PackedFloat32Array(0.45)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w2hql"]
@@ -334,13 +345,16 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_q5yyt"]
 radius = 100.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hqcn"]
+radius = 33.0
+height = 89.0
+
 [node name="Double Arm Guy" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan")]
 material = SubResource("ShaderMaterial_w2hql")
 scale = Vector2(2, 2)
 texture = ExtResource("1_fta4o")
 hframes = 3
 vframes = 3
-frame = 1
 script = ExtResource("2_f03mh")
 animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("hit_scan")
@@ -395,3 +409,13 @@ z_index = -1
 position = Vector2(7, 36)
 scale = Vector2(7, 3)
 texture = ExtResource("6_vymcx")
+
+[node name="dust" parent="." instance=ExtResource("8_3hqcn")]
+position = Vector2(-30, 27.5)
+scale = Vector2(-0.85, 0.85)
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(5.5, 11.5)
+shape = SubResource("CapsuleShape2D_3hqcn")
+
+[editable path="dust"]

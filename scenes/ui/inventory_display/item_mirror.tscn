@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://0qsjppw7fils"]
 
-[ext_resource type="Script" uid="uid://bxflqfjcfcxqb" path="res://scenes/ui/inventory_display/item_mirror.gd" id="1_f3hr4"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_sxf1m"]
+[ext_resource type="Script" uid="uid://bxflqfjcfcxqb" path="res://scenes/ui/inventory_display/item_mirror.gd" id="2_7dtgv"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="2_sxf1m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vqoty"]
@@ -28,7 +28,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 0
-script = ExtResource("1_f3hr4")
+script = ExtResource("2_7dtgv")
 outline = NodePath("MarginContainer/outline")
 bg = NodePath("MarginContainer/mirror_bg")
 being_traded_rect = NodePath("being_traded")
@@ -57,7 +57,7 @@ mouse_filter = 1
 z_index = 1
 layout_mode = 2
 mouse_filter = 1
-border_width = 5.0
+border_width = 3.0
 editor_only = false
 
 [node name="Tooltip" parent="." instance=ExtResource("2_sxf1m")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://okq3jirq5mq5"]
+[gd_scene load_steps=14 format=3 uid="uid://okq3jirq5mq5"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_cmd2l"]
 [ext_resource type="Texture2D" uid="uid://ccrb6t58ir8fi" path="res://assets/visual/sprites/fighters/doorguy.png" id="1_g1xn4"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://c82vpb256ryq1" path="res://assets/sound/sfx/combat/generic/defense_up.mp3" id="4_2ch0d"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_0jnjx"]
 [ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="6_0jnjx"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="7_o8tws"]
 
 [sub_resource type="Animation" id="Animation_o8tws"]
 length = 0.001
@@ -41,6 +42,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_ejls5"]
 resource_name = "skil"
+length = 1.471
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -116,6 +118,26 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/6/type = "animation"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("dust/dust_animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": PackedStringArray("dust"),
+"times": PackedFloat32Array(0.45)
+}
+tracks/7/type = "animation"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("dust2/dust_animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": PackedStringArray("dust"),
+"times": PackedFloat32Array(0.45)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x8o5c"]
 _data = {
@@ -125,13 +147,16 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ch0d"]
 radius = 50.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8tws"]
+radius = 34.5
+height = 69.0
+
 [node name="Door Guy" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan")]
 material = ExtResource("1_cmd2l")
 scale = Vector2(2, 2)
 texture = ExtResource("1_g1xn4")
 hframes = 3
 vframes = 3
-frame = 3
 script = ExtResource("2_pej6q")
 animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("hit_scan")
@@ -159,6 +184,7 @@ libraries = {
 &"doorguy": SubResource("AnimationLibrary_x8o5c"),
 &"fighter_base": ExtResource("5_0jnjx")
 }
+autoplay = "fighter_base/idle"
 
 [node name="hit_scan" type="Area2D" parent="."]
 collision_layer = 0
@@ -173,3 +199,17 @@ modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0.67, 0, 0, 1)
 scale = Vector2(3, 3)
 texture = ExtResource("6_0jnjx")
+
+[node name="dust" parent="." instance=ExtResource("7_o8tws")]
+position = Vector2(20.5, 30)
+scale = Vector2(0.5, 0.5)
+
+[node name="dust2" parent="." instance=ExtResource("7_o8tws")]
+position = Vector2(-25.5, 30)
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(-4.5, 4)
+shape = SubResource("CapsuleShape2D_o8tws")
+
+[editable path="dust"]
+[editable path="dust2"]

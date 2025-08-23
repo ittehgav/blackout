@@ -16,8 +16,8 @@ var item_under:ItemMirror;
 
 var inventory_position:Vector2i;
 var projection_position:Vector2i;
-## when it's being traded, uses these coords that will be set when it gets thrown in
-var trader_inventory_position:Vector2i;
+
+
 var origin_position:Vector2;
 var just_picked_up:bool;
 
@@ -59,13 +59,18 @@ func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 		item_color = Index.item_rarity_colors[item.rarity];
 	
 	
-	material.set_shader_parameter("base_color", item_color)
+	modulate = item_color
 	var dark_color:Color = item_color.darkened(.8);
 	var light_color:Color = item_color.lightened(.4);
 	
 	stack_size_label.add_theme_color_override("font_outline_color", dark_color)
 	price_tag.add_theme_color_override("font_outline_color", dark_color)
-	bg.color = light_color
+	bg.color = item_color;
+
+	bg.color.v = .5
+	bg.color.s = min(.5, bg.color.s)
+
+
 	
 	shader_color = item_color;
 	outline_color = shader_color * Color(.25, .25, .25);
@@ -157,31 +162,8 @@ func _on_gui_input(e: InputEvent) -> void:
 						else:
 							empty_storage();
 
-					elif item is Weapon:
-						if not Entities.player.alternative_weapon:
-							equip_weapon_command(true)
-						else:
-							if Input.is_key_pressed(KEY_ALT):
-								equip_weapon_command(true);
-							else:
-								equip_weapon_command()
-						
-						display.sfx.play_sound_by_key("weapon_equipped")
-
-					elif item is Module:
-						display.clear_cells(self);
-						
-						var unequipped_module:Module = Entities.player.equipped_module;
-						Entities.player.equip_module(item);
-						
-						item.mirror = null;
-						unequipped_module.inventory_position = inventory_position;
-						
-						load_item(unequipped_module, true);
-						## doesn't have to refit since all modules are the same size;
-						display.item_dropped.emit(self);
-						display.sfx.play_sound_by_key("module_equipped");
-						refresh()
+					elif item is Equipment:
+						equip_command()
 				elif display.context == "trade":
 					trade_command()
 					return
@@ -230,7 +212,9 @@ func empty_storage()->void:
 	highlight_stack_label()
 	display.item_dropped.emit(self)
 	display.play_deposit_sfx(moved, item.resource)
-			
+
+
+
 func pick_up()->void:
 	if not display.inventory is NpcInventory or not item in display.inventory.fixed_items:
 		z_index += 1;
@@ -301,8 +285,22 @@ func place_on_spot()->void:
 func loot_command()->void:
 	display.send_item(self);
 
-func equip_weapon_command(alt:bool=false)->void:
+func equip_command()->void:
 	display.clear_cells(self);
+	if item is Weapon:
+		if not Entities.player.alternative_weapon:
+			equip_weapon_command(true)
+		else:
+			if Input.is_key_pressed(KEY_ALT):
+				equip_weapon_command(true);
+			else:
+				equip_weapon_command()
+	elif item is Module:
+		equip_module_command()
+	elif item is Accessory:
+		equip_accessory_command();
+
+func equip_weapon_command(alt:bool=false)->void:
 	var current_weapon:Weapon;
 	if alt:
 		current_weapon = Entities.player.alternative_weapon;
@@ -315,9 +313,8 @@ func equip_weapon_command(alt:bool=false)->void:
 		item.mirror = null;
 		current_weapon.inventory_position = inventory_position;
 		load_item(current_weapon, true)
+		display.throw_mirror(self);
 		
-		if not display.check_item_fit(item, inventory_position):
-			display.throw_mirror(self);
 		if inventory_position == Vector2i(-1, -1):
 			display.sort_inventory();
 		else:
@@ -327,6 +324,48 @@ func equip_weapon_command(alt:bool=false)->void:
 		## only ever happens in player sheet so it's ok to emit drop with freed mirror?
 		display.remove_mirror(self)
 		display.item_dropped.emit(self)
+	
+
+func equip_accessory_command()->void:
+	var just_unequipped:Accessory;
+	if not Entities.player.equipped_accessory_1:
+		just_unequipped = Entities.player.equip_accessory(item, 1);
+	elif not Entities.player.equipped_accessory_2:
+		just_unequipped = Entities.player.equip_accessory(item, 2);
+	else:
+		var new_ac2:Accessory = Entities.player.equipped_accessory_1
+		if display.find_clear_cell(new_ac2, false, item) == Vector2i(-1, -1):
+			display.invalid_move.emit("NOT ENOUGH ROOM")
+			return;
+			
+		just_unequipped = Entities.player.equip_accessory(new_ac2, 2);
+		Entities.player.equip_accessory(item, 1)
+		
+	if just_unequipped:
+		load_item(just_unequipped, true);
+		item.match_mirror()
+		if not display.check_item_fit(item, inventory_position):
+			display.throw_mirror(self);
+		refresh()
+	else:
+		display.remove_mirror(self);
+	
+	display.item_dropped.emit(self);
+
+
+func equip_module_command()->void:
+	var unequipped_module:Module = Entities.player.equipped_module;
+	Entities.player.equip_module(item);
+	
+	item.mirror = null;
+	unequipped_module.inventory_position = inventory_position;
+	
+	load_item(unequipped_module, true);
+	## doesn't have to refit since all modules are the same size;
+	display.item_dropped.emit(self);
+	refresh()
+
+
 	
 
 func trade_command()->void:
@@ -513,3 +552,6 @@ func refresh()->void:
 
 func space_left()->int:
 	return item.capacity - stack_size;
+
+func update_item()->void:
+	item.inventory_position = inventory_position;

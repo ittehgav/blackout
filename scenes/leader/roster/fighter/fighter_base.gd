@@ -10,7 +10,9 @@ signal skill_finished;
 @export var hit_scan:Area2D;
 
 
+
 @export var tags:Dictionary[String,bool] = {
+	## TODO UNIFY THE TAGS TO A SINGLE SOURCE
 	"bodybuilder":false,
 	 "brawler":false,
 	 "cyborg":false,

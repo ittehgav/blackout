@@ -35,7 +35,7 @@ func refresh_data()->void:
 	var player_stats:CombatStats = Entities.player.combat_stats;
 	
 	for stat:String in Index.all_combat_stats:
-		self[stat+"_label"].text = stat.capitalize() + ": " + str(player_stats[stat]);
+		self[stat+"_label"].text = stat.capitalize() + ": " + str(int(player_stats[stat]));
 		
 	for d:String in DisciplineTree.all_disciplines:
 		self[d+"_label"].text = d.capitalize() + ": " + str(Entities.player.disciplines[d])

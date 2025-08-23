@@ -1,5 +1,4 @@
 extends Leader
-
 class_name Player;
 
 @export var disciplines:DisciplineTree;
@@ -30,10 +29,17 @@ signal level_up;
 
 
 ## ANY ITEMS THAT BELONG TO THE PLAYER WILL BE CHILDREN OF THE INVENTORY NODE
+
+## for easier iteration/checks
+var equipment:Array[Equipment]
+
 @export var equipped_weapon:Weapon;
 @export var alternative_weapon:Weapon=null;
 
 @export var equipped_module:Module;
+
+@export var equipped_accessory_1:Accessory;
+@export var equipped_accessory_2:Accessory;
 
 
 
@@ -62,24 +68,51 @@ func _on_level_up() -> void:
 
 func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
+	equipment.erase(equipped_weapon)
 	equipped_weapon = weapon;
 	weapon.inventory_position = Vector2(-1, -1);
 	
+	equipment.append(equipped_weapon)
 	equipment_changed.emit(weapon);
 
 func equip_alt_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
+	equipment.erase(alternative_weapon)
 	alternative_weapon = weapon;
 	weapon.inventory_position = Vector2(-1, -1);
 	
+	equipment.append(alternative_weapon)
 	equipment_changed.emit(weapon);
 
 func equip_module(module:Module)->void:
 	assert(module in inventory.modules);
+	equipment.erase(equipped_module)
 	equipped_module = module;
 	module.inventory_position = Vector2(-1, -1);
 	
+	equipment.append(equipped_module)
 	equipment_changed.emit(module);
+	
+func equip_accessory(accessory:Accessory, index:int)->Accessory:
+	## just changes the accessory appropriately, only gets here after it's verified that there's room
+	assert(accessory in inventory.accessories);
+	var just_unequipped:Accessory
+	accessory.inventory_position = Vector2i(-1, -1)
+	match index:
+		1:
+			just_unequipped = equipped_accessory_1;
+			equipped_accessory_1 = accessory
+		2:
+			just_unequipped = equipped_accessory_2;
+			equipped_accessory_2 = accessory
+	equipment.erase(just_unequipped);
+	equipment.append(accessory);
+	equipment_changed.emit(accessory);
+	return just_unequipped
+	
+
+	
+	
 
 
 func travel_upkeep_cost(per_hour:bool=false)->Dictionary:

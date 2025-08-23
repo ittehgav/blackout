@@ -49,6 +49,9 @@ func setup(make_connection:bool=true)->void:
 				sub_name_label.text = "Container";
 		elif target is Module:
 			sub_name_label.text = "Module";
+		elif target is Accessory:
+			sub_name_label.text = "Accessory"
+		
 
 	
 	if make_connection:
@@ -60,7 +63,11 @@ func setup(make_connection:bool=true)->void:
 		if not target.description:
 			target.set_hint_data();
 
-	name_label.text = target.name;
+	var target_name:String = target.name;
+	while target_name[-1].is_valid_int():
+		target_name = target_name.left(-1);
+	name_label.text = target_name;
+	
 	if "sub_name" in target:
 		sub_name_label.show()
 		sub_name_label.text = target.sub_name;
@@ -72,7 +79,7 @@ func setup(make_connection:bool=true)->void:
 	if "description" in target:
 		description_label.show()
 		description_label.text = target.description;
-	if "tooltip_hint" in target:
+	if "tooltip_hint" in target and not get_parent() is ItemSample:
 		hint.show();
 		hint.text = target.tooltip_hint;
 	
@@ -93,7 +100,8 @@ func disable()->void:
 	hover_timer.timeout.disconnect(_on_hover_timer_timeout)
 	
 func enable()->void:
-	hover_timer.timeout.connect(_on_hover_timer_timeout)
+	if not len(hover_timer.timeout.get_connections()):
+		hover_timer.timeout.connect(_on_hover_timer_timeout)
 
 func _on_hover_timer_timeout() -> void:
 	Tweens.ui_fade_in(self);

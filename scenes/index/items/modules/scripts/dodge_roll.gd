@@ -4,10 +4,8 @@ const rarity = 1;
 
 
 
-const sfx_key = "dash";
 
 const movement_distance = 300
-const cooldown = 5;
 const base_duration = .75
 
 const description  = "Quickly dashes in a direction, briefly becoming invulnerable and able to move through enemies.";

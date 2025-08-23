@@ -11,7 +11,7 @@
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="6_yg835"]
 [ext_resource type="InputEventAction" uid="uid://daklc08dpi106" path="res://resources/shortcuts/reset.tres" id="10_5jtfv"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5jtfv"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -22,7 +22,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjio2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t54sf"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -33,7 +33,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_an643"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxw65"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -44,7 +44,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ormkh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_skv0q"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -55,7 +55,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_15sfg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7171"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -66,7 +66,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7uvto"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8vbc"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -77,7 +77,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5yui1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7g8gg"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -88,7 +88,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w084n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4wb2"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -99,7 +99,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dvhba"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yl584"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -110,7 +110,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7vdqp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_us7s8"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -124,7 +124,7 @@ shader_parameter/neutral_value = 1.0
 [sub_resource type="Shortcut" id="Shortcut_t54sf"]
 events = [ExtResource("10_5jtfv")]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ln21g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5isi5"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -135,7 +135,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gamgw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n8y8s"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -146,7 +146,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8o88u"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ri164"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -157,7 +157,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yg835"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_115tu"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -168,7 +168,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ggy66"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pfa51"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -179,7 +179,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwk7p"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4j7dm"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -190,7 +190,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="trade_menu" type="Control" node_paths=PackedStringArray("player_inventory_display", "trader_inventory_display", "confirm_btn", "reset_btn", "player_name_label", "trader_name_label", "money_trade_label", "food_trade_label", "fuel_trade_label", "juice_trade_label", "scrap_trade_label", "chips_trade_label", "player_money_label", "player_food_label", "player_fuel_label", "player_juice_label", "player_scrap_label", "player_chips_label", "trader_money_label", "trader_food_label", "trader_fuel_label", "trader_juice_label", "trader_scrap_label", "trader_chips_label", "food_hourly_cost_label", "food_daily_cost_label", "fuel_hourly_cost_label", "fuel_daily_cost_label", "ui_sfx")]
+[node name="trade_menu" type="Control" node_paths=PackedStringArray("player_inventory_display", "trader_inventory_display", "confirm_btn", "reset_btn", "player_name_label", "trader_name_label", "money_trade_label", "food_trade_label", "fuel_trade_label", "juice_trade_label", "scrap_trade_label", "chips_trade_label", "food_hourly_cost_label", "food_daily_cost_label", "fuel_hourly_cost_label", "fuel_daily_cost_label", "ui_sfx")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -211,18 +211,6 @@ fuel_trade_label = NodePath("HBoxContainer/in_trade/VBoxContainer/fuel_trade")
 juice_trade_label = NodePath("HBoxContainer/in_trade/VBoxContainer/juice_trade")
 scrap_trade_label = NodePath("HBoxContainer/in_trade/VBoxContainer/scrap_trade")
 chips_trade_label = NodePath("HBoxContainer/in_trade/VBoxContainer/chips_trade")
-player_money_label = NodePath("HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer3/money")
-player_food_label = NodePath("HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer/food")
-player_fuel_label = NodePath("HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer2/fuel")
-player_juice_label = NodePath("HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer4/juice")
-player_scrap_label = NodePath("HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer5/scrap")
-player_chips_label = NodePath("HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer6/chips")
-trader_money_label = NodePath("HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer3/money")
-trader_food_label = NodePath("HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer/food")
-trader_fuel_label = NodePath("HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer2/fuel")
-trader_juice_label = NodePath("HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer4/juice")
-trader_scrap_label = NodePath("HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer5/scrap")
-trader_chips_label = NodePath("HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer6/chips")
 food_hourly_cost_label = NodePath("HBoxContainer/player_panel/VBoxContainer/1_h_cost/food_amt")
 food_daily_cost_label = NodePath("HBoxContainer/player_panel/VBoxContainer/24_h_cost/food_amt")
 fuel_hourly_cost_label = NodePath("HBoxContainer/player_panel/VBoxContainer/1_h_cost/fuel_amt")
@@ -285,45 +273,49 @@ grow_vertical = 1
 context = "trade"
 exchanging_display = NodePath("../../trader_panel/trader_inventory_display")
 
-[node name="VBoxContainer" parent="HBoxContainer/player_panel/player_inventory_display" index="3"]
-offset_left = 397.0
-offset_right = 508.0
+[node name="resources_dropdown" parent="HBoxContainer/player_panel/player_inventory_display" index="3" node_paths=PackedStringArray("resource_labels", "resource_hboxes", "resource_icons")]
+resource_labels = {
+"chips": NodePath("chips/chips"),
+"food": NodePath("food/food"),
+"fuel": NodePath("fuel/fuel"),
+"juice": NodePath("juice/juice"),
+"money": NodePath("money/money"),
+"scrap": NodePath("scrap/scrap")
+}
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
 
-[node name="money_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer3" index="0"]
-material = SubResource("ShaderMaterial_qglwj")
+[node name="money_icon" parent="HBoxContainer/player_panel/player_inventory_display/resources_dropdown/money" index="0"]
+material = SubResource("ShaderMaterial_5jtfv")
 
-[node name="money" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer3" index="1"]
-theme_override_constants/outline_size = 16
+[node name="food_icon" parent="HBoxContainer/player_panel/player_inventory_display/resources_dropdown/food" index="0"]
+material = SubResource("ShaderMaterial_t54sf")
 
-[node name="food_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_jjio2")
+[node name="fuel_icon" parent="HBoxContainer/player_panel/player_inventory_display/resources_dropdown/fuel" index="0"]
+material = SubResource("ShaderMaterial_vxw65")
 
-[node name="food" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer" index="1"]
-theme_override_constants/outline_size = 16
+[node name="juice_icon" parent="HBoxContainer/player_panel/player_inventory_display/resources_dropdown/juice" index="0"]
+material = SubResource("ShaderMaterial_skv0q")
 
-[node name="fuel_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer2" index="0"]
-material = SubResource("ShaderMaterial_an643")
+[node name="scrap_icon" parent="HBoxContainer/player_panel/player_inventory_display/resources_dropdown/scrap" index="0"]
+material = SubResource("ShaderMaterial_p7171")
 
-[node name="fuel" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer2" index="1"]
-theme_override_constants/outline_size = 16
-
-[node name="juice_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer4" index="0"]
-material = SubResource("ShaderMaterial_ormkh")
-
-[node name="juice" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer4" index="1"]
-theme_override_constants/outline_size = 16
-
-[node name="scrap_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer5" index="0"]
-material = SubResource("ShaderMaterial_15sfg")
-
-[node name="scrap" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer5" index="1"]
-theme_override_constants/outline_size = 16
-
-[node name="chips_icon" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer6" index="0"]
-material = SubResource("ShaderMaterial_7uvto")
-
-[node name="chips" parent="HBoxContainer/player_panel/player_inventory_display/VBoxContainer/HBoxContainer6" index="1"]
-theme_override_constants/outline_size = 16
+[node name="chips_icon" parent="HBoxContainer/player_panel/player_inventory_display/resources_dropdown/chips" index="0"]
+material = SubResource("ShaderMaterial_j8vbc")
 
 [node name="resource_picker" parent="HBoxContainer/player_panel/player_inventory_display" index="4" node_paths=PackedStringArray("trade_menu")]
 trade_menu = NodePath("../../../..")
@@ -383,7 +375,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 0
 
 [node name="resource_icon" parent="HBoxContainer/player_panel/VBoxContainer/1_h_cost" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("4_pwk7p")]
-material = SubResource("ShaderMaterial_5yui1")
+material = SubResource("ShaderMaterial_7g8gg")
 layout_mode = 2
 match_player_inventory = false
 adjacent_items = [NodePath("../food_amt")]
@@ -393,7 +385,7 @@ layout_mode = 2
 text = "22"
 
 [node name="resource_icon2" parent="HBoxContainer/player_panel/VBoxContainer/1_h_cost" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("4_pwk7p")]
-material = SubResource("ShaderMaterial_w084n")
+material = SubResource("ShaderMaterial_l4wb2")
 layout_mode = 2
 resource = "fuel"
 match_player_inventory = false
@@ -414,7 +406,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 0
 
 [node name="resource_icon" parent="HBoxContainer/player_panel/VBoxContainer/24_h_cost" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("4_pwk7p")]
-material = SubResource("ShaderMaterial_dvhba")
+material = SubResource("ShaderMaterial_yl584")
 layout_mode = 2
 match_player_inventory = false
 adjacent_items = [NodePath("../food_amt")]
@@ -424,7 +416,7 @@ layout_mode = 2
 text = "22"
 
 [node name="resource_icon2" parent="HBoxContainer/player_panel/VBoxContainer/24_h_cost" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("4_pwk7p")]
-material = SubResource("ShaderMaterial_7vdqp")
+material = SubResource("ShaderMaterial_us7s8")
 layout_mode = 2
 resource = "fuel"
 match_player_inventory = false
@@ -568,52 +560,49 @@ offset_right = 173.0
 [node name="operation" parent="HBoxContainer/trader_panel/trader_inventory_display/cargo/send_rect" index="0"]
 text = "SELL"
 
-[node name="VBoxContainer" parent="HBoxContainer/trader_panel/trader_inventory_display" index="3"]
-offset_left = -266.0
-offset_right = -155.0
-offset_bottom = 456.0
+[node name="resources_dropdown" parent="HBoxContainer/trader_panel/trader_inventory_display" index="3" node_paths=PackedStringArray("resource_labels", "resource_hboxes", "resource_icons")]
+resource_labels = {
+"chips": NodePath("chips/chips"),
+"food": NodePath("food/food"),
+"fuel": NodePath("fuel/fuel"),
+"juice": NodePath("juice/juice"),
+"money": NodePath("money/money"),
+"scrap": NodePath("scrap/scrap")
+}
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
 
-[node name="money_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer3" index="0"]
-material = SubResource("ShaderMaterial_ln21g")
+[node name="money_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/resources_dropdown/money" index="0"]
+material = SubResource("ShaderMaterial_5isi5")
 
-[node name="money" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer3" index="1"]
-theme_override_constants/outline_size = 16
+[node name="food_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/resources_dropdown/food" index="0"]
+material = SubResource("ShaderMaterial_n8y8s")
 
-[node name="food_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_gamgw")
-match_player_inventory = false
+[node name="fuel_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/resources_dropdown/fuel" index="0"]
+material = SubResource("ShaderMaterial_ri164")
 
-[node name="food" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer" index="1"]
-theme_override_constants/outline_size = 16
-text = "we"
+[node name="juice_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/resources_dropdown/juice" index="0"]
+material = SubResource("ShaderMaterial_115tu")
 
-[node name="fuel_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer2" index="0"]
-material = SubResource("ShaderMaterial_8o88u")
-match_player_inventory = false
+[node name="scrap_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/resources_dropdown/scrap" index="0"]
+material = SubResource("ShaderMaterial_pfa51")
 
-[node name="fuel" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer2" index="1"]
-theme_override_constants/outline_size = 16
-
-[node name="juice_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer4" index="0"]
-material = SubResource("ShaderMaterial_yg835")
-match_player_inventory = false
-
-[node name="juice" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer4" index="1"]
-theme_override_constants/outline_size = 16
-
-[node name="scrap_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer5" index="0"]
-material = SubResource("ShaderMaterial_ggy66")
-match_player_inventory = false
-
-[node name="scrap" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer5" index="1"]
-theme_override_constants/outline_size = 16
-
-[node name="chips_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer6" index="0"]
-material = SubResource("ShaderMaterial_pwk7p")
-match_player_inventory = false
-
-[node name="chips" parent="HBoxContainer/trader_panel/trader_inventory_display/VBoxContainer/HBoxContainer6" index="1"]
-theme_override_constants/outline_size = 16
+[node name="chips_icon" parent="HBoxContainer/trader_panel/trader_inventory_display/resources_dropdown/chips" index="0"]
+material = SubResource("ShaderMaterial_4j7dm")
 
 [node name="resource_picker" parent="HBoxContainer/trader_panel/trader_inventory_display" index="4" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 1
@@ -657,4 +646,6 @@ offset_right = 252.0
 [connection signal="item_received" from="HBoxContainer/trader_panel/trader_inventory_display" to="." method="_on_trader_inventory_display_item_received"]
 
 [editable path="HBoxContainer/player_panel/player_inventory_display"]
+[editable path="HBoxContainer/player_panel/player_inventory_display/resources_dropdown"]
 [editable path="HBoxContainer/trader_panel/trader_inventory_display"]
+[editable path="HBoxContainer/trader_panel/trader_inventory_display/resources_dropdown"]

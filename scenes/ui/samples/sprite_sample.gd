@@ -13,24 +13,16 @@ class_name SpriteSample;
 @export var add_tooltip:bool = true;
 @export var enable_hover_panel:bool = true;
 
-@export var autostart:bool;
 
-
-
-func _ready()->void:
-	if autostart:
-		$bob_timer.start()
-
-	
 
 func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_scheme_index, extra_offset:Vector2 = Vector2(30, -15))->void:
 	if target_base:
 		target_base.free();
 	
-	if not autostart and target:
-		## idk but it works
-		target_base = target.duplicate();
-		add_child(target_base)
+		
+	## idk but it works
+	target_base = target.duplicate();
+	add_child(target_base)
 		
 	if target_base is FighterBase:
 		target_base.offset = target_base.sample_offset + extra_offset;

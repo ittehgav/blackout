@@ -24,7 +24,7 @@ script = ExtResource("5_pghvl")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("2_vl27p")
-scale = Vector2(3, 3)
+scale = Vector2(4, 4)
 texture = ExtResource("2_c5ra0")
 
 [node name="hover_box" type="TextureButton" parent="."]

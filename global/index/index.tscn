@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=66 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index/index.gd" id="1_oyx4q"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/armguy.tscn" id="2_whykp"]
@@ -11,8 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/index/fighters/gravityguy.tscn" id="8_28bxi"]
 [ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/index/fighters/mecharmguy.tscn" id="9_jil7q"]
 [ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/index/fighters/tailpipeguy.tscn" id="10_sgray"]
-[ext_resource type="PackedScene" uid="uid://3phgdfixhg5t" path="res://scenes/index/fighters/taserguy.tscn" id="11_3kqhx"]
-[ext_resource type="PackedScene" uid="uid://43ll080ti47n" path="res://scenes/index/fighters/tetherguy.tscn" id="12_ym5qr"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/index/fighters/wheelguy.tscn" id="13_kdm76"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="14_38kar"]
 [ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/index/vehicles/doblo.tscn" id="18_2wv2w"]
@@ -46,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="66_vgk1i"]
 [ext_resource type="PackedScene" uid="uid://jm3tgh8nartr" path="res://scenes/index/fighters/botanist.tscn" id="66_yssh0"]
 [ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="67_n3xga"]
+[ext_resource type="PackedScene" uid="uid://qw0yrcwsqosf" path="res://scenes/index/fighters/keeper.tscn" id="67_qig7t"]
 [ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="68_e7p5s"]
 [ext_resource type="Texture2D" uid="uid://fvqn3burk27x" path="res://assets/visual/particles/circles/circle_64x64.png" id="69_q6wh7"]
 [ext_resource type="Texture2D" uid="uid://dwpa1mr4yds7c" path="res://assets/visual/icons/stats/floating/max_hp.png" id="70_jhd7g"]
@@ -77,8 +76,8 @@ cell_to_km = 2.0
 color_schemes = Array[Array]([[Color(0.541176, 0.607843, 0.407843, 1), Color(0, 0.3, 0, 1)], [Color(0.5418, 0.600137, 0.86, 1), Color(0, 0.256, 0.64, 1)], [Color(0.66, 0.5478, 0.5478, 1), Color(0.61, 0.244, 0, 1)], [Color(0.831373, 0.65098, 0.701961, 1), Color(0.75, 0.1725, 0.374625, 1)], [Color(0.69, 0.6739, 0.4485, 1), Color(0.35, 0.2744, 0.0665, 1)], [Color(0.703523, 0.4851, 0.77, 1), Color(0.33572, 0.0588, 0.42, 1)]])
 resource_colors = Dictionary[String, Color]({
 "chips": Color(0, 0.8, 0.8, 1),
-"food": Color(0.8, 0.8, 0, 1),
-"fuel": Color(0.8, 0.213333, 0, 1),
+"food": Color(1, 1, 0, 1),
+"fuel": Color(1, 0.266667, 0, 1),
 "juice": Color(0.533334, 0, 0.8, 1),
 "money": Color(0, 0.8, 0, 1),
 "scrap": Color(0.43, 0.43, 0.43, 1)
@@ -149,4 +148,4 @@ salesman_icon_texture = ExtResource("78_5qkj4")
 [node name="fighters" type="Node2D" parent="."]
 visible = false
 script = ExtResource("57_jh7c7")
-all_fighter_base_scenes = Array[PackedScene]([ExtResource("2_whykp"), ExtResource("3_f4g0r"), ExtResource("4_iis6y"), ExtResource("5_id88d"), ExtResource("6_5o8xu"), ExtResource("7_osx6l"), ExtResource("8_28bxi"), ExtResource("9_jil7q"), ExtResource("10_sgray"), ExtResource("11_3kqhx"), ExtResource("12_ym5qr"), ExtResource("13_kdm76"), ExtResource("66_yssh0")])
+all_fighter_base_scenes = Array[PackedScene]([ExtResource("2_whykp"), ExtResource("3_f4g0r"), ExtResource("4_iis6y"), ExtResource("5_id88d"), ExtResource("6_5o8xu"), ExtResource("7_osx6l"), ExtResource("8_28bxi"), ExtResource("9_jil7q"), ExtResource("10_sgray"), ExtResource("13_kdm76"), ExtResource("66_yssh0"), ExtResource("67_qig7t")])

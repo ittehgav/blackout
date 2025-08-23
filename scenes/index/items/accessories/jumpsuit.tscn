@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgkevwom7geat"]
+
+[ext_resource type="Texture2D" uid="uid://rm02ifitug35" path="res://assets/visual/items/accessories/jumpsuit.png" id="1_uv1h5"]
+[ext_resource type="Script" uid="uid://ykyajdeiqxeh" path="res://scenes/index/items/accessories/scripts/jumpsuit.gd" id="1_w0ntk"]
+
+[node name="Jumpsuit" type="Sprite2D"]
+texture = ExtResource("1_uv1h5")
+script = ExtResource("1_w0ntk")
+equippable = Dictionary[String, bool]({
+"player": true,
+"unit": true
+})
+exclusive_tag = "mechanic"
+metadata/_custom_type_script = "uid://22bfdxr3ppr7"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c55pra6yiugp3"]
+[gd_scene load_steps=18 format=3 uid="uid://c55pra6yiugp3"]
 
 [ext_resource type="Texture2D" uid="uid://cwd7ms5in0o41" path="res://assets/visual/sprites/fighters/gravity_guy/gravityguy.png" id="1_if48y"]
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_iqc8b"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="6_coe83"]
 [ext_resource type="Shader" uid="uid://di5m3lq2rlr0d" path="res://resources/shaders/warp.gdshader" id="7_3wi6l"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="8_coe83"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="10_mcttm"]
 
 [sub_resource type="Animation" id="Animation_m3d34"]
 length = 0.001
@@ -80,6 +81,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_0nc60"]
 resource_name = "skill"
+length = 1.5
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -191,6 +193,16 @@ tracks/8/keys = {
 "update": 0,
 "values": [Vector2(39.604, 10), Vector2(39.604, 10), Vector2(39.604, 12)]
 }
+tracks/9/type = "animation"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("dust/dust_animation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"clips": PackedStringArray("dust"),
+"times": PackedFloat32Array(0.5)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m3d34"]
 _data = {
@@ -204,13 +216,16 @@ shader_parameter/strength = 0.5
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3wi6l"]
 size = Vector2(400, 100)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mcttm"]
+radius = 19.0
+height = 55.0
+
 [node name="Gravity Guy" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan")]
 material = ExtResource("1_iqc8b")
 scale = Vector2(2, 2)
 texture = ExtResource("1_if48y")
 hframes = 3
 vframes = 3
-frame = 4
 script = ExtResource("2_oja1q")
 animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("hit_scan")
@@ -239,7 +254,7 @@ autoplay = "fighter_base/idle"
 
 [node name="hit_scan" type="Area2D" parent="."]
 top_level = true
-position = Vector2(-73, 26)
+position = Vector2(221, 26)
 
 [node name="projection" type="Sprite2D" parent="hit_scan"]
 modulate = Color(1, 1, 1, 0)
@@ -288,3 +303,12 @@ modulate = Color(1, 1, 1, 0)
 texture = ExtResource("6_0nc60")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="dust" parent="." instance=ExtResource("10_mcttm")]
+position = Vector2(-16, 26)
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(5, 13)
+shape = SubResource("CapsuleShape2D_mcttm")
+
+[editable path="dust"]

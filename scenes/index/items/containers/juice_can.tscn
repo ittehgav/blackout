@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://5un73br0b5l0"]
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_lr23s"]
-[ext_resource type="Texture2D" uid="uid://dsultvkvwmrk5" path="res://assets/visual/icons/items/containers/juice_can.png" id="2_gket2"]
+[ext_resource type="Texture2D" uid="uid://dsultvkvwmrk5" path="res://assets/visual/items/containers/juice_can.png" id="2_gket2"]
 [ext_resource type="Script" uid="uid://5c065l7nnoih" path="res://scenes/index/items/containers/scripts/juice_can.gd" id="3_xey65"]
 
 [node name="Juice Can" type="Sprite2D"]

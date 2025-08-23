@@ -3,8 +3,6 @@ extends SfxPlayer;
 @export var drop:AudioStream;
 @export var pick_up:AudioStream;
 
-@export var weapon_equipped:AudioStream;
-@export var module_equipped:AudioStream;
 
 @export var trade:AudioStream;
 @export var invalid:AudioStream;

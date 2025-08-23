@@ -8,7 +8,6 @@ const size_y = 2;
 const angle_adjust = 0;
 const type = "ranged";
 
-const cooldown:float = 2;
 const base_damage = 10;
 
 

@@ -11,7 +11,6 @@ const type = "support";
 
 
 const damage = 0;
-const cooldown = 1;
 
 const aoe_radius = 200;
 const hit_scan_offset = "follow_cursor";

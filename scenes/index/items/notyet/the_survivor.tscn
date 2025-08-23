@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://xuwm2vkuvrkh"]
 
-[ext_resource type="Texture2D" uid="uid://b2vy0uwik0qsn" path="res://assets/visual/icons/items/modules/survivor.png" id="1_f468f"]
+[ext_resource type="Texture2D" uid="uid://b2vy0uwik0qsn" path="res://assets/visual/items/modules/survivor.png" id="1_f468f"]
 [ext_resource type="Script" uid="uid://cwlrre28vqcf0" path="res://scenes/index/items/notyet/the_survivor.gd" id="2_h6bis"]
 
 [node name="The Survivor" type="Sprite2D"]

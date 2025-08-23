@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpu4aip3dy4kq"]
 
 [ext_resource type="Script" uid="uid://dm5uha7g5jd0t" path="res://scenes/index/items/weapons/scripts/tailpipe.gd" id="1_1n7ey"]
-[ext_resource type="Texture2D" uid="uid://b1ii7gb6p2fb7" path="res://assets/visual/icons/items/modules/pipe.png" id="1_4334k"]
+[ext_resource type="Texture2D" uid="uid://vvpqjj3pxtbs" path="res://assets/visual/items/weapons/pipe.png" id="1_4334k"]
 [ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/tailpipe_projection.png" id="3_eoeo2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_053ln"]

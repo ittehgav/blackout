@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ceakvif5i36fl"]
 
 [ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_s4k5r"]
-[ext_resource type="Texture2D" uid="uid://cw7stinkiaqp1" path="res://assets/visual/icons/items/containers/scrap_compactor.png" id="2_odl6j"]
+[ext_resource type="Texture2D" uid="uid://cw7stinkiaqp1" path="res://assets/visual/items/containers/scrap_compactor.png" id="2_odl6j"]
 [ext_resource type="Script" uid="uid://c88w1qpt771su" path="res://scenes/index/items/containers/scripts/scrap_compactor.gd" id="3_h8sj0"]
 
 [node name="Scrap Compactor" type="Sprite2D"]

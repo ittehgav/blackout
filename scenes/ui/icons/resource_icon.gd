@@ -3,7 +3,7 @@ extends Icon
 class_name ResourceIcon
 @export_enum("food", "fuel", "money", "juice", "scrap", "chips") var resource:String="food";
 
-@export var panel:Panel;
+@export var bg:ColorRect
 var tooltip_name_color:Color;
 var description:String;
 @export var show_tooltip:bool;
@@ -19,7 +19,10 @@ func _ready()->void:
 
 func setup()->void:
 	texture = Index.textures.icons[resource];
-	material.set_shader_parameter("base_color", Index.resource_colors[resource])
+	modulate = Index.get_color(resource)
+	
+	if resource == "money":
+		bg.hide()
 	
 	if show_tooltip:
 		name = resource.capitalize();

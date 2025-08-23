@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://jm3tgh8nartr"]
+[gd_scene load_steps=19 format=3 uid="uid://jm3tgh8nartr"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_7bqo8"]
 [ext_resource type="Texture2D" uid="uid://chidsdlxnkojw" path="res://assets/visual/sprites/fighters/botanist/botanist.png" id="2_rpeqt"]
@@ -210,6 +210,10 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_uouwv"]
 radius = 30.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o3m2u"]
+radius = 19.0
+height = 74.0
+
 [node name="Botanist" type="Sprite2D" node_paths=PackedStringArray("sprout_node", "animation_player")]
 material = ExtResource("1_7bqo8")
 scale = Vector2(2, 2)
@@ -292,3 +296,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("11_o3m2u")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -2.5)
+shape = SubResource("CapsuleShape2D_o3m2u")

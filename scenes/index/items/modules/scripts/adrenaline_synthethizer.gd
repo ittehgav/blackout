@@ -2,7 +2,6 @@ extends Module
 
 const rarity = 2;
 
-const cooldown = 5;
 
 
 

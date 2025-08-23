@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://omexx2cfjuxi"]
+[gd_scene load_steps=14 format=3 uid="uid://omexx2cfjuxi"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_3cgx7"]
 [ext_resource type="Texture2D" uid="uid://xdjhil3q72jh" path="res://assets/visual/sprites/fighters/crowbar_guy/crowbarguy.png" id="1_vdb17"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="4_k3tga"]
 [ext_resource type="Texture2D" uid="uid://0ii8emhgmjsi" path="res://assets/visual/sprites/fighters/crowbar_guy/blur.png" id="5_n7kd5"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="6_suh7w"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="8_cbr06"]
 
 [sub_resource type="Animation" id="Animation_n7kd5"]
 length = 0.001
@@ -66,6 +67,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_a3fs2"]
 resource_name = "skill"
+length = 1.4575
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -86,7 +88,7 @@ tracks/1/path = NodePath(".:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.7),
+"times": PackedFloat32Array(0, 0.45, 0.75),
 "transitions": PackedFloat32Array(1e+06, 1.02837, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(50, 0), Vector2(0, 0)]
@@ -125,7 +127,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.45),
-"transitions": PackedFloat32Array(500001, 1),
+"transitions": PackedFloat32Array(1e+06, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(25, 0)]
 }
@@ -165,11 +167,25 @@ tracks/7/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/8/type = "animation"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("dust/dust_animation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"clips": PackedStringArray("dust"),
+"times": PackedFloat32Array(0.45)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n7kd5"]
 _data = {
 &"skill": SubResource("Animation_a3fs2")
 }
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cbr06"]
+radius = 14.5
+height = 50.0
 
 [node name="Crowbar Guy" type="Sprite2D" node_paths=PackedStringArray("animation_player")]
 material = ExtResource("1_3cgx7")
@@ -177,7 +193,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_vdb17")
 hframes = 3
 vframes = 3
-frame = 4
 script = ExtResource("2_nr745")
 animation_player = NodePath("AnimationPlayer")
 tags = Dictionary[String, bool]({
@@ -215,3 +230,12 @@ z_index = -1
 position = Vector2(0, 33)
 scale = Vector2(3, 1)
 texture = ExtResource("6_suh7w")
+
+[node name="dust" parent="." instance=ExtResource("8_cbr06")]
+position = Vector2(-8.5, 20)
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 14)
+shape = SubResource("CapsuleShape2D_cbr06")
+
+[editable path="dust"]

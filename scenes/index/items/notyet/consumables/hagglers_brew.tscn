@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2r0xgt02ax4m"]
-
-[ext_resource type="Texture2D" uid="uid://b8hxrvbev462v" path="res://assets/visual/icons/items/consumables/hagglers_brew.png" id="1_o8hsv"]
-[ext_resource type="Script" uid="uid://bwsq3j470q566" path="res://scenes/index/items/notyet/consumables/hagglers_brew.gd" id="2_gjj6n"]
-
-[node name="Haggler\'s Brew" type="Sprite2D"]
-texture = ExtResource("1_o8hsv")
-script = ExtResource("2_gjj6n")

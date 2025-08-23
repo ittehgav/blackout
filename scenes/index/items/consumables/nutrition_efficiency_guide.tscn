@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b30o8q3dpe8q8"]
+
+[ext_resource type="Script" uid="uid://dgb3c401ilom7" path="res://scenes/index/items/consumables/scripts/nutrition_efficiency_guide.gd" id="1_cuvfw"]
+
+[node name="Nutrition Efficiency Guide" type="Sprite2D"]
+script = ExtResource("1_cuvfw")
+metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

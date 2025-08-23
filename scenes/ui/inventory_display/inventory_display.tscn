@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=32 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -15,22 +15,20 @@
 [ext_resource type="AudioStream" uid="uid://b6fwkkoof86w3" path="res://assets/sound/sfx/ui/inventory/resources/deposit_scrap_big.wav" id="13_ormkh"]
 [ext_resource type="AudioStream" uid="uid://cg6ya8ntw4pr4" path="res://assets/sound/sfx/ui/inventory/resources/deposit_chips.wav" id="14_15sfg"]
 [ext_resource type="AudioStream" uid="uid://cmthuuhpkrahu" path="res://assets/sound/sfx/ui/inventory/loot.wav" id="15_n8bvc"]
-[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="16_an643"]
-[ext_resource type="AudioStream" uid="uid://cnomp6rm87ghx" path="res://assets/sound/sfx/ui/inventory/weapon_equipped.mp3" id="16_jjio2"]
-[ext_resource type="AudioStream" uid="uid://byq71hx2dnw65" path="res://assets/sound/sfx/ui/inventory/module_equipped.wav" id="17_ed75d"]
 [ext_resource type="AudioStream" uid="uid://ch3t7uy42ms3k" path="res://assets/sound/sfx/ui/inventory/trade/trade.wav" id="17_ormkh"]
-[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="17_qglwj"]
 [ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="18_7uvto"]
 [ext_resource type="AudioStream" uid="uid://b7cm8ur52tcnd" path="res://assets/sound/sfx/ui/inventory/trade/reset.wav" id="19_h4har"]
 [ext_resource type="AudioStream" uid="uid://887fjhopo7n2" path="res://assets/sound/sfx/ui/inventory/trade/coin.wav" id="20_fnwsv"]
 [ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_display/resource_picker.gd" id="21_15sfg"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="21_yjuqr"]
+[ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/resources/resources_dropdown.tscn" id="22_up2tu"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
 [ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_display/warnings.gd" id="26_8mqj8"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="27_c5he3"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_up2tu"]
 resource_local_to_scene = true
-shader = ExtResource("17_qglwj")
+shader = ExtResource("21_yjuqr")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -39,9 +37,9 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjio2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtqjk"]
 resource_local_to_scene = true
-shader = ExtResource("17_qglwj")
+shader = ExtResource("21_yjuqr")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -50,9 +48,9 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_an643"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ygr4"]
 resource_local_to_scene = true
-shader = ExtResource("17_qglwj")
+shader = ExtResource("21_yjuqr")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -61,9 +59,9 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ormkh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qxt2g"]
 resource_local_to_scene = true
-shader = ExtResource("17_qglwj")
+shader = ExtResource("21_yjuqr")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -72,9 +70,9 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_15sfg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xdq4l"]
 resource_local_to_scene = true
-shader = ExtResource("17_qglwj")
+shader = ExtResource("21_yjuqr")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -83,9 +81,9 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7uvto"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c2vy3"]
 resource_local_to_scene = true
-shader = ExtResource("17_qglwj")
+shader = ExtResource("21_yjuqr")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
 shader_parameter/shadow_color = Color(0, 0, 1, 1)
 shader_parameter/mid_color = Color(1, 0, 0, 1)
@@ -94,11 +92,13 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "item_mirrors_node", "cargo", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_vbox", "money_icon", "money_hbox", "money_label", "food_icon", "food_hbox", "food_label", "fuel_icon", "fuel_hbox", "fuel_label", "juice_icon", "juice_hbox", "juice_label", "scrap_icon", "scrap_hbox", "scrap_label", "chips_icon", "chips_hbox", "chips_label")]
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "item_mirrors_node", "cargo", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -780.0
+offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bv60r")
@@ -116,25 +116,7 @@ trade_excess = NodePath("trade_excess")
 trade_excess_container = NodePath("trade_excess/trade_excess_container")
 trade_excess_label_panel = NodePath("trade_excess_label_panel")
 trade_excess_label = NodePath("trade_excess_label_panel/trade_excess_label")
-resources_vbox = NodePath("VBoxContainer")
-money_icon = NodePath("VBoxContainer/HBoxContainer3/money_icon")
-money_hbox = NodePath("VBoxContainer/HBoxContainer3")
-money_label = NodePath("VBoxContainer/HBoxContainer3/money")
-food_icon = NodePath("VBoxContainer/HBoxContainer/food_icon")
-food_hbox = NodePath("VBoxContainer/HBoxContainer")
-food_label = NodePath("VBoxContainer/HBoxContainer/food")
-fuel_icon = NodePath("VBoxContainer/HBoxContainer2/fuel_icon")
-fuel_hbox = NodePath("VBoxContainer/HBoxContainer2")
-fuel_label = NodePath("VBoxContainer/HBoxContainer2/fuel")
-juice_icon = NodePath("VBoxContainer/HBoxContainer4/juice_icon")
-juice_hbox = NodePath("VBoxContainer/HBoxContainer4")
-juice_label = NodePath("VBoxContainer/HBoxContainer4/juice")
-scrap_icon = NodePath("VBoxContainer/HBoxContainer5/scrap_icon")
-scrap_hbox = NodePath("VBoxContainer/HBoxContainer5")
-scrap_label = NodePath("VBoxContainer/HBoxContainer5/scrap")
-chips_icon = NodePath("VBoxContainer/HBoxContainer6/chips_icon")
-chips_hbox = NodePath("VBoxContainer/HBoxContainer6")
-chips_label = NodePath("VBoxContainer/HBoxContainer6/chips")
+resources_dropdown = NodePath("resources_dropdown")
 metadata/_tab_index = 0
 
 [node name="hover_sfx" type="AudioStreamPlayer" parent="."]
@@ -149,8 +131,6 @@ bus = &"sfx"
 script = ExtResource("3_ke6sf")
 drop = ExtResource("6_k4cp6")
 pick_up = ExtResource("7_7cfyp")
-weapon_equipped = ExtResource("16_jjio2")
-module_equipped = ExtResource("17_ed75d")
 trade = ExtResource("17_ormkh")
 invalid = ExtResource("18_7uvto")
 reset = ExtResource("19_h4har")
@@ -197,116 +177,58 @@ offset_bottom = 304.0
 theme_override_font_sizes/font_size = 128
 text = "BUY"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 404.0
-offset_top = 10.0
-offset_right = 496.0
-offset_bottom = 366.0
-grow_horizontal = 2
-mouse_filter = 2
+[node name="resources_dropdown" parent="." node_paths=PackedStringArray("resource_labels", "resource_hboxes", "resource_icons") instance=ExtResource("22_up2tu")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 396.0
+offset_top = 15.0
+offset_right = 500.0
+offset_bottom = 371.0
+grow_horizontal = 1
+resource_labels = {
+"chips": NodePath("chips/chips"),
+"food": NodePath("food/food"),
+"fuel": NodePath("fuel/fuel"),
+"juice": NodePath("juice/juice"),
+"money": NodePath("money/money"),
+"scrap": NodePath("scrap/scrap")
+}
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
+[node name="money_icon" parent="resources_dropdown/money" index="0"]
+material = SubResource("ShaderMaterial_up2tu")
 
-[node name="money_icon" parent="VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
-material = SubResource("ShaderMaterial_qglwj")
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-resource = "money"
-show_tooltip = true
-adjacent_items = [NodePath("../money")]
+[node name="food_icon" parent="resources_dropdown/food" index="0"]
+material = SubResource("ShaderMaterial_jtqjk")
 
-[node name="money" type="Label" parent="VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "11"
+[node name="fuel_icon" parent="resources_dropdown/fuel" index="0"]
+material = SubResource("ShaderMaterial_1ygr4")
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
+[node name="juice_icon" parent="resources_dropdown/juice" index="0"]
+material = SubResource("ShaderMaterial_qxt2g")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
+[node name="scrap_icon" parent="resources_dropdown/scrap" index="0"]
+material = SubResource("ShaderMaterial_xdq4l")
 
-[node name="food_icon" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
-material = SubResource("ShaderMaterial_jjio2")
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-show_tooltip = true
-adjacent_items = [NodePath("../food")]
-
-[node name="food" type="Label" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "11"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="fuel_icon" parent="VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
-material = SubResource("ShaderMaterial_an643")
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-resource = "fuel"
-show_tooltip = true
-adjacent_items = [NodePath("../fuel")]
-
-[node name="fuel" type="Label" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "11"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="juice_icon" parent="VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
-material = SubResource("ShaderMaterial_ormkh")
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-resource = "juice"
-show_tooltip = true
-adjacent_items = [NodePath("../juice")]
-
-[node name="juice" type="Label" parent="VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "11"
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="scrap_icon" parent="VBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
-material = SubResource("ShaderMaterial_15sfg")
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-resource = "scrap"
-show_tooltip = true
-adjacent_items = [NodePath("../scrap")]
-
-[node name="scrap" type="Label" parent="VBoxContainer/HBoxContainer5"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "11"
-
-[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="chips_icon" parent="VBoxContainer/HBoxContainer6" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("16_an643")]
-material = SubResource("ShaderMaterial_7uvto")
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-resource = "chips"
-show_tooltip = true
-adjacent_items = [NodePath("../chips")]
-
-[node name="chips" type="Label" parent="VBoxContainer/HBoxContainer6"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "11"
+[node name="chips_icon" parent="resources_dropdown/chips" index="0"]
+material = SubResource("ShaderMaterial_c2vy3")
 
 [node name="resource_picker" type="Control" parent="." node_paths=PackedStringArray("display", "panel", "slider", "add_1_btn", "add_5_btn", "add_max_btn", "add_custom")]
 visible = false
@@ -511,6 +433,16 @@ text = "Return"
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
+[connection signal="mouse_entered" from="resources_dropdown/food/food_icon" to="." method="highlight_resource_containers" binds= ["food"]]
+[connection signal="mouse_exited" from="resources_dropdown/food/food_icon" to="." method="clear_resource_container_highlights" binds= ["food"]]
+[connection signal="mouse_entered" from="resources_dropdown/fuel/fuel_icon" to="." method="highlight_resource_containers" binds= ["fuel"]]
+[connection signal="mouse_exited" from="resources_dropdown/fuel/fuel_icon" to="." method="clear_resource_container_highlights" binds= ["fuel"]]
+[connection signal="mouse_entered" from="resources_dropdown/juice/juice_icon" to="." method="highlight_resource_containers" binds= ["juice"]]
+[connection signal="mouse_exited" from="resources_dropdown/juice/juice_icon" to="." method="clear_resource_container_highlights" binds= ["juice"]]
+[connection signal="mouse_entered" from="resources_dropdown/scrap/scrap_icon" to="." method="highlight_resource_containers" binds= ["scrap"]]
+[connection signal="mouse_exited" from="resources_dropdown/scrap/scrap_icon" to="." method="clear_resource_container_highlights" binds= ["scrap"]]
+[connection signal="mouse_entered" from="resources_dropdown/chips/chips_icon" to="." method="highlight_resource_containers" binds= ["chips"]]
+[connection signal="mouse_exited" from="resources_dropdown/chips/chips_icon" to="." method="clear_resource_container_highlights" binds= ["chips"]]
 [connection signal="mouse_entered" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_entered"]
 [connection signal="mouse_exited" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_exited"]
 [connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_1" to="resource_picker" method="_on_pick_1_pressed"]
@@ -524,3 +456,5 @@ text = "Return"
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/accept" to="warnings" method="_on_accept_pressed"]
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/auto_sort" to="warnings" method="_on_auto_sort_pressed"]
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/return" to="warnings" method="_on_return_pressed"]
+
+[editable path="resources_dropdown"]

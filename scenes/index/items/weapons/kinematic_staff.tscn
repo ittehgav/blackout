@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dbetfnnc4fgpt"]
 
 [ext_resource type="Script" uid="uid://qs032dngx00m" path="res://scenes/index/items/weapons/scripts/kinematic_staff.gd" id="1_3t42n"]
-[ext_resource type="Texture2D" uid="uid://dobgwmsoypoak" path="res://assets/visual/sprites/weapons/kinematic_staff.png" id="1_uwo7j"]
+[ext_resource type="Texture2D" uid="uid://dobgwmsoypoak" path="res://assets/visual/items/weapons/kinematic_staff.png" id="1_uwo7j"]
 [ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="3_uwo7j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ny1qo"]

@@ -1,15 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=7 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.gd" id="1_a7x5t"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="20_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="24_nct2u"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g13ct"]
-resource_local_to_scene = true
-radius = 50.0
-height = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mp8l8"]
 resource_local_to_scene = true
@@ -41,10 +36,6 @@ one_shot = true
 
 [node name="skill_retry" type="Timer" parent="timers/skill_cooldown"]
 wait_time = 0.1
-
-[node name="hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(5, 0)
-shape = SubResource("CapsuleShape2D_g13ct")
 
 [node name="skill_range" type="Area2D" parent="."]
 collision_layer = 0

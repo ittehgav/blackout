@@ -4,7 +4,6 @@ const rarity = 3;
 
 
 
-const cooldown = 5;
 const chips_cost = 5;
 
 const sfx_key = "overload"

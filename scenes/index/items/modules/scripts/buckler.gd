@@ -5,8 +5,6 @@ extends Module;
 const rarity = 1;
 
 
-const cooldown = 5;
-const sfx_key = "buckler";
 
 const continuous = true;
 

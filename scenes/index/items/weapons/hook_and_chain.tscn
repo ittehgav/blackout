@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bayelevdaciej"]
+
+[ext_resource type="Texture2D" uid="uid://cro6ww4iucpvs" path="res://assets/visual/items/weapons/hook_and_chain.png" id="1_6so6l"]
+[ext_resource type="Script" uid="uid://2tjwgjkda2uc" path="res://scenes/index/items/weapons/scripts/hook_and_chain.gd" id="2_47eol"]
+
+[node name="Hook and Chain" type="Sprite2D"]
+texture = ExtResource("1_6so6l")
+script = ExtResource("2_47eol")
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
