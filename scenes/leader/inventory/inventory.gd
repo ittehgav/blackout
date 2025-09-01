@@ -35,7 +35,7 @@ func _ready()->void:
 	await get_parent().ready
 	refresh_resource_counts();
 
-func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:bool=true)->void:
+func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:bool=false)->void:
 	var previous_amounts: = {}
 	for r:String in Index.all_resources:
 		previous_amounts[r] = self[r];

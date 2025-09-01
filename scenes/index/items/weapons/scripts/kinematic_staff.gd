@@ -2,6 +2,9 @@ extends Weapon
 
 const rarity = 3
 
+func get_description()->String:
+	return "Charges up a powerful AOE attack. Charge speeds up when units inside the area use their skill."
+
 const size_x = 2;
 const size_y = 4;
 
@@ -18,8 +21,6 @@ const base_damage = 100;
 const charge_time = 7.5;
 
 const projection = "none";
-
-const description = "Charges up a powerful AOE attack. Charge speeds up when units inside the area use their skill."
 
 
 const use_vfx = ["grow"]

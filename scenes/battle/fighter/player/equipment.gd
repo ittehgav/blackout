@@ -84,14 +84,14 @@ func equip_module()->void:
 	add_child(module)
 	module_cd.wait_time = module.cooldown;
 	
-	if module.custom_projection_texture:
+	if "custom_projection_texture" in module:
 		module_aoe_vfx.texture = module.custom_projection_texture
 		module_aoe_vfx.size = Vector2(2, 2) * module.projection_range;
 		module_aoe_vfx.modulate = module.projection_color
 		module_aoe_vfx.position = Vector2(module.projection_range, module.projection_range) * -1;
 
 	
-	if module.projection_range:
+	if "projection_range" in module:
 		module_projection.show();
 		module_projection.modulate = module.projection_color;
 		module_projection.texture = Index.textures.hollow_circles[module.projection_texture_index];

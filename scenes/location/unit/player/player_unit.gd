@@ -19,3 +19,7 @@ func _physics_process(delta: float) -> void:
 		stopped_moving.emit();
 		moving = false;
 	move_and_slide();
+	
+func _input(e:InputEvent)->void:
+	if e.is_action_pressed("show_player_sheet") and not Entities.player_sheet.open:
+		Entities.player_sheet.show_player_sheet()

@@ -5,18 +5,18 @@ extends TextureRect
 @export var high_morale_icon:Texture;
 @export var very_high_morale_icon:Texture;
 
-## adjacent items need to be white/white adjacent to get the color properly
-@export var adjacent_items:Array[CanvasItem];
+
+@export var bar:TextureProgressBar;
 
 func _ready()->void:
-	if Entities.player:
-		Entities.player.morale_changed.connect(update)
-		update();
+	Entities.player.morale_changed.connect(update)
+	update();
 
 func update()->void:
 	var previous_texture:Texture = texture;
 	var morale:float = Entities.player.morale;
 	var target_color:Color
+	
 	if morale < 2:
 		texture = low_morale_icon;
 		if morale < 1:
@@ -34,13 +34,9 @@ func update()->void:
 		target_color = Color.GREEN;
 	if texture != previous_texture:
 		icon_change_animation()
-	material.set_shader_parameter("base_color", target_color);
-	
-	for item in adjacent_items:
-		if item is Label:
-			item.add_theme_color_override("font_color", target_color);
-		if item.name == "morale_value":
-			item.text = str(snapped(Entities.player.morale, .01));
+	modulate = target_color;
+	if bar:
+		bar.value = morale;
 
 func icon_change_animation()->void:
 	custom_minimum_size = custom_minimum_size * 1.5;

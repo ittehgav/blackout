@@ -8,10 +8,15 @@ var building_offset:int = 0;
 
 @export var exit_prompt:Control;
 
+@export var ui_canvas:CanvasLayer
+var world_map_ui:CanvasLayer
 @export var ui:Control;
 
 @export var buildings_node:Node2D;
-@export var reloationship_data:Node;
+@export var foreground:Node2D;
+
+
+
 
 func _ready()->void:
 	## because this enters the tree from the world map when the player is 
@@ -24,6 +29,8 @@ func load_settlement(settlement:Settlement)->void:
 	for building:Building in settlement.buildings:
 		## buildings are loaded in order
 		load_building(building);
+		if building.size == 3:
+			foreground.free();
 
 
 
@@ -48,8 +55,11 @@ func load_building(building:Building)->void:
 func return_to_world_map()->void:
 	var parent:Node = get_parent();
 	parent.add_child(Entities.world_map)
+	world_map_ui.reparent(Entities.world_map);
+	
 	var tween :Tween= Tweens.ui_fade_out(self);
 	tween.finished.connect(queue_free)
+	
 
 func _on_exit_body_entered(body: Node2D) -> void:
 	if body == Entities.player_unit:

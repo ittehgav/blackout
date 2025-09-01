@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c2atxui6lbsr0"]
 
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_6uhic"]
-[ext_resource type="Script" uid="uid://dpxa7a0vvejmm" path="res://scenes/ui/player_sheet/equipment_sample.gd" id="2_81f3s"]
+[ext_resource type="Script" uid="uid://dpxa7a0vvejmm" path="res://scenes/ui/player_sheet/item_sample.gd" id="2_81f3s"]
 [ext_resource type="Texture2D" uid="uid://c70v3si5swr41" path="res://assets/visual/ui/items/blank_item.png" id="3_81f3s"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="3_qv57f"]
 

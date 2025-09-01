@@ -1,0 +1,238 @@
+[gd_scene load_steps=15 format=3 uid="uid://bg88lrrn2382h"]
+
+[ext_resource type="Texture2D" uid="uid://c37turx65px0" path="res://assets/visual/sprites/fighters/dryad/dryad.png" id="1_58577"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_ydt18"]
+[ext_resource type="Script" uid="uid://ddauu117ibyx3" path="res://scenes/index/fighters/scripts/dryad.gd" id="2_0fmiu"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="3_ai824"]
+[ext_resource type="Texture2D" uid="uid://bw6sussjqt23a" path="res://assets/visual/sprites/fighters/dryad/blur.png" id="4_pk8b5"]
+[ext_resource type="Texture2D" uid="uid://bpll75sqdsn3x" path="res://assets/visual/sprites/fighters/dryad/thorns.png" id="5_0fmiu"]
+[ext_resource type="Script" uid="uid://kahswhw0ptne" path="res://scenes/index/fighters/scripts/thorns_area.gd" id="5_vtj87"]
+[ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="7_pfl07"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="9_411op"]
+
+[sub_resource type="Animation" id="Animation_0fmiu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blur:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blur:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("blur:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-7, -12)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vtj87"]
+_data = {
+&"RESET": SubResource("Animation_0fmiu")
+}
+
+[sub_resource type="Animation" id="Animation_vtj87"]
+resource_name = "skill"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.6),
+"transitions": PackedFloat32Array(1e+06, 1.02837, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(50, 0), Vector2(0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.45),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"skill_impact"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sfx:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("blur:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("blur:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("blur:offset")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-7, -12)]
+}
+tracks/7/type = "animation"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("dust/dust_animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": PackedStringArray("dust"),
+"times": PackedFloat32Array(0.45)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pk8b5"]
+_data = {
+&"skill": SubResource("Animation_vtj87")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pfl07"]
+radius = 29.0
+height = 83.0
+
+[node name="Dryad" type="Sprite2D" node_paths=PackedStringArray("thorns", "animation_player", "hit_scan")]
+material = ExtResource("1_ydt18")
+scale = Vector2(2, 2)
+texture = ExtResource("1_58577")
+hframes = 3
+vframes = 3
+frame = 1
+script = ExtResource("2_0fmiu")
+thorns = NodePath("thorns_area")
+animation_player = NodePath("AnimationPlayer")
+hit_scan = NodePath("hit_scan")
+tags = Array[String](["scientist", "juggernaut", "disruptor"])
+global_hit_scan = true
+metadata/_custom_type_script = "uid://c6up3yjjuvie"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_vtj87"),
+&"dryad": SubResource("AnimationLibrary_pk8b5"),
+&"fighter_base": ExtResource("3_ai824")
+}
+autoplay = "fighter_base/idle"
+
+[node name="blur" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(7, 12)
+texture = ExtResource("4_pk8b5")
+offset = Vector2(-7, -12)
+
+[node name="thorns_area" type="ColorRect" parent="." node_paths=PackedStringArray("thorns_sprite", "light", "hit_scan_area", "thorns_container")]
+visible = false
+top_level = true
+clip_children = 1
+custom_minimum_size = Vector2(50, 50)
+offset_right = 50.0
+offset_bottom = 50.0
+script = ExtResource("5_vtj87")
+thorns_sprite = NodePath("thorns_sprite")
+light = NodePath("PointLight2D")
+hit_scan_area = NodePath("../hit_scan")
+thorns_container = NodePath("thorns_container")
+
+[node name="thorns_container" type="Node2D" parent="thorns_area"]
+
+[node name="thorns_sprite" type="Sprite2D" parent="thorns_area"]
+visible = false
+light_mask = 2
+scale = Vector2(2, 2)
+texture = ExtResource("5_0fmiu")
+centered = false
+
+[node name="PointLight2D" type="PointLight2D" parent="thorns_area"]
+scale = Vector2(5, 5)
+energy = 0.0
+range_item_cull_mask = 2
+texture = ExtResource("7_pfl07")
+offset = Vector2(5, 5)
+
+[node name="hit_scan" type="Area2D" parent="."]
+top_level = true
+z_index = 5
+monitorable = false
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 9.5)
+shape = SubResource("CapsuleShape2D_pfl07")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="dust" parent="." instance=ExtResource("9_411op")]
+position = Vector2(-32, 23)
+
+[editable path="dust"]

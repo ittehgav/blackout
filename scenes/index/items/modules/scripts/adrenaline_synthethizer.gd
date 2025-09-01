@@ -2,6 +2,10 @@ extends Module
 
 const rarity = 2;
 
+func get_description()->String:
+	return "Cosumes " + str(juice_cost)+" " + Index.resource_colored_name("juice") +\
+	" and increases your "+Index.stat_colored_name("agility")+" for the rest of the battle.";
+
 
 
 
@@ -13,9 +17,6 @@ const base_agility_frac = .5
 ## juice consumption scales with level?
 var description:String;
 
-func set_hint_data()->void:
-	description = "Cosumes " + str(juice_cost)+" " + Index.resource_colored_name("juice") +\
-	" and increases your "+Index.stat_colored_name("agility")+" for the rest of the battle.";
 
 func check_available()->bool:
 	return Entities.player.inventory.juice >= juice_cost; 

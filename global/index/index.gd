@@ -46,6 +46,7 @@ func _ready()->void:
 	"technique": Color.DEEP_PINK
 }
 
+@export var primary_tag_colors:Dictionary[String, Color];
 
 const all_resources = [
 	"money",
@@ -70,14 +71,27 @@ func tagged_settlement_name(settlement:Settlement)->String:
 	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 
+const all_disciplines = [
+	"charisma",
+	"navigation",
+	"tactics",
+	"leadership",
+	"scavenging"
+]
 
-const discipline_colors = {
-	"charisma":Color.ORANGE,
-	"navigation":Color.ORANGE,
-	"tactics":Color.ORANGE,
-	"team_management":Color.ORANGE,
-	"scavenging":Color.ORANGE,
+const discipline_descriptions = {
+	"charisma":
+		"Charisma improves your trading skills, the rate at which your relations improve and your ability to [u]convince[/u] people.",
+	"navigation":
+		"Navigation improves [u]movement[/u] and [u]vision[/u] in the [u]world map[/u].",
+	"tactics":
+		"Tactics unlocks [u]tactical abilities[/u] in battle and allows you to control the [u]Tide of Battle[/u].",
+	"leadership":
+		"Leadership improves the [u]units in your party[/u], making them [u]level up faster[/u] and imrpoving their resource efficiency.",
+	"scavenging":
+		"Scavenging improves the efficiency of [u]resources[/u] and the rate at which you find [/u]resources[/u]."
 }
+
 
 const flavor_colors = {
 	"blackout":Color.MEDIUM_ORCHID
@@ -114,8 +128,7 @@ func get_color(key:String)->Color:
 		color = misc_colors[key]
 	elif key in combat_effect_colors:
 		color = combat_effect_colors[key]
-	elif key in discipline_colors:
-		color = discipline_colors[key];
+
 	assert(color != Color(0.0, 0.0, 0.0, 1.0))
 	return color;
 
@@ -179,7 +192,9 @@ func get_unit_damage_string(unit:FighterUnit, trailing_text:String=" damage")->S
 	var string:String = get_color_tag("damage") + str(int(damage)) + trailing_text + "[/color]"
 	return string
 	
-func get_technique_scaled_string(unit:FighterUnit, mechanic:String, value_key:String="", hard_value:float = 0.0)->String:
+func get_technique_scaled_string(unit:FighterUnit, mechanic:String, value_key:String="", hard_value:float = 0.0, trailing_text:String = "")->String:
+	## TECHNIQUE IS ALWAYS AT LEAST 1 (unless you get debuffed in which case its ok?)
+	## technique stat debuffs always fractal?
 	var string:String = Index.get_color_tag("technique");
 	if hard_value:
 		## WILL COME FROM EITHER A HARD-SET VALUE OR A KEY FROM THE SOURCE'S BASE
@@ -189,5 +204,5 @@ func get_technique_scaled_string(unit:FighterUnit, mechanic:String, value_key:St
 		var final_value:float = snapped(Scaling.technique_scaled_value(unit.base[value_key], unit.stats.technique, mechanic), .01)
 		string += str(final_value)
 		
-	return string + "[/color]";
+	return string + trailing_text + "[/color]";
 	

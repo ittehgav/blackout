@@ -6,6 +6,10 @@ const rarity = 1;
 const size_x = 2;
 const size_y = 4;
 
+func get_description()->String:
+	return "Short range, hits enemies in front of you.";
+
+
 const angle_adjust = 30;
 
 
@@ -18,7 +22,6 @@ const hit_scan_offset = Vector2(60, 0)
 
 const projection = "none"
 
-const description:String = "Short range, reliable weapon.";
 
 const use_vfx = ["swing", "arc", "camera_lunge"];
 const hit_vfx = ["freeze_camera"];

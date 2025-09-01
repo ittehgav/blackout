@@ -2,6 +2,6 @@ import "res://resources/dialogues/map_common.dialogue" as common
 
 ~ start
 Receptionist: Hello, looking for some muscle for your party? Or for yourself?
-- Let me see what you have for sale. #start_trade => common/start_trade
-- Let me see who's for hire. #recruit_bodybuilder => common/recruit_units
+- #trade_menu
+- #recruitment_menu
 - I'll pass. [leave] => common/finish_dialogue

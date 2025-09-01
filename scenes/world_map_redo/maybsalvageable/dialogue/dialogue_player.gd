@@ -87,11 +87,14 @@ func show_responses()->void:
 		if button_text:
 			var button:DialogueChoice = dialogue_choice_scene.instantiate();
 			
-			button.build(button_text);
-			button.pressed.connect(response_chosen.bind(response))
+			button.build(response);
+			if button.callback:
+				button.pressed.connect(button.callback);
+			else:
+				button.pressed.connect(response_chosen.bind(response))
 			
 			choices_container.add_child(button);
-
+	recursive_connect_ui_feedback(choices_container);
 	choices_box.show()
 
 
@@ -145,58 +148,32 @@ func get_next_line()->void:
 
 func response_chosen(response:DialogueResponse)->void:
 	choices_box.hide();
-	if "#roll" in response.text:
-		var key:String;
-		if "#roll_intimidate" in response.text:
-			Entities.current_speaking_party.intimidate_attempted = true;
-			if Entities.player_map_party.roll_intimidate(Entities.current_speaking_party):
-				key = "intimidate_success";
-			else:
-				key = "intimidate_fail"
-		elif "#roll_convince" in response.text:
-			Entities.current_speaking_party.persuade_attempted = true;
-			if Entities.player_map_party.roll_convince(Entities.current_speaking_party):
-				key = "convince_success";
-			else:
-				key = "convince_fail"
-		current_line = await manager.get_next_dialogue_line(current_dialogue, key)
-		if current_line and  current_line.text:
-			display_line();
-	else:
-		var key:String = response.next_id;
-		current_line = await manager.get_next_dialogue_line(current_dialogue, key);
-		if current_line and  current_line.text:
-			display_line();
+
+	var key:String = response.next_id;
+	current_line = await manager.get_next_dialogue_line(current_dialogue, key);
+	if current_line and current_line.text:
+		display_line();
 		
 	
 func parse_dialogue_text(text:String)->String:
 	var final_text:String = text;
-	if "#start_battle" in final_text:
-		final_text = final_text.replace("#start_battle", "[color=red]Engage in Battle[/color]")
-	if "#roll_intimidate" in final_text:
-		if Entities.current_speaking_party.intimidate_attempted:
-			return "";
-		final_text = final_text.replace("#roll_intimidate", roll_intimidate_odds())
-	if "#roll_convince" in final_text:
-		if Entities.current_speaking_party.persuade_attempted:
-			return "";
-		final_text = final_text.replace("#roll_convince", roll_convince_odds())
-	if "#start_trade" in final_text:
-		final_text = final_text.replace("#start_trade", Index.get_color_tag("money") + "Start Trade")
+
 	
 	if "#yield" in final_text:
 		final_text = final_text.replace("#yield", "[color=dark_red]Lose half of your food, fuel and money.");
+	
 	if "#angry" in final_text:
 		final_text = final_text.replace("#angry", "");
 		final_text = wrap_in_bbcode_tag(final_text, "shake rate=50.0 level=20.0")
 		play_effect("angry");
+	
 	if "#scared " in final_text:
 		final_text = final_text.replace("#scared", "");
 		final_text = wrap_in_bbcode_tag(final_text, "shake rate=10.0 level=10.0")
 		play_effect("scared");
+
 	if "#persuaded" in final_text:
 		final_text =  final_text.replace("#persuaded", "")
-		
 		play_effect("persuaded");
 	
 	return final_text

@@ -2,7 +2,6 @@ extends FighterBase;
 
 const sample_offsec = Vector2(11, -26);
 
-const target_type = "nearest_enemy";
 
 const skill_sname = "Swarm";
 const description = "Flings a clould of insects that flies chaotically and attachest itself to the first enemy it hits, dealing damage and dereasing their agility.";
@@ -18,7 +17,8 @@ func damage_modifier(damage:float, unit:FighterUnit = null)->float:
 
 
 func full_skill_description(unit:FighterUnit)->String:
-	var base_damage_str:String = Index.get_color_tag("attack") +  str(damage_modifier(unit.stats.attack)) + "[/color]";
+	var base_damage_str:String = Index.get_color_tag("damage") + str(unit.stats.attack/5) + "[/color]";
+
 
 	var final_damage_color_hex:String = Index.stat_colors.attack.blend(Index.stat_colors.technique).to_html();
 	var final_damage_str:String = Index.get_unit_damage_string(unit);
@@ -26,14 +26,10 @@ func full_skill_description(unit:FighterUnit)->String:
 	final_damage_str = "[color=" + final_damage_color_hex + "]" + final_damage_str + "[/color]"
 	
 	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique * Scaling.technique_mechanic_multipliers["damage"], .01)) + "[/color]"
-	var final_string:String = "Flings a swarm that deals " + final_damage_str + "(" + base_damage_str + "*" + technique_str + ") damage per second over 5 seconds and reduces the target's agility by 15%.\n
-	The effect can stack.";
+	var final_string:String = "Flings a swarm that deals " + final_damage_str + " ("+base_damage_str+" + " + base_damage_str + " * " + technique_str + ") damage per second over 5 seconds and reduces the target's agility by 15%.\n
+The effect can stack.";
 	return final_string;
-	
 
-const hitbox_radius = 25;
-const hitbox_height = 60;
-const hitbox_offest = Vector2(0, 5);
 
 const skill_cooldown = 3;
 const skill_range = 400

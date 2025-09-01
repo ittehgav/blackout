@@ -32,6 +32,8 @@ func start_trade()->void:
 	match Entities.main.state:
 		"location":
 			Entities.current_location.ui.add_child(trade_menu)
+			Tweens.ui_fade_in(trade_menu)
+			trade_menu.trade_finished.connect(func()->void:get_tree().paused = false)
 
 func trade_finished()->void:
 	current_player.show();

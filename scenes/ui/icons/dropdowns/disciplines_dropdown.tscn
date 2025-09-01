@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://chh07cq5d6iqk"]
+
+[ext_resource type="Script" uid="uid://dxq3lkkyfwiaj" path="res://scenes/ui/player_sheet/disciplines_dropdown.gd" id="1_ddnic"]
+[ext_resource type="PackedScene" uid="uid://cknkn00l4yg0g" path="res://scenes/ui/icons/discipline_icon.tscn" id="2_y3b3k"]
+
+[node name="DisciplinesDropdown" type="VBoxContainer" node_paths=PackedStringArray("charisma_icon", "navigation_icon", "tactics_icon", "leadership_icon", "scavenging_icon")]
+size_flags_horizontal = 4
+script = ExtResource("1_ddnic")
+charisma_icon = NodePath("charisma/charisma_icon")
+navigation_icon = NodePath("navigation/navigation_icon")
+tactics_icon = NodePath("tactics/tactics_icon")
+leadership_icon = NodePath("leadership/leadership_icon")
+scavenging_icon = NodePath("scavenging/scavenging_icon")
+
+[node name="disciplines" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "Disciplines:"
+
+[node name="charisma" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="charisma_icon" parent="charisma" node_paths=PackedStringArray("label") instance=ExtResource("2_y3b3k")]
+layout_mode = 2
+discipline = "charisma"
+label = NodePath("../charisma")
+
+[node name="charisma" type="Label" parent="charisma"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="navigation" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="navigation_icon" parent="navigation" node_paths=PackedStringArray("label") instance=ExtResource("2_y3b3k")]
+layout_mode = 2
+discipline = "navigation"
+label = NodePath("../navigation")
+
+[node name="navigation" type="Label" parent="navigation"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="tactics" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="tactics_icon" parent="tactics" node_paths=PackedStringArray("label") instance=ExtResource("2_y3b3k")]
+layout_mode = 2
+discipline = "tactics"
+label = NodePath("../tactics")
+
+[node name="tactics" type="Label" parent="tactics"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="leadership" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="leadership_icon" parent="leadership" node_paths=PackedStringArray("label") instance=ExtResource("2_y3b3k")]
+layout_mode = 2
+discipline = "leadership"
+label = NodePath("../leadership")
+
+[node name="leadership" type="Label" parent="leadership"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="scavenging" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="scavenging_icon" parent="scavenging" node_paths=PackedStringArray("label") instance=ExtResource("2_y3b3k")]
+layout_mode = 2
+discipline = "scavenging"
+label = NodePath("../scavenging")
+
+[node name="scavenging" type="Label" parent="scavenging"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48

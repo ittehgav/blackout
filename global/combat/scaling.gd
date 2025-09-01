@@ -249,16 +249,11 @@ const technique_mechanic_multipliers = {
 	"stat_buff":.2,
 	"stat_debuff":.2,
 	"heal":.25,
-	"damage":.25
+	"damage":.5
 }
 
-func technique_scaled_value(value:float,source_technique:float, mechanic:String)->float:
-	match mechanic:
-		## some mechanics are directly multiplied by the value and some are added to themselves times the multiplier
-		"stun", "stat_buff", "stat_debuff":
-			return value + value * source_technique * technique_mechanic_multipliers[mechanic]
-		_:
-			if technique_mechanic_multipliers[mechanic] * source_technique < 1:
-				return value;
-			return value * source_technique * technique_mechanic_multipliers[mechanic]
-			
+func technique_scaled_value(value:float, source_technique:float, mechanic:String, custom_multiplier:float = 1.0)->float:
+	if mechanic in technique_mechanic_multipliers:
+		return value + value * source_technique * technique_mechanic_multipliers[mechanic];
+	else:
+		return value + value * source_technique * custom_multiplier;

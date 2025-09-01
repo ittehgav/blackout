@@ -2,8 +2,7 @@ extends PanelContainer
 
 class_name Tooltip;
 
-@export var target:Node;
-## where the tooltip will get the data from
+var target:Node;
 
 @export var name_label:Label;
 @export var sub_name_label:Label;
@@ -20,69 +19,14 @@ class_name Tooltip;
 @export var hardcoded_description:String;
 
 func _ready() -> void:
-	var parent:Control = get_parent()
-	assert (parent is Control and not parent is Container);
-	if not parent.is_node_ready():
-		await parent.ready
-		setup()
-	else:
-		setup();
-	## lots of places where the sample target is defined on load
-
-func setup(make_connection:bool=true)->void:
-	var connections:Array = get_parent().mouse_entered.get_connections();
-	if make_connection:
-		for c:Dictionary in connections:
-			if c.callable == hover_timer.start:
-				make_connection = false;
-	
-	if not target:
-		return
-	if target is Item:
-		sub_name_label.show()
-		if target is Weapon:
-			sub_name_label.text = "Weapon";
-		elif target is ResourceContainer:
-			if target.raw_stack:
-				sub_name_label.text = "Resource";
-			else:
-				sub_name_label.text = "Container";
-		elif target is Module:
-			sub_name_label.text = "Module";
-		elif target is Accessory:
-			sub_name_label.text = "Accessory"
+	var parent:Node = get_parent();
+	assert(parent is Control)
+	parent.mouse_entered.connect(hover_timer.start);
+	parent.mouse_exited.connect(stop_hover_timer);
+	enable();
+	if parent is Icon:
+		load_target(parent)
 		
-
-	
-	if make_connection:
-		var parent:Node = get_parent();
-		parent.mouse_entered.connect(hover_timer.start);
-		parent.mouse_exited.connect(stop_hover_timer);
-
-	if target is Item:
-		if not target.description:
-			target.set_hint_data();
-
-	var target_name:String = target.name;
-	while target_name[-1].is_valid_int():
-		target_name = target_name.left(-1);
-	name_label.text = target_name;
-	
-	if "sub_name" in target:
-		sub_name_label.show()
-		sub_name_label.text = target.sub_name;
-	if "tooltip_name_color" in target:
-		name_label.add_theme_color_override("font_color", target.tooltip_name_color);
-	if "icon_texture" in target:
-		icon.show()
-		icon.texture = target.icon_texture;
-	if "description" in target:
-		description_label.show()
-		description_label.text = target.description;
-	if "tooltip_hint" in target and not get_parent() is ItemSample:
-		hint.show();
-		hint.text = target.tooltip_hint;
-	
 	if hardcoded_name:
 		name_label.text = hardcoded_name;
 	if hardcoded_sub_name:
@@ -95,6 +39,103 @@ func setup(make_connection:bool=true)->void:
 
 
 
+func load_target(new_target:Node)->void:
+	target = new_target;
+
+	if target is ItemMirror:
+		## item mirrors and displays will call the item_setup on their own
+		item_mirror_setup(target);
+	elif target is ItemSample:
+		item_sample_setup(target)
+
+	elif target is ResourceIcon:
+		if target.show_tooltip:
+			name_label.text = target.resource.capitalize();
+			name_label.add_theme_color_override("font_color", Index.resource_colors[target.resource]);
+			description_label.text = Index.resource_descriptions[target.resource];
+	
+	elif target is StatIcon:
+		var stat_name:String = target.stat.capitalize();
+		if stat_name == "Max Hp":
+			stat_name = "Max HP"
+		name_label.text = stat_name;
+		
+		name_label.add_theme_color_override("font_color", Index.stat_colors[target.stat]);
+		description_label.text = Index.stat_descriptions[target.stat];
+	elif target is DisciplineIcon:
+		var discipline:String = target.discipline;
+		name_label.text = discipline.capitalize();
+		description_label.text = Index.discipline_descriptions[discipline]
+
+
+		
+
+func item_sample_setup(sample:ItemSample)->void:
+	var item:Item = sample.item;
+	item_setup(item);
+	match item:
+		## tooltip just hides if the sample is blank
+		Entities.player.equipped_weapon:
+			hint.show()
+			hint.text = "[right-click] to unequip";
+		Entities.player.alternative_weapon:
+			hint.show()
+			hint.text = "[right-click] to unequip";
+		Entities.player.equipped_accessory_1, Entities.player.equipped_accessory_2:
+			hint.show()
+			hint.text = "[right-click] to unequip";
+
+
+
+func item_mirror_setup(mirror:ItemMirror)->void:
+	var item:Item = mirror.item;
+	item_setup(item);
+	hint.show()
+	match mirror.display.context:
+		"player_sheet":
+			if item is ResourceContainer:
+				if not item.raw_stack:
+					hint.text = "[right-click] to empty";
+				else:
+					hint.text = "[right-click] to store";
+			if item is Weapon or item is Module or item is Accessory:
+				hint.text = "[right-click] to equip";
+		"trade":
+			if mirror.being_traded:
+				hint.text = "[right-click] to return"
+			elif mirror.display.inventory.holder == Entities.player:
+				hint.text = "[right-click] to sell";
+			else:
+				hint.text = "[right-click] to buy";
+		"loot":
+			if mirror.display.inventory.holder == Entities.player:
+				hint.text = "[right-click] to deposit";
+			else:
+				hint.text = "[right-click] to loot";
+	
+
+
+func item_setup(item:Item)->void:
+	var target_name:String = item.name;
+	while target_name[-1].is_valid_int():
+		target_name = target_name.left(-1);
+	name_label.text = target_name;
+	
+	if item is Weapon:
+		sub_name_label.text = "Weapon";
+	elif item is ResourceContainer:
+		if item.raw_stack:
+			sub_name_label.text = "Resource";
+		else:
+			sub_name_label.text = "Container";
+	elif item is Module:
+		sub_name_label.text = "Module";
+	elif item is Accessory:
+		sub_name_label.text = "Accessory";
+	sub_name_label.show()
+	## do the just method for everything that gets colors from index?
+	## some other way that's gonna make me feel stupid once i find out about how do modularize this stuff?
+	description_label.text = item.get_description()
 
 func disable()->void:
 	hover_timer.timeout.disconnect(_on_hover_timer_timeout)

@@ -1,18 +1,17 @@
 [gd_scene load_steps=6 format=3 uid="uid://csmjpaj3gbwco"]
 
 [ext_resource type="Script" uid="uid://dbtkk5slc2333" path="res://scenes/location/speaker.gd" id="1_vvp1l"]
-[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="2_hnnq3"]
+[ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="2_8u6pk"]
 [ext_resource type="Texture2D" uid="uid://br4sa081ylalm" path="res://assets/visual/icons/resources/money.png" id="3_6gxum"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vatkg"]
-shader = ExtResource("2_hnnq3")
-shader_parameter/base_color = Color(0.313726, 1, 0.301961, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 1.0
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u22i6"]
+shader = ExtResource("2_8u6pk")
+shader_parameter/color = Color(0.24, 0.24, 0.24, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hnnq3"]
 resource_local_to_scene = true
@@ -23,7 +22,8 @@ script = ExtResource("1_vvp1l")
 prompt = NodePath("Label")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_vatkg")
+modulate = Color(0.2294, 0.74, 0.27195, 1)
+material = SubResource("ShaderMaterial_u22i6")
 position = Vector2(0, -89)
 scale = Vector2(3, 3)
 texture = ExtResource("3_6gxum")

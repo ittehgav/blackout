@@ -157,7 +157,6 @@ func refresh_origin_data()->void:
 		var tooltip:Tooltip = Index.scenes.ui.tooltip.instantiate();
 		tooltip.target = unit.base;
 		rect.add_child(tooltip)
-		tooltip.setup();
 
 	for c:Node in items_container.get_children():
 		if c.visible:
@@ -169,7 +168,7 @@ func refresh_origin_data()->void:
 		if item != origin.equipped_module and\
 		item != origin.equipped_weapon:
 			var mirror:ItemMirror = Index.scenes.ui.item_mirror.instantiate();
-			mirror.load_item(item, false, true);
+			mirror.load_item(item, false);
 			if item is ResourceContainer:
 				mirror.stack_size_label.show();
 				mirror.stack_size_label.text = str(item.stack_size)+"/"+str(item.capacity);
@@ -188,7 +187,6 @@ func refresh_origin_data()->void:
 		self[stat+"_label"].text = str(origin.combat_stats[stat])
 	
 	var weapon:Weapon = origin.equipped_weapon;
-	weapon_sample.texture = weapon.texture;
 	
 	var sample_size: = Vector2(weapon.size_x * 32, weapon.size_y * 32)
 	weapon_sample.custom_minimum_size = sample_size
@@ -200,8 +198,7 @@ func refresh_origin_data()->void:
 	
 	var weapon_tooltip:Tooltip = weapon_sample.get_node("Tooltip");
 	weapon_tooltip.target = weapon;
-	weapon_tooltip.setup();
-	weapon_tooltip.hint.hide()
+
 	
 	module_sample.texture = origin.equipped_module.texture;
 	module_sample.material.set_shader_parameter("base_color", off_color)
@@ -209,10 +206,7 @@ func refresh_origin_data()->void:
 	module_sample_bg.color = base_color.lightened(.3)
 	module_sample_bg.get_node("rect").border_color = base_color.darkened(.5)
 
-	var module_tooltip:Tooltip = module_sample.get_node("Tooltip");
-	module_tooltip.target = origin.equipped_module;
-	module_tooltip.setup();
-	module_tooltip.hint.hide()
+
 
 
 func _on_previous_scheme_pressed() -> void:

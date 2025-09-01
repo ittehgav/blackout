@@ -4,51 +4,37 @@ class_name ResourceIcon
 @export_enum("food", "fuel", "money", "juice", "scrap", "chips") var resource:String="food";
 
 @export var bg:ColorRect
-var tooltip_name_color:Color;
-var description:String;
-@export var show_tooltip:bool;
+@export var show_tooltip:bool=true;
 
 @export var match_player_inventory:bool=true;
-@export var adjacent_items:Array[CanvasItem];
 
 var source:Inventory;
 
 func _ready()->void:
-	setup();
+	if match_player_inventory:
+		source = Entities.player.inventory;
 	
-
-func setup()->void:
 	texture = Index.textures.icons[resource];
-	modulate = Index.get_color(resource)
+	
+	default_color = Index.get_color(resource)
+	highlight_color = default_color;
+	highlight_color.a += .3
+	
+	modulate = default_color
+	label.add_theme_color_override("font_color", default_color);
+	
 	
 	if resource == "money":
 		bg.hide()
-	
-	if show_tooltip:
-		name = resource.capitalize();
-		tooltip_name_color = Index.resource_colors[resource];
-		description = Index.resource_descriptions[resource];
-	
-	elif get_node_or_null("Tooltip"):
+
+	if not show_tooltip and get_node_or_null("Tooltip"):
 		$Tooltip.free();
 	
-	if not source:
-		setup_adjacent_items();
+	if source:
+		update();
 
-func setup_adjacent_items()->void:
-	for item:Node in adjacent_items:
 
-		if item is Label:
-			item.add_theme_color_override("font_color", Index.resource_colors[resource]);
-			if match_player_inventory:
+func update()->void:
+	label.text = str(source[resource]);
 
-				Entities.player.resource_changed.connect(set_count_label.bind(item))
-				set_count_label(resource, 0, item);
 	
-
-func set_count_label(r:String, _change:float, target:Label)->void:
-	if r == resource:
-		var value:int
-		if match_player_inventory:
-			value = Entities.player.inventory[r];
-		target.text = str(value);

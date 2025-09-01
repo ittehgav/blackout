@@ -15,6 +15,8 @@ signal settlement_mouse_exited;
 
 @export var settlements:Node2D;
 
+@export var ui_canvas:CanvasLayer;
+
 ## y3k?
 @export var current_year:int = 3000;
 @export_range(1, 12) var current_month:int
@@ -80,4 +82,7 @@ func enter_settlement(target:Settlement = Entities.player_party.current_settleme
 	var parent:Node = get_parent();
 	get_parent().remove_child(self);
 	parent.add_child(location)
+	
+	ui_canvas.reparent(location.ui_canvas)
+	location.world_map_ui = ui_canvas
 	

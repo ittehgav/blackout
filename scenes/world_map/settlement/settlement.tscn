@@ -29,10 +29,11 @@ texture = ExtResource("2_c5ra0")
 
 [node name="hover_box" type="TextureButton" parent="."]
 visible = false
-offset_left = -44.0
-offset_top = -49.0
-offset_right = 46.0
-offset_bottom = 40.0
+visibility_layer = 2
+offset_left = -65.0
+offset_top = -59.0
+offset_right = 64.0
+offset_bottom = 48.0
 
 [node name="hint" type="Label" parent="."]
 visible = false

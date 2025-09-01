@@ -61,7 +61,8 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	add_child(base)
 	base.get_node("hurtbox").reparent(self)
 
-
+	if base.global_hit_scan:
+		base.hit_scan.global_position = Vector2.ZERO;
 	
 	$skill_range/shape.shape.radius = base.skill_range;
 	

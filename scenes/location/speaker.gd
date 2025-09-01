@@ -27,7 +27,7 @@ func show_prompt()->void:
 	## will include some sort of highlight eventually so already leaving it in 
 	## separate method
 	if clerk_sprite:
-		clerk_sprite.material.set_shader_parameter("width", 1);
+		clerk_sprite.material.set_shader_parameter("width", 3);
 	contact = true
 	prompt.show()
 	

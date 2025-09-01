@@ -2,16 +2,11 @@ extends FighterBase
 
 
 const sample_offset = Vector2(1, -26)
-const target_type = "nearest_enemy"
 
 const skill_name = "Shockwave"
 const description = "Knocks back and stuns enemies."
 const flavor = "He's not entierly sure how it works either."
 
-
-const hitbox_radius = 25;
-const hitbox_height = 60;
-const hitbox_offset = Vector2(0, 5)
 
 const skill_range = 300;
 const skill_cooldown = 6;

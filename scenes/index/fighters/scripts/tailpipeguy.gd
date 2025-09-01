@@ -3,8 +3,6 @@ extends FighterBase
 
 const sample_offset = Vector2(10, -16)
 
-const target_type = "nearest_enemy"
-
 const skill_name = "Rusty Pipe"
 const description = "Moderate resistance and damage, attacks reduce enemies' damage."
 const flavor = "Would be a lot less effective if he had better personal hygiene."
@@ -12,9 +10,6 @@ const flavor = "Would be a lot less effective if he had better personal hygiene.
 
 const attack_reduction = 10;
 
-const hitbox_radius = 40;
-const hitbox_height = 100;
-const hitbox_offset = Vector2(0, -5)
 
 const skill_range = MELEE_RANGE;
 const skill_cooldown = 4;

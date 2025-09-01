@@ -88,7 +88,7 @@ var held_item_mirror:ItemMirror;
 
 var grid_set:bool=false;
 
-
+@export var food_icon:ResourceIcon
 func _ready()->void:
 	if context == "player_sheet":
 		set_grid();
@@ -139,11 +139,13 @@ func set_grid()->void:
 
 func load_inventory(target_inventory:Inventory)->void:
 	inventory = target_inventory
+	
 	resources_dropdown.target_inventory = inventory
+	resources_dropdown.setup()
 	
 	var unplaced:Array[Item];
 	for item:Item in inventory.items:
-		if item not in Entities.player.equipment:
+		if not (item is Equipment) or item not in Entities.player.equipment:
 			if item.inventory_position == Vector2(-1, -1):
 				unplaced.append(item);
 			else:
@@ -174,6 +176,9 @@ func add_mirror(mirror:ItemMirror)->void:
 	all_mirrors.append(mirror);
 
 func remove_mirror(mirror:ItemMirror)->void:
+	assert(mirror.item in inventory.items)
+	inventory.remove_item(mirror.item);
+	
 	if mirror.item and mirror.item is ResourceContainer:
 		self[mirror.item.resource +"_containers"].erase(mirror)
 	
@@ -181,8 +186,11 @@ func remove_mirror(mirror:ItemMirror)->void:
 	mirror.queue_free();
 
 func refresh_data()->void:
+	var concurring_inventory:Array[Inventory];
+	if exchanging_display and exchanging_display.inventory:
+		concurring_inventory.append(exchanging_display.inventory)
 	resource_picker.hide();
-	resources_dropdown.refresh();
+	resources_dropdown.update(concurring_inventory);
 
 
 	for col:Array in grid_cols:
@@ -196,13 +204,6 @@ func refresh_data()->void:
 		## one display uses  the other one's trade rect 
 		exchanging_display.send_rect.hide()
 	
-		for r:String in Index.all_resources:
-			if r != "money":
-				var hbox:HBoxContainer = self[r+"_hbox"]
-				if not inventory[r] and not (exchanging_display and exchanging_display.inventory[r]):
-					hbox.hide()
-				else:
-					hbox.show();
 	
 	liquid_item_mirrors = []
 	reset_warnings();
@@ -210,8 +211,10 @@ func refresh_data()->void:
 	for item_mirror:ItemMirror in all_mirrors:
 		if is_instance_valid(item_mirror):
 			item_mirror.refresh()
-			if item_mirror.item:
-				item_mirror.item.match_mirror();
+			item_mirror.item.mirror = item_mirror ## not sure where this gets lost
+			item_mirror.item.match_mirror()
+			
+
 			if not warnings["liquid_discard"]:
 				if item_mirror.item is ResourceContainer and \
 				item_mirror.item.raw_stack and item_mirror.item.mirror_only:
@@ -242,7 +245,7 @@ func refresh_container_mirrors()->void:
 
 
 
-func highlight_resource_containers(resource:String)->void:
+func highlight_resource_containers(resource:String)->void:	
 	for mirror:ItemMirror in self[resource+"_containers"]:
 		mirror.highlight_item()
 
@@ -439,11 +442,11 @@ func check_item_fit(item:Item, spot:Vector2, allow_expand:bool=false, replacing_
 			var cell:InventoryGridCell = grid_cols[cell_x][cell_y];
 
 			if replacing_item:
-				if cell.filled and is_instance_valid(cell.filling_item_mirror) and\
+				if cell.filled and\
 				 cell.filling_item_mirror != item.mirror and\
 				 cell.filling_item_mirror.item != replacing_item:
 					return false
-			elif cell.filled and is_instance_valid(cell.filling_item_mirror) and cell.filling_item_mirror != item.mirror:
+			elif cell.filled and is_instance_valid(cell.filling_item_mirror) and cell.filling_item_mirror.item != item:
 				return false;
 	return true
 
@@ -649,7 +652,6 @@ func sort_by_capacity(a:ResourceContainer, b:ResourceContainer)->bool:
 
 func update_inventory()->void:
 	## applies the movements/changes to the inventory itself
-	## right now also auto-sorts it because it covers a lot of problems i dont wanna think of
 	for item_mirror:Node in all_mirrors:
 		item_mirror.item.inventory_position = item_mirror.inventory_position;
 		if item_mirror.item in inventory.items:
@@ -659,7 +661,7 @@ func update_inventory()->void:
 				exchanging_display.inventory.send_item(item_mirror.item, inventory);
 			else:
 				inventory.add_item(item_mirror.item);
-				item_mirror.item.stack_size = item_mirror.stack_size	
+				item_mirror.item.stack_size = item_mirror.stack_size
 	
 	## duplicate so it can safely remove items from inventory while iterating over it
 	var items:Array[Item] = inventory.items.duplicate()

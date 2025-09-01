@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c67ajt88mamto"]
 
-[sub_resource type="Shader" id="Shader_fhbb7"]
+[sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;
 
 uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
@@ -90,7 +90,7 @@ void fragment(){
 
 [resource]
 resource_local_to_scene = true
-shader = SubResource("Shader_fhbb7")
+shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -98,4 +98,4 @@ shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(6, 2)
+shader_parameter/number_of_images = Vector2(3, 3)

@@ -1,8 +1,10 @@
 extends Control
 
+@export var world_map:WorldMap;
 @export var continue_travel_btn:Button;
 
-func _on_player_party_settlement_visited(settlement: Settlement) -> void:
+	
+func show_on_settlement(settlement:Settlement)->void:
 	reparent(settlement.hover_box, false)
 	Tweens.ui_fade_in(self)
 	## where other options will be implemented based on stuff that you can do on the settlement
@@ -13,6 +15,10 @@ func _on_player_party_settlement_visited(settlement: Settlement) -> void:
 		continue_travel_btn.show();
 	else:
 		continue_travel_btn.hide()
+
+
+func _on_player_party_settlement_visited(settlement: Settlement) -> void:
+	show_on_settlement(settlement)
 
 
 func _on_player_party_started_moving() -> void:

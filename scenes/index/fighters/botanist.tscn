@@ -166,7 +166,7 @@ tracks/4/path = NodePath("Area2D/projection:modulate")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1, 2, 2.1),
+"times": PackedFloat32Array(0, 1, 1.9, 2),
 "transitions": PackedFloat32Array(1, 5.65686, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 0, 0, 1), Color(1, 1, 1, 0)]
@@ -178,7 +178,7 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(2, 2.1),
+"times": PackedFloat32Array(1.9, 2),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -195,7 +195,7 @@ tracks/6/path = NodePath("Area2D/projection:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 2, 2.1),
+"times": PackedFloat32Array(0, 1.9, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(4, 4), Vector2(4, 4), Vector2(7, 7)]
@@ -219,21 +219,11 @@ material = ExtResource("1_7bqo8")
 scale = Vector2(2, 2)
 texture = ExtResource("2_rpeqt")
 hframes = 3
-vframes = 2
+vframes = 3
 script = ExtResource("3_apcd1")
 sprout_node = NodePath("sprout")
 animation_player = NodePath("AnimationPlayer")
-tags = Dictionary[String, bool]({
-"bodybuilder": false,
-"brawler": false,
-"cyborg": false,
-"disruptor": true,
-"doctor": false,
-"hunter": false,
-"juggernaut": false,
-"mechanic": false,
-"scientist": true
-})
+tags = Array[String](["scientist", "disruptor"])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -294,8 +284,6 @@ z_index = -1
 position = Vector2(0, -25)
 scale = Vector2(4, 4)
 texture = ExtResource("11_o3m2u")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(-2, -2.5)

@@ -11,6 +11,8 @@ extends Control
 @export var accessory_1_sample:ItemSample;
 @export var accessory_2_sample:ItemSample;
 
+@onready var all_samples: = [weapon_sample, alt_weapon_sample, module_sample, accessory_1_sample, accessory_2_sample]
+
 @export var switch_alt_button:Button;
 
 @export var gear_color:Color;
@@ -18,10 +20,6 @@ extends Control
 var current_tween:Tween;
 var first_refresh:bool=true;
 var first_alt_refresh:bool=true;
-
-func _ready()->void:
-	weapon_sample.tooltip.hint.text = "[right-click] to unequip";
-	alt_weapon_sample.tooltip.hint.text = "[right-click] to unequip"
 
 	
 
@@ -36,9 +34,7 @@ func refresh_samples(just_changed:Equipment=null)->void:
 	weapon_sample.load_item(Entities.player.equipped_weapon, gear_color)
 	module_sample.load_item(Entities.player.equipped_module, gear_color);
 
-	## TODO CONTEXT-SPECIFIC TOOLTIP HINTS
 	if Entities.player.alternative_weapon:
-		## TODO make alt weapon de-equippable
 		alt_weapon_sample.load_item(Entities.player.alternative_weapon, gear_color, 1);
 	else:
 		alt_weapon_sample.load_blank(Vector2(2, 3), gear_color)
@@ -96,7 +92,9 @@ func shake_samples()->void:
 	if shake_delay.is_stopped():
 		shake_delay.wait_time = 1;
 		shake_delay.start();
-		for sample:ItemSample in [weapon_sample, alt_weapon_sample, module_sample]:
+		for i:int in len(all_samples)-1:
+			## so it doesn't send the shake to the accessories hbox twice
+			var sample:ItemSample = all_samples[i]
 			var target:Control = sample.get_parent();
 			target.position += shift;
 			var tween:Tween = create_tween();
@@ -132,6 +130,7 @@ func _on_alt_weapon_sample_gui_input(e: InputEvent) -> void:
 
 func send_item_to_inventory(item:Item)->void:
 	player_inventory_display.throw_in_inventory(item);
+	player_inventory_display.refresh_data()
 	player_inventory_display.board_shake(3);
 	
 func invalid_move(message:String)->void:
@@ -157,7 +156,8 @@ func unequip_accessory(which:int)->void:
 	match which:
 		1:
 			to_unequip = Entities.player.equipped_accessory_1;
-			if player_inventory_display.find_clear_cell(to_unequip) == Vector2i(-1, -1):
+			var clear_cell:Vector2i = player_inventory_display.find_clear_cell(to_unequip)
+			if clear_cell == Vector2i(-1, -1):
 				invalid_move("NOT ENOUGH ROOM");
 				return
 			Entities.player.equipped_accessory_1 = null
@@ -166,7 +166,7 @@ func unequip_accessory(which:int)->void:
 			to_unequip = Entities.player.equipped_accessory_2;
 			if player_inventory_display.find_clear_cell(to_unequip) == Vector2i(-1, -1):
 				invalid_move("NOT ENOUGH ROOM");
-				return	
+				return
 			Entities.player.equipped_accessory_2 = null
 			accessory_2_sample.load_blank(Vector2(4, 4), gear_color)
 

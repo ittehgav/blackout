@@ -22,6 +22,7 @@ func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_sc
 		
 	## idk but it works
 	target_base = target.duplicate();
+	target_base.scale = Vector2.ONE
 	add_child(target_base)
 		
 	if target_base is FighterBase:
@@ -33,17 +34,7 @@ func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_sc
 			set_rectangle();
 			set_tooltip();
 
-	if target_base is Weapon:
-		$bob_timer.stop()
-		ColorCoder.color_code_weapon(target_base, Entities.player.color_scheme_index);
-			
-		target_base.offset = Vector2.ZERO;
-		target_base.scale = Vector2(2, 2);
-		target_base.centered = false;
-		set_rectangle()
-		set_tooltip();
 
-		## tooltip needs to be set AFTER transforming the target so the hoverbox gets set appropriately
 	
 
 func set_rectangle()->void:

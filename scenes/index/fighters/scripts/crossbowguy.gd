@@ -2,17 +2,10 @@ extends FighterBase
 
 const sample_offset = Vector2(11, -26)
 
-const target_type = "nearest_enemy"
 
 const skill_name = "Piercing Shot"
 const description = "Fires a powerful, long-range piercing bolt."
 const flavor = "One time he tried to use hot metal bars as arrows and got a second-degree burn."
-#
-#const tags = [
-	#"hunter",
-	#"scientist",
-	#"doctor"
-#]
 
 
 func damage_modifier(damage:float, unit:FighterUnit=null)->float:
@@ -23,7 +16,7 @@ func damage_modifier(damage:float, unit:FighterUnit=null)->float:
 
 		
 func full_skill_description(unit:FighterUnit)->String:
-	var base_damage_str:String = Index.get_color_tag("attack") +  str(unit.stats.attack) + "[/color]";
+	var base_damage_str:String = Index.get_color_tag("attack") + str(unit.stats.attack) + "[/color]";
 
 	var final_damage_color_hex:String = Index.stat_colors.attack.blend(Index.stat_colors.technique).to_html();
 	var final_damage_str:String = Index.get_unit_damage_string(unit);
@@ -32,18 +25,14 @@ func full_skill_description(unit:FighterUnit)->String:
 	
 	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique * Scaling.technique_mechanic_multipliers["damage"], .01)) + "[/color]"
 	
-	var string:String = "Deals "+ final_damage_str + " (" + base_damage_str + " * " + technique_str + ") to enemies in a straight line.";
+	var string:String = "Deals "+ final_damage_str +" ("+base_damage_str + " + " + base_damage_str \
+	+ " * " + technique_str + ") to enemies in a long, straight line.";
 	return string;
 
 
-
-const hitbox_radius = 25;
-const hitbox_height = 60;
-const hitbox_offset = Vector2(0, 5)
-
 const skill_range = 750;
 
-const skill_cooldown = 8;
+const skill_cooldown = 6;
 
 func skill()->void:
 	Combat.set_windup_angle(fighter)

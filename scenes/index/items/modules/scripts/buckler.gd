@@ -4,15 +4,13 @@ extends Module;
 
 const rarity = 1;
 
+func get_description()->String:
+	return "Hold to reduce speed and damage and greatly increase your " + Index.stat_colored_name("defense") +\
+	", if an enemy damages you immediately after activating [u]Module - Buckler[/u], the enemy is stunned.";
+
 
 
 const continuous = true;
-
-var description:String;
-func set_hint_data()->void:
-	description = "Hold to reduce speed and damage and greatly increase your " + Index.stat_colored_name("defense") +\
-	", if an enemy damages you immediately after activating [u]Module - Buckler[/u], the enemy is stunned.";
-
 
 const base_defense_frac = .5;
 const base_stun_duration = 3;
@@ -22,6 +20,7 @@ var attack_loss:float
 var move_speed_loss:float;
 
 var projection:TextureRect;
+
 
 func use()->void:
 

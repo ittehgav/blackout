@@ -2,14 +2,12 @@ extends Module
 
 const rarity = 1;
 
-
+func get_description()->String:
+	return "Quickly dashes in the direction you're facing, briefly becoming invulnerable and able to move through enemies.";
 
 
 const movement_distance = 300
 const base_duration = .75
-
-const description  = "Quickly dashes in a direction, briefly becoming invulnerable and able to move through enemies.";
-
 
 
 func use()->void:

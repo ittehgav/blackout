@@ -35,22 +35,6 @@ var chips_trade:int = 0;
 @export var scrap_trade_label:Label;
 @export var chips_trade_label:Label;
 
-@export_group("traders' resoure labels")
-@export var player_money_label:Label;
-@export var player_food_label:Label;
-@export var player_fuel_label:Label
-
-@export var player_juice_label:Label;
-@export var player_scrap_label:Label;
-@export var player_chips_label:Label;
-
-@export var trader_money_label:Label;
-@export var trader_food_label:Label;
-@export var trader_fuel_label:Label
-
-@export var trader_juice_label:Label;
-@export var trader_scrap_label:Label;
-@export var trader_chips_label:Label;
 @export_group("Quick-Buy")
 var food_hourly_cost:int;
 var fuel_hourly_cost:int;
@@ -65,20 +49,22 @@ func start_trade(target:Inventory, target_name:String)->void:
 	## initiation routines require both inventories to be assigned
 	player_name_label.text = Entities.player.name;
 	trader_name_label.text = target_name
-
-	player_inventory_display.set_grid()
-	player_inventory_display.load_inventory(Entities.player.inventory)
 	
+	## needs to load trader first because buying/selling prices are defined by the NPC
 	trader_inventory_display.set_grid();
 	trader_inventory_display.load_inventory(target);
 	
+	player_inventory_display.set_grid()
+	player_inventory_display.load_inventory(Entities.player.inventory)
+	
+	## re-refreshing to make them account for eachother 
+	## when setting up th resource dropdowns
+	player_inventory_display.refresh_data()
+	trader_inventory_display.refresh_data()
+
+	
 	reset_trade_balance()
 	player_inventory_display.warnings_popup.hide();
-	
-	for r:String in Index.all_resources:
-		self[r + "_trade_label"].visible = player_inventory_display[r + "_hbox"].visible;
-	
-	
 	
 	trade_started.emit();
 
@@ -208,26 +194,17 @@ func finish_trade()->void:
 	for r:String in Index.all_resources:
 		var trade:int = self[r+"_trade"];
 		if trade:
-			var trade_label_tween:Tween = create_tween();
-			var player_label_tween:Tween = create_tween();
-			var trader_label_tween:Tween = create_tween();
+			var tween:Tween = create_tween();
+
 			
-			for tween:Tween in [trade_label_tween, player_label_tween, trader_label_tween]:
-				tween.set_ease(Tween.EASE_OUT);
-				tween.set_trans(Tween.TRANS_QUINT)
-			
-			var player_value_label:Label = self["player_" + r + "_label"];
-			var trader_value_label:Label = self["trader_" + r + "_label"];
+			tween.set_ease(Tween.EASE_OUT);
+			tween.set_trans(Tween.TRANS_QUINT)
+
 			var trade_label:Label = self[r+"_trade_label"];
 
-			var player_after:int = player_inventory_display.inventory[r] + self[r+"_trade"]
-			var trader_after:int = trader_inventory_display.inventory[r] - self[r+"_trade"]
-			
-			trade_label_tween.tween_property(trade_label, "text", str(0), tween_duration)
-			trade_label_tween.tween_callback(trade_label.set_text.bind(""))
+			tween.tween_property(trade_label, "text", str(0), tween_duration)
+			tween.tween_callback(trade_label.set_text.bind(""))
 
-			player_label_tween.tween_property(player_value_label, "text", str(player_after), tween_duration);
-			trader_label_tween.tween_property(trader_value_label, "text", str(trader_after), tween_duration);
 	
 	player_inventory_display.inventory.money += money_trade
 	if money_trade:

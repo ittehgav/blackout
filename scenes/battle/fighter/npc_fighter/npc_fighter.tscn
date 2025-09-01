@@ -44,6 +44,7 @@ monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="skill_range"]
 shape = SubResource("CircleShape2D_mp8l8")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter")]
 z_index = 1

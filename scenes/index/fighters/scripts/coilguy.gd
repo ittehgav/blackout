@@ -4,33 +4,27 @@ extends FighterBase
 
 const sample_offset = Vector2(10, -26)
 
-const target_type = "nearest_enemy"
 
 const skill_name = "Chain Lightning"
-const description = "Fires powerful chain lightning Attacks."
-const flavor = "He tells the party-mates that the magnetism only affects people who make fun of his baldness.";
-
-
-const hitbox_radius = 25;
-const hitbox_height = 60;
-const hitbox_offset = Vector2(0, 5)
+const description = "Unleashes a powerful chain lightning attack."
+const flavor = "He tells the party-mates that the magnetism only affects people who make fun of his headband.";
 
 const skill_range = MELEE_RANGE;
-const skill_cooldown = 5;
+const skill_cooldown = 6;
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
 	
-	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique/20, .01))+"x[/color]"
-	
-	var magnetized_color_tag:String = "[color=" + Color.YELLOW.darkened(.2).to_html() + "]"
-	
-	
-	var string:String= magnetized_color_tag+"Magnetizes[/color] the nearest enemy that's not "+magnetized_color_tag+\
-	"magnetized[/color], then deals " + damage_str + " to all "+magnetized_color_tag+"magnetized[/color] enemies.\nDeals "\
-	 + technique_str + " more damage to all targets for each "+magnetized_color_tag+"magnetized[/color] enemy on the battlefield."
-	return string
+	var per_target_bonus:String = Index.get_technique_scaled_string(unit, "damage", "", per_target_damage_bonus * 100, "%");
 
+	var static_color_tag:String = "[color=" + Color.YELLOW.darkened(.2).to_html() + "]"
+	var final_string:String = "Applies" + static_color_tag + " Static[/color] to enemies, then deals " + damage_str +\
+	"to the nearest enemy, then fires a chain lightning attack that damages all enemies with " + static_color_tag+\
+	"Static[/color].\nDeals " + per_target_bonus + " more damage for each enemy with " + static_color_tag + " Static[/color]."
+	
+	return final_string
+
+const per_target_damage_bonus = .05
 
 
 @export var lightning:Sprite2D;
@@ -56,7 +50,7 @@ func skill_impact()->void:
 		var target:ActiveFighter = untagged_targets[0];
 		tag_fighter(target)
 	
-	Combat.deal_damage(fighter, fighter.target_unit);
+	Combat.deal_damage(fighter, fighter.target_unit, damage_modifier);
 	for i:int in len(tagged_targets) - 1:
 		## only t2 is damaged in these
 		var t1:ActiveFighter = tagged_targets[i];
@@ -70,9 +64,11 @@ func skill_impact()->void:
 func filter_magnetized(f:Node)->bool:
 	return "magnetized" in f.special_statuses;
 
-func target_count_amplifier(damage:float)->float:
+func damage_modifier(damage:float, _unit:FighterUnit)->float:
+	if not fighter:
+		return damage;
 	for i in len(get_tagged_fighters()):
-		damage += damage * fighter.technique/20;
+		damage += damage * fighter.technique * per_target_damage_bonus;
 	return damage;
 
 
@@ -94,7 +90,7 @@ func lightning_hit(t1:ActiveFighter, t2:ActiveFighter)->void:
 	var angle:float = t1.position.angle_to_point(t2.position)
 	lightning.global_rotation = angle
 	
-	Combat.deal_damage(fighter, t2, target_count_amplifier);
+	Combat.deal_damage(fighter, t2, damage_modifier);
 
 
 func closest_to_source(a:ActiveFighter, b:ActiveFighter)->bool:

@@ -182,22 +182,12 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_8ce3i")
 hframes = 3
 vframes = 3
-frame = 1
+frame = 3
 script = ExtResource("3_0e40a")
 projectile = NodePath("Projectile")
 bees = NodePath("bees")
 animation_player = NodePath("AnimationPlayer")
-tags = Dictionary[String, bool]({
-"bodybuilder": false,
-"brawler": false,
-"cyborg": false,
-"disruptor": true,
-"doctor": false,
-"hunter": false,
-"juggernaut": false,
-"mechanic": false,
-"scientist": true
-})
+tags = Array[String](["scientist", "hunter", "disruptor"])
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 

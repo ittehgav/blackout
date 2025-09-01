@@ -2,7 +2,6 @@ extends FighterBase
 
 const sample_offset = Vector2(15, -26)
 
-const target_type = "nearest_enemy"
 
 const skill_name =  "Accelerate"
 const description = "Deals damage to surrounding enemies that speeds up over time."
@@ -15,10 +14,6 @@ func full_skill_description(unit:FighterUnit)->String:
 	var string:String = "Spins a wheel that deals " + damage_str + " to surrounding enemies every second.\n"\
 	+ "Each additional activation makes the wheel go " + acceleration + " faster.";
 	return string
-
-const hitbox_radius = 50;
-const hitbox_height = 100;
-const hitbox_offset = Vector2(5, 0);
 
 const skill_range = MELEE_RANGE;
 const skill_cooldown = 5;

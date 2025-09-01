@@ -35,4 +35,20 @@ class_name TextureIndex;
 	"juice":load("res://assets/visual/icons/resources/juice.png"),
 	"scrap":load("res://assets/visual/icons/resources/scrap.png"),
 	"chips":load("res://assets/visual/icons/resources/chips.png"),
+	
+	"charisma":load("res://assets/visual/icons/disciplines/chrisma.png"),
+	"navigation":load("res://assets/visual/icons/disciplines/navigation.png"),
+	"tactics":load("res://assets/visual/icons/disciplines/tactics.png"),
+	"leadership":load("res://assets/visual/icons/disciplines/leadership.png"),
+	"scavenging":load("res://assets/visual/icons/disciplines/scavenging.png"),
+	
+	"trade":load("res://assets/visual/icons/options/trade.png"),
+	"battle":load("res://assets/visual/icons/options/battle.png"),
+	"recruit":load("res://assets/visual/icons/options/recruit.png"),
+	"exit":load("res://assets/visual/icons/options/exit.png"),
+	
+	"bodybuilder":load("res://assets/visual/icons/tags/bodybuilder.png"),
+	"cyborg":load("res://assets/visual/icons/tags/cyborg.png"),
+	"scientist":load("res://assets/visual/icons/tags/scientist.png"),
+	"mechanic":load("res://assets/visual/icons/tags/mechanic.png")
 }

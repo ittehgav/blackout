@@ -26,5 +26,3 @@ const size_y = 2;
 
 func check_available()->bool:
 	return true;
-
-const tooltip_hint = "[right-click] to equip.";

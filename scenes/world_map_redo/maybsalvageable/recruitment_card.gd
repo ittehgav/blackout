@@ -42,6 +42,6 @@ func setup(fighter_unit:FighterUnit)->void:
 func refresh_affordability()->void:
 	price_tag.text = "$"+str(unit_price)
 	if Entities.player.inventory.money >= unit_price:
-		price_tag.modulate = Color.GREEN;
+		price_tag.modulate = Color.WHITE;
 	else:
 		price_tag.modulate = Color.GRAY - Color(0, 0, 0, .45)

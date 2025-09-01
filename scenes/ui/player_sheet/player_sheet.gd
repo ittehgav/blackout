@@ -16,7 +16,6 @@ class_name PlayerSheet;
 @export var gear:Control;
 @export var morale_label:Label;
 
-@export var recruit_full_view:Control;
 
 @export_subgroup("sounds")
 @export var open_sound:AudioStream;
@@ -30,24 +29,9 @@ class_name PlayerSheet;
 func _ready()->void:
 	super();
 	Entities.player_sheet = self;
-	
-
-
-
-func _input(e:InputEvent)->void:
-	if e.is_action_pressed("show_player_sheet") and not visible and get_tree().paused:
-		show_player_sheet()
-	elif visible and not recruit_full_view.visible and (e.is_action_pressed("ui_cancel")\
-	 or e.is_action_pressed("show_player_sheet")):
-		if not player_inventory.warnings_popup.visible:
-			hide_player_sheet();
-			set_process_input(false)
-				
 
 
 func show_player_sheet(left_tab_view:int=0)->void:
-	set_process_input(false);
-
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
 	show()
@@ -60,9 +44,19 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(bg, "self_modulate:a", 1, tween_duration);
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
+	tween.tween_callback(opening_finished)
 	## so the player can't mash tab and bug the UI
-	tween.finished.connect(set_process_input.bind(true));
 
+var open:bool=false
+func opening_finished()->void:
+	open = true
+func closing_finished()->void:
+	open = false
+
+func _input(e:InputEvent)->void:
+	## opening is handled differently in contexts
+	if e.is_action_pressed("show_player_sheet") and open and not party_view.current_unit_sheet:
+		hide_player_sheet();
 
 func hide_player_sheet(_meta:Variant="")->void:
 	## _meta to this gets called when meta clicked from memo labels in the memos tab
@@ -72,17 +66,16 @@ func hide_player_sheet(_meta:Variant="")->void:
 		var clear:bool = await player_inventory.warnings_attended;
 		if clear:
 			hide_player_sheet();
-		else:
-			set_process_input(true)
-	else: 
-		player_inventory.update_inventory();
+	else:
 		ui_sfx.play_stream_obj(close_sound)
 		const tween_duration = .25;
 		var tween:Tween = create_tween();
 		tween.tween_property(container, "theme_override_constants/separation", 1700, tween_duration);
 		tween.parallel().tween_property(bg, "self_modulate:a", 0, tween_duration)
 		await tween.finished
-		set_process_input(true)
+		open = false
+		if Entities.main.state == "location":
+			get_tree().paused = false;
 		hide()
 
 

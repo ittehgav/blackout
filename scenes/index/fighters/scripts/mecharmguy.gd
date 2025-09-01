@@ -3,7 +3,6 @@ extends FighterBase
 
 const sample_offset = Vector2(15, -26)
 
-const target_type = "nearest_enemy"
 
 const skill_name =  "Wrecking Punch"
 const description = "Launches quick, powerful punches that reduce the defense of the target."
@@ -15,16 +14,14 @@ func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
 	var def_reduction_str:String = Index.get_technique_scaled_string(unit,"stat_debuff", "", defense_reduction);
 
-	var string:String = "Deals "+damage_str + " to enemies in an area and reduces their "+Index.stat_colored_name("defense")+\
+	var string:String = "Deals "+damage_str + " to the nearest enemy and reduces their "+Index.stat_colored_name("defense")+\
 	" by "+  def_reduction_str + " for the rest of the battle.";
 	return string;
 
 
 
 const skill_range = MELEE_RANGE;
-
 const skill_cooldown = 3;
-
 const debuff_type = "stat";
 
 

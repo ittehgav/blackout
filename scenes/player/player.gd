@@ -105,9 +105,11 @@ func equip_accessory(accessory:Accessory, index:int)->Accessory:
 		2:
 			just_unequipped = equipped_accessory_2;
 			equipped_accessory_2 = accessory
+	
 	equipment.erase(just_unequipped);
 	equipment.append(accessory);
 	equipment_changed.emit(accessory);
+	
 	return just_unequipped
 	
 

@@ -9,7 +9,6 @@ signal refresh_request;
 
 @export var has_finish:bool = false
 
-const tooltip_hint = "[right-click] to equip.\n[alt+right-click] to equip as secondary";
 
 @export var cooldown:float;
 

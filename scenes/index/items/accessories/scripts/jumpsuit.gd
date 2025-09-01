@@ -5,4 +5,8 @@ const size_y = 2;
 
 const rarity = 2;
 
-const description = "Equips on player or on Mechanics.\nIncreases defense and technique."
+
+func get_description()->String:
+	var description:String = super();
+	description += "Increases the wearer's " + Index.stat_colored_name("defense") + " and " + Index.stat_colored_name("technique") + ".";
+	return description;

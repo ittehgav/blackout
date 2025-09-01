@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="6_g8kfi"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="6_tbil6"]
 [ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="7_suxqt"]
-[ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/index/fighters/crowbarguy.tscn" id="8_mi0xg"]
-[ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/index/fighters/tailpipeguy.tscn" id="10_p0dgs"]
+[ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/index/fighters/crowbar.tscn" id="8_mi0xg"]
+[ext_resource type="PackedScene" uid="uid://dkmfirafpqidg" path="res://scenes/index/fighters/maybenot/tailpipeguy.tscn" id="10_p0dgs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fcr8q"]
 resource_local_to_scene = true

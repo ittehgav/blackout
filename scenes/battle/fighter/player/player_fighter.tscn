@@ -29,7 +29,7 @@
 radius = 29.2
 height = 90.4
 
-[sub_resource type="Shader" id="Shader_4frhf"]
+[sub_resource type="Shader" id="Shader_k0pw4"]
 code = "shader_type canvas_item;
 
 uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
@@ -117,17 +117,17 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iubqv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5atum"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_k0pw4")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/color = Color(0.14, 0.14, 0.7, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(3, 2)
+shader_parameter/number_of_images = Vector2(6, 2)
 
 [node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "status_timers")]
 collision_layer = 256
@@ -153,7 +153,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="module_aoe_vfx" type="TextureRect" parent="."]
 process_mode = 4
-visible = false
 size_flags_horizontal = 4
 mouse_filter = 2
 
@@ -175,8 +174,7 @@ shape = SubResource("CapsuleShape2D_wutkk")
 [node name="timers" type="Node" parent="."]
 
 [node name="body" parent="." node_paths=PackedStringArray("fighter") instance=ExtResource("6_bbywa")]
-material = SubResource("ShaderMaterial_iubqv")
-use_parent_material = true
+material = SubResource("ShaderMaterial_5atum")
 fighter = NodePath("..")
 
 [node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("module_projection", "module_aoe_vfx", "holder", "body", "weapon_cd", "weapon_sfx", "module_cd", "module_sfx", "freeze_frame_timer")]
@@ -248,6 +246,7 @@ script = ExtResource("27_rxaql")
 screen_blink = NodePath("../hud_overlay/screen_blink")
 
 [node name="hud_overlay" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="hud" type="Control" parent="hud_overlay"]
 layout_mode = 3

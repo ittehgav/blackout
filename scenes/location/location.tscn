@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://drf3xuyj0tmjy"]
+[gd_scene load_steps=13 format=3 uid="uid://drf3xuyj0tmjy"]
 
 [ext_resource type="Script" uid="uid://w8pni6sq83ap" path="res://scenes/location/location.gd" id="1_kl1gh"]
 [ext_resource type="Texture2D" uid="uid://53cyjuwjbine" path="res://assets/visual/buildings/streets/street.png" id="2_cd8v0"]
 [ext_resource type="PackedScene" uid="uid://dage1xn2hqykd" path="res://scenes/location/unit/player/player_unit.tscn" id="2_khu3q"]
+[ext_resource type="Script" uid="uid://dyxcwe4bm8v0g" path="res://scenes/location/camera_2d.gd" id="3_4rt7u"]
 [ext_resource type="PackedScene" uid="uid://b27bfm5u044iy" path="res://scenes/location/props/lamppost.tscn" id="4_i264g"]
 [ext_resource type="Script" uid="uid://dq403f5gmik45" path="res://scenes/location/exit_prompt.gd" id="4_t654o"]
 
@@ -25,14 +26,13 @@ size = Vector2(154, 1041)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t654o"]
 size = Vector2(2180, 112)
 
-[node name="Location" type="Node2D" node_paths=PackedStringArray("exit_prompt", "ui", "buildings_node", "reloationship_data")]
+[node name="Location" type="Node2D" node_paths=PackedStringArray("exit_prompt", "ui_canvas", "ui", "buildings_node", "foreground")]
 script = ExtResource("1_kl1gh")
-exit_prompt = NodePath("CanvasLayer/ui/exit_prompt")
-ui = NodePath("CanvasLayer/ui")
+exit_prompt = NodePath("ui/ui/exit_prompt")
+ui_canvas = NodePath("ui")
+ui = NodePath("ui/ui")
 buildings_node = NodePath("buildings")
-reloationship_data = NodePath("relationship_data")
-
-[node name="relationship_data" type="Node" parent="."]
+foreground = NodePath("foreground")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -1546.0
@@ -43,11 +43,6 @@ color = Color(0.603922, 0.419608, 0.235294, 1)
 
 [node name="buildings" type="Node2D" parent="."]
 
-[node name="street" type="TextureRect" parent="."]
-offset_right = 1920.0
-offset_bottom = 1000.0
-texture = ExtResource("2_cd8v0")
-
 [node name="PlayerUnit" parent="." instance=ExtResource("2_khu3q")]
 z_index = 2
 position = Vector2(207, 440)
@@ -57,10 +52,12 @@ limit_left = 0
 limit_top = 0
 limit_right = 1920
 limit_bottom = 842
+position_smoothing_enabled = true
+script = ExtResource("3_4rt7u")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ui" type="CanvasLayer" parent="."]
 
-[node name="ui" type="Control" parent="CanvasLayer"]
+[node name="ui" type="Control" parent="ui"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,7 +65,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="exit_prompt" type="Control" parent="CanvasLayer/ui"]
+[node name="exit_prompt" type="Control" parent="ui/ui"]
 process_mode = 3
 visible = false
 layout_mode = 1
@@ -79,7 +76,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_t654o")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ui/exit_prompt"]
+[node name="ColorRect" type="ColorRect" parent="ui/ui/exit_prompt"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,7 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.45098)
 
-[node name="Panel" type="Panel" parent="CanvasLayer/ui/exit_prompt"]
+[node name="Panel" type="Panel" parent="ui/ui/exit_prompt"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -102,7 +99,7 @@ offset_bottom = 123.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/ui/exit_prompt/Panel"]
+[node name="Label" type="Label" parent="ui/ui/exit_prompt/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -119,7 +116,7 @@ theme_override_font_sizes/font_size = 64
 text = "Leave and return
  to world map?"
 
-[node name="leave" type="Button" parent="CanvasLayer/ui/exit_prompt/Panel"]
+[node name="leave" type="Button" parent="ui/ui/exit_prompt/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -137,7 +134,7 @@ shortcut = SubResource("Shortcut_ltgk1")
 text = "[spacebar]
 Leave"
 
-[node name="stay" type="Button" parent="CanvasLayer/ui/exit_prompt/Panel"]
+[node name="stay" type="Button" parent="ui/ui/exit_prompt/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -155,16 +152,21 @@ shortcut = SubResource("Shortcut_8wdj8")
 text = "[tab]
 Stay"
 
-[node name="foreground_props" type="Node2D" parent="."]
+[node name="foreground" type="Node2D" parent="."]
 z_index = 2
 
-[node name="lamppost" parent="foreground_props" instance=ExtResource("4_i264g")]
+[node name="street" type="TextureRect" parent="foreground"]
+offset_right = 1920.0
+offset_bottom = 1000.0
+texture = ExtResource("2_cd8v0")
+
+[node name="lamppost" parent="foreground" instance=ExtResource("4_i264g")]
 position = Vector2(444, 552)
 
-[node name="lamppost2" parent="foreground_props" instance=ExtResource("4_i264g")]
+[node name="lamppost2" parent="foreground" instance=ExtResource("4_i264g")]
 position = Vector2(844, 552)
 
-[node name="lamppost3" parent="foreground_props" instance=ExtResource("4_i264g")]
+[node name="lamppost3" parent="foreground" instance=ExtResource("4_i264g")]
 position = Vector2(1244, 552)
 
 [node name="exit" type="Area2D" parent="."]
@@ -181,6 +183,6 @@ shape = SubResource("RectangleShape2D_t654o")
 position = Vector2(1958, 532)
 shape = SubResource("RectangleShape2D_i264g")
 
-[connection signal="pressed" from="CanvasLayer/ui/exit_prompt/Panel/leave" to="CanvasLayer/ui/exit_prompt" method="_on_leave_pressed"]
-[connection signal="pressed" from="CanvasLayer/ui/exit_prompt/Panel/stay" to="CanvasLayer/ui/exit_prompt" method="_on_stay_pressed"]
+[connection signal="pressed" from="ui/ui/exit_prompt/Panel/leave" to="ui/ui/exit_prompt" method="_on_leave_pressed"]
+[connection signal="pressed" from="ui/ui/exit_prompt/Panel/stay" to="ui/ui/exit_prompt" method="_on_stay_pressed"]
 [connection signal="body_entered" from="exit" to="." method="_on_exit_body_entered"]

@@ -42,15 +42,15 @@ var stack_size:int=0;
 
 @onready var original_stack_label_font_size:int = stack_size_label.get_theme_font_size("font_size");
 
-func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
+func load_item(target:Item, new_item:bool=false)->void:
 	## only ever added as a child of an InventoryDisplay's item_mirrors node;
 	item = target;
+	item.mirror = self;
 	texture = item.texture;
 	custom_minimum_size = Vector2.ZERO;
 	size = Vector2.ZERO;
 	custom_minimum_size = Vector2(item.size_x, item.size_y) * display.grid_cell_size;
-	tooltip.target = item;
-	tooltip.setup();
+	tooltip.load_target(self);
 	var item_color:Color;
 	if item is ResourceContainer:
 		stack_size = item.stack_size
@@ -59,16 +59,19 @@ func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 		item_color = Index.item_rarity_colors[item.rarity];
 	
 	
-	modulate = item_color
+	self_modulate = item_color
 	var dark_color:Color = item_color.darkened(.8);
 	var light_color:Color = item_color.lightened(.4);
 	
 	stack_size_label.add_theme_color_override("font_outline_color", dark_color)
-	price_tag.add_theme_color_override("font_outline_color", dark_color)
-	bg.color = item_color;
+	stack_size_label.add_theme_color_override("font_color", light_color)
+	
 
-	bg.color.v = .5
-	bg.color.s = min(.5, bg.color.s)
+	price_tag.add_theme_color_override("font_outline_color", dark_color)
+	bg.color = item_color.darkened(.2);
+	
+
+	bg.color.s = min(.7, bg.color.s)
 
 
 	
@@ -85,38 +88,10 @@ func load_item(target:Item, new_item:bool=false, off_display:bool=false)->void:
 	else:
 		for l:Label in labels:
 			l.add_theme_font_size_override("font_size", 16);
-	
-	if not off_display:
-		if display.context == "player_sheet":
-			if item is ResourceContainer:
-				if not item.raw_stack:
-					tooltip.hint.text = "[right-click] to empty";
-				else:
-					tooltip.hint.text = "[right-click] to store"
-			if item is Weapon or item is Module:
-				tooltip.hint.text = "[right-click] to equip"
-		
-		if display.inventory.holder is Settlement:
-			if item is ResourceContainer:
-				if item in display.inventory.non_sellable_items:
-					tooltip.hint.text = "[right-click] to buy resources";
-				else:
-					if item.raw_stack:
-						tooltip.hint.text = "[right-click] to buy"
-					else:
-						tooltip.hint.text = "[right-click] to buy container"
-			else:
-				tooltip.hint.text = "[right-click] to buy"
-		else:
-			tooltip.hint.text = "[right-click] to sell"
-		item.mirror = self;
-		if not new_item:
-			refresh()
-	else:
-		stack_size_label.show()
-		gui_input.disconnect(_on_gui_input)
-		mouse_entered.disconnect(_on_mouse_entered);
-		mouse_exited.disconnect(_on_mouse_exited)
+
+	if not new_item:
+		refresh()
+
 
 
 
@@ -313,6 +288,7 @@ func equip_weapon_command(alt:bool=false)->void:
 		item.mirror = null;
 		current_weapon.inventory_position = inventory_position;
 		load_item(current_weapon, true)
+
 		display.throw_mirror(self);
 		
 		if inventory_position == Vector2i(-1, -1):
@@ -327,6 +303,7 @@ func equip_weapon_command(alt:bool=false)->void:
 	
 
 func equip_accessory_command()->void:
+	var previous:Item = item;
 	var just_unequipped:Accessory;
 	if not Entities.player.equipped_accessory_1:
 		just_unequipped = Entities.player.equip_accessory(item, 1);
@@ -342,11 +319,13 @@ func equip_accessory_command()->void:
 		Entities.player.equip_accessory(item, 1)
 		
 	if just_unequipped:
+		
 		load_item(just_unequipped, true);
 		item.match_mirror()
 		if not display.check_item_fit(item, inventory_position):
 			display.throw_mirror(self);
 		refresh()
+	
 	else:
 		display.remove_mirror(self);
 	
@@ -409,9 +388,6 @@ func trade_command()->void:
 
 
 func highlight_stack_label()->void:
-	highlight_item();
-	undo_container_highlight(true)
-	
 	stack_size_label.add_theme_font_size_override("font_size", original_stack_label_font_size * 1.5);
 	var tween:Tween = create_tween();
 	tween.set_trans(Tween.TRANS_CUBIC)
@@ -419,18 +395,23 @@ func highlight_stack_label()->void:
 
 
 
+var original_modulate:Color=Color.BLACK
 func highlight_item()->void:
+	if original_modulate == Color.BLACK:
+		original_modulate = modulate;
 	being_highlighted = true
-	material.set_shader_parameter("base_color", shader_color + Color.from_hsv(0, .5, .8))
+	original_modulate = modulate;
+	modulate.v *= 2;
+	modulate.s /= 1.25;
 	
 
 func undo_container_highlight(smooth:bool=false)->void:
 	being_highlighted = false;
 	if not smooth:
-		material.set_shader_parameter("base_color", shader_color);
+		modulate = original_modulate
 	else:
 		var tween:Tween = create_tween();
-		tween.tween_property(self, "material:shader_parameter/base_color", shader_color, .5);
+		tween.tween_property(self, "modulate",original_modulate, .5);
 
 
 func _on_mouse_entered() -> void:
@@ -504,27 +485,15 @@ func set_price()->void:
 
 
 func refresh()->void:
-	tooltip.target = item;
-	tooltip.setup(false);
+	tooltip.load_target(self)
 	
 	if display.context == "trade":
 		set_price();
-		if being_traded:
-			tooltip.hint.text = "[right-click] to return"
-		else:
-			if display.from_player:
-				tooltip.hint.text = "[right-click] to sell";
-			else:
-				tooltip.hint.text = "[right-click] to buy"
 
-	elif display.context == "loot":
-		if display.inventory != Entities.player.inventory:
-			tooltip.hint.text = "[right-click] to loot"
-		else:
-			tooltip.hint.text = "[right-click] to put away"
 	
 	if item is ResourceContainer and item.raw_stack and stack_size == 0:
 		display.remove_mirror(self)
+		print("removes?")
 		return
 	stack_size_label.modulate.a = 1
 	

@@ -2,6 +2,9 @@ extends Module
 
 const rarity = 2;
 
+func get_description()->String:
+	return "Consumes " + str(scrap_cost) +" "+ Index.resource_colored_name("scrap") + " and"\
+			+Index.get_color_tag("shield") + " shields[/color] you and nearby allies for a percentage of your " + Index.stat_colored_name("max_hp") + ".";
 
 
 const scrap_cost = 5;
@@ -11,10 +14,6 @@ const base_hp_frac = .2;
 
 @export var aoe_range:Area2D;
 
-var description:String;
-func set_hint_data()->void:
-	description =  "Consumes " + str(scrap_cost) +" "+ Index.resource_colored_name("scrap") + " and"\
-			+Index.get_color_tag("shield") + " shields[/color] you and nearby allies for a percentage of your " + Index.stat_colored_name("max_hp") + ".";
 
 
 func check_availability()->bool:

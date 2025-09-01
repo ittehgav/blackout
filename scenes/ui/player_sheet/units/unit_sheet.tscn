@@ -1,0 +1,263 @@
+[gd_scene load_steps=12 format=3 uid="uid://1hbrworalfdw"]
+
+[ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/player_sheet/units/unit_sheet.gd" id="1_ugdfa"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_tw0lw"]
+[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="3_kbewr"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_fo3fe"]
+[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="5_kpc33"]
+[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="7_bswal"]
+[ext_resource type="Script" uid="uid://dhhsn8dr6b0sg" path="res://scenes/ui/player_sheet/units/panel_container.gd" id="8_0kn7o"]
+[ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="9_n3a7f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ci8v7"]
+shader = ExtResource("4_fo3fe")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xqdqb"]
+load_path = "res://.godot/imported/armguy.png-0256df781419550105bc51d7c0e19786.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g52xd"]
+load_path = "res://.godot/imported/armguy.png-0256df781419550105bc51d7c0e19786.ctex"
+
+[node name="Unit Sheet" type="Panel" node_paths=PackedStringArray("sample", "evolution_display", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "tags_label", "unit_level_label", "level_progress_bar", "stats_dropdown", "skill_range_label", "skill_cooldown_label", "ui_sfx")]
+z_index = 2
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ugdfa")
+sample = NodePath("SpriteSample")
+evolution_display = NodePath("evolutin_display")
+unit_name_label = NodePath("HBoxContainer/name")
+skill_name_label = NodePath("texts/skill_name")
+skill_description_label = NodePath("texts/skill_description")
+flavor_label = NodePath("texts/flavor")
+tags_label = NodePath("HBoxContainer/tags")
+unit_level_label = NodePath("VBoxContainer/level")
+level_progress_bar = NodePath("VBoxContainer/ProgressBar")
+stats_dropdown = NodePath("VBoxContainer/StatsDropdown")
+skill_range_label = NodePath("texts/HBoxContainer/range")
+skill_cooldown_label = NodePath("texts/HBoxContainer/cooldown")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." instance=ExtResource("2_tw0lw")]
+
+[node name="exit" type="Label" parent="."]
+layout_mode = 1
+offset_left = 29.0
+offset_top = 13.0
+offset_right = 445.0
+offset_bottom = 39.0
+theme_override_font_sizes/font_size = 32
+text = "Press [tab] or [right-click] to return"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 63.0
+offset_top = 72.0
+offset_right = 373.0
+offset_bottom = 161.0
+theme_override_constants/separation = 15
+
+[node name="name" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 112
+text = "Arm Guy"
+
+[node name="tags" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="SpriteSample" parent="." instance=ExtResource("3_kbewr")]
+material = SubResource("ShaderMaterial_ci8v7")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 98.0
+offset_right = 128.0
+offset_bottom = 226.0
+grow_vertical = 2
+add_tooltip = false
+enable_hover_panel = false
+
+[node name="panel" parent="SpriteSample" index="0"]
+use_parent_material = true
+
+[node name="Tooltip" parent="SpriteSample" index="2"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="texts" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -464.0
+offset_top = 133.0
+offset_right = -64.0
+offset_bottom = 274.0
+grow_horizontal = 0
+
+[node name="skill_name" type="Label" parent="texts"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Skill: Penes"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="texts"]
+layout_mode = 2
+theme_override_constants/separation = 70
+
+[node name="cooldown" type="Label" parent="texts/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.06, 1, 0.122667, 1)
+text = "Cooldown: 1.2s"
+
+[node name="range" type="Label" parent="texts/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0588235, 1, 0.121569, 1)
+text = "Melee"
+
+[node name="skill_description" type="RichTextLabel" parent="texts"]
+modulate = Color(0.76, 0.76, 0.76, 1)
+layout_mode = 2
+bbcode_enabled = true
+text = "opesnfçasejnfçasoerinfg´~"
+fit_content = true
+
+[node name="flavor" type="Label" parent="texts"]
+modulate = Color(0.72, 0.72, 0.72, 0.584314)
+layout_mode = 2
+text = "cuzao"
+autowrap_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 369.0
+offset_top = -505.0
+offset_right = 769.0
+offset_bottom = -81.0
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="level" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Level 2"
+
+[node name="ProgressBar" type="TextureProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("7_bswal")
+texture_progress = ExtResource("7_bswal")
+tint_under = Color(0.082, 0.2, 0.082, 1)
+tint_progress = Color(0.0862745, 0.8, 0.0862745, 1)
+
+[node name="StatsDropdown" parent="VBoxContainer" node_paths=PackedStringArray("stat_labels") instance=ExtResource("5_kpc33")]
+layout_mode = 2
+stat_labels = {
+"agility": NodePath("agility/agility"),
+"attack": NodePath("attack/attack"),
+"defense": NodePath("defense/defense"),
+"max_hp": NodePath("max_hp/max_hp"),
+"technique": NodePath("technique/technique")
+}
+
+[node name="evolutin_display" type="PanelContainer" parent="." node_paths=PackedStringArray("ev1_sprite", "ev2_sprite", "hint_label")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -209.0
+offset_right = -39.0
+offset_bottom = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("8_0kn7o")
+ev1_sprite = NodePath("VBoxContainer/HBoxContainer/evolution_1/evolution_1")
+ev2_sprite = NodePath("VBoxContainer/HBoxContainer/evolution_2/evolution_2")
+hint_label = NodePath("VBoxContainer/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="evolutin_display"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="evolutin_display/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Level up this unit to 
+unlock evolutions"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="evolutin_display/VBoxContainer"]
+layout_mode = 2
+
+[node name="PointLight2D" type="PointLight2D" parent="evolutin_display/VBoxContainer/HBoxContainer"]
+position = Vector2(130, 65)
+scale = Vector2(25.8, 12.4)
+energy = 9.71
+blend_mode = 1
+range_layer_max = 1
+range_item_cull_mask = 4
+texture = ExtResource("9_n3a7f")
+
+[node name="evolution_1" type="Control" parent="evolutin_display/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(112, 112)
+layout_mode = 2
+
+[node name="evolution_1" type="Sprite2D" parent="evolutin_display/VBoxContainer/HBoxContainer/evolution_1"]
+light_mask = 4
+position = Vector2(64, 64)
+texture = SubResource("CompressedTexture2D_xqdqb")
+hframes = 3
+vframes = 3
+
+[node name="evolution_2" type="Control" parent="evolutin_display/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(112, 112)
+layout_mode = 2
+
+[node name="evolution_2" type="Sprite2D" parent="evolutin_display/VBoxContainer/HBoxContainer/evolution_2"]
+light_mask = 4
+position = Vector2(64, 64)
+texture = SubResource("CompressedTexture2D_g52xd")
+hframes = 3
+vframes = 3
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+
+[editable path="SpriteSample"]

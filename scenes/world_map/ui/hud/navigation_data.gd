@@ -22,7 +22,7 @@ func display_current_settlement(target:Settlement = Entities.player_party.curren
 	if not player_party.current_settlement:
 		return
 	travel_cost_display.hide()
-	travel_time_label.text = "";
+	travel_time_label.text = "[spacebar] Enter";
 	
 	title_label.text = "Current Location"
 	distance_label.text = target.name;
@@ -67,7 +67,10 @@ func display_travel_data(target:Settlement)->void:
 	
 	
 	var costs:Dictionary = Entities.player.travel_upkeep_cost();
-	var upkeep_hits:int = (travel_hours + travel_minutes/60) * 2
+	
+	var offset_minutes:int = Entities.world_map.current_minute % 30
+	print( (travel_minutes-offset_minutes)/60)
+	var upkeep_hits:int = (travel_hours + (travel_minutes-offset_minutes)/60) * 2 + 1
 	food_cost_label.text = str(costs.food * upkeep_hits);
 	fuel_cost_label.text = str(costs.fuel * upkeep_hits);
 		
@@ -83,3 +86,8 @@ func _on_player_upkeep_fuel_shortage() -> void:
 
 func _on_player_upkeep_paid_fully() -> void:
 	sfx.play_sound_by_key("upkeep_paid")
+
+
+func _on_player_party_settlement_entered(settlement: Settlement) -> void:
+	## will always emit when current state is current settlement data
+	travel_time_label.text = "";

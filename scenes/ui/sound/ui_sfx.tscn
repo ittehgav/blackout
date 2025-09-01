@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://b2570jayrbgqr" path="res://assets/sound/sfx/ui/settlement_entered.ogg" id="7_v0nya"]
 
 [node name="ui_sfx" type="AudioStreamPlayer"]
+process_mode = 3
 stream = ExtResource("1_igjwg")
 volume_db = -10.0
 max_polyphony = 5

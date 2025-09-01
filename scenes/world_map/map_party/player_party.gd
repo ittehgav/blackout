@@ -11,6 +11,12 @@ func _ready()->void:
 	ColorCoder.color_code_vehicle(vehicle, leader)
 	
 	marker.show_in_settlement(current_settlement);
+	
+	settlement_visited.emit(current_settlement)
+	
+func _input(e:InputEvent)->void:
+	if e.is_action_pressed("show_player_sheet") and not Entities.player_sheet.open:
+		Entities.player_sheet.show_player_sheet()
 
 func _on_started_moving() -> void:
 	get_tree().paused = false;

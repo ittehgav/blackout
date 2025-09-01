@@ -1,23 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://0qsjppw7fils"]
+[gd_scene load_steps=3 format=3 uid="uid://0qsjppw7fils"]
 
-[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_sxf1m"]
 [ext_resource type="Script" uid="uid://bxflqfjcfcxqb" path="res://scenes/ui/inventory_display/item_mirror.gd" id="2_7dtgv"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="2_sxf1m"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vqoty"]
-resource_local_to_scene = true
-shader = ExtResource("1_sxf1m")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 0.75
-shader_parameter/neutral_value = 1.0
-
 [node name="ItemMirror" type="TextureRect" node_paths=PackedStringArray("outline", "bg", "being_traded_rect", "tooltip", "stack_size_label", "price_tag")]
 z_index = 2
-material = SubResource("ShaderMaterial_vqoty")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -46,8 +33,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 
 [node name="mirror_bg" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
@@ -73,9 +60,6 @@ offset_right = 322.0
 offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
-
-[node name="description" parent="Tooltip/MarginContainer/HBoxContainer/VBoxContainer" index="2"]
-visible = true
 
 [node name="price_tag" type="Label" parent="."]
 visible = false

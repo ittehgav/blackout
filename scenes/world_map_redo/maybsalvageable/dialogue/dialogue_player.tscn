@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://di52ctdy1nihl"]
+[gd_scene load_steps=14 format=3 uid="uid://di52ctdy1nihl"]
 
 [ext_resource type="Script" uid="uid://ehyudl1u8c6p" path="res://scenes/world_map_redo/maybsalvageable/dialogue/dialogue_player.gd" id="1_78q7f"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="3_5y6lb"]
@@ -8,12 +8,113 @@
 [ext_resource type="AudioStream" uid="uid://cy2khrfwrsamb" path="res://assets/sound/sfx/combat/tide/ally_death.wav" id="6_k8mrl"]
 [ext_resource type="AudioStream" uid="uid://bhl3r4bkkw14k" path="res://assets/sound/sfx/ui/dialogue/event_success.wav" id="7_2v7b0"]
 [ext_resource type="AudioStream" uid="uid://bqj6dsluui4i7" path="res://assets/sound/sfx/ui/dialogue/mock.mp3" id="8_wypdb"]
-[ext_resource type="PackedScene" uid="uid://0hq1p5cvpx5s" path="res://scenes/player/unit/player_body.tscn" id="9_fnvl8"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="9_3v3gh"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="10_bxvyw"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8aum2"]
 random_pitch = 2.0
 streams_count = 2
 stream_1/stream = ExtResource("4_8aum2")
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3v3gh"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.501961, 0.188235, 0.188235, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(6, 2)
 
 [node name="Dialoge Player" type="Control" node_paths=PackedStringArray("input_hold_timer", "speaker_sprite", "blip", "dialogue_sfx", "player_sprite", "choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
 process_mode = 3
@@ -30,7 +131,7 @@ dialogue_choice_scene = ExtResource("3_eqxh4")
 speaker_sprite = NodePath("speaking_avatar/Sprite2D")
 blip = NodePath("speech_blip")
 dialogue_sfx = NodePath("dialogue_sfx")
-player_sprite = NodePath("player_avatar/body")
+player_sprite = NodePath("player_avatar/player_avatar")
 choices_box = NodePath("PanelContainer")
 choices_container = NodePath("PanelContainer/VBoxContainer")
 speaker_name_label = NodePath("Panel/speaker_name")
@@ -70,9 +171,19 @@ offset_right = 40.0
 offset_bottom = 20.0
 grow_vertical = 2
 
-[node name="body" parent="player_avatar" instance=ExtResource("9_fnvl8")]
-position = Vector2(134, -33)
-scale = Vector2(6, 6)
+[node name="player_avatar" type="Sprite2D" parent="player_avatar"]
+material = SubResource("ShaderMaterial_3v3gh")
+position = Vector2(124, -64)
+scale = Vector2(5, 5)
+texture = ExtResource("9_3v3gh")
+hframes = 6
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="player_avatar/player_avatar"]
+libraries = {
+&"player": ExtResource("10_bxvyw")
+}
+autoplay = "player/idle"
 
 [node name="speaking_avatar" type="Control" parent="."]
 layout_mode = 1
@@ -154,14 +265,15 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -6.0
-offset_top = -31.0
+offset_top = -6.0
 offset_right = 6.0
-offset_bottom = -19.0
+offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="input_hold" type="Timer" parent="."]
 wait_time = 0.25

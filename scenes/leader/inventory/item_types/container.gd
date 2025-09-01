@@ -9,6 +9,7 @@ class_name ResourceContainer
 var description:String;
 var hint_description:String;
 
+
 func _ready()->void:
 	set_hint_data();
 
@@ -26,7 +27,16 @@ func set_hint_data()->void:
 		hint_description = "[right-click] to empty"
 		description = "Holds up to " + str(self["capacity"]) + " " + Index.resource_colored_name(resource) + "."
 
-
+func get_description()->String:
+	var description:String;
+	if raw_stack:
+		if mirror_only:
+			description = Index.resource_colored_name(resource) + " is a liquid, it will go to waste if left out of a [u]container[/u].";
+		else:
+			description = Index.resource_descriptions[resource];
+	else:
+		description = "Holds up to " + str(self["capacity"]) + " " + Index.resource_colored_name(resource);
+	return description;
 
 
 	

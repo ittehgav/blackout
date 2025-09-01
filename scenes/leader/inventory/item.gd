@@ -10,3 +10,8 @@ var mirror:ItemMirror;
 
 func match_mirror()->void:
 	inventory_position = mirror.inventory_position;
+	if self not in mirror.display.inventory.items:
+		mirror.display.inventory.add_item(self);
+
+func get_description()->String:
+	return "DESCRIPTION MISSOMG"

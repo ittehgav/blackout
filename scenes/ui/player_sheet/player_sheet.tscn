@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=44 format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/ui/player_sheet/player_sheet.gd" id="1_nlbt1"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_hamfw"]
@@ -28,11 +28,11 @@
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="20_dcru6"]
 [ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="21_tovog"]
 [ext_resource type="Script" uid="uid://4586apxxsg85" path="res://scenes/ui/player_sheet/units/upgrade_hint.gd" id="22_1edf1"]
+[ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/unit_sheet.tscn" id="22_in2cn"]
 [ext_resource type="Script" uid="uid://c3t5hlpw6vsaq" path="res://scenes/ui/player_sheet/player_data.gd" id="23_brbep"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="24_7b7li"]
-[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="25_hcu6r"]
-[ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/recruit_full_view.tscn" id="26_uhm6n"]
-[ext_resource type="PackedScene" uid="uid://cknkn00l4yg0g" path="res://scenes/ui/icons/discipline_icon.tscn" id="29_in2cn"]
+[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="32_in2cn"]
+[ext_resource type="PackedScene" uid="uid://chh07cq5d6iqk" path="res://scenes/ui/icons/dropdowns/disciplines_dropdown.tscn" id="33_in2cn"]
 
 [sub_resource type="Resource" id="Resource_d23kd"]
 metadata/__load_path__ = "res://assets/sound/sfx/ui/equip.ogg"
@@ -125,196 +125,6 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="Shader" id="Shader_s3o1i"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ncu57"]
-resource_local_to_scene = true
-shader = SubResource("Shader_s3o1i")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_2iguy"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsjwg"]
-resource_local_to_scene = true
-shader = SubResource("Shader_2iguy")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_nvsay"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_um8mn"]
-resource_local_to_scene = true
-shader = SubResource("Shader_nvsay")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_6ti70"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fwr53"]
-resource_local_to_scene = true
-shader = SubResource("Shader_6ti70")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="Shader" id="Shader_bflq7"]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform vec3 base_color:source_color;
-
-uniform vec3 shadow_color:source_color = vec3(0, 0, 1);
-uniform vec3 mid_color:source_color = vec3(1, 0, 0);
-uniform vec3 light_color: source_color = vec3(0, 1, 0);
-
-uniform float shadow_value:hint_range(0.0, 2.0)=.25;
-uniform float light_value:hint_range(0.0, 2.0)=1.75;
-uniform float neutral_value:hint_range(0.0, 2.0)=1.0;
-
-
-
-void fragment() {
-		if (COLOR.rgb == mid_color){
-			COLOR.rgb = base_color.rgb * neutral_value;
-		}else if (COLOR.rgb == shadow_color){
-			COLOR.rgb = base_color.rgb * shadow_value;
-		}else if (COLOR.rgb == light_color){
-			COLOR.rgb = base_color.rgb * light_value;
-		}
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gcm86"]
-resource_local_to_scene = true
-shader = SubResource("Shader_bflq7")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tggo3"]
 resource_local_to_scene = true
 shader = ExtResource("16_e0imn")
@@ -327,8 +137,8 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "sfx", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "recruit_full_view", "ui_sfx")]
-process_mode = 3
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "sfx", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "ui_sfx")]
+process_mode = 2
 z_index = 5
 y_sort_enabled = true
 layout_mode = 3
@@ -350,7 +160,6 @@ left_tab_container = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_i
 container = NodePath("main_bg/MarginContainer/HBoxContainer")
 gear = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear")
 morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/morale_display")
-recruit_full_view = NodePath("main_bg/RecruitFullView")
 open_sound = ExtResource("2_hamfw")
 close_sound = ExtResource("3_dfs8r")
 rummage = ExtResource("4_qs1mg")
@@ -397,9 +206,10 @@ alignment = 1
 [node name="party_and_inventory" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-current_tab = 0
+current_tab = 1
 
 [node name="Inventory" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("inventory_panel", "inventory_display")]
+visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("9_fsh5d")
@@ -424,15 +234,7 @@ offset_left = 7.0
 offset_top = 10.0
 offset_right = -2.0
 
-[node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="3" node_paths=PackedStringArray("resource_labels", "resource_hboxes", "resource_icons")]
-resource_labels = {
-"chips": NodePath("chips/chips"),
-"food": NodePath("food/food"),
-"fuel": NodePath("fuel/fuel"),
-"juice": NodePath("juice/juice"),
-"money": NodePath("money/money"),
-"scrap": NodePath("scrap/scrap")
-}
+[node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="3" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 resource_hboxes = {
 "chips": NodePath("chips"),
 "food": NodePath("food"),
@@ -506,8 +308,8 @@ player_inventory_display = NodePath("../inventory_display/inventory_display")
 weapon_sample = NodePath("main_weapon/weapon_sample")
 alt_weapon_sample = NodePath("alt_weapon/alt_weapon_sample")
 module_sample = NodePath("module/module_sample")
-accessory_1_sample = NodePath("accessories/HBoxContainer/accessory_1_sample")
-accessory_2_sample = NodePath("accessories/HBoxContainer/accessory_2_sample")
+accessory_1_sample = NodePath("accessories/accessory_1_sample")
+accessory_2_sample = NodePath("accessories/accessory_2_sample")
 switch_alt_button = NodePath("switch_alt")
 gear_color = Color(1, 0.5, 0.5, 1)
 
@@ -610,28 +412,25 @@ offset_bottom = 422.0
 layout_mode = 2
 text = "Accessories"
 
-[node name="HBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories"]
-layout_mode = 2
-
-[node name="accessory_1_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
+[node name="accessory_1_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories" instance=ExtResource("13_7sc2c")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="accessory_2_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
+[node name="accessory_2_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories" instance=ExtResource("13_7sc2c")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "recruit_full_view", "recruits_grid", "upgrade_hint")]
-visible = false
+[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "units_grid", "upgrade_hint", "unit_sample")]
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("18_7ju3y")
 food_cost = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/food_cost")
 fuel_cost = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/fuel_cost")
 ui_sfx = NodePath("../../../../../ui_sfx")
-recruit_full_view = NodePath("../../../../RecruitFullView")
-recruits_grid = NodePath("VBoxContainer/recruits")
+unit_sheet_scene = ExtResource("22_in2cn")
+units_grid = NodePath("VBoxContainer/units")
 upgrade_hint = NodePath("upgrade_hint")
+unit_sample = NodePath("VBoxContainer/unit_sample")
 metadata/_tab_index = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
@@ -642,12 +441,11 @@ offset_right = 316.0
 offset_bottom = 118.0
 theme_override_constants/separation = 15
 
-[node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("19_utjw6")]
+[node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" instance=ExtResource("19_utjw6")]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-adjacent_items = [NodePath("../morale_display")]
 
 [node name="morale_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer"]
 layout_mode = 2
@@ -666,11 +464,11 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("20_dcru6")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
 material = SubResource("ShaderMaterial_i2eyh")
 layout_mode = 2
 match_player_inventory = false
-adjacent_items = [NodePath("../food_cost")]
+label = NodePath("../food_cost")
 
 [node name="food_cost" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -680,12 +478,12 @@ text = "22"
 [node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("20_dcru6")]
+[node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
 material = SubResource("ShaderMaterial_05eqd")
 layout_mode = 2
 resource = "fuel"
 match_player_inventory = false
-adjacent_items = [NodePath("../fuel_cost")]
+label = NodePath("../fuel_cost")
 
 [node name="fuel_cost" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -704,7 +502,35 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Units"
 
-[node name="recruits" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
+[node name="unit_sample" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer/unit_sample"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "Lv. 1"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer/unit_sample"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.2, 0.0878667, 0.084, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="units" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
 layout_mode = 2
 columns = 7
 
@@ -742,22 +568,37 @@ pivot_offset = Vector2(20, 0)
 texture = ExtResource("21_tovog")
 script = ExtResource("22_1edf1")
 
-[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" node_paths=PackedStringArray("name_label", "level_label", "max_hp_label", "attack_label", "defense_label", "agility_label", "technique_label", "charisma_label", "navigation_label", "tactics_label", "leadership_label", "scavenging_label")]
+[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" node_paths=PackedStringArray("name_label", "level_label")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 script = ExtResource("23_brbep")
 name_label = NodePath("VBoxContainer/player_name")
 level_label = NodePath("VBoxContainer/level")
-max_hp_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer/max_hp")
-attack_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer2/attack")
-defense_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer3/defense")
-agility_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer4/agility")
-technique_label = NodePath("stats/Stats/VBoxContainer/HBoxContainer5/technique")
-charisma_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer/charisma")
-navigation_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer2/navigation")
-tactics_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer3/tactics")
-leadership_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer4/leadership")
-scavenging_label = NodePath("stats/Disciplines/VBoxContainer/HBoxContainer5/scavenging")
+
+[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 67.0
+offset_right = 92.0
+offset_bottom = 67.0
+
+[node name="body" parent="main_bg/MarginContainer/HBoxContainer/player/Control" instance=ExtResource("15_o0vop")]
+process_mode = 4
+material = SubResource("ShaderMaterial_tggo3")
+position = Vector2(90, 23)
+scale = Vector2(3, 3)
+
+[node name="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" index="0"]
+process_mode = 3
+speed_scale = 0.75
+
+[node name="player_sample" parent="main_bg/MarginContainer/HBoxContainer/player/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("14_nvl42")]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 19.0
+offset_right = 102.0
+offset_bottom = 19.0
+target_base = NodePath("../body")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
 layout_mode = 1
@@ -779,261 +620,39 @@ text = "Player"
 [node name="level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer"]
 layout_mode = 2
 text = "Level 2"
-horizontal_alignment = 1
 
 [node name="exp_bar" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer" instance=ExtResource("24_7b7li")]
 layout_mode = 2
 tint_under = Color(0.1914, 0.29, 0.1914, 1)
 from_player = true
 
-[node name="stats" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -180.0
-offset_top = -459.0
-offset_right = 180.0
-offset_bottom = -16.0
+offset_left = -60.0
+offset_top = -358.0
+offset_right = 60.0
+offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("12_rdvn7")
-theme_override_font_sizes/font_size = 48
-current_tab = 0
-tab_focus_mode = 1
 
-[node name="Stats" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player/stats"]
+[node name="StatsDropdown" parent="main_bg/MarginContainer/HBoxContainer/player/HBoxContainer" node_paths=PackedStringArray("stat_labels") instance=ExtResource("32_in2cn")]
 layout_mode = 2
-metadata/_tab_index = 0
+from_player = true
+stat_labels = {
+"agility": NodePath("agility/agility"),
+"attack": NodePath("attack/attack"),
+"defense": NodePath("defense/defense"),
+"max_hp": NodePath("max_hp/max_hp"),
+"technique": NodePath("technique/technique")
+}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -149.0
-offset_top = -140.0
-offset_right = 149.0
-offset_bottom = 140.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
+[node name="DisciplinesDropdown" parent="main_bg/MarginContainer/HBoxContainer/player/HBoxContainer" instance=ExtResource("33_in2cn")]
 layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
-material = SubResource("ShaderMaterial_ncu57")
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-adjacent_items = [NodePath("../max_hp")]
-
-[node name="max_hp" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -3
-theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 64
-text = "Max HP: 10"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
-material = SubResource("ShaderMaterial_nsjwg")
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-adjacent_items = [NodePath("../attack")]
-stat = "attack"
-
-[node name="attack" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer2"]
-z_index = 1
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -3
-theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 64
-text = "Base Attack: 10"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
-material = SubResource("ShaderMaterial_um8mn")
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-adjacent_items = [NodePath("../defense")]
-stat = "defense"
-
-[node name="defense" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer3"]
-z_index = 1
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -3
-theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 64
-text = "Defense: 10"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
-material = SubResource("ShaderMaterial_fwr53")
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-adjacent_items = [NodePath("../agility")]
-stat = "agility"
-
-[node name="agility" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer4"]
-z_index = 1
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -3
-theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 64
-text = "Agility: 100"
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="StatIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("25_hcu6r")]
-material = SubResource("ShaderMaterial_gcm86")
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-adjacent_items = [NodePath("../technique")]
-stat = "technique"
-
-[node name="technique" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Stats/VBoxContainer/HBoxContainer5"]
-z_index = 1
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -3
-theme_override_constants/shadow_offset_y = -3
-theme_override_font_sizes/font_size = 64
-text = "Technique: 1"
-
-[node name="Disciplines" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player/stats"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
-layout_mode = 2
-
-[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer" instance=ExtResource("29_in2cn")]
-layout_mode = 2
-size_flags_horizontal = 4
-discipline = "charisma"
-
-[node name="charisma" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
-theme_override_font_sizes/font_size = 64
-text = "Charisma: 1"
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
-layout_mode = 2
-
-[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer2" instance=ExtResource("29_in2cn")]
-layout_mode = 2
-discipline = "navigation"
-
-[node name="navigation" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
-theme_override_font_sizes/font_size = 64
-text = "Navigation: 1"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
-layout_mode = 2
-
-[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer3" instance=ExtResource("29_in2cn")]
-layout_mode = 2
-discipline = "tactics"
-
-[node name="tactics" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
-theme_override_font_sizes/font_size = 64
-text = "Tactics: 1"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
-layout_mode = 2
-
-[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer4" instance=ExtResource("29_in2cn")]
-layout_mode = 2
-discipline = "leadership"
-
-[node name="leadership" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
-theme_override_font_sizes/font_size = 64
-text = "Leadership: 1"
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer"]
-layout_mode = 2
-
-[node name="DisciplineIcon" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer5" instance=ExtResource("29_in2cn")]
-layout_mode = 2
-discipline = "scavenging"
-
-[node name="scavenging" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/stats/Disciplines/VBoxContainer/HBoxContainer5"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.752941, 0.760784, 0.305882, 1)
-theme_override_font_sizes/font_size = 64
-text = "Scavenging: 1"
-
-[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player"]
-layout_mode = 3
-anchors_preset = 0
-offset_top = 67.0
-offset_right = 92.0
-offset_bottom = 67.0
-
-[node name="player_sample" parent="main_bg/MarginContainer/HBoxContainer/player/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("14_nvl42")]
-layout_mode = 0
-offset_left = 102.0
-offset_top = 19.0
-offset_right = 102.0
-offset_bottom = 19.0
-target_base = NodePath("body")
-
-[node name="body" parent="main_bg/MarginContainer/HBoxContainer/player/Control/player_sample" instance=ExtResource("15_o0vop")]
-process_mode = 4
-material = SubResource("ShaderMaterial_tggo3")
-position = Vector2(-12, -28)
-scale = Vector2(3, 3)
-
-[node name="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/player_sample/body" index="0"]
-process_mode = 3
-speed_scale = 0.75
-
-[node name="RecruitFullView" parent="main_bg" instance=ExtResource("26_uhm6n")]
-visible = false
-layout_mode = 1
 
 [connection signal="extension_hidden" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_inventory_display_extension_hidden"]
 [connection signal="extension_shown" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_inventory_display_extension_shown"]
@@ -1043,10 +662,9 @@ layout_mode = 1
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_switch_alt_pressed"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/main_weapon/weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_weapon_sample_gui_input"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/alt_weapon/alt_weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_alt_weapon_sample_gui_input"]
-[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer/accessory_1_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_1_sample_gui_input"]
-[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer/accessory_2_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_2_sample_gui_input"]
-[connection signal="unit_upgraded" from="main_bg/RecruitFullView" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" method="refresh_data"]
+[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/accessory_1_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_1_sample_gui_input"]
+[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/accessory_2_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_2_sample_gui_input"]
 
 [editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display"]
 [editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown"]
-[editable path="main_bg/MarginContainer/HBoxContainer/player/Control/player_sample/body"]
+[editable path="main_bg/MarginContainer/HBoxContainer/player/Control/body"]

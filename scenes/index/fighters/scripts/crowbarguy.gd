@@ -3,12 +3,15 @@ extends FighterBase
 
 const sample_offset = Vector2(13, -26)
 
-const target_type = "nearest_enemy"
 
 const skill_name =  "Crowbar Swing"
 const description = "Low resistance, high melee damage."
 const flavor = "Surprisingly strong for just a scientist with a crowbar."
 
+const evolutions = [
+	"Sniper",
+	"Gravity"
+]
 
 func full_skill_description(unit:FighterUnit)->String:
 	var base_damage_str:String = Index.get_color_tag("attack") +  str(unit.stats.attack) + "[/color]";
@@ -19,7 +22,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	
 	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique * Scaling.technique_mechanic_multipliers["damage"], .01)) + "[/color]"
 	
-	var string:String = "Deals " + final_damage_str + " (" + base_damage_str + " * " + technique_str + ") to the nearest enemy.";
+	var string:String = "Deals " + final_damage_str + " ("+base_damage_str+" + " + base_damage_str + " * " + technique_str + ") to the nearest enemy.";
 
 	string += "\n\nCan be upgraded to deal heavy, long-range damage or to apply AOE crowd control.";
 	return string;
@@ -31,24 +34,9 @@ func damage_modifier(damage:float, unit:FighterUnit=null)->float:
 	else:
 		return Scaling.technique_scaled_value(damage, unit.stats.technique, "damage")
 
-
-const hitbox_radius = 25;
-const hitbox_height = 60;
-const hitbox_offset = Vector2(0, 5)
-
 const skill_range = MELEE_RANGE;
-const skill_cooldown = 1.5;
+const skill_cooldown = 2.5;
 
-const evolutions = {
-	"Crossbow Guy":{
-		"scrap":50,
-		"fuel":20
-	},
-	"Gravity Guy":{
-		"chips":20,
-		"scrap":50
-	}
-}
 
 func skill()->void:
 	Combat.set_windup_angle(fighter);
