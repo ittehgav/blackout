@@ -117,7 +117,7 @@ func equip_accessory(accessory:Accessory, index:int)->Accessory:
 	
 
 
-func travel_upkeep_cost(per_hour:bool=false)->Dictionary:
+func travel_upkeep_cost(per_hour:bool=false)->Dictionary[String, int]:
 	## EVERY 30 MINUTES
 	var cost:Dictionary = {
 		"food":1.0,
@@ -126,11 +126,16 @@ func travel_upkeep_cost(per_hour:bool=false)->Dictionary:
 	for unit:FighterUnit in roster.units:
 		cost.food += .5 * len(unit.base.tags)
 		cost.fuel += .5 * len(unit.base.tags)
+
 	if per_hour:
-		cost.food *= 2;
-		cost.fuel *= 2;
+		cost.food *= 2.0;
+		cost.fuel *= 2.0;
 	
-	return cost;
+	var final_dict:Dictionary[String, int] = {
+		"food":int(cost.food),
+		"fuel":int(cost.fuel)
+	}
+	return final_dict;
 
 func travel_upkeep()->void:
 	## food and fuel start at 1 to account for player's expenses

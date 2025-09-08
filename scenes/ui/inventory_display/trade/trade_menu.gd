@@ -53,9 +53,11 @@ func start_trade(target:Inventory, target_name:String)->void:
 	## needs to load trader first because buying/selling prices are defined by the NPC
 	trader_inventory_display.set_grid();
 	trader_inventory_display.load_inventory(target);
+	trader_inventory_display.set_reset_state()
 	
 	player_inventory_display.set_grid()
 	player_inventory_display.load_inventory(Entities.player.inventory)
+	player_inventory_display.set_reset_state()
 	
 	## re-refreshing to make them account for eachother 
 	## when setting up th resource dropdowns
@@ -170,8 +172,8 @@ func _on_confirm_pressed() -> void:
 
 
 func _on_reset_pressed() -> void:
-	player_inventory_display.refresh_data()
-	trader_inventory_display.refresh_data()
+	player_inventory_display.reset_inventory();
+	trader_inventory_display.reset_inventory();
 	reset_trade_balance()
 	
 	player_inventory_display.sfx.play_sound_by_key("reset");
@@ -190,6 +192,7 @@ func reset_trade_balance()->void:
 
 func finish_trade()->void:
 	const tween_duration = 1.25
+	
 
 	for r:String in Index.all_resources:
 		var trade:int = self[r+"_trade"];
@@ -221,6 +224,9 @@ func finish_trade()->void:
 	reset_trade_balance();
 	
 	Entities.player.inventory.refresh_resource_counts();
+	
+	player_inventory_display.set_reset_state();
+	trader_inventory_display.set_reset_state();
 
 func set_label_text(label:Label, value:int)->void:
 	label.text = str(value);
@@ -229,10 +235,6 @@ func set_label_text(label:Label, value:int)->void:
 func _on_exit_pressed() -> void:
 	trade_finished.emit();
 	queue_free();
-	
-	
-
-
 
 
 
@@ -243,8 +245,8 @@ func _on__hour_upkeep_pressed() -> void:
 	var food_to_get:int = min(trader_food_total, food_hourly_cost)
 	var fuel_to_get:int = min(trader_fuel_total, fuel_hourly_cost)
 	
-	trader_inventory_display.send_resource_by_amount("food", food_to_get)
 	trader_inventory_display.send_resource_by_amount("fuel", fuel_to_get)
+	trader_inventory_display.send_resource_by_amount("food", food_to_get)
 
 
 func _on_24_hour_upkeep_pressed() -> void:

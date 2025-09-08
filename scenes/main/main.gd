@@ -3,6 +3,7 @@ extends Node
 @export_enum("main", "world_map", "location", "battle") var state:String;
 
 @export var main_menu_ui_scene:PackedScene;
+signal state_changed(new_state:String);
 
 
 func _ready()->void:
@@ -17,3 +18,7 @@ func return_to_main_menu()->void:
 	main_menu_ui.tree_entered.connect(Entities.loading_screen.fade_out)
 	add_child(main_menu_ui)
 	move_child(main_menu_ui, 1)
+
+
+func _on_state_changed(new_state: String) -> void:
+	state = new_state;

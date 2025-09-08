@@ -8,8 +8,8 @@ extends Node
 
 ## make this catch the size properly?
 @export var world_map_cell_size:int = 32;
-@export var irl_time_scale:float;
-@export var cell_to_km:float;
+@export var irl_time_scale:float = 1000;
+@export var cell_to_km:float = 2;
 
 func _ready()->void:
 	for scene:PackedScene in fighters.all_fighter_base_scenes:
@@ -65,6 +65,7 @@ const resource_base_prices = {
 	"scrap":3.0,
 	"chips":5.0
 }
+
 
 
 func tagged_settlement_name(settlement:Settlement)->String:
@@ -128,6 +129,8 @@ func get_color(key:String)->Color:
 		color = misc_colors[key]
 	elif key in combat_effect_colors:
 		color = combat_effect_colors[key]
+	elif key in primary_tag_colors:
+		color = primary_tag_colors[key]
 
 	assert(color != Color(0.0, 0.0, 0.0, 1.0))
 	return color;

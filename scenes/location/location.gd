@@ -21,9 +21,10 @@ var world_map_ui:CanvasLayer
 func _ready()->void:
 	## because this enters the tree from the world map when the player is 
 	## in a settlement
-	Entities.main.state = "location"
+	Entities.main.state_changed.emit("in_settlement")
 	get_tree().paused = false;
 	Entities.current_location = self;
+
 
 func load_settlement(settlement:Settlement)->void:
 	for building:Building in settlement.buildings:
@@ -36,8 +37,7 @@ func load_settlement(settlement:Settlement)->void:
 
 var previous_building:FrontPorch;
 func load_building(building:Building)->void:
-	var key:String = building.front_porch_key;
-	var front_porch:FrontPorch = Index.scenes.front_porches[key].instantiate();
+	var front_porch:FrontPorch = building.front_porch_scene.instantiate();
 	front_porch.building = building;
 	var back_side_offset:int = front_porch.position.x * -1;
 	front_porch.position.x += building_offset

@@ -1,50 +1,47 @@
-[gd_scene load_steps=16 format=3 uid="uid://ctxqhmgpiuoss"]
+[gd_scene load_steps=13 format=3 uid="uid://ctxqhmgpiuoss"]
 
 [ext_resource type="Script" uid="uid://bkmntak62a0ul" path="res://scenes/ui/inventory_display/trade/trade_menu.gd" id="1_vhigs"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_5yui1"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="2_ln21g"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_gamgw"]
-[ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/PixelTheme-Paper.tres" id="4_gamgw"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="4_pwk7p"]
-[ext_resource type="Theme" uid="uid://yqkvsb5q7pab" path="res://resources/themes/pixel_ui_theme/PixelTheme.tres" id="5_8o88u"]
-[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="5_ggy66"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="6_yg835"]
 [ext_resource type="InputEventAction" uid="uid://daklc08dpi106" path="res://resources/shortcuts/reset.tres" id="10_5jtfv"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x74ix"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c36kb"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_52c05"]
+resource_local_to_scene = true
+shader = ExtResource("3_gamgw")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5jtfv"]
-resource_local_to_scene = true
-shader = ExtResource("3_gamgw")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t54sf"]
-resource_local_to_scene = true
-shader = ExtResource("3_gamgw")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxw65"]
-resource_local_to_scene = true
-shader = ExtResource("3_gamgw")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_skv0q"]
 resource_local_to_scene = true
 shader = ExtResource("3_gamgw")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -60,6 +57,8 @@ events = [ExtResource("10_5jtfv")]
 
 [node name="trade_menu" type="Control" node_paths=PackedStringArray("player_inventory_display", "trader_inventory_display", "confirm_btn", "reset_btn", "player_name_label", "trader_name_label", "money_trade_label", "food_trade_label", "fuel_trade_label", "juice_trade_label", "scrap_trade_label", "chips_trade_label", "food_hourly_cost_label", "food_daily_cost_label", "fuel_hourly_cost_label", "fuel_daily_cost_label", "ui_sfx")]
 process_mode = 3
+visibility_layer = 16
+z_index = 5
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -235,7 +234,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 0
 
 [node name="resource_icon" parent="HBoxContainer/player_panel/VBoxContainer/1_h_cost" node_paths=PackedStringArray("label") instance=ExtResource("4_pwk7p")]
-material = SubResource("ShaderMaterial_5jtfv")
+material = SubResource("ShaderMaterial_x74ix")
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 match_player_inventory = false
@@ -246,7 +245,7 @@ layout_mode = 2
 text = "22"
 
 [node name="resource_icon2" parent="HBoxContainer/player_panel/VBoxContainer/1_h_cost" node_paths=PackedStringArray("label") instance=ExtResource("4_pwk7p")]
-material = SubResource("ShaderMaterial_t54sf")
+material = SubResource("ShaderMaterial_c36kb")
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 resource = "fuel"
@@ -269,7 +268,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 0
 
 [node name="resource_icon" parent="HBoxContainer/player_panel/VBoxContainer/24_h_cost" node_paths=PackedStringArray("label") instance=ExtResource("4_pwk7p")]
-material = SubResource("ShaderMaterial_vxw65")
+material = SubResource("ShaderMaterial_52c05")
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 match_player_inventory = false
@@ -280,7 +279,7 @@ layout_mode = 2
 text = "22"
 
 [node name="resource_icon2" parent="HBoxContainer/player_panel/VBoxContainer/24_h_cost" node_paths=PackedStringArray("label") instance=ExtResource("4_pwk7p")]
-material = SubResource("ShaderMaterial_skv0q")
+material = SubResource("ShaderMaterial_5jtfv")
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 resource = "fuel"
@@ -295,7 +294,6 @@ text = "22"
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 mouse_filter = 2
-theme = ExtResource("4_gamgw")
 
 [node name="exit" type="Button" parent="HBoxContainer/in_trade"]
 layout_mode = 1
@@ -307,7 +305,6 @@ offset_top = 25.0
 offset_right = 54.0
 offset_bottom = 59.0
 grow_horizontal = 2
-theme = ExtResource("5_ggy66")
 shortcut = ExtResource("6_yg835")
 shortcut_in_tooltip = false
 text = "[tab] Exit"
@@ -321,6 +318,7 @@ offset_top = 82.0
 offset_right = -4.0
 offset_bottom = 452.0
 grow_horizontal = 2
+mouse_filter = 2
 theme_override_constants/separation = 5
 
 [node name="money_trade" type="Label" parent="HBoxContainer/in_trade/VBoxContainer"]
@@ -377,17 +375,14 @@ offset_right = 64.5
 offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("5_8o88u")
 
 [node name="confirm" type="Button" parent="HBoxContainer/in_trade/VBoxContainer2"]
 layout_mode = 2
-theme = ExtResource("5_ggy66")
 theme_override_font_sizes/font_size = 48
 text = "Confirm"
 
 [node name="reset" type="Button" parent="HBoxContainer/in_trade/VBoxContainer2"]
 layout_mode = 2
-theme = ExtResource("5_ggy66")
 theme_override_font_sizes/font_size = 48
 shortcut = SubResource("Shortcut_t54sf")
 text = "[r] Reset"

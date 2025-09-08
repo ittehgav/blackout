@@ -17,4 +17,6 @@ class_name SceneIndex
 @export var npc_fighter:PackedScene;
 
 @export_group("Misc")
+@export var combat_stats:PackedScene
 @export var vehicles:Array[PackedScene]
+@export var player_body:PackedScene;

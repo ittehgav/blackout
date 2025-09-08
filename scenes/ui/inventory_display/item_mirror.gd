@@ -303,7 +303,16 @@ func equip_weapon_command(alt:bool=false)->void:
 	
 
 func equip_accessory_command()->void:
-	var previous:Item = item;
+	assert(item is Accessory);
+	if item.equippable.player and not item.equippable.unit:
+		equip_accessory_on_player();
+	else:
+		show_equip_options();
+
+func show_equip_options()->void:
+	display.equip_options.show_options(item);
+
+func equip_accessory_on_player()->void:
 	var just_unequipped:Accessory;
 	if not Entities.player.equipped_accessory_1:
 		just_unequipped = Entities.player.equip_accessory(item, 1);
@@ -319,7 +328,6 @@ func equip_accessory_command()->void:
 		Entities.player.equip_accessory(item, 1)
 		
 	if just_unequipped:
-		
 		load_item(just_unequipped, true);
 		item.match_mirror()
 		if not display.check_item_fit(item, inventory_position):
@@ -330,6 +338,26 @@ func equip_accessory_command()->void:
 		display.remove_mirror(self);
 	
 	display.item_dropped.emit(self);
+
+func equip_accessory_on_unit(unit:FighterUnit)->void:
+	var previous:Accessory = unit.equipped_accessory;
+	if previous:
+		if not display.find_clear_cell(previous, false, item):
+			display.invalid_move.emit("NOT ENOUGH ROOM");
+			return;
+	
+	unit.equip_accessory(item);
+	if previous:
+		load_item(previous, true);
+		item.match_mirror;
+		if not display.check_item_fit(item, inventory_position):
+			display.throw_mirror(self);
+		refresh()
+	else:
+		display.remove_mirror(self);
+	display.accessory_equipped_on_unit.emit();
+	display.item_dropped.emit(self)
+	
 
 
 func equip_module_command()->void:
@@ -493,7 +521,6 @@ func refresh()->void:
 	
 	if item is ResourceContainer and item.raw_stack and stack_size == 0:
 		display.remove_mirror(self)
-		print("removes?")
 		return
 	stack_size_label.modulate.a = 1
 	

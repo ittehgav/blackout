@@ -18,7 +18,7 @@ func refresh_fog(current_settlement:Settlement=player_party.current_settlement)-
 		if not settlement.data.seen:
 			settlement.reveal();
 
-const off_road_sight = 6;
+const off_road_sight = 8;
 const horizon_gap:int = 2;
 @onready var horizon_limits: = set_horizon_limits();
 func set_horizon_limits()->Array[int]:

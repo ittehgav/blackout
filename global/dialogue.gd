@@ -13,16 +13,15 @@ func start_dialogue(dialogue:DialogueResource, speaker:Variant, speaker_texture:
 	var target:Control;
 	match Entities.main.state:
 		## WHERE HUDS WILL BE HIDDEN/SHOWN
-		"location":
+		"in_settlement":
 			target = Entities.current_location.ui;
-
 	target.add_child(current_player)
 	current_player.tree_exited.connect(on_dialogue_ended)
 
 func on_dialogue_ended()->void:
 	match Entities.main.state:
-		"location":
-			get_tree().paused= false;
+		"in_settlement":
+			get_tree().paused = false;
 	current_player = null;
 	
 func start_trade()->void:
@@ -30,11 +29,15 @@ func start_trade()->void:
 	var trade_menu:TradeMenu = Index.scenes.ui.trade_menu.instantiate()
 	trade_menu.start_trade(current_speaker.inventory, current_speaker.name)
 	match Entities.main.state:
-		"location":
+		"in_settlement":
+			Entities.main_hud.hide()
 			Entities.current_location.ui.add_child(trade_menu)
 			Tweens.ui_fade_in(trade_menu)
-			trade_menu.trade_finished.connect(func()->void:get_tree().paused = false)
+	
+	trade_menu.trade_finished.connect(trade_finished)
 
 func trade_finished()->void:
-	current_player.show();
-	current_player.dialogue_next();
+	match Entities.main.state:
+		"in_settlement":
+			get_tree().paused = false
+			Entities.main_hud.show();

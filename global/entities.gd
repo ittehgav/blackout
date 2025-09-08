@@ -5,6 +5,8 @@ var main:Node;
 var main_bgm:AudioStreamPlayer;
 var current_camera:Camera2D;
 
+var main_hud:UIRoot
+
 var current_location:Location;
 
 var player:Player;

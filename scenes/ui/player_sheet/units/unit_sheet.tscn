@@ -1,24 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene load_steps=10 format=3 uid="uid://1hbrworalfdw"]
 
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/player_sheet/units/unit_sheet.gd" id="1_ugdfa"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_tw0lw"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="3_kbewr"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_fo3fe"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="5_kpc33"]
 [ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="7_bswal"]
 [ext_resource type="Script" uid="uid://dhhsn8dr6b0sg" path="res://scenes/ui/player_sheet/units/panel_container.gd" id="8_0kn7o"]
 [ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="9_n3a7f"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ci8v7"]
-shader = ExtResource("4_fo3fe")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xqdqb"]
 load_path = "res://.godot/imported/armguy.png-0256df781419550105bc51d7c0e19786.ctex"
@@ -85,7 +73,6 @@ text = "Arm Guy"
 layout_mode = 2
 
 [node name="SpriteSample" parent="." instance=ExtResource("3_kbewr")]
-material = SubResource("ShaderMaterial_ci8v7")
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -99,18 +86,6 @@ enable_hover_panel = false
 
 [node name="panel" parent="SpriteSample" index="0"]
 use_parent_material = true
-
-[node name="Tooltip" parent="SpriteSample" index="2"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 322.0
-offset_bottom = 90.0
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="texts" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -189,6 +164,7 @@ tint_progress = Color(0.0862745, 0.8, 0.0862745, 1)
 
 [node name="StatsDropdown" parent="VBoxContainer" node_paths=PackedStringArray("stat_labels") instance=ExtResource("5_kpc33")]
 layout_mode = 2
+size_flags_horizontal = 0
 stat_labels = {
 "agility": NodePath("agility/agility"),
 "attack": NodePath("attack/attack"),

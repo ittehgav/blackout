@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cq506jywmcjbm"]
+[gd_scene load_steps=7 format=3 uid="uid://cq506jywmcjbm"]
 
 [ext_resource type="Script" uid="uid://sn6xkddphxxl" path="res://scenes/location/buildings/building_subclasses/resource_trader.gd" id="1_2qms2"]
+[ext_resource type="Texture2D" uid="uid://brhahwtawo3en" path="res://assets/visual/buildings/icons/tech_shop.png" id="2_aodmb"]
+[ext_resource type="PackedScene" uid="uid://b0xe0g3wi6de3" path="res://scenes/index/buildings/front_porches/tech_shop_front.tscn" id="2_gw1fb"]
 [ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="2_kgj6b"]
 [ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/index/items/containers/chips_case.tscn" id="3_afyx4"]
 [ext_resource type="Script" uid="uid://b03rfuj7p4xxr" path="res://scenes/leader/roster/building_roster.gd" id="4_tx4j3"]
@@ -14,7 +16,8 @@ to_trade = Dictionary[String, bool]({
 "juice": false,
 "scrap": true
 })
-front_porch_key = "tech_shop"
+icon_texture = ExtResource("2_aodmb")
+front_porch_scene = ExtResource("2_gw1fb")
 inventory = NodePath("NpcInventory")
 roster = NodePath("BuildingRoster")
 trade_option = true

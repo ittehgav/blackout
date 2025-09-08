@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbk0pwuwwf4px"]
+
+[ext_resource type="Script" uid="uid://ckea4sigcg5mq" path="res://scenes/ui/player_sheet/unit_sample.gd" id="1_e8to1"]
+
+[node name="unit_sample" type="Button"]
+custom_minimum_size = Vector2(128, 128)
+script = ExtResource("1_e8to1")
+
+[node name="level" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "Lv. 1"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.2, 0.0878667, 0.084, 1)
+border_width = 2.0
+editor_only = false

@@ -8,5 +8,5 @@ const rarity = 3;
 
 func get_description()->String:
 	var description:String = super();
-	description += "The wearer deals 50% damage back to melee units.";
+	description += "\nThe wearer deals 50% damage back to melee units.";
 	return description;

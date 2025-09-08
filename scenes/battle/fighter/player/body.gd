@@ -2,13 +2,6 @@ extends FighterBase
 
 class_name PlayerFighterBase;
 
-
-
-var current_state:String = "idle";
-
-
-
-
 func _process(_delta:float)->void:
 	var mouse_x:int = get_global_mouse_position().x;
 	var global_x:int = global_position.x

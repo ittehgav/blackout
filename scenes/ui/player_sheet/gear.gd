@@ -173,10 +173,8 @@ func unequip_accessory(which:int)->void:
 	Entities.player.equipment.erase(to_unequip);
 	send_item_to_inventory(to_unequip)
 	
-	
 	sfx.play_sound_by_key("accessory_equipped")
-	
-		
+
 
 func _on_accessory_1_sample_gui_input(e: InputEvent) -> void:
 		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_RIGHT\
@@ -189,3 +187,7 @@ func _on_accessory_2_sample_gui_input(e: InputEvent) -> void:
 		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_RIGHT\
 		and Entities.player.equipped_accessory_2:
 			unequip_accessory(2)
+
+
+func _on_inventory_display_accessory_equipped_on_unit() -> void:
+	sfx.play_sound_by_key("accessory_equipped")

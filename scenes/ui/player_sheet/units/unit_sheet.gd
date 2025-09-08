@@ -38,7 +38,8 @@ func display_unit(unit:FighterUnit)->void:
 	sample.target_base.scale *= 6
 	sample.target_base.offset.y += 20
 	
-	stats_dropdown.load_stats(unit.stats)
+	
+	stats_dropdown.load_stats(unit.final_stats())
 	refresh_data();
 	fade_in()
 	

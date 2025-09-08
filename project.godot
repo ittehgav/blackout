@@ -30,7 +30,6 @@ Index="*res://global/index/index.tscn"
 Trade="*res://global/world_map/trade.gd"
 Scaling="*res://global/combat/scaling.gd"
 MapEvents="*res://global/world_map/map_events.gd"
-NameDatabase="*res://global/world_map/name_database.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Statuses="*res://global/combat/statuses.gd"
 SaveSystem="*res://global/save_system/save_system.gd"
@@ -214,6 +213,11 @@ reset={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"location":0,"echo":false,"script":null)
 ]
 }
+skip_time={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
+]
+}
 
 [internationalization]
 
@@ -234,6 +238,6 @@ locale/translations_pot_files=PackedStringArray("res://resources/dialogues/map_c
 textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.2, 0.0392157, 0.0392157, 1)
+environment/defaults/default_clear_color=Color(0.4, 0.501961, 0.4, 1)
 viewport/transparent_background=true
 2d/snap/snap_2d_transforms_to_pixel=true

@@ -30,7 +30,7 @@ var battle_loot:Inventory;
 
 
 func start_battle(enemy_leader:Leader)->void:
-	Entities.main.state = "battle"
+	Entities.main.state_changed.emit("battle")
 	Entities.arena = self;
 	assign_team(player_fighter, 1)
 	load_teams(enemy_leader);
@@ -109,20 +109,8 @@ func assign_team(unit:ActiveFighter, team_n:int)->void:
 
 	unit.death.connect(overlay.tide_bar.on_unit_death.bind(unit))
 	unit.death.connect(kill_feed.unit_died.bind(unit))
-#
-#func _process(_delta:float)->void:
-	#if Input.is_action_just_pressed("world_map_zoom_in"):
-		#if scale == Vector2.ONE or scale == Vector2(.5, .5):
-			#var target_scale:Vector2 = scale * 2
-			#
-			#var tween:Tween = create_tween();
-			#tween.tween_property(self, "scale", target_scale, 1)
-	#elif Input.is_action_just_pressed("world_map_zoom_out"):
-		#if scale == Vector2.ONE or scale == Vector2(2, 2):
-			#var target_scale:Vector2 = scale / 2
-			#
-			#var tween:Tween = create_tween();
-			#tween.tween_property(self, "scale", target_scale, 1)
+
+
 			
 func return_to_world_map()->void:
 	Entities.world_map.returned_from_battle.connect(Entities.loading_screen.fade_out, CONNECT_ONE_SHOT);
@@ -131,7 +119,7 @@ func return_to_world_map()->void:
 	camera.reparent(Entities.player_map_party)
 	camera.global_position = Entities.player_map_party.global_position;
 	Entities.world_map.show()
-	Entities.main.state = "world_map"
+	Entities.main.state_changed.emit("world_map")
 
 	queue_free()
 	Entities.main.add_child(Entities.world_map)

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="3_umabv"]
 
 [node name="FighterUnit" type="Node2D" node_paths=PackedStringArray("stats", "modifier_stats")]
+visible = false
 script = ExtResource("1_tcogk")
 stats = NodePath("stats")
 modifier_stats = NodePath("modifier_stats")
@@ -17,4 +18,12 @@ technique = 0.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
+[node name="stat_multipliers" parent="." instance=ExtResource("2_62l1n")]
+max_hp = 1.0
+attack = 1.0
+defense = 1.0
+agility = 1.0
+move_speed = 1.0
+
+[connection signal="accessory_equipped" from="." to="." method="_on_accessory_equipped"]
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

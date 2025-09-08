@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=69 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index/index.gd" id="1_oyx4q"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/punchy.tscn" id="2_whykp"]
@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/index/fighters/challenger.tscn" id="6_5o8xu"]
 [ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/index/fighters/slammy.tscn" id="7_osx6l"]
 [ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/index/fighters/gravity.tscn" id="8_28bxi"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="8_v142k"]
 [ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/index/fighters/rocky.tscn" id="9_jil7q"]
+[ext_resource type="PackedScene" uid="uid://dx6w0vn2gqy7s" path="res://scenes/player/unit/player_body.tscn" id="11_qig7t"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/index/fighters/wheel.tscn" id="13_kdm76"]
 [ext_resource type="PackedScene" uid="uid://cocy8mo80801o" path="res://scenes/battle/arena/arena.tscn" id="14_38kar"]
 [ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/index/vehicles/doblo.tscn" id="18_2wv2w"]
@@ -20,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://ctxqhmgpiuoss" path="res://scenes/ui/inventory_display/trade/trade_menu.tscn" id="24_fqlef"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="25_tiko5"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="26_t3d8t"]
+[ext_resource type="PackedScene" uid="uid://cbk0pwuwwf4px" path="res://scenes/ui/samples/unit_sample.tscn" id="26_yssh0"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="27_x86u7"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="28_v8r68"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="29_j1h2w"]
@@ -71,8 +74,6 @@ script = ExtResource("1_oyx4q")
 scenes = NodePath("scenes")
 fighters = NodePath("fighters")
 textures = NodePath("textures")
-irl_time_scale = 1000.0
-cell_to_km = 2.0
 color_schemes = Array[Array]([[Color(0.541176, 0.607843, 0.407843, 1), Color(0, 0.3, 0, 1)], [Color(0.5418, 0.600137, 0.86, 1), Color(0, 0.256, 0.64, 1)], [Color(0.66, 0.5478, 0.5478, 1), Color(0.61, 0.244, 0, 1)], [Color(0.831373, 0.65098, 0.701961, 1), Color(0.75, 0.1725, 0.374625, 1)], [Color(0.69, 0.6739, 0.4485, 1), Color(0.35, 0.2744, 0.0665, 1)], [Color(0.703523, 0.4851, 0.77, 1), Color(0.33572, 0.0588, 0.42, 1)]])
 resource_colors = Dictionary[String, Color]({
 "chips": Color(0, 0.8, 0.8, 1),
@@ -108,7 +109,9 @@ arena = ExtResource("14_38kar")
 world_map = ExtResource("21_8q2tu")
 fighter_unit = ExtResource("25_tiko5")
 npc_fighter = ExtResource("26_t3d8t")
+combat_stats = ExtResource("8_v142k")
 vehicles = Array[PackedScene]([ExtResource("18_2wv2w"), ExtResource("19_c3xjx"), ExtResource("20_t1lvq")])
+player_body = ExtResource("11_qig7t")
 
 [node name="front_porches" type="Node" parent="scenes"]
 script = ExtResource("79_whykp")
@@ -128,6 +131,7 @@ save_file_display = ExtResource("31_6wgsf")
 dialogue_player = ExtResource("22_au47y")
 trade_menu = ExtResource("24_fqlef")
 item_mirror = ExtResource("32_co4i5")
+unit_sample = ExtResource("26_yssh0")
 
 [node name="items" type="Node" parent="scenes"]
 script = ExtResource("81_iis6y")

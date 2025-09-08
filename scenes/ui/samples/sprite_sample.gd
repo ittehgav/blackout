@@ -28,7 +28,6 @@ func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_sc
 	if target_base is FighterBase:
 		target_base.offset = target_base.sample_offset + extra_offset;
 
-		ColorCoder.color_code_fighter(target_base, color_scheme_index, true);
 		if not target_base is PlayerFighterBase:
 			target_base.set_material(null)
 			set_rectangle();

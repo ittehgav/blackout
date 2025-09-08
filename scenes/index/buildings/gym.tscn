@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://brlc23bio8sdx"]
+[gd_scene load_steps=11 format=3 uid="uid://brlc23bio8sdx"]
 
 [ext_resource type="Script" uid="uid://sn6xkddphxxl" path="res://scenes/location/buildings/building_subclasses/resource_trader.gd" id="1_fe1lu"]
 [ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="2_oeueu"]
+[ext_resource type="Texture2D" uid="uid://5ntjtu1c0jeo" path="res://assets/visual/buildings/icons/gym.png" id="2_osyqs"]
+[ext_resource type="PackedScene" uid="uid://din7hbi7hky10" path="res://scenes/index/buildings/front_porches/gym_front.tscn" id="2_yto3n"]
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="3_e6ovm"]
 [ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="3_oeueu"]
 [ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="4_sbfju"]
@@ -20,7 +22,8 @@ to_trade = Dictionary[String, bool]({
 })
 max_items = 2
 rarity_rate = 2
-front_porch_key = "gym"
+icon_texture = ExtResource("2_osyqs")
+front_porch_scene = ExtResource("2_yto3n")
 inventory = NodePath("NpcInventory")
 roster = NodePath("Building Roster")
 trade_option = true

@@ -3,6 +3,7 @@ extends Node2D
 class_name FighterUnit
 
 signal level_up;
+signal accessory_equipped(new:Accessory, old:Accessory)
 ## fighter bases dont need to be loaded for each individual Fighter node
 @export var base:FighterBase;
 
@@ -12,6 +13,7 @@ signal level_up;
 
 @export var stats:CombatStats;
 @export var modifier_stats:CombatStats;
+@export var stat_multipliers:CombatStats;
 
 ## can put them in enemy units too btw
 @export var equipped_accessory:Accessory
@@ -23,6 +25,14 @@ func _ready()->void:
 	if base and not stats_loaded:
 		update_stats();
 	level_up.connect(Scaling.level_up_stats)
+
+func final_stats()->CombatStats:
+	var modified_stats:CombatStats = Index.scenes.combat_stats.instantiate();
+	
+	for stat:String in Index.all_combat_stats:
+		modified_stats[stat] = (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat]
+	
+	return modified_stats;
 
 func change_base(new_base:FighterBase)->void:
 	base = new_base;
@@ -81,3 +91,38 @@ func _on_child_entered_tree(node: Node) -> void:
 		await Index.ready
 		base = Index.fighters.find_base(node.name);
 		remove_child(node)
+
+func equip_accessory(new:Accessory)->Accessory:
+	var previous:Accessory = equipped_accessory;
+	equipped_accessory = new;
+	accessory_equipped.emit(new, previous);
+	return previous
+
+
+func _on_accessory_equipped(new: Accessory, old: Accessory) -> void:
+	## TODO check if there's room for old before equipping
+	equipped_accessory = new;
+	if new.stat_modifiers:
+		for stat:String in Index.all_combat_stats:
+			var modifier:float = new.stat_modifiers[stat]
+			if modifier:
+				modifier_stats[stat] += modifier
+				
+	if new.stat_multipliers:
+		for stat:String in Index.all_combat_stats:
+			var modifier:float = new.stat_multipliers[stat]
+			if modifier:
+				stat_multipliers[stat] += modifier
+	
+	if old:
+		if old.stat_modifiers:
+			for stat:String in Index.all_combat_stats:
+				var modifier:float = old.stat_modifiers[stat]
+				if modifier:
+					modifier_stats[stat] -= modifier
+					
+		if old.stat_multipliers:
+			for stat:String in Index.all_combat_stats:
+				var modifier:float = old.stat_multipliers[stat]
+				if modifier:
+					stat_multipliers[stat] -= modifier

@@ -206,10 +206,9 @@ alignment = 1
 [node name="party_and_inventory" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-current_tab = 1
+current_tab = 0
 
 [node name="Inventory" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("inventory_panel", "inventory_display")]
-visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("9_fsh5d")
@@ -235,6 +234,9 @@ offset_top = 10.0
 offset_right = -2.0
 
 [node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="3" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+offset_left = 390.0
+offset_right = 494.0
+offset_bottom = 375.0
 resource_hboxes = {
 "chips": NodePath("chips"),
 "food": NodePath("food"),
@@ -420,7 +422,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "units_grid", "upgrade_hint", "unit_sample")]
+[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "units_grid", "upgrade_hint")]
+visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("18_7ju3y")
@@ -430,7 +433,6 @@ ui_sfx = NodePath("../../../../../ui_sfx")
 unit_sheet_scene = ExtResource("22_in2cn")
 units_grid = NodePath("VBoxContainer/units")
 upgrade_hint = NodePath("upgrade_hint")
-unit_sample = NodePath("VBoxContainer/unit_sample")
 metadata/_tab_index = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
@@ -501,34 +503,6 @@ offset_bottom = 195.0
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Units"
-
-[node name="unit_sample" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-
-[node name="level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer/unit_sample"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 26.0
-grow_horizontal = 2
-text = "Lv. 1"
-
-[node name="ReferenceRect" type="ReferenceRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer/unit_sample"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-border_color = Color(0.2, 0.0878667, 0.084, 1)
-border_width = 2.0
-editor_only = false
 
 [node name="units" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
 layout_mode = 2
@@ -654,6 +628,7 @@ stat_labels = {
 [node name="DisciplinesDropdown" parent="main_bg/MarginContainer/HBoxContainer/player/HBoxContainer" instance=ExtResource("33_in2cn")]
 layout_mode = 2
 
+[connection signal="accessory_equipped_on_unit" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_inventory_display_accessory_equipped_on_unit"]
 [connection signal="extension_hidden" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_inventory_display_extension_hidden"]
 [connection signal="extension_shown" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_inventory_display_extension_shown"]
 [connection signal="warnings_attended" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="." method="_on_inventory_display_warnings_attended"]

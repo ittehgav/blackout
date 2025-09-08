@@ -5,45 +5,6 @@ extends Node
 ## (unless it ends up becoming massive?)
 const fighter_sprite_darkening = .35
 
-var settlement_texture_cache:Dictionary[String, Texture]
-func color_code_settlement(target:Settlement)->void:
-
-	if target.buildings[0].size == 3:
-		if target.buildings[0].name == "Farm":
-			if not settlement_texture_cache.has("farm"):
-				var base_color:Color = Index.get_color("food");
-				var pairs:Dictionary = {
-					Color.BLUE:base_color.darkened(.5),
-					Color.RED:base_color.lightened(.5),
-					Color.GREEN:base_color
-				}
-				var texture:Texture = target.sprites.farm;
-				settlement_texture_cache["farm"] = color_code_texture(texture, pairs)
-			target.sprite.texture = settlement_texture_cache["farm"]
-	else:
-		if not settlement_texture_cache.has("street"):
-			var texture:Texture = target.sprites.street;
-			var base_color:Color = Index.get_color("scrap");
-			var pairs:Dictionary = {
-				Color.BLUE:base_color.darkened(.5),
-				Color.RED:base_color.lightened(.5),
-				Color.GREEN:base_color
-			}
-			settlement_texture_cache["street"] = color_code_texture(texture, pairs);
-		target.sprite.texture = settlement_texture_cache["street"];
-func color_code_player(character:FighterBase)->void:
-	var scheme:Array = Index.color_schemes[Entities.player.color_scheme_index];	
-	var base_color:Color = scheme[0]
-	var off_color:Color = scheme[1];
-	
-	var dict:={
-		Color.GREEN: base_color,
-		Color.BLUE: base_color.darkened(.5),
-		Color.YELLOW: off_color,
-		Color.RED: off_color.darkened(.5)
-	}
-	character.texture = color_code_texture(character.texture, dict)
-
 var weapon_texture_cache:Dictionary[int, Texture]
 func color_code_weapon(weapon:Sprite2D, scheme_index:int)->void:
 	if not scheme_index in weapon_texture_cache:

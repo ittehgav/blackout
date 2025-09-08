@@ -10,24 +10,15 @@ extends Control
 @export var units_grid:GridContainer;
 
 @export var upgrade_hint:TextureRect
-@export var unit_sample:Button;
 
 func refresh_data()->void:
 	for c in units_grid.get_children():
 		c.queue_free()
 	
 	for unit:FighterUnit in Entities.player.roster.units:
-		var sample:Button = unit_sample.duplicate();
-		sample.get_node("level").text = "Lv. " + str(unit.level);
-		
-		var base:FighterBase = unit.base.duplicate();
-		base.scale = Vector2.ONE;
-		base.centered = false;
-		base.material = null;
-		sample.add_child(base);
+		var sample:UnitSample = Index.scenes.ui.unit_sample.instantiate();
+		sample.load_unit(unit, show_more.bind(unit))
 		units_grid.add_child(sample)
-		sample.show()
-		sample.pressed.connect(show_more.bind(unit))
 		
 		if unit.upgrade_available():
 			var hint:TextureRect = upgrade_hint.duplicate();

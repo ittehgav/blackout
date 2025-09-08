@@ -11,6 +11,8 @@ signal resources_changed(resource:String, amount:int)
 signal item_dropped(mirror:ItemMirror);
 signal invalid_move(message:String);
 
+signal accessory_equipped_on_unit;
+
 signal extension_shown;
 signal extension_hidden;
 
@@ -28,6 +30,7 @@ var warnings:Dictionary[String, bool] = {
 
 
 @export var resource_picker:Control;
+@export var equip_options:Control;
 
 @export var item_mirrors_node:Control;
 
@@ -95,15 +98,25 @@ func _ready()->void:
 		load_inventory(Entities.player.inventory);
 
 
-var initial_items:Array[Dictionary];
+var initial_items:Dictionary[Item, Array];
 func set_reset_state()->void:
 	## mirrors here are already properly positioned and set to just get
 	## added into the display as freshly-loaded mirrors
 	for mirror:ItemMirror in all_mirrors:
-		var backup:Dictionary = {
-			mirror.item: mirror.inventory_position
-		}
-		initial_items.append(backup)
+		initial_items[mirror.item] = [mirror.inventory_position, mirror.item.stack_size]
+
+
+func reset_inventory()->void:
+	## items are still referenced in the backup so won't be 
+	## lost when they get unindexed from the inventyory
+	inventory.empty_inventory();
+	for item:Item in initial_items.keys():
+		var entry:Array = initial_items[item]
+		inventory.add_item(item);
+		item.inventory_position = entry[0];
+		item.stack_size = entry[1]
+	hard_reset()
+
 
 func set_grid()->void:
 	if not grid_set:
@@ -174,16 +187,27 @@ func generate_mirror(item:Item)->ItemMirror:
 func add_mirror(mirror:ItemMirror)->void:
 	item_mirrors_node.add_child(mirror);
 	all_mirrors.append(mirror);
+	
+func clear_all_mirrors(from_inventory:bool=true)->void:
+	while len(all_mirrors):
+		remove_mirror(all_mirrors[0], from_inventory)
 
-func remove_mirror(mirror:ItemMirror)->void:
-	assert(mirror.item in inventory.items)
-	inventory.remove_item(mirror.item);
+func remove_mirror(mirror:ItemMirror, from_inventory:bool=true)->void:
+	if from_inventory:
+		assert(mirror.item in inventory.items)
+		inventory.remove_item(mirror.item);
 	
 	if mirror.item and mirror.item is ResourceContainer:
 		self[mirror.item.resource +"_containers"].erase(mirror)
 	
 	all_mirrors.erase(mirror)
 	mirror.queue_free();
+
+func hard_reset()->void:
+	for mirror:ItemMirror in all_mirrors:
+		clear_all_mirrors(false);
+	load_inventory(inventory);
+	board_shake(5)
 
 func refresh_data()->void:
 	var concurring_inventory:Array[Inventory];
@@ -346,7 +370,7 @@ func current_resource_amount(resource:String)->int:
 func send_resource_by_amount(resource:String, amount:int)->void:
 	var mirrors:Array[ItemMirror] = self[resource+"_containers"];
 	mirrors.sort_custom(sort_container_mirrors);
-	mirrors.reverse();
+
 	
 	for mirror:ItemMirror in mirrors:
 		if mirror.stack_size >= amount:

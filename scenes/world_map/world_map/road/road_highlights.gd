@@ -10,5 +10,6 @@ func blink_loop()->void:
 	tween.tween_callback(blink_loop)
 
 func highlight_path(cells:PackedVector2Array)->void:
+	clear();
 	for c:Vector2 in cells:
 		set_cell(c, 0, Vector2.ZERO)

@@ -2,6 +2,8 @@ extends UIRoot;
 
 class_name PlayerSheet;
 
+signal closed;
+
 @export var bg:ColorRect;
 @export var sfx:AudioStreamPlayer;
  
@@ -31,7 +33,11 @@ func _ready()->void:
 	Entities.player_sheet = self;
 
 
+var open:bool=false
+var return_pause_state:bool;
 func show_player_sheet(left_tab_view:int=0)->void:
+	return_pause_state = get_tree().paused;
+	
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
 	show()
@@ -44,20 +50,9 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(bg, "self_modulate:a", 1, tween_duration);
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
-	tween.tween_callback(opening_finished)
+	await tween.finished;
+	open = true;
 	## so the player can't mash tab and bug the UI
-
-var open:bool=false
-func opening_finished()->void:
-	open = true
-func closing_finished()->void:
-	open = false
-
-func _input(e:InputEvent)->void:
-	## opening is handled differently in contexts
-	if e.is_action_pressed("show_player_sheet") and open and not party_view.current_unit_sheet:
-		hide_player_sheet();
-
 func hide_player_sheet(_meta:Variant="")->void:
 	## _meta to this gets called when meta clicked from memo labels in the memos tab
 	if player_inventory.pending_warnings():
@@ -72,11 +67,21 @@ func hide_player_sheet(_meta:Variant="")->void:
 		var tween:Tween = create_tween();
 		tween.tween_property(container, "theme_override_constants/separation", 1700, tween_duration);
 		tween.parallel().tween_property(bg, "self_modulate:a", 0, tween_duration)
+		
 		await tween.finished
 		open = false
-		if Entities.main.state == "location":
-			get_tree().paused = false;
+		closed.emit();
+		open = false
+
+		get_tree().paused = return_pause_state;
 		hide()
+
+
+
+func _input(e:InputEvent)->void:
+	## opening is handled differently in contexts
+	if e.is_action_pressed("show_player_sheet") and open and not party_view.current_unit_sheet:
+		hide_player_sheet();
 
 
 func refresh_data(_r:String="", _change:float=0)->void:
@@ -95,9 +100,6 @@ func refresh_data(_r:String="", _change:float=0)->void:
 
 func _on_player_equipment_changed(changed:Equipment) -> void:
 	gear.refresh_samples(changed)
-
-
-
 
 func _on_inventory_display_warnings_shown() -> void:
 	left_tab_container.set_tab_disabled(1, true)

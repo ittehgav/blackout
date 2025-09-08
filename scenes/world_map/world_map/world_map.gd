@@ -8,8 +8,6 @@ signal day_passed;
 signal settlement_hovered(settlement:Settlement);
 signal settlement_mouse_exited;
 
-@export var sky_colors:Array[Color]
-
 @export var origin:Settlement;
 @export var road_tiles:TileMapLayer;
 
@@ -62,8 +60,6 @@ func assign_neighbors(target:Settlement, all_settlements:Array[Node])->void:
 					else:
 						target.neighbors.insert(0, settlement);
 						distances.insert(0, distance);
-	
-
 
 
 func neighbor_distance_sort(a:Settlement, b:Settlement, target:Settlement)->bool:
@@ -85,4 +81,16 @@ func enter_settlement(target:Settlement = Entities.player_party.current_settleme
 	
 	ui_canvas.reparent(location.ui_canvas)
 	location.world_map_ui = ui_canvas
-	
+
+func _process(_delta:float)->void:
+	if Input.is_action_just_pressed("skip_time") and not get_tree().paused:
+		set_travel_speed(2);
+	elif Input.is_action_just_released("skip_time") and not get_tree().paused:
+		set_travel_speed(1);
+
+func set_travel_speed(target:float)->void:
+	Engine.time_scale = target
+
+
+func _on_player_party_settlement_visited(_settlement: Settlement) -> void:
+	set_travel_speed(1)

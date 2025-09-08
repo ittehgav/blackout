@@ -199,10 +199,8 @@ func store_resources()->void:
 					raw_stack.stack_size = raw_stack.capacity;
 					to_store -= raw_stack.capacity;
 				add_item(raw_stack);
-					
-					
 
-					
+
 func sort_items()->void:
 	## only ever run if guaranteed that everything will fit
 	
@@ -222,13 +220,14 @@ func sort_items()->void:
 			if not fit:
 				reset = true
 				break;
-	
 	if reset:
 		for item in items:
 			item.inventory_position = original_positions[item];
 
+
 func size_sort(a:Item, b:Item)->bool:
 	return a.size_x * a.size_y > b.size_x * b.size_y;
+
 
 func throw_item(item:Item, taken_cells:Array[Vector2])->bool:
 	## every non-player inventory is top-right oriented instead of top-left
@@ -302,3 +301,16 @@ func sort_containers(a:ResourceContainer, b:ResourceContainer)->bool:
 		return false;
 	else:
 		return a.stack_size > b.stack_size;
+
+var all_item_arrays:Array[Array] = [
+	items,
+	weapons,
+	modules,
+	consumables,
+	accessories,
+	containers
+]
+
+func empty_inventory()->void:
+	for array:Array[Item] in all_item_arrays:
+		array.clear();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=26 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -22,10 +22,11 @@
 [ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_display/resource_picker.gd" id="21_15sfg"]
 [ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="22_up2tu"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
+[ext_resource type="Script" uid="uid://bjpqfptad5b01" path="res://scenes/ui/inventory_display/equip_options.gd" id="25_yjuqr"]
 [ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_display/warnings.gd" id="26_8mqj8"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="27_c5he3"]
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "item_mirrors_node", "cargo", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "equip_options", "item_mirrors_node", "cargo", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,6 +38,7 @@ grow_vertical = 2
 script = ExtResource("1_bv60r")
 warnings_popup = NodePath("warnings")
 resource_picker = NodePath("resource_picker")
+equip_options = NodePath("equip_options")
 item_mirrors_node = NodePath("cargo/item_mirrors")
 cargo = NodePath("cargo")
 grid_cell_scene = ExtResource("2_ke6sf")
@@ -338,6 +340,18 @@ and continue"
 layout_mode = 2
 text = "Return"
 
+[node name="equip_options" type="PanelContainer" parent="." node_paths=PackedStringArray("options_hbox")]
+visible = false
+z_index = 7
+layout_mode = 0
+offset_right = 12.0
+offset_bottom = 12.0
+script = ExtResource("25_yjuqr")
+options_hbox = NodePath("options")
+
+[node name="options" type="HBoxContainer" parent="equip_options"]
+layout_mode = 2
+
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
@@ -354,3 +368,4 @@ text = "Return"
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/accept" to="warnings" method="_on_accept_pressed"]
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/auto_sort" to="warnings" method="_on_auto_sort_pressed"]
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/return" to="warnings" method="_on_return_pressed"]
+[connection signal="mouse_exited" from="equip_options" to="equip_options" method="_on_mouse_exited"]
