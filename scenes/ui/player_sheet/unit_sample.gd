@@ -2,6 +2,9 @@ extends Button
 
 class_name UnitSample;
 
+@export var accessory_sample:ItemSample;
+
+
 
 
 func load_unit(unit:FighterUnit, callback:Callable)->void:
@@ -13,6 +16,11 @@ func load_unit(unit:FighterUnit, callback:Callable)->void:
 	base.material = null;
 	add_child(base);
 	
+	if unit.equipped_accessory:
+		accessory_sample.load_item(unit.equipped_accessory,  1);
+	else:
+		accessory_sample.load_blank();
+	
 	pressed.connect(callback);
 	
 func load_player(callback:Callable)->void:
@@ -23,3 +31,4 @@ func load_player(callback:Callable)->void:
 	add_child(body)
 	
 	pressed.connect(callback)
+	accessory_sample.queue_free()

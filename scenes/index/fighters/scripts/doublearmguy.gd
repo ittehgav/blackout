@@ -1,8 +1,5 @@
 extends FighterBase
 
-
-const sample_offset = Vector2(15, -37)
-
 const skill_name = "Throw Both Hands"
 const description = "Damages and stuns enemies in a large area."
 const flavor = "Every day is arm day."

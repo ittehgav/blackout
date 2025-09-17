@@ -7,6 +7,7 @@ extends PanelContainer
 func _ready()->void:
 	await world_map.ready;
 	refresh_clock()
+	refresh_date();
 
 func refresh_date()->void:
 	var day:int = Entities.world_map.current_day;

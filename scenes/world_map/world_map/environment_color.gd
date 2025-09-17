@@ -3,9 +3,11 @@ extends CanvasModulate
 @export var environment_colors:Array[Color];
 @export var horizon_colors:Array[Color]
 @export var backdrop:ColorRect
+@export var marker_colors:Array[Color];
 
 @export var roadside:TileMapLayer
 @export var horizon:TileMapLayer
+@export var marker:Sprite2D;
 
 @export var player_light:PointLight2D;
 
@@ -29,17 +31,21 @@ func _on_world_map_hour_passed(instant:bool=false) -> void:
 		player_light.enabled = true
 		player_light.color.a = .12
 		time_index = 0;
+		marker.modulate = marker_colors[0]
 	elif hour >= 4 and hour < 11:
 		player_light.enabled = true;
 		player_light.color.a = .05
 		time_index = 1;
+		marker.modulate = marker_colors[0]
 	elif hour >= 11 and hour < 17:
 		player_light.enabled = false;
 		time_index = 2;
+		marker.modulate = marker_colors[1]
 	elif hour >= 17 and hour < 21:
 		player_light.enabled = true
 		player_light.color.a = .05
 		time_index = 3;
+		marker.modulate = marker_colors[1]
 
 	const backdrop_volumes = [.2, .3, .6, .4]
 	const light_alphas = [.15, .075, 0, 5]

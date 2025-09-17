@@ -64,6 +64,8 @@ func finish_navigation_tween()->void:
 	current_settlement = movement_target;
 	settlement_visited.emit(movement_target)
 	return;
+	
+
 
 func get_next_cell()->void:
 	next_cell = current_path.pop_front() * road_cell_size;
@@ -79,7 +81,7 @@ func get_next_cell()->void:
 	else:
 		direction_vector = Vector2i.DOWN;
 	if vehicle.current_direction != direction_vector:
-		vehicle.adjust_direction(direction_vector)
+		navigation_tween.tween_callback(vehicle.adjust_direction.bind(direction_vector))
 
 
 func get_travel_minutes(target:Settlement)->int:

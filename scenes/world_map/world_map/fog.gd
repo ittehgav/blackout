@@ -8,7 +8,16 @@ extends TileMapLayer
 @export var player_party:PlayerParty;
 @export var world_map:WorldMap
 
+@export var fog_range:int;
+## drawing this via script so it doesn't lag the editor
+
 func _ready()->void:
+	for x:int in range(-fog_range, fog_range):
+		for y:int in range(-fog_range, fog_range):
+			set_cell(Vector2i(x, y),0, Vector2.ZERO);
+			buffer.set_cell(Vector2i(x, y),0, Vector2.ZERO);
+			over_horizon.set_cell(Vector2i(x, y),0, Vector2.ZERO);
+	
 	await world_map.ready;
 	refresh_fog();
 

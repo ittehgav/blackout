@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://xvtt4f2djs13"]
+[gd_scene load_steps=4 format=3 uid="uid://xvtt4f2djs13"]
 
+[ext_resource type="Texture2D" uid="uid://b2ghcwxf6c3q0" path="res://assets/visual/items/consumables/mystery_snack_pack.png" id="1_uab2q"]
 [ext_resource type="Script" uid="uid://55luvo5ela5n" path="res://scenes/index/items/consumables/scripts/mystery_snack_pack.gd" id="1_x0cwa"]
+[ext_resource type="AudioStream" uid="uid://dupgq35vdx1m4" path="res://assets/sound/sfx/ui/rummage.wav" id="3_57qrd"]
 
-[node name="MysterySnack" type="Sprite2D"]
+[node name="Mystery Snack Pack" type="Sprite2D"]
+texture = ExtResource("1_uab2q")
 script = ExtResource("1_x0cwa")
+use_sfx = ExtResource("3_57qrd")
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

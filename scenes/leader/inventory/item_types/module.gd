@@ -15,14 +15,14 @@ signal equipped;
 @export var sfx:AudioStream;
 
 func _ready()->void:
-	super();
 	name = "Module - " + name
 
 	
 const size_x = 2;
 const size_y = 2;
 
-
+func get_mirror_color()->Color:
+	return Index.item_rarity_colors[self["rarity"]]
 
 func check_available()->bool:
 	return true;

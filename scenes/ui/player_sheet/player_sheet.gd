@@ -7,9 +7,9 @@ signal closed;
 @export var bg:ColorRect;
 @export var sfx:AudioStreamPlayer;
  
-@export var party_view:Control;
-@export var inventory_view:Control;
-@export var player_view:Panel;
+@export var party_view:PartyView;
+@export var inventory_view:InventoryView;
+@export var player_view:PlayerView;
 @export var player_inventory:InventoryDisplay;
 
 @export_group("elements")
@@ -85,7 +85,6 @@ func _input(e:InputEvent)->void:
 
 
 func refresh_data(_r:String="", _change:float=0)->void:
-	## will show upkeep costs when upkeep is implemented
 	if visible:
 		## runs when you open inventory so
 		## only needs to refresh off of signals when change happens in-context

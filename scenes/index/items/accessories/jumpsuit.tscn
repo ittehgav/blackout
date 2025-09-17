@@ -17,5 +17,5 @@ metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
 [node name="stats" parent="." instance=ExtResource("3_72a84")]
 defense = 10.0
-technique = 4.0
+agility = 2.0
 move_speed = 0.0

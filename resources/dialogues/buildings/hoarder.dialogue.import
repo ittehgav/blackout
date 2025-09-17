@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://duaaq7pal1m53"
+path="res://.godot/imported/hoarder.dialogue-00eb133f1a7a3e2ff6a244fd435f2b21.tres"
+
+[deps]
+
+source_file="res://resources/dialogues/buildings/hoarder.dialogue"
+dest_files=["res://.godot/imported/hoarder.dialogue-00eb133f1a7a3e2ff6a244fd435f2b21.tres"]
+
+[params]
+
+defaults=true

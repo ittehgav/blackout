@@ -1,5 +1,7 @@
 extends Panel
 
+class_name PlayerView;
+
 @export var name_label:Label;
 
 

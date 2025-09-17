@@ -6,14 +6,12 @@ class_name BuildingRoster
 @export_group("Available Tags")
 ## TODO make this more dynamic somehow
 @export var bodybuilder_recruiting:bool=false;
-@export var brawler_recruiting:bool=false;
 @export var cyborg_recruiting:bool=false;
 @export var scientist_recruiting:bool=false;
 @export var mechanic_recruiting:bool=false;
-@export var hunter_recruiting:bool=false;
-@export var doctor_recruiting:bool=false;
-@export var juggernaut_recruiting:bool=false;
-@export var disruptor_recruiting:bool=false;
+
+func _ready()->void:
+	refresh_recruits()
 
 func refresh_recruits()->void:
 	units.clear();
@@ -22,7 +20,7 @@ func refresh_recruits()->void:
 	var tags:Array[String];
 	var base_pool:Array[FighterBase]
 	
-	for tag:String in Index.all_fighter_tags:
+	for tag:String in Index.primary_fighter_tags:
 		if self[tag+"_recruiting"]:
 			tags.append(tag);
 			

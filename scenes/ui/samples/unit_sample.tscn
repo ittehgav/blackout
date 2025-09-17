@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbk0pwuwwf4px"]
+[gd_scene load_steps=3 format=3 uid="uid://cbk0pwuwwf4px"]
 
 [ext_resource type="Script" uid="uid://ckea4sigcg5mq" path="res://scenes/ui/player_sheet/unit_sample.gd" id="1_e8to1"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="2_rdqv1"]
 
-[node name="unit_sample" type="Button"]
+[node name="unit_sample" type="Button" node_paths=PackedStringArray("accessory_sample")]
 custom_minimum_size = Vector2(128, 128)
 script = ExtResource("1_e8to1")
+accessory_sample = NodePath("item_sample")
 
 [node name="level" type="Label" parent="."]
 layout_mode = 1
@@ -16,6 +18,20 @@ offset_right = 20.0
 offset_bottom = 26.0
 grow_horizontal = 2
 text = "Lv. 1"
+
+[node name="item_sample" parent="." instance=ExtResource("2_rdqv1")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03125
+anchor_top = 0.96875
+anchor_right = 0.03125
+anchor_bottom = 0.96875
+offset_top = -16.0
+offset_right = 16.0
+grow_vertical = 0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 layout_mode = 1

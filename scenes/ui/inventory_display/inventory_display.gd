@@ -30,7 +30,8 @@ var warnings:Dictionary[String, bool] = {
 
 
 @export var resource_picker:Control;
-@export var equip_options:Control;
+@export var unit_selector:UnitSelector;
+@export var item_selector:ItemSelector;
 
 @export var item_mirrors_node:Control;
 
@@ -305,13 +306,15 @@ func clear_resource_container_highlights(resource:String)->void:
 	#extension_shown.emit();
 
 
-func throw_in_inventory(item:Item)->void:
+func throw_in_inventory(item:Item, replacing:Item = null)->void:
 	## finds the top-left-most spot where the item fits
 	## if there's no room it just skips it rn
 	for x in len(grid_cols):
 		for y in len(grid_cols[x]):
-			if check_item_fit(item, Vector2(x, y)):
+			if check_item_fit(item, Vector2(x, y), false, replacing):
 				item.inventory_position = Vector2(x, y);
+				if item not in inventory.items:
+					inventory.add_item(item);
 				mirror_item(item);
 				return
 
@@ -726,10 +729,10 @@ func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
 	board_shake(5)
 
 func _on_item_picked_up() -> void:
-	board_shake(3)
+	board_shake()
 
 var shake_tween:Tween;
-func board_shake(intensity:int, return_duration:float=.1)->void:
+func board_shake(intensity:int=3, return_duration:float=.1)->void:
 	
 	var x_shift:int = randi_range(-intensity, intensity)
 	var y_shift:int = randi_range(-intensity, intensity)
@@ -755,6 +758,7 @@ func _on_invalid_move(message:String="", _item_mirror:ItemMirror=null) -> void:
 		var label:Label = warning_label.duplicate()
 		label.text = message;
 		add_child(label);
+		label.z_index = 50
 		
 		label.global_position = get_global_mouse_position() - Vector2(0, 10);
 		if label.global_position.x + label.size.x >= get_window().size.x:

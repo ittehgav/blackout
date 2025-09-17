@@ -1,0 +1,2017 @@
+[gd_scene load_steps=113 format=3 uid="uid://dphiet8wg7sd"]
+
+[ext_resource type="Script" uid="uid://d0rxta3ju0m4" path="res://scenes/world_map/world_map/world_map.gd" id="1_irndy"]
+[ext_resource type="Script" uid="uid://wrywd826l7x3" path="res://scenes/world_map/world_map/world_map_sfx.gd" id="2_omxek"]
+[ext_resource type="AudioStream" uid="uid://bfbxg7q2ia2ej" path="res://assets/sound/sfx/world_map/movement_start.wav" id="3_fnjxc"]
+[ext_resource type="AudioStream" uid="uid://iiwod51go8ml" path="res://assets/sound/sfx/world_map/settlement_contact.wav" id="4_b2tqr"]
+[ext_resource type="Script" uid="uid://cu3jtddlsid3a" path="res://scenes/world_map/world_map/minute_ticker.gd" id="5_1glhv"]
+[ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="5_5k4yq"]
+[ext_resource type="Texture2D" uid="uid://cpoknj8hpjvcc" path="res://assets/visual/tiles/road_highlight.png" id="6_1glhv"]
+[ext_resource type="Script" uid="uid://cutl2ic7kaofk" path="res://scenes/world_map/world_map/road/road_highlights.gd" id="7_5vsub"]
+[ext_resource type="Texture2D" uid="uid://c2njyn5ptxptc" path="res://assets/visual/tiles/road_tiles.png" id="8_a0yse"]
+[ext_resource type="Script" uid="uid://bcg3i8ps1bk0l" path="res://scenes/world_map/world_map/road/road_tiles.gd" id="9_74ily"]
+[ext_resource type="PackedScene" uid="uid://pqgqmqskja8a" path="res://scenes/world_map/map_party/player_party.tscn" id="10_05tdn"]
+[ext_resource type="Texture2D" uid="uid://dk4hitgnd0bh7" path="res://assets/visual/tiles/props.png" id="11_bwi7y"]
+[ext_resource type="Texture2D" uid="uid://8jc4bn5mogf8" path="res://assets/visual/tiles/off_sight_cell.png" id="11_tlj38"]
+[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="11_xtkqv"]
+[ext_resource type="PackedScene" uid="uid://5gn7jaeh3stn" path="res://scenes/world_map/map_party/map_party_status.tscn" id="12_a0yse"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="12_otblt"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="13_tlj38"]
+[ext_resource type="Script" uid="uid://c5qn7a6rb3kdf" path="res://scenes/world_map/world_map/fog.gd" id="14_q24oe"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="15_5vsub"]
+[ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/index/vehicles/doblo.tscn" id="15_tfwjm"]
+[ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="16_eunnb"]
+[ext_resource type="PackedScene" uid="uid://c14j25tgu3icd" path="res://scenes/index/items/modules/sensory_overload.tscn" id="16_x2ygm"]
+[ext_resource type="Script" uid="uid://cw53baq4lbbfw" path="res://scenes/world_map/ui/hud/marker.gd" id="17_cp71w"]
+[ext_resource type="PackedScene" uid="uid://dqb34e0bl7mr7" path="res://scenes/index/items/modules/metallic_shell.tscn" id="17_m17yv"]
+[ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="17_x2ygm"]
+[ext_resource type="Script" uid="uid://cxnw2ya80gkuv" path="res://scenes/world_map/world_map/world_map_camera.gd" id="18_beb05"]
+[ext_resource type="PackedScene" uid="uid://buyf7yy7iuctf" path="res://scenes/world_map/settlement/settlement.tscn" id="19_kulxh"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="19_otblt"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/settlement_outline.gdshader" id="20_tbp5f"]
+[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/punchy.tscn" id="20_tlj38"]
+[ext_resource type="PackedScene" uid="uid://bmbg58lf6gxtp" path="res://scenes/index/buildings/farm.tscn" id="21_4ypwe"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="21_5sp40"]
+[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="21_tfwjm"]
+[ext_resource type="PackedScene" uid="uid://capijufintoqv" path="res://scenes/index/buildings/gas_station.tscn" id="22_3x04a"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="22_beb05"]
+[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="22_kulxh"]
+[ext_resource type="PackedScene" uid="uid://brlc23bio8sdx" path="res://scenes/index/buildings/gym.tscn" id="23_eunnb"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="23_kulxh"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="24_tbp5f"]
+[ext_resource type="PackedScene" uid="uid://cq506jywmcjbm" path="res://scenes/index/buildings/tech_shop.tscn" id="24_x2ygm"]
+[ext_resource type="PackedScene" uid="uid://1ardsa0qdcfv" path="res://scenes/index/buildings/chop_shop.tscn" id="25_m17yv"]
+[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/index/items/modules/buckler.tscn" id="25_rl87i"]
+[ext_resource type="Script" uid="uid://fhommrrv0xur" path="res://scenes/world_map/ui/hud/resources.gd" id="27_omir2"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="28_2vhqf"]
+[ext_resource type="Script" uid="uid://dc3qmy00dnh50" path="res://scenes/world_map/ui/hud/location_data.gd" id="30_r03dh"]
+[ext_resource type="Script" uid="uid://dik4cc5pjku7k" path="res://scenes/world_map/world_map/sfx_player.gd" id="31_5k4yq"]
+[ext_resource type="Script" uid="uid://pgo0305dfj78" path="res://scenes/world_map/ui/hud/clock.gd" id="31_fuwqy"]
+[ext_resource type="AudioStream" uid="uid://ckh6cv5c0w7ix" path="res://assets/sound/sfx/ui/inventory/travel_upkeep.wav" id="32_1glhv"]
+[ext_resource type="AudioStream" uid="uid://m6ibvpdinqyi" path="res://assets/sound/sfx/ui/inventory/food_shortage.wav" id="33_5vsub"]
+[ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/ui/player_sheet/player_sheet.tscn" id="33_ulpn3"]
+[ext_resource type="AudioStream" uid="uid://dlg5nk3tof2av" path="res://assets/sound/sfx/ui/inventory/fuel_shortage.wav" id="34_a0yse"]
+[ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/index/fighters/wheel.tscn" id="34_fuwqy"]
+[ext_resource type="Texture2D" uid="uid://c52gmpk6hbtcn" path="res://assets/visual/ui/map/movement_pointer_white.png" id="36_fuwqy"]
+[ext_resource type="Texture2D" uid="uid://djw5bpk7bkbvq" path="res://assets/visual/particles/circles/circle_32x32_15x.png" id="36_t8y4u"]
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="39_beb05"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="41_3x04a"]
+[ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="43_3x04a"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="45_rl87i"]
+[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="46_2vhqf"]
+[ext_resource type="Script" uid="uid://e26cpfgp8ja0" path="res://scenes/world_map/world_map/environment_color.gd" id="46_fuwqy"]
+[ext_resource type="Script" uid="uid://qu6a5k4s2fxw" path="res://scenes/world_map/world_map/hud.gd" id="46_r03dh"]
+[ext_resource type="Texture2D" uid="uid://dk1axf3g4j3o" path="res://assets/visual/ui/bars/segmented_fill.png" id="47_bwi7y"]
+[ext_resource type="Texture2D" uid="uid://dnsa1twbya255" path="res://assets/visual/ui/world_map/road_loop.png" id="57_fuwqy"]
+[ext_resource type="PackedScene" uid="uid://crtogvmqgyi4o" path="res://scenes/ui/samples/settlement_sign.tscn" id="58_rnh6x"]
+[ext_resource type="Script" uid="uid://bdiy8opahj3n8" path="res://scenes/world_map/world_map/navigation_data.gd" id="62_rnh6x"]
+[ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="63_s7sax"]
+[ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="64_h33nr"]
+[ext_resource type="Script" uid="uid://dc7ndh4wm34xt" path="res://scenes/world_map/world_map/warning.gd" id="66_h33nr"]
+[ext_resource type="Script" uid="uid://dswpfdpni2xxc" path="res://scenes/world_map/world_map/enter_btn.gd" id="69_x5mo2"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tfwjm"]
+texture = ExtResource("5_5k4yq")
+texture_region_size = Vector2i(32, 32)
+0:1/next_alternative_id = 4
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_right_corner = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/left_side = 0
+0:1/0/terrains_peering_bit/top_left_corner = 0
+0:1/0/terrains_peering_bit/top_side = 0
+0:1/0/terrains_peering_bit/top_right_corner = 0
+0:1/1 = 1
+0:1/1/flip_v = true
+0:1/1/terrain_set = 0
+0:1/1/terrain = 0
+0:1/1/terrains_peering_bit/right_side = 0
+0:1/1/terrains_peering_bit/bottom_right_corner = 0
+0:1/1/terrains_peering_bit/bottom_side = 0
+0:1/1/terrains_peering_bit/bottom_left_corner = 0
+0:1/1/terrains_peering_bit/left_side = 0
+0:1/1/terrains_peering_bit/top_side = 0
+0:1/1/terrains_peering_bit/top_right_corner = 0
+0:1/2 = 2
+0:1/2/flip_h = true
+0:1/2/flip_v = true
+0:1/2/terrain_set = 0
+0:1/2/terrain = 0
+0:1/2/terrains_peering_bit/right_side = 0
+0:1/2/terrains_peering_bit/bottom_right_corner = 0
+0:1/2/terrains_peering_bit/bottom_side = 0
+0:1/2/terrains_peering_bit/bottom_left_corner = 0
+0:1/2/terrains_peering_bit/left_side = 0
+0:1/2/terrains_peering_bit/top_left_corner = 0
+0:1/2/terrains_peering_bit/top_side = 0
+0:1/3 = 3
+0:1/3/flip_h = true
+0:1/3/terrain_set = 0
+0:1/3/terrain = 0
+0:1/3/terrains_peering_bit/right_side = 0
+0:1/3/terrains_peering_bit/bottom_side = 0
+0:1/3/terrains_peering_bit/bottom_left_corner = 0
+0:1/3/terrains_peering_bit/left_side = 0
+0:1/3/terrains_peering_bit/top_left_corner = 0
+0:1/3/terrains_peering_bit/top_side = 0
+0:1/3/terrains_peering_bit/top_right_corner = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/terrains_peering_bit/right_side = 0
+0:2/0/terrains_peering_bit/bottom_right_corner = 0
+0:2/0/terrains_peering_bit/bottom_side = 0
+0:2/0/terrains_peering_bit/bottom_left_corner = 0
+0:2/0/terrains_peering_bit/left_side = 0
+0:2/0/terrains_peering_bit/top_left_corner = 0
+0:2/0/terrains_peering_bit/top_side = 0
+0:2/0/terrains_peering_bit/top_right_corner = 0
+1:3/next_alternative_id = 4
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/terrains_peering_bit/top_left_corner = 0
+1:3/1 = 1
+1:3/1/flip_h = true
+1:3/1/terrain_set = 0
+1:3/1/terrain = 0
+1:3/1/terrains_peering_bit/top_right_corner = 0
+1:3/2 = 2
+1:3/2/flip_h = true
+1:3/2/flip_v = true
+1:3/2/terrain_set = 0
+1:3/2/terrain = 0
+1:3/2/terrains_peering_bit/bottom_right_corner = 0
+1:3/3 = 3
+1:3/3/flip_v = true
+1:3/3/terrain_set = 0
+1:3/3/terrain = 0
+1:3/3/terrains_peering_bit/bottom_left_corner = 0
+2:3/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+3:1/next_alternative_id = 4
+3:1/0 = 0
+3:1/1 = 1
+3:1/1/flip_h = true
+3:1/1/terrain_set = 0
+3:1/1/terrain = 0
+3:1/1/terrains_peering_bit/top_right_corner = 0
+3:1/2 = 2
+3:1/2/flip_h = true
+3:1/2/flip_v = true
+3:1/2/terrain_set = 0
+3:1/2/terrain = 0
+3:1/2/terrains_peering_bit/bottom_right_corner = 0
+3:1/3 = 3
+3:1/3/flip_v = true
+3:1/3/terrain_set = 0
+3:1/3/terrain = 0
+3:1/3/terrains_peering_bit/bottom_left_corner = 0
+3:0/next_alternative_id = 4
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/terrains_peering_bit/bottom_left_corner = 0
+3:0/0/terrains_peering_bit/left_side = 0
+3:0/0/terrains_peering_bit/top_left_corner = 0
+3:0/1 = 1
+3:0/1/transpose = true
+3:0/1/terrain_set = 0
+3:0/1/terrain = 0
+3:0/1/terrains_peering_bit/top_left_corner = 0
+3:0/1/terrains_peering_bit/top_side = 0
+3:0/1/terrains_peering_bit/top_right_corner = 0
+3:0/2 = 2
+3:0/2/flip_h = true
+3:0/2/terrain_set = 0
+3:0/2/terrain = 0
+3:0/2/terrains_peering_bit/right_side = 0
+3:0/2/terrains_peering_bit/bottom_right_corner = 0
+3:0/2/terrains_peering_bit/top_right_corner = 0
+3:0/3 = 3
+3:0/3/flip_v = true
+3:0/3/transpose = true
+3:0/3/terrain_set = 0
+3:0/3/terrain = 0
+3:0/3/terrains_peering_bit/bottom_right_corner = 0
+3:0/3/terrains_peering_bit/bottom_side = 0
+3:0/3/terrains_peering_bit/bottom_left_corner = 0
+2:0/next_alternative_id = 2
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_right_corner = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/bottom_left_corner = 0
+2:0/0/terrains_peering_bit/left_side = 0
+2:0/0/terrains_peering_bit/top_left_corner = 0
+2:0/0/terrains_peering_bit/top_side = 0
+2:0/0/terrains_peering_bit/top_right_corner = 0
+1:0/next_alternative_id = 4
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/bottom_left_corner = 0
+1:0/0/terrains_peering_bit/left_side = 0
+1:0/0/terrains_peering_bit/top_left_corner = 0
+1:0/1 = 1
+1:0/1/flip_h = true
+1:0/1/transpose = true
+1:0/1/terrain_set = 0
+1:0/1/terrain = 0
+1:0/1/terrains_peering_bit/top_left_corner = 0
+1:0/1/terrains_peering_bit/top_side = 0
+1:0/1/terrains_peering_bit/top_right_corner = 0
+1:0/2 = 2
+1:0/2/flip_h = true
+1:0/2/terrain_set = 0
+1:0/2/terrain = 0
+1:0/2/terrains_peering_bit/right_side = 0
+1:0/2/terrains_peering_bit/bottom_right_corner = 0
+1:0/2/terrains_peering_bit/top_right_corner = 0
+1:0/3 = 3
+1:0/3/flip_v = true
+1:0/3/transpose = true
+1:0/3/terrain_set = 0
+1:0/3/terrain = 0
+1:0/3/terrains_peering_bit/bottom_right_corner = 0
+1:0/3/terrains_peering_bit/bottom_side = 0
+1:0/3/terrains_peering_bit/bottom_left_corner = 0
+0:3/next_alternative_id = 8
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+0:3/0/terrains_peering_bit/right_side = 0
+0:3/0/terrains_peering_bit/bottom_right_corner = 0
+0:3/0/terrains_peering_bit/bottom_side = 0
+0:3/0/terrains_peering_bit/left_side = 0
+0:3/0/terrains_peering_bit/top_left_corner = 0
+0:3/0/terrains_peering_bit/top_side = 0
+0:3/0/terrains_peering_bit/top_right_corner = 0
+0:3/1 = 1
+0:3/1/flip_h = true
+0:3/1/transpose = true
+0:3/1/terrain_set = 0
+0:3/1/terrain = 0
+0:3/1/terrains_peering_bit/right_side = 0
+0:3/1/terrains_peering_bit/bottom_right_corner = 0
+0:3/1/terrains_peering_bit/bottom_side = 0
+0:3/1/terrains_peering_bit/bottom_left_corner = 0
+0:3/1/terrains_peering_bit/left_side = 0
+0:3/1/terrains_peering_bit/top_side = 0
+0:3/1/terrains_peering_bit/top_right_corner = 0
+0:3/2 = 2
+0:3/2/transpose = true
+0:3/2/terrain_set = 0
+0:3/2/terrain = 0
+0:3/2/terrains_peering_bit/right_side = 0
+0:3/2/terrains_peering_bit/bottom_right_corner = 0
+0:3/2/terrains_peering_bit/bottom_side = 0
+0:3/2/terrains_peering_bit/bottom_left_corner = 0
+0:3/2/terrains_peering_bit/left_side = 0
+0:3/2/terrains_peering_bit/top_left_corner = 0
+0:3/2/terrains_peering_bit/top_side = 0
+0:3/3 = 3
+0:3/3/flip_h = true
+0:3/3/terrain_set = 0
+0:3/3/terrain = 0
+0:3/3/terrains_peering_bit/right_side = 0
+0:3/3/terrains_peering_bit/bottom_side = 0
+0:3/3/terrains_peering_bit/bottom_left_corner = 0
+0:3/3/terrains_peering_bit/left_side = 0
+0:3/3/terrains_peering_bit/top_left_corner = 0
+0:3/3/terrains_peering_bit/top_side = 0
+0:3/3/terrains_peering_bit/top_right_corner = 0
+2:1/next_alternative_id = 4
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/right_side = 0
+2:1/0/terrains_peering_bit/bottom_right_corner = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0/terrains_peering_bit/left_side = 0
+2:1/0/terrains_peering_bit/top_left_corner = 0
+2:1/0/terrains_peering_bit/top_side = 0
+2:1/0/terrains_peering_bit/top_right_corner = 0
+2:1/1 = 1
+2:1/1/flip_v = true
+2:1/1/terrain_set = 0
+2:1/1/terrain = 0
+2:1/1/terrains_peering_bit/right_side = 0
+2:1/1/terrains_peering_bit/bottom_right_corner = 0
+2:1/1/terrains_peering_bit/bottom_side = 0
+2:1/1/terrains_peering_bit/bottom_left_corner = 0
+2:1/1/terrains_peering_bit/left_side = 0
+2:1/1/terrains_peering_bit/top_side = 0
+2:1/1/terrains_peering_bit/top_right_corner = 0
+2:1/2 = 2
+2:1/2/flip_h = true
+2:1/2/flip_v = true
+2:1/2/terrain_set = 0
+2:1/2/terrain = 0
+2:1/2/terrains_peering_bit/bottom_right_corner = 0
+2:1/2/terrains_peering_bit/bottom_side = 0
+2:1/2/terrains_peering_bit/bottom_left_corner = 0
+2:1/2/terrains_peering_bit/left_side = 0
+2:1/2/terrains_peering_bit/top_left_corner = 0
+2:1/3 = 3
+2:1/3/flip_h = true
+2:1/3/terrain_set = 0
+2:1/3/terrain = 0
+2:1/3/terrains_peering_bit/right_side = 0
+2:1/3/terrains_peering_bit/bottom_side = 0
+2:1/3/terrains_peering_bit/bottom_left_corner = 0
+2:1/3/terrains_peering_bit/left_side = 0
+2:1/3/terrains_peering_bit/top_left_corner = 0
+2:1/3/terrains_peering_bit/top_side = 0
+2:1/3/terrains_peering_bit/top_right_corner = 0
+1:2/next_alternative_id = 4
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/bottom_left_corner = 0
+1:2/0/terrains_peering_bit/left_side = 0
+1:2/0/terrains_peering_bit/top_left_corner = 0
+1:2/1 = 1
+1:2/1/transpose = true
+1:2/1/terrain_set = 0
+1:2/1/terrain = 0
+1:2/1/terrains_peering_bit/top_left_corner = 0
+1:2/1/terrains_peering_bit/top_side = 0
+1:2/1/terrains_peering_bit/top_right_corner = 0
+1:2/2 = 2
+1:2/2/flip_h = true
+1:2/2/terrain_set = 0
+1:2/2/terrain = 0
+1:2/2/terrains_peering_bit/right_side = 0
+1:2/2/terrains_peering_bit/bottom_right_corner = 0
+1:2/2/terrains_peering_bit/top_right_corner = 0
+1:2/3 = 3
+1:2/3/flip_v = true
+1:2/3/transpose = true
+1:2/3/terrain_set = 0
+1:2/3/terrain = 0
+1:2/3/terrains_peering_bit/bottom_right_corner = 0
+1:2/3/terrains_peering_bit/bottom_side = 0
+1:2/3/terrains_peering_bit/bottom_left_corner = 0
+2:2/0 = 0
+1:1/next_alternative_id = 4
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/terrains_peering_bit/top_left_corner = 0
+1:1/1 = 1
+1:1/1/flip_h = true
+1:1/1/terrain_set = 0
+1:1/1/terrain = 0
+1:1/1/terrains_peering_bit/top_right_corner = 0
+1:1/2 = 2
+1:1/2/flip_h = true
+1:1/2/flip_v = true
+1:1/2/terrain_set = 0
+1:1/2/terrain = 0
+1:1/2/terrains_peering_bit/bottom_right_corner = 0
+1:1/3 = 3
+1:1/3/flip_v = true
+1:1/3/terrain_set = 0
+1:1/3/terrain = 0
+1:1/3/terrains_peering_bit/bottom_left_corner = 0
+0:0/next_alternative_id = 6
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_right_corner = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/bottom_left_corner = 0
+0:0/0/terrains_peering_bit/left_side = 0
+0:0/0/terrains_peering_bit/top_left_corner = 0
+0:0/0/terrains_peering_bit/top_side = 0
+0:0/0/terrains_peering_bit/top_right_corner = 0
+
+[sub_resource type="TileSet" id="TileSet_q24oe"]
+tile_size = Vector2i(32, 32)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "road-side"
+terrain_set_0/terrain_0/color = Color(0.952941, 0.952941, 0.952941, 1)
+sources/1 = SubResource("TileSetAtlasSource_tfwjm")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81r8l"]
+texture = ExtResource("6_1glhv")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_50ku6"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_81r8l")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ihyo"]
+texture = ExtResource("8_a0yse")
+texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/top_side = 0
+0:0/1 = 1
+0:0/1/transpose = true
+0:0/1/terrain_set = 0
+0:0/1/terrain = 0
+0:0/1/terrains_peering_bit/right_side = 0
+0:0/1/terrains_peering_bit/left_side = 0
+1:0/next_alternative_id = 4
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/1 = 1
+1:0/1/flip_h = true
+1:0/1/terrain_set = 0
+1:0/1/terrain = 0
+1:0/1/terrains_peering_bit/bottom_side = 0
+1:0/1/terrains_peering_bit/left_side = 0
+1:0/2 = 2
+1:0/2/flip_h = true
+1:0/2/flip_v = true
+1:0/2/terrain_set = 0
+1:0/2/terrain = 0
+1:0/2/terrains_peering_bit/left_side = 0
+1:0/2/terrains_peering_bit/top_side = 0
+1:0/3 = 3
+1:0/3/flip_v = true
+1:0/3/terrain_set = 0
+1:0/3/terrain = 0
+1:0/3/terrains_peering_bit/right_side = 0
+1:0/3/terrains_peering_bit/top_side = 0
+2:0/next_alternative_id = 5
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/left_side = 0
+2:0/1 = 1
+2:0/1/flip_h = true
+2:0/1/transpose = true
+2:0/1/terrain_set = 0
+2:0/1/terrain = 0
+2:0/1/terrains_peering_bit/bottom_side = 0
+2:0/1/terrains_peering_bit/left_side = 0
+2:0/1/terrains_peering_bit/top_side = 0
+2:0/2 = 2
+2:0/2/flip_v = true
+2:0/2/terrain_set = 0
+2:0/2/terrain = 0
+2:0/2/terrains_peering_bit/right_side = 0
+2:0/2/terrains_peering_bit/left_side = 0
+2:0/2/terrains_peering_bit/top_side = 0
+2:0/3 = 3
+2:0/3/transpose = true
+2:0/3/terrain_set = 0
+2:0/3/terrain = 0
+2:0/3/terrains_peering_bit/right_side = 0
+2:0/3/terrains_peering_bit/bottom_side = 0
+2:0/3/terrains_peering_bit/top_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/terrains_peering_bit/right_side = 0
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/left_side = 0
+3:0/0/terrains_peering_bit/top_side = 0
+0:1/next_alternative_id = 2
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 1
+0:1/0/terrains_peering_bit/bottom_side = 1
+0:1/1 = 1
+0:1/1/transpose = true
+0:1/1/terrain_set = 0
+0:1/1/terrain = 1
+0:1/1/terrains_peering_bit/right_side = 1
+0:1/1/terrains_peering_bit/left_side = 1
+1:1/next_alternative_id = 4
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 1
+1:1/0/terrains_peering_bit/right_side = 1
+1:1/0/terrains_peering_bit/bottom_side = 1
+1:1/1 = 1
+1:1/1/flip_h = true
+1:1/1/terrain_set = 0
+1:1/1/terrain = 1
+1:1/1/terrains_peering_bit/bottom_side = 1
+1:1/1/terrains_peering_bit/left_side = 1
+1:1/2 = 2
+1:1/2/flip_h = true
+1:1/2/flip_v = true
+1:1/2/terrain_set = 0
+1:1/2/terrain = 1
+1:1/2/terrains_peering_bit/left_side = 1
+1:1/2/terrains_peering_bit/top_side = 1
+1:1/3 = 3
+1:1/3/flip_v = true
+1:1/3/terrain_set = 0
+1:1/3/terrain = 1
+1:1/3/terrains_peering_bit/right_side = 1
+1:1/3/terrains_peering_bit/top_side = 1
+2:1/next_alternative_id = 4
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 1
+2:1/0/terrains_peering_bit/right_side = 1
+2:1/0/terrains_peering_bit/bottom_side = 1
+2:1/0/terrains_peering_bit/left_side = 1
+2:1/1 = 1
+2:1/1/flip_h = true
+2:1/1/transpose = true
+2:1/1/terrain_set = 0
+2:1/1/terrain = 1
+2:1/1/terrains_peering_bit/bottom_side = 1
+2:1/1/terrains_peering_bit/left_side = 1
+2:1/1/terrains_peering_bit/top_side = 1
+2:1/2 = 2
+2:1/2/flip_v = true
+2:1/2/terrain_set = 0
+2:1/2/terrain = 1
+2:1/2/terrains_peering_bit/right_side = 1
+2:1/2/terrains_peering_bit/left_side = 1
+2:1/2/terrains_peering_bit/top_side = 1
+2:1/3 = 3
+2:1/3/transpose = true
+2:1/3/terrain_set = 0
+2:1/3/terrain = 1
+2:1/3/terrains_peering_bit/right_side = 1
+2:1/3/terrains_peering_bit/bottom_side = 1
+2:1/3/terrains_peering_bit/top_side = 1
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 1
+3:1/0/terrains_peering_bit/right_side = 1
+3:1/0/terrains_peering_bit/bottom_side = 1
+3:1/0/terrains_peering_bit/left_side = 1
+3:1/0/terrains_peering_bit/top_side = 1
+0:2/next_alternative_id = 2
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 2
+0:2/0/terrains_peering_bit/bottom_side = 2
+0:2/0/terrains_peering_bit/top_side = 2
+0:2/1 = 1
+0:2/1/transpose = true
+0:2/1/terrain_set = 0
+0:2/1/terrain = 3
+0:2/1/terrains_peering_bit/right_side = 3
+0:2/1/terrains_peering_bit/left_side = 3
+1:2/next_alternative_id = 4
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 2
+1:2/0/terrains_peering_bit/right_side = 2
+1:2/0/terrains_peering_bit/bottom_side = 2
+1:2/1 = 1
+1:2/1/flip_h = true
+1:2/1/terrain_set = 0
+1:2/1/terrain = 2
+1:2/1/terrains_peering_bit/bottom_side = 2
+1:2/1/terrains_peering_bit/left_side = 2
+1:2/2 = 2
+1:2/2/flip_h = true
+1:2/2/flip_v = true
+1:2/2/terrain_set = 0
+1:2/2/terrain = 2
+1:2/2/terrains_peering_bit/left_side = 2
+1:2/2/terrains_peering_bit/top_side = 2
+1:2/3 = 3
+1:2/3/flip_v = true
+1:2/3/terrain_set = 0
+1:2/3/terrain = 2
+1:2/3/terrains_peering_bit/right_side = 2
+1:2/3/terrains_peering_bit/top_side = 2
+2:2/next_alternative_id = 4
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 2
+2:2/0/terrains_peering_bit/right_side = 2
+2:2/0/terrains_peering_bit/bottom_side = 2
+2:2/0/terrains_peering_bit/left_side = 2
+2:2/1 = 1
+2:2/1/flip_h = true
+2:2/1/transpose = true
+2:2/1/terrain_set = 0
+2:2/1/terrain = 2
+2:2/1/terrains_peering_bit/bottom_side = 2
+2:2/1/terrains_peering_bit/left_side = 2
+2:2/1/terrains_peering_bit/top_side = 2
+2:2/2 = 2
+2:2/2/flip_v = true
+2:2/2/terrain_set = 0
+2:2/2/terrain = 2
+2:2/2/terrains_peering_bit/right_side = 2
+2:2/2/terrains_peering_bit/left_side = 2
+2:2/2/terrains_peering_bit/top_side = 2
+2:2/3 = 3
+2:2/3/transpose = true
+2:2/3/terrain_set = 0
+2:2/3/terrain = 2
+2:2/3/terrains_peering_bit/right_side = 2
+2:2/3/terrains_peering_bit/bottom_side = 2
+2:2/3/terrains_peering_bit/top_side = 2
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 2
+3:2/0/terrains_peering_bit/right_side = 2
+3:2/0/terrains_peering_bit/bottom_side = 2
+3:2/0/terrains_peering_bit/left_side = 2
+3:2/0/terrains_peering_bit/top_side = 2
+0:3/next_alternative_id = 2
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 3
+0:3/0/terrains_peering_bit/bottom_side = 3
+0:3/0/terrains_peering_bit/top_side = 3
+0:3/1 = 1
+0:3/1/transpose = true
+0:3/1/terrain_set = 0
+0:3/1/terrain = 3
+0:3/1/terrains_peering_bit/right_side = 3
+0:3/1/terrains_peering_bit/left_side = 3
+1:3/next_alternative_id = 4
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 3
+1:3/0/terrains_peering_bit/right_side = 3
+1:3/0/terrains_peering_bit/bottom_side = 3
+1:3/1 = 1
+1:3/1/flip_h = true
+1:3/1/terrain_set = 0
+1:3/1/terrain = 3
+1:3/1/terrains_peering_bit/bottom_side = 3
+1:3/1/terrains_peering_bit/left_side = 3
+1:3/2 = 2
+1:3/2/flip_h = true
+1:3/2/flip_v = true
+1:3/2/terrain_set = 0
+1:3/2/terrain = 3
+1:3/2/terrains_peering_bit/left_side = 3
+1:3/2/terrains_peering_bit/top_side = 3
+1:3/3 = 3
+1:3/3/flip_v = true
+1:3/3/terrain_set = 0
+1:3/3/terrain = 3
+1:3/3/terrains_peering_bit/right_side = 3
+1:3/3/terrains_peering_bit/top_side = 3
+2:3/next_alternative_id = 4
+2:3/0 = 0
+2:3/0/terrain_set = 0
+2:3/0/terrain = 3
+2:3/0/terrains_peering_bit/right_side = 3
+2:3/0/terrains_peering_bit/bottom_side = 3
+2:3/0/terrains_peering_bit/left_side = 3
+2:3/1 = 1
+2:3/1/flip_h = true
+2:3/1/transpose = true
+2:3/1/terrain_set = 0
+2:3/1/terrain = 3
+2:3/1/terrains_peering_bit/bottom_side = 3
+2:3/1/terrains_peering_bit/left_side = 3
+2:3/1/terrains_peering_bit/top_side = 3
+2:3/2 = 2
+2:3/2/flip_v = true
+2:3/2/terrain_set = 0
+2:3/2/terrain = 3
+2:3/2/terrains_peering_bit/right_side = 3
+2:3/2/terrains_peering_bit/left_side = 3
+2:3/2/terrains_peering_bit/top_side = 3
+2:3/3 = 3
+2:3/3/transpose = true
+2:3/3/terrain_set = 0
+2:3/3/terrain = 3
+2:3/3/terrains_peering_bit/right_side = 3
+2:3/3/terrains_peering_bit/bottom_side = 3
+2:3/3/terrains_peering_bit/top_side = 3
+3:3/next_alternative_id = 2
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 3
+3:3/0/terrains_peering_bit/right_side = 3
+3:3/0/terrains_peering_bit/bottom_side = 3
+3:3/0/terrains_peering_bit/left_side = 3
+3:3/0/terrains_peering_bit/top_side = 3
+
+[sub_resource type="TileSet" id="TileSet_81r8l"]
+tile_size = Vector2i(32, 32)
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "road"
+terrain_set_0/terrain_0/color = Color(0.46875, 0.5, 0.25, 1)
+terrain_set_0/terrain_1/name = "road_dirty1"
+terrain_set_0/terrain_1/color = Color(0.765428, 0.215011, 0.191646, 1)
+terrain_set_0/terrain_2/name = "road_dirty2"
+terrain_set_0/terrain_2/color = Color(0.14, 0.5, 0.338, 1)
+terrain_set_0/terrain_3/name = "dirt"
+terrain_set_0/terrain_3/color = Color(0.375, 0.5, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_8ihyo")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fuwqy"]
+polygon = PackedVector2Array(-5.33333, -5.33333, 5.33333, -5.33333, 5.33333, 5.33333, -5.33333, 5.33333)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_s7sax"]
+polygon = PackedVector2Array(-3.2, -9.6, 9.6, -9.6, 9.6, 3.2, -3.2, 3.2)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_h33nr"]
+polygon = PackedVector2Array(-5.33333, -5.33333, 5.33333, -5.33333, 5.33333, 5.33333, -5.33333, 5.33333)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mgych"]
+polygon = PackedVector2Array(-3.2, -16, 9.6, -16, 9.6, -3.2, -3.2, -3.2)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r03dh"]
+texture = ExtResource("11_bwi7y")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(3, 4)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(-5, 48)
+0:0/0/modulate = Color(0.7, 0.588, 0.49, 1)
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/probability = 0.01
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_fuwqy")
+3:0/size_in_atlas = Vector2i(3, 5)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(-21, 63)
+3:0/0/modulate = Color(0.8, 0.8, 1, 1)
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/probability = 0.05
+3:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_h33nr")
+0:4/size_in_atlas = Vector2i(3, 2)
+0:4/0 = 0
+0:4/0/texture_origin = Vector2i(0, 2)
+0:4/0/modulate = Color(0.504, 0.42, 0.6, 1)
+0:4/0/terrain_set = 0
+0:4/0/probability = 0.01
+3:5/size_in_atlas = Vector2i(2, 1)
+3:5/0 = 0
+3:5/0/texture_origin = Vector2i(-3, 0)
+3:5/0/modulate = Color(0.5, 0.42, 0.35, 1)
+3:5/0/terrain_set = 0
+3:5/0/terrain = 0
+3:5/0/probability = 0.01
+0:6/size_in_atlas = Vector2i(3, 2)
+0:6/0 = 0
+0:6/0/texture_origin = Vector2i(0, 2)
+0:6/0/modulate = Color(0.5, 0.42, 0.35, 1)
+0:6/0/terrain_set = 0
+0:6/0/terrain = 0
+0:6/0/probability = 0.01
+3:6/size_in_atlas = Vector2i(2, 2)
+3:6/0 = 0
+3:6/0/texture_origin = Vector2i(0, -6)
+3:6/0/modulate = Color(0.5, 0.42, 0.35, 1)
+3:6/0/terrain_set = 0
+3:6/0/terrain = 0
+3:6/0/probability = 0.01
+0:8/size_in_atlas = Vector2i(5, 2)
+0:8/next_alternative_id = 3
+0:8/0 = 0
+0:8/0/texture_origin = Vector2i(-62, 9)
+0:8/0/modulate = Color(0.8, 0.8, 1, 1)
+0:8/0/terrain_set = 0
+0:8/0/terrain = 0
+0:8/0/probability = 0.05
+0:8/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_s7sax")
+6:0/0 = 0
+6:0/0/terrain_set = 0
+6:0/0/terrain = 0
+6:0/0/probability = 0.1
+6:1/0 = 0
+6:1/0/terrain_set = 0
+6:1/0/terrain = 0
+6:1/0/probability = 0.1
+6:2/0 = 0
+6:2/0/terrain_set = 0
+6:2/0/terrain = 0
+6:2/0/probability = 0.1
+7:0/size_in_atlas = Vector2i(1, 2)
+7:0/0 = 0
+7:0/0/texture_origin = Vector2i(0, 16)
+7:0/0/terrain_set = 0
+7:0/0/terrain = 0
+7:0/0/probability = 0.1
+7:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_mgych")
+5:5/0 = 0
+5:5/0/terrain_set = 0
+5:5/0/terrain = 0
+5:5/0/probability = 5.0
+5:5/0/terrains_peering_bit/right_side = 0
+5:5/0/terrains_peering_bit/bottom_right_corner = 0
+5:5/0/terrains_peering_bit/bottom_side = 0
+5:5/0/terrains_peering_bit/bottom_left_corner = 0
+5:5/0/terrains_peering_bit/left_side = 0
+5:5/0/terrains_peering_bit/top_left_corner = 0
+5:5/0/terrains_peering_bit/top_side = 0
+5:5/0/terrains_peering_bit/top_right_corner = 0
+5:6/next_alternative_id = 9
+5:6/0 = 0
+5:6/0/terrain_set = 0
+5:6/0/terrain = 0
+5:6/0/probability = 10.0
+
+[sub_resource type="TileSet" id="TileSet_fuwqy"]
+tile_size = Vector2i(32, 32)
+occlusion_layer_0/light_mask = 2
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "randomized props"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_r03dh")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5sp40"]
+texture = ExtResource("11_tlj38")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tfwjm"]
+tile_shape = 3
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_5sp40")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tfwjm"]
+resource_local_to_scene = true
+shader = ExtResource("21_5sp40")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 0, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(6, 3)
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5mo2"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q24oe"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp71w"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_beb05"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kulxh"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbp5f"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ypwe"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3x04a"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eunnb"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2ygm"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m17yv"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r03dh"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fuwqy"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rl87i"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_omir2"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rnh6x"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ulpn3"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7sax"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h33nr"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t8y4u"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vhqf"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_s7sax"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_ulpn3"]
+resource_name = "travel_loop"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h33nr"]
+_data = {
+&"RESET": SubResource("Animation_s7sax"),
+&"travel_loop": SubResource("Animation_ulpn3")
+}
+
+[sub_resource type="Animation" id="Animation_x5mo2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../button:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t8y4u"]
+resource_name = "arrow_loop"
+length = 1.25
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -4), Vector2(60, -4), Vector2(120, -4), Vector2(180, -4), Vector2(250, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../button:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.156863), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2irgy"]
+_data = {
+&"RESET": SubResource("Animation_x5mo2"),
+&"arrow_loop": SubResource("Animation_t8y4u")
+}
+
+[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("origin", "road_tiles", "settlements", "ui_canvas")]
+process_mode = 3
+script = ExtResource("1_irndy")
+origin = NodePath("settlements/origin")
+road_tiles = NodePath("tiles/road")
+settlements = NodePath("settlements")
+ui_canvas = NodePath("static_ui")
+
+[node name="environment_color" type="CanvasModulate" parent="." node_paths=PackedStringArray("backdrop", "roadside", "horizon", "marker", "player_light", "ticker")]
+script = ExtResource("46_fuwqy")
+environment_colors = Array[Color]([Color(0.32, 0.333333, 0.4, 1), Color(0.49, 0.525, 0.7, 1), Color(0.9, 0.87, 0.72, 1), Color(0.7, 0.634667, 0.63, 1)])
+horizon_colors = Array[Color]([Color(0.09, 0.09, 0.15, 1), Color(0.21, 0.21, 0.3, 1), Color(0.5, 0.4275, 0.35, 1), Color(0.3, 0.18, 0.18, 1)])
+backdrop = NodePath("../clear/backdrop")
+marker_colors = Array[Color]([Color(0.5, 0.5, 1, 1), Color(1, 1, 0.39, 1)])
+roadside = NodePath("../tiles/roadside")
+horizon = NodePath("../tiles/over_horizon")
+marker = NodePath("../PlayerParty/marker")
+player_light = NodePath("../PlayerParty/Doblo/PointLight2D")
+ticker = NodePath("../minute_ticker")
+
+[node name="minute_ticker" type="Timer" parent="." node_paths=PackedStringArray("world_map")]
+process_mode = 1
+process_callback = 0
+autostart = true
+script = ExtResource("5_1glhv")
+world_map = NodePath("..")
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("2_omxek")
+movement_started = ExtResource("3_fnjxc")
+settlement_visited = ExtResource("4_b2tqr")
+metadata/_custom_type_script = "uid://yn55dca3qplf"
+
+[node name="tiles" type="Node2D" parent="."]
+visibility_layer = 4
+
+[node name="roadside" type="TileMapLayer" parent="tiles"]
+modulate = Color(0.6, 0.545098, 0.478431, 1)
+light_mask = 2
+use_parent_material = true
+tile_set = SubResource("TileSet_q24oe")
+
+[node name="road_highlights" type="TileMapLayer" parent="tiles"]
+modulate = Color(0.83, 0.760833, 0, 1)
+use_parent_material = true
+tile_set = SubResource("TileSet_50ku6")
+script = ExtResource("7_5vsub")
+
+[node name="road" type="TileMapLayer" parent="tiles" node_paths=PackedStringArray("props_tiles", "roadside_tiles", "highlight_tiles")]
+use_parent_material = true
+tile_set = SubResource("TileSet_81r8l")
+collision_enabled = false
+script = ExtResource("9_74ily")
+props_tiles = NodePath("../props")
+roadside_tiles = NodePath("../roadside")
+highlight_tiles = NodePath("../road_highlights")
+
+[node name="props" type="TileMapLayer" parent="tiles"]
+light_mask = 2
+z_index = 1
+use_parent_material = true
+tile_set = SubResource("TileSet_fuwqy")
+
+[node name="fog_buffer" type="TileMapLayer" parent="tiles"]
+modulate = Color(0.45, 0.395325, 0.3285, 1)
+visibility_layer = 8
+z_index = 2
+use_parent_material = true
+tile_set = SubResource("TileSet_tfwjm")
+
+[node name="fog" type="TileMapLayer" parent="tiles" node_paths=PackedStringArray("buffer", "over_horizon", "road", "player_party", "world_map")]
+modulate = Color(0.45, 0.395325, 0.3285, 1)
+visibility_layer = 8
+z_index = 2
+use_parent_material = true
+tile_set = SubResource("TileSet_tfwjm")
+script = ExtResource("14_q24oe")
+buffer = NodePath("../fog_buffer")
+over_horizon = NodePath("../over_horizon")
+road = NodePath("../road")
+player_party = NodePath("../../PlayerParty")
+world_map = NodePath("../..")
+fog_range = 300
+
+[node name="over_horizon" type="TileMapLayer" parent="tiles"]
+modulate = Color(0.2, 0.2, 0.2, 1)
+visibility_layer = 8
+z_index = 2
+use_parent_material = true
+tile_set = SubResource("TileSet_tfwjm")
+
+[node name="PlayerParty" parent="." node_paths=PackedStringArray("marker", "resources_warning", "status", "leader", "vehicle", "current_settlement") instance=ExtResource("10_05tdn")]
+process_mode = 3
+position = Vector2(-64, 256)
+marker = NodePath("marker")
+resources_warning = NodePath("../static_ui/hud/warning")
+status = NodePath("map_party_status")
+leader = NodePath("Player")
+vehicle = NodePath("Doblo")
+current_settlement = NodePath("../settlements/origin")
+
+[node name="map_party_status" parent="PlayerParty" instance=ExtResource("12_a0yse")]
+
+[node name="Player" parent="PlayerParty" node_paths=PackedStringArray("equipped_weapon", "equipped_module") instance=ExtResource("11_xtkqv")]
+equipped_weapon = NodePath("Inventory/Tailpipe")
+equipped_module = NodePath("Inventory/Dodge Roll")
+
+[node name="Sensory Overload" parent="PlayerParty/Player/Inventory" index="0" instance=ExtResource("16_x2ygm")]
+
+[node name="Metallic Shell" parent="PlayerParty/Player/Inventory" index="1" instance=ExtResource("17_m17yv")]
+
+[node name="Spiked Shoulder Pads" parent="PlayerParty/Player/Inventory" index="2" instance=ExtResource("16_eunnb")]
+
+[node name="Jumpsuit" parent="PlayerParty/Player/Inventory" index="3" instance=ExtResource("17_x2ygm")]
+
+[node name="Spiked Shoulder Pads2" parent="PlayerParty/Player/Inventory" index="4" instance=ExtResource("16_eunnb")]
+
+[node name="Tailpipe" parent="PlayerParty/Player/Inventory" index="5" instance=ExtResource("12_otblt")]
+
+[node name="Dodge Roll" parent="PlayerParty/Player/Inventory" index="6" instance=ExtResource("13_tlj38")]
+
+[node name="Fuel Tank" parent="PlayerParty/Player/Inventory" index="7" instance=ExtResource("21_tfwjm")]
+stack_size = 10
+
+[node name="Fuel Gallon2" parent="PlayerParty/Player/Inventory" index="8" instance=ExtResource("15_5vsub")]
+
+[node name="Adrenaline Synthethizer" parent="PlayerParty/Player/Inventory" index="9" instance=ExtResource("22_kulxh")]
+
+[node name="Buckler" parent="PlayerParty/Player/Inventory" index="10" instance=ExtResource("25_rl87i")]
+
+[node name="Fuel Barrel" parent="PlayerParty/Player/Inventory" index="11" instance=ExtResource("22_beb05")]
+
+[node name="Food Bag" parent="PlayerParty/Player/Inventory" index="12" instance=ExtResource("23_kulxh")]
+
+[node name="Food Basket" parent="PlayerParty/Player/Inventory" index="13" instance=ExtResource("24_tbp5f")]
+stack_size = 10
+
+[node name="FighterUnit" parent="PlayerParty/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
+base = NodePath("Punchy")
+
+[node name="Punchy" parent="PlayerParty/Player/Roster/FighterUnit" instance=ExtResource("20_tlj38")]
+material = SubResource("ShaderMaterial_tfwjm")
+
+[node name="FighterUnit2" parent="PlayerParty/Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
+base = NodePath("Wheel")
+level = 5
+
+[node name="Wheel" parent="PlayerParty/Player/Roster/FighterUnit2" instance=ExtResource("34_fuwqy")]
+material = SubResource("ShaderMaterial_x5mo2")
+
+[node name="Doblo" parent="PlayerParty" instance=ExtResource("15_tfwjm")]
+
+[node name="PointLight2D" type="PointLight2D" parent="PlayerParty/Doblo"]
+light_mask = 0
+color = Color(1, 1, 1, 0.117647)
+range_z_min = -4096
+range_layer_min = -6
+range_layer_max = 3
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_item_cull_mask = 2
+texture = ExtResource("36_t8y4u")
+
+[node name="marker" type="Sprite2D" parent="PlayerParty" node_paths=PackedStringArray("bounce_timer")]
+visible = false
+top_level = true
+z_index = 10
+scale = Vector2(10, 10)
+texture = ExtResource("36_fuwqy")
+script = ExtResource("17_cp71w")
+bounce_timer = NodePath("bounce_timer")
+
+[node name="bounce_timer" type="Timer" parent="PlayerParty/marker"]
+wait_time = 0.3
+
+[node name="world_map_camera" type="Camera2D" parent="PlayerParty"]
+process_callback = 0
+script = ExtResource("18_beb05")
+
+[node name="settlements" type="Node2D" parent="."]
+z_index = 1
+
+[node name="origin" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_q24oe")
+position = Vector2(-64, 256)
+
+[node name="Farm" parent="settlements/origin" instance=ExtResource("21_4ypwe")]
+
+[node name="Settlement" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_cp71w")
+position = Vector2(213, -3423)
+
+[node name="GasStation" parent="settlements/Settlement" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement11" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_beb05")
+position = Vector2(-880, -712)
+
+[node name="GasStation" parent="settlements/Settlement11" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement11" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement2" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_kulxh")
+position = Vector2(-4269, -4400)
+
+[node name="TechShop" parent="settlements/Settlement2" instance=ExtResource("24_x2ygm")]
+
+[node name="Chop Shop" parent="settlements/Settlement2" instance=ExtResource("25_m17yv")]
+
+[node name="Gym" parent="settlements/Settlement2" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement12" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_tbp5f")
+position = Vector2(-490, 4165)
+
+[node name="TechShop" parent="settlements/Settlement12" instance=ExtResource("24_x2ygm")]
+
+[node name="Chop Shop" parent="settlements/Settlement12" instance=ExtResource("25_m17yv")]
+
+[node name="Gym" parent="settlements/Settlement12" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement10" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_4ypwe")
+position = Vector2(-2577, -3204)
+
+[node name="TechShop" parent="settlements/Settlement10" instance=ExtResource("24_x2ygm")]
+
+[node name="Chop Shop" parent="settlements/Settlement10" instance=ExtResource("25_m17yv")]
+
+[node name="Gym" parent="settlements/Settlement10" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement3" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_3x04a")
+position = Vector2(2830, -3690)
+
+[node name="GasStation" parent="settlements/Settlement3" instance=ExtResource("22_3x04a")]
+
+[node name="TechShop" parent="settlements/Settlement3" instance=ExtResource("24_x2ygm")]
+
+[node name="Settlement4" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_eunnb")
+position = Vector2(-5624, -404)
+
+[node name="Farm" parent="settlements/Settlement4" instance=ExtResource("21_4ypwe")]
+
+[node name="Settlement5" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_x2ygm")
+position = Vector2(2440, 2684)
+
+[node name="TechShop" parent="settlements/Settlement5" instance=ExtResource("24_x2ygm")]
+
+[node name="Gym" parent="settlements/Settlement5" instance=ExtResource("23_eunnb")]
+
+[node name="Chop Shop" parent="settlements/Settlement5" instance=ExtResource("25_m17yv")]
+
+[node name="Settlement9" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_m17yv")
+position = Vector2(-1247, 1398)
+
+[node name="TechShop" parent="settlements/Settlement9" instance=ExtResource("24_x2ygm")]
+
+[node name="Gym" parent="settlements/Settlement9" instance=ExtResource("23_eunnb")]
+
+[node name="Chop Shop" parent="settlements/Settlement9" instance=ExtResource("25_m17yv")]
+
+[node name="Settlement18" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_r03dh")
+position = Vector2(6356, -5451)
+
+[node name="TechShop" parent="settlements/Settlement18" instance=ExtResource("24_x2ygm")]
+
+[node name="Gym" parent="settlements/Settlement18" instance=ExtResource("23_eunnb")]
+
+[node name="Chop Shop" parent="settlements/Settlement18" instance=ExtResource("25_m17yv")]
+
+[node name="Settlement19" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_fuwqy")
+position = Vector2(8409, -366)
+
+[node name="TechShop" parent="settlements/Settlement19" instance=ExtResource("24_x2ygm")]
+
+[node name="Gym" parent="settlements/Settlement19" instance=ExtResource("23_eunnb")]
+
+[node name="Chop Shop" parent="settlements/Settlement19" instance=ExtResource("25_m17yv")]
+
+[node name="Settlement6" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_rl87i")
+position = Vector2(32, -416)
+
+[node name="GasStation" parent="settlements/Settlement6" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement6" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement8" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_omir2")
+position = Vector2(1874, 533)
+
+[node name="GasStation" parent="settlements/Settlement8" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement8" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement13" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_rnh6x")
+position = Vector2(4555, 3689)
+
+[node name="GasStation" parent="settlements/Settlement13" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement13" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement16" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_ulpn3")
+position = Vector2(-8002, 1249)
+
+[node name="GasStation" parent="settlements/Settlement16" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement16" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement17" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_s7sax")
+position = Vector2(-6882, -3949)
+
+[node name="GasStation" parent="settlements/Settlement17" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement17" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement14" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_h33nr")
+position = Vector2(-4806, 2990)
+
+[node name="GasStation" parent="settlements/Settlement14" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement14" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement15" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_t8y4u")
+position = Vector2(4225, -1570)
+
+[node name="GasStation" parent="settlements/Settlement15" instance=ExtResource("22_3x04a")]
+
+[node name="Gym" parent="settlements/Settlement15" instance=ExtResource("23_eunnb")]
+
+[node name="Settlement7" parent="settlements" instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_2vhqf")
+position = Vector2(-922, -6666)
+
+[node name="Gym" parent="settlements/Settlement7" instance=ExtResource("23_eunnb")]
+
+[node name="TechShop" parent="settlements/Settlement7" instance=ExtResource("24_x2ygm")]
+
+[node name="Chop Shop" parent="settlements/Settlement7" instance=ExtResource("25_m17yv")]
+
+[node name="clear" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="backdrop" type="ColorRect" parent="clear"]
+light_mask = 2
+z_index = -2715
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6, 0.546, 0.48, 1)
+
+[node name="static_ui" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="hud" type="Control" parent="static_ui"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("46_r03dh")
+metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
+
+[node name="ui_sfx" parent="static_ui/hud" instance=ExtResource("41_3x04a")]
+
+[node name="VBoxContainer" type="HBoxContainer" parent="static_ui/hud"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 448.0
+mouse_filter = 2
+
+[node name="resources" type="PanelContainer" parent="static_ui/hud/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("27_omir2")
+
+[node name="resources_dropdown" parent="static_ui/hud/VBoxContainer/resources" node_paths=PackedStringArray("target_inventory", "resource_hboxes", "resource_icons") instance=ExtResource("43_3x04a")]
+layout_mode = 2
+mouse_filter = 0
+target_inventory = NodePath("../../../../../PlayerParty/Player/Inventory")
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+show_travel_cost = true
+
+[node name="PanelContainer" type="PanelContainer" parent="static_ui/hud/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="static_ui/hud/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MoraleIcon" parent="static_ui/hud/VBoxContainer/PanelContainer/HBoxContainer" node_paths=PackedStringArray("bar") instance=ExtResource("45_rl87i")]
+layout_mode = 2
+size_flags_horizontal = 4
+bar = NodePath("../morale_bar")
+
+[node name="morale_bar" type="TextureProgressBar" parent="static_ui/hud/VBoxContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 5.0
+step = 0.1
+value = 5.0
+nine_patch_stretch = true
+texture_under = ExtResource("46_2vhqf")
+texture_progress = ExtResource("47_bwi7y")
+tint_under = Color(0.24, 0.6, 0.36, 1)
+tint_progress = Color(0.933333, 1, 0.2, 1)
+
+[node name="location_data" type="PanelContainer" parent="static_ui/hud" node_paths=PackedStringArray("sfx", "player_party", "road_sprite", "main_text_label", "sub_text_label", "location_sprite", "sign")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+offset_right = 12.0
+grow_vertical = 0
+theme = ExtResource("39_beb05")
+script = ExtResource("30_r03dh")
+sfx = NodePath("SfxPlayer")
+player_party = NodePath("../../../PlayerParty")
+road_sprite = NodePath("VBoxContainer/HBoxContainer/location_icon/road")
+main_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/main_text")
+sub_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/sub_text")
+location_sprite = NodePath("VBoxContainer/HBoxContainer/location_icon")
+sign = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/settlement_sign")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/location_data"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="static_ui/hud/location_data/VBoxContainer"]
+layout_mode = 2
+
+[node name="location_icon" type="TextureRect" parent="static_ui/hud/location_data/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_vertical = 4
+stretch_mode = 4
+
+[node name="road" type="Sprite2D" parent="static_ui/hud/location_data/VBoxContainer/HBoxContainer/location_icon"]
+visible = false
+scale = Vector2(4, 4)
+texture = ExtResource("57_fuwqy")
+centered = false
+hframes = 3
+frame = 1
+
+[node name="travel_loop" type="AnimationPlayer" parent="static_ui/hud/location_data/VBoxContainer/HBoxContainer/location_icon/road"]
+libraries = {
+&"": SubResource("AnimationLibrary_h33nr")
+}
+autoplay = "travel_loop"
+speed_scale = 0.75
+
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/location_data/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="main_text" type="Label" parent="static_ui/hud/location_data/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="settlement_sign" parent="static_ui/hud/location_data/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("58_rnh6x")]
+layout_mode = 2
+
+[node name="sub_text" type="Label" parent="static_ui/hud/location_data/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "[spacebar] Enter"
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="static_ui/hud/location_data"]
+script = ExtResource("31_5k4yq")
+upkeep_paid = ExtResource("32_1glhv")
+food_shortage = ExtResource("33_5vsub")
+fuel_shortage = ExtResource("34_a0yse")
+metadata/_custom_type_script = "uid://yn55dca3qplf"
+
+[node name="clock" type="PanelContainer" parent="static_ui/hud" node_paths=PackedStringArray("world_map", "date_label", "hour_label")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+script = ExtResource("31_fuwqy")
+world_map = NodePath("../../..")
+date_label = NodePath("VBoxContainer/current_date")
+hour_label = NodePath("VBoxContainer/current_hour")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/clock"]
+layout_mode = 2
+
+[node name="current_date" type="Label" parent="static_ui/hud/clock/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "3000
+25/11"
+horizontal_alignment = 1
+
+[node name="current_hour" type="Label" parent="static_ui/hud/clock/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "16:20"
+
+[node name="navigation_data" type="PanelContainer" parent="static_ui/hud" node_paths=PackedStringArray("name_label", "eta_label", "sign", "food_cost_label", "fuel_cost_label", "arrow")]
+visible = false
+top_level = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -340.0
+offset_top = -190.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("62_rnh6x")
+name_label = NodePath("VBoxContainer/HBoxContainer/settlement_name")
+eta_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/ETA")
+sign = NodePath("VBoxContainer/HBoxContainer/settlement_sign")
+food_cost_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/food_cost")
+fuel_cost_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/fuel_cost")
+arrow = NodePath("Control/go_arrow")
+
+[node name="Control" type="Control" parent="static_ui/hud/navigation_data"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="go_arrow" type="Sprite2D" parent="static_ui/hud/navigation_data/Control"]
+modulate = Color(0.944167, 1, 0.33, 0.196078)
+position = Vector2(0, -3)
+scale = Vector2(6, 6)
+texture = ExtResource("63_s7sax")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="static_ui/hud/navigation_data/Control/go_arrow"]
+libraries = {
+&"": SubResource("AnimationLibrary_2irgy")
+}
+autoplay = "arrow_loop"
+speed_scale = 1.5
+
+[node name="button" type="TextureButton" parent="static_ui/hud/navigation_data/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_hover = ExtResource("64_h33nr")
+stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/navigation_data"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="static_ui/hud/navigation_data/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="settlement_name" type="Label" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Street"
+
+[node name="settlement_sign" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer" instance=ExtResource("58_rnh6x")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="static_ui/hud/navigation_data/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ETA" type="Label" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Arrival by: 00:00"
+
+[node name="cost" type="Label" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Travel Cost:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="food_icon" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("28_2vhqf")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+match_player_inventory = false
+label = NodePath("../food_cost")
+
+[node name="food_cost" type="Label" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="fuel_icon" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("28_2vhqf")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+resource = "fuel"
+match_player_inventory = false
+label = NodePath("../fuel_cost")
+
+[node name="fuel_cost" type="Label" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="static_ui/hud/navigation_data/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "GO"
+
+[node name="warning" type="Control" parent="static_ui/hud" node_paths=PackedStringArray("warning_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("66_h33nr")
+warning_label = NodePath("PanelContainer/VBoxContainer/main_text")
+
+[node name="PanelContainer" type="PanelContainer" parent="static_ui/hud/warning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.0
+offset_top = -46.5
+offset_right = 236.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/warning/PanelContainer"]
+layout_mode = 2
+
+[node name="big_text" type="Label" parent="static_ui/hud/warning/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Not enough resources"
+
+[node name="main_text" type="RichTextLabel" parent="static_ui/hud/warning/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+bbcode_enabled = true
+text = "If you run out of food while travelling, your party's Morale will drop. 
+If your party runs out of fuel while travelling, your navigation speed will drop drastically!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="static_ui/hud/warning/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="cancel_btn" type="Button" parent="static_ui/hud/warning/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Cancel"
+
+[node name="go_btn" type="Button" parent="static_ui/hud/warning/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Go Anyway"
+
+[node name="PlayerSheet" parent="static_ui" instance=ExtResource("33_ulpn3")]
+visible = false
+
+[node name="dynamic_ui" type="Node" parent="."]
+
+[node name="enter_btn" type="Button" parent="dynamic_ui"]
+visible = false
+top_level = true
+z_index = 10
+offset_right = 124.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 64
+text = "Enter"
+script = ExtResource("69_x5mo2")
+
+[connection signal="hour_passed" from="." to="environment_color" method="_on_world_map_hour_passed"]
+[connection signal="settlement_hovered" from="." to="tiles/road" method="_on_world_map_settlement_hovered"]
+[connection signal="settlement_hovered" from="." to="static_ui/hud/navigation_data" method="show_settlement"]
+[connection signal="timeout" from="minute_ticker" to="minute_ticker" method="_on_timeout"]
+[connection signal="timeout" from="minute_ticker" to="PlayerParty/Player" method="_on_minute_ticker_timeout"]
+[connection signal="timeout" from="minute_ticker" to="static_ui/hud/clock" method="_on_minute_ticker_timeout"]
+[connection signal="settlement_entered" from="PlayerParty" to="static_ui/hud/location_data" method="_on_player_party_settlement_entered"]
+[connection signal="settlement_visited" from="PlayerParty" to="." method="_on_player_party_settlement_visited"]
+[connection signal="settlement_visited" from="PlayerParty" to="SfxPlayer" method="_on_player_party_settlement_visited"]
+[connection signal="settlement_visited" from="PlayerParty" to="tiles/fog" method="refresh_fog"]
+[connection signal="settlement_visited" from="PlayerParty" to="PlayerParty" method="_on_settlement_visited"]
+[connection signal="settlement_visited" from="PlayerParty" to="static_ui/hud/location_data" method="display_current_settlement"]
+[connection signal="settlement_visited" from="PlayerParty" to="dynamic_ui/enter_btn" method="_on_player_party_settlement_visited"]
+[connection signal="started_moving" from="PlayerParty" to="SfxPlayer" method="_on_player_party_started_moving"]
+[connection signal="started_moving" from="PlayerParty" to="PlayerParty" method="_on_started_moving"]
+[connection signal="started_moving" from="PlayerParty" to="PlayerParty/world_map_camera" method="pan_to_player"]
+[connection signal="started_moving" from="PlayerParty" to="static_ui/hud/location_data" method="_on_player_party_started_moving"]
+[connection signal="started_moving" from="PlayerParty" to="static_ui/hud/navigation_data" method="_on_player_party_started_moving"]
+[connection signal="started_moving" from="PlayerParty" to="dynamic_ui/enter_btn" method="_on_player_party_started_moving"]
+[connection signal="stopped_moving" from="PlayerParty" to="PlayerParty" method="_on_stopped_moving"]
+[connection signal="equipment_changed" from="PlayerParty/Player" to="static_ui/PlayerSheet" method="_on_player_equipment_changed"]
+[connection signal="resource_changed" from="PlayerParty/Player" to="static_ui/hud/VBoxContainer/resources/resources_dropdown" method="_on_player_resource_changed"]
+[connection signal="upkeep_food_shortage" from="PlayerParty/Player" to="static_ui/hud/location_data" method="_on_player_upkeep_food_shortage"]
+[connection signal="upkeep_fuel_shortage" from="PlayerParty/Player" to="static_ui/hud/location_data" method="_on_player_upkeep_fuel_shortage"]
+[connection signal="upkeep_paid_fully" from="PlayerParty/Player" to="static_ui/hud/location_data" method="_on_player_upkeep_paid_fully"]
+[connection signal="timeout" from="PlayerParty/marker/bounce_timer" to="PlayerParty/marker" method="bounce_animation"]
+[connection signal="started_panning" from="PlayerParty/world_map_camera" to="static_ui/hud/navigation_data" method="_on_world_map_camera_started_panning"]
+[connection signal="pressed" from="static_ui/hud/navigation_data/Control/button" to="static_ui/hud/navigation_data" method="_on_button_pressed"]
+[connection signal="pressed" from="static_ui/hud/warning/PanelContainer/VBoxContainer/HBoxContainer/cancel_btn" to="static_ui/hud/warning" method="_on_cancel_btn_pressed"]
+[connection signal="pressed" from="static_ui/hud/warning/PanelContainer/VBoxContainer/HBoxContainer/go_btn" to="static_ui/hud/warning" method="_on_go_btn_pressed"]
+[connection signal="pressed" from="dynamic_ui/enter_btn" to="dynamic_ui/enter_btn" method="_on_pressed"]
+
+[editable path="PlayerParty/Player"]

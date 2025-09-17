@@ -1,0 +1,8 @@
+~ start
+Wandering Trader: Hello, want to see my wares?
+- #trade
+- What do you do? =>< info
+- #leave
+
+~ info
+Wandering Trader: I travel around the world, [u]selling rare items[/u].

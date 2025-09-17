@@ -1,8 +1,5 @@
 extends FighterBase
 
-
-const sample_offset = Vector2(1, -26)
-
 const skill_name = "Shockwave"
 const description = "Knocks back and stuns enemies."
 const flavor = "He's not entierly sure how it works either."

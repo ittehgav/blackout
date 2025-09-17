@@ -1,8 +1,5 @@
 extends FighterBase
 
-const sample_offset = Vector2(11, -26)
-
-
 const skill_name = "Piercing Shot"
 const description = "Fires a powerful, long-range piercing bolt."
 const flavor = "One time he tried to use hot metal bars as arrows and got a second-degree burn."
@@ -32,7 +29,7 @@ func full_skill_description(unit:FighterUnit)->String:
 
 const skill_range = 750;
 
-const skill_cooldown = 6;
+const skill_cooldown = 3;
 
 func skill()->void:
 	Combat.set_windup_angle(fighter)

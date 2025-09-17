@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=70 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index/index.gd" id="1_oyx4q"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/punchy.tscn" id="2_whykp"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="26_t3d8t"]
 [ext_resource type="PackedScene" uid="uid://cbk0pwuwwf4px" path="res://scenes/ui/samples/unit_sample.tscn" id="26_yssh0"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="27_x86u7"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="28_kn0pf"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="28_v8r68"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="29_j1h2w"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="30_n4gql"]
@@ -131,6 +132,7 @@ save_file_display = ExtResource("31_6wgsf")
 dialogue_player = ExtResource("22_au47y")
 trade_menu = ExtResource("24_fqlef")
 item_mirror = ExtResource("32_co4i5")
+item_sample = ExtResource("28_kn0pf")
 unit_sample = ExtResource("26_yssh0")
 
 [node name="items" type="Node" parent="scenes"]

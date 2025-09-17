@@ -40,6 +40,7 @@ func _ready() -> void:
 
 
 func load_target(new_target:Node)->void:
+	description_label.text=  ""
 	target = new_target;
 
 	if target is ItemMirror:
@@ -98,8 +99,10 @@ func item_mirror_setup(mirror:ItemMirror)->void:
 					hint.text = "[right-click] to empty";
 				else:
 					hint.text = "[right-click] to store";
-			if item is Weapon or item is Module or item is Accessory:
+			elif item is Equipment:
 				hint.text = "[right-click] to equip";
+			elif item is Consumable:
+				hint.text = "[right-click] to use"
 		"trade":
 			if mirror.being_traded:
 				hint.text = "[right-click] to return"
@@ -119,6 +122,22 @@ func item_setup(item:Item)->void:
 	var target_name:String = item.name;
 	while target_name[-1].is_valid_int():
 		target_name = target_name.left(-1);
+	if item.applied_modifier:
+		var modifier:ItemModifier = item.applied_modifier;
+		if modifier.prefix:
+			target_name = modifier.prefix + " " + target_name;
+		if modifier.suffix:
+			target_name += " " + modifier.suffix;
+		
+		if modifier.stat_modifiers:
+			for stat:String in Index.all_combat_stats:
+				var change:float = modifier.stat_modifiers[stat]
+				if change:
+					print("change?")
+					description_label.text += Index.get_color_tag(stat)\
+					 + "+" +str(snapped(change, .01)) +" "+stat+"[/color]"+ "\n";
+		
+
 	name_label.text = target_name;
 	
 	if item is Weapon:
@@ -132,10 +151,12 @@ func item_setup(item:Item)->void:
 		sub_name_label.text = "Module";
 	elif item is Accessory:
 		sub_name_label.text = "Accessory";
+	elif item is Consumable:
+		sub_name_label.text = "Consumable"
 	sub_name_label.show()
 	## do the just method for everything that gets colors from index?
 	## some other way that's gonna make me feel stupid once i find out about how do modularize this stuff?
-	description_label.text = item.get_description()
+	description_label.text += item.get_description()
 
 func disable()->void:
 	hover_timer.timeout.disconnect(_on_hover_timer_timeout)

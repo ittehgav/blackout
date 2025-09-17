@@ -1,14 +1,35 @@
 extends Node
 
+
+
 ## TODO redo this script with the pages in mind
 ## when the new world map is up and running and a ton of stuff here gets deleted/repurposed
 @export var scenes:SceneIndex;
 @export var fighters:FighterIndex;
 @export var textures:TextureIndex;
 
+const primary_fighter_tags = [
+	"bodybuilder",
+	"mechanic",
+	"scientist",
+	"cyborg"
+]
+
+const all_fighter_tags = [
+	"bodybuilder",
+	"mechanic",
+	"scientist",
+	"cyborg",
+
+	"brawler",
+	"hunter",
+	"juggernaut",
+	"disruptor"
+]
+
 ## make this catch the size properly?
 @export var world_map_cell_size:int = 32;
-@export var irl_time_scale:float = 1000;
+@export var irl_time_scale:float = 500;
 @export var cell_to_km:float = 2;
 
 func _ready()->void:

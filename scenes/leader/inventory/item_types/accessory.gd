@@ -14,6 +14,8 @@ class_name Accessory
 	"unit":false
 }
 
+
+
 @export_enum(
 	"bodybuilder",
 	"brawler",
@@ -23,11 +25,14 @@ class_name Accessory
 	"hunter",
 	"doctor", 
 	"juggernaut",
-	"disruptor") var exclusive_tag:String = "none";
+	"disruptor") var exclusive_tag:String;
+
+func get_mirror_color()->Color:
+	return Index.item_rarity_colors[self["rarity"]]
 
 func get_description()->String:
 	var description:String = "Equippable on ";
-	if equippable.player and equippable.unit and exclusive_tag == "none":
+	if equippable.player and equippable.unit and not exclusive_tag:
 		description += "anyone";
 	else:
 		if equippable.player:
@@ -46,5 +51,5 @@ func get_description()->String:
 		for stat:String in Index.all_combat_stats:
 			if stat_modifiers[stat]:
 				var text:String = Index.get_color_tag(stat) + "+" + str(stat_modifiers[stat]) + " " + stat
-				description += "\n" + text;
+				description += "\n" + text + "[/color]";
 	return description;

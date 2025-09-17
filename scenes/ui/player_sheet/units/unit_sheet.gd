@@ -16,16 +16,16 @@ class_name UnitSheet;
 @export var skill_description_label:RichTextLabel;
 @export var flavor_label:Label;
 
+@export var experience_bar:ExperienceBar;
+@export var accessory_sample:ItemSample
+
 @export var tags_label:Label;
 
 @export var unit_level_label:Label;
-@export var level_progress_bar:TextureProgressBar;
-
 @export var stats_dropdown:StatsDropdown
 
 @export var skill_range_label:Label;
 @export var skill_cooldown_label:Label;
-
 
 
 func display_unit(unit:FighterUnit)->void:
@@ -42,7 +42,8 @@ func display_unit(unit:FighterUnit)->void:
 	stats_dropdown.load_stats(unit.final_stats())
 	refresh_data();
 	fade_in()
-	
+
+
 func refresh_data()->void:
 	unit_name_label.text = showing_unit.base.name;
 
@@ -50,8 +51,12 @@ func refresh_data()->void:
 		tags_label.text += tag.capitalize() + "\n"
 	
 	unit_level_label.text = "Level " + str(showing_unit.level);
-	level_progress_bar.max_value = Scaling.exp_for_next_level(showing_unit.level);
-	level_progress_bar.value = showing_unit.experience;
+	experience_bar.build(showing_unit);
+	
+	if showing_unit.equipped_accessory:
+		accessory_sample.load_item(showing_unit.equipped_accessory);
+	else:
+		accessory_sample.load_blank(3);
 	
 	skill_name_label.text = "Skill: " + showing_unit.base.skill_name;
 	skill_description_label.text = showing_unit.base.full_skill_description(showing_unit);
@@ -60,7 +65,7 @@ func refresh_data()->void:
 	
 	skill_cooldown_label.text = "Cooldown: " + str(snapped(showing_unit.final_skill_cooldown(),.01)) + "s";
 	skill_range_label.text = get_skill_range(showing_unit.base);
-	
+
 
 func get_skill_range(fighter:FighterBase)->String:
 	if fighter.skill_range == fighter.MELEE_RANGE:
@@ -69,7 +74,7 @@ func get_skill_range(fighter:FighterBase)->String:
 		return "Short Range";
 	else:
 		return "Long Range"
-	
+
 
 func fade_in()->void:
 	modulate.a = 0;
@@ -84,7 +89,24 @@ func fade_out()->void:
 	queue_free();
 
 
-func _input(e: InputEvent) -> void:
+
+func _on_item_sample_gui_input(e: InputEvent) -> void:
+	if e.is_action_pressed("use_item") and accessory_sample.item:
+		var item:Item = accessory_sample.item
+		var display:InventoryDisplay = Entities.player_sheet.player_inventory;
+		if display.find_clear_cell(item) != Vector2i(-1, -1):
+			showing_unit.equipped_accessory = null;
+			display.throw_in_inventory(item);
+			display.refresh_data();
+			accessory_sample.load_blank(3);
+			Entities.player_sheet.party_view.unit_accessories_changed.emit();
+			Entities.player.roster.equipped_accessories.erase(item);
+			
+		else:
+			display.invalid_move.emit("NOT ENOUGH ROOM")
+
+
+func _on_gui_input(e: InputEvent) -> void:
 	if e.is_action_pressed("ui_exit") and not fading_out:
 		fading_out = true;
 		fade_out();

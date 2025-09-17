@@ -227,6 +227,8 @@ top_level = true
 z_index = 5
 monitorable = false
 
+[node name="projection" type="Node2D" parent="hit_scan"]
+
 [node name="hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 9.5)
 shape = SubResource("CapsuleShape2D_pfl07")

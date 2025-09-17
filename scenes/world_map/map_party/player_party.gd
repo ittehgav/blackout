@@ -15,6 +15,7 @@ func _ready()->void:
 	marker.show_in_settlement(current_settlement);
 	
 	settlement_visited.emit(current_settlement)
+	current_settlement.player_visited.emit()
 
 func _input(e:InputEvent)->void:
 	if e.is_action_pressed("show_player_sheet") and not Entities.player_sheet.open:

@@ -1,8 +1,5 @@
 extends FighterBase
 
-
-const sample_offset = Vector2(10, -16)
-
 const skill_name = "Rusty Pipe"
 const description = "Moderate resistance and damage, attacks reduce enemies' damage."
 const flavor = "Would be a lot less effective if he had better personal hygiene."

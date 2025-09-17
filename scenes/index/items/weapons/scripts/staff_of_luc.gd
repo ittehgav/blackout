@@ -26,8 +26,8 @@ const projection = "circle_aoe";
 
 var description :String
 
-func set_hint_data()->void:
-	description = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color]"+Index.get_color_tag("max_hp")\
+func get_description()->String:
+	return Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color]"+Index.get_color_tag("max_hp")\
  + " Heals[/color] or gives an " + Index.stat_colored_name("agility") +\
  " buff to allies in an area.\nPress [right-click] in combat to alternate between modes.";
 

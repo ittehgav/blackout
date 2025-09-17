@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://ghvx0yxh127g"]
+
+[ext_resource type="Script" uid="uid://cgkqtd31t7lwh" path="res://scenes/index/items/consumables/special_graphics/motivational_speech_draft.gd" id="1_fbvb7"]
+[ext_resource type="PackedScene" uid="uid://bvqlr4av33k48" path="res://scenes/ui/player_sheet/morale_display.tscn" id="2_irqff"]
+[ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="3_irqff"]
+
+[node name="MotivationalSpeechDraft" type="Control" node_paths=PackedStringArray("morale_icon", "sound")]
+z_index = 50
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fbvb7")
+morale_icon = NodePath("PanelContainer/morale_display/MoraleIcon")
+sound = NodePath("AudioStreamPlayer")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.678431)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -38.0
+offset_right = 140.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="morale_display" parent="PanelContainer" instance=ExtResource("2_irqff")]
+layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_irqff")
+
+[editable path="PanelContainer/morale_display"]

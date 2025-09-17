@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="2_vgbht"]
 [ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="3_vgbht"]
 
-[node name="GasStation" type="Node2D" node_paths=PackedStringArray("inventory") groups=["all_buildings"]]
+[node name="Gas Station" type="Node2D" node_paths=PackedStringArray("inventory") groups=["all_buildings"]]
 script = ExtResource("1_vgbht")
 to_trade = Dictionary[String, bool]({
 "chips": false,

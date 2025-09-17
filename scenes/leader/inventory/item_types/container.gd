@@ -10,22 +10,9 @@ var description:String;
 var hint_description:String;
 
 
-func _ready()->void:
-	set_hint_data();
 
-
-func set_hint_data()->void:
-	assert(material is ShaderMaterial)
-	hint_description = "[right-click] to store"
-	material.set_shader_parameter("base_color", Index.get_color(resource));
-	if raw_stack:
-		if mirror_only:
-			description = Index.resource_colored_name(resource) + " is a liquid, it will go to waste if left outside of a [u]container.[/u]"
-		else:
-			description = "Stack of up to " + str(self["capacity"]) + " " + Index.resource_colored_name(resource) + "."
-	else:
-		hint_description = "[right-click] to empty"
-		description = "Holds up to " + str(self["capacity"]) + " " + Index.resource_colored_name(resource) + "."
+func get_mirror_color()->Color:
+	return Index.get_color(resource);
 
 func get_description()->String:
 	var description:String;

@@ -1,9 +1,5 @@
 extends FighterBase
 
-
-const sample_offset = Vector2(13, -26)
-
-
 const skill_name =  "Crowbar Swing"
 const description = "Low resistance, high melee damage."
 const flavor = "Surprisingly strong for just a scientist with a crowbar."

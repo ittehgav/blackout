@@ -1,33 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2atxui6lbsr0"]
+[gd_scene load_steps=4 format=3 uid="uid://c2atxui6lbsr0"]
 
-[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="1_6uhic"]
 [ext_resource type="Script" uid="uid://dpxa7a0vvejmm" path="res://scenes/ui/player_sheet/item_sample.gd" id="2_81f3s"]
 [ext_resource type="Texture2D" uid="uid://c70v3si5swr41" path="res://assets/visual/ui/items/blank_item.png" id="3_81f3s"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="3_qv57f"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8tnr"]
-shader = ExtResource("1_6uhic")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[node name="item_sample" type="TextureRect" node_paths=PackedStringArray("outline", "tooltip", "bg", "blank")]
+[node name="item_sample" type="TextureRect" node_paths=PackedStringArray("modifier_sign", "outline", "tooltip", "bg", "blank", "button")]
 z_index = 1
-material = SubResource("ShaderMaterial_s8tnr")
 custom_minimum_size = Vector2(64, 128)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 0
 expand_mode = 5
 script = ExtResource("2_81f3s")
+modifier_sign = NodePath("modifier_sign")
 outline = NodePath("bg/outline")
 tooltip = NodePath("Tooltip")
 bg = NodePath("bg")
 blank = NodePath("bg/outline/blank")
+button = NodePath("button")
 
 [node name="bg" type="ColorRect" parent="."]
 self_modulate = Color(0.5, 0.5, 0.5, 1)
@@ -54,7 +44,6 @@ border_width = 3.0
 editor_only = false
 
 [node name="blank" type="TextureRect" parent="bg/outline"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,5 +66,27 @@ offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 
+[node name="button" type="TextureButton" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="modifier_sign" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_bottom = 51.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.964167, 1, 0.57, 1)
+theme_override_font_sizes/font_size = 64
+text = "+"
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="button" to="." method="_on_texture_button_pressed"]

@@ -1,9 +1,5 @@
 extends FighterBase
 
-
-const sample_offset = Vector2(15, -26)
-
-
 const skill_name =  "Wrecking Punch"
 const description = "Launches quick, powerful punches that reduce the defense of the target."
 const flavor = "He still uses the robotic arm to lift weights and it's been so long it's weird to tell him he doesn't need to now."

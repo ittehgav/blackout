@@ -15,6 +15,7 @@ offset = Vector2(-30, -15)
 script = ExtResource("1_1n7ey")
 hit_scan = NodePath("hit_scan")
 arc = NodePath("projection")
+melee = true
 
 [node name="projection" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.333333)

@@ -33,4 +33,3 @@ func _ready()->void:
 		texture = Index.textures.icons[stat];
 		modulate = Index.stat_colors[stat]
 		label.add_theme_color_override("font_color", modulate)
-		

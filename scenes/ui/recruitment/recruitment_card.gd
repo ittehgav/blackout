@@ -4,7 +4,8 @@ class_name RecruitmentCard;
 
 @export var hired_overlay:ColorRect;
 
-@export var recruit_base_texture:TextureRect;
+@export var sprite_anchor:Control;
+@export var current_sprite:Sprite2D;
 
 @export var recruit_name_label:Label;
 @export var price_tag:Label;
@@ -27,10 +28,13 @@ func setup(fighter_unit:FighterUnit)->void:
 	else:
 		level_multiplier = unit.level ** 2
 	
-	recruit_base_texture.texture.atlas = ColorCoder.color_code_fighter_base_texture(fighter_unit.base, Entities.player.color_scheme_index);
+	current_sprite.queue_free();
+	current_sprite = fighter_unit.base.duplicate();
+	current_sprite.scale = Vector2.ONE;
+	current_sprite.centered = false;
+	sprite_anchor.add_child(current_sprite)
 	
 	unit_price = len(unit.base.tags) * level_multiplier;
-
 
 	refresh_affordability()
 	

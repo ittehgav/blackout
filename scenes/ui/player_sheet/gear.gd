@@ -31,21 +31,21 @@ func refresh_samples(just_changed:Equipment=null)->void:
 	
 	
 
-	weapon_sample.load_item(Entities.player.equipped_weapon, gear_color)
-	module_sample.load_item(Entities.player.equipped_module, gear_color);
+	weapon_sample.load_item(Entities.player.equipped_weapon)
+	module_sample.load_item(Entities.player.equipped_module);
 
 	if Entities.player.alternative_weapon:
-		alt_weapon_sample.load_item(Entities.player.alternative_weapon, gear_color, 1);
+		alt_weapon_sample.load_item(Entities.player.alternative_weapon, 1);
 	else:
-		alt_weapon_sample.load_blank(Vector2(2, 3), gear_color)
+		alt_weapon_sample.load_blank(2)
 	
 	for i:int in 2:
 		var accessory:Accessory = Entities.player["equipped_accessory_"+str(i+1)];
 		var sample:ItemSample = self["accessory_"+str(i+1)+"_sample"]
 		if accessory:
-			sample.load_item(accessory, gear_color)
+			sample.load_item(accessory)
 		else:
-			sample.load_blank(Vector2(4, 4), gear_color);
+			sample.load_blank();
 	
 	if just_changed:
 		match just_changed:
@@ -125,13 +125,13 @@ func _on_alt_weapon_sample_gui_input(e: InputEvent) -> void:
 			send_item_to_inventory(Entities.player.alternative_weapon)
 			Entities.player.equipment.erase(Entities.player.alternative_weapon)
 			Entities.player.alternative_weapon = null;
-			alt_weapon_sample.load_blank(Vector2(2, 3), gear_color)
+			alt_weapon_sample.load_blank(2)
 
 
 func send_item_to_inventory(item:Item)->void:
 	player_inventory_display.throw_in_inventory(item);
 	player_inventory_display.refresh_data()
-	player_inventory_display.board_shake(3);
+	player_inventory_display.board_shake();
 	
 func invalid_move(message:String)->void:
 	sfx.play_sound_by_key("invalid");
@@ -161,14 +161,14 @@ func unequip_accessory(which:int)->void:
 				invalid_move("NOT ENOUGH ROOM");
 				return
 			Entities.player.equipped_accessory_1 = null
-			accessory_1_sample.load_blank(Vector2(4, 4), gear_color)
+			accessory_1_sample.load_blank(2)
 		2:
 			to_unequip = Entities.player.equipped_accessory_2;
 			if player_inventory_display.find_clear_cell(to_unequip) == Vector2i(-1, -1):
 				invalid_move("NOT ENOUGH ROOM");
 				return
 			Entities.player.equipped_accessory_2 = null
-			accessory_2_sample.load_blank(Vector2(4, 4), gear_color)
+			accessory_2_sample.load_blank(2)
 
 	Entities.player.equipment.erase(to_unequip);
 	send_item_to_inventory(to_unequip)

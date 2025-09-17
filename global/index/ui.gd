@@ -12,4 +12,5 @@ class_name UISceneIndex
 
 @export var trade_menu:PackedScene
 @export var item_mirror:PackedScene
+@export var item_sample:PackedScene;
 @export var unit_sample:PackedScene

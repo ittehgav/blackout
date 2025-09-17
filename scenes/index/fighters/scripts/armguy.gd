@@ -1,11 +1,5 @@
 extends FighterBase
 
-
-
-## offset to be used on sprite samples
-const sample_offset = Vector2(19, -42);
-
-
 const skill_name = "Throw Hands"
 const description = "Slow and tough, damages and stuns enemies."
 const flavor = "He's heard that joke you're thinking of a thousand times."

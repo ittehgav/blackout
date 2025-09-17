@@ -2,9 +2,6 @@ extends FighterBase
 
 const no_damage = true;
 
-
-const sample_offset = Vector2(15, -26)
-
 const skill_name = "Challenge"
 @onready var description:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Taunts nearby enemies and shields self, becoming progressively more resistant."
 const flavor = "The doors bend and break often enough without him hitting anyone with them."

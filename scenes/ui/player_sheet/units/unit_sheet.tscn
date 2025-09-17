@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene load_steps=11 format=3 uid="uid://1hbrworalfdw"]
 
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/player_sheet/units/unit_sheet.gd" id="1_ugdfa"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_tw0lw"]
 [ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="3_kbewr"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="4_kpc33"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="5_kpc33"]
-[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="7_bswal"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="6_ugdfa"]
 [ext_resource type="Script" uid="uid://dhhsn8dr6b0sg" path="res://scenes/ui/player_sheet/units/panel_container.gd" id="8_0kn7o"]
 [ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="9_n3a7f"]
 
@@ -14,7 +15,7 @@ load_path = "res://.godot/imported/armguy.png-0256df781419550105bc51d7c0e19786.c
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g52xd"]
 load_path = "res://.godot/imported/armguy.png-0256df781419550105bc51d7c0e19786.ctex"
 
-[node name="Unit Sheet" type="Panel" node_paths=PackedStringArray("sample", "evolution_display", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "tags_label", "unit_level_label", "level_progress_bar", "stats_dropdown", "skill_range_label", "skill_cooldown_label", "ui_sfx")]
+[node name="Unit Sheet" type="Panel" node_paths=PackedStringArray("sample", "evolution_display", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "experience_bar", "accessory_sample", "tags_label", "unit_level_label", "stats_dropdown", "skill_range_label", "skill_cooldown_label", "ui_sfx")]
 z_index = 2
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 8
@@ -37,10 +38,11 @@ unit_name_label = NodePath("HBoxContainer/name")
 skill_name_label = NodePath("texts/skill_name")
 skill_description_label = NodePath("texts/skill_description")
 flavor_label = NodePath("texts/flavor")
+experience_bar = NodePath("HBoxContainer2/VBoxContainer/exp_bar")
+accessory_sample = NodePath("HBoxContainer2/VBoxContainer2/item_sample")
 tags_label = NodePath("HBoxContainer/tags")
-unit_level_label = NodePath("VBoxContainer/level")
-level_progress_bar = NodePath("VBoxContainer/ProgressBar")
-stats_dropdown = NodePath("VBoxContainer/StatsDropdown")
+unit_level_label = NodePath("HBoxContainer2/VBoxContainer/level")
+stats_dropdown = NodePath("HBoxContainer2/VBoxContainer/StatsDropdown")
 skill_range_label = NodePath("texts/HBoxContainer/range")
 skill_cooldown_label = NodePath("texts/HBoxContainer/cooldown")
 ui_sfx = NodePath("ui_sfx")
@@ -130,39 +132,29 @@ layout_mode = 2
 text = "cuzao"
 autowrap_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 369.0
-offset_top = -505.0
-offset_right = 769.0
-offset_bottom = -81.0
-grow_vertical = 0
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 428.0
+offset_top = 199.0
+offset_right = 896.0
+offset_bottom = 623.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="level" type="Label" parent="VBoxContainer"]
+[node name="level" type="Label" parent="HBoxContainer2/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 64
 text = "Level 2"
 
-[node name="ProgressBar" type="TextureProgressBar" parent="VBoxContainer"]
-custom_minimum_size = Vector2(300, 40)
+[node name="exp_bar" parent="HBoxContainer2/VBoxContainer" instance=ExtResource("4_kpc33")]
 layout_mode = 2
 size_flags_horizontal = 0
-nine_patch_stretch = true
-stretch_margin_left = 2
-stretch_margin_top = 2
-stretch_margin_right = 2
-stretch_margin_bottom = 2
-texture_under = ExtResource("7_bswal")
-texture_progress = ExtResource("7_bswal")
-tint_under = Color(0.082, 0.2, 0.082, 1)
-tint_progress = Color(0.0862745, 0.8, 0.0862745, 1)
 
-[node name="StatsDropdown" parent="VBoxContainer" node_paths=PackedStringArray("stat_labels") instance=ExtResource("5_kpc33")]
+[node name="StatsDropdown" parent="HBoxContainer2/VBoxContainer" node_paths=PackedStringArray("stat_labels") instance=ExtResource("5_kpc33")]
 layout_mode = 2
 size_flags_horizontal = 0
 stat_labels = {
@@ -172,6 +164,23 @@ stat_labels = {
 "max_hp": NodePath("max_hp/max_hp"),
 "technique": NodePath("technique/technique")
 }
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+text = "Accessory"
+
+[node name="item_sample" parent="HBoxContainer2/VBoxContainer2" instance=ExtResource("6_ugdfa")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label2" type="Label" parent="HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "[right-click] to unequip"
 
 [node name="evolutin_display" type="PanelContainer" parent="." node_paths=PackedStringArray("ev1_sprite", "ev2_sprite", "hint_label")]
 layout_mode = 1
@@ -235,5 +244,6 @@ hframes = 3
 vframes = 3
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="gui_input" from="HBoxContainer2/VBoxContainer2/item_sample" to="." method="_on_item_sample_gui_input"]
 
 [editable path="SpriteSample"]

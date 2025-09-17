@@ -1,0 +1,153 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqhmywx7yqdw6"]
+
+[ext_resource type="Script" uid="uid://cemx4r72ha7oy" path="res://scenes/ui/recruitment/recruitment_menu.gd" id="1_g4fa0"]
+[ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/unit_sheet.tscn" id="2_18fju"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="3_6k2ih"]
+[ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/ui/recruitment/recruitment_card.tscn" id="3_jvi8e"]
+[ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="4_jvi8e"]
+[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="5_3swt8"]
+
+[node name="RecruitmentMenu" type="Control" node_paths=PackedStringArray("current_roster", "options_vbox", "sprite_sample", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "flavor_label", "ui_sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g4fa0")
+option_scene = ExtResource("3_jvi8e")
+current_roster = NodePath("Building Roster")
+options_vbox = NodePath("main/VBoxContainer")
+sprite_sample = NodePath("main/Unit Sheet/SpriteSample")
+stats = NodePath("main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown")
+name_label = NodePath("main/Unit Sheet/HBoxContainer/name")
+level_label = NodePath("main/Unit Sheet/HBoxContainer2/VBoxContainer/level")
+tags_label = NodePath("main/Unit Sheet/HBoxContainer/tags")
+skill_name_label = NodePath("main/Unit Sheet/texts/skill_name")
+skill_description_label = NodePath("main/Unit Sheet/texts/skill_description")
+flavor_label = NodePath("main/Unit Sheet/texts/flavor")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." instance=ExtResource("3_6k2ih")]
+
+[node name="main" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Unit Sheet" parent="main" instance=ExtResource("2_18fju")]
+custom_minimum_size = Vector2(871, 720)
+layout_mode = 2
+
+[node name="HBoxContainer" parent="main/Unit Sheet" index="2"]
+custom_minimum_size = Vector2(400, 0)
+offset_left = 31.0
+offset_top = 57.0
+offset_right = 431.0
+offset_bottom = 238.0
+
+[node name="name" parent="main/Unit Sheet/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(300, 0)
+autowrap_mode = 2
+
+[node name="SpriteSample" parent="main/Unit Sheet" index="3"]
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 0.0
+offset_bottom = 128.0
+grow_vertical = 1
+target_scale = Vector2(5, 5)
+
+[node name="texts" parent="main/Unit Sheet" index="4"]
+offset_left = -381.0
+offset_top = 56.0
+offset_right = -14.0
+offset_bottom = 646.0
+
+[node name="skill_name" parent="main/Unit Sheet/texts" index="0"]
+autowrap_mode = 3
+
+[node name="HBoxContainer2" parent="main/Unit Sheet" index="5"]
+offset_left = 326.0
+offset_right = 526.0
+
+[node name="exp_bar" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer" index="1"]
+visible = false
+
+[node name="StatsDropdown" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer" index="2" node_paths=PackedStringArray("stat_labels")]
+stat_labels = {
+"agility": NodePath("agility/agility"),
+"attack": NodePath("attack/attack"),
+"defense": NodePath("defense/defense"),
+"max_hp": NodePath("max_hp/max_hp"),
+"technique": NodePath("technique/technique")
+}
+
+[node name="stats" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown" index="0"]
+visible = false
+
+[node name="VBoxContainer2" parent="main/Unit Sheet/HBoxContainer2" index="1"]
+visible = false
+
+[node name="evolutin_display" parent="main/Unit Sheet" index="6"]
+visible = false
+
+[node name="Button" type="Button" parent="main/Unit Sheet"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -25.0
+offset_right = -20.0
+offset_bottom = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Hire - $32"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main"]
+layout_mode = 2
+
+[node name="recruitment_card" parent="main/VBoxContainer" instance=ExtResource("3_jvi8e")]
+layout_mode = 2
+
+[node name="recruitment_card2" parent="main/VBoxContainer" instance=ExtResource("3_jvi8e")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="recruitment_card3" parent="main/VBoxContainer" instance=ExtResource("3_jvi8e")]
+layout_mode = 2
+
+[node name="recruitment_card" parent="main/VBoxContainer/recruitment_card3" instance=ExtResource("3_jvi8e")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 400.0
+offset_bottom = 150.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Building Roster" parent="." instance=ExtResource("4_jvi8e")]
+bodybuilder_recruiting = true
+cyborg_recruiting = true
+scientist_recruiting = true
+mechanic_recruiting = true
+
+[node name="Player" parent="." instance=ExtResource("5_3swt8")]
+
+[editable path="main/Unit Sheet"]
+[editable path="main/Unit Sheet/SpriteSample"]
+[editable path="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown"]

@@ -1,13 +1,11 @@
 extends FighterBase
 
-const sample_offset = Vector2(15, -26);
-
 const skill_name = "Domain of Thorns"
 const description = "Creates thorns that damage and reduce the agility of enemies in its area";
 const flavor = "He plants and manufactures his own hair dye.";
 
 const skill_range = MELEE_RANGE;
-const skill_cooldown = 2;
+const skill_cooldown = 3;
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_string:String = Index.get_unit_damage_string(unit);
@@ -58,7 +56,6 @@ func skill_impact()->void:
 		new_thorns.show();
 		all_thorns.append(new_thorns);
 		
-
 
 func find_overlapping_thorns(spot:Vector2)->ColorRect:
 	var current:ColorRect

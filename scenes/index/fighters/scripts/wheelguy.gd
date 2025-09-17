@@ -1,11 +1,8 @@
 extends FighterBase
 
-const sample_offset = Vector2(15, -26)
-
-
 const skill_name =  "Accelerate"
 const description = "Deals damage to surrounding enemies that speeds up over time."
-const flavor = "At the start he was trying to build a lawnmower.";
+const flavor = "He was trying to build a lawnmower.";
 
 
 func full_skill_description(unit:FighterUnit)->String:

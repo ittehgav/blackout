@@ -2,9 +2,6 @@ extends Control;
 
 class_name SpriteSample;
 
-
-
-
 @export var target_base:Sprite2D=null;
 @export var additional_data:Label;
 
@@ -13,7 +10,7 @@ class_name SpriteSample;
 @export var add_tooltip:bool = true;
 @export var enable_hover_panel:bool = true;
 
-
+@export var target_scale:Vector2 = Vector2.ONE
 
 func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_scheme_index, extra_offset:Vector2 = Vector2(30, -15))->void:
 	if target_base:
@@ -22,16 +19,16 @@ func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_sc
 		
 	## idk but it works
 	target_base = target.duplicate();
-	target_base.scale = Vector2.ONE
+	target_base.centered = false
+	target_base.scale = target_scale
 	add_child(target_base)
 		
-	if target_base is FighterBase:
-		target_base.offset = target_base.sample_offset + extra_offset;
-
-		if not target_base is PlayerFighterBase:
-			target_base.set_material(null)
-			set_rectangle();
-			set_tooltip();
+	
+	target_base.offset.x -= 5 * target_scale.x
+	if not target_base is PlayerFighterBase:
+		target_base.set_material(null)
+		set_rectangle();
+		set_tooltip();
 
 
 	

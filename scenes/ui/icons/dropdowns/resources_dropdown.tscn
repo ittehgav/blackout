@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="1_lfol1"]
 [ext_resource type="Script" uid="uid://mxtxljd7fw3s" path="res://scenes/ui/icons/dropdowns/resources_dropdown.gd" id="1_lsvr5"]
 
-[node name="resources_dropdown" type="VBoxContainer" node_paths=PackedStringArray("costs", "food_cost", "fuel_cost", "resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" type="VBoxContainer" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -14,9 +14,6 @@ offset_bottom = 366.0
 grow_horizontal = 2
 mouse_filter = 2
 script = ExtResource("1_lsvr5")
-costs = NodePath("costs")
-food_cost = NodePath("costs/panel/label")
-fuel_cost = NodePath("costs/panel2/label")
 resource_hboxes = {
 "chips": NodePath("chips"),
 "food": NodePath("food"),
@@ -33,45 +30,6 @@ resource_icons = {
 "money": NodePath("money/money_icon"),
 "scrap": NodePath("scrap/scrap_icon")
 }
-
-[node name="costs" type="Control" parent="."]
-z_index = -1
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="panel" type="PanelContainer" parent="costs"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 1.0
-offset_top = 93.0
-offset_right = 97.0
-offset_bottom = 143.0
-grow_vertical = 2
-
-[node name="label" type="Label" parent="costs/panel"]
-modulate = Color(0.75, 0.75, 0.75, 0.780392)
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "-10/h"
-
-[node name="panel2" type="PanelContainer" parent="costs"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 1.0
-offset_top = 149.0
-offset_right = 97.0
-offset_bottom = 199.0
-grow_vertical = 2
-
-[node name="label" type="Label" parent="costs/panel2"]
-modulate = Color(0.75, 0.75, 0.75, 0.780392)
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "-10/h"
 
 [node name="money" type="HBoxContainer" parent="."]
 layout_mode = 2

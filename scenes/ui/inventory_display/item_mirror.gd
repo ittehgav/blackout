@@ -3,6 +3,7 @@ extends TextureRect
 class_name ItemMirror;
 
 var display:InventoryDisplay;
+@export var modifier_sign:Label
 @export var outline:ReferenceRect;
 @export var bg:ColorRect;
 @export var being_traded_rect:ColorRect;
@@ -57,9 +58,12 @@ func load_item(target:Item, new_item:bool=false)->void:
 		item_color = Index.get_color(item.resource);
 	else:
 		item_color = Index.item_rarity_colors[item.rarity];
+
+	modifier_sign.hide()
+	if item.applied_modifier:
+		modifier_sign.show()
 	
-	
-	self_modulate = item_color
+	self_modulate = item.get_mirror_color();
 	var dark_color:Color = item_color.darkened(.8);
 	var light_color:Color = item_color.lightened(.4);
 	
@@ -73,8 +77,6 @@ func load_item(target:Item, new_item:bool=false)->void:
 
 	bg.color.s = min(.7, bg.color.s)
 
-
-	
 	shader_color = item_color;
 	outline_color = shader_color * Color(.25, .25, .25);
 	outline.border_color = outline_color;
@@ -139,6 +141,8 @@ func _on_gui_input(e: InputEvent) -> void:
 
 					elif item is Equipment:
 						equip_command()
+					elif item is Consumable:
+						use_consumable_command()
 				elif display.context == "trade":
 					trade_command()
 					return
@@ -307,10 +311,7 @@ func equip_accessory_command()->void:
 	if item.equippable.player and not item.equippable.unit:
 		equip_accessory_on_player();
 	else:
-		show_equip_options();
-
-func show_equip_options()->void:
-	display.equip_options.show_options(item);
+		display.unit_selector.show_options(item);
 
 func equip_accessory_on_player()->void:
 	var just_unequipped:Accessory;
@@ -347,6 +348,8 @@ func equip_accessory_on_unit(unit:FighterUnit)->void:
 			return;
 	
 	unit.equip_accessory(item);
+	Entities.player.roster.equipped_accessories.append(item);
+
 	if previous:
 		load_item(previous, true);
 		item.match_mirror;
@@ -354,10 +357,9 @@ func equip_accessory_on_unit(unit:FighterUnit)->void:
 			display.throw_mirror(self);
 		refresh()
 	else:
-		display.remove_mirror(self);
+		display.remove_mirror(self, false);
 	display.accessory_equipped_on_unit.emit();
 	display.item_dropped.emit(self)
-	
 
 
 func equip_module_command()->void:
@@ -373,7 +375,61 @@ func equip_module_command()->void:
 	refresh()
 
 
+func use_consumable_command()->void:
+	match item.use_type:
+		"instant":
+			if item.special_graphics:
+				var graphics:ItemSpecialGraphics = item.special_graphics.instantiate();
+				Entities.player_sheet.add_child(graphics)
+				var tween:Tween = Tweens.ui_fade_in(graphics)
+				tween.tween_callback(graphics.play);
+				await graphics.finished;
+				Tweens.ui_fade_out(graphics)
+				return
+			if item.use_sfx:
+				display.sfx.play_sound_obj(item.use_sfx)
+			item.use();
+			display.board_shake()
+			display.remove_mirror(self)
+			
+		"unit":
+			if item.tag_target:
+				if not len(Entities.player.roster.units.filter(func(f:FighterUnit)->bool:return item.tag_target in f.base.tags)):
+					display.invalid_move.emit("NO MATCHING UNITS IN PARTY")
+					return
+			display.unit_selector.show_options(item)
 	
+		"item":
+			var item_pool:Array;
+			if item.item_target:
+				match item.item_target:
+					"weapon":
+						item_pool = Entities.player.inventory.weapons;
+					"module":
+						item_pool = Entities.player.inventory.modules;
+					"accessory":
+						item_pool = Entities.player.inventory.accessories;
+					"consumable":
+						item_pool = Entities.player.inventory.consumables;
+					"container":
+						item_pool = Entities.player.inventory.containers;
+			else:
+				item_pool = Entities.player.inventory.items;
+
+			if "item_filter" in item:
+				item_pool = item_pool.filter(item.item_filter);
+
+			if not len(item_pool):
+				display.invalid_move.emit("NO MATCHING ITEMS IN INVENTORY")
+				return
+			
+
+			var selector:ItemSelector = display.item_selector;
+			selector.show_options(item_pool, item);
+
+			
+	Entities.player_sheet.refresh_data()
+
 
 func trade_command()->void:
 	if item is ResourceContainer:
@@ -517,7 +573,10 @@ func refresh()->void:
 	
 	if display.context == "trade":
 		set_price();
-
+		
+	modifier_sign.hide()
+	if item.applied_modifier:
+		modifier_sign.show()
 	
 	if item is ResourceContainer and item.raw_stack and stack_size == 0:
 		display.remove_mirror(self)

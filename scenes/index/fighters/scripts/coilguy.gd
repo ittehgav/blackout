@@ -1,10 +1,5 @@
 extends FighterBase
 
-
-
-const sample_offset = Vector2(10, -26)
-
-
 const skill_name = "Chain Lightning"
 const description = "Unleashes a powerful chain lightning attack."
 const flavor = "He tells the party-mates that the magnetism only affects people who make fun of his headband.";

@@ -392,7 +392,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_rp2jo")
 hframes = 3
 vframes = 3
-frame = 4
 script = ExtResource("3_fbttr")
 lightning = NodePath("lightning")
 lightning_animation = NodePath("lightning/lightning_animation")

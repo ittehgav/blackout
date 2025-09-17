@@ -4,7 +4,6 @@
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_hamfw"]
 [ext_resource type="AudioStream" uid="uid://cidv5tcb082h5" path="res://assets/sound/sfx/ui/close_player_sheet.wav" id="3_dfs8r"]
 [ext_resource type="AudioStream" uid="uid://dupgq35vdx1m4" path="res://assets/sound/sfx/ui/rummage.wav" id="4_qs1mg"]
-[ext_resource type="AudioStream" uid="uid://w0cjicar8g7f" path="res://assets/sound/sfx/ui/consumable_use.wav" id="5_283jf"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="6_5ybum"]
 [ext_resource type="Script" uid="uid://lvtserbqss1b" path="res://scenes/ui/player_sheet/sfx.gd" id="7_ruq8y"]
 [ext_resource type="AudioStream" uid="uid://dhws222nfgn6t" path="res://assets/sound/sfx/ui/inventory/units/upgrade_unit.wav" id="8_1gmuk"]
@@ -33,6 +32,9 @@
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="24_7b7li"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="32_in2cn"]
 [ext_resource type="PackedScene" uid="uid://chh07cq5d6iqk" path="res://scenes/ui/icons/dropdowns/disciplines_dropdown.tscn" id="33_in2cn"]
+
+[sub_resource type="Resource" id="Resource_vq5ye"]
+metadata/__load_path__ = "res://assets/sound/sfx/ui/consumable_use.wav"
 
 [sub_resource type="Resource" id="Resource_d23kd"]
 metadata/__load_path__ = "res://assets/sound/sfx/ui/equip.ogg"
@@ -103,7 +105,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2eyh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vq5ye"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -114,7 +116,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_05eqd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2eyh"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -163,7 +165,7 @@ morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_invento
 open_sound = ExtResource("2_hamfw")
 close_sound = ExtResource("3_dfs8r")
 rummage = ExtResource("4_qs1mg")
-consumable_used = ExtResource("5_283jf")
+consumable_used = SubResource("Resource_vq5ye")
 equip = SubResource("Resource_d23kd")
 ui_sfx = NodePath("ui_sfx")
 
@@ -467,7 +469,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
-material = SubResource("ShaderMaterial_i2eyh")
+material = SubResource("ShaderMaterial_vq5ye")
 layout_mode = 2
 match_player_inventory = false
 label = NodePath("../food_cost")
@@ -481,7 +483,7 @@ text = "22"
 layout_mode = 2
 
 [node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
-material = SubResource("ShaderMaterial_05eqd")
+material = SubResource("ShaderMaterial_i2eyh")
 layout_mode = 2
 resource = "fuel"
 match_player_inventory = false
@@ -639,6 +641,7 @@ layout_mode = 2
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/alt_weapon/alt_weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_alt_weapon_sample_gui_input"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/accessory_1_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_1_sample_gui_input"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/accessory_2_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_2_sample_gui_input"]
+[connection signal="unit_accessories_changed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" method="refresh_data"]
 
 [editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display"]
 [editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown"]

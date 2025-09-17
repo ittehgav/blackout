@@ -1,6 +1,6 @@
 extends Node
 
-func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, modifier:Callable=Callable(), hard_value:float=0)->void:
+func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, modifier:Callable=Callable(), hard_value:float=0, propagated:bool = false)->void:
 	var damage:float
 	if not hard_value:
 		damage = source.attack;
@@ -22,14 +22,17 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 			var shield_overkill:float = -target.shield;
 			target.hp -= shield_overkill;
 			target.shield = 0;
-			target.damage_taken.emit(shield_overkill, source);
+			if not propagated:
+				target.damage_taken.emit(shield_overkill, source);
 			if target.hp <= 0 and not target.dead:
 				target.death.emit(source);
 		else:
-			target.damage_blocked.emit(source, damage);
+			if not propagated:
+				target.damage_blocked.emit(source, damage);
 	else:
 		target.hp -= damage;
-		target.damage_taken.emit(damage, source)
+		if not propagated:
+			target.damage_taken.emit(damage, source)
 		if target.hp <= 0 and not target.dead:
 			target.death.emit(source);
 

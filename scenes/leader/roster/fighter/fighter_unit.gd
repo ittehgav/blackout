@@ -96,11 +96,11 @@ func equip_accessory(new:Accessory)->Accessory:
 	var previous:Accessory = equipped_accessory;
 	equipped_accessory = new;
 	accessory_equipped.emit(new, previous);
+	Entities.player_sheet.party_view.unit_accessories_changed.emit()
 	return previous
 
 
 func _on_accessory_equipped(new: Accessory, old: Accessory) -> void:
-	## TODO check if there's room for old before equipping
 	equipped_accessory = new;
 	if new.stat_modifiers:
 		for stat:String in Index.all_combat_stats:

@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnjcf4clj2cxd"]
+[gd_scene load_steps=4 format=3 uid="uid://cnjcf4clj2cxd"]
 
+[ext_resource type="Texture2D" uid="uid://rfeyombhrlru" path="res://assets/visual/items/consumables/motivational_speech.png" id="1_6q4qa"]
 [ext_resource type="Script" uid="uid://b72gmha7qjoj7" path="res://scenes/index/items/consumables/scripts/motivational_speech_draft.gd" id="1_ctr3f"]
+[ext_resource type="PackedScene" uid="uid://ghvx0yxh127g" path="res://scenes/index/items/consumables/special_graphics/motivational_speech_draft.tscn" id="3_8iae4"]
 
-[node name="MotivationalSpeechDraft" type="Sprite2D"]
+[node name="Motivational Speech Draft" type="Sprite2D"]
+texture = ExtResource("1_6q4qa")
 script = ExtResource("1_ctr3f")
+special_graphics = ExtResource("3_8iae4")
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

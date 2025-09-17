@@ -6,4 +6,6 @@
 [node name="Protein Shake" type="Sprite2D"]
 texture = ExtResource("1_43q6u")
 script = ExtResource("2_cyrng")
+use_type = "unit"
+tag_target = "bodybuilder"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

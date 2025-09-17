@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=28 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bo843b1jpdnre" path="res://assets/sound/sfx/ui/inventory/resources/deposit_liquid_small.wav" id="10_an643"]
 [ext_resource type="AudioStream" uid="uid://dii0q6g35g68o" path="res://assets/sound/sfx/ui/inventory/resources/deposit_liquid_big.wav" id="11_qglwj"]
 [ext_resource type="AudioStream" uid="uid://cavubig57jevv" path="res://assets/sound/sfx/ui/inventory/resources/deposit_scrap_small.wav" id="12_jjio2"]
+[ext_resource type="AudioStream" uid="uid://d020y7kwdl3hp" path="res://assets/sound/sfx/ui/inventory/consumable_target.wav" id="13_jtqjk"]
 [ext_resource type="AudioStream" uid="uid://b6fwkkoof86w3" path="res://assets/sound/sfx/ui/inventory/resources/deposit_scrap_big.wav" id="13_ormkh"]
 [ext_resource type="AudioStream" uid="uid://cg6ya8ntw4pr4" path="res://assets/sound/sfx/ui/inventory/resources/deposit_chips.wav" id="14_15sfg"]
 [ext_resource type="AudioStream" uid="uid://cmthuuhpkrahu" path="res://assets/sound/sfx/ui/inventory/loot.wav" id="15_n8bvc"]
@@ -22,11 +23,12 @@
 [ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_display/resource_picker.gd" id="21_15sfg"]
 [ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="22_up2tu"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
-[ext_resource type="Script" uid="uid://bjpqfptad5b01" path="res://scenes/ui/inventory_display/equip_options.gd" id="25_yjuqr"]
+[ext_resource type="Script" uid="uid://bjpqfptad5b01" path="res://scenes/ui/inventory_display/unit_selector.gd" id="25_yjuqr"]
 [ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_display/warnings.gd" id="26_8mqj8"]
+[ext_resource type="Script" uid="uid://c4t43pl7ro3sq" path="res://scenes/ui/inventory_display/item_selector.gd" id="26_up2tu"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="27_c5he3"]
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "equip_options", "item_mirrors_node", "cargo", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,7 +40,8 @@ grow_vertical = 2
 script = ExtResource("1_bv60r")
 warnings_popup = NodePath("warnings")
 resource_picker = NodePath("resource_picker")
-equip_options = NodePath("equip_options")
+unit_selector = NodePath("unit_selector")
+item_selector = NodePath("item_selector")
 item_mirrors_node = NodePath("cargo/item_mirrors")
 cargo = NodePath("cargo")
 grid_cell_scene = ExtResource("2_ke6sf")
@@ -72,6 +75,7 @@ invalid = ExtResource("18_7uvto")
 reset = ExtResource("19_h4har")
 coin_drop = ExtResource("20_fnwsv")
 loot = ExtResource("15_n8bvc")
+consumable_target = ExtResource("13_jtqjk")
 deposit_food_small = ExtResource("8_7cfyp")
 deposit_food_big = ExtResource("9_odn8d")
 deposit_liquid_small = ExtResource("10_an643")
@@ -340,16 +344,46 @@ and continue"
 layout_mode = 2
 text = "Return"
 
-[node name="equip_options" type="PanelContainer" parent="." node_paths=PackedStringArray("options_hbox")]
+[node name="unit_selector" type="PanelContainer" parent="." node_paths=PackedStringArray("options_hbox")]
 visible = false
 z_index = 7
-layout_mode = 0
-offset_right = 12.0
-offset_bottom = 12.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("25_yjuqr")
 options_hbox = NodePath("options")
 
-[node name="options" type="HBoxContainer" parent="equip_options"]
+[node name="options" type="HBoxContainer" parent="unit_selector"]
+layout_mode = 2
+
+[node name="item_selector" type="PanelContainer" parent="." node_paths=PackedStringArray("options_hbox")]
+visible = false
+z_index = 4
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("26_up2tu")
+options_hbox = NodePath("options")
+
+[node name="options" type="HBoxContainer" parent="item_selector"]
 layout_mode = 2
 
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
@@ -368,4 +402,5 @@ layout_mode = 2
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/accept" to="warnings" method="_on_accept_pressed"]
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/auto_sort" to="warnings" method="_on_auto_sort_pressed"]
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/return" to="warnings" method="_on_return_pressed"]
-[connection signal="mouse_exited" from="equip_options" to="equip_options" method="_on_mouse_exited"]
+[connection signal="mouse_exited" from="unit_selector" to="unit_selector" method="_on_mouse_exited"]
+[connection signal="mouse_exited" from="item_selector" to="item_selector" method="_on_mouse_exited"]

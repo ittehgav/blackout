@@ -1,5 +1,9 @@
 extends Control
 
+class_name PartyView;
+
+signal unit_accessories_changed
+
 @export var food_cost:Label;
 @export var fuel_cost:Label;
 
@@ -31,7 +35,7 @@ func refresh_data()->void:
 	food_cost.text = str(travel_expenses.food) + "/hour"
 	fuel_cost.text = str(travel_expenses.fuel) + "/hour"
 		
-var current_unit_sheet:UnitSheet
+var current_unit_sheet:UnitSheet;
 func show_more(unit:FighterUnit)->void:
 	ui_sfx.play_stream("button_click")
 	current_unit_sheet = unit_sheet_scene.instantiate();

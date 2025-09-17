@@ -1,22 +1,22 @@
 [gd_scene load_steps=6 format=3 uid="uid://cl5wh0g2bs1n4"]
 
-[ext_resource type="Texture2D" uid="uid://jf43d3xkw3uu" path="res://assets/visual/ui/bars/complete_fill_bar.png" id="1_eqtnn"]
-[ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="2_v1lig"]
+[ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="1_eqtnn"]
+[ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="2_tumeb"]
 [ext_resource type="Script" uid="uid://dlrumf22vb77p" path="res://scenes/ui/experience_bar/experience_bar.gd" id="3_2ep7r"]
 [ext_resource type="Script" uid="uid://dsj0lio4vy5bi" path="res://scenes/ui/sound/level_up_sfx.gd" id="4_2ep7r"]
 [ext_resource type="AudioStream" uid="uid://pi6xjy2cxb0a" path="res://assets/sound/sfx/ui/level_up.wav" id="5_u8n47"]
 
 [node name="exp_bar" type="TextureProgressBar" node_paths=PackedStringArray("level_up_text", "level_up_sfx")]
-custom_minimum_size = Vector2(200, 20)
-step = 0.1
-value = 50.0
+custom_minimum_size = Vector2(192, 36)
+offset_right = 192.0
+offset_bottom = 36.0
+value = 70.0
+allow_greater = true
 nine_patch_stretch = true
-stretch_margin_left = 4
-stretch_margin_right = 4
 texture_under = ExtResource("1_eqtnn")
-texture_progress = ExtResource("2_v1lig")
-tint_under = Color(0.67, 0.67, 0.67, 1)
-tint_progress = Color(0.27, 1, 0.27, 0.533333)
+texture_progress = ExtResource("2_tumeb")
+tint_under = Color(0.2508, 0.57, 0.2508, 1)
+tint_progress = Color(0.27, 1, 0.27, 1)
 script = ExtResource("3_2ep7r")
 level_up_text = NodePath("level_up")
 level_up_sfx = NodePath("level_up_sfx")

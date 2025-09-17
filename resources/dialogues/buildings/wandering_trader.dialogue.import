@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://gp1jkjfjjd8a"
+path="res://.godot/imported/wandering_trader.dialogue-447b4dbaa88107bb5b6a32f8e8131a51.tres"
+
+[deps]
+
+source_file="res://resources/dialogues/buildings/wandering_trader.dialogue"
+dest_files=["res://.godot/imported/wandering_trader.dialogue-447b4dbaa88107bb5b6a32f8e8131a51.tres"]
+
+[params]
+
+defaults=true
