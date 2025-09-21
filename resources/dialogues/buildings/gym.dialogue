@@ -1,11 +1,10 @@
-import "res://resources/dialogues/map_common.dialogue" as common
 
 ~ start
 Receptionist: Hello, looking for some muscle for your party? Or for yourself?
 - #trade_menu
 - #recruitment_menu
-- What can i do here? =>< info
-- #leave => common/finish_dialogue
+- What can i do here? => info
+- #leave => END!
  
 ~ info
-Receptionist: Here you can [u] Purchase items, recruit and evolve Bodybuiders[/u].
+Receptionist: Here you can [u] Purchase items, recruit and evolve Bodybuiders[/u]. => start

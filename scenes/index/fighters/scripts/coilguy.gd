@@ -59,7 +59,7 @@ func skill_impact()->void:
 func filter_magnetized(f:Node)->bool:
 	return "magnetized" in f.special_statuses;
 
-func damage_modifier(damage:float, _unit:FighterUnit)->float:
+func damage_modifier(damage:float, _unit:FighterUnit=null)->float:
 	if not fighter:
 		return damage;
 	for i in len(get_tagged_fighters()):

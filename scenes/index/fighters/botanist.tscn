@@ -131,7 +131,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.466667, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1e+06, 1, 1),
+"transitions": PackedFloat32Array(1, 1000000, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0.764706), Color(1, 1, 1, 0)]
 }
@@ -155,7 +155,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1e+06, 1e+06),
+"transitions": PackedFloat32Array(1000000, 1000000),
 "update": 1,
 "values": [0, 1]
 }

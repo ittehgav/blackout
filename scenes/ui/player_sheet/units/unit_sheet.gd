@@ -3,8 +3,6 @@ class_name UnitSheet;
 
 
 
-
-
 @export_group("data_nodes")
 @export var sample:SpriteSample;
 @export var showing_unit:FighterUnit

@@ -122,11 +122,13 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="FarmFrontPorch" type="TextureRect"]
+[node name="FarmFrontPorch" type="TextureRect" node_paths=PackedStringArray("exit_area")]
 offset_right = 1920.0
 offset_bottom = 842.0
 texture = ExtResource("1_fjqvt")
 script = ExtResource("2_mxsvn")
+exit_area = NodePath("Node2D")
+player_origin = Vector2(300, 600)
 metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -152,5 +154,10 @@ shape = SubResource("CircleShape2D_mcjgf")
 material = SubResource("ShaderMaterial_145yp")
 scale = Vector2(2, 2)
 texture = ExtResource("6_n7hc2")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D"]
+polygon = PackedVector2Array(-1, 19, 0, 842, 1920, 842, 1920, -72, 2056, -72, 2061, 969, -124, 969, -121, 19)
 
 [editable path="Speaker"]

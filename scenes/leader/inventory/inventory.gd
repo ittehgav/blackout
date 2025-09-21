@@ -314,3 +314,11 @@ var all_item_arrays:Array[Array] = [
 func empty_inventory()->void:
 	for array:Array[Item] in all_item_arrays:
 		array.clear();
+func _get_property_list() -> Array:
+	var properties: = []
+
+	# Add the items array property with custom hints
+	properties.append({
+	"name": "items",
+	})
+	return properties

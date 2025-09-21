@@ -1,11 +1,11 @@
-import "res://resources/dialogues/map_common.dialogue" as common
+import "" as common
 
 ~ start
 Tech Specialist: Hello, looking to upgrade your hardware?
-- #trade_menu => common/start_trade
-- #recruitment_menu => common/recruit_units
+- #trade_menu
+- #recruitment_menu
 - What can i do here =>< info
 - #leave => END!
 
 ~ info
-Tech Specialist: Here you can [u]purchase special high-tech items.[/u]
+Tech Specialist: Here you can [u]purchase special high-tech items.[/u] => start

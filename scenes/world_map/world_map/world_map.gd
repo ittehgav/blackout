@@ -74,7 +74,9 @@ func enter_settlement(target:Settlement = Entities.player_party.current_settleme
 	## TODO add loading screen when this starts to run from the main scene tree
 	var location:Location = Index.scenes.location.instantiate();
 	location.load_settlement(target)
-
+	
+	Entities.player.scenario_changed.emit("location", "world_map");
+	
 	var parent:Node = get_parent();
 	get_parent().remove_child(self);
 	parent.add_child(location)

@@ -28,8 +28,9 @@ func refresh_recruits()->void:
 		for tag:String in base.tags:
 			if tag in tags and not base in base_pool:
 				base_pool.append(base);
-				
-	var unit:FighterUnit = Index.scenes.fighter_unit.instantiate()
-	unit.base = base_pool.pick_random();
-	unit.update_stats();
-	units.append(unit);
+	for i in 4:
+		var unit:FighterUnit = Index.scenes.fighter_unit.instantiate()
+		unit.level = randi_range(max(1, Entities.player.level - 3), Entities.player.level * 2)
+		unit.base = base_pool.pick_random();
+		unit.update_stats();
+		units.append(unit);

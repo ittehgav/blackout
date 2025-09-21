@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://d1qu6q58skn8r"
+path="res://.godot/imported/factory_worker.dialogue-85bcfab2e93dfe302c425e7ffe732051.tres"
+
+[deps]
+
+source_file="res://resources/dialogues/buildings/factory_worker.dialogue"
+dest_files=["res://.godot/imported/factory_worker.dialogue-85bcfab2e93dfe302c425e7ffe732051.tres"]
+
+[params]
+
+defaults=true

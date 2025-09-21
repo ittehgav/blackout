@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=3 uid="uid://dphiet8wg7sd"]
+[gd_scene load_steps=121 format=3 uid="uid://dphiet8wg7sd"]
 
 [ext_resource type="Script" uid="uid://d0rxta3ju0m4" path="res://scenes/world_map/world_map/world_map.gd" id="1_irndy"]
 [ext_resource type="Script" uid="uid://wrywd826l7x3" path="res://scenes/world_map/world_map/world_map_sfx.gd" id="2_omxek"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://blb80ofwrhyyg" path="res://scenes/index/items/consumables/sharpener.tscn" id="18_alobk"]
 [ext_resource type="Script" uid="uid://cxnw2ya80gkuv" path="res://scenes/world_map/world_map/world_map_camera.gd" id="18_beb05"]
 [ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/index/items/containers/food.tscn" id="18_cb2tt"]
+[ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="18_gu5rp"]
 [ext_resource type="PackedScene" uid="uid://buyf7yy7iuctf" path="res://scenes/world_map/settlement/settlement.tscn" id="19_kulxh"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="19_otblt"]
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/settlement_outline.gdshader" id="20_tbp5f"]
@@ -37,7 +38,6 @@
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="21_5sp40"]
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="21_tfwjm"]
 [ext_resource type="PackedScene" uid="uid://capijufintoqv" path="res://scenes/index/buildings/gas_station.tscn" id="22_3x04a"]
-[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="22_beb05"]
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="22_kulxh"]
 [ext_resource type="PackedScene" uid="uid://brlc23bio8sdx" path="res://scenes/index/buildings/gym.tscn" id="23_eunnb"]
 [ext_resource type="PackedScene" uid="uid://j3tt7eipwb1t" path="res://scenes/index/items/consumables/eye_chart.tscn" id="23_mgych"]
@@ -64,6 +64,7 @@
 [ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="43_3x04a"]
 [ext_resource type="Script" uid="uid://e26cpfgp8ja0" path="res://scenes/world_map/world_map/environment_color.gd" id="46_fuwqy"]
 [ext_resource type="Script" uid="uid://qu6a5k4s2fxw" path="res://scenes/world_map/world_map/hud.gd" id="46_r03dh"]
+[ext_resource type="PackedScene" uid="uid://bl2vwwohl6yjy" path="res://scenes/index/buildings/factory.tscn" id="52_alobk"]
 [ext_resource type="Texture2D" uid="uid://dq3lqj55di8mq" path="res://assets/visual/icons/inventory_space.png" id="54_cb2tt"]
 [ext_resource type="Script" uid="uid://cuvkkkxbl1v3k" path="res://scenes/world_map/world_map/ui/inventory_space.gd" id="55_cb2tt"]
 [ext_resource type="PackedScene" uid="uid://bvqlr4av33k48" path="res://scenes/ui/player_sheet/morale_display.tscn" id="55_jdqpe"]
@@ -1270,6 +1271,7 @@ origin = NodePath("settlements/origin")
 road_tiles = NodePath("tiles/road")
 settlements = NodePath("settlements")
 ui_canvas = NodePath("static_ui")
+current_hour = 12
 
 [node name="environment_color" type="CanvasModulate" parent="." node_paths=PackedStringArray("backdrop", "roadside", "horizon", "marker", "player_light", "ticker")]
 script = ExtResource("46_fuwqy")
@@ -1356,13 +1358,13 @@ tile_set = SubResource("TileSet_tfwjm")
 
 [node name="PlayerParty" parent="." node_paths=PackedStringArray("marker", "resources_warning", "status", "leader", "vehicle", "current_settlement") instance=ExtResource("10_05tdn")]
 process_mode = 3
-position = Vector2(-64, 256)
+position = Vector2(35, -412)
 marker = NodePath("marker")
 resources_warning = NodePath("../static_ui/hud/warning")
 status = NodePath("map_party_status")
 leader = NodePath("Player")
 vehicle = NodePath("Doblo")
-current_settlement = NodePath("../settlements/origin")
+current_settlement = NodePath("../settlements/Settlement6")
 
 [node name="map_party_status" parent="PlayerParty" instance=ExtResource("12_a0yse")]
 
@@ -1370,39 +1372,43 @@ current_settlement = NodePath("../settlements/origin")
 equipped_weapon = NodePath("Inventory/Tailpipe")
 equipped_module = NodePath("Inventory/Dodge Roll")
 
-[node name="Motivational Speech Draft" parent="PlayerParty/Player/Inventory" index="0" instance=ExtResource("18_1vaf0")]
+[node name="Inventory" parent="PlayerParty/Player" index="0"]
+money = 100
 
-[node name="Sharpener" parent="PlayerParty/Player/Inventory" index="1" instance=ExtResource("18_alobk")]
+[node name="Food Barrel" parent="PlayerParty/Player/Inventory" index="0" instance=ExtResource("18_gu5rp")]
+stack_size = 500
 
-[node name="Food" parent="PlayerParty/Player/Inventory" index="2" instance=ExtResource("18_cb2tt")]
+[node name="Motivational Speech Draft" parent="PlayerParty/Player/Inventory" index="1" instance=ExtResource("18_1vaf0")]
+
+[node name="Sharpener" parent="PlayerParty/Player/Inventory" index="2" instance=ExtResource("18_alobk")]
+
+[node name="Food" parent="PlayerParty/Player/Inventory" index="3" instance=ExtResource("18_cb2tt")]
 stack_size = 5
 
-[node name="Sensory Overload" parent="PlayerParty/Player/Inventory" index="3" instance=ExtResource("16_x2ygm")]
+[node name="Sensory Overload" parent="PlayerParty/Player/Inventory" index="4" instance=ExtResource("16_x2ygm")]
 
-[node name="Metallic Shell" parent="PlayerParty/Player/Inventory" index="4" instance=ExtResource("17_m17yv")]
+[node name="Metallic Shell" parent="PlayerParty/Player/Inventory" index="5" instance=ExtResource("17_m17yv")]
 
-[node name="Spiked Shoulder Pads" parent="PlayerParty/Player/Inventory" index="5" instance=ExtResource("16_eunnb")]
+[node name="Spiked Shoulder Pads" parent="PlayerParty/Player/Inventory" index="6" instance=ExtResource("16_eunnb")]
 
-[node name="Jumpsuit" parent="PlayerParty/Player/Inventory" index="6" instance=ExtResource("17_x2ygm")]
+[node name="Jumpsuit" parent="PlayerParty/Player/Inventory" index="7" instance=ExtResource("17_x2ygm")]
 
-[node name="Eye Chart" parent="PlayerParty/Player/Inventory" index="7" instance=ExtResource("23_mgych")]
+[node name="Eye Chart" parent="PlayerParty/Player/Inventory" index="8" instance=ExtResource("23_mgych")]
 
-[node name="Spiked Shoulder Pads2" parent="PlayerParty/Player/Inventory" index="8" instance=ExtResource("16_eunnb")]
+[node name="Spiked Shoulder Pads2" parent="PlayerParty/Player/Inventory" index="9" instance=ExtResource("16_eunnb")]
 
-[node name="Tailpipe" parent="PlayerParty/Player/Inventory" index="9" instance=ExtResource("12_otblt")]
+[node name="Tailpipe" parent="PlayerParty/Player/Inventory" index="10" instance=ExtResource("12_otblt")]
 
-[node name="Dodge Roll" parent="PlayerParty/Player/Inventory" index="10" instance=ExtResource("13_tlj38")]
+[node name="Dodge Roll" parent="PlayerParty/Player/Inventory" index="11" instance=ExtResource("13_tlj38")]
 
-[node name="Fuel Tank" parent="PlayerParty/Player/Inventory" index="11" instance=ExtResource("21_tfwjm")]
+[node name="Fuel Tank" parent="PlayerParty/Player/Inventory" index="12" instance=ExtResource("21_tfwjm")]
 stack_size = 10
 
-[node name="Fuel Gallon2" parent="PlayerParty/Player/Inventory" index="12" instance=ExtResource("15_5vsub")]
+[node name="Fuel Gallon2" parent="PlayerParty/Player/Inventory" index="13" instance=ExtResource("15_5vsub")]
 
-[node name="Adrenaline Synthethizer" parent="PlayerParty/Player/Inventory" index="13" instance=ExtResource("22_kulxh")]
+[node name="Adrenaline Synthethizer" parent="PlayerParty/Player/Inventory" index="14" instance=ExtResource("22_kulxh")]
 
-[node name="Buckler" parent="PlayerParty/Player/Inventory" index="14" instance=ExtResource("25_rl87i")]
-
-[node name="Fuel Barrel" parent="PlayerParty/Player/Inventory" index="15" instance=ExtResource("22_beb05")]
+[node name="Buckler" parent="PlayerParty/Player/Inventory" index="15" instance=ExtResource("25_rl87i")]
 
 [node name="Mystery Snack Pack" parent="PlayerParty/Player/Inventory" index="16" instance=ExtResource("31_mgych")]
 
@@ -1544,13 +1550,9 @@ position = Vector2(-1247, 1398)
 
 [node name="Settlement18" parent="settlements" instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_r03dh")
-position = Vector2(6356, -5451)
+position = Vector2(1527, -1210)
 
-[node name="TechShop" parent="settlements/Settlement18" instance=ExtResource("24_x2ygm")]
-
-[node name="Gym" parent="settlements/Settlement18" instance=ExtResource("23_eunnb")]
-
-[node name="Chop Shop" parent="settlements/Settlement18" instance=ExtResource("25_m17yv")]
+[node name="Factory" parent="settlements/Settlement18" instance=ExtResource("52_alobk")]
 
 [node name="Settlement19" parent="settlements" instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_fuwqy")
@@ -1643,8 +1645,9 @@ color = Color(0.6, 0.546, 0.48, 1)
 
 [node name="static_ui" type="CanvasLayer" parent="."]
 process_mode = 3
+layer = 3
 
-[node name="hud" type="Control" parent="static_ui"]
+[node name="hud" type="Control" parent="static_ui" node_paths=PackedStringArray("navigation_data", "location_data", "player_data", "resources", "clock", "ui_sfx")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -1654,6 +1657,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("46_r03dh")
+navigation_data = NodePath("navigation_data")
+location_data = NodePath("location_data")
+player_data = NodePath("VBoxContainer/player_data")
+resources = NodePath("VBoxContainer/resources/resources_dropdown")
+clock = NodePath("clock")
+ui_sfx = NodePath("ui_sfx")
 metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
 
 [node name="ui_sfx" parent="static_ui/hud" instance=ExtResource("41_3x04a")]
@@ -1691,21 +1700,22 @@ resource_icons = {
 "scrap": NodePath("scrap/scrap_icon")
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="static_ui/hud/VBoxContainer"]
+[node name="player_data" type="PanelContainer" parent="static_ui/hud/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/VBoxContainer/player_data"]
 layout_mode = 2
 
-[node name="morale_display" parent="static_ui/hud/VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("55_jdqpe")]
+[node name="morale_display" parent="static_ui/hud/VBoxContainer/player_data/VBoxContainer" instance=ExtResource("55_jdqpe")]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="static_ui/hud/VBoxContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="static_ui/hud/VBoxContainer/player_data/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="inventory_space" type="TextureRect" parent="static_ui/hud/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("label", "player_sheet", "player")]
+[node name="inventory_space" type="TextureRect" parent="static_ui/hud/VBoxContainer/player_data/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("label", "player_sheet", "player")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("54_cb2tt")
@@ -1714,7 +1724,7 @@ label = NodePath("../inventory_space_label")
 player_sheet = NodePath("../../../../../../PlayerSheet")
 player = NodePath("../../../../../../../PlayerParty/Player")
 
-[node name="inventory_space_label" type="Label" parent="static_ui/hud/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="inventory_space_label" type="Label" parent="static_ui/hud/VBoxContainer/player_data/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "1/2"
@@ -1994,6 +2004,7 @@ consumable_used = SubResource("Resource_alobk")
 [node name="dynamic_ui" type="Control" parent="." node_paths=PackedStringArray("ui_sfx")]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("69_2irgy")
 ui_sfx = NodePath("ui_sfx")
 metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
@@ -2033,6 +2044,7 @@ script = ExtResource("69_x5mo2")
 [connection signal="stopped_moving" from="PlayerParty" to="PlayerParty" method="_on_stopped_moving"]
 [connection signal="equipment_changed" from="PlayerParty/Player" to="static_ui/PlayerSheet" method="_on_player_equipment_changed"]
 [connection signal="resource_changed" from="PlayerParty/Player" to="static_ui/hud/VBoxContainer/resources/resources_dropdown" method="_on_player_resource_changed"]
+[connection signal="scenario_changed" from="PlayerParty/Player" to="static_ui/hud" method="_on_player_scenario_changed"]
 [connection signal="upkeep_food_shortage" from="PlayerParty/Player" to="static_ui/hud/location_data" method="_on_player_upkeep_food_shortage"]
 [connection signal="upkeep_fuel_shortage" from="PlayerParty/Player" to="static_ui/hud/location_data" method="_on_player_upkeep_fuel_shortage"]
 [connection signal="upkeep_paid_fully" from="PlayerParty/Player" to="static_ui/hud/location_data" method="_on_player_upkeep_paid_fully"]
@@ -2041,7 +2053,7 @@ script = ExtResource("69_x5mo2")
 [connection signal="pressed" from="static_ui/hud/navigation_data/Control/button" to="static_ui/hud/navigation_data" method="_on_button_pressed"]
 [connection signal="pressed" from="static_ui/hud/warning/PanelContainer/VBoxContainer/HBoxContainer/cancel_btn" to="static_ui/hud/warning" method="_on_cancel_btn_pressed"]
 [connection signal="pressed" from="static_ui/hud/warning/PanelContainer/VBoxContainer/HBoxContainer/go_btn" to="static_ui/hud/warning" method="_on_go_btn_pressed"]
-[connection signal="closed" from="static_ui/PlayerSheet" to="static_ui/hud/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/inventory_space" method="refresh"]
+[connection signal="closed" from="static_ui/PlayerSheet" to="static_ui/hud/VBoxContainer/player_data/VBoxContainer/HBoxContainer2/inventory_space" method="refresh"]
 [connection signal="pressed" from="dynamic_ui/enter_btn" to="dynamic_ui/enter_btn" method="_on_pressed"]
 
 [editable path="PlayerParty/Player"]

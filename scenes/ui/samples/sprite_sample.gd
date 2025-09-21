@@ -15,14 +15,15 @@ class_name SpriteSample;
 func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_scheme_index, extra_offset:Vector2 = Vector2(30, -15))->void:
 	if target_base:
 		target_base.free();
-	
-		
+
 	## idk but it works
 	target_base = target.duplicate();
 	target_base.centered = false
 	target_base.scale = target_scale
 	add_child(target_base)
-		
+	target_base.z_index = 5
+	target_base.position = Vector2(-100, -100)
+
 	
 	target_base.offset.x -= 5 * target_scale.x
 	if not target_base is PlayerFighterBase:

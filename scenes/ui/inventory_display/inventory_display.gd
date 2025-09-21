@@ -182,8 +182,7 @@ func generate_mirror(item:Item)->ItemMirror:
 	mirror.display = self;
 	mirror.load_item(item, true);
 	return mirror;
-	
-		
+
 	
 func add_mirror(mirror:ItemMirror)->void:
 	item_mirrors_node.add_child(mirror);
@@ -194,8 +193,7 @@ func clear_all_mirrors(from_inventory:bool=true)->void:
 		remove_mirror(all_mirrors[0], from_inventory)
 
 func remove_mirror(mirror:ItemMirror, from_inventory:bool=true)->void:
-	if from_inventory:
-		assert(mirror.item in inventory.items)
+	if from_inventory and mirror.item in inventory.items:
 		inventory.remove_item(mirror.item);
 	
 	if mirror.item and mirror.item is ResourceContainer:
@@ -358,7 +356,7 @@ func receive_resource(amount:int, resource:String)->int:
 		if mirror.inventory_position != Vector2i(-1, -1):
 			item_dropped.emit(mirror, "trade")
 		else:
-			remove_mirror(mirror);
+			remove_mirror(mirror, false);
 			returned += mirror.stack_size;
 	if received - returned:
 		resources_changed.emit(resource, received - returned);

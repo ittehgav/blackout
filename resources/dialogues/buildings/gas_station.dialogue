@@ -6,4 +6,4 @@ Operator: Hello, looking to fill the tank or some snacks for the road?
 - #leave => END!
 
 ~ info
-Operator: Here you can [u]Purchase fuel, fuel containers and food[/u].
+Operator: Here you can [u]Purchase fuel, fuel containers and food[/u]. => start

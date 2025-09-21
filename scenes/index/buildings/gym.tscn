@@ -49,9 +49,6 @@ holder = NodePath("..")
 
 [node name="Building Roster" parent="." instance=ExtResource("3_oeueu")]
 bodybuilder_recruiting = true
-brawler_recruiting = true
-scientist_recruiting = true
-juggernaut_recruiting = true
 
 [connection signal="daily_reset" from="." to="NpcInventory" method="refresh_inventory"]
 [connection signal="daily_reset" from="." to="Building Roster" method="refresh_recruits"]

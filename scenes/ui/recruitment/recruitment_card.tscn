@@ -161,6 +161,7 @@ shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
 [node name="recruitment_card" type="Button" node_paths=PackedStringArray("hired_overlay", "sprite_anchor", "current_sprite", "recruit_name_label", "price_tag", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
+z_index = 26
 custom_minimum_size = Vector2(400, 150)
 anchors_preset = 8
 anchor_left = 0.5

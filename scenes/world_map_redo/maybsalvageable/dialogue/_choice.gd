@@ -36,7 +36,7 @@ func build_option(text:String)->void:
 			icon_rect.texture = Index.textures.icons.trade;
 			callback = Dialogue.start_trade;
 			label.text = "Trade"
-		"#recruit_menu":
+		"#recruitment_menu":
 			icon_rect.texture = Index.textures.icons.recruit
 			label.text = "Recruit Units"
 			callback = Dialogue.start_recruitment;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene load_steps=10 format=3 uid="uid://1hbrworalfdw"]
 
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/player_sheet/units/unit_sheet.gd" id="1_ugdfa"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_tw0lw"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="5_kpc33"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="6_ugdfa"]
 [ext_resource type="Script" uid="uid://dhhsn8dr6b0sg" path="res://scenes/ui/player_sheet/units/panel_container.gd" id="8_0kn7o"]
-[ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="9_n3a7f"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xqdqb"]
 load_path = "res://.godot/imported/armguy.png-0256df781419550105bc51d7c0e19786.ctex"
@@ -76,13 +75,8 @@ layout_mode = 2
 
 [node name="SpriteSample" parent="." instance=ExtResource("3_kbewr")]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = 98.0
 offset_right = 128.0
-offset_bottom = 226.0
-grow_vertical = 2
+offset_bottom = 128.0
 add_tooltip = false
 enable_hover_panel = false
 
@@ -211,22 +205,13 @@ unlock evolutions"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="evolutin_display/VBoxContainer"]
 layout_mode = 2
-
-[node name="PointLight2D" type="PointLight2D" parent="evolutin_display/VBoxContainer/HBoxContainer"]
-position = Vector2(130, 65)
-scale = Vector2(25.8, 12.4)
-energy = 9.71
-blend_mode = 1
-range_layer_max = 1
-range_item_cull_mask = 4
-texture = ExtResource("9_n3a7f")
+size_flags_horizontal = 4
 
 [node name="evolution_1" type="Control" parent="evolutin_display/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(112, 112)
 layout_mode = 2
 
 [node name="evolution_1" type="Sprite2D" parent="evolutin_display/VBoxContainer/HBoxContainer/evolution_1"]
-light_mask = 4
 position = Vector2(64, 64)
 texture = SubResource("CompressedTexture2D_xqdqb")
 hframes = 3
@@ -237,7 +222,6 @@ custom_minimum_size = Vector2(112, 112)
 layout_mode = 2
 
 [node name="evolution_2" type="Sprite2D" parent="evolutin_display/VBoxContainer/HBoxContainer/evolution_2"]
-light_mask = 4
 position = Vector2(64, 64)
 texture = SubResource("CompressedTexture2D_g52xd")
 hframes = 3

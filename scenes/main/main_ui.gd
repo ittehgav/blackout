@@ -57,6 +57,7 @@ func _on_full_scree_pressed() -> void:
 
 func _on_button_pressed() -> void:
 	var world_map:WorldMap = Index.scenes.world_map.instantiate();
+	## TODO remove main state change signal and send all of its functionalities to player state change
 	Entities.main.state_changed.emit("world_map")
 	Entities.main.add_child(world_map);
 

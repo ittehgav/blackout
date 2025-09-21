@@ -89,7 +89,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.45, 0.75),
-"transitions": PackedFloat32Array(1e+06, 1.02837, 1),
+"transitions": PackedFloat32Array(1000000, 1.02837, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(50, 0), Vector2(0, 0)]
 }
@@ -127,7 +127,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.45),
-"transitions": PackedFloat32Array(1e+06, 1),
+"transitions": PackedFloat32Array(1000000, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(25, 0)]
 }
@@ -139,41 +139,29 @@ tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.45, 1),
-"transitions": PackedFloat32Array(9.18957, 1, 1),
+"transitions": PackedFloat32Array(1.7410977, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("blur:scale")
+tracks/6/path = NodePath("sfx:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("sfx:playing")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0.45),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/8/type = "animation"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("dust/dust_animation")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/7/type = "animation"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("dust/dust_animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "clips": PackedStringArray("dust"),
 "times": PackedFloat32Array(0.45)
 }

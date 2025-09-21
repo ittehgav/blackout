@@ -1,23 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqhmywx7yqdw6"]
+[gd_scene load_steps=9 format=3 uid="uid://cqhmywx7yqdw6"]
 
 [ext_resource type="Script" uid="uid://cemx4r72ha7oy" path="res://scenes/ui/recruitment/recruitment_menu.gd" id="1_g4fa0"]
 [ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/unit_sheet.tscn" id="2_18fju"]
+[ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="2_vg248"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="3_6k2ih"]
 [ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/ui/recruitment/recruitment_card.tscn" id="3_jvi8e"]
 [ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="4_jvi8e"]
-[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="5_3swt8"]
 
-[node name="RecruitmentMenu" type="Control" node_paths=PackedStringArray("current_roster", "options_vbox", "sprite_sample", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "flavor_label", "ui_sfx")]
+[sub_resource type="InputEventAction" id="InputEventAction_6k2ih"]
+action = &"ui_cancel"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_vg248"]
+events = [SubResource("InputEventAction_6k2ih")]
+
+[node name="RecruitmentMenu" type="Control" node_paths=PackedStringArray("current_roster", "options_holder", "options_vbox", "sprite_sample", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "flavor_label", "recruit_button", "hired_overlay", "placeholder", "ui_sfx")]
+process_mode = 3
+visibility_layer = 7
+z_index = 17
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_g4fa0")
+hire_sound = ExtResource("2_vg248")
 option_scene = ExtResource("3_jvi8e")
 current_roster = NodePath("Building Roster")
-options_vbox = NodePath("main/VBoxContainer")
+options_holder = NodePath("main/options_holder")
+options_vbox = NodePath("main/options_holder/VBoxContainer")
 sprite_sample = NodePath("main/Unit Sheet/SpriteSample")
 stats = NodePath("main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown")
 name_label = NodePath("main/Unit Sheet/HBoxContainer/name")
@@ -26,21 +39,33 @@ tags_label = NodePath("main/Unit Sheet/HBoxContainer/tags")
 skill_name_label = NodePath("main/Unit Sheet/texts/skill_name")
 skill_description_label = NodePath("main/Unit Sheet/texts/skill_description")
 flavor_label = NodePath("main/Unit Sheet/texts/flavor")
+recruit_button = NodePath("main/Unit Sheet/hire")
+hired_overlay = NodePath("main/Unit Sheet/hired_overlay")
+placeholder = NodePath("main/Unit Sheet/placeholder")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("3_6k2ih")]
 
 [node name="main" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -637.5
+offset_top = -360.0
+offset_right = 637.5
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Unit Sheet" parent="main" instance=ExtResource("2_18fju")]
 custom_minimum_size = Vector2(871, 720)
 layout_mode = 2
+
+[node name="exit" parent="main/Unit Sheet" index="1"]
+visible = false
 
 [node name="HBoxContainer" parent="main/Unit Sheet" index="2"]
 custom_minimum_size = Vector2(400, 0)
@@ -54,12 +79,6 @@ custom_minimum_size = Vector2(300, 0)
 autowrap_mode = 2
 
 [node name="SpriteSample" parent="main/Unit Sheet" index="3"]
-anchors_preset = 0
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_top = 0.0
-offset_bottom = 128.0
-grow_vertical = 1
 target_scale = Vector2(5, 5)
 
 [node name="texts" parent="main/Unit Sheet" index="4"]
@@ -96,7 +115,7 @@ visible = false
 [node name="evolutin_display" parent="main/Unit Sheet" index="6"]
 visible = false
 
-[node name="Button" type="Button" parent="main/Unit Sheet"]
+[node name="hire" type="Button" parent="main/Unit Sheet"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -112,33 +131,91 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 64
 text = "Hire - $32"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main"]
+[node name="placeholder" type="ColorRect" parent="main/Unit Sheet"]
+self_modulate = Color(0.1764706, 0.07450981, 0.07450981, 1)
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.5
+offset_top = 6.0
+offset_right = -7.5
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="main/Unit Sheet/placeholder"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -13.0
+offset_right = 20.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Choose a Unit"
+
+[node name="hired_overlay" type="ColorRect" parent="main/Unit Sheet"]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.73333335)
+
+[node name="Label" type="Label" parent="main/Unit Sheet/hired_overlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.00003
+offset_top = -113.00003
+offset_right = 184.0
+offset_bottom = -11.0000305
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.6789331
+theme_override_font_sizes/font_size = 128
+text = "HIRED"
+
+[node name="options_holder" type="VBoxContainer" parent="main"]
 layout_mode = 2
 
-[node name="recruitment_card" parent="main/VBoxContainer" instance=ExtResource("3_jvi8e")]
+[node name="Button" type="Button" parent="main/options_holder"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+shortcut = SubResource("Shortcut_vg248")
+text = "[tab] exit"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main/options_holder"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="recruitment_card" parent="main/options_holder/VBoxContainer" instance=ExtResource("3_jvi8e")]
 layout_mode = 2
 
-[node name="recruitment_card2" parent="main/VBoxContainer" instance=ExtResource("3_jvi8e")]
+[node name="recruitment_card2" parent="main/options_holder/VBoxContainer" instance=ExtResource("3_jvi8e")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="recruitment_card3" parent="main/VBoxContainer" instance=ExtResource("3_jvi8e")]
+[node name="recruitment_card3" parent="main/options_holder/VBoxContainer" instance=ExtResource("3_jvi8e")]
 layout_mode = 2
 
-[node name="recruitment_card" parent="main/VBoxContainer/recruitment_card3" instance=ExtResource("3_jvi8e")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 400.0
-offset_bottom = 150.0
-grow_horizontal = 1
-grow_vertical = 1
+[node name="recruitment_card4" parent="main/options_holder/VBoxContainer" instance=ExtResource("3_jvi8e")]
+layout_mode = 2
 
 [node name="Building Roster" parent="." instance=ExtResource("4_jvi8e")]
 bodybuilder_recruiting = true
@@ -146,7 +223,8 @@ cyborg_recruiting = true
 scientist_recruiting = true
 mechanic_recruiting = true
 
-[node name="Player" parent="." instance=ExtResource("5_3swt8")]
+[connection signal="pressed" from="main/Unit Sheet/hire" to="." method="_on_hire_pressed"]
+[connection signal="pressed" from="main/options_holder/Button" to="." method="exit"]
 
 [editable path="main/Unit Sheet"]
 [editable path="main/Unit Sheet/SpriteSample"]

@@ -27,3 +27,4 @@ script = ExtResource("5_a3c1i")
 
 [connection signal="level_up" from="." to="." method="_on_level_up"]
 [connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]
+[connection signal="scenario_changed" from="." to="." method="_on_scenario_changed"]

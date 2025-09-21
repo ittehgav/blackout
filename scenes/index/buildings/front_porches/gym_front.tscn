@@ -21,11 +21,10 @@ metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
 position = Vector2(32, 94)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(-3, -5)
-polygon = PackedVector2Array(59, 311, 139, 311, 171, 268, 171, 228, 239, 228, 239, 311, 611, 311, 611, 67, 533, -89, -17, -89, -17, 159)
+polygon = PackedVector2Array(340, 306, 340, 224, 408, 224, 408, 263, 436, 294, 436, 306, 520, 306, 596, 154, 596, -94, 46, -94, -32, 62, -32, 306)
 
 [node name="Speaker" parent="." instance=ExtResource("3_bx8h1")]
-position = Vector2(214, 350)
+position = Vector2(432, 350)
 dialogue = ExtResource("4_gjj0i")
 
 [node name="CollisionShape2D" parent="Speaker/Area2D" index="0"]

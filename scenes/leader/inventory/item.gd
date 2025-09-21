@@ -24,3 +24,7 @@ func get_description()->String:
 func get_mirror_color()->Color:
 	## overrideable not only by the type but by individual items btw
 	return Color.PURPLE;
+
+func _to_string()->String:
+	print("rename?")
+	return name

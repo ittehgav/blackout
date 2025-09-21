@@ -173,23 +173,19 @@ func empty_storage()->void:
 
 		var mirror:ItemMirror = display.generate_mirror(raw_stack);
 		to_throw.append(mirror);
-	
-	var to_remove:Array[ItemMirror];
 	for mirror:ItemMirror in to_throw:
 		moved += mirror.stack_size
 		
-		display.throw_mirror(mirror, true);
-		if mirror.inventory_position == Vector2i(-1, -1):
-			## takes back items that didn't fit
+		if display.find_clear_cell(mirror.item) != Vector2i(-1, -1):
+			display.throw_mirror(mirror, true);
+		else:
 			stack_size += mirror.stack_size;
 			moved -= mirror.stack_size
-			to_remove.append(mirror)
-		
-	for mirror:ItemMirror in to_remove:
-		display.remove_mirror(mirror)
+			display.remove_mirror(mirror, true)
 	
 	highlight_stack_label()
 	display.item_dropped.emit(self)
+	
 	display.play_deposit_sfx(moved, item.resource)
 
 

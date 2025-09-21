@@ -50,9 +50,11 @@ func remove_status(target:ActiveFighter, status_type:String, status_data:Diction
 
 		
 func remove_stun(target:ActiveFighter)->void:
+	if not is_instance_valid(target):
+		return
 	target.stunned = false;
 	## for now only stuns change movement speed so just roll back to origianl value
-	if target is NpcFighter:
+	if target is NpcFighter and target.unit:
 		target.move_speed = target.unit.stats.move_speed;
 		target.timers.set_process_mode(PROCESS_MODE_INHERIT)
 	else:

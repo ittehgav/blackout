@@ -6,7 +6,12 @@ class_name Player;
 signal entered_settlement(settlement:Settlement);
 signal left_settlement;
 
-signal sheet_changed
+## maybe won't need to include the prvious scenario?
+signal scenario_changed(new_scenario:String, previous_scenario:String)
+var current_scenario:String;
+## world_map, in_battle, location
+
+signal sheet_changed;
 
 signal resource_changed(resource:String, change:int);
 signal morale_changed;
@@ -16,7 +21,6 @@ signal equipment_changed(equipment:Equipment);
 signal upkeep_paid_fully;
 signal upkeep_food_shortage;
 signal upkeep_fuel_shortage
-
 
 signal level_up;
 
@@ -220,3 +224,7 @@ func load_origin(origin:Player)->void:
 func _on_minute_ticker_timeout() -> void:
 	if not (Entities.world_map.current_minute%30):
 		travel_upkeep()
+
+
+func _on_scenario_changed(new_scenario: String, previous_scenario: String) -> void:
+	current_scenario = new_scenario

@@ -7,6 +7,9 @@ class_name Location
 var building_offset:int = 0;
 
 @export var exit_prompt:Control;
+@export var exit_area:Area2D;
+
+@export var player_camera:Camera2D
 
 @export var ui_canvas:CanvasLayer
 var world_map_ui:CanvasLayer
@@ -14,8 +17,6 @@ var world_map_ui:CanvasLayer
 
 @export var buildings_node:Node2D;
 @export var foreground:Node2D;
-
-
 
 
 func _ready()->void:
@@ -31,11 +32,12 @@ func load_settlement(settlement:Settlement)->void:
 		## buildings are loaded in order
 		load_building(building);
 		if building.size == 3:
-			foreground.free();
+			full_size_setup()
 
 
 
-var previous_building:FrontPorch;
+
+var previous_building:FrontPorch; ## previous building = only building when full size
 func load_building(building:Building)->void:
 	var front_porch:FrontPorch = building.front_porch_scene.instantiate();
 	front_porch.building = building;
@@ -51,8 +53,20 @@ func load_building(building:Building)->void:
 	
 	previous_building = front_porch;
 
-
+func full_size_setup()->void:
+	foreground.free();
+	player_camera.limit_right = previous_building.size.x;
+	player_camera.limit_bottom = previous_building.size.y
+	for c:Node in exit_area.get_children():
+		c.queue_free();
+	for c:Node in previous_building.exit_area.get_children():
+		## moving the areas because the exit signals are bound to location's exit area
+		c.reparent(exit_area)
+	
+	 
 func return_to_world_map()->void:
+	Entities.player.scenario_changed.emit("world_map", "location");
+	
 	var parent:Node = get_parent();
 	parent.add_child(Entities.world_map)
 	world_map_ui.reparent(Entities.world_map);

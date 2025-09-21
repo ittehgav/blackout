@@ -16,7 +16,7 @@ warnings/check_invalid_track_paths=false
 
 config/name="Wewfr"
 run/main_scene="res://scenes/main/main.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0.2, 0.0392157, 0.0392157, 1)
 boot_splash/image="uid://dsiggbga76o2k"
 boot_splash/minimum_display_time=500
@@ -29,7 +29,6 @@ Combat="*res://global/combat/combat.gd"
 Index="*res://global/index/index.tscn"
 Trade="*res://global/world_map/trade.gd"
 Scaling="*res://global/combat/scaling.gd"
-MapEvents="*res://global/world_map/map_events.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Statuses="*res://global/combat/statuses.gd"
 SaveSystem="*res://global/save_system/save_system.gd"
@@ -71,9 +70,9 @@ aoe_projections="projections for AOE attacks that only appear when the unit is n
 
 [gui]
 
+theme/default_font_generate_mipmaps=true
 theme/custom="uid://b7n6onus7l7v3"
 theme/custom_font="uid://sph0kotu777o"
-theme/default_font_generate_mipmaps=true
 
 [input]
 
@@ -223,7 +222,7 @@ skip_time={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://resources/dialogues/map_common.dialogue", "res://resources/dialogues/buildings/chop_shop.dialogue", "res://resources/dialogues/buildings/farmer.dialogue", "res://resources/dialogues/buildings/gas_station.dialogue", "res://resources/dialogues/buildings/gym.dialogue", "res://resources/dialogues/buildings/tech_shop.dialogue", "res://resources/dialogues/buildings/hoarder.dialogue", "res://resources/dialogues/buildings/wandering_trader.dialogue")
+locale/translations_pot_files=PackedStringArray("res://resources/dialogues/buildings/chop_shop.dialogue", "res://resources/dialogues/buildings/farmer.dialogue", "res://resources/dialogues/buildings/gas_station.dialogue", "res://resources/dialogues/buildings/gym.dialogue", "res://resources/dialogues/buildings/tech_shop.dialogue", "res://resources/dialogues/buildings/hoarder.dialogue", "res://resources/dialogues/buildings/wandering_trader.dialogue", "res://resources/dialogues/buildings/factory_worker.dialogue")
 
 [layer_names]
 
