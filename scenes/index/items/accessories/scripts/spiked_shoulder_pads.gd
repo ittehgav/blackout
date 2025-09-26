@@ -8,13 +8,16 @@ const rarity = 3;
 
 func get_description()->String:
 	var description:String = super();
-	description += "\nThe wearer deals 50% damage back to melee units.";
+	description += "\nThe wearer deals 50% damage back to melee attackers.";
 	return description;
 
-func combat_start_effect(fighter:ActiveFighter)->void:
-	fighter.damage_taken.connect(damage_reflection.bind(fighter));
+func battle_start_apply(target:ActiveFighter)->void:
+	target.damage_taken.connect(damage_reflection.bind(target));
 	
 func damage_reflection(damage:float, source:ActiveFighter, wearer:ActiveFighter)->void:
 	if source is NpcFighter:
 		if source.base.skill_range == FighterBase.MELEE_RANGE:
-			Combat.deal_damage(wearer, source, Callable(), 0, false)
+			Combat.deal_damage(wearer, source, Callable(), damage/2, false)
+	elif source is PlayerFighter:
+		if Entities.player_fighter.equipment.weapon_control.weapon.melee:
+			Combat.deal_damage(wearer, source, Callable(), damage/2, false);

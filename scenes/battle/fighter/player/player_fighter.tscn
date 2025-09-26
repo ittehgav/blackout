@@ -1,35 +1,23 @@
-[gd_scene load_steps=28 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=22 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/fighter/player/player_fighter.gd" id="2_2bwky"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_afulj"]
 [ext_resource type="Script" uid="uid://ce0gefe8a16v1" path="res://scenes/battle/fighter/player/vfx_control.gd" id="3_r3ibm"]
 [ext_resource type="Script" uid="uid://c1mom3xvj15xj" path="res://scenes/battle/fighter/player/sfx.gd" id="4_dxwve"]
 [ext_resource type="AudioStream" uid="uid://b51a48pddixp1" path="res://assets/sound/sfx/combat/damage_taken.ogg" id="5_0y55v"]
+[ext_resource type="AudioStream" uid="uid://die3ss0ycq4tf" path="res://assets/sound/sfx/combat/player/switch_weapon.wav" id="5_xkq5h"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="6_bbywa"]
+[ext_resource type="AudioStream" uid="uid://db0qsxl1ljgpd" path="res://assets/sound/sfx/combat/player/module_unavailable.mp3" id="6_plyqv"]
+[ext_resource type="Script" uid="uid://biydr5n82hw5f" path="res://scenes/battle/fighter/player/weapon_control.gd" id="7_k0pw4"]
 [ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/fighter/player/equipment.gd" id="7_skhxj"]
-[ext_resource type="Script" uid="uid://bbow6qj3s5hyu" path="res://scenes/battle/fighter/player/weapon_sfx.gd" id="8_ve4yf"]
-[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="9_ne7mt"]
-[ext_resource type="AudioStream" uid="uid://o61xjbhygbnd" path="res://assets/sound/sfx/combat/player/weapon_alternate.wav" id="10_fqu03"]
-[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="11_02s8w"]
-[ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="12_nfw2r"]
-[ext_resource type="AudioStream" uid="uid://bwgpqu6y5q62a" path="res://assets/sound/sfx/combat/player/spray.ogg" id="13_01bd8"]
-[ext_resource type="AudioStream" uid="uid://dn3kmtrv4nq0u" path="res://assets/sound/sfx/combat/player/charge_up.wav" id="14_24ria"]
-[ext_resource type="AudioStream" uid="uid://bdfv1vrftu78i" path="res://assets/sound/sfx/combat/player/explosion.wav" id="15_jveve"]
-[ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/sfx/combat/generic/heal.wav" id="16_iaywu"]
-[ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="17_ci28d"]
-[ext_resource type="Script" uid="uid://xv6fqqwy0nel" path="res://scenes/battle/fighter/player/module_sfx.gd" id="18_fhee6"]
-[ext_resource type="AudioStream" uid="uid://deleehb8xbh34" path="res://assets/sound/sfx/combat/player/dash.wav" id="19_dvwcs"]
-[ext_resource type="AudioStream" uid="uid://cf5r6sya87ovr" path="res://assets/sound/sfx/combat/player/adrenaline.wav" id="20_adss1"]
-[ext_resource type="AudioStream" uid="uid://0ykkqmvak3d7" path="res://assets/sound/sfx/combat/player/metallic_shell.wav" id="21_q8hr2"]
-[ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="22_46jw3"]
-[ext_resource type="AudioStream" uid="uid://c8q1nsc7cl0f0" path="res://assets/sound/sfx/combat/special/overload.wav" id="23_fk6bs"]
-[ext_resource type="AudioStream" uid="uid://db0qsxl1ljgpd" path="res://assets/sound/sfx/combat/player/module_unavailable.mp3" id="24_x6dxu"]
+[ext_resource type="Script" uid="uid://ccogck8wykl6u" path="res://scenes/battle/fighter/player/module_control.gd" id="9_sdapf"]
+[ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="12_d3h4w"]
+[ext_resource type="Script" uid="uid://2jtodbhiwuk3" path="res://scenes/battle/fighter/player/player_bars.gd" id="12_ufe8c"]
+[ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="13_ufe8c"]
+[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="15_88w2o"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/fighter/player/camera.gd" id="27_rxaql"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
-radius = 29.2
-height = 90.4
-
-[sub_resource type="Shader" id="Shader_k0pw4"]
+[sub_resource type="Shader" id="Shader_88w2o"]
 code = "shader_type canvas_item;
 
 uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
@@ -117,21 +105,126 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5atum"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_afulj"]
 resource_local_to_scene = true
-shader = SubResource("Shader_k0pw4")
+shader = SubResource("Shader_88w2o")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.14, 0.14, 0.7, 1)
-shader_parameter/width = 1.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
+radius = 14.0
+height = 60.0
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_88w2o"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 2.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(6, 2)
+shader_parameter/number_of_images = Vector2(3, 3)
 
-[node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "status_timers")]
-collision_layer = 256
-collision_mask = 256
+[node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "status_timers", "initial_stats", "in_battle_stat_modifiers", "in_battle_stat_multipliers")]
+material = SubResource("ShaderMaterial_afulj")
+collision_layer = 257
+collision_mask = 257
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("2_2bwky")
@@ -142,31 +235,43 @@ sfx = NodePath("sfx")
 base = NodePath("body")
 timers = NodePath("timers")
 status_timers = NodePath("status_timers")
+initial_stats = NodePath("stats/initial_stats")
+in_battle_stat_modifiers = NodePath("stats/in_battle_modifiers")
+in_battle_stat_multipliers = NodePath("stats/in_battle_multipliers")
 
-[node name="floating_icon_anchor" type="Node2D" parent="."]
-position = Vector2(-30, -19)
+[node name="stats" type="Node" parent="."]
 
-[node name="module_projection" type="TextureRect" parent="."]
-process_mode = 4
-mouse_filter = 2
-metadata/_edit_use_anchors_ = true
+[node name="initial_stats" parent="stats" instance=ExtResource("2_afulj")]
+technique = 0.0
+move_speed = 0.0
 
-[node name="module_aoe_vfx" type="TextureRect" parent="."]
-process_mode = 4
-size_flags_horizontal = 4
-mouse_filter = 2
+[node name="in_battle_modifiers" parent="stats" instance=ExtResource("2_afulj")]
+technique = 0.0
+move_speed = 0.0
+
+[node name="in_battle_multipliers" parent="stats" instance=ExtResource("2_afulj")]
+max_hp = 1.0
+attack = 1.0
+defense = 1.0
+agility = 1.0
+move_speed = 1.0
 
 [node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit", "floating_icon_anchor")]
 script = ExtResource("3_r3ibm")
 unit = NodePath("..")
-floating_icon_anchor = NodePath("../floating_icon_anchor")
+floating_icon_anchor = NodePath("../player_data/floating_icon_anchor")
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_0y55v")
+volume_db = 15.0
 bus = &"sfx"
 script = ExtResource("4_dxwve")
 damage_taken = ExtResource("5_0y55v")
+weapon_change = ExtResource("5_xkq5h")
+module_unavailable = ExtResource("6_plyqv")
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_wutkk")
 
 [node name="status_timers" type="Node" parent="."]
@@ -174,111 +279,139 @@ shape = SubResource("CapsuleShape2D_wutkk")
 [node name="timers" type="Node" parent="."]
 
 [node name="body" parent="." node_paths=PackedStringArray("fighter") instance=ExtResource("6_bbywa")]
-material = SubResource("ShaderMaterial_5atum")
+material = SubResource("ShaderMaterial_88w2o")
+use_parent_material = true
 fighter = NodePath("..")
 
-[node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("module_projection", "module_aoe_vfx", "holder", "body", "weapon_cd", "weapon_sfx", "module_cd", "module_sfx", "freeze_frame_timer")]
+[node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("weapon_control", "module_control", "holder", "body", "freeze_frame_timer")]
 use_parent_material = true
 script = ExtResource("7_skhxj")
-module_projection = NodePath("../module_projection")
-module_aoe_vfx = NodePath("../module_aoe_vfx")
+weapon_control = NodePath("weapon_control")
+module_control = NodePath("module_control")
 holder = NodePath("..")
 body = NodePath("../body")
-weapon_cd = NodePath("weapon_control/weapon_cd")
-weapon_sfx = NodePath("weapon_control/weapon_sfx")
-module_cd = NodePath("module_control/module_cd")
-module_sfx = NodePath("module_control/module_sfx")
 freeze_frame_timer = NodePath("freeze_frame_control")
 
-[node name="weapon_control" type="Node" parent="equipment"]
+[node name="weapon_control" type="Node" parent="equipment" node_paths=PackedStringArray("equipment", "sfx", "weapon_cd", "alt_weapon_cd", "freeze_frame_timer")]
+script = ExtResource("7_k0pw4")
+equipment = NodePath("..")
+sfx = NodePath("../../sfx")
+weapon_cd = NodePath("weapon_cd")
+alt_weapon_cd = NodePath("alt_weapon_cd")
+freeze_frame_timer = NodePath("../freeze_frame_control")
 
 [node name="weapon_cd" type="Timer" parent="equipment/weapon_control"]
+process_callback = 0
 wait_time = 0.5
 one_shot = true
 
-[node name="weapon_sfx" type="AudioStreamPlayer" parent="equipment/weapon_control" node_paths=PackedStringArray("hit_sfx")]
-bus = &"sfx"
-script = ExtResource("8_ve4yf")
-hit_sfx = NodePath("../weapon_hit_sfx")
-swing = ExtResource("9_ne7mt")
-alternate = ExtResource("10_fqu03")
-swing_hit = ExtResource("11_02s8w")
-shoot = ExtResource("12_nfw2r")
-spray = ExtResource("13_01bd8")
-charge_up = ExtResource("14_24ria")
-explosion = ExtResource("15_jveve")
-heal = ExtResource("16_iaywu")
-buff = ExtResource("17_ci28d")
+[node name="alt_weapon_cd" type="Timer" parent="equipment/weapon_control"]
+process_callback = 0
+one_shot = true
 
-[node name="weapon_hit_sfx" type="AudioStreamPlayer" parent="equipment/weapon_control"]
-bus = &"sfx"
-
-[node name="animation_ticker" type="Timer" parent="equipment/weapon_control"]
-wait_time = 0.15
-
-[node name="module_control" type="Node" parent="equipment"]
+[node name="module_control" type="Node" parent="equipment" node_paths=PackedStringArray("module_cd", "equipment", "sfx")]
+script = ExtResource("9_sdapf")
+module_cd = NodePath("module_cd")
+equipment = NodePath("..")
+sfx = NodePath("../../sfx")
 
 [node name="module_cd" type="Timer" parent="equipment/module_control"]
 one_shot = true
 
-[node name="module_sfx" type="AudioStreamPlayer" parent="equipment/module_control"]
-max_polyphony = 2
-bus = &"sfx"
-script = ExtResource("18_fhee6")
-dash = ExtResource("19_dvwcs")
-adrenaline = ExtResource("20_adss1")
-metallic_shell = ExtResource("21_q8hr2")
-buckler = ExtResource("22_46jw3")
-overload = ExtResource("23_fk6bs")
-module_unavailable = ExtResource("24_x6dxu")
-
 [node name="freeze_frame_control" type="Timer" parent="equipment"]
-wait_time = 0.05
+wait_time = 0.075
 one_shot = true
 ignore_time_scale = true
 
-[node name="camera" type="Camera2D" parent="." node_paths=PackedStringArray("screen_blink")]
+[node name="camera" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 editor_draw_drag_margin = true
 script = ExtResource("27_rxaql")
-screen_blink = NodePath("../hud_overlay/screen_blink")
 
-[node name="hud_overlay" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="hud" type="Control" parent="hud_overlay"]
+[node name="player_data" type="Control" parent="." node_paths=PackedStringArray("player_fighter", "hp_bar", "bars_vbox", "status_bar", "floating_icon_anchor")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -75.0
+offset_bottom = -75.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
-mouse_filter = 2
+size_flags_vertical = 4
+script = ExtResource("12_ufe8c")
+player_fighter = NodePath("..")
+hp_bar = NodePath("VBoxContainer/hp_bar")
+bars_vbox = NodePath("VBoxContainer")
+status_bar = NodePath("VBoxContainer/status_bar")
+floating_icon_anchor = NodePath("floating_icon_anchor")
 
-[node name="screen_blink" type="ColorRect" parent="hud_overlay"]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="VBoxContainer" type="VBoxContainer" parent="player_data"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -18.0
+offset_right = 64.0
+offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+theme_override_constants/separation = 0
 
-[node name="floating_icon_anchor" type="Node2D" parent="hud_overlay"]
-position = Vector2(116, 3)
+[node name="hp_bar" type="TextureProgressBar" parent="player_data/VBoxContainer"]
+custom_minimum_size = Vector2(128, 24)
+layout_mode = 2
+value = 30.0
+nine_patch_stretch = true
+texture_under = ExtResource("12_d3h4w")
+texture_progress = ExtResource("13_ufe8c")
+tint_progress = Color(0.4, 1, 0.4, 1)
+
+[node name="status_bar" type="TextureProgressBar" parent="player_data/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+step = 0.1
+value = 39.8
+texture_progress = ExtResource("15_88w2o")
+
+[node name="floating_icon_anchor" type="Control" parent="player_data"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 57.0
+offset_right = -64.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
-[connection signal="damage_taken" from="." to="camera" method="damage_taken_blink"]
+[connection signal="damage_taken" from="." to="player_data" method="_on_player_fighter_damage_taken"]
+[connection signal="healing_received" from="." to="player_data" method="_on_player_fighter_healing_received"]
 [connection signal="started_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/walk"]]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
 [connection signal="status_applied" from="." to="vfx_control" method="_on_in_fight_player_status_applied"]
+[connection signal="status_applied" from="." to="player_data" method="_on_player_fighter_status_applied"]
 [connection signal="status_removed" from="." to="vfx_control" method="_on_in_fight_player_status_removed"]
 [connection signal="stopped_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/idle"]]
+[connection signal="ammo_consumed" from="equipment" to="player_data" method="ammo_consumed"]
+[connection signal="module_fumbled" from="equipment" to="sfx" method="_on_equipment_module_fumbled"]
 [connection signal="weapon_changed" from="equipment" to="sfx" method="_on_equipment_weapon_changed"]
+[connection signal="weapon_equipped" from="equipment" to="." method="_on_equipment_weapon_equipped"]
+[connection signal="weapon_equipped" from="equipment" to="equipment" method="_on_weapon_equipped"]
+[connection signal="weapon_unequipped" from="equipment" to="." method="_on_equipment_weapon_unequipped"]
+[connection signal="timeout" from="equipment/weapon_control/weapon_cd" to="equipment/weapon_control" method="_on_weapon_cd_timeout"]
 [connection signal="timeout" from="equipment/freeze_frame_control" to="equipment" method="_on_freeze_frame_control_timeout"]
 
 [editable path="body"]

@@ -10,4 +10,5 @@ script = ExtResource("1_qblw1")
 use_sfx = ExtResource("3_03fey")
 use_type = "unit"
 tag_target = "scientist"
+color_tag = "agility"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

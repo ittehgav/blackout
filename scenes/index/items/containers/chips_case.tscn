@@ -1,12 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b401u5fn3nl4q"]
+[gd_scene load_steps=3 format=3 uid="uid://b401u5fn3nl4q"]
 
-[ext_resource type="Material" uid="uid://hxhb4smcxcs3" path="res://resources/shaders/materials/item.tres" id="1_rvxrh"]
 [ext_resource type="Texture2D" uid="uid://bfbthb2qkjo63" path="res://assets/visual/items/containers/chips_case.png" id="2_0fwnk"]
 [ext_resource type="Script" uid="uid://dj1g80ptilraa" path="res://scenes/index/items/containers/scripts/chips_case.gd" id="3_lwigv"]
 
 [node name="Chips Case" type="Sprite2D"]
-material = ExtResource("1_rvxrh")
 texture = ExtResource("2_0fwnk")
 script = ExtResource("3_lwigv")
 resource = "chips"
+color_tag = "chips"
 stack_size = 0

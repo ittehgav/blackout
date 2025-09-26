@@ -13,6 +13,7 @@ modifier = NodePath("ItemModifier")
 use_sfx = ExtResource("3_bmgeb")
 use_type = "item"
 item_target = "weapon"
+color_tag = "attack"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"
 
 [node name="ItemModifier" parent="." node_paths=PackedStringArray("stat_modifiers") instance=ExtResource("3_wpfyu")]

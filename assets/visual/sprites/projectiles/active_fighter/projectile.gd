@@ -15,12 +15,8 @@ var move_target:Vector2;
 @export var despawn_timer:Timer;
 @export var hitbox:Area2D;
 
-const flight_speed = 1200;
+@export var flight_speed:int = 2000
 
-@export_enum("arrow", "syringe") var type:String="arrow";
-
-@export var arrow_texture:Texture;
-@export var syringe_texture:Texture;
 
 var self_target:bool = false;
 var ally_mask:int;
@@ -67,7 +63,7 @@ func start_flight(target_direction:Vector2)->void:
 	shooter.ally_team.projectiles.add_child(self);
 	
 	global_position = shooter.global_position;
-	sprite.look_at(position + target_direction)
+	look_at(position + target_direction)
 	
 func _physics_process(delta: float) -> void:
 	position += move_target * flight_speed * delta;
@@ -77,6 +73,7 @@ func _on_hit(_fighter: ActiveFighter) -> void:
 	hitbox.set_collision_mask_value(1, false);
 	hitbox.set_collision_mask_value(2, false);
 	queue_free()
+
 
 func _on_despawn_timer_timeout() -> void:
 	queue_free();

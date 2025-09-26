@@ -5,17 +5,6 @@ extends Node
 ## (unless it ends up becoming massive?)
 const fighter_sprite_darkening = .35
 
-var weapon_texture_cache:Dictionary[int, Texture]
-func color_code_weapon(weapon:Sprite2D, scheme_index:int)->void:
-	if not scheme_index in weapon_texture_cache:
-		var base_color:Color = Index.color_schemes[scheme_index][1];
-		var dict:= {
-			Color.GREEN:base_color,
-			Color.BLUE:base_color.darkened(.5)
-		}
-		
-		weapon_texture_cache[scheme_index] = color_code_texture(weapon.texture, dict);
-	weapon.texture = weapon_texture_cache[scheme_index]
 
 
 var fighter_base_texture_cache:Dictionary[int, Dictionary]
@@ -76,7 +65,6 @@ var vehicle_texture_cache:Dictionary[String, Texture];
 func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
 		if not leader.name in vehicle_texture_cache:
 			var target_color:Color = Index.color_schemes[leader.color_scheme_index][1];
-			var from_player:bool=false
 
 			var dict:= {
 				Color.RED: Index.day_reflection_color,

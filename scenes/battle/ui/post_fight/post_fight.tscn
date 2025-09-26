@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b8j8soyx2828m"]
+[gd_scene load_steps=26 format=3 uid="uid://b8j8soyx2828m"]
 
 [ext_resource type="Script" uid="uid://bekflbdhfh8m0" path="res://scenes/battle/ui/post_fight/post_fight.gd" id="1_433o0"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_7eru0"]
@@ -30,6 +30,39 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3ns4"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_whl4c"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7r0vy"]
+resource_local_to_scene = true
+shader = ExtResource("12_uydno")
+shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2tjb5"]
 resource_local_to_scene = true
 shader = ExtResource("12_uydno")
@@ -53,171 +86,6 @@ shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_glk5u"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(0, 1, 0, 1)
-shader_parameter/light_color = Color(1, 0, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekkts"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(0, 1, 0, 1)
-shader_parameter/light_color = Color(1, 0, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2j832"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.8, 0.8, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(0, 1, 0, 1)
-shader_parameter/light_color = Color(1, 0, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qglwj"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjio2"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_an643"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ormkh"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_15sfg"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7uvto"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ylgj"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dh2mc"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qaebw"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bx6rd"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3ns4"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_whl4c"]
-resource_local_to_scene = true
-shader = ExtResource("12_uydno")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7r0vy"]
 resource_local_to_scene = true
 shader = ExtResource("12_uydno")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -360,11 +228,10 @@ columns = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
 layout_mode = 2
 
-[node name="max_hp_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
-material = SubResource("ShaderMaterial_2tjb5")
+[node name="max_hp_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer" instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_c3ns4")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-adjacent_items = [NodePath("../max_hp_label")]
 from_player = true
 
 [node name="max_hp_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer"]
@@ -395,11 +262,10 @@ text = "+"
 [node name="HBoxContainer2" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
 layout_mode = 2
 
-[node name="attack_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
-material = SubResource("ShaderMaterial_3hyth")
+[node name="attack_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2" instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_whl4c")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-adjacent_items = [NodePath("../attack_label")]
 from_player = true
 stat = "attack"
 
@@ -431,11 +297,10 @@ text = "+"
 [node name="HBoxContainer3" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
 layout_mode = 2
 
-[node name="defense_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
-material = SubResource("ShaderMaterial_glk5u")
+[node name="defense_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3" instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_7r0vy")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-adjacent_items = [NodePath("../defense_label")]
 from_player = true
 stat = "defense"
 
@@ -467,11 +332,10 @@ text = "+"
 [node name="HBoxContainer4" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
 layout_mode = 2
 
-[node name="agility_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
-material = SubResource("ShaderMaterial_ekkts")
+[node name="agility_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4" instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_2tjb5")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-adjacent_items = [NodePath("../agility_label")]
 from_player = true
 stat = "agility"
 
@@ -503,11 +367,10 @@ text = "+"
 [node name="HBoxContainer5" type="HBoxContainer" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats"]
 layout_mode = 2
 
-[node name="technique_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("10_dh2mc")]
-material = SubResource("ShaderMaterial_2j832")
+[node name="technique_icon" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5" instance=ExtResource("10_dh2mc")]
+material = SubResource("ShaderMaterial_3hyth")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-adjacent_items = [NodePath("../technique_label")]
 from_player = true
 stat = "technique"
 
@@ -578,7 +441,6 @@ theme_override_font_sizes/font_size = 64
 text = "Continue"
 
 [node name="loot_gains" type="PanelContainer" parent="victory_view" node_paths=PackedStringArray("post_fight", "loot_sfx", "player_inventory_display", "loot_display", "money_gain_label", "money_sfx")]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -617,29 +479,23 @@ exchanging_display = NodePath("../loot")
 [node name="operation" parent="victory_view/loot_gains/HBoxContainer/player_inventory/cargo/send_rect" index="0"]
 text = "LOOT"
 
-[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="3"]
-offset_left = 100.0
-offset_top = 34.0
-offset_right = 192.0
-offset_bottom = 390.0
-
-[node name="money_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer3" index="0"]
-material = SubResource("ShaderMaterial_qglwj")
-
-[node name="food_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_jjio2")
-
-[node name="fuel_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer2" index="0"]
-material = SubResource("ShaderMaterial_an643")
-
-[node name="juice_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer4" index="0"]
-material = SubResource("ShaderMaterial_ormkh")
-
-[node name="scrap_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer5" index="0"]
-material = SubResource("ShaderMaterial_15sfg")
-
-[node name="chips_icon" parent="victory_view/loot_gains/HBoxContainer/player_inventory/VBoxContainer/HBoxContainer6" index="0"]
-material = SubResource("ShaderMaterial_7uvto")
+[node name="resources_dropdown" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="3" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
 
 [node name="warning" parent="victory_view/loot_gains/HBoxContainer/player_inventory" index="5"]
 visible = false
@@ -687,13 +543,12 @@ text = "Continue"
 [node name="HBoxContainer" type="HBoxContainer" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="resource_icon" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("15_bx6rd")]
-material = SubResource("ShaderMaterial_2ylgj")
+[node name="resource_icon" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("15_bx6rd")]
+material = SubResource("ShaderMaterial_glk5u")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 resource = "money"
 match_player_inventory = false
-adjacent_items = [NodePath("../money_gain")]
 
 [node name="money_gain" type="Label" parent="victory_view/loot_gains/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -709,27 +564,25 @@ exchanging_display = NodePath("../player_inventory")
 [node name="operation" parent="victory_view/loot_gains/HBoxContainer/loot/cargo/send_rect" index="0"]
 text = "DEPOSIT"
 
-[node name="VBoxContainer" parent="victory_view/loot_gains/HBoxContainer/loot" index="3"]
-offset_left = 5161.0
-offset_right = 5253.0
-
-[node name="money_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer3" index="0"]
-material = SubResource("ShaderMaterial_dh2mc")
-
-[node name="food_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer" index="0"]
-material = SubResource("ShaderMaterial_qaebw")
-
-[node name="fuel_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer2" index="0"]
-material = SubResource("ShaderMaterial_bx6rd")
-
-[node name="juice_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer4" index="0"]
-material = SubResource("ShaderMaterial_c3ns4")
-
-[node name="scrap_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer5" index="0"]
-material = SubResource("ShaderMaterial_whl4c")
-
-[node name="chips_icon" parent="victory_view/loot_gains/HBoxContainer/loot/VBoxContainer/HBoxContainer6" index="0"]
-material = SubResource("ShaderMaterial_7r0vy")
+[node name="resources_dropdown" parent="victory_view/loot_gains/HBoxContainer/loot" index="3" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+offset_left = -21.0
+offset_right = 83.0
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
 
 [node name="defeat_view" type="Control" parent="." node_paths=PackedStringArray("morale_icon", "morale_label")]
 visible = false
@@ -767,12 +620,11 @@ offset_bottom = 126.0
 theme_override_font_sizes/font_size = 128
 text = "Defeat"
 
-[node name="MoraleIcon" parent="defeat_view/Panel" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("4_nsm0m")]
+[node name="MoraleIcon" parent="defeat_view/Panel" instance=ExtResource("4_nsm0m")]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 1
 offset_left = -338.0
 offset_right = -306.0
-adjacent_items = [NodePath("../morale_value")]
 
 [node name="morale_value" type="Label" parent="defeat_view/Panel"]
 layout_mode = 0

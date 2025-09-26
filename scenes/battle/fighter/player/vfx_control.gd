@@ -1,7 +1,7 @@
 extends Node
 
 @export var unit:PlayerFighter;
-@export var floating_icon_anchor:Node2D;
+@export var floating_icon_anchor:Control;
 
 func _on_in_fight_player_status_applied(_source: ActiveFighter, data: Dictionary) -> void:
 	match data.type:
@@ -14,7 +14,6 @@ func _on_in_fight_player_status_applied(_source: ActiveFighter, data: Dictionary
 				## overrinding the default floating icon stuffs so player's VFX feel more important
 				
 				icon.global_position = floating_icon_anchor.global_position
-				icon.panel.hide()
 				if data.amount > 0:
 					var tween: = create_tween();
 					tween.tween_property(icon, "position:y", icon.position.y -30, 1);

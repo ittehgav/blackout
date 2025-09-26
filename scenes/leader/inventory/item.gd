@@ -5,6 +5,24 @@ var mirror:ItemMirror;
 
 var applied_modifier:ItemModifier
 
+@export_enum(
+	## type of shit i don't get to do by making things too tidy with enums
+	"food",
+	"fuel",
+	"money",
+	
+	"juice",
+	"scrap",
+	"chips",
+	
+	"max_hp",
+	"attack",
+	"defense",
+	"agility",
+	"technique",
+	## if no color tag, just color it based on the rarity
+	)var color_tag:String= "none";
+
 @export var inventory_position:Vector2=Vector2(-1, -1);
 
 @export var stack_size:int=1;
@@ -22,9 +40,10 @@ func get_description()->String:
 	return "DESCRIPTION MISSOMG"
 
 func get_mirror_color()->Color:
-	## overrideable not only by the type but by individual items btw
-	return Color.PURPLE;
-
-func _to_string()->String:
-	print("rename?")
-	return name
+	if color_tag != "none":
+		var target_color:Color = Index.get_color(color_tag);
+		var value_multiplier:float = (1.0/2.75) * float(self["rarity"]);
+		target_color.s *= value_multiplier;
+		return target_color;
+	else:
+		return Index.item_rarity_colors[self["rarity"]];

@@ -1,9 +1,108 @@
-[gd_scene load_steps=3 format=3 uid="uid://by4mpa2wb2t7b"]
+[gd_scene load_steps=10 format=3 uid="uid://by4mpa2wb2t7b"]
 
 [ext_resource type="Texture2D" uid="uid://cbptl4cvn7pul" path="res://assets/visual/items/weapons/chakram.png" id="1_6ewex"]
 [ext_resource type="Script" uid="uid://btpyltd5vb6p4" path="res://scenes/index/items/weapons/scripts/chakram.gd" id="2_h5wbs"]
+[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/swing.wav" id="3_ts0g7"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="4_ua1k6"]
+[ext_resource type="Texture2D" uid="uid://chyk6j5cmchjv" path="res://assets/visual/items/weapons/active/chakram.png" id="5_5bglv"]
 
-[node name="Chakram" type="Sprite2D"]
+[sub_resource type="Animation" id="Animation_ua1k6"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_ts0g7"]
+resource_name = "attack"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(7.450581e-09, 0.10000001, 0.20000002),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(18.892157, 18.892157, 18.892157, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(7.450581e-09, 0.00010000745, 0.20000002),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 6.283185307179586]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"impact"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5bglv"]
+_data = {
+&"RESET": SubResource("Animation_ua1k6"),
+&"attack": SubResource("Animation_ts0g7")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qwo1v"]
+radius = 85.0
+
+[node name="Chakram" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "animation_player", "use_sfx", "hit_sfx")]
+modulate = Color(0.9999987, 0.9999987, 0.9999987, 1)
+use_parent_material = true
 texture = ExtResource("1_6ewex")
 script = ExtResource("2_h5wbs")
+base_damage = 50
+cooldown = 3.0
+hit_scan = NodePath("Area2D")
+melee = true
+animation_player = NodePath("AnimationPlayer")
+use_sfx = NodePath("use_sfx")
+hit_sfx = NodePath("hit_sfx")
+active_texture = ExtResource("5_5bglv")
+color_tag = "agility"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ts0g7")
+
+[node name="hit_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ua1k6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5bglv")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_qwo1v")

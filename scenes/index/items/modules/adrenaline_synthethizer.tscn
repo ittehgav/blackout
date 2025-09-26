@@ -8,3 +8,4 @@
 texture = ExtResource("1_58m51")
 script = ExtResource("2_vxjm1")
 sfx = ExtResource("3_pw1h4")
+color_tag = "agility"

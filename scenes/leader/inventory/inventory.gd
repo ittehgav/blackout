@@ -107,6 +107,7 @@ func change_resource(resource:String, amount:int)->void:
 				i += 1
 	else:
 		money += amount
+	refresh_resource_counts();
 	if holder is Player:
 		## call deferred so the values are updated beofre the animation plays
 		Entities.player.resource_changed.emit.call_deferred(resource, amount);
@@ -115,6 +116,7 @@ func change_resource(resource:String, amount:int)->void:
 
 func add_item(item: Item) -> void:
 	assert(not items.has(item))
+
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
 	items.append(item);
 	if item is Consumable:
@@ -314,11 +316,3 @@ var all_item_arrays:Array[Array] = [
 func empty_inventory()->void:
 	for array:Array[Item] in all_item_arrays:
 		array.clear();
-func _get_property_list() -> Array:
-	var properties: = []
-
-	# Add the items array property with custom hints
-	properties.append({
-	"name": "items",
-	})
-	return properties

@@ -2447,6 +2447,11 @@ cache/0/192/0/descent = 0.0
 cache/0/192/0/underline_position = 0.0
 cache/0/192/0/underline_thickness = 0.0
 cache/0/192/0/scale = 1.0
+cache/0/256/0/ascent = 0.0
+cache/0/256/0/descent = 0.0
+cache/0/256/0/underline_position = 0.0
+cache/0/256/0/underline_thickness = 0.0
+cache/0/256/0/scale = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iliap"]
 atlas = ExtResource("3_yhj5h")

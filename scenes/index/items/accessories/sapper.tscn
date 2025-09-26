@@ -9,4 +9,5 @@ equippable = Dictionary[String, bool]({
 "unit": true
 })
 exclusive_tag = "disruptor"
+color_tag = "technique"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"

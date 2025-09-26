@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtd8165tljlor"]
+
+[ext_resource type="Texture2D" uid="uid://b2jyss070hl0a" path="res://assets/visual/items/accessories/forbidden_mask.png" id="1_8q7i8"]
+[ext_resource type="Script" uid="uid://bj6qgo1uw8juk" path="res://scenes/index/items/accessories/scripts/forbidden_mask.gd" id="2_ku487"]
+
+[node name="Forbidden Mask" type="Sprite2D"]
+texture = ExtResource("1_8q7i8")
+script = ExtResource("2_ku487")
+application = "battle_start"
+apply_during_battle = true
+equippable = Dictionary[String, bool]({
+"player": true,
+"unit": false
+})
+color_tag = "attack"
+metadata/_custom_type_script = "uid://22bfdxr3ppr7"

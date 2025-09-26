@@ -48,7 +48,6 @@ func _on_world_map_hour_passed(instant:bool=false) -> void:
 		marker.modulate = marker_colors[1]
 
 	const backdrop_volumes = [.2, .3, .6, .4]
-	const light_alphas = [.15, .075, 0, 5]
 		
 	var target_color:Color = environment_colors[time_index]
 	var target_horizon_color:Color = horizon_colors[time_index]

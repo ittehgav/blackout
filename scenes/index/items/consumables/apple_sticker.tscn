@@ -9,4 +9,5 @@ texture = ExtResource("1_qh353")
 script = ExtResource("2_jw2ka")
 use_sfx = ExtResource("3_jw2ka")
 use_type = "item"
+color_tag = "money"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

@@ -1,8 +1,8 @@
 extends Node
 
-func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, duration:float=0, data:Dictionary={})->void:
+@warning_ignore("shadowed_variable_base_class")
+func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, duration:float=0, data:Dictionary={}, emit_signal:bool=true)->void:
 	var status_data:Dictionary = {"type":type, "duration":duration}
-
 	match type:
 		"stun":
 			assert(status_data.duration);
@@ -14,9 +14,13 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 			target.stun_stack += 1;
 
 		"stat_change":
-			status_data["amount"] = data.amount;
-			status_data["stat"] = data.stat;
-			target[data.stat] += data.amount;
+			## TODO multiplier stat changes
+			status_data.amount = data.amount;
+			status_data.stat = data.stat;
+			target.in_battle_stat_modifiers[data.stat] += data.amount;
+			
+			target.stat_changed.emit(data.stat);
+
 		"taunt":
 			assert(status_data.duration)
 			target.taunted = true;
@@ -30,7 +34,11 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 		target.status_timers.add_child(timer)
 		timer.start()
 
-	target.status_applied.emit(source, status_data)
+		status_data.timer = timer;
+	if emit_signal:
+		## will mostly not emit for stuff that applies multiple
+		## statuses that would make for janky feedback VFX
+		target.status_applied.emit(source, status_data)
 
 
 

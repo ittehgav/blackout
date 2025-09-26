@@ -12,9 +12,7 @@ func refresh()->void:
 	var taken_space:int = 0;
 	for item:Item in player.inventory.items:
 		if item.inventory_position != Vector2(-1, -1):
-			print(item.name)
 			taken_space += item.size_x * item.size_y;
-			print(item.size_x * item.size_y, " ", taken_space)
 
 	var display:InventoryDisplay = player_sheet.player_inventory;
 	var total_space:int = display.size_x * display.size_y;

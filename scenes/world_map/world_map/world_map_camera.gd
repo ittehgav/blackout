@@ -4,7 +4,8 @@ signal started_panning
 
 var panning:bool = false;
 var pan_speed:float = 10.0;
-func _physics_process(delta: float) -> void:
+
+func _physics_process(_delta: float) -> void:
 	var vector:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
 	if vector:
 		if not panning:

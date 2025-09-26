@@ -25,11 +25,11 @@ func parse_dialogue_response(response_text:String)->String:
 	var final_text:String = response_text;
 	return final_text
 
-func build_option(text:String)->void:
+func build_option(label_text:String)->void:
 	icon_rect.show();
 	label.add_theme_font_size_override("normal_font_size", 64);
 	var option_color:Color = Color.WHITE
-	match text:
+	match label_text:
 		"#trade_menu":
 			option_color = Color.LIGHT_GREEN + Color.from_hsv(0, 0, .2)
 			

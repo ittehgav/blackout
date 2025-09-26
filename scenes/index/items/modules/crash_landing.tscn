@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr5226slt5ws7"]
+
+[ext_resource type="Script" uid="uid://d0w48goilg4jp" path="res://scenes/index/items/modules/scripts/crash_landing.gd" id="1_khrmn"]
+[ext_resource type="Texture2D" uid="uid://ck6lobqsi2tju" path="res://assets/visual/items/modules/crash_landing.png" id="1_rks25"]
+
+[node name="Crash Landing" type="Sprite2D"]
+texture = ExtResource("1_rks25")
+script = ExtResource("1_khrmn")
+metadata/_custom_type_script = "uid://qune1pdymvmr"

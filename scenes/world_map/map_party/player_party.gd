@@ -25,7 +25,7 @@ func _input(e:InputEvent)->void:
 			navigation_tween.pause();
 			Entities.player_sheet.closed.connect(resume_navigation, CONNECT_ONE_SHOT)
 
-func move_to_settlement(target:Settlement, warnings_cleared:bool=false)->void:
+func move_to_settlement(target:Settlement)->void:
 	var costs:Dictionary = get_travel_cost(target);
 	if leader.inventory.food < costs.food or\
 	leader.inventory.fuel < costs.fuel:

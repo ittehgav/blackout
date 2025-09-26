@@ -8,4 +8,5 @@
 texture = ExtResource("1_uab2q")
 script = ExtResource("1_x0cwa")
 use_sfx = ExtResource("3_57qrd")
+color_tag = "food"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

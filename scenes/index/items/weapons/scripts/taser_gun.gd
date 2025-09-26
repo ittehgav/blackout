@@ -1,43 +1,26 @@
 extends Weapon
 
+
 const rarity = 2;
 
 const size_x = 2;
 const size_y = 2;
 
-const angle_adjust = 0;
-## taser gun, stuns and damages a target
-const type = "ranged";
+const stun_duration = .75
+
+func get_description()->String:
+	return "Shoots taser darts that deal " + Index.get_color_tag("attack") + str(final_damage())+\
+			"damage[/color] and stun the target for " + str(stun_duration) +" seconds.";
 
 
-const base_damage = 20;
-## TODO make this scale somehow?
-const stun_duration = .5;
-
-const projection = "gun_shot"
-
+func use(_alt:bool=false)->void:
+	animation_player.play("generic/recoil")
+	use_sfx.play();
+	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit)
 
 
-const description:String = "Long range, damages and stuns enemies."
-
-const use_vfx = ["gun_recoil", "camera_recoil"];
-
-
-const use_sfx = "shoot";
-
-
-@export var projectile:Projectile;
-
-func use()->bool:
-	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit);
-	return false
-	
 func projectile_hit(target:ActiveFighter)->void:
-	## for weapons we just make the function here, for NPCs things will get more generic i suppose
-	var holder:PlayerFighter = Entities.player_fighter;
-	Combat.deal_damage(holder, target);
-	Combat.stun_target(holder, target, stun_duration)
-	Entities.player_fighter.equipment.weapon_sfx.play_hit_sfx("swing_hit")
-
-func _on_equipped() -> void:
-	projectile.setup(Entities.player_fighter);
+	hit.emit()
+	hit_sfx.play()
+	Combat.deal_damage(Entities.player_fighter, target);
+	Combat.stun_target(Entities.player_fighter, target, stun_duration)

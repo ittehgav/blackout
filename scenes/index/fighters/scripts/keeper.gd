@@ -44,7 +44,7 @@ func skill()->void:
 	animation_player.queue("fighter_base/idle")
 	
 func skill_impact()->void:
-	var projectile:Projectile = Combat.shoot_projectile(projectile, fighter, bees_hit);
+	Combat.shoot_projectile(projectile, fighter, bees_hit);
 
 
 func bees_hit(target:ActiveFighter)->void:

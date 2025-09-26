@@ -19,14 +19,13 @@ var unit:FighterUnit;
 @export var skill_retry_timer:Timer;
 
 
-@export var overlay:Control;
+@export var overlay:FighterOverlay
 
 
 
 var target_unit:ActiveFighter;
 var target_in_range:bool = false;
 ## for the skill_hit signal to not repeat itself
-var hit_targets:Array[ActiveFighter]
 
 ## cooldown that gets checked when the cooldown timer is changed 
 ## and is playing on a different wait time
@@ -53,6 +52,7 @@ func _ready() -> void:
 
 
 func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
+	level = new_unit.level
 	in_player_team = in_player_party;
 	unit = new_unit
 	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
@@ -60,6 +60,20 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	base.fighter = self;
 	add_child(base)
 	base.get_node("hurtbox").reparent(self)
+	
+	var stats:CombatStats = new_unit.final_stats();
+	for stat:String in Index.all_combat_stats:
+		initial_stats[stat] = stats[stat];
+		
+	var accessory:Accessory = new_unit.equipped_accessory;
+	if accessory and accessory.application == "battle_start":
+			if not accessory.apply_during_battle:
+				accessory.battle_start_apply(self);
+			else:
+				## TODO probably some signal that gets fetched from global scope
+				## instead of this
+				ally_team.arena.battle_started.connect(accessory.battle_start_apply.bind(self))
+	
 
 	if base.global_hit_scan:
 		base.hit_scan.global_position = Vector2.ZERO;
@@ -68,18 +82,11 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	
 	if "projectile" in base:
 		base.projectile.setup(self);
+		
 	
-	max_hp = unit.stats.max_hp;
-	hp = unit.stats.max_hp;
 	
-	attack = unit.stats.attack;
-	defense = unit.stats.defense;
-	
-	agility = unit.stats.agility;
-	
-	technique = unit.stats.technique
-	move_speed = unit.stats.move_speed
-	
+	refresh_all_stats()
+	hp = max_hp;
 	true_cooldown = unit.final_skill_cooldown()
 	cooldown_timer.wait_time = true_cooldown
 	
@@ -117,7 +124,7 @@ func find_target()->void:
 	target_in_range = target_unit in $skill_range.get_overlapping_bodies();
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if target_unit and is_instance_valid(target_unit):
 		if not target_in_range:
 			velocity = (target_unit.position - position).normalized() * move_speed;
@@ -161,7 +168,7 @@ func skill_cooldown() -> void:
 
 
 func use_skill()->void:
-	hit_targets = []
+	hit_targets = [];
 	base.skill();
 
 	skill_used.emit();
@@ -171,13 +178,12 @@ func use_skill()->void:
 		skill_hit.emit(target);
 	
 
-func catch_hit_target(hit_unit:ActiveFighter)->void:
-	if not hit_unit in hit_targets:
-		hit_targets.append(hit_unit);
+
 
 
 func _on_stat_changed(stat:String)->void:
 	## some of these are the same for npcs and the player?
+	refresh_stat(stat);
 	match stat:
 		"agility":
 			var previous_wait_time: = true_cooldown;
@@ -190,7 +196,6 @@ func _on_stat_changed(stat:String)->void:
 			if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
 				cooldown_timer.timeout.disconnect(correct_cooldown_timer);
 			cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);
-			
 func correct_cooldown_timer()->void:
 	cooldown_timer.wait_time = true_cooldown;
 

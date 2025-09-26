@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://tlqljr8ktlvn"]
+
+[ext_resource type="Texture2D" uid="uid://c3hg1lyq23omd" path="res://assets/visual/items/weapons/machete.png" id="1_22wn2"]
+[ext_resource type="Script" uid="uid://cirmif22o5hh4" path="res://scenes/index/items/weapons/scripts/machete.gd" id="2_vwop7"]
+
+[node name="Machete" type="Sprite2D"]
+use_parent_material = true
+texture = ExtResource("1_22wn2")
+script = ExtResource("2_vwop7")
+color_tag = "attack"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"

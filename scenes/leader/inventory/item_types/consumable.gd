@@ -27,10 +27,9 @@ class_name Consumable;
 	"juggernaut",
 	"disruptor") var tag_target:String;
 
-func get_mirror_color()->Color:
-	return Index.item_rarity_colors[self["rarity"]]
 
 func use()->void:
-	print("USEMISSING")
+	printerr("USEMISSING")
+
 func use_on_target(_target:FighterUnit)->void:
 	assert(false)

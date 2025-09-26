@@ -4,10 +4,40 @@ class_name Icon;
 
 var default_color:Color;
 var highlight_color:Color;
+var floating:bool=false;
 
 
 @export var label:Label;
+@export var bg:ColorRect
 
+func _ready()->void:
+	var color:Color = get_color();
+	
+	texture = get_icon_texture();
+	
+
+	
+	if floating:
+		modulate = color;
+		size = Vector2(16, 16);
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
+		var tween:Tween = create_tween();
+		tween.tween_property(self, "position:y", position.y - 30, 1);
+		tween.parallel().tween_property(self, "modulate:a", 0, 1);
+		tween.tween_callback(queue_free)
+	else:
+		
+		default_color = color;
+		highlight_color = color;
+		highlight_color.v += .25;
+		
+		modulate = default_color;
+		label.add_theme_color_override("font_color", default_color)
+		bg.show();
+		
+
+	
 
 func _on_mouse_entered() -> void:
 	modulate = highlight_color;
@@ -21,4 +51,12 @@ func _on_mouse_exited() -> void:
 func update()->void:
 	## normalize this by making a method that get the value so this method doesn't propagate?
 	## more complex than just propagating this?
-	pass
+	printerr("updatemissing")
+
+func get_color()->Color:
+	printerr("gcolormissing")
+	return Color.DEEP_PINK
+
+func get_icon_texture()->Texture:
+	printerr("gtexturemissing");
+	return Texture.new();

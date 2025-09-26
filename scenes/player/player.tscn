@@ -6,13 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_4udko"]
 [ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/ui/player_sheet/disciplines.gd" id="5_a3c1i"]
 
-[node name="Player" type="Node" node_paths=PackedStringArray("disciplines", "inventory", "roster", "combat_stats")]
+[node name="Player" type="Node" node_paths=PackedStringArray("disciplines", "inventory", "roster", "combat_stats", "modifier_stats", "stat_multipliers")]
 script = ExtResource("1_efaxt")
 disciplines = NodePath("disciplines")
 color_scheme_index = 1
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 combat_stats = NodePath("combat_stats")
+modifier_stats = NodePath("modifier_stats")
+stat_multipliers = NodePath("multiplier_stats")
 sight_range = 256
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_w3kr7")]
@@ -22,9 +24,19 @@ holder = NodePath("..")
 
 [node name="combat_stats" parent="." instance=ExtResource("4_4udko")]
 
+[node name="modifier_stats" parent="." instance=ExtResource("4_4udko")]
+technique = 0.0
+move_speed = 0.0
+
+[node name="multiplier_stats" parent="." instance=ExtResource("4_4udko")]
+max_hp = 1.0
+attack = 1.0
+defense = 1.0
+agility = 1.0
+move_speed = 1.0
+
 [node name="disciplines" type="Node" parent="."]
 script = ExtResource("5_a3c1i")
 
 [connection signal="level_up" from="." to="." method="_on_level_up"]
-[connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]
 [connection signal="scenario_changed" from="." to="." method="_on_scenario_changed"]

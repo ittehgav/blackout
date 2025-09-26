@@ -9,7 +9,7 @@ signal skill_finished;
 @export var animation_player:AnimationPlayer
 @export var hit_scan:Area2D;
 
-## feels like i'd rather keep this tracked
+## feels like i'd rather keep this tracked even though right now there's only one option
 @export_enum("nearest_enemy") var target_type:String = "nearest_enemy";
 
 

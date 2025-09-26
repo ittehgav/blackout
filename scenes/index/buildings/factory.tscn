@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="3_jtyrd"]
 [ext_resource type="PackedScene" uid="uid://c4s2cufch0vvv" path="res://scenes/index/items/accessories/external_processing_unit.tscn" id="4_xe0ao"]
 [ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="5_gt0ex"]
-[ext_resource type="PackedScene" uid="uid://dbetfnnc4fgpt" path="res://scenes/index/items/weapons/kinematic_staff.tscn" id="6_rgx4l"]
+[ext_resource type="PackedScene" uid="uid://dbetfnnc4fgpt" path="res://scenes/index/items/weapons/unimplemented/kinematic_staff.tscn" id="6_rgx4l"]
 [ext_resource type="PackedScene" uid="uid://dt7tutmu87uy3" path="res://scenes/index/items/accessories/sapper.tscn" id="7_hexne"]
 [ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="8_ec5wv"]
 [ext_resource type="PackedScene" uid="uid://blb80ofwrhyyg" path="res://scenes/index/items/consumables/sharpener.tscn" id="9_rt6jp"]

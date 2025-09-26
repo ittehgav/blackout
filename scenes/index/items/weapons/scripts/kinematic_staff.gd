@@ -11,11 +11,10 @@ const size_y = 4;
 const not_continuous = true;
 signal effect_finished;
 
-const angle_adjust = 0;
 const type = "melee";
 
 const aoe_radius = 300;
-const base_damage = 100;
+
 
 
 const charge_time = 7.5;
@@ -25,7 +24,7 @@ const projection = "none";
 
 const use_vfx = ["grow"]
 
-const use_sfx = "";
+
 
 var active:bool = false;
 var progress:float = 0;
@@ -46,16 +45,7 @@ func _process(delta:float)->void:
 		if progress >= charge_time:
 			explode();
 
-func use()->bool:
-	if not active:
-		progress_bar.scale = Vector2.ONE
-		progress_bar.modulate.a = 1;
-		progress_bar.show()
-		var sfx:SfxPlayer = Entities.player_fighter.equipment.weapon_sfx
-		sfx.play_sound_by_key("charge_up")
-		sfx.finished.connect(intensify_charge, CONNECT_ONE_SHOT)
-		active = true;
-	return false
+
 
 func explode()->void:
 	active = false;

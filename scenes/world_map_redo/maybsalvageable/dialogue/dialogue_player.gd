@@ -37,7 +37,6 @@ var current_line:DialogueLine;
 var speaker_texture:Texture; ## may or may not be used in a dialogue
 func _ready()->void:
 	super();
-	var color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
 	manager.mutated.connect(check_end)
 	manager.dialogue_ended.connect(end_dialogue)
 

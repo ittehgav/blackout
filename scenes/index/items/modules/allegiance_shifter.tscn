@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpx3rlag56m1l"]
+
+[ext_resource type="Texture2D" uid="uid://b3ge6fpksdx42" path="res://assets/visual/items/modules/allegiance_shifter.png" id="1_t168q"]
+[ext_resource type="Script" uid="uid://bnqci625xyhyt" path="res://scenes/index/items/modules/scripts/allegiance_shifter.gd" id="2_pe7uf"]
+
+[node name="Allegiance Shifter" type="Sprite2D"]
+texture = ExtResource("1_t168q")
+script = ExtResource("2_pe7uf")
+continuous = true
+metadata/_custom_type_script = "uid://qune1pdymvmr"

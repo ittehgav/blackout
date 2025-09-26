@@ -35,8 +35,7 @@ const all_fighter_tags = [
 func _ready()->void:
 	for scene:PackedScene in fighters.all_fighter_base_scenes:
 		## because FighterBases need index to be ready
-		## TODO work out a better solution for this if there's too much trouble
-		## with this method
+		## they get reinstantiated for battle/displaying
 		var base:FighterBase = scene.instantiate();
 		for c:Node in base.get_children():
 			c.queue_free();
@@ -90,7 +89,6 @@ const resource_base_prices = {
 
 
 func tagged_settlement_name(settlement:Settlement)->String:
-	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
 
 const all_disciplines = [

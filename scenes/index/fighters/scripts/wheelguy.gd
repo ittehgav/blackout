@@ -50,7 +50,7 @@ func _on_aoe_dmg_timeout() -> void:
 
 
 var blur_blink_tween:Tween;
-func _on_animation_player_animation_changed(old_name: StringName, new_name: StringName) -> void:
+func _on_animation_player_animation_changed(old_name: StringName, _new_name: StringName) -> void:
 	if old_name == "wheelguy/skill":
 		blur.modulate = Color.WHITE
 		circle_size += circle_growth
@@ -59,8 +59,8 @@ func _on_animation_player_animation_changed(old_name: StringName, new_name: Stri
 		blur_blink_loop()
 
 
-func _on_animation_player_current_animation_changed(name: String) -> void:
-	if name == "wheelguy/skill":
+func _on_animation_player_current_animation_changed(animation_name: String) -> void:
+	if animation_name == "wheelguy/skill":
 		if blur_blink_tween and blur_blink_tween.is_running():
 			blur_blink_tween.kill();
 

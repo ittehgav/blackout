@@ -52,18 +52,17 @@ func load_item(target:Item, new_item:bool=false)->void:
 	size = Vector2.ZERO;
 	custom_minimum_size = Vector2(item.size_x, item.size_y) * display.grid_cell_size;
 	tooltip.load_target(self);
-	var item_color:Color;
 	if item is ResourceContainer:
 		stack_size = item.stack_size
-		item_color = Index.get_color(item.resource);
-	else:
-		item_color = Index.item_rarity_colors[item.rarity];
 
+	
 	modifier_sign.hide()
 	if item.applied_modifier:
 		modifier_sign.show()
 	
-	self_modulate = item.get_mirror_color();
+	var item_color:Color = item.get_mirror_color();
+	self_modulate = item_color;
+
 	var dark_color:Color = item_color.darkened(.8);
 	var light_color:Color = item_color.lightened(.4);
 	
@@ -348,7 +347,6 @@ func equip_accessory_on_unit(unit:FighterUnit)->void:
 
 	if previous:
 		load_item(previous, true);
-		item.match_mirror;
 		if not display.check_item_fit(item, inventory_position):
 			display.throw_mirror(self);
 		refresh()

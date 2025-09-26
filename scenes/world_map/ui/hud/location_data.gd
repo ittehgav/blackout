@@ -12,7 +12,7 @@ extends PanelContainer
 
 @export var location_sprite:TextureRect;
 
-@export var sign:SettlementSign;
+@export var settlement_sign:SettlementSign;
 
 
 
@@ -36,9 +36,9 @@ func display_current_settlement(target:Settlement = Entities.player_party.curren
 	location_sprite.self_modulate.a = 1;
 	
 	road_sprite.hide();
-	sign.show();
+	settlement_sign.show();
 
-	sign.load_settlement(target);
+	settlement_sign.load_settlement(target);
 
 
 func _on_player_upkeep_food_shortage() -> void:
@@ -57,7 +57,7 @@ func _on_player_party_started_moving() -> void:
 	location_sprite.self_modulate.a = 0;
 	location_sprite.custom_minimum_size = Vector2(128, 128);
 	location_sprite.size = Vector2(128, 128);
-	sign.hide();
+	settlement_sign.hide();
 	road_sprite.show();
 	
 	main_text_label.text = "Traveling...";

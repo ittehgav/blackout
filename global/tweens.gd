@@ -107,12 +107,14 @@ func camera_lunge(fighter:ActiveFighter)->Tween:
 	return tween;
 
 func camera_recoil(fighter:ActiveFighter)->Tween:
-	var gap:Vector2 = Vector2(-30, -10)
-	var shift:Vector2 = fighter.base.position.move_toward(gap,20);
+	var gap:Vector2 = Vector2(-100, -50)
+	if fighter.body.flip_h:
+		gap.x *= -1
+	var shift:Vector2 = fighter.base.position.move_toward(gap,100);
 	fighter.camera.offset = shift
 	
 	var tween:Tween = create_tween();
-	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
+	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .25 );
 	return tween;
 
 func ui_fade_in(target:CanvasItem, duration:float = .5)->Tween:
@@ -176,6 +178,7 @@ func stretch_bar(target:TextureProgressBar)->Tween:
 
 func color_blink(target:CanvasItem, target_color:Color, duration:float = .2, target_property:String="modulate")->Tween:
 	target[target_property] = target_color;
+
 	var tween:Tween = create_tween();
 	tween.tween_property(target, target_property, Color.WHITE, duration);
 	return tween

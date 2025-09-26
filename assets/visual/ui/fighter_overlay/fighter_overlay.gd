@@ -1,5 +1,7 @@
 extends Control
 
+class_name FighterOverlay
+
 @export var hp_bar:TextureProgressBar;
 @export var hp_bar_trail:TextureProgressBar;
 
@@ -12,6 +14,8 @@ extends Control
 
 @export var cooldown_timer:Timer;
 @export var fighter:ActiveFighter
+
+@export var special_statuses:HBoxContainer;
 
 
 var trail_tween:Tween;
@@ -28,6 +32,21 @@ func _ready()->void:
 	hp_bar_trail.value = fighter.hp;
 
 	shield_bar.max_value = fighter.max_hp;
+
+func apply_special_status(status_texture:Texture2D, texture_color:Color, duration:float = 0.0)->void:
+	## right now this runs in parallel to the true effect of the 
+	## status and is mostly for visual/readability reasons
+	if not duration:
+		var rect:TextureRect = TextureRect.new();
+		var target_size:Vector2 = status_texture.get_size();
+		rect.custom_minimum_size = target_size;
+		rect.size = target_size;
+		rect.texture = status_texture
+		rect.modulate = texture_color;
+		special_statuses.add_child(rect)
+	else:
+		## TODO timed these things
+		pass
 
 
 

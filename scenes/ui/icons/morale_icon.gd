@@ -24,7 +24,6 @@ func animated_update(target_value:float)->Tween:
 func update(from_animation:bool=false)->void:
 	var previous_texture:Texture = texture;
 	var morale:float = Entities.player.morale;
-	var target_color:Color
 	
 	texture = get_texture_for_morale(morale);
 	modulate = get_color_for_morale(morale);

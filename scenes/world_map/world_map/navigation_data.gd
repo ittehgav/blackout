@@ -4,7 +4,6 @@ var current_target:Settlement
 
 @export var name_label:Label;
 @export var eta_label:Label;
-@export var sign:SettlementSign;
 
 @export var food_cost_label:Label;
 @export var fuel_cost_label:Label;
@@ -12,19 +11,16 @@ var current_target:Settlement
 @export var arrow:Sprite2D;
 
 func show_settlement(target:Settlement)->void:
-	var player_party:PlayerParty = Entities.player_party;
 	name_label.text = target.unique_name
-	var current_settlement:Settlement = player_party.current_settlement;
 	set_travel_data(target);
 	Tweens.ui_fade_in(self);
 
 func set_travel_data(target:Settlement)->void:
 	current_target = target
 	var player_party:PlayerParty = Entities.player_party;
-	var current_settlement:Settlement = player_party.current_settlement;
 
 	var travel_minutes:int = Entities.player_party.get_travel_minutes(target);
-	var travel_hours:int;
+	var travel_hours:int=0;
 	
 	while travel_minutes > 60:
 		travel_hours += 1;

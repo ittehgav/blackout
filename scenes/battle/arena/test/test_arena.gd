@@ -1,5 +1,7 @@
 extends Node2D
 
+signal battle_started
+
 func _ready()->void:
 	## PASS THIS STsdUFF TO REGULAR ARENA EVENTUALLY
 	var projections:Array[Node] = get_tree().get_nodes_in_group("aoe_projections");

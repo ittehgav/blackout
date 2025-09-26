@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckfdpaina65pn"]
+
+[ext_resource type="Texture2D" uid="uid://w4d3bixshv3e" path="res://assets/visual/items/modules/the_consumer.png" id="1_iykmg"]
+[ext_resource type="Script" uid="uid://bxsh887rdqrs1" path="res://scenes/index/items/modules/scripts/the_consumer.gd" id="2_jsiwe"]
+
+[node name="The Consumer" type="Sprite2D"]
+texture = ExtResource("1_iykmg")
+script = ExtResource("2_jsiwe")
+continuous = true
+color_tag = "money"
+metadata/_custom_type_script = "uid://qune1pdymvmr"

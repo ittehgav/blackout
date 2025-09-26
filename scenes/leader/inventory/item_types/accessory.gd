@@ -8,6 +8,10 @@ class_name Accessory
 ## and everything that doesn't change is set to 0
 @export var stat_multipliers:CombatStats; ## these are described by the item unlike the modifiers
 
+@export_enum("battle_start") var application:String = "";
+## only for function calls, stat changes are applies as these are equipped
+@export var apply_during_battle:bool=false
+## if the effect contains Combat singleton calls
 
 @export var equippable:Dictionary[String, bool] = {
 	"player":false,
@@ -27,8 +31,6 @@ class_name Accessory
 	"juggernaut",
 	"disruptor") var exclusive_tag:String;
 
-func get_mirror_color()->Color:
-	return Index.item_rarity_colors[self["rarity"]]
 
 func get_description()->String:
 	var description:String = "Equippable on ";
@@ -51,5 +53,17 @@ func get_description()->String:
 		for stat:String in Index.all_combat_stats:
 			if stat_modifiers[stat]:
 				var text:String = Index.get_color_tag(stat) + "+" + str(stat_modifiers[stat]) + " " + stat
-				description += "\n" + text + "[/color]";
+				description +=  text + "[/color]"+"\n" ;
 	return description;
+	
+
+func other_equipped_accessory()->Accessory:
+	assert(self == Entities.player.equipped_accessory_1 or 
+	self == Entities.player.equipped_accessory_2)
+	if self == Entities.player.equipped_accessory_1:
+		return Entities.player.equipped_accessory_2;
+	else:
+		return Entities.player.equipped_accessory_1
+
+func battle_start_apply(_target:ActiveFighter)->void:
+	printerr("noapplywhenthereshouldbe?s")

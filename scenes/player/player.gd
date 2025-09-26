@@ -54,6 +54,7 @@ func _ready()->void:
 	## TODO remove this once the new world map scene loads from proper context
 	Entities.player = self;
 
+
 	
 func battle_victory_morale()->void:
 	## for now just make all morale changes go through this script
@@ -226,5 +227,5 @@ func _on_minute_ticker_timeout() -> void:
 		travel_upkeep()
 
 
-func _on_scenario_changed(new_scenario: String, previous_scenario: String) -> void:
+func _on_scenario_changed(new_scenario: String, _previous_scenario: String) -> void:
 	current_scenario = new_scenario

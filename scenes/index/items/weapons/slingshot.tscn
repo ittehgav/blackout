@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://vjfil4dxel55"]
+
+[ext_resource type="Texture2D" uid="uid://bnmeagc8uy8e0" path="res://assets/visual/items/weapons/slingshot.png" id="1_skrhi"]
+[ext_resource type="Script" uid="uid://nlqsknr54i2t" path="res://scenes/index/items/weapons/scripts/slingshot.gd" id="2_i4lfk"]
+[ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="3_d4t51"]
+[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="3_i4lfk"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="4_4n02f"]
+[ext_resource type="AnimationLibrary" uid="uid://bab1r78n55lyt" path="res://resources/animations/weapon_generic.res" id="4_q7svf"]
+
+[node name="Slingshot" type="Sprite2D" node_paths=PackedStringArray("projectile", "animation_player", "use_sfx", "hit_sfx")]
+use_parent_material = true
+position = Vector2(30, 0)
+texture = ExtResource("1_skrhi")
+script = ExtResource("2_i4lfk")
+base_damage = 10
+cooldown = 1.0
+projectile = NodePath("Projectile")
+animation_player = NodePath("AnimationPlayer")
+use_sfx = NodePath("use_sfx")
+hit_sfx = NodePath("hit_sfx")
+color_tag = "scrap"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_d4t51")
+
+[node name="hit_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4n02f")
+
+[node name="Projectile" parent="." instance=ExtResource("3_i4lfk")]
+self_modulate = Color(0.55, 0.55, 0.55, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"weapon_generic": ExtResource("4_q7svf")
+}

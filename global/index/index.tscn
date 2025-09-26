@@ -76,15 +76,15 @@ script = ExtResource("1_oyx4q")
 scenes = NodePath("scenes")
 fighters = NodePath("fighters")
 textures = NodePath("textures")
-color_schemes = Array[Array]([[Color(0.541176, 0.607843, 0.407843, 1), Color(0, 0.3, 0, 1)], [Color(0.5418, 0.600137, 0.86, 1), Color(0, 0.256, 0.64, 1)], [Color(0.66, 0.5478, 0.5478, 1), Color(0.61, 0.244, 0, 1)], [Color(0.831373, 0.65098, 0.701961, 1), Color(0.75, 0.1725, 0.374625, 1)], [Color(0.69, 0.6739, 0.4485, 1), Color(0.35, 0.2744, 0.0665, 1)], [Color(0.703523, 0.4851, 0.77, 1), Color(0.33572, 0.0588, 0.42, 1)]])
 resource_colors = Dictionary[String, Color]({
-"chips": Color(0, 0.8, 0.8, 1),
-"food": Color(1, 1, 0, 1),
-"fuel": Color(1, 0.266667, 0, 1),
-"juice": Color(0.533334, 0, 0.8, 1),
-"money": Color(0, 0.8, 0, 1),
-"scrap": Color(0.43, 0.43, 0.43, 1)
+"chips": Color(0.16, 0.8, 0.8, 1),
+"food": Color(0.8, 0.8, 0.16, 1),
+"fuel": Color(0.8, 0.33066663, 0.16, 1),
+"juice": Color(0.5866669, 0.16, 0.8, 1),
+"money": Color(0.16, 0.8, 0.16, 1),
+"scrap": Color(0.4, 0.4, 0.4, 1)
 })
+color_schemes = Array[Array]([[Color(0.541176, 0.607843, 0.407843, 1), Color(0, 0.3, 0, 1)], [Color(0.5418, 0.600137, 0.86, 1), Color(0, 0.256, 0.64, 1)], [Color(0.66, 0.5478, 0.5478, 1), Color(0.61, 0.244, 0, 1)], [Color(0.831373, 0.65098, 0.701961, 1), Color(0.75, 0.1725, 0.374625, 1)], [Color(0.69, 0.6739, 0.4485, 1), Color(0.35, 0.2744, 0.0665, 1)], [Color(0.703523, 0.4851, 0.77, 1), Color(0.33572, 0.0588, 0.42, 1)]])
 day_reflection_color = Color(0.2, 0.076, 0.076, 1)
 night_reflection_color = Color(0.487, 0.46, 1, 1)
 stat_colors = Dictionary[String, Color]({

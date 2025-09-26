@@ -1,10 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://c08u0afsm4bct"]
+[gd_scene load_steps=8 format=3 uid="uid://c08u0afsm4bct"]
 
 [ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/items/modules/dodge_roll.png" id="1_uq2vo"]
 [ext_resource type="Script" uid="uid://diisa0tddj0gc" path="res://scenes/index/items/modules/scripts/dodge_roll.gd" id="2_jqmff"]
 [ext_resource type="AudioStream" uid="uid://deleehb8xbh34" path="res://assets/sound/sfx/combat/player/dash.wav" id="3_hcgxl"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="4_vah2q"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="4_y7w52"]
 
-[node name="Dodge Roll" type="Sprite2D"]
+[sub_resource type="Animation" id="Animation_oik7t"]
+resource_name = "dodge_roll"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_golxp"]
+_data = {
+&"dodge_roll": SubResource("Animation_oik7t")
+}
+
+[node name="Dodge Roll" type="Sprite2D" node_paths=PackedStringArray("trail", "dust", "animation_player")]
 texture = ExtResource("1_uq2vo")
 script = ExtResource("2_jqmff")
+trail = NodePath("trail")
+dust = NodePath("dust")
+cooldown = 5.0
 sfx = ExtResource("3_hcgxl")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="dust" parent="." instance=ExtResource("4_y7w52")]
+
+[node name="trail" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(18.892157, 18.892157, 18.892157, 0.5882353)
+scale = Vector2(2, 2)
+texture = ExtResource("4_vah2q")
+hframes = 6
+vframes = 2
+region_rect = Rect2(14, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_golxp")
+}

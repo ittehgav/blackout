@@ -57,7 +57,7 @@ func skill_impact()->void:
 			await get_tree().create_timer(.5).timeout;
 
 func filter_magnetized(f:Node)->bool:
-	return "magnetized" in f.special_statuses;
+	return "magnetized" in f.special_statuses and not f.dead;
 
 func damage_modifier(damage:float, _unit:FighterUnit=null)->float:
 	if not fighter:
@@ -71,6 +71,7 @@ func tag_fighter(target:ActiveFighter)->void:
 	## TODO make a more proper special status system where the statuses
 	## get icon textures from the source
 	target.special_statuses["magnetized"] = {};
+
 
 
 func get_tagged_fighters()->Array[ActiveFighter]:

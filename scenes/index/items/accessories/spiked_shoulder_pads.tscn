@@ -8,10 +8,12 @@
 texture = ExtResource("1_vs0yq")
 script = ExtResource("2_8kxpn")
 stat_modifiers = NodePath("stats")
+application = "battle_start"
 equippable = Dictionary[String, bool]({
 "player": true,
 "unit": true
 })
+color_tag = "defense"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
 [node name="stats" parent="." instance=ExtResource("3_8kxpn")]

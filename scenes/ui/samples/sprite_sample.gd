@@ -12,7 +12,7 @@ class_name SpriteSample;
 
 @export var target_scale:Vector2 = Vector2.ONE
 
-func set_sample(target:Sprite2D, color_scheme_index:int=Entities.player.color_scheme_index, extra_offset:Vector2 = Vector2(30, -15))->void:
+func set_sample(target:Sprite2D)->void:
 	if target_base:
 		target_base.free();
 

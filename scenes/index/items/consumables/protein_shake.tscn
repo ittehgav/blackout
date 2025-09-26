@@ -8,4 +8,5 @@ texture = ExtResource("1_43q6u")
 script = ExtResource("2_cyrng")
 use_type = "unit"
 tag_target = "bodybuilder"
+color_tag = "max_hp"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

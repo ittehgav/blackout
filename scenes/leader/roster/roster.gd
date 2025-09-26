@@ -6,12 +6,11 @@ class_name Roster;
 
 var equipped_accessories:Array[Accessory]
 
-## where functions related to party will be implemented such as
-## checking upkeep costs
-## calculating speed/theat level type stuff
+
 func add_unit(unit:FighterUnit)->void:
 	assert(not units.has(unit));
 	units.append(unit)
+
 
 
 func _on_child_entered_tree(node: Node) -> void:

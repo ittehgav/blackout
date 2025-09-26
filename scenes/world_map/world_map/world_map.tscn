@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=3 uid="uid://dphiet8wg7sd"]
+[gd_scene load_steps=122 format=3 uid="uid://dphiet8wg7sd"]
 
 [ext_resource type="Script" uid="uid://d0rxta3ju0m4" path="res://scenes/world_map/world_map/world_map.gd" id="1_irndy"]
 [ext_resource type="Script" uid="uid://wrywd826l7x3" path="res://scenes/world_map/world_map/world_map_sfx.gd" id="2_omxek"]
@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://capijufintoqv" path="res://scenes/index/buildings/gas_station.tscn" id="22_3x04a"]
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="22_kulxh"]
 [ext_resource type="PackedScene" uid="uid://brlc23bio8sdx" path="res://scenes/index/buildings/gym.tscn" id="23_eunnb"]
+[ext_resource type="PackedScene" uid="uid://dtd8165tljlor" path="res://scenes/index/items/accessories/unimplemented/forbidden_mask.tscn" id="23_gu5rp"]
 [ext_resource type="PackedScene" uid="uid://j3tt7eipwb1t" path="res://scenes/index/items/consumables/eye_chart.tscn" id="23_mgych"]
 [ext_resource type="PackedScene" uid="uid://cq506jywmcjbm" path="res://scenes/index/buildings/tech_shop.tscn" id="24_x2ygm"]
 [ext_resource type="PackedScene" uid="uid://1ardsa0qdcfv" path="res://scenes/index/buildings/chop_shop.tscn" id="25_m17yv"]
@@ -1387,9 +1388,9 @@ stack_size = 5
 
 [node name="Sensory Overload" parent="PlayerParty/Player/Inventory" index="4" instance=ExtResource("16_x2ygm")]
 
-[node name="Metallic Shell" parent="PlayerParty/Player/Inventory" index="5" instance=ExtResource("17_m17yv")]
+[node name="Forbidden Mask" parent="PlayerParty/Player/Inventory" index="5" instance=ExtResource("23_gu5rp")]
 
-[node name="Spiked Shoulder Pads" parent="PlayerParty/Player/Inventory" index="6" instance=ExtResource("16_eunnb")]
+[node name="Metallic Shell" parent="PlayerParty/Player/Inventory" index="6" instance=ExtResource("17_m17yv")]
 
 [node name="Jumpsuit" parent="PlayerParty/Player/Inventory" index="7" instance=ExtResource("17_x2ygm")]
 
@@ -1729,7 +1730,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "1/2"
 
-[node name="location_data" type="PanelContainer" parent="static_ui/hud" node_paths=PackedStringArray("sfx", "player_party", "road_sprite", "main_text_label", "sub_text_label", "location_sprite", "sign")]
+[node name="location_data" type="PanelContainer" parent="static_ui/hud" node_paths=PackedStringArray("sfx", "player_party", "road_sprite", "main_text_label", "sub_text_label", "location_sprite", "settlement_sign")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 2
@@ -1746,7 +1747,7 @@ road_sprite = NodePath("VBoxContainer/HBoxContainer/location_icon/road")
 main_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/main_text")
 sub_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/sub_text")
 location_sprite = NodePath("VBoxContainer/HBoxContainer/location_icon")
-sign = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/settlement_sign")
+settlement_sign = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/settlement_sign")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="static_ui/hud/location_data"]
 layout_mode = 2
@@ -1824,7 +1825,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "16:20"
 
-[node name="navigation_data" type="PanelContainer" parent="static_ui/hud" node_paths=PackedStringArray("name_label", "eta_label", "sign", "food_cost_label", "fuel_cost_label", "arrow")]
+[node name="navigation_data" type="PanelContainer" parent="static_ui/hud" node_paths=PackedStringArray("name_label", "eta_label", "food_cost_label", "fuel_cost_label", "arrow")]
 visible = false
 top_level = true
 layout_mode = 1
@@ -1843,7 +1844,6 @@ mouse_filter = 2
 script = ExtResource("62_rnh6x")
 name_label = NodePath("VBoxContainer/HBoxContainer/settlement_name")
 eta_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/ETA")
-sign = NodePath("VBoxContainer/HBoxContainer/settlement_sign")
 food_cost_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/food_cost")
 fuel_cost_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/fuel_cost")
 arrow = NodePath("Control/go_arrow")

@@ -6,13 +6,12 @@ class_name ResourceContainer
 @export var raw_stack:bool=false;
 @export var mirror_only:bool=false
 
-var description:String;
+
 var hint_description:String;
 
 
 
-func get_mirror_color()->Color:
-	return Index.get_color(resource);
+
 
 func get_description()->String:
 	var description:String;

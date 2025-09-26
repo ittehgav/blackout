@@ -24,6 +24,9 @@ var dead:bool=false;
 @export var timers:Node;
 @export var status_timers:Node;
 
+@export var initial_stats:CombatStats
+@export var in_battle_stat_modifiers:CombatStats;
+@export var in_battle_stat_multipliers:CombatStats
 
 ## special statuses simply hold metadata and any effects from them
 ## are managed in the source's base script
@@ -37,6 +40,9 @@ var stun_stack:int = 0;
 var stunned:bool;
 
 ## combat stats (will get more complicated when it needs to)
+var level:int;
+## storing level (right now) only for the forbidden mask thingy
+
 var max_hp:float;
 var hp:float;
 var shield:float = 0;
@@ -45,3 +51,20 @@ var attack:float;
 var defense:float;
 var agility:float;
 var technique:float;
+
+
+var hit_targets:Array[ActiveFighter]
+
+
+func catch_hit_target(hit_unit:ActiveFighter)->void:
+	if not hit_unit in hit_targets:
+		hit_targets.append(hit_unit);
+		
+func refresh_all_stats()->void:
+	for stat:String in Index.all_combat_stats:
+		refresh_stat(stat)
+
+func refresh_stat(stat:String)->void:
+	## player weapon change is applied to modifiers and refreshed when needed
+
+	self[stat] = (initial_stats[stat] + in_battle_stat_modifiers[stat]) * in_battle_stat_multipliers[stat]

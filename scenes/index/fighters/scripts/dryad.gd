@@ -58,7 +58,7 @@ func skill_impact()->void:
 		
 
 func find_overlapping_thorns(spot:Vector2)->ColorRect:
-	var current:ColorRect
+	var current:ColorRect=null
 	var current_rect:Rect2
 	for area:ColorRect in all_thorns:
 		var rect:Rect2 = area.get_global_rect();

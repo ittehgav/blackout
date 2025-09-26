@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://4jfq03dphmd2" path="res://scenes/ui/icons/stat_icon.gd" id="2_w7tyd"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="4_66raq"]
 
-[node name="StatIcon" type="TextureRect" node_paths=PackedStringArray("bg", "outline")]
+[node name="StatIcon" type="TextureRect" node_paths=PackedStringArray("bg")]
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
 anchor_left = 0.5
@@ -21,10 +21,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("1_b7vp6")
 script = ExtResource("2_w7tyd")
-bg = NodePath("panel")
-outline = NodePath("ReferenceRect")
+bg = NodePath("bg")
 
-[node name="panel" type="ColorRect" parent="."]
+[node name="bg" type="ColorRect" parent="."]
 visible = false
 show_behind_parent = true
 use_parent_material = true
@@ -33,14 +32,22 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 2.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.8, 0.8, 0.8, 1)
+border_width = 2.0
+editor_only = false
 
 [node name="Tooltip" parent="." instance=ExtResource("4_66raq")]
 use_parent_material = true
@@ -56,19 +63,6 @@ offset_right = 322.0
 offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
-
-[node name="ReferenceRect" type="ReferenceRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-border_color = Color(0.8, 0.8, 0.8, 1)
-border_width = 2.0
-editor_only = false
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

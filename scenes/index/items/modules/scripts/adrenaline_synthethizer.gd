@@ -17,10 +17,6 @@ const base_agility_frac = .5
 ## juice consumption scales with level?
 var description:String;
 
-
-func check_available()->bool:
-	return Entities.player.inventory.juice >= juice_cost; 
-
 func use()->void:
 	var frac: = base_agility_frac
 	var technique:float = Entities.player_fighter.technique;

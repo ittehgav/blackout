@@ -48,13 +48,16 @@ func load_target(new_target:Node)->void:
 		item_mirror_setup(target);
 	elif target is ItemSample:
 		item_sample_setup(target)
-
-	elif target is ResourceIcon:
-		if target.show_tooltip:
-			name_label.text = target.resource.capitalize();
-			name_label.add_theme_color_override("font_color", Index.resource_colors[target.resource]);
-			description_label.text = Index.resource_descriptions[target.resource];
 	
+	if target is Icon and target.floating:
+		queue_free();
+		return;
+	
+	elif target is ResourceIcon:
+		name_label.text = target.resource.capitalize();
+		name_label.add_theme_color_override("font_color", Index.resource_colors[target.resource]);
+		description_label.text = Index.resource_descriptions[target.resource];
+
 	elif target is StatIcon:
 		var stat_name:String = target.stat.capitalize();
 		if stat_name == "Max Hp":
@@ -133,7 +136,6 @@ func item_setup(item:Item)->void:
 			for stat:String in Index.all_combat_stats:
 				var change:float = modifier.stat_modifiers[stat]
 				if change:
-					print("change?")
 					description_label.text += Index.get_color_tag(stat)\
 					 + "+" +str(snapped(change, .01)) +" "+stat+"[/color]"+ "\n";
 		

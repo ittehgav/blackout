@@ -4,7 +4,7 @@ extends SfxPlayer
 @export var settlement_visited:AudioStream;
 
 
-func _on_player_party_settlement_visited(settlement: Settlement) -> void:
+func _on_player_party_settlement_visited(_settlement: Settlement) -> void:
 	play_sound_obj(settlement_visited)
 
 

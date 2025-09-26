@@ -6,4 +6,5 @@
 [node name="Nutrition Efficiency Guide" type="Sprite2D"]
 texture = ExtResource("1_un5qf")
 script = ExtResource("1_cuvfw")
+color_tag = "food"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

@@ -1,24 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://do5h1o6m8i2yb"]
+[gd_scene load_steps=4 format=3 uid="uid://do5h1o6m8i2yb"]
 
 [ext_resource type="Script" uid="uid://dv7gaypijb1ly" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.gd" id="1_r36q7"]
-[ext_resource type="Texture2D" uid="uid://dxrtmcmiv07al" path="res://assets/visual/sprites/projectiles/arrow.png" id="2_tex48"]
-[ext_resource type="Texture2D" uid="uid://r2051wxqx2mi" path="res://assets/visual/sprites/projectiles/syringe.png" id="3_xmxyh"]
+[ext_resource type="Texture2D" uid="uid://cxxh5ddupo5k" path="res://assets/visual/sprites/projectiles/stone.png" id="1_v375r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r36q7"]
 
-[node name="Projectile" type="Node2D" node_paths=PackedStringArray("sprite", "despawn_timer", "hitbox")]
+[node name="Projectile" type="Sprite2D" node_paths=PackedStringArray("despawn_timer", "hitbox")]
 visible = false
-modulate = Color(1, 0.192157, 1, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("1_v375r")
 script = ExtResource("1_r36q7")
-sprite = NodePath("sprite")
 despawn_timer = NodePath("despawn_timer")
 hitbox = NodePath("hitbox")
-arrow_texture = ExtResource("2_tex48")
-syringe_texture = ExtResource("3_xmxyh")
-
-[node name="sprite" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("3_xmxyh")
 
 [node name="despawn_timer" type="Timer" parent="."]
 wait_time = 10.0

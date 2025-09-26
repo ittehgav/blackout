@@ -13,6 +13,7 @@ equippable = Dictionary[String, bool]({
 "unit": true
 })
 exclusive_tag = "mechanic"
+color_tag = "defense"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
 [node name="stats" parent="." instance=ExtResource("3_72a84")]

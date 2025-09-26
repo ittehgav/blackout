@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=10 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.gd" id="1_a7x5t"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_8440y"]
+[ext_resource type="Texture2D" uid="uid://nnmygu4ogbnr" path="res://assets/visual/ui/bars/base_bar_trail.png" id="4_b8wnn"]
+[ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="5_n8p1d"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="20_stwlc"]
@@ -10,7 +13,7 @@
 resource_local_to_scene = true
 radius = 200.0
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "overlay", "timers", "status_timers")]
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "overlay", "timers", "status_timers", "initial_stats", "in_battle_stat_modifiers", "in_battle_stat_multipliers")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
@@ -20,6 +23,26 @@ skill_retry_timer = NodePath("timers/skill_cooldown/skill_retry")
 overlay = NodePath("FighterOverlay")
 timers = NodePath("timers")
 status_timers = NodePath("status_timers")
+initial_stats = NodePath("stats/initial_stats")
+in_battle_stat_modifiers = NodePath("stats/in_battle_modifiers")
+in_battle_stat_multipliers = NodePath("stats/in_battle_multipliers")
+
+[node name="stats" type="Node" parent="."]
+
+[node name="initial_stats" parent="stats" instance=ExtResource("2_8440y")]
+technique = 0.0
+move_speed = 0.0
+
+[node name="in_battle_modifiers" parent="stats" instance=ExtResource("2_8440y")]
+technique = 0.0
+move_speed = 0.0
+
+[node name="in_battle_multipliers" parent="stats" instance=ExtResource("2_8440y")]
+max_hp = 1.0
+attack = 1.0
+defense = 1.0
+agility = 1.0
+move_speed = 1.0
 
 [node name="statuses" type="Node" parent="."]
 
@@ -46,8 +69,9 @@ monitorable = false
 shape = SubResource("CircleShape2D_mp8l8")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter")]
+[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter", "special_statuses")]
 z_index = 1
+custom_minimum_size = Vector2(64, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,65 +84,72 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("17_stwlc")
-hp_bar = NodePath("VBoxContainer/hp_bar_space/hp_bar_trail/hp_bar")
-hp_bar_trail = NodePath("VBoxContainer/hp_bar_space/hp_bar_trail")
-shield_bar = NodePath("VBoxContainer/hp_bar_space/hp_bar_trail/shield")
-charge_bar = NodePath("VBoxContainer/charge_bar_space/charge_bar")
+hp_bar = NodePath("VBoxContainer/hp_bar_trail/hp_bar")
+hp_bar_trail = NodePath("VBoxContainer/hp_bar_trail")
+shield_bar = NodePath("VBoxContainer/hp_bar_trail/shield")
+charge_bar = NodePath("VBoxContainer/charge_bar")
 floating_icon_anchor = NodePath("floating_icon_anchor")
 cooldown_timer = NodePath("../timers/skill_cooldown")
 fighter = NodePath("..")
+special_statuses = NodePath("VBoxContainer/special_statuses")
 
 [node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
 position = Vector2(-4, 67)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FighterOverlay"]
-layout_mode = 0
-offset_left = -32.0
-offset_right = 21.0
-offset_bottom = 38.0
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(1.04, 1)
 theme_override_constants/separation = -4
 
-[node name="hp_bar_space" type="Control" parent="FighterOverlay/VBoxContainer"]
-custom_minimum_size = Vector2(0, 3)
+[node name="special_statuses" type="HBoxContainer" parent="FighterOverlay/VBoxContainer"]
 layout_mode = 2
 
-[node name="hp_bar_trail" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_space"]
-custom_minimum_size = Vector2(0, 10)
+[node name="hp_bar_trail" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
-offset_top = -4.0
-offset_right = 53.0
-offset_bottom = 6.0
+value = 100.0
 nine_patch_stretch = true
 stretch_margin_left = 2
 stretch_margin_top = 2
 stretch_margin_right = 2
 stretch_margin_bottom = 2
-texture_progress = ExtResource("19_arr5u")
+texture_progress = ExtResource("4_b8wnn")
 tint_progress = Color(1, 0, 0, 1)
 
-[node name="hp_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_space/hp_bar_trail"]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-offset_right = 53.0
-offset_bottom = 10.0
-value = 33.0
+[node name="hp_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_trail"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
 allow_greater = true
 nine_patch_stretch = true
-stretch_margin_left = 2
-stretch_margin_top = 2
-stretch_margin_right = 2
-stretch_margin_bottom = 2
-texture_progress = ExtResource("19_arr5u")
+texture_progress = ExtResource("5_n8p1d")
 tint_progress = Color(0.054902, 0.796078, 0, 1)
 
-[node name="shield" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_space/hp_bar_trail"]
+[node name="shield" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_trail"]
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -1.0
-offset_bottom = -1.0
+anchor_bottom = 0.5
+offset_top = -2.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 allow_greater = true
@@ -130,16 +161,9 @@ stretch_margin_bottom = 2
 texture_progress = ExtResource("20_stwlc")
 tint_progress = Color(1, 1, 0, 1)
 
-[node name="charge_bar_space" type="Control" parent="FighterOverlay/VBoxContainer"]
-custom_minimum_size = Vector2(0, 11)
+[node name="charge_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-
-[node name="charge_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/charge_bar_space"]
-custom_minimum_size = Vector2(0, 5)
-layout_mode = 2
-offset_top = 3.0
-offset_right = 53.0
-offset_bottom = 8.0
 step = 0.1
 value = 50.0
 nine_patch_stretch = true
@@ -174,5 +198,5 @@ autostart = true
 [connection signal="timeout" from="timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
 [connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]
 [connection signal="body_exited" from="skill_range" to="." method="_on_skill_range_body_exited"]
-[connection signal="value_changed" from="FighterOverlay/VBoxContainer/hp_bar_space/hp_bar_trail/hp_bar" to="FighterOverlay" method="_on_hp_bar_value_changed"]
+[connection signal="value_changed" from="FighterOverlay/VBoxContainer/hp_bar_trail/hp_bar" to="FighterOverlay" method="_on_hp_bar_value_changed"]
 [connection signal="timeout" from="FighterOverlay/refresh_bar" to="FighterOverlay" method="refresh_charge_bar"]
