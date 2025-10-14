@@ -383,14 +383,16 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_umb2g"]
-radius = 19.0
-height = 67.0
+radius = 8.5
+height = 40.0
 
 [node name="Electric Knight" type="Sprite2D" node_paths=PackedStringArray("lightning", "lightning_animation", "animation_player")]
 material = ExtResource("1_jtae0")
+scale = Vector2(2, 2)
 texture = ExtResource("2_rp2jo")
 hframes = 3
 vframes = 3
+frame = 4
 script = ExtResource("3_fbttr")
 lightning = NodePath("lightning")
 lightning_animation = NodePath("lightning/lightning_animation")
@@ -411,6 +413,7 @@ autoplay = "fighter_base/idle"
 [node name="blur" type="Sprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_6ggxi")
+position = Vector2(-1, 0)
 texture = ExtResource("6_ivno6")
 offset = Vector2(50, 0)
 hframes = 3
@@ -419,6 +422,7 @@ frame = 3
 
 [node name="chargeup" type="Sprite2D" parent="."]
 visible = false
+position = Vector2(3, -2)
 texture = ExtResource("7_j5255")
 hframes = 3
 
@@ -441,7 +445,7 @@ libraries = {
 position = Vector2(18.5, 21)
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, 0.5)
+position = Vector2(-0.5, 0.5)
 shape = SubResource("CapsuleShape2D_umb2g")
 
 [editable path="dust"]

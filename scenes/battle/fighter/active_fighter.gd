@@ -12,7 +12,6 @@ signal stat_changed(stat:String);
 signal status_applied(source:ActiveFighter, data:Dictionary);
 signal status_removed(status_type:String, data:Dictionary)
 
-var in_player_team:bool;
 
 ## used to prevent multiple death signals when getting hit by multiple 
 ## lethal blows at the exact same time
@@ -25,8 +24,8 @@ var dead:bool=false;
 @export var status_timers:Node;
 
 @export var initial_stats:CombatStats
-@export var in_battle_stat_modifiers:CombatStats;
-@export var in_battle_stat_multipliers:CombatStats
+@export var stat_modifiers:CombatStats;
+@export var stat_multipliers:CombatStats
 
 ## special statuses simply hold metadata and any effects from them
 ## are managed in the source's base script
@@ -66,5 +65,14 @@ func refresh_all_stats()->void:
 
 func refresh_stat(stat:String)->void:
 	## player weapon change is applied to modifiers and refreshed when needed
+	self[stat] = (initial_stats[stat] + stat_modifiers[stat]) * stat_multipliers[stat]
 
-	self[stat] = (initial_stats[stat] + in_battle_stat_modifiers[stat]) * in_battle_stat_multipliers[stat]
+func nearest_enemy()->ActiveFighter:
+	var nearest:ActiveFighter;
+	var nearest_distance:int = 0;
+	for fighter:ActiveFighter in enemy_team.units:
+		var distance:float = position.distance_to(fighter.position);
+		if not nearest or distance < nearest_distance:
+			nearest = fighter;
+			nearest_distance = distance;
+	return nearest;

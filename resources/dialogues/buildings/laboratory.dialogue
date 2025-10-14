@@ -1,0 +1,6 @@
+~ start
+Scientist: Hello, are you interested in our experiments?
+- #trade_menu
+- #recruitment_menu
+- #evolution_menu
+- #leave =>END!

@@ -31,19 +31,19 @@ func refresh_samples(just_changed:Equipment=null)->void:
 	
 	
 
-	weapon_sample.load_item(Entities.player.equipped_weapon)
-	module_sample.load_item(Entities.player.equipped_module);
+	weapon_sample.load_item(Entities.player.equipped_weapon, 3)
+	module_sample.load_item(Entities.player.equipped_module, 3);
 
 	if Entities.player.alternative_weapon:
-		alt_weapon_sample.load_item(Entities.player.alternative_weapon, 1);
+		alt_weapon_sample.load_item(Entities.player.alternative_weapon, 2);
 	else:
-		alt_weapon_sample.load_blank(2)
+		alt_weapon_sample.load_blank()
 	
 	for i:int in 2:
 		var accessory:Accessory = Entities.player["equipped_accessory_"+str(i+1)];
 		var sample:ItemSample = self["accessory_"+str(i+1)+"_sample"]
 		if accessory:
-			sample.load_item(accessory)
+			sample.load_item(accessory, 3)
 		else:
 			sample.load_blank();
 	
@@ -75,7 +75,7 @@ func _on_inventory_display_extension_hidden() -> void:
 
 
 func _on_switch_alt_pressed() -> void:
-	shake_samples();
+	#shake_samples();
 	sfx.play_sound_by_key("weapon_equipped")
 	var new_main_weapon:Weapon = Entities.player.alternative_weapon;
 	var new_alt_weapon:Weapon = Entities.player.equipped_weapon;
@@ -125,7 +125,7 @@ func _on_alt_weapon_sample_gui_input(e: InputEvent) -> void:
 			send_item_to_inventory(Entities.player.alternative_weapon)
 			Entities.player.equipment.erase(Entities.player.alternative_weapon)
 			Entities.player.alternative_weapon = null;
-			alt_weapon_sample.load_blank(2)
+			alt_weapon_sample.load_blank()
 
 
 func send_item_to_inventory(item:Item)->void:

@@ -8,7 +8,7 @@ const rarity = 2;
 
 func get_description()->String:
 	return "Damages all enemies surrounding you, dealing " + Index.get_color_tag("attack") + str(final_damage()) +\
-	"damage. Cooldown is 20% faster for each enemy you hit with the same attack, up to 80%.";
+	" damage.[/color] Cooldown is 20% faster for each enemy you hit with the same attack, up to 80% faster.";
 
 func use(_alt:bool=false)->void:
 

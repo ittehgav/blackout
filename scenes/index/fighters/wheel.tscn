@@ -130,7 +130,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_36ex7"]
-radius = 62.5
+radius = 84.00595
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_edlc3"]
 radius = 24.0
@@ -142,7 +142,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_fdijp")
 hframes = 3
 vframes = 3
-frame = 2
+frame = 4
 script = ExtResource("3_3577p")
 projection_animation = NodePath("hit_scan/projection/projection_animation")
 blur = NodePath("blur")
@@ -174,7 +174,7 @@ monitorable = false
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 0, 0, 1)
 z_index = -1
-scale = Vector2(4, 4)
+scale = Vector2(5, 5)
 texture = ExtResource("7_cei2d")
 
 [node name="projection_animation" type="AnimationPlayer" parent="hit_scan/projection"]
@@ -193,7 +193,7 @@ position = Vector2(26, -15)
 texture = ExtResource("8_ynq8r")
 offset = Vector2(-26, 15)
 hframes = 3
-vframes = 3
+vframes = 2
 
 [node name="aoe_dmg" type="Timer" parent="."]
 

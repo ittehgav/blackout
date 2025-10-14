@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ofy6voyrdh1w"]
+
+[ext_resource type="Script" uid="uid://6xsoxh5pe6pt" path="res://scenes/leader/roster/dungeon_roster.gd" id="1_qkrx2"]
+
+[node name="DungeonRoster" type="Node"]
+script = ExtResource("1_qkrx2")
+metadata/_custom_type_script = "uid://g3ijlm51y0pn"

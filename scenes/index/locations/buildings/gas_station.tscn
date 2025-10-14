@@ -1,0 +1,43 @@
+[gd_scene load_steps=11 format=3 uid="uid://capijufintoqv"]
+
+[ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/locations/building.gd" id="1_dmsc8"]
+[ext_resource type="PackedScene" uid="uid://clriirxnk3pso" path="res://scenes/index/locations/buildings/interior/gas_station_interior.tscn" id="2_jh415"]
+[ext_resource type="Texture2D" uid="uid://cr5eu4lgncu6u" path="res://assets/visual/buildings/icons/gas_station.png" id="2_r6rwd"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="2_vgbht"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="3_vgbht"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="5_dmsc8"]
+[ext_resource type="PackedScene" uid="uid://blb80ofwrhyyg" path="res://scenes/index/items/consumables/sharpener.tscn" id="5_frrlj"]
+[ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="5_ke5ly"]
+[ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="7_ke5ly"]
+[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="8_frrlj"]
+
+[node name="Gas Station" type="Node2D" node_paths=PackedStringArray("inventory") groups=["all_locations"]]
+script = ExtResource("1_dmsc8")
+icon_texture = ExtResource("2_r6rwd")
+size = 2
+front_porch_scene = ExtResource("2_jh415")
+inventory = NodePath("NpcInventory")
+trade_option = true
+metadata/_custom_type_script = "uid://lf67nwuvdmnt"
+
+[node name="NpcInventory" parent="." node_paths=PackedStringArray("resource_storage", "item_pool", "holder") groups=["all_locations"] instance=ExtResource("2_vgbht")]
+batch_size = 2
+resource_storage = [NodePath("Food Bag"), NodePath("Fuel Barrel")]
+item_pool = [NodePath("Mystery Snack Pack"), NodePath("Taser Gun"), NodePath("Fuel Barrel2"), NodePath("Jumpsuit"), NodePath("Sharpener")]
+holder = NodePath("..")
+
+[node name="Sharpener" parent="NpcInventory" instance=ExtResource("5_frrlj")]
+
+[node name="Jumpsuit" parent="NpcInventory" instance=ExtResource("5_ke5ly")]
+
+[node name="Food Bag" parent="NpcInventory" instance=ExtResource("5_dmsc8")]
+
+[node name="Fuel Barrel" parent="NpcInventory" instance=ExtResource("3_vgbht")]
+
+[node name="Fuel Barrel2" parent="NpcInventory" instance=ExtResource("3_vgbht")]
+
+[node name="Mystery Snack Pack" parent="NpcInventory" instance=ExtResource("7_ke5ly")]
+
+[node name="Taser Gun" parent="NpcInventory" instance=ExtResource("8_frrlj")]
+
+[connection signal="daily_reset" from="." to="NpcInventory" method="refresh_inventory"]

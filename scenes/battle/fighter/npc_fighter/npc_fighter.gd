@@ -36,34 +36,22 @@ var true_cooldown:float;
 var taunted:bool=false;
 
 
-func _ready() -> void:
-	if not base:
-		## for testing, otherwise base will be loaded by the time this enters the tree
-		var children:Array[Node] = get_children();
-		var i:int = children.find_custom(func(n:Node)->bool:return n is FighterUnit)
-		var fighter:FighterUnit = children[i];
-		fighter.update_stats()
-		load_fighter(fighter, get_parent().name == "team_1")
-	elif base.special:
-		base.get_node("hurtbox").reparent(self);
-		$timers/find_target.stop();
-		max_hp = 500000;
-		hp = max_hp
 
-
-func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
+func load_fighter(new_unit:FighterUnit)->void:
+	unit = new_unit
+	if unit.base.special:
+		load_special();
+		return
 	level = new_unit.level
-	in_player_team = in_player_party;
 	unit = new_unit
 	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
-	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the 
+	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the tree
 	base.fighter = self;
 	add_child(base)
+	base.set_owner(self)
 	base.get_node("hurtbox").reparent(self)
 	
-	var stats:CombatStats = new_unit.final_stats();
-	for stat:String in Index.all_combat_stats:
-		initial_stats[stat] = stats[stat];
+	load_unit_stats();
 		
 	var accessory:Accessory = new_unit.equipped_accessory;
 	if accessory and accessory.application == "battle_start":
@@ -75,16 +63,6 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 				ally_team.arena.battle_started.connect(accessory.battle_start_apply.bind(self))
 	
 
-	if base.global_hit_scan:
-		base.hit_scan.global_position = Vector2.ZERO;
-	
-	$skill_range/shape.shape.radius = base.skill_range;
-	
-	if "projectile" in base:
-		base.projectile.setup(self);
-		
-	
-	
 	refresh_all_stats()
 	hp = max_hp;
 	true_cooldown = unit.final_skill_cooldown()
@@ -92,11 +70,41 @@ func load_fighter(new_unit:FighterUnit, in_player_party:bool)->void:
 	
 	started_moving.connect(base.fighter_started_moving)
 	stopped_moving.connect(base.fighter_stopped_moving)
+
+func load_special()->void:
+	level = unit.level
+	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
+	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the tree
+	base.fighter = self;
+	add_child(base)
+	base.set_owner(self)
+	base.get_node("hurtbox").reparent(self)
 	
+	load_unit_stats();
+	
+	refresh_all_stats()
+	hp = max_hp;
+	
+	## will make this an option in fighter_base if i ever need special
+	## fighters that use skill
+	 
+	timers.get_node("skill_cooldown").stop()
 
 
-	## need to start it manually after assignin the cooldown
-	cooldown_timer.start()
+func load_unit_stats()->void:
+	var stats:CombatStats = unit.final_stats();
+	for stat:String in Index.all_combat_stats:
+		initial_stats[stat] = stats[stat];
+
+func adjust_collisions()->void:
+	## needs to run after load_unit and assign_team
+	if base.global_hit_scan:
+		base.hit_scan.global_position = Vector2.ZERO;
+	
+	$skill_range/shape.shape.radius = base.skill_range;
+	
+	if "projectile" in base:
+		base.projectile.setup(self);
 
 
 func find_target()->void:
@@ -106,17 +114,8 @@ func find_target()->void:
 	var target:ActiveFighter=null;
 	match base.target_type:
 		"nearest_enemy":
-			var current_distance:float;
-			for enemy in enemy_team.units:
-				var distance:float = position.distance_to(enemy.position)
-				if not target or distance < current_distance:
-					target = enemy;
-					current_distance = distance;
-
-		"least_hp_ally":
-			for ally in ally_team.units:
-				if not target or target.max_hp - target.hp < ally.max_hp - ally.hp:
-					target = ally;
+			target = nearest_enemy();
+			
 	if target != target_unit:
 		target_unit = target;
 		target_changed.emit();
@@ -207,4 +206,5 @@ func _on_death(_killer: ActiveFighter) -> void:
 	dead = true;
 	ally_team.units.erase(self);
 	await base.fighter_died().finished
-	queue_free()
+	hide();
+	set_process_mode(PROCESS_MODE_DISABLED)

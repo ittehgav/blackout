@@ -1,8 +1,5 @@
 ~ start
 Hoarder: Got any valuables you want to get rid of?
 - #trade_menu
-- What do you do? =>< info
 - #leave => END!
 
-~ info
-Hoarder: I'm looking to buy anything you're selling, and [u]for a slightly higher value than you'd get in other stores[/u]. => start

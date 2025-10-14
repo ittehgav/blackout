@@ -23,6 +23,10 @@ holder = NodePath("..")
 [node name="Roster" parent="." instance=ExtResource("3_5khbq")]
 
 [node name="combat_stats" parent="." instance=ExtResource("4_4udko")]
+max_hp = 150.0
+attack = 10.0
+defense = 5.0
+agility = 1.0
 
 [node name="modifier_stats" parent="." instance=ExtResource("4_4udko")]
 technique = 0.0
@@ -39,4 +43,4 @@ move_speed = 1.0
 script = ExtResource("5_a3c1i")
 
 [connection signal="level_up" from="." to="." method="_on_level_up"]
-[connection signal="scenario_changed" from="." to="." method="_on_scenario_changed"]
+[connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

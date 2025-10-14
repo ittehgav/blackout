@@ -7,12 +7,9 @@
 texture = ExtResource("1_3uq41")
 script = ExtResource("2_5s7mq")
 application = "battle_start"
-apply_during_battle = null
 equippable = Dictionary[String, bool]({
 "player": true,
 "unit": false
 })
-exclusive_tag = null
 color_tag = "attack"
-stack_size = null
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"

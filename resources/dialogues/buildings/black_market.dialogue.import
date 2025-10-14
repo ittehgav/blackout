@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://c2bhl2kb3kbpr"
+path="res://.godot/imported/black_market.dialogue-3293c727259b8b37c45c8e9c9e9fd9ca.tres"
+
+[deps]
+
+source_file="res://resources/dialogues/buildings/black_market.dialogue"
+dest_files=["res://.godot/imported/black_market.dialogue-3293c727259b8b37c45c8e9c9e9fd9ca.tres"]
+
+[params]
+
+defaults=true

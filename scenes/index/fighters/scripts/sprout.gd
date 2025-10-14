@@ -12,4 +12,5 @@ func sow()->void:
 func explode()->void:
 	Combat.aoe_damage(base.fighter, hit_scan)
 	base.skill_finished.emit()
+	
 	## right now it's ok to emit it multiple times but that might cause trouble later

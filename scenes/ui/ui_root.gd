@@ -10,8 +10,10 @@ func _ready()->void:
 	if not get_parent() is UIRoot:
 		get_window().size_changed.connect(resize);
 		resize.call_deferred()
-		
-	recursive_connect_ui_feedback(self)
+	
+	if ui_sfx:
+		## if it doesn't have SFX this just serves to resize along with window
+		recursive_connect_ui_feedback(self)
 	
 
 func resize()->void:

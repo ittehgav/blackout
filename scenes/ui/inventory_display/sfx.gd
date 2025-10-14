@@ -4,7 +4,7 @@ extends SfxPlayer;
 @export var pick_up:AudioStream;
 
 
-
+@export var money_change:AudioStream
 
 @export var trade:AudioStream;
 @export var invalid:AudioStream;

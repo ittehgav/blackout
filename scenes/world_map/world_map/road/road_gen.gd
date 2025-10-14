@@ -14,7 +14,7 @@ var to_apply_terrain:Array[Vector2i];
 var road_cells:Array[Vector2i];
 var roadside:Array[Vector2i];
 var props_slots:Array[Vector2i];
-func generate_roads(settlements:Array[Node])->void:
+func generate_roads(settlements:Array[Settlement])->void:
 	for settlement:Settlement in settlements:
 		for neighbor:Settlement in settlement.neighbors:
 			if settlement not in neighbor.neighbor_paths:

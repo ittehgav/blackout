@@ -55,7 +55,7 @@ shader_parameter/neutral_value = 1.0
 [sub_resource type="Shortcut" id="Shortcut_t54sf"]
 events = [ExtResource("10_5jtfv")]
 
-[node name="trade_menu" type="Control" node_paths=PackedStringArray("player_inventory_display", "trader_inventory_display", "confirm_btn", "reset_btn", "player_name_label", "trader_name_label", "money_trade_label", "food_trade_label", "fuel_trade_label", "juice_trade_label", "scrap_trade_label", "chips_trade_label", "food_hourly_cost_label", "food_daily_cost_label", "fuel_hourly_cost_label", "fuel_daily_cost_label", "ui_sfx")]
+[node name="trade_menu" type="Control" node_paths=PackedStringArray("player_inventory_display", "trader_inventory_display", "confirm_btn", "reset_btn", "player_name_label", "trader_name_label", "player_resources_dropdown", "trader_resourcs_dropdown", "exit_prompt", "money_trade_label", "food_trade_label", "fuel_trade_label", "juice_trade_label", "scrap_trade_label", "chips_trade_label", "food_hourly_cost_label", "food_daily_cost_label", "fuel_hourly_cost_label", "fuel_daily_cost_label", "ui_sfx")]
 process_mode = 3
 visibility_layer = 16
 z_index = 5
@@ -72,6 +72,9 @@ confirm_btn = NodePath("HBoxContainer/in_trade/VBoxContainer2/confirm")
 reset_btn = NodePath("HBoxContainer/in_trade/VBoxContainer2/reset")
 player_name_label = NodePath("HBoxContainer/player_panel/player_name")
 trader_name_label = NodePath("HBoxContainer/trader_panel/trader_name")
+player_resources_dropdown = NodePath("HBoxContainer/player_panel/player_inventory_display/resources_dropdown")
+trader_resourcs_dropdown = NodePath("HBoxContainer/trader_panel/trader_inventory_display/resources_dropdown")
+exit_prompt = NodePath("exit_prompt")
 money_trade_label = NodePath("HBoxContainer/in_trade/VBoxContainer/money_trade")
 food_trade_label = NodePath("HBoxContainer/in_trade/VBoxContainer/food_trade")
 fuel_trade_label = NodePath("HBoxContainer/in_trade/VBoxContainer/fuel_trade")
@@ -291,7 +294,7 @@ layout_mode = 2
 text = "22"
 
 [node name="in_trade" type="Panel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 mouse_filter = 2
 
@@ -385,6 +388,7 @@ text = "Confirm"
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 shortcut = SubResource("Shortcut_t54sf")
+shortcut_in_tooltip = false
 text = "[r] Reset"
 
 [node name="trader_panel" type="Panel" parent="HBoxContainer"]
@@ -473,16 +477,65 @@ offset_bottom = -51.77
 offset_left = 128.0
 offset_right = 252.0
 
-[connection signal="invalid_move" from="HBoxContainer/player_panel/player_inventory_display" to="." method="_on_player_inventory_display_invalid_move"]
+[node name="exit_prompt" type="ColorRect" parent="."]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.24313726)
+
+[node name="PanelContainer" type="PanelContainer" parent="exit_prompt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -19.0
+offset_right = 6.5
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="exit_prompt/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="exit_prompt/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Revert trade
+ and exit?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="exit_prompt/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="reset_and_exit" type="Button" parent="exit_prompt/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Exit"
+
+[node name="return" type="Button" parent="exit_prompt/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67, 0.6097, 0.536, 1)
+theme_override_font_sizes/font_size = 64
+text = "Return"
+
 [connection signal="item_received" from="HBoxContainer/player_panel/player_inventory_display" to="." method="_on_player_inventory_display_item_received"]
-[connection signal="resources_changed" from="HBoxContainer/player_panel/player_inventory_display" to="." method="_on_player_inventory_display_resources_changed"]
 [connection signal="pressed" from="HBoxContainer/player_panel/VBoxContainer/1_hour_upkeep" to="." method="_on__hour_upkeep_pressed"]
 [connection signal="pressed" from="HBoxContainer/player_panel/VBoxContainer/24_hour_upkeep" to="." method="_on_24_hour_upkeep_pressed"]
 [connection signal="pressed" from="HBoxContainer/in_trade/exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="HBoxContainer/in_trade/VBoxContainer2/confirm" to="." method="_on_confirm_pressed"]
-[connection signal="pressed" from="HBoxContainer/in_trade/VBoxContainer2/reset" to="." method="_on_reset_pressed"]
-[connection signal="invalid_move" from="HBoxContainer/trader_panel/trader_inventory_display" to="." method="_on_trader_inventory_display_invalid_move"]
+[connection signal="pressed" from="HBoxContainer/in_trade/VBoxContainer2/reset" to="." method="reset_trade"]
 [connection signal="item_received" from="HBoxContainer/trader_panel/trader_inventory_display" to="." method="_on_trader_inventory_display_item_received"]
+[connection signal="pressed" from="exit_prompt/PanelContainer/VBoxContainer/HBoxContainer/reset_and_exit" to="." method="_on_reset_and_exit_pressed"]
+[connection signal="pressed" from="exit_prompt/PanelContainer/VBoxContainer/HBoxContainer/return" to="." method="_on_return_pressed"]
 
 [editable path="HBoxContainer/player_panel/player_inventory_display"]
 [editable path="HBoxContainer/trader_panel/trader_inventory_display"]

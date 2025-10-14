@@ -20,7 +20,9 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 
 @export_group("More specific adjustments")
 @export var angle_adjust:int;
-@export var melee:bool=false; 
+@export var melee:bool=false;
+
+
 
 @export_group("Feedback, visuals, sounds")
 ## used directly via script rather than by other parts.
@@ -44,9 +46,7 @@ var item_texture:Texture = texture;
 func use(_alt:bool=false)->void:
 	## these are gonna look a lot similar between eachother but i'd 
 	## still rather have them all on their own scripts 
-	printerr("NOUJSE")
-func impact()->void:
-	printerr("NOIMPACT")
+	printerr(name + " MISSING USE")
 	
 func final_damage()->int:
 	var damage:int = Entities.player.combat_stats.attack;

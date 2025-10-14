@@ -10,7 +10,9 @@ var equipped_accessories:Array[Accessory]
 func add_unit(unit:FighterUnit)->void:
 	assert(not units.has(unit));
 	units.append(unit)
-
+func remove_unit(unit:FighterUnit)->void:
+	assert(units.has(unit));
+	units.erase(unit)
 
 
 func _on_child_entered_tree(node: Node) -> void:
@@ -19,3 +21,19 @@ func _on_child_entered_tree(node: Node) -> void:
 	if not units.has(node):
 		add_unit(node)
 	remove_child.call_deferred(node);
+	
+func get_level()->int:
+	var level:int = 0;
+	## TODO make this more sophisticated?
+	## more value from:
+	## having more unique units
+	for unit:FighterUnit in units:
+		## higher unit count yields more than just higher average levels
+		level += unit.level + len(unit.base.tags);
+	return level
+
+func clear_units()->void:
+	## units just get freed as they become unreferenced?
+	while len(units):
+		remove_unit(units[0]);
+		

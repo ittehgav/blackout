@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpu4aip3dy4kq"]
+[gd_scene load_steps=10 format=3 uid="uid://cpu4aip3dy4kq"]
 
 [ext_resource type="Script" uid="uid://dm5uha7g5jd0t" path="res://scenes/index/items/weapons/scripts/tailpipe.gd" id="1_1n7ey"]
 [ext_resource type="Texture2D" uid="uid://vvpqjj3pxtbs" path="res://assets/visual/items/weapons/pipe.png" id="1_4334k"]
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="3_jqu0q"]
 [ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="4_0adw8"]
+[ext_resource type="AnimationLibrary" uid="uid://bab1r78n55lyt" path="res://resources/animations/weapon_generic.res" id="5_0adw8"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="5_hl2mp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_053ln"]
-radius = 50.0
+radius = 74.63578
 
 [sub_resource type="Animation" id="Animation_053ln"]
 length = 0.001
@@ -47,77 +49,20 @@ tracks/2/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_fo0i3"]
-resource_name = "swing"
-length = 0.15
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.13, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 2.0943951023931953, 4.783947479716458, 0.0]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"impact"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(18.892157, 18.892157, 18.892157, 1), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:skew")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 1.305506280491758, 0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jqu0q"]
 _data = {
-&"RESET": SubResource("Animation_053ln"),
-&"swing": SubResource("Animation_fo0i3")
+&"RESET": SubResource("Animation_053ln")
 }
 
 [node name="Tailpipe" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "animation_player", "use_sfx", "hit_sfx")]
-self_modulate = Color(1, 0.5686275, 0.5686275, 1)
 use_parent_material = true
+position = Vector2(6, 0)
 texture = ExtResource("1_4334k")
 offset = Vector2(30, -15)
 script = ExtResource("1_1n7ey")
-base_damage = 50
+base_damage = 20
 cooldown = 1.0
 hit_scan = NodePath("hit_scan")
-angle_adjust = -30
 melee = true
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("use_sfx")
@@ -130,18 +75,24 @@ stream = ExtResource("3_jqu0q")
 stream = ExtResource("4_0adw8")
 
 [node name="hit_scan" type="Area2D" parent="."]
-position = Vector2(53, 53)
+position = Vector2(83, 1)
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan"]
-position = Vector2(-9.5, -26.5)
 shape = SubResource("CircleShape2D_053ln")
 debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
 
+[node name="Sprite2D" type="Sprite2D" parent="hit_scan"]
+modulate = Color(1, 1, 1, 0.15294118)
+position = Vector2(1, -1)
+scale = Vector2(6, 8)
+texture = ExtResource("5_hl2mp")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_jqu0q")
+&"": SubResource("AnimationLibrary_jqu0q"),
+&"weapon_generic": ExtResource("5_0adw8")
 }

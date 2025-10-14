@@ -37,16 +37,16 @@ func get_description()->String:
 	if equippable.player and equippable.unit and not exclusive_tag:
 		description += "anyone";
 	else:
-		if equippable.player:
-			description += "you";
 		if equippable.unit:
-			if exclusive_tag != "none":
+			if exclusive_tag:
 				## only makes it here when not player or has exclusive tag
+				description += exclusive_tag+"s"
 				if equippable.player:
-					description += " and "
-				description += Index.get_color_tag(exclusive_tag) + exclusive_tag+"s[/color]";
+					description += " and " + exclusive_tag + "s"
 			else:
 				description += "units"
+		if equippable.player:
+			description += "you";
 	description += ".\n";
 	
 	if stat_modifiers:

@@ -38,6 +38,7 @@ Tweens="*res://global/tweens.tscn"
 
 [debug]
 
+gdscript/warnings/unassigned_variable=0
 gdscript/warnings/unused_signal=0
 gdscript/warnings/untyped_declaration=2
 gdscript/warnings/integer_division=0
@@ -48,7 +49,7 @@ gdscript/warnings/narrowing_conversion=0
 window/size/viewport_width=1280
 window/size/viewport_height=720
 mouse_cursor/custom_image="uid://sjiy6rhhrwbb"
-mouse_cursor/custom_image_hotspot=Vector2(15, 15)
+mouse_cursor/custom_image_hotspot=Vector2(32, 32)
 
 [editor_plugins]
 
@@ -67,8 +68,8 @@ folder_colors={
 [global_group]
 
 all_settlements="Nodes that get saved"
-all_buildings="all buildings, for calling routines associates with the global clock"
 aoe_projections="projections for AOE attacks that only appear when the unit is not on the player's team in battle"
+all_locations="all buildings, for calling routines associates with the global clock"
 
 [gui]
 
@@ -224,7 +225,7 @@ skip_time={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://resources/dialogues/buildings/chop_shop.dialogue", "res://resources/dialogues/buildings/farmer.dialogue", "res://resources/dialogues/buildings/gas_station.dialogue", "res://resources/dialogues/buildings/gym.dialogue", "res://resources/dialogues/buildings/tech_shop.dialogue", "res://resources/dialogues/buildings/hoarder.dialogue", "res://resources/dialogues/buildings/wandering_trader.dialogue", "res://resources/dialogues/buildings/factory_worker.dialogue")
+locale/translations_pot_files=PackedStringArray("res://resources/dialogues/buildings/chop_shop.dialogue", "res://resources/dialogues/buildings/farmer.dialogue", "res://resources/dialogues/buildings/gas_station.dialogue", "res://resources/dialogues/buildings/gym.dialogue", "res://resources/dialogues/buildings/tech_shop.dialogue", "res://resources/dialogues/buildings/hoarder.dialogue", "res://resources/dialogues/buildings/wandering_trader.dialogue", "res://resources/dialogues/buildings/factory_worker.dialogue", "res://resources/dialogues/buildings/laboratory.dialogue", "res://resources/dialogues/buildings/black_market.dialogue")
 
 [layer_names]
 

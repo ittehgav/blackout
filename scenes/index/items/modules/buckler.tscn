@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcbeey2233tbx"]
+[gd_scene load_steps=8 format=3 uid="uid://dcbeey2233tbx"]
 
 [ext_resource type="Texture2D" uid="uid://g5tyfnvg4mb1" path="res://assets/visual/items/modules/buckler.png" id="1_bn410"]
 [ext_resource type="Script" uid="uid://tck3osf7tfmr" path="res://scenes/index/items/modules/scripts/buckler.gd" id="2_gf6e3"]
-[ext_resource type="AudioStream" uid="uid://dtj16ra384v1x" path="res://assets/sound/sfx/combat/special/metal_impact.mp3" id="3_m5gh8"]
 [ext_resource type="Texture2D" uid="uid://gmnr7cy0edbe" path="res://assets/visual/particles/parry_cue.png" id="4_2a87t"]
 [ext_resource type="AudioStream" uid="uid://4ikkw4ry3skw" path="res://assets/sound/sfx/combat/player/parry.wav" id="4_xxsex"]
 
@@ -50,10 +49,9 @@ script = ExtResource("2_gf6e3")
 parry_timer = NodePath("parry_timer")
 parry_cue = NodePath("parry_cue")
 parry_sfx = NodePath("parry_sfx")
-continuous = true
 cooldown = 5.0
-sfx = ExtResource("3_m5gh8")
 animation_player = NodePath("parry_cue/AnimationPlayer")
+continuous = true
 color_tag = "defense"
 
 [node name="parry_sfx" type="AudioStreamPlayer" parent="."]

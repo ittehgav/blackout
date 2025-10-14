@@ -2,8 +2,5 @@
 Mechanic: Hello, are you interested in our services?
 - #trade_menu
 - #recruitment_menu
-- What can i do here? =>< info
 - #leave
 
-~ info
-Mechanic: Here you can [u]Purchase items, recruit and upgrade mechanics[/u]. => start

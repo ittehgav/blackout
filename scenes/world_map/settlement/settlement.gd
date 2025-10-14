@@ -14,7 +14,7 @@ var neighbors:Array[Settlement];
 var neighbor_paths:Dictionary[Settlement, PackedVector2Array];
 
 @export var sprite:Sprite2D;
-var buildings:Array[Building];
+var locations:Array[Location];
 
 @export var hover_box:Control;
 @export var hint:Label;
@@ -23,19 +23,18 @@ var buildings:Array[Building];
 var unique_name:String;
 
 func _ready()->void:
-	if len(buildings) == 1:
-		sprite.texture = buildings[0].map_texture
-		name = buildings[0].name
-		unique_name = buildings[0].name
+	if len(locations) == 1:
+		sprite.texture = locations[0].map_texture
+		name = locations[0].name
+		unique_name = locations[0].name
 	else:
 		## TODO somehow give them unique names?
 		name = "Street"
 		unique_name = "Street"
 
 func _on_child_entered_tree(node: Node) -> void:
-	if node is Building:
-		remove_child.call_deferred(node)
-		buildings.append(node)
+	if node is Location and not node in locations:
+		locations.append(node)
 
 
 func _on_hover_box_mouse_entered() -> void:

@@ -45,11 +45,11 @@ func aoe_stun(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan)->voi
 		stun_target(source, target)
 
 
-func self_stat_buff(source:ActiveFighter)->void:
-	for stat:String in source.base.stats_to_buff:
-		var value:float = source.base.stat_buff_values[stat];
-		value = Scaling.technique_scaled_value(value, source.technique, "stat_buff")
-		apply_stat_change(source, source, value, stat)
+func self_stat_buff(source:ActiveFighter, stat:String, value:float)->void:
+	source.catch_hit_target(source);
+	var final_value:float = Scaling.technique_scaled_value(value, source.technique, "stat_buff");
+	apply_stat_change(source, source, final_value, stat)
+
 
 func aoe_stat_buff(source:ActiveFighter, stat:String, frac:float)->void:
 	var targets:Array[Node2D] = source.hit_scan.get_overlapping_bodies();
@@ -60,34 +60,13 @@ func aoe_stat_buff(source:ActiveFighter, stat:String, frac:float)->void:
 		var value:float = Scaling.technique_scaled_value((target[stat] * frac), source.technique, "stat_buff");
 		apply_stat_change(source, target, value, stat);
 		
-func aoe_taunt(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan, duration:float = 3)->void:
-	var targets:Array[Node2D] = hit_scan.get_overlapping_bodies();
-	for unit in targets:
-		if source is NpcFighter:
-			source.catch_hit_target(unit)
-		if unit is NpcFighter:
-			taunt_target(source, unit, duration);
 
-func taunt_target(source:ActiveFighter, target:ActiveFighter, duration:float )->void:
-	Statuses.apply_status(source, target, "taunt", duration )
-
-func aoe_stat_debuff(source:ActiveFighter, percentage:bool=false, hit_scan:Area2D = source.base.hit_scan)->void:
+func aoe_stat_debuff(source:ActiveFighter,hit_scan:Area2D, stat:String, amount:int)->void:
 	## TODO make this work the same way as aoe buff
 	var targets:Array[Node2D] = hit_scan.get_overlapping_bodies();
-	for unit in targets:
-		if source is NpcFighter:
-			source.catch_hit_target(unit);
-
-		for stat:String in source.base.stats_to_debuff:
-			## stat debuff values are multiplied by - 1 here
-			var value:float;
-			if percentage:
-				var fraction:float = (unit[stat]/100) * source.base.stat_debuff_values[stat];
-				value = -Scaling.technique_scaled_value(fraction, source.technique, "stat_debuff");
-			else:
-				value = -Scaling.technique_scaled_value(source.base.stat_debuff_values[stat], source.technique, "stat_debuff")
-			apply_stat_change(source, unit, value, stat);
-
+	for unit:ActiveFighter in targets:
+		source.catch_hit_target(unit)
+		Combat.apply_stat_change(source, unit, -amount, stat);
 func set_aoe_aim(source:NpcFighter)->void:
 	var shape:Shape2D = source.base.hit_scan.get_node("shape").shape;
 	if shape is CircleShape2D:

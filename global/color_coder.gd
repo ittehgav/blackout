@@ -24,15 +24,30 @@ func cache_fighter_base_texture(texture:Texture, scheme_index:int, base_name:Str
 	var new_texture:Texture = hue_shift_texture(texture, hue_1, hue_2);
 	fighter_base_texture_cache[scheme_index][base_name] = new_texture;
 
-func color_code_fighter(base:FighterBase, scheme_index:int, sample:bool=false)->void:
+func color_code_fighter(fighter:ActiveFighter, scheme_index:int, sample:bool=false)->void:
+	var base:FighterBase = fighter.base
 	if not scheme_index in fighter_base_texture_cache or \
 	not base.name in fighter_base_texture_cache[scheme_index]:
 		cache_fighter_base_texture(base.texture, scheme_index,base.name)
 	base.texture = fighter_base_texture_cache[scheme_index][base.name]
 	
+	color_code_fighter_overlay(fighter.overlay, fighter.ally_team)
+
 	if not sample:
 		var outline_color:Color = Index.color_schemes[scheme_index][1].darkened(fighter_sprite_darkening)
 		base.material.set_shader_parameter("color", outline_color)
+
+func color_code_fighter_overlay(target:FighterOverlay, team:Team)->void:
+	var hp_bar_color:Color;
+	match team.team_n:
+		1:
+			hp_bar_color = Color.LIGHT_BLUE;
+		2:
+			hp_bar_color = Color.INDIAN_RED
+	
+	target.hp_bar.tint_progress = hp_bar_color;
+	target.outline.border_color = hp_bar_color + Color.from_hsv(0, .4, -.5);
+	target.bg.color = hp_bar_color + Color.from_hsv(0, 0, -.5)
 
 
 func color_code_fighter_base_texture(base:FighterBase, scheme_index:int)->Texture:

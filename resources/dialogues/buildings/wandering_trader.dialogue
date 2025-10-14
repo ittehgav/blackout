@@ -1,11 +1,5 @@
-import "" as common
-
 ~ start
-Tech Specialist: Hello, looking to upgrade your hardware?
+Tech Specialist: Hello, care to browse my wares?
 - #trade_menu
-- #recruitment_menu
-- What can i do here => info
 - #leave => END!
 
-~ info
-Tech Specialist: Here you can [u]purchase special high-tech items.[/u] => start

@@ -11,7 +11,7 @@ offset_right = -1232.0
 offset_bottom = -672.0
 grow_horizontal = 2
 grow_vertical = 2
-border_color = Color(0.168627, 0.0431373, 0.0431373, 1)
+border_color = Color(0.0385, 0.04425, 0.05, 1)
 border_width = 5.0
 editor_only = false
 script = ExtResource("1_kfb6x")
@@ -41,7 +41,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.46, 0.260973, 0.1886, 1)
+color = Color(0.43200004, 0.446, 0.6, 1)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

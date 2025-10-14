@@ -8,7 +8,7 @@ func _ready()->void:
 
 
 func _on_timeout() -> void:
-	world_map.current_minute += minutes_per_tick;
+	world_map.current_minute += minutes_per_tick
 	if world_map.current_minute >= 60:
 		world_map.current_minute = 0;
 		advance_hour();
@@ -22,6 +22,7 @@ func advance_hour()->void:
 
 func advance_day()->void:
 	world_map.day_passed.emit()
+	get_tree().call_group("all_locations", "day_passed");
 	world_map.current_day += 1;
 	if world_map.current_day == 32:
 		advance_month();

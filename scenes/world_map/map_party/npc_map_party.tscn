@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx5uf6d1k6xst"]
+
+[ext_resource type="Script" uid="uid://bwjsw1ev6g5te" path="res://scenes/world_map/map_party/npc_map_party.gd" id="1_ik2nv"]
+[ext_resource type="PackedScene" uid="uid://ysjmmqfgowae" path="res://scenes/world_map/map_party/map_party_status.tscn" id="2_bkqts"]
+
+[node name="NpcMapParty" type="Node2D"]
+script = ExtResource("1_ik2nv")
+
+[node name="map_party_status" parent="." instance=ExtResource("2_bkqts")]

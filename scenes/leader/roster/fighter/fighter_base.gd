@@ -5,9 +5,16 @@ class_name FighterBase
 signal skill_finished;
 ## right now just a fighterbase that doesn't move
 
+const MELEE_RANGE = 100
+const MID_RANGE = 300;
+const LONG_RANGE = 750;
+
+
 @export var fighter:ActiveFighter;
 @export var animation_player:AnimationPlayer
 @export var hit_scan:Area2D;
+
+@export var hard_stats:CombatStats;
 
 ## feels like i'd rather keep this tracked even though right now there's only one option
 @export_enum("nearest_enemy") var target_type:String = "nearest_enemy";
@@ -30,8 +37,8 @@ signal skill_finished;
 @export var special:bool=false;
 @export var need_target:bool=true;
 @export var global_hit_scan:bool=false;
+@export var no_damage:bool=false
 
-const MELEE_RANGE = 100
 
 func fighter_died()->Tween:
 	modulate.v = .5;
@@ -55,6 +62,9 @@ func fighter_stopped_moving()->void:
 	else:
 		animation_player.queue(idle_animation_root+"/idle")
 
+func final_skill_cooldown(unit:FighterUnit)->float:
+	var base_cooldown:float = self["skill_cooldown"]
+	return base_cooldown - (base_cooldown/10) * unit.final_stats().technique;
 func skill()->void:
 	printerr("skillmissing");
 

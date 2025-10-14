@@ -16,7 +16,7 @@ var item:Item;
 @export var button:TextureButton
 
 
-func load_item(new_item:Item, sample_scale:int=2.5)->void:
+func load_item(new_item:Item, sample_scale:int)->void:
 	item = new_item;
 	blank.hide();
 	texture = item.texture;
@@ -40,7 +40,7 @@ func load_item(new_item:Item, sample_scale:int=2.5)->void:
 
 
 
-func load_blank(sample_scale:int = 1)->void:
+func load_blank(sample_scale:int = 2)->void:
 	modifier_sign.hide()
 	blank.show();
 	modulate = Color.WHITE
@@ -64,9 +64,9 @@ func highlight_blink()->void:
 func _on_mouse_entered() -> void:
 	outline.modulate.v = .6;
 
-
+@onready var initial_outline_v:float = outline.modulate.v
 func _on_mouse_exited() -> void:
-	outline.modulate.v = .196
+	outline.modulate.v = initial_outline_v
 
 
 func _on_texture_button_pressed() -> void:

@@ -145,11 +145,11 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ch0d"]
-radius = 50.0
+radius = 29.00431
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8tws"]
-radius = 34.5
-height = 69.0
+radius = 17.5
+height = 35.0
 
 [node name="Challenger" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan")]
 material = ExtResource("1_2rj4t")
@@ -157,10 +157,12 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_8x1bb")
 hframes = 3
 vframes = 3
+frame = 4
 script = ExtResource("3_4ptb3")
 animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("hit_scan")
 tags = Array[String](["mechanic", "juggernaut", "disruptor"])
+no_damage = true
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_nmtv1")
@@ -188,14 +190,14 @@ scale = Vector2(3, 3)
 texture = ExtResource("6_p76p2")
 
 [node name="dust" parent="." instance=ExtResource("7_gwi8n")]
-position = Vector2(20.5, 30)
+position = Vector2(9, 4.5)
 scale = Vector2(0.5, 0.5)
 
 [node name="dust2" parent="." instance=ExtResource("7_gwi8n")]
-position = Vector2(-25.5, 30)
+position = Vector2(-11, 4.5)
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(-4.5, 4)
+position = Vector2(-2, 2)
 shape = SubResource("CapsuleShape2D_o8tws")
 
 [editable path="dust"]

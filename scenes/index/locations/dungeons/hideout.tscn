@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://vbp24a3cvbde"]
+
+[ext_resource type="Script" uid="uid://qm0sco0on2a5" path="res://scenes/in_settlement/locations/dungeon.gd" id="1_hdoil"]
+[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_g3r3g"]
+[ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/dungeon_roster.tscn" id="2_lb6wb"]
+[ext_resource type="Texture2D" uid="uid://dg2kk4y1naqri" path="res://assets/visual/sprites/settlements/hideout_1.png" id="2_s6m70"]
+[ext_resource type="Texture2D" uid="uid://dl1jf1ey3lufv" path="res://assets/visual/buildings/icons/dungeons/hideout.png" id="4_6cc7d"]
+
+[node name="Hideout" type="Node2D" node_paths=PackedStringArray("waves")]
+script = ExtResource("1_hdoil")
+highest_level_target = 100
+waves = [NodePath("DungeonRoster"), NodePath("DungeonRoster2"), NodePath("DungeonRoster3")]
+tile_layout_scene = ExtResource("2_g3r3g")
+size = 3
+map_texture = ExtResource("2_s6m70")
+map_texture_modulate = Color(0.4862745, 0.32156864, 0, 1)
+icon_texture = ExtResource("4_6cc7d")
+metadata/_custom_type_script = "uid://qm0sco0on2a5"
+
+[node name="DungeonRoster" parent="." instance=ExtResource("2_lb6wb")]
+
+[node name="DungeonRoster2" parent="." instance=ExtResource("2_lb6wb")]
+
+[node name="DungeonRoster3" parent="." instance=ExtResource("2_lb6wb")]
+
+[connection signal="daily_reset" from="." to="." method="_on_daily_reset"]

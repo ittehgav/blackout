@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://din7hbi7hky10"]
+
+[ext_resource type="Texture2D" uid="uid://bv16dk0navm77" path="res://assets/visual/buildings/gym.png" id="1_ex7s8"]
+[ext_resource type="Script" uid="uid://dy4crh0bwxl3o" path="res://scenes/in_settlement/locations/front_porch.gd" id="2_n0467"]
+[ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/in_settlement/speaker.tscn" id="3_bx8h1"]
+[ext_resource type="Resource" uid="uid://dokhfju851vld" path="res://resources/dialogues/buildings/gym.dialogue" id="4_gjj0i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uyiyh"]
+resource_local_to_scene = true
+radius = 124.036
+
+[node name="GymFrontPorch" type="TextureRect" node_paths=PackedStringArray("right_side_anchor")]
+offset_top = -400.0
+offset_right = 640.0
+offset_bottom = 112.0
+texture = ExtResource("1_ex7s8")
+script = ExtResource("2_n0467")
+right_side_anchor = NodePath("right_anchor")
+metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(32, 94)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(340, 306, 340, 224, 408, 224, 408, 263, 436, 294, 436, 306, 520, 306, 596, 154, 596, -94, 46, -94, -32, 62, -32, 306)
+
+[node name="Speaker" parent="." instance=ExtResource("3_bx8h1")]
+z_index = 1
+position = Vector2(432, 350)
+dialogue = ExtResource("4_gjj0i")
+
+[node name="CollisionShape2D" parent="Speaker/Area2D" index="0"]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_uyiyh")
+
+[node name="right_anchor" type="Node2D" parent="."]
+position = Vector2(552, 400)
+
+[editable path="Speaker"]

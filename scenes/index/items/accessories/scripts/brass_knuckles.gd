@@ -22,13 +22,13 @@ func check_bonus(target:Weapon)->void:
 	if target.melee:
 		var bonus_multiplier:float = .2;
 		if current_attack_change:
-			Entities.player_fighter.in_battle_stat_modifiers.attack -= current_attack_change
+			Entities.player_fighter.stat_modifiers.attack -= current_attack_change
 		
 		var other_accessory:Accessory = other_equipped_accessory();
 		
 		if other_accessory and other_accessory.scene_file_path == scene_file_path:
 			bonus_multiplier = .4
-			
+
 		current_attack_change = target.base_tamage * bonus_multiplier;
 		
 		Combat.apply_stat_change(Entities.player_fighter, Entities.player_fighter, current_attack_change, "attack");

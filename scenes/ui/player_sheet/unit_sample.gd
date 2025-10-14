@@ -19,7 +19,7 @@ func load_unit(unit:FighterUnit, callback:Callable)->void:
 	if unit.equipped_accessory:
 		accessory_sample.load_item(unit.equipped_accessory,  1);
 	else:
-		accessory_sample.load_blank();
+		accessory_sample.load_blank(1);
 	
 	pressed.connect(callback);
 	

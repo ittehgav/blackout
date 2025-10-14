@@ -114,7 +114,7 @@ func camera_recoil(fighter:ActiveFighter)->Tween:
 	fighter.camera.offset = shift
 	
 	var tween:Tween = create_tween();
-	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .25 );
+	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .5 );
 	return tween;
 
 func ui_fade_in(target:CanvasItem, duration:float = .5)->Tween:

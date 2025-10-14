@@ -4,8 +4,17 @@
 [ext_resource type="Script" uid="uid://dwsdxh85q0h4v" path="res://scenes/index/items/modules/scripts/adrenaline_synthethizer.gd" id="2_vxjm1"]
 [ext_resource type="AudioStream" uid="uid://cf5r6sya87ovr" path="res://assets/sound/sfx/combat/player/adrenaline.wav" id="3_pw1h4"]
 
-[node name="Adrenaline Synthethizer" type="Sprite2D"]
+[node name="Adrenaline Synthethizer" type="Sprite2D" node_paths=PackedStringArray("use_sfx")]
 texture = ExtResource("1_58m51")
 script = ExtResource("2_vxjm1")
-sfx = ExtResource("3_pw1h4")
+use_sfx = NodePath("use_sfx")
+cooldown = 5.0
+continuous = null
+ammo_type = "juice"
+ammo_cost = 2
 color_tag = "agility"
+inventory_position = null
+stack_size = null
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_pw1h4")

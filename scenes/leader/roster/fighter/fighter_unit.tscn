@@ -28,3 +28,4 @@ move_speed = 1.0
 
 [connection signal="accessory_equipped" from="." to="." method="_on_accessory_equipped"]
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="level_up" from="." to="." method="update_stats"]

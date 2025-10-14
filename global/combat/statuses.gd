@@ -17,7 +17,7 @@ func apply_status(source:ActiveFighter, target:ActiveFighter,  type:String, dura
 			## TODO multiplier stat changes
 			status_data.amount = data.amount;
 			status_data.stat = data.stat;
-			target.in_battle_stat_modifiers[data.stat] += data.amount;
+			target.stat_modifiers[data.stat] += data.amount;
 			
 			target.stat_changed.emit(data.stat);
 
@@ -67,3 +67,17 @@ func remove_stun(target:ActiveFighter)->void:
 		target.timers.set_process_mode(PROCESS_MODE_INHERIT)
 	else:
 		target.move_speed = 500;
+
+var player_pre_suppress_move_speed:int;
+func suppress_fighter(target:ActiveFighter)->void:
+	## will bother implementing this for NPC fighters 
+	## once there's anything that suppresses them 
+	if target is PlayerFighter:
+		player_pre_suppress_move_speed = target.move_speed;
+		target.move_speed = 0
+		target.equipment.process_mode = Node.PROCESS_MODE_DISABLED;
+		
+func clear_suppress(target:ActiveFighter)->void:
+	if target is PlayerFighter:
+		target.move_speed = player_pre_suppress_move_speed;
+		target.equipment.process_mode = Node.PROCESS_MODE_INHERIT;

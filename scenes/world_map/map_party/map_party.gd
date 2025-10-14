@@ -8,9 +8,6 @@ signal stopped_moving;
 signal settlement_visited(settlement:Settlement)
 signal settlement_entered(settlement:Settlement);
 
-## match this to the road tilemap directly one of these days
-@export var status:MapPartyStatus;
-
 const road_cell_size = 32;
 
 @export var leader:Leader;
@@ -58,34 +55,38 @@ func start_navigation_tween()->void:
 	while len(current_path) > 0:
 		get_next_cell();
 		navigation_tween.tween_property(self, "global_position", next_cell, irl_cell_travel_time)
-	navigation_tween.tween_callback(finish_navigation_tween)
+	navigation_tween.tween_callback(navigation_finished)
 	
-func finish_navigation_tween()->void:
-	current_settlement = movement_target;
-	settlement_visited.emit(movement_target)
-	return;
-	
+func navigation_finished()->void:
+	visit_settlement(movement_target)
+
+
 
 
 func get_next_cell()->void:
+	var previous_cell:Vector2 = next_cell;
 	next_cell = current_path.pop_front() * road_cell_size;
-	var direction:Vector2i = next_cell - position
+	var direction:Vector2i = next_cell - previous_cell
 	var direction_vector:Vector2i;
-	
 	if direction.x > 0:
 		direction_vector = Vector2i.RIGHT
 	elif direction.x < 0:
 		direction_vector = Vector2i.LEFT
 	elif direction.y < 0:
 		direction_vector = Vector2i.UP
-	else:
+	elif direction.y > 0:
 		direction_vector = Vector2i.DOWN;
-	if vehicle.current_direction != direction_vector:
-		navigation_tween.tween_callback(vehicle.adjust_direction.bind(direction_vector))
+	navigation_tween.tween_callback(vehicle.adjust_direction.bind(direction_vector))
 
 
 func get_travel_minutes(target:Settlement)->int:
-	## BUG THIS UNDERESTIMATES IN A WAY WHERE THE LONGER THE DISTANCE, THE MORE IT UNDERSHOOTS
 	var cell_distance:int = Entities.road.get_settlement_distance(current_settlement, target);
 	var final_minutes:int = (cell_distance*60) /navigation_speed
 	return final_minutes
+
+
+func visit_settlement(target:Settlement = current_settlement)->void:
+	current_settlement = target;
+	current_settlement.data.visited = true;
+	settlement_visited.emit(target)
+	target.player_visited.emit()

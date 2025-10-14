@@ -6,27 +6,27 @@
 [ext_resource type="AudioStream" uid="uid://c275jcn8n3vda" path="res://assets/sound/bgm/loops/encounter.ogg" id="5_hujxm"]
 [ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="6_ouso4"]
 [ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/world_map.ogg" id="7_62atk"]
-[ext_resource type="AudioStream" uid="uid://cbb5k61nskf8o" path="res://assets/sound/bgm/loops/combat.ogg" id="9_7smn1"]
+[ext_resource type="AudioStream" uid="uid://el4bmf22ek8h" path="res://assets/sound/bgm/loops/combat.ogg" id="7_blune"]
 [ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/in_settlement.ogg" id="9_ouso4"]
 [ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="13_i7in8"]
 [ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="14_0bhws"]
-[ext_resource type="Script" uid="uid://c5ydkff6c2nyn" path="res://scenes/main/control.gd" id="31_ii537"]
+[ext_resource type="Script" uid="uid://c5ydkff6c2nyn" path="res://scenes/main/loading_screen.gd" id="31_ii537"]
 [ext_resource type="Texture2D" uid="uid://drce0fgyc1x5i" path="res://assets/visual/splash/barrel.jpg" id="32_ii537"]
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" node_paths=PackedStringArray("main_bgm")]
 script = ExtResource("1_8gx17")
-state = "main"
 main_menu_ui_scene = ExtResource("2_th5th")
+main_bgm = NodePath("main_bgm")
 
 [node name="main_bgm" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-volume_db = -15.0
+volume_db = -10.0
 bus = &"music"
 script = ExtResource("6_ouso4")
 intro = ExtResource("4_blune")
 world_map = ExtResource("7_62atk")
 encounter = ExtResource("5_hujxm")
-battle = ExtResource("9_7smn1")
+battle = ExtResource("7_blune")
 victory = ExtResource("14_0bhws")
 defeat = ExtResource("13_i7in8")
 in_settlement = ExtResource("9_ouso4")
@@ -58,6 +58,8 @@ grow_vertical = 2
 texture = ExtResource("32_ii537")
 expand_mode = 3
 
-[connection signal="state_changed" from="." to="." method="_on_state_changed"]
-[connection signal="state_changed" from="." to="main_bgm" method="_on_main_state_changed"]
+[connection signal="scenario_changed" from="." to="main_bgm" method="_on_main_scenario_changed"]
+[connection signal="substate_changed" from="." to="main_bgm" method="_on_main_substate_changed"]
 [connection signal="finished" from="main_bgm" to="main_bgm" method="_on_finished"]
+
+[editable path="main_menu"]

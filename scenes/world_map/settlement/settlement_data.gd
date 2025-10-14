@@ -2,5 +2,5 @@ extends Node
 
 class_name SettlementData
 
-var seen:bool=false;
-var visited:bool=false;
+@export var seen:bool=false;
+@export var visited:bool=false;

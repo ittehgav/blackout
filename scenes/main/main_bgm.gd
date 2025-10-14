@@ -29,7 +29,7 @@ func play_bgm(key:String)->void:
 		pitch_scale = 1;
 		stream = target_stream;
 
-		#play();
+		play();
 
 
 func _on_finished() -> void:
@@ -37,7 +37,41 @@ func _on_finished() -> void:
 		play()
 
 
-func _on_main_state_changed(new_state: String) -> void:
-		## eventually diversify osts i suppose
-		assert(new_state in self)
-		play_bgm(new_state);
+func _on_main_scenario_changed(new: String, _old: String) -> void:
+	match new:
+		"main":
+			play_bgm("main")
+		"world_map":
+			play_bgm("world_map")
+
+		"in_settlement":
+			var location:Location = Entities.player_party.current_settlement.locations[0];
+			## will only ever hit a key if it's a single-location settlement?
+			var key:String = location.bgm_key;
+			if key:
+				play_bgm(key)
+			else:
+				if location is Building:
+					play_bgm("in_settlement")
+				elif location is Dungeon:
+					play_bgm("combat")
+
+
+func _on_main_substate_changed(new: String, _previous: String) -> void:
+	match new:
+		"main":
+			volume_db = -10;
+		"dialogue":
+			volume_db = -15
+		"pre_battle":
+			volume_db = 0;
+			play_bgm("battle")
+		"battle_finishing":
+			stop();
+		"post_battle":
+			if Entities.arena.won_battle:
+				volume_db = -10
+				play_bgm('victory');
+			else:
+				volume_db = -10
+				play_bgm("defeat")

@@ -1,0 +1,655 @@
+[gd_scene load_steps=31 format=3 uid="uid://b3sr8al76si1g"]
+
+[ext_resource type="Script" uid="uid://nrp8ddsmtldq" path="res://scenes/battle/arena/arena.gd" id="1_i4yf0"]
+[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout.tscn" id="2_awn3j"]
+[ext_resource type="Script" uid="uid://dx0yavi260x8a" path="res://scenes/battle/arena/teams.gd" id="3_hkvx5"]
+[ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="4_hdymd"]
+[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="6_awn3j"]
+[ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/player_fighter.tscn" id="7_8stbl"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="7_ajjla"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="8_iln1w"]
+[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="19_w5ded"]
+[ext_resource type="PackedScene" uid="uid://d1eptkluku252" path="res://scenes/index/fighters/special/dummy.tscn" id="20_p7mpf"]
+[ext_resource type="Script" uid="uid://d352anpq848ql" path="res://scenes/battle/arena/hud.gd" id="24_lli5l"]
+[ext_resource type="Texture2D" uid="uid://mdvwwpo0y32y" path="res://assets/visual/ui/bars/tide_bar_bg.png" id="25_rgsom"]
+[ext_resource type="Texture2D" uid="uid://modn6mycxcwv" path="res://assets/visual/ui/bars/tide_bar_fill.png" id="26_ru5xg"]
+[ext_resource type="Script" uid="uid://bamybb8bc8w7m" path="res://scenes/battle/arena/tide_bar.gd" id="27_up874"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="28_qkwvs"]
+[ext_resource type="Texture2D" uid="uid://bnodj0olc5drs" path="res://assets/visual/icons/stats/attack.png" id="29_f4dff"]
+[ext_resource type="Script" uid="uid://dwkmw68qyiw4e" path="res://scenes/battle/arena/weapon_cooldowns.gd" id="30_ign1o"]
+[ext_resource type="Texture2D" uid="uid://vvpqjj3pxtbs" path="res://assets/visual/items/weapons/pipe.png" id="31_ipvku"]
+[ext_resource type="Texture2D" uid="uid://cbptl4cvn7pul" path="res://assets/visual/items/weapons/chakram.png" id="32_yxqh6"]
+[ext_resource type="Script" uid="uid://kbu5wmaftg6a" path="res://scenes/battle/arena/module_cooldown.gd" id="33_v70d8"]
+[ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/items/modules/dodge_roll.png" id="34_anoy1"]
+[ext_resource type="Script" uid="uid://nxkk2asqvdre" path="res://scenes/battle/arena/countdown.gd" id="35_cynq7"]
+
+[sub_resource type="Shader" id="Shader_1ut33"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwet0"]
+resource_local_to_scene = true
+shader = SubResource("Shader_1ut33")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Shader" id="Shader_r4qcv"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_axnw4"]
+resource_local_to_scene = true
+shader = SubResource("Shader_r4qcv")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(6, 2)
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xs7fa"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7mpf"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r4qcv"]
+shader = ExtResource("28_qkwvs")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("team_1", "team_2")]
+y_sort_enabled = true
+script = ExtResource("1_i4yf0")
+team_1 = NodePath("teams/team_1")
+team_2 = NodePath("teams/team_2")
+
+[node name="Hideout" parent="." instance=ExtResource("2_awn3j")]
+
+[node name="teams" type="Node2D" parent="."]
+script = ExtResource("3_hkvx5")
+
+[node name="team_1_projectiles" type="Node2D" parent="teams"]
+
+[node name="team_2_projectiles" type="Node2D" parent="teams"]
+
+[node name="team_1" type="Node2D" parent="teams" node_paths=PackedStringArray("arena", "enemy_team", "projectiles")]
+z_index = 1
+script = ExtResource("4_hdymd")
+arena = NodePath("../..")
+team_n = 1
+enemy_team = NodePath("../team_2")
+projectiles = NodePath("../team_1_projectiles")
+metadata/_custom_type_script = "uid://dclobwhhhy4eu"
+
+[node name="player_fighter" parent="teams/team_1" instance=ExtResource("7_8stbl")]
+material = SubResource("ShaderMaterial_dwet0")
+position = Vector2(444, 10)
+
+[node name="body" parent="teams/team_1/player_fighter" index="6"]
+material = SubResource("ShaderMaterial_axnw4")
+
+[node name="Player" parent="teams/team_1/player_fighter/equipment/module_control" index="1" node_paths=PackedStringArray("equipped_weapon", "equipped_module") instance=ExtResource("6_awn3j")]
+equipped_weapon = NodePath("Inventory/Tailpipe")
+equipped_module = NodePath("Inventory/Dodge Roll")
+
+[node name="Tailpipe" parent="teams/team_1/player_fighter/equipment/module_control/Player/Inventory" index="0" instance=ExtResource("7_ajjla")]
+
+[node name="Dodge Roll" parent="teams/team_1/player_fighter/equipment/module_control/Player/Inventory" index="1" instance=ExtResource("8_iln1w")]
+
+[node name="camera" parent="teams/team_1/player_fighter" index="8"]
+zoom = Vector2(1, 1)
+
+[node name="team_2" type="Node2D" parent="teams" node_paths=PackedStringArray("arena", "enemy_team", "projectiles")]
+z_index = 1
+script = ExtResource("4_hdymd")
+arena = NodePath("../..")
+team_n = 2
+enemy_team = NodePath("../team_1")
+projectiles = NodePath("../team_2_projectiles")
+metadata/_custom_type_script = "uid://dclobwhhhy4eu"
+
+[node name="npc_fighter" parent="teams/team_2" node_paths=PackedStringArray("base") instance=ExtResource("19_w5ded")]
+position = Vector2(449, 172)
+base = NodePath("Dummy")
+
+[node name="Dummy" parent="teams/team_2/npc_fighter" instance=ExtResource("20_p7mpf")]
+material = SubResource("ShaderMaterial_xs7fa")
+
+[node name="npc_fighter2" parent="teams/team_2" node_paths=PackedStringArray("base") instance=ExtResource("19_w5ded")]
+position = Vector2(331, 172)
+base = NodePath("Dummy")
+
+[node name="Dummy" parent="teams/team_2/npc_fighter2" instance=ExtResource("20_p7mpf")]
+material = SubResource("ShaderMaterial_p7mpf")
+
+[node name="ui_canvas" type="CanvasLayer" parent="."]
+
+[node name="hud" type="Control" parent="ui_canvas" node_paths=PackedStringArray("screen_blink_rect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_lli5l")
+screen_blink_rect = NodePath("TextureRect")
+
+[node name="TextureRect" type="ColorRect" parent="ui_canvas/hud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="tide_bar" type="TextureProgressBar" parent="ui_canvas/hud" node_paths=PackedStringArray("arena", "team_1", "team_2", "tide_icon")]
+custom_minimum_size = Vector2(384, 36)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_top = 10.0
+offset_right = 192.0
+offset_bottom = 46.0
+grow_horizontal = 2
+nine_patch_stretch = true
+texture_under = ExtResource("25_rgsom")
+texture_progress = ExtResource("26_ru5xg")
+script = ExtResource("27_up874")
+arena = NodePath("../../..")
+team_1 = NodePath("../../../teams/team_1")
+team_2 = NodePath("../../../teams/team_2")
+tide_icon = NodePath("icon")
+icon_colors = Array[Color]([Color(0.4, 0, 0, 1), Color(0.6, 0.51000005, 0, 1), Color(0.40120003, 0.48483998, 0.68, 1), Color(0.16800001, 0.48, 0.25640002, 1), Color(0.16, 0.8, 0.16, 1)])
+
+[node name="icon" type="TextureRect" parent="ui_canvas/hud/tide_bar"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_r4qcv")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -16.0
+offset_right = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("29_f4dff")
+
+[node name="icon" type="TextureRect" parent="ui_canvas/hud/tide_bar/icon"]
+texture_filter = 1
+use_parent_material = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("29_f4dff")
+expand_mode = 3
+flip_h = true
+
+[node name="cooldowns" type="HBoxContainer" parent="ui_canvas/hud"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -167.0
+offset_right = 230.0
+offset_bottom = -10.0
+grow_vertical = 0
+
+[node name="main_weapon" type="PanelContainer" parent="ui_canvas/hud/cooldowns" node_paths=PackedStringArray("equipment", "main_weapon_cd_timer", "alt_weapon_cd_timer", "alt_weapon_container", "cooldown_bar", "alt_cooldown_bar", "main_weapon_ammo_hbox", "alt_weapon_ammo_hbox")]
+layout_mode = 2
+size_flags_vertical = 8
+script = ExtResource("30_ign1o")
+equipment = NodePath("../../../../teams/team_1/player_fighter/equipment")
+main_weapon_cd_timer = NodePath("../../../../teams/team_1/player_fighter/equipment/weapon_control/weapon_cd")
+alt_weapon_cd_timer = NodePath("../../../../teams/team_1/player_fighter/equipment/weapon_control/alt_weapon_cd")
+alt_weapon_container = NodePath("../VBoxContainer/alt_weapon")
+cooldown_bar = NodePath("VBoxContainer/main_weapon_cooldown")
+alt_cooldown_bar = NodePath("../VBoxContainer/alt_weapon/HBoxContainer/alt_weapon_cooldown")
+main_weapon_ammo_hbox = NodePath("VBoxContainer/main_weapon_ammo")
+alt_weapon_ammo_hbox = NodePath("../VBoxContainer/alt_weapon/HBoxContainer/alt_weapon_ammo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/hud/cooldowns/main_weapon"]
+layout_mode = 2
+
+[node name="main_weapon_cooldown" type="TextureProgressBar" parent="ui_canvas/hud/cooldowns/main_weapon/VBoxContainer"]
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.1
+value = 39.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("31_ipvku")
+texture_progress = ExtResource("31_ipvku")
+tint_under = Color(0, 0, 0, 0.39215687)
+
+[node name="main_weapon_ammo" type="HBoxContainer" parent="ui_canvas/hud/cooldowns/main_weapon/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="ui_canvas/hud/cooldowns/main_weapon/VBoxContainer"]
+layout_mode = 2
+text = "[LMB]"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/cooldowns"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="alt_weapon" type="PanelContainer" parent="ui_canvas/hud/cooldowns/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ui_canvas/hud/cooldowns/VBoxContainer/alt_weapon"]
+layout_mode = 2
+
+[node name="alt_weapon_cooldown" type="TextureProgressBar" parent="ui_canvas/hud/cooldowns/VBoxContainer/alt_weapon/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.1
+fill_mode = 3
+texture_under = ExtResource("32_yxqh6")
+texture_progress = ExtResource("32_yxqh6")
+tint_under = Color(0, 0, 0, 0.39215687)
+
+[node name="alt_weapon_ammo" type="HBoxContainer" parent="ui_canvas/hud/cooldowns/VBoxContainer/alt_weapon/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="ui_canvas/hud/cooldowns/VBoxContainer/alt_weapon/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "[E]"
+horizontal_alignment = 1
+
+[node name="module_cooldown" type="PanelContainer" parent="ui_canvas/hud/cooldowns/VBoxContainer" node_paths=PackedStringArray("module_cd_timer", "module_bar", "module_ammo_hbox")]
+layout_mode = 2
+script = ExtResource("33_v70d8")
+module_cd_timer = NodePath("../../../../../teams/team_1/player_fighter/equipment/module_control/module_cd")
+module_bar = NodePath("VBoxContainer/module_cd")
+module_ammo_hbox = NodePath("VBoxContainer/module_ammo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/hud/cooldowns/VBoxContainer/module_cooldown"]
+layout_mode = 2
+
+[node name="module_cd" type="TextureProgressBar" parent="ui_canvas/hud/cooldowns/VBoxContainer/module_cooldown/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.1
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("34_anoy1")
+texture_progress = ExtResource("34_anoy1")
+tint_under = Color(0, 0, 0, 0.39215687)
+
+[node name="module_ammo" type="HBoxContainer" parent="ui_canvas/hud/cooldowns/VBoxContainer/module_cooldown/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="ui_canvas/hud/cooldowns/VBoxContainer/module_cooldown/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "[spacebar]"
+horizontal_alignment = 1
+
+[node name="countdown_overlay" type="ColorRect" parent="ui_canvas/hud" node_paths=PackedStringArray("arena", "teams", "countdown_label")]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.40392157)
+script = ExtResource("35_cynq7")
+arena = NodePath("../../..")
+teams = NodePath("../../../teams")
+countdown_label = NodePath("Label")
+
+[node name="Label" type="Label" parent="ui_canvas/hud/countdown_overlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -13.0
+offset_right = 20.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 256
+text = "3"
+
+[node name="countdown" type="Timer" parent="ui_canvas/hud/countdown_overlay"]
+autostart = true
+
+[connection signal="child_entered_tree" from="teams/team_1" to="teams/team_1" method="_on_child_entered_tree"]
+[connection signal="unit_converted" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
+[connection signal="unit_died" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_team_1_unit_died"]
+[connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud" method="_on_player_fighter_damage_taken"]
+[connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]
+[connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
+[connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
+[connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/cooldowns/main_weapon" method="check_weapon_disabled"]
+[connection signal="child_entered_tree" from="teams/team_2" to="teams/team_2" method="_on_child_entered_tree"]
+[connection signal="unit_converted" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
+[connection signal="unit_died" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_team_2_unit_died"]
+[connection signal="timeout" from="ui_canvas/hud/countdown_overlay/countdown" to="ui_canvas/hud/countdown_overlay" method="_on_countdown_timeout"]
+
+[editable path="teams/team_1/player_fighter"]
+[editable path="teams/team_1/player_fighter/body"]
+[editable path="teams/team_1/player_fighter/equipment/module_control/Player"]

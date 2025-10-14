@@ -15,7 +15,7 @@ func get_description()->String:
 	var description:String = super();
 	description += "At the start of battle, steal half of the " + Index.stat_colored_name("defense")+\
 	" of the enemy with the highest " + Index.stat_colored_name("defense") +", when that enemy is defeated, this effect activates again.\nEquip alongside [u]forbidden mask[/u] to unlock " +\
-	Index.get_color_tag("attack") + " unimaginable power."
+	Index.get_color_tag("attack") + "unimaginable power."
 	return description;
 
 

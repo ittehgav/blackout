@@ -3,7 +3,6 @@ extends PanelContainer
 
 ## TODO unexport this when entities are declared before loading htis scene
 @export var sfx:SfxPlayer
-@export var player_party:PlayerParty
 
 @export var road_sprite:Sprite2D
 
@@ -16,19 +15,13 @@ extends PanelContainer
 
 
 
-func _ready()->void:
-	player_party.current_settlement.data.seen = true;
-	player_party.current_settlement.data.visited = true;
-	display_current_settlement()
-	
+
+
 func display_current_settlement(target:Settlement = Entities.player_party.current_settlement)->void:
-	if not player_party.current_settlement:
-		return
-	
 	main_text_label.text = target.unique_name;
 	sub_text_label.text = "[spacebar] enter"
 	
-	var settlement_texture:Texture2D = target.get_node("sprite").texture
+	var settlement_texture:Texture2D = target.sprite.texture
 	var texture_size:Vector2 =  settlement_texture.get_size();
 	location_sprite.custom_minimum_size = texture_size * 2
 	
@@ -61,5 +54,5 @@ func _on_player_party_started_moving() -> void:
 	road_sprite.show();
 	
 	main_text_label.text = "Traveling...";
-	sub_text_label.text = "Arrival by [color=white]erm"
+	sub_text_label.text = "[spacebar] speed up time"
 	

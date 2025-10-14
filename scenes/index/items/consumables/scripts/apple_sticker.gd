@@ -6,7 +6,7 @@ const size_y = 1;
 const rarity = 1;
 
 func get_description()->String:
-	return "Use to double the price of an item."
+	return "Use to double the selling price of an item."
 
 func use_on_item(target:Item)->void:
-	target.price_multiplier += 2;
+	target.price_multiplier += 1;

@@ -9,7 +9,6 @@ extends Control
 @export var floating_icon_anchor:Control
 
 func _ready()->void:
-	await player_fighter.ready
 	hp_bar.max_value = player_fighter.max_hp;
 	hp_bar.value = player_fighter.hp;
 
@@ -41,7 +40,6 @@ func _on_player_fighter_status_applied(_source: ActiveFighter, data: Dictionary)
 			add_status_bar(Color.PURPLE, data.timer)
 			
 func ammo_consumed(type:String, _amount:int)->void:
-	print("ac?")
 	var icon:ResourceIcon = Index.scenes.ui.resource_icon.instantiate();
 	icon.resource = type
 	icon.floating = true;

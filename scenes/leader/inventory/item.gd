@@ -32,9 +32,9 @@ var price_change:int;
 var price_multiplier:float=1;
 
 func match_mirror()->void:
+	## encapsulating this because to make it easier to find the calls to this
 	inventory_position = mirror.inventory_position;
-	if self not in mirror.display.inventory.items:
-		mirror.display.inventory.add_item(self);
+
 
 func get_description()->String:
 	return "DESCRIPTION MISSOMG"
@@ -47,3 +47,15 @@ func get_mirror_color()->Color:
 		return target_color;
 	else:
 		return Index.item_rarity_colors[self["rarity"]];
+
+func get_price()->int:
+	## not selling = buying
+	## true price = higher than selling and lowe than buying
+	## true price dont matter right now?
+
+	var price:float = (self["rarity"] + 1) ** 2
+	price *= self["size_x"] * self["size_y"]
+	
+	price += price_change;
+	price *= price_multiplier
+	return int(price)

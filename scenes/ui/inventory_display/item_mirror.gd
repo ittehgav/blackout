@@ -12,6 +12,9 @@ var display:InventoryDisplay;
 @export var stack_size_label:Label;
 @export var price_tag:Label;
 
+@export_group("colors")
+@export var bought_color:Color;
+@export var sold_color:Color
 var item:Item;
 var item_under:ItemMirror;
 
@@ -36,6 +39,8 @@ var highlighted_outline_color:Color
 ## only matters when trading
 var price:float;
 var being_traded:bool = false;
+
+var traded_price:int=0;
 
 
 ## ITEM MIRRORS WILL TAKE AFTER ITEMS AND BEHAVE ON THEIR OWN UNTIL THEY CAN REPLACE ITEMS
@@ -150,7 +155,7 @@ func _on_gui_input(e: InputEvent) -> void:
 					return;
 		else:
 			if e.button_index == MOUSE_BUTTON_LEFT and\
-			(not display.inventory is NpcInventory or not item in display.inventory.fixed_items):
+			(display.from_player or not item in display.inventory.resource_storage):
 				put_down();
 
 func empty_storage()->void:
@@ -160,25 +165,28 @@ func empty_storage()->void:
 	while stack_size:
 		var raw_stack:ResourceContainer = Index.scenes.items[item.resource+"_stack"].instantiate();
 		if raw_stack.mirror_only:
-			raw_stack.stack_size = stack_size;
-			stack_size = 0;
+			raw_stack.stack_size = stack_size
+			set_stack_size(0);
 		else:
 			if stack_size <= raw_stack.capacity:
 				raw_stack.stack_size = stack_size;
-				stack_size = 0;
+				set_stack_size(0)
 			else:
 				raw_stack.stack_size = raw_stack.capacity;
-				stack_size -= raw_stack.capacity;
+				change_stack_size(-raw_stack.capacity)
 
 		var mirror:ItemMirror = display.generate_mirror(raw_stack);
 		to_throw.append(mirror);
 	for mirror:ItemMirror in to_throw:
 		moved += mirror.stack_size
-		
-		if display.find_clear_cell(mirror.item) != Vector2i(-1, -1):
-			display.throw_mirror(mirror, true);
+		var cell:Vector2i = display.find_clear_cell(mirror.item)
+		if cell != Vector2i(-1, -1):
+			mirror.set_inventory_position(cell)
+			mirror.refresh()
+			display.inventory.add_item(mirror.item);
+			mirror.item.match_mirror()
 		else:
-			stack_size += mirror.stack_size;
+			change_stack_size(mirror.stack_size)
 			moved -= mirror.stack_size
 			display.remove_mirror(mirror, true)
 	
@@ -187,10 +195,20 @@ func empty_storage()->void:
 	
 	display.play_deposit_sfx(moved, item.resource)
 
+func set_stack_size(target:int)->void:
+	stack_size = target;
+	item.stack_size = target
 
+func change_stack_size(change:int)->void:
+	assert(stack_size + change >= 0);
+	set_stack_size(stack_size + change)
+
+func set_inventory_position(target:Vector2i)->void:
+	inventory_position = target;
+	item.inventory_position = target;
 
 func pick_up()->void:
-	if not display.inventory is NpcInventory or not item in display.inventory.fixed_items:
+	if display.from_player or not item in display.inventory.resource_storage:
 		z_index += 1;
 		display.item_picked_up.emit();
 		item_under = self;
@@ -205,18 +223,20 @@ func pick_up()->void:
 		cursor_offset = (Vector2i((get_global_mouse_position() - global_position)/cell_size)*cell_size) + Vector2i(cell_size/2, cell_size/2);
 		held = true;
 		display.held_item_mirror = self;
+		z_index += 20
 
 func drop_on_container(target:ItemMirror)->bool:
 	var deposited: = 0;
 	target.highlight_stack_label();
 	if target.space_left() >= stack_size:
-		target.stack_size += stack_size;
+		target.change_stack_size(stack_size)
 		deposited = stack_size
-		stack_size = 0;
+		set_stack_size(0)
 	else:
 		deposited = target.space_left();
-		stack_size -= target.space_left();
-		target.stack_size = target.item.capacity;
+		change_stack_size(-target.space_left())
+		target.set_stack_size(target.item.capacity)
+
 		
 	display.play_deposit_sfx(deposited, item.resource);
 	
@@ -254,7 +274,7 @@ func place_on_spot()->void:
 	if vacant_spot_offset:
 		projection_position += vacant_spot_offset
 	display.sfx.play_sound_by_key("drop")
-	inventory_position = projection_position;
+	set_inventory_position(projection_position)
 
 func loot_command()->void:
 	display.send_item(self);
@@ -297,7 +317,7 @@ func equip_weapon_command(alt:bool=false)->void:
 			refresh();
 	else:
 		## only ever happens in player sheet so it's ok to emit drop with freed mirror?
-		display.remove_mirror(self)
+		display.remove_mirror(self, false)
 		display.item_dropped.emit(self)
 	
 
@@ -316,7 +336,7 @@ func equip_accessory_on_player()->void:
 		just_unequipped = Entities.player.equip_accessory(item, 2);
 	else:
 		var new_ac2:Accessory = Entities.player.equipped_accessory_1
-		if display.find_clear_cell(new_ac2, false, item) == Vector2i(-1, -1):
+		if display.find_clear_cell(new_ac2, item) == Vector2i(-1, -1):
 			display.invalid_move.emit("NOT ENOUGH ROOM")
 			return;
 			
@@ -338,7 +358,7 @@ func equip_accessory_on_player()->void:
 func equip_accessory_on_unit(unit:FighterUnit)->void:
 	var previous:Accessory = unit.equipped_accessory;
 	if previous:
-		if not display.find_clear_cell(previous, false, item):
+		if not display.find_clear_cell(previous, item):
 			display.invalid_move.emit("NOT ENOUGH ROOM");
 			return;
 	
@@ -427,6 +447,8 @@ func use_consumable_command()->void:
 
 func trade_command()->void:
 	if item is ResourceContainer:
+		if stack_size == 0 and display.inventory is NpcInventory and item in display.inventory.resource_storage :
+			display.invalid_move.emit("CONTAINER NOT FOR SALE")
 		if item.raw_stack:
 			display.send_resource(self, stack_size);
 			return
@@ -448,13 +470,8 @@ func trade_command()->void:
 						display.invalid_move.emit("CONTAINER NOT FOR SALE")
 						return
 		else:
-			if display.from_player or not item in display.inventory.fixed_items:
-				display.send_item(self, true);
-				if display.context == "trade" or display.context == "loot":
-					## sending the raw stack through here goes over the usual way the 
-					## resources_changed signal is emitted
-					display.resources_changed.emit(item.resource, stack_size * -1);
-					display.exchanging_display.resources_changed.emit(item.resource, stack_size) 
+			if display.from_player or not item in display.inventory.resource_storage:
+				display.send_item(self);
 				return
 			else:
 				if held:
@@ -462,7 +479,7 @@ func trade_command()->void:
 				display.invalid_move.emit("CONTAINER NOT FOR SALE")
 				return
 	else:
-		display.send_item(self, true);
+		display.send_item(self);
 
 
 func highlight_stack_label()->void:
@@ -513,8 +530,7 @@ func send_to_containers()->bool:
 		if stack_size:
 			if c.space_left():
 				if c.space_left() >= stack_size:
-					
-					c.stack_size += stack_size;
+					c.change_stack_size(stack_size)
 					c.highlight_stack_label();
 					c.refresh();
 					amount_deposited += stack_size;
@@ -522,8 +538,8 @@ func send_to_containers()->bool:
 					return true
 				else:
 					amount_deposited += c.space_left();
-					stack_size -= c.space_left();
-					c.stack_size = c.item.capacity;
+					change_stack_size(-c.space_left())
+					c.set_stack_size(c.item.capacity)
 					c.highlight_stack_label();
 					c.refresh();
 	display.item_dropped.emit(self)
@@ -533,16 +549,12 @@ func _on_mouse_exited() -> void:
 	outline.border_color = outline_color;
 
 
-func extending_fade()->void:
-	self_modulate.a = .5;
 
 
 func set_price()->void:
 	price_tag.show();
 	if not being_traded:
 		if item is ResourceContainer and stack_size:
-			
-		
 			if display.from_player:
 				## in player inventory = selling price
 				price = display.exchanging_display.inventory.resource_selling_prices[item.resource];
@@ -551,16 +563,18 @@ func set_price()->void:
 				price = display.inventory.resource_buying_prices[item.resource];
 			price *= stack_size;
 		else:
-			## CURRENT NON-RESOURCE ITEM PRICE FORMULA
-			## (rarity + 1)² * item.size.x * item.size.y
-			price = (item.rarity + 1) ** 2
-			price *= item.size_x * item.size_y
+			price = item.get_price();
+			if display.from_player:
+				price /= display.exchanging_display.inventory.selling_prices_divider;
+			else:
+				price *= display.inventory.buying_prices_multiplier;
 
 		## if it's being traded, it already had it's price set
 		if price < 1:
 			price = 1;
 		price_tag.text = "$" + str(int(price));
-
+	else:
+		price_tag.text = "$" + str(traded_price);
 
 func refresh()->void:
 	tooltip.load_target(self)
@@ -593,14 +607,14 @@ func refresh()->void:
 	display.fill_cells(self);
 	
 	being_traded_rect.visible = being_traded;
+	if display.from_player:
+		being_traded_rect.color = bought_color;
+	else:
+		being_traded_rect.color = sold_color
 	
 	modulate.a = 1;
 	if inventory_position.x + item.size_x > display.size_x or inventory_position.y + item.size_y > display.size_y:
 		modulate.a = .75;
-		display.extending_elements = true;
 
 func space_left()->int:
 	return item.capacity - stack_size;
-
-func update_item()->void:
-	item.inventory_position = inventory_position;

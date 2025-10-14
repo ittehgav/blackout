@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://jm3tgh8nartr"]
+[gd_scene load_steps=18 format=3 uid="uid://jm3tgh8nartr"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_7bqo8"]
 [ext_resource type="Texture2D" uid="uid://chidsdlxnkojw" path="res://assets/visual/sprites/fighters/botanist/botanist.png" id="2_rpeqt"]
@@ -8,7 +8,6 @@
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_nwd3q"]
 [ext_resource type="Texture2D" uid="uid://caftf2yamsqtw" path="res://assets/visual/sprites/fighters/botanist/blur.png" id="4_rpeqt"]
 [ext_resource type="Texture2D" uid="uid://cijf6cwaryx6r" path="res://assets/visual/sprites/fighters/botanist/sprout.png" id="6_ffwby"]
-[ext_resource type="Texture2D" uid="uid://cy474pnrcenh1" path="res://assets/visual/sprites/fighters/botanist/sprout_mask.png" id="7_keob6"]
 [ext_resource type="Script" uid="uid://padkldxyfbj5" path="res://scenes/index/fighters/scripts/sprout.gd" id="7_xfduj"]
 [ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="11_o3m2u"]
 
@@ -72,7 +71,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(3, 3)]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_keob6"]
@@ -121,7 +120,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.433333, 1, 1.5),
 "transitions": PackedFloat32Array(1, 757858, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(1, 1), Vector2(0.3, 0.3), Vector2(1, 1)]
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -133,7 +132,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.466667, 1, 1.5),
 "transitions": PackedFloat32Array(1, 1000000, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0.764706), Color(1, 1, 1, 0)]
+"values": [Color(18.892157, 18.892157, 18.892157, 1), Color(18.892157, 18.892157, 18.892157, 0), Color(18.892157, 18.892157, 18.892157, 0.7647059), Color(18.892157, 18.892157, 18.892157, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -166,10 +165,10 @@ tracks/4/path = NodePath("Area2D/projection:modulate")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1, 1.9, 2),
-"transitions": PackedFloat32Array(1, 5.65686, 1, 1),
+"times": PackedFloat32Array(0, 1, 1.8, 1.9, 2),
+"transitions": PackedFloat32Array(1, 3.6050022, 5.098243, 1, 0.2588163),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 0, 0, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0.8392157), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
 }
 tracks/5/type = "method"
 tracks/5/imported = false
@@ -178,7 +177,7 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(1.9, 2),
+"times": PackedFloat32Array(1.9, 2.1),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -198,7 +197,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 1.9, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(4, 4), Vector2(4, 4), Vector2(7, 7)]
+"values": [Vector2(4, 4), Vector2(6, 6), Vector2(10, 10)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0gbb7"]
@@ -208,14 +207,14 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uouwv"]
-radius = 30.0
+radius = 50.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o3m2u"]
-radius = 19.0
-height = 74.0
+height = 36.0
 
 [node name="Botanist" type="Sprite2D" node_paths=PackedStringArray("sprout_node", "animation_player")]
 material = ExtResource("1_7bqo8")
+scale = Vector2(2, 2)
 texture = ExtResource("2_rpeqt")
 hframes = 3
 vframes = 3
@@ -235,7 +234,6 @@ autoplay = "fighter_base/idle"
 [node name="seeds" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(48, -9)
-scale = Vector2(3, 3)
 texture = ExtResource("4_apcd1")
 
 [node name="arc" type="Sprite2D" parent="."]
@@ -245,7 +243,6 @@ scale = Vector2(2, 1)
 texture = ExtResource("4_rpeqt")
 
 [node name="sprout" type="Sprite2D" parent="." node_paths=PackedStringArray("base", "animation_player", "hit_scan")]
-visible = false
 show_behind_parent = true
 position = Vector2(139, -32)
 texture = ExtResource("6_ffwby")
@@ -257,10 +254,10 @@ animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("Area2D")
 
 [node name="sprout_mask" type="Sprite2D" parent="sprout"]
-scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("7_keob6")
+texture = ExtResource("6_ffwby")
 offset = Vector2(0, -32)
 hframes = 2
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="sprout"]
 reset_on_save = false
@@ -277,13 +274,13 @@ monitorable = false
 position = Vector2(0, -26)
 shape = SubResource("CircleShape2D_uouwv")
 
-[node name="projection" type="Sprite2D" parent="sprout/Area2D" groups=["aoe_projections"]]
+[node name="projection" type="Sprite2D" parent="sprout/Area2D"]
 modulate = Color(1, 1, 1, 0)
 z_index = -1
 position = Vector2(0, -25)
-scale = Vector2(4, 4)
+scale = Vector2(10, 10)
 texture = ExtResource("11_o3m2u")
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(-2, -2.5)
+position = Vector2(-0.5, 1)
 shape = SubResource("CapsuleShape2D_o3m2u")

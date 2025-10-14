@@ -43,9 +43,10 @@ class_name TextureIndex;
 	"scavenging":load("res://assets/visual/icons/disciplines/scavenging.png"),
 	
 	"trade":load("res://assets/visual/icons/options/trade.png"),
-	"battle":load("res://assets/visual/icons/options/battle.png"),
+	"combat":load("res://assets/visual/icons/options/combat.png"),
 	"recruit":load("res://assets/visual/icons/options/recruit.png"),
 	"exit":load("res://assets/visual/icons/options/exit.png"),
+	"evolve":load("res://assets/visual/icons/options/evolve.png"),
 	
 	"bodybuilder":load("res://assets/visual/icons/tags/bodybuilder.png"),
 	"cyborg":load("res://assets/visual/icons/tags/cyborg.png"),

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=29 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b67hvkww5tvpb" path="res://scenes/ui/inventory_display/hover_sfx.gd" id="5_qglwj"]
 [ext_resource type="AudioStream" uid="uid://bxquvtit675r3" path="res://assets/sound/sfx/ui/inventory/drop.wav" id="6_k4cp6"]
 [ext_resource type="AudioStream" uid="uid://bn7wgmpf137el" path="res://assets/sound/sfx/ui/inventory/pick_up.wav" id="7_7cfyp"]
+[ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="8_1ygr4"]
 [ext_resource type="AudioStream" uid="uid://bq6bhdc3fxxf7" path="res://assets/sound/sfx/ui/inventory/resources/deposit_food_small.wav" id="8_7cfyp"]
 [ext_resource type="AudioStream" uid="uid://db6nr5d7cblaq" path="res://assets/sound/sfx/ui/inventory/resources/deposit_food_big.wav" id="9_odn8d"]
 [ext_resource type="AudioStream" uid="uid://bo843b1jpdnre" path="res://assets/sound/sfx/ui/inventory/resources/deposit_liquid_small.wav" id="10_an643"]
@@ -28,7 +29,7 @@
 [ext_resource type="Script" uid="uid://c4t43pl7ro3sq" path="res://scenes/ui/inventory_display/item_selector.gd" id="26_up2tu"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="27_c5he3"]
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
+[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "cargo_space", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,10 +43,11 @@ warnings_popup = NodePath("warnings")
 resource_picker = NodePath("resource_picker")
 unit_selector = NodePath("unit_selector")
 item_selector = NodePath("item_selector")
-item_mirrors_node = NodePath("cargo/item_mirrors")
+item_mirrors_node = NodePath("cargo/ScrollContainer/cargo_space/item_mirrors")
 cargo = NodePath("cargo")
 grid_cell_scene = ExtResource("2_ke6sf")
-grid = NodePath("cargo/inventory_grid")
+cargo_space = NodePath("cargo/ScrollContainer/cargo_space")
+grid = NodePath("cargo/ScrollContainer/cargo_space/inventory_grid")
 sfx = NodePath("sfx")
 hover_sfx = NodePath("hover_sfx")
 warning_label = NodePath("warning")
@@ -70,6 +72,7 @@ bus = &"sfx"
 script = ExtResource("3_ke6sf")
 drop = ExtResource("6_k4cp6")
 pick_up = ExtResource("7_7cfyp")
+money_change = ExtResource("8_1ygr4")
 trade = ExtResource("17_ormkh")
 invalid = ExtResource("18_7uvto")
 reset = ExtResource("19_h4har")
@@ -89,12 +92,21 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="inventory_grid" type="GridContainer" parent="cargo"]
-layout_mode = 1
+[node name="ScrollContainer" type="ScrollContainer" parent="cargo"]
+custom_minimum_size = Vector2(386, 589)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="cargo_space" type="Control" parent="cargo/ScrollContainer"]
+layout_mode = 2
+
+[node name="inventory_grid" type="GridContainer" parent="cargo/ScrollContainer/cargo_space"]
+layout_mode = 0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 
-[node name="item_mirrors" type="Control" parent="cargo"]
+[node name="item_mirrors" type="Control" parent="cargo/ScrollContainer/cargo_space"]
 anchors_preset = 0
 
 [node name="send_rect" type="ColorRect" parent="cargo"]
@@ -336,6 +348,7 @@ text = "Discard items
 and continue"
 
 [node name="auto_sort" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Auto-Sort
 and continue"
@@ -389,6 +402,8 @@ layout_mode = 2
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
+[connection signal="opened" from="." to="." method="_on_opened"]
+[connection signal="resized" from="cargo/ScrollContainer/cargo_space/inventory_grid" to="." method="_on_inventory_grid_resized"]
 [connection signal="mouse_entered" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_entered"]
 [connection signal="mouse_exited" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_exited"]
 [connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_1" to="resource_picker" method="_on_pick_1_pressed"]

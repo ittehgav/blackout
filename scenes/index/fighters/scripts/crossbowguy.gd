@@ -4,6 +4,10 @@ const skill_name = "Piercing Shot"
 const description = "Fires a powerful, long-range piercing bolt."
 const flavor = "One time he tried to use hot metal bars as arrows and got a second-degree burn."
 
+const skill_range = LONG_RANGE;
+
+const skill_cooldown = 3;
+
 
 func damage_modifier(damage:float, unit:FighterUnit=null)->float:
 	if not unit:
@@ -27,9 +31,6 @@ func full_skill_description(unit:FighterUnit)->String:
 	return string;
 
 
-const skill_range = 750;
-
-const skill_cooldown = 3;
 
 func skill()->void:
 	Combat.set_windup_angle(fighter)
@@ -38,5 +39,7 @@ func skill()->void:
 	animation_player.queue("fighter_base/idle");
 
 func skill_impact()->void:
+	if fighter.dead:
+		return;
 	Combat.aoe_damage(fighter, hit_scan, damage_modifier);
 	skill_finished.emit();

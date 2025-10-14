@@ -18,11 +18,12 @@ var swung:bool = false;
 
 func use(_alt:bool=false)->void:
 	use_sfx.play();
-	animation_player.play("swing")
+	animation_player.play("weapon_generic/swing")
 
 func impact()->void:
 	Combat.aoe_damage(Entities.player_fighter, hit_scan);
 	
 	if len(Entities.player_fighter.hit_targets):
+		## projectiles do this on their own
 		hit_sfx.play();
 		hit.emit();

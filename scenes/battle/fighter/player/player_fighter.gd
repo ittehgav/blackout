@@ -12,6 +12,8 @@ class_name PlayerFighter
 @export var camera:Camera2D;
 @export var sfx:AudioStreamPlayer
 
+@export var floating_icon_anchor:Control
+
 
 
 var walking_blocked:bool=false;
@@ -72,12 +74,14 @@ func _on_stat_changed(stat: String) -> void:
 	refresh_stat(stat)
 	match stat:
 		"agility":
-			equipment.refresh_weapon_cooldown()
+			equipment.weapon_control.refresh_weapon_cooldown()
+			equipment.weapon_control.refresh_alt_weapon_cooldwon()
 
 
 func _on_equipment_weapon_unequipped(weapon: Weapon) -> void:
 	## don't need to emit here since this always comes just before a weapon_equipped call
-	in_battle_stat_modifiers.attack -= weapon.base_damage;
+	stat_modifiers.attack -= weapon.base_damage;
+
 func _on_equipment_weapon_equipped(weapon: Weapon) -> void:
-	in_battle_stat_modifiers.attack += weapon.base_damage;
+	stat_modifiers.attack += weapon.base_damage;
 	stat_changed.emit('attack')

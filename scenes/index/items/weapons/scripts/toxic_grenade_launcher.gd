@@ -11,17 +11,30 @@ func get_description()->String:
 	return Index.get_color_tag("juice") +\
 "Consumes 1 juice per shot.[/color]\nShoots grenades that damage and debuff enemies, reducing their defense.";
 
+const defense_debuff = 5
 
 func use(_alt:bool=false)->void:
+	use_sfx.play()
 	consume_ammo();
 	animation_player.play("weapon_generic/recoil")
 	var new_splash:Sprite2D = splash.duplicate();
+	
 
 	var new_projectile:Projectile = Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit.bind(new_splash))
 	new_splash.rotation = new_projectile.rotation
 
 
 func projectile_hit(target:ActiveFighter, smoke:Sprite2D)->void:
-	Entities.player_fighter.ally_team.projectiles.add_child(smoke);
+	## smoke's hit scan mask is just hardcoded into team 2 
+	## which is fine for the build i'm working towards right now
+	hit.emit()
+	hit_sfx.play()
+	Entities.player_fighter.ally_team.projectiles.add_child.call_deferred(smoke);
+	
 	smoke.global_position = target.global_position;
 	smoke.explode();
+	
+	## not fancy but should work and hardly ever have any impact in the hit outcome
+	await get_tree().create_timer(.05).timeout
+	Combat.aoe_damage(Entities.player_fighter, smoke.hit_scan);
+	Combat.aoe_stat_debuff(Entities.player_fighter, smoke.hit_scan, "defense", defense_debuff)

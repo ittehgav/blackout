@@ -1,8 +1,5 @@
 ~ start
 Farmer: Hello, we have the best produce in the region!
 - #trade_menu
-- What can i do here? =>< info
 - #leave => END!
 
-~ info 
-Farmer: Here you can [u]Purchase food for cheap and food containers.[/u] => start

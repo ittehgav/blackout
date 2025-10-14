@@ -5,6 +5,8 @@
 [node name="NpcInventory" type="Node2D"]
 visible = false
 script = ExtResource("1_vem84")
+expandable = true
 money = 100
+capacity_x = 24
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

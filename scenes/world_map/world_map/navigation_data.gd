@@ -2,6 +2,9 @@ extends PanelContainer
 
 var current_target:Settlement
 
+@warning_ignore("shadowed_global_identifier")
+@export var sign:SettlementSign
+
 @export var name_label:Label;
 @export var eta_label:Label;
 
@@ -10,6 +13,8 @@ var current_target:Settlement
 
 @export var arrow:Sprite2D;
 
+
+
 func show_settlement(target:Settlement)->void:
 	name_label.text = target.unique_name
 	set_travel_data(target);
@@ -17,6 +22,7 @@ func show_settlement(target:Settlement)->void:
 
 func set_travel_data(target:Settlement)->void:
 	current_target = target
+	sign.load_settlement(target)
 	var player_party:PlayerParty = Entities.player_party;
 
 	var travel_minutes:int = Entities.player_party.get_travel_minutes(target);
@@ -65,6 +71,7 @@ func set_travel_data(target:Settlement)->void:
 	food_cost_label.text = str(costs.food);
 	fuel_cost_label.text = str(costs.fuel)
 
+
 func _on_button_pressed() -> void:
 	clear();
 	Entities.player_party.move_to_settlement(current_target)
@@ -72,6 +79,7 @@ func _on_player_party_started_moving() -> void:
 	clear();
 func _on_world_map_camera_started_panning() -> void:
 	clear();
+
 func clear()->void:
 	Tweens.ui_fade_out(self)
 	Entities.road.clear_path_highlight()

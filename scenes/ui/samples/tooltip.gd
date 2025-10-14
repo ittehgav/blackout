@@ -161,7 +161,8 @@ func item_setup(item:Item)->void:
 	description_label.text += item.get_description()
 
 func disable()->void:
-	hover_timer.timeout.disconnect(_on_hover_timer_timeout)
+	if len(hover_timer.timeout.get_connections()):
+		hover_timer.timeout.disconnect(_on_hover_timer_timeout)
 	
 func enable()->void:
 	if not len(hover_timer.timeout.get_connections()):

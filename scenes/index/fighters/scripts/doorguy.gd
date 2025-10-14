@@ -1,9 +1,8 @@
 extends FighterBase
 
-const no_damage = true;
 
 const skill_name = "Challenge"
-@onready var description:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Taunts nearby enemies and shields self, becoming progressively more resistant."
+@onready var description:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Steals defense from nearby enemies."
 const flavor = "The doors bend and break often enough without him hitting anyone with them."
 
 
@@ -11,12 +10,11 @@ const flavor = "The doors bend and break often enough without him hitting anyone
 func full_skill_description(unit:FighterUnit)->String:
 	## TODO make this a shield instead?
 	## that scales with the amount of targets taunted?
-	var technique_str:String = Index.get_technique_scaled_string(unit, "stat_buff", "", stat_buff_values["defense"]);
-	var base_value_str:String = Index.get_color_tag("defense")+ str(stat_buff_values.defense) + "[/color]"
-	var final_value_str:String = Index.get_color_tag("defense")+ str(stat_buff_values.defense * unit.stats.technique) + "[/color]";
+	var reduction_str:String = Index.get_technique_scaled_string(unit, "stat_debuff", '', defense_steal)
+	var defense_gain_str:String = Index.get_technique_scaled_string(unit, "stat_debuff", '', defense_steal/2)
 	
-	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Shields himself and [u]Taunts[/u] nearby enemies, gaining " + final_value_str + " (" + base_value_str + " * " + technique_str\
-	 + ") "+Index.stat_colored_name("defense") + " until the end of battle.";
+	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color]\nChallenges nearby enemies, reducing their defense by "\
+	+ reduction_str + " and gaining " + Index.get_color_tag("defense") + defense_gain_str + " defense.";
 	return string
 
 
@@ -26,14 +24,18 @@ const skill_cooldown = 5;
 const buff_type = "stat";
 
 const stats_to_buff = ["defense"]
-const stat_buff_values = {
-	"defense":5
-}
+
+const defense_steal:= 5
 
 func skill()->void:
 	animation_player.play("doorguy/skill");
 	animation_player.queue("fighter_base/idle")
 
 func skill_impact()->void:
-	Combat.self_stat_buff(fighter);
-	Combat.aoe_taunt(fighter)
+	if fighter.dead:
+		return;
+	Combat.aoe_stat_debuff(fighter, hit_scan, "defense", defense_steal)
+	var buff_count:int = len(fighter.hit_targets);
+	print(buff_count)
+	Combat.self_stat_buff(fighter, "defense", (defense_steal/2)*buff_count);
+	

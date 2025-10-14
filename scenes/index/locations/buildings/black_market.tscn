@@ -1,0 +1,167 @@
+[gd_scene load_steps=32 format=3 uid="uid://b4ub8gqruq825"]
+
+[ext_resource type="Script" uid="uid://blqfh3mdw2m5r" path="res://scenes/index/locations/buildings/black_market.gd" id="1_tnb7f"]
+[ext_resource type="Texture2D" uid="uid://bswpu2g6cclwj" path="res://assets/visual/buildings/icons/black_market.png" id="2_twu2y"]
+[ext_resource type="PackedScene" uid="uid://d3co1twv2jajr" path="res://scenes/index/locations/buildings/interior/black_market_interior.tscn" id="3_0res6"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="4_cbvov"]
+[ext_resource type="Script" uid="uid://b8037pwr05tdw" path="res://scenes/leader/inventory/rotating_inventory.gd" id="5_j7wsn"]
+[ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="6_5tdgl"]
+[ext_resource type="PackedScene" uid="uid://c4s2cufch0vvv" path="res://scenes/index/items/accessories/external_processing_unit.tscn" id="7_13hku"]
+[ext_resource type="PackedScene" uid="uid://dtd8165tljlor" path="res://scenes/index/items/accessories/forbidden_mask.tscn" id="8_qw1gl"]
+[ext_resource type="PackedScene" uid="uid://cr3hxwb2o42kl" path="res://scenes/index/items/accessories/forbidden_shoulders.tscn" id="9_u3plt"]
+[ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="10_vtpmr"]
+[ext_resource type="PackedScene" uid="uid://dt7tutmu87uy3" path="res://scenes/index/items/accessories/sapper.tscn" id="11_20set"]
+[ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="12_woixh"]
+[ext_resource type="PackedScene" uid="uid://pdygvkib8khb" path="res://scenes/index/items/consumables/apple_sticker.tscn" id="13_n672b"]
+[ext_resource type="PackedScene" uid="uid://j3tt7eipwb1t" path="res://scenes/index/items/consumables/eye_chart.tscn" id="14_613hl"]
+[ext_resource type="PackedScene" uid="uid://q588p3i1d747" path="res://scenes/index/items/consumables/metallic_coating.tscn" id="15_6jomb"]
+[ext_resource type="PackedScene" uid="uid://cnjcf4clj2cxd" path="res://scenes/index/items/consumables/motivational_speech_draft.tscn" id="16_ghqv0"]
+[ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="17_6eu7u"]
+[ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="18_sont6"]
+[ext_resource type="PackedScene" uid="uid://blb80ofwrhyyg" path="res://scenes/index/items/consumables/sharpener.tscn" id="19_gewhm"]
+[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="20_tmcxr"]
+[ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/allegiance_shifter.tscn" id="21_x5c7e"]
+[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/index/items/modules/buckler.tscn" id="22_r1w0x"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="23_swpkd"]
+[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="24_2vd4q"]
+[ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/chakram.tscn" id="25_tq2po"]
+[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/machete.tscn" id="26_n6hy5"]
+[ext_resource type="PackedScene" uid="uid://dhognr0ie2huf" path="res://scenes/index/items/weapons/merciless_katana.tscn" id="27_y2a23"]
+[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="28_enpln"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="29_varik"]
+[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="30_26622"]
+[ext_resource type="PackedScene" uid="uid://dch7fwggrtedg" path="res://scenes/index/items/weapons/toxic_grenade_launcher.tscn" id="31_yhvph"]
+
+[node name="Black Market" type="Node2D" node_paths=PackedStringArray("rotating_inventory_1", "rotating_inventory_2") groups=["all_locations"]]
+script = ExtResource("1_tnb7f")
+rotating_inventory_1 = NodePath("NpcInventory")
+rotating_inventory_2 = NodePath("NpcInventory2")
+front_porch_scene = ExtResource("3_0res6")
+size = 2
+icon_texture = ExtResource("2_twu2y")
+metadata/_custom_type_script = "uid://lf67nwuvdmnt"
+
+[node name="NpcInventory" parent="." node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
+script = ExtResource("5_j7wsn")
+accessory_pool = [NodePath("Brass Knuckles"), NodePath("External Processing Unit"), NodePath("Forbidden Mask"), NodePath("Forbidden Shoulders"), NodePath("Jumpsuit"), NodePath("Sapper"), NodePath("Spiked Shoulder Pads")]
+consumable_pool = [NodePath("Apple Sticker"), NodePath("Eye Chart"), NodePath("Metallic Coating"), NodePath("Motivational Speech Draft"), NodePath("Mystery Snack Pack"), NodePath("Protein Shake"), NodePath("Sharpener")]
+module_pool = [NodePath("The Consumer"), NodePath("Dodge Roll"), NodePath("Buckler"), NodePath("Allegiance Shifter"), NodePath("Adrenaline Synthethizer")]
+weapon_pool = [NodePath("Toxic Grenade Launcher"), NodePath("Taser Gun"), NodePath("Tailpipe"), NodePath("Slingshot"), NodePath("Merciless Katana"), NodePath("Machete"), NodePath("Chakram")]
+rarity_rate = 2
+batch_size = 10
+
+[node name="Brass Knuckles" parent="NpcInventory" instance=ExtResource("6_5tdgl")]
+
+[node name="External Processing Unit" parent="NpcInventory" instance=ExtResource("7_13hku")]
+
+[node name="Forbidden Mask" parent="NpcInventory" instance=ExtResource("8_qw1gl")]
+
+[node name="Forbidden Shoulders" parent="NpcInventory" instance=ExtResource("9_u3plt")]
+
+[node name="Jumpsuit" parent="NpcInventory" instance=ExtResource("10_vtpmr")]
+
+[node name="Sapper" parent="NpcInventory" instance=ExtResource("11_20set")]
+
+[node name="Spiked Shoulder Pads" parent="NpcInventory" instance=ExtResource("12_woixh")]
+
+[node name="Apple Sticker" parent="NpcInventory" instance=ExtResource("13_n672b")]
+
+[node name="Eye Chart" parent="NpcInventory" instance=ExtResource("14_613hl")]
+
+[node name="Metallic Coating" parent="NpcInventory" instance=ExtResource("15_6jomb")]
+
+[node name="Motivational Speech Draft" parent="NpcInventory" instance=ExtResource("16_ghqv0")]
+
+[node name="Mystery Snack Pack" parent="NpcInventory" instance=ExtResource("17_6eu7u")]
+
+[node name="Protein Shake" parent="NpcInventory" instance=ExtResource("18_sont6")]
+
+[node name="Sharpener" parent="NpcInventory" instance=ExtResource("19_gewhm")]
+
+[node name="Adrenaline Synthethizer" parent="NpcInventory" instance=ExtResource("20_tmcxr")]
+
+[node name="Allegiance Shifter" parent="NpcInventory" instance=ExtResource("21_x5c7e")]
+
+[node name="Buckler" parent="NpcInventory" instance=ExtResource("22_r1w0x")]
+
+[node name="Dodge Roll" parent="NpcInventory" instance=ExtResource("23_swpkd")]
+
+[node name="The Consumer" parent="NpcInventory" instance=ExtResource("24_2vd4q")]
+
+[node name="Chakram" parent="NpcInventory" instance=ExtResource("25_tq2po")]
+
+[node name="Machete" parent="NpcInventory" instance=ExtResource("26_n6hy5")]
+
+[node name="Merciless Katana" parent="NpcInventory" instance=ExtResource("27_y2a23")]
+
+[node name="Slingshot" parent="NpcInventory" instance=ExtResource("28_enpln")]
+
+[node name="Tailpipe" parent="NpcInventory" instance=ExtResource("29_varik")]
+
+[node name="Taser Gun" parent="NpcInventory" instance=ExtResource("30_26622")]
+
+[node name="Toxic Grenade Launcher" parent="NpcInventory" instance=ExtResource("31_yhvph")]
+
+[node name="NpcInventory2" parent="." node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
+script = ExtResource("5_j7wsn")
+accessory_pool = [NodePath("Brass Knuckles"), NodePath("External Processing Unit"), NodePath("Forbidden Mask"), NodePath("Forbidden Shoulders"), NodePath("Jumpsuit"), NodePath("Sapper"), NodePath("Spiked Shoulder Pads")]
+consumable_pool = [NodePath("Apple Sticker"), NodePath("Eye Chart"), NodePath("Metallic Coating"), NodePath("Motivational Speech Draft"), NodePath("Mystery Snack Pack"), NodePath("Protein Shake"), NodePath("Sharpener")]
+module_pool = [NodePath("The Consumer"), NodePath("Dodge Roll"), NodePath("Buckler"), NodePath("Allegiance Shifter"), NodePath("Adrenaline Synthethizer")]
+weapon_pool = [NodePath("Toxic Grenade Launcher"), NodePath("Taser Gun"), NodePath("Tailpipe"), NodePath("Slingshot"), NodePath("Merciless Katana"), NodePath("Machete"), NodePath("Chakram")]
+rarity_rate = 2
+batch_size = 10
+
+[node name="Brass Knuckles" parent="NpcInventory2" instance=ExtResource("6_5tdgl")]
+
+[node name="External Processing Unit" parent="NpcInventory2" instance=ExtResource("7_13hku")]
+
+[node name="Forbidden Mask" parent="NpcInventory2" instance=ExtResource("8_qw1gl")]
+
+[node name="Forbidden Shoulders" parent="NpcInventory2" instance=ExtResource("9_u3plt")]
+
+[node name="Jumpsuit" parent="NpcInventory2" instance=ExtResource("10_vtpmr")]
+
+[node name="Sapper" parent="NpcInventory2" instance=ExtResource("11_20set")]
+
+[node name="Spiked Shoulder Pads" parent="NpcInventory2" instance=ExtResource("12_woixh")]
+
+[node name="Apple Sticker" parent="NpcInventory2" instance=ExtResource("13_n672b")]
+
+[node name="Eye Chart" parent="NpcInventory2" instance=ExtResource("14_613hl")]
+
+[node name="Metallic Coating" parent="NpcInventory2" instance=ExtResource("15_6jomb")]
+
+[node name="Motivational Speech Draft" parent="NpcInventory2" instance=ExtResource("16_ghqv0")]
+
+[node name="Mystery Snack Pack" parent="NpcInventory2" instance=ExtResource("17_6eu7u")]
+
+[node name="Protein Shake" parent="NpcInventory2" instance=ExtResource("18_sont6")]
+
+[node name="Sharpener" parent="NpcInventory2" instance=ExtResource("19_gewhm")]
+
+[node name="Adrenaline Synthethizer" parent="NpcInventory2" instance=ExtResource("20_tmcxr")]
+
+[node name="Allegiance Shifter" parent="NpcInventory2" instance=ExtResource("21_x5c7e")]
+
+[node name="Buckler" parent="NpcInventory2" instance=ExtResource("22_r1w0x")]
+
+[node name="Dodge Roll" parent="NpcInventory2" instance=ExtResource("23_swpkd")]
+
+[node name="The Consumer" parent="NpcInventory2" instance=ExtResource("24_2vd4q")]
+
+[node name="Chakram" parent="NpcInventory2" instance=ExtResource("25_tq2po")]
+
+[node name="Machete" parent="NpcInventory2" instance=ExtResource("26_n6hy5")]
+
+[node name="Merciless Katana" parent="NpcInventory2" instance=ExtResource("27_y2a23")]
+
+[node name="Slingshot" parent="NpcInventory2" instance=ExtResource("28_enpln")]
+
+[node name="Tailpipe" parent="NpcInventory2" instance=ExtResource("29_varik")]
+
+[node name="Taser Gun" parent="NpcInventory2" instance=ExtResource("30_26622")]
+
+[node name="Toxic Grenade Launcher" parent="NpcInventory2" instance=ExtResource("31_yhvph")]
+
+[connection signal="daily_reset" from="." to="NpcInventory" method="refresh_inventory"]
+[connection signal="daily_reset" from="." to="NpcInventory2" method="refresh_inventory"]

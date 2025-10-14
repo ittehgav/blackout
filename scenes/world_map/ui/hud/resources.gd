@@ -8,7 +8,6 @@ extends PanelContainer
 @export var chips_label:Label;
 
 
-	
 
 func refresh_counters()->void:
 	for r:String in ["food", "money", "fuel"]:

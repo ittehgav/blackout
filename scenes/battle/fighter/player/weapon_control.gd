@@ -1,10 +1,9 @@
 extends Node
-
 class_name WeaponControl
 
 ## easier to keep the signals in the equipment node
-@export var equipment:EquipmentControl
 @export var sfx:AudioStreamPlayer;
+@export var equipment:EquipmentControl;
 
 var weapon:Weapon;
 var alternative_weapon:Weapon;
@@ -13,25 +12,37 @@ var alternative_weapon:Weapon;
 @export var alt_weapon_cd:Timer;
 @export var freeze_frame_timer:Timer;
 
+var holding_continuous:bool=false
+
 func _ready()->void:
 	await equipment.holder.ready
 
-	var equipped_weapon:Weapon = Entities.player.equipped_weapon.duplicate(DUPLICATE_USE_INSTANTIATION)
-	equipped_weapon.use_parent_material = true
-	check_active_texture(equipped_weapon);
-	equipment.add_child(equipped_weapon);
+	var equipped_weapon:Weapon = load_weapon(Entities.player.equipped_weapon);	
 	equip_weapon(equipped_weapon)
-	if equipped_weapon.projectile:
-		equipped_weapon.projectile.setup(equipment.holder)
-		
-	equipped_weapon.ammo_consumed.connect(equipment.ammo_consumed.emit)
-		
 	refresh_weapon_cooldown();
+	
 	var alt_weapon:Weapon = Entities.player.alternative_weapon;
 	if alt_weapon:
-		set_alt_weapon(alt_weapon);
+		alternative_weapon = load_weapon(alt_weapon);
+		alternative_weapon.hide();
+		alternative_weapon.set_process(false)
 		refresh_alt_weapon_cooldwon()
+		
+func load_weapon(target:Weapon)->Weapon:
+	var new_weapon:Weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION)
+	new_weapon.use_parent_material = true;
+	check_active_texture(new_weapon);
+	equipment.add_child(new_weapon)
+	new_weapon.modulate = new_weapon.get_mirror_color();
 	
+	if new_weapon.ammo_type:
+		new_weapon.ammo_consumed.connect(equipment.ammo_consumed.emit)
+		new_weapon.ammo_ran_out.connect(equipment.ammo_ran_out.emit);
+
+	if new_weapon.projectile:
+		new_weapon.projectile.setup(equipment.holder)
+	
+	return new_weapon
 
 
 func _process(_delta:float)->void:
@@ -39,7 +50,11 @@ func _process(_delta:float)->void:
 		use_weapon_command()
 	elif Input.is_action_just_pressed("weapon_alt") and not equipment.holder.stunned:
 		use_weapon_command(true);
-	if Input.is_action_just_pressed("switch_weapon") and alternative_weapon:
+	elif Input.is_action_just_released("use_weapon") and holding_continuous:
+		release_weapon_command()
+	
+	
+	if Input.is_action_just_pressed("switch_weapon") and alternative_weapon and not holding_continuous:
 		switch_weapon();
 
 
@@ -47,12 +62,28 @@ func use_weapon_command(alt:bool=false)->void:
 	## using alt in a weapon that doesn't have an alt use
 	## just makes it fire the regular attack
 	if weapon_cd.is_stopped() and not weapon.check_disabled():
-		use_weapon(alt)
-		weapon_cd.start() ## alt uses may have different cooldown?
+		equipment.holder.hit_targets.clear();
+		if not weapon.continuous:
+			use_weapon(alt)
+			weapon_cd.start() ## alt uses may have different cooldown?
+		else:
+			## for ticker weapon hits the hit_targets will be
+			## cleared in the weapon's script
+			weapon.start();
+			holding_continuous = true
+			equipment.continuous_weapon_started.emit()
+	elif weapon.check_disabled():
+		equipment.weapon_fumbled.emit()
+
+
+func release_weapon_command()->void:
+	weapon.release()
+	equipment.continuous_weapon_released.emit();
+	weapon_cd.start()
+	holding_continuous = false
 
 
 func use_weapon(alt:bool)->void:
-	equipment.holder.hit_targets.clear();
 	weapon.use(alt)
 	play_weapon_vfx()
 	equipment.weapon_used.emit()
@@ -78,18 +109,7 @@ func check_active_texture(target:Weapon)->void:
 		target.item_texture = target.texture
 		target.texture = target.active_texture;
 
-func set_alt_weapon(target:Weapon)->void:
-	alternative_weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION);
-	if alternative_weapon.projectile:
-		alternative_weapon.projectile.setup(equipment.holder);
-		
-	check_active_texture(alternative_weapon)
-	equipment.add_child(alternative_weapon);
-	alternative_weapon.set_process(false);
-	alternative_weapon.hide();
-	alternative_weapon.use_parent_material = true
-	alternative_weapon.ammo_consumed.connect(equipment.ammo_consumed.emit)
-	
+
 	
 func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 	## decouple the refreshing one of these days?
@@ -100,15 +120,22 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 		weapon.hit_scan.reparent(equipment)
 	to_equip.hit.connect(weapon_hit)
 	
-	
 
 	var modifier:ItemModifier = weapon.applied_modifier
 	if modifier and modifier.stat_modifiers:
 		for stat:String in Index.all_combat_stats:
 			if modifier.stat_modifiers[stat]:
 				## feels like it's not this simple?
-				equipment.holder.in_battle_stat_modifiers[stat] += modifier.stat_modifiers[stat];
+				equipment.holder.stat_modifiers[stat] += modifier.stat_modifiers[stat];
 				equipment.holder.stat_changed.emit(stat)
+
+	if modifier and modifier.stat_multipliers:
+		for stat:String in Index.all_combat_stats:
+			if modifier.stat_multipliers[stat]:
+				## feels like it's not this simple?
+				equipment.holder.stat_multipliers[stat] += modifier.stat_multipliers[stat];
+				equipment.holder.stat_changed.emit(stat)
+
 	weapon.equipped.emit()
 	if not from_switch:
 		## gotta emit this signal after changing the alternative_weapon property
@@ -120,7 +147,7 @@ func switch_weapon()->void:
 	current_weapon.hide()
 	current_weapon.hit.disconnect(weapon_hit);
 	if weapon.hit_scan:
-		current_weapon.hit_scan.reparent(current_weapon)
+		current_weapon.hit_scan.reparent(equipment)
 
 
 	var modifier:ItemModifier = current_weapon.applied_modifier
@@ -145,8 +172,8 @@ func switch_weapon()->void:
 	equipment.alt_weapon  = alternative_weapon; ## sending these to equipment node to make accessing cleaner
 
 	
-	refresh_weapon_cooldown(alt_weapon_cd_left);
-	refresh_alt_weapon_cooldwon(main_weapon_cd_left)
+	refresh_weapon_cooldown(alt_weapon_cd_left, true);
+	refresh_alt_weapon_cooldwon(main_weapon_cd_left, true)
 
 	## weapon variable is already equipped weapon as this is emmtied
 	equipment.weapon_unequipped.emit(alternative_weapon)
@@ -162,17 +189,47 @@ func play_weapon_vfx()->void:
 			Tweens.camera_recoil(Entities.player_fighter)
 
 
-func refresh_weapon_cooldown(time_left:float=0.0)->void:
-	weapon_cd.wait_time = weapon.cooldown - (weapon.cooldown/10)*equipment.holder.agility
-	if time_left:
-		var true_wait_time:float = weapon_cd.wait_time; 
-		weapon_cd.start(time_left)
-		weapon_cd.timeout.connect(weapon_cd.set_wait_time.bind(true_wait_time))
+func refresh_weapon_cooldown(time_left:float=0.0, from_switch:bool=false)->void:
+	var new_wait_time:float = weapon.cooldown - (weapon.cooldown/10)*equipment.holder.agility
+	if from_switch:
+		if time_left:
+			## gets here from switching weapons
+			weapon_cd.stop()
+			weapon_cd.start(time_left)
+			weapon_cd.timeout.connect(weapon_cd.set_wait_time.bind(new_wait_time), CONNECT_ONE_SHOT)
+		else:
+			weapon_cd.wait_time = new_wait_time
 
+	elif not weapon_cd.is_stopped():
+		time_left = weapon_cd.time_left
+		
+		var current_wait_time:float = weapon_cd.wait_time;
+		var frac:float = new_wait_time/current_wait_time;
+		var new_time_left:float = current_wait_time * frac
+		weapon_cd.start(new_time_left);
+		weapon_cd.timeout.connect(weapon_cd.set_wait_time.bind(new_wait_time), CONNECT_ONE_SHOT);
+	else:
+		weapon_cd.wait_time = new_wait_time
+	
 
-func refresh_alt_weapon_cooldwon(time_left:float=0.0)->void:
-	alt_weapon_cd.wait_time = alternative_weapon.cooldown - (alternative_weapon.cooldown/10) * equipment.holder.agility
-	if time_left:
-		var true_wait_time:float = alt_weapon_cd.wait_time; 
-		alt_weapon_cd.start(time_left);
-		weapon_cd.timeout.connect(alt_weapon_cd.set_wait_time.bind(true_wait_time))
+func refresh_alt_weapon_cooldwon(time_left:float=0.0, from_switch:bool=false)->void:
+	var new_wait_time:float = alternative_weapon.cooldown - (alternative_weapon.cooldown/10)*equipment.holder.agility
+	if from_switch:
+		if time_left:
+			## gets here from switching weapons
+			alt_weapon_cd.stop()
+			alt_weapon_cd.start(time_left)
+			alt_weapon_cd.timeout.connect(alt_weapon_cd.set_wait_time.bind(new_wait_time), CONNECT_ONE_SHOT)
+		else:
+			alt_weapon_cd.wait_time = new_wait_time
+
+	elif not alt_weapon_cd.is_stopped():
+		time_left = alt_weapon_cd.time_left
+		
+		var current_wait_time:float = alt_weapon_cd.wait_time;
+		var frac:float = new_wait_time/current_wait_time;
+		var new_time_left:float = current_wait_time * frac
+		alt_weapon_cd.start(new_time_left);
+		alt_weapon_cd.timeout.connect(alt_weapon_cd.set_wait_time.bind(new_wait_time), CONNECT_ONE_SHOT);
+	else:
+		alt_weapon_cd.wait_time = new_wait_time

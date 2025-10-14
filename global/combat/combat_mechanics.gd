@@ -9,6 +9,8 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 		## not the modifier function that may come in
 		damage = hard_value;
 	if not modifier.is_null():
+		## MODIFIER IS A FUNCTION THAT RECIEVES THE DAMAGE AND RETURNS IT MODIFIED
+		## can also be used to hardcode damage ignoring source's attack stat
 		damage = modifier.bind(damage).call();
 	## there may be both i suppose but theres no case of that atm
 	if "damage_modifier" in source.base:
@@ -48,8 +50,7 @@ func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.t
 
 func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, duration:float = \
 				Scaling.technique_scaled_value(source.base.status_duration,source.technique, "stun"))->void:
-	if source is NpcFighter:
-		source.catch_hit_target(target);
+	source.catch_hit_target(target);
 
 	Statuses.apply_status(source, target, "stun", duration)
 

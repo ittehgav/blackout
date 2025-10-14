@@ -8,7 +8,7 @@ const flavor = "The smell stays in your nose for hours.";
 
 const explosion_range:int = 50;
 
-const skill_range = 200
+const skill_range = MID_RANGE
 const skill_cooldown = 4
 
 const evolutions = [

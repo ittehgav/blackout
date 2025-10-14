@@ -51,7 +51,7 @@ func play_animation()->void:
 	if dust.flip_h:
 		shift *= -1
 	dust.position.x += shift;
-	animation_player.play()
+	animation_player.play("dodge_roll")
 	dust.get_node("dust_animation").play("dust")
 	
 	trail.frame = Entities.player_fighter.body.frame;

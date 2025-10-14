@@ -9,8 +9,7 @@ func level_up_stats(unit:FighterUnit, level:int=1)->void:
 		var gains:Dictionary = tag_stats_per_level(tag)
 		for key:String in gains.keys():
 			unit.stats[key] += gains[key] * level
-	if "no_damage" in unit.base:
-		unit.stats.attack = 0;
+
 
 
 

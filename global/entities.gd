@@ -1,22 +1,24 @@
 extends Node
 
 
-var main:Node;
+var main:Main;
 var main_bgm:AudioStreamPlayer;
 var current_camera:Camera2D;
 
 var main_hud:UIRoot
 
-var current_location:Location;
+var current_area:Node2D;
 
 var player:Player;
 var player_unit:ActiveUnit;
 var player_fighter:PlayerFighter;
 var player_party:PlayerParty;
 
-var loading_screen:UIRoot;
+var loading_screen:LoadingScreen;
 
 var player_sheet:PlayerSheet;
+
+var current_dungeon:Dungeon;
 
 var arena:Arena;
 var world_map:WorldMap;

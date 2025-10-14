@@ -6,14 +6,9 @@ class_name Player;
 signal entered_settlement(settlement:Settlement);
 signal left_settlement;
 
-## maybe won't need to include the prvious scenario?
-signal scenario_changed(new_scenario:String, previous_scenario:String)
-var current_scenario:String;
-## world_map, in_battle, location
 
-signal sheet_changed;
 
-signal resource_changed(resource:String, change:int);
+signal resource_changed(resource:String);
 signal morale_changed;
 signal party_changed;
 signal equipment_changed(equipment:Equipment);
@@ -54,7 +49,6 @@ func _ready()->void:
 	## TODO remove this once the new world map scene loads from proper context
 	Entities.player = self;
 
-
 	
 func battle_victory_morale()->void:
 	## for now just make all morale changes go through this script
@@ -63,13 +57,10 @@ func battle_victory_morale()->void:
 func battle_defeat_morale()->void:
 	morale -= .5
 
-
-
-
 func _on_level_up() -> void:
 	discipline_points += 1
 	stat_points += 1;
-	sheet_changed.emit()
+
 
 func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
@@ -184,7 +175,7 @@ func travel_upkeep()->void:
 				Entities.player_party.navigation_speed = 50;
 		
 		
-		inventory.refresh_resource_counts("", 0, false)
+		inventory.refresh_resource_counts()
 
 func load_origin(origin:Player)->void:
 	## easier to do this than to have to reconnect the signals from the 
@@ -199,7 +190,7 @@ func load_origin(origin:Player)->void:
 	var new_inventory:Inventory = origin.inventory;
 	new_inventory.reparent(self);
 	inventory = new_inventory;
-	inventory.refresh_resource_counts("", 0, false)
+	inventory.refresh_resource_counts()
 	new_inventory.holder = self;
 	combat_stats.queue_free();
 	var new_combat_stats:CombatStats = origin.combat_stats;
@@ -215,17 +206,9 @@ func load_origin(origin:Player)->void:
 
 	level = origin.level;
 	
-
-	
 	equipped_weapon = origin.equipped_weapon;
 	equipped_module = origin.equipped_module;
 	
-
-
 func _on_minute_ticker_timeout() -> void:
 	if not (Entities.world_map.current_minute%30):
 		travel_upkeep()
-
-
-func _on_scenario_changed(new_scenario: String, _previous_scenario: String) -> void:
-	current_scenario = new_scenario

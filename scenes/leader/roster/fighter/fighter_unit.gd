@@ -22,16 +22,31 @@ var stats_loaded:bool=false;
 
 func _ready()->void:
 	## needs to enter tree to work properly?
-	if base and not stats_loaded:
-		update_stats();
-	level_up.connect(Scaling.level_up_stats)
+	setup()
+
+func setup()->void:
+	if not base:
+		find_base();
+	## needs to run with level and base assigned
+	update_stats();
+
+func find_base()->void:
+	if Entities.main:
+		## only supposed to run in test runs (f6)
+		assert(false)
+	for c:Node in get_children():
+		if c is FighterBase:
+			base = c;
+			return
+	assert(false)
 
 func final_stats()->CombatStats:
 	var modified_stats:CombatStats = Index.scenes.combat_stats.instantiate();
 	
 	for stat:String in Index.all_combat_stats:
 		modified_stats[stat] = (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat]
-	
+	if base.no_damage:
+		modified_stats.attack = 0;
 	return modified_stats;
 
 func change_base(new_base:FighterBase)->void:
@@ -41,6 +56,11 @@ func change_base(new_base:FighterBase)->void:
 func update_stats()->void:
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels for now
+	if base.hard_stats:
+		for s:String in Index.all_combat_stats:
+			stats[s] = base.hard_stats[s];
+		return
+
 	Scaling.initiate_unit_stats(self);
 	Scaling.level_up_stats(self, level)
 	apply_stat_modifiers();
@@ -86,7 +106,7 @@ func apply_stat_modifiers()->void:
 
 
 func _on_child_entered_tree(node: Node) -> void:
-	if node is FighterBase:
+	if node is FighterBase and not node.special:
 		#assert(not base);
 		await Index.ready
 		base = Index.fighters.find_base(node.name);

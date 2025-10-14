@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://mxtxljd7fw3s" path="res://scenes/ui/icons/dropdowns/resources_dropdown.gd" id="1_lsvr5"]
 
 [node name="resources_dropdown" type="VBoxContainer" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+process_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -33,7 +34,7 @@ resource_icons = {
 
 [node name="money" type="HBoxContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 
 [node name="money_icon" parent="money" node_paths=PackedStringArray("label") instance=ExtResource("1_lfol1")]
 custom_minimum_size = Vector2(52, 52)

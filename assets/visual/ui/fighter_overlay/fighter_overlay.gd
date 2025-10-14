@@ -2,20 +2,24 @@ extends Control
 
 class_name FighterOverlay
 
+@export var outline:ReferenceRect;
+@export var bg:ColorRect
+
 @export var hp_bar:TextureProgressBar;
 @export var hp_bar_trail:TextureProgressBar;
 
 @export var shield_bar:TextureProgressBar;
 
 
-@export var vfx_control:Node;
 @export var charge_bar:TextureProgressBar;
 @export var floating_icon_anchor:Node2D
 
 @export var cooldown_timer:Timer;
 @export var fighter:ActiveFighter
 
-@export var special_statuses:HBoxContainer;
+@export var status_icons:HBoxContainer;
+
+@export var status_display:TextureProgressBar
 
 
 var trail_tween:Tween;
@@ -33,6 +37,21 @@ func _ready()->void:
 
 	shield_bar.max_value = fighter.max_hp;
 
+func on_status_applied(_source:ActiveFighter, data:Dictionary)->void:
+	match data.type:
+		"stun":
+			display_stun_timer(data.duration)
+
+func display_stun_timer(duration:float)->void:
+	var bar:TextureProgressBar = status_display.duplicate();
+	status_icons.add_child(bar)
+	bar.show()
+	var tween:Tween = create_tween();
+	## doesnt really need to change the max value of the texture?
+	tween.tween_property(bar, "value", 0, duration)
+	tween.tween_callback(bar.queue_free)
+	bar.modulate = Color.PURPLE
+
 func apply_special_status(status_texture:Texture2D, texture_color:Color, duration:float = 0.0)->void:
 	## right now this runs in parallel to the true effect of the 
 	## status and is mostly for visual/readability reasons
@@ -43,7 +62,7 @@ func apply_special_status(status_texture:Texture2D, texture_color:Color, duratio
 		rect.size = target_size;
 		rect.texture = status_texture
 		rect.modulate = texture_color;
-		special_statuses.add_child(rect)
+		status_icons.add_child(rect)
 	else:
 		## TODO timed these things
 		pass
@@ -52,10 +71,24 @@ func apply_special_status(status_texture:Texture2D, texture_color:Color, duratio
 
 func _on_fighter_damage_taken(damage: float, source:ActiveFighter) -> void:
 	if source is PlayerFighter:
-		Tweens.shader_color_blink(fighter.base, Color.WHITE)
+		player_hit_feedback()
+		
 	floating_number(int(damage))
 	hp_bar.value = fighter.hp;
 
+@onready var initial_position:Vector2 = position
+var player_hit_tween:Tween
+func player_hit_feedback()->void:
+	Tweens.shader_color_blink(fighter.base, Color.WHITE)
+	if player_hit_tween and not player_hit_tween.is_running():
+		const shake_range = 10
+		player_hit_tween = create_tween();
+		var target:Vector2 = Vector2(
+			randi_range(-shake_range, shake_range),
+			randi_range(-shake_range, shake_range)
+		)
+		position = target;
+		player_hit_tween.tween_property(self, "position", initial_position,.25 )
 
 func floating_number(value:int, type:String = "damage")->void:
 	var floating_n:Label = Label.new();

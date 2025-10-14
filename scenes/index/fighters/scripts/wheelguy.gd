@@ -4,6 +4,8 @@ const skill_name =  "Accelerate"
 const description = "Deals damage to surrounding enemies that speeds up over time."
 const flavor = "He was trying to build a lawnmower.";
 
+const skill_range = MELEE_RANGE;
+const skill_cooldown = 5;
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
@@ -12,8 +14,6 @@ func full_skill_description(unit:FighterUnit)->String:
 	+ "Each additional activation makes the wheel go " + acceleration + " faster.";
 	return string
 
-const skill_range = MELEE_RANGE;
-const skill_cooldown = 5;
 
 @export var projection_animation:AnimationPlayer
 
@@ -36,8 +36,8 @@ const circle_growth = Vector2(.1, .1)
 func skill_impact()->void:
 	if fighter.dead:
 		return;
-	sfx_player.pitch_scale += .1
 	if not dmg_timer.is_stopped():
+		sfx_player.pitch_scale += .1
 		dmg_timer.wait_time -= dmg_timer.wait_time * base_acceleration_frac;
 		projection_animation.speed_scale += .1
 	else:

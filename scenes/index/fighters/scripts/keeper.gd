@@ -3,10 +3,14 @@ extends FighterBase;
 const sample_offsec = Vector2(11, -26);
 
 
-const skill_sname = "Swarm";
-const description = "Flings a clould of insects that flies chaotically and attachest itself to the first enemy it hits, dealing damage and dereasing their agility.";
+const skill_name = "Swarm";
+const description = "Flings a clould of insects at enemies, dealing damage and dereasing their agility.";
 
 const flavor = "He can't fall asleep without feeling the stings.";
+
+const skill_cooldown = 3;
+const skill_range = MID_RANGE
+
 
 func damage_modifier(damage:float, unit:FighterUnit = null)->float:
 	## TODO attack improves sting damage, technique improges agility reduction
@@ -26,13 +30,11 @@ func full_skill_description(unit:FighterUnit)->String:
 	final_damage_str = "[color=" + final_damage_color_hex + "]" + final_damage_str + "[/color]"
 	
 	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique * Scaling.technique_mechanic_multipliers["damage"], .01)) + "[/color]"
-	var final_string:String = "Flings a swarm that deals " + final_damage_str + " ("+base_damage_str+" + " + base_damage_str + " * " + technique_str + ") damage per second over 5 seconds and reduces the target's agility by 15%.\n
-The effect can stack.";
+	var final_string:String = "Flings a swarm that deals " + final_damage_str + " ("+base_damage_str+" + " + base_damage_str + " * " + technique_str + ") damage per second over 5 seconds and reduces the target's "\
+	+Index.stat_colored_name("agility")+" by 15%. The effect can stack.";
 	return final_string;
 
 
-const skill_cooldown = 3;
-const skill_range = 400
 
 @export var projectile:Projectile;
 @export var bees:Sprite2D;
@@ -44,6 +46,8 @@ func skill()->void:
 	animation_player.queue("fighter_base/idle")
 	
 func skill_impact()->void:
+	if fighter.dead:
+		return;
 	Combat.shoot_projectile(projectile, fighter, bees_hit);
 
 

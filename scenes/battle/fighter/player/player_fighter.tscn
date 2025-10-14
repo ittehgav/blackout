@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene load_steps=19 format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/fighter/player/player_fighter.gd" id="2_2bwky"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_afulj"]
@@ -9,12 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="6_bbywa"]
 [ext_resource type="AudioStream" uid="uid://db0qsxl1ljgpd" path="res://assets/sound/sfx/combat/player/module_unavailable.mp3" id="6_plyqv"]
 [ext_resource type="Script" uid="uid://biydr5n82hw5f" path="res://scenes/battle/fighter/player/weapon_control.gd" id="7_k0pw4"]
-[ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/fighter/player/equipment.gd" id="7_skhxj"]
+[ext_resource type="Script" uid="uid://nwck3mmqyinq" path="res://scenes/battle/fighter/player/equipment_control.gd" id="7_skhxj"]
 [ext_resource type="Script" uid="uid://ccogck8wykl6u" path="res://scenes/battle/fighter/player/module_control.gd" id="9_sdapf"]
-[ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="12_d3h4w"]
-[ext_resource type="Script" uid="uid://2jtodbhiwuk3" path="res://scenes/battle/fighter/player/player_bars.gd" id="12_ufe8c"]
-[ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="13_ufe8c"]
-[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="15_88w2o"]
+[ext_resource type="AudioStream" uid="uid://cpx6rffx48wxd" path="res://assets/sound/sfx/combat/weapon_fumbled.mp3" id="10_p55mw"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/fighter/player/camera.gd" id="27_rxaql"]
 
 [sub_resource type="Shader" id="Shader_88w2o"]
@@ -221,7 +218,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(3, 3)
 
-[node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "status_timers", "initial_stats", "in_battle_stat_modifiers", "in_battle_stat_multipliers")]
+[node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "floating_icon_anchor", "base", "timers", "status_timers", "initial_stats", "stat_modifiers", "stat_multipliers")]
 material = SubResource("ShaderMaterial_afulj")
 collision_layer = 257
 collision_mask = 257
@@ -232,12 +229,13 @@ body = NodePath("body")
 equipment = NodePath("equipment")
 camera = NodePath("camera")
 sfx = NodePath("sfx")
+floating_icon_anchor = NodePath("floating_icon_anchor")
 base = NodePath("body")
 timers = NodePath("timers")
 status_timers = NodePath("status_timers")
 initial_stats = NodePath("stats/initial_stats")
-in_battle_stat_modifiers = NodePath("stats/in_battle_modifiers")
-in_battle_stat_multipliers = NodePath("stats/in_battle_multipliers")
+stat_modifiers = NodePath("stats/modifiers")
+stat_multipliers = NodePath("stats/multipliers")
 
 [node name="stats" type="Node" parent="."]
 
@@ -245,11 +243,11 @@ in_battle_stat_multipliers = NodePath("stats/in_battle_multipliers")
 technique = 0.0
 move_speed = 0.0
 
-[node name="in_battle_modifiers" parent="stats" instance=ExtResource("2_afulj")]
+[node name="modifiers" parent="stats" instance=ExtResource("2_afulj")]
 technique = 0.0
 move_speed = 0.0
 
-[node name="in_battle_multipliers" parent="stats" instance=ExtResource("2_afulj")]
+[node name="multipliers" parent="stats" instance=ExtResource("2_afulj")]
 max_hp = 1.0
 attack = 1.0
 defense = 1.0
@@ -259,7 +257,7 @@ move_speed = 1.0
 [node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit", "floating_icon_anchor")]
 script = ExtResource("3_r3ibm")
 unit = NodePath("..")
-floating_icon_anchor = NodePath("../player_data/floating_icon_anchor")
+floating_icon_anchor = NodePath("../floating_icon_anchor")
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_0y55v")
@@ -292,10 +290,13 @@ holder = NodePath("..")
 body = NodePath("../body")
 freeze_frame_timer = NodePath("freeze_frame_control")
 
-[node name="weapon_control" type="Node" parent="equipment" node_paths=PackedStringArray("equipment", "sfx", "weapon_cd", "alt_weapon_cd", "freeze_frame_timer")]
+[node name="weapon_fumbled_sfx" type="AudioStreamPlayer" parent="equipment"]
+stream = ExtResource("10_p55mw")
+
+[node name="weapon_control" type="Node" parent="equipment" node_paths=PackedStringArray("sfx", "equipment", "weapon_cd", "alt_weapon_cd", "freeze_frame_timer")]
 script = ExtResource("7_k0pw4")
-equipment = NodePath("..")
 sfx = NodePath("../../sfx")
+equipment = NodePath("..")
 weapon_cd = NodePath("weapon_cd")
 alt_weapon_cd = NodePath("alt_weapon_cd")
 freeze_frame_timer = NodePath("../freeze_frame_control")
@@ -330,86 +331,29 @@ position_smoothing_speed = 10.0
 editor_draw_drag_margin = true
 script = ExtResource("27_rxaql")
 
-[node name="player_data" type="Control" parent="." node_paths=PackedStringArray("player_fighter", "hp_bar", "bars_vbox", "status_bar", "floating_icon_anchor")]
+[node name="floating_icon_anchor" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = -75.0
-offset_bottom = -75.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("12_ufe8c")
-player_fighter = NodePath("..")
-hp_bar = NodePath("VBoxContainer/hp_bar")
-bars_vbox = NodePath("VBoxContainer")
-status_bar = NodePath("VBoxContainer/status_bar")
-floating_icon_anchor = NodePath("floating_icon_anchor")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="player_data"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -18.0
-offset_right = 64.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="hp_bar" type="TextureProgressBar" parent="player_data/VBoxContainer"]
-custom_minimum_size = Vector2(128, 24)
-layout_mode = 2
-value = 30.0
-nine_patch_stretch = true
-texture_under = ExtResource("12_d3h4w")
-texture_progress = ExtResource("13_ufe8c")
-tint_progress = Color(0.4, 1, 0.4, 1)
-
-[node name="status_bar" type="TextureProgressBar" parent="player_data/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-step = 0.1
-value = 39.8
-texture_progress = ExtResource("15_88w2o")
-
-[node name="floating_icon_anchor" type="Control" parent="player_data"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = 57.0
-offset_right = -64.0
-offset_bottom = 57.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -15.0
+offset_right = -25.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="damage_taken" from="." to="sfx" method="damage_taken_sfx"]
-[connection signal="damage_taken" from="." to="player_data" method="_on_player_fighter_damage_taken"]
-[connection signal="healing_received" from="." to="player_data" method="_on_player_fighter_healing_received"]
 [connection signal="started_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/walk"]]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
 [connection signal="status_applied" from="." to="vfx_control" method="_on_in_fight_player_status_applied"]
-[connection signal="status_applied" from="." to="player_data" method="_on_player_fighter_status_applied"]
 [connection signal="status_removed" from="." to="vfx_control" method="_on_in_fight_player_status_removed"]
 [connection signal="stopped_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/idle"]]
-[connection signal="ammo_consumed" from="equipment" to="player_data" method="ammo_consumed"]
 [connection signal="module_fumbled" from="equipment" to="sfx" method="_on_equipment_module_fumbled"]
 [connection signal="weapon_changed" from="equipment" to="sfx" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_equipped" from="equipment" to="." method="_on_equipment_weapon_equipped"]
 [connection signal="weapon_equipped" from="equipment" to="equipment" method="_on_weapon_equipped"]
+[connection signal="weapon_fumbled" from="equipment" to="equipment/weapon_fumbled_sfx" method="play"]
 [connection signal="weapon_unequipped" from="equipment" to="." method="_on_equipment_weapon_unequipped"]
 [connection signal="timeout" from="equipment/weapon_control/weapon_cd" to="equipment/weapon_control" method="_on_weapon_cd_timeout"]
 [connection signal="timeout" from="equipment/freeze_frame_control" to="equipment" method="_on_freeze_frame_control_timeout"]

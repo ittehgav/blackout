@@ -1,10 +1,7 @@
-
 ~ start
 Receptionist: Hello, looking for some muscle for your party? Or for yourself?
 - #trade_menu
 - #recruitment_menu
-- What can i do here? => info
+- #evolution_menu
 - #leave => END!
  
-~ info
-Receptionist: Here you can [u] Purchase items, recruit and evolve Bodybuiders[/u]. => start

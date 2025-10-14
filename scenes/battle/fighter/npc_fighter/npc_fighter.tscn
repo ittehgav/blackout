@@ -13,7 +13,7 @@
 resource_local_to_scene = true
 radius = 200.0
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "overlay", "timers", "status_timers", "initial_stats", "in_battle_stat_modifiers", "in_battle_stat_multipliers")]
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "overlay", "timers", "status_timers", "initial_stats", "stat_modifiers", "stat_multipliers")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
@@ -24,8 +24,8 @@ overlay = NodePath("FighterOverlay")
 timers = NodePath("timers")
 status_timers = NodePath("status_timers")
 initial_stats = NodePath("stats/initial_stats")
-in_battle_stat_modifiers = NodePath("stats/in_battle_modifiers")
-in_battle_stat_multipliers = NodePath("stats/in_battle_multipliers")
+stat_modifiers = NodePath("stats/modifiers")
+stat_multipliers = NodePath("stats/multipliers")
 
 [node name="stats" type="Node" parent="."]
 
@@ -33,11 +33,11 @@ in_battle_stat_multipliers = NodePath("stats/in_battle_multipliers")
 technique = 0.0
 move_speed = 0.0
 
-[node name="in_battle_modifiers" parent="stats" instance=ExtResource("2_8440y")]
+[node name="modifiers" parent="stats" instance=ExtResource("2_8440y")]
 technique = 0.0
 move_speed = 0.0
 
-[node name="in_battle_multipliers" parent="stats" instance=ExtResource("2_8440y")]
+[node name="multipliers" parent="stats" instance=ExtResource("2_8440y")]
 max_hp = 1.0
 attack = 1.0
 defense = 1.0
@@ -55,7 +55,7 @@ wait_time = 0.2
 autostart = true
 
 [node name="skill_cooldown" type="Timer" parent="timers"]
-one_shot = true
+autostart = true
 
 [node name="skill_retry" type="Timer" parent="timers/skill_cooldown"]
 wait_time = 0.1
@@ -69,50 +69,99 @@ monitorable = false
 shape = SubResource("CircleShape2D_mp8l8")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter", "special_statuses")]
+[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("outline", "bg", "hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter", "status_icons", "status_display")]
 z_index = 1
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -85.0
-offset_right = 3.0
-offset_bottom = -85.0
+offset_left = -30.0
+offset_top = -40.0
+offset_right = 34.0
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("17_stwlc")
-hp_bar = NodePath("VBoxContainer/hp_bar_trail/hp_bar")
-hp_bar_trail = NodePath("VBoxContainer/hp_bar_trail")
-shield_bar = NodePath("VBoxContainer/hp_bar_trail/shield")
-charge_bar = NodePath("VBoxContainer/charge_bar")
+outline = NodePath("outline")
+bg = NodePath("bg")
+hp_bar = NodePath("outline/VBoxContainer/hp_bar_trail/hp_bar")
+hp_bar_trail = NodePath("outline/VBoxContainer/hp_bar_trail")
+shield_bar = NodePath("outline/VBoxContainer/hp_bar_trail/shield")
+charge_bar = NodePath("outline/VBoxContainer/charge_bar")
 floating_icon_anchor = NodePath("floating_icon_anchor")
 cooldown_timer = NodePath("../timers/skill_cooldown")
 fighter = NodePath("..")
-special_statuses = NodePath("VBoxContainer/special_statuses")
+status_icons = NodePath("outline/status_icons")
+status_display = NodePath("outline/status_icons/status_display")
 
 [node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
 position = Vector2(-4, 67)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FighterOverlay"]
+[node name="bg" type="ColorRect" parent="FighterOverlay"]
+show_behind_parent = true
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -4.0
-offset_bottom = 4.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -7.0
+offset_right = 2.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="outline" type="ReferenceRect" parent="FighterOverlay"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.031000001
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.015999913
+offset_top = -7.0
+offset_right = 1.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.43, 0.14619999, 0.14619999, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="status_icons" type="HBoxContainer" parent="FighterOverlay/outline"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -1.0
+offset_top = -14.0
+offset_right = 62.0
+offset_bottom = 2.0
+
+[node name="status_display" type="TextureProgressBar" parent="FighterOverlay/outline/status_icons"]
+visible = false
+show_behind_parent = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+value = 100.0
+fill_mode = 4
+texture_progress = ExtResource("24_nct2u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FighterOverlay/outline"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -1.0
+offset_right = -2.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.04, 1)
 theme_override_constants/separation = -4
 
-[node name="special_statuses" type="HBoxContainer" parent="FighterOverlay/VBoxContainer"]
-layout_mode = 2
-
-[node name="hp_bar_trail" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer"]
+[node name="hp_bar_trail" type="TextureProgressBar" parent="FighterOverlay/outline/VBoxContainer"]
+show_behind_parent = true
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 value = 100.0
@@ -124,24 +173,23 @@ stretch_margin_bottom = 2
 texture_progress = ExtResource("4_b8wnn")
 tint_progress = Color(1, 0, 0, 1)
 
-[node name="hp_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_trail"]
-custom_minimum_size = Vector2(0, 12)
+[node name="hp_bar" type="TextureProgressBar" parent="FighterOverlay/outline/VBoxContainer/hp_bar_trail"]
+custom_minimum_size = Vector2(64, 12)
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -2.0
-offset_bottom = 2.0
+anchor_bottom = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 value = 100.0
 allow_greater = true
 nine_patch_stretch = true
 texture_progress = ExtResource("5_n8p1d")
-tint_progress = Color(0.054902, 0.796078, 0, 1)
+tint_progress = Color(0.50133336, 0.8, 0.48000002, 1)
 
-[node name="shield" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bar_trail"]
+[node name="shield" type="TextureProgressBar" parent="FighterOverlay/outline/VBoxContainer/hp_bar_trail"]
+visible = false
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 1
 anchors_preset = 14
@@ -161,7 +209,8 @@ stretch_margin_bottom = 2
 texture_progress = ExtResource("20_stwlc")
 tint_progress = Color(1, 1, 0, 1)
 
-[node name="charge_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer"]
+[node name="charge_bar" type="TextureProgressBar" parent="FighterOverlay/outline/VBoxContainer"]
+show_behind_parent = true
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 step = 0.1
@@ -173,16 +222,6 @@ stretch_margin_right = 2
 texture_progress = ExtResource("19_arr5u")
 tint_progress = Color(0, 0, 1, 1)
 
-[node name="status_timers" type="HBoxContainer" parent="FighterOverlay/VBoxContainer"]
-layout_mode = 2
-
-[node name="status_display" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/status_timers"]
-visible = false
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-fill_mode = 4
-texture_progress = ExtResource("24_nct2u")
-
 [node name="refresh_bar" type="Timer" parent="FighterOverlay"]
 wait_time = 0.05
 autostart = true
@@ -193,10 +232,11 @@ autostart = true
 [connection signal="healing_received" from="." to="FighterOverlay" method="_on_npc_fighter_healing_received"]
 [connection signal="shield_gained" from="." to="FighterOverlay" method="_on_npc_fighter_shield_gained"]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
+[connection signal="status_applied" from="." to="FighterOverlay" method="on_status_applied"]
 [connection signal="timeout" from="timers/find_target" to="." method="find_target"]
 [connection signal="timeout" from="timers/skill_cooldown" to="." method="skill_cooldown"]
 [connection signal="timeout" from="timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
 [connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]
 [connection signal="body_exited" from="skill_range" to="." method="_on_skill_range_body_exited"]
-[connection signal="value_changed" from="FighterOverlay/VBoxContainer/hp_bar_trail/hp_bar" to="FighterOverlay" method="_on_hp_bar_value_changed"]
+[connection signal="value_changed" from="FighterOverlay/outline/VBoxContainer/hp_bar_trail/hp_bar" to="FighterOverlay" method="_on_hp_bar_value_changed"]
 [connection signal="timeout" from="FighterOverlay/refresh_bar" to="FighterOverlay" method="refresh_charge_bar"]

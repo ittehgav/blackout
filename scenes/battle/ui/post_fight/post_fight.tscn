@@ -232,7 +232,6 @@ layout_mode = 2
 material = SubResource("ShaderMaterial_c3ns4")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-from_player = true
 
 [node name="max_hp_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer"]
 layout_mode = 2
@@ -266,7 +265,6 @@ layout_mode = 2
 material = SubResource("ShaderMaterial_whl4c")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-from_player = true
 stat = "attack"
 
 [node name="attack_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer2"]
@@ -301,7 +299,6 @@ layout_mode = 2
 material = SubResource("ShaderMaterial_7r0vy")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-from_player = true
 stat = "defense"
 
 [node name="defense_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer3"]
@@ -336,7 +333,6 @@ layout_mode = 2
 material = SubResource("ShaderMaterial_2tjb5")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-from_player = true
 stat = "agility"
 
 [node name="agility_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer4"]
@@ -371,7 +367,6 @@ layout_mode = 2
 material = SubResource("ShaderMaterial_3hyth")
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-from_player = true
 stat = "technique"
 
 [node name="technique_label" type="Label" parent="victory_view/exp_gains/VBoxContainer/VBoxContainer2/player_stats/HBoxContainer5"]

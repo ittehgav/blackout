@@ -18,8 +18,7 @@ func _ready()->void:
 			buffer.set_cell(Vector2i(x, y),0, Vector2.ZERO);
 			over_horizon.set_cell(Vector2i(x, y),0, Vector2.ZERO);
 	
-	await world_map.ready;
-	refresh_fog();
+
 
 func refresh_fog(current_settlement:Settlement=player_party.current_settlement)->void:
 	for settlement:Settlement in current_settlement.neighbor_paths.keys():

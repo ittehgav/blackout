@@ -98,4 +98,3 @@ hframes = 6
 libraries = {
 &"": SubResource("AnimationLibrary_7n4oj")
 }
-autoplay = "dust"

@@ -13,9 +13,9 @@ func _ready()->void:
 	ColorCoder.color_code_vehicle(vehicle, leader)
 	
 	marker.show_in_settlement(current_settlement);
-	
-	settlement_visited.emit(current_settlement)
-	current_settlement.player_visited.emit()
+	global_position = current_settlement.global_position
+	await current_settlement.ready
+	visit_settlement()
 
 func _input(e:InputEvent)->void:
 	if e.is_action_pressed("show_player_sheet") and not Entities.player_sheet.open:
@@ -46,9 +46,9 @@ func _on_started_moving() -> void:
 
 
 func _on_settlement_visited(settlement: Settlement) -> void:
-	settlement.data.visited = true;
 	stopped_moving.emit();
 	get_tree().call_group("all_settlements", "player_stopped_moving");
+	settlement.player_visited.emit()
 
 
 func _on_stopped_moving() -> void:

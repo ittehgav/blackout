@@ -1,0 +1,265 @@
+[gd_scene load_steps=15 format=3 uid="uid://drf3xuyj0tmjy"]
+
+[ext_resource type="Script" uid="uid://w8pni6sq83ap" path="res://scenes/in_settlement/in_settlement.gd" id="1_kl1gh"]
+[ext_resource type="Texture2D" uid="uid://53cyjuwjbine" path="res://assets/visual/buildings/streets/street.png" id="2_cd8v0"]
+[ext_resource type="PackedScene" uid="uid://dage1xn2hqykd" path="res://scenes/in_settlement/unit/player/player_unit.tscn" id="2_khu3q"]
+[ext_resource type="Script" uid="uid://dyxcwe4bm8v0g" path="res://scenes/in_settlement/camera_2d.gd" id="3_4rt7u"]
+[ext_resource type="PackedScene" uid="uid://b31rsrhwu68hd" path="res://scenes/world_map/world_map/main_hud.tscn" id="4_hxhmu"]
+[ext_resource type="PackedScene" uid="uid://b27bfm5u044iy" path="res://scenes/in_settlement/props/lamppost.tscn" id="4_i264g"]
+[ext_resource type="Script" uid="uid://dq403f5gmik45" path="res://scenes/in_settlement/exit_prompt.gd" id="4_t654o"]
+[ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/ui/player_sheet/player_sheet.tscn" id="6_hnbvg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i264g"]
+resource_local_to_scene = true
+size = Vector2(154, 3096)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t654o"]
+size = Vector2(34746, 112)
+
+[sub_resource type="InputEventAction" id="InputEventAction_4rt7u"]
+action = &"ui_confirm"
+
+[sub_resource type="Shortcut" id="Shortcut_ltgk1"]
+events = [SubResource("InputEventAction_4rt7u")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ggjlx"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_8wdj8"]
+events = [SubResource("InputEventAction_ggjlx")]
+
+[node name="Location" type="Node2D" node_paths=PackedStringArray("right_exit", "exit_prompt", "exit_area", "player_camera", "ui_canvas", "ui", "buildings_node", "foreground", "player_unit")]
+script = ExtResource("1_kl1gh")
+right_exit = NodePath("exit/right")
+exit_prompt = NodePath("ui/ui/exit_prompt")
+exit_area = NodePath("exit")
+player_camera = NodePath("PlayerUnit/player_camera")
+ui_canvas = NodePath("ui")
+ui = NodePath("ui/ui")
+buildings_node = NodePath("buildings")
+foreground = NodePath("foreground")
+player_unit = NodePath("PlayerUnit")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -8029.0
+offset_top = -1670.0
+offset_right = 9210.0
+offset_bottom = 3485.0
+color = Color(0.603922, 0.419608, 0.235294, 1)
+
+[node name="buildings" type="Node2D" parent="."]
+
+[node name="PlayerUnit" parent="." instance=ExtResource("2_khu3q")]
+z_index = 2
+position = Vector2(207, 108)
+
+[node name="player_camera" type="Camera2D" parent="PlayerUnit"]
+limit_left = -200
+limit_top = -480
+limit_right = 1920
+limit_bottom = 480
+position_smoothing_enabled = true
+script = ExtResource("3_4rt7u")
+
+[node name="foreground" type="Node2D" parent="."]
+modulate = Color(0.85, 0.85, 0.85, 1)
+
+[node name="Node2D" type="Node2D" parent="foreground"]
+
+[node name="street" type="TextureRect" parent="foreground/Node2D"]
+offset_top = -400.0
+offset_right = 1920.0
+offset_bottom = 600.0
+texture = ExtResource("2_cd8v0")
+
+[node name="lamppost" parent="foreground/Node2D" instance=ExtResource("4_i264g")]
+position = Vector2(444, 552)
+
+[node name="lamppost2" parent="foreground/Node2D" instance=ExtResource("4_i264g")]
+position = Vector2(844, 552)
+
+[node name="lamppost3" parent="foreground/Node2D" instance=ExtResource("4_i264g")]
+position = Vector2(1244, 552)
+
+[node name="Node2D3" type="Node2D" parent="foreground"]
+position = Vector2(1919, 0)
+
+[node name="street" type="TextureRect" parent="foreground/Node2D3"]
+offset_top = -400.0
+offset_right = 1920.0
+offset_bottom = 600.0
+texture = ExtResource("2_cd8v0")
+
+[node name="lamppost" parent="foreground/Node2D3" instance=ExtResource("4_i264g")]
+position = Vector2(444, 552)
+
+[node name="lamppost2" parent="foreground/Node2D3" instance=ExtResource("4_i264g")]
+position = Vector2(844, 552)
+
+[node name="lamppost3" parent="foreground/Node2D3" instance=ExtResource("4_i264g")]
+position = Vector2(1244, 552)
+
+[node name="Node2D2" type="Node2D" parent="foreground"]
+position = Vector2(-1920, 0)
+
+[node name="street" type="TextureRect" parent="foreground/Node2D2"]
+offset_top = -400.0
+offset_right = 1920.0
+offset_bottom = 600.0
+texture = ExtResource("2_cd8v0")
+
+[node name="lamppost" parent="foreground/Node2D2" instance=ExtResource("4_i264g")]
+position = Vector2(444, 552)
+
+[node name="lamppost2" parent="foreground/Node2D2" instance=ExtResource("4_i264g")]
+position = Vector2(844, 552)
+
+[node name="lamppost3" parent="foreground/Node2D2" instance=ExtResource("4_i264g")]
+position = Vector2(1244, 552)
+
+[node name="exit" type="Area2D" parent="."]
+
+[node name="left" type="CollisionShape2D" parent="exit"]
+z_index = 2
+position = Vector2(-250, 532)
+shape = SubResource("RectangleShape2D_i264g")
+
+[node name="bottom" type="CollisionShape2D" parent="exit"]
+position = Vector2(985, 590)
+shape = SubResource("RectangleShape2D_t654o")
+
+[node name="right" type="CollisionShape2D" parent="exit"]
+z_index = 2
+position = Vector2(376, 532)
+shape = SubResource("RectangleShape2D_i264g")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="ui" type="Control" parent="ui"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="main_hud" parent="ui/ui" instance=ExtResource("4_hxhmu")]
+layout_mode = 1
+
+[node name="resources_dropdown" parent="ui/ui/main_hud/VBoxContainer/resources" index="0" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+
+[node name="exit_prompt" type="Control" parent="ui/ui"]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_t654o")
+
+[node name="ColorRect" type="ColorRect" parent="ui/ui/exit_prompt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45098)
+
+[node name="Panel" type="Panel" parent="ui/ui/exit_prompt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -266.0
+offset_top = -173.0
+offset_right = 266.0
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ui/ui/exit_prompt/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.0
+offset_top = -107.0
+offset_right = 182.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Leave and return
+ to world map?"
+
+[node name="leave" type="Button" parent="ui/ui/exit_prompt/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = 13.0
+offset_right = -2.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+shortcut = SubResource("Shortcut_ltgk1")
+text = "[spacebar]
+Leave"
+
+[node name="stay" type="Button" parent="ui/ui/exit_prompt/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = 13.0
+offset_right = 183.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+shortcut = SubResource("Shortcut_8wdj8")
+text = "[tab]
+Stay"
+
+[node name="PlayerSheet" parent="ui/ui" instance=ExtResource("6_hnbvg")]
+visible = false
+layout_mode = 1
+
+[connection signal="body_entered" from="exit" to="." method="_on_exit_body_entered"]
+[connection signal="tree_entered" from="ui/ui/main_hud" to="ui/ui/main_hud" method="_on_tree_entered"]
+[connection signal="pressed" from="ui/ui/exit_prompt/Panel/leave" to="ui/ui/exit_prompt" method="_on_leave_pressed"]
+[connection signal="pressed" from="ui/ui/exit_prompt/Panel/stay" to="ui/ui/exit_prompt" method="_on_stay_pressed"]
+
+[editable path="ui/ui/main_hud"]
+[editable path="ui/ui/main_hud/VBoxContainer/resources/resources_dropdown"]

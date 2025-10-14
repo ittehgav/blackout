@@ -11,7 +11,7 @@ signal settlement_mouse_exited;
 @export var origin:Settlement;
 @export var road_tiles:TileMapLayer;
 
-@export var settlements:Node2D;
+@export var speed_up_icon:TextureRect
 
 @export var ui_canvas:CanvasLayer;
 
@@ -24,65 +24,23 @@ signal settlement_mouse_exited;
 
 func _ready()->void:
 	## TODO move this declaration for the moment the world map is instantiated
-	Entities.world_map = self;
 	get_tree().paused = true;
+	speed_up_loop()
 	
-	var all_settlements:Array[Node] = settlements.get_children();
-	for settlement:Settlement in all_settlements:
-		assign_neighbors(settlement, all_settlements);
-	road_tiles.generate_roads(all_settlements)
-
-	
-func assign_neighbors(target:Settlement, all_settlements:Array[Node])->void:
-	var distances:Array[float]
-	for settlement:Settlement in all_settlements:
-		if settlement != target:
-			var distance:float = target.position.distance_to(settlement.position)
-			if len(target.neighbors) < 3:
-				target.neighbors.append(settlement);
-				
-				if len(target.neighbors) == 3:
-					target.neighbors.sort_custom(neighbor_distance_sort.bind(target));
-					for neighbor:Settlement in target.neighbors:
-						## already sorted by the neighbors sort
-						distances.append(target.position.distance_to(neighbor.position));
-				
-			else:
-				if distance < distances[2]:
-					distances.remove_at(2)
-					target.neighbors.remove_at(2);
-					if distance > distances[1]:
-						target.neighbors.append(settlement);
-						distances.append(distance)
-					elif distance > distances[0]:
-						target.neighbors.insert(1, settlement);
-						distances.insert(1, distance);
-					else:
-						target.neighbors.insert(0, settlement);
-						distances.insert(0, distance);
-
-
-func neighbor_distance_sort(a:Settlement, b:Settlement, target:Settlement)->bool:
-	return target.position.distance_to(a.position) < target.position.distance_to(b.position);
+func speed_up_loop()->void:
+	const loop_latency = 1
+	var tween:Tween = create_tween();
+	tween.tween_property(speed_up_icon, "modulate:a", .1, loop_latency);
+	tween.tween_property(speed_up_icon, "modulate:a", .75, loop_latency);
+	tween.tween_callback(speed_up_loop);
 
 
 func _on_enter_pressed() -> void:
 	enter_settlement();
 
 
-func enter_settlement(target:Settlement = Entities.player_party.current_settlement)->void:
-	## TODO add loading screen when this starts to run from the main scene tree
-	var location:Location = Index.scenes.location.instantiate();
-	location.load_settlement(target)
-	
-	Entities.player.scenario_changed.emit("location", "world_map");
-	
-	var parent:Node = get_parent();
-	get_parent().remove_child(self);
-	parent.add_child(location)
-	
-	ui_canvas.reparent(location.ui_canvas)
-	location.world_map_ui = ui_canvas
+func enter_settlement(_target:Settlement = Entities.player_party.current_settlement)->void:
+	Entities.main.set_scenario("in_settlement")
 
 func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("skip_time") and not get_tree().paused:
@@ -91,6 +49,10 @@ func _process(_delta:float)->void:
 		set_travel_speed(1);
 
 func set_travel_speed(target:float)->void:
+	if target > 1:
+		speed_up_icon.show();
+	else:
+		speed_up_icon.hide()
 	Engine.time_scale = target
 
 

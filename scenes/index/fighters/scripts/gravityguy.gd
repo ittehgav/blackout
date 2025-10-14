@@ -5,7 +5,7 @@ const description = "Knocks back and stuns enemies."
 const flavor = "He's not entierly sure how it works either."
 
 
-const skill_range = 300;
+const skill_range = MID_RANGE;
 const skill_cooldown = 6;
 
 

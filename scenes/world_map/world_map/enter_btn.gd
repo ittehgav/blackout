@@ -2,6 +2,7 @@ extends Button
 
 
 var current_settlement:Settlement;
+@export var dungeon_prompt:Control;
 
 func _on_player_party_settlement_visited(settlement: Settlement) -> void:
 	global_position = settlement.global_position + Vector2(-size.x/2, 50);
@@ -10,7 +11,11 @@ func _on_player_party_settlement_visited(settlement: Settlement) -> void:
 
 
 func _on_pressed() -> void:
-	Entities.world_map.enter_settlement()
+	var location:Location = current_settlement.locations[0]
+	if location is Building:
+		Entities.world_map.enter_settlement()
+	elif location is Dungeon:
+		dungeon_prompt.load_dungeon(location);
 	hide()
 
 

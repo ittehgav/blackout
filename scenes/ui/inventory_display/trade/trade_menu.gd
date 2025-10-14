@@ -14,9 +14,13 @@ signal trade_finished;
 @export var player_name_label:Label;
 @export var trader_name_label:Label;
 
-var trade_volume:int = 0;
+@export var player_resources_dropdown:ResourcesDropdown;
+@export var trader_resourcs_dropdown:ResourcesDropdown
 
-var non_resource_money_trade:int = 0;
+var trade_volume:int = 0;
+@export var exit_prompt:ColorRect
+
+
 var money_trade:int=0;
 ## the player can never buy and sell the same resource in the same transaction
 var food_trade:int = 0;
@@ -45,19 +49,30 @@ var fuel_hourly_cost:int;
 @export var fuel_hourly_cost_label:Label;
 @export var fuel_daily_cost_label:Label;
 
+var player_inventory:Inventory
+var trader_inventory:NpcInventory
+
+var initial_player_inventory:Inventory
+var initial_trader_inventory:Inventory;
+
+
 func start_trade(target:Inventory, target_name:String)->void:
+	Entities.main.set_substate("trade")
 	## initiation routines require both inventories to be assigned
 	player_name_label.text = Entities.player.name;
 	trader_name_label.text = target_name
 	
+	player_inventory = Entities.player.inventory
+	trader_inventory = target
 	## needs to load trader first because buying/selling prices are defined by the NPC
-	trader_inventory_display.set_grid();
-	trader_inventory_display.load_inventory(target);
-	trader_inventory_display.set_reset_state()
 	
-	player_inventory_display.set_grid()
-	player_inventory_display.load_inventory(Entities.player.inventory)
-	player_inventory_display.set_reset_state()
+
+	trader_inventory_display.inventory = trader_inventory
+	trader_inventory_display.opened.emit()
+	
+	player_inventory_display.inventory = player_inventory
+	player_inventory_display.opened.emit()
+	set_reset_state()
 	
 	## re-refreshing to make them account for eachother 
 	## when setting up th resource dropdowns
@@ -65,7 +80,7 @@ func start_trade(target:Inventory, target_name:String)->void:
 	trader_inventory_display.refresh_data()
 
 	
-	reset_trade_balance()
+	refresh_trade_balance()
 	player_inventory_display.warnings_popup.hide();
 	
 	trade_started.emit();
@@ -80,16 +95,53 @@ func start_trade(target:Inventory, target_name:String)->void:
 	fuel_hourly_cost_label.text = str(fuel_hourly_cost)
 	fuel_daily_cost_label.text = str(fuel_hourly_cost * 24)
 	
+func set_reset_state()->void:
+	initial_trader_inventory = trader_inventory_display.set_reset_state()
+	initial_player_inventory = player_inventory_display.set_reset_state()
+	
+	
 
 func refresh_trade_balance()->void:
 	confirm_btn.disabled = false;
-	money_trade = non_resource_money_trade;
-	trade_volume = money_trade;
+	money_trade = 0
+	trade_volume = 0
 
 
 	reset_btn.disabled = true;
+	
+	var resources:Array = Index.all_resources.filter(func(r:String)->bool:return r != "money")
+	for r:String in resources:
+		## POSITIVE DELTA = SOURCE GAINED RESOURCE
+		var player_delta:int = Entities.player.inventory[r]-initial_player_inventory[r]  
+		var trader_delta:int = trader_inventory_display.inventory[r] - initial_trader_inventory[r]
+		assert(player_delta == -trader_delta);
+		self[r+"_trade"] = player_delta;
+	
+	var sold_items:Array[Item];
+	var bought_items:Array[Item]
+	for item:Item in initial_player_inventory.items:
+		if item not in player_inventory.items:
+			sold_items.append(item)
 
-	for r:String in Index.all_resources.filter(func(r:String)->bool:return r != "money"):
+	for item:Item in initial_trader_inventory.items:
+		if item not in trader_inventory.items:
+			bought_items.append(item);
+
+	for item:Item in bought_items:
+		var value:int = item.get_price() * trader_inventory.buying_prices_multiplier;
+		money_trade -= value
+		trade_volume += abs(value)
+		
+	for item:Item in sold_items:
+		var value:int = item.get_price() / trader_inventory.selling_prices_divider
+		money_trade += value
+		trade_volume += abs(value)
+	
+	if len(sold_items) or len(bought_items):
+		reset_btn.disabled = false
+	
+	
+	for r:String in resources:
 		var trade:int = self[r+"_trade"]
 		if trade < 0:
 			## TRADE < 0 = PLAYER SELLING
@@ -105,17 +157,15 @@ func refresh_trade_balance()->void:
 			var value:int = trader_inventory_display.inventory.resource_buying_prices[r] * trade
 			money_trade -= value;
 			trade_volume += value 
+	
+
+	
 
 	for r:String in Index.all_resources:
 		var label:Label = self[r+"_trade_label"];
 		label.text = "";
 		
-		var trade:int;
-		if r != "money":
-			trade = self[r + "_trade"]
-		else:
-			trade = money_trade;
-
+		var trade:int= self[r + "_trade"]
 
 		if trade:
 			reset_btn.disabled = false;
@@ -125,11 +175,13 @@ func refresh_trade_balance()->void:
 				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT;
 				label.add_theme_color_override("font_color", Color.GREEN);
 			else:
-				## TRADE < 0 = PLAYER SELLING	
+				## TRADE < 0 = PLAYER SELLING
 				label.text = str(-trade);
 				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
 				label.add_theme_color_override("font_color", Color.YELLOW);
-				
+	
+
+	
 	if trader_inventory_display.inventory.money < money_trade or\
 	player_inventory_display.inventory.money < -money_trade:
 		confirm_btn.disabled = true;
@@ -139,26 +191,16 @@ func refresh_trade_balance()->void:
 	
 
 
-func _on_player_inventory_display_resources_changed(resource: String, amount: int) -> void:
-	## positive change on player's inventory = balance UP
-	## negative change on player's inventory = balance DOWN
-	self[resource+"_trade"] += amount;
-	refresh_trade_balance();
 
-func _on_trader_inventory_display_item_received(mirror:ItemMirror, from:String="move") -> void:
+
+func _on_trader_inventory_display_item_received() -> void:
 	## ITEM DROPPED IN TRADER INVENTORY = SOLD
-	if from == "trade" and (not mirror.item is ResourceContainer or \
-	(not mirror.item.raw_stack and mirror.stack_size == 0)):
-		non_resource_money_trade += mirror.price;
-		refresh_trade_balance()
+	refresh_trade_balance()
 
 
-func _on_player_inventory_display_item_received(mirror:ItemMirror, from:String="move") -> void:
+func _on_player_inventory_display_item_received() -> void:
 	## ITEM DROPPED IN PLAYER INVENTORY = BOUGHT
-	if from == "trade" and (not mirror.item is ResourceContainer or \
-	(not mirror.item.raw_stack and mirror.stack_size == 0)):
-		non_resource_money_trade -= mirror.price;
-		refresh_trade_balance()
+	refresh_trade_balance()
 
 
 func _on_confirm_pressed() -> void:
@@ -171,34 +213,28 @@ func _on_confirm_pressed() -> void:
 		finish_trade();
 
 
-func _on_reset_pressed() -> void:
+func reset_trade() -> void:
 	player_inventory_display.reset_inventory();
 	trader_inventory_display.reset_inventory();
-	reset_trade_balance()
+	
+	player_resources_dropdown.update();
+	trader_resourcs_dropdown.update()
+	
+	set_reset_state()
+	refresh_trade_balance()
 	
 	player_inventory_display.sfx.play_sound_by_key("reset");
 
-func reset_trade_balance()->void:
-	for r:String in Index.all_resources:
-		if r != "money":
-			self[r+"_trade"] = 0;
-			## money trade is more dynamic than other resources
 
-	non_resource_money_trade = 0;
-	trade_volume = 0;
-
-	refresh_trade_balance()
 
 
 func finish_trade()->void:
 	const tween_duration = 1.25
-	
-
+	Entities.main.revert_substate()
 	for r:String in Index.all_resources:
 		var trade:int = self[r+"_trade"];
 		if trade:
 			var tween:Tween = create_tween();
-
 			
 			tween.set_ease(Tween.EASE_OUT);
 			tween.set_trans(Tween.TRANS_QUINT)
@@ -207,36 +243,46 @@ func finish_trade()->void:
 
 			tween.tween_property(trade_label, "text", str(0), tween_duration)
 			tween.tween_callback(trade_label.set_text.bind(""))
+	
+	trade_finished_sfx()
 
 	
-	player_inventory_display.inventory.money += money_trade
+	player_inventory.money += money_trade;
+	trader_inventory.money -= money_trade
+	
+	player_resources_dropdown.update([trader_inventory], true);
+	trader_resourcs_dropdown.update([player_inventory], true)
+	
 	if money_trade:
-		Entities.player.resource_changed.emit.call_deferred("money", money_trade)
+		Entities.player.resource_changed.emit.call_deferred("money")
 	
-	trader_inventory_display.inventory.money -= money_trade
-	
-	trader_inventory_display.update_inventory();
-	player_inventory_display.update_inventory();
+	set_reset_state();
+	player_inventory_display.hard_reset()
+	trader_inventory_display.hard_reset()
+	refresh_trade_balance()
 
-	for i in int(sqrt(trade_volume)):
+
+func trade_finished_sfx()->void:
+	trader_inventory_display.sfx.play_sound_by_key("money_change")
+	for i in int(sqrt(abs(trade_volume))):
 		player_inventory_display.sfx.play_sound_by_key("coin_drop");
 		await get_tree().create_timer(.05).timeout;
-	reset_trade_balance();
-	
-	Entities.player.inventory.refresh_resource_counts();
-	
-	player_inventory_display.set_reset_state();
-	trader_inventory_display.set_reset_state();
+
 
 func set_label_text(label:Label, value:int)->void:
 	label.text = str(value);
 
 
+
 func _on_exit_pressed() -> void:
-	trade_finished.emit();
-	queue_free();
+	if not reset_btn.disabled:
+		show_exit_prompt();
+	else:
+		trade_finished.emit();
+		queue_free();
 
-
+func show_exit_prompt()->void:
+	Tweens.ui_fade_in(exit_prompt)
 
 func _on__hour_upkeep_pressed() -> void:
 	var trader_food_total:int = trader_inventory_display.current_resource_amount("food")
@@ -260,13 +306,34 @@ func _on_24_hour_upkeep_pressed() -> void:
 	trader_inventory_display.send_resource_by_amount("fuel", fuel_to_get)
 
 
-func _on_player_inventory_display_invalid_move(_message: String, returned_item_mirror:ItemMirror=null) -> void:
-	if returned_item_mirror:
-		money_trade += returned_item_mirror.price;
-		
-	
-
-
 func _on_trader_inventory_display_invalid_move(_message: String, returned_item_mirror:ItemMirror=null) -> void:
 		if returned_item_mirror:
 			money_trade -= returned_item_mirror.price;
+
+
+var just_refreshed:bool=false
+func _on_player_inventory_display_item_dropped(_mirror: ItemMirror) -> void:
+	if not just_refreshed:
+		refresh_trade_balance()
+		just_refreshed = true;
+		await get_tree().create_timer(.1).timeout;
+		just_refreshed = false
+
+
+func _on_trader_inventory_display_item_dropped(_mirror: ItemMirror) -> void:
+	if not just_refreshed:
+		refresh_trade_balance()
+		just_refreshed = true;
+		await get_tree().create_timer(.1).timeout;
+		just_refreshed = false
+
+
+func _on_reset_and_exit_pressed() -> void:
+	reset_trade();
+	trade_finished.emit()
+	await Tweens.ui_fade_out(self).finished;
+	queue_free();
+	
+
+func _on_return_pressed() -> void:
+	Tweens.ui_fade_out(exit_prompt)

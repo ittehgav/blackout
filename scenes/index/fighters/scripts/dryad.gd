@@ -45,6 +45,8 @@ func skill()->void:
 	animation_player.queue("fighter_base/idle")
 
 func skill_impact()->void:
+	if fighter.dead:
+		return;
 	if hit_scan.overlaps_body(fighter.target_unit):
 		var thorns_rect:ColorRect = find_overlapping_thorns(fighter.target_unit.global_position);
 		thorns_rect.expand(fighter.target_unit.global_position)

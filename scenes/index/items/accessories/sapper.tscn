@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dt7tutmu87uy3"]
+[gd_scene load_steps=4 format=3 uid="uid://dt7tutmu87uy3"]
 
 [ext_resource type="Script" uid="uid://da7ib3nv4i07t" path="res://scenes/index/items/accessories/scripts/sapper.gd" id="1_4o57d"]
+[ext_resource type="Texture2D" uid="uid://b158wc1npnxjn" path="res://assets/visual/items/accessories/sapper.png" id="1_oecko"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_8e1gc"]
 
-[node name="Sapper" type="Sprite2D"]
+[node name="Sapper" type="Sprite2D" node_paths=PackedStringArray("stat_multipliers")]
+texture = ExtResource("1_oecko")
 script = ExtResource("1_4o57d")
+stat_multipliers = NodePath("stats")
 equippable = Dictionary[String, bool]({
 "player": false,
 "unit": true
@@ -11,3 +15,11 @@ equippable = Dictionary[String, bool]({
 exclusive_tag = "disruptor"
 color_tag = "technique"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
+
+[node name="stats" parent="." instance=ExtResource("2_8e1gc")]
+max_hp = 1.0
+attack = 1.0
+defense = 1.0
+agility = 1.0
+technique = 2.0
+move_speed = 1.0

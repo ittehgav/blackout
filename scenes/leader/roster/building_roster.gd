@@ -4,7 +4,7 @@ class_name BuildingRoster
 
 ## level range do how?
 @export_group("Available Tags")
-## TODO make this more dynamic somehow
+## TODO make this more dynamic somehow?
 @export var bodybuilder_recruiting:bool=false;
 @export var cyborg_recruiting:bool=false;
 @export var scientist_recruiting:bool=false;

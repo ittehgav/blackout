@@ -23,6 +23,8 @@ being_traded_rect = NodePath("being_traded")
 tooltip = NodePath("Tooltip")
 stack_size_label = NodePath("stack_size")
 price_tag = NodePath("price_tag")
+bought_color = Color(0, 1, 0, 0.3137255)
+sold_color = Color(1, 1, 0, 0.47058824)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 z_index = -1
@@ -103,7 +105,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(1, 1, 0.482353, 0.360784)
 
 [node name="modifier_sign" type="Label" parent="."]
 visible = false

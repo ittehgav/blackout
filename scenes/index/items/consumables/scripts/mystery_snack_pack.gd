@@ -20,5 +20,7 @@ func use()->void:
 			stack.stack_size = roll;
 			roll = 0;
 		mirror.display.throw_in_inventory(stack, self)
-	Entities.player.resource_changed.emit("food", roll)
+		if mirror.inventory_position != Vector2i(-1, -1):
+			stack.match_mirror()
+	Entities.player.resource_changed.emit("food")
 	

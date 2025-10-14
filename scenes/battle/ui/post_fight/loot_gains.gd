@@ -11,11 +11,12 @@ extends PanelContainer
 
 func setup()->void:
 	player_inventory_display.set_grid();
-	player_inventory_display.load_inventory(Entities.player.inventory);
+
+	player_inventory_display.load_inventory();
 	
 	var loot:Inventory = Entities.arena.battle_loot;
-	loot_display.set_grid();
-	loot_display.load_inventory(loot);
+	loot_display.inventory = loot;
+	loot_display.load_inventory();
 	
 	money_gain_label.text = "+ " + str(Entities.arena.battle_money_loot);
 
@@ -49,7 +50,6 @@ func _on_continue_pressed() -> void:
 		finish_looting();
 	
 func finish_looting()->void:
-	player_inventory_display.update_inventory();
 	## WAIT UNTIL ITEM NODES MOVE INVENTORIES BEFORE RETURNING TO WORLDMAPOL
 	await Tweens.ui_fade_out(Entities.arena).finished;
 	post_fight.end_post_fight();

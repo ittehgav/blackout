@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://byprahh1mw3q7"]
+
+[ext_resource type="Script" uid="uid://qm0sco0on2a5" path="res://scenes/in_settlement/locations/dungeon.gd" id="1_1q6nh"]
+[ext_resource type="Texture2D" uid="uid://dml870sw55dln" path="res://assets/visual/sprites/settlements/hideout_2.png" id="2_4olri"]
+
+[node name="Operation Base" type="Node2D"]
+script = ExtResource("1_1q6nh")
+highest_level_target = 200
+map_texture = ExtResource("2_4olri")
+map_texture_modulate = Color(0.29, 0.1479, 0.1479, 1)
+metadata/_custom_type_script = "uid://qm0sco0on2a5"

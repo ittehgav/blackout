@@ -33,16 +33,22 @@ func skill()->void:
 func skill_impact()->void:
 	if fighter.dead:
 		return;
-	var tagged_targets:Array[ActiveFighter] = get_tagged_fighters();
+	if fighter.dead:
+		return;
+	var tagged_targets:Array = get_tagged_fighters();
 	if not len(tagged_targets):
 		## makes sure there's always at least 2 tagged targets
 		tag_fighter(fighter.target_unit)
 
 	if not len(fighter.enemy_team.units) == len(tagged_targets):
-		var untagged_targets:Array[Node] = fighter.enemy_team.units.filter(func(f:ActiveFighter)->bool:return "magnetized" not in f.special_statuses);
-		untagged_targets.sort_custom(closest_to_source)
-
-		var target:ActiveFighter = untagged_targets[0];
+		var targets:Array[ActiveFighter] = fighter.enemy_team.units;
+		targets.sort_custom(closest_to_source)
+		var target:ActiveFighter;
+		for unit:ActiveFighter in targets:
+			if "magnetized" not in unit.special_statuses:
+				target = unit;
+				break;
+				
 		tag_fighter(target)
 	
 	Combat.deal_damage(fighter, fighter.target_unit, damage_modifier);
@@ -75,10 +81,8 @@ func tag_fighter(target:ActiveFighter)->void:
 
 
 func get_tagged_fighters()->Array[ActiveFighter]:
-	var enemies:Array[Node] = fighter.enemy_team.units.filter(filter_magnetized)
-	var final_array:Array[ActiveFighter]
-	final_array.assign(enemies)
-	return final_array
+	var enemies:Array[ActiveFighter] = fighter.enemy_team.units.filter(filter_magnetized)
+	return enemies
 
 
 func lightning_hit(t1:ActiveFighter, t2:ActiveFighter)->void:
@@ -89,5 +93,5 @@ func lightning_hit(t1:ActiveFighter, t2:ActiveFighter)->void:
 	Combat.deal_damage(fighter, t2, damage_modifier);
 
 
-func closest_to_source(a:ActiveFighter, b:ActiveFighter)->bool:
+func closest_to_source(a:Node, b:Node)->bool:
 	return fighter.position.distance_squared_to(a.position) > fighter.position.distance_squared_to(b.position);

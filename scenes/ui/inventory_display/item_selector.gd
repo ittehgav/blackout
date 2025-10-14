@@ -13,7 +13,7 @@ func show_options(options:Array, source:Item)->void:
 	for item:Item in options:
 		var sample:ItemSample = Index.scenes.ui.item_sample.instantiate();
 		sample.clickable = true;
-		sample.load_item(item);
+		sample.load_item(item, 4);
 		
 		var wearer_sprite:Sprite2D;
 		if item in Entities.player.equipment:

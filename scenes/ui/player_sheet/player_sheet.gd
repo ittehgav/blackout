@@ -3,6 +3,7 @@ extends UIRoot;
 class_name PlayerSheet;
 
 signal closed;
+signal start_battle_pressed;
 
 @export var bg:ColorRect;
 @export var sfx:AudioStreamPlayer;
@@ -17,32 +18,35 @@ signal closed;
 @export var container:HBoxContainer;
 @export var gear:Control;
 @export var morale_label:Label;
+@export var start_battle_prompt:MarginContainer
 
 
 @export_subgroup("sounds")
 @export var open_sound:AudioStream;
 @export var close_sound:AudioStream;
 @export var rummage:AudioStream;
-@export var consumable_used:AudioStream;
-@export var equip:AudioStream;
 
 
 
+
+
+func _on_tree_entered() -> void:
+	Entities.player_sheet = self;
+	if Entities.player:
+		Entities.player.equipment_changed.connect(_on_player_equipment_changed);
 func _ready()->void:
 	super();
-	Entities.player_sheet = self;
 
 
 var open:bool=false
-var return_pause_state:bool;
 func show_player_sheet(left_tab_view:int=0)->void:
-	return_pause_state = get_tree().paused;
+	start_battle_prompt.hide();
 	
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
 	show()
+	player_inventory.opened.emit()
 	refresh_data();
-	get_tree().paused = true;
 	bg.self_modulate.a = 0;
 	
 	const tween_duration = .4;
@@ -50,9 +54,21 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(bg, "self_modulate:a", 1, tween_duration);
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
+	
+	if Entities.main.substate != "pre_battle":
+		Entities.main.set_substate("player_sheet")
 	await tween.finished;
 	open = true;
 	## so the player can't mash tab and bug the UI
+
+
+func pre_battle_sheet()->void:
+	Entities.main.set_substate("pre_battle")
+	show_player_sheet();
+	start_battle_prompt.show();
+
+
+
 func hide_player_sheet(_meta:Variant="")->void:
 	## _meta to this gets called when meta clicked from memo labels in the memos tab
 	if player_inventory.pending_warnings():
@@ -71,9 +87,8 @@ func hide_player_sheet(_meta:Variant="")->void:
 		await tween.finished
 		open = false
 		closed.emit();
-		open = false
 
-		get_tree().paused = return_pause_state;
+		Entities.main.revert_substate()
 		hide()
 
 
@@ -101,11 +116,16 @@ func _on_player_equipment_changed(changed:Equipment) -> void:
 	gear.refresh_samples(changed)
 
 func _on_inventory_display_warnings_shown() -> void:
+	left_tab_container.set_tab_disabled(0, true)
 	left_tab_container.set_tab_disabled(1, true)
-	left_tab_container.set_tab_disabled(2, true)
 
 
 func _on_inventory_display_warnings_attended(_clear: bool) -> void:
+	left_tab_container.set_tab_disabled(0, false)
 	left_tab_container.set_tab_disabled(1, false)
-	left_tab_container.set_tab_disabled(2, false)
 	
+
+
+func _on_start_battle_pressed() -> void:
+	start_battle_pressed.emit();
+	hide_player_sheet();

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1eptkluku252"]
+[gd_scene load_steps=7 format=3 uid="uid://d1eptkluku252"]
 
 [ext_resource type="Texture2D" uid="uid://deofm5vbkjkx8" path="res://assets/visual/sprites/fighters/special/dummy.png" id="1_28s6v"]
 [ext_resource type="Script" uid="uid://c6up3yjjuvie" path="res://scenes/leader/roster/fighter/fighter_base.gd" id="1_uqm2d"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="3_pi3y6"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;
@@ -104,16 +105,23 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_28s6v"]
-radius = 22.5
-height = 88.0
+radius = 13.5
+height = 58.0
 
-[node name="Dummy" type="Sprite2D"]
+[node name="Dummy" type="Sprite2D" node_paths=PackedStringArray("hard_stats")]
 material = SubResource("ShaderMaterial_28s6v")
+scale = Vector2(2, 2)
 texture = ExtResource("1_28s6v")
 script = ExtResource("1_uqm2d")
+hard_stats = NodePath("stats")
 special = true
 metadata/_custom_type_script = "uid://c6up3yjjuvie"
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 16.5)
+position = Vector2(-0.5, 6)
 shape = SubResource("CapsuleShape2D_28s6v")
+
+[node name="stats" parent="." instance=ExtResource("3_pi3y6")]
+max_hp = 5000.0
+defense = 5.0
+move_speed = 0.0

@@ -4,6 +4,9 @@ extends Node2D
 class_name Inventory;
 
 
+@export var expandable:bool=false
+## right now just for shop inventories to have infinite space
+
 @export var holder:Node;
 
 @export_subgroup("Resource Counters")
@@ -35,7 +38,7 @@ func _ready()->void:
 	await get_parent().ready
 	refresh_resource_counts();
 
-func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:bool=false)->void:
+func refresh_resource_counts(_resource:String="")->void:
 	var previous_amounts: = {}
 	for r:String in Index.all_resources:
 		previous_amounts[r] = self[r];
@@ -43,12 +46,6 @@ func refresh_resource_counts(_resource:String="", _amount:int=0, emit_change:boo
 			self[r] = 0;
 	for c in containers:
 		self[c.resource] += c.stack_size;
-	if emit_change:
-		for r:String in Index.all_resources:
-			if previous_amounts[r] != self[r]:
-				## will not make an infinite loop, but will make this 
-				## retrigger itself a few unnecessary times?
-				Entities.player.resource_changed.emit(r, self[r] - previous_amounts[r]);
 
 
 
@@ -110,13 +107,12 @@ func change_resource(resource:String, amount:int)->void:
 	refresh_resource_counts();
 	if holder is Player:
 		## call deferred so the values are updated beofre the animation plays
-		Entities.player.resource_changed.emit.call_deferred(resource, amount);
+		Entities.player.resource_changed.emit.call_deferred(resource);
 
 
 
 func add_item(item: Item) -> void:
 	assert(not items.has(item))
-
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
 	items.append(item);
 	if item is Consumable:
@@ -314,5 +310,18 @@ var all_item_arrays:Array[Array] = [
 ]
 
 func empty_inventory()->void:
+	## simply unindexes all items
+	## currently for them to be replaced by the original items
+	## when resetting the trade
 	for array:Array[Item] in all_item_arrays:
 		array.clear();
+	items.clear()
+
+func taken_space()->int:
+	var space:int = 0;
+	for item:Item in items:
+		if not item is Equipment or (not item in Entities.player.equipment\
+			and not item in Entities.player.roster.equipped_accessories):
+			space += item.size_x * item.size_y;
+	assert(space <= capacity_x * capacity_y)
+	return space

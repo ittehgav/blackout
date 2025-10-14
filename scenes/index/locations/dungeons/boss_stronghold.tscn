@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvr56itteo5k8"]
+
+[ext_resource type="Script" uid="uid://qm0sco0on2a5" path="res://scenes/in_settlement/locations/dungeon.gd" id="1_jj465"]
+[ext_resource type="Texture2D" uid="uid://k58lrdqj0c8o" path="res://assets/visual/sprites/settlements/hideout_3.png" id="2_60npi"]
+
+[node name="Boss Stronghold" type="Node2D"]
+script = ExtResource("1_jj465")
+highest_level_target = 500
+map_texture = ExtResource("2_60npi")
+map_texture_modulate = Color(0.33, 0.11550001, 0.11550001, 1)
+metadata/_custom_type_script = "uid://qm0sco0on2a5"

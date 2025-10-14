@@ -29,14 +29,23 @@ func _on_return_pressed() -> void:
 
 
 func _on_accept_pressed() -> void:
+	var fuel_changed:bool=false;
+	var juice_changed:bool=true;
 	if inventory_display.warnings.liquid_discard:
 		for item_mirror:ItemMirror in inventory_display.liquid_item_mirrors:
+			if item_mirror.item.resource == "fuel":
+				fuel_changed = true;
+			elif item_mirror.item.resource == "juice":
+				juice_changed = true
 			inventory_display.remove_mirror(item_mirror)
+	if fuel_changed:
+		Entities.player.resource_changed.emit("fuel");
+	if juice_changed:
+		Entities.player.resource_changed.emit("juice")
+	
 	inventory_display.reset_warnings();
 	Tweens.ui_fade_out(self);
 	inventory_display.warnings_attended.emit(true);
-	
-	inventory_display.update_inventory();
 
 
 func _on_auto_sort_pressed() -> void:
@@ -45,7 +54,7 @@ func _on_auto_sort_pressed() -> void:
 		Tweens.ui_fade_out(self);
 		
 		inventory_display.reset_warnings();
-		inventory_display.update_inventory();
+		
 	elif inventory_display.context == "trade":
 		Tweens.ui_fade_out(self);
 		for r:String in ["fuel", "juice"]:

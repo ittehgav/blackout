@@ -1,0 +1,452 @@
+[gd_scene load_steps=16 format=3 uid="uid://dacqy8pmfnjyf"]
+
+[ext_resource type="PackedScene" uid="uid://b3sr8al76si1g" path="res://scenes/battle/arena/arena.tscn" id="1_nnh8j"]
+[ext_resource type="Script" uid="uid://wer8l14son14" path="res://scenes/testers/combat/units/test_arena.gd" id="2_c2mqb"]
+[ext_resource type="PackedScene" uid="uid://csfb4spydffb5" path="res://scenes/testers/combat/units/fighter_test.tscn" id="3_07wm2"]
+[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="3_xhi4m"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="4_ic6ef"]
+[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="5_oh16v"]
+[ext_resource type="PackedScene" uid="uid://okq3jirq5mq5" path="res://scenes/index/fighters/challenger.tscn" id="7_ic6ef"]
+
+[sub_resource type="Shader" id="Shader_1ut33"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhi4m"]
+resource_local_to_scene = true
+shader = SubResource("Shader_1ut33")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Shader" id="Shader_r4qcv"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nnh8j"]
+resource_local_to_scene = true
+shader = SubResource("Shader_r4qcv")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(6, 2)
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4qx7v"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Shader" id="Shader_oh16v"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oh16v"]
+resource_local_to_scene = true
+shader = SubResource("Shader_oh16v")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[node name="TestArena" type="Node2D"]
+
+[node name="Arena" parent="." instance=ExtResource("1_nnh8j")]
+script = ExtResource("2_c2mqb")
+
+[node name="player_fighter" parent="Arena/teams/team_1" index="0"]
+material = SubResource("ShaderMaterial_xhi4m")
+
+[node name="body" parent="Arena/teams/team_1/player_fighter" index="6"]
+material = SubResource("ShaderMaterial_nnh8j")
+
+[node name="Player" parent="Arena/teams/team_1/player_fighter" index="10" node_paths=PackedStringArray("equipped_weapon", "equipped_module") instance=ExtResource("3_xhi4m")]
+equipped_weapon = NodePath("Inventory/Tailpipe")
+equipped_module = NodePath("Inventory/Adrenaline Synthethizer")
+
+[node name="Tailpipe" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="0" instance=ExtResource("4_ic6ef")]
+
+[node name="Adrenaline Synthethizer" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="1" instance=ExtResource("5_oh16v")]
+
+[node name="Fighter Test" parent="Arena/teams/team_2" index="0" instance=ExtResource("3_07wm2")]
+position = Vector2(127, 306)
+
+[node name="Dummy" parent="Arena/teams/team_2/Fighter Test/dummy" index="3"]
+material = SubResource("ShaderMaterial_4qx7v")
+
+[node name="unit" parent="Arena/teams/team_2/Fighter Test" index="1" node_paths=PackedStringArray("base")]
+base = NodePath("Challenger")
+level = 9
+
+[node name="Challenger" parent="Arena/teams/team_2/Fighter Test/unit" index="0" instance=ExtResource("7_ic6ef")]
+material = SubResource("ShaderMaterial_oh16v")
+
+[node name="tide_bar" parent="Arena/ui_canvas/hud" index="1"]
+visible = false
+
+[editable path="Arena"]
+[editable path="Arena/teams/team_1/player_fighter"]
+[editable path="Arena/teams/team_1/player_fighter/body"]
+[editable path="Arena/teams/team_1/player_fighter/Player"]
+[editable path="Arena/teams/team_2/Fighter Test"]
+[editable path="Arena/teams/team_2/Fighter Test/dummy"]
+[editable path="Arena/teams/team_2/Fighter Test/unit"]

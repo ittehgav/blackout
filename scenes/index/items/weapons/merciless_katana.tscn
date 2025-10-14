@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhognr0ie2huf"]
+
+[ext_resource type="Texture2D" uid="uid://dohjde4700n1" path="res://assets/visual/items/weapons/merciless_katana.png" id="1_a7g5q"]
+[ext_resource type="Script" uid="uid://dx5wyt2jafwve" path="res://scenes/index/items/weapons/scripts/merciless_katana.gd" id="2_a7g5q"]
+[ext_resource type="AudioStream" uid="uid://bvh1ovuiw7k4r" path="res://assets/sound/sfx/combat/katana_start.ogg" id="3_7cg2t"]
+[ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="3_dftfl"]
+[ext_resource type="AudioStream" uid="uid://c6ra5p3s3yuah" path="res://assets/sound/sfx/combat/katana_bonus.wav" id="4_83wa8"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="5_pryt3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b82ma"]
+size = Vector2(379, 31)
+
+[node name="Merciless Katana" type="Sprite2D" node_paths=PackedStringArray("dash_target", "bar", "hint", "skill_check_sfx", "hit_scan", "use_sfx", "hit_sfx")]
+use_parent_material = true
+position = Vector2(-41, 25)
+texture = ExtResource("1_a7g5q")
+script = ExtResource("2_a7g5q")
+dash_target = NodePath("Area2D/Node2D")
+bar = NodePath("Area2D/bar")
+hint = NodePath("hint")
+skill_check_sfx = NodePath("bonus_dmg")
+base_damage = 50
+cooldown = 5.0
+hit_scan = NodePath("Area2D")
+melee = true
+use_sfx = NodePath("use_sfx")
+hit_sfx = NodePath("hit_normal")
+use_feedback = "none"
+continuous = true
+color_tag = "attack"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7cg2t")
+
+[node name="bonus_dmg" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_83wa8")
+
+[node name="hit_normal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_pryt3")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(243, -23.5)
+shape = SubResource("RectangleShape2D_b82ma")
+
+[node name="bar" type="TextureProgressBar" parent="Area2D"]
+visible = false
+self_modulate = Color(0.4, 0, 0, 1)
+offset_left = 53.0
+offset_top = -30.0
+offset_right = 433.0
+offset_bottom = -16.0
+max_value = 120.0
+allow_greater = true
+nine_patch_stretch = true
+texture_progress = ExtResource("3_dftfl")
+
+[node name="hint" type="ReferenceRect" parent="Area2D/bar"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = -3.0
+offset_right = 333.0
+offset_bottom = 17.0
+border_color = Color(0.9999992, 0.56345695, 0.5029797, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="Node2D" type="Node2D" parent="Area2D"]
+position = Vector2(453, -25)
+
+[node name="hint" type="Label" parent="."]
+visible = false
+offset_right = 48.0
+offset_bottom = 26.0
+text = "HOLD TO USE"

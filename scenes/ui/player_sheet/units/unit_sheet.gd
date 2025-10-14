@@ -52,9 +52,9 @@ func refresh_data()->void:
 	experience_bar.build(showing_unit);
 	
 	if showing_unit.equipped_accessory:
-		accessory_sample.load_item(showing_unit.equipped_accessory);
+		accessory_sample.load_item(showing_unit.equipped_accessory, 2);
 	else:
-		accessory_sample.load_blank(3);
+		accessory_sample.load_blank(2);
 	
 	skill_name_label.text = "Skill: " + showing_unit.base.skill_name;
 	skill_description_label.text = showing_unit.base.full_skill_description(showing_unit);
@@ -96,7 +96,7 @@ func _on_item_sample_gui_input(e: InputEvent) -> void:
 			showing_unit.equipped_accessory = null;
 			display.throw_in_inventory(item);
 			display.refresh_data();
-			accessory_sample.load_blank(3);
+			accessory_sample.load_blank(2);
 			Entities.player_sheet.party_view.unit_accessories_changed.emit();
 			Entities.player.roster.equipped_accessories.erase(item);
 			

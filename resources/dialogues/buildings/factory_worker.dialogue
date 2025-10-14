@@ -1,8 +1,5 @@
 ~ start
 Engineer: Hello, looking to buy our goods?
 - #trade_menu
-- What can i do here? =>< info
 - #leave => END!
 
-~ info 
-Engineer: Here we sell all kinds of [u]Accessories, Modules, Weapons and more![/u] => start
