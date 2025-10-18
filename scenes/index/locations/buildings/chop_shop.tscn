@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/locations/building.gd" id="1_p1cai"]
 [ext_resource type="PackedScene" uid="uid://c72ogqn4mwwbu" path="res://scenes/index/locations/buildings/interior/chop_shop_interior.tscn" id="2_3edf0"]
 [ext_resource type="Texture2D" uid="uid://c4bcnpeq7s2bs" path="res://assets/visual/buildings/icons/chop_shop.png" id="2_go530"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="2_uwulv"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="2_uwulv"]
 [ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="4_aoxg6"]
 [ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="5_1dw65"]
 [ext_resource type="PackedScene" uid="uid://dtd8165tljlor" path="res://scenes/index/items/accessories/forbidden_mask.tscn" id="5_iw6p2"]
@@ -21,17 +21,16 @@
 [node name="Chop Shop" type="Node2D" node_paths=PackedStringArray("inventory", "roster") groups=["all_locations"]]
 script = ExtResource("1_p1cai")
 front_porch_scene = ExtResource("2_3edf0")
-inventory = NodePath("NpcInventory")
+inventory = NodePath("ShopInventory")
 roster = NodePath("Building Roster")
 evolve_option = "mechanic"
 icon_texture = ExtResource("2_go530")
 metadata/_custom_type_script = "uid://lf67nwuvdmnt"
 
-[node name="NpcInventory" parent="." node_paths=PackedStringArray("resource_storage", "item_pool", "holder") groups=["all_locations"] instance=ExtResource("2_uwulv")]
+[node name="ShopInventory" parent="." node_paths=PackedStringArray("resource_storage", "holder") groups=["all_locations"] instance=ExtResource("2_uwulv")]
 rarity_rate = 2
 batch_size = 6
 resource_storage = [NodePath("Fuel Barrel2"), NodePath("Food Barrel")]
-item_pool = [NodePath("Jumpsuit"), NodePath("Fuel Gallon"), NodePath("Fuel Tank"), NodePath("Tailpipe"), NodePath("Spiked Shoulder Pads"), NodePath("Sharpener"), NodePath("Fuel Barrel"), NodePath("Buckler"), NodePath("Taser Gun"), NodePath("Forbidden Shoulders"), NodePath("Forbidden Mask")]
 holder = NodePath("..")
 food = null
 fuel = null
@@ -41,34 +40,31 @@ chips = null
 capacity_x = null
 capacity_y = null
 
-[node name="Forbidden Mask" parent="NpcInventory" instance=ExtResource("5_iw6p2")]
+[node name="Forbidden Mask" parent="ShopInventory" instance=ExtResource("5_iw6p2")]
 
-[node name="Forbidden Shoulders" parent="NpcInventory" instance=ExtResource("6_tu23v")]
+[node name="Forbidden Shoulders" parent="ShopInventory" instance=ExtResource("6_tu23v")]
 
-[node name="Food Barrel" parent="NpcInventory" instance=ExtResource("5_1dw65")]
+[node name="Food Barrel" parent="ShopInventory" instance=ExtResource("5_1dw65")]
 
-[node name="Fuel Barrel2" parent="NpcInventory" instance=ExtResource("11_1dw65")]
+[node name="Fuel Barrel2" parent="ShopInventory" instance=ExtResource("11_1dw65")]
 
-[node name="Sharpener" parent="NpcInventory" instance=ExtResource("5_p1cai")]
+[node name="Sharpener" parent="ShopInventory" instance=ExtResource("5_p1cai")]
 
-[node name="Jumpsuit" parent="NpcInventory" instance=ExtResource("5_uwulv")]
+[node name="Jumpsuit" parent="ShopInventory" instance=ExtResource("5_uwulv")]
 
-[node name="Fuel Gallon" parent="NpcInventory" instance=ExtResource("4_aoxg6")]
+[node name="Fuel Gallon" parent="ShopInventory" instance=ExtResource("4_aoxg6")]
 
-[node name="Fuel Tank" parent="NpcInventory" instance=ExtResource("7_54agu")]
+[node name="Fuel Tank" parent="ShopInventory" instance=ExtResource("7_54agu")]
 
-[node name="Tailpipe" parent="NpcInventory" instance=ExtResource("9_qtvjw")]
+[node name="Tailpipe" parent="ShopInventory" instance=ExtResource("9_qtvjw")]
 
-[node name="Spiked Shoulder Pads" parent="NpcInventory" instance=ExtResource("9_3edf0")]
+[node name="Spiked Shoulder Pads" parent="ShopInventory" instance=ExtResource("9_3edf0")]
 
-[node name="Fuel Barrel" parent="NpcInventory" instance=ExtResource("11_1dw65")]
+[node name="Fuel Barrel" parent="ShopInventory" instance=ExtResource("11_1dw65")]
 
-[node name="Buckler" parent="NpcInventory" instance=ExtResource("12_n0oaa")]
+[node name="Buckler" parent="ShopInventory" instance=ExtResource("12_n0oaa")]
 
-[node name="Taser Gun" parent="NpcInventory" instance=ExtResource("13_iw6p2")]
+[node name="Taser Gun" parent="ShopInventory" instance=ExtResource("13_iw6p2")]
 
 [node name="Building Roster" parent="." instance=ExtResource("10_nmsa8")]
 mechanic_recruiting = true
-
-[connection signal="daily_reset" from="." to="NpcInventory" method="refresh_inventory"]
-[connection signal="daily_reset" from="." to="Building Roster" method="refresh_recruits"]

@@ -41,6 +41,20 @@ func on_status_applied(_source:ActiveFighter, data:Dictionary)->void:
 	match data.type:
 		"stun":
 			display_stun_timer(data.duration)
+		"stat_change":
+			generate_floating_icon(data.stat, data.amount > 0);
+
+
+func generate_floating_icon(key:String, positive:bool)->void:
+	var icon:StatIcon = Index.scenes.ui.stat_icon.instantiate();
+	icon.stat = key
+	icon.floating = true;
+	icon.positive = positive
+	floating_icon_anchor.add_child(icon);
+	
+	
+
+	
 
 func display_stun_timer(duration:float)->void:
 	var bar:TextureProgressBar = status_display.duplicate();

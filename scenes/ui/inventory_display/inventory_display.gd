@@ -667,6 +667,7 @@ func sort_by_capacity(a:ResourceContainer, b:ResourceContainer)->bool:
 
 
 func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
+	inventory.changed.emit();
 	if held_item_mirror:
 		held_item_mirror.z_index -= 20
 		held_item_mirror.held = false;

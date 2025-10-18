@@ -9,8 +9,6 @@ class_name ResourcesDropdown
 
 func _ready()->void:
 	if from_player:
-		
-		print("isfp?")
 		target_inventory = Entities.player.inventory;
 		Entities.player.resource_changed.connect(_on_player_resource_changed)
 	if target_inventory:

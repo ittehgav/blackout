@@ -430,7 +430,7 @@ food_cost = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/food_cost")
 fuel_cost = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/fuel_cost")
 ui_sfx = NodePath("../../../../../ui_sfx")
 unit_sheet_scene = ExtResource("22_in2cn")
-units_grid = NodePath("VBoxContainer/units")
+units_grid = NodePath("VBoxContainer/ScrollContainer/units")
 upgrade_hint = NodePath("upgrade_hint")
 metadata/_tab_index = 1
 
@@ -503,9 +503,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Units"
 
-[node name="units" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
+custom_minimum_size = Vector2(700, 350)
 layout_mode = 2
-columns = 7
+horizontal_scroll_mode = 3
+
+[node name="units" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+columns = 5
 
 [node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
 modulate = Color(1, 1, 1, 0.341176)
@@ -558,7 +563,7 @@ offset_bottom = 67.0
 process_mode = 4
 material = SubResource("ShaderMaterial_tggo3")
 position = Vector2(90, 23)
-scale = Vector2(3, 3)
+scale = Vector2(4, 4)
 
 [node name="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" index="0"]
 process_mode = 3

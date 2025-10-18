@@ -22,8 +22,9 @@ func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:
 func aoe_damage(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan, modifier:Callable = Callable())->void:
 	## HIT SCAN NEEDS TO BE POSITIONED IN WINDUP
 	## simply damages all valid targets within the hit scan which may take different shapes
-	for target:Node2D in hit_scan.get_overlapping_bodies():
-
+	for area:Area2D in hit_scan.get_overlapping_areas():
+		assert(area is HurtBox);
+		var target:ActiveFighter = area.fighter;
 		source.catch_hit_target(target);
 		deal_damage(source, target, modifier);
 
@@ -38,10 +39,10 @@ hit_scan:Area2D=source.base.hit_scan)->void:
 	
 
 func aoe_stun(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan)->void:
-	var targets:Array[Node2D] = hit_scan.get_overlapping_bodies();
-	for target in targets:
-		if source is NpcFighter:
-			source.catch_hit_target(target);
+	for area:Area2D in hit_scan.get_overlapping_areas():
+		assert(area is HurtBox);
+		var target:ActiveFighter = area.fighter;
+		source.catch_hit_target(target);
 		stun_target(source, target)
 
 
@@ -50,23 +51,27 @@ func self_stat_buff(source:ActiveFighter, stat:String, value:float)->void:
 	var final_value:float = Scaling.technique_scaled_value(value, source.technique, "stat_buff");
 	apply_stat_change(source, source, final_value, stat)
 
-
-func aoe_stat_buff(source:ActiveFighter, stat:String, frac:float)->void:
-	var targets:Array[Node2D] = source.hit_scan.get_overlapping_bodies();
-	for target in targets:
-		if source is NpcFighter:
-			source.catch_hit_target(target);
-
-		var value:float = Scaling.technique_scaled_value((target[stat] * frac), source.technique, "stat_buff");
-		apply_stat_change(source, target, value, stat);
+func aoe_stat_change(source:ActiveFighter, hit_scan:Area2D, stat:String, value:float, positive:bool=true, fraction:float=0.0)->void:
+	for area:Area2D in hit_scan.get_overlapping_areas():
+		assert(area is HurtBox);
+		var target:ActiveFighter = area.fighter;
+		source.catch_hit_target(target);
 		
+		if fraction:
+			value = target[stat] * fraction;
+		if not positive:
+			value *= -1;
+		apply_stat_change(source, target, value, stat);
 
-func aoe_stat_debuff(source:ActiveFighter,hit_scan:Area2D, stat:String, amount:int)->void:
-	## TODO make this work the same way as aoe buff
-	var targets:Array[Node2D] = hit_scan.get_overlapping_bodies();
-	for unit:ActiveFighter in targets:
-		source.catch_hit_target(unit)
-		Combat.apply_stat_change(source, unit, -amount, stat);
+func aoe_stat_buff(source:ActiveFighter,hit_scan:Area2D, stat:String, value:float, fraction:float=0.0)->void:
+	## encapsulating here just to make the difference in fighter base scripts more clear
+	aoe_stat_change(source,hit_scan, stat, value, true, fraction)
+
+
+func aoe_stat_debuff(source:ActiveFighter,hit_scan:Area2D, stat:String, value:int, fraction:float=0)->void:
+	aoe_stat_change(source,hit_scan, stat, value, false, fraction);
+
+
 func set_aoe_aim(source:NpcFighter)->void:
 	var shape:Shape2D = source.base.hit_scan.get_node("shape").shape;
 	if shape is CircleShape2D:
@@ -81,6 +86,8 @@ func set_aoe_aim(source:NpcFighter)->void:
 
 
 func set_windup_angle(fighter:NpcFighter)->void:
+	if Entities.arena.battle_over:
+		return
 	const base_rotation = 20;
 	const rotation_deadzone = 50;
 	var target_position:Vector2=fighter.target_unit.global_position;

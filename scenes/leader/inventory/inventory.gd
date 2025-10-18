@@ -3,6 +3,8 @@ extends Node2D
 ## any settlement or party has an inventory
 class_name Inventory;
 
+signal changed;
+
 
 @export var expandable:bool=false
 ## right now just for shop inventories to have infinite space

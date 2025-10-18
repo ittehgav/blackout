@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=12 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.gd" id="1_a7x5t"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_8440y"]
+[ext_resource type="Script" uid="uid://vp6mjhqjonac" path="res://scenes/battle/fighter/npc_fighter/hurtbox.gd" id="3_m77vo"]
 [ext_resource type="Texture2D" uid="uid://nnmygu4ogbnr" path="res://assets/visual/ui/bars/base_bar_trail.png" id="4_b8wnn"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="5_n8p1d"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
@@ -13,7 +14,10 @@
 resource_local_to_scene = true
 radius = 200.0
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "overlay", "timers", "status_timers", "initial_stats", "stat_modifiers", "stat_multipliers")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
+radius = 15.0
+
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "overlay", "timers", "status_timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
@@ -26,6 +30,7 @@ status_timers = NodePath("status_timers")
 initial_stats = NodePath("stats/initial_stats")
 stat_modifiers = NodePath("stats/modifiers")
 stat_multipliers = NodePath("stats/multipliers")
+hurtbox = NodePath("hurtbox")
 
 [node name="stats" type="Node" parent="."]
 
@@ -59,6 +64,13 @@ autostart = true
 
 [node name="skill_retry" type="Timer" parent="timers/skill_cooldown"]
 wait_time = 0.1
+
+[node name="hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("fighter")]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_m77vo")
+fighter = NodePath("..")
 
 [node name="skill_range" type="Area2D" parent="."]
 collision_layer = 0
@@ -97,7 +109,7 @@ status_icons = NodePath("outline/status_icons")
 status_display = NodePath("outline/status_icons/status_display")
 
 [node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
-position = Vector2(-4, 67)
+position = Vector2(-7, 39)
 
 [node name="bg" type="ColorRect" parent="FighterOverlay"]
 show_behind_parent = true
@@ -225,6 +237,9 @@ tint_progress = Color(0, 0, 1, 1)
 [node name="refresh_bar" type="Timer" parent="FighterOverlay"]
 wait_time = 0.05
 autostart = true
+
+[node name="unit_collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_m77vo")
 
 [connection signal="damage_blocked" from="." to="FighterOverlay" method="_on_npc_fighter_damage_blocked"]
 [connection signal="damage_taken" from="." to="FighterOverlay" method="_on_fighter_damage_taken"]

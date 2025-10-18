@@ -65,6 +65,10 @@ folder_colors={
 "res://scenes/index/": "blue"
 }
 
+[filesystem]
+
+import/blender/enabled=false
+
 [global_group]
 
 all_settlements="Nodes that get saved"

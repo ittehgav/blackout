@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://csfb4spydffb5"]
+[gd_scene load_steps=9 format=3 uid="uid://csfb4spydffb5"]
 
-[ext_resource type="Script" uid="uid://baihpjue8prfg" path="res://scenes/testers/combat/units/fighter_test.gd" id="1_rgl56"]
+[ext_resource type="Script" uid="uid://baihpjue8prfg" path="res://scenes/test/combat/units/fighter_test.gd" id="1_rgl56"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="2_eouuu"]
 [ext_resource type="PackedScene" uid="uid://d1eptkluku252" path="res://scenes/index/fighters/special/dummy.tscn" id="3_6mpsc"]
+[ext_resource type="Script" uid="uid://df75lw20fhu53" path="res://scenes/test/combat/units/analytic.gd" id="4_eouuu"]
 
-[sub_resource type="Shader" id="Shader_4frhf"]
+[sub_resource type="Shader" id="Shader_ic6ef"]
 code = "shader_type canvas_item;
 
 uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
@@ -94,7 +95,7 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4qx7v"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_ic6ef")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -104,10 +105,35 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="Fighter Test" type="Node2D" node_paths=PackedStringArray("unit", "dummy_unit")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgl56"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ic6ef")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eouuu"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ic6ef")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Fighter Test" type="Node2D" node_paths=PackedStringArray("unit", "dummies", "analytic")]
 script = ExtResource("1_rgl56")
 unit = NodePath("unit")
-dummy_unit = NodePath("dummy")
+dummies = [NodePath("dummy"), NodePath("dummy2"), NodePath("dummy3")]
+analytic = NodePath("analytic")
 
 [node name="dummy" parent="." instance=ExtResource("2_eouuu")]
 visible = true
@@ -116,6 +142,54 @@ position = Vector2(309, 58)
 [node name="Dummy" parent="dummy" instance=ExtResource("3_6mpsc")]
 material = SubResource("ShaderMaterial_4qx7v")
 
+[node name="dummy2" parent="." instance=ExtResource("2_eouuu")]
+visible = true
+position = Vector2(194, 110)
+
+[node name="Dummy" parent="dummy2" instance=ExtResource("3_6mpsc")]
+material = SubResource("ShaderMaterial_rgl56")
+
+[node name="dummy3" parent="." instance=ExtResource("2_eouuu")]
+visible = true
+position = Vector2(235, -62)
+
+[node name="Dummy" parent="dummy3" instance=ExtResource("3_6mpsc")]
+material = SubResource("ShaderMaterial_eouuu")
+
 [node name="unit" parent="." instance=ExtResource("2_eouuu")]
 visible = true
-position = Vector2(152, 43)
+position = Vector2(-544, 52)
+
+[node name="analytic" type="Control" parent="." node_paths=PackedStringArray("level_label", "dps_label")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_eouuu")
+level_label = NodePath("VBoxContainer/level")
+dps_label = NodePath("VBoxContainer/dps")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="analytic"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="level" type="Label" parent="analytic/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Level:"
+
+[node name="dps" type="Label" parent="analytic/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "DPS: "
+
+[node name="stun_uptime" type="Label" parent="analytic/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Stun Uptime"
+
+[node name="refresh" type="Timer" parent="analytic/VBoxContainer"]
+autostart = true
+
+[connection signal="timeout" from="analytic/VBoxContainer/refresh" to="analytic" method="refresh"]

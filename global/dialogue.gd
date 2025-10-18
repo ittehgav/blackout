@@ -54,7 +54,7 @@ func get_scenario()->Control:
 func start_trade()->void:
 	current_player.hide();
 	var trade_menu:TradeMenu = Index.scenes.ui.trade_menu.instantiate()
-	var target_inventory:Inventory =current_speaker.inventory;
+	var target_inventory:Inventory = current_speaker.inventory;
 	trade_menu.start_trade(target_inventory, current_speaker.name)
 	
 	var target:Control = get_scenario();

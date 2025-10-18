@@ -10,7 +10,7 @@ class_name Leader
 @export var inventory:Inventory;
 @export var roster:Roster;
 
-@export var combat_stats:CombatStats;
+@export var stats:CombatStats;
 @export var modifier_stats:CombatStats;
 @export var stat_multipliers:CombatStats;
 
@@ -23,7 +23,7 @@ class_name Leader
 func final_stats()->CombatStats:
 	var modified_stats:CombatStats = Index.scenes.combat_stats.instantiate();
 	for stat:String in Index.all_combat_stats:
-		modified_stats[stat] = (combat_stats[stat] + modifier_stats[stat]) * stat_multipliers[stat]
+		modified_stats[stat] = (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat]
 	return modified_stats;
 
 

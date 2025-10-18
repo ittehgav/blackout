@@ -247,6 +247,9 @@ autoplay = "fighter_base/idle"
 [node name="hit_scan" type="Area2D" parent="."]
 top_level = true
 position = Vector2(221, 26)
+collision_layer = 0
+collision_mask = 0
+monitorable = false
 
 [node name="projection" type="Sprite2D" parent="hit_scan"]
 modulate = Color(1, 1, 1, 0)

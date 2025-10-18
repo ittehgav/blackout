@@ -2,6 +2,8 @@ extends ActiveUnit;
 
 class_name ActiveFighter;
 
+signal damage_dealt(damage:float, target:ActiveFighter)
+## right now just for dps metrics but very possible to be useful for other stuff later?
 signal shield_gained(source:ActiveFighter, value:float);
 signal damage_blocked(source:ActiveFighter, value:float)
 signal damage_taken(damage:float, source:ActiveFighter);
@@ -26,6 +28,8 @@ var dead:bool=false;
 @export var initial_stats:CombatStats
 @export var stat_modifiers:CombatStats;
 @export var stat_multipliers:CombatStats
+
+@export var hurtbox:Area2D;
 
 ## special statuses simply hold metadata and any effects from them
 ## are managed in the source's base script

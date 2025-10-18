@@ -11,7 +11,8 @@ func load_unit(unit:FighterUnit, callback:Callable)->void:
 	$level.text = "Lv. " + str(unit.level);
 	
 	var base:FighterBase = unit.base.duplicate();
-	base.scale = Vector2.ONE;
+	base.clear_for_sample()
+	base.scale = Vector2(2, 2);
 	base.centered = false;
 	base.material = null;
 	add_child(base);
@@ -25,7 +26,7 @@ func load_unit(unit:FighterUnit, callback:Callable)->void:
 	
 func load_player(callback:Callable)->void:
 	var body:Sprite2D = Index.scenes.player_body.instantiate();
-	body.scale = Vector2.ONE;
+	body.scale = Vector2(2, 2);
 	body.centered = false;
 	body.material = null;
 	add_child(body)

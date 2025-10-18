@@ -27,9 +27,7 @@ func skill()->void:
 	animation_player.play("mech_arm/skill")
 	animation_player.queue("fighter_base/idle")
 	
-func skill_impact()->void:
-	if fighter.dead:
-		return;
+func skill_effect()->void:
 	Combat.deal_damage(fighter)
 	Combat.apply_stat_change(fighter, fighter.target_unit, -defense_reduction, "defense");
 	skill_finished.emit();

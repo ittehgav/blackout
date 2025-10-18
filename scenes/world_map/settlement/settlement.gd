@@ -69,5 +69,7 @@ func _on_hover_box_pressed() -> void:
 
 
 func _on_player_visited() -> void:
+	for l:Location in locations:
+		l.refresh()
 	data.seen = true;
 	hover_box.hide()

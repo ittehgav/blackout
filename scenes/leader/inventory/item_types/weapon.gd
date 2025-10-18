@@ -26,6 +26,8 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 
 @export_group("Feedback, visuals, sounds")
 ## used directly via script rather than by other parts.
+@export var projections:Array[CanvasItem]
+
 @export var animation_player:AnimationPlayer
 @export var use_sfx:AudioStreamPlayer
 @export var alt_use_sfx:AudioStreamPlayer;
@@ -49,7 +51,8 @@ func use(_alt:bool=false)->void:
 	printerr(name + " MISSING USE")
 	
 func final_damage()->int:
-	var damage:int = Entities.player.combat_stats.attack;
+	## ONLY FOR UNITS NOT COMBAT
+	var damage:int = Entities.player.final_stats().attack;
 	damage += base_damage;
 	if applied_modifier:
 		if applied_modifier.stat_modifiers:

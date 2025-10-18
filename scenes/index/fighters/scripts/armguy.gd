@@ -39,9 +39,7 @@ func skill()->void:
 	animation_player.play("armguy/skill")
 	animation_player.queue("fighter_base/idle")
 
-func skill_impact()->void:
-	if fighter.dead:
-		return;
+func skill_effect()->void:
 	Combat.deal_damage(fighter);
 	Combat.stun_target(fighter)
 	skill_finished.emit();

@@ -38,8 +38,6 @@ func skill()->void:
 	animation_player.play("crossbow/skill");
 	animation_player.queue("fighter_base/idle");
 
-func skill_impact()->void:
-	if fighter.dead:
-		return;
+func skill_effect()->void:
 	Combat.aoe_damage(fighter, hit_scan, damage_modifier);
 	skill_finished.emit();

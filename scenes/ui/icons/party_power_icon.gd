@@ -1,21 +1,16 @@
-extends TextureRect
+extends Icon;
 
 class_name PartyPowerIcon
 
-@export var value_label:Label;
-var leader:Leader;
+@export var source:Roster;
+
+@export var from_player:bool=false;
 
 func _ready()->void:
-	refresh()
+	if from_player:
+		source = Entities.player.roster;
+	if source:
+		refresh();
 
 func refresh()->void:
-	if not leader:
-		leader = Entities.player
-	value_label.text = str(leader.level)
-	
-
-
-
-func _on_visibility_changed() -> void:
-	if leader:
-		refresh();
+	label.text = str(source.get_level());

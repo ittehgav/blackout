@@ -1,37 +1,28 @@
 extends UIRoot
 
-
 @export var victory_view:Control;
 @export var defeat_view:Control;
 
-
 func _ready()->void:
-	super();
-	set_process_input(false)
+	hide()
+	## to make testing simpler
+	victory_view.hide();
+	victory_view.exp_panel.hide();
+	victory_view.loot_panel.hide()
+	defeat_view.hide()
 
-	
-func show_post_fight(winner_n:int)->void:
-	show()
-	Entities.main_bgm.stop()
-	var tween: = Entities.arena.create_tween();
-	tween.set_ignore_time_scale(true)
-	tween.tween_property(Engine, "time_scale", .3, 1.5);
-	tween.parallel().tween_property($bg, "modulate:a", 1, 1);
-	await tween.finished
-	set_process_input(true);
-	Engine.time_scale = 1;
-	get_tree().paused = true;
 
-	if winner_n == 1:
-		victory_view.victory_animation()
-		Entities.main_bgm.play_bgm("victory");
+func show_post_fight()->void:
+	show();
+	victory_view.hide();
+	defeat_view.hide()
+	if Entities.arena.won_battle:
+		victory_view.play_animation();
 	else:
-		defeat_view.defeat_animation();
-		Entities.main_bgm.play_bgm("defeat")
+		defeat_view.play_animation()
 
 
-func end_post_fight()->void:
-	if Entities.world_map:
-		await Tweens.ui_fade_in(Entities.loading_screen).finished;
-		## to differentiate from when the battle was a test battle press in the main vieW
-		Entities.arena.return_to_world_map();
+func _on_finish_arena_pressed() -> void:
+	await Entities.loading_screen.show_splash().finished;
+	Entities.main.set_scenario("world_map")
+	

@@ -243,6 +243,7 @@ scale = Vector2(2, 1)
 texture = ExtResource("4_rpeqt")
 
 [node name="sprout" type="Sprite2D" parent="." node_paths=PackedStringArray("base", "animation_player", "hit_scan")]
+visible = false
 show_behind_parent = true
 position = Vector2(139, -32)
 texture = ExtResource("6_ffwby")
@@ -278,7 +279,7 @@ shape = SubResource("CircleShape2D_uouwv")
 modulate = Color(1, 1, 1, 0)
 z_index = -1
 position = Vector2(0, -25)
-scale = Vector2(10, 10)
+scale = Vector2(4, 4)
 texture = ExtResource("11_o3m2u")
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]

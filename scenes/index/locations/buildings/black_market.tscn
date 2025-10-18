@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://blqfh3mdw2m5r" path="res://scenes/index/locations/buildings/black_market.gd" id="1_tnb7f"]
 [ext_resource type="Texture2D" uid="uid://bswpu2g6cclwj" path="res://assets/visual/buildings/icons/black_market.png" id="2_twu2y"]
 [ext_resource type="PackedScene" uid="uid://d3co1twv2jajr" path="res://scenes/index/locations/buildings/interior/black_market_interior.tscn" id="3_0res6"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="4_cbvov"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="4_cbvov"]
 [ext_resource type="Script" uid="uid://b8037pwr05tdw" path="res://scenes/leader/inventory/rotating_inventory.gd" id="5_j7wsn"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="6_5tdgl"]
 [ext_resource type="PackedScene" uid="uid://c4s2cufch0vvv" path="res://scenes/index/items/accessories/external_processing_unit.tscn" id="7_13hku"]
@@ -34,14 +34,14 @@
 
 [node name="Black Market" type="Node2D" node_paths=PackedStringArray("rotating_inventory_1", "rotating_inventory_2") groups=["all_locations"]]
 script = ExtResource("1_tnb7f")
-rotating_inventory_1 = NodePath("NpcInventory")
-rotating_inventory_2 = NodePath("NpcInventory2")
+rotating_inventory_1 = NodePath("ShopInventory")
+rotating_inventory_2 = NodePath("ShopInventory2")
 front_porch_scene = ExtResource("3_0res6")
 size = 2
 icon_texture = ExtResource("2_twu2y")
 metadata/_custom_type_script = "uid://lf67nwuvdmnt"
 
-[node name="NpcInventory" parent="." node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
+[node name="ShopInventory" parent="." node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
 script = ExtResource("5_j7wsn")
 accessory_pool = [NodePath("Brass Knuckles"), NodePath("External Processing Unit"), NodePath("Forbidden Mask"), NodePath("Forbidden Shoulders"), NodePath("Jumpsuit"), NodePath("Sapper"), NodePath("Spiked Shoulder Pads")]
 consumable_pool = [NodePath("Apple Sticker"), NodePath("Eye Chart"), NodePath("Metallic Coating"), NodePath("Motivational Speech Draft"), NodePath("Mystery Snack Pack"), NodePath("Protein Shake"), NodePath("Sharpener")]
@@ -50,59 +50,59 @@ weapon_pool = [NodePath("Toxic Grenade Launcher"), NodePath("Taser Gun"), NodePa
 rarity_rate = 2
 batch_size = 10
 
-[node name="Brass Knuckles" parent="NpcInventory" instance=ExtResource("6_5tdgl")]
+[node name="Brass Knuckles" parent="ShopInventory" instance=ExtResource("6_5tdgl")]
 
-[node name="External Processing Unit" parent="NpcInventory" instance=ExtResource("7_13hku")]
+[node name="External Processing Unit" parent="ShopInventory" instance=ExtResource("7_13hku")]
 
-[node name="Forbidden Mask" parent="NpcInventory" instance=ExtResource("8_qw1gl")]
+[node name="Forbidden Mask" parent="ShopInventory" instance=ExtResource("8_qw1gl")]
 
-[node name="Forbidden Shoulders" parent="NpcInventory" instance=ExtResource("9_u3plt")]
+[node name="Forbidden Shoulders" parent="ShopInventory" instance=ExtResource("9_u3plt")]
 
-[node name="Jumpsuit" parent="NpcInventory" instance=ExtResource("10_vtpmr")]
+[node name="Jumpsuit" parent="ShopInventory" instance=ExtResource("10_vtpmr")]
 
-[node name="Sapper" parent="NpcInventory" instance=ExtResource("11_20set")]
+[node name="Sapper" parent="ShopInventory" instance=ExtResource("11_20set")]
 
-[node name="Spiked Shoulder Pads" parent="NpcInventory" instance=ExtResource("12_woixh")]
+[node name="Spiked Shoulder Pads" parent="ShopInventory" instance=ExtResource("12_woixh")]
 
-[node name="Apple Sticker" parent="NpcInventory" instance=ExtResource("13_n672b")]
+[node name="Apple Sticker" parent="ShopInventory" instance=ExtResource("13_n672b")]
 
-[node name="Eye Chart" parent="NpcInventory" instance=ExtResource("14_613hl")]
+[node name="Eye Chart" parent="ShopInventory" instance=ExtResource("14_613hl")]
 
-[node name="Metallic Coating" parent="NpcInventory" instance=ExtResource("15_6jomb")]
+[node name="Metallic Coating" parent="ShopInventory" instance=ExtResource("15_6jomb")]
 
-[node name="Motivational Speech Draft" parent="NpcInventory" instance=ExtResource("16_ghqv0")]
+[node name="Motivational Speech Draft" parent="ShopInventory" instance=ExtResource("16_ghqv0")]
 
-[node name="Mystery Snack Pack" parent="NpcInventory" instance=ExtResource("17_6eu7u")]
+[node name="Mystery Snack Pack" parent="ShopInventory" instance=ExtResource("17_6eu7u")]
 
-[node name="Protein Shake" parent="NpcInventory" instance=ExtResource("18_sont6")]
+[node name="Protein Shake" parent="ShopInventory" instance=ExtResource("18_sont6")]
 
-[node name="Sharpener" parent="NpcInventory" instance=ExtResource("19_gewhm")]
+[node name="Sharpener" parent="ShopInventory" instance=ExtResource("19_gewhm")]
 
-[node name="Adrenaline Synthethizer" parent="NpcInventory" instance=ExtResource("20_tmcxr")]
+[node name="Adrenaline Synthethizer" parent="ShopInventory" instance=ExtResource("20_tmcxr")]
 
-[node name="Allegiance Shifter" parent="NpcInventory" instance=ExtResource("21_x5c7e")]
+[node name="Allegiance Shifter" parent="ShopInventory" instance=ExtResource("21_x5c7e")]
 
-[node name="Buckler" parent="NpcInventory" instance=ExtResource("22_r1w0x")]
+[node name="Buckler" parent="ShopInventory" instance=ExtResource("22_r1w0x")]
 
-[node name="Dodge Roll" parent="NpcInventory" instance=ExtResource("23_swpkd")]
+[node name="Dodge Roll" parent="ShopInventory" instance=ExtResource("23_swpkd")]
 
-[node name="The Consumer" parent="NpcInventory" instance=ExtResource("24_2vd4q")]
+[node name="The Consumer" parent="ShopInventory" instance=ExtResource("24_2vd4q")]
 
-[node name="Chakram" parent="NpcInventory" instance=ExtResource("25_tq2po")]
+[node name="Chakram" parent="ShopInventory" instance=ExtResource("25_tq2po")]
 
-[node name="Machete" parent="NpcInventory" instance=ExtResource("26_n6hy5")]
+[node name="Machete" parent="ShopInventory" instance=ExtResource("26_n6hy5")]
 
-[node name="Merciless Katana" parent="NpcInventory" instance=ExtResource("27_y2a23")]
+[node name="Merciless Katana" parent="ShopInventory" instance=ExtResource("27_y2a23")]
 
-[node name="Slingshot" parent="NpcInventory" instance=ExtResource("28_enpln")]
+[node name="Slingshot" parent="ShopInventory" instance=ExtResource("28_enpln")]
 
-[node name="Tailpipe" parent="NpcInventory" instance=ExtResource("29_varik")]
+[node name="Tailpipe" parent="ShopInventory" instance=ExtResource("29_varik")]
 
-[node name="Taser Gun" parent="NpcInventory" instance=ExtResource("30_26622")]
+[node name="Taser Gun" parent="ShopInventory" instance=ExtResource("30_26622")]
 
-[node name="Toxic Grenade Launcher" parent="NpcInventory" instance=ExtResource("31_yhvph")]
+[node name="Toxic Grenade Launcher" parent="ShopInventory" instance=ExtResource("31_yhvph")]
 
-[node name="NpcInventory2" parent="." node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
+[node name="ShopInventory2" parent="." node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
 script = ExtResource("5_j7wsn")
 accessory_pool = [NodePath("Brass Knuckles"), NodePath("External Processing Unit"), NodePath("Forbidden Mask"), NodePath("Forbidden Shoulders"), NodePath("Jumpsuit"), NodePath("Sapper"), NodePath("Spiked Shoulder Pads")]
 consumable_pool = [NodePath("Apple Sticker"), NodePath("Eye Chart"), NodePath("Metallic Coating"), NodePath("Motivational Speech Draft"), NodePath("Mystery Snack Pack"), NodePath("Protein Shake"), NodePath("Sharpener")]
@@ -111,57 +111,54 @@ weapon_pool = [NodePath("Toxic Grenade Launcher"), NodePath("Taser Gun"), NodePa
 rarity_rate = 2
 batch_size = 10
 
-[node name="Brass Knuckles" parent="NpcInventory2" instance=ExtResource("6_5tdgl")]
+[node name="Brass Knuckles" parent="ShopInventory2" instance=ExtResource("6_5tdgl")]
 
-[node name="External Processing Unit" parent="NpcInventory2" instance=ExtResource("7_13hku")]
+[node name="External Processing Unit" parent="ShopInventory2" instance=ExtResource("7_13hku")]
 
-[node name="Forbidden Mask" parent="NpcInventory2" instance=ExtResource("8_qw1gl")]
+[node name="Forbidden Mask" parent="ShopInventory2" instance=ExtResource("8_qw1gl")]
 
-[node name="Forbidden Shoulders" parent="NpcInventory2" instance=ExtResource("9_u3plt")]
+[node name="Forbidden Shoulders" parent="ShopInventory2" instance=ExtResource("9_u3plt")]
 
-[node name="Jumpsuit" parent="NpcInventory2" instance=ExtResource("10_vtpmr")]
+[node name="Jumpsuit" parent="ShopInventory2" instance=ExtResource("10_vtpmr")]
 
-[node name="Sapper" parent="NpcInventory2" instance=ExtResource("11_20set")]
+[node name="Sapper" parent="ShopInventory2" instance=ExtResource("11_20set")]
 
-[node name="Spiked Shoulder Pads" parent="NpcInventory2" instance=ExtResource("12_woixh")]
+[node name="Spiked Shoulder Pads" parent="ShopInventory2" instance=ExtResource("12_woixh")]
 
-[node name="Apple Sticker" parent="NpcInventory2" instance=ExtResource("13_n672b")]
+[node name="Apple Sticker" parent="ShopInventory2" instance=ExtResource("13_n672b")]
 
-[node name="Eye Chart" parent="NpcInventory2" instance=ExtResource("14_613hl")]
+[node name="Eye Chart" parent="ShopInventory2" instance=ExtResource("14_613hl")]
 
-[node name="Metallic Coating" parent="NpcInventory2" instance=ExtResource("15_6jomb")]
+[node name="Metallic Coating" parent="ShopInventory2" instance=ExtResource("15_6jomb")]
 
-[node name="Motivational Speech Draft" parent="NpcInventory2" instance=ExtResource("16_ghqv0")]
+[node name="Motivational Speech Draft" parent="ShopInventory2" instance=ExtResource("16_ghqv0")]
 
-[node name="Mystery Snack Pack" parent="NpcInventory2" instance=ExtResource("17_6eu7u")]
+[node name="Mystery Snack Pack" parent="ShopInventory2" instance=ExtResource("17_6eu7u")]
 
-[node name="Protein Shake" parent="NpcInventory2" instance=ExtResource("18_sont6")]
+[node name="Protein Shake" parent="ShopInventory2" instance=ExtResource("18_sont6")]
 
-[node name="Sharpener" parent="NpcInventory2" instance=ExtResource("19_gewhm")]
+[node name="Sharpener" parent="ShopInventory2" instance=ExtResource("19_gewhm")]
 
-[node name="Adrenaline Synthethizer" parent="NpcInventory2" instance=ExtResource("20_tmcxr")]
+[node name="Adrenaline Synthethizer" parent="ShopInventory2" instance=ExtResource("20_tmcxr")]
 
-[node name="Allegiance Shifter" parent="NpcInventory2" instance=ExtResource("21_x5c7e")]
+[node name="Allegiance Shifter" parent="ShopInventory2" instance=ExtResource("21_x5c7e")]
 
-[node name="Buckler" parent="NpcInventory2" instance=ExtResource("22_r1w0x")]
+[node name="Buckler" parent="ShopInventory2" instance=ExtResource("22_r1w0x")]
 
-[node name="Dodge Roll" parent="NpcInventory2" instance=ExtResource("23_swpkd")]
+[node name="Dodge Roll" parent="ShopInventory2" instance=ExtResource("23_swpkd")]
 
-[node name="The Consumer" parent="NpcInventory2" instance=ExtResource("24_2vd4q")]
+[node name="The Consumer" parent="ShopInventory2" instance=ExtResource("24_2vd4q")]
 
-[node name="Chakram" parent="NpcInventory2" instance=ExtResource("25_tq2po")]
+[node name="Chakram" parent="ShopInventory2" instance=ExtResource("25_tq2po")]
 
-[node name="Machete" parent="NpcInventory2" instance=ExtResource("26_n6hy5")]
+[node name="Machete" parent="ShopInventory2" instance=ExtResource("26_n6hy5")]
 
-[node name="Merciless Katana" parent="NpcInventory2" instance=ExtResource("27_y2a23")]
+[node name="Merciless Katana" parent="ShopInventory2" instance=ExtResource("27_y2a23")]
 
-[node name="Slingshot" parent="NpcInventory2" instance=ExtResource("28_enpln")]
+[node name="Slingshot" parent="ShopInventory2" instance=ExtResource("28_enpln")]
 
-[node name="Tailpipe" parent="NpcInventory2" instance=ExtResource("29_varik")]
+[node name="Tailpipe" parent="ShopInventory2" instance=ExtResource("29_varik")]
 
-[node name="Taser Gun" parent="NpcInventory2" instance=ExtResource("30_26622")]
+[node name="Taser Gun" parent="ShopInventory2" instance=ExtResource("30_26622")]
 
-[node name="Toxic Grenade Launcher" parent="NpcInventory2" instance=ExtResource("31_yhvph")]
-
-[connection signal="daily_reset" from="." to="NpcInventory" method="refresh_inventory"]
-[connection signal="daily_reset" from="." to="NpcInventory2" method="refresh_inventory"]
+[node name="Toxic Grenade Launcher" parent="ShopInventory2" instance=ExtResource("31_yhvph")]

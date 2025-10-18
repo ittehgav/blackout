@@ -50,14 +50,15 @@ func set_scenario(target:String)->void:
 			match previous:
 				"main":
 					await Entities.loading_screen.show_splash().finished
-					
+					## eventually this becomes new game as opposed to just starting the world map
+					## can break them down based on substate to keep common calls together
 					Entities.world_map = Index.scenes.world_map.instantiate();
+					Entities.player = Entities.world_map.player_node;
 
 					Entities.world_map.ready.connect(Entities.loading_screen.clear_splash, CONNECT_ONE_SHOT)
 					add_child(Entities.world_map);
 					## day_passed only right as new game startgs
-					## eventually a state or substate that tells this it's from the load menu?
-					Entities.world_map.day_passed.emit()
+					Entities.world_map.advance_day()
 					Entities.player.reparent(self)
 				"in_settlement":
 					await Entities.loading_screen.show_splash().finished
@@ -68,6 +69,16 @@ func set_scenario(target:String)->void:
 					var tween:Tween = Tweens.ui_fade_out(Entities.current_area)
 					tween.finished.connect(Entities.current_area.queue_free)
 					tween.finished.connect(Entities.loading_screen.clear_splash)
+				"battle":
+					var tween:Tween = Tweens.ui_fade_out(Entities.arena.post_fight_view);
+					tween.finished.connect(Entities.arena.queue_free);
+					tween.finished.connect(Entities.loading_screen.clear_splash)
+					var won:bool = Entities.arena.won_battle
+					await Entities.loading_screen.show_splash().finished;
+					add_child(Entities.world_map);
+					Entities.world_map.returned_from_battle.emit(won);
+					Entities.player_party.visit_settlement()
+					
 
 		"in_settlement":
 			match previous:
@@ -89,13 +100,12 @@ func set_scenario(target:String)->void:
 					## when those are added
 					var dungeon:Dungeon = Entities.current_dungeon
 
-
 					var arena:Arena = Index.scenes.arena.instantiate();
 					Entities.arena = arena;
 					arena.load_layout(dungeon.tile_layout_scene);
 
 					arena.team_1.roster = Entities.player.roster;
-					arena.team_2.roster = dungeon.waves[0]
+					arena.team_2.roster = dungeon.get_current_wave()
 					
 					add_child(arena)
 	
@@ -114,11 +124,13 @@ func set_substate(target:String)->void:
 	substate_changed.emit(substate, previous)
 	
 	match target:
-		"player_sheet":
-			previous_pause_state = get_tree().paused;
-			get_tree().paused = true
 		"main":
 			match previous:
 				"player_sheet":
 					get_tree().paused = previous_pause_state
+
+		"player_sheet":
+			previous_pause_state = get_tree().paused;
+			get_tree().paused = true
+
 		

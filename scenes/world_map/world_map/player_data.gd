@@ -5,6 +5,7 @@ extends PanelContainer
 
 func _ready()->void:
 	await Entities.player.ready;
+	Entities.player.inventory.changed.connect(refresh)
 	refresh()
 
 func refresh()->void:

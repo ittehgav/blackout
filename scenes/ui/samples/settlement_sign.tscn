@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d1lir4yfist13" path="res://scenes/world_map/world_map/settlement_sign.gd" id="1_w48cx"]
 [ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="2_i13me"]
-[ext_resource type="Texture2D" uid="uid://t5nbv04p6fc6" path="res://assets/visual/icons/options/combat.png" id="2_ltf4j"]
+[ext_resource type="Texture2D" uid="uid://d2u8121t1bm17" path="res://assets/visual/icons/misc/party_level.png" id="3_i13me"]
 [ext_resource type="Texture2D" uid="uid://5vfqfug0gssf" path="res://assets/visual/buildings/dungeon_sign/skull.png" id="4_6v7mw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dhb46"]
@@ -11,7 +11,7 @@ shader_parameter/color = Color(1.9608799, 0.60422146, 0.60422146, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
-shader_parameter/add_margins = true
+shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_buud0"]
@@ -41,7 +41,7 @@ modulate = Color(1, 0.36, 0.36, 1)
 material = SubResource("ShaderMaterial_dhb46")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("2_ltf4j")
+texture = ExtResource("3_i13me")
 
 [node name="Label" type="Label" parent="dungeon_data"]
 layout_mode = 2

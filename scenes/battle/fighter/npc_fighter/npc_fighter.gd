@@ -45,14 +45,15 @@ func load_fighter(new_unit:FighterUnit)->void:
 	level = new_unit.level
 	unit = new_unit
 	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
+
 	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the tree
 	base.fighter = self;
 	add_child(base)
 	base.set_owner(self)
-	base.get_node("hurtbox").reparent(self)
+	base.get_node("hurtbox").reparent(hurtbox);
 	
 	load_unit_stats();
-		
+
 	var accessory:Accessory = new_unit.equipped_accessory;
 	if accessory and accessory.application == "battle_start":
 			if not accessory.apply_during_battle:
@@ -65,8 +66,10 @@ func load_fighter(new_unit:FighterUnit)->void:
 
 	refresh_all_stats()
 	hp = max_hp;
-	true_cooldown = unit.final_skill_cooldown()
+	true_cooldown = final_skill_cooldown()
 	cooldown_timer.wait_time = true_cooldown
+	if true_cooldown == 0:
+		cooldown_timer.set_process(false)
 	
 	started_moving.connect(base.fighter_started_moving)
 	stopped_moving.connect(base.fighter_stopped_moving)
@@ -78,7 +81,7 @@ func load_special()->void:
 	base.fighter = self;
 	add_child(base)
 	base.set_owner(self)
-	base.get_node("hurtbox").reparent(self)
+	base.get_node("hurtbox").reparent(hurtbox)
 	
 	load_unit_stats();
 	
@@ -95,6 +98,11 @@ func load_unit_stats()->void:
 	var stats:CombatStats = unit.final_stats();
 	for stat:String in Index.all_combat_stats:
 		initial_stats[stat] = stats[stat];
+	## leaving move_speed out of the index stats call
+	## because it's hardly ever used
+
+	move_speed = stats.move_speed
+
 
 func adjust_collisions()->void:
 	## needs to run after load_unit and assign_team
@@ -119,8 +127,9 @@ func find_target()->void:
 	if target != target_unit:
 		target_unit = target;
 		target_changed.emit();
-	
-	target_in_range = target_unit in $skill_range.get_overlapping_bodies();
+	if target_unit:
+		## only ever doesn't get here when the last unit dies and everyone was targeting it?
+		target_in_range = target_unit.hurtbox in $skill_range.get_overlapping_areas();
 
 
 func _physics_process(_delta: float) -> void:
@@ -175,8 +184,6 @@ func use_skill()->void:
 	await base.skill_finished
 	for target:ActiveFighter in hit_targets:
 		skill_hit.emit(target);
-	
-
 
 
 
@@ -185,16 +192,25 @@ func _on_stat_changed(stat:String)->void:
 	refresh_stat(stat);
 	match stat:
 		"agility":
-			var previous_wait_time: = true_cooldown;
-			true_cooldown = unit.final_skill_cooldown(agility)
-			
-			var advance:float = previous_wait_time - true_cooldown + (cooldown_timer.wait_time - cooldown_timer.time_left);
-			var redone_time_left:float = cooldown_timer.wait_time - advance;
+			true_cooldown = final_skill_cooldown()
+			if true_cooldown:
+				var previous_wait_time: = true_cooldown;
 
-			cooldown_timer.start(redone_time_left)
-			if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
-				cooldown_timer.timeout.disconnect(correct_cooldown_timer);
-			cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);
+				var advance:float = previous_wait_time - true_cooldown + (cooldown_timer.wait_time - cooldown_timer.time_left);
+				var redone_time_left:float = cooldown_timer.wait_time - advance;
+
+				cooldown_timer.start(redone_time_left)
+				if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
+					cooldown_timer.timeout.disconnect(correct_cooldown_timer);
+				cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);
+
+func final_skill_cooldown()->float:
+	return base.skill_cooldown - Scaling.agility_cooldown_reduction(base.skill_cooldown, agility)
+
+func refresh_skill_cooldown()->void:
+	true_cooldown = final_skill_cooldown();
+	cooldown_timer.wait_time = true_cooldown
+
 func correct_cooldown_timer()->void:
 	cooldown_timer.wait_time = true_cooldown;
 

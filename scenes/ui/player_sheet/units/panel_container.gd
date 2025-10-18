@@ -22,7 +22,9 @@ func setup(unit:FighterUnit)->void:
 	var ev2_base:FighterBase = Index.fighters.find_base(unit.base.evolutions[1]);
 	
 	ev1_sprite.texture = ev1_base.texture.duplicate();
+	ev1_sprite.scale = Vector2(2, 2)
 	ev2_sprite.texture = ev2_base.texture.duplicate();
+	ev2_sprite.scale = Vector2(2, 2)
 	
 
 func set_evolution_hint(base:FighterBase)->void:

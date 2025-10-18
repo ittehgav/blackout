@@ -70,7 +70,7 @@ func load_option(card:RecruitmentCard)->void:
 	skill_description_label.text = unit.base.full_skill_description(unit);
 	flavor_label.text = unit.base.flavor;
 	
-	stats.load_stats(unit.final_stats())
+	stats.source = unit
 
 	recruit_button.text = "Recruit - $"+str(current_price)
 	recruit_button.disabled = Entities.player.inventory.money < current_price;

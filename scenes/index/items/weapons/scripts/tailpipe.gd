@@ -6,6 +6,8 @@ const rarity = 1;
 const size_x = 2;
 const size_y = 4;
 
+
+
 func get_description()->String:
 	return "Short range, hits enemies in front of you, dealing "\
 	+ Index.get_color_tag("attack") + str(final_damage()) + " damage.";

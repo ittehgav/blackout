@@ -50,7 +50,7 @@ var fuel_hourly_cost:int;
 @export var fuel_daily_cost_label:Label;
 
 var player_inventory:Inventory
-var trader_inventory:NpcInventory
+var trader_inventory:ShopInventory;
 
 var initial_player_inventory:Inventory
 var initial_trader_inventory:Inventory;

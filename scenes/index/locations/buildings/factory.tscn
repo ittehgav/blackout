@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://btt1py0figvll" path="res://assets/visual/sprites/settlements/factory.png" id="2_e1iqu"]
 [ext_resource type="Texture2D" uid="uid://35bxqpr5y7fa" path="res://assets/visual/buildings/icons/factory.png" id="2_ec5wv"]
 [ext_resource type="PackedScene" uid="uid://doeeabymirktu" path="res://scenes/index/locations/buildings/interior/factory_interior.tscn" id="3_hs1ih"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="3_jtyrd"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="3_jtyrd"]
 [ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="5_gt0ex"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="5_rgx4l"]
 [ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="6_hexne"]
@@ -28,58 +28,55 @@
 [node name="Factory" type="Node2D" node_paths=PackedStringArray("inventory") groups=["all_locations"]]
 script = ExtResource("1_rgx4l")
 front_porch_scene = ExtResource("3_hs1ih")
-inventory = NodePath("NpcInventory")
+inventory = NodePath("ShopInventory")
 size = 3
 map_texture = ExtResource("2_e1iqu")
 map_texture_modulate = Color(0.64000005, 0.736, 0.8, 1)
 icon_texture = ExtResource("2_ec5wv")
 metadata/_custom_type_script = "uid://lf67nwuvdmnt"
 
-[node name="NpcInventory" parent="." node_paths=PackedStringArray("resource_storage", "item_pool", "holder") groups=["all_locations"] instance=ExtResource("3_jtyrd")]
+[node name="ShopInventory" parent="." node_paths=PackedStringArray("resource_storage", "holder") groups=["all_locations"] instance=ExtResource("3_jtyrd")]
 rarity_rate = 5
 batch_size = 15
 resource_storage = [NodePath("Fuel Barrel2"), NodePath("Food Barrel")]
-item_pool = [NodePath("Brass Knuckles"), NodePath("Jumpsuit"), NodePath("Sapper"), NodePath("Spiked Shoulder Pads"), NodePath("Metallic Coating"), NodePath("Sharpener"), NodePath("Fuel Barrel"), NodePath("Juice Tank"), NodePath("Chakram"), NodePath("Allegiance Shifter"), NodePath("Machete"), NodePath("The Consumer"), NodePath("Merciless Katana"), NodePath("Slingshot"), NodePath("Dodge Roll"), NodePath("Taser Gun"), NodePath("Buckler"), NodePath("Adrenaline Synthethizer")]
 holder = NodePath("..")
 
-[node name="Fuel Barrel2" parent="NpcInventory" instance=ExtResource("10_5yd3g")]
+[node name="Fuel Barrel2" parent="ShopInventory" instance=ExtResource("10_5yd3g")]
 
-[node name="Food Barrel" parent="NpcInventory" instance=ExtResource("6_hexne")]
+[node name="Food Barrel" parent="ShopInventory" instance=ExtResource("6_hexne")]
 
-[node name="Brass Knuckles" parent="NpcInventory" instance=ExtResource("5_rgx4l")]
+[node name="Brass Knuckles" parent="ShopInventory" instance=ExtResource("5_rgx4l")]
 
-[node name="Jumpsuit" parent="NpcInventory" instance=ExtResource("5_gt0ex")]
+[node name="Jumpsuit" parent="ShopInventory" instance=ExtResource("5_gt0ex")]
 
-[node name="Sapper" parent="NpcInventory" instance=ExtResource("7_hexne")]
+[node name="Sapper" parent="ShopInventory" instance=ExtResource("7_hexne")]
 
-[node name="Spiked Shoulder Pads" parent="NpcInventory" instance=ExtResource("8_ec5wv")]
+[node name="Spiked Shoulder Pads" parent="ShopInventory" instance=ExtResource("8_ec5wv")]
 
-[node name="Metallic Coating" parent="NpcInventory" instance=ExtResource("9_hexne")]
+[node name="Metallic Coating" parent="ShopInventory" instance=ExtResource("9_hexne")]
 
-[node name="Sharpener" parent="NpcInventory" instance=ExtResource("9_rt6jp")]
+[node name="Sharpener" parent="ShopInventory" instance=ExtResource("9_rt6jp")]
 
-[node name="Fuel Barrel" parent="NpcInventory" instance=ExtResource("10_5yd3g")]
+[node name="Fuel Barrel" parent="ShopInventory" instance=ExtResource("10_5yd3g")]
 
-[node name="Juice Tank" parent="NpcInventory" instance=ExtResource("12_ec5wv")]
+[node name="Juice Tank" parent="ShopInventory" instance=ExtResource("12_ec5wv")]
 
-[node name="Chakram" parent="NpcInventory" instance=ExtResource("13_rt6jp")]
+[node name="Chakram" parent="ShopInventory" instance=ExtResource("13_rt6jp")]
 
-[node name="Allegiance Shifter" parent="NpcInventory" instance=ExtResource("14_5yd3g")]
+[node name="Allegiance Shifter" parent="ShopInventory" instance=ExtResource("14_5yd3g")]
 
-[node name="Machete" parent="NpcInventory" instance=ExtResource("15_5o0m5")]
+[node name="Machete" parent="ShopInventory" instance=ExtResource("15_5o0m5")]
 
-[node name="The Consumer" parent="NpcInventory" instance=ExtResource("16_oxqrc")]
+[node name="The Consumer" parent="ShopInventory" instance=ExtResource("16_oxqrc")]
 
-[node name="Merciless Katana" parent="NpcInventory" instance=ExtResource("17_c7nhy")]
+[node name="Merciless Katana" parent="ShopInventory" instance=ExtResource("17_c7nhy")]
 
-[node name="Slingshot" parent="NpcInventory" instance=ExtResource("18_wstlo")]
+[node name="Slingshot" parent="ShopInventory" instance=ExtResource("18_wstlo")]
 
-[node name="Dodge Roll" parent="NpcInventory" instance=ExtResource("14_wstlo")]
+[node name="Dodge Roll" parent="ShopInventory" instance=ExtResource("14_wstlo")]
 
-[node name="Taser Gun" parent="NpcInventory" instance=ExtResource("20_15q8g")]
+[node name="Taser Gun" parent="ShopInventory" instance=ExtResource("20_15q8g")]
 
-[node name="Buckler" parent="NpcInventory" instance=ExtResource("13_c7nhy")]
+[node name="Buckler" parent="ShopInventory" instance=ExtResource("13_c7nhy")]
 
-[node name="Adrenaline Synthethizer" parent="NpcInventory" instance=ExtResource("12_oxqrc")]
-
-[connection signal="daily_reset" from="." to="NpcInventory" method="refresh_inventory"]
+[node name="Adrenaline Synthethizer" parent="ShopInventory" instance=ExtResource("12_oxqrc")]

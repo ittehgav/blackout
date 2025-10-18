@@ -33,6 +33,7 @@ signal start_battle_pressed;
 func _on_tree_entered() -> void:
 	Entities.player_sheet = self;
 	if Entities.player:
+		## easier to do it this way than to connect it again in every view with a player sheet?
 		Entities.player.equipment_changed.connect(_on_player_equipment_changed);
 func _ready()->void:
 	super();

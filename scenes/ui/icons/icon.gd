@@ -4,7 +4,9 @@ class_name Icon;
 
 var default_color:Color;
 var highlight_color:Color;
+
 var floating:bool=false;
+var positive:bool=true;
 
 
 @export var label:Label;
@@ -18,13 +20,23 @@ func _ready()->void:
 
 	
 	if floating:
+		## so it works properly for node2D parents
+		position = Vector2.ZERO
 		modulate = color;
 		size = Vector2(16, 16);
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
+		var y_shift:int = 20;
+		var tween_duration:float = 2;
+		if not positive:
+			y_shift *= -1;
+			tween_duration *= 1.5
+			modulate.v -= .2;
+			modulate.r += .5
+		
 		var tween:Tween = create_tween();
-		tween.tween_property(self, "position:y", position.y - 30, 1);
-		tween.parallel().tween_property(self, "modulate:a", 0, 1);
+		tween.tween_property(self, "position:y", position.y - y_shift, tween_duration);
+		tween.parallel().tween_property(self, "modulate:a", 0, tween_duration*.75);
 		tween.tween_callback(queue_free)
 	else:
 		

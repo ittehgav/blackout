@@ -22,9 +22,11 @@ func _input(e:InputEvent)->void:
 	## HIGHER ZOOM = FARTHER
 	## ZOOM IN = DECREASE SCALE
 	## ZOOM OUT = INCREASE SCALE = CAMERA SMALLER
-	if e.is_action_pressed("world_map_zoom_in") and zoom < max_zoom and not zoom_moving:
+	if e.is_action_pressed("world_map_zoom_in") and zoom < max_zoom and not zoom_moving\
+	and Entities.main.substate == "main":
 		zoom_in()
-	elif e.is_action_pressed("world_map_zoom_out") and zoom > min_zoom and not zoom_moving:
+	elif e.is_action_pressed("world_map_zoom_out") and zoom > min_zoom and not zoom_moving\
+	and Entities.main.substate == "main":
 		zoom_out()
 
 func zoom_out(target_zoom:Vector2=zoom/2)->void:

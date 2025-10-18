@@ -2,7 +2,7 @@ extends Speaker
 
 @export var index:int;
 
-var inventory:NpcInventory
+var inventory:ShopInventory
 
 func _ready()->void:
 	super();

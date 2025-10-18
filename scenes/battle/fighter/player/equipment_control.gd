@@ -58,3 +58,8 @@ func _on_weapon_equipped(weapon: Weapon) -> void:
 	## just to encapsulate the weapon to the other script some more
 	## and leave this as more of a signal emitter and anchor for the weapon sprite
 	equipped_weapon = weapon;
+
+func refresh_weapon_cooldowns()->void:
+	weapon_control.refresh_weapon_cooldown();
+	if Entities.player.alternative_weapon:
+		weapon_control.refresh_alt_weapon_cooldown()

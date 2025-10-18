@@ -14,15 +14,23 @@ class_name Building
 @export var arena_layout_scene:PackedScene
 ## some (if not most buildings) will just not have inventories or roster, if they
 ## have no operations that need them to have one;
-@export var inventory:NpcInventory;
-@export var roster:BuildingRoster
+@export var inventory:ShopInventory;
+@export var roster:BuildingRoster;
 @export_enum("mechanic", "bodybuilder", "scientist") var evolve_option:String;
 
 
 
-func day_passed()->void:
-	daily_reset.emit();
 
+func refresh()->void:
+	days_since_last_cycle += 1;
+	if days_since_last_cycle == reset_cycle:
+		refresh_stores()
+
+func refresh_stores()->void:
+	if inventory:
+		inventory.refresh_inventory();
+	if roster:
+		roster.refresh_recruits();
 
 
 func accepts_trade(item:Item)->bool:

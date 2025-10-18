@@ -22,7 +22,7 @@ script = ExtResource("5_pghvl")
 modulate = Color(0.3808, 0.3808, 0.68, 1)
 light_mask = 3
 use_parent_material = true
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 texture = ExtResource("6_ml6fn")
 
 [node name="hover_box" type="TextureButton" parent="."]

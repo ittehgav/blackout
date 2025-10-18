@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d1eptkluku252"]
 
 [ext_resource type="Texture2D" uid="uid://deofm5vbkjkx8" path="res://assets/visual/sprites/fighters/special/dummy.png" id="1_28s6v"]
-[ext_resource type="Script" uid="uid://c6up3yjjuvie" path="res://scenes/leader/roster/fighter/fighter_base.gd" id="1_uqm2d"]
+[ext_resource type="Script" uid="uid://bpwelmslkw6c3" path="res://scenes/index/fighters/special/dummy.gd" id="2_pi3y6"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="3_pi3y6"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
@@ -112,7 +112,7 @@ height = 58.0
 material = SubResource("ShaderMaterial_28s6v")
 scale = Vector2(2, 2)
 texture = ExtResource("1_28s6v")
-script = ExtResource("1_uqm2d")
+script = ExtResource("2_pi3y6")
 hard_stats = NodePath("stats")
 special = true
 metadata/_custom_type_script = "uid://c6up3yjjuvie"

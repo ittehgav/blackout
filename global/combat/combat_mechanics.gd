@@ -1,6 +1,8 @@
 extends Node
 
 func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, modifier:Callable=Callable(), hard_value:float=0, propagated:bool = false)->void:
+	if not is_instance_valid(source) or not is_instance_valid(target):
+		return
 	var damage:float
 	if not hard_value:
 		damage = source.attack;
@@ -25,21 +27,26 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 			target.hp -= shield_overkill;
 			target.shield = 0;
 			if not propagated:
+				source.damage_dealt.emit(damage, target)
 				target.damage_taken.emit(shield_overkill, source);
 			if target.hp <= 0 and not target.dead:
 				target.death.emit(source);
 		else:
 			if not propagated:
+				source.damage_dealt.emit(damage, target)
 				target.damage_blocked.emit(source, damage);
 	else:
 		target.hp -= damage;
 		if not propagated:
+			source.damage_dealt.emit(damage, target)
 			target.damage_taken.emit(damage, source)
 		if target.hp <= 0 and not target.dead:
 			target.death.emit(source);
 
 
 func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.technique_scaled_value(source.base.heal_value,source.technique, "heal"))->void:
+	if not is_instance_valid(source) or not is_instance_valid(target):
+		return
 	target.hp += value;
 	if target.hp > target.max_hp:
 		target.hp = target.max_hp;
@@ -50,6 +57,8 @@ func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.t
 
 func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, duration:float = \
 				Scaling.technique_scaled_value(source.base.status_duration,source.technique, "stun"))->void:
+	if not is_instance_valid(source) or not is_instance_valid(target):
+		return
 	source.catch_hit_target(target);
 
 	Statuses.apply_status(source, target, "stun", duration)
@@ -58,6 +67,8 @@ func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 @warning_ignore("shadowed_variable_base_class")
 func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, stat:String, emit_signal:bool=true)->void:
 	## ALL MODIFIERS HAVE ALREADY BEEN APPLIED BY HERE
+	if not is_instance_valid(source) or not is_instance_valid(target):
+		return
 	var duration:float = 0;
 	if "status_duration" in source.base:
 		duration = source.base.status_duration;
@@ -68,6 +79,8 @@ func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, 
 	Statuses.apply_status(source, target, "stat_change", duration, status_data, emit_signal)
 
 func shield_unit(source:ActiveFighter, target:ActiveFighter, value:float)->void:
+	if not is_instance_valid(source) or not is_instance_valid(target):
+		return
 	target.shield += value;
 	target.shield_gained.emit(source, value);
 

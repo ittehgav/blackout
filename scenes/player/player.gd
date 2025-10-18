@@ -21,8 +21,7 @@ signal level_up;
 
 
 @export var experience:int = 0;
-@export var discipline_points:int = 0;
-@export var stat_points:int = 0;
+
 
 
 
@@ -58,8 +57,7 @@ func battle_defeat_morale()->void:
 	morale -= .5
 
 func _on_level_up() -> void:
-	discipline_points += 1
-	stat_points += 1;
+	Scaling.level_up_player_stats()
 
 
 func equip_weapon(weapon:Weapon)->void:
@@ -192,10 +190,10 @@ func load_origin(origin:Player)->void:
 	inventory = new_inventory;
 	inventory.refresh_resource_counts()
 	new_inventory.holder = self;
-	combat_stats.queue_free();
+	stats.queue_free();
 	var new_combat_stats:CombatStats = origin.combat_stats;
 	new_combat_stats.reparent(self);
-	combat_stats = new_combat_stats;
+	stats = new_combat_stats;
 	
 	sight_range = origin.sight_range;
 	

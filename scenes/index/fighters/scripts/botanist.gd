@@ -32,7 +32,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	
 	var string:String = "Places " +sprouts_string +\
 	 " around a target enemy that grow and explode after 2 seconds, dealing "+\
-	damage_string + " to and applying a random stat debuff enemies in a small area."
+	damage_string + " to enemies in an area."
 	string += "\nCan be [u]upgraded[/u] to apply escalating DOT or to apply strong debuffs to enemies in an area."
 	
 	return string
@@ -41,9 +41,7 @@ func skill()->void:
 	animation_player.play("botanist/skill")
 	animation_player.queue("fighter_base/idle")
 
-func skill_impact()->void:
-	if fighter.dead:
-		return;
+func skill_effect()->void:
 	var total_sprouts:int = max(1, int(fighter.technique));
 	var sprout:Sprite2D;
 	for i:int in total_sprouts:

@@ -26,26 +26,6 @@ func build(source: Node)->void:
 
 func refresh()->void:
 	update_max_value(true);
-
-
-
-func set_target_exp(_value:int)->void:
-	target.exerience = value;
-
-	
-func level_up_target()->void:
-	target.level_up.emit()
-	target.level += 1;
-	target.experience = 0;
-	update_max_value();
-	
-func update_max_value(update_value:bool=false)->void:
-	value = 0;
-	max_value = Scaling.exp_for_next_level(target.level)
-	if update_value:
-		value = target.experience;
-
-
 	
 func gain_exp(increase:float)->void:
 	assert(target)
@@ -73,6 +53,27 @@ func exp_gain_animation(tween:Tween, increase:int)->void:
 	tween.tween_property(self, "value", value + increase, .5);
 	
 
+
+
+func set_target_exp(_value:int)->void:
+	target.experience = value;
+
+	
+func level_up_target()->void:
+	target.level_up.emit()
+	level_up.emit()
+	target.level += 1;
+	target.experience = 0;
+	update_max_value();
+	
+func update_max_value(update_value:bool=false)->void:
+	value = 0;
+	max_value = Scaling.exp_for_next_level(target.level)
+	if update_value:
+		value = target.experience;
+
+
+
 func level_up_animation(tween:Tween)->void:
 	tween.tween_property(self, "value", max_value, .5);
 	tween.tween_callback(level_up_feedback)
@@ -83,7 +84,6 @@ func level_up_feedback()->void:
 	level_up_sfx.play();
 	
 	floating_text()
-	level_up.emit()
 	
 	tint_over = Color.WHITE
 	

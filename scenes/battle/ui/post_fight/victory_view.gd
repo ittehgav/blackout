@@ -1,14 +1,18 @@
 extends Control
 
-@export var exp_gains:Panel;
-@export var loot_gains:PanelContainer;
+@export var post_battle:Control;
 
-func victory_animation()->void:
-	show()
-	loot_gains.setup();
-	exp_gains.distribute_exp();
+@export var exp_panel:Panel;
+@export var loot_panel:Panel
 
-func show_loot()->void:
-	await Tweens.ui_fade_out(exp_gains).finished;
-	Tweens.ui_fade_in(loot_gains)
-	loot_gains.animate_money_gain()
+func play_animation()->void:
+	show();
+	exp_panel.show()
+	exp_panel.distribute_exp();
+	
+	
+
+
+func _on_continue_to_loot_pressed() -> void:
+	Tweens.ui_fade_out(exp_panel);
+	Tweens.ui_fade_in(loot_panel)

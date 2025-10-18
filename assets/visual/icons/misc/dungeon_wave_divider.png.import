@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccrb6t58ir8fi"
-path="res://.godot/imported/doorguy.png-0c0af761a0ed7c0dadfff11a328bba34.ctex"
+uid="uid://c73bxxu7jqbgu"
+path="res://.godot/imported/dungeon_wave_divider.png-e5c39cdc2d590be011a174049924c6b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/visual/sprites/fighters/doorguy.png"
-dest_files=["res://.godot/imported/doorguy.png-0c0af761a0ed7c0dadfff11a328bba34.ctex"]
+source_file="res://assets/visual/icons/misc/dungeon_wave_divider.png"
+dest_files=["res://.godot/imported/dungeon_wave_divider.png-e5c39cdc2d590be011a174049924c6b5.ctex"]
 
 [params]
 

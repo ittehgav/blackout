@@ -1,19 +1,23 @@
-extends Control
+extends PanelContainer
 
-@export var sample:SpriteSample;
-@export var exp_bar:ExperienceBar;
-@export var recruit_name:Label;
-@export var recruit_level:Label;
+@export var sprite_container:Control;
+@export var bar:ExperienceBar
+@export var level_label:Label;
 
-@export var unit:FighterUnit
+var unit:FighterUnit
 
-func build(target:FighterUnit)->void:
-	unit = target;
-	sample.set_sample(unit.base);
-	exp_bar.build_from_unit(unit);
-	recruit_name.text = unit.base.name;
-	recruit_level.text = "Lv. " + str(unit.level)
+func load_unit(target:FighterUnit)->void:
+	unit = target
 	
+	var base:FighterBase = unit.base.duplicate()
+	base.set_material(null)
+	base.clear_for_sample();
+	base.centered = false;
+	bar.build(unit)
+	level_label.text = "Level: " + str(unit.level)
+	sprite_container.add_child(base);
+	base.position = Vector2(-20, -20)
+	show()
 
 func _on_exp_bar_level_up() -> void:
-	recruit_level.text = "Lv." + str(unit.level) 
+	level_label.text = "Level: " + str(unit.level)

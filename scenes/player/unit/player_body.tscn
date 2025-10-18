@@ -4,6 +4,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="2_nrpsu"]
 
 [node name="body" type="Sprite2D"]
+scale = Vector2(2, 2)
 texture = ExtResource("1_d84ec")
 hframes = 6
 vframes = 2

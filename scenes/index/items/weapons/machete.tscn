@@ -10,15 +10,16 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_vwop7"]
 radius = 53.05893
 
-[node name="Machete" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "animation_player", "use_sfx", "hit_sfx")]
+[node name="Machete" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "projections", "animation_player", "use_sfx", "hit_sfx")]
 use_parent_material = true
 texture = ExtResource("1_vwop7")
 offset = Vector2(30, -15)
 script = ExtResource("2_2d24r")
 base_damage = 20
-cooldown = 1.5
+cooldown = 1.0
 hit_scan = NodePath("hit_scan")
 melee = true
+projections = [NodePath("hit_scan/Sprite2D")]
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("use_sfx")
 hit_sfx = NodePath("hit_sfx")

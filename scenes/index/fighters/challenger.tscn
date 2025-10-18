@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://okq3jirq5mq5"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_2rj4t"]
-[ext_resource type="Texture2D" uid="uid://ccrb6t58ir8fi" path="res://assets/visual/sprites/fighters/doorguy.png" id="2_8x1bb"]
+[ext_resource type="Texture2D" uid="uid://ccrb6t58ir8fi" path="res://assets/visual/sprites/fighters/door_guy/doorguy.png" id="2_8x1bb"]
 [ext_resource type="Script" uid="uid://04snxv65kd5g" path="res://scenes/index/fighters/scripts/doorguy.gd" id="3_4ptb3"]
 [ext_resource type="AudioStream" uid="uid://c82vpb256ryq1" path="res://assets/sound/sfx/combat/generic/defense_up.mp3" id="4_nmtv1"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_danjf"]
@@ -113,8 +113,8 @@ tracks/5/path = NodePath("hit_scan/projection:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.75),
-"transitions": PackedFloat32Array(4.92458, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.75),
+"transitions": PackedFloat32Array(1.0000008, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
@@ -157,7 +157,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_8x1bb")
 hframes = 3
 vframes = 3
-frame = 4
+frame = 3
 script = ExtResource("3_4ptb3")
 animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("hit_scan")

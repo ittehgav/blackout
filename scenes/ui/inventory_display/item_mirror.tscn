@@ -119,6 +119,9 @@ theme_override_colors/font_color = Color(0.964706, 1, 0.568627, 1)
 theme_override_font_sizes/font_size = 64
 text = "+"
 
+[node name="click_grab" type="Timer" parent="."]
+wait_time = 0.25
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

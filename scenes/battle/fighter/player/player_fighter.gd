@@ -74,8 +74,7 @@ func _on_stat_changed(stat: String) -> void:
 	refresh_stat(stat)
 	match stat:
 		"agility":
-			equipment.weapon_control.refresh_weapon_cooldown()
-			equipment.weapon_control.refresh_alt_weapon_cooldwon()
+			equipment.refresh_weapon_cooldowns()
 
 
 func _on_equipment_weapon_unequipped(weapon: Weapon) -> void:

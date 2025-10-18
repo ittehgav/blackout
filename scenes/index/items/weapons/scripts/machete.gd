@@ -1,10 +1,9 @@
 extends Weapon
 
-var previous_target:ActiveFighter;
-var hit_count:int = 0;
 
 func get_description()->String:
-	return "Deals damage to one enemy, damage is increased the more times you hit the same target.";
+	return "Deals "+Index.get_color_tag("attack")+str(final_damage())+\
+	" damage[/color] to enemies in front of you, if you only hit one enemy, the damage is tripled.";
 	
 
 const size_x = 1;
@@ -18,25 +17,12 @@ func use(_alt:bool=false)->void:
 
 
 func impact()->void:
-	var in_range:Array[Node2D] = hit_scan.get_overlapping_bodies()
-	if len(in_range):
-		hit_sfx.play()
-		var target:ActiveFighter;
-		if previous_target in in_range:
-			target = previous_target;
-		else:
-			hit_count = 0;
-			target = in_range[0];
-			var target_distance:int = target.position.distance_to(Entities.player_fighter.position)
-			for fighter:Node2D in in_range:
-				var distance:int = fighter.position.distance_to(Entities.player_fighter.position);
-				if distance < target_distance:
-					target_distance = distance;
-					target = fighter
-		previous_target = target
-		Combat.deal_damage(Entities.player_fighter, target, hit_count_bonus)
-		hit_count += 1;
-		hit.emit()
-
-func hit_count_bonus(damage:int)->int:
-	return int(float(damage) + float(damage) * float(hit_count) * .1)
+	var in_range:Array[Area2D] = hit_scan.get_overlapping_areas()
+	if len(in_range) != 1:
+		Combat.aoe_damage(Entities.player_fighter, hit_scan);
+	else:
+		var target:ActiveFighter = in_range[0].fighter;
+		Combat.deal_damage(Entities.player_fighter, target, single_target_bonus);
+	
+func single_target_bonus(damage:float)->float:
+	return damage * 3

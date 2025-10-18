@@ -7,6 +7,8 @@ const flavor = "He plants and manufactures his own hair dye.";
 const skill_range = MELEE_RANGE;
 const skill_cooldown = 3;
 
+@export var thorns_ticker:Timer;
+
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_string:String = Index.get_unit_damage_string(unit);
 	var thorns_str:String = "[color="+Color.DARK_OLIVE_GREEN.to_html(false) + "]Thorns[/color]";
@@ -26,7 +28,7 @@ func damage_modifier(damage:float, unit:FighterUnit=null)->float:
 	if unit:
 		return damage/5 + damage/5 * unit.stats.technique;
 	else:
-		return damage/5 + damage/5 * fighter.stats.technique;
+		return damage/5 + damage/5 * fighter.technique;
 
 @export var thorns:ColorRect;
 
@@ -35,7 +37,8 @@ const thorns_initial_offset = Vector2(25, 25); ## so it's centralized
 ## pivot offset is weird i cant make it work properly
 
 func _ready()->void:
-	hit_scan.global_position = Vector2.ZERO;
+	if not sample:
+		hit_scan.global_position = Vector2.ZERO;
 
 func skill()->void:
 	## pass this stuff to npcfighter if everyone ends up getting some version of it?:
@@ -44,10 +47,10 @@ func skill()->void:
 	animation_player.play("dryad/skill")
 	animation_player.queue("fighter_base/idle")
 
-func skill_impact()->void:
-	if fighter.dead:
-		return;
-	if hit_scan.overlaps_body(fighter.target_unit):
+func skill_effect()->void:
+	if thorns_ticker.is_stopped():
+		thorns_ticker.start()
+	if hit_scan.overlaps_body(fighter.target_unit) and find_overlapping_thorns(fighter.target_unit.global_position):
 		var thorns_rect:ColorRect = find_overlapping_thorns(fighter.target_unit.global_position);
 		thorns_rect.expand(fighter.target_unit.global_position)
 	else:
@@ -68,7 +71,7 @@ func find_overlapping_thorns(spot:Vector2)->ColorRect:
 			if not current or center_is_closer(rect, current_rect, spot):
 				current = area;
 				current_rect = rect;
-	assert(current);
+
 	return current;
 	
 
@@ -76,3 +79,8 @@ func center_is_closer(rect:Rect2, current:Rect2, spot:Vector2)->bool:
 	var d1:float = rect.get_center().distance_to(spot);
 	var d2:float = current.get_center().distance_to(spot);
 	return d1 < d2;
+
+
+func _on_thorns_ticker_timeout() -> void:
+	Combat.aoe_damage(fighter, hit_scan, damage_modifier);
+	Combat.aoe_stat_debuff(fighter, hit_scan, "agility", .5)

@@ -100,7 +100,9 @@ func accelerate_charge()->void:
 
 func _on_equipped() -> void:
 	area.monitoring = true;
-	for body in area.get_overlapping_bodies():
+	for area:Area2D in hit_scan.get_overlapping_areas():
+		assert(area is HurtBox);
+		var body:ActiveFighter = area.fighter;
 		if body is NpcFighter:
 			body.skill_used.connect(accelerate_charge)
 

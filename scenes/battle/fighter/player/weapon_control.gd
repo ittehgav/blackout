@@ -26,11 +26,13 @@ func _ready()->void:
 		alternative_weapon = load_weapon(alt_weapon);
 		alternative_weapon.hide();
 		alternative_weapon.set_process(false)
-		refresh_alt_weapon_cooldwon()
+		refresh_alt_weapon_cooldown()
 		
 func load_weapon(target:Weapon)->Weapon:
 	var new_weapon:Weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION)
 	new_weapon.use_parent_material = true;
+	for p:CanvasItem in new_weapon.projections:
+		p.hide()
 	check_active_texture(new_weapon);
 	equipment.add_child(new_weapon)
 	new_weapon.modulate = new_weapon.get_mirror_color();
@@ -119,7 +121,8 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 	if weapon.hit_scan:
 		weapon.hit_scan.reparent(equipment)
 	to_equip.hit.connect(weapon_hit)
-	
+	for p:CanvasItem in to_equip.projections:
+		p.show()
 
 	var modifier:ItemModifier = weapon.applied_modifier
 	if modifier and modifier.stat_modifiers:
@@ -146,6 +149,9 @@ func switch_weapon()->void:
 	var current_weapon:Weapon = weapon;
 	current_weapon.hide()
 	current_weapon.hit.disconnect(weapon_hit);
+	
+	for p:CanvasItem in current_weapon.projections:
+		p.hide()
 	if weapon.hit_scan:
 		current_weapon.hit_scan.reparent(equipment)
 
@@ -173,7 +179,7 @@ func switch_weapon()->void:
 
 	
 	refresh_weapon_cooldown(alt_weapon_cd_left, true);
-	refresh_alt_weapon_cooldwon(main_weapon_cd_left, true)
+	refresh_alt_weapon_cooldown(main_weapon_cd_left, true)
 
 	## weapon variable is already equipped weapon as this is emmtied
 	equipment.weapon_unequipped.emit(alternative_weapon)
@@ -190,7 +196,7 @@ func play_weapon_vfx()->void:
 
 
 func refresh_weapon_cooldown(time_left:float=0.0, from_switch:bool=false)->void:
-	var new_wait_time:float = weapon.cooldown - (weapon.cooldown/10)*equipment.holder.agility
+	var new_wait_time:float = weapon.cooldown - Scaling.agility_cooldown_reduction(weapon.cooldown, equipment.holder.agility) 
 	if from_switch:
 		if time_left:
 			## gets here from switching weapons
@@ -212,8 +218,8 @@ func refresh_weapon_cooldown(time_left:float=0.0, from_switch:bool=false)->void:
 		weapon_cd.wait_time = new_wait_time
 	
 
-func refresh_alt_weapon_cooldwon(time_left:float=0.0, from_switch:bool=false)->void:
-	var new_wait_time:float = alternative_weapon.cooldown - (alternative_weapon.cooldown/10)*equipment.holder.agility
+func refresh_alt_weapon_cooldown(time_left:float=0.0, from_switch:bool=false)->void:
+	var new_wait_time:float = alternative_weapon.cooldown - Scaling.agility_cooldown_reduction(alternative_weapon.cooldown, equipment.holder.agility)
 	if from_switch:
 		if time_left:
 			## gets here from switching weapons

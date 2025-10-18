@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://c2bhl2kb3kbpr" path="res://resources/dialogues/buildings/black_market.dialogue" id="4_hsvl5"]
 [ext_resource type="Texture2D" uid="uid://bf72s002fb810" path="res://assets/visual/buildings/npcs/black_market_clerk.png" id="4_skece"]
 [ext_resource type="Script" uid="uid://br8tvistnrk2n" path="res://scenes/in_settlement/black_market_speaker.gd" id="4_tnc1a"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/npc_inventory.tscn" id="7_r4qjb"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="7_r4qjb"]
 [ext_resource type="Script" uid="uid://b8037pwr05tdw" path="res://scenes/leader/inventory/rotating_inventory.gd" id="8_odnjv"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="9_d45sv"]
 [ext_resource type="PackedScene" uid="uid://c4s2cufch0vvv" path="res://scenes/index/items/accessories/external_processing_unit.tscn" id="10_ruaba"]

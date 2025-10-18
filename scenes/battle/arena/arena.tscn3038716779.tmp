@@ -1,0 +1,892 @@
+[gd_scene load_steps=41 format=3 uid="uid://b3sr8al76si1g"]
+
+[ext_resource type="Script" uid="uid://nrp8ddsmtldq" path="res://scenes/battle/arena/arena.gd" id="1_i4yf0"]
+[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_awn3j"]
+[ext_resource type="Script" uid="uid://dx0yavi260x8a" path="res://scenes/battle/arena/teams.gd" id="3_hkvx5"]
+[ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="4_hdymd"]
+[ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/player_fighter.tscn" id="7_8stbl"]
+[ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="15_awn3j"]
+[ext_resource type="Script" uid="uid://2jtodbhiwuk3" path="res://scenes/battle/fighter/player/player_bars.gd" id="15_iln1w"]
+[ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="16_ajjla"]
+[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="18_rj7gd"]
+[ext_resource type="Script" uid="uid://e66p0njy1fdn" path="res://scenes/battle/ui/post_fight/post_fight.gd" id="22_ajjla"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="23_iln1w"]
+[ext_resource type="Script" uid="uid://0q66h1dlsnk2" path="res://scenes/battle/ui/post_fight/victory_view.gd" id="24_iln1w"]
+[ext_resource type="Script" uid="uid://d352anpq848ql" path="res://scenes/battle/arena/hud.gd" id="24_lli5l"]
+[ext_resource type="Texture2D" uid="uid://mdvwwpo0y32y" path="res://assets/visual/ui/bars/tide_bar_bg.png" id="25_rgsom"]
+[ext_resource type="Script" uid="uid://x5bkiyq2w8y5" path="res://scenes/battle/ui/post_fight/defeat_view.gd" id="25_rj7gd"]
+[ext_resource type="Script" uid="uid://cerbi7h65yy1h" path="res://scenes/battle/ui/post_fight/exp_panel.gd" id="25_slj5k"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="26_bbn25"]
+[ext_resource type="Texture2D" uid="uid://modn6mycxcwv" path="res://assets/visual/ui/bars/tide_bar_fill.png" id="26_ru5xg"]
+[ext_resource type="PackedScene" uid="uid://gkmwx2m1dj5l" path="res://scenes/battle/ui/post_fight/unit_exp_gain.tscn" id="27_bbn25"]
+[ext_resource type="Script" uid="uid://bamybb8bc8w7m" path="res://scenes/battle/arena/tide_bar.gd" id="27_up874"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="28_qkwvs"]
+[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="28_w5ded"]
+[ext_resource type="Texture2D" uid="uid://bnodj0olc5drs" path="res://assets/visual/icons/stats/attack.png" id="29_f4dff"]
+[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="29_p7mpf"]
+[ext_resource type="Script" uid="uid://dwkmw68qyiw4e" path="res://scenes/battle/arena/weapon_cooldowns.gd" id="30_ign1o"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="30_xs7fa"]
+[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="31_6diul"]
+[ext_resource type="Texture2D" uid="uid://vvpqjj3pxtbs" path="res://assets/visual/items/weapons/pipe.png" id="31_ipvku"]
+[ext_resource type="Script" uid="uid://dhxmswt5kblwd" path="res://scenes/battle/arena/loot_panel.gd" id="32_xs7fa"]
+[ext_resource type="Texture2D" uid="uid://cbptl4cvn7pul" path="res://assets/visual/items/weapons/chakram.png" id="32_yxqh6"]
+[ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="33_6diul"]
+[ext_resource type="Script" uid="uid://kbu5wmaftg6a" path="res://scenes/battle/arena/module_cooldown.gd" id="33_v70d8"]
+[ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/items/modules/dodge_roll.png" id="34_anoy1"]
+[ext_resource type="Script" uid="uid://nxkk2asqvdre" path="res://scenes/battle/arena/countdown.gd" id="35_cynq7"]
+
+[sub_resource type="Shader" id="Shader_1ut33"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwet0"]
+resource_local_to_scene = true
+shader = SubResource("Shader_1ut33")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Shader" id="Shader_r4qcv"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_axnw4"]
+resource_local_to_scene = true
+shader = SubResource("Shader_r4qcv")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(6, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r4qcv"]
+shader = ExtResource("28_qkwvs")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ey2rr"]
+resource_local_to_scene = true
+shader = ExtResource("30_xs7fa")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0, 0, 0, 0.552941)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("team_1", "team_2", "current_layout", "post_fight_view")]
+y_sort_enabled = true
+script = ExtResource("1_i4yf0")
+team_1 = NodePath("teams/team_1")
+team_2 = NodePath("teams/team_2")
+current_layout = NodePath("Hideout")
+post_fight_view = NodePath("ui_canvas/post_fight")
+
+[node name="Hideout" parent="." instance=ExtResource("2_awn3j")]
+
+[node name="teams" type="Node2D" parent="."]
+script = ExtResource("3_hkvx5")
+
+[node name="team_1_projectiles" type="Node2D" parent="teams"]
+
+[node name="team_2_projectiles" type="Node2D" parent="teams"]
+
+[node name="team_1" type="Node2D" parent="teams" node_paths=PackedStringArray("arena", "enemy_team", "projectiles")]
+z_index = 1
+script = ExtResource("4_hdymd")
+arena = NodePath("../..")
+team_n = 1
+enemy_team = NodePath("../team_2")
+projectiles = NodePath("../team_1_projectiles")
+metadata/_custom_type_script = "uid://dclobwhhhy4eu"
+
+[node name="player_fighter" parent="teams/team_1" instance=ExtResource("7_8stbl")]
+material = SubResource("ShaderMaterial_dwet0")
+position = Vector2(-92, 537)
+
+[node name="body" parent="teams/team_1/player_fighter" index="6"]
+material = SubResource("ShaderMaterial_axnw4")
+
+[node name="camera" parent="teams/team_1/player_fighter" index="8"]
+zoom = Vector2(1, 1)
+limit_left = -5999
+limit_top = -147
+limit_right = 6001
+limit_bottom = 1003
+
+[node name="Control" type="Control" parent="teams/team_1/player_fighter/camera" index="0"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -444.0
+offset_top = -141.0
+offset_right = -404.0
+offset_bottom = -101.0
+
+[node name="team_2" type="Node2D" parent="teams" node_paths=PackedStringArray("arena", "enemy_team", "projectiles")]
+z_index = 1
+script = ExtResource("4_hdymd")
+arena = NodePath("../..")
+team_n = 2
+enemy_team = NodePath("../team_1")
+projectiles = NodePath("../team_2_projectiles")
+metadata/_custom_type_script = "uid://dclobwhhhy4eu"
+
+[node name="ui_canvas" type="CanvasLayer" parent="."]
+
+[node name="hud" type="Control" parent="ui_canvas" node_paths=PackedStringArray("screen_blink_rect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_lli5l")
+screen_blink_rect = NodePath("TextureRect")
+
+[node name="TextureRect" type="ColorRect" parent="ui_canvas/hud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="tide_bar" type="TextureProgressBar" parent="ui_canvas/hud" node_paths=PackedStringArray("arena", "team_1", "team_2", "tide_icon")]
+custom_minimum_size = Vector2(384, 36)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_top = 10.0
+offset_right = 192.0
+offset_bottom = 46.0
+grow_horizontal = 2
+nine_patch_stretch = true
+texture_under = ExtResource("25_rgsom")
+texture_progress = ExtResource("26_ru5xg")
+script = ExtResource("27_up874")
+arena = NodePath("../../..")
+team_1 = NodePath("../../../teams/team_1")
+team_2 = NodePath("../../../teams/team_2")
+tide_icon = NodePath("icon")
+icon_colors = Array[Color]([Color(0.4, 0, 0, 1), Color(0.6, 0.51000005, 0, 1), Color(0.40120003, 0.48483998, 0.68, 1), Color(0.16800001, 0.48, 0.25640002, 1), Color(0.16, 0.8, 0.16, 1)])
+
+[node name="icon" type="TextureRect" parent="ui_canvas/hud/tide_bar"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_r4qcv")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -16.0
+offset_right = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("29_f4dff")
+
+[node name="icon" type="TextureRect" parent="ui_canvas/hud/tide_bar/icon"]
+texture_filter = 1
+use_parent_material = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("29_f4dff")
+expand_mode = 3
+flip_h = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/hud"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -134.0
+offset_top = -214.0
+offset_right = 134.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="cooldowns" type="HBoxContainer" parent="ui_canvas/hud/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="main_weapon" type="PanelContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns" node_paths=PackedStringArray("equipment", "main_weapon_cd_timer", "alt_weapon_cd_timer", "alt_weapon_container", "cooldown_bar", "alt_cooldown_bar", "main_weapon_ammo_hbox", "alt_weapon_ammo_hbox")]
+layout_mode = 2
+size_flags_vertical = 8
+script = ExtResource("30_ign1o")
+equipment = NodePath("../../../../../teams/team_1/player_fighter/equipment")
+main_weapon_cd_timer = NodePath("../../../../../teams/team_1/player_fighter/equipment/weapon_control/weapon_cd")
+alt_weapon_cd_timer = NodePath("../../../../../teams/team_1/player_fighter/equipment/weapon_control/alt_weapon_cd")
+alt_weapon_container = NodePath("../VBoxContainer/alt_weapon")
+cooldown_bar = NodePath("VBoxContainer/main_weapon_cooldown")
+alt_cooldown_bar = NodePath("../VBoxContainer/alt_weapon/HBoxContainer/alt_weapon_cooldown")
+main_weapon_ammo_hbox = NodePath("VBoxContainer/main_weapon_ammo")
+alt_weapon_ammo_hbox = NodePath("../VBoxContainer/alt_weapon/HBoxContainer/alt_weapon_ammo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon"]
+layout_mode = 2
+
+[node name="main_weapon_cooldown" type="TextureProgressBar" parent="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon/VBoxContainer"]
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.1
+value = 39.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("31_ipvku")
+texture_progress = ExtResource("31_ipvku")
+tint_under = Color(0, 0, 0, 0.39215687)
+
+[node name="main_weapon_ammo" type="HBoxContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon/VBoxContainer"]
+layout_mode = 2
+text = "[LMB]"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="alt_weapon" type="PanelContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/alt_weapon"]
+layout_mode = 2
+
+[node name="alt_weapon_cooldown" type="TextureProgressBar" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/alt_weapon/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.1
+fill_mode = 3
+texture_under = ExtResource("32_yxqh6")
+texture_progress = ExtResource("32_yxqh6")
+tint_under = Color(0, 0, 0, 0.39215687)
+
+[node name="alt_weapon_ammo" type="HBoxContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/alt_weapon/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/alt_weapon/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "[E]"
+horizontal_alignment = 1
+
+[node name="module_cooldown" type="PanelContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer" node_paths=PackedStringArray("module_cd_timer", "module_bar", "module_ammo_hbox")]
+layout_mode = 2
+script = ExtResource("33_v70d8")
+module_cd_timer = NodePath("../../../../../../teams/team_1/player_fighter/equipment/module_control/module_cd")
+module_bar = NodePath("VBoxContainer/module_cd")
+module_ammo_hbox = NodePath("VBoxContainer/module_ammo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/module_cooldown"]
+layout_mode = 2
+
+[node name="module_cd" type="TextureProgressBar" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/module_cooldown/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.1
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("34_anoy1")
+texture_progress = ExtResource("34_anoy1")
+tint_under = Color(0, 0, 0, 0.39215687)
+
+[node name="module_ammo" type="HBoxContainer" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/module_cooldown/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/module_cooldown/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "[spacebar]"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="ui_canvas/hud/VBoxContainer"]
+layout_mode = 2
+
+[node name="bars" type="VBoxContainer" parent="ui_canvas/hud/VBoxContainer/PanelContainer" node_paths=PackedStringArray("hud_section", "player_fighter", "hp_bar", "status_bar", "floating_icon_anchor")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("15_iln1w")
+hud_section = NodePath("../..")
+player_fighter = NodePath("../../../../../teams/team_1/player_fighter")
+hp_bar = NodePath("hp_bar")
+status_bar = NodePath("status_bar")
+floating_icon_anchor = NodePath("../../../../../teams/team_1/player_fighter/floating_icon_anchor")
+
+[node name="hp_bar" type="TextureProgressBar" parent="ui_canvas/hud/VBoxContainer/PanelContainer/bars"]
+custom_minimum_size = Vector2(256, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 30.0
+nine_patch_stretch = true
+texture_under = ExtResource("15_awn3j")
+texture_progress = ExtResource("16_ajjla")
+tint_progress = Color(0.4, 1, 0.4, 1)
+
+[node name="status_bar" type="TextureProgressBar" parent="ui_canvas/hud/VBoxContainer/PanelContainer/bars"]
+visible = false
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+step = 0.1
+texture_progress = ExtResource("18_rj7gd")
+
+[node name="countdown_overlay" type="ColorRect" parent="ui_canvas/hud" node_paths=PackedStringArray("arena", "teams", "countdown_label")]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.40392157)
+script = ExtResource("35_cynq7")
+arena = NodePath("../../..")
+teams = NodePath("../../../teams")
+countdown_label = NodePath("Label")
+
+[node name="Label" type="Label" parent="ui_canvas/hud/countdown_overlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -13.0
+offset_right = 20.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 256
+text = "3"
+
+[node name="countdown" type="Timer" parent="ui_canvas/hud/countdown_overlay"]
+autostart = true
+
+[node name="post_fight" type="Control" parent="ui_canvas" node_paths=PackedStringArray("victory_view", "defeat_view", "ui_sfx")]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("22_ajjla")
+victory_view = NodePath("victory_view")
+defeat_view = NodePath("defeat_view")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="bg" type="ColorRect" parent="ui_canvas/post_fight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4117647)
+
+[node name="ui_sfx" parent="ui_canvas/post_fight" instance=ExtResource("23_iln1w")]
+
+[node name="victory_view" type="Control" parent="ui_canvas/post_fight" node_paths=PackedStringArray("post_battle", "exp_panel", "loot_panel")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_iln1w")
+post_battle = NodePath("..")
+exp_panel = NodePath("exp_panel")
+loot_panel = NodePath("loot_panel")
+
+[node name="exp_panel" type="Panel" parent="ui_canvas/post_fight/victory_view" node_paths=PackedStringArray("player_exp_bar", "exp_gains_container")]
+visible = false
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("25_slj5k")
+player_exp_bar = NodePath("player_exp")
+exp_gain_scene = ExtResource("27_bbn25")
+exp_gains_container = NodePath("ScrollContainer/exp_gains")
+
+[node name="title" type="Label" parent="ui_canvas/post_fight/victory_view/exp_panel"]
+layout_mode = 1
+offset_left = 50.0
+offset_top = 30.0
+offset_right = 354.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 128
+text = "Victory!"
+
+[node name="continue_to_loot" type="Button" parent="ui_canvas/post_fight/victory_view/exp_panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -54.0
+offset_right = -40.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Continue"
+
+[node name="player_exp" parent="ui_canvas/post_fight/victory_view/exp_panel" instance=ExtResource("26_bbn25")]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 312.0
+offset_right = 233.0
+offset_bottom = 348.0
+from_player = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ui_canvas/post_fight/victory_view/exp_panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -503.0
+offset_top = 16.0
+offset_right = -227.0
+offset_bottom = 503.0
+grow_horizontal = 0
+
+[node name="exp_gains" type="VBoxContainer" parent="ui_canvas/post_fight/victory_view/exp_panel/ScrollContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/post_fight/victory_view/exp_panel"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 157.0
+offset_right = 392.0
+offset_bottom = 483.0
+
+[node name="Label" type="Label" parent="ui_canvas/post_fight/victory_view/exp_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Level: "
+
+[node name="StatsDropdown" parent="ui_canvas/post_fight/victory_view/exp_panel/VBoxContainer" node_paths=PackedStringArray("exp_bar", "stat_labels") instance=ExtResource("28_w5ded")]
+layout_mode = 2
+from_player = true
+exp_bar = NodePath("../../player_exp")
+stat_labels = {
+"agility": NodePath("agility/agility"),
+"attack": NodePath("attack/attack"),
+"defense": NodePath("defense/defense"),
+"max_hp": NodePath("max_hp/max_hp"),
+"technique": NodePath("technique/technique")
+}
+
+[node name="Control" type="Control" parent="ui_canvas/post_fight/victory_view/exp_panel"]
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 197.0
+offset_right = 97.0
+offset_bottom = 197.0
+
+[node name="body" parent="ui_canvas/post_fight/victory_view/exp_panel/Control" instance=ExtResource("29_p7mpf")]
+process_mode = 4
+material = SubResource("ShaderMaterial_ey2rr")
+position = Vector2(90, 23)
+scale = Vector2(4, 4)
+
+[node name="AnimationPlayer" parent="ui_canvas/post_fight/victory_view/exp_panel/Control/body" index="0"]
+process_mode = 3
+speed_scale = 0.75
+
+[node name="player_sample" parent="ui_canvas/post_fight/victory_view/exp_panel/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("31_6diul")]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 19.0
+offset_right = 102.0
+offset_bottom = 19.0
+target_base = NodePath("../body")
+
+[node name="loot_panel" type="Panel" parent="ui_canvas/post_fight/victory_view" node_paths=PackedStringArray("enemy_team", "player_inventory_display", "enemy_inventory_display", "take_loot_btn")]
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -350.0
+offset_right = 600.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("32_xs7fa")
+enemy_team = NodePath("../../../../teams/team_2")
+player_inventory_display = NodePath("player_inventory")
+enemy_inventory_display = NodePath("enemy_inventory")
+take_loot_btn = NodePath("VBoxContainer/take_loot")
+
+[node name="Label" type="Label" parent="ui_canvas/post_fight/victory_view/loot_panel"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = -8.0
+offset_right = 214.0
+offset_bottom = 94.0
+theme_override_font_sizes/font_size = 128
+text = "Loot"
+
+[node name="finish_arena" type="Button" parent="ui_canvas/post_fight/victory_view/loot_panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -66.0
+offset_right = -40.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Continue"
+
+[node name="player_inventory" parent="ui_canvas/post_fight/victory_view/loot_panel" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("33_6diul")]
+custom_minimum_size = Vector2(538, 0)
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 23.333374
+offset_top = 93.0
+offset_right = 561.3334
+offset_bottom = 767.0
+grow_horizontal = 1
+grow_vertical = 1
+context = "loot"
+exchanging_display = NodePath("../enemy_inventory")
+
+[node name="enemy_inventory" parent="ui_canvas/post_fight/victory_view/loot_panel" node_paths=PackedStringArray("exchanging_display") instance=ExtResource("33_6diul")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 801.0
+offset_top = 29.0
+offset_right = 801.0
+offset_bottom = 703.0
+grow_horizontal = 1
+grow_vertical = 1
+context = "loot"
+from_player = false
+exchanging_display = NodePath("../player_inventory")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/post_fight/victory_view/loot_panel"]
+layout_mode = 0
+offset_left = 557.0
+offset_top = 132.0
+offset_right = 597.0
+offset_bottom = 172.0
+
+[node name="take_loot" type="Button" parent="ui_canvas/post_fight/victory_view/loot_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Take Loot"
+
+[node name="reset" type="Button" parent="ui_canvas/post_fight/victory_view/loot_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "reset"
+
+[node name="defeat_view" type="Control" parent="ui_canvas/post_fight"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("25_rj7gd")
+
+[node name="Panel" type="Panel" parent="ui_canvas/post_fight/defeat_view"]
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="finish_arena" type="Button" parent="ui_canvas/post_fight/defeat_view/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -66.0
+offset_right = -40.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Continue"
+
+[connection signal="child_entered_tree" from="teams/team_1" to="teams/team_1" method="_on_child_entered_tree"]
+[connection signal="unit_converted" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
+[connection signal="unit_died" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_team_1_unit_died"]
+[connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud" method="_on_player_fighter_damage_taken"]
+[connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_damage_taken"]
+[connection signal="death" from="teams/team_1/player_fighter" to="ui_canvas/hud/tide_bar" method="_on_player_fighter_death"]
+[connection signal="healing_received" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_healing_received"]
+[connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_status_applied"]
+[connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]
+[connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
+[connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="ammo_consumed"]
+[connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
+[connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="check_weapon_disabled"]
+[connection signal="child_entered_tree" from="teams/team_2" to="teams/team_2" method="_on_child_entered_tree"]
+[connection signal="unit_converted" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
+[connection signal="unit_died" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_team_2_unit_died"]
+[connection signal="timeout" from="ui_canvas/hud/countdown_overlay/countdown" to="ui_canvas/hud/countdown_overlay" method="_on_countdown_timeout"]
+[connection signal="pressed" from="ui_canvas/post_fight/victory_view/exp_panel/continue_to_loot" to="ui_canvas/post_fight/victory_view" method="_on_continue_to_loot_pressed"]
+[connection signal="pressed" from="ui_canvas/post_fight/victory_view/loot_panel/finish_arena" to="ui_canvas/post_fight" method="_on_finish_arena_pressed"]
+[connection signal="pressed" from="ui_canvas/post_fight/victory_view/loot_panel/VBoxContainer/take_loot" to="ui_canvas/post_fight/victory_view/loot_panel" method="_on_take_loot_pressed"]
+[connection signal="pressed" from="ui_canvas/post_fight/defeat_view/Panel/finish_arena" to="ui_canvas/post_fight" method="_on_finish_arena_pressed"]
+
+[editable path="teams/team_1/player_fighter"]
+[editable path="teams/team_1/player_fighter/body"]
+[editable path="ui_canvas/post_fight/victory_view/exp_panel/Control/body"]

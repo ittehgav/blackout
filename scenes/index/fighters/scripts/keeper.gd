@@ -13,7 +13,6 @@ const skill_range = MID_RANGE
 
 
 func damage_modifier(damage:float, unit:FighterUnit = null)->float:
-	## TODO attack improves sting damage, technique improges agility reduction
 	if not unit:
 		return Scaling.technique_scaled_value(damage/5, fighter.technique, "damage")
 	else:
@@ -30,8 +29,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	final_damage_str = "[color=" + final_damage_color_hex + "]" + final_damage_str + "[/color]"
 	
 	var technique_str:String = Index.get_color_tag("technique") + str(snapped(unit.stats.technique * Scaling.technique_mechanic_multipliers["damage"], .01)) + "[/color]"
-	var final_string:String = "Flings a swarm that deals " + final_damage_str + " ("+base_damage_str+" + " + base_damage_str + " * " + technique_str + ") damage per second over 5 seconds and reduces the target's "\
-	+Index.stat_colored_name("agility")+" by 15%. The effect can stack.";
+	var final_string:String = "Flings a swarm that deals " + final_damage_str + " ("+base_damage_str+" + " + base_damage_str + " * " + technique_str + ") damage per second over 5 seconds.\nHitting the same target makes the bees sting faster.";
 	return final_string;
 
 
@@ -45,9 +43,7 @@ func skill()->void:
 	animation_player.play("keeper/skill");
 	animation_player.queue("fighter_base/idle")
 	
-func skill_impact()->void:
-	if fighter.dead:
-		return;
+func skill_effect()->void:
 	Combat.shoot_projectile(projectile, fighter, bees_hit);
 
 
@@ -55,7 +51,7 @@ func bees_hit(target:ActiveFighter)->void:
 	if not "swarm" in target.special_statuses:
 		var new_bees:Sprite2D = bees.duplicate(DUPLICATE_SIGNALS+ DUPLICATE_SCRIPTS);
 		target.add_child(new_bees);
-		new_bees.global_position = target.global_position;
+		new_bees.position = Vector2.ZERO
 		new_bees.scale = Vector2(2, 2)
 		new_bees.offset = Vector2(10, 0);
 		
@@ -73,23 +69,23 @@ func bees_hit(target:ActiveFighter)->void:
 		target.special_statuses["swarm"] = status;
 	else:
 		var status:Dictionary = target.special_statuses.swarm;
-		var bees:Sprite2D = status.bees;
+		var current_bees:Sprite2D = status.bees;
 		
-		var sting_timer:Timer = bees.get_node("sting")
+		var sting_timer:Timer = current_bees.get_node("sting")
 		sting_timer.wait_time -= sting_timer.wait_time/10;
 		
-		var shuffle_timer:Timer = bees.get_node("shuffle");
+		var shuffle_timer:Timer = current_bees.get_node("shuffle");
 		shuffle_timer.wait_time -= shuffle_timer.wait_time/10;
 		
-		if bees.frame_coords.y < 4:
-			bees.frame_coords.y += 1;
+		if current_bees.frame_coords.y < 4:
+			current_bees.frame_coords.y += 1;
 			
 		var tween:Tween = create_tween();
 		const interval = .2
-		tween.tween_property(bees, "scale", Vector2(4, 4), interval);
-		tween.tween_property(bees, "scale", Vector2(2, 2), interval)
+		tween.tween_property(current_bees, "scale", Vector2(4, 4), interval);
+		tween.tween_property(current_bees, "scale", Vector2(2, 2), interval)
 
 
 func bees_sting(target:ActiveFighter)->void:
-	## TODO make them reduce the target's agility in an impactful but not too ridiculous way
 	Combat.deal_damage(fighter, target, damage_modifier)
+	

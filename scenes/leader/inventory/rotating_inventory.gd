@@ -1,4 +1,4 @@
-extends NpcInventory
+extends ShopInventory
 
 @export var accessory_pool:Array[Item]
 @export var consumable_pool:Array[Item]

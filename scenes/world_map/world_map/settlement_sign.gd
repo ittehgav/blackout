@@ -32,9 +32,10 @@ func reset()->void:
 	dungeon_data.hide()
 
 func display_dungeon(target:Dungeon)->void:
+	target.refresh()
 	dungeon_data.show();
 	var danger_level:int = target.get_danger_level()
-	dungeon_level_label.text = str(target.highest_level_target)
+	dungeon_level_label.text = str(target.get_current_wave().get_level());
 	match danger_level:
 		1:
 			skull_2.hide();

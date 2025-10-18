@@ -12,30 +12,28 @@ const skill_cooldown = 6;
 
 const knock_back_distance = 400;
 
-const status_duration = 1.0;
+const status_duration = 2.0;
 
 
 
 func full_skill_description(unit:FighterUnit)->String:
 	var stun_duration_string:String = Index.get_technique_scaled_string(unit, "stun", "status_duration");
-	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color] Knocks back an enemy target and"+Index.get_color_tag("stun")+" stuns[/color] them and any enemies they collide with for "\
+	var string:String = Index.get_color_tag("no_dmg") + "Doesn't deal damage.[/color]\nKnocks back an enemy target and"+Index.get_color_tag("stun")+" stuns[/color] them and any enemies they collide with for "\
 	+ stun_duration_string + " seconds.";
 	return string;
 
 
-
-
 func skill()->void:
-	if fighter.dead:
-		return;
 	Combat.set_aoe_aim(fighter);
 	animation_player.play("gravity/skill")
 	animation_player.queue("fighter_base/idle");
 
-func skill_impact()->void:
+func skill_effect()->void:
 	Combat.knock_back_target(fighter)
 	Combat.aoe_stun(fighter)
-	Combat.stun_target(fighter);
+	if fighter.target_unit not in fighter.hit_targets:
+		Combat.stun_target(fighter)
+	
 
 func update_hit_scan()->void:
 	if fighter.target_unit:

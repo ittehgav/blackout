@@ -43,7 +43,7 @@ func find_base()->void:
 func final_stats()->CombatStats:
 	var modified_stats:CombatStats = Index.scenes.combat_stats.instantiate();
 	
-	for stat:String in Index.all_combat_stats:
+	for stat:String in Index.all_combat_stats + ["move_speed"]:
 		modified_stats[stat] = (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat]
 	if base.no_damage:
 		modified_stats.attack = 0;
@@ -56,27 +56,25 @@ func change_base(new_base:FighterBase)->void:
 func update_stats()->void:
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels for now
+	stats_loaded = true;
 	if base.hard_stats:
 		for s:String in Index.all_combat_stats:
 			stats[s] = base.hard_stats[s];
+		stats.move_speed = base.hard_stats.move_speed
 		return
+		
 
 	Scaling.initiate_unit_stats(self);
 	Scaling.level_up_stats(self, level)
-	apply_stat_modifiers();
-	stats_loaded = true;
 
 
 
 func final_skill_cooldown(agi_acm:float=stats.agility)->float:
 	## can check from active fighter and from fighter unit
+	if base.skill_cooldown == 0.0:
+		return 0.0
 	var cooldown:float = base.skill_cooldown;
-	while agi_acm > 5:
-		cooldown -= cooldown/20;
-		agi_acm -= 5;
-	
-	var final_reduction:float = (cooldown/100)*agi_acm
-	cooldown -= final_reduction
+	cooldown -= Scaling.agility_cooldown_reduction(base.skill_cooldown, final_stats().agility)
 	return cooldown
 	
 func upgrade_available()->bool:
@@ -98,11 +96,7 @@ func gain_stat_modifier(stat:String, value:float)->void:
 	modifier_stats[stat] += value;
 	stats[stat] += value;
 
-func apply_stat_modifiers()->void:
-	## only needs to run when figher unit is first loaded on when stats are refreshed
-	## (as of right now only when upgraded)
-	for stat:String in Index.all_combat_stats:
-		stats[stat] += modifier_stats[stat]
+
 
 
 func _on_child_entered_tree(node: Node) -> void:

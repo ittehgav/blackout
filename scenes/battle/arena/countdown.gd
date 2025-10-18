@@ -6,7 +6,7 @@ extends ColorRect
 @export var teams:Node2D;
 @export var countdown_label:Label;
 
-var countdown_second:int = 3;
+@export var countdown_second:int = 3;
 
 func _ready()->void:
 	show() ## so it doesn't get in the way of the editor in the arena

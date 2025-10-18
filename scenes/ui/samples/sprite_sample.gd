@@ -13,17 +13,17 @@ class_name SpriteSample;
 @export var target_scale:Vector2 = Vector2.ONE
 
 func set_sample(target:Sprite2D)->void:
-	if target_base:
-		target_base.free();
 
 	## idk but it works
 	target_base = target.duplicate();
 	target_base.centered = false
 	target_base.scale = target_scale
 	add_child(target_base)
+	target.clear_for_sample.call_deferred()
 	target_base.z_index = 5
-	target_base.position = Vector2(-100, -100)
 
+	target_base.position = Vector2(450, -100)
+	
 	
 	target_base.offset.x -= 5 * target_scale.x
 	if not target_base is PlayerFighterBase:

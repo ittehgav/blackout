@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://gkmwx2m1dj5l"]
+
+[ext_resource type="Script" uid="uid://td4umabhod86" path="res://scenes/battle/ui/post_fight/unit_exp_gain.gd" id="1_ddje1"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="2_8hp62"]
+
+[node name="unit_exp_gain" type="PanelContainer" node_paths=PackedStringArray("sprite_container", "bar", "level_label")]
+visible = false
+custom_minimum_size = Vector2(100, 0)
+script = ExtResource("1_ddje1")
+sprite_container = NodePath("HBoxContainer/sprite_container")
+bar = NodePath("HBoxContainer/VBoxContainer/exp_bar")
+level_label = NodePath("HBoxContainer/VBoxContainer/level")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="sprite_container" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="level" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level: "
+
+[node name="exp_bar" parent="HBoxContainer/VBoxContainer" instance=ExtResource("2_8hp62")]
+layout_mode = 2
+
+[connection signal="level_up" from="HBoxContainer/VBoxContainer/exp_bar" to="." method="_on_exp_bar_level_up"]

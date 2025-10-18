@@ -8,17 +8,25 @@ signal day_passed;
 signal settlement_hovered(settlement:Settlement);
 signal settlement_mouse_exited;
 
+signal returned_from_battle(won:bool);
+## to play animations/dialogues that depend on whether you won the battle
+
 @export var origin:Settlement;
 @export var road_tiles:TileMapLayer;
 
 @export var speed_up_icon:TextureRect
-
+@export var minute_ticker:Timer
 @export var ui_canvas:CanvasLayer;
+
+## world map persists throughout the entire session
+## the true player node is located here
+## and set to Entities before the world enters the tree
+@export var player_node:Player;
 
 ## y3k?
 @export var current_year:int = 3000;
 @export_range(1, 12) var current_month:int
-@export_range(1, 31) var current_day : int; 
+@export_range(1, 31) var current_day:int; 
 @export_range(0, 23) var current_hour:int
 @export_range(0, 59) var current_minute:int;
 
@@ -58,3 +66,12 @@ func set_travel_speed(target:float)->void:
 
 func _on_player_party_settlement_visited(_settlement: Settlement) -> void:
 	set_travel_speed(1)
+	
+func advance_day()->void:
+	## putting this here so it's quicker to access for a lot of day-cycle
+	## depending things
+	day_passed.emit()
+	current_day += 1;
+	if current_day == 32:
+		minute_ticker.advance_month();
+		current_day = 0;

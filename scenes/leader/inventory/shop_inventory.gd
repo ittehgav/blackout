@@ -1,6 +1,6 @@
 extends Inventory;
 
-class_name NpcInventory;
+class_name ShopInventory;
 ## implements trade menu generation and pricing
 
 @export_range(1, 5) var rarity_rate:int=1;
@@ -35,10 +35,8 @@ const selling_prices_divider = 1.5
 
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
-	if node in item_pool:
-		remove_child.call_deferred(node);
-	else:
-		super(node)
+	item_pool.append(node);
+	remove_child.call_deferred(node)
 
 func refresh_inventory()->void:
 	var to_erase:Array[Item]

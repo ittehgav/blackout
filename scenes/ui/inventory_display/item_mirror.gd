@@ -155,7 +155,7 @@ func _on_gui_input(e: InputEvent) -> void:
 					return;
 		else:
 			if e.button_index == MOUSE_BUTTON_LEFT and\
-			(display.from_player or not item in display.inventory.resource_storage):
+			(not display.inventory is ShopInventory or not item in display.inventory.resource_storage):
 				put_down();
 
 func empty_storage()->void:
@@ -208,7 +208,7 @@ func set_inventory_position(target:Vector2i)->void:
 	item.inventory_position = target;
 
 func pick_up()->void:
-	if display.from_player or not item in display.inventory.resource_storage:
+	if not display.inventory is ShopInventory or not item in display.inventory.resource_storage:
 		z_index += 1;
 		display.item_picked_up.emit();
 		item_under = self;
@@ -447,7 +447,7 @@ func use_consumable_command()->void:
 
 func trade_command()->void:
 	if item is ResourceContainer:
-		if stack_size == 0 and display.inventory is NpcInventory and item in display.inventory.resource_storage :
+		if stack_size == 0 and display.inventory is ShopInventory and item in display.inventory.resource_storage :
 			display.invalid_move.emit("CONTAINER NOT FOR SALE")
 		if item.raw_stack:
 			display.send_resource(self, stack_size);
@@ -554,7 +554,8 @@ func _on_mouse_exited() -> void:
 func set_price()->void:
 	price_tag.show();
 	if not being_traded:
-		if item is ResourceContainer and stack_size:
+		if item is ResourceContainer and stack_size and display.context == "trade":
+			## containers in loot will always be empty?
 			if display.from_player:
 				## in player inventory = selling price
 				price = display.exchanging_display.inventory.resource_selling_prices[item.resource];
@@ -564,10 +565,12 @@ func set_price()->void:
 			price *= stack_size;
 		else:
 			price = item.get_price();
-			if display.from_player:
-				price /= display.exchanging_display.inventory.selling_prices_divider;
-			else:
-				price *= display.inventory.buying_prices_multiplier;
+			if display.context == "trade":
+				if display.from_player:
+					price /= display.exchanging_display.inventory.selling_prices_divider;
+				else:
+					price *= display.inventory.buying_prices_multiplier;
+
 
 		## if it's being traded, it already had it's price set
 		if price < 1:
@@ -579,7 +582,7 @@ func set_price()->void:
 func refresh()->void:
 	tooltip.load_target(self)
 	
-	if display.context == "trade":
+	if display.context == "trade" or display.context == "loot":
 		set_price();
 		
 	modifier_sign.hide()

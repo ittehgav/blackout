@@ -20,7 +20,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	
 	var string:String = "Deals " + final_damage_str + " ("+base_damage_str+" + " + base_damage_str + " * " + technique_str + ") to the nearest enemy.";
 
-	string += "\n\nCan be upgraded to deal heavy, long-range damage or to apply AOE crowd control.";
+	string += "\nCan be upgraded to deal heavy, long-range damage or to apply AOE crowd control.";
 	return string;
 
 
@@ -35,13 +35,13 @@ const skill_cooldown = 2.5;
 
 
 func skill()->void:
+	if not fighter.target_unit or fighter.target_unit.dead:
+		return
 	Combat.set_windup_angle(fighter);
 	
 	animation_player.play("crowbar/skill");
 	animation_player.queue("fighter_base/idle")
 	
-func skill_impact()->void:
-	if fighter.dead:
-		return;
+func skill_effect()->void:
 	Combat.deal_damage(fighter);
 	fighter.catch_hit_target(fighter.target_unit)

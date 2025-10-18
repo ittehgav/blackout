@@ -29,11 +29,15 @@ func get_level()->int:
 	## having more unique units
 	for unit:FighterUnit in units:
 		## higher unit count yields more than just higher average levels
-		level += unit.level + len(unit.base.tags);
+		level += unit.level * len(unit.base.tags);
 	return level
 
 func clear_units()->void:
 	## units just get freed as they become unreferenced?
 	while len(units):
 		remove_unit(units[0]);
-		
+
+func get_exp_bounty()->int:
+	## probably some tweaking to be done?
+	var base_bounty:int = get_level();
+	return base_bounty

@@ -33,9 +33,7 @@ func skill()->void:
 var circle_size:= Vector2.ONE
 const circle_growth = Vector2(.1, .1)
 
-func skill_impact()->void:
-	if fighter.dead:
-		return;
+func skill_effect()->void:
 	if not dmg_timer.is_stopped():
 		sfx_player.pitch_scale += .1
 		dmg_timer.wait_time -= dmg_timer.wait_time * base_acceleration_frac;

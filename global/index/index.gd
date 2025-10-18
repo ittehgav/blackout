@@ -199,7 +199,7 @@ const all_combat_stats:Array[String] = [
 
 const stat_descriptions = {
 	"max_hp": "The unit's total HP at the start of battle.",
-	"attack": "The damage dealt by weapons and skills. (some units and weapons deal no damage)",
+	"attack": "The damage dealt by weapons and skills. (some units and some weapons deal no damage)",
 	"defense": "Reduces the damage taken by the unit.",
 	"agility": "Reduces the cooldown of the player's weapon and units' skills.",
 	"technique": "Improves special effects in modules and units' skills."

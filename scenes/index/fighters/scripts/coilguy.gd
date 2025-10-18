@@ -13,8 +13,8 @@ func full_skill_description(unit:FighterUnit)->String:
 	var per_target_bonus:String = Index.get_technique_scaled_string(unit, "damage", "", per_target_damage_bonus * 100, "%");
 
 	var static_color_tag:String = "[color=" + Color.YELLOW.darkened(.2).to_html() + "]"
-	var final_string:String = "Applies" + static_color_tag + " Static[/color] to enemies, then deals " + damage_str +\
-	"to the nearest enemy, then fires a chain lightning attack that damages all enemies with " + static_color_tag+\
+	var final_string:String = "Applies" + static_color_tag + " Static[/color] to an enemy, then deals " + damage_str +\
+	" to the nearest enemy, then fires a chain lightning attack that damages all enemies with " + static_color_tag+\
 	"Static[/color].\nDeals " + per_target_bonus + " more damage for each enemy with " + static_color_tag + " Static[/color]."
 	
 	return final_string
@@ -30,11 +30,7 @@ func skill()->void:
 	animation_player.queue("fighter_base/idle")
 
 
-func skill_impact()->void:
-	if fighter.dead:
-		return;
-	if fighter.dead:
-		return;
+func skill_effect()->void:
 	var tagged_targets:Array = get_tagged_fighters();
 	if not len(tagged_targets):
 		## makes sure there's always at least 2 tagged targets

@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://dphiet8wg7sd"]
+[gd_scene load_steps=75 format=3 uid="uid://dphiet8wg7sd"]
 
 [ext_resource type="Script" uid="uid://d0rxta3ju0m4" path="res://scenes/world_map/world_map/world_map.gd" id="1_irndy"]
 [ext_resource type="Script" uid="uid://wrywd826l7x3" path="res://scenes/world_map/world_map/world_map_sfx.gd" id="2_omxek"]
@@ -26,7 +26,6 @@
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/settlement_outline.gdshader" id="20_tbp5f"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/punchy.tscn" id="20_tlj38"]
 [ext_resource type="PackedScene" uid="uid://bmbg58lf6gxtp" path="res://scenes/index/locations/buildings/farm.tscn" id="21_4ypwe"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="21_5sp40"]
 [ext_resource type="PackedScene" uid="uid://capijufintoqv" path="res://scenes/index/locations/buildings/gas_station.tscn" id="22_3x04a"]
 [ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/machete.tscn" id="22_t8y4u"]
 [ext_resource type="PackedScene" uid="uid://brlc23bio8sdx" path="res://scenes/index/locations/buildings/gym.tscn" id="23_eunnb"]
@@ -49,14 +48,137 @@
 [ext_resource type="Script" uid="uid://e26cpfgp8ja0" path="res://scenes/world_map/world_map/environment_color.gd" id="46_fuwqy"]
 [ext_resource type="PackedScene" uid="uid://b31rsrhwu68hd" path="res://scenes/world_map/world_map/main_hud.tscn" id="47_3x04a"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="49_x2ygm"]
+[ext_resource type="PackedScene" uid="uid://cccnmfam28gyo" path="res://scenes/world_map/world_map/dungeon_prompt/wave_sample.tscn" id="50_eunnb"]
 [ext_resource type="PackedScene" uid="uid://c2um7mypog4cw" path="res://scenes/index/locations/buildings/laboratory.tscn" id="51_gu5rp"]
-[ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="51_x2ygm"]
+[ext_resource type="Texture2D" uid="uid://c73bxxu7jqbgu" path="res://assets/visual/icons/misc/dungeon_wave_divider.png" id="51_x2ygm"]
 [ext_resource type="PackedScene" uid="uid://bl2vwwohl6yjy" path="res://scenes/index/locations/buildings/factory.tscn" id="52_alobk"]
-[ext_resource type="Texture2D" uid="uid://d2u8121t1bm17" path="res://assets/visual/icons/misc/party_level.png" id="52_m17yv"]
 [ext_resource type="Script" uid="uid://btb6lwcqdeb0e" path="res://scenes/ui/ui_root.gd" id="69_2irgy"]
 [ext_resource type="Script" uid="uid://dswpfdpni2xxc" path="res://scenes/world_map/world_map/enter_btn.gd" id="69_x5mo2"]
-[ext_resource type="Script" uid="uid://gp3350pfvmie" path="res://scenes/world_map/world_map/dungeon_prompt.gd" id="70_cb2tt"]
-[ext_resource type="Texture2D" uid="uid://5vfqfug0gssf" path="res://assets/visual/buildings/dungeon_sign/skull.png" id="73_gu5rp"]
+[ext_resource type="Script" uid="uid://gp3350pfvmie" path="res://scenes/world_map/world_map/dungeon_prompt/dungeon_prompt.gd" id="70_cb2tt"]
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2ygm"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m17yv"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_omir2"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8y4u"]
 texture = ExtResource("5_5k4yq")
@@ -621,218 +743,6 @@ tile_shape = 3
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_5sp40")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tfwjm"]
-resource_local_to_scene = true
-shader = ExtResource("21_5sp40")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(6, 3)
-
-[sub_resource type="Shader" id="Shader_4frhf"]
-code = "shader_type canvas_item;
-
-uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
-uniform float grad:hint_range(0.0, 1.0);
-
-
-uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
-uniform float width : hint_range(0, 10) = 1.0;
-uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
-uniform bool inside = false;
-uniform bool add_margins = true; // only useful when inside is false
-uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
-
-varying flat vec4 modulate;
-
-void vertex() {
-	modulate = COLOR;
-
-	if (add_margins) {
-		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
-			VERTEX += (UV * 2.0 - 1.0) * width;
-		} else {
-			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
-		}
-	}
-}
-
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
-	for (float i = -ceil(width); i <= ceil(width); i++) {
-		float x = abs(i) > width ? width * sign(i) : i;
-		float offset;
-
-		if (pattern == 0) {
-			offset = width - abs(x);
-		} else if (pattern == 1) {
-			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
-		} else if (pattern == 2) {
-			offset = width;
-		}
-
-		for (float j = -ceil(offset); j <= ceil(offset); j++) {
-			float y = abs(j) > offset ? offset * sign(j) : j;
-			vec2 xy = uv + texture_pixel_size * vec2(x, y);
-
-			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-
-void fragment(){
-
-	// OUTLINE
-
-	vec2 uv = UV;
-	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
-	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
-
-	if (add_margins) {
-		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
-
-		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
-
-		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
-			COLOR.a = 0.0;
-		} else {
-			COLOR = texture(TEXTURE, uv) * modulate;
-		}
-	} else {
-		COLOR = texture(TEXTURE, uv) * modulate;
-	}
-
-	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
-		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
-	}
-
-	// BLINK ANIMATIONS
-	if(grad != 0.0 && COLOR.a != 0.0){
-		COLOR = mix(COLOR, target_color, grad);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7sax"]
-resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(3, 1)
-
-[sub_resource type="Shader" id="Shader_h33nr"]
-code = "shader_type canvas_item;
-
-uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
-uniform float grad:hint_range(0.0, 1.0);
-
-
-uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
-uniform float width : hint_range(0, 10) = 1.0;
-uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
-uniform bool inside = false;
-uniform bool add_margins = true; // only useful when inside is false
-uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
-
-varying flat vec4 modulate;
-
-void vertex() {
-	modulate = COLOR;
-
-	if (add_margins) {
-		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
-			VERTEX += (UV * 2.0 - 1.0) * width;
-		} else {
-			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
-		}
-	}
-}
-
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
-	for (float i = -ceil(width); i <= ceil(width); i++) {
-		float x = abs(i) > width ? width * sign(i) : i;
-		float offset;
-
-		if (pattern == 0) {
-			offset = width - abs(x);
-		} else if (pattern == 1) {
-			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
-		} else if (pattern == 2) {
-			offset = width;
-		}
-
-		for (float j = -ceil(offset); j <= ceil(offset); j++) {
-			float y = abs(j) > offset ? offset * sign(j) : j;
-			vec2 xy = uv + texture_pixel_size * vec2(x, y);
-
-			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-
-void fragment(){
-
-	// OUTLINE
-
-	vec2 uv = UV;
-	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
-	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
-
-	if (add_margins) {
-		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
-
-		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
-
-		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
-			COLOR.a = 0.0;
-		} else {
-			COLOR = texture(TEXTURE, uv) * modulate;
-		}
-	} else {
-		COLOR = texture(TEXTURE, uv) * modulate;
-	}
-
-	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
-		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
-	}
-
-	// BLINK ANIMATIONS
-	if(grad != 0.0 && COLOR.a != 0.0){
-		COLOR = mix(COLOR, target_color, grad);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jdqpe"]
-resource_local_to_scene = true
-shader = SubResource("Shader_h33nr")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(3, 3)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q24oe"]
 resource_local_to_scene = true
 shader = ExtResource("20_tbp5f")
@@ -843,123 +753,67 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rl87i"]
-shader = ExtResource("51_x2ygm")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="Shader" id="Shader_exgy4"]
-code = "shader_type canvas_item;
-
-uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
-uniform float grad:hint_range(0.0, 1.0);
-
-
-uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
-uniform float width : hint_range(0, 10) = 1.0;
-uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
-uniform bool inside = false;
-uniform bool add_margins = true; // only useful when inside is false
-uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
-
-varying flat vec4 modulate;
-
-void vertex() {
-	modulate = COLOR;
-
-	if (add_margins) {
-		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
-			VERTEX += (UV * 2.0 - 1.0) * width;
-		} else {
-			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
-		}
-	}
-}
-
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
-	for (float i = -ceil(width); i <= ceil(width); i++) {
-		float x = abs(i) > width ? width * sign(i) : i;
-		float offset;
-
-		if (pattern == 0) {
-			offset = width - abs(x);
-		} else if (pattern == 1) {
-			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
-		} else if (pattern == 2) {
-			offset = width;
-		}
-
-		for (float j = -ceil(offset); j <= ceil(offset); j++) {
-			float y = abs(j) > offset ? offset * sign(j) : j;
-			vec2 xy = uv + texture_pixel_size * vec2(x, y);
-
-			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-
-void fragment(){
-
-	// OUTLINE
-
-	vec2 uv = UV;
-	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
-	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
-
-	if (add_margins) {
-		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
-
-		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
-
-		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
-			COLOR.a = 0.0;
-		} else {
-			COLOR = texture(TEXTURE, uv) * modulate;
-		}
-	} else {
-		COLOR = texture(TEXTURE, uv) * modulate;
-	}
-
-	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
-		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
-	}
-
-	// BLINK ANIMATIONS
-	if(grad != 0.0 && COLOR.a != 0.0){
-		COLOR = mix(COLOR, target_color, grad);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xunt8"]
-resource_local_to_scene = true
-shader = SubResource("Shader_exgy4")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 0, 0.016666412, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("origin", "road_tiles", "speed_up_icon", "ui_canvas")]
+[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("origin", "road_tiles", "speed_up_icon", "minute_ticker", "ui_canvas", "player_node")]
 process_mode = 3
 script = ExtResource("1_irndy")
 origin = NodePath("settlements/origin")
 road_tiles = NodePath("tiles/road")
 speed_up_icon = NodePath("static_ui/main_hud/speed_up_icon")
+minute_ticker = NodePath("minute_ticker")
 ui_canvas = NodePath("static_ui")
+player_node = NodePath("Player")
 current_hour = 12
+
+[node name="Player" parent="." node_paths=PackedStringArray("equipped_weapon", "equipped_module") instance=ExtResource("11_xtkqv")]
+equipped_weapon = NodePath("Inventory/Tailpipe")
+equipped_module = NodePath("Inventory/Dodge Roll")
+
+[node name="Inventory" parent="Player" index="0"]
+money = 100
+
+[node name="Tailpipe" parent="Player/Inventory" index="0" instance=ExtResource("17_m17yv")]
+base_damage = 200
+
+[node name="Fuel Barrel" parent="Player/Inventory" index="1" instance=ExtResource("17_rnh6x")]
+stack_size = 500
+
+[node name="Food Barrel" parent="Player/Inventory" index="2" instance=ExtResource("18_gu5rp")]
+stack_size = 500
+
+[node name="Mystery Snack Pack" parent="Player/Inventory" index="3" instance=ExtResource("31_mgych")]
+
+[node name="Protein Shake" parent="Player/Inventory" index="4" instance=ExtResource("32_jdqpe")]
+
+[node name="MetallicCoating" parent="Player/Inventory" index="5" instance=ExtResource("33_1vaf0")]
+
+[node name="Machete" parent="Player/Inventory" index="6" instance=ExtResource("22_t8y4u")]
+
+[node name="Dodge Roll" parent="Player/Inventory" index="7" instance=ExtResource("23_x5mo2")]
+
+[node name="Chakram" parent="Player/Inventory" index="8" instance=ExtResource("24_2irgy")]
+
+[node name="Toxic Grenade Launcher" parent="Player/Inventory" index="9" instance=ExtResource("25_nr4be")]
+
+[node name="FighterUnit" parent="Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
+base = NodePath("Punchy")
+level = 5
+
+[node name="Punchy" parent="Player/Roster/FighterUnit" instance=ExtResource("20_tlj38")]
+material = SubResource("ShaderMaterial_x2ygm")
+
+[node name="FighterUnit3" parent="Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
+base = NodePath("Botanist")
+level = 5
+
+[node name="Botanist" parent="Player/Roster/FighterUnit3" instance=ExtResource("25_ulpn3")]
+material = SubResource("ShaderMaterial_m17yv")
+
+[node name="FighterUnit2" parent="Player/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
+base = NodePath("Crowbar")
+level = 5
+
+[node name="Crowbar" parent="Player/Roster/FighterUnit2" instance=ExtResource("35_mgych")]
+material = SubResource("ShaderMaterial_omir2")
 
 [node name="environment_color" type="CanvasModulate" parent="." node_paths=PackedStringArray("backdrop", "roadside", "horizon", "marker", "player_light", "ticker")]
 script = ExtResource("46_fuwqy")
@@ -1048,59 +902,9 @@ process_mode = 3
 position = Vector2(-64, 256)
 marker = NodePath("marker")
 resources_warning = NodePath("../static_ui/main_hud/warning")
-leader = NodePath("Player")
+leader = NodePath("../Player")
 vehicle = NodePath("Doblo")
 current_settlement = NodePath("../settlements/origin")
-
-[node name="Player" parent="PlayerParty" node_paths=PackedStringArray("equipped_weapon", "equipped_module") instance=ExtResource("11_xtkqv")]
-equipped_weapon = NodePath("Inventory/Machete")
-equipped_module = NodePath("Inventory/Dodge Roll")
-
-[node name="Inventory" parent="PlayerParty/Player" index="0"]
-money = 100
-
-[node name="Tailpipe" parent="PlayerParty/Player/Inventory" index="0" instance=ExtResource("17_m17yv")]
-
-[node name="Fuel Barrel" parent="PlayerParty/Player/Inventory" index="1" instance=ExtResource("17_rnh6x")]
-stack_size = 500
-
-[node name="Food Barrel" parent="PlayerParty/Player/Inventory" index="2" instance=ExtResource("18_gu5rp")]
-stack_size = 500
-
-[node name="Mystery Snack Pack" parent="PlayerParty/Player/Inventory" index="3" instance=ExtResource("31_mgych")]
-
-[node name="Protein Shake" parent="PlayerParty/Player/Inventory" index="4" instance=ExtResource("32_jdqpe")]
-
-[node name="MetallicCoating" parent="PlayerParty/Player/Inventory" index="5" instance=ExtResource("33_1vaf0")]
-
-[node name="Machete" parent="PlayerParty/Player/Inventory" index="6" instance=ExtResource("22_t8y4u")]
-
-[node name="Dodge Roll" parent="PlayerParty/Player/Inventory" index="7" instance=ExtResource("23_x5mo2")]
-
-[node name="Chakram" parent="PlayerParty/Player/Inventory" index="8" instance=ExtResource("24_2irgy")]
-
-[node name="Toxic Grenade Launcher" parent="PlayerParty/Player/Inventory" index="9" instance=ExtResource("25_nr4be")]
-
-[node name="FighterUnit" parent="PlayerParty/Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
-base = NodePath("Punchy")
-level = 5
-
-[node name="Punchy" parent="PlayerParty/Player/Roster/FighterUnit" instance=ExtResource("20_tlj38")]
-material = SubResource("ShaderMaterial_tfwjm")
-
-[node name="FighterUnit3" parent="PlayerParty/Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
-base = NodePath("Botanist")
-level = 5
-
-[node name="Botanist" parent="PlayerParty/Player/Roster/FighterUnit3" instance=ExtResource("25_ulpn3")]
-material = SubResource("ShaderMaterial_s7sax")
-
-[node name="FighterUnit2" parent="PlayerParty/Player/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
-base = NodePath("Crowbar")
-level = 5
-
-[node name="Crowbar" parent="PlayerParty/Player/Roster/FighterUnit2" instance=ExtResource("35_mgych")]
-material = SubResource("ShaderMaterial_jdqpe")
 
 [node name="Doblo" parent="PlayerParty" instance=ExtResource("15_tfwjm")]
 
@@ -1187,26 +991,7 @@ resource_icons = {
 layout_mode = 1
 hardcoded_name = "Inventory space"
 
-[node name="Tooltip" parent="static_ui/main_hud/VBoxContainer/player_data/VBoxContainer/HBoxContainer2/TextureRect" index="0" instance=ExtResource("49_x2ygm")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 322.0
-offset_bottom = 90.0
-grow_horizontal = 1
-grow_vertical = 1
-hardcoded_name = "Party Level"
-hardcoded_description = "The combined power of you and your units"
-
-[node name="PlayerSheet" parent="static_ui" instance=ExtResource("33_ulpn3")]
-visible = false
-
-[node name="dungeon_prompt" type="Control" parent="static_ui" node_paths=PackedStringArray("dungeon_name_label", "dungeon_level_label", "skull_1", "skull_2", "skull_3")]
+[node name="dungeon_prompt" type="Control" parent="static_ui" node_paths=PackedStringArray("dungeon_name_label", "current_wave_label", "wave_divider", "waves_hbox")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1215,103 +1000,93 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("70_cb2tt")
-dungeon_name_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/dungeon_name")
-dungeon_level_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/dungeon_level")
-skull_1 = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/skull_1")
-skull_2 = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/skull_2")
-skull_3 = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/skull_3")
+dungeon_name_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/title/dungeon_name")
+current_wave_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/title/wave_n")
+wave_divider = NodePath("wave_divider")
+wave_sample_scene = ExtResource("50_eunnb")
+waves_hbox = NodePath("PanelContainer/MarginContainer/VBoxContainer/waves")
 
 [node name="PanelContainer" type="PanelContainer" parent="static_ui/dungeon_prompt"]
+custom_minimum_size = Vector2(700, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -6.0
-offset_top = -6.0
-offset_right = 6.0
-offset_bottom = 6.0
+offset_left = -255.0
+offset_top = -200.0
+offset_right = 255.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="static_ui/dungeon_prompt/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="title" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="dungeon_name" type="Label" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="dungeon_name" type="Label" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/title"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
 text = "Hideout"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="wave_n" type="Label" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/title"]
 layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 48
+text = "Wave 1/3"
+horizontal_alignment = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-modulate = Color(1, 0.39999998, 0.39999998, 1)
-material = SubResource("ShaderMaterial_rl87i")
-custom_minimum_size = Vector2(128, 128)
+[node name="waves" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("52_m17yv")
 
-[node name="dungeon_level" type="Label" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "66"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="options" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/separation = -79
+size_flags_vertical = 8
 
-[node name="skull_1" type="TextureRect" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
-material = SubResource("ShaderMaterial_xunt8")
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("73_gu5rp")
-
-[node name="skull_2" type="TextureRect" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
-material = SubResource("ShaderMaterial_xunt8")
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("73_gu5rp")
-
-[node name="skull_3" type="TextureRect" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
-material = SubResource("ShaderMaterial_xunt8")
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("73_gu5rp")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="return" type="Button" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="return" type="Button" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/options"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "return"
 
-[node name="enter" type="Button" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="enter" type="Button" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/options"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 64
 text = "ENTER 
 DUNGEON"
+
+[node name="wave_divider" type="TextureRect" parent="static_ui/dungeon_prompt"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("51_x2ygm")
+
+[node name="PlayerSheet" parent="static_ui" instance=ExtResource("33_ulpn3")]
+visible = false
 
 [node name="dynamic_ui" type="Control" parent="." node_paths=PackedStringArray("ui_sfx")]
 layout_mode = 3
@@ -1339,8 +1114,14 @@ dungeon_prompt = NodePath("../../static_ui/dungeon_prompt")
 [connection signal="ready" from="." to="static_ui/main_hud/clock" method="_on_world_map_ready"]
 [connection signal="settlement_hovered" from="." to="tiles/road" method="_on_world_map_settlement_hovered"]
 [connection signal="settlement_hovered" from="." to="static_ui/main_hud/navigation_data" method="show_settlement"]
+[connection signal="equipment_changed" from="Player" to="static_ui/PlayerSheet" method="_on_player_equipment_changed"]
+[connection signal="ready" from="Player" to="static_ui/main_hud/VBoxContainer/player_data" method="refresh"]
+[connection signal="upkeep_food_shortage" from="Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_food_shortage"]
+[connection signal="upkeep_fuel_shortage" from="Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_fuel_shortage"]
+[connection signal="upkeep_paid_fully" from="Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_paid_fully"]
+[connection signal="changed" from="Player/Inventory" to="static_ui/main_hud/VBoxContainer/player_data" method="refresh"]
+[connection signal="timeout" from="minute_ticker" to="Player" method="_on_minute_ticker_timeout"]
 [connection signal="timeout" from="minute_ticker" to="minute_ticker" method="_on_timeout"]
-[connection signal="timeout" from="minute_ticker" to="PlayerParty/Player" method="_on_minute_ticker_timeout"]
 [connection signal="timeout" from="minute_ticker" to="static_ui/main_hud/clock" method="_on_minute_ticker_timeout"]
 [connection signal="settlement_visited" from="PlayerParty" to="." method="_on_player_party_settlement_visited"]
 [connection signal="settlement_visited" from="PlayerParty" to="SfxPlayer" method="_on_player_party_settlement_visited"]
@@ -1354,17 +1135,12 @@ dungeon_prompt = NodePath("../../static_ui/dungeon_prompt")
 [connection signal="started_moving" from="PlayerParty" to="static_ui/main_hud/navigation_data" method="_on_player_party_started_moving"]
 [connection signal="started_moving" from="PlayerParty" to="dynamic_ui/enter_btn" method="_on_player_party_started_moving"]
 [connection signal="stopped_moving" from="PlayerParty" to="PlayerParty" method="_on_stopped_moving"]
-[connection signal="equipment_changed" from="PlayerParty/Player" to="static_ui/PlayerSheet" method="_on_player_equipment_changed"]
-[connection signal="ready" from="PlayerParty/Player" to="static_ui/main_hud/VBoxContainer/player_data" method="refresh"]
-[connection signal="upkeep_food_shortage" from="PlayerParty/Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_food_shortage"]
-[connection signal="upkeep_fuel_shortage" from="PlayerParty/Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_fuel_shortage"]
-[connection signal="upkeep_paid_fully" from="PlayerParty/Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_paid_fully"]
 [connection signal="timeout" from="PlayerParty/marker/bounce_timer" to="PlayerParty/marker" method="bounce_animation"]
 [connection signal="started_panning" from="PlayerParty/world_map_camera" to="static_ui/main_hud/navigation_data" method="_on_world_map_camera_started_panning"]
+[connection signal="pressed" from="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/options/return" to="static_ui/dungeon_prompt" method="_on_return_pressed"]
+[connection signal="pressed" from="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/options/enter" to="static_ui/dungeon_prompt" method="_on_enter_pressed"]
 [connection signal="start_battle_pressed" from="static_ui/PlayerSheet" to="static_ui/dungeon_prompt" method="_on_player_sheet_start_battle_pressed"]
-[connection signal="pressed" from="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/return" to="static_ui/dungeon_prompt" method="_on_return_pressed"]
-[connection signal="pressed" from="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/enter" to="static_ui/dungeon_prompt" method="_on_enter_pressed"]
 [connection signal="pressed" from="dynamic_ui/enter_btn" to="dynamic_ui/enter_btn" method="_on_pressed"]
 
-[editable path="PlayerParty/Player"]
+[editable path="Player"]
 [editable path="static_ui/main_hud"]

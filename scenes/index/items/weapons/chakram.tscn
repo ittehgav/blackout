@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://by4mpa2wb2t7b"]
+[gd_scene load_steps=11 format=3 uid="uid://by4mpa2wb2t7b"]
 
 [ext_resource type="Texture2D" uid="uid://cbptl4cvn7pul" path="res://assets/visual/items/weapons/chakram.png" id="1_6ewex"]
 [ext_resource type="Script" uid="uid://btpyltd5vb6p4" path="res://scenes/index/items/weapons/scripts/chakram.gd" id="2_h5wbs"]
 [ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/swing.wav" id="3_ts0g7"]
 [ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="4_ua1k6"]
 [ext_resource type="Texture2D" uid="uid://chyk6j5cmchjv" path="res://assets/visual/items/weapons/active/chakram.png" id="5_5bglv"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="6_ua1k6"]
 
 [sub_resource type="Animation" id="Animation_ua1k6"]
 length = 0.001
@@ -71,9 +72,9 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qwo1v"]
-radius = 85.0
+radius = 102.0049
 
-[node name="Chakram" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "animation_player", "use_sfx", "hit_sfx")]
+[node name="Chakram" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "projections", "animation_player", "use_sfx", "hit_sfx")]
 modulate = Color(0.9999987, 0.9999987, 0.9999987, 1)
 use_parent_material = true
 texture = ExtResource("1_6ewex")
@@ -82,6 +83,7 @@ base_damage = 50
 cooldown = 3.0
 hit_scan = NodePath("Area2D")
 melee = true
+projections = [NodePath("Area2D/Sprite2D"), NodePath("Area2D/Sprite2D2")]
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("use_sfx")
 hit_sfx = NodePath("hit_sfx")
@@ -106,3 +108,15 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_qwo1v")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+modulate = Color(1, 1, 1, 0.15294118)
+position = Vector2(60, 0)
+scale = Vector2(6, 8)
+texture = ExtResource("6_ua1k6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Area2D"]
+modulate = Color(1, 1, 1, 0.15294118)
+position = Vector2(-60, 0)
+scale = Vector2(-6, 8)
+texture = ExtResource("6_ua1k6")

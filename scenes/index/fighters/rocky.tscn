@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6vpew5mdwbdf"]
+[gd_scene load_steps=13 format=3 uid="uid://c6vpew5mdwbdf"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_k21ye"]
 [ext_resource type="Texture2D" uid="uid://bbefybh8ca2i5" path="res://assets/visual/sprites/fighters/mech_arm_guy/mecharmguy.png" id="2_b65aa"]
 [ext_resource type="Script" uid="uid://osou1dmxn102" path="res://scenes/index/fighters/scripts/mecharmguy.gd" id="3_nhosl"]
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="4_wxxgh"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_rpd6d"]
-[ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="6_wr0vl"]
 [ext_resource type="Texture2D" uid="uid://8y3a6nxlp7q8" path="res://assets/visual/sprites/fighters/mech_arm_guy/blur.png" id="7_lfb8r"]
 [ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="8_n3x6q"]
 
@@ -209,13 +208,6 @@ libraries = {
 &"mech_arm": SubResource("AnimationLibrary_t4u6o")
 }
 autoplay = "fighter_base/idle"
-
-[node name="shadow" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.380392)
-z_index = -1
-position = Vector2(0, 33)
-scale = Vector2(5, 1)
-texture = ExtResource("6_wr0vl")
 
 [node name="blur" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
