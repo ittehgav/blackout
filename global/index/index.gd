@@ -28,9 +28,7 @@ const all_fighter_tags = [
 ]
 
 ## make this catch the size properly?
-@export var world_map_cell_size:int = 32;
 @export var irl_time_scale:float = 500;
-@export var cell_to_km:float = 2;
 
 func _ready()->void:
 	for scene:PackedScene in fighters.all_fighter_base_scenes:

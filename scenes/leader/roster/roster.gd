@@ -29,7 +29,7 @@ func get_level()->int:
 	## having more unique units
 	for unit:FighterUnit in units:
 		## higher unit count yields more than just higher average levels
-		level += unit.level * len(unit.base.tags);
+		level += (1 + unit.level)* len(unit.base.tags);
 	return level
 
 func clear_units()->void:

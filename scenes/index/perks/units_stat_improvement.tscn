@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxycymk6ofy0l"]
+
+[ext_resource type="Script" uid="uid://d3ggu2rg0d2du" path="res://scenes/index/perks/scripts/units_stat_improvement.gd" id="1_1ti68"]
+[ext_resource type="AudioStream" uid="uid://bqfh4rpc4trwo" path="res://assets/sound/sfx/world_map/map_events/stat_up.wav" id="2_y03ob"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="3_ikuai"]
+
+[node name="UnitsStatImprovement" type="Node" node_paths=PackedStringArray("samples_hbox", "stat_change_hbox", "stat_label", "panel", "sfx")]
+script = ExtResource("1_1ti68")
+samples_hbox = NodePath("Panel/samples")
+stat_change_hbox = NodePath("stat_change")
+stat_label = NodePath("stat_change/stat_label")
+panel = NodePath("Panel")
+sfx = NodePath("sfx")
+metadata/_custom_type_script = "uid://cvor0b75qlqh5"
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_y03ob")
+volume_db = -5.0
+
+[node name="Panel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="samples" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="stat_change" type="HBoxContainer" parent="."]
+visible = false
+offset_left = 50.0
+offset_top = 90.0
+offset_right = 110.0
+offset_bottom = 122.0
+mouse_filter = 2
+
+[node name="icon" parent="stat_change" node_paths=PackedStringArray("label") instance=ExtResource("3_ikuai")]
+layout_mode = 2
+mouse_filter = 2
+label = NodePath("../stat_label")
+
+[node name="stat_label" type="Label" parent="stat_change"]
+layout_mode = 2
+text = "11"

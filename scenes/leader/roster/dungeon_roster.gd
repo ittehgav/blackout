@@ -11,10 +11,10 @@ func generate_units(target_level:int)->void:
 		var center:int = target_level/10
 		var unit_level:int = randi_range(center - 2, center + 2 );
 		
-		var base:FighterBase = Index.fighters.all_fighter_bases.pick_random()
+		var base:FighterBase = Index.fighters.random_fighter_base()
 		if unit_level < 5:
-			while len(base.tags) > 2:
-				base = Index.fighters.all_fighter_bases.pick_random();
+			base = Index.fighters.random_fighter_base(true);
+		
 		
 		
 		var unit:FighterUnit = Index.scenes.fighter_unit.instantiate();
@@ -23,6 +23,8 @@ func generate_units(target_level:int)->void:
 		unit.setup()
 		add_unit(unit)
 	## need to generate loot after units are added and the roster has a levelss
+
+
 func get_danger_level()->int:
 	var frac:float = get_level()/Entities.player.get_party_level()
 	if frac <= .5:

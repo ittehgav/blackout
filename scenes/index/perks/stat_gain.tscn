@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3q2rj3eol6t"]
+[gd_scene load_steps=7 format=3 uid="uid://dod2x3hp0rdyd"]
 
-[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="2_tn4cm"]
-[ext_resource type="Script" uid="uid://cuk2slytdd26o" path="res://scenes/battle/fighter/player/body.gd" id="3_dsuet"]
-[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="4_p2cmb"]
+[ext_resource type="Script" uid="uid://bf4m7vw83uxx1" path="res://scenes/index/perks/scripts/stat_gain.gd" id="1_mbhg4"]
+[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="2_mwxnt"]
+[ext_resource type="AudioStream" uid="uid://bqfh4rpc4trwo" path="res://assets/sound/sfx/world_map/map_events/stat_up.wav" id="2_ymr5f"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="3_mwxnt"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;
@@ -92,7 +93,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqvxk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ymr5f"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -104,17 +105,60 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="body" type="Sprite2D" node_paths=PackedStringArray("animation_player")]
-material = SubResource("ShaderMaterial_sqvxk")
-texture = ExtResource("2_tn4cm")
-hframes = 6
-vframes = 2
-script = ExtResource("3_dsuet")
-animation_player = NodePath("AnimationPlayer")
+[node name="StatGain" type="Node" node_paths=PackedStringArray("stat_icon", "stat_label", "panel", "sfx")]
+script = ExtResource("1_mbhg4")
+stat_icon = NodePath("panel/HBoxContainer/StatIcon")
+stat_label = NodePath("panel/HBoxContainer/stat_label")
+panel = NodePath("panel")
+sfx = NodePath("sfx")
+metadata/_custom_type_script = "uid://cvor0b75qlqh5"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-process_mode = 3
-libraries = {
-&"player": ExtResource("4_p2cmb")
-}
-autoplay = "player/idle"
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ymr5f")
+volume_db = -5.0
+
+[node name="panel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -109.5
+offset_right = 80.0
+offset_bottom = 109.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="body" parent="panel" instance=ExtResource("2_mwxnt")]
+process_mode = 4
+material = SubResource("ShaderMaterial_ymr5f")
+position = Vector2(70, 74)
+scale = Vector2(4, 4)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -64.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="StatIcon" parent="panel/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("3_mwxnt")]
+layout_mode = 2
+mouse_filter = 2
+label = NodePath("../stat_label")
+
+[node name="stat_label" type="Label" parent="panel/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "22"

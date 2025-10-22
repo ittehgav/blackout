@@ -13,8 +13,6 @@ class_name SpriteSample;
 @export var target_scale:Vector2 = Vector2.ONE
 
 func set_sample(target:Sprite2D)->void:
-
-	## idk but it works
 	target_base = target.duplicate();
 	target_base.centered = false
 	target_base.scale = target_scale

@@ -13,11 +13,17 @@ func level_up_stats(unit:FighterUnit, level:int=1)->void:
 func level_up_player_stats()->void:
 	var target:CombatStats = Entities.player.stats;
 	
-	target.max_hp += 20;
-	target.attack += 5;
-	target.defense += 1;
-	target.agility += .5;
-	target.technique += .25
+	for stat:String in Index.all_combat_stats:
+		target[stat] += player_level_stat_gains[stat]
+
+
+var player_level_stat_gains:Dictionary[String, float] = {
+	"max_hp":20,
+	"attack":5,
+	"defense":1,
+	"agility":.5,
+	"technique":.25
+}
 
 
 func initiate_unit_stats(unit:FighterUnit)->void:
@@ -100,14 +106,14 @@ func tag_stats_per_level(tag:String)->Dictionary:
 		"juggernaut":
 			dict.max_hp = 50;
 			dict.attack = 2;
-			dict.defense = 4;
+			dict.defense = 3;
 			
 			dict.agility = .25
 			dict.technique = .1
 		"brawler":
 			dict.max_hp = 40;
 			dict.attack = 5;
-			dict.defense = 2
+			dict.defense = 1.5
 			
 			dict.agility = .5
 			dict.technique = .1
@@ -121,7 +127,7 @@ func tag_stats_per_level(tag:String)->Dictionary:
 		"disruptor":
 			dict.max_hp = 15;
 			dict.attack = 3;
-			dict.defense = .5;
+			dict.defense = .75;
 			
 			dict.agility = .35;
 			dict.technique = .15
@@ -135,28 +141,28 @@ func tag_stats_per_level(tag:String)->Dictionary:
 		"mechanic":
 			dict.max_hp = 25;
 			dict.attack = 5;
-			dict.defense = 1.5;
+			dict.defense = 1.25;
 			
 			dict.agility = .75
 			dict.technique = .125
 		"bodybuilder":
 			dict.max_hp = 75;
 			dict.attack = 3;
-			dict.defense = 2;
+			dict.defense = 1.75;
 			
 			dict.agility = .5
 			dict.technique = .1
 		"doctor":
 			dict.max_hp = 20;
 			dict.attack = 1;
-			dict.defense = .5;
+			dict.defense = .75;
 			
 			dict.agility = .25
 			dict.technique = .15;
 		"cyborg":
 			dict.max_hp = 20;
 			dict.attack = 10;
-			dict.defense = 3;
+			dict.defense = 2.5;
 			
 			dict.agility = 1
 			dict.technique = .15

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b3sr8al76si1g"]
+[gd_scene load_steps=50 format=3 uid="uid://b3sr8al76si1g"]
 
 [ext_resource type="Script" uid="uid://nrp8ddsmtldq" path="res://scenes/battle/arena/arena.gd" id="1_i4yf0"]
 [ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_awn3j"]
@@ -32,8 +32,17 @@
 [ext_resource type="Texture2D" uid="uid://cbptl4cvn7pul" path="res://assets/visual/items/weapons/chakram.png" id="32_yxqh6"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="33_6diul"]
 [ext_resource type="Script" uid="uid://kbu5wmaftg6a" path="res://scenes/battle/arena/module_cooldown.gd" id="33_v70d8"]
+[ext_resource type="Script" uid="uid://djpfma4m3ofsc" path="res://scenes/battle/arena/level_up_rewards.gd" id="34_6diul"]
 [ext_resource type="Texture2D" uid="uid://blqpvjvylnqrn" path="res://assets/visual/items/modules/dodge_roll.png" id="34_anoy1"]
 [ext_resource type="Script" uid="uid://nxkk2asqvdre" path="res://scenes/battle/arena/countdown.gd" id="35_cynq7"]
+[ext_resource type="PackedScene" uid="uid://bteusaeptopnl" path="res://scenes/index/perks/financial_boost.tscn" id="35_djei2"]
+[ext_resource type="AudioStream" uid="uid://pi6xjy2cxb0a" path="res://assets/sound/sfx/ui/level_up.wav" id="35_tl0fu"]
+[ext_resource type="PackedScene" uid="uid://ohx2n0s0wju6" path="res://scenes/index/perks/inventory_space.tscn" id="36_vjknr"]
+[ext_resource type="PackedScene" uid="uid://bmwnequdotrg3" path="res://scenes/index/perks/new_unit.tscn" id="37_tl0fu"]
+[ext_resource type="PackedScene" uid="uid://bxycymk6ofy0l" path="res://scenes/index/perks/units_stat_improvement.tscn" id="38_d8imf"]
+[ext_resource type="PackedScene" uid="uid://dod2x3hp0rdyd" path="res://scenes/index/perks/stat_gain.tscn" id="39_fewc5"]
+[ext_resource type="Script" uid="uid://bjn18u1ckuw6x" path="res://scenes/battle/arena/perk_option.gd" id="40_vjknr"]
+[ext_resource type="Texture2D" uid="uid://etmtjtsu1lx4" path="res://assets/visual/icons/stats/floating/attack.png" id="42_d8imf"]
 
 [sub_resource type="Shader" id="Shader_1ut33"]
 code = "shader_type canvas_item;
@@ -604,7 +613,7 @@ color = Color(0, 0, 0, 0.4117647)
 
 [node name="ui_sfx" parent="ui_canvas/post_fight" instance=ExtResource("23_iln1w")]
 
-[node name="victory_view" type="Control" parent="ui_canvas/post_fight" node_paths=PackedStringArray("post_battle", "exp_panel", "loot_panel")]
+[node name="victory_view" type="Control" parent="ui_canvas/post_fight" node_paths=PackedStringArray("post_battle", "exp_panel", "level_up_panel", "loot_panel")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -614,10 +623,10 @@ grow_vertical = 2
 script = ExtResource("24_iln1w")
 post_battle = NodePath("..")
 exp_panel = NodePath("exp_panel")
+level_up_panel = NodePath("level_up_rewards")
 loot_panel = NodePath("loot_panel")
 
 [node name="exp_panel" type="Panel" parent="ui_canvas/post_fight/victory_view" node_paths=PackedStringArray("player_exp_bar", "exp_gains_container")]
-visible = false
 custom_minimum_size = Vector2(1000, 600)
 layout_mode = 1
 anchors_preset = 8
@@ -645,7 +654,7 @@ offset_bottom = 132.0
 theme_override_font_sizes/font_size = 128
 text = "Victory!"
 
-[node name="continue_to_loot" type="Button" parent="ui_canvas/post_fight/victory_view/exp_panel"]
+[node name="continue" type="Button" parent="ui_canvas/post_fight/victory_view/exp_panel"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -721,7 +730,6 @@ position = Vector2(90, 23)
 scale = Vector2(4, 4)
 
 [node name="AnimationPlayer" parent="ui_canvas/post_fight/victory_view/exp_panel/Control/body" index="0"]
-process_mode = 3
 speed_scale = 0.75
 
 [node name="player_sample" parent="ui_canvas/post_fight/victory_view/exp_panel/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("31_6diul")]
@@ -731,6 +739,159 @@ offset_top = 19.0
 offset_right = 102.0
 offset_bottom = 19.0
 target_base = NodePath("../body")
+
+[node name="level_up_rewards" type="Panel" parent="ui_canvas/post_fight/victory_view" node_paths=PackedStringArray("perk_pool", "level_up_sfx", "perk_animation_display", "perks_container", "perk_option_btn")]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("34_6diul")
+perk_pool = [NodePath("perks/Financial Boost"), NodePath("perks/Inventory Space"), NodePath("perks/Human Resources"), NodePath("perks/RecruitStatImprovement"), NodePath("perks/StatGain")]
+level_up_sfx = NodePath("level_up_sfx")
+perk_animation_display = NodePath("perk_animation_display")
+perks_container = NodePath("options")
+perk_option_btn = NodePath("_perk_option")
+
+[node name="level_up_sfx" type="AudioStreamPlayer" parent="ui_canvas/post_fight/victory_view/level_up_rewards"]
+stream = ExtResource("35_tl0fu")
+volume_db = 10.0
+pitch_scale = 1.5
+
+[node name="perks" type="Node" parent="ui_canvas/post_fight/victory_view/level_up_rewards"]
+
+[node name="Financial Boost" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perks" instance=ExtResource("35_djei2")]
+
+[node name="Inventory Space" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perks" instance=ExtResource("36_vjknr")]
+
+[node name="Human Resources" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perks" instance=ExtResource("37_tl0fu")]
+
+[node name="RecruitStatImprovement" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perks" instance=ExtResource("38_d8imf")]
+
+[node name="StatGain" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perks" instance=ExtResource("39_fewc5")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/post_fight/victory_view/level_up_rewards"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -196.0
+offset_right = 196.0
+offset_bottom = 132.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="ui_canvas/post_fight/victory_view/level_up_rewards/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "LEVEL UP!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="ui_canvas/post_fight/victory_view/level_up_rewards/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Choose a reward:"
+horizontal_alignment = 1
+
+[node name="options" type="HBoxContainer" parent="ui_canvas/post_fight/victory_view/level_up_rewards"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 7.0
+offset_right = 20.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="_perk_option" type="Button" parent="ui_canvas/post_fight/victory_view/level_up_rewards" node_paths=PackedStringArray("perk_icon", "perk_name", "perk_description")]
+visible = false
+custom_minimum_size = Vector2(250, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -184.0
+offset_right = 125.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("40_vjknr")
+perk_icon = NodePath("VBoxContainer/perk_icon")
+perk_name = NodePath("VBoxContainer/perk_name")
+perk_description = NodePath("VBoxContainer/perk_description")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui_canvas/post_fight/victory_view/level_up_rewards/_perk_option"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 15.0
+offset_right = 100.0
+offset_bottom = 220.0
+grow_horizontal = 2
+
+[node name="perk_icon" type="TextureRect" parent="ui_canvas/post_fight/victory_view/level_up_rewards/_perk_option/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("42_d8imf")
+expand_mode = 2
+
+[node name="perk_name" type="Label" parent="ui_canvas/post_fight/victory_view/level_up_rewards/_perk_option/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 48
+text = "selfkjsaefsekp[ okfs["
+autowrap_mode = 3
+
+[node name="perk_description" type="RichTextLabel" parent="ui_canvas/post_fight/victory_view/level_up_rewards/_perk_option/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "dfaselk jfhaseo ifase´pofiaew
+faeahfáowei jfa["
+fit_content = true
+
+[node name="perk_animation_display" type="ColorRect" parent="ui_canvas/post_fight/victory_view/level_up_rewards"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.59607846)
+
+[node name="Label" type="Label" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perk_animation_display"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -31.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="loot_panel" type="Panel" parent="ui_canvas/post_fight/victory_view" node_paths=PackedStringArray("enemy_team", "player_inventory_display", "enemy_inventory_display", "take_loot_btn")]
 custom_minimum_size = Vector2(1000, 600)
@@ -927,7 +1088,10 @@ text = "Continue"
 [connection signal="unit_converted" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
 [connection signal="unit_died" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_team_2_unit_died"]
 [connection signal="timeout" from="ui_canvas/hud/countdown_overlay/countdown" to="ui_canvas/hud/countdown_overlay" method="_on_countdown_timeout"]
-[connection signal="pressed" from="ui_canvas/post_fight/victory_view/exp_panel/continue_to_loot" to="ui_canvas/post_fight/victory_view" method="_on_continue_to_loot_pressed"]
+[connection signal="pressed" from="ui_canvas/post_fight/victory_view/exp_panel/continue" to="ui_canvas/post_fight/victory_view" method="_on_exp_gains_continue_pressed"]
+[connection signal="level_up" from="ui_canvas/post_fight/victory_view/exp_panel/player_exp" to="ui_canvas/post_fight/victory_view/level_up_rewards" method="player_leveled_up"]
+[connection signal="leveling_finished" from="ui_canvas/post_fight/victory_view/level_up_rewards" to="ui_canvas/post_fight/victory_view" method="_on_level_up_rewards_leveling_finished"]
+[connection signal="gui_input" from="ui_canvas/post_fight/victory_view/level_up_rewards/perk_animation_display" to="ui_canvas/post_fight/victory_view/level_up_rewards" method="_on_perk_animation_display_gui_input"]
 [connection signal="pressed" from="ui_canvas/post_fight/victory_view/loot_panel/finish_arena" to="ui_canvas/post_fight" method="_on_finish_arena_pressed"]
 [connection signal="item_dropped" from="ui_canvas/post_fight/victory_view/loot_panel/player_inventory" to="ui_canvas/post_fight/victory_view/loot_panel" method="check_available_loot"]
 [connection signal="item_dropped" from="ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory" to="ui_canvas/post_fight/victory_view/loot_panel" method="check_available_loot"]

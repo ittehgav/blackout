@@ -13,11 +13,13 @@ var positive:bool=true;
 @export var bg:ColorRect
 
 func _ready()->void:
+	## just so setup can be called whenever to set an icon's stat
+	setup()
+		
+func setup()->void:
 	var color:Color = get_color();
 	
 	texture = get_icon_texture();
-	
-
 	
 	if floating:
 		## so it works properly for node2D parents
@@ -47,9 +49,6 @@ func _ready()->void:
 		modulate = default_color;
 		label.add_theme_color_override("font_color", default_color)
 		bg.show();
-		
-
-	
 
 func _on_mouse_entered() -> void:
 	modulate = highlight_color;

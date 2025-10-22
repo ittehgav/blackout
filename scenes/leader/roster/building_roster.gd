@@ -23,11 +23,12 @@ func refresh_recruits()->void:
 	for tag:String in Index.primary_fighter_tags:
 		if self[tag+"_recruiting"]:
 			tags.append(tag);
-			
+	
 	for base:FighterBase in Index.fighters.all_fighter_bases:
 		for tag:String in base.tags:
 			if tag in tags and not base in base_pool:
 				base_pool.append(base);
+
 	for i in 4:
 		var unit:FighterUnit = Index.scenes.fighter_unit.instantiate()
 		unit.level = randi_range(max(1, Entities.player.level - 3), Entities.player.level * 2)

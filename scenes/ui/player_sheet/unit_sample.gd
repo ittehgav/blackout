@@ -7,7 +7,7 @@ class_name UnitSample;
 
 
 
-func load_unit(unit:FighterUnit, callback:Callable)->void:
+func load_unit(unit:FighterUnit, callback:Callable=Callable())->void:
 	$level.text = "Lv. " + str(unit.level);
 	
 	var base:FighterBase = unit.base.duplicate();
@@ -17,12 +17,14 @@ func load_unit(unit:FighterUnit, callback:Callable)->void:
 	base.material = null;
 	add_child(base);
 	
+	
 	if unit.equipped_accessory:
 		accessory_sample.load_item(unit.equipped_accessory,  1);
 	else:
 		accessory_sample.load_blank(1);
+	if callback:
+		pressed.connect(callback);
 	
-	pressed.connect(callback);
 	
 func load_player(callback:Callable)->void:
 	var body:Sprite2D = Index.scenes.player_body.instantiate();

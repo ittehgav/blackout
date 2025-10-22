@@ -44,10 +44,14 @@ func final_stats()->CombatStats:
 	var modified_stats:CombatStats = Index.scenes.combat_stats.instantiate();
 	
 	for stat:String in Index.all_combat_stats + ["move_speed"]:
-		modified_stats[stat] = (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat]
-	if base.no_damage:
-		modified_stats.attack = 0;
+		modified_stats[stat] = final_stat(stat);
+
 	return modified_stats;
+
+func final_stat(stat:String)->float:
+	if stat == "attack" and base.no_damage:
+		return 0;
+	return (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat];
 
 func change_base(new_base:FighterBase)->void:
 	base = new_base;
@@ -69,7 +73,7 @@ func update_stats()->void:
 
 
 
-func final_skill_cooldown(agi_acm:float=stats.agility)->float:
+func final_skill_cooldown(_agi_acm:float=stats.agility)->float:
 	## can check from active fighter and from fighter unit
 	if base.skill_cooldown == 0.0:
 		return 0.0
@@ -91,10 +95,7 @@ func upgrade_affordable()->bool:
 			return true;
 	return false
 
-func gain_stat_modifier(stat:String, value:float)->void:
-	## adds the stats right away so doesn't need to refresh all stats
-	modifier_stats[stat] += value;
-	stats[stat] += value;
+
 
 
 

@@ -82,7 +82,7 @@ func shake_loop()->void:
 	shake_tween.tween_callback(shake_loop)
 
 func color_blink(target_color:Color)->void:
-	const blink_half_time = .125
+	const blink_half_time = .25
 	var tween:Tween = create_tween();
 	tween.tween_property(self, "self_modulate", target_color, blink_half_time);
 	tween.tween_property(self, "self_modulate", Color.WHITE, blink_half_time)

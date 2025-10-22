@@ -23,8 +23,11 @@ class_name Leader
 func final_stats()->CombatStats:
 	var modified_stats:CombatStats = Index.scenes.combat_stats.instantiate();
 	for stat:String in Index.all_combat_stats:
-		modified_stats[stat] = (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat]
+		modified_stats[stat] = final_stat(stat)
 	return modified_stats;
+
+func final_stat(stat:String)->float:
+	return (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat]
 
 
 func get_party_level()->int:

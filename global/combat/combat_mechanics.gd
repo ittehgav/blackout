@@ -89,6 +89,7 @@ func shield_unit(source:ActiveFighter, target:ActiveFighter, value:float)->void:
 const def_mitigation_breakpoints = {
 	## DEF value has diminishing returns, each breakpoint makes the value of each 
 	## subsequent DEF point yield less damage mitigation
+	## PERCENTAGE POINTS OF DMG MITIGATED
 	20.0:1,
 	50.0:.5,
 	100.0:.25,

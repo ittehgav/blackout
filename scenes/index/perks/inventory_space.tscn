@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3q2rj3eol6t"]
+[gd_scene load_steps=7 format=3 uid="uid://ohx2n0s0wju6"]
 
-[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="2_tn4cm"]
-[ext_resource type="Script" uid="uid://cuk2slytdd26o" path="res://scenes/battle/fighter/player/body.gd" id="3_dsuet"]
-[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="4_p2cmb"]
+[ext_resource type="Script" uid="uid://dem7wyvcfrhjm" path="res://scenes/index/perks/scripts/inventory_space.gd" id="1_e06pe"]
+[ext_resource type="Texture2D" uid="uid://dq3lqj55di8mq" path="res://assets/visual/icons/inventory_space.png" id="2_lgqaf"]
+[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="3_lgqaf"]
+[ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/resource_gain.wav" id="3_mocse"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;
@@ -92,7 +93,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqvxk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lgqaf"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -104,17 +105,65 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="body" type="Sprite2D" node_paths=PackedStringArray("animation_player")]
-material = SubResource("ShaderMaterial_sqvxk")
-texture = ExtResource("2_tn4cm")
-hframes = 6
-vframes = 2
-script = ExtResource("3_dsuet")
-animation_player = NodePath("AnimationPlayer")
+[node name="Inventory Space" type="Node" node_paths=PackedStringArray("space_label", "panel", "sfx")]
+script = ExtResource("1_e06pe")
+space_label = NodePath("Panel/HBoxContainer/space")
+icon = ExtResource("2_lgqaf")
+description = "Gain +12 [u]Inventory Space[/u]"
+title_color = Color(0.32, 0.8, 0.32, 1)
+panel = NodePath("Panel")
+sfx = NodePath("sfx")
+metadata/_custom_type_script = "uid://cvor0b75qlqh5"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-process_mode = 3
-libraries = {
-&"player": ExtResource("4_p2cmb")
-}
-autoplay = "player/idle"
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mocse")
+volume_db = -5.0
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -164.0
+offset_right = 122.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="body" parent="Panel" instance=ExtResource("3_lgqaf")]
+process_mode = 4
+material = SubResource("ShaderMaterial_lgqaf")
+position = Vector2(123, 121)
+scale = Vector2(4, 4)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -71.0
+offset_right = 90.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_lgqaf")
+
+[node name="space" type="Label" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "12/22"
