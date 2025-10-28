@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_k21ye"]
 [ext_resource type="Texture2D" uid="uid://bbefybh8ca2i5" path="res://assets/visual/sprites/fighters/mech_arm_guy/mecharmguy.png" id="2_b65aa"]
 [ext_resource type="Script" uid="uid://osou1dmxn102" path="res://scenes/index/fighters/scripts/mecharmguy.gd" id="3_nhosl"]
-[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="4_wxxgh"]
+[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/slam.wav" id="4_nqptc"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_rpd6d"]
 [ext_resource type="Texture2D" uid="uid://8y3a6nxlp7q8" path="res://assets/visual/sprites/fighters/mech_arm_guy/blur.png" id="7_lfb8r"]
 [ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="8_n3x6q"]
@@ -102,7 +102,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.45, 0.633333, 1.4),
 "transitions": PackedFloat32Array(1000000, 1.02837, 1000000, 1),
 "update": 0,
-"values": [Vector2(20, 0), Vector2(50, 0), Vector2(30, 0), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(50, 0), Vector2(30, 0), Vector2(0, 0)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -192,13 +192,15 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_b65aa")
 hframes = 3
 vframes = 3
-frame = 2
+frame = 4
 script = ExtResource("3_nhosl")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[String](["brawler", "cyborg", "hunter"])
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_wxxgh")
+stream = ExtResource("4_nqptc")
+pitch_scale = 0.79
+max_distance = 500.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 reset_on_save = false
@@ -213,8 +215,10 @@ autoplay = "fighter_base/idle"
 modulate = Color(1, 1, 1, 0)
 position = Vector2(20.5, -0.5)
 texture = ExtResource("7_lfb8r")
+offset = Vector2(10, 0)
 hframes = 3
 vframes = 2
+frame = 4
 
 [node name="dust" parent="." instance=ExtResource("8_n3x6q")]
 position = Vector2(-20.5, 20.5)

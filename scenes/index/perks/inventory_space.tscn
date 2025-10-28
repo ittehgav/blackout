@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dem7wyvcfrhjm" path="res://scenes/index/perks/scripts/inventory_space.gd" id="1_e06pe"]
 [ext_resource type="Texture2D" uid="uid://dq3lqj55di8mq" path="res://assets/visual/icons/inventory_space.png" id="2_lgqaf"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="3_lgqaf"]
-[ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/resource_gain.wav" id="3_mocse"]
+[ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/gain_generic.wav" id="3_mocse"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;

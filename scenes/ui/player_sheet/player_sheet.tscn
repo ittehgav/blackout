@@ -1,22 +1,21 @@
-[gd_scene load_steps=43 format=3 uid="uid://1yund7taju3s"]
+[gd_scene load_steps=44 format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/ui/player_sheet/player_sheet.gd" id="1_nlbt1"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_hamfw"]
 [ext_resource type="AudioStream" uid="uid://cidv5tcb082h5" path="res://assets/sound/sfx/ui/close_player_sheet.wav" id="3_dfs8r"]
-[ext_resource type="AudioStream" uid="uid://dupgq35vdx1m4" path="res://assets/sound/sfx/ui/rummage.wav" id="4_qs1mg"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="6_5ybum"]
-[ext_resource type="Script" uid="uid://lvtserbqss1b" path="res://scenes/ui/player_sheet/sfx.gd" id="7_ruq8y"]
-[ext_resource type="AudioStream" uid="uid://dhws222nfgn6t" path="res://assets/sound/sfx/ui/inventory/units/upgrade_unit.wav" id="8_1gmuk"]
+[ext_resource type="Script" uid="uid://cv3kymtuh61xu" path="res://scenes/ui/player_sheet/inventory_display.gd" id="9_8oj3i"]
 [ext_resource type="Script" uid="uid://4xy3dgtjm31i" path="res://scenes/ui/player_sheet/inventory_tab.gd" id="9_fsh5d"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="10_a1oup"]
+[ext_resource type="AudioStream" uid="uid://v8eaae2kskmo" path="res://assets/sound/sfx/world_map/discard_item.wav" id="10_kgp2d"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="11_0wwji"]
-[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="12_rdvn7"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="11_7ydhy"]
+[ext_resource type="Texture2D" uid="uid://cwptokk3apodi" path="res://assets/visual/icons/misc/discard_item.png" id="12_8oj3i"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="13_7sc2c"]
 [ext_resource type="Script" uid="uid://bbd3oiy16p7qa" path="res://scenes/ui/player_sheet/gear.gd" id="13_iou5p"]
 [ext_resource type="Script" uid="uid://drbs7jvhuaxxn" path="res://scenes/ui/player_sheet/gear_sfx.gd" id="13_tg7cy"]
 [ext_resource type="Texture2D" uid="uid://mqb4ehy4w2c8" path="res://assets/visual/ui/settings/reset.png" id="14_7sc2c"]
-[ext_resource type="AudioStream" uid="uid://cnomp6rm87ghx" path="res://assets/sound/sfx/ui/inventory/weapon_equipped.mp3" id="14_14bae"]
-[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="14_nvl42"]
+[ext_resource type="AudioStream" uid="uid://vpo6iftx601k" path="res://assets/sound/sfx/ui/inventory/weapon_equipped.wav" id="15_7ydhy"]
 [ext_resource type="AudioStream" uid="uid://byq71hx2dnw65" path="res://assets/sound/sfx/ui/inventory/module_equipped.wav" id="15_in2cn"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="15_o0vop"]
 [ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="15_vq5ye"]
@@ -33,6 +32,8 @@
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="32_in2cn"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="33_7ydhy"]
 [ext_resource type="PackedScene" uid="uid://chh07cq5d6iqk" path="res://scenes/ui/icons/dropdowns/disciplines_dropdown.tscn" id="33_in2cn"]
+[ext_resource type="Script" uid="uid://dd3sexthpletg" path="res://scenes/ui/player_sheet/clear_space_request.gd" id="36_kgp2d"]
+[ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="37_ihftv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_in2cn"]
 resource_local_to_scene = true
@@ -134,7 +135,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "sfx", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "start_battle_prompt", "ui_sfx")]
+[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "start_battle_prompt", "item_space_request", "ui_sfx")]
 process_mode = 2
 z_index = 5
 y_sort_enabled = true
@@ -148,7 +149,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_nlbt1")
 bg = NodePath("main_bg")
-sfx = NodePath("sfx")
 party_view = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party")
 inventory_view = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory")
 player_view = NodePath("main_bg/MarginContainer/HBoxContainer/player")
@@ -158,17 +158,12 @@ container = NodePath("main_bg/MarginContainer/HBoxContainer")
 gear = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear")
 morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/morale_display")
 start_battle_prompt = NodePath("main_bg/MarginContainer/HBoxContainer/player/start_battle")
+item_space_request = NodePath("main_bg/MarginContainer/HBoxContainer/player/clear_space_request")
 open_sound = ExtResource("2_hamfw")
 close_sound = ExtResource("3_dfs8r")
-rummage = ExtResource("4_qs1mg")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." instance=ExtResource("6_5ybum")]
-
-[node name="sfx" type="AudioStreamPlayer" parent="."]
-bus = &"sfx"
-script = ExtResource("7_ruq8y")
-unit_upgrade = ExtResource("8_1gmuk")
 
 [node name="main_bg" type="ColorRect" parent="."]
 process_mode = 2
@@ -205,29 +200,45 @@ theme_override_font_sizes/font_size = 64
 current_tab = 0
 
 [node name="Inventory" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("inventory_panel", "inventory_display")]
-custom_minimum_size = Vector2(800, 600)
+custom_minimum_size = Vector2(825, 640)
 layout_mode = 2
 script = ExtResource("9_fsh5d")
 inventory_panel = NodePath("inventory_display")
 inventory_display = NodePath("inventory_display/inventory_display")
 metadata/_tab_index = 0
 
-[node name="inventory_display" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory"]
+[node name="inventory_display" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" node_paths=PackedStringArray("discard_sfx", "discard_overlay", "inventory_display", "confirmation_overlay", "confirmation_label")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 3.0
 offset_top = -299.0
-offset_right = 531.0
+offset_right = 553.0
 offset_bottom = 304.0
 grow_vertical = 2
+script = ExtResource("9_8oj3i")
+discard_sfx = NodePath("discard_overlay/discard_sfx")
+discard_overlay = NodePath("discard_overlay")
+inventory_display = NodePath("inventory_display")
+confirmation_overlay = NodePath("discard_overlay/confirmation")
+confirmation_label = NodePath("discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/confirmation_text")
 
 [node name="inventory_display" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" instance=ExtResource("10_a1oup")]
 layout_mode = 1
-offset_left = 7.0
+offset_left = 20.0
 offset_top = 10.0
-offset_right = -2.0
+offset_right = 11.0
+
+[node name="space_request_projection" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/cargo" index="0" instance=ExtResource("13_7sc2c")]
+visible = false
+z_index = 4
+layout_mode = 0
+offset_left = 395.0
+offset_top = 583.0
+offset_right = 459.0
+offset_bottom = 711.0
+mouse_filter = 2
 
 [node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="3" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 offset_left = 390.0
@@ -268,26 +279,144 @@ material = SubResource("ShaderMaterial_ihftv")
 [node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/chips" index="0"]
 material = SubResource("ShaderMaterial_41eqv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display"]
+[node name="discard_overlay" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display"]
+visible = false
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -132.0
-offset_top = -108.0
-offset_right = -16.0
-offset_bottom = -48.0
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="sort_inventory" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/VBoxContainer"]
+[node name="discard_sfx" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay"]
+stream = ExtResource("10_kgp2d")
+
+[node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay"]
+z_index = 15
+layout_mode = 0
+offset_left = 405.5
+offset_top = 4.0
+offset_right = 819.5
+offset_bottom = 599.0
+color = Color(0, 0, 0, 0.85490197)
+
+[node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/ColorRect"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 525.0
+offset_right = 92.0
+offset_bottom = 559.0
+text = "Cancel"
+
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/ColorRect"]
+z_index = 1
+layout_mode = 0
+offset_left = 164.0
+offset_top = 23.0
+offset_right = 204.0
+offset_bottom = 49.0
+theme_override_font_sizes/font_size = 64
+text = "Choose An 
+Item to
+Discard"
+
+[node name="confirmation" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay"]
 visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6392157)
+
+[node name="confirmation" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation"]
+z_index = 22
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.0
+offset_top = -99.5
+offset_right = 211.0
+offset_bottom = 99.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation"]
 layout_mode = 2
-theme = ExtResource("12_rdvn7")
-text = "Auto
-Organize"
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="confirmation_text" type="RichTextLabel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Discard [color=red]pee pee poo poo[/color] from your inventory?"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="confirm_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Discard	"
+
+[node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(0.6, 0.6, 0.6, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Cancel"
+
+[node name="discard_item" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 425.0
+offset_top = 456.0
+offset_right = 489.0
+offset_bottom = 520.0
+size_flags_horizontal = 4
+
+[node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item" instance=ExtResource("11_7ydhy")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
+hardcoded_name = "Discard an Item"
+
+[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_8oj3i")
 
 [node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" node_paths=PackedStringArray("sfx", "player_inventory_display", "weapon_sample", "alt_weapon_sample", "module_sample", "accessory_1_sample", "accessory_2_sample", "switch_alt_button")]
 layout_mode = 1
@@ -312,9 +441,8 @@ switch_alt_button = NodePath("switch_alt")
 gear_color = Color(1, 0.5, 0.5, 1)
 
 [node name="gear_sfx" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
-volume_db = -10.0
 script = ExtResource("13_tg7cy")
-weapon_equipped = ExtResource("14_14bae")
+weapon_equipped = ExtResource("15_7ydhy")
 module_equipped = ExtResource("15_in2cn")
 accessory_equipped = ExtResource("16_7ydhy")
 invalid = ExtResource("15_vq5ye")
@@ -566,16 +694,7 @@ position = Vector2(90, 23)
 scale = Vector2(4, 4)
 
 [node name="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" index="0"]
-process_mode = 3
 speed_scale = 0.75
-
-[node name="player_sample" parent="main_bg/MarginContainer/HBoxContainer/player/Control" node_paths=PackedStringArray("target_base") instance=ExtResource("14_nvl42")]
-layout_mode = 0
-offset_left = 102.0
-offset_top = 19.0
-offset_right = 102.0
-offset_bottom = 19.0
-target_base = NodePath("../body")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
 layout_mode = 1
@@ -664,11 +783,58 @@ offset_right = 351.0
 offset_bottom = 421.0
 texture = ExtResource("33_7ydhy")
 
+[node name="clear_space_request" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/player" node_paths=PackedStringArray("sample", "request_label", "inventory_display", "item_added_sfx", "projection_sample")]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("36_kgp2d")
+sample = NodePath("MarginContainer/VBoxContainer/item_sample")
+request_label = NodePath("MarginContainer/VBoxContainer/request")
+inventory_display = NodePath("../../party_and_inventory/Inventory/inventory_display/inventory_display")
+item_added_sfx = NodePath("item_chosen")
+projection_sample = NodePath("../../party_and_inventory/Inventory/inventory_display/inventory_display/cargo/space_request_projection")
+
+[node name="item_chosen" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request"]
+stream = ExtResource("37_ihftv")
+
+[node name="MarginContainer" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer"]
+layout_mode = 2
+
+[node name="request" type="RichTextLabel" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Not enough space in inventory, for aoiehjwaoie"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="item_sample" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer" instance=ExtResource("13_7sc2c")]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Free up the necessary space."
+
+[connection signal="closed" from="." to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" method="_on_player_sheet_closed"]
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="accessory_equipped_on_unit" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_inventory_display_accessory_equipped_on_unit"]
 [connection signal="warnings_attended" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="." method="_on_inventory_display_warnings_attended"]
 [connection signal="warnings_shown" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" to="." method="_on_inventory_display_warnings_shown"]
-[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/VBoxContainer/sort_inventory" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" method="sort_inventory"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/ColorRect/cancel_discard" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" method="_on_cancel_discard_pressed"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer/confirm_discard" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" method="_on_confirm_discard_pressed"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer/cancel_discard" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" method="_on_cancel_discard_pressed"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" method="_on_discard_item_pressed"]
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_switch_alt_pressed"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/main_weapon/weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_weapon_sample_gui_input"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/alt_weapon/alt_weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_alt_weapon_sample_gui_input"]

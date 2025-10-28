@@ -1,5 +1,5 @@
 ~ start
 Tech Specialist: Hello, care to browse my wares?
 - #trade_menu
-- #leave => END!
+- #leave
 

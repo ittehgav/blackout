@@ -23,7 +23,7 @@ func generate_roads(settlements:Array[Settlement])->void:
 	for spot:Vector2i in road_cells:
 		## so props don't appear in the middle of the road
 		props_slots.erase(spot)
-	roadside_tiles.set_cells_terrain_connect(roadside, 0, 0)
+	#roadside_tiles.set_cells_terrain_connect(roadside, 0, 0)
 	props_tiles.set_cells_terrain_connect(props_slots, 0, 0)
 
 

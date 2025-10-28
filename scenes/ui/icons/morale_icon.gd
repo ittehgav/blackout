@@ -10,14 +10,17 @@ class_name MoraleIcon
 
 @export var bar:TextureProgressBar;
 
+@export var auto_update:bool=true
+
 func _ready()->void:
-	Entities.player.morale_changed.connect(update)
+	if auto_update:
+		Entities.player.morale_changed.connect(update)
 	update();
 
-func animated_update(target_value:float)->Tween:
+func animated_update(target_value:float=Entities.player.morale)->Tween:
 	var tween:Tween = create_tween();
 	tween.tween_property(bar, "value", target_value, 1);
-	tween.tween_callback(update)
+	tween.tween_callback(update.bind(true))
 	return tween
 
 

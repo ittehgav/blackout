@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="4_aeldn"]
 [ext_resource type="Script" uid="uid://be3ok2ss00hso" path="res://scenes/index/items/weapons/scripts/sub_scripts/smoke.gd" id="4_on2lj"]
 [ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="4_wwi0q"]
-[ext_resource type="AudioStream" uid="uid://dua85xlin7tbf" path="res://assets/sound/sfx/combat/blast.mp3" id="5_1eldx"]
+[ext_resource type="AudioStream" uid="uid://bwkbetuxywpwd" path="res://assets/sound/sfx/combat/blast.wav" id="5_r2si5"]
 
 [sub_resource type="Animation" id="Animation_wwi0q"]
 length = 0.001
@@ -73,7 +73,9 @@ libraries = {
 stream = ExtResource("4_aeldn")
 
 [node name="hit_sfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_1eldx")
+stream = ExtResource("5_r2si5")
+volume_db = 3.671
+pitch_scale = 0.82
 
 [node name="smoke" type="Sprite2D" parent="." node_paths=PackedStringArray("animation_player", "hit_scan")]
 visible = false

@@ -87,5 +87,5 @@ func bees_hit(target:ActiveFighter)->void:
 
 
 func bees_sting(target:ActiveFighter)->void:
-	Combat.deal_damage(fighter, target, damage_modifier)
+	Combat.deal_damage(fighter, target, damage_modifier, 0, true)
 	

@@ -108,8 +108,8 @@ shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="Financial Boost" type="Node" node_paths=PackedStringArray("money_label", "panel", "sfx")]
 script = ExtResource("1_nwnbf")
-money_label = NodePath("Panel/resources_dropdown/money/money")
 icon = ExtResource("2_k171s")
+money_label = NodePath("Panel/resources_dropdown/money/money")
 panel = NodePath("Panel")
 sfx = NodePath("sfx")
 metadata/_custom_type_script = "uid://cvor0b75qlqh5"

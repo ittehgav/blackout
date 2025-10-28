@@ -20,6 +20,7 @@ var move_speed_loss:float;
 
 
 func start()->void:
+	use_sfx.play()
 	parry_timer.start();
 	## right now this is the only thing that alters movement speed
 	## but will need to be more comprehensive eventually

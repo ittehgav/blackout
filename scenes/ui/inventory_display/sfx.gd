@@ -1,5 +1,7 @@
 extends SfxPlayer;
 
+@export var item_sfx:AudioStreamPlayer
+
 @export var drop:AudioStream;
 @export var pick_up:AudioStream;
 
@@ -26,3 +28,7 @@ extends SfxPlayer;
 @export var deposit_scrap_big:AudioStream;
 
 @export var deposit_chips:AudioStream;
+
+func play_item_sfx(key:String)->void:
+	item_sfx.stream = self[key];
+	item_sfx.play()

@@ -11,6 +11,7 @@ func load_unit(unit:FighterUnit, callback:Callable=Callable())->void:
 	$level.text = "Lv. " + str(unit.level);
 	
 	var base:FighterBase = unit.base.duplicate();
+	base.texture = ColorCoder.color_code_fighter_base_texture(base)
 	base.clear_for_sample()
 	base.scale = Vector2(2, 2);
 	base.centered = false;

@@ -30,7 +30,7 @@ func setup(fighter_unit:FighterUnit)->void:
 	
 	current_sprite.queue_free();
 	current_sprite = fighter_unit.base.duplicate();
-	current_sprite.scale = Vector2.ONE;
+	current_sprite.scale = Vector2(2, 2);
 	current_sprite.centered = false;
 	sprite_anchor.add_child(current_sprite)
 	

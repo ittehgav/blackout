@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene load_steps=32 format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -22,12 +22,23 @@
 [ext_resource type="AudioStream" uid="uid://b7cm8ur52tcnd" path="res://assets/sound/sfx/ui/inventory/trade/reset.wav" id="19_h4har"]
 [ext_resource type="AudioStream" uid="uid://887fjhopo7n2" path="res://assets/sound/sfx/ui/inventory/trade/coin.wav" id="20_fnwsv"]
 [ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_display/resource_picker.gd" id="21_15sfg"]
+[ext_resource type="Script" uid="uid://crrn6xtx5cmhf" path="res://scenes/ui/inventory_display/scroll_container.gd" id="22_qxt2g"]
 [ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="22_up2tu"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
 [ext_resource type="Script" uid="uid://bjpqfptad5b01" path="res://scenes/ui/inventory_display/unit_selector.gd" id="25_yjuqr"]
 [ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_display/warnings.gd" id="26_8mqj8"]
 [ext_resource type="Script" uid="uid://c4t43pl7ro3sq" path="res://scenes/ui/inventory_display/item_selector.gd" id="26_up2tu"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="27_c5he3"]
+
+[sub_resource type="Gradient" id="Gradient_qxt2g"]
+colors = PackedColorArray(0.101960786, 0.12941177, 0.15686275, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xdq4l"]
+gradient = SubResource("Gradient_qxt2g")
+width = 4
+height = 4
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
 
 [node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "cargo_space", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
 layout_mode = 3
@@ -66,10 +77,11 @@ max_polyphony = 5
 bus = &"sfx"
 script = ExtResource("5_qglwj")
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
+[node name="sfx" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("item_sfx")]
 max_polyphony = 9
 bus = &"sfx"
 script = ExtResource("3_ke6sf")
+item_sfx = NodePath("../item_sfx")
 drop = ExtResource("6_k4cp6")
 pick_up = ExtResource("7_7cfyp")
 money_change = ExtResource("8_1ygr4")
@@ -87,16 +99,21 @@ deposit_scrap_small = ExtResource("12_jjio2")
 deposit_scrap_big = ExtResource("13_ormkh")
 deposit_chips = ExtResource("14_15sfg")
 
+[node name="item_sfx" type="AudioStreamPlayer" parent="."]
+
 [node name="cargo" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="cargo"]
+[node name="ScrollContainer" type="ScrollContainer" parent="cargo" node_paths=PackedStringArray("excess_left", "excess_right")]
 custom_minimum_size = Vector2(386, 589)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("22_qxt2g")
+excess_left = NodePath("../excess_left")
+excess_right = NodePath("../excess_right")
 
 [node name="cargo_space" type="Control" parent="cargo/ScrollContainer"]
 layout_mode = 2
@@ -128,6 +145,29 @@ offset_right = 266.0
 offset_bottom = 304.0
 theme_override_font_sizes/font_size = 128
 text = "BUY"
+
+[node name="excess_left" type="TextureRect" parent="cargo"]
+visible = false
+modulate = Color(0.504, 0.5236, 0.7, 1)
+z_index = 8
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 0
+offset_top = 578.0
+offset_right = 16.0
+offset_bottom = 1156.0
+rotation = 3.1415927
+texture = SubResource("GradientTexture2D_xdq4l")
+
+[node name="excess_right" type="TextureRect" parent="cargo"]
+visible = false
+modulate = Color(0.43137255, 0.44705883, 0.6, 1)
+z_index = 8
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 0
+offset_left = 381.0
+offset_right = 397.0
+offset_bottom = 578.0
+texture = SubResource("GradientTexture2D_xdq4l")
 
 [node name="resources_dropdown" parent="." node_paths=PackedStringArray("resource_hboxes", "resource_icons") instance=ExtResource("22_up2tu")]
 layout_mode = 0

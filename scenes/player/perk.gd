@@ -2,6 +2,7 @@ extends Node
 
 class_name Perk;
 
+signal animation_finished;
 
 ## NEED TO ENTER TREE BEFORE BEING TURNED INTO BUTTON
 @export var icon:Texture;
@@ -11,6 +12,7 @@ class_name Perk;
 
 @export var panel:Control;
 @export var sfx:AudioStreamPlayer;
+
 
 func animation_callback(_display:Control)->void:
 	## what plays when you choos the perk

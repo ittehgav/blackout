@@ -6,7 +6,7 @@ signal closed;
 signal start_battle_pressed;
 
 @export var bg:ColorRect;
-@export var sfx:AudioStreamPlayer;
+
  
 @export var party_view:PartyView;
 @export var inventory_view:InventoryView;
@@ -18,15 +18,14 @@ signal start_battle_pressed;
 @export var container:HBoxContainer;
 @export var gear:Control;
 @export var morale_label:Label;
+
 @export var start_battle_prompt:MarginContainer
+@export var item_space_request:PanelContainer
 
 
 @export_subgroup("sounds")
 @export var open_sound:AudioStream;
 @export var close_sound:AudioStream;
-@export var rummage:AudioStream;
-
-
 
 
 
@@ -68,6 +67,10 @@ func pre_battle_sheet()->void:
 	show_player_sheet();
 	start_battle_prompt.show();
 
+func request_space_for_item(item:Item)->void:
+	Entities.main.set_substate("inventory_space_request")
+	item_space_request.request_space_for_item(item)
+	show_player_sheet();
 
 
 func hide_player_sheet(_meta:Variant="")->void:
@@ -96,7 +99,10 @@ func hide_player_sheet(_meta:Variant="")->void:
 
 func _input(e:InputEvent)->void:
 	## opening is handled differently in contexts
-	if e.is_action_pressed("show_player_sheet") and open and not party_view.current_unit_sheet:
+	if e.is_action_pressed("show_player_sheet") and open and not party_view.current_unit_sheet\
+	and Entities.main.substate == "player_sheet":
+		## substate will not be player sheet if it's a special open
+		## IE pre-combat and item space request
 		hide_player_sheet();
 
 
@@ -128,5 +134,9 @@ func _on_inventory_display_warnings_attended(_clear: bool) -> void:
 
 
 func _on_start_battle_pressed() -> void:
+	## making this a signal so to start battle from any context
+	## i just make the global call then pass it back to the emmiter
+	## for context-sensitive setups
+	## encapsulating most of the complexitiy out of player sheet
 	start_battle_pressed.emit();
 	hide_player_sheet();

@@ -1,23 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbh3hqgsu5es8"]
+[gd_scene load_steps=9 format=3 uid="uid://bbh3hqgsu5es8"]
 
 [ext_resource type="AudioStream" uid="uid://bgr1451esjfxc" path="res://assets/sound/sfx/ui/disabled_mouseover.ogg" id="1_igjwg"]
 [ext_resource type="Script" uid="uid://c3tyiyq4xceag" path="res://scenes/ui/sound/ui_sfx.gd" id="2_qkd3f"]
 [ext_resource type="AudioStream" uid="uid://dxce8m1hdp6vk" path="res://assets/sound/sfx/ui/mouseover_1.ogg" id="3_xbfpv"]
 [ext_resource type="AudioStream" uid="uid://6wpoyciwpcqp" path="res://assets/sound/sfx/ui/mouseover_2.ogg" id="4_4v0va"]
-[ext_resource type="AudioStream" uid="uid://fhr3xripjers" path="res://assets/sound/sfx/ui/button_click.ogg" id="5_ulhjw"]
+[ext_resource type="AudioStream" uid="uid://drfmsbkpkmytd" path="res://assets/sound/sfx/ui/button_click.wav" id="5_wsotd"]
+[ext_resource type="AudioStream" uid="uid://0ofjkp0ncgfr" path="res://assets/sound/sfx/ui/cancel.wav" id="6_wsotd"]
 [ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="7_1q1g1"]
 [ext_resource type="AudioStream" uid="uid://b2570jayrbgqr" path="res://assets/sound/sfx/ui/settlement_entered.ogg" id="7_v0nya"]
 
 [node name="ui_sfx" type="AudioStreamPlayer"]
 process_mode = 3
 stream = ExtResource("1_igjwg")
-volume_db = -10.0
 max_polyphony = 5
 bus = &"sfx"
 script = ExtResource("2_qkd3f")
 mouseover_sounds = Array[AudioStream]([ExtResource("3_xbfpv"), ExtResource("4_4v0va")])
 disabled_mouseover = ExtResource("1_igjwg")
-button_click = ExtResource("5_ulhjw")
-cancel = ExtResource("5_ulhjw")
+button_click = ExtResource("5_wsotd")
+cancel = ExtResource("6_wsotd")
 settlement_entered = ExtResource("7_v0nya")
 invalid = ExtResource("7_1q1g1")

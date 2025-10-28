@@ -19,14 +19,23 @@ var locations:Array[Location];
 @export var hover_box:Control;
 @export var hint:Label;
 
+@export var flag:Sprite2D
+
 ## because siblings with the same name get enumerated
 var unique_name:String;
 
 func _ready()->void:
+	refresh()
+
+
+func refresh()->void:
 	if len(locations) == 1:
 		sprite.texture = locations[0].map_texture
 		name = locations[0].name
 		unique_name = locations[0].name
+		if locations[0] is Dungeon and locations[0].cleared:
+			flag.show();
+			sprite.modulate.v = .5
 	else:
 		## TODO somehow give them unique names?
 		name = "Street"
@@ -69,7 +78,11 @@ func _on_hover_box_pressed() -> void:
 
 
 func _on_player_visited() -> void:
-	for l:Location in locations:
-		l.refresh()
+	refresh_buildings()
 	data.seen = true;
 	hover_box.hide()
+
+func refresh_buildings()->void:
+	for l:Location in locations:
+		if l.pending_refresh:
+			l.refresh()

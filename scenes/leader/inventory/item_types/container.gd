@@ -2,6 +2,8 @@ extends Item
 
 class_name ResourceContainer
 
+const type = "container"
+
 @export_enum("food", "fuel", "juice", "scrap", "chips") var resource:String;
 @export var raw_stack:bool=false;
 @export var mirror_only:bool=false

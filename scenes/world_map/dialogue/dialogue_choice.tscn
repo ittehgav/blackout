@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://db1dwr7y73v3n" path="res://scenes/world_map/dialogue/_choice.gd" id="1_bi8yq"]
 
-[node name="_choice" type="Button" node_paths=PackedStringArray("icon_rect", "label", "outline")]
+[node name="_choice" type="Button" node_paths=PackedStringArray("icon_rect", "label")]
 custom_minimum_size = Vector2(700, 70)
 anchors_preset = 8
 anchor_left = 0.5
@@ -20,7 +20,6 @@ size_flags_vertical = 4
 script = ExtResource("1_bi8yq")
 icon_rect = NodePath("HBoxContainer/icon")
 label = NodePath("HBoxContainer/MarginContainer/text")
-outline = NodePath("outline")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -56,16 +55,3 @@ theme_override_font_sizes/mono_font_size = 48
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
-
-[node name="outline" type="ReferenceRect" parent="."]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-border_color = Color(0.6392157, 0.654902, 0.8, 1)
-border_width = 5.0
-editor_only = false

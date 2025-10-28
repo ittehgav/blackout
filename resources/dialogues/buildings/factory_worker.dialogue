@@ -1,5 +1,4 @@
 ~ start
 Engineer: Hello, looking to buy our goods?
 - #trade_menu
-- #leave => END!
-
+- #leave

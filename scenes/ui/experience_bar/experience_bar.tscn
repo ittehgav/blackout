@@ -33,5 +33,7 @@ theme_override_font_sizes/font_size = 64
 text = "LVL UP!"
 
 [node name="level_up_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_u8n47")
+pitch_scale = 1.25
 script = ExtResource("4_2ep7r")
 level_up = ExtResource("5_u8n47")

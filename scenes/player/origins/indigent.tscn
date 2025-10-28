@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkrp38iwqs33y"]
+[gd_scene load_steps=10 format=3 uid="uid://doposyedwj544"]
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_ahft4"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/leader/inventory/inventory.tscn" id="2_3xh6s"]
@@ -10,14 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="8_qme7h"]
 [ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/ui/player_sheet/disciplines.gd" id="9_hk2cr"]
 
-[node name="Indigent" type="Node" node_paths=PackedStringArray("leadership_stats", "equipped_weapon", "equipped_module", "inventory", "roster", "combat_stats")]
+[node name="Indigent" type="Node" node_paths=PackedStringArray("equipped_weapon", "equipped_module", "inventory", "roster")]
 script = ExtResource("1_ahft4")
-leadership_stats = NodePath("leadership_stats")
 equipped_weapon = NodePath("Inventory/Tailpipe")
 equipped_module = NodePath("Inventory/Dodge Roll")
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
-combat_stats = NodePath("combat_stats")
 sight_range = 256
 
 [node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_3xh6s")]

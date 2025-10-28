@@ -28,6 +28,8 @@ func animation_callback(display:Control)->void:
 	
 	var tween:Tween = create_tween()
 	tween.tween_method(set_label_text, current, target, 1);
+	await tween.finished;
+	animation_finished.emit()
 
 
 func apply()->void:

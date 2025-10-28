@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene load_steps=62 format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index/index.gd" id="1_oyx4q"]
 [ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/punchy.tscn" id="2_whykp"]
@@ -54,11 +54,6 @@
 [ext_resource type="PackedScene" uid="uid://qw0yrcwsqosf" path="res://scenes/index/fighters/keeper.tscn" id="67_qig7t"]
 [ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="68_e7p5s"]
 [ext_resource type="Texture2D" uid="uid://fvqn3burk27x" path="res://assets/visual/particles/circles/circle_64x64.png" id="69_q6wh7"]
-[ext_resource type="Texture2D" uid="uid://dwpa1mr4yds7c" path="res://assets/visual/icons/stats/floating/max_hp.png" id="70_jhd7g"]
-[ext_resource type="Texture2D" uid="uid://etmtjtsu1lx4" path="res://assets/visual/icons/stats/floating/attack.png" id="71_m8pc6"]
-[ext_resource type="Texture2D" uid="uid://bs6cyn8oaeur3" path="res://assets/visual/icons/stats/floating/defense.png" id="72_r3yh4"]
-[ext_resource type="Texture2D" uid="uid://70wsny5napp1" path="res://assets/visual/icons/stats/floating/technique.png" id="73_kkr6l"]
-[ext_resource type="Texture2D" uid="uid://df2splxypn7my" path="res://assets/visual/icons/stats/floating/agility.png" id="74_18bpp"]
 [ext_resource type="Script" uid="uid://v7kwggc2eei6" path="res://global/index/scenes.gd" id="74_f4g0r"]
 [ext_resource type="Texture2D" uid="uid://by7l0k6gjterq" path="res://assets/visual/icons/behaviors/idle.png" id="75_84ldy"]
 [ext_resource type="Texture2D" uid="uid://ddunl8s2p0hj7" path="res://assets/visual/icons/behaviors/scared.png" id="76_xklpr"]
@@ -72,14 +67,15 @@ script = ExtResource("1_oyx4q")
 scenes = NodePath("scenes")
 fighters = NodePath("fighters")
 textures = NodePath("textures")
-color_schemes = Array[Array]([[Color(0.541176, 0.607843, 0.407843, 1), Color(0, 0.3, 0, 1)], [Color(0.5418, 0.600137, 0.86, 1), Color(0, 0.256, 0.64, 1)], [Color(0.66, 0.5478, 0.5478, 1), Color(0.61, 0.244, 0, 1)], [Color(0.831373, 0.65098, 0.701961, 1), Color(0.75, 0.1725, 0.374625, 1)], [Color(0.69, 0.6739, 0.4485, 1), Color(0.35, 0.2744, 0.0665, 1)], [Color(0.703523, 0.4851, 0.77, 1), Color(0.33572, 0.0588, 0.42, 1)]])
+player_team_color = Color(0.24000001, 0.42199996, 0.5, 1)
+enemy_team_color = Color(0.4, 0.14000002, 0.14000002, 1)
 resource_colors = Dictionary[String, Color]({
 "chips": Color(0.16, 0.8, 0.8, 1),
 "food": Color(0.8, 0.8, 0.16, 1),
 "fuel": Color(0.8, 0.33066663, 0.16, 1),
 "juice": Color(0.5866669, 0.16, 0.8, 1),
 "money": Color(0.16, 0.8, 0.16, 1),
-"scrap": Color(0.4, 0.4, 0.4, 1)
+"scrap": Color(0.6, 0.6, 0.6, 1)
 })
 day_reflection_color = Color(0.2, 0.076, 0.076, 1)
 night_reflection_color = Color(0.487, 0.46, 1, 1)
@@ -136,11 +132,6 @@ chips_stack = ExtResource("37_y60qf")
 
 [node name="textures" type="Node" parent="."]
 script = ExtResource("56_rddof")
-max_hp_floating_icon = ExtResource("70_jhd7g")
-attack_floating_icon = ExtResource("71_m8pc6")
-defense_floating_icon = ExtResource("72_r3yh4")
-technique_floating_icon = ExtResource("73_kkr6l")
-agility_floating_icon = ExtResource("74_18bpp")
 hollow_circles = Array[Texture]([ExtResource("60_mrj2u"), ExtResource("61_ekp1m"), ExtResource("62_js3li"), ExtResource("63_mrm47"), ExtResource("64_w8q8o")])
 filled_circles = Array[Texture]([ExtResource("40_m7afg"), ExtResource("65_50ns7"), ExtResource("66_vgk1i"), ExtResource("67_n3xga"), ExtResource("68_e7p5s"), ExtResource("69_q6wh7")])
 idle_icon_texture = ExtResource("75_84ldy")

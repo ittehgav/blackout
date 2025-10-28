@@ -20,11 +20,9 @@ class_name Building
 
 
 
-
 func refresh()->void:
-	days_since_last_cycle += 1;
-	if days_since_last_cycle == reset_cycle:
-		refresh_stores()
+	pending_refresh = false;
+	refresh_stores()
 
 func refresh_stores()->void:
 	if inventory:

@@ -1,5 +1,4 @@
 ~ start
 Farmer: Hello, we have the best produce in the region!
 - #trade_menu
-- #leave => END!
-
+- #leave

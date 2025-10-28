@@ -164,6 +164,7 @@ autoplay = "wheelguy/idle"
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_h08rf")
+max_distance = 500.0
 
 [node name="hit_scan" type="Area2D" parent="."]
 collision_layer = 0

@@ -1,6 +1,9 @@
 extends Equipment
 
 class_name Accessory
+## to make it easier to access this on implementations
+## until godot makes custom class names more accessible?
+const type = "accessory"
 
 @export var stat_modifiers:CombatStats;
 ## MULTIPLIERS HERE AS THE VALUES THAT ARE ADDED TO THE UNIT'S MULTIPLIERS

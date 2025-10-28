@@ -217,12 +217,12 @@ func reset_trade() -> void:
 	player_inventory_display.reset_inventory();
 	trader_inventory_display.reset_inventory();
 	
-	player_resources_dropdown.update();
-	trader_resourcs_dropdown.update()
+
 	
 	set_reset_state()
 	refresh_trade_balance()
-	
+
+
 	player_inventory_display.sfx.play_sound_by_key("reset");
 
 

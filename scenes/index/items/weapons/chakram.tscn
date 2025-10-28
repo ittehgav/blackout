@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cbptl4cvn7pul" path="res://assets/visual/items/weapons/chakram.png" id="1_6ewex"]
 [ext_resource type="Script" uid="uid://btpyltd5vb6p4" path="res://scenes/index/items/weapons/scripts/chakram.gd" id="2_h5wbs"]
-[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/swing.wav" id="3_ts0g7"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="4_5bglv"]
 [ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="4_ua1k6"]
 [ext_resource type="Texture2D" uid="uid://chyk6j5cmchjv" path="res://assets/visual/items/weapons/active/chakram.png" id="5_5bglv"]
 [ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="6_ua1k6"]
@@ -92,7 +92,7 @@ color_tag = "agility"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_ts0g7")
+stream = ExtResource("4_5bglv")
 
 [node name="hit_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_ua1k6")

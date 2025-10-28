@@ -24,7 +24,7 @@ var module_available:bool =true;
 func _ready()->void:
 	set_weapon_textures()
 	var colors:Dictionary = player_color_scheme();
-	var base_color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
+	var base_color:Color = Index.player_team_color;
 
 	module_progress_bar.texture_progress = ColorCoder.color_code_texture(Entities.player.equipped_module.texture, colors);
 	module_progress_bar.tint_under = base_color.lightened(.2) - Color(0, 0, 0, .8);
@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 		module_progress_bar.value = module_cd_progress;
 
 func player_color_scheme()->Dictionary:
-	var base_color:Color = Index.color_schemes[Entities.player.color_scheme_index][1];
+	var base_color:Color = Index.player_team_color;
 	var colors:= {
 		Color.GREEN:base_color,
 		Color.BLUE:base_color.darkened(.5)

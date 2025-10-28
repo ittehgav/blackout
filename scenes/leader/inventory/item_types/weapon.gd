@@ -2,6 +2,8 @@ extends Equipment;
 
 class_name Weapon;
 
+const type = "weapon"
+
 signal unequipped;
 
 signal use_finished ## to start the cooldown timer, controlled by the weapon's script

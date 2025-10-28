@@ -2,12 +2,7 @@ extends Node
 
 class_name TextureIndex;
 
-@export_group("Floating Icons")
-@export var max_hp_floating_icon:Texture;
-@export var attack_floating_icon:Texture;
-@export var defense_floating_icon:Texture;
-@export var technique_floating_icon:Texture;
-@export var agility_floating_icon:Texture;
+
 @export_group("Circles")
 @export var hollow_circles:Array[Texture];
 @export var filled_circles:Array[Texture]

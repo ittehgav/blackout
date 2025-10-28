@@ -1,6 +1,8 @@
 extends Item
 
 class_name Consumable;
+
+const type = "consumable"
 @export var use_sfx:AudioStream;
 
 @export var special_graphics:PackedScene;

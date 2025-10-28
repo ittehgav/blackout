@@ -143,7 +143,7 @@ grow_vertical = 1
 context = "trade"
 exchanging_display = NodePath("../../trader_panel/trader_inventory_display")
 
-[node name="resources_dropdown" parent="HBoxContainer/player_panel/player_inventory_display" index="3" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="HBoxContainer/player_panel/player_inventory_display" index="4" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -170,10 +170,10 @@ resource_icons = {
 "scrap": NodePath("scrap/scrap_icon")
 }
 
-[node name="resource_picker" parent="HBoxContainer/player_panel/player_inventory_display" index="4" node_paths=PackedStringArray("trade_menu")]
+[node name="resource_picker" parent="HBoxContainer/player_panel/player_inventory_display" index="5" node_paths=PackedStringArray("trade_menu")]
 trade_menu = NodePath("../../../..")
 
-[node name="trade_excess" parent="HBoxContainer/player_panel/player_inventory_display" index="6"]
+[node name="trade_excess" parent="HBoxContainer/player_panel/player_inventory_display" index="7"]
 anchors_preset = -1
 anchor_left = 0.491
 anchor_top = 0.87
@@ -184,7 +184,7 @@ offset_top = 556.0
 offset_right = 74.0
 offset_bottom = 568.0
 
-[node name="trade_excess_label_panel" parent="HBoxContainer/player_panel/player_inventory_display" index="7"]
+[node name="trade_excess_label_panel" parent="HBoxContainer/player_panel/player_inventory_display" index="8"]
 anchors_preset = 2
 anchor_left = 0.0
 anchor_top = 1.0
@@ -197,7 +197,7 @@ offset_bottom = 646.0
 grow_horizontal = 1
 grow_vertical = 0
 
-[node name="warnings" parent="HBoxContainer/player_panel/player_inventory_display" index="8"]
+[node name="warnings" parent="HBoxContainer/player_panel/player_inventory_display" index="9"]
 z_index = 24
 custom_minimum_size = Vector2(127, 0)
 offset_left = -24.0
@@ -417,14 +417,14 @@ context = "trade"
 from_player = false
 exchanging_display = NodePath("../../player_panel/player_inventory_display")
 
-[node name="cargo" parent="HBoxContainer/trader_panel/trader_inventory_display" index="2"]
+[node name="cargo" parent="HBoxContainer/trader_panel/trader_inventory_display" index="3"]
 offset_left = 133.0
 offset_right = 173.0
 
 [node name="operation" parent="HBoxContainer/trader_panel/trader_inventory_display/cargo/send_rect" index="0"]
 text = "SELL"
 
-[node name="resources_dropdown" parent="HBoxContainer/trader_panel/trader_inventory_display" index="3" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="HBoxContainer/trader_panel/trader_inventory_display" index="4" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 layout_mode = 1
 offset_left = 0.0
 offset_top = 0.0
@@ -447,7 +447,7 @@ resource_icons = {
 "scrap": NodePath("scrap/scrap_icon")
 }
 
-[node name="resource_picker" parent="HBoxContainer/trader_panel/trader_inventory_display" index="4" node_paths=PackedStringArray("trade_menu")]
+[node name="resource_picker" parent="HBoxContainer/trader_panel/trader_inventory_display" index="5" node_paths=PackedStringArray("trade_menu")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -462,7 +462,7 @@ grow_horizontal = 2
 grow_vertical = 2
 trade_menu = NodePath("../../../..")
 
-[node name="trade_excess" parent="HBoxContainer/trader_panel/trader_inventory_display" index="6"]
+[node name="trade_excess" parent="HBoxContainer/trader_panel/trader_inventory_display" index="7"]
 anchors_preset = -1
 anchor_left = 0.415
 anchor_top = 0.931
@@ -473,7 +473,7 @@ offset_top = -63.77
 offset_right = 245.75
 offset_bottom = -51.77
 
-[node name="trade_excess_label_panel" parent="HBoxContainer/trader_panel/trader_inventory_display" index="7"]
+[node name="trade_excess_label_panel" parent="HBoxContainer/trader_panel/trader_inventory_display" index="8"]
 offset_left = 128.0
 offset_right = 252.0
 

@@ -24,7 +24,11 @@ var queue:int = 0;
 func player_leveled_up()->void:
 	queue += 1;
 
+var current_options:Array[Button]
 func display_perks(repeat:bool=false)->void:
+	## BUG randomly closes the game without even showing any error
+	print("disper start ")
+	current_options.clear()
 	queue -= 1
 	var fade_in_time:float = .5;
 	if repeat:
@@ -35,11 +39,14 @@ func display_perks(repeat:bool=false)->void:
 	Tweens.ui_fade_in(self, fade_in_time)
 	level_up_sfx.play();
 	roll_perks()
+	print("before clear perks")
 	for c:Node in perks_container.get_children():
 		c.queue_free();
-
+	
+	print("before for perks")
 	for perk:Perk in perks:
 		generate_perk_option(perk)
+	print("disper end")
 
 func roll_perks()->void:
 	perks = [];
@@ -57,6 +64,7 @@ func roll_perks()->void:
 
 func generate_perk_option(perk:Perk)->void:
 	var btn:Button = perk_option_btn.duplicate();
+	current_options.append(btn)
 	btn.build_option(perk);
 	perks_container.add_child(btn);
 	btn.pressed.connect(perk_chosen.bind(perk));
@@ -65,12 +73,15 @@ func generate_perk_option(perk:Perk)->void:
 
 func perk_chosen(perk:Perk)->void:
 	## make this in a way where it can do multiple perks in one lifecycle
+	for option:Button in current_options:
+		option.disabled = true
 	perk_animation_display.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for c in perk_animation_display.get_children():
 		c.queue_free();
 	perk.animation_callback(perk_animation_display);
 	perk.apply();
-	await Tweens.ui_fade_in(perk_animation_display).finished;
+	Tweens.ui_fade_in(perk_animation_display)
+	await perk.animation_finished;
 	perk_animation_display.mouse_filter = Control.MOUSE_FILTER_STOP
 
 
@@ -80,6 +91,7 @@ func _on_perk_animation_display_gui_input(e: InputEvent) -> void:
 			perk_animation_display.mouse_filter = Control.MOUSE_FILTER_IGNORE;
 
 			await Tweens.ui_fade_out(self, .25).finished;
+			print("afadeoutxp?")
 			display_perks(true)
 		else:
 			Tweens.ui_fade_out(self)

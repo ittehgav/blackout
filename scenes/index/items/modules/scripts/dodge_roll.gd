@@ -15,6 +15,7 @@ const base_duration = .75
 
 
 func use()->void:
+	use_sfx.play()
 	play_animation();
 	
 	var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")

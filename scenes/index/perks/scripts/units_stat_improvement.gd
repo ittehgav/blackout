@@ -43,11 +43,12 @@ func _ready()->void:
 	stat = tag_stat_gains[target_tag]
 	gain = to_gain();
 	icon = Index.textures.icons[stat]
+	var total_units:int = len(Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags))
 
 	generate_samples();
 	
 	description = "Your [color="+title_color.to_html()+"]" + target_tag + "s[/color] gain +"+Index.get_color_tag(stat)+\
-	str(snapped(gain, .1))+" " +stat+ "[/color]."
+	str(snapped(gain, .1))+" " +stat+ "[/color].\n[font_size=16]You have "+str(total_units) + " " + Index.get_color_tag(target_tag) + target_tag+ "s[/color] in your party."
 
 func generate_samples()->void:
 	var units:Array[FighterUnit] = Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags);
@@ -107,12 +108,17 @@ func animation_callback(display:Control)->void:
 	
 	await get_tree().create_timer(1).timeout
 	sfx.play()
+	
+	const tween_duration = .5
 	for label:Label in change_labels:
 		var start:float = float(label.text);
 		var target:float = start + gain;
 		
+
 		var tween:Tween = create_tween();
-		tween.tween_method(set_label_text.bind(label), start, target, randi_range(.75, 1));
+		tween.tween_method(set_label_text.bind(label), start, target, tween_duration);
+	await get_tree().create_timer(tween_duration).timeout
+	animation_finished.emit();
 	
 func set_label_text(target:float, label:Label)->void:
 	label.text = str(snapped(target, .01));

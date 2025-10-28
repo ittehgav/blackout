@@ -154,6 +154,8 @@ tags = Array[String](["brawler", "scientist", "hunter"])
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_w7ae1")
+pitch_scale = 0.86
+max_distance = 500.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

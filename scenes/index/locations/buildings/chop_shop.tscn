@@ -24,6 +24,10 @@ front_porch_scene = ExtResource("2_3edf0")
 inventory = NodePath("ShopInventory")
 roster = NodePath("Building Roster")
 evolve_option = "mechanic"
+size = null
+reset_cycle = null
+map_texture_modulate = null
+bgm_key = null
 icon_texture = ExtResource("2_go530")
 metadata/_custom_type_script = "uid://lf67nwuvdmnt"
 

@@ -7,7 +7,6 @@ var callback:Callable;
 @export var icon_rect:TextureRect;
 @export var label:RichTextLabel
 
-@export var outline:ReferenceRect;
 
 func build(response:DialogueResponse)->void:
 	const line_height = 50;
@@ -66,5 +65,4 @@ func build_option(label_text:String)->void:
 		icon_rect.self_modulate = option_color;
 		label.add_theme_color_override("default_color", option_color)
 		
-		var outline_color:Color = option_color;
-		outline.border_color = outline_color
+		self_modulate = option_color

@@ -9,7 +9,15 @@ extends Panel
 var initial_player_inventory:Inventory;
 var initial_enemy_inventory:Inventory;
 
-func _ready()->void:
+
+
+
+func set_reset_state()->void:
+	initial_player_inventory = player_inventory_display.set_reset_state()
+	initial_enemy_inventory = enemy_inventory_display.set_reset_state()
+
+func display_loot()->void:
+	Tweens.ui_fade_in(self)
 	var loot_inventory:LootInventory = enemy_team.roster.loot;
 
 	player_inventory_display.inventory = Entities.player.inventory;
@@ -21,11 +29,6 @@ func _ready()->void:
 	enemy_inventory_display.refresh_data();
 	
 	set_reset_state()
-
-func set_reset_state()->void:
-	initial_player_inventory = player_inventory_display.set_reset_state()
-	initial_enemy_inventory = enemy_inventory_display.set_reset_state()
-
 
 func _on_take_loot_pressed() -> void:
 	enemy_inventory_display.all_mirrors[0].loot_command()

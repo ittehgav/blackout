@@ -49,12 +49,7 @@ func _ready()->void:
 	Entities.player = self;
 
 	
-func battle_victory_morale()->void:
-	## for now just make all morale changes go through this script
-	morale += .5;
-	
-func battle_defeat_morale()->void:
-	morale -= .5
+
 
 func _on_level_up() -> void:
 	Scaling.level_up_player_stats()
@@ -158,10 +153,8 @@ func travel_upkeep()->void:
 		
 		if missing_food:
 			upkeep_food_shortage.emit()
-			if missing_food > cost.food/2:
-				morale /= 3;
-			else:
-				morale /= 2;
+			var morale_loss:float = -morale/3;
+			change_morale(morale_loss);
 			morale_changed.emit();
 
 		if missing_fuel:
@@ -210,3 +203,21 @@ func load_origin(origin:Player)->void:
 func _on_minute_ticker_timeout() -> void:
 	if not (Entities.world_map.current_minute%30):
 		travel_upkeep()
+		
+func change_morale(change:float)->void:
+	morale += change;
+	morale_changed.emit()
+
+func battle_lost()->void:
+	## right now just does the morale and money loss
+	## to maybe take into account for losses:
+	## party power difference (enemy too high = less morale/money loss?)
+	## 
+	var morale_loss:float = .5 + (morale/3);
+	change_morale(-morale_loss)
+
+	var money_loss:float = inventory.money/3
+	inventory.change_resource("money", int(-money_loss))
+
+func battle_won()->void:
+	change_morale((5-morale)/2)

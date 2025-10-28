@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_ij35a"]
 [ext_resource type="Texture2D" uid="uid://c27ia0ef7ek8m" path="res://assets/visual/sprites/fighters/armguy/armguy.png" id="2_edich"]
 [ext_resource type="Script" uid="uid://cdiptr0n70x5i" path="res://scenes/index/fighters/scripts/armguy.gd" id="3_fh0u6"]
-[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/swing.wav" id="4_fcddn"]
+[ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/slam.wav" id="4_fcddn"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_xjumf"]
 [ext_resource type="Texture2D" uid="uid://lnqgt25pbp2l" path="res://assets/visual/sprites/fighters/armguy/blur.png" id="6_u7jhc"]
 [ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="8_cf64t"]

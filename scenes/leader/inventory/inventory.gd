@@ -113,7 +113,7 @@ func change_resource(resource:String, amount:int)->void:
 
 
 
-func add_item(item: Item) -> void:
+func add_item(item: Item, emit_change:bool=false) -> void:
 	assert(not items.has(item))
 	## INVENTORIES AND ROSTERS JUST NEED TO HAVE THE UNITS AS CHILDREN TO PROPERLY CATEGORIZE THEM
 	items.append(item);
@@ -129,13 +129,15 @@ func add_item(item: Item) -> void:
 		## default containers from travelling traders will be manually added to the containers array 
 		## so the resources can be restored before entering the tree
 		containers.append(item)
-
+	if emit_change:
+		changed.emit()
 
 func send_item(item:Item, target:Inventory)->void:
 	remove_item(item);
 	target.add_item(item);
 
-func remove_item(item:Item, and_free:bool=false)->void:
+func remove_item(item:Item)->void:
+	## items are only ever removed by de-referencing
 	assert(item in items);
 	
 	items.erase(item);
@@ -150,8 +152,7 @@ func remove_item(item:Item, and_free:bool=false)->void:
 	elif item is ResourceContainer:
 		containers.erase(item)
 	
-	if and_free:
-		item.queue_free();
+	changed.emit()
 
 
 
@@ -167,7 +168,7 @@ func clear_containers()->void:
 			
 	for c:ResourceContainer in to_remove:
 		## CANT ITERATE OVER AN ARRAY WHILE MOVING/DELETINGS ITS ELEMENTS XDD
-		remove_item(c, true);
+		remove_item(c);
 	
 func store_resources()->void:
 	## applied after changing resource counters
@@ -302,22 +303,22 @@ func sort_containers(a:ResourceContainer, b:ResourceContainer)->bool:
 	else:
 		return a.stack_size > b.stack_size;
 
-var all_item_arrays:Array[Array] = [
-	items,
-	weapons,
-	modules,
-	consumables,
-	accessories,
-	containers
-]
+
 
 func empty_inventory()->void:
 	## simply unindexes all items
 	## currently for them to be replaced by the original items
 	## when resetting the trade
-	for array:Array[Item] in all_item_arrays:
-		array.clear();
+	
+	## idk the all arrays thing was not working for shop inventories
+	weapons.clear()
+	modules.clear()
+	consumables.clear()
+	accessories.clear()
+	containers.clear()
+	
 	items.clear()
+	
 
 func taken_space()->int:
 	var space:int = 0;

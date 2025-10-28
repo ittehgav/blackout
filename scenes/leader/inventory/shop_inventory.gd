@@ -35,7 +35,10 @@ const selling_prices_divider = 1.5
 
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
-	item_pool.append(node);
+	if not node is ResourceContainer or not node in resource_storage:
+		item_pool.append(node);
+	else:
+		add_item(node);
 	remove_child.call_deferred(node)
 
 func refresh_inventory()->void:

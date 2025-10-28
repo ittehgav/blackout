@@ -401,6 +401,7 @@ tags = Array[String](["brawler", "cyborg", "hunter"])
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_1j1sg")
+max_distance = 500.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

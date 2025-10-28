@@ -17,11 +17,8 @@ func _on_exp_gains_continue_pressed() -> void:
 	if level_up_panel.queue:
 		level_up_panel.display_perks();
 	else:
-		Tweens.ui_fade_in(loot_panel)
-
-
-
+		loot_panel.display_loot()
 
 func _on_level_up_rewards_leveling_finished() -> void:
 	Tweens.ui_fade_out(level_up_panel);
-	Tweens.ui_fade_in(loot_panel);
+	loot_panel.display_loot()

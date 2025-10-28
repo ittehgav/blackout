@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://drf3xuyj0tmjy"]
+[gd_scene load_steps=14 format=3 uid="uid://drf3xuyj0tmjy"]
 
 [ext_resource type="Script" uid="uid://w8pni6sq83ap" path="res://scenes/in_settlement/in_settlement.gd" id="1_kl1gh"]
 [ext_resource type="Texture2D" uid="uid://53cyjuwjbine" path="res://assets/visual/buildings/streets/street.png" id="2_cd8v0"]
 [ext_resource type="PackedScene" uid="uid://dage1xn2hqykd" path="res://scenes/in_settlement/unit/player/player_unit.tscn" id="2_khu3q"]
 [ext_resource type="Script" uid="uid://dyxcwe4bm8v0g" path="res://scenes/in_settlement/camera_2d.gd" id="3_4rt7u"]
 [ext_resource type="PackedScene" uid="uid://b31rsrhwu68hd" path="res://scenes/world_map/world_map/main_hud.tscn" id="4_hxhmu"]
-[ext_resource type="PackedScene" uid="uid://b27bfm5u044iy" path="res://scenes/in_settlement/props/lamppost.tscn" id="4_i264g"]
 [ext_resource type="Script" uid="uid://dq403f5gmik45" path="res://scenes/in_settlement/exit_prompt.gd" id="4_t654o"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/ui/player_sheet/player_sheet.tscn" id="6_hnbvg"]
 
@@ -46,7 +45,7 @@ offset_left = -8029.0
 offset_top = -1670.0
 offset_right = 9210.0
 offset_bottom = 3485.0
-color = Color(0.603922, 0.419608, 0.235294, 1)
+color = Color(0.1, 0.1, 0.1, 1)
 
 [node name="buildings" type="Node2D" parent="."]
 
@@ -56,7 +55,7 @@ position = Vector2(207, 108)
 
 [node name="player_camera" type="Camera2D" parent="PlayerUnit"]
 limit_left = -200
-limit_top = -480
+limit_top = -334
 limit_right = 1920
 limit_bottom = 480
 position_smoothing_enabled = true
@@ -73,15 +72,6 @@ offset_right = 1920.0
 offset_bottom = 600.0
 texture = ExtResource("2_cd8v0")
 
-[node name="lamppost" parent="foreground/Node2D" instance=ExtResource("4_i264g")]
-position = Vector2(444, 552)
-
-[node name="lamppost2" parent="foreground/Node2D" instance=ExtResource("4_i264g")]
-position = Vector2(844, 552)
-
-[node name="lamppost3" parent="foreground/Node2D" instance=ExtResource("4_i264g")]
-position = Vector2(1244, 552)
-
 [node name="Node2D3" type="Node2D" parent="foreground"]
 position = Vector2(1919, 0)
 
@@ -91,15 +81,6 @@ offset_right = 1920.0
 offset_bottom = 600.0
 texture = ExtResource("2_cd8v0")
 
-[node name="lamppost" parent="foreground/Node2D3" instance=ExtResource("4_i264g")]
-position = Vector2(444, 552)
-
-[node name="lamppost2" parent="foreground/Node2D3" instance=ExtResource("4_i264g")]
-position = Vector2(844, 552)
-
-[node name="lamppost3" parent="foreground/Node2D3" instance=ExtResource("4_i264g")]
-position = Vector2(1244, 552)
-
 [node name="Node2D2" type="Node2D" parent="foreground"]
 position = Vector2(-1920, 0)
 
@@ -108,15 +89,6 @@ offset_top = -400.0
 offset_right = 1920.0
 offset_bottom = 600.0
 texture = ExtResource("2_cd8v0")
-
-[node name="lamppost" parent="foreground/Node2D2" instance=ExtResource("4_i264g")]
-position = Vector2(444, 552)
-
-[node name="lamppost2" parent="foreground/Node2D2" instance=ExtResource("4_i264g")]
-position = Vector2(844, 552)
-
-[node name="lamppost3" parent="foreground/Node2D2" instance=ExtResource("4_i264g")]
-position = Vector2(1244, 552)
 
 [node name="exit" type="Area2D" parent="."]
 

@@ -2,6 +2,8 @@ extends Equipment
 
 class_name Module;
 
+const type = "module"
+
 const size_x = 2;
 const size_y = 2;
 

@@ -11,7 +11,11 @@ var current_icons:Array[TextureRect]
 @export var skull_2:TextureRect
 @export var skull_3:TextureRect
 
+@export var cleared_sign:Panel;
+
+
 func load_settlement(target:Settlement)->void:
+	target.refresh_buildings()
 	reset()
 	if target.locations[0] is Building:
 		if target.data.seen:
@@ -30,8 +34,14 @@ func reset()->void:
 		current_icons[0].free()
 		current_icons.remove_at(0);
 	dungeon_data.hide()
+	cleared_sign.hide()
 
 func display_dungeon(target:Dungeon)->void:
+	if target.cleared:
+		dungeon_data.hide()
+		cleared_sign.show();
+		return
+	
 	target.refresh()
 	dungeon_data.show();
 	var danger_level:int = target.get_danger_level()

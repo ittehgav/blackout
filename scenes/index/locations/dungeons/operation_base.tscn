@@ -1,11 +1,65 @@
-[gd_scene load_steps=3 format=3 uid="uid://byprahh1mw3q7"]
+[gd_scene load_steps=16 format=3 uid="uid://byprahh1mw3q7"]
 
 [ext_resource type="Script" uid="uid://qm0sco0on2a5" path="res://scenes/in_settlement/locations/dungeon.gd" id="1_1q6nh"]
 [ext_resource type="Texture2D" uid="uid://dml870sw55dln" path="res://assets/visual/sprites/settlements/hideout_2.png" id="2_4olri"]
+[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout.tscn" id="2_rdoh2"]
+[ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/dungeon_roster.tscn" id="4_wuwmq"]
+[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="5_b0lvi"]
+[ext_resource type="PackedScene" uid="uid://c4s2cufch0vvv" path="res://scenes/index/items/accessories/external_processing_unit.tscn" id="6_jsa31"]
+[ext_resource type="PackedScene" uid="uid://dtd8165tljlor" path="res://scenes/index/items/accessories/forbidden_mask.tscn" id="7_514tx"]
+[ext_resource type="PackedScene" uid="uid://cr3hxwb2o42kl" path="res://scenes/index/items/accessories/forbidden_shoulders.tscn" id="8_qltu7"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="9_quygd"]
+[ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="10_ua6wa"]
+[ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="11_k48na"]
+[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="12_k8vc6"]
+[ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/allegiance_shifter.tscn" id="13_hkxjd"]
+[ext_resource type="PackedScene" uid="uid://dhognr0ie2huf" path="res://scenes/index/items/weapons/merciless_katana.tscn" id="14_8qmq3"]
+[ext_resource type="PackedScene" uid="uid://dch7fwggrtedg" path="res://scenes/index/items/weapons/toxic_grenade_launcher.tscn" id="15_8rxpv"]
 
-[node name="Operation Base" type="Node2D"]
+[node name="Operation Base" type="Node2D" node_paths=PackedStringArray("waves", "final_loot") groups=["all_locations"]]
 script = ExtResource("1_1q6nh")
 highest_level_target = 200
+waves = [NodePath("DungeonRoster"), NodePath("DungeonRoster2"), NodePath("DungeonRoster3")]
+tile_layout_scene = ExtResource("2_rdoh2")
+final_loot = NodePath("final_loot")
+size = 3
 map_texture = ExtResource("2_4olri")
-map_texture_modulate = Color(0.29, 0.1479, 0.1479, 1)
+map_texture_modulate = Color(0.5, 0.33333334, 0, 1)
 metadata/_custom_type_script = "uid://qm0sco0on2a5"
+
+[node name="DungeonRoster" parent="." node_paths=PackedStringArray("loot") instance=ExtResource("4_wuwmq")]
+loot = NodePath("basic_loot")
+
+[node name="basic_loot" parent="DungeonRoster" instance=ExtResource("5_b0lvi")]
+
+[node name="DungeonRoster2" parent="." node_paths=PackedStringArray("loot") instance=ExtResource("4_wuwmq")]
+loot = NodePath("basic_loot")
+
+[node name="basic_loot" parent="DungeonRoster2" instance=ExtResource("5_b0lvi")]
+
+[node name="DungeonRoster3" parent="." node_paths=PackedStringArray("loot") instance=ExtResource("4_wuwmq")]
+loot = NodePath("basic_loot")
+
+[node name="basic_loot" parent="DungeonRoster3" instance=ExtResource("5_b0lvi")]
+
+[node name="final_loot" parent="." instance=ExtResource("5_b0lvi")]
+
+[node name="External Processing Unit" parent="final_loot" instance=ExtResource("6_jsa31")]
+
+[node name="Forbidden Mask" parent="final_loot" instance=ExtResource("7_514tx")]
+
+[node name="Forbidden Shoulders" parent="final_loot" instance=ExtResource("8_qltu7")]
+
+[node name="Fuel Barrel" parent="final_loot" instance=ExtResource("9_quygd")]
+
+[node name="Juice Tank" parent="final_loot" instance=ExtResource("10_ua6wa")]
+
+[node name="Food Barrel" parent="final_loot" instance=ExtResource("11_k48na")]
+
+[node name="The Consumer" parent="final_loot" instance=ExtResource("12_k8vc6")]
+
+[node name="Allegiance Shifter" parent="final_loot" instance=ExtResource("13_hkxjd")]
+
+[node name="Merciless Katana" parent="final_loot" instance=ExtResource("14_8qmq3")]
+
+[node name="Toxic Grenade Launcher" parent="final_loot" instance=ExtResource("15_8rxpv")]

@@ -1,5 +1,5 @@
 ~ start
 Hoarder: Got any valuables you want to get rid of?
 - #trade_menu
-- #leave => END!
+- #leave
 

@@ -154,7 +154,7 @@ func _on_gui_input(e: InputEvent) -> void:
 					loot_command();
 					return;
 		else:
-			if e.button_index == MOUSE_BUTTON_LEFT and\
+			if e.button_index == MOUSE_BUTTON_LEFT and not display.choosing_item and\
 			(not display.inventory is ShopInventory or not item in display.inventory.resource_storage):
 				put_down();
 
@@ -209,8 +209,12 @@ func set_inventory_position(target:Vector2i)->void:
 
 func pick_up()->void:
 	if not display.inventory is ShopInventory or not item in display.inventory.resource_storage:
+		display.item_picked_up.emit(self);
+		if display.choosing_item:
+			## catches the click but doesn't pick up the item
+			return
+	
 		z_index += 1;
-		display.item_picked_up.emit();
 		item_under = self;
 		display.sfx.play_sound_by_key("pick_up");
 		tooltip.disable()
@@ -449,6 +453,7 @@ func trade_command()->void:
 	if item is ResourceContainer:
 		if stack_size == 0 and display.inventory is ShopInventory and item in display.inventory.resource_storage :
 			display.invalid_move.emit("CONTAINER NOT FOR SALE")
+			return
 		if item.raw_stack:
 			display.send_resource(self, stack_size);
 			return

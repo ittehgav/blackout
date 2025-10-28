@@ -75,8 +75,10 @@ func set_travel_data(target:Settlement)->void:
 func _on_button_pressed() -> void:
 	clear();
 	Entities.player_party.move_to_settlement(current_target)
+
 func _on_player_party_started_moving() -> void:
 	clear();
+
 func _on_world_map_camera_started_panning() -> void:
 	clear();
 

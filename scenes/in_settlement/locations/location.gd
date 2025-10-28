@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Location
 
-var pending_reset:bool=true;
+var pending_refresh:bool=true;
 ## refreshes will only be effectively made when dynamic data from the location is called for
 
 @export_range(1, 3) var size:int = 1;
@@ -20,3 +20,12 @@ var days_since_last_cycle:int=0
 
 func refresh()->void:
 	printerr("REFRESHMIOSSING ", name)
+
+func hours_for_next_reset()->int:
+	return (24 * (reset_cycle - days_since_last_cycle)) - Entities.world_map.current_hour
+
+func day_passed()->void:
+	days_since_last_cycle += 1;
+	if days_since_last_cycle == reset_cycle:
+		days_since_last_cycle = 0;
+		pending_refresh = true

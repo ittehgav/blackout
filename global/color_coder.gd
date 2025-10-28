@@ -8,34 +8,41 @@ const fighter_sprite_darkening = .35
 
 
 var fighter_base_texture_cache:Dictionary[int, Dictionary]
-func cache_fighter_base_texture(texture:Texture, scheme_index:int, base_name:String)->void:
+func cache_fighter_base_texture(texture:Texture, team_n:int, base_name:String)->void:
 	## because this cache is hit by 2 different methods
 	## TODO hue-based color-coding more comprehensible
-	if not scheme_index in fighter_base_texture_cache:
-		fighter_base_texture_cache[scheme_index] = {};
-	var hue_1:float = .2;
-	var hue_2:float;
-	match scheme_index:
-		1:
-			hue_2 = .37;
-		2:
-			hue_2 = 0
+	if not team_n in fighter_base_texture_cache:
+		fighter_base_texture_cache[team_n] = {};
+	var target_hue:float;
+	if team_n == 1:
+		target_hue = Index.player_team_color.h;
+	else:
+		target_hue = Index.enemy_team_color.h
 	
-	var new_texture:Texture = hue_shift_texture(texture, hue_1, hue_2);
-	fighter_base_texture_cache[scheme_index][base_name] = new_texture;
+	var new_texture:Texture = hue_shift_texture(texture, target_hue);
+	fighter_base_texture_cache[team_n][base_name] = new_texture;
 
-func color_code_fighter(fighter:ActiveFighter, scheme_index:int, sample:bool=false)->void:
+func check_fighter_base_cache(base:FighterBase, team_n:int)->bool:
+	if team_n in fighter_base_texture_cache and\
+	base.name in fighter_base_texture_cache[team_n]:
+		return true;
+	return false
+
+func color_code_fighter(fighter:ActiveFighter, team_n:int)->void:
 	var base:FighterBase = fighter.base
-	if not scheme_index in fighter_base_texture_cache or \
-	not base.name in fighter_base_texture_cache[scheme_index]:
-		cache_fighter_base_texture(base.texture, scheme_index,base.name)
-	base.texture = fighter_base_texture_cache[scheme_index][base.name]
+	if not check_fighter_base_cache(base, team_n):
+		cache_fighter_base_texture(base.texture, team_n,base.name)
+	base.texture = fighter_base_texture_cache[team_n][base.name]
 	
 	color_code_fighter_overlay(fighter.overlay, fighter.ally_team)
 
-	if not sample:
-		var outline_color:Color = Index.color_schemes[scheme_index][1].darkened(fighter_sprite_darkening)
-		base.material.set_shader_parameter("color", outline_color)
+	var outline_color:Color;
+	match team_n:
+		1:
+			outline_color = Index.player_team_color;
+		2:
+			outline_color = Index.enemy_team_color
+	base.material.set_shader_parameter("color", outline_color)
 
 func color_code_fighter_overlay(target:FighterOverlay, team:Team)->void:
 	var hp_bar_color:Color;
@@ -50,7 +57,7 @@ func color_code_fighter_overlay(target:FighterOverlay, team:Team)->void:
 	target.bg.color = hp_bar_color + Color.from_hsv(0, 0, -.5)
 
 
-func color_code_fighter_base_texture(base:FighterBase, scheme_index:int)->Texture:
+func color_code_fighter_base_texture(base:FighterBase, scheme_index:int=1)->Texture:
 	if not scheme_index in fighter_base_texture_cache or not\
 	base.name in fighter_base_texture_cache[scheme_index]:
 		cache_fighter_base_texture(base.texture, scheme_index, base.name);
@@ -58,7 +65,7 @@ func color_code_fighter_base_texture(base:FighterBase, scheme_index:int)->Textur
 	return fighter_base_texture_cache[scheme_index][base.name];
 
 
-func hue_shift_texture(texture:Texture2D, main_hue:float = .5, secondary_hue:float = .2)->Texture:
+func hue_shift_texture(texture:Texture2D, target_hue:float)->Texture:
 	var img:Image = texture.get_image();
 	
 	var width:int = img.get_width();
@@ -66,11 +73,8 @@ func hue_shift_texture(texture:Texture2D, main_hue:float = .5, secondary_hue:flo
 	for y in height:
 		for x in width:
 			var color:Color = img.get_pixel(x, y);
-			if color.a:
-				if color.h == 0:
-					color.h = secondary_hue;
-				else:
-					color.h = main_hue
+			if color.a and color.h == 0:
+				color.h = target_hue;
 			img.set_pixel(x, y, color);
 	var final_texture: = ImageTexture.create_from_image(img)
 	return final_texture
@@ -79,7 +83,7 @@ func hue_shift_texture(texture:Texture2D, main_hue:float = .5, secondary_hue:flo
 var vehicle_texture_cache:Dictionary[String, Texture];
 func color_code_vehicle(vehicle:Vehicle, leader:Leader)->void:
 		if not leader.name in vehicle_texture_cache:
-			var target_color:Color = Index.color_schemes[leader.color_scheme_index][1];
+			var target_color:Color = Index.player_team_color;
 
 			var dict:= {
 				Color.RED: Index.day_reflection_color,
@@ -109,9 +113,8 @@ func color_code_prop(prop:Sprite2D, texture_index:int, large:bool=false)->void:
 		cache[texture_index] = color_code_texture(prop.texture, dict);
 	prop.texture = cache[texture_index];
 
-var unit_texture_cache:Dictionary[String, Texture]
-func color_code_unit(sprite:Sprite2D)->void:
-	sprite.texture = hue_shift_texture(sprite.texture);
+
+
 	
 
 func color_code_texture(texture:Texture2D, pairs:Dictionary)->Texture:

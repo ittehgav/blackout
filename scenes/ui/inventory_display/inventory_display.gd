@@ -6,7 +6,7 @@ signal warnings_attended(clear:bool)
 
 signal item_received;
 
-signal item_picked_up;
+signal item_picked_up(mirror:ItemMirror);
 signal item_dropped(mirror:ItemMirror);
 signal invalid_move(message:String);
 
@@ -51,9 +51,6 @@ var size_x:int;
 var size_y:int;
 
 
-
-
-
 var inventory:Inventory;
 
 const grid_cell_size = 48;
@@ -90,6 +87,7 @@ var chips_containers:Array[ItemMirror]
 var held_item_mirror:ItemMirror;
 
 var grid_set:bool=false;
+var choosing_item:bool=false;
 
 @export var food_icon:ResourceIcon
 
@@ -101,12 +99,15 @@ func _ready()->void:
 var pre_trade_inventory:Inventory
 var pre_trade_stack_sizes:Dictionary[ResourceContainer, int]
 var pre_trade_inventory_positions:Dictionary[Item, Vector2]
+var pre_trade_resource_counts:Dictionary[String, int]
+
 func set_reset_state()->Inventory:
 	## mirrors here are already properly positioned and set to just get
 	## added into the display as freshly-loaded mirrors
 	pre_trade_inventory = inventory.duplicate()
 
-	
+	for r:String in Index.all_resources:
+		pre_trade_resource_counts[r] = inventory[r];
 	for c:ResourceContainer in pre_trade_inventory.containers:
 		pre_trade_stack_sizes[c] = c.stack_size;
 	for item:Item in pre_trade_inventory.items:
@@ -120,6 +121,7 @@ func reset_inventory()->void:
 	
 	
 	inventory.empty_inventory();
+	print(len(inventory.containers), " aa")
 
 	while len(pre_trade_inventory.items):
 		var item:Item = pre_trade_inventory.items[0]
@@ -128,8 +130,12 @@ func reset_inventory()->void:
 		item.inventory_position = pre_trade_inventory_positions[item];
 
 	for c:ResourceContainer in inventory.containers:
-		c.stack_size = pre_trade_stack_sizes[c];
+		if pre_trade_stack_sizes.has(c):
+			c.stack_size = pre_trade_stack_sizes[c];
+	for r:String in Index.all_resources:
+		inventory[r] = pre_trade_resource_counts[r]
 	hard_reset()
+
 
 
 func set_grid()->void:
@@ -344,6 +350,7 @@ func throw_mirror(item_mirror:ItemMirror, add_to_grid:bool=false)->void:
 func receive_resource(amount:int, resource:String)->int:
 	var returned:int = 0;
 	amount = store_resource(amount, resource);
+	amount = store_resource(amount, resource);
 	while amount:
 		var raw_stack:ResourceContainer = Index.scenes.items[resource+"_stack"].instantiate();
 		inventory.add_item(raw_stack);
@@ -391,13 +398,16 @@ func send_resource(source:ItemMirror, amount:int)->void:
 	else:
 		var returned:int = exchanging_display.receive_resource(amount, source.item.resource);
 		sent -= returned
+		print(source.stack_size)
 		source.change_stack_size(-sent)
+		print(source.stack_size)
 	
 		source.highlight_stack_label()
 		item_dropped.emit(source, "trade");
 		
 	inventory.refresh_resource_counts();
 	exchanging_display.inventory.refresh_resource_counts()
+	
 	exchanging_display.item_received.emit()
 
 		
@@ -625,37 +635,52 @@ func sort_inventory()->void:
 func store_resource(amount:int, resource:String)->int:
 	var initial_amount:int = amount;
 	var remaining:int = amount;
-		
-	var containers:Array[ItemMirror] = self[resource+"_containers"].filter(\
-		func(mirror:ItemMirror)->bool:return not mirror.item.raw_stack);
+	if not inventory is ShopInventory:
+		var containers:Array[ItemMirror] = self[resource+"_containers"].filter(\
+			func(mirror:ItemMirror)->bool:return not mirror.item.raw_stack);
 
-	containers.sort_custom(sort_container_mirrors);
+		containers.sort_custom(sort_container_mirrors);
 
-	for container_mirror:ItemMirror in containers:
-		if remaining:
-			if container_mirror.space_left():
-				if container_mirror.space_left() >= remaining:
-					container_mirror.change_stack_size(remaining)
-					container_mirror.highlight_stack_label();
-					play_deposit_sfx(remaining, resource);
-					if context == "trade":
-						item_dropped.emit(container_mirror, "trade")
-					elif context == "loot":
-						item_dropped.emit(container_mirror, "loot")
-					elif context == "player_sheet":
-						item_dropped.emit(container_mirror);
-					remaining = 0;
+		for container_mirror:ItemMirror in containers:
+			if remaining:
+				if container_mirror.space_left():
+					if container_mirror.space_left() >= remaining:
+						container_mirror.change_stack_size(remaining)
+						container_mirror.highlight_stack_label();
+						play_deposit_sfx(remaining, resource);
+						if context == "trade":
+							item_dropped.emit(container_mirror, "trade")
+						elif context == "loot":
+							item_dropped.emit(container_mirror, "loot")
+						elif context == "player_sheet":
+							item_dropped.emit(container_mirror);
+						remaining = 0;
+					else:
+						var to_add:int = container_mirror.space_left();
+						container_mirror.change_stack_size(to_add)
+						container_mirror.highlight_stack_label();
+						remaining -= to_add
+						if context == "trade":
+							item_dropped.emit(container_mirror, "trade")
+						elif context == "loot":
+							item_dropped.emit(container_mirror, "loot")
+						elif context == "player_sheet":
+							item_dropped.emit(container_mirror);
+	else:
+		while amount:
+			var stack:ResourceContainer = Index.scenes.items[resource+"_stack"].instantiate()
+			if stack.mirror_only:
+				stack.stack_size = amount;
+				amount = 0;
+			else:
+				if stack.capacity < amount:
+					stack.stack_size = stack.capacity;
+					amount -= stack.capacity;
 				else:
-					var to_add:int = container_mirror.space_left();
-					container_mirror.change_stack_size(to_add)
-					container_mirror.highlight_stack_label();
-					remaining -= to_add
-					if context == "trade":
-						item_dropped.emit(container_mirror, "trade")
-					elif context == "loot":
-						item_dropped.emit(container_mirror, "loot")
-					elif context == "player_sheet":
-						item_dropped.emit(container_mirror);
+					stack.stack_size = amount;
+					amount = 0;
+				var mirror:ItemMirror = mirror_item(stack);
+				throw_mirror(mirror)
 
 	if initial_amount != remaining:
 		play_deposit_sfx((remaining - initial_amount) * -1, resource)
@@ -686,7 +711,7 @@ func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
 	refresh_data();
 	board_shake(5)
 
-func _on_item_picked_up() -> void:
+func _on_item_picked_up(_mirror:ItemMirror) -> void:
 	board_shake()
 
 var shake_tween:Tween;
@@ -755,21 +780,21 @@ func play_deposit_sfx(amount_deposited:int, resource:String)->void:
 	match resource:
 		"food":
 			if amount_deposited <= 10:
-				sfx.play_sound_by_key("deposit_food_small");
+				sfx.play_item_sfx("deposit_food_small");
 			else:
-				sfx.play_sound_by_key("deposit_food_big");
+				sfx.play_item_sfx("deposit_food_big");
 		"fuel", "juice":
 			if amount_deposited <= 10:
-				sfx.play_sound_by_key("deposit_liquid_small");
+				sfx.play_item_sfx("deposit_liquid_small");
 			else:
-				sfx.play_sound_by_key("deposit_liquid_big");
+				sfx.play_item_sfx("deposit_liquid_big");
 		"scrap":
 			if amount_deposited <= 10:
-				sfx.play_sound_by_key("deposit_scrap_small");
+				sfx.play_item_sfx("deposit_scrap_small");
 			else:
-				sfx.play_sound_by_key("deposit_scrap_big")
+				sfx.play_item_sfx("deposit_scrap_big")
 		"chips":
-			sfx.play_sound_by_key("deposit_chips")
+			sfx.play_item_sfx("deposit_chips")
 
 
 
@@ -786,7 +811,7 @@ func _on_inventory_grid_resized() -> void:
 	cargo_space.size.x = size_x * 48
 	
 
-
+	
 func _on_opened() -> void:
 	if from_player:
 		inventory = Entities.player.inventory

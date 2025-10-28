@@ -31,6 +31,8 @@ func animation_callback(display:Control)->void:
 	var target:int = (inv.capacity_x+1) * inv.capacity_y;
 	var tween:Tween = create_tween();
 	tween.tween_method(set_label_text, current, target, 1);
+	await tween.finished;
+	animation_finished.emit()
 
 func apply()->void:
 	## for now just give it one col but maybe eventually start with a smaller y size?

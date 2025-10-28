@@ -71,6 +71,7 @@ func load_option(card:RecruitmentCard)->void:
 	flavor_label.text = unit.base.flavor;
 	
 	stats.source = unit
+	stats.update()
 
 	recruit_button.text = "Recruit - $"+str(current_price)
 	recruit_button.disabled = Entities.player.inventory.money < current_price;

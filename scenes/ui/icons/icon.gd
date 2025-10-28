@@ -59,15 +59,18 @@ func _on_mouse_exited() -> void:
 	modulate = default_color;
 	label.add_theme_color_override("font_color", default_color)
 
+func animated_update()->void:
+	printerr("animatedupdatemissing ", name)
+
 func update()->void:
 	## normalize this by making a method that get the value so this method doesn't propagate?
 	## more complex than just propagating this?
-	printerr("updatemissing")
+	printerr("updatemissing ", name)
 
 func get_color()->Color:
-	printerr("gcolormissing")
+	printerr("gcolormissing ", name)
 	return Color.DEEP_PINK
 
 func get_icon_texture()->Texture:
-	printerr("gtexturemissing");
+	printerr("gtexturemissing ", name);
 	return Texture.new();

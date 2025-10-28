@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c8x1fy6ibwul3" path="res://assets/visual/items/consumables/apple_sticker.png" id="1_qh353"]
 [ext_resource type="Script" uid="uid://dbkde7jy1paes" path="res://scenes/index/items/consumables/scripts/apple_sticker.gd" id="2_jw2ka"]
-[ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="3_jw2ka"]
+[ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="3_jw2ka"]
 
 [node name="Apple Sticker" type="Sprite2D"]
 texture = ExtResource("1_qh353")

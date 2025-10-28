@@ -64,5 +64,5 @@ func _on_button_pressed() -> void:
 	## world map's call happens after world_map is back into the tree 
 	## from the call that brought it back
 	Entities.main.set_scenario("world_map")
-
+	await Entities.main.scenario_changed
 	get_parent().queue_free();

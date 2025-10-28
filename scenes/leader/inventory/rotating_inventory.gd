@@ -9,6 +9,7 @@ var current_item_type:String
 
 func refresh_inventory()->void:
 	current_item_type = ["accessory", "consumable", "module", "weapon"].pick_random()
+	name = current_item_type.capitalize() + " Smuggler"
 	var pool:Array[Item] = self[current_item_type+"_pool"]
 	item_pool.clear();
 	for item:Item in pool:

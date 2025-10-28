@@ -1,5 +1,7 @@
 extends Control
 
+class_name WaveSample;
+
 @export var broken_skull:TextureRect
 @export var skull:TextureRect
 @export var chest:TextureRect
@@ -36,20 +38,26 @@ func load_roster(dungeon:Dungeon, wave_n:int)->void:
 			skull.custom_minimum_size = Vector2(96, 96);
 			skull.material.set_shader_parameter("color", Color.RED)
 			skull.material.set_shader_parameter("width", 2)
-	if roster.loot.rare_count:
+	if wave_n == len(dungeon.waves):
 		chest.show()
 
 func load_cleared()->void:
+	skull.hide()
 	broken_skull.show();
 	tooltip.hardcoded_description = "You have already defeated this wave.";
 
-func cleared_animation()->void:
+func cleared_animation()->Tween:
 	var tween:Tween = create_tween();
 	tween.tween_property(skull, "scale", skull.scale * 1.5, .5)
 	tween.parallel().tween_property(skull, "material:shader_parameter/width", 4, .5);
 	tween.tween_property(skull, "scale", skull.scale, .25);
 	tween.parallel().tween_property(skull, "modulate:a", 0, .25)
 	tween.tween_callback(turn_cleared)
+	
+	if chest.visible:
+		## silly way to do this constraint?
+		pass
+	return tween;
 
 
 func turn_cleared()->void:

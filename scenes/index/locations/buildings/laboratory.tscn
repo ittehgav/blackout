@@ -17,10 +17,11 @@
 [ext_resource type="PackedScene" uid="uid://dch7fwggrtedg" path="res://scenes/index/items/weapons/toxic_grenade_launcher.tscn" id="12_ov11c"]
 [ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="13_yt32p"]
 
-[node name="Laboratory" type="Node2D" node_paths=PackedStringArray("inventory") groups=["all_locations"]]
+[node name="Laboratory" type="Node2D" node_paths=PackedStringArray("inventory", "roster") groups=["all_locations"]]
 script = ExtResource("1_12vat")
 front_porch_scene = ExtResource("3_rxfth")
 inventory = NodePath("ShopInventory")
+roster = NodePath("Building Roster")
 evolve_option = "scientist"
 icon_texture = ExtResource("2_7eaf0")
 metadata/_custom_type_script = "uid://lf67nwuvdmnt"

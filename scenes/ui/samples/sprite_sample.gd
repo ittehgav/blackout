@@ -4,6 +4,7 @@ class_name SpriteSample;
 
 @export var target_base:Sprite2D=null;
 @export var additional_data:Label;
+@export var anchor:Control
 
 @export var tooltip:Tooltip;
 
@@ -12,18 +13,23 @@ class_name SpriteSample;
 
 @export var target_scale:Vector2 = Vector2.ONE
 
-func set_sample(target:Sprite2D)->void:
+func set_sample(target:FighterBase)->void:
+	if target_base:
+		## so a sample can load units and replace them
+		target_base.queue_free();
+	
+
 	target_base = target.duplicate();
-	target_base.centered = false
+	target_base.texture = ColorCoder.color_code_fighter_base_texture(target, 1)
+	
 	target_base.scale = target_scale
-	add_child(target_base)
+	anchor.add_child(target_base)
+	target_base.position = Vector2.ZERO;
 	target.clear_for_sample.call_deferred()
 	target_base.z_index = 5
 
-	target_base.position = Vector2(450, -100)
 	
 	
-	target_base.offset.x -= 5 * target_scale.x
 	if not target_base is PlayerFighterBase:
 		target_base.set_material(null)
 		set_rectangle();
@@ -38,7 +44,6 @@ func set_rectangle()->void:
 		custom_minimum_size = sample_size;
 		size = sample_size;
 		if target_base is FighterBase and not target_base is PlayerFighterBase:
-			target_base.position.y += sample_size.y/3;
 			mouse_entered.connect(show_panel);
 			mouse_exited.connect(hide_panel)
 			custom_minimum_size.x /= 12
@@ -46,9 +51,6 @@ func set_rectangle()->void:
 
 func set_tooltip()->void:
 	if add_tooltip:
-		if tooltip:
-			tooltip.free();
-
 		tooltip = Index.scenes.ui.tooltip.instantiate();
 		tooltip.target = target_base;
 

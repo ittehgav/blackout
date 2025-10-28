@@ -28,7 +28,8 @@ func _ready()->void:
 	
 	
 func set_stat_label_text(target:float)->void:
-	stat_label.text = str(snapped(target, .01));
+	if is_instance_valid(stat_label):
+		stat_label.text = str(snapped(target, .01));
 
 
 func animation_callback(display:Control)->void:
@@ -45,6 +46,10 @@ func animation_callback(display:Control)->void:
 
 	var tween:Tween = create_tween();
 	tween.tween_method(set_stat_label_text, current, target_value, 1);
+	
+	await tween.finished;
+	animation_finished.emit()
+	
 
 
 func apply()->void:

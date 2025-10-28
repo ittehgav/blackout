@@ -125,6 +125,9 @@ func item_setup(item:Item)->void:
 	var target_name:String = item.name;
 	while target_name[-1].is_valid_int():
 		target_name = target_name.left(-1);
+	if item is Weapon or item is Module:
+		var cd:String = str(snapped(item.final_cooldown(), .01))
+		description_label.text += "Cooldown: " + cd+"\n"
 	if item.applied_modifier:
 		var modifier:ItemModifier = item.applied_modifier;
 		if modifier.prefix:

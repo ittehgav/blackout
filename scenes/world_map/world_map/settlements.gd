@@ -1,15 +1,19 @@
 extends Node2D
 
-const spawn_range = 5000
+const spawn_range = 10000
 
-const total_settlements = 20;
+const total_settlements = 40;
 
 @export var all_location_scenes:Array[PackedScene];
+
+var building_pool:Array[Building];
+var dungeon_pool:Array[Dungeon]
+const dungeon_rate = .3
 
 @export var road:RoadGrid;
 @export var fog:TileMapLayer
 
-var location_pool:Array[Location]
+
 
 func _ready()->void:
 	generate_settlements();
@@ -17,7 +21,11 @@ func _ready()->void:
 
 func generate_settlements()->void:
 	for scene:PackedScene in all_location_scenes:
-		location_pool.append(scene.instantiate())
+		var location:Location = scene.instantiate();
+		if location is Building:
+			building_pool.append(location);
+		elif location is Dungeon:
+			dungeon_pool.append(location)
 	
 	var all_settlements:Array[Settlement] = [Entities.player_party.current_settlement]
 	
@@ -35,7 +43,13 @@ func generate_settlements()->void:
 		
 		settlement.position = roll
 		all_settlements.append(settlement);
-		populate_settlement(settlement)
+		
+		var type_roll:float = randf_range(0.0, 1.0);
+		var type:String = "regular";
+		if type_roll < dungeon_rate:
+			type = "dungeon"
+		populate_settlement(settlement, type)
+		
 		
 		add_child(settlement)
 	
@@ -45,18 +59,23 @@ func generate_settlements()->void:
 	road.generate_roads(all_settlements);
 	fog.refresh_fog()
 
-func populate_settlement(settlement:Settlement)->void:
+func populate_settlement(settlement:Settlement, type:String)->void:
 	## TODO make it so this makes an even-ish spread of the buildings?
 	var current_locations:Array[String]
 	while space_taken(settlement) < 3:
 		## rigth now all dungeons are size 3 so there's no chance of overlap
-		var location:Location = location_pool.pick_random();
+		var location:Location;
+		if type == "dungeon":
+			location = dungeon_pool.pick_random();
+		else:
+			location = building_pool.pick_random()
 		if location.name not in current_locations and location.size + space_taken(settlement) <=3:
 			var b:Location = location.duplicate()
+
 			settlement.locations.append(b);
 			current_locations.append(location.name)
 			settlement.add_child(b)
-	
+
 	
 func space_taken(settlement:Settlement)->int:
 	var total:int = 0;

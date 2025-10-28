@@ -5,24 +5,30 @@ class_name Dungeon
 var cleared:bool=false
 
 ## for transitioning between waves/into main menu
+## starts at 1 so the number curresponds to how they're enumerated to the player
 var current_wave:int = 1;
+
+@onready var settlement:Settlement = get_parent()
 
 @export var highest_level_target:int;
 
 @export var waves:Array[DungeonRoster];
 @export var tile_layout_scene:PackedScene
 
+@export var final_loot:LootInventory;
+
+
 
 func refresh()->void:
-	## adopt this standart to all locations
-	if pending_reset:
-		generate_waves()
-		
+	## called when generated as well as when needed and pending
+	generate_waves()
+	pending_refresh = false
+	settlement.refresh()
 
 func generate_waves() -> void:
 	cleared = false;
 	for i:int in len(waves):
-		var wave:Roster = waves[i]
+		var wave:Roster = waves[i];
 		var target_level:int = highest_level_target/(len(waves) - i)
 		wave.generate_units(target_level)
 		wave.loot.generate_loot(wave.get_level())
@@ -45,10 +51,21 @@ func get_current_wave()->DungeonRoster:
 
 func wave_defeated()->void:
 	current_wave += 1;
+	print("cwave? ", current_wave)
+	if current_wave > len(waves):
+		print("clear?")
+		cleared = true
 	
 func on_battle_ended(player_won:bool)->void:
 	if player_won:
 		wave_defeated();
 
-func day_passed()->void:
-	pending_reset = true
+func roll_loot()->Array[Item]:
+	var loot:Array[Item];
+	while len(loot) < 3:
+		## where tweaks to rarity rates will happen as the game escalatees?
+		## dungeon level related?
+		var roll:Item = final_loot.item_pool.pick_random();
+		if not (roll in loot):
+			loot.append(roll.duplicate(DUPLICATE_USE_INSTANTIATION));
+	return loot;

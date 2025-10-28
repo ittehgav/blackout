@@ -19,7 +19,7 @@ extends PanelContainer
 
 func display_current_settlement(target:Settlement = Entities.player_party.current_settlement)->void:
 	main_text_label.text = target.unique_name;
-	sub_text_label.text = "[spacebar] enter"
+	sub_text_label.hide()
 	
 	var settlement_texture:Texture2D = target.sprite.texture
 	var texture_size:Vector2 =  settlement_texture.get_size();
@@ -53,6 +53,7 @@ func _on_player_party_started_moving() -> void:
 	settlement_sign.hide();
 	road_sprite.show();
 	
+	sub_text_label.show()
 	main_text_label.text = "Traveling...";
 	sub_text_label.text = "[spacebar] speed up time"
 	

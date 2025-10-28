@@ -3,5 +3,5 @@ Receptionist: Hello, looking for some muscle for your party? Or for yourself?
 - #trade_menu
 - #recruitment_menu
 - #evolution_menu
-- #leave => END!
+- #leave
  

@@ -16,7 +16,7 @@ func _physics_process(_delta: float) -> void:
 		panning = false;
 
 const min_zoom = Vector2(.25, .25);
-const max_zoom = Vector2(2, 2)
+const max_zoom = Vector2(1, 1)
 var zoom_moving:bool=false;
 func _input(e:InputEvent)->void:
 	## HIGHER ZOOM = FARTHER

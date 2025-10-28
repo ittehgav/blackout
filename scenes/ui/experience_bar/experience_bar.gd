@@ -81,7 +81,8 @@ func level_up_animation(tween:Tween)->void:
 
 
 func level_up_feedback()->void:
-	level_up_sfx.play();
+	if from_player:
+		level_up_sfx.play();
 	
 	floating_text()
 	

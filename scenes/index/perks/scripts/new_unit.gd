@@ -25,6 +25,8 @@ func floating_party_icon()->void:
 	tween.tween_property(party_icon, "position:y", party_icon.position.y-20, .5);
 	tween.tween_property(party_icon, "modulate:a", 0, .5);
 	tween.tween_callback(party_icon.queue_free)
+	await tween.finished;
+	animation_finished.emit()
 
 
 func animation_callback(display:Control)->void:
@@ -38,6 +40,8 @@ func animation_callback(display:Control)->void:
 	floating_party_icon()
 	var tween:Tween = create_tween();
 	tween.tween_property(panel, "scale", Vector2.ONE, 1);
+	await tween.finished;
+	animation_finished.emit()
 
 func apply()->void:
 	var unit:FighterUnit = Index.scenes.fighter_unit.instantiate();

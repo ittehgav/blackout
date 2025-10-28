@@ -29,6 +29,7 @@ func load_stats(target:CombatStats)->void:
 
 
 func update()->void:
+	print("updez?")
 	load_stats(source.final_stats())
 
 func refresh_animation()->void:

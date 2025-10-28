@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://buyf7yy7iuctf"]
+[gd_scene load_steps=7 format=3 uid="uid://buyf7yy7iuctf"]
 
 [ext_resource type="Script" uid="uid://du81q231ub1bd" path="res://scenes/world_map/settlement/settlement.gd" id="1_wrcnd"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="2_vl27p"]
 [ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="5_ml6fn"]
 [ext_resource type="Script" uid="uid://dhcrswpod16rq" path="res://scenes/world_map/settlement/settlement_data.gd" id="5_pghvl"]
 [ext_resource type="Texture2D" uid="uid://bcfyp2vbcmtvh" path="res://assets/visual/sprites/settlements/street.png" id="6_ml6fn"]
+[ext_resource type="Texture2D" uid="uid://c6nki5lsuoqd1" path="res://assets/visual/sprites/settlements/special/flag.png" id="6_tsbcf"]
 
-[node name="Settlement" type="Node2D" node_paths=PackedStringArray("data", "sprite", "hover_box", "hint") groups=["all_settlements"]]
+[node name="Settlement" type="Node2D" node_paths=PackedStringArray("data", "sprite", "hover_box", "hint", "flag") groups=["all_settlements"]]
 process_mode = 3
 material = ExtResource("2_vl27p")
 script = ExtResource("1_wrcnd")
@@ -14,6 +15,7 @@ data = NodePath("settlement_data")
 sprite = NodePath("sprite")
 hover_box = NodePath("hover_box")
 hint = NodePath("hint")
+flag = NodePath("flag")
 
 [node name="settlement_data" type="Node" parent="."]
 script = ExtResource("5_pghvl")
@@ -49,6 +51,13 @@ z_index = -1
 position = Vector2(0, 14)
 scale = Vector2(4, 2)
 texture = ExtResource("5_ml6fn")
+
+[node name="flag" type="Sprite2D" parent="."]
+visible = false
+z_index = 2
+position = Vector2(10.000002, -58)
+scale = Vector2(6, 6)
+texture = ExtResource("6_tsbcf")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="player_visited" from="." to="." method="_on_player_visited"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=75 format=3 uid="uid://dphiet8wg7sd"]
+[gd_scene load_steps=88 format=3 uid="uid://dphiet8wg7sd"]
 
 [ext_resource type="Script" uid="uid://d0rxta3ju0m4" path="res://scenes/world_map/world_map/world_map.gd" id="1_irndy"]
 [ext_resource type="Script" uid="uid://wrywd826l7x3" path="res://scenes/world_map/world_map/world_map_sfx.gd" id="2_omxek"]
 [ext_resource type="AudioStream" uid="uid://bfbxg7q2ia2ej" path="res://assets/sound/sfx/world_map/movement_start.wav" id="3_fnjxc"]
+[ext_resource type="PackedScene" uid="uid://pdygvkib8khb" path="res://scenes/index/items/consumables/apple_sticker.tscn" id="3_rnh6x"]
 [ext_resource type="AudioStream" uid="uid://iiwod51go8ml" path="res://assets/sound/sfx/world_map/settlement_contact.wav" id="4_b2tqr"]
+[ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="4_fuwqy"]
 [ext_resource type="Script" uid="uid://cu3jtddlsid3a" path="res://scenes/world_map/world_map/minute_ticker.gd" id="5_1glhv"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="5_5k4yq"]
 [ext_resource type="Texture2D" uid="uid://cpoknj8hpjvcc" path="res://assets/visual/tiles/road_highlight.png" id="6_1glhv"]
@@ -19,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cw53baq4lbbfw" path="res://scenes/world_map/ui/hud/marker.gd" id="17_cp71w"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="17_m17yv"]
 [ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="17_rnh6x"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="17_ulpn3"]
 [ext_resource type="Script" uid="uid://cxnw2ya80gkuv" path="res://scenes/world_map/world_map/world_map_camera.gd" id="18_beb05"]
 [ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="18_gu5rp"]
 [ext_resource type="PackedScene" uid="uid://buyf7yy7iuctf" path="res://scenes/world_map/settlement/settlement.tscn" id="19_kulxh"]
@@ -47,106 +50,29 @@
 [ext_resource type="Script" uid="uid://kftfgl28inq5" path="res://scenes/world_map/world_map/settlements.gd" id="45_cb2tt"]
 [ext_resource type="Script" uid="uid://e26cpfgp8ja0" path="res://scenes/world_map/world_map/environment_color.gd" id="46_fuwqy"]
 [ext_resource type="PackedScene" uid="uid://b31rsrhwu68hd" path="res://scenes/world_map/world_map/main_hud.tscn" id="47_3x04a"]
+[ext_resource type="PackedScene" uid="uid://cvr56itteo5k8" path="res://scenes/index/locations/dungeons/boss_stronghold.tscn" id="48_s7sax"]
+[ext_resource type="PackedScene" uid="uid://byprahh1mw3q7" path="res://scenes/index/locations/dungeons/operation_base.tscn" id="49_h33nr"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="49_x2ygm"]
 [ext_resource type="PackedScene" uid="uid://cccnmfam28gyo" path="res://scenes/world_map/world_map/dungeon_prompt/wave_sample.tscn" id="50_eunnb"]
 [ext_resource type="PackedScene" uid="uid://c2um7mypog4cw" path="res://scenes/index/locations/buildings/laboratory.tscn" id="51_gu5rp"]
+[ext_resource type="AudioStream" uid="uid://d12w7jrykipw" path="res://assets/sound/sfx/world_map/dungeon_loot.wav" id="51_m17yv"]
 [ext_resource type="Texture2D" uid="uid://c73bxxu7jqbgu" path="res://assets/visual/icons/misc/dungeon_wave_divider.png" id="51_x2ygm"]
 [ext_resource type="PackedScene" uid="uid://bl2vwwohl6yjy" path="res://scenes/index/locations/buildings/factory.tscn" id="52_alobk"]
+[ext_resource type="AudioStream" uid="uid://bcyhaljn2cynp" path="res://assets/sound/sfx/ui/dungeon_cleared.wav" id="53_r03dh"]
+[ext_resource type="Script" uid="uid://cmry4y46yo6x7" path="res://scenes/world_map/world_map/dungeon_loot_option.gd" id="54_2vhqf"]
+[ext_resource type="Script" uid="uid://pl5db4cm1i1l" path="res://scenes/world_map/world_map/loot_overlay.gd" id="54_bwi7y"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="54_omir2"]
+[ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="57_bwi7y"]
 [ext_resource type="Script" uid="uid://btb6lwcqdeb0e" path="res://scenes/ui/ui_root.gd" id="69_2irgy"]
 [ext_resource type="Script" uid="uid://dswpfdpni2xxc" path="res://scenes/world_map/world_map/enter_btn.gd" id="69_x5mo2"]
 [ext_resource type="Script" uid="uid://gp3350pfvmie" path="res://scenes/world_map/world_map/dungeon_prompt/dungeon_prompt.gd" id="70_cb2tt"]
 
-[sub_resource type="Shader" id="Shader_4frhf"]
-code = "shader_type canvas_item;
+[sub_resource type="CircleShape2D" id="CircleShape2D_2vhqf"]
+radius = 390.17
 
-uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
-uniform float grad:hint_range(0.0, 1.0);
-
-
-uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
-uniform float width : hint_range(0, 10) = 1.0;
-uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
-uniform bool inside = false;
-uniform bool add_margins = true; // only useful when inside is false
-uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
-
-varying flat vec4 modulate;
-
-void vertex() {
-	modulate = COLOR;
-
-	if (add_margins) {
-		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
-			VERTEX += (UV * 2.0 - 1.0) * width;
-		} else {
-			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
-		}
-	}
-}
-
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
-	for (float i = -ceil(width); i <= ceil(width); i++) {
-		float x = abs(i) > width ? width * sign(i) : i;
-		float offset;
-
-		if (pattern == 0) {
-			offset = width - abs(x);
-		} else if (pattern == 1) {
-			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
-		} else if (pattern == 2) {
-			offset = width;
-		}
-
-		for (float j = -ceil(offset); j <= ceil(offset); j++) {
-			float y = abs(j) > offset ? offset * sign(j) : j;
-			vec2 xy = uv + texture_pixel_size * vec2(x, y);
-
-			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-
-void fragment(){
-
-	// OUTLINE
-
-	vec2 uv = UV;
-	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
-	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
-
-	if (add_margins) {
-		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
-
-		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
-
-		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
-			COLOR.a = 0.0;
-		} else {
-			COLOR = texture(TEXTURE, uv) * modulate;
-		}
-	} else {
-		COLOR = texture(TEXTURE, uv) * modulate;
-	}
-
-	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
-		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
-	}
-
-	// BLINK ANIMATIONS
-	if(grad != 0.0 && COLOR.a != 0.0){
-		COLOR = mix(COLOR, target_color, grad);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2ygm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7sax"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = ExtResource("17_ulpn3")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -156,9 +82,9 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(3, 3)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m17yv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h33nr"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = ExtResource("17_ulpn3")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -168,9 +94,9 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(3, 3)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_omir2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t8y4u"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = ExtResource("17_ulpn3")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -194,107 +120,82 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/terrains_peering_bit/top_left_corner = 0
 0:0/0/terrains_peering_bit/top_side = 0
 0:0/0/terrains_peering_bit/top_right_corner = 0
-1:0/next_alternative_id = 4
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_right_corner = 0
+0:1/0/terrains_peering_bit/top_left_corner = 0
+0:1/0/terrains_peering_bit/top_side = 0
+0:1/0/terrains_peering_bit/top_right_corner = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/terrains_peering_bit/right_side = 0
+0:2/0/terrains_peering_bit/bottom_right_corner = 0
+0:2/0/terrains_peering_bit/bottom_side = 0
+0:2/0/terrains_peering_bit/bottom_left_corner = 0
+0:2/0/terrains_peering_bit/left_side = 0
+0:2/0/terrains_peering_bit/top_left_corner = 0
+0:2/0/terrains_peering_bit/top_side = 0
+0:2/0/terrains_peering_bit/top_right_corner = 0
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+0:3/0/terrains_peering_bit/right_side = 0
+0:3/0/terrains_peering_bit/bottom_right_corner = 0
+0:3/0/terrains_peering_bit/top_left_corner = 0
+0:3/0/terrains_peering_bit/top_side = 0
+0:3/0/terrains_peering_bit/top_right_corner = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/terrains_peering_bit/top_left_corner = 0
 1:0/0 = 0
 1:0/0/terrain_set = 0
 1:0/0/terrain = 0
 1:0/0/terrains_peering_bit/bottom_left_corner = 0
 1:0/0/terrains_peering_bit/left_side = 0
 1:0/0/terrains_peering_bit/top_left_corner = 0
-1:0/1 = 1
-1:0/1/flip_h = true
-1:0/1/terrain_set = 0
-1:0/1/terrain = 0
-1:0/1/terrains_peering_bit/right_side = 0
-1:0/1/terrains_peering_bit/bottom_right_corner = 0
-1:0/1/terrains_peering_bit/top_right_corner = 0
-1:0/2 = 2
-1:0/2/flip_v = true
-1:0/2/transpose = true
-1:0/2/terrain_set = 0
-1:0/2/terrain = 0
-1:0/2/terrains_peering_bit/bottom_right_corner = 0
-1:0/2/terrains_peering_bit/bottom_side = 0
-1:0/2/terrains_peering_bit/bottom_left_corner = 0
-1:0/3 = 3
-1:0/3/transpose = true
-1:0/3/terrain_set = 0
-1:0/3/terrains_peering_bit/top_left_corner = 0
-1:0/3/terrains_peering_bit/top_side = 0
-1:0/3/terrains_peering_bit/top_right_corner = 0
-2:0/0 = 0
-0:1/next_alternative_id = 4
-0:1/0 = 0
-0:1/0/terrain_set = 0
-0:1/0/terrain = 0
-0:1/0/terrains_peering_bit/right_side = 0
-0:1/0/terrains_peering_bit/bottom_right_corner = 0
-0:1/0/terrains_peering_bit/bottom_side = 0
-0:1/0/terrains_peering_bit/left_side = 0
-0:1/0/terrains_peering_bit/top_left_corner = 0
-0:1/0/terrains_peering_bit/top_side = 0
-0:1/0/terrains_peering_bit/top_right_corner = 0
-0:1/1 = 1
-0:1/1/flip_h = true
-0:1/1/terrain_set = 0
-0:1/1/terrain = 0
-0:1/1/terrains_peering_bit/right_side = 0
-0:1/1/terrains_peering_bit/bottom_side = 0
-0:1/1/terrains_peering_bit/bottom_left_corner = 0
-0:1/1/terrains_peering_bit/left_side = 0
-0:1/1/terrains_peering_bit/top_left_corner = 0
-0:1/1/terrains_peering_bit/top_side = 0
-0:1/1/terrains_peering_bit/top_right_corner = 0
-0:1/2 = 2
-0:1/2/flip_h = true
-0:1/2/flip_v = true
-0:1/2/terrain_set = 0
-0:1/2/terrain = 0
-0:1/2/terrains_peering_bit/right_side = 0
-0:1/2/terrains_peering_bit/bottom_right_corner = 0
-0:1/2/terrains_peering_bit/bottom_side = 0
-0:1/2/terrains_peering_bit/bottom_left_corner = 0
-0:1/2/terrains_peering_bit/left_side = 0
-0:1/2/terrains_peering_bit/top_left_corner = 0
-0:1/2/terrains_peering_bit/top_side = 0
-0:1/3 = 3
-0:1/3/flip_v = true
-0:1/3/terrain_set = 0
-0:1/3/terrain = 0
-0:1/3/terrains_peering_bit/right_side = 0
-0:1/3/terrains_peering_bit/bottom_right_corner = 0
-0:1/3/terrains_peering_bit/bottom_side = 0
-0:1/3/terrains_peering_bit/bottom_left_corner = 0
-0:1/3/terrains_peering_bit/left_side = 0
-0:1/3/terrains_peering_bit/top_side = 0
-0:1/3/terrains_peering_bit/top_right_corner = 0
-1:1/next_alternative_id = 4
-1:1/0 = 0
-1:1/0/terrain_set = 0
-1:1/0/terrains_peering_bit/top_left_corner = 0
-1:1/1 = 1
-1:1/1/flip_h = true
-1:1/1/terrain_set = 0
-1:1/1/terrain = 0
-1:1/1/terrains_peering_bit/top_right_corner = 0
-1:1/2 = 2
-1:1/2/flip_h = true
-1:1/2/flip_v = true
-1:1/2/terrain_set = 0
-1:1/2/terrain = 0
-1:1/2/terrains_peering_bit/bottom_right_corner = 0
-1:1/3 = 3
-1:1/3/flip_v = true
-1:1/3/terrain_set = 0
-1:1/3/terrain = 0
-1:1/3/terrains_peering_bit/bottom_left_corner = 0
-2:1/0 = 0
-0:2/0 = 0
 1:2/0 = 0
-2:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/bottom_left_corner = 0
+1:2/0/terrains_peering_bit/left_side = 0
+1:2/0/terrains_peering_bit/top_left_corner = 0
 1:3/0 = 0
-0:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/terrains_peering_bit/top_left_corner = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/right_side = 0
+2:1/0/terrains_peering_bit/bottom_right_corner = 0
+2:1/0/terrains_peering_bit/top_left_corner = 0
+2:1/0/terrains_peering_bit/top_side = 0
+2:1/0/terrains_peering_bit/top_right_corner = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/terrains_peering_bit/top_left_corner = 0
 3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/terrains_peering_bit/bottom_left_corner = 0
+3:0/0/terrains_peering_bit/left_side = 0
+3:0/0/terrains_peering_bit/top_left_corner = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_right_corner = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/bottom_left_corner = 0
+2:0/0/terrains_peering_bit/left_side = 0
+2:0/0/terrains_peering_bit/top_left_corner = 0
+2:0/0/terrains_peering_bit/top_side = 0
+2:0/0/terrains_peering_bit/top_right_corner = 0
 
 [sub_resource type="TileSet" id="TileSet_x5mo2"]
 tile_size = Vector2i(32, 32)
@@ -753,6 +654,14 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
+[sub_resource type="Gradient" id="Gradient_2vhqf"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bwi7y"]
+gradient = SubResource("Gradient_2vhqf")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="WorldMap" type="Node2D" node_paths=PackedStringArray("origin", "road_tiles", "speed_up_icon", "minute_ticker", "ui_canvas", "player_node")]
 process_mode = 3
 script = ExtResource("1_irndy")
@@ -771,49 +680,58 @@ equipped_module = NodePath("Inventory/Dodge Roll")
 [node name="Inventory" parent="Player" index="0"]
 money = 100
 
-[node name="Tailpipe" parent="Player/Inventory" index="0" instance=ExtResource("17_m17yv")]
-base_damage = 200
+[node name="Apple Sticker" parent="Player/Inventory" index="0" instance=ExtResource("3_rnh6x")]
 
-[node name="Fuel Barrel" parent="Player/Inventory" index="1" instance=ExtResource("17_rnh6x")]
+[node name="Tailpipe" parent="Player/Inventory" index="1" instance=ExtResource("17_m17yv")]
+base_damage = 600
+
+[node name="CollisionShape2D" parent="Player/Inventory/Tailpipe/hit_scan" index="0"]
+shape = SubResource("CircleShape2D_2vhqf")
+
+[node name="Spiked Shoulder Pads" parent="Player/Inventory" index="2" instance=ExtResource("4_fuwqy")]
+
+[node name="Fuel Barrel" parent="Player/Inventory" index="3" instance=ExtResource("17_rnh6x")]
 stack_size = 500
 
-[node name="Food Barrel" parent="Player/Inventory" index="2" instance=ExtResource("18_gu5rp")]
+[node name="Food Barrel" parent="Player/Inventory" index="4" instance=ExtResource("18_gu5rp")]
 stack_size = 500
 
-[node name="Mystery Snack Pack" parent="Player/Inventory" index="3" instance=ExtResource("31_mgych")]
+[node name="Mystery Snack Pack" parent="Player/Inventory" index="5" instance=ExtResource("31_mgych")]
 
-[node name="Protein Shake" parent="Player/Inventory" index="4" instance=ExtResource("32_jdqpe")]
+[node name="Protein Shake" parent="Player/Inventory" index="6" instance=ExtResource("32_jdqpe")]
 
-[node name="MetallicCoating" parent="Player/Inventory" index="5" instance=ExtResource("33_1vaf0")]
+[node name="MetallicCoating" parent="Player/Inventory" index="7" instance=ExtResource("33_1vaf0")]
 
-[node name="Machete" parent="Player/Inventory" index="6" instance=ExtResource("22_t8y4u")]
+[node name="Machete" parent="Player/Inventory" index="8" instance=ExtResource("22_t8y4u")]
 
-[node name="Dodge Roll" parent="Player/Inventory" index="7" instance=ExtResource("23_x5mo2")]
+[node name="Dodge Roll" parent="Player/Inventory" index="9" instance=ExtResource("23_x5mo2")]
 
-[node name="Chakram" parent="Player/Inventory" index="8" instance=ExtResource("24_2irgy")]
+[node name="Chakram" parent="Player/Inventory" index="10" instance=ExtResource("24_2irgy")]
 
-[node name="Toxic Grenade Launcher" parent="Player/Inventory" index="9" instance=ExtResource("25_nr4be")]
+[node name="Toxic Grenade Launcher" parent="Player/Inventory" index="11" instance=ExtResource("25_nr4be")]
+
+[node name="Dodge Roll2" parent="Player/Inventory" index="12" instance=ExtResource("23_x5mo2")]
 
 [node name="FighterUnit" parent="Player/Roster" index="0" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
 base = NodePath("Punchy")
 level = 5
 
 [node name="Punchy" parent="Player/Roster/FighterUnit" instance=ExtResource("20_tlj38")]
-material = SubResource("ShaderMaterial_x2ygm")
+material = SubResource("ShaderMaterial_s7sax")
 
 [node name="FighterUnit3" parent="Player/Roster" index="1" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
 base = NodePath("Botanist")
 level = 5
 
 [node name="Botanist" parent="Player/Roster/FighterUnit3" instance=ExtResource("25_ulpn3")]
-material = SubResource("ShaderMaterial_m17yv")
+material = SubResource("ShaderMaterial_h33nr")
 
 [node name="FighterUnit2" parent="Player/Roster" index="2" node_paths=PackedStringArray("base") instance=ExtResource("19_otblt")]
 base = NodePath("Crowbar")
 level = 5
 
 [node name="Crowbar" parent="Player/Roster/FighterUnit2" instance=ExtResource("35_mgych")]
-material = SubResource("ShaderMaterial_omir2")
+material = SubResource("ShaderMaterial_t8y4u")
 
 [node name="environment_color" type="CanvasModulate" parent="." node_paths=PackedStringArray("backdrop", "roadside", "horizon", "marker", "player_light", "ticker")]
 script = ExtResource("46_fuwqy")
@@ -940,7 +858,7 @@ script = ExtResource("18_beb05")
 [node name="settlements" type="Node2D" parent="." node_paths=PackedStringArray("road", "fog")]
 z_index = 1
 script = ExtResource("45_cb2tt")
-all_location_scenes = Array[PackedScene]([ExtResource("38_ulpn3"), ExtResource("39_s7sax"), ExtResource("52_alobk"), ExtResource("21_4ypwe"), ExtResource("22_3x04a"), ExtResource("23_eunnb"), ExtResource("51_gu5rp"), ExtResource("44_eunnb")])
+all_location_scenes = Array[PackedScene]([ExtResource("38_ulpn3"), ExtResource("39_s7sax"), ExtResource("52_alobk"), ExtResource("21_4ypwe"), ExtResource("22_3x04a"), ExtResource("23_eunnb"), ExtResource("51_gu5rp"), ExtResource("44_eunnb"), ExtResource("48_s7sax"), ExtResource("49_h33nr")])
 road = NodePath("../tiles/road")
 fog = NodePath("../tiles/fog")
 
@@ -967,7 +885,8 @@ color = Color(0.6, 0.546, 0.48, 1)
 process_mode = 3
 layer = 3
 
-[node name="main_hud" parent="static_ui" instance=ExtResource("47_3x04a")]
+[node name="main_hud" parent="static_ui" node_paths=PackedStringArray("resources") instance=ExtResource("47_3x04a")]
+resources = NodePath("VBoxContainer/resources/resources_dropdown")
 
 [node name="resources_dropdown" parent="static_ui/main_hud/VBoxContainer/resources" index="0" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 resource_hboxes = {
@@ -991,8 +910,9 @@ resource_icons = {
 layout_mode = 1
 hardcoded_name = "Inventory space"
 
-[node name="dungeon_prompt" type="Control" parent="static_ui" node_paths=PackedStringArray("dungeon_name_label", "current_wave_label", "wave_divider", "waves_hbox")]
+[node name="dungeon_prompt" type="Control" parent="static_ui" node_paths=PackedStringArray("dungeon_name_label", "current_wave_label", "wave_divider", "waves_hbox", "loot_sfx", "cleared_sfx", "cleared_overlay", "time_until_reset", "close_btn", "loot_overlay")]
 visible = false
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1000,13 +920,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("70_cb2tt")
-dungeon_name_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/title/dungeon_name")
-current_wave_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/title/wave_n")
-wave_divider = NodePath("wave_divider")
+dungeon_name_label = NodePath("waves_display/MarginContainer/VBoxContainer/title/dungeon_name")
+current_wave_label = NodePath("waves_display/MarginContainer/VBoxContainer/title/wave_n")
+wave_divider = NodePath("waves_display/wave_divider")
 wave_sample_scene = ExtResource("50_eunnb")
-waves_hbox = NodePath("PanelContainer/MarginContainer/VBoxContainer/waves")
+waves_hbox = NodePath("waves_display/MarginContainer/VBoxContainer/waves")
+loot_sfx = NodePath("dungeon_loot_sfx")
+cleared_sfx = NodePath("dungeon_cleared_sfx")
+cleared_overlay = NodePath("waves_display/cleared_overlay")
+time_until_reset = NodePath("waves_display/cleared_overlay/time_until_reset")
+close_btn = NodePath("close_prompt")
+loot_overlay = NodePath("../loot_overlay")
 
-[node name="PanelContainer" type="PanelContainer" parent="static_ui/dungeon_prompt"]
+[node name="dungeon_loot_sfx" type="AudioStreamPlayer" parent="static_ui/dungeon_prompt"]
+stream = ExtResource("51_m17yv")
+
+[node name="dungeon_cleared_sfx" type="AudioStreamPlayer" parent="static_ui/dungeon_prompt"]
+stream = ExtResource("53_r03dh")
+
+[node name="ColorRect" type="ColorRect" parent="static_ui/dungeon_prompt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="waves_display" type="PanelContainer" parent="static_ui/dungeon_prompt"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -1022,68 +963,218 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="static_ui/dungeon_prompt/PanelContainer"]
+[node name="wave_divider" type="TextureRect" parent="static_ui/dungeon_prompt/waves_display"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("51_x2ygm")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="static_ui/dungeon_prompt/waves_display"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/dungeon_prompt/waves_display/MarginContainer"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="title" type="HBoxContainer" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="dungeon_name" type="Label" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/title"]
+[node name="dungeon_name" type="Label" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/title"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 128
+theme_override_font_sizes/font_size = 112
 text = "Hideout"
 
-[node name="wave_n" type="Label" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/title"]
+[node name="wave_n" type="Label" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/title"]
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_font_sizes/font_size = 48
 text = "Wave 1/3"
 horizontal_alignment = 2
 
-[node name="waves" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="waves" type="HBoxContainer" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="options" type="HBoxContainer" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="options" type="HBoxContainer" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="return" type="Button" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/options"]
+[node name="return" type="Button" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "return"
 
-[node name="enter" type="Button" parent="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/options"]
+[node name="enter" type="Button" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 64
 text = "ENTER 
 DUNGEON"
 
-[node name="wave_divider" type="TextureRect" parent="static_ui/dungeon_prompt"]
+[node name="cleared_overlay" type="ColorRect" parent="static_ui/dungeon_prompt/waves_display"]
 visible = false
-custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(0, 0, 0, 0.8901961)
+
+[node name="Label" type="Label" parent="static_ui/dungeon_prompt/waves_display/cleared_overlay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -226.0
+offset_top = 4.0
+offset_right = 110.0
+offset_bottom = 106.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("51_x2ygm")
+rotation = -0.41373348
+theme_override_font_sizes/font_size = 128
+text = "CLEARED"
+
+[node name="time_until_reset" type="Label" parent="static_ui/dungeon_prompt/waves_display/cleared_overlay"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -194.0
+offset_top = -36.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Resets in 3d, 22h"
+
+[node name="close_prompt" type="Button" parent="static_ui/dungeon_prompt"]
+modulate = Color(0.79, 0.79, 0.79, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 245.0
+offset_top = -252.0
+offset_right = 335.0
+offset_bottom = -206.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "close"
+
+[node name="loot_overlay" type="TextureRect" parent="static_ui" node_paths=PackedStringArray("dungeon_prompt", "item_option_panel", "options_hbox", "loot_chosen_sfx")]
+visible = false
+self_modulate = Color(1, 0.982, 0.73, 0.4)
+z_index = 4
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_bwi7y")
+script = ExtResource("54_bwi7y")
+dungeon_prompt = NodePath("../dungeon_prompt")
+item_option_panel = NodePath("_item_choice")
+options_hbox = NodePath("dungeon_loot/VBoxContainer/loot_options")
+loot_chosen_sfx = NodePath("loot_chosen")
+
+[node name="_item_choice" type="PanelContainer" parent="static_ui/loot_overlay" node_paths=PackedStringArray("sample", "name_label", "item_type_label", "choose_btn")]
+visible = false
+self_modulate = Color(2.0331757, 2.0331757, 2.0331757, 1)
+custom_minimum_size = Vector2(300, 350)
+layout_mode = 0
+offset_left = 296.0
+offset_top = 160.0
+offset_right = 596.0
+offset_bottom = 460.0
+script = ExtResource("54_2vhqf")
+sample = NodePath("MarginContainer/VBoxContainer/item_sample")
+name_label = NodePath("MarginContainer/VBoxContainer/item_name")
+item_type_label = NodePath("MarginContainer/VBoxContainer/type")
+choose_btn = NodePath("MarginContainer/choose")
+
+[node name="MarginContainer" type="MarginContainer" parent="static_ui/loot_overlay/_item_choice"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/loot_overlay/_item_choice/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="item_sample" parent="static_ui/loot_overlay/_item_choice/MarginContainer/VBoxContainer" instance=ExtResource("54_omir2")]
+layout_mode = 2
+
+[node name="item_name" type="Label" parent="static_ui/loot_overlay/_item_choice/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+text = "nanm"
+horizontal_alignment = 1
+
+[node name="type" type="Label" parent="static_ui/loot_overlay/_item_choice/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "typei"
+horizontal_alignment = 1
+
+[node name="choose" type="Button" parent="static_ui/loot_overlay/_item_choice/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "CHOOSE"
+
+[node name="dungeon_loot" type="PanelContainer" parent="static_ui/loot_overlay"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -10.0
+offset_right = 350.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/loot_overlay/dungeon_loot"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="static_ui/loot_overlay/dungeon_loot/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 80
+text = "DUNGEON
+CLEARED!"
+horizontal_alignment = 1
+
+[node name="title" type="Label" parent="static_ui/loot_overlay/dungeon_loot/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "Choose a Treasure:"
+
+[node name="loot_options" type="HBoxContainer" parent="static_ui/loot_overlay/dungeon_loot/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="static_ui/loot_overlay/dungeon_loot/VBoxContainer"]
+layout_mode = 2
+text = "mouse-over an item for more information"
+horizontal_alignment = 2
+
+[node name="loot_chosen" type="AudioStreamPlayer" parent="static_ui/loot_overlay"]
+stream = ExtResource("57_bwi7y")
 
 [node name="PlayerSheet" parent="static_ui" instance=ExtResource("33_ulpn3")]
 visible = false
@@ -1132,15 +1223,18 @@ dungeon_prompt = NodePath("../../static_ui/dungeon_prompt")
 [connection signal="started_moving" from="PlayerParty" to="SfxPlayer" method="_on_player_party_started_moving"]
 [connection signal="started_moving" from="PlayerParty" to="PlayerParty" method="_on_started_moving"]
 [connection signal="started_moving" from="PlayerParty" to="PlayerParty/world_map_camera" method="pan_to_player"]
+[connection signal="started_moving" from="PlayerParty" to="static_ui/main_hud/location_data" method="_on_player_party_started_moving"]
 [connection signal="started_moving" from="PlayerParty" to="static_ui/main_hud/navigation_data" method="_on_player_party_started_moving"]
 [connection signal="started_moving" from="PlayerParty" to="dynamic_ui/enter_btn" method="_on_player_party_started_moving"]
 [connection signal="stopped_moving" from="PlayerParty" to="PlayerParty" method="_on_stopped_moving"]
 [connection signal="timeout" from="PlayerParty/marker/bounce_timer" to="PlayerParty/marker" method="bounce_animation"]
 [connection signal="started_panning" from="PlayerParty/world_map_camera" to="static_ui/main_hud/navigation_data" method="_on_world_map_camera_started_panning"]
-[connection signal="pressed" from="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/options/return" to="static_ui/dungeon_prompt" method="_on_return_pressed"]
-[connection signal="pressed" from="static_ui/dungeon_prompt/PanelContainer/MarginContainer/VBoxContainer/options/enter" to="static_ui/dungeon_prompt" method="_on_enter_pressed"]
+[connection signal="pressed" from="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options/return" to="static_ui/dungeon_prompt" method="_on_return_pressed"]
+[connection signal="pressed" from="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options/enter" to="static_ui/dungeon_prompt" method="_on_enter_pressed"]
+[connection signal="pressed" from="static_ui/dungeon_prompt/close_prompt" to="static_ui/dungeon_prompt" method="_on_close_prompt_pressed"]
 [connection signal="start_battle_pressed" from="static_ui/PlayerSheet" to="static_ui/dungeon_prompt" method="_on_player_sheet_start_battle_pressed"]
 [connection signal="pressed" from="dynamic_ui/enter_btn" to="dynamic_ui/enter_btn" method="_on_pressed"]
 
 [editable path="Player"]
+[editable path="Player/Inventory/Tailpipe"]
 [editable path="static_ui/main_hud"]

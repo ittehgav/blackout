@@ -76,13 +76,22 @@ layout_mode = 2
 [node name="SpriteSample" parent="." instance=ExtResource("3_kbewr")]
 z_index = -4
 layout_mode = 1
-offset_right = 128.0
-offset_bottom = 128.0
+offset_left = 24.0
+offset_top = 235.0
+offset_right = 362.0
+offset_bottom = 693.0
+mouse_filter = 2
 add_tooltip = false
 enable_hover_panel = false
 target_scale = Vector2(10, 10)
 
-[node name="panel" parent="SpriteSample" index="0"]
+[node name="anchor" parent="SpriteSample" index="0"]
+offset_left = -27.0
+offset_top = -32.0
+offset_right = 13.0
+offset_bottom = 8.0
+
+[node name="panel" parent="SpriteSample" index="1"]
 use_parent_material = true
 
 [node name="texts" type="VBoxContainer" parent="."]

@@ -42,7 +42,7 @@ func set_scenario(target:String)->void:
 	## data from the global scope
 	var previous:String = scenario
 	scenario = target
-	scenario_changed.emit(scenario, previous)
+
 
 	match target:
 		## control all status changes and keep them broken down into each combination of transition
@@ -95,7 +95,6 @@ func set_scenario(target:String)->void:
 		"battle":
 			match previous:
 				"world_map":
-					remove_child(Entities.world_map);
 					## where this will fork into other places to get enemy parties from
 					## when those are added
 					var dungeon:Dungeon = Entities.current_dungeon
@@ -108,7 +107,8 @@ func set_scenario(target:String)->void:
 					arena.team_2.roster = dungeon.get_current_wave()
 					
 					add_child(arena)
-	
+					remove_child(Entities.world_map);
+	scenario_changed.emit(scenario, previous)
 func revert_substate()->void:
 	## right now just leave it like this but it's gonna probably 
 	## need to change dynamically when UX gets deeper
@@ -128,6 +128,10 @@ func set_substate(target:String)->void:
 			match previous:
 				"player_sheet":
 					get_tree().paused = previous_pause_state
+				"dungeon_prompt":
+					## TODO make visit_settlement into something more
+					## comprehensive/explicit to prompt the player?
+					Entities.player_party.visit_settlement()
 
 		"player_sheet":
 			previous_pause_state = get_tree().paused;

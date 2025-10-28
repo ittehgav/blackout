@@ -49,7 +49,6 @@ func expand(center:Vector2)->void:
 	var new_position:Vector2 = position - shift;
 	var new_container_position:Vector2 = thorns_container.position + shift
 	
-	var new_light_scale:Vector2 = new_size/light_texture_size;
 	
 	tween.tween_property(self, "size", new_size, growth_time);
 	tween.parallel().tween_property(self, "position", new_position, growth_time)

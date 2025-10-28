@@ -41,7 +41,10 @@ func _ready()->void:
 
 ## colors and metadata stay in this file to facilitate fetching in UI
 @export_group("Colors")
-@export var color_schemes:Array[Array];
+## keepingthis as simple as possible for now
+@export var player_team_color:Color;
+@export var enemy_team_color:Color;
+
 @export var resource_colors:Dictionary[String, Color] = {
 	## really saturated here and we fix it out in-context?
 	"food":Color.YELLOW,

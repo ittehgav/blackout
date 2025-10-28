@@ -18,6 +18,21 @@ func _ready()->void:
 	if source:
 		update();
 
+func animated_update()->void:
+	var target:int = source[resource];
+	var current:int = int(label.text)
+	var tween:Tween = create_tween();
+	tween.tween_method(set_label_text, current, target, .65)
+	if target < current:
+		label.modulate = Color.RED;
+	elif target > current:
+		label.modulate = Color.GREEN
+	tween.parallel().tween_property(label, "modulate", Color.WHITE, 1);
+		
+
+func set_label_text(target:int)->void:
+	label.text = str(target);
+
 func update()->void:
 	label.text = str(source[resource]);
 

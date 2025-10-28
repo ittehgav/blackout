@@ -6,6 +6,7 @@
 
 [node name="Doblo" type="Sprite2D" node_paths=PackedStringArray("bounce_timer")]
 material = ExtResource("1_b7b8v")
+scale = Vector2(2, 2)
 texture = ExtResource("2_irukn")
 hframes = 5
 vframes = 3

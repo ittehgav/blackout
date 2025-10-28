@@ -45,3 +45,7 @@ func start()->void:
 	printerr(name + " MISSING START")
 func release()->void:
 	printerr(name + " MISSING RELEASE")
+
+func final_cooldown()->float:
+	var base_cd:float = self["cooldown"];
+	return Scaling.agility_cooldown_reduction(base_cd, Entities.player.final_stat("agility"))

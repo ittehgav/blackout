@@ -10,6 +10,7 @@ func get_description()->String:
 
 func use()->void:
 	var roll:int = randi_range(25, 50);
+	mirror.display.board_shake()
 	while roll:
 		var stack:ResourceContainer = Index.scenes.items.food_stack.instantiate();
 		if roll >= 5:
@@ -20,7 +21,8 @@ func use()->void:
 			stack.stack_size = roll;
 			roll = 0;
 		mirror.display.throw_in_inventory(stack, self)
-		if mirror.inventory_position != Vector2i(-1, -1):
+		if stack.mirror and stack.mirror.inventory_position != Vector2i(-1, -1):
 			stack.match_mirror()
 	Entities.player.resource_changed.emit("food")
+	
 	
