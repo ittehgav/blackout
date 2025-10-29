@@ -2,6 +2,9 @@ extends Node2D
 
 class_name WorldMap
 
+signal speed_up_started;
+## just for the class thingy
+
 signal hour_passed;
 signal day_passed;
 
@@ -62,6 +65,7 @@ func _process(_delta:float)->void:
 
 func set_travel_speed(target:float)->void:
 	if target > 1:
+		speed_up_started.emit()
 		speed_up_icon.show();
 	else:
 		speed_up_icon.hide()

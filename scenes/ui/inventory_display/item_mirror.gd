@@ -133,6 +133,7 @@ func _on_gui_input(e: InputEvent) -> void:
 				pick_up()
 				return
 			elif e.button_index == MOUSE_BUTTON_RIGHT:
+				display.item_pressed.emit(self)
 				if display.context == "player_sheet":
 					if item is ResourceContainer:
 						if item.raw_stack:
