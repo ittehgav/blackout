@@ -30,6 +30,9 @@ signal returned_from_battle(won:bool);
 @export_range(0, 23) var current_hour:int
 @export_range(0, 59) var current_minute:int;
 
+@export var speed_up_persist_timer:Timer;
+@export var speed_5x_persist_timer:Timer;
+
 func _ready()->void:
 	## TODO move this declaration for the moment the world map is instantiated
 	get_tree().paused = true;
@@ -53,6 +56,7 @@ func enter_settlement(_target:Settlement = Entities.player_party.current_settlem
 func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("skip_time") and not get_tree().paused:
 		set_travel_speed(2);
+		speed_up_persist_timer.start()
 	elif Input.is_action_just_released("skip_time") and not get_tree().paused:
 		set_travel_speed(1);
 
@@ -75,3 +79,15 @@ func advance_day()->void:
 	if current_day == 32:
 		minute_ticker.advance_month();
 		current_day = 0;
+
+
+func _on_speed_up_persist_timeout() -> void:
+	if Input.is_action_pressed("skip_time"):
+		speed_5x_persist_timer.start()
+		set_travel_speed(3);
+	
+
+
+func _on_speed_up_persist_5x_timeout() -> void:
+	if Input.is_action_pressed("skip_time"):
+		set_travel_speed(5);

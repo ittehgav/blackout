@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=3 uid="uid://vbp24a3cvbde"]
 
 [ext_resource type="Script" uid="uid://qm0sco0on2a5" path="res://scenes/in_settlement/locations/dungeon.gd" id="1_hdoil"]
-[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout.tscn" id="2_g3r3g"]
+[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_g3r3g"]
 [ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/dungeon_roster.tscn" id="2_lb6wb"]
 [ext_resource type="Texture2D" uid="uid://dg2kk4y1naqri" path="res://assets/visual/sprites/settlements/hideout_1.png" id="2_s6m70"]
 [ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="6_rgcsk"]

@@ -83,6 +83,7 @@ func _on_player_visited() -> void:
 	hover_box.hide()
 
 func refresh_buildings()->void:
+	## ONLY PLACE WHERE REFRESHES GET CALLED?
 	for l:Location in locations:
 		if l.pending_refresh:
 			l.refresh()

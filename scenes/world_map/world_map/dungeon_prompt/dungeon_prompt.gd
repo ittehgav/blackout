@@ -92,7 +92,6 @@ func _on_player_sheet_start_battle_pressed() -> void:
 	Entities.world_map.returned_from_battle.connect(post_battle)
 	
 func post_battle(won:bool)->void:
-	close_btn.disabled = true
 	await Tweens.ui_fade_in(self).finished;
 	if won:
 		## here the dungeon has already advanced the wave so the 
@@ -103,6 +102,7 @@ func post_battle(won:bool)->void:
 		if dungeon.current_wave < len(dungeon.waves):
 			tween.tween_callback(refresh_wave_n)
 		else:
+			close_btn.disabled = true
 			tween.tween_callback(loot_animation.bind(sample))
 
 func refresh_wave_n()->void:

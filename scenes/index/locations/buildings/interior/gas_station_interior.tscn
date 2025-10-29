@@ -146,7 +146,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("5_r71wr")
 
 [node name="right_side_anchor" type="Node2D" parent="."]
-position = Vector2(1059, 680)
+position = Vector2(1172, 456)
 
 [node name="floor" type="ColorRect" parent="."]
 z_index = -1

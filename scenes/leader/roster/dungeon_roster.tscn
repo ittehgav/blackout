@@ -1,11 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ofy6voyrdh1w"]
+[gd_scene load_steps=2 format=3 uid="uid://ofy6voyrdh1w"]
 
 [ext_resource type="Script" uid="uid://6xsoxh5pe6pt" path="res://scenes/leader/roster/dungeon_roster.gd" id="1_qkrx2"]
-[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="2_2kvgc"]
 
 [node name="DungeonRoster" type="Node" node_paths=PackedStringArray("loot")]
 script = ExtResource("1_qkrx2")
-loot = NodePath("LootInventory")
+loot = NodePath("")
 metadata/_custom_type_script = "uid://g3ijlm51y0pn"
-
-[node name="LootInventory" parent="." instance=ExtResource("2_2kvgc")]

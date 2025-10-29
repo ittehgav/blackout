@@ -21,9 +21,7 @@ func request_space_for_item(item:Item)->void:
 	
 
 func check_clear_space(_mirror:ItemMirror)->void:
-	print("ccs?")
 	var spot:Vector2i = inventory_display.find_clear_cell(pending_item)
-	print(spot)
 	if spot != Vector2i(-1, -1):
 		item_added_sfx.play()
 		var to_add:Item = pending_item.duplicate(DUPLICATE_USE_INSTANTIATION)

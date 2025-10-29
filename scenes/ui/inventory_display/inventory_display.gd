@@ -121,7 +121,6 @@ func reset_inventory()->void:
 	
 	
 	inventory.empty_inventory();
-	print(len(inventory.containers), " aa")
 
 	while len(pre_trade_inventory.items):
 		var item:Item = pre_trade_inventory.items[0]
@@ -398,9 +397,7 @@ func send_resource(source:ItemMirror, amount:int)->void:
 	else:
 		var returned:int = exchanging_display.receive_resource(amount, source.item.resource);
 		sent -= returned
-		print(source.stack_size)
 		source.change_stack_size(-sent)
-		print(source.stack_size)
 	
 		source.highlight_stack_label()
 		item_dropped.emit(source, "trade");

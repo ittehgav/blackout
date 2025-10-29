@@ -43,7 +43,7 @@ func load_weapon(target:Weapon)->Weapon:
 
 	if new_weapon.projectile:
 		new_weapon.projectile.setup(equipment.holder)
-	
+		
 	return new_weapon
 
 

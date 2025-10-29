@@ -51,9 +51,7 @@ func get_current_wave()->DungeonRoster:
 
 func wave_defeated()->void:
 	current_wave += 1;
-	print("cwave? ", current_wave)
 	if current_wave > len(waves):
-		print("clear?")
 		cleared = true
 	
 func on_battle_ended(player_won:bool)->void:

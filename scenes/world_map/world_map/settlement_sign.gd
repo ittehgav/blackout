@@ -42,7 +42,6 @@ func display_dungeon(target:Dungeon)->void:
 		cleared_sign.show();
 		return
 	
-	target.refresh()
 	dungeon_data.show();
 	var danger_level:int = target.get_danger_level()
 	dungeon_level_label.text = str(target.get_current_wave().get_level());

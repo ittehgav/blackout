@@ -152,13 +152,4 @@ libraries = {
 }
 autoplay = "fighter_base/idle"
 
-[node name="ColorRect" type="ColorRect" parent="."]
-z_index = -1
-layout_mode = 0
-offset_left = 34.0
-offset_top = 275.0
-offset_right = 397.0
-offset_bottom = 462.0
-color = Color(0.15, 0.3, 0.15, 1)
-
 [editable path="Speaker"]

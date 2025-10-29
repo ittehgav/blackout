@@ -21,6 +21,8 @@ var world_map_ui:CanvasLayer
 
 var settlement:Settlement
 
+@export var backdrop:TileMapLayer
+
 func _ready()->void:
 	## because this enters the tree from the world map when the player is 
 	## in a settlement
@@ -39,6 +41,7 @@ func load_settlement(target:Settlement)->void:
 		var interior:Interior = load_interior(settlement.locations[0]);
 		full_size_setup(interior)
 	else:
+		set_backdrop_color()
 		for building:Location in settlement.locations:
 			## buildings are loaded in order
 			var interior:Interior = load_interior(building);
@@ -77,7 +80,20 @@ func full_size_setup(interior:Interior)->void:
 func return_to_world_map()->void:
 	Entities.main.set_scenario("world_map")
 	
-
+func set_backdrop_color()->void:
+	var hour:int = Entities.world_map.current_hour;
+	if hour < 2 or hour >= 22:
+		backdrop.modulate.v = .2
+	elif hour >= 2 and hour < 6:
+		backdrop.modulate.v = .5;
+	elif hour >= 6 and hour < 10:
+		backdrop.modulate.v = .8;
+	elif hour >= 10 and hour < 14:
+		backdrop.modulate.v = 1;
+	elif hour >= 14 and hour < 18:
+		backdrop.modulate.v = .8;
+	else:
+		backdrop.modulate.v = .5 
 	
 
 func _on_exit_body_entered(body: Node2D) -> void:

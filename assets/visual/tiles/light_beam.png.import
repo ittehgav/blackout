@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dl1jf1ey3lufv"
-path="res://.godot/imported/hideout.png-90a3e39c593b8bf4cb24121d3b9daf7d.ctex"
+uid="uid://d38qmvttvusqw"
+path="res://.godot/imported/light_beam.png-e5c3ab610b0cacb1af3116a71ccd4727.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/visual/buildings/icons/dungeons/hideout.png"
-dest_files=["res://.godot/imported/hideout.png-90a3e39c593b8bf4cb24121d3b9daf7d.ctex"]
+source_file="res://assets/visual/tiles/light_beam.png"
+dest_files=["res://.godot/imported/light_beam.png-e5c3ab610b0cacb1af3116a71ccd4727.ctex"]
 
 [params]
 

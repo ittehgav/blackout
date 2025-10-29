@@ -20,9 +20,10 @@ one_shot = true
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
+monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource("CircleShape2D_r36q7")
 
 [connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]
-[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

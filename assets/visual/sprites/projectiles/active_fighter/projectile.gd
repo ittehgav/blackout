@@ -33,7 +33,6 @@ func setup(new_shooter:ActiveFighter)->void:
 	source = true
 	## can only run after assigning shooter
 	var shooter_team_n:int = shooter.ally_team.team_n;
-	
 	if shooter_team_n == 1:
 		ally_mask = 1;
 		enemy_mask = 2
@@ -85,3 +84,13 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			hit.emit(body);
 	else:
 		hit.emit(body);
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	assert(area is HurtBox);
+	var fighter:ActiveFighter = area.fighter
+	if hit_allies:
+		if fighter != shooter:
+			hit.emit(fighter);
+	else:
+		hit.emit(fighter);

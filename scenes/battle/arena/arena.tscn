@@ -1,7 +1,7 @@
 [gd_scene load_steps=51 format=3 uid="uid://b3sr8al76si1g"]
 
 [ext_resource type="Script" uid="uid://nrp8ddsmtldq" path="res://scenes/battle/arena/arena.gd" id="1_i4yf0"]
-[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout.tscn" id="2_awn3j"]
+[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_d8imf"]
 [ext_resource type="Script" uid="uid://dx0yavi260x8a" path="res://scenes/battle/arena/teams.gd" id="3_hkvx5"]
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="4_hdymd"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/player_fighter.tscn" id="7_8stbl"]
@@ -267,7 +267,6 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vjknr"]
-load_path = "res://.godot/imported/attack.png-d40551d24d51f69138b3f1f3601073da.ctex"
 
 [node name="Arena" type="Node2D" node_paths=PackedStringArray("team_1", "team_2", "current_layout", "post_fight_view")]
 y_sort_enabled = true
@@ -277,7 +276,7 @@ team_2 = NodePath("teams/team_2")
 current_layout = NodePath("Hideout")
 post_fight_view = NodePath("ui_canvas/post_fight")
 
-[node name="Hideout" parent="." instance=ExtResource("2_awn3j")]
+[node name="Hideout" parent="." instance=ExtResource("2_d8imf")]
 
 [node name="teams" type="Node2D" parent="."]
 script = ExtResource("3_hkvx5")
@@ -303,7 +302,6 @@ position = Vector2(-92, 537)
 material = SubResource("ShaderMaterial_axnw4")
 
 [node name="camera" parent="teams/team_1/player_fighter" index="8"]
-zoom = Vector2(1, 1)
 limit_left = -5999
 limit_top = -147
 limit_right = 6001

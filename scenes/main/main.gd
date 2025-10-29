@@ -106,8 +106,9 @@ func set_scenario(target:String)->void:
 					arena.team_1.roster = Entities.player.roster;
 					arena.team_2.roster = dungeon.get_current_wave()
 					
-					add_child(arena)
 					remove_child(Entities.world_map);
+					add_child(arena)
+					
 	scenario_changed.emit(scenario, previous)
 func revert_substate()->void:
 	## right now just leave it like this but it's gonna probably 
