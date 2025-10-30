@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://dphiet8wg7sd"]
+[gd_scene load_steps=86 format=3 uid="uid://dphiet8wg7sd"]
 
 [ext_resource type="Script" uid="uid://d0rxta3ju0m4" path="res://scenes/world_map/world_map/world_map.gd" id="1_irndy"]
 [ext_resource type="Script" uid="uid://wrywd826l7x3" path="res://scenes/world_map/world_map/world_map_sfx.gd" id="2_omxek"]
@@ -64,7 +64,6 @@
 [ext_resource type="Script" uid="uid://pl5db4cm1i1l" path="res://scenes/world_map/world_map/loot_overlay.gd" id="54_bwi7y"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="54_omir2"]
 [ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="57_bwi7y"]
-[ext_resource type="Script" uid="uid://rmeybbfg48mx" path="res://tutorials/tutorial_overlay.gd" id="65_t8y4u"]
 [ext_resource type="Script" uid="uid://btb6lwcqdeb0e" path="res://scenes/ui/ui_root.gd" id="69_2irgy"]
 [ext_resource type="Script" uid="uid://dswpfdpni2xxc" path="res://scenes/world_map/world_map/enter_btn.gd" id="69_x5mo2"]
 [ext_resource type="Script" uid="uid://gp3350pfvmie" path="res://scenes/world_map/world_map/dungeon_prompt/dungeon_prompt.gd" id="70_cb2tt"]
@@ -772,96 +771,6 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 48
 text = "close"
 
-[node name="TutorialOverlay" type="Control" parent="static_ui"]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("65_t8y4u")
-which = "camera_pan"
-metadata/_custom_type_script = "uid://rmeybbfg48mx"
-
-[node name="ColorRect" type="ColorRect" parent="static_ui/TutorialOverlay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.47058824)
-
-[node name="Label" type="Label" parent="static_ui/TutorialOverlay"]
-custom_minimum_size = Vector2(441, 0)
-layout_mode = 0
-offset_left = 622.0
-offset_top = 155.0
-offset_right = 1063.0
-offset_bottom = 314.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione W, A, S, D para movimentar a câmera."
-autowrap_mode = 3
-
-[node name="TutorialOverlay2" type="Control" parent="static_ui"]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("65_t8y4u")
-which = "click_to_navigate"
-metadata/_custom_type_script = "uid://rmeybbfg48mx"
-
-[node name="PanelContainer" type="PanelContainer" parent="static_ui/TutorialOverlay2"]
-layout_mode = 0
-offset_left = 800.0
-offset_top = 200.0
-offset_right = 1253.0
-offset_bottom = 371.0
-
-[node name="Label" type="Label" parent="static_ui/TutorialOverlay2/PanelContainer"]
-custom_minimum_size = Vector2(441, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Clique em um settlement para iniciar a navegação"
-autowrap_mode = 3
-
-[node name="TutorialOverlay3" type="Control" parent="static_ui"]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("65_t8y4u")
-which = "spacebar_to_speed_up"
-metadata/_custom_type_script = "uid://rmeybbfg48mx"
-
-[node name="PanelContainer" type="PanelContainer" parent="static_ui/TutorialOverlay3"]
-layout_mode = 0
-offset_left = 800.0
-offset_top = 200.0
-offset_right = 1253.0
-offset_bottom = 371.0
-
-[node name="Label" type="Label" parent="static_ui/TutorialOverlay3/PanelContainer"]
-custom_minimum_size = Vector2(441, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Pressione a barra de espaço para acelerar o tempo."
-autowrap_mode = 3
-
 [node name="loot_overlay" type="TextureRect" parent="static_ui" node_paths=PackedStringArray("dungeon_prompt", "item_option_panel", "options_hbox", "loot_chosen_sfx")]
 visible = false
 self_modulate = Color(1, 0.982, 0.73, 0.4)
@@ -995,10 +904,8 @@ dungeon_prompt = NodePath("../../static_ui/dungeon_prompt")
 
 [connection signal="hour_passed" from="." to="environment_color" method="_on_world_map_hour_passed"]
 [connection signal="ready" from="." to="static_ui/main_hud/clock" method="_on_world_map_ready"]
-[connection signal="ready" from="." to="static_ui/TutorialOverlay" method="fade_in"]
 [connection signal="settlement_hovered" from="." to="tiles/road" method="_on_world_map_settlement_hovered"]
 [connection signal="settlement_hovered" from="." to="static_ui/main_hud/navigation_data" method="show_settlement"]
-[connection signal="speed_up_started" from="." to="static_ui/TutorialOverlay3" method="clear"]
 [connection signal="timeout" from="speed_up_persist" to="." method="_on_speed_up_persist_timeout"]
 [connection signal="timeout" from="speed_up_persist/speed_up_persist_5x" to="." method="_on_speed_up_persist_5x_timeout"]
 [connection signal="equipment_changed" from="Player" to="static_ui/PlayerSheet" method="_on_player_equipment_changed"]
@@ -1021,17 +928,13 @@ dungeon_prompt = NodePath("../../static_ui/dungeon_prompt")
 [connection signal="started_moving" from="PlayerParty" to="PlayerParty/world_map_camera" method="pan_to_player"]
 [connection signal="started_moving" from="PlayerParty" to="static_ui/main_hud/location_data" method="_on_player_party_started_moving"]
 [connection signal="started_moving" from="PlayerParty" to="static_ui/main_hud/navigation_data" method="_on_player_party_started_moving"]
-[connection signal="started_moving" from="PlayerParty" to="static_ui/TutorialOverlay2" method="clear"]
 [connection signal="started_moving" from="PlayerParty" to="dynamic_ui/enter_btn" method="_on_player_party_started_moving"]
 [connection signal="stopped_moving" from="PlayerParty" to="PlayerParty" method="_on_stopped_moving"]
 [connection signal="timeout" from="PlayerParty/marker/bounce_timer" to="PlayerParty/marker" method="bounce_animation"]
 [connection signal="started_panning" from="PlayerParty/world_map_camera" to="static_ui/main_hud/navigation_data" method="_on_world_map_camera_started_panning"]
-[connection signal="started_panning" from="PlayerParty/world_map_camera" to="static_ui/TutorialOverlay" method="clear"]
 [connection signal="pressed" from="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options/return" to="static_ui/dungeon_prompt" method="_on_return_pressed"]
 [connection signal="pressed" from="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options/enter" to="static_ui/dungeon_prompt" method="_on_enter_pressed"]
 [connection signal="pressed" from="static_ui/dungeon_prompt/close_prompt" to="static_ui/dungeon_prompt" method="_on_close_prompt_pressed"]
-[connection signal="next_tutorial" from="static_ui/TutorialOverlay" to="static_ui/TutorialOverlay2" method="fade_in"]
-[connection signal="next_tutorial" from="static_ui/TutorialOverlay2" to="static_ui/TutorialOverlay3" method="fade_in"]
 [connection signal="start_battle_pressed" from="static_ui/PlayerSheet" to="static_ui/dungeon_prompt" method="_on_player_sheet_start_battle_pressed"]
 [connection signal="pressed" from="dynamic_ui/enter_btn" to="dynamic_ui/enter_btn" method="_on_pressed"]
 

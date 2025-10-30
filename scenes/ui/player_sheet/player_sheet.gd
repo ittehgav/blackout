@@ -2,7 +2,6 @@ extends UIRoot;
 
 class_name PlayerSheet;
 
-signal opened;
 signal closed;
 signal start_battle_pressed;
 
@@ -58,8 +57,7 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	
 	if Entities.main.substate != "pre_battle":
 		Entities.main.set_substate("player_sheet")
-	await tween.finished
-	opened.emit()
+	await tween.finished;
 	open = true;
 	## so the player can't mash tab and bug the UI
 

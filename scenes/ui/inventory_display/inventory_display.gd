@@ -6,7 +6,6 @@ signal warnings_attended(clear:bool)
 
 signal item_received;
 
-signal item_pressed(mirror:ItemMirror)
 signal item_picked_up(mirror:ItemMirror);
 signal item_dropped(mirror:ItemMirror);
 signal invalid_move(message:String);

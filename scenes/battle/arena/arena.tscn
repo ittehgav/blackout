@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://b3sr8al76si1g"]
+[gd_scene load_steps=51 format=3 uid="uid://b3sr8al76si1g"]
 
 [ext_resource type="Script" uid="uid://nrp8ddsmtldq" path="res://scenes/battle/arena/arena.gd" id="1_i4yf0"]
 [ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_d8imf"]
@@ -43,7 +43,6 @@
 [ext_resource type="Script" uid="uid://bjn18u1ckuw6x" path="res://scenes/battle/arena/perk_option.gd" id="40_vjknr"]
 [ext_resource type="PackedScene" uid="uid://bvqlr4av33k48" path="res://scenes/ui/player_sheet/morale_display.tscn" id="42_tl0fu"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="43_d8imf"]
-[ext_resource type="Script" uid="uid://rmeybbfg48mx" path="res://tutorials/tutorial_overlay.gd" id="44_fewc5"]
 
 [sub_resource type="Shader" id="Shader_88w2o"]
 code = "shader_type canvas_item;
@@ -1106,107 +1105,6 @@ offset_bottom = 118.0
 theme_override_font_sizes/font_size = 128
 text = "You lost"
 
-[node name="TutorialOverlay" type="Control" parent="ui_canvas"]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("44_fewc5")
-which = "wasd_combat"
-metadata/_custom_type_script = "uid://rmeybbfg48mx"
-
-[node name="Label" type="Label" parent="ui_canvas/TutorialOverlay"]
-custom_minimum_size = Vector2(441, 0)
-layout_mode = 0
-offset_left = 622.0
-offset_top = 155.0
-offset_right = 1063.0
-offset_bottom = 314.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione W, A, S, D para se movimentar."
-autowrap_mode = 3
-
-[node name="TutorialOverlay2" type="Control" parent="ui_canvas"]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("44_fewc5")
-which = "lmb_attack"
-metadata/_custom_type_script = "uid://rmeybbfg48mx"
-
-[node name="Label" type="Label" parent="ui_canvas/TutorialOverlay2"]
-custom_minimum_size = Vector2(441, 0)
-layout_mode = 0
-offset_left = 622.0
-offset_top = 155.0
-offset_right = 1063.0
-offset_bottom = 314.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione o botão esquerdo do mouse para usar sua arma."
-autowrap_mode = 3
-
-[node name="TutorialOverlay3" type="Control" parent="ui_canvas"]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("44_fewc5")
-which = "switch_weapon"
-metadata/_custom_type_script = "uid://rmeybbfg48mx"
-
-[node name="Label" type="Label" parent="ui_canvas/TutorialOverlay3"]
-custom_minimum_size = Vector2(441, 0)
-layout_mode = 0
-offset_left = 622.0
-offset_top = 155.0
-offset_right = 1063.0
-offset_bottom = 314.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione E para alternar sua arma."
-autowrap_mode = 3
-
-[node name="TutorialOverlay4" type="Control" parent="ui_canvas"]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("44_fewc5")
-which = "use_module"
-metadata/_custom_type_script = "uid://rmeybbfg48mx"
-
-[node name="Label" type="Label" parent="ui_canvas/TutorialOverlay4"]
-custom_minimum_size = Vector2(441, 0)
-layout_mode = 0
-offset_left = 622.0
-offset_top = 155.0
-offset_right = 1063.0
-offset_bottom = 314.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione a barra de espaço para usar seu module."
-autowrap_mode = 3
-
-[connection signal="ready" from="." to="ui_canvas/TutorialOverlay" method="fade_in"]
 [connection signal="child_entered_tree" from="teams/team_1" to="teams/team_1" method="_on_child_entered_tree"]
 [connection signal="unit_converted" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
 [connection signal="unit_died" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_team_1_unit_died"]
@@ -1214,16 +1112,12 @@ autowrap_mode = 3
 [connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_damage_taken"]
 [connection signal="death" from="teams/team_1/player_fighter" to="ui_canvas/hud/tide_bar" method="_on_player_fighter_death"]
 [connection signal="healing_received" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_healing_received"]
-[connection signal="started_moving" from="teams/team_1/player_fighter" to="ui_canvas/TutorialOverlay" method="clear"]
 [connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_status_applied"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="ammo_consumed"]
-[connection signal="module_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/TutorialOverlay4" method="clear"]
 [connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
-[connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/TutorialOverlay3" method="clear"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="check_weapon_disabled"]
-[connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/TutorialOverlay2" method="clear"]
 [connection signal="child_entered_tree" from="teams/team_2" to="teams/team_2" method="_on_child_entered_tree"]
 [connection signal="unit_converted" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
 [connection signal="unit_died" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_team_2_unit_died"]
@@ -1237,9 +1131,6 @@ autowrap_mode = 3
 [connection signal="item_dropped" from="ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory" to="ui_canvas/post_fight/victory_view/loot_panel" method="check_available_loot"]
 [connection signal="pressed" from="ui_canvas/post_fight/victory_view/loot_panel/VBoxContainer/take_loot" to="ui_canvas/post_fight/victory_view/loot_panel" method="_on_take_loot_pressed"]
 [connection signal="pressed" from="ui_canvas/post_fight/defeat_view/Panel/finish_arena" to="ui_canvas/post_fight" method="_on_finish_arena_pressed"]
-[connection signal="next_tutorial" from="ui_canvas/TutorialOverlay" to="ui_canvas/TutorialOverlay2" method="fade_in"]
-[connection signal="next_tutorial" from="ui_canvas/TutorialOverlay2" to="ui_canvas/TutorialOverlay3" method="fade_in"]
-[connection signal="next_tutorial" from="ui_canvas/TutorialOverlay3" to="ui_canvas/TutorialOverlay4" method="fade_in"]
 
 [editable path="teams/team_1/player_fighter"]
 [editable path="teams/team_1/player_fighter/body"]

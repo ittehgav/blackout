@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://drf3xuyj0tmjy"]
+[gd_scene load_steps=15 format=4 uid="uid://drf3xuyj0tmjy"]
 
 [ext_resource type="Script" uid="uid://w8pni6sq83ap" path="res://scenes/in_settlement/in_settlement.gd" id="1_kl1gh"]
 [ext_resource type="Texture2D" uid="uid://53cyjuwjbine" path="res://assets/visual/buildings/streets/street.png" id="2_cd8v0"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://b31rsrhwu68hd" path="res://scenes/world_map/world_map/main_hud.tscn" id="4_hxhmu"]
 [ext_resource type="Script" uid="uid://dq403f5gmik45" path="res://scenes/in_settlement/exit_prompt.gd" id="4_t654o"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/ui/player_sheet/player_sheet.tscn" id="6_hnbvg"]
-[ext_resource type="Script" uid="uid://rmeybbfg48mx" path="res://tutorials/tutorial_overlay.gd" id="9_02kn2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i264g"]
 resource_local_to_scene = true
@@ -229,42 +228,6 @@ Stay"
 visible = false
 layout_mode = 1
 
-[node name="TutorialOverlay" type="Control" parent="ui"]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("9_02kn2")
-which = "in_settlement_wasd"
-metadata/_custom_type_script = "uid://rmeybbfg48mx"
-
-[node name="ColorRect" type="ColorRect" parent="ui/TutorialOverlay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.47058824)
-
-[node name="Label" type="Label" parent="ui/TutorialOverlay"]
-custom_minimum_size = Vector2(441, 0)
-layout_mode = 0
-offset_left = 622.0
-offset_top = 155.0
-offset_right = 1063.0
-offset_bottom = 314.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione W, A, S, D para se movimentar."
-autowrap_mode = 3
-
-[connection signal="ready" from="." to="ui/TutorialOverlay" method="fade_in"]
-[connection signal="started_moving" from="PlayerUnit" to="ui/TutorialOverlay" method="clear"]
 [connection signal="body_entered" from="exit" to="." method="_on_exit_body_entered"]
 [connection signal="tree_entered" from="ui/ui/main_hud" to="ui/ui/main_hud" method="_on_tree_entered"]
 [connection signal="pressed" from="ui/ui/exit_prompt/Panel/leave" to="ui/ui/exit_prompt" method="_on_leave_pressed"]
