@@ -5,6 +5,8 @@ const size_y = 2;
 
 const rarity = 3;
 var insta_kill_applied:bool=false
+
+@export var self_buff:Status
 ## because the player may equip them in different slots and 
 ## alter the order in which they proc
 
@@ -26,10 +28,10 @@ func battle_start_apply(target:ActiveFighter, first:bool=true)->void:
 				steal_target = unit;
 				
 		var attack_steal:int = steal_target.attack/2;
-		Combat.apply_stat_change(target, steal_target, -attack_steal, "attack");
-		Combat.apply_stat_change(target, target, attack_steal, "attack")
 		
-		Combat.apply_special_status(steal_target, texture, get_mirror_color())
+		status.apply_on_target(steal_target, -attack_steal)
+		self_buff.apply_on_target(Entities.player_fighter, attack_steal);
+		
 
 		steal_vfx(steal_target)
 
@@ -50,7 +52,9 @@ func forbidden_insta_kill()->void:
 		if not target or fighter.level > target.level:
 			target = fighter;
 	
-	Combat.deal_damage(Entities.player_fighter, target, Callable(), 99999 )
+	Combat.deal_damage(Entities.player_fighter, target, Callable(), 99999)
+
+
 func steal_vfx(target:ActiveFighter)->void:
 	var sprite:Sprite2D = Sprite2D.new();
 	sprite.texture = texture;

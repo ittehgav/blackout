@@ -37,12 +37,12 @@ func _ready()->void:
 
 	shield_bar.max_value = fighter.max_hp;
 
-func on_status_applied(_source:ActiveFighter, data:Dictionary)->void:
-	match data.type:
+func on_status_applied(_source:ActiveFighter, status:Status)->void:
+	match status.type:
 		"stun":
-			display_stun_timer(data.duration)
+			display_stun_timer(status.duration)
 		"stat_change":
-			generate_floating_icon(data.stat, data.amount > 0);
+			generate_floating_icon(status.stat, status.value > 0);
 
 
 func generate_floating_icon(key:String, positive:bool)->void:

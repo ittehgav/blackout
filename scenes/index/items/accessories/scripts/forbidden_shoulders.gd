@@ -5,6 +5,8 @@ const size_y = 2;
 
 const rarity = 3
 
+@export var steal:Status
+
 @export_subgroup("Mask Texture")
 @export var mask_texture:Texture;
 var insta_kill_applied:bool=false
@@ -29,10 +31,10 @@ func battle_start_apply(target:ActiveFighter, first:bool=true)->void:
 				steal_target = unit;
 				
 		var defense_steal:int = steal_target.defense/2;
-		Combat.apply_stat_change(target, steal_target, -defense_steal, "defense");
-		Combat.apply_stat_change(target, target, defense_steal, "defense")
+
+		steal.apply_on_target(steal_target, -defense_steal);
+		status.apply_on_target(Entities.player_fighter, defense_steal);
 		
-		Combat.apply_special_status(steal_target, mask_texture, get_mirror_color())
 
 		steal_vfx(steal_target)
 

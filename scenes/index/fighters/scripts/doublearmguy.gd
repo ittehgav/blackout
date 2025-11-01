@@ -7,7 +7,7 @@ const flavor = "Every day is arm day."
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
-	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "stun", "status_duration");
+	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "stun", "", status.duration);
 	
 	var string:String = "Slams the ground with both arms, dealing " + damage_str +\
 	" to enemies in a large area and stunning them for " + stun_duration_str + " seconds."
@@ -29,5 +29,5 @@ func skill()->void:
 
 func skill_effect()->void:
 	Combat.aoe_damage(fighter);
-	Combat.aoe_stun(fighter);
+	Combat.aoe_status(fighter)
 	skill_finished.emit();

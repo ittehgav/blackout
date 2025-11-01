@@ -17,7 +17,7 @@ radius = 200.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
 radius = 15.0
 
-[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "overlay", "timers", "status_timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox")]
+[node name="npc_fighter" type="CharacterBody2D" node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "overlay", "timers", "statuses", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
@@ -26,7 +26,7 @@ cooldown_timer = NodePath("timers/skill_cooldown")
 skill_retry_timer = NodePath("timers/skill_cooldown/skill_retry")
 overlay = NodePath("FighterOverlay")
 timers = NodePath("timers")
-status_timers = NodePath("status_timers")
+statuses = NodePath("statuses")
 initial_stats = NodePath("stats/initial_stats")
 stat_modifiers = NodePath("stats/modifiers")
 stat_multipliers = NodePath("stats/multipliers")
@@ -50,8 +50,6 @@ agility = 1.0
 move_speed = 1.0
 
 [node name="statuses" type="Node" parent="."]
-
-[node name="status_timers" type="Node" parent="."]
 
 [node name="timers" type="Node" parent="."]
 

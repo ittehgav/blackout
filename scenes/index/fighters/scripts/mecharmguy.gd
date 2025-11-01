@@ -8,7 +8,7 @@ const flavor = "He still uses the robotic arm to lift weights and it's been so l
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_str:String = Index.get_unit_damage_string(unit);
-	var def_reduction_str:String = Index.get_technique_scaled_string(unit,"stat_debuff", "", defense_reduction);
+	var def_reduction_str:String = Index.get_technique_scaled_string(unit,"stat_change", "", -status.value);
 
 	var string:String = "Deals "+damage_str + " to the nearest enemy and reduces their "+Index.stat_colored_name("defense")+\
 	" by "+  def_reduction_str + " for the rest of the battle.";
@@ -29,5 +29,5 @@ func skill()->void:
 	
 func skill_effect()->void:
 	Combat.deal_damage(fighter)
-	Combat.apply_stat_change(fighter, fighter.target_unit, -defense_reduction, "defense");
+	status.apply_on_target();
 	skill_finished.emit();

@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://c55pra6yiugp3"]
+[gd_scene load_steps=19 format=3 uid="uid://c55pra6yiugp3"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_omv2r"]
 [ext_resource type="Texture2D" uid="uid://cwd7ms5in0o41" path="res://assets/visual/sprites/fighters/gravity_guy/gravityguy.png" id="2_tj4s4"]
 [ext_resource type="Script" uid="uid://d087scjxl5ugm" path="res://scenes/index/fighters/scripts/gravityguy.gd" id="3_8synw"]
 [ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/sfx/combat/special/gravity.ogg" id="4_ta6mk"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="4_tj4s4"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_75um4"]
 [ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="6_xo3bj"]
 [ext_resource type="Shader" uid="uid://di5m3lq2rlr0d" path="res://resources/shaders/warp.gdshader" id="7_eckbi"]
@@ -220,7 +221,7 @@ size = Vector2(400, 100)
 radius = 11.0
 height = 36.0
 
-[node name="Gravity" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan")]
+[node name="Gravity" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan", "status")]
 material = ExtResource("1_omv2r")
 scale = Vector2(2, 2)
 texture = ExtResource("2_tj4s4")
@@ -230,8 +231,15 @@ frame = 4
 script = ExtResource("3_8synw")
 animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("hit_scan")
+status = NodePath("Status")
 tags = Array[String](["brawler", "scientist", "disruptor"])
 no_damage = true
+
+[node name="Status" type="Node" parent="."]
+script = ExtResource("4_tj4s4")
+type = "stun"
+duration = 2.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ta6mk")

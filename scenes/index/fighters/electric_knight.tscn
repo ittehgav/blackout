@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cn6wxjfhbdfcq"]
+[gd_scene load_steps=21 format=3 uid="uid://cn6wxjfhbdfcq"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_jtae0"]
 [ext_resource type="Texture2D" uid="uid://tsefuarfxuhu" path="res://assets/visual/sprites/fighters/coil_guy/coilguy.png" id="2_rp2jo"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://diqyd2d068yvx" path="res://assets/visual/sprites/fighters/coil_guy/chargeup.png" id="7_j5255"]
 [ext_resource type="Texture2D" uid="uid://chfw46htejogd" path="res://assets/visual/sprites/fighters/coil_guy/lightning.png" id="8_4mkoa"]
 [ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="9_tbi54"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="10_rp2jo"]
 
 [sub_resource type="Animation" id="Animation_robj6"]
 length = 0.001
@@ -386,7 +387,7 @@ _data = {
 radius = 8.5
 height = 40.0
 
-[node name="Electric Knight" type="Sprite2D" node_paths=PackedStringArray("lightning", "lightning_animation", "animation_player")]
+[node name="Electric Knight" type="Sprite2D" node_paths=PackedStringArray("lightning", "lightning_animation", "animation_player", "status")]
 material = ExtResource("1_jtae0")
 scale = Vector2(2, 2)
 texture = ExtResource("2_rp2jo")
@@ -397,6 +398,7 @@ script = ExtResource("3_fbttr")
 lightning = NodePath("lightning")
 lightning_animation = NodePath("lightning/lightning_animation")
 animation_player = NodePath("AnimationPlayer")
+status = NodePath("magnetized")
 tags = Array[String](["brawler", "cyborg", "hunter"])
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
@@ -448,5 +450,10 @@ position = Vector2(18.5, 21)
 [node name="hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("CapsuleShape2D_umb2g")
+
+[node name="magnetized" type="Node" parent="."]
+script = ExtResource("10_rp2jo")
+type = "special"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [editable path="dust"]

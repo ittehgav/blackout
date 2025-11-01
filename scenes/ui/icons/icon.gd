@@ -29,7 +29,7 @@ func setup()->void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 		var y_shift:int = 20;
-		var tween_duration:float = 2;
+		var tween_duration:float = .75;
 		if not positive:
 			y_shift *= -1;
 			tween_duration *= 1.5

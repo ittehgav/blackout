@@ -15,6 +15,7 @@ func _on_child_entered_tree(node: Node) -> void:
 	remove_child.call_deferred(node)
 
 func generate_loot(party_level:int)->void:
+	assert(len(item_pool))
 	money = randi_range(party_level/2, party_level * 1.5)
 	## loot formula = generates a total sum of item value based on the level of the roster
 	var target_value_sum:int = party_level/2;

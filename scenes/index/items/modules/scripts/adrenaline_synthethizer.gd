@@ -7,7 +7,7 @@ func get_description()->String:
 	" and increases your "+Index.stat_colored_name("agility")+" for the rest of the battle.";
 
 
-const base_agility_frac = .5
+const base_agility_frac = 1
 
 ## juice consumption scales with level?
 var description:String;
@@ -21,4 +21,4 @@ func use()->void:
 	if technique > 1:
 		frac *= technique
 	var bonus_agility:float = Entities.player_fighter.agility + 1 * frac
-	Combat.apply_stat_change(Entities.player_fighter, Entities.player_fighter, bonus_agility, "agility");
+	status.apply_on_target(Entities.player_fighter, bonus_agility);

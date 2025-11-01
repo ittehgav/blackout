@@ -88,7 +88,7 @@ shape = SubResource("CircleShape2D_053ln")
 debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
 
 [node name="Sprite2D" type="Sprite2D" parent="hit_scan"]
-modulate = Color(1, 1, 1, 0.15294118)
+modulate = Color(1, 1, 1, 0.11764706)
 position = Vector2(1, -1)
 scale = Vector2(6, 8)
 texture = ExtResource("5_hl2mp")

@@ -1,11 +1,12 @@
 extends Accessory
 
+
 const size_x = 2;
 const size_y = 1;
 
 const rarity = 1;
 
-var current_attack_change:float;
+var current_attack_change:Status
 
 func get_description()->String:
 	var description:String = super();
@@ -20,16 +21,16 @@ func battle_start_apply(_target:ActiveFighter)->void:
 func check_bonus(target:Weapon)->void:
 	## needs to match the signature of EquipmentControl.weapon_equipped
 	if target.melee:
-		var bonus_multiplier:float = .2;
 		if current_attack_change:
-			Entities.player_fighter.stat_modifiers.attack -= current_attack_change
+			current_attack_change.remove()
 		
 		var other_accessory:Accessory = other_equipped_accessory();
 		
+		var bonus_multiplier:float = .2;
 		if other_accessory and other_accessory.scene_file_path == scene_file_path:
 			bonus_multiplier = .4
 
-		current_attack_change = target.base_tamage * bonus_multiplier;
+		var bonus:float = target.base_damage * bonus_multiplier;
 		
-		Combat.apply_stat_change(Entities.player_fighter, Entities.player_fighter, current_attack_change, "attack");
+		current_attack_change = status.apply_on_target(Entities.player_fighter, bonus);
 		

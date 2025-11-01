@@ -25,8 +25,12 @@ func show_options(item:Item)->void:
 
 	if global_position.x + size.x > window_size.x:
 		global_position.x -= size.x;
-	elif global_position.y + size.y > window_size.y:
+	elif global_position.x < 0:
+		global_position.x += size.x;
+	if global_position.y + size.y > window_size.y:
 		global_position.y -= size.y
+	elif global_position.y < 0:
+		global_position.y += size.y
 	set_anchors_preset(PRESET_CENTER)
 	
 	Tweens.ui_fade_in(self);

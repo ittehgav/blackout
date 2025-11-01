@@ -12,7 +12,7 @@ const evolutions = [
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage:String = Index.get_unit_damage_string(unit);
-	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "stun", "status_duration")
+	var stun_duration_str:String = Index.get_technique_scaled_string(unit, "stun", "", status.duration);
 	
 	var string:String = "Punches the nearest enemy, dealing " + damage + \
 	" and "+Index.get_color_tag("stun") + "stunning[/color] them for "\
@@ -41,5 +41,5 @@ func skill()->void:
 
 func skill_effect()->void:
 	Combat.deal_damage(fighter);
-	Combat.stun_target(fighter)
+	status.apply_on_target()
 	skill_finished.emit();

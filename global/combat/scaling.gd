@@ -193,8 +193,7 @@ var player_stats_per_point:Dictionary[String, float] = {
 const technique_mechanic_multipliers = {
 	## fraction of itself that a technique scaled value gains when amplified by each point technique
 	"stun":.1,
-	"stat_buff":.2,
-	"stat_debuff":.2,
+	"stat_change":.2,
 	"heal":.25,
 	"damage":.1
 }

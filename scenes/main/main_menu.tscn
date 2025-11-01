@@ -150,6 +150,10 @@ layout_mode = 2
 layout_mode = 2
 text = "world map"
 
+[node name="Button2" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "testarenma"
+
 [node name="ui_sfx" parent="main_ui" instance=ExtResource("7_cmqat")]
 
 [node name="load_menu" type="Control" parent="main_ui" node_paths=PackedStringArray("main_ui", "main_menu", "options_container")]
@@ -188,4 +192,5 @@ shortcut = ExtResource("11_vinog")
 text = "[tab] return"
 
 [connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/Button" to="main_ui" method="_on_button_pressed"]
+[connection signal="pressed" from="main_ui/main_view/main_options/MarginContainer/VBoxContainer/Button2" to="main_ui" method="_on_button_2_pressed"]
 [connection signal="pressed" from="main_ui/load_menu/PanelContainer/save_file_list/return" to="main_ui/load_menu" method="_on_return_pressed"]

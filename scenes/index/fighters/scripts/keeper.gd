@@ -49,7 +49,7 @@ func skill_effect()->void:
 
 func bees_hit(target:ActiveFighter)->void:
 	if not "swarm" in target.special_statuses:
-		var new_bees:Sprite2D = bees.duplicate(DUPLICATE_SIGNALS+ DUPLICATE_SCRIPTS);
+		var new_bees:Sprite2D = bees.duplicate(DUPLICATE_SIGNALS + DUPLICATE_SCRIPTS);
 		target.add_child(new_bees);
 		new_bees.position = Vector2.ZERO
 		new_bees.scale = Vector2(2, 2)
@@ -63,13 +63,12 @@ func bees_hit(target:ActiveFighter)->void:
 
 		
 		new_bees.frame_coords.y = 4;
-		var status:Dictionary = {
-			"bees":new_bees
-		}
-		target.special_statuses["swarm"] = status;
+		var new_status:Status = status.apply_on_target(target);
+		new_status.associated_node = new_bees;
+	
 	else:
-		var status:Dictionary = target.special_statuses.swarm;
-		var current_bees:Sprite2D = status.bees;
+		var current_status:Status = target.special_statuses["swarm"];
+		var current_bees:Sprite2D = current_status.associated_node;
 		
 		var sting_timer:Timer = current_bees.get_node("sting")
 		sting_timer.wait_time -= sting_timer.wait_time/10;
@@ -87,5 +86,6 @@ func bees_hit(target:ActiveFighter)->void:
 
 
 func bees_sting(target:ActiveFighter)->void:
-	Combat.deal_damage(fighter, target, damage_modifier, 0, true)
+	print("stin? ", target.name)
+	Combat.deal_damage(fighter, target, damage_modifier)
 	

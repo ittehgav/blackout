@@ -1,16 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtd8165tljlor"]
+[gd_scene load_steps=4 format=3 uid="uid://dtd8165tljlor"]
 
 [ext_resource type="Texture2D" uid="uid://b2jyss070hl0a" path="res://assets/visual/items/accessories/forbidden_mask.png" id="1_8q7i8"]
 [ext_resource type="Script" uid="uid://bj6qgo1uw8juk" path="res://scenes/index/items/accessories/scripts/forbidden_mask.gd" id="2_ku487"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_ku487"]
 
-[node name="Forbidden Mask" type="Sprite2D"]
+[node name="Forbidden Mask" type="Sprite2D" node_paths=PackedStringArray("self_buff", "status")]
+visible = false
 texture = ExtResource("1_8q7i8")
 script = ExtResource("2_ku487")
+self_buff = NodePath("self_buff")
 application = "battle_start"
 apply_during_battle = true
 equippable = Dictionary[String, bool]({
 "player": true,
 "unit": false
 })
+status = NodePath("steal")
 color_tag = "attack"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
+
+[node name="self_buff" type="Node" parent="."]
+script = ExtResource("3_ku487")
+type = "stat_change"
+stat = "attack"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="steal" type="Node" parent="."]
+script = ExtResource("3_ku487")
+type = "stat_change"
+stat = "attack"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"

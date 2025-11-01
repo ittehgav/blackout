@@ -66,3 +66,8 @@ func _on_button_pressed() -> void:
 	Entities.main.set_scenario("world_map")
 	await Entities.main.scenario_changed
 	get_parent().queue_free();
+
+
+func _on_button_2_pressed() -> void:
+	Entities.main.set_scenario("test_arena")
+	get_parent().queue_free()

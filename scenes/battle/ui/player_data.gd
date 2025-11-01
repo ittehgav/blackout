@@ -96,14 +96,14 @@ func _on_weapon_used() -> void:
 	tween.tween_property(weapon_container, "theme_override_constants/margin_top", 0, .25)
 
 
-func _on_in_fight_player_status_applied(_source: ActiveFighter, data: Dictionary) -> void:
-	if data.type == "stun":
+func _on_in_fight_player_status_applied(_source: ActiveFighter, status:Status) -> void:
+	if status.type == "stun":
 		modulate = Color.PURPLE;
 
 
 
-func _on_in_fight_player_status_removed(status_type: String, _data: Dictionary) -> void:
-	if status_type == "stun" and not player.stun_stack:
+func _on_in_fight_player_status_removed(status:Status) -> void:
+	if status.type == "stun" and not player.stun_stack:
 		modulate = Color.WHITE;
 
 

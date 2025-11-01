@@ -18,6 +18,8 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 
 @export_group("Common weapon settings")
 @export var hit_scan:Area2D;
+@export var alt_hit_scan:Area2D;
+
 @export var projectile:Projectile;
 
 @export_group("More specific adjustments")

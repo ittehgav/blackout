@@ -102,9 +102,6 @@ func equip_accessory(accessory:Accessory, index:int)->Accessory:
 	return just_unequipped
 	
 
-	
-	
-
 
 func travel_upkeep_cost(per_hour:bool=false)->Dictionary[String, int]:
 	## EVERY 30 MINUTES

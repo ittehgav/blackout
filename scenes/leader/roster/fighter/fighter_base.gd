@@ -18,6 +18,8 @@ const LONG_RANGE = 750;
 
 @export var hard_stats:CombatStats;
 
+@export var status:Status;
+
 var sample:bool=false;
 ## feels like i'd rather keep this tracked even though right now there's only one option
 @export_enum("nearest_enemy") var target_type:String = "nearest_enemy";

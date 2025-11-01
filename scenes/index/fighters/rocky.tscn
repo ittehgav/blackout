@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6vpew5mdwbdf"]
+[gd_scene load_steps=14 format=3 uid="uid://c6vpew5mdwbdf"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_k21ye"]
 [ext_resource type="Texture2D" uid="uid://bbefybh8ca2i5" path="res://assets/visual/sprites/fighters/mech_arm_guy/mecharmguy.png" id="2_b65aa"]
 [ext_resource type="Script" uid="uid://osou1dmxn102" path="res://scenes/index/fighters/scripts/mecharmguy.gd" id="3_nhosl"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="4_k21ye"]
 [ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/slam.wav" id="4_nqptc"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_rpd6d"]
 [ext_resource type="Texture2D" uid="uid://8y3a6nxlp7q8" path="res://assets/visual/sprites/fighters/mech_arm_guy/blur.png" id="7_lfb8r"]
@@ -186,7 +187,7 @@ _data = {
 radius = 12.5
 height = 46.0
 
-[node name="Rocky" type="Sprite2D" node_paths=PackedStringArray("animation_player")]
+[node name="Rocky" type="Sprite2D" node_paths=PackedStringArray("animation_player", "status")]
 material = ExtResource("1_k21ye")
 scale = Vector2(2, 2)
 texture = ExtResource("2_b65aa")
@@ -195,7 +196,15 @@ vframes = 3
 frame = 4
 script = ExtResource("3_nhosl")
 animation_player = NodePath("AnimationPlayer")
+status = NodePath("Status")
 tags = Array[String](["brawler", "cyborg", "hunter"])
+
+[node name="Status" type="Node" parent="."]
+script = ExtResource("4_k21ye")
+type = "stat_change"
+stat = "defense"
+value = -5.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_nqptc")

@@ -23,4 +23,4 @@ func projectile_hit(target:ActiveFighter)->void:
 	hit.emit()
 	hit_sfx.play()
 	Combat.deal_damage(Entities.player_fighter, target);
-	Combat.stun_target(Entities.player_fighter, target, stun_duration)
+	status.apply_on_target(target);

@@ -44,7 +44,9 @@ func load_fighter(new_unit:FighterUnit)->void:
 		return
 	level = new_unit.level
 	unit = new_unit
+	print("based? 	b4")
 	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
+	print("based?")
 
 	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the tree
 	base.fighter = self;

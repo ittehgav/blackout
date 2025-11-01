@@ -14,6 +14,16 @@ func _physics_process(_delta: float) -> void:
 		position += vector * pan_speed
 	elif panning:
 		panning = false;
+	
+	if Input.is_action_just_pressed("reset_camera"):
+		return_to_player();
+
+func return_to_player()->void:
+	var tween:Tween = create_tween();
+	tween.set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(self, "position", Vector2.ZERO, 1);
+	
+
 
 const min_zoom = Vector2(.25, .25);
 const max_zoom = Vector2(1, 1)

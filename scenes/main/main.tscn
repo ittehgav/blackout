@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene load_steps=14 format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
+[ext_resource type="PackedScene" uid="uid://dacqy8pmfnjyf" path="res://scenes/test/combat/units/test_arena.tscn" id="2_7smn1"]
 [ext_resource type="PackedScene" uid="uid://d0n0kjgpxpjit" path="res://scenes/main/main_menu.tscn" id="2_th5th"]
 [ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/intro.ogg" id="4_blune"]
 [ext_resource type="AudioStream" uid="uid://c275jcn8n3vda" path="res://assets/sound/bgm/loops/encounter.ogg" id="5_hujxm"]
@@ -15,12 +16,13 @@
 
 [node name="main" type="Node2D" node_paths=PackedStringArray("main_bgm")]
 script = ExtResource("1_8gx17")
+test_arena_scene = ExtResource("2_7smn1")
 main_menu_ui_scene = ExtResource("2_th5th")
 main_bgm = NodePath("main_bgm")
 
 [node name="main_bgm" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-volume_db = -12.0
+volume_db = -20.0
 bus = &"music"
 script = ExtResource("6_ouso4")
 intro = ExtResource("4_blune")

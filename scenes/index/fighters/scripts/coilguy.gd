@@ -72,7 +72,7 @@ func damage_modifier(damage:float, _unit:FighterUnit=null)->float:
 func tag_fighter(target:ActiveFighter)->void:
 	## TODO make a more proper special status system where the statuses
 	## get icon textures from the source
-	target.special_statuses["magnetized"] = {};
+	status.apply_on_target(target);
 
 
 

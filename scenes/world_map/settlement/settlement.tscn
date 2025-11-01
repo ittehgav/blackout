@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://buyf7yy7iuctf"]
+[gd_scene load_steps=6 format=3 uid="uid://buyf7yy7iuctf"]
 
 [ext_resource type="Script" uid="uid://du81q231ub1bd" path="res://scenes/world_map/settlement/settlement.gd" id="1_wrcnd"]
 [ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/settlement.tres" id="2_vl27p"]
-[ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="5_ml6fn"]
 [ext_resource type="Script" uid="uid://dhcrswpod16rq" path="res://scenes/world_map/settlement/settlement_data.gd" id="5_pghvl"]
 [ext_resource type="Texture2D" uid="uid://bcfyp2vbcmtvh" path="res://assets/visual/sprites/settlements/street.png" id="6_ml6fn"]
 [ext_resource type="Texture2D" uid="uid://c6nki5lsuoqd1" path="res://assets/visual/sprites/settlements/special/flag.png" id="6_tsbcf"]
@@ -21,7 +20,7 @@ flag = NodePath("flag")
 script = ExtResource("5_pghvl")
 
 [node name="sprite" type="Sprite2D" parent="."]
-modulate = Color(0.3808, 0.3808, 0.68, 1)
+modulate = Color(0.392, 0.392, 0.7, 1)
 light_mask = 3
 use_parent_material = true
 scale = Vector2(4, 4)
@@ -44,13 +43,6 @@ offset_right = 44.0
 offset_bottom = 45.0
 theme_override_font_sizes/font_size = 128
 text = "?"
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.3647059)
-z_index = -1
-position = Vector2(0, 14)
-scale = Vector2(4, 2)
-texture = ExtResource("5_ml6fn")
 
 [node name="flag" type="Sprite2D" parent="."]
 visible = false

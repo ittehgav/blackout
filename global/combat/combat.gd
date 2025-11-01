@@ -36,40 +36,14 @@ hit_scan:Area2D=source.base.hit_scan)->void:
 			source.catch_hit_target(target);
 
 		heal_unit(source, target, value)
-	
 
-func aoe_stun(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan)->void:
+
+func aoe_status(source:ActiveFighter, status:Status=source.base.status, hit_scan:Area2D=source.base.hit_scan, hard_value:float = 0)->void:
 	for area:Area2D in hit_scan.get_overlapping_areas():
 		assert(area is HurtBox);
 		var target:ActiveFighter = area.fighter;
-		source.catch_hit_target(target);
-		stun_target(source, target)
+		status.apply_on_target(target, hard_value)
 
-
-func self_stat_buff(source:ActiveFighter, stat:String, value:float)->void:
-	source.catch_hit_target(source);
-	var final_value:float = Scaling.technique_scaled_value(value, source.technique, "stat_buff");
-	apply_stat_change(source, source, final_value, stat)
-
-func aoe_stat_change(source:ActiveFighter, hit_scan:Area2D, stat:String, value:float, positive:bool=true, fraction:float=0.0)->void:
-	for area:Area2D in hit_scan.get_overlapping_areas():
-		assert(area is HurtBox);
-		var target:ActiveFighter = area.fighter;
-		source.catch_hit_target(target);
-		
-		if fraction:
-			value = target[stat] * fraction;
-		if not positive:
-			value *= -1;
-		apply_stat_change(source, target, value, stat);
-
-func aoe_stat_buff(source:ActiveFighter,hit_scan:Area2D, stat:String, value:float, fraction:float=0.0)->void:
-	## encapsulating here just to make the difference in fighter base scripts more clear
-	aoe_stat_change(source,hit_scan, stat, value, true, fraction)
-
-
-func aoe_stat_debuff(source:ActiveFighter,hit_scan:Area2D, stat:String, value:int, fraction:float=0)->void:
-	aoe_stat_change(source,hit_scan, stat, value, false, fraction);
 
 
 func set_aoe_aim(source:NpcFighter)->void:

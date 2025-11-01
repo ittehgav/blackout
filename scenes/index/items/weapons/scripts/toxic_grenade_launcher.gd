@@ -37,4 +37,4 @@ func projectile_hit(target:ActiveFighter, smoke:Sprite2D)->void:
 	## not fancy but should work and hardly ever have any impact in the hit outcome
 	await get_tree().create_timer(.05).timeout
 	Combat.aoe_damage(Entities.player_fighter, smoke.hit_scan);
-	Combat.aoe_stat_debuff(Entities.player_fighter, smoke.hit_scan, "defense", defense_debuff)
+	Combat.aoe_status(Entities.player_fighter, status, smoke.hit_scan)

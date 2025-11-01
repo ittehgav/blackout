@@ -31,11 +31,13 @@ func _ready()->void:
 func refresh()->void:
 	if len(locations) == 1:
 		sprite.texture = locations[0].map_texture
+		sprite.modulate = locations[0].map_texture_modulate
+		
 		name = locations[0].name
 		unique_name = locations[0].name
 		if locations[0] is Dungeon and locations[0].cleared:
 			flag.show();
-			sprite.modulate.v = .5
+			sprite.self_modulate.v = .5
 	else:
 		## TODO somehow give them unique names?
 		name = "Street"

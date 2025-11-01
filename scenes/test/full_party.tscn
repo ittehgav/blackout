@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://fixb1iv77ase"]
+[gd_scene load_steps=40 format=3 uid="uid://fixb1iv77ase"]
 
 [ext_resource type="Script" uid="uid://g3ijlm51y0pn" path="res://scenes/leader/roster/roster.gd" id="1_b7rlm"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="2_cmo3w"]
@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/index/fighters/sniper.tscn" id="13_6wppn"]
 [ext_resource type="PackedScene" uid="uid://cfbsdba6873vx" path="res://scenes/index/fighters/wheel.tscn" id="14_t07sp"]
 
-[sub_resource type="Shader" id="Shader_4frhf"]
+[sub_resource type="Shader" id="Shader_sn4lh"]
 code = "shader_type canvas_item;
 
 uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
@@ -105,7 +105,7 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y4xfy"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -117,7 +117,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g1jhg"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -129,7 +129,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cntxl"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -141,7 +141,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vrcly"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -153,7 +153,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nxjpm"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -165,7 +165,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bigle"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -177,7 +177,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1unqa"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -189,7 +189,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xui5k"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -201,7 +201,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xsafl"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -213,7 +213,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2h75c"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -225,7 +225,7 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h6vwj"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -237,7 +237,151 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kq302"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sn4lh"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwpat"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_77f6x"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rb2co"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hnxqb"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5e5xl"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5jv4x"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jhb1q"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5qbd"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ijfkx"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wppn"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t07sp"]
+resource_local_to_scene = true
+shader = SubResource("Shader_sn4lh")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
@@ -251,160 +395,136 @@ shader_parameter/number_of_images = Vector2(3, 3)
 script = ExtResource("1_b7rlm")
 metadata/_custom_type_script = "uid://g3ijlm51y0pn"
 
-[node name="FighterUnit" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Botanist")
+[node name="FighterUnit" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Botanist" parent="FighterUnit" instance=ExtResource("3_sn4lh")]
 material = SubResource("ShaderMaterial_y4xfy")
 
-[node name="FighterUnit2" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Challenger")
+[node name="FighterUnit2" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Challenger" parent="FighterUnit2" instance=ExtResource("4_iwpat")]
 material = SubResource("ShaderMaterial_g1jhg")
 
-[node name="FighterUnit3" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Crowbar")
+[node name="FighterUnit3" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Crowbar" parent="FighterUnit3" instance=ExtResource("5_77f6x")]
 material = SubResource("ShaderMaterial_cntxl")
 
-[node name="FighterUnit4" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Dryad")
+[node name="FighterUnit4" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Dryad" parent="FighterUnit4" instance=ExtResource("6_rb2co")]
 material = SubResource("ShaderMaterial_vrcly")
 
-[node name="FighterUnit5" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Electric Knight")
+[node name="FighterUnit5" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Electric Knight" parent="FighterUnit5" instance=ExtResource("7_hnxqb")]
 material = SubResource("ShaderMaterial_nxjpm")
 
-[node name="FighterUnit6" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Gravity")
+[node name="FighterUnit6" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Gravity" parent="FighterUnit6" instance=ExtResource("8_5e5xl")]
 material = SubResource("ShaderMaterial_bigle")
 
-[node name="FighterUnit7" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Keeper")
+[node name="FighterUnit7" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Keeper" parent="FighterUnit7" instance=ExtResource("9_5jv4x")]
 material = SubResource("ShaderMaterial_1unqa")
 
-[node name="FighterUnit8" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Punchy")
+[node name="FighterUnit8" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Punchy" parent="FighterUnit8" instance=ExtResource("10_jhb1q")]
 material = SubResource("ShaderMaterial_xui5k")
 
-[node name="FighterUnit9" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Rocky")
+[node name="FighterUnit9" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Rocky" parent="FighterUnit9" instance=ExtResource("11_s5qbd")]
 material = SubResource("ShaderMaterial_xsafl")
 
-[node name="FighterUnit10" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Slammy")
+[node name="FighterUnit10" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Slammy" parent="FighterUnit10" instance=ExtResource("12_ijfkx")]
 material = SubResource("ShaderMaterial_2h75c")
 
-[node name="FighterUnit11" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Sniper")
+[node name="FighterUnit11" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Sniper" parent="FighterUnit11" instance=ExtResource("13_6wppn")]
 material = SubResource("ShaderMaterial_h6vwj")
 
-[node name="FighterUnit12" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Wheel")
+[node name="FighterUnit12" parent="." instance=ExtResource("2_cmo3w")]
 
 [node name="Wheel" parent="FighterUnit12" instance=ExtResource("14_t07sp")]
 material = SubResource("ShaderMaterial_kq302")
 
-[node name="FighterUnit13" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Botanist")
+[node name="FighterUnit13" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Botanist" parent="FighterUnit13" instance=ExtResource("3_sn4lh")]
-material = SubResource("ShaderMaterial_y4xfy")
+material = SubResource("ShaderMaterial_sn4lh")
 
-[node name="FighterUnit14" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Challenger")
+[node name="FighterUnit14" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Challenger" parent="FighterUnit14" instance=ExtResource("4_iwpat")]
-material = SubResource("ShaderMaterial_g1jhg")
+material = SubResource("ShaderMaterial_iwpat")
 
-[node name="FighterUnit15" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Crowbar")
+[node name="FighterUnit15" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Crowbar" parent="FighterUnit15" instance=ExtResource("5_77f6x")]
-material = SubResource("ShaderMaterial_cntxl")
+material = SubResource("ShaderMaterial_77f6x")
 
-[node name="FighterUnit16" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Dryad")
+[node name="FighterUnit16" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Dryad" parent="FighterUnit16" instance=ExtResource("6_rb2co")]
-material = SubResource("ShaderMaterial_vrcly")
+material = SubResource("ShaderMaterial_rb2co")
 
-[node name="FighterUnit17" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Electric Knight")
+[node name="FighterUnit17" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Electric Knight" parent="FighterUnit17" instance=ExtResource("7_hnxqb")]
-material = SubResource("ShaderMaterial_nxjpm")
+material = SubResource("ShaderMaterial_hnxqb")
 
-[node name="FighterUnit18" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Gravity")
+[node name="FighterUnit18" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Gravity" parent="FighterUnit18" instance=ExtResource("8_5e5xl")]
-material = SubResource("ShaderMaterial_bigle")
+material = SubResource("ShaderMaterial_5e5xl")
 
-[node name="FighterUnit19" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Keeper")
+[node name="FighterUnit19" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Keeper" parent="FighterUnit19" instance=ExtResource("9_5jv4x")]
-material = SubResource("ShaderMaterial_1unqa")
+material = SubResource("ShaderMaterial_5jv4x")
 
-[node name="FighterUnit20" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Punchy")
+[node name="FighterUnit20" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Punchy" parent="FighterUnit20" instance=ExtResource("10_jhb1q")]
-material = SubResource("ShaderMaterial_xui5k")
+material = SubResource("ShaderMaterial_jhb1q")
 
-[node name="FighterUnit21" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Rocky")
+[node name="FighterUnit21" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Rocky" parent="FighterUnit21" instance=ExtResource("11_s5qbd")]
-material = SubResource("ShaderMaterial_xsafl")
+material = SubResource("ShaderMaterial_s5qbd")
 
-[node name="FighterUnit22" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Slammy")
+[node name="FighterUnit22" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Slammy" parent="FighterUnit22" instance=ExtResource("12_ijfkx")]
-material = SubResource("ShaderMaterial_2h75c")
+material = SubResource("ShaderMaterial_ijfkx")
 
-[node name="FighterUnit23" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Sniper")
+[node name="FighterUnit23" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Sniper" parent="FighterUnit23" instance=ExtResource("13_6wppn")]
-material = SubResource("ShaderMaterial_h6vwj")
+material = SubResource("ShaderMaterial_6wppn")
 
-[node name="FighterUnit24" parent="." node_paths=PackedStringArray("base") instance=ExtResource("2_cmo3w")]
-base = NodePath("Wheel")
+[node name="FighterUnit24" parent="." instance=ExtResource("2_cmo3w")]
 level = 5
 
 [node name="Wheel" parent="FighterUnit24" instance=ExtResource("14_t07sp")]
-material = SubResource("ShaderMaterial_kq302")
+material = SubResource("ShaderMaterial_t07sp")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

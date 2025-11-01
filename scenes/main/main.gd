@@ -2,6 +2,8 @@ extends Node
 
 class_name Main;
 
+@export var test_arena_scene:PackedScene
+
 ## main substate = no substate
 ## some kinda inherit others and some if not most change calls won't do much
 ## can probably transport a lot of functionalities to just dealing with state/substate changes
@@ -108,6 +110,12 @@ func set_scenario(target:String)->void:
 					
 					remove_child(Entities.world_map);
 					add_child(arena)
+		"test_arena":
+			scenario = "battle"
+			var arena:Node2D = test_arena_scene.instantiate().get_node("Arena");
+			
+			Entities.arena = arena;
+			add_child(arena.get_parent())
 					
 	scenario_changed.emit(scenario, previous)
 func revert_substate()->void:

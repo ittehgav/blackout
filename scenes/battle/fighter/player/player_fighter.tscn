@@ -122,7 +122,7 @@ height = 60.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_88w2o"]
 radius = 15.0
 
-[node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "floating_icon_anchor", "base", "timers", "status_timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox")]
+[node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "floating_icon_anchor", "base", "timers", "statuses", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox")]
 material = SubResource("ShaderMaterial_afulj")
 collision_layer = 256
 collision_mask = 256
@@ -136,7 +136,7 @@ sfx = NodePath("sfx")
 floating_icon_anchor = NodePath("floating_icon_anchor")
 base = NodePath("body")
 timers = NodePath("timers")
-status_timers = NodePath("status_timers")
+statuses = NodePath("statuses")
 initial_stats = NodePath("stats/initial_stats")
 stat_modifiers = NodePath("stats/modifiers")
 stat_multipliers = NodePath("stats/multipliers")
@@ -145,8 +145,6 @@ hurtbox = NodePath("hurtbox")
 [node name="stats" type="Node" parent="."]
 
 [node name="initial_stats" parent="stats" instance=ExtResource("2_afulj")]
-technique = 0.0
-move_speed = 0.0
 
 [node name="modifiers" parent="stats" instance=ExtResource("2_afulj")]
 technique = 0.0
@@ -166,7 +164,6 @@ floating_icon_anchor = NodePath("../floating_icon_anchor")
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_0y55v")
-volume_db = 15.0
 bus = &"sfx"
 script = ExtResource("4_dxwve")
 damage_taken = ExtResource("5_0y55v")
@@ -184,7 +181,7 @@ fighter = NodePath("..")
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_wutkk")
 
-[node name="status_timers" type="Node" parent="."]
+[node name="statuses" type="Node" parent="."]
 
 [node name="timers" type="Node" parent="."]
 

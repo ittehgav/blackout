@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://11oj78crd2me"]
+[gd_scene load_steps=4 format=3 uid="uid://11oj78crd2me"]
 
 [ext_resource type="Texture2D" uid="uid://2ac0ct4vtc8a" path="res://assets/visual/items/accessories/brass_knucles.png" id="1_3uq41"]
 [ext_resource type="Script" uid="uid://txp0uwqfpobn" path="res://scenes/index/items/accessories/scripts/brass_knuckles.gd" id="2_5s7mq"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_f81ru"]
 
-[node name="Brass Knuckles" type="Sprite2D"]
+[node name="Brass Knuckles" type="Sprite2D" node_paths=PackedStringArray("status")]
 texture = ExtResource("1_3uq41")
 script = ExtResource("2_5s7mq")
 application = "battle_start"
@@ -11,5 +12,12 @@ equippable = Dictionary[String, bool]({
 "player": true,
 "unit": false
 })
+status = NodePath("Status")
 color_tag = "attack"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
+
+[node name="Status" type="Node" parent="."]
+script = ExtResource("3_f81ru")
+type = "stat_change"
+stat = "attack"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"

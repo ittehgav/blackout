@@ -1,9 +1,11 @@
 extends CanvasModulate
 
+
 @export var environment_colors:Array[Color];
 @export var horizon_colors:Array[Color]
 @export var backdrop:ColorRect
 @export var marker_colors:Array[Color];
+@export var settlement_colors:Array[Color];
 
 @export var roadside:TileMapLayer
 @export var horizon:TileMapLayer

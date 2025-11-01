@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bp6be4yyu4i6o"]
+[gd_scene load_steps=16 format=3 uid="uid://bp6be4yyu4i6o"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_p1yqf"]
 [ext_resource type="Texture2D" uid="uid://bpaicwhk4e4vm" path="res://assets/visual/sprites/fighters/double_arm_guy/doublearmguy.png" id="2_dyvh2"]
 [ext_resource type="Script" uid="uid://ck7sg5h7e1k8v" path="res://scenes/index/fighters/scripts/doublearmguy.gd" id="3_dyw38"]
 [ext_resource type="AudioStream" uid="uid://5b10fr14rsa1" path="res://assets/sound/sfx/combat/generic/slam.wav" id="4_1t2p2"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="4_p1yqf"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_3uokq"]
 [ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="6_p1yqf"]
 [ext_resource type="Texture2D" uid="uid://3lqwfjikd712" path="res://assets/visual/sprites/fighters/double_arm_guy/blur.png" id="7_hxipq"]
@@ -250,7 +251,7 @@ radius = 100.0
 radius = 16.0
 height = 45.0
 
-[node name="Slammy" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan")]
+[node name="Slammy" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan", "status")]
 material = ExtResource("1_p1yqf")
 scale = Vector2(2, 2)
 texture = ExtResource("2_dyvh2")
@@ -260,7 +261,14 @@ frame = 3
 script = ExtResource("3_dyw38")
 animation_player = NodePath("AnimationPlayer")
 hit_scan = NodePath("hit_scan")
+status = NodePath("Status")
 tags = Array[String](["bodybuilder", "brawler", "juggernaut"])
+
+[node name="Status" type="Node" parent="."]
+script = ExtResource("4_p1yqf")
+type = "stun"
+duration = 0.5
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_1t2p2")

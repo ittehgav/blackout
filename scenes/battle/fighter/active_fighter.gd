@@ -11,8 +11,8 @@ signal healing_received(value:float);
 signal death(killer:ActiveFighter);
 signal stat_changed(stat:String);
 
-signal status_applied(source:ActiveFighter, data:Dictionary);
-signal status_removed(status_type:String, data:Dictionary)
+signal status_applied(source:ActiveFighter, status:Status);
+signal status_removed(status:Status);
 
 
 ## used to prevent multiple death signals when getting hit by multiple 
@@ -23,7 +23,7 @@ var dead:bool=false;
 ## right now base can exclusively serve as the sprite and data from npcFighter bases
 @export var base:FighterBase;
 @export var timers:Node;
-@export var status_timers:Node;
+@export var statuses:Node;
 
 @export var initial_stats:CombatStats
 @export var stat_modifiers:CombatStats;
@@ -31,9 +31,10 @@ var dead:bool=false;
 
 @export var hurtbox:Area2D;
 
-## special statuses simply hold metadata and any effects from them
-## are managed in the source's base script
-var special_statuses:Dictionary[String, Dictionary];
+
+## keys to access specific statuses more easily from sources
+## KEYS ARE THE NAMES OF THE STATUS
+var special_statuses:Dictionary[String, Status];
 
 
 var ally_team:Team;

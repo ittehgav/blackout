@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cr3hxwb2o42kl"]
+[gd_scene load_steps=5 format=3 uid="uid://cr3hxwb2o42kl"]
 
 [ext_resource type="Script" uid="uid://31psmru2j4kr" path="res://scenes/index/items/accessories/scripts/forbidden_shoulders.gd" id="1_ow8tr"]
 [ext_resource type="Texture2D" uid="uid://dehvsu717ibkc" path="res://assets/visual/items/accessories/forbidden_shoulders.png" id="1_r7jgp"]
 [ext_resource type="Texture2D" uid="uid://b2jyss070hl0a" path="res://assets/visual/items/accessories/forbidden_mask.png" id="3_tdlko"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="4_4dt6y"]
 
-[node name="Forbidden Shoulders" type="Sprite2D"]
+[node name="Forbidden Shoulders" type="Sprite2D" node_paths=PackedStringArray("steal", "status")]
 texture = ExtResource("1_r7jgp")
 script = ExtResource("1_ow8tr")
+steal = NodePath("steal")
 mask_texture = ExtResource("3_tdlko")
 application = "battle_start"
 apply_during_battle = true
@@ -14,5 +16,18 @@ equippable = Dictionary[String, bool]({
 "player": true,
 "unit": false
 })
+status = NodePath("self_buff")
 color_tag = "defense"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
+
+[node name="self_buff" type="Node" parent="."]
+script = ExtResource("4_4dt6y")
+type = "stat_change"
+stat = "defense"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="steal" type="Node" parent="."]
+script = ExtResource("4_4dt6y")
+type = "stat_change"
+stat = "defense"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"

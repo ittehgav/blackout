@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcbeey2233tbx"]
+[gd_scene load_steps=10 format=3 uid="uid://dcbeey2233tbx"]
 
 [ext_resource type="Texture2D" uid="uid://g5tyfnvg4mb1" path="res://assets/visual/items/modules/buckler.png" id="1_bn410"]
 [ext_resource type="Script" uid="uid://tck3osf7tfmr" path="res://scenes/index/items/modules/scripts/buckler.gd" id="2_gf6e3"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_mtmst"]
 [ext_resource type="AudioStream" uid="uid://c82vpb256ryq1" path="res://assets/sound/sfx/combat/generic/defense_up.mp3" id="3_xxsex"]
 [ext_resource type="Texture2D" uid="uid://gmnr7cy0edbe" path="res://assets/visual/particles/parry_cue.png" id="4_2a87t"]
 [ext_resource type="AudioStream" uid="uid://4ikkw4ry3skw" path="res://assets/sound/sfx/combat/player/parry.wav" id="4_xxsex"]
@@ -44,17 +45,47 @@ _data = {
 &"cue": SubResource("Animation_2a87t")
 }
 
-[node name="Buckler" type="Sprite2D" node_paths=PackedStringArray("parry_timer", "parry_cue", "parry_sfx", "use_sfx", "animation_player")]
+[node name="Buckler" type="Sprite2D" node_paths=PackedStringArray("parry_timer", "parry_cue", "parry_sfx", "parry_stun", "use_sfx", "animation_player", "status")]
 texture = ExtResource("1_bn410")
 script = ExtResource("2_gf6e3")
 parry_timer = NodePath("parry_timer")
 parry_cue = NodePath("parry_cue")
 parry_sfx = NodePath("parry_sfx")
+parry_stun = NodePath("parry_stun")
 use_sfx = NodePath("use_sfx")
 cooldown = 5.0
 animation_player = NodePath("parry_cue/AnimationPlayer")
+status = NodePath("defense_buff")
 continuous = true
 color_tag = "defense"
+
+[node name="defense_buff" type="Node" parent="."]
+script = ExtResource("3_mtmst")
+chain_root = true
+type = "stat_change"
+stat = "defense"
+value = 20.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="move_speed_slow" type="Node" parent="defense_buff"]
+script = ExtResource("3_mtmst")
+type = "stat_change"
+stat = "move_speed"
+value = -250.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="attack_reduction" type="Node" parent="defense_buff"]
+script = ExtResource("3_mtmst")
+type = "stat_change"
+stat = "attack"
+value = -15.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="parry_stun" type="Node" parent="."]
+script = ExtResource("3_mtmst")
+type = "stun"
+duration = 5.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_xxsex")

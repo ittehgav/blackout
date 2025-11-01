@@ -123,17 +123,17 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tggo3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3o1i"]
 resource_local_to_scene = true
 shader = ExtResource("16_e0imn")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0, 0, 0, 0.552941)
 shader_parameter/width = 1.0
-shader_parameter/pattern = 1
+shader_parameter/pattern = 0
 shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(6, 3)
 
 [node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "start_battle_prompt", "item_space_request", "ui_sfx")]
 process_mode = 2
@@ -240,7 +240,7 @@ offset_right = 459.0
 offset_bottom = 711.0
 mouse_filter = 2
 
-[node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="3" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="4" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 offset_left = 390.0
 offset_right = 494.0
 offset_bottom = 375.0
@@ -435,8 +435,8 @@ player_inventory_display = NodePath("../inventory_display/inventory_display")
 weapon_sample = NodePath("VBoxContainer/main_weapon/weapon_sample")
 alt_weapon_sample = NodePath("VBoxContainer/alt_weapon/alt_weapon_sample")
 module_sample = NodePath("module/module_sample")
-accessory_1_sample = NodePath("VBoxContainer/accessories/HBoxContainer/accessory_1_sample")
-accessory_2_sample = NodePath("VBoxContainer/accessories/HBoxContainer/accessory_2_sample")
+accessory_1_sample = NodePath("accessories/HBoxContainer/accessory_1_sample")
+accessory_2_sample = NodePath("accessories/HBoxContainer/accessory_2_sample")
 switch_alt_button = NodePath("switch_alt")
 gear_color = Color(1, 0.5, 0.5, 1)
 
@@ -461,10 +461,10 @@ text = "Gear"
 z_index = 8
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
-offset_left = 146.0
-offset_top = 337.0
-offset_right = 180.0
-offset_bottom = 371.0
+offset_left = 200.0
+offset_top = 92.0
+offset_right = 234.0
+offset_bottom = 126.0
 
 [node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt"]
 modulate = Color(0.670588, 0.494118, 0.27451, 1)
@@ -485,11 +485,41 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("14_7sc2c")
 
+[node name="accessories" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -172.0
+offset_right = 60.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="accessories" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories"]
+layout_mode = 2
+text = "Accessories"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="accessory_1_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="accessory_2_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 0
-offset_top = 60.0
-offset_right = 76.0
-offset_bottom = 345.0
+offset_top = 15.0
+offset_right = 120.0
+offset_bottom = 466.0
 
 [node name="main_weapon" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
 layout_mode = 2
@@ -515,31 +545,12 @@ custom_minimum_size = Vector2(32, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="accessories" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
-layout_mode = 2
-
-[node name="accessories" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/accessories"]
-layout_mode = 2
-text = "Accessories"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/accessories"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="accessory_1_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="accessory_2_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
 [node name="module" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
 layout_mode = 0
-offset_left = 153.0
-offset_top = 76.0
-offset_right = 223.0
-offset_bottom = 234.0
+offset_left = 173.0
+offset_top = 196.0
+offset_right = 243.0
+offset_bottom = 354.0
 
 [node name="module" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/module"]
 layout_mode = 2
@@ -689,7 +700,7 @@ offset_bottom = 67.0
 
 [node name="body" parent="main_bg/MarginContainer/HBoxContainer/player/Control" instance=ExtResource("15_o0vop")]
 process_mode = 4
-material = SubResource("ShaderMaterial_tggo3")
+material = SubResource("ShaderMaterial_s3o1i")
 position = Vector2(90, 23)
 scale = Vector2(4, 4)
 
@@ -836,10 +847,10 @@ text = "Free up the necessary space."
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer/cancel_discard" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" method="_on_cancel_discard_pressed"]
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" method="_on_discard_item_pressed"]
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_switch_alt_pressed"]
+[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer/accessory_1_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_1_sample_gui_input"]
+[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer/accessory_2_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_2_sample_gui_input"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/main_weapon/weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_weapon_sample_gui_input"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/alt_weapon/alt_weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_alt_weapon_sample_gui_input"]
-[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/accessories/HBoxContainer/accessory_1_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_1_sample_gui_input"]
-[connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/accessories/HBoxContainer/accessory_2_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" method="_on_accessory_2_sample_gui_input"]
 [connection signal="unit_accessories_changed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" method="refresh_data"]
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/player/start_battle/start_battle" to="." method="_on_start_battle_pressed"]
 

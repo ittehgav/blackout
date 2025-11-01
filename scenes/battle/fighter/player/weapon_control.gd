@@ -30,6 +30,7 @@ func _ready()->void:
 		
 func load_weapon(target:Weapon)->Weapon:
 	var new_weapon:Weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION)
+	print(new_weapon.position)
 	new_weapon.use_parent_material = true;
 	for p:CanvasItem in new_weapon.projections:
 		p.hide()
@@ -154,6 +155,8 @@ func switch_weapon()->void:
 		p.hide()
 	if weapon.hit_scan:
 		current_weapon.hit_scan.reparent(equipment)
+	if weapon.alt_hit_scan:
+		current_weapon.alt_hit_scan.reparent(equipment)
 
 
 	var modifier:ItemModifier = current_weapon.applied_modifier

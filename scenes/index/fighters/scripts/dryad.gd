@@ -17,10 +17,8 @@ func full_skill_description(unit:FighterUnit)->String:
 	var final_str:String = "Creates " +thorns_str +\
 	 " on the ground beneath the nearest enemy, if there's already "+thorns_str+\
 	 " in that area, those "+thorns_str+" are expanded instead.\nEnemies standing on " +\
-	thorns_str+ " take " + damage_string + " every second and have their " + Index.get_color_tag("agility")+\
-	"agility[/color] reduced by 30%.";
-	## TODO FINISH IMPLEMENTING THE SKILL
-	
+	thorns_str+ " take " + damage_string + " every second."
+
 	
 	return final_str
 
@@ -83,4 +81,3 @@ func center_is_closer(rect:Rect2, current:Rect2, spot:Vector2)->bool:
 
 func _on_thorns_ticker_timeout() -> void:
 	Combat.aoe_damage(fighter, hit_scan, damage_modifier);
-	Combat.aoe_stat_debuff(fighter, hit_scan, "agility", .5)

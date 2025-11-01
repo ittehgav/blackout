@@ -32,7 +32,7 @@ tile_layout_scene = ExtResource("2_g3r3g")
 final_loot = NodePath("final_loot")
 size = 3
 map_texture = ExtResource("2_s6m70")
-map_texture_modulate = Color(0.5, 0.33333334, 0, 1)
+map_texture_modulate = Color(0.4, 0.120000005, 0.120000005, 1)
 metadata/_custom_type_script = "uid://qm0sco0on2a5"
 
 [node name="DungeonRoster" parent="." node_paths=PackedStringArray("loot") instance=ExtResource("2_lb6wb")]

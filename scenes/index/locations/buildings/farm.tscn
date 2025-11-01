@@ -20,7 +20,7 @@ front_porch_scene = ExtResource("3_kckmo")
 inventory = NodePath("ShopInventory")
 size = 3
 map_texture = ExtResource("2_gujca")
-map_texture_modulate = Color(0.75, 0.73475, 0.2925, 1)
+map_texture_modulate = Color(0.7, 0.68833333, 0.35, 1)
 icon_texture = ExtResource("3_jd5ao")
 metadata/_custom_type_script = "uid://lf67nwuvdmnt"
 

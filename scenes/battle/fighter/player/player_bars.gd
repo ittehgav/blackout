@@ -37,18 +37,20 @@ func hp_frac_color()->Color:
 
 var current_color_tween:Tween;
 var current_color_tween_duration:float;
-func _on_player_fighter_status_applied(_source: ActiveFighter, data: Dictionary) -> void:
-	match data.type:
+func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status) -> void:
+	match status.type:
 		"stun":
 			if current_color_tween and current_color_tween.is_running():
 				if current_color_tween_duration - current_color_tween.get_total_elapsed_time()\
-				> data.duration:
+				> status.duration:
 					current_color_tween.kill()
 				else:
 					return
-			add_status_bar(Color.PURPLE, data.timer)
-			current_color_tween_duration = data.duration
+
+			add_status_bar(Color.PURPLE, status.timer)
+			current_color_tween_duration = status.duration
 			hud_section.modulate = Color.PURPLE;
+			
 			var tween:Tween = create_tween();
 			tween.set_ease(Tween.EASE_IN)
 			tween.set_trans(Tween.TRANS_CUBIC)
@@ -70,6 +72,7 @@ func add_status_bar(bar_color:Color, status_timer:Timer)->void:
 	bar.max_value = status_timer.wait_time;
 	bar.value = status_timer.wait_time;
 	bar.size_flags_horizontal =Control.SIZE_EXPAND
+	
 	var tween:Tween = create_tween();
 	tween.tween_property(bar, "value", 0, status_timer.wait_time);
 	tween.tween_callback(bar.queue_free);

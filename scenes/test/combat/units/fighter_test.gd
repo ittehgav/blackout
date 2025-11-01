@@ -22,12 +22,13 @@ func _ready()->void:
 	
 	var unit_fighter:NpcFighter = team.generate_fighter(unit);
 	unit_fighter.global_position = unit.global_position;
-	connect_test_signals(unit_fighter)
+	#connect_test_signals(unit_fighter)
 	analytic.attach_to_fighter(unit_fighter)
 	
 	hide();
 
 func connect_test_signals(fighter:NpcFighter)->void:
+	## NOT WORKING AFTER STATUS SYSTEM REDO
 	fighter.damage_dealt.connect(log_damage_dealt.bind(fighter))
 	fighter.skill_used.connect(log_skill_used.bind(fighter));
 

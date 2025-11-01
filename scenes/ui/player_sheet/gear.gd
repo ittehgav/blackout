@@ -45,7 +45,7 @@ func refresh_samples(just_changed:Equipment=null)->void:
 		if accessory:
 			sample.load_item(accessory, 3)
 		else:
-			sample.load_blank();
+			sample.load_blank(1);
 	
 	if just_changed:
 		match just_changed:
@@ -125,7 +125,8 @@ func _on_alt_weapon_sample_gui_input(e: InputEvent) -> void:
 			send_item_to_inventory(Entities.player.alternative_weapon)
 			Entities.player.equipment.erase(Entities.player.alternative_weapon)
 			Entities.player.alternative_weapon = null;
-			alt_weapon_sample.load_blank()
+			alt_weapon_sample.load_blank(1)
+			refresh_samples()
 
 
 func send_item_to_inventory(item:Item)->void:

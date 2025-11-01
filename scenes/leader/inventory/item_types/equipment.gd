@@ -7,6 +7,8 @@ signal equipped
 signal countinuous_started;
 signal continuous_released
 
+@export var status:Status;
+
 ## this stuff only applies to weapons and modules but it's not enough of a 
 ## difference to break equipment down into an extra branch of item class
 signal ammo_consumed(ammo_type:String, amount:int)

@@ -52,31 +52,8 @@ func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.t
 		target.hp = target.max_hp;
 
 	target.healing_received.emit(value)
-	
 
 
-func stun_target(source:ActiveFighter, target:ActiveFighter=source.target_unit, duration:float = \
-				Scaling.technique_scaled_value(source.base.status_duration,source.technique, "stun"))->void:
-	if not is_instance_valid(source) or not is_instance_valid(target):
-		return
-	source.catch_hit_target(target);
-
-	Statuses.apply_status(source, target, "stun", duration)
-
-
-@warning_ignore("shadowed_variable_base_class")
-func apply_stat_change(source:ActiveFighter, target:ActiveFighter, value:float, stat:String, emit_signal:bool=true)->void:
-	## ALL MODIFIERS HAVE ALREADY BEEN APPLIED BY HERE
-	if not is_instance_valid(source) or not is_instance_valid(target):
-		return
-	var duration:float = 0;
-	if "status_duration" in source.base:
-		duration = source.base.status_duration;
-	var status_data := {
-		"stat":stat,
-		"amount":value
-	}
-	Statuses.apply_status(source, target, "stat_change", duration, status_data, emit_signal)
 
 func shield_unit(source:ActiveFighter, target:ActiveFighter, value:float)->void:
 	if not is_instance_valid(source) or not is_instance_valid(target):
@@ -132,9 +109,6 @@ func defense_mitigation(unit:ActiveFighter)->float:
 	## (only by defense stat rn)
 	return total_mitigation/100
 
-func apply_special_status(target:ActiveFighter, texture:Texture2D, texture_color:Color, duration:float = 0.0)->void:
-	if target is NpcFighter:
-		target.overlay.apply_special_status(texture, texture_color, duration)
 
 func turn_ellusive(unit:ActiveFighter, duration:float)->void:
 	var team_n:int;
