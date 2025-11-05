@@ -2,7 +2,7 @@ extends Node2D
 
 const spawn_range = 10000
 
-const total_settlements = 40;
+const total_settlements = 5;
 
 @export var all_location_scenes:Array[PackedScene];
 

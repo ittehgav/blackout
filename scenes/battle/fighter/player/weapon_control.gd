@@ -30,7 +30,6 @@ func _ready()->void:
 		
 func load_weapon(target:Weapon)->Weapon:
 	var new_weapon:Weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION)
-	print(new_weapon.position)
 	new_weapon.use_parent_material = true;
 	for p:CanvasItem in new_weapon.projections:
 		p.hide()

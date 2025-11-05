@@ -9,6 +9,7 @@ signal settlement_hovered(settlement:Settlement);
 signal settlement_mouse_exited;
 
 signal returned_from_battle(won:bool);
+signal sped_up;
 ## to play animations/dialogues that depend on whether you won the battle
 
 @export var origin:Settlement;
@@ -56,6 +57,7 @@ func enter_settlement(_target:Settlement = Entities.player_party.current_settlem
 func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("skip_time") and not get_tree().paused:
 		set_travel_speed(2);
+		sped_up.emit()
 		speed_up_persist_timer.start()
 	elif Input.is_action_just_released("skip_time") and not get_tree().paused:
 		set_travel_speed(1);

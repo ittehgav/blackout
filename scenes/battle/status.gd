@@ -34,8 +34,7 @@ func set_source()->void:
 	var target_source:Node = get_parent();
 
 	while not (target_source is ActiveFighter):
-		print(target_source)
-		if target_source is FighterUnit:
+		if target_source is FighterUnit or not target_source:
 			return
 		target_source = target_source.get_parent();
 	source = target_source;
@@ -70,7 +69,6 @@ func apply_on_target(target:ActiveFighter=source.target_unit, hard_value:float=0
 
 func apply(propagated:bool)->void:
 	## TECHNIQUE SCALING IS APPLIED HERE!!!1!!1
-	print(source)
 	source.catch_hit_target(host);
 	match type:
 		"stun":
@@ -113,14 +111,11 @@ func apply(propagated:bool)->void:
 		host.status_applied.emit(source, self)
 	
 func remove()->void:
-	print("rm,?")
 	if not is_instance_valid(host):
 		return;
 	match type:
 		"stun":
-			print("removest? ", host.name)
 			host.stun_stack -= 1;
-			print(host.stun_stack)
 			if not host.stun_stack:
 				host.stunned = false;
 				if host is NpcFighter:

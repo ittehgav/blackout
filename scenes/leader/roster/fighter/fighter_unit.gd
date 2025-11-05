@@ -26,10 +26,8 @@ func _ready()->void:
 
 func setup()->void:
 	if not base:
-		print("fb??")
 		find_base();
 	## needs to run with level and base assigned
-	print("uis?")
 	update_stats();
 
 func find_base()->void:
@@ -59,7 +57,6 @@ func change_base(new_base:FighterBase)->void:
 	update_stats();
 
 func update_stats()->void:
-	print(base)
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels for now
 	stats_loaded = true;
@@ -103,7 +100,6 @@ func upgrade_affordable()->bool:
 
 func _on_child_entered_tree(node: Node) -> void:
 	if node is FighterBase and not node.special:
-		print(name)
 		assert(not base);
 		await Index.ready
 		base = Index.fighters.find_base(node.name);

@@ -86,6 +86,5 @@ func bees_hit(target:ActiveFighter)->void:
 
 
 func bees_sting(target:ActiveFighter)->void:
-	print("stin? ", target.name)
 	Combat.deal_damage(fighter, target, damage_modifier)
 	
