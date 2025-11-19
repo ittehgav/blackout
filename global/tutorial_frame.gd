@@ -13,6 +13,7 @@ signal clear_finished
 @export var deactiveation_signal_key:String;
 
 func _ready()->void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	activation_source[activation_signal_key].connect(show_tutorial);
 	deactivation_source[deactiveation_signal_key].connect(clear_tutorial);
 	

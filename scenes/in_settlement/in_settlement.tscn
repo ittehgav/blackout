@@ -45,6 +45,7 @@ backdrop = NodePath("foreground/TileMapLayer")
 [node name="buildings" type="Node2D" parent="."]
 
 [node name="PlayerUnit" parent="." instance=ExtResource("2_khu3q")]
+visible = false
 z_index = 2
 position = Vector2(207, 108)
 

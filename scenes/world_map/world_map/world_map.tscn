@@ -412,12 +412,6 @@ light_mask = 2
 use_parent_material = true
 tile_set = SubResource("TileSet_x5mo2")
 
-[node name="road_highlights" type="TileMapLayer" parent="tiles"]
-modulate = Color(0.83, 0.760833, 0, 1)
-use_parent_material = true
-tile_set = SubResource("TileSet_50ku6")
-script = ExtResource("7_5vsub")
-
 [node name="road" type="TileMapLayer" parent="tiles" node_paths=PackedStringArray("props_tiles", "roadside_tiles", "highlight_tiles")]
 use_parent_material = true
 tile_set = ExtResource("28_s7sax")
@@ -426,6 +420,12 @@ script = ExtResource("9_74ily")
 props_tiles = NodePath("../props")
 roadside_tiles = NodePath("../roadside")
 highlight_tiles = NodePath("../road_highlights")
+
+[node name="road_highlights" type="TileMapLayer" parent="tiles"]
+modulate = Color(0.83, 0.760833, 0, 1)
+use_parent_material = true
+tile_set = SubResource("TileSet_50ku6")
+script = ExtResource("7_5vsub")
 
 [node name="props" type="TileMapLayer" parent="tiles"]
 light_mask = 2

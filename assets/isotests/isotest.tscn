@@ -1,0 +1,284 @@
+[gd_scene load_steps=15 format=3 uid="uid://bnxvs5dh5g1og"]
+
+[ext_resource type="Texture2D" uid="uid://cogxjham7pkqf" path="res://assets/isotests/player_iso.png" id="1_tk5ol"]
+[ext_resource type="Script" uid="uid://cuvo7yak01nus" path="res://assets/isotests/sprite_2d.gd" id="2_tk5ol"]
+[ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="4_ix46y"]
+[ext_resource type="Texture2D" uid="uid://k0f1utlxn503" path="res://assets/isotests/slammy.png" id="4_xw5td"]
+[ext_resource type="Script" uid="uid://ch5qjwbmqrhiw" path="res://assets/isotests/fighter_sprite.gd" id="5_4vent"]
+
+[sub_resource type="Animation" id="Animation_tk5ol"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../shadow:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame_coords:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_yuspa"]
+resource_name = "bounce"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.75, 0.75), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../shadow:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.6666667), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xw5td"]
+resource_name = "run"
+length = 1.5
+loop_mode = 1
+step = 0.1875
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ix46y"]
+resource_name = "walk"
+length = 1.2
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12, 13, 14]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tk5ol"]
+_data = {
+&"RESET": SubResource("Animation_tk5ol"),
+&"bounce": SubResource("Animation_yuspa"),
+&"run": SubResource("Animation_xw5td"),
+&"walk": SubResource("Animation_ix46y")
+}
+
+[sub_resource type="Animation" id="Animation_j5p7s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame_coords:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_4vent"]
+resource_name = "bounc"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gsqtu"]
+resource_name = "skill"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5p7s"]
+_data = {
+&"RESET": SubResource("Animation_j5p7s"),
+&"bounce": SubResource("Animation_4vent"),
+&"skill": SubResource("Animation_gsqtu")
+}
+
+[node name="Isotest" type="Node2D"]
+y_sort_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -10
+offset_right = 1273.0
+offset_bottom = 730.0
+color = Color(0.4, 0.5019608, 0.4, 1)
+
+[node name="player" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="player" node_paths=PackedStringArray("anchor", "shadow", "animation_player")]
+scale = Vector2(2, 2)
+texture = ExtResource("1_tk5ol")
+hframes = 8
+vframes = 15
+frame = 2
+script = ExtResource("2_tk5ol")
+anchor = NodePath("..")
+shadow = NodePath("../shadow")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="player/Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_tk5ol")
+}
+
+[node name="shadow" type="Sprite2D" parent="player"]
+modulate = Color(0, 0, 0, 0.3764706)
+z_index = -1
+position = Vector2(0, 14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_ix46y")
+
+[node name="fighter" type="Node2D" parent="."]
+position = Vector2(167, 275)
+
+[node name="fighter_sprite" type="Sprite2D" parent="fighter" node_paths=PackedStringArray("animation_player", "cooldown_timer", "retry_timer", "target")]
+scale = Vector2(2, 2)
+texture = ExtResource("4_xw5td")
+hframes = 8
+vframes = 5
+frame = 2
+script = ExtResource("5_4vent")
+animation_player = NodePath("AnimationPlayer")
+cooldown_timer = NodePath("cooldown")
+retry_timer = NodePath("cooldown/skill_retry")
+target = NodePath("../../player")
+
+[node name="cooldown" type="Timer" parent="fighter/fighter_sprite"]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="skill_retry" type="Timer" parent="fighter/fighter_sprite/cooldown"]
+process_callback = 0
+wait_time = 0.1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="fighter/fighter_sprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_j5p7s")
+}
+autoplay = "bounce"
+
+[connection signal="angle_changed" from="player/Sprite2D" to="player/Sprite2D" method="adjust_playback"]
+[connection signal="started_moving" from="player/Sprite2D" to="player/Sprite2D" method="adjust_playback"]
+[connection signal="started_moving" from="player/Sprite2D" to="player/Sprite2D/AnimationPlayer" method="play" binds= ["walk"]]
+[connection signal="stopped_moving" from="player/Sprite2D" to="player/Sprite2D/AnimationPlayer" method="stop"]
+[connection signal="started_moving" from="fighter/fighter_sprite" to="fighter/fighter_sprite/AnimationPlayer" method="play" binds= ["bounce"]]
+[connection signal="stopped_moving" from="fighter/fighter_sprite" to="fighter/fighter_sprite/AnimationPlayer" method="stop"]
+[connection signal="timeout" from="fighter/fighter_sprite/cooldown" to="fighter/fighter_sprite" method="try_skill"]
+[connection signal="timeout" from="fighter/fighter_sprite/cooldown/skill_retry" to="fighter/fighter_sprite" method="try_skill"]
