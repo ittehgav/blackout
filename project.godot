@@ -35,7 +35,6 @@ SaveSystem="*res://global/save_system/save_system.gd"
 LoadSystem="*res://global/save_system/load_system.gd"
 Dialogue="*res://global/dialogue.gd"
 Tweens="*res://global/tweens.tscn"
-Tutorial="*res://global/tutorial.gd"
 
 [debug]
 

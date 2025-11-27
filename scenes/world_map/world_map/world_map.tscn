@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://dphiet8wg7sd"]
+[gd_scene load_steps=80 format=3 uid="uid://dphiet8wg7sd"]
 
 [ext_resource type="Script" uid="uid://d0rxta3ju0m4" path="res://scenes/world_map/world_map/world_map.gd" id="1_irndy"]
 [ext_resource type="Script" uid="uid://wrywd826l7x3" path="res://scenes/world_map/world_map/world_map_sfx.gd" id="2_omxek"]
@@ -61,7 +61,6 @@
 [ext_resource type="Script" uid="uid://pl5db4cm1i1l" path="res://scenes/world_map/world_map/loot_overlay.gd" id="54_bwi7y"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="54_omir2"]
 [ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="57_bwi7y"]
-[ext_resource type="Script" uid="uid://df1h2ech00qof" path="res://global/tutorial_frame.gd" id="62_ulpn3"]
 [ext_resource type="Script" uid="uid://btb6lwcqdeb0e" path="res://scenes/ui/ui_root.gd" id="69_2irgy"]
 [ext_resource type="Script" uid="uid://dswpfdpni2xxc" path="res://scenes/world_map/world_map/enter_btn.gd" id="69_x5mo2"]
 [ext_resource type="Script" uid="uid://gp3350pfvmie" path="res://scenes/world_map/world_map/dungeon_prompt/dungeon_prompt.gd" id="70_cb2tt"]
@@ -823,96 +822,6 @@ stream = ExtResource("57_bwi7y")
 
 [node name="PlayerSheet" parent="static_ui" instance=ExtResource("33_ulpn3")]
 visible = false
-
-[node name="TutorialFrame" type="Control" parent="static_ui" node_paths=PackedStringArray("activation_source", "deactivation_source")]
-visible = false
-z_index = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("62_ulpn3")
-activation_source = NodePath("../..")
-activation_signal_key = "ready"
-deactivation_source = NodePath("../../PlayerParty/world_map_camera")
-deactiveation_signal_key = "started_panning"
-metadata/_custom_type_script = "uid://df1h2ech00qof"
-
-[node name="ColorRect" type="ColorRect" parent="static_ui/TutorialFrame"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.3137255)
-
-[node name="Label" type="Label" parent="static_ui/TutorialFrame"]
-layout_mode = 0
-offset_left = 422.0
-offset_top = 146.0
-offset_right = 1256.0
-offset_bottom = 301.0
-theme_override_font_sizes/font_size = 96
-text = "Pressione W, A, S, D
-para movimentar a câmera"
-
-[node name="TutorialFrame2" type="Control" parent="static_ui" node_paths=PackedStringArray("activation_source", "deactivation_source")]
-visible = false
-z_index = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("62_ulpn3")
-check = 1
-activation_source = NodePath("../TutorialFrame")
-deactivation_source = NodePath("../../PlayerParty")
-deactiveation_signal_key = "started_moving"
-metadata/_custom_type_script = "uid://df1h2ech00qof"
-
-[node name="Label" type="Label" parent="static_ui/TutorialFrame2"]
-layout_mode = 0
-offset_left = 422.0
-offset_top = 146.0
-offset_right = 1256.0
-offset_bottom = 301.0
-theme_override_font_sizes/font_size = 96
-text = "Clique em uma localização
-para navegar até ela"
-
-[node name="TutorialFrame3" type="Control" parent="static_ui" node_paths=PackedStringArray("activation_source", "deactivation_source")]
-visible = false
-z_index = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("62_ulpn3")
-check = 2
-activation_source = NodePath("../../PlayerParty")
-activation_signal_key = "started_moving"
-deactivation_source = NodePath("../..")
-deactiveation_signal_key = "sped_up"
-metadata/_custom_type_script = "uid://df1h2ech00qof"
-
-[node name="Label" type="Label" parent="static_ui/TutorialFrame3"]
-layout_mode = 0
-offset_left = 422.0
-offset_top = 146.0
-offset_right = 1256.0
-offset_bottom = 301.0
-theme_override_font_sizes/font_size = 96
-text = "Pressione espaço para 
-acelerar a viagem"
 
 [node name="dynamic_ui" type="Control" parent="." node_paths=PackedStringArray("ui_sfx")]
 layout_mode = 3

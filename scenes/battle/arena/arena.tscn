@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://b3sr8al76si1g"]
+[gd_scene load_steps=51 format=3 uid="uid://b3sr8al76si1g"]
 
 [ext_resource type="Script" uid="uid://nrp8ddsmtldq" path="res://scenes/battle/arena/arena.gd" id="1_i4yf0"]
 [ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_d8imf"]
@@ -43,7 +43,6 @@
 [ext_resource type="Script" uid="uid://bjn18u1ckuw6x" path="res://scenes/battle/arena/perk_option.gd" id="40_vjknr"]
 [ext_resource type="PackedScene" uid="uid://bvqlr4av33k48" path="res://scenes/ui/player_sheet/morale_display.tscn" id="42_tl0fu"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="43_d8imf"]
-[ext_resource type="Script" uid="uid://df1h2ech00qof" path="res://global/tutorial_frame.gd" id="44_fewc5"]
 
 [sub_resource type="Shader" id="Shader_88w2o"]
 code = "shader_type canvas_item;
@@ -1105,103 +1104,6 @@ offset_right = 381.0
 offset_bottom = 118.0
 theme_override_font_sizes/font_size = 128
 text = "You lost"
-
-[node name="TutorialFrame" type="Control" parent="ui_canvas" node_paths=PackedStringArray("activation_source", "deactivation_source")]
-visible = false
-z_index = 3
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("44_fewc5")
-check = 4
-activation_source = NodePath(".")
-activation_signal_key = "ready"
-deactivation_source = NodePath("../../teams/team_1/player_fighter")
-deactiveation_signal_key = "started_moving"
-metadata/_custom_type_script = "uid://df1h2ech00qof"
-
-[node name="Label" type="Label" parent="ui_canvas/TutorialFrame"]
-layout_mode = 0
-offset_left = 700.0
-offset_top = 105.0
-offset_right = 1130.0
-offset_bottom = 210.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione W, A, S, D
-para movimentar-se"
-
-[node name="TutorialFrame2" type="Control" parent="ui_canvas" node_paths=PackedStringArray("activation_source", "deactivation_source")]
-visible = false
-z_index = 3
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("44_fewc5")
-check = 5
-activation_source = NodePath("../TutorialFrame")
-deactivation_source = NodePath("../../teams/team_1/player_fighter/equipment")
-deactiveation_signal_key = "weapon_used"
-metadata/_custom_type_script = "uid://df1h2ech00qof"
-
-[node name="Label" type="Label" parent="ui_canvas/TutorialFrame2"]
-layout_mode = 0
-offset_left = 700.0
-offset_top = 105.0
-offset_right = 1240.0
-offset_bottom = 210.0
-theme_override_font_sizes/font_size = 64
-text = "Use sua arma com o
-botão esquerdo do mouse"
-
-[node name="TutorialFrame3" type="Control" parent="ui_canvas" node_paths=PackedStringArray("activation_source", "deactivation_source")]
-visible = false
-z_index = 3
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("44_fewc5")
-check = 6
-activation_source = NodePath("../TutorialFrame2")
-deactivation_source = NodePath("../../teams/team_1/player_fighter/equipment")
-deactiveation_signal_key = "weapon_changed"
-metadata/_custom_type_script = "uid://df1h2ech00qof"
-
-[node name="Label" type="Label" parent="ui_canvas/TutorialFrame3"]
-layout_mode = 0
-offset_left = 700.0
-offset_top = 105.0
-offset_right = 1130.0
-offset_bottom = 210.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione E para 
-trocar de arma"
-
-[node name="TutorialFrame4" type="Control" parent="ui_canvas" node_paths=PackedStringArray("activation_source", "deactivation_source")]
-visible = false
-z_index = 3
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("44_fewc5")
-check = 7
-activation_source = NodePath("../TutorialFrame3")
-deactivation_source = NodePath("../../teams/team_1/player_fighter/equipment")
-deactiveation_signal_key = "module_used"
-metadata/_custom_type_script = "uid://df1h2ech00qof"
-
-[node name="Label" type="Label" parent="ui_canvas/TutorialFrame4"]
-layout_mode = 0
-offset_left = 700.0
-offset_top = 105.0
-offset_right = 1172.0
-offset_bottom = 210.0
-theme_override_font_sizes/font_size = 64
-text = "Pressione espaço para
-usar seu Module"
 
 [connection signal="child_entered_tree" from="teams/team_1" to="teams/team_1" method="_on_child_entered_tree"]
 [connection signal="unit_converted" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
