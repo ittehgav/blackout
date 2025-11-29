@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs5mice0ugigb"]
+
+[ext_resource type="Texture2D" uid="uid://cy50h0r5vkio4" path="res://assets/isotests/sprites/puncher.png" id="1_1qwff"]
+[ext_resource type="Script" uid="uid://2yrhy1rgp6jr" path="res://assets/isotests/bases/iso_base.gd" id="2_sfyb3"]
+
+[node name="Puncher" type="Sprite2D"]
+texture = ExtResource("1_1qwff")
+hframes = 8
+vframes = 5
+script = ExtResource("2_sfyb3")
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct3o06to1hg6i"]
+
+[ext_resource type="Texture2D" uid="uid://dyd8imp0c2pjd" path="res://assets/isotests/sprites/crowbar.png" id="1_stv50"]
+[ext_resource type="Script" uid="uid://2yrhy1rgp6jr" path="res://assets/isotests/bases/iso_base.gd" id="2_xan8i"]
+
+[node name="Crowbar" type="Sprite2D"]
+texture = ExtResource("1_stv50")
+hframes = 8
+vframes = 5
+script = ExtResource("2_xan8i")
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"

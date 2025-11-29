@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy50h0r5vkio4"
-path="res://.godot/imported/punchy.png-bfe01f303393f72a72f5c3a0d8de1a24.ctex"
+uid="uid://badqhroykaa4u"
+path="res://.godot/imported/slammer.png-3631d788421113d9539ef7c8faaf630f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/isotests/sprites/punchy.png"
-dest_files=["res://.godot/imported/punchy.png-bfe01f303393f72a72f5c3a0d8de1a24.ctex"]
+source_file="res://assets/isotests/sprites/slammer.png"
+dest_files=["res://.godot/imported/slammer.png-3631d788421113d9539ef7c8faaf630f.ctex"]
 
 [params]
 

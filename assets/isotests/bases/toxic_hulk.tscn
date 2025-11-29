@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgdmony1sdvvy"]
+
+[ext_resource type="Texture2D" uid="uid://bn7on1muu2yli" path="res://assets/isotests/sprites/toxic_hulk.png" id="1_b6bj7"]
+[ext_resource type="Script" uid="uid://2yrhy1rgp6jr" path="res://assets/isotests/bases/iso_base.gd" id="1_ukxui"]
+
+[node name="Toxic Hulk" type="Sprite2D"]
+texture = ExtResource("1_b6bj7")
+hframes = 8
+vframes = 5
+script = ExtResource("1_ukxui")
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"

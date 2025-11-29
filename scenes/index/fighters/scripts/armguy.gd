@@ -22,14 +22,8 @@ func full_skill_description(unit:FighterUnit)->String:
 	return string;
 
 
-
-
-
 const skill_range = MELEE_RANGE;
 const skill_cooldown = 3.5;
-
-const status_duration = .125;
-
 
 
 func skill()->void:

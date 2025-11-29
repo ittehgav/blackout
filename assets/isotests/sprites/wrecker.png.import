@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://badqhroykaa4u"
-path="res://.godot/imported/slammy.png-ea55403d7bb6db6bfa9dbd6dd9bd36e5.ctex"
+uid="uid://yvfllg4g82cf"
+path="res://.godot/imported/wrecker.png-397ba39801c0c438f67fea8d57446d9a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/isotests/sprites/slammy.png"
-dest_files=["res://.godot/imported/slammy.png-ea55403d7bb6db6bfa9dbd6dd9bd36e5.ctex"]
+source_file="res://assets/isotests/sprites/wrecker.png"
+dest_files=["res://.godot/imported/wrecker.png-397ba39801c0c438f67fea8d57446d9a.ctex"]
 
 [params]
 

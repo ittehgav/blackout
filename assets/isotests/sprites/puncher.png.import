@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yvfllg4g82cf"
-path="res://.godot/imported/wrecking_ball.png-20fb43b29477a62be8e4a6a3dcdcad28.ctex"
+uid="uid://cy50h0r5vkio4"
+path="res://.godot/imported/puncher.png-6400bdce34d5446a9599e178f9f68eab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/isotests/sprites/wrecking_ball.png"
-dest_files=["res://.godot/imported/wrecking_ball.png-20fb43b29477a62be8e4a6a3dcdcad28.ctex"]
+source_file="res://assets/isotests/sprites/puncher.png"
+dest_files=["res://.godot/imported/puncher.png-6400bdce34d5446a9599e178f9f68eab.ctex"]
 
 [params]
 
