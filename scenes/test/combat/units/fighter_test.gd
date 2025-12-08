@@ -9,17 +9,10 @@ class_name NpcFighterTest
 @onready var team:Team = get_parent();
 
 @export var unit:FighterUnit;
-@export var dummies:Array[FighterUnit]
 
 @export var analytic:Control
 
 func _ready()->void:
-	for dummy_unit:FighterUnit in dummies:
-		dummy_unit.setup();
-		var dummy_fighter:NpcFighter = team.enemy_team.generate_fighter(dummy_unit);
-		dummy_fighter.global_position = dummy_unit.global_position;
-		connect_test_signals(dummy_fighter)
-	
 	var unit_fighter:NpcFighter = team.generate_fighter(unit);
 	unit_fighter.global_position = unit.global_position;
 	#connect_test_signals(unit_fighter)

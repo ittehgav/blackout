@@ -1,111 +1,32 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqyd4aj1d1d57"]
+[gd_scene load_steps=9 format=3 uid="uid://cqyd4aj1d1d57"]
 
 [ext_resource type="Script" uid="uid://cjy4eec2ch65i" path="res://scenes/ui/recruitment/recruitment_card.gd" id="1_4dx5q"]
-[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/punchy.tscn" id="2_5o3de"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_p40ot"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_bsnkq"]
 
-[sub_resource type="Shader" id="Shader_4frhf"]
-code = "shader_type canvas_item;
-
-uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
-uniform float grad:hint_range(0.0, 1.0);
-
-
-uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
-uniform float width : hint_range(0, 10) = 1.0;
-uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
-uniform bool inside = false;
-uniform bool add_margins = true; // only useful when inside is false
-uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
-
-varying flat vec4 modulate;
-
-void vertex() {
-	modulate = COLOR;
-
-	if (add_margins) {
-		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
-			VERTEX += (UV * 2.0 - 1.0) * width;
-		} else {
-			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
-		}
-	}
-}
-
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
-	for (float i = -ceil(width); i <= ceil(width); i++) {
-		float x = abs(i) > width ? width * sign(i) : i;
-		float offset;
-
-		if (pattern == 0) {
-			offset = width - abs(x);
-		} else if (pattern == 1) {
-			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
-		} else if (pattern == 2) {
-			offset = width;
-		}
-
-		for (float j = -ceil(offset); j <= ceil(offset); j++) {
-			float y = abs(j) > offset ? offset * sign(j) : j;
-			vec2 xy = uv + texture_pixel_size * vec2(x, y);
-
-			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-
-void fragment(){
-
-	// OUTLINE
-
-	vec2 uv = UV;
-	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
-	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
-
-	if (add_margins) {
-		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
-
-		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
-
-		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
-			COLOR.a = 0.0;
-		} else {
-			COLOR = texture(TEXTURE, uv) * modulate;
-		}
-	} else {
-		COLOR = texture(TEXTURE, uv) * modulate;
-	}
-
-	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
-		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
-	}
-
-	// BLINK ANIMATIONS
-	if(grad != 0.0 && COLOR.a != 0.0){
-		COLOR = mix(COLOR, target_color, grad);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvovb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u65hk"]
 resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
-shader_parameter/width = 2.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(3, 3)
+shader = ExtResource("3_bsnkq")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5o3de"]
+resource_local_to_scene = true
+shader = ExtResource("3_bsnkq")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvovb"]
 resource_local_to_scene = true
 shader = ExtResource("3_bsnkq")
 shader_parameter/base_color = Color(0, 0.505882, 0, 1)
@@ -138,28 +59,6 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tgeiw"]
-resource_local_to_scene = true
-shader = ExtResource("3_bsnkq")
-shader_parameter/base_color = Color(0, 0.505882, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(0, 1, 0, 1)
-shader_parameter/light_color = Color(1, 0, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fggbd"]
-resource_local_to_scene = true
-shader = ExtResource("3_bsnkq")
-shader_parameter/base_color = Color(0, 0.505882, 0, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(0, 1, 0, 1)
-shader_parameter/light_color = Color(1, 0, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
 [node name="recruitment_card" type="Button" node_paths=PackedStringArray("hired_overlay", "sprite_anchor", "current_sprite", "recruit_name_label", "price_tag", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
 z_index = 26
 custom_minimum_size = Vector2(420, 150)
@@ -177,7 +76,7 @@ grow_vertical = 2
 script = ExtResource("1_4dx5q")
 hired_overlay = NodePath("hired_overlay")
 sprite_anchor = NodePath("HBoxContainer/sprite_anchor")
-current_sprite = NodePath("HBoxContainer/sprite_anchor/Punchy")
+current_sprite = NodePath("")
 recruit_name_label = NodePath("recruit_name")
 price_tag = NodePath("HBoxContainer/VBoxContainer3/price_tag")
 recruit_max_hp_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/max_hp")
@@ -214,10 +113,6 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Punchy" parent="HBoxContainer/sprite_anchor" instance=ExtResource("2_5o3de")]
-material = SubResource("ShaderMaterial_hvovb")
-centered = false
-
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
@@ -227,7 +122,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 
 [node name="hp_icon" parent="HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
-material = SubResource("ShaderMaterial_5o3de")
+material = SubResource("ShaderMaterial_u65hk")
 layout_mode = 2
 label = NodePath("../max_hp")
 
@@ -239,7 +134,7 @@ text = "aga"
 layout_mode = 2
 
 [node name="attack_icon" parent="HBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
-material = SubResource("ShaderMaterial_nynt3")
+material = SubResource("ShaderMaterial_5o3de")
 layout_mode = 2
 stat = "attack"
 label = NodePath("../attack")
@@ -257,7 +152,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 
 [node name="defense_icon" parent="HBoxContainer/VBoxContainer2/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
-material = SubResource("ShaderMaterial_wmgb6")
+material = SubResource("ShaderMaterial_hvovb")
 layout_mode = 2
 stat = "defense"
 label = NodePath("../defense")
@@ -270,7 +165,7 @@ text = "aga"
 layout_mode = 2
 
 [node name="agility_icon" parent="HBoxContainer/VBoxContainer2/HBoxContainer2" node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
-material = SubResource("ShaderMaterial_tgeiw")
+material = SubResource("ShaderMaterial_nynt3")
 layout_mode = 2
 stat = "agility"
 label = NodePath("../agility")
@@ -288,7 +183,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 
 [node name="technique_icon" parent="HBoxContainer/VBoxContainer3/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
-material = SubResource("ShaderMaterial_fggbd")
+material = SubResource("ShaderMaterial_wmgb6")
 layout_mode = 2
 stat = "technique"
 label = NodePath("../technique")

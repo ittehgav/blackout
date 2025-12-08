@@ -5,11 +5,11 @@ class_name EvolutionMenu;
 
 @export var evolution_prompt:PanelContainer
 
-func load_options(tag:String)->void:
+func load_options(tag:FighterBase.Tag )->void:
 	## only gets here if player has at least one unit with tag
 	## dont have to be ready for upgrade
 	## (in whatever the conditions may end up being determined)
-	modulate = Index.primary_tag_colors[tag].blend(Color.WHITE)
+	modulate = Index.primary_tag_colors[str(tag)].blend(Color.WHITE)
 	var units_with_tag:Array[FighterUnit] = Entities.player.roster.units.filter(can_evolve.bind(tag))
 	assert(len(units_with_tag));
 	for unit:FighterUnit in units_with_tag:
@@ -19,7 +19,7 @@ func load_options(tag:String)->void:
 			option.disabled = true
 		options_hbox.add_child(option)
 	
-func can_evolve(unit:FighterUnit, tag:String)->bool:
+func can_evolve(unit:FighterUnit, tag:FighterBase.Tag)->bool:
 	return "evolutions" in unit.base and tag in unit.base.tags;
 
 func show_upgrade_prompt(target:FighterUnit)->void:

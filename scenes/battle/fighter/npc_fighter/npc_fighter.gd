@@ -22,7 +22,6 @@ var unit:FighterUnit;
 @export var overlay:FighterOverlay
 
 
-
 var target_unit:ActiveFighter;
 var target_in_range:bool = false;
 ## for the skill_hit signal to not repeat itself
@@ -31,21 +30,23 @@ var target_in_range:bool = false;
 ## and is playing on a different wait time
 var true_cooldown:float;
 
-## player can be taunted?
-## just force the movement maybe?
-var taunted:bool=false;
-
+var current_cell:Vector2i
+var movement_target:Vector2
 
 
 func load_fighter(new_unit:FighterUnit)->void:
 	unit = new_unit
-	if unit.base.special:
-		load_special();
-		return
+	
 	level = new_unit.level
 	unit = new_unit
 	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
+	base.scale = Vector2(2, 2);
+	base.skill.reparent(self);
+	base.skill.fighter = self;
 
+	started_moving.connect(base.started_moving.emit)
+	stopped_moving.connect(base.stopped_moving.emit)
+	
 	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the tree
 	base.fighter = self;
 	add_child(base)
@@ -70,28 +71,7 @@ func load_fighter(new_unit:FighterUnit)->void:
 	cooldown_timer.wait_time = true_cooldown
 	if true_cooldown == 0:
 		cooldown_timer.set_process(false)
-	
-	started_moving.connect(base.fighter_started_moving)
-	stopped_moving.connect(base.fighter_stopped_moving)
 
-func load_special()->void:
-	level = unit.level
-	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
-	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the tree
-	base.fighter = self;
-	add_child(base)
-	base.set_owner(self)
-	base.get_node("hurtbox").reparent(hurtbox)
-	
-	load_unit_stats();
-	
-	refresh_all_stats()
-	hp = max_hp;
-	
-	## will make this an option in fighter_base if i ever need special
-	## fighters that use skill
-	 
-	timers.get_node("skill_cooldown").stop()
 
 
 func load_unit_stats()->void:
@@ -104,24 +84,75 @@ func load_unit_stats()->void:
 	move_speed = stats.move_speed
 
 
-func adjust_collisions()->void:
-	## needs to run after load_unit and assign_team
-	if base.global_hit_scan:
-		base.hit_scan.global_position = Vector2.ZERO;
+
+const angle_indexes = [
+	## put this in a place where both player and npcs catch?
+	Vector2i.UP,
+	Vector2i(1, -1),
+	Vector2i.RIGHT,
+	Vector2i(1, 1),
+	Vector2i.DOWN,
+	Vector2i(-1, 1),
+	Vector2i.LEFT,
+	Vector2i(-1, -1)
+]
+
+
+func set_direction()->void:
+	var direction:Vector2
+	if moving:
+		direction = position.direction_to(movement_target)
+	else:
+		direction = position.direction_to(target_unit.position)
 	
-	$skill_range/shape.shape.radius = base.skill_range;
+	## to make ceil work on negative numbers
+	if direction.x < 0 and direction.x > -1:
+		direction.x -= 1;
+	if direction.y < 0 and direction.y > -1:
+		direction.y -= 1;
+	var angle:Vector2i = direction.ceil()
+
+	base.frame_coords.x = angle_indexes.find(angle);
 	
-	if "projectile" in base:
-		base.projectile.setup(self);
+func refresh_target()->void:
+	find_target();
+	
+	if not target_in_range:
+		move();
+	else:
+		stop()
+	set_direction()
+
+func move()->void:
+	movement_target = Entities.arena.grid.get_next_cell_in_path(self);
+	
+	if Entities.arena.grid.spot_taken(movement_target):
+		## to prevent two units from overlapping
+		## when they move towards eachother at the exact same time
+		## otherwise will respect the taken cells by only
+		## moving through astar pathfinding
+		## BUG seems like melee units can't properly target enemies that are on the 
+		## cell to their bottom-right?
+		movement_target = Entities.arena.grid.next_closer_cell(self)
+
+	var tween:Tween = create_tween();
+	tween.tween_property(self, "position", movement_target, .25);
+	Entities.arena.grid.occupy_cell(self)
+	
+	if not moving:
+		moving = true;
+		started_moving.emit()
+
+func stop()->void:
+	if moving:
+		moving = false;
+		stopped_moving.emit()
 
 
 func find_target()->void:
-	## overrideable?
-	if taunted: return;
-	
 	var target:ActiveFighter=null;
-	match base.target_type:
-		"nearest_enemy":
+	match base.skill.targetting:
+		SkillComponent.TargetType.nearest_enemy:
 			target = nearest_enemy();
 			
 	if target != target_unit:
@@ -129,45 +160,16 @@ func find_target()->void:
 		target_changed.emit();
 	if target_unit:
 		## only ever doesn't get here when the last unit dies and everyone was targeting it?
-		target_in_range = target_unit.hurtbox in $skill_range.get_overlapping_areas();
+		target_in_range = Entities.arena.grid.cell_distance(position, target.position) <= base.skill.skill_range
 
 
-func _physics_process(_delta: float) -> void:
-	if target_unit and is_instance_valid(target_unit):
-		if not target_in_range:
-			velocity = (target_unit.position - position).normalized() * move_speed;
-
-			move_and_slide()
-		else:
-			velocity = Vector2.ZERO
-		if base.scale.x < 0:
-			if target_unit.position.x > position.x:
-				base.scale.x *= -1;
-		elif base.scale.x > 0:
-			if target_unit.position.x < position.x:
-				base.scale.x *= -1;
-				
-	if velocity != Vector2(0.0, 0.0) and not moving:
-		moving = true;
-		started_moving.emit()
-	elif velocity == Vector2(0.0, 0.0) and moving:
-		moving = false
-		stopped_moving.emit();
-
-
-func _on_skill_range_body_entered(body: Node2D) -> void:
-	if body == target_unit:
-		target_in_range = true;
-
-
-func _on_skill_range_body_exited(body: Node2D) -> void:
-	if body == target_unit:
-		target_in_range = false;
 
 
 func skill_cooldown() -> void:
 	skill_attempted.emit();
-	if target_in_range or not base.need_target:
+	if base.name == "Wheel":
+		print("scd??? ", target_in_range)
+	if target_in_range or not base.skill.need_target:
 		use_skill()
 		skill_retry_timer.stop()
 		cooldown_timer.start()
@@ -177,11 +179,12 @@ func skill_cooldown() -> void:
 
 func use_skill()->void:
 	hit_targets = [];
-	base.skill();
-
+	base.skill_windup()
+	base.skill.lineup()
 	skill_used.emit();
 	
-	await base.skill_finished
+	await base.skill.finished
+	base.frame_coords.y = 0;
 	for target:ActiveFighter in hit_targets:
 		skill_hit.emit(target);
 
@@ -205,7 +208,7 @@ func _on_stat_changed(stat:String)->void:
 				cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);
 
 func final_skill_cooldown()->float:
-	return base.skill_cooldown - Scaling.agility_cooldown_reduction(base.skill_cooldown, agility)
+	return base.skill.base_cooldown - Scaling.agility_cooldown_reduction(base.skill.base_cooldown, agility)
 
 func refresh_skill_cooldown()->void:
 	true_cooldown = final_skill_cooldown();
@@ -224,3 +227,11 @@ func _on_death(_killer: ActiveFighter) -> void:
 	await base.fighter_died().finished
 	hide();
 	set_process_mode(PROCESS_MODE_DISABLED)
+
+func angle_to_target()->Vector2i:
+	var direction:Vector2 = position.direction_to(target_unit.position);
+	if direction.x < 0:
+		direction.x -= 1;
+	if direction.y < 0:
+		direction.y -= 1;
+	return direction.ceil()

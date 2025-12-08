@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://b8o5vlsx27qdx"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_6afpe"]
+[ext_resource type="Texture2D" uid="uid://dd3a6ry4fqale" path="res://assets/isotests/sprites/electric_hulk.png" id="1_ovd82"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://assets/isotests/skill_component.gd" id="3_5ejrg"]
+[ext_resource type="Script" uid="uid://ckoqd0eib1ilw" path="res://scenes/index/fighters/scripts/electric_hulk.gd" id="3_6afpe"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_m8o5l"]
+[ext_resource type="PackedScene" uid="uid://bakra857y3ok0" path="res://scenes/index/special_statuses/electrified.tscn" id="5_6h33m"]
+[ext_resource type="Texture2D" uid="uid://co0gy3qc3n5n0" path="res://assets/visual/sprites/fighters/electric_hulk/blur.png" id="7_kk0wj"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_6dfrt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i2adc"]
+radius = 15.033297
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yl5li"]
+radius = 35.057095
+
+[node name="Electric Hulk" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "status", "skill", "animation_player")]
+material = ExtResource("1_6afpe")
+texture = ExtResource("1_ovd82")
+hframes = 8
+vframes = 5
+frame = 33
+script = ExtResource("3_6afpe")
+hit_scan = NodePath("hit_scan")
+status = NodePath("electrified")
+skill = NodePath("Electric Pulse")
+animation_player = NodePath("AnimationPlayer")
+tags = Array[int]([6, 2, 5])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="Electric Pulse" type="Node" parent="."]
+script = ExtResource("3_5ejrg")
+need_target = false
+scan_allies = true
+effects = Array[int]([3, 5])
+tranform_visual = 2
+base_cooldown = 10.0
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="electrified" parent="." instance=ExtResource("5_6h33m")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"fighter_base": ExtResource("4_m8o5l")
+}
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_i2adc")
+
+[node name="hit_scan" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan"]
+shape = SubResource("CircleShape2D_yl5li")
+
+[node name="blur" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_kk0wj")
+hframes = 8
+vframes = 2
+frame = 9
+script = ExtResource("8_6dfrt")

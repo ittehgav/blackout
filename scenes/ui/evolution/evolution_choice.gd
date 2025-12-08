@@ -28,8 +28,8 @@ func show_evolution(unit:FighterUnit, new_base:FighterBase)->void:
 	sample.position.x = 100
 
 	tags.text = "";
-	for tag:String in new_base.tags:
-		tags.text += tag + "\n";
+	for tag:FighterBase.Tag  in new_base.tags:
+		tags.text += str(tag) + "\n";
 	
 	flavor.text = new_base.flavor
 	

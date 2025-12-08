@@ -32,9 +32,7 @@ var dead:bool=false;
 @export var hurtbox:Area2D;
 
 
-## keys to access specific statuses more easily from sources
-## KEYS ARE THE NAMES OF THE STATUS
-var special_statuses:Dictionary[String, Status];
+
 
 
 var ally_team:Team;

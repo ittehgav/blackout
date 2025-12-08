@@ -10,7 +10,9 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 		## hard value only overrides the source's attack stat, 
 		## not the modifier function that may come in
 		damage = hard_value;
-	if not modifier.is_null():
+	if not modifier.is_null() or "damage_modifier" in source.base:
+		if "damage_modifier" in source.base:
+			modifier = source.base.damage_modifier;
 		## MODIFIER IS A FUNCTION THAT RECIEVES THE DAMAGE AND RETURNS IT MODIFIED
 		## can also be used to hardcode damage ignoring source's attack stat
 		damage = modifier.bind(damage).call();
@@ -44,7 +46,7 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 			target.death.emit(source);
 
 
-func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.technique_scaled_value(source.base.heal_value,source.technique, "heal"))->void:
+func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.technique_scaled_value(source.attack, source.technique, "heal"))->void:
 	if not is_instance_valid(source) or not is_instance_valid(target):
 		return
 	target.hp += value;

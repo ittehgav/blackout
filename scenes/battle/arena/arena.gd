@@ -5,6 +5,8 @@ class_name Arena;
 signal battle_started
 signal battle_ended(won:bool);
 
+@export var grid:NavigationGrid
+
 ## used for nodes outside of the arena contex to interact with wether the player won or lost
 
 @export var team_1:Team;

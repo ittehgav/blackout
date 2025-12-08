@@ -23,8 +23,8 @@ func _ready()->void:
 		
 
 		new_recruit_tags.text = "";
-		for tag:String in recruit.base.tags:
-			new_recruit_tags.text += tag + "\n"
+		for tag:FighterBase.Tag in recruit.base.tags:
+			new_recruit_tags.text += str(tag) + "\n"
 		
 		new_recruit_skill.text = "Cooldown: " + str(snapped(recruit.final_skill_cooldown(), .01)) + "s\n"
 		new_recruit_skill.text += recruit.base.full_skill_description(recruit)

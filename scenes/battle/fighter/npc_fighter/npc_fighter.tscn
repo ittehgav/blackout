@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dd47t7xuh3au2"]
+[gd_scene load_steps=11 format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.gd" id="1_a7x5t"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_8440y"]
@@ -9,10 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="20_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="24_nct2u"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mp8l8"]
-resource_local_to_scene = true
-radius = 200.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
 radius = 15.0
@@ -53,11 +49,12 @@ move_speed = 1.0
 
 [node name="timers" type="Node" parent="."]
 
-[node name="find_target" type="Timer" parent="timers"]
+[node name="refresh_target" type="Timer" parent="timers"]
 wait_time = 0.2
 autostart = true
 
 [node name="skill_cooldown" type="Timer" parent="timers"]
+one_shot = true
 autostart = true
 
 [node name="skill_retry" type="Timer" parent="timers/skill_cooldown"]
@@ -70,16 +67,7 @@ monitoring = false
 script = ExtResource("3_m77vo")
 fighter = NodePath("..")
 
-[node name="skill_range" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="shape" type="CollisionShape2D" parent="skill_range"]
-shape = SubResource("CircleShape2D_mp8l8")
-debug_color = Color(0, 0.6, 0.701961, 0)
-
-[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("outline", "bg", "hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter", "status_icons", "status_display")]
+[node name="FighterOverlay" type="Control" parent="." node_paths=PackedStringArray("outline", "bg", "hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter", "status_icons", "status_display", "special_statuses_container")]
 z_index = 1
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 3
@@ -87,9 +75,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -30.0
-offset_top = -40.0
+offset_top = -87.0
 offset_right = 34.0
-offset_bottom = -40.0
+offset_bottom = -87.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -105,6 +93,7 @@ cooldown_timer = NodePath("../timers/skill_cooldown")
 fighter = NodePath("..")
 status_icons = NodePath("outline/status_icons")
 status_display = NodePath("outline/status_icons/status_display")
+special_statuses_container = NodePath("outline/status_icons/special_statuses")
 
 [node name="floating_icon_anchor" type="Node2D" parent="FighterOverlay"]
 position = Vector2(-7, 39)
@@ -145,6 +134,9 @@ offset_left = -1.0
 offset_top = -14.0
 offset_right = 62.0
 offset_bottom = 2.0
+
+[node name="special_statuses" type="HBoxContainer" parent="FighterOverlay/outline/status_icons"]
+layout_mode = 2
 
 [node name="status_display" type="TextureProgressBar" parent="FighterOverlay/outline/status_icons"]
 visible = false
@@ -246,10 +238,8 @@ shape = SubResource("CircleShape2D_m77vo")
 [connection signal="shield_gained" from="." to="FighterOverlay" method="_on_npc_fighter_shield_gained"]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
 [connection signal="status_applied" from="." to="FighterOverlay" method="on_status_applied"]
-[connection signal="timeout" from="timers/find_target" to="." method="find_target"]
+[connection signal="timeout" from="timers/refresh_target" to="." method="refresh_target"]
 [connection signal="timeout" from="timers/skill_cooldown" to="." method="skill_cooldown"]
 [connection signal="timeout" from="timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
-[connection signal="body_entered" from="skill_range" to="." method="_on_skill_range_body_entered"]
-[connection signal="body_exited" from="skill_range" to="." method="_on_skill_range_body_exited"]
 [connection signal="value_changed" from="FighterOverlay/outline/VBoxContainer/hp_bar_trail/hp_bar" to="FighterOverlay" method="_on_hp_bar_value_changed"]
 [connection signal="timeout" from="FighterOverlay/refresh_bar" to="FighterOverlay" method="refresh_charge_bar"]

@@ -1,4 +1,3 @@
-import PIL
 from PIL import Image
 import os
 
@@ -82,7 +81,6 @@ for frame in range(total_frames):
 print("✅ Finished rendering 360° around Y-axis.")
 
 png_files = ["//renders/"+f for f in os.listdir(bpy.path.abspath("//renders")) if f.lower().endswith('.png') and not f.startswith("combined")] 
-print(png_files)
 
 def get_unique_name(base_name, directory="."):
     """

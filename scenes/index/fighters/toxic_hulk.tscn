@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://dgdmony1sdvvy"]
+
+[ext_resource type="Texture2D" uid="uid://bn7on1muu2yli" path="res://assets/isotests/sprites/toxic_hulk.png" id="1_b6bj7"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_kxg8q"]
+[ext_resource type="Script" uid="uid://ca8013fstlydp" path="res://scenes/index/fighters/scripts/toxic_hulk.gd" id="3_db2wx"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://assets/isotests/skill_component.gd" id="3_fwyy1"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_vxgs3"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_db8tu"]
+[ext_resource type="Texture2D" uid="uid://chx42v3gcomqg" path="res://assets/visual/sprites/fighters/toxic_hulk/blur.png" id="7_xfclm"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_xpmpj"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_db2wx"]
+points = PackedVector2Array(80, -60, 80, 60, 0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_paj8a"]
+radius = 15.033297
+
+[node name="Toxic Hulk" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "status", "skill", "animation_player")]
+material = ExtResource("1_kxg8q")
+texture = ExtResource("1_b6bj7")
+hframes = 8
+vframes = 5
+frame = 32
+script = ExtResource("3_db2wx")
+hit_scan = NodePath("hit_scan")
+status = NodePath("Status")
+skill = NodePath("Gas Leak")
+animation_player = NodePath("AnimationPlayer")
+tags = Array[int]([7, 6, 5])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="Gas Leak" type="Node" parent="."]
+script = ExtResource("3_fwyy1")
+position_lineup = false
+effects = Array[int]([2, 3])
+base_cooldown = 4.0
+skill_range = 6
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="Status" type="Node" parent="."]
+script = ExtResource("5_db8tu")
+type = "stat_change"
+duration = -5.0
+value = 3.0
+stat = "attack"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"fighter_base": ExtResource("4_vxgs3")
+}
+
+[node name="hit_scan" type="Area2D" parent="."]
+scale = Vector2(1.1024557, 1.0162183)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan"]
+scale = Vector2(1.0537851, 0.4430384)
+shape = SubResource("ConvexPolygonShape2D_db2wx")
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_paj8a")
+
+[node name="blur" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("7_xfclm")
+hframes = 8
+vframes = 2
+frame = 8
+script = ExtResource("8_xpmpj")

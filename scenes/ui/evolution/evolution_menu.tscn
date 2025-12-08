@@ -1,15 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://d4in2ufnt4nf7"]
+[gd_scene load_steps=15 format=3 uid="uid://d4in2ufnt4nf7"]
 
 [ext_resource type="Script" uid="uid://dblpi8jpaeogs" path="res://scenes/ui/evolution/evolution_menu.gd" id="1_wbmiv"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_gvq80"]
 [ext_resource type="Script" uid="uid://dqhben8hqhkuw" path="res://scenes/ui/evolution/prompt.gd" id="3_v2djn"]
 [ext_resource type="Script" uid="uid://dqe8jes2wns7t" path="res://scenes/ui/evolution/evolution_choice.gd" id="4_qo7io"]
-[ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/index/fighters/slammy.tscn" id="5_dxr3b"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="6_u2l0e"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="7_m2rko"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="8_dxr3b"]
 [ext_resource type="Script" uid="uid://p6m0sudtrfc0" path="res://scenes/ui/evolution/confirmation.gd" id="9_u2l0e"]
-[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/punchy.tscn" id="10_m2rko"]
 [ext_resource type="AudioStream" uid="uid://dhws222nfgn6t" path="res://assets/sound/sfx/ui/inventory/units/upgrade_unit.wav" id="11_wwagp"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
@@ -100,19 +98,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwagp"]
-resource_local_to_scene = true
-shader = SubResource("Shader_4frhf")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(3, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qo7io"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2l0e"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -212,7 +198,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ygjr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2rko"]
 resource_local_to_scene = true
 shader = SubResource("Shader_wwagp")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -224,7 +210,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(3, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2jqwi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwagp"]
 resource_local_to_scene = true
 shader = SubResource("Shader_wwagp")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -390,11 +376,6 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Slammy" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_1_choice/VBoxContainer/HBoxContainer/sprite_holder" instance=ExtResource("5_dxr3b")]
-material = SubResource("ShaderMaterial_wwagp")
-position = Vector2(100, 80)
-scale = Vector2(2, 2)
-
 [node name="VBoxContainer" type="VBoxContainer" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_1_choice/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
@@ -458,9 +439,6 @@ stat_labels = {
 "max_hp": NodePath("max_hp/max_hp"),
 "technique": NodePath("technique/technique")
 }
-
-[node name="stats" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_1_choice/VBoxContainer/HBoxContainer2/stats_before" index="0"]
-visible = false
 
 [node name="max_hp" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_1_choice/VBoxContainer/HBoxContainer2/stats_before" index="1"]
 mouse_filter = 2
@@ -542,9 +520,6 @@ stat_labels = {
 "max_hp": NodePath("max_hp/max_hp"),
 "technique": NodePath("technique/technique")
 }
-
-[node name="stats" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_1_choice/VBoxContainer/HBoxContainer2/stats_after" index="0"]
-visible = false
 
 [node name="max_hp" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_1_choice/VBoxContainer/HBoxContainer2/stats_after" index="1"]
 mouse_filter = 2
@@ -655,10 +630,20 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Slammy" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_2_choice/VBoxContainer/HBoxContainer/sprite_holder" instance=ExtResource("5_dxr3b")]
-material = SubResource("ShaderMaterial_qo7io")
+[node name="Slammy" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_2_choice/VBoxContainer/HBoxContainer/sprite_holder"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+material = SubResource("ShaderMaterial_u2l0e")
 position = Vector2(100, 80)
 scale = Vector2(2, 2)
+script = null
 
 [node name="VBoxContainer" type="VBoxContainer" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_2_choice/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -723,9 +708,6 @@ stat_labels = {
 "max_hp": NodePath("max_hp/max_hp"),
 "technique": NodePath("technique/technique")
 }
-
-[node name="stats" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_2_choice/VBoxContainer/HBoxContainer2/stats_before" index="0"]
-visible = false
 
 [node name="max_hp" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_2_choice/VBoxContainer/HBoxContainer2/stats_before" index="1"]
 theme_override_constants/separation = 5
@@ -802,9 +784,6 @@ stat_labels = {
 "max_hp": NodePath("max_hp/max_hp"),
 "technique": NodePath("technique/technique")
 }
-
-[node name="stats" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_2_choice/VBoxContainer/HBoxContainer2/stats_after" index="0"]
-visible = false
 
 [node name="max_hp" parent="prompt/MarginContainer/VBoxContainer/HBoxContainer/evolution_2_choice/VBoxContainer/HBoxContainer2/stats_after" index="1"]
 theme_override_constants/separation = 5
@@ -923,10 +902,20 @@ size_flags_horizontal = 4
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 
-[node name="Punchy" parent="confirmation/VBoxContainer/HBoxContainer/Control" instance=ExtResource("10_m2rko")]
-material = SubResource("ShaderMaterial_8ygjr")
+[node name="Punchy" parent="confirmation/VBoxContainer/HBoxContainer/Control"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+material = SubResource("ShaderMaterial_m2rko")
 position = Vector2(165, 145)
 scale = Vector2(3, 3)
+script = null
 
 [node name="TextureRect" type="TextureRect" parent="confirmation/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 93)
@@ -938,10 +927,20 @@ texture = ExtResource("7_m2rko")
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 
-[node name="Slammy" parent="confirmation/VBoxContainer/HBoxContainer/Control2" instance=ExtResource("5_dxr3b")]
-material = SubResource("ShaderMaterial_2jqwi")
+[node name="Slammy" parent="confirmation/VBoxContainer/HBoxContainer/Control2"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+material = SubResource("ShaderMaterial_wwagp")
 position = Vector2(189, 152)
 scale = Vector2(3, 3)
+script = null
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="confirmation/VBoxContainer"]
 layout_mode = 2

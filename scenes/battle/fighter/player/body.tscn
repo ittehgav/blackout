@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3q2rj3eol6t"]
+[gd_scene load_steps=8 format=3 uid="uid://b3q2rj3eol6t"]
 
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="2_tn4cm"]
-[ext_resource type="Script" uid="uid://cuk2slytdd26o" path="res://scenes/battle/fighter/player/body.gd" id="3_dsuet"]
+[ext_resource type="Script" uid="uid://cqf12thilix0a" path="res://scenes/battle/fighter/player/body.gd" id="3_dsuet"]
 [ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="4_p2cmb"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
@@ -104,17 +104,50 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="body" type="Sprite2D" node_paths=PackedStringArray("animation_player")]
+[sub_resource type="Animation" id="Animation_sqvxk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xbk01"]
+_data = {
+&"RESET": SubResource("Animation_sqvxk")
+}
+
+[node name="body" type="Sprite2D"]
 material = SubResource("ShaderMaterial_sqvxk")
 texture = ExtResource("2_tn4cm")
-hframes = 6
-vframes = 2
+hframes = 8
+vframes = 15
+frame = 6
 script = ExtResource("3_dsuet")
-animation_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
 libraries = {
+&"": SubResource("AnimationLibrary_xbk01"),
 &"player": ExtResource("4_p2cmb")
 }
 autoplay = "player/idle"

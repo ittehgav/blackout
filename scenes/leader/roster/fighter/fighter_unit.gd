@@ -48,8 +48,6 @@ func final_stats()->CombatStats:
 	return modified_stats;
 
 func final_stat(stat:String)->float:
-	if stat == "attack" and base.no_damage:
-		return 0;
 	return (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat];
 
 func change_base(new_base:FighterBase)->void:
@@ -59,14 +57,9 @@ func change_base(new_base:FighterBase)->void:
 func update_stats()->void:
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels for now
+	assert(len(base.tags))
 	stats_loaded = true;
-	if base.hard_stats:
-		for s:String in Index.all_combat_stats:
-			stats[s] = base.hard_stats[s];
-		stats.move_speed = base.hard_stats.move_speed
-		return
-		
-
+	
 	Scaling.initiate_unit_stats(self);
 	Scaling.level_up_stats(self, level)
 
@@ -99,7 +92,7 @@ func upgrade_affordable()->bool:
 
 
 func _on_child_entered_tree(node: Node) -> void:
-	if node is FighterBase and not node.special:
+	if node is FighterBase:
 		assert(not base);
 		await Index.ready
 		base = Index.fighters.find_base(node.name);

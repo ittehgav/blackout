@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://cytn5aw6slgl8"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_pg4qo"]
+[ext_resource type="Texture2D" uid="uid://cv54mh4rdj11x" path="res://assets/isotests/sprites/scythe.png" id="1_xl7l7"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://assets/isotests/skill_component.gd" id="3_ly1nj"]
+[ext_resource type="Script" uid="uid://c22ry32eswkql" path="res://scenes/index/fighters/scripts/scythe.gd" id="3_pg4qo"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_hop5t"]
+[ext_resource type="Texture2D" uid="uid://cqwfygfe8vk6k" path="res://assets/visual/sprites/fighters/scythe/blur.png" id="6_j7v0f"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_lpcpv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ly1nj"]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uo25i"]
+radius = 15.033297
+
+[node name="Scythe" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "skill", "animation_player")]
+material = ExtResource("1_pg4qo")
+texture = ExtResource("1_xl7l7")
+hframes = 8
+vframes = 5
+frame = 32
+script = ExtResource("3_pg4qo")
+hit_scan = NodePath("hit_scan")
+skill = NodePath("Reaping Swing")
+animation_player = NodePath("AnimationPlayer")
+tags = Array[int]([6, 1])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="Reaping Swing" type="Node" parent="."]
+script = ExtResource("3_ly1nj")
+base_special_values = Dictionary[String, float]({
+"vamp": 10.0
+})
+effects = Array[int]([5, 2])
+base_cooldown = 4.0
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"fighter_base": ExtResource("4_hop5t")
+}
+
+[node name="hit_scan" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan"]
+rotation = 1.5707964
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_ly1nj")
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_uo25i")
+
+[node name="blur" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("6_j7v0f")
+hframes = 8
+vframes = 2
+frame = 8
+script = ExtResource("7_lpcpv")

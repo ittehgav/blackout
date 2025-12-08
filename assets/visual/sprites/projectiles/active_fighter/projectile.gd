@@ -11,7 +11,6 @@ var move_target:Vector2;
 
 @export var shooter:ActiveFighter;
 
-@export var sprite:Sprite2D;
 @export var despawn_timer:Timer;
 @export var hitbox:Area2D;
 

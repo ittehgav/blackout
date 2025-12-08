@@ -43,8 +43,8 @@ func display_unit(unit:FighterUnit)->void:
 func refresh_data()->void:
 	unit_name_label.text = showing_unit.base.name;
 
-	for tag:String in showing_unit.base.tags:
-		tags_label.text += tag.capitalize() + "\n"
+	for tag:FighterBase.Tag  in showing_unit.base.tags:
+		tags_label.text += str(tag).capitalize() + "\n"
 	
 	unit_level_label.text = "Level " + str(showing_unit.level);
 	experience_bar.build(showing_unit);

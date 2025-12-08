@@ -23,16 +23,7 @@ const type = "accessory"
 
 
 
-@export_enum(
-	"bodybuilder",
-	"brawler",
-	"cyborg",
-	"scientist",
-	"mechanic",
-	"hunter",
-	"doctor", 
-	"juggernaut",
-	"disruptor") var exclusive_tag:String;
+@export var exclusive_tag:FighterBase.Tag;
 
 
 func get_description()->String:
@@ -42,10 +33,11 @@ func get_description()->String:
 	else:
 		if equippable.unit:
 			if exclusive_tag:
+				var tag_str:String = FighterBase.Tag.keys()[exclusive_tag];
 				## only makes it here when not player or has exclusive tag
-				description += exclusive_tag+"s"
+				description += tag_str+"s"
 				if equippable.player:
-					description += " and " + exclusive_tag + "s"
+					description += " and " + tag_str + "s"
 			else:
 				description += "units"
 		if equippable.player:

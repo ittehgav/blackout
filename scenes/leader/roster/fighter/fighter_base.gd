@@ -1,49 +1,69 @@
 extends Sprite2D;
 
+## will fully replace FighterBase eventually
 class_name FighterBase
 
-signal skill_finished;
-## right now just a fighterbase that doesn't move
+## range is now in cells rather than 2D space pixels
+const MELEE_RANGE = 1;
+const MID_RANGE = 6;
+const LONG_RANGE = 10;
 
-const MELEE_RANGE = 50
-
-const MID_RANGE = 300;
-const LONG_RANGE = 750;
-
-
-
-@export var fighter:ActiveFighter;
-@export var animation_player:AnimationPlayer
+var fighter:ActiveFighter;
 @export var hit_scan:Area2D;
-
-@export var hard_stats:CombatStats;
+@export var projectile:Projectile
 
 @export var status:Status;
+@export var skill:SkillComponent;
 
-var sample:bool=false;
-## feels like i'd rather keep this tracked even though right now there's only one option
-@export_enum("nearest_enemy") var target_type:String = "nearest_enemy";
+@export var animation_player:AnimationPlayer
+
+## repeating this on the base scripts so movement/skill
+##  animations can be set for each individual base
+## also animation players dont play too well with not 
+## having the nodes right on top of them when you make the animations
+signal started_moving;
+signal stopped_moving;
+
+func _ready()->void:
+	if not self is PlayerFighterBase:
+		## faster to reiterate than if i had to manually make the connections on each unit
+		started_moving.connect(animation_player.play.bind("fighter_base/walk"))
+		stopped_moving.connect(animation_player.play.bind("fighter_base/idle"))
 
 
-@export var tags:Array[String] = [
-	## TODO UNIFY THE TAGS TO A SINGLE SOURCE
-	"bodybuilder",
-	"brawler",
-	"cyborg",
-	"scientist",
-	 "mechanic",
-	"hunter",
-	"juggernaut",
-	"disruptor"
-]
+enum Tag {
+	## just cv paste the old format if this becomes too much 
+	## work for too little payoff?
+	bodybuilder,
+	brawler,
+	cyborg,
+	scientist,
+	mechanic,
+	freak,
+	juggernaut,
+	disruptor
+}
 
-@export_group("misc")
-@export var idle_animation_root:String = "fighter_base"
-@export var special:bool=false;
-@export var need_target:bool=true;
-@export var global_hit_scan:bool=false;
-@export var no_damage:bool=false
+func skill_windup()->void:
+	animation_player.play("fighter_base/skill");
+	await animation_player.animation_finished;
+	animation_player.play("fighter_base/idle");
+	skill.use()
 
+@export var tags:Array[Tag]
+func final_skill_cooldown(unit:FighterUnit)->float:
+	var base_cooldown:float = skill.base_cooldown;
+	return base_cooldown - Scaling.agility_cooldown_reduction(base_cooldown, unit.final_stats().agility);
+
+func full_skill_description(_unit:FighterUnit)->String:
+	## put this in the skill component as well?
+	return "skillescriptionmissing"
+
+func special_skill_effect()->void:
+	printerr("MISSINGSPECIALSKILLEF")
+#func damage_modifier(_damage:float, _unit:FighterUnit=null)->float:
+	#printerr("MISSINGDMGMOD"); ## TODO make this abstract and less janky implementation of modifiers
+	#return 0;
 
 func fighter_died()->Tween:
 	modulate.v = .5;
@@ -51,44 +71,3 @@ func fighter_died()->Tween:
 	var tween:Tween = Tweens.ui_fade_out(self, false, .3)
 	tween.parallel().tween_property(self, "position:x", 20, .3);
 	return tween;
-
-
-func fighter_started_moving()->void:
-	## can override these for base-specific walk cycles i suppose
-	if animation_player.current_animation == "fighter_base/idle":
-		animation_player.play("fighter_base/walk");
-	else:
-		animation_player.queue("fighter_base/walk")
-
-func fighter_stopped_moving()->void:
-	rotation = 0;
-	if animation_player.current_animation == "fighter_base/walk":
-		animation_player.play(idle_animation_root+"/idle");
-	else:
-		animation_player.queue(idle_animation_root+"/idle")
-
-func final_skill_cooldown(unit:FighterUnit)->float:
-	var base_cooldown:float = self["skill_cooldown"]
-	return base_cooldown - Scaling.agility_cooldown_reduction(base_cooldown, unit.final_stats().agility);
-
-func skill()->void:
-	printerr("skillmissing");
-
-func skill_effect()->void:
-	printerr("skilleffectmissing")
-
-func full_skill_description(_unit:FighterUnit)->String:
-	return "skillescriptionmissing"
-
-func clear_for_sample()->void:
-	sample = true
-	## so i can keep track of where these are called
-	for c:Node in get_children():
-		if c is CanvasItem:
-			c.hide();
-
-func skill_impact()->void:
-	## cancels the skill when the battle's over or the target died during the animation
-	if not fighter or not fighter.target_unit or fighter.dead or fighter.target_unit.dead:
-		return
-	skill_effect()

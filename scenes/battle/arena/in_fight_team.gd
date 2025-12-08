@@ -50,8 +50,7 @@ func generate_fighter(unit:FighterUnit)->NpcFighter:
 	fighter.ally_team = self;
 	fighter.load_fighter(unit);
 	add_child.call_deferred(fighter)
-	if not fighter.base.special:
-		fighter.adjust_collisions();
+
 		
 	ColorCoder.color_code_fighter(fighter, team_n)
 	return fighter
@@ -85,12 +84,14 @@ func assign_unit(unit:ActiveFighter)->void:
 
 	unit.hurtbox.set_collision_layer_value(team_n, true);
 	if not unit is PlayerFighter:
-		unit.get_node("skill_range").set_collision_mask_value(enemy_team.team_n, true);
 		if unit.base.hit_scan:
-			if Entities.player_fighter in units:
-				unit.base.hit_scan.get_node("projection").hide();
-			unit.base.hit_scan.set_collision_mask_value(enemy_team.team_n, true);
-	
+			## TODO projection s
+			if unit.base.skill.scan_enemies:
+				unit.base.hit_scan.set_collision_mask_value(enemy_team.team_n, true);
+			if unit.base.skill.scan_allies:
+				unit.base.hit_scan.set_collision_mask_value(team_n, true);
+		if unit.base.projectile:
+			unit.base.projectile.setup(unit)
 	
 
 
@@ -103,7 +104,11 @@ func unassign_unit(fighter:ActiveFighter)->void:
 		## will just hide it if converted from enemy team
 		## to playe team
 		fighter.base.hit_scan.get_node("projection").show();
-		fighter.base.hit_scan.set_collision_mask_value(enemy_team.team_n, false);
+		if fighter.base.skill.scan_enemies:
+			fighter.base.hit_scan.set_collision_mask_value(enemy_team.team_n, false);
+		if fighter.base.skill.scan_allies:
+			fighter.base.hit_scan.set_collision_mask_value(team_n, false);
+			
 
 func convert_unit(unit:ActiveFighter)->void:
 	enemy_team.unassign_unit(unit)

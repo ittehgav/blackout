@@ -9,22 +9,22 @@ extends Node
 @export var textures:TextureIndex;
 
 const primary_fighter_tags = [
-	"bodybuilder",
-	"mechanic",
-	"scientist",
-	"cyborg"
+	FighterBase.Tag.bodybuilder,
+	FighterBase.Tag.mechanic,
+	FighterBase.Tag.scientist,
+	FighterBase.Tag.cyborg
 ]
 
 const all_fighter_tags = [
-	"bodybuilder",
-	"mechanic",
-	"scientist",
-	"cyborg",
+	FighterBase.Tag.bodybuilder,
+	FighterBase.Tag.mechanic,
+	FighterBase.Tag.scientist,
+	FighterBase.Tag.cyborg,
 
-	"brawler",
-	"hunter",
-	"juggernaut",
-	"disruptor"
+	FighterBase.Tag.brawler,
+	FighterBase.Tag.freak,
+	FighterBase.Tag.juggernaut,
+	FighterBase.Tag.disruptor
 ]
 
 ## make this catch the size properly?
@@ -126,7 +126,8 @@ const combat_effect_colors = {
 const misc_colors = {
 	"no_dmg":Color.LIGHT_BLUE,
 	"shield":Color.YELLOW,
-	"morale":Color.YELLOW
+	"morale":Color.YELLOW,
+	"electrify":Color.YELLOW
 }
 
 
@@ -159,6 +160,13 @@ func get_color_tag(key:String)->String:
 	var color:Color = get_color(key);
 	return "[color=" + color.to_html() + "]";
 
+func colored_text(color_tag:String, data:Variant, trailing_text:String="")->String:
+	## converting text to string here sice a lot of this will be numbers
+	## and when they're strings it still works
+	## trailing so i can add a string within the tags alongside numbers
+	if data is float:
+		data = snapped(data, .01)
+	return get_color_tag(color_tag ) + str(data)+trailing_text + "[/color]"
 
 func resource_colored_name(resource:String, close_tag:bool=true, capitalize:bool=false)->String:
 	var color:String = resource_colors[resource].to_html();

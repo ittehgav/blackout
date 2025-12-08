@@ -12,6 +12,7 @@ var module:Module;
 var holding_continuous:bool=false
 
 func _ready()->void:
+	if not Entities.main:return
 	await equipment.holder.ready
 	module = Entities.player.equipped_module.duplicate(DUPLICATE_USE_INSTANTIATION);
 	module.hide();

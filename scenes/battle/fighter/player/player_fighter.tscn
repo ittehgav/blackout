@@ -185,11 +185,10 @@ shape = SubResource("CapsuleShape2D_wutkk")
 
 [node name="timers" type="Node" parent="."]
 
-[node name="body" parent="." node_paths=PackedStringArray("fighter") instance=ExtResource("6_bbywa")]
+[node name="body" parent="." instance=ExtResource("6_bbywa")]
 material = null
 use_parent_material = true
 scale = Vector2(2, 2)
-fighter = NodePath("..")
 
 [node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("weapon_control", "module_control", "holder", "body", "freeze_frame_timer")]
 use_parent_material = true

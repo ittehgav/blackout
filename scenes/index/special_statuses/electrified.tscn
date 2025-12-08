@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bakra857y3ok0"]
+
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="1_hrpt0"]
+[ext_resource type="Texture2D" uid="uid://c0jti2qycq68f" path="res://assets/visual/icons/statuses/electrified.png" id="2_wc4km"]
+
+[node name="electrified" type="Node"]
+script = ExtResource("1_hrpt0")
+type = "special"
+unique = true
+special_status_texture = ExtResource("2_wc4km")
+metadata/_custom_type_script = "uid://ulxvybj6ipka"

@@ -323,7 +323,7 @@ func empty_inventory()->void:
 func taken_space()->int:
 	var space:int = 0;
 	for item:Item in items:
-		if not item is Equipment or (not item in Entities.player.equipment\
+		if not (item is Equipment) or (not item in Entities.player.equipment\
 			and not item in Entities.player.roster.equipped_accessories):
 			space += item.size_x * item.size_y;
 	assert(space <= capacity_x * capacity_y)

@@ -29,21 +29,23 @@ func aoe_damage(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan, mo
 		deal_damage(source, target, modifier);
 
 func aoe_heal(source:ActiveFighter, value:float=Scaling.technique_scaled_value(source.base.heal_value, source.technique, "heal"),
-hit_scan:Area2D=source.base.hit_scan)->void:
+				hit_scan:Area2D=source.base.hit_scan)->void:
 	var targets:Array[Node2D] = hit_scan.get_overlapping_bodies();
 	for target in targets:
 		if source is NpcFighter:
 			source.catch_hit_target(target);
-
 		heal_unit(source, target, value)
 
 
 func aoe_status(source:ActiveFighter, status:Status=source.base.status, hit_scan:Area2D=source.base.hit_scan, hard_value:float = 0)->void:
-	for area:Area2D in hit_scan.get_overlapping_areas():
+	var hurtboxes:Array[Area2D] = hit_scan.get_overlapping_areas();
+	if source.target_unit.hurtbox not in hurtboxes:
+		hurtboxes.append(source.target_unit.hurtbox)
+	for area:Area2D in hurtboxes:
 		assert(area is HurtBox);
 		var target:ActiveFighter = area.fighter;
 		status.apply_on_target(target, hard_value)
-
+	
 
 
 func set_aoe_aim(source:NpcFighter)->void:

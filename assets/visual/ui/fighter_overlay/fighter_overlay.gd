@@ -20,6 +20,7 @@ class_name FighterOverlay
 @export var status_icons:HBoxContainer;
 
 @export var status_display:TextureProgressBar
+@export var special_statuses_container:HBoxContainer;
 
 
 var trail_tween:Tween;
@@ -43,6 +44,17 @@ func on_status_applied(_source:ActiveFighter, status:Status)->void:
 			display_stun_timer(status.duration)
 		"stat_change":
 			generate_floating_icon(status.stat, status.value > 0);
+		"special":
+			assert(status.special_status_texture);
+			add_special_status_icon(status)
+
+func add_special_status_icon(status:Status)->void:
+	var icon:TextureRect = TextureRect.new();
+	icon.custom_minimum_size = Vector2(16, 16);
+	icon.texture = status.special_status_texture;
+	special_statuses_container.add_child(icon);
+	status.removed.connect(icon.queue_free)
+	
 
 
 func generate_floating_icon(key:String, positive:bool)->void:
@@ -51,10 +63,8 @@ func generate_floating_icon(key:String, positive:bool)->void:
 	icon.floating = true;
 	icon.positive = positive
 	floating_icon_anchor.add_child(icon);
-	
-	
 
-	
+
 
 func display_stun_timer(duration:float)->void:
 	var bar:TextureProgressBar = status_display.duplicate();
@@ -66,20 +76,6 @@ func display_stun_timer(duration:float)->void:
 	tween.tween_callback(bar.queue_free)
 	bar.modulate = Color.PURPLE
 
-func apply_special_status(status_texture:Texture2D, texture_color:Color, duration:float = 0.0)->void:
-	## right now this runs in parallel to the true effect of the 
-	## status and is mostly for visual/readability reasons
-	if not duration:
-		var rect:TextureRect = TextureRect.new();
-		var target_size:Vector2 = status_texture.get_size();
-		rect.custom_minimum_size = target_size;
-		rect.size = target_size;
-		rect.texture = status_texture
-		rect.modulate = texture_color;
-		status_icons.add_child(rect)
-	else:
-		## TODO timed these things
-		pass
 
 
 

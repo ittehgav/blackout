@@ -14,17 +14,18 @@ var chain:Array[Status]
 @export_enum("stun", "stat_change", "special") var type:String;
 @export var duration:float=0;
 
-@export_enum("attack", "defense", "agility", "technique", "move_speed") var stat:String;
 @export var value:float;
 
-## right now only for the bees thing but prolly gonna add some more stuff?
-@export var associated_node:Node
+@export var unique:bool=false;
 
 var source:ActiveFighter
 
 var host:ActiveFighter
 
 var timer:Timer;
+
+@export_enum("attack", "defense", "agility", "technique", "move_speed") var stat:String;
+@export var special_status_texture:Texture;
 
 func _ready() -> void:
 	if original and Entities.main.scenario == "battle":
@@ -41,7 +42,7 @@ func set_source()->void:
 
 
 func generate_status()->Status:
-	const properties_to_clone:Array[String] = ["type", "source", "duration", "value", "associated_node", "chain_root"]
+	const properties_to_clone:Array[String] = ["type", "source", "duration", "value", "chain_root"]
 	var new_status:Status = duplicate();
 	for key:String in properties_to_clone:
 		new_status[key] = self[key]
@@ -49,8 +50,11 @@ func generate_status()->Status:
 
 
 func apply_on_target(target:ActiveFighter=source.target_unit, hard_value:float=0, propagated:bool=false)->Status:
-	
-	
+	if unique:
+		var current_statuses:Array[Node] = target.statuses.get_children();
+		for s:Status in current_statuses:
+			if s.name == name:
+				return
 	var new_status:Status = generate_status();
 
 	if hard_value:
@@ -68,7 +72,7 @@ func apply_on_target(target:ActiveFighter=source.target_unit, hard_value:float=0
 	return new_status
 
 func apply(propagated:bool)->void:
-	## TECHNIQUE SCALING IS APPLIED HERE!!!1!!1
+	## TECHNIQUE SCALING IS APPLIED HERE
 	source.catch_hit_target(host);
 	match type:
 		"stun":
@@ -89,14 +93,12 @@ func apply(propagated:bool)->void:
 			host.stat_modifiers[stat] += value
 			
 			host.stat_changed.emit(stat)
-		"special":
-			## only one application per status per target?
-			host.special_statuses[name] = self;
 			
 	
 	host.statuses.add_child(self)
-	
-
+	if type == "special":
+		## needs to be inside tree
+		host.add_to_group(name)
 	if duration:
 		timer = Timer.new();
 		timer.wait_time = duration;

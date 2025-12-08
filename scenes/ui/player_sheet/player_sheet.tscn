@@ -700,7 +700,7 @@ offset_bottom = 67.0
 [node name="body" parent="main_bg/MarginContainer/HBoxContainer/player/Control" instance=ExtResource("15_o0vop")]
 process_mode = 4
 material = SubResource("ShaderMaterial_s3o1i")
-position = Vector2(90, 23)
+position = Vector2(90, 63)
 scale = Vector2(4, 4)
 
 [node name="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" index="0"]

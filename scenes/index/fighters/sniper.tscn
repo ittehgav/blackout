@@ -1,190 +1,63 @@
-[gd_scene load_steps=13 format=3 uid="uid://ofss0u0pyra0"]
+[gd_scene load_steps=10 format=3 uid="uid://da6t3mxb46olo"]
 
-[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_itq4t"]
-[ext_resource type="Texture2D" uid="uid://bmh0bym5ta8qg" path="res://assets/visual/sprites/fighters/crossbow_guy/crossbowguy.png" id="2_c3pfp"]
-[ext_resource type="Script" uid="uid://m0gvx3pff55d" path="res://scenes/index/fighters/scripts/crossbowguy.gd" id="3_ojifu"]
-[ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="4_w7ae1"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_yen1t"]
-[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="6_4t6el"]
+[ext_resource type="Texture2D" uid="uid://b37xbrrm6d68m" path="res://assets/isotests/sprites/sniper.png" id="1_c0wwe"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_m8axb"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://assets/isotests/skill_component.gd" id="3_lwa6y"]
+[ext_resource type="Script" uid="uid://bquq6cnjfqscl" path="res://scenes/index/fighters/scripts/sniper.gd" id="3_m8axb"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_hn5nq"]
+[ext_resource type="Texture2D" uid="uid://cygeqnjwn3rnk" path="res://assets/visual/sprites/fighters/sniper/blur.png" id="6_c3pfp"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ojifu"]
 
-[sub_resource type="Animation" id="Animation_3aykr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Area2D/projection:polygon")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(0, 1.5, 0, -1.5, 1000, -1.5, 1000, 1.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Area2D/projection:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_15x7i"]
-_data = {
-&"RESET": SubResource("Animation_3aykr")
-}
-
-[sub_resource type="Animation" id="Animation_cupeu"]
-resource_name = "skill"
-length = 1.5
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 0.95),
-"transitions": PackedFloat32Array(1000000, 1.02837, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-50, 0), Vector2(0, 0)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.8),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"skill_impact"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sfx:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Area2D/projection:polygon")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.8, 0.85, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [PackedVector2Array(0, 1.5, 0, -1.5, 1000, -35.5, 1000, 35.5), PackedVector2Array(0, 1.5, 0, -1.5, 1000, -1.5, 1000, 1.5), PackedVector2Array(0, 1.5, 0, -1.5, 300, -1.5, 300, 1.5), PackedVector2Array(1000, 1.5, 1000, -1.5, 1000, -1.5, 1000, 1.5)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Area2D/projection:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.75, 0.8, 1.5),
-"transitions": PackedFloat32Array(1, 1, 3.24901, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.12549), Color(0.44, 0.44, 0.44, 0.65098), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/6/type = "animation"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("dust/dust_animation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"clips": PackedStringArray("dust"),
-"times": PackedFloat32Array(0.8)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jlows"]
-_data = {
-&"skill": SubResource("Animation_cupeu")
-}
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_hntcd"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_lwa6y"]
 b = Vector2(1000, 0)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3aykr"]
-radius = 6.5
-height = 28.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_2iv6b"]
+radius = 15.033297
 
-[node name="Sniper" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan")]
-material = ExtResource("1_itq4t")
-scale = Vector2(2, 2)
-texture = ExtResource("2_c3pfp")
-hframes = 3
-vframes = 3
-frame = 4
-script = ExtResource("3_ojifu")
+[node name="Sniper" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "skill", "animation_player")]
+material = ExtResource("1_m8axb")
+texture = ExtResource("1_c0wwe")
+hframes = 8
+vframes = 5
+frame = 32
+script = ExtResource("3_m8axb")
+hit_scan = NodePath("scan")
+skill = NodePath("Piercing Shot")
 animation_player = NodePath("AnimationPlayer")
-hit_scan = NodePath("Area2D")
-tags = Array[String](["brawler", "scientist", "hunter"])
+tags = Array[int]([3, 2])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="sfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_w7ae1")
-pitch_scale = 0.86
-max_distance = 500.0
+[node name="Piercing Shot" type="Node" parent="."]
+script = ExtResource("3_lwa6y")
+position_lineup = false
+effects = Array[int]([2])
+tranform_visual = 1
+base_cooldown = 7.0
+skill_range = 10
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_15x7i"),
-&"crossbow": SubResource("AnimationLibrary_jlows"),
-&"fighter_base": ExtResource("5_yen1t")
+&"fighter_base": ExtResource("4_hn5nq")
 }
-autoplay = "fighter_base/idle"
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(7, 0)
+[node name="scan" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="projection" type="Polygon2D" parent="Area2D"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(0, 1.5, 0, -1.5, 1000, -1.5, 1000, 1.5)
-
-[node name="shape" type="CollisionShape2D" parent="Area2D"]
-visible = false
-shape = SubResource("SegmentShape2D_hntcd")
-
-[node name="dust" parent="." instance=ExtResource("6_4t6el")]
-position = Vector2(-51.5, 24.5)
+[node name="shape" type="CollisionShape2D" parent="scan"]
+shape = SubResource("SegmentShape2D_lwa6y")
 
 [node name="hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
-shape = SubResource("CapsuleShape2D_3aykr")
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_2iv6b")
 
-[editable path="dust"]
+[node name="blur" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("6_c3pfp")
+hframes = 8
+vframes = 2
+frame = 8
+script = ExtResource("7_ojifu")

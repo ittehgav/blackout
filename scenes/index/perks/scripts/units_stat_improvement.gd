@@ -1,22 +1,22 @@
 extends Perk
 
 
-const tag_bonus_names:Dictionary[String, String]={
-	"bodybuilder":"Callusing",
-	"scientist":"Field Insight",
-	"cyborg":"Machine Learning",
-	"mechanic":"Field Expertise"
+const tag_bonus_names:Dictionary[FighterBase.Tag, String]={
+	FighterBase.Tag.bodybuilder:"Callusing",
+	FighterBase.Tag.scientist:"Field Insight",
+	FighterBase.Tag.cyborg:"Machine Learning",
+	FighterBase.Tag.mechanic:"Field Expertise"
 }
 
 ## 2 LEVEL'S WORTH of the stat in question
 ## possibly being less value for tags that gain less of that stat
 ## but then it's a bigger gain on an otherwise scarce thing to get?
 
-const tag_stat_gains:Dictionary[String, String] = {
-	"bodybuilder":"defense",
-	"scientist":"agility",
-	"cyborg":"technique",
-	"mechanic":"attack"
+const tag_stat_gains:Dictionary[FighterBase.Tag, String] = {
+	FighterBase.Tag.bodybuilder:"defense",
+	FighterBase.Tag.scientist:"agility",
+	FighterBase.Tag.cyborg:"technique",
+	FighterBase.Tag.mechanic:"attack"
 }
 
 @export var samples_hbox:HBoxContainer;
@@ -24,7 +24,7 @@ const tag_stat_gains:Dictionary[String, String] = {
 @export var stat_change_hbox:HBoxContainer;
 @export var stat_label:Label;
 
-var target_tag:String
+var target_tag:FighterBase.Tag
 var stat:String
 var gain:float
 
@@ -37,7 +37,7 @@ func _ready()->void:
 	print("_R??? ", name)
 	
 	target_tag = select_tag();
-	title_color = Index.primary_tag_colors[target_tag];
+	title_color = Index.primary_tag_colors[str(target_tag)];
 	
 	name = tag_bonus_names[target_tag];
 	stat = tag_stat_gains[target_tag]
@@ -47,8 +47,8 @@ func _ready()->void:
 
 	generate_samples();
 	
-	description = "Your [color="+title_color.to_html()+"]" + target_tag + "s[/color] gain +"+Index.get_color_tag(stat)+\
-	str(snapped(gain, .1))+" " +stat+ "[/color].\n[font_size=16]You have "+str(total_units) + " " + Index.get_color_tag(target_tag) + target_tag+ "s[/color] in your party."
+	description = "Your [color="+title_color.to_html()+"]" + str(target_tag) + "s[/color] gain +"+Index.get_color_tag(stat)+\
+	str(snapped(gain, .1))+" " +stat+ "[/color].\n[font_size=16]You have "+str(total_units) + " " + Index.get_color_tag(str(target_tag)) + str(target_tag)+ "s[/color] in your party."
 
 func generate_samples()->void:
 	var units:Array[FighterUnit] = Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags);
@@ -77,26 +77,26 @@ func to_gain()->float:
 	## for any individual stat
 	return stats[stat] * 4
 
-func select_tag()->String:
-	var counts:Dictionary[String, int] = {}
-	for tag:String in Index.primary_fighter_tags:
+func select_tag()->FighterBase.Tag:
+	var counts:Dictionary[FighterBase.Tag, int] = {}
+	for tag:FighterBase.Tag in Index.primary_fighter_tags:
 		counts[tag] = 0;
 	
 	for unit:FighterUnit in Entities.player.roster.units:
-		for tag:String in unit.base.tags:
+		for tag:FighterBase.Tag in unit.base.tags:
 			if counts.has(tag):
 				counts[tag] += 1;
 	var highest_count:int = 0;
-	for tag:String in counts.keys():
+	for tag:FighterBase.Tag in counts.keys():
 		if counts[tag] > highest_count:
 			highest_count = counts[tag];
 	
 	var valid_tags:Array[String]
-	for tag:String in counts.keys():
+	for tag:FighterBase.Tag in counts.keys():
 		if counts[tag] == highest_count:
 			valid_tags.append(tag)
 	
-	var final_tag:String = valid_tags.pick_random();
+	var final_tag:FighterBase.Tag = valid_tags.pick_random();
 	return final_tag
 
 func animation_callback(display:Control)->void:

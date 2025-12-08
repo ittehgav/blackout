@@ -29,11 +29,11 @@ func setup(unit:FighterUnit)->void:
 
 func set_evolution_hint(base:FighterBase)->void:
 	var evolution_location:String;
-	if "bodybuilder" in base.tags:
+	if FighterBase.Tag.bodybuilder in base.tags:
 		evolution_location = "Gym";
-	elif "mechanic" in base.tags:
+	elif FighterBase.Tag.mechanic in base.tags:
 		evolution_location = "Chop Shop"
-	elif "scientist" in base.tags:
+	elif FighterBase.Tag.scientist in base.tags:
 		evolution_location = "Laboratory"
 
 	

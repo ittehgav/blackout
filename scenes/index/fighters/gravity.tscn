@@ -1,256 +1,51 @@
-[gd_scene load_steps=19 format=3 uid="uid://c55pra6yiugp3"]
+[gd_scene load_steps=11 format=3 uid="uid://bca1c065pcgi"]
 
-[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_omv2r"]
-[ext_resource type="Texture2D" uid="uid://cwd7ms5in0o41" path="res://assets/visual/sprites/fighters/gravity_guy/gravityguy.png" id="2_tj4s4"]
-[ext_resource type="Script" uid="uid://d087scjxl5ugm" path="res://scenes/index/fighters/scripts/gravityguy.gd" id="3_8synw"]
-[ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/sfx/combat/special/gravity.ogg" id="4_ta6mk"]
-[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="4_tj4s4"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_75um4"]
-[ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="6_xo3bj"]
-[ext_resource type="Shader" uid="uid://di5m3lq2rlr0d" path="res://resources/shaders/warp.gdshader" id="7_eckbi"]
-[ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="8_f45fu"]
-[ext_resource type="Texture2D" uid="uid://btbjp5yrw0ehc" path="res://assets/visual/sprites/fighters/gravity_guy/blur.png" id="9_3e8ps"]
-[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="10_ba4nj"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_pya1c"]
+[ext_resource type="Texture2D" uid="uid://cv2un1vcsqfka" path="res://assets/isotests/sprites/gravity.png" id="1_yprbb"]
+[ext_resource type="Script" uid="uid://t2fu6pbkan6i" path="res://scenes/index/fighters/scripts/gravity.gd" id="3_pya1c"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://assets/isotests/skill_component.gd" id="3_xi7nn"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_iq7f6"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_ylbig"]
+[ext_resource type="Texture2D" uid="uid://cios5cxxceefl" path="res://assets/visual/sprites/fighters/gravity/blur.png" id="7_1p7r2"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_mg1c5"]
 
-[sub_resource type="Animation" id="Animation_m3d34"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("blur:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("hit_scan/warp:material:shader_parameter/strength")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.5]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("hit_scan/warp:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("hit_scan/projection:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("hit_scan/projection:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(39.604, 10)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3wi6l"]
-_data = {
-&"RESET": SubResource("Animation_m3d34")
-}
-
-[sub_resource type="Animation" id="Animation_0nc60"]
-resource_name = "skill"
-length = 1.5
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.45),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.6),
-"transitions": PackedFloat32Array(1000000, 1.02837, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(50, 0), Vector2(0, 0)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.45),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"skill_impact"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sfx:playing")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.45),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("blur:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.77),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("hit_scan/warp:material:shader_parameter/strength")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.51),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-0.25, 1.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("hit_scan/warp:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0.004, 0.768),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.407843), Color(1, 1, 1, 0)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("hit_scan/projection:modulate")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.5001, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(0.58, 0.58, 0.58, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("hit_scan/projection:scale")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(39.604, 10), Vector2(39.604, 10), Vector2(39.604, 12)]
-}
-tracks/9/type = "animation"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("dust/dust_animation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"clips": PackedStringArray("dust"),
-"times": PackedFloat32Array(0.5)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_m3d34"]
-_data = {
-&"skill": SubResource("Animation_0nc60")
-}
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3wi6l"]
-shader = ExtResource("7_eckbi")
-shader_parameter/strength = 0.5
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3wi6l"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b08qk"]
 size = Vector2(400, 100)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mcttm"]
-radius = 11.0
-height = 36.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ilq8"]
+radius = 15.033297
 
-[node name="Gravity" type="Sprite2D" node_paths=PackedStringArray("animation_player", "hit_scan", "status")]
-material = ExtResource("1_omv2r")
-scale = Vector2(2, 2)
-texture = ExtResource("2_tj4s4")
-hframes = 3
-vframes = 3
-frame = 4
-script = ExtResource("3_8synw")
-animation_player = NodePath("AnimationPlayer")
+[node name="Gravity" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "status", "skill", "animation_player")]
+material = ExtResource("1_pya1c")
+texture = ExtResource("1_yprbb")
+hframes = 8
+vframes = 5
+frame = 33
+script = ExtResource("3_pya1c")
 hit_scan = NodePath("hit_scan")
-status = NodePath("Status")
-tags = Array[String](["brawler", "scientist", "disruptor"])
-no_damage = true
+status = NodePath("stun")
+skill = NodePath("Gravity Pulse")
+animation_player = NodePath("AnimationPlayer")
+tags = Array[int]([7, 3])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="Status" type="Node" parent="."]
-script = ExtResource("4_tj4s4")
+[node name="Gravity Pulse" type="Node" parent="."]
+script = ExtResource("3_xi7nn")
+effects = Array[int]([4, 3])
+tranform_visual = 1
+skill_range = 5
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="stun" type="Node" parent="."]
+script = ExtResource("5_ylbig")
 type = "stun"
 duration = 2.0
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="sfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_ta6mk")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_3wi6l"),
-&"fighter_base": ExtResource("5_75um4"),
-&"gravity": SubResource("AnimationLibrary_m3d34")
+&"fighter_base": ExtResource("4_iq7f6")
 }
-autoplay = "fighter_base/idle"
 
 [node name="hit_scan" type="Area2D" parent="."]
 top_level = true
@@ -259,60 +54,19 @@ collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="projection" type="Sprite2D" parent="hit_scan"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(0.4795, 0.09, 0.5, 0.784314)
-position = Vector2(261, 1)
-scale = Vector2(39.604, 10)
-texture = ExtResource("6_xo3bj")
-
-[node name="ReferenceRect" type="ReferenceRect" parent="hit_scan/projection"]
-self_modulate = Color(1, 1, 1, 0.784314)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -5.0
-offset_top = -5.0
-offset_right = -5.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
-border_color = Color(0.478431, 0.0901961, 0.501961, 1)
-border_width = 0.5
-editor_only = false
-
-[node name="warp" type="TextureRect" parent="hit_scan"]
-modulate = Color(1, 1, 1, 0)
-z_index = 3
-material = SubResource("ShaderMaterial_3wi6l")
-custom_minimum_size = Vector2(128, 128)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -65.0
-offset_top = -64.0
-offset_right = 63.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_f45fu")
-
 [node name="shape" type="CollisionShape2D" parent="hit_scan"]
 position = Vector2(200, 0)
-shape = SubResource("RectangleShape2D_3wi6l")
+shape = SubResource("RectangleShape2D_b08qk")
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_8ilq8")
 
 [node name="blur" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("9_3e8ps")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="dust" parent="." instance=ExtResource("10_ba4nj")]
-position = Vector2(-16, 26)
-
-[node name="hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(3, 3.5)
-shape = SubResource("CapsuleShape2D_mcttm")
-
-[editable path="dust"]
+texture = ExtResource("7_1p7r2")
+hframes = 8
+vframes = 2
+frame = 9
+script = ExtResource("8_mg1c5")

@@ -63,8 +63,8 @@ func load_option(card:RecruitmentCard)->void:
 	sprite_sample.set_sample(unit.base)
 	
 	tags_label.text = "";
-	for tag:String in unit.base.tags:
-		tags_label.text += tag + "\n";
+	for tag:FighterBase.Tag  in unit.base.tags:
+		tags_label.text += str(tag) + "\n";
 	
 	skill_name_label.text = "Skill: "+unit.base.skill_name
 	skill_description_label.text = unit.base.full_skill_description(unit);

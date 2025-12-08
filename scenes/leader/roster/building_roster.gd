@@ -10,8 +10,8 @@ class_name BuildingRoster
 @export var scientist_recruiting:bool=false;
 @export var mechanic_recruiting:bool=false;
 
-func _ready()->void:
-	refresh_recruits()
+#func _ready()->void:
+	#refresh_recruits()
 
 func refresh_recruits()->void:
 	units.clear();
@@ -25,7 +25,7 @@ func refresh_recruits()->void:
 			tags.append(tag);
 	
 	for base:FighterBase in Index.fighters.all_fighter_bases:
-		for tag:String in base.tags:
+		for tag:FighterBase.Tag in base.tags:
 			if tag in tags and not base in base_pool:
 				base_pool.append(base);
 

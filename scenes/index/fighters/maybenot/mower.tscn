@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://b52pvgor34jns"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_l4266"]
+[ext_resource type="Texture2D" uid="uid://c88kunauw2loi" path="res://assets/isotests/sprites/mower.png" id="2_qrvr1"]
+[ext_resource type="Script" uid="uid://dxctskfhkxn32" path="res://scenes/index/fighters/maybenot/mower.gd" id="3_21rqc"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://assets/isotests/skill_component.gd" id="4_borym"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_awxhn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ul3o1"]
+radius = 15.033297
+
+[node name="Mower" type="Sprite2D" node_paths=PackedStringArray("skill", "animation_player")]
+material = ExtResource("1_l4266")
+texture = ExtResource("2_qrvr1")
+hframes = 8
+vframes = 5
+script = ExtResource("3_21rqc")
+skill = NodePath("Burning Ride")
+animation_player = NodePath("AnimationPlayer")
+tags = Array[int]([4, 1])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="Burning Ride" type="Node" parent="."]
+script = ExtResource("4_borym")
+effects = Array[int]([5])
+tranform_visual = 2
+base_cooldown = 5.0
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"fighter_base": ExtResource("5_awxhn")
+}
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_ul3o1")
+
+[node name="burn_cell" type="Area2D" parent="."]

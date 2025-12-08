@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://cs5mice0ugigb"]
+
+[ext_resource type="Texture2D" uid="uid://cy50h0r5vkio4" path="res://assets/isotests/sprites/puncher.png" id="1_1qwff"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_as0e7"]
+[ext_resource type="Script" uid="uid://ctnukmol1go71" path="res://scenes/index/fighters/scripts/puncher.gd" id="2_82vyf"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://assets/isotests/skill_component.gd" id="3_eyj5g"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_5dn4v"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_v5y7v"]
+[ext_resource type="Texture2D" uid="uid://chyks7ufp34c0" path="res://assets/visual/sprites/fighters/pucnher/blur.png" id="7_uj6mk"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_gqyy0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_82vyf"]
+radius = 15.033297
+
+[node name="Puncher" type="Sprite2D" node_paths=PackedStringArray("status", "skill", "animation_player")]
+material = ExtResource("1_as0e7")
+texture = ExtResource("1_1qwff")
+hframes = 8
+vframes = 5
+frame = 32
+script = ExtResource("2_82vyf")
+status = NodePath("stun")
+skill = NodePath("One Punch")
+animation_player = NodePath("AnimationPlayer")
+tags = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="One Punch" type="Node" parent="."]
+script = ExtResource("3_eyj5g")
+effects = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"fighter_base": ExtResource("4_5dn4v")
+}
+
+[node name="stun" type="Node" parent="."]
+script = ExtResource("5_v5y7v")
+type = "stun"
+duration = 0.5
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_82vyf")
+
+[node name="blur" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_uj6mk")
+hframes = 8
+vframes = 2
+frame = 8
+script = ExtResource("8_gqyy0")

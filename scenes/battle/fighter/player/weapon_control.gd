@@ -15,6 +15,8 @@ var alternative_weapon:Weapon;
 var holding_continuous:bool=false
 
 func _ready()->void:
+	if not Entities.main:
+		return
 	await equipment.holder.ready
 
 	var equipped_weapon:Weapon = load_weapon(Entities.player.equipped_weapon);	

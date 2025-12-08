@@ -19,6 +19,8 @@ class_name PlayerFighter
 var walking_blocked:bool=false;
 
 func _ready()->void:
+	if not Entities.main:
+		return
 	name = Entities.player.name;
 	Entities.player_fighter = self;
 	level = Entities.player.level;
@@ -28,8 +30,6 @@ func _ready()->void:
 
 
 func load_fighter()->void:
-	
-	
 	var stats:CombatStats = Entities.player.final_stats();
 	
 	for stat:String in Index.all_combat_stats:
@@ -53,15 +53,34 @@ func load_fighter()->void:
 
 func get_input()->void:
 	var input_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = input_direction * move_speed
-	if velocity:
+	if input_direction:
+		velocity = input_direction * move_speed
 		if not moving:
 			started_moving.emit()
 			moving = true;
+		adjust_direction(input_direction)
 	else:
 		if moving:
+			velocity = Vector2.ZERO
 			stopped_moving.emit()
 			moving = false;
+			
+func adjust_direction(d:Vector2)->void:
+	if d.x < 0: d.x = -1.1;
+	if d.y < 0: d.y = -1.1;
+	var rounded:Vector2i = d.ceil();
+	body.frame_coords.x =  angle_indexes.find(rounded)
+
+const angle_indexes = [
+	Vector2i.UP,
+	Vector2i(1, -1),
+	Vector2i.RIGHT,
+	Vector2i(1, 1),
+	Vector2i.DOWN,
+	Vector2i(-1, 1),
+	Vector2i.LEFT,
+	Vector2i(-1, -1)
+]
 
 
 func _physics_process(_delta:float)->void:
