@@ -1,7 +1,7 @@
 import bpy
 
 # Change this to your collection's name
-collection_name = "body"
+collection_name = "all"
 
 # Get the collection
 col = bpy.data.collections.get(collection_name)

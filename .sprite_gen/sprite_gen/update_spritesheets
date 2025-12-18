@@ -1,0 +1,55 @@
+import os
+import bpy
+import shutil
+import glob
+
+def move_file_replace(src_path, dest_folder):
+    # Ensure the destination folder exists
+    os.makedirs(dest_folder, exist_ok=True)
+
+    # Build the destination file path
+    filename = os.path.basename(src_path)
+    dest_path = os.path.join(dest_folder, filename)
+
+    # If a file with the same name already exists, delete it
+    if os.path.exists(dest_path):
+        os.remove(dest_path)
+
+    # Move the file
+    shutil.move(src_path, dest_folder)
+
+    return dest_path
+
+
+
+def get_latest_png(folder_path):
+    """
+    Returns the path to the most recently modified PNG file
+    inside the given folder. Returns None if no PNGs exist.
+    """
+    # Get all PNG files in the folder (non-recursive)
+    png_files = glob.glob(os.path.join(folder_path, "*.png"))
+
+    if not png_files:
+        return None
+
+    # Find the most recently modified file
+    latest_png = max(png_files, key=os.path.getmtime)
+    return latest_png
+
+
+blend_filename = os.path.splitext(os.path.basename(bpy.data.filepath))[0]
+filename = blend_filename + ".png"
+root_path = "../../../.."
+target_path = root_path + "/assets/visual/sprites/fighters/" + blend_filename
+
+latest_sheet = get_latest_png("sheets")
+os.rename(latest_sheet, "sheets/"+filename)
+sheet_path = "sheets/" + filename
+
+latest_blur_sheet = get_latest_png("weapon_sheets")
+os.rename(latest_blur_sheet, "sheets/blur.png")
+blur_path = "sheets/blur.png"
+
+move_file_replace(sheet_path, target_path)
+move_file_replace(blur_path, target_path)

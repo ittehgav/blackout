@@ -1,3 +1,4 @@
+import PIL
 from PIL import Image
 import os
 
@@ -14,7 +15,7 @@ pivot = (0, 0, 0)         # rotate around world origin
 
 total_frames = 5
 
-frame_size = 98
+frame_size = 128
 
 # Get total width and maximum height
 total_width = frame_size * 8
@@ -81,6 +82,7 @@ for frame in range(total_frames):
 print("✅ Finished rendering 360° around Y-axis.")
 
 png_files = ["//renders/"+f for f in os.listdir(bpy.path.abspath("//renders")) if f.lower().endswith('.png') and not f.startswith("combined")] 
+
 
 def get_unique_name(base_name, directory="."):
     """
