@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8o5vlsx27qdx"]
+[gd_scene format=3 uid="uid://b8o5vlsx27qdx"]
 
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_6afpe"]
 [ext_resource type="Texture2D" uid="uid://dd3a6ry4fqale" path="res://assets/isotests/sprites/electric_hulk.png" id="1_ovd82"]
@@ -15,7 +15,7 @@ radius = 15.033297
 [sub_resource type="CircleShape2D" id="CircleShape2D_yl5li"]
 radius = 35.057095
 
-[node name="Electric Hulk" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "status", "skill", "animation_player")]
+[node name="Electric Hulk" type="Sprite2D" unique_id=30330839 node_paths=PackedStringArray("hit_scan", "status", "skill", "animation_player")]
 material = ExtResource("1_6afpe")
 texture = ExtResource("1_ovd82")
 hframes = 8
@@ -29,7 +29,7 @@ animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([6, 2, 5])
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="Electric Pulse" type="Node" parent="."]
+[node name="Electric Pulse" type="Node" parent="." unique_id=1249795646]
 script = ExtResource("3_5ejrg")
 need_target = false
 scan_allies = true
@@ -38,25 +38,23 @@ tranform_visual = 2
 base_cooldown = 10.0
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="electrified" parent="." instance=ExtResource("5_6h33m")]
+[node name="electrified" parent="." unique_id=1560076450 instance=ExtResource("5_6h33m")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"fighter_base": ExtResource("4_m8o5l")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=637288307]
+libraries/fighter_base = ExtResource("4_m8o5l")
 
-[node name="hurtbox" type="CollisionShape2D" parent="."]
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=125655312]
 position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_i2adc")
 
-[node name="hit_scan" type="Area2D" parent="."]
+[node name="hit_scan" type="Area2D" parent="." unique_id=1484579924]
 collision_layer = 0
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=2017763478]
 shape = SubResource("CircleShape2D_yl5li")
 
-[node name="blur" type="Sprite2D" parent="."]
+[node name="blur" type="Sprite2D" parent="." unique_id=779456094]
 modulate = Color(1, 1, 1, 0)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_kk0wj")

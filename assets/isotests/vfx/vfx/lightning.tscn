@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dmvr7ngbhq7v5"]
+
+[ext_resource type="Texture2D" uid="uid://smbfsceysdxu" path="res://assets/visual/vfx/lightning.png" id="1_71dfp"]
+[ext_resource type="Script" uid="uid://dulyebo8yjrxt" path="res://assets/isotests/vfx/combat_vfx.gd" id="1_o07yr"]
+
+[sub_resource type="Animation" id="Animation_6guvn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_gyrwt"]
+resource_name = "lightning"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.049999997, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 3, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ih4t3"]
+_data = {
+&"RESET": SubResource("Animation_6guvn"),
+&"lightning": SubResource("Animation_gyrwt")
+}
+
+[node name="Lightning" type="Sprite2D" unique_id=379496120 node_paths=PackedStringArray("animation_player")]
+scale = Vector2(1, 2.915)
+texture = ExtResource("1_71dfp")
+hframes = 8
+vframes = 6
+script = ExtResource("1_o07yr")
+animation_player = NodePath("AnimationPlayer")
+metadata/_custom_type_script = "uid://dulyebo8yjrxt"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=538174870]
+libraries/ = SubResource("AnimationLibrary_ih4t3")

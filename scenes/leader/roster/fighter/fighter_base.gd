@@ -18,7 +18,7 @@ var fighter:ActiveFighter;
 @export var animation_player:AnimationPlayer
 
 ## repeating this on the base scripts so movement/skill
-##  animations can be set for each individual base
+## animations can be set for each individual base
 ## also animation players dont play too well with not 
 ## having the nodes right on top of them when you make the animations
 signal started_moving;

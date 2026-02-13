@@ -11,15 +11,20 @@ config_version=5
 [animation]
 
 warnings/check_invalid_track_paths=false
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
 config/name="Wewfr"
 run/main_scene="res://scenes/main/main.tscn"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0.2, 0.0392157, 0.0392157, 1)
 boot_splash/image="uid://dsiggbga76o2k"
 boot_splash/minimum_display_time=500
+
+[audio]
+
+buses/default_bus_layout="uid://dibdlo1pnen6o"
 
 [autoload]
 

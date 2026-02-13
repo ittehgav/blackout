@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c0b88ryau2bf6"]
+[gd_resource type="TileSet" format=3 uid="uid://c0b88ryau2bf6"]
 
 [ext_resource type="Texture2D" uid="uid://jd6pk4pu5kxr" path="res://assets/visual/tiles/arena.png" id="1_cgswd"]
 

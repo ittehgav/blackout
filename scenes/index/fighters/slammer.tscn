@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://p5ohv4n6v7n8"]
+[gd_scene format=3 uid="uid://p5ohv4n6v7n8"]
 
 [ext_resource type="Texture2D" uid="uid://badqhroykaa4u" path="res://assets/isotests/sprites/slammer.png" id="1_2d6qg"]
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_koqxp"]
@@ -15,7 +15,7 @@ radius = 22.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_twrrp"]
 radius = 15.033297
 
-[node name="Slammer" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "status", "skill", "animation_player")]
+[node name="Slammer" type="Sprite2D" unique_id=1342933973 node_paths=PackedStringArray("hit_scan", "status", "skill", "animation_player")]
 material = ExtResource("1_koqxp")
 texture = ExtResource("1_2d6qg")
 hframes = 8
@@ -29,35 +29,33 @@ animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([0, 6, 7])
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="Throw Hands" type="Node" parent="."]
+[node name="Throw Hands" type="Node" parent="." unique_id=639767815]
 script = ExtResource("3_53j4b")
 effects = Array[int]([2, 3])
 base_cooldown = 4.0
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="Status" type="Node" parent="."]
+[node name="Status" type="Node" parent="." unique_id=704248224]
 script = ExtResource("5_0jd70")
 type = "stun"
 duration = 0.5
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="hit_scan" type="Area2D" parent="."]
+[node name="hit_scan" type="Area2D" parent="." unique_id=474198670]
 collision_layer = 0
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=1708321969]
 shape = SubResource("CircleShape2D_plmof")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"fighter_base": ExtResource("4_ocxoc")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1022105912]
+libraries/fighter_base = ExtResource("4_ocxoc")
 
-[node name="hurtbox" type="CollisionShape2D" parent="."]
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=567659890]
 position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_twrrp")
 
-[node name="blur" type="Sprite2D" parent="."]
+[node name="blur" type="Sprite2D" parent="." unique_id=94141737]
 modulate = Color(1, 1, 1, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("7_815tu")

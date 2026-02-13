@@ -1,4 +1,4 @@
-[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://vftyg7m77b8u"]
+[gd_resource type="Shortcut" format=3 uid="uid://vftyg7m77b8u"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_c11hx"]
 action = &"ui_exit"
