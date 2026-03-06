@@ -1,6 +1,7 @@
+@abstract
+class_name ResourceContainer
 extends Item
 
-class_name ResourceContainer
 
 const type = "container"
 

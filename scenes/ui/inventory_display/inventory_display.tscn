@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ba833ve2fbwcf"]
+[gd_scene format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
@@ -40,7 +40,7 @@ height = 4
 fill_from = Vector2(1, 0)
 fill_to = Vector2(0, 0)
 
-[node name="inventory_display" type="Control" node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "cargo_space", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
+[node name="inventory_display" type="Control" unique_id=1918470521 node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "cargo_space", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,13 +71,13 @@ resources_dropdown = NodePath("resources_dropdown")
 food_icon = NodePath("resources_dropdown/food/food_icon")
 metadata/_tab_index = 0
 
-[node name="hover_sfx" type="AudioStreamPlayer" parent="."]
+[node name="hover_sfx" type="AudioStreamPlayer" parent="." unique_id=1571618890]
 stream = ExtResource("4_rchr5")
 max_polyphony = 5
 bus = &"sfx"
 script = ExtResource("5_qglwj")
 
-[node name="sfx" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("item_sfx")]
+[node name="sfx" type="AudioStreamPlayer" parent="." unique_id=227163406 node_paths=PackedStringArray("item_sfx")]
 max_polyphony = 9
 bus = &"sfx"
 script = ExtResource("3_ke6sf")
@@ -99,14 +99,14 @@ deposit_scrap_small = ExtResource("12_jjio2")
 deposit_scrap_big = ExtResource("13_ormkh")
 deposit_chips = ExtResource("14_15sfg")
 
-[node name="item_sfx" type="AudioStreamPlayer" parent="."]
+[node name="item_sfx" type="AudioStreamPlayer" parent="." unique_id=1774810640]
 
-[node name="cargo" type="Control" parent="."]
+[node name="cargo" type="Control" parent="." unique_id=693213085]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="cargo" node_paths=PackedStringArray("excess_left", "excess_right")]
+[node name="ScrollContainer" type="ScrollContainer" parent="cargo" unique_id=1632140027 node_paths=PackedStringArray("excess_left", "excess_right")]
 custom_minimum_size = Vector2(386, 589)
 layout_mode = 0
 offset_right = 40.0
@@ -115,18 +115,18 @@ script = ExtResource("22_qxt2g")
 excess_left = NodePath("../excess_left")
 excess_right = NodePath("../excess_right")
 
-[node name="cargo_space" type="Control" parent="cargo/ScrollContainer"]
+[node name="cargo_space" type="Control" parent="cargo/ScrollContainer" unique_id=1807393006]
 layout_mode = 2
 
-[node name="inventory_grid" type="GridContainer" parent="cargo/ScrollContainer/cargo_space"]
+[node name="inventory_grid" type="GridContainer" parent="cargo/ScrollContainer/cargo_space" unique_id=723460154]
 layout_mode = 0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 
-[node name="item_mirrors" type="Control" parent="cargo/ScrollContainer/cargo_space"]
+[node name="item_mirrors" type="Control" parent="cargo/ScrollContainer/cargo_space" unique_id=759655697]
 anchors_preset = 0
 
-[node name="send_rect" type="ColorRect" parent="cargo"]
+[node name="send_rect" type="ColorRect" parent="cargo" unique_id=2139714282]
 visible = false
 z_index = 5
 layout_mode = 1
@@ -137,7 +137,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.678431)
 
-[node name="operation" type="Label" parent="cargo/send_rect"]
+[node name="operation" type="Label" parent="cargo/send_rect" unique_id=286290238]
 layout_mode = 0
 offset_left = 122.0
 offset_top = 202.0
@@ -146,7 +146,7 @@ offset_bottom = 304.0
 theme_override_font_sizes/font_size = 128
 text = "BUY"
 
-[node name="excess_left" type="TextureRect" parent="cargo"]
+[node name="excess_left" type="TextureRect" parent="cargo" unique_id=1996478519]
 visible = false
 modulate = Color(0.504, 0.5236, 0.7, 1)
 z_index = 8
@@ -158,7 +158,7 @@ offset_bottom = 1156.0
 rotation = 3.1415927
 texture = SubResource("GradientTexture2D_xdq4l")
 
-[node name="excess_right" type="TextureRect" parent="cargo"]
+[node name="excess_right" type="TextureRect" parent="cargo" unique_id=1511322329]
 visible = false
 modulate = Color(0.43137255, 0.44705883, 0.6, 1)
 z_index = 8
@@ -169,7 +169,7 @@ offset_right = 397.0
 offset_bottom = 578.0
 texture = SubResource("GradientTexture2D_xdq4l")
 
-[node name="resources_dropdown" parent="." node_paths=PackedStringArray("resource_hboxes", "resource_icons") instance=ExtResource("22_up2tu")]
+[node name="resources_dropdown" parent="." unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons") instance=ExtResource("22_up2tu")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -196,7 +196,7 @@ resource_icons = {
 "scrap": NodePath("scrap/scrap_icon")
 }
 
-[node name="resource_picker" type="Control" parent="." node_paths=PackedStringArray("display", "panel", "slider", "add_1_btn", "add_5_btn", "add_max_btn", "add_custom")]
+[node name="resource_picker" type="Control" parent="." unique_id=637359139 node_paths=PackedStringArray("display", "panel", "slider", "add_1_btn", "add_5_btn", "add_max_btn", "add_custom")]
 visible = false
 z_index = 10
 anchors_preset = 0
@@ -213,49 +213,49 @@ add_5_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_5")
 add_max_btn = NodePath("PanelContainer/VBoxContainer/HBoxContainer/pick_max")
 add_custom = NodePath("PanelContainer/VBoxContainer/add_custom")
 
-[node name="PanelContainer" type="PanelContainer" parent="resource_picker"]
+[node name="PanelContainer" type="PanelContainer" parent="resource_picker" unique_id=905898827]
 layout_mode = 0
 offset_right = 12.0
 offset_bottom = 12.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="resource_picker/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="resource_picker/PanelContainer" unique_id=977364809]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="resource_picker/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="resource_picker/PanelContainer/VBoxContainer" unique_id=1538008034]
 layout_mode = 2
 
-[node name="pick_1" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="pick_1" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer" unique_id=117561327]
 layout_mode = 2
 mouse_filter = 1
 text = "BUY
  1"
 
-[node name="pick_5" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="pick_5" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1075313511]
 layout_mode = 2
 mouse_filter = 1
 text = "BUY
  5"
 
-[node name="pick_max" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="pick_max" type="Button" parent="resource_picker/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1079396619]
 layout_mode = 2
 mouse_filter = 1
 text = "BUY 
 MAX"
 
-[node name="slider" type="HSlider" parent="resource_picker/PanelContainer/VBoxContainer"]
+[node name="slider" type="HSlider" parent="resource_picker/PanelContainer/VBoxContainer" unique_id=799560199]
 layout_mode = 2
 mouse_filter = 1
 rounded = true
 
-[node name="add_custom" type="Button" parent="resource_picker/PanelContainer/VBoxContainer"]
+[node name="add_custom" type="Button" parent="resource_picker/PanelContainer/VBoxContainer" unique_id=1865427532]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
 text = "Confirm"
 
-[node name="disappear" type="Timer" parent="resource_picker"]
+[node name="disappear" type="Timer" parent="resource_picker" unique_id=463516688]
 
-[node name="warning" type="Label" parent="."]
+[node name="warning" type="Label" parent="." unique_id=428588118]
 z_index = 20
 z_as_relative = false
 layout_mode = 0
@@ -266,7 +266,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0.501961)
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 48
 
-[node name="trade_excess" type="PanelContainer" parent="."]
+[node name="trade_excess" type="PanelContainer" parent="." unique_id=875919092]
 visible = false
 z_index = 5
 layout_mode = 1
@@ -283,11 +283,11 @@ grow_vertical = 0
 mouse_filter = 2
 theme = ExtResource("25_ed75d")
 
-[node name="trade_excess_container" type="VBoxContainer" parent="trade_excess"]
+[node name="trade_excess_container" type="VBoxContainer" parent="trade_excess" unique_id=2007715909]
 layout_mode = 2
 alignment = 2
 
-[node name="trade_excess_label_panel" type="PanelContainer" parent="."]
+[node name="trade_excess_label_panel" type="PanelContainer" parent="." unique_id=1421858493]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -303,12 +303,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("25_ed75d")
 
-[node name="trade_excess_label" type="Label" parent="trade_excess_label_panel"]
+[node name="trade_excess_label" type="Label" parent="trade_excess_label_panel" unique_id=1552190782]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "wawa"
 
-[node name="warnings" type="Control" parent="." node_paths=PackedStringArray("inventory_display", "liquid_discard_label", "loot_discard_label")]
+[node name="warnings" type="Control" parent="." unique_id=395604921 node_paths=PackedStringArray("inventory_display", "liquid_discard_label", "loot_discard_label")]
 visible = false
 z_index = 3
 layout_mode = 1
@@ -323,7 +323,7 @@ inventory_display = NodePath("..")
 liquid_discard_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/liquid_discard")
 loot_discard_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/loot_discard")
 
-[node name="ColorRect" type="ColorRect" parent="warnings"]
+[node name="ColorRect" type="ColorRect" parent="warnings" unique_id=563400862]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -332,7 +332,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.435294)
 
-[node name="PanelContainer" type="PanelContainer" parent="warnings"]
+[node name="PanelContainer" type="PanelContainer" parent="warnings" unique_id=1582665561]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -346,58 +346,58 @@ offset_bottom = 19.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="warnings/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="warnings/PanelContainer" unique_id=684309809]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="warnings/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="warnings/PanelContainer/MarginContainer" unique_id=488106780]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="warning" type="Label" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="warning" type="Label" parent="warnings/PanelContainer/MarginContainer/VBoxContainer" unique_id=2038289423]
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
 text = "Warning:"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="warnings/PanelContainer/MarginContainer/VBoxContainer" unique_id=327234092]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="liquid_discard" type="RichTextLabel" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="liquid_discard" type="RichTextLabel" parent="warnings/PanelContainer/MarginContainer/VBoxContainer" unique_id=1157708548]
 layout_mode = 2
 bbcode_enabled = true
 text = "Fuel and Juice are liquid and need to be stored in containers. Otherewise they'll be discarded."
 fit_content = true
 
-[node name="loot_discard" type="Label" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="loot_discard" type="Label" parent="warnings/PanelContainer/MarginContainer/VBoxContainer" unique_id=1065439251]
 layout_mode = 2
 text = "Items left in the loot screen will be discarded."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="warnings/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="warnings/PanelContainer/MarginContainer/VBoxContainer" unique_id=1958901660]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="accept" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="accept" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1816832023]
 layout_mode = 2
 text = "Discard items 
 and continue"
 
-[node name="auto_sort" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="auto_sort" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=201009806]
 visible = false
 layout_mode = 2
 text = "Auto-Sort
 and continue"
 
-[node name="return" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="return" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=21182488]
 layout_mode = 2
 text = "Return"
 
-[node name="unit_selector" type="PanelContainer" parent="." node_paths=PackedStringArray("options_hbox")]
+[node name="unit_selector" type="PanelContainer" parent="." unique_id=488670982 node_paths=PackedStringArray("options_hbox")]
 visible = false
 z_index = 7
 layout_mode = 1
@@ -415,10 +415,10 @@ grow_vertical = 2
 script = ExtResource("25_yjuqr")
 options_hbox = NodePath("options")
 
-[node name="options" type="HBoxContainer" parent="unit_selector"]
+[node name="options" type="HBoxContainer" parent="unit_selector" unique_id=1351969398]
 layout_mode = 2
 
-[node name="item_selector" type="PanelContainer" parent="." node_paths=PackedStringArray("options_hbox")]
+[node name="item_selector" type="PanelContainer" parent="." unique_id=1812004539 node_paths=PackedStringArray("options_hbox")]
 visible = false
 z_index = 4
 layout_mode = 1
@@ -436,7 +436,7 @@ grow_vertical = 2
 script = ExtResource("26_up2tu")
 options_hbox = NodePath("options")
 
-[node name="options" type="HBoxContainer" parent="item_selector"]
+[node name="options" type="HBoxContainer" parent="item_selector" unique_id=1237007783]
 layout_mode = 2
 
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]

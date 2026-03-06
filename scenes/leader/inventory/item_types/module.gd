@@ -1,6 +1,7 @@
+@abstract
+class_name Module
 extends Equipment
 
-class_name Module;
 
 const type = "module"
 
@@ -17,6 +18,6 @@ func _ready()->void:
 	name = "Module - " + name
 
 func use()->void:
+	printerr("MISSINGUSE ", name)
 	## modules won't have alt uses so needs to be separated from 
 	## weapon's use super
-	printerr(name + " MISSING USE")

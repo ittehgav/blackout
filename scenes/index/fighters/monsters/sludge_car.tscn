@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://blvhloouenfiu"]
+
+[ext_resource type="Script" uid="uid://dt25yjqvlgo37" path="res://scenes/index/fighters/scripts/sludge_car.gd" id="1_5paln"]
+[ext_resource type="Texture2D" uid="uid://w3sb5fkv1hrb" path="res://assets/visual/sprites/fighters/monsters/sludge_car/sludge_car.png" id="1_2766c"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_gu1h1"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_gu1h1"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_qfvgk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qn5al"]
+radius = 37.01351
+
+[node name="Sludge Car" type="Sprite2D" unique_id=2031111193 node_paths=PackedStringArray("animation_player", "skill", "hit_scan")]
+material = ExtResource("1_gu1h1")
+texture = ExtResource("1_2766c")
+hframes = 8
+vframes = 3
+frame = 2
+script = ExtResource("1_5paln")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Stagnation Aura")
+tags = Array[int]([12, 6])
+hit_scan = NodePath("scan")
+
+[node name="Stagnation Aura" type="Node" parent="." unique_id=1428610240]
+script = ExtResource("3_gu1h1")
+effects = Array[int]([5])
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="scan" type="Area2D" parent="." unique_id=877298012]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="scan" unique_id=1010299210]
+shape = SubResource("CircleShape2D_qn5al")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2014152601]
+libraries/fighter_base = ExtResource("4_qfvgk")

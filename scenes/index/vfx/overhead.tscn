@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://dp4tm4fats44n"]
+
+[ext_resource type="Texture2D" uid="uid://dnv3oo0320p48" path="res://assets/visual/vfx/overhead.png" id="1_m2dq0"]
+[ext_resource type="Script" uid="uid://dulyebo8yjrxt" path="res://scenes/battle/arena/combat_vfx.gd" id="1_svyne"]
+
+[sub_resource type="Animation" id="Animation_m2dq0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:self_modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fw5ov"]
+resource_name = "vfx"
+length = 0.35
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-7.450581e-09, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0.0, 1.0, 2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-7.450581e-09, 0.2, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:self_modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(-7.450581e-09, 0.2, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fw5ov"]
+_data = {
+&"RESET": SubResource("Animation_m2dq0"),
+&"vfx": SubResource("Animation_fw5ov")
+}
+
+[node name="Overhead" type="Sprite2D" unique_id=1766547426 node_paths=PackedStringArray("animation_player")]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_m2dq0")
+hframes = 8
+vframes = 3
+frame = 2
+script = ExtResource("1_svyne")
+animation_player = NodePath("vfx_animation")
+metadata/_custom_type_script = "uid://dulyebo8yjrxt"
+
+[node name="vfx_animation" type="AnimationPlayer" parent="." unique_id=57962018]
+deterministic = true
+libraries/ = SubResource("AnimationLibrary_fw5ov")

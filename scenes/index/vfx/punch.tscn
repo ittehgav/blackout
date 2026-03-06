@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://dnln8vwomwh3n"]
+
+[ext_resource type="Texture2D" uid="uid://dv681c8qege3e" path="res://assets/visual/vfx/punch.png" id="1_a52pj"]
+[ext_resource type="Script" uid="uid://dulyebo8yjrxt" path="res://scenes/battle/arena/combat_vfx.gd" id="1_xr7vy"]
+
+[sub_resource type="Animation" id="Animation_uwhy0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:self_modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_gedaf"]
+resource_name = "vfx"
+length = 0.325
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.099999994),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.325),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:self_modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1e-05, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b2xab"]
+_data = {
+&"RESET": SubResource("Animation_uwhy0"),
+&"vfx": SubResource("Animation_gedaf")
+}
+
+[node name="Punch" type="Sprite2D" unique_id=437169543 node_paths=PackedStringArray("animation_player")]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_a52pj")
+hframes = 8
+vframes = 3
+script = ExtResource("1_xr7vy")
+animation_player = NodePath("vfx_animation")
+metadata/_custom_type_script = "uid://dulyebo8yjrxt"
+
+[node name="vfx_animation" type="AnimationPlayer" parent="." unique_id=2023778313]
+libraries/ = SubResource("AnimationLibrary_b2xab")

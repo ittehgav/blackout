@@ -1,6 +1,7 @@
-extends Item;
-
+@abstract 
 class_name Equipment
+extends Item
+
 
 signal equipped
 

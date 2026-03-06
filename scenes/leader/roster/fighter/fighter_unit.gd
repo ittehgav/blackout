@@ -25,14 +25,17 @@ func _ready()->void:
 	setup()
 
 func setup()->void:
+	print("sup?")
 	if not base:
+		print("nbase?")
 		find_base();
 	## needs to run with level and base assigned
 	update_stats();
 
 func find_base()->void:
-
+	print("fbase? ", get_child_count())
 	for c:Node in get_children():
+		print(c.name)
 		if c is FighterBase:
 			base = c;
 			remove_child(c)
@@ -57,7 +60,6 @@ func change_base(new_base:FighterBase)->void:
 func update_stats()->void:
 	## runs as the fighter is instantiated
 	## stats are only changeable by levels for now
-	assert(len(base.tags))
 	stats_loaded = true;
 	
 	Scaling.initiate_unit_stats(self);

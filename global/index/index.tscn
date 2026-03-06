@@ -1,15 +1,15 @@
-[gd_scene load_steps=63 format=3 uid="uid://bwtklnymx24l2"]
+[gd_scene format=3 uid="uid://bwtklnymx24l2"]
 
 [ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index/index.gd" id="1_oyx4q"]
 [ext_resource type="PackedScene" uid="uid://drf3xuyj0tmjy" path="res://scenes/in_settlement/in_settlement.tscn" id="3_au47y"]
-[ext_resource type="PackedScene" uid="uid://uacsw306t8nv" path="res://scenes/index/fighters/electric_knight.tscn" id="3_f4g0r"]
-[ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/sniper.tscn" id="4_iis6y"]
-[ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/crowbar.tscn" id="5_id88d"]
+[ext_resource type="PackedScene" uid="uid://uacsw306t8nv" path="res://scenes/index/fighters/units/electric_knight.tscn" id="3_f4g0r"]
+[ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="4_iis6y"]
+[ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="5_id88d"]
 [ext_resource type="PackedScene" uid="uid://buyf7yy7iuctf" path="res://scenes/world_map/settlement/settlement.tscn" id="6_yssh0"]
-[ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/gravity.tscn" id="8_28bxi"]
+[ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="8_28bxi"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="8_v142k"]
 [ext_resource type="PackedScene" uid="uid://dx6w0vn2gqy7s" path="res://scenes/player/unit/player_body.tscn" id="11_qig7t"]
-[ext_resource type="PackedScene" uid="uid://mwlq8jel4dww" path="res://scenes/index/fighters/wheel.tscn" id="13_kdm76"]
+[ext_resource type="PackedScene" uid="uid://mwlq8jel4dww" path="res://scenes/index/fighters/units/wheel.tscn" id="13_kdm76"]
 [ext_resource type="PackedScene" uid="uid://b3sr8al76si1g" path="res://scenes/battle/arena/arena.tscn" id="14_38kar"]
 [ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/index/vehicles/doblo.tscn" id="18_2wv2w"]
 [ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/index/vehicles/gol.tscn" id="19_c3xjx"]
@@ -35,19 +35,19 @@
 [ext_resource type="PackedScene" uid="uid://di0vghxs4bkgh" path="res://scenes/index/items/containers/notyet/scrap_pile.tscn" id="36_j7eeh"]
 [ext_resource type="PackedScene" uid="uid://bjmnlpi6chnbj" path="res://scenes/index/items/containers/notyet/chips.tscn" id="37_y60qf"]
 [ext_resource type="Texture2D" uid="uid://cy2xm601gdvas" path="res://assets/visual/particles/circles/circle_2x2.png" id="40_m7afg"]
-[ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/electric_hulk.tscn" id="51_vvnt2"]
+[ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/units/electric_hulk.tscn" id="51_vvnt2"]
 [ext_resource type="PackedScene" uid="uid://b52pvgor34jns" path="res://scenes/index/fighters/maybenot/mower.tscn" id="54_m7afg"]
-[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/puncher.tscn" id="55_au47y"]
-[ext_resource type="PackedScene" uid="uid://bhmsli657i58w" path="res://scenes/index/fighters/scrap_hulk.tscn" id="56_fqlef"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="55_au47y"]
+[ext_resource type="PackedScene" uid="uid://bhmsli657i58w" path="res://scenes/index/fighters/units/scrap_hulk.tscn" id="56_fqlef"]
 [ext_resource type="Script" uid="uid://c2v3r4uaedrki" path="res://global/index/textures.gd" id="56_rddof"]
 [ext_resource type="Script" uid="uid://dqnom05cxvnww" path="res://global/index/fighters.gd" id="57_jh7c7"]
-[ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/scythe.tscn" id="57_yssh0"]
-[ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/slammer.tscn" id="58_qig7t"]
+[ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="57_yssh0"]
+[ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="58_qig7t"]
 [ext_resource type="Texture2D" uid="uid://07xmhqaquw88" path="res://assets/visual/particles/circles/circle_hollow_4x4.png" id="60_mrj2u"]
-[ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/toxic_hulk.tscn" id="60_v142k"]
+[ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="60_v142k"]
 [ext_resource type="Texture2D" uid="uid://dxn3vii4n7mar" path="res://assets/visual/particles/circles/circle_hollow_8x8.png" id="61_ekp1m"]
 [ext_resource type="Texture2D" uid="uid://cf7qn7nec5bvw" path="res://assets/visual/particles/circles/circle_hollow_16x16.png" id="62_js3li"]
-[ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/wrecker.tscn" id="62_kn0pf"]
+[ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="62_kn0pf"]
 [ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="63_mrm47"]
 [ext_resource type="Texture2D" uid="uid://cui2boa6gcv18" path="res://assets/visual/particles/circles/circle_hollow_64x64.png" id="64_w8q8o"]
 [ext_resource type="Texture2D" uid="uid://bkvwsq6raaf6p" path="res://assets/visual/particles/circles/circle_4x4.png" id="65_50ns7"]
@@ -63,7 +63,7 @@
 [ext_resource type="Script" uid="uid://bmx20g00xyoa6" path="res://global/index/ui.gd" id="80_f4g0r"]
 [ext_resource type="Script" uid="uid://bxp6tl07qg7ae" path="res://global/index/items.gd" id="81_iis6y"]
 
-[node name="Index" type="Node" node_paths=PackedStringArray("scenes", "fighters", "textures")]
+[node name="Index" type="Node" unique_id=700446529 node_paths=PackedStringArray("scenes", "fighters", "textures")]
 script = ExtResource("1_oyx4q")
 scenes = NodePath("scenes")
 fighters = NodePath("fighters")
@@ -94,7 +94,7 @@ primary_tag_colors = Dictionary[String, Color]({
 "scientist": Color(0.65999985, 0.4, 0.8, 1)
 })
 
-[node name="scenes" type="Node" parent="." node_paths=PackedStringArray("ui", "items")]
+[node name="scenes" type="Node" parent="." unique_id=1576804442 node_paths=PackedStringArray("ui", "items")]
 script = ExtResource("74_f4g0r")
 ui = NodePath("ui")
 items = NodePath("items")
@@ -108,7 +108,7 @@ combat_stats = ExtResource("8_v142k")
 vehicles = Array[PackedScene]([ExtResource("18_2wv2w"), ExtResource("19_c3xjx"), ExtResource("20_t1lvq")])
 player_body = ExtResource("11_qig7t")
 
-[node name="ui" type="Node" parent="scenes"]
+[node name="ui" type="Node" parent="scenes" unique_id=1254369096]
 script = ExtResource("80_f4g0r")
 stat_icon = ExtResource("27_x86u7")
 resource_icon = ExtResource("28_v8r68")
@@ -123,7 +123,7 @@ item_mirror = ExtResource("32_co4i5")
 item_sample = ExtResource("28_kn0pf")
 unit_sample = ExtResource("26_yssh0")
 
-[node name="items" type="Node" parent="scenes"]
+[node name="items" type="Node" parent="scenes" unique_id=2077709842]
 script = ExtResource("81_iis6y")
 food_stack = ExtResource("33_qyikr")
 fuel_stack = ExtResource("34_y8csm")
@@ -131,7 +131,7 @@ juice_stack = ExtResource("35_do1gh")
 scrap_stack = ExtResource("36_j7eeh")
 chips_stack = ExtResource("37_y60qf")
 
-[node name="textures" type="Node" parent="."]
+[node name="textures" type="Node" parent="." unique_id=176587227]
 script = ExtResource("56_rddof")
 hollow_circles = Array[Texture]([ExtResource("60_mrj2u"), ExtResource("61_ekp1m"), ExtResource("62_js3li"), ExtResource("63_mrm47"), ExtResource("64_w8q8o")])
 filled_circles = Array[Texture]([ExtResource("40_m7afg"), ExtResource("65_50ns7"), ExtResource("66_vgk1i"), ExtResource("67_n3xga"), ExtResource("68_e7p5s"), ExtResource("69_q6wh7")])
@@ -140,7 +140,7 @@ scared_icon_texture = ExtResource("76_xklpr")
 agressive_icon_texture = ExtResource("77_ifn81")
 salesman_icon_texture = ExtResource("78_5qkj4")
 
-[node name="fighters" type="Node2D" parent="."]
+[node name="fighters" type="Node2D" parent="." unique_id=1407718655]
 visible = false
 script = ExtResource("57_jh7c7")
 all_fighter_base_scenes = Array[PackedScene]([ExtResource("5_id88d"), ExtResource("51_vvnt2"), ExtResource("3_f4g0r"), ExtResource("8_28bxi"), ExtResource("54_m7afg"), ExtResource("55_au47y"), ExtResource("56_fqlef"), ExtResource("57_yssh0"), ExtResource("58_qig7t"), ExtResource("4_iis6y"), ExtResource("60_v142k"), ExtResource("13_kdm76"), ExtResource("62_kn0pf")])

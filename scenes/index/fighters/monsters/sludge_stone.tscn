@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dwfxkpkmxgib8"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_kos2j"]
+[ext_resource type="Texture2D" uid="uid://cer4pbjissunl" path="res://assets/visual/sprites/fighters/monsters/sludge_stone/sludge_stone.png" id="1_rcy52"]
+[ext_resource type="Script" uid="uid://opvbu1lpmb2l" path="res://scenes/index/fighters/scripts/sludge_stone.gd" id="2_kos2j"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_ebpok"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_qcgl1"]
+[ext_resource type="Texture2D" uid="uid://diunkp313vx4l" path="res://assets/visual/sprites/fighters/monsters/sludge_stone/blur.png" id="5_atbp3"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="6_78moe"]
+[ext_resource type="PackedScene" uid="uid://fdl1eu7c7t2k" path="res://scenes/index/vfx/falling_slam.tscn" id="8_ebpok"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qenei"]
+radius = 37.01351
+
+[node name="Sludge Stone" type="Sprite2D" unique_id=1861199641 node_paths=PackedStringArray("animation_player", "skill", "hit_scan")]
+material = ExtResource("1_kos2j")
+texture = ExtResource("1_rcy52")
+hframes = 8
+vframes = 5
+frame = 2
+script = ExtResource("2_kos2j")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Fling")
+tags = Array[int]([6, 12])
+hit_scan = NodePath("scan")
+
+[node name="Fling" type="Node" parent="." unique_id=1311288299]
+script = ExtResource("3_ebpok")
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="scan" type="Area2D" parent="." unique_id=231409721]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="scan" unique_id=2080762385]
+shape = SubResource("CircleShape2D_qenei")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1063017066]
+libraries/fighter_base = ExtResource("4_qcgl1")
+
+[node name="blur" type="Sprite2D" parent="." unique_id=194940006]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("5_atbp3")
+hframes = 8
+vframes = 2
+frame = 2
+script = ExtResource("6_78moe")
+metadata/_custom_type_script = "uid://bupk131cmv6l2"
+
+[node name="Falling Slam" parent="." unique_id=1653537226 instance=ExtResource("8_ebpok")]

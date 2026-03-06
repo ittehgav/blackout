@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b3n7mk40hlld3"]
+
+[ext_resource type="Script" uid="uid://cln30xescq2bg" path="res://scenes/index/fighters/scripts/big_rat.gd" id="1_3rsjv"]
+[ext_resource type="Texture2D" uid="uid://un6aoa3ddagn" path="res://assets/visual/sprites/fighters/monsters/big_rat/big_rat.png" id="1_wkevw"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_ydyhp"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_nnsy7"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_wkevw"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_nropm"]
+[ext_resource type="Texture2D" uid="uid://d1gvnnoc8ryp4" path="res://assets/visual/sprites/fighters/monsters/big_rat/blur.png" id="6_4x268"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ydyhp"]
+
+[node name="Big Rat" type="Sprite2D" unique_id=779088301 node_paths=PackedStringArray("animation_player", "skill")]
+material = ExtResource("1_ydyhp")
+texture = ExtResource("1_wkevw")
+hframes = 8
+vframes = 5
+frame = 2
+script = ExtResource("1_3rsjv")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Big Bite")
+tags = Array[int]([9, 11])
+
+[node name="Big Bite" type="Node" parent="." unique_id=839176132]
+script = ExtResource("2_nnsy7")
+effects = Array[int]([0, 1])
+base_cooldown = 4.0
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="malaise" type="Node" parent="." unique_id=2030895574]
+script = ExtResource("3_wkevw")
+type = "special"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="malaise_stat_debuff" type="Node" parent="malaise" unique_id=1074213550]
+script = ExtResource("3_wkevw")
+type = "stat_change"
+value = -5.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1588836474]
+libraries/fighter_base = ExtResource("4_nropm")
+
+[node name="blur" type="Sprite2D" parent="." unique_id=340650379]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("6_4x268")
+hframes = 8
+vframes = 2
+frame = 2
+script = ExtResource("7_ydyhp")
+metadata/_custom_type_script = "uid://bupk131cmv6l2"

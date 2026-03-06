@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://da6t3mxb46olo"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_m8axb"]
+[ext_resource type="Texture2D" uid="uid://24ff13ba8vix" path="res://assets/visual/sprites/fighters/units/sniper/sniper.png" id="2_r7jn3"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_lwa6y"]
+[ext_resource type="Script" uid="uid://bquq6cnjfqscl" path="res://scenes/index/fighters/scripts/sniper.gd" id="3_m8axb"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_hn5nq"]
+[ext_resource type="Texture2D" uid="uid://cygeqnjwn3rnk" path="res://assets/visual/sprites/fighters/units/sniper/blur.png" id="6_c3pfp"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ojifu"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_lwa6y"]
+b = Vector2(1000, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2iv6b"]
+radius = 15.033297
+
+[node name="Sniper" type="Sprite2D" unique_id=1797122592 node_paths=PackedStringArray("animation_player", "skill", "hit_scan")]
+material = ExtResource("1_m8axb")
+texture = ExtResource("2_r7jn3")
+hframes = 8
+vframes = 5
+script = ExtResource("3_m8axb")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Piercing Shot")
+hit_scan = NodePath("scan")
+tags = Array[int]([3, 2])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="Piercing Shot" type="Node" parent="." unique_id=1500444734]
+script = ExtResource("3_lwa6y")
+position_lineup = false
+effects = Array[int]([2])
+tranform_visual = 1
+base_cooldown = 7.0
+skill_range = 10
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=875831156]
+libraries/fighter_base = ExtResource("4_hn5nq")
+
+[node name="scan" type="Area2D" parent="." unique_id=1335909690]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="scan" unique_id=934614126]
+shape = SubResource("SegmentShape2D_lwa6y")
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1549499441]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_2iv6b")
+
+[node name="blur" type="Sprite2D" parent="." unique_id=1579084761]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("6_c3pfp")
+hframes = 8
+vframes = 2
+script = ExtResource("7_ojifu")

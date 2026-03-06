@@ -1,4 +1,4 @@
-extends FighterBase
+extends FighterBase;
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage:String = Index.colored_text("attack", unit.final_stat("attack"), " damage");

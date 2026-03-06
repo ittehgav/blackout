@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bhmsli657i58w"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_15ylm"]
+[ext_resource type="Texture2D" uid="uid://bmpj6pp8dghp1" path="res://assets/visual/sprites/fighters/units/scrap_hulk/scrap_hulk.png" id="2_phvmd"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_7ynb7"]
+[ext_resource type="Script" uid="uid://mhopdbt7sb23" path="res://scenes/index/fighters/scripts/scrap_hulk.gd" id="3_15ylm"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_ubfyc"]
+[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="6_cvl87"]
+[ext_resource type="Texture2D" uid="uid://ds6fmd14bwy42" path="res://assets/visual/sprites/projectiles/shard.png" id="7_m1mlw"]
+[ext_resource type="Texture2D" uid="uid://bcndldaxl7osj" path="res://assets/visual/sprites/fighters/units/scrap_hulk/blur.png" id="8_syc3v"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="9_hnt12"]
+[ext_resource type="PackedScene" uid="uid://bhqyoqsugdn2q" path="res://scenes/index/vfx/overhead_spike_ball.tscn" id="10_hnt12"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvugs"]
+radius = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oeio7"]
+radius = 15.033297
+
+[node name="Scrap Hulk" type="Sprite2D" unique_id=1648266463 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "projectile")]
+material = ExtResource("1_15ylm")
+texture = ExtResource("2_phvmd")
+offset = Vector2(0, -8.067494)
+hframes = 8
+vframes = 5
+frame = 28
+script = ExtResource("3_15ylm")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Shrapnel Slam")
+hit_scan = NodePath("hit_scan")
+projectile = NodePath("Projectile")
+tags = Array[int]([1, 6, 5])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="Shrapnel Slam" type="Node" parent="." unique_id=1381515576]
+script = ExtResource("3_7ynb7")
+base_special_values = Dictionary[String, float]({
+"shrapnel_count": 3.0
+})
+effects = Array[int]([2, 5])
+base_cooldown = 5.0
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1719065668]
+libraries/fighter_base = ExtResource("4_ubfyc")
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=78018770]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=611266776]
+shape = SubResource("CircleShape2D_pvugs")
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=19968109]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_oeio7")
+
+[node name="Projectile" parent="." unique_id=668049372 instance=ExtResource("6_cvl87")]
+texture = ExtResource("7_m1mlw")
+
+[node name="blur" type="Sprite2D" parent="." unique_id=759935753]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("8_syc3v")
+hframes = 8
+vframes = 2
+frame = 4
+script = ExtResource("9_hnt12")
+
+[node name="skill_vfx" parent="." unique_id=234288550 instance=ExtResource("10_hnt12")]
+frame = 4

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dacqy8pmfnjyf"]
+[gd_scene format=3 uid="uid://dacqy8pmfnjyf"]
 
 [ext_resource type="PackedScene" uid="uid://b3sr8al76si1g" path="res://scenes/battle/arena/arena.tscn" id="1_nnh8j"]
 [ext_resource type="Script" uid="uid://wer8l14son14" path="res://scenes/test/combat/units/test_arena.gd" id="2_c2mqb"]
@@ -11,9 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="4_mrk65"]
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="5_oh16v"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_ejk4u"]
-[ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/wrecker.tscn" id="11_2ixll"]
-[ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/slammer.tscn" id="13_mrk65"]
-[ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/toxic_hulk.tscn" id="13_ybjdj"]
+[ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="11_2ixll"]
 
 [sub_resource type="Shader" id="Shader_1ut33"]
 code = "shader_type canvas_item;
@@ -103,7 +101,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhi4m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6a38p"]
 resource_local_to_scene = true
 shader = SubResource("Shader_1ut33")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -203,7 +201,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nnh8j"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mrk65"]
 resource_local_to_scene = true
 shader = SubResource("Shader_r4qcv")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -214,30 +212,6 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(6, 2)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ybjdj"]
-resource_local_to_scene = true
-shader = ExtResource("8_ejk4u")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(3, 3)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1g1kx"]
-resource_local_to_scene = true
-shader = ExtResource("8_ejk4u")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2ixll"]
 resource_local_to_scene = true
@@ -251,7 +225,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(3, 3)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ey2rr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ybjdj"]
 resource_local_to_scene = true
 shader = ExtResource("8_ejk4u")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -263,77 +237,54 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="TestArena" type="Node2D"]
+[node name="TestArena" type="Node2D" unique_id=1680278370]
 
-[node name="Arena" parent="." instance=ExtResource("1_nnh8j")]
+[node name="Arena" parent="." unique_id=474914340 instance=ExtResource("1_nnh8j")]
 script = ExtResource("2_c2mqb")
 
-[node name="player_fighter" parent="Arena/teams/team_1" index="0"]
-material = SubResource("ShaderMaterial_xhi4m")
+[node name="player_fighter" parent="Arena/teams/team_1" parent_id_path=PackedInt32Array(474914340, 1279616264) index="0" unique_id=543559168]
+material = SubResource("ShaderMaterial_6a38p")
 
-[node name="initial_stats" parent="Arena/teams/team_1/player_fighter/stats" index="0"]
+[node name="initial_stats" parent="Arena/teams/team_1/player_fighter/stats" parent_id_path=PackedInt32Array(474914340, 543559168, 1676505557) index="0" unique_id=2095973971]
 attack = 0.03
 agility = 20.0
 
-[node name="body" parent="Arena/teams/team_1/player_fighter" index="6"]
-material = SubResource("ShaderMaterial_nnh8j")
+[node name="body" parent="Arena/teams/team_1/player_fighter" index="6" unique_id=416499753]
+material = SubResource("ShaderMaterial_mrk65")
 
-[node name="Player" parent="Arena/teams/team_1/player_fighter" index="10" node_paths=PackedStringArray("equipped_weapon", "equipped_module") instance=ExtResource("3_xhi4m")]
+[node name="Player" parent="Arena/teams/team_1/player_fighter" index="10" unique_id=573407477 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") instance=ExtResource("3_xhi4m")]
 equipped_weapon = NodePath("Inventory/Taser Gun")
+alternative_weapon = NodePath("Inventory/Tailpipe")
 equipped_module = NodePath("Inventory/Buckler")
 
-[node name="Taser Gun" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="0" instance=ExtResource("4_mrk65")]
+[node name="Taser Gun" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="0" unique_id=2133998561 instance=ExtResource("4_mrk65")]
 
-[node name="Merciless Katana" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="1" instance=ExtResource("4_1iucv")]
+[node name="Merciless Katana" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="1" unique_id=743400580 instance=ExtResource("4_1iucv")]
 
-[node name="Buckler" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="2" instance=ExtResource("4_hiooa")]
+[node name="Buckler" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="2" unique_id=1354861788 instance=ExtResource("4_hiooa")]
 
-[node name="Juice Can" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="3" instance=ExtResource("4_6a38p")]
+[node name="Juice Can" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="3" unique_id=1851031057 instance=ExtResource("4_6a38p")]
 stack_size = 20
 
-[node name="Tailpipe" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="4" instance=ExtResource("4_ic6ef")]
+[node name="Tailpipe" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="4" unique_id=792674319 instance=ExtResource("4_ic6ef")]
 
-[node name="Adrenaline Synthethizer" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="5" instance=ExtResource("5_oh16v")]
+[node name="Adrenaline Synthethizer" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="5" unique_id=1409915285 instance=ExtResource("5_oh16v")]
 
-[node name="Fighter Test3" parent="Arena/teams/team_1" index="1" instance=ExtResource("3_07wm2")]
-position = Vector2(127, 306)
+[node name="Fighter Test" parent="Arena/teams/team_2" parent_id_path=PackedInt32Array(474914340, 451149455) index="0" unique_id=762254561 instance=ExtResource("3_07wm2")]
 
-[node name="unit" parent="Arena/teams/team_1/Fighter Test3" index="0"]
-level = 9
+[node name="unit" parent="Arena/teams/team_2/Fighter Test" index="0" unique_id=2102969138]
+level = 3
 
-[node name="Wrecker" parent="Arena/teams/team_1/Fighter Test3/unit" index="0" instance=ExtResource("11_2ixll")]
-material = SubResource("ShaderMaterial_ybjdj")
-
-[node name="Fighter Test" parent="Arena/teams/team_2" index="0" instance=ExtResource("3_07wm2")]
-position = Vector2(-38, 384)
-
-[node name="unit" parent="Arena/teams/team_2/Fighter Test" index="0"]
-position = Vector2(390, -20)
-level = 9
-
-[node name="Toxic Hulk" parent="Arena/teams/team_2/Fighter Test/unit" index="0" instance=ExtResource("13_ybjdj")]
-material = SubResource("ShaderMaterial_1g1kx")
-
-[node name="Fighter Test2" parent="Arena/teams/team_2" index="1" instance=ExtResource("3_07wm2")]
-position = Vector2(127, 306)
-
-[node name="unit" parent="Arena/teams/team_2/Fighter Test2" index="0"]
-position = Vector2(-214, 6)
-level = 9
-
-[node name="Slammer" parent="Arena/teams/team_2/Fighter Test2/unit" index="0" instance=ExtResource("13_mrk65")]
+[node name="Crowbar" parent="Arena/teams/team_2/Fighter Test/unit" index="0" unique_id=2112712555 instance=ExtResource("11_2ixll")]
 material = SubResource("ShaderMaterial_2ixll")
 
-[node name="tide_bar" parent="Arena/ui_canvas/hud" index="1"]
+[node name="tide_bar" parent="Arena/ui_canvas/hud" parent_id_path=PackedInt32Array(474914340, 990298264) index="1" unique_id=133949005]
 visible = false
 
-[node name="countdown_overlay" parent="Arena/ui_canvas/hud" index="3"]
+[node name="countdown_overlay" parent="Arena/ui_canvas/hud" parent_id_path=PackedInt32Array(474914340, 990298264) index="3" unique_id=1268934347]
 countdown_second = 1
 
-[node name="post_fight" parent="Arena/ui_canvas" index="1"]
-visible = false
-
-[node name="StatsDropdown" parent="Arena/ui_canvas/post_fight/victory_view/exp_panel/VBoxContainer" index="1" node_paths=PackedStringArray("stat_labels")]
+[node name="StatsDropdown" parent="Arena/ui_canvas/post_fight/victory_view/exp_panel/VBoxContainer" parent_id_path=PackedInt32Array(474914340, 941348118) index="1" unique_id=1099904655 node_paths=PackedStringArray("stat_labels")]
 stat_labels = {
 "agility": NodePath("agility/agility"),
 "attack": NodePath("attack/attack"),
@@ -342,10 +293,10 @@ stat_labels = {
 "technique": NodePath("technique/technique")
 }
 
-[node name="body" parent="Arena/ui_canvas/post_fight/victory_view/exp_panel/Control" index="0"]
-material = SubResource("ShaderMaterial_ey2rr")
+[node name="body" parent="Arena/ui_canvas/post_fight/victory_view/exp_panel/Control" parent_id_path=PackedInt32Array(474914340, 414460538) index="0" unique_id=1946803950]
+material = SubResource("ShaderMaterial_ybjdj")
 
-[node name="resources_dropdown" parent="Arena/ui_canvas/post_fight/victory_view/loot_panel/player_inventory" index="4" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="Arena/ui_canvas/post_fight/victory_view/loot_panel/player_inventory" parent_id_path=PackedInt32Array(474914340, 1102322486) index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 resource_hboxes = {
 "chips": NodePath("chips"),
 "food": NodePath("food"),
@@ -363,7 +314,7 @@ resource_icons = {
 "scrap": NodePath("scrap/scrap_icon")
 }
 
-[node name="resources_dropdown" parent="Arena/ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory" index="4" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="Arena/ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory" parent_id_path=PackedInt32Array(474914340, 944785117) index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 resource_hboxes = {
 "chips": NodePath("chips"),
 "food": NodePath("food"),
@@ -385,12 +336,8 @@ resource_icons = {
 [editable path="Arena/teams/team_1/player_fighter"]
 [editable path="Arena/teams/team_1/player_fighter/body"]
 [editable path="Arena/teams/team_1/player_fighter/Player"]
-[editable path="Arena/teams/team_1/Fighter Test3"]
-[editable path="Arena/teams/team_1/Fighter Test3/unit"]
 [editable path="Arena/teams/team_2/Fighter Test"]
 [editable path="Arena/teams/team_2/Fighter Test/unit"]
-[editable path="Arena/teams/team_2/Fighter Test2"]
-[editable path="Arena/teams/team_2/Fighter Test2/unit"]
 [editable path="Arena/ui_canvas/post_fight/victory_view/exp_panel/Control/body"]
 [editable path="Arena/ui_canvas/post_fight/victory_view/loot_panel/player_inventory"]
 [editable path="Arena/ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory"]

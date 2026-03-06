@@ -11,8 +11,6 @@ func full_skill_description(unit:FighterUnit)->String:
 		"heal":heal_string
 	}
 
-
-	
 	var final_string:String = "{elec}Electrifies[/color] all nearby units, then deals {damage} to all {elec}Electrified[/color] enemies and retores {heal} to all {elec}Electrified[/color] allies.".format(f);
 	return final_string
 

@@ -1,6 +1,7 @@
+@abstract 
+class_name Location
 extends Node2D
 
-class_name Location
 
 var pending_refresh:bool=true;
 ## refreshes will only be effectively made when dynamic data from the location is called for
@@ -18,8 +19,7 @@ var days_since_last_cycle:int=0
 @export var bgm_key:String; ## for when arenas/multi_stage things?
 @export var icon_texture:Texture;
 
-func refresh()->void:
-	printerr("REFRESHMIOSSING ", name)
+@abstract func refresh()->void;
 
 func hours_for_next_reset()->int:
 	return (24 * (reset_cycle - days_since_last_cycle)) - Entities.world_map.current_hour

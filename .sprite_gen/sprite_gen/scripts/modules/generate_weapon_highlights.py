@@ -19,9 +19,8 @@ total_frames = 2
 
 
 top_light = bpy.data.objects.get("top_light");
-bottom_light = bpy.data.objects.get("bottom_light")
 camera = bpy.context.scene.camera
-to_rotate = [top_light, bottom_light, camera]
+to_rotate = [top_light, camera]
 
 collection = bpy.data.collections.get("all")
 frame_offset = 3
@@ -31,6 +30,8 @@ frame_offset = 3
 if camera is None:
     raise Exception("No active camera in the scene.")
 
+
+to_hide = []
 def apply_prefix_material(prefix, collection_name, material_name):
     collection = bpy.data.collections.get(collection_name)
     if not collection:
@@ -42,16 +43,10 @@ def apply_prefix_material(prefix, collection_name, material_name):
         print(f"Material '{material_name}' not found.")
         return
 
-
-
-
     # Apply modifications
     for obj in collection.objects:
         if obj.name.startswith(prefix):
             # Ensure visible
-            obj.hide_set(False)
-            obj.hide_viewport = False
-            obj.hide_render = False
 
             # Replace materials
             if obj.material_slots:
@@ -62,11 +57,12 @@ def apply_prefix_material(prefix, collection_name, material_name):
                 obj.data.materials.append(mat)
         else:
             # Hide objects that don't match
+            obj.animation_data.action = None;
             obj.hide_set(True)
-            obj.hide_viewport = True
-            obj.hide_render = True
+            obj.hide_render = True;
+            
 
-
+        
 
 
 
@@ -75,10 +71,33 @@ def apply_prefix_material(prefix, collection_name, material_name):
 bpy.ops.wm.save_mainfile()
 apply_prefix_material("weapon_", "all", "weapon_blur")
 
-sprite_gen.generate_frames(collection, total_frames, steps, output_path, pivot, to_rotate, frame_offset)
+
+for frame in range(total_frames):
+        bpy.context.scene.frame_set((frame + frame_offset) * 5)
+        print((frame + frame_offset) * 5)
+        
+        for i in range(steps):
+            for obj in collection.objects:
+                if obj.animation_data and obj.animation_data.action:
+                    obj.update_tag()
+            # Set file path for render
+            file_name = f"{output_path}"
+            if frame < 10:
+                file_name += "0"
+            file_name += f"{int(frame)}-{int(i)}.png"
+            bpy.context.scene.render.filepath = "//weapon_renders/"+file_name
+
+            # Render still image
+            bpy.ops.render.render(write_still=True)
+
+            # Rotate camera for next frame
+            
+            for obj in to_rotate:
+                sprite_gen.rotate_around_y(obj, pivot)
+
 
 png_files = ["//weapon_renders/"+f for f in os.listdir(bpy.path.abspath("//weapon_renders")) if f.lower().endswith('.png') and not f.startswith("combined")] 
-sprite_gen.generate_spritesheet(png_files, total_frames)
+sprite_gen.generate_spritesheet(png_files, total_frames, "weapon_sheets")
 
 
 

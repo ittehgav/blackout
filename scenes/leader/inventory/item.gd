@@ -1,6 +1,7 @@
+@abstract 
+class_name Item
 extends Sprite2D
 
-class_name Item;
 var mirror:ItemMirror;
 
 var applied_modifier:ItemModifier

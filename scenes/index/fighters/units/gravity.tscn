@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://bca1c065pcgi"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_pya1c"]
+[ext_resource type="Texture2D" uid="uid://bt3wcrywsfm4h" path="res://assets/visual/sprites/fighters/units/gravity/gravity.png" id="2_yvl46"]
+[ext_resource type="Script" uid="uid://t2fu6pbkan6i" path="res://scenes/index/fighters/scripts/gravity.gd" id="3_pya1c"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_xi7nn"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_iq7f6"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_ylbig"]
+[ext_resource type="Texture2D" uid="uid://cios5cxxceefl" path="res://assets/visual/sprites/fighters/units/gravity/blur.png" id="7_1p7r2"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_mg1c5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b08qk"]
+size = Vector2(400, 100)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ilq8"]
+radius = 15.033297
+
+[node name="Gravity" type="Sprite2D" unique_id=934399271 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "status")]
+material = ExtResource("1_pya1c")
+texture = ExtResource("2_yvl46")
+hframes = 8
+vframes = 5
+frame = 1
+script = ExtResource("3_pya1c")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Gravity Pulse")
+hit_scan = NodePath("hit_scan")
+status = NodePath("stun")
+tags = Array[int]([7, 3])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="Gravity Pulse" type="Node" parent="." unique_id=882028580]
+script = ExtResource("3_xi7nn")
+effects = Array[int]([4, 3])
+tranform_visual = 1
+skill_range = 5
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="stun" type="Node" parent="." unique_id=219088143]
+script = ExtResource("5_ylbig")
+type = "stun"
+duration = 2.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=144748180]
+libraries/fighter_base = ExtResource("4_iq7f6")
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=1880112702]
+top_level = true
+position = Vector2(221, 26)
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=1071722235]
+position = Vector2(200, 0)
+shape = SubResource("RectangleShape2D_b08qk")
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1930519657]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_8ilq8")
+
+[node name="blur" type="Sprite2D" parent="." unique_id=1070223093]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("7_1p7r2")
+hframes = 8
+vframes = 2
+frame = 1
+script = ExtResource("8_mg1c5")

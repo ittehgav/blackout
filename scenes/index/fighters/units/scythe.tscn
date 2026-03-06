@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cytn5aw6slgl8"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_pg4qo"]
+[ext_resource type="Texture2D" uid="uid://6acvycpgho6a" path="res://assets/visual/sprites/fighters/units/scythe/scythe.png" id="2_cm433"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_ly1nj"]
+[ext_resource type="Script" uid="uid://c22ry32eswkql" path="res://scenes/index/fighters/scripts/scythe.gd" id="3_pg4qo"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_hop5t"]
+[ext_resource type="Texture2D" uid="uid://cqwfygfe8vk6k" path="res://assets/visual/sprites/fighters/units/scythe/blur.png" id="6_j7v0f"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_lpcpv"]
+[ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="8_lpcpv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ly1nj"]
+radius = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uo25i"]
+radius = 15.033297
+
+[node name="Scythe" type="Sprite2D" unique_id=255476344 node_paths=PackedStringArray("animation_player", "skill", "hit_scan")]
+material = ExtResource("1_pg4qo")
+texture = ExtResource("2_cm433")
+hframes = 8
+vframes = 5
+frame = 31
+script = ExtResource("3_pg4qo")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Reaping Swing")
+hit_scan = NodePath("hit_scan")
+tags = Array[int]([6, 1])
+metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="Reaping Swing" type="Node" parent="." unique_id=1375691100]
+script = ExtResource("3_ly1nj")
+base_special_values = Dictionary[String, float]({
+"vamp": 10.0
+})
+effects = Array[int]([5, 2])
+base_cooldown = 4.0
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=75229589]
+libraries/fighter_base = ExtResource("4_hop5t")
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=1701308692]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=574697801]
+rotation = 1.5707964
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_ly1nj")
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1084107579]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_uo25i")
+
+[node name="blur" type="Sprite2D" parent="." unique_id=467478403]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("6_j7v0f")
+hframes = 8
+vframes = 2
+frame = 7
+script = ExtResource("7_lpcpv")
+
+[node name="Sweep" parent="." unique_id=773368217 instance=ExtResource("8_lpcpv")]
+motion_offset = 30

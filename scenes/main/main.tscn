@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bbj4g27p0o6dw"]
+[gd_scene format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
 [ext_resource type="PackedScene" uid="uid://dacqy8pmfnjyf" path="res://scenes/test/combat/units/test_arena.tscn" id="2_7smn1"]
@@ -14,13 +14,13 @@
 [ext_resource type="Script" uid="uid://c5ydkff6c2nyn" path="res://scenes/main/loading_screen.gd" id="31_ii537"]
 [ext_resource type="Texture2D" uid="uid://drce0fgyc1x5i" path="res://assets/visual/splash/barrel.jpg" id="32_ii537"]
 
-[node name="main" type="Node2D" node_paths=PackedStringArray("main_bgm")]
+[node name="main" type="Node2D" unique_id=1340392074 node_paths=PackedStringArray("main_bgm")]
 script = ExtResource("1_8gx17")
 test_arena_scene = ExtResource("2_7smn1")
 main_menu_ui_scene = ExtResource("2_th5th")
 main_bgm = NodePath("main_bgm")
 
-[node name="main_bgm" type="AudioStreamPlayer" parent="."]
+[node name="main_bgm" type="AudioStreamPlayer" parent="." unique_id=277956121]
 process_mode = 3
 volume_db = -15.0
 bus = &"music"
@@ -33,12 +33,12 @@ victory = ExtResource("14_0bhws")
 defeat = ExtResource("13_i7in8")
 in_settlement = ExtResource("9_ouso4")
 
-[node name="main_menu" parent="." instance=ExtResource("2_th5th")]
+[node name="main_menu" parent="." unique_id=304568004 instance=ExtResource("2_th5th")]
 
-[node name="global_overlay" type="CanvasLayer" parent="."]
+[node name="global_overlay" type="CanvasLayer" parent="." unique_id=1730949830]
 layer = 5
 
-[node name="loading_overlay" type="Control" parent="global_overlay" node_paths=PackedStringArray("splash")]
+[node name="loading_overlay" type="Control" parent="global_overlay" unique_id=1847518365 node_paths=PackedStringArray("splash")]
 visible = false
 z_index = 10
 layout_mode = 3
@@ -50,7 +50,7 @@ grow_vertical = 2
 script = ExtResource("31_ii537")
 splash = NodePath("TextureRect")
 
-[node name="TextureRect" type="TextureRect" parent="global_overlay/loading_overlay"]
+[node name="TextureRect" type="TextureRect" parent="global_overlay/loading_overlay" unique_id=1234550722]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

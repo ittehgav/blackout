@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://datk48iuf2jce"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_niry1"]
+[ext_resource type="Texture2D" uid="uid://8hifigu73yo6" path="res://assets/visual/sprites/fighters/monsters/sludge_sign/sludge_sign.png" id="2_b2c0s"]
+[ext_resource type="Script" uid="uid://c6q00tt13p4q3" path="res://scenes/index/fighters/scripts/sludge_sign.gd" id="3_jhnwu"]
+[ext_resource type="Texture2D" uid="uid://bq05ur4swjqao" path="res://assets/visual/sprites/fighters/monsters/sludge_sign/blur.png" id="4_ij0jp"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="5_uqm0m"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="6_5oljj"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="7_kgmnv"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="8_manpb"]
+[ext_resource type="PackedScene" uid="uid://dp4tm4fats44n" path="res://scenes/index/vfx/overhead.tscn" id="9_b2c0s"]
+
+[node name="Sludge Sign" type="Sprite2D" unique_id=1850800264 node_paths=PackedStringArray("animation_player", "skill", "status")]
+material = ExtResource("1_niry1")
+texture = ExtResource("2_b2c0s")
+hframes = 8
+vframes = 5
+frame = 3
+script = ExtResource("3_jhnwu")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Traffic Slam")
+tags = Array[int]([12, 1])
+status = NodePath("Traffic Slam/Status")
+
+[node name="blur" type="Sprite2D" parent="." unique_id=366566219]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("4_ij0jp")
+hframes = 8
+vframes = 2
+frame = 3
+script = ExtResource("5_uqm0m")
+metadata/_custom_type_script = "uid://bupk131cmv6l2"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=546204385]
+libraries/fighter_base = ExtResource("6_5oljj")
+
+[node name="Traffic Slam" type="Node" parent="." unique_id=120315121]
+script = ExtResource("7_kgmnv")
+effects = Array[int]([0, 1])
+base_cooldown = 5.0
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="Status" type="Node" parent="Traffic Slam" unique_id=877605256]
+script = ExtResource("8_manpb")
+type = "stat_change"
+duration = 5.0
+value = -5.0
+stat = "attack"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="Overhead" parent="." unique_id=1766547426 instance=ExtResource("9_b2c0s")]

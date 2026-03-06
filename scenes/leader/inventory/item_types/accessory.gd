@@ -1,6 +1,7 @@
+@abstract
+class_name Accessory
 extends Equipment
 
-class_name Accessory
 ## to make it easier to access this on implementations
 ## until godot makes custom class names more accessible?
 const type = "accessory"
@@ -61,4 +62,4 @@ func other_equipped_accessory()->Accessory:
 		return Entities.player.equipped_accessory_1
 
 func battle_start_apply(_target:ActiveFighter)->void:
-	printerr("noapplywhenthereshouldbe?s")
+	printerr("nobsa ", name)

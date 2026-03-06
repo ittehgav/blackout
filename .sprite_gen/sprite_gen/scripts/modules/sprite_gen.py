@@ -69,7 +69,7 @@ def generate_frames(collection, total_frames, steps, output_path, pivot, to_rota
             for obj in to_rotate:
                 rotate_around_y(obj, pivot)
 
-def generate_spritesheet(png_files, total_frames):
+def generate_spritesheet(png_files, total_frames, dir="sheets"):
     height = frame_size * total_frames
     width = frame_size * 8
 
@@ -91,7 +91,6 @@ def generate_spritesheet(png_files, total_frames):
             x_offset -= width
 
     # Save result
-    dir = "sheets"
 
     filename = get_unique_name("combined", dir);
 

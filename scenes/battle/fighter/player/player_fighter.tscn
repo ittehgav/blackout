@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://clxl0g1dnu81h"]
+[gd_scene format=3 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/fighter/player/player_fighter.gd" id="2_2bwky"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_afulj"]
@@ -122,7 +122,7 @@ height = 60.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_88w2o"]
 radius = 15.0
 
-[node name="player_fighter" type="CharacterBody2D" node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "floating_icon_anchor", "base", "timers", "statuses", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox")]
+[node name="player_fighter" type="CharacterBody2D" unique_id=952457738 node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "floating_icon_anchor", "base", "timers", "statuses", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox")]
 material = SubResource("ShaderMaterial_afulj")
 collision_layer = 256
 collision_mask = 256
@@ -142,27 +142,27 @@ stat_modifiers = NodePath("stats/modifiers")
 stat_multipliers = NodePath("stats/multipliers")
 hurtbox = NodePath("hurtbox")
 
-[node name="stats" type="Node" parent="."]
+[node name="stats" type="Node" parent="." unique_id=1676505557]
 
-[node name="initial_stats" parent="stats" instance=ExtResource("2_afulj")]
+[node name="initial_stats" parent="stats" unique_id=2095973971 instance=ExtResource("2_afulj")]
 
-[node name="modifiers" parent="stats" instance=ExtResource("2_afulj")]
+[node name="modifiers" parent="stats" unique_id=1946580805 instance=ExtResource("2_afulj")]
 technique = 0.0
 move_speed = 0.0
 
-[node name="multipliers" parent="stats" instance=ExtResource("2_afulj")]
+[node name="multipliers" parent="stats" unique_id=1104299743 instance=ExtResource("2_afulj")]
 max_hp = 1.0
 attack = 1.0
 defense = 1.0
 agility = 1.0
 move_speed = 1.0
 
-[node name="vfx_control" type="Node" parent="." node_paths=PackedStringArray("unit", "floating_icon_anchor")]
+[node name="vfx_control" type="Node" parent="." unique_id=929113244 node_paths=PackedStringArray("unit", "floating_icon_anchor")]
 script = ExtResource("3_r3ibm")
 unit = NodePath("..")
 floating_icon_anchor = NodePath("../floating_icon_anchor")
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
+[node name="sfx" type="AudioStreamPlayer" parent="." unique_id=504591273]
 stream = ExtResource("5_0y55v")
 bus = &"sfx"
 script = ExtResource("4_dxwve")
@@ -170,27 +170,31 @@ damage_taken = ExtResource("5_0y55v")
 weapon_change = ExtResource("5_xkq5h")
 module_unavailable = ExtResource("6_plyqv")
 
-[node name="hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("fighter")]
+[node name="hurtbox" type="Area2D" parent="." unique_id=502840166 node_paths=PackedStringArray("fighter")]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 script = ExtResource("8_ufe8c")
 fighter = NodePath("..")
 
-[node name="hurtbox" type="CollisionShape2D" parent="hurtbox"]
+[node name="hurtbox" type="CollisionShape2D" parent="hurtbox" unique_id=1594144591]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_wutkk")
 
-[node name="statuses" type="Node" parent="."]
+[node name="statuses" type="Node" parent="." unique_id=625187668]
 
-[node name="timers" type="Node" parent="."]
+[node name="timers" type="Node" parent="." unique_id=2053695415]
 
-[node name="body" parent="." instance=ExtResource("6_bbywa")]
+[node name="body" parent="." unique_id=416499753 instance=ExtResource("6_bbywa")]
 material = null
 use_parent_material = true
 scale = Vector2(2, 2)
+vframes = 9
 
-[node name="equipment" type="Node2D" parent="." node_paths=PackedStringArray("weapon_control", "module_control", "holder", "body", "freeze_frame_timer")]
+[node name="AnimationPlayer" parent="body" index="0"]
+autoplay = &"player/idle"
+
+[node name="equipment" type="Node2D" parent="." unique_id=488158529 node_paths=PackedStringArray("weapon_control", "module_control", "holder", "body", "freeze_frame_timer")]
 use_parent_material = true
 script = ExtResource("7_skhxj")
 weapon_control = NodePath("weapon_control")
@@ -199,10 +203,10 @@ holder = NodePath("..")
 body = NodePath("../body")
 freeze_frame_timer = NodePath("freeze_frame_control")
 
-[node name="weapon_fumbled_sfx" type="AudioStreamPlayer" parent="equipment"]
+[node name="weapon_fumbled_sfx" type="AudioStreamPlayer" parent="equipment" unique_id=1072859342]
 stream = ExtResource("10_p55mw")
 
-[node name="weapon_control" type="Node" parent="equipment" node_paths=PackedStringArray("sfx", "equipment", "weapon_cd", "alt_weapon_cd", "freeze_frame_timer")]
+[node name="weapon_control" type="Node" parent="equipment" unique_id=1301522479 node_paths=PackedStringArray("sfx", "equipment", "weapon_cd", "alt_weapon_cd", "freeze_frame_timer")]
 script = ExtResource("7_k0pw4")
 sfx = NodePath("../../sfx")
 equipment = NodePath("..")
@@ -210,36 +214,36 @@ weapon_cd = NodePath("weapon_cd")
 alt_weapon_cd = NodePath("alt_weapon_cd")
 freeze_frame_timer = NodePath("../freeze_frame_control")
 
-[node name="weapon_cd" type="Timer" parent="equipment/weapon_control"]
+[node name="weapon_cd" type="Timer" parent="equipment/weapon_control" unique_id=1302180691]
 process_callback = 0
 wait_time = 0.5
 one_shot = true
 
-[node name="alt_weapon_cd" type="Timer" parent="equipment/weapon_control"]
+[node name="alt_weapon_cd" type="Timer" parent="equipment/weapon_control" unique_id=1008929646]
 process_callback = 0
 one_shot = true
 
-[node name="module_control" type="Node" parent="equipment" node_paths=PackedStringArray("module_cd", "equipment", "sfx")]
+[node name="module_control" type="Node" parent="equipment" unique_id=733144912 node_paths=PackedStringArray("module_cd", "equipment", "sfx")]
 script = ExtResource("9_sdapf")
 module_cd = NodePath("module_cd")
 equipment = NodePath("..")
 sfx = NodePath("../../sfx")
 
-[node name="module_cd" type="Timer" parent="equipment/module_control"]
+[node name="module_cd" type="Timer" parent="equipment/module_control" unique_id=682365859]
 one_shot = true
 
-[node name="freeze_frame_control" type="Timer" parent="equipment"]
+[node name="freeze_frame_control" type="Timer" parent="equipment" unique_id=1033120575]
 wait_time = 0.075
 one_shot = true
 ignore_time_scale = true
 
-[node name="camera" type="Camera2D" parent="."]
+[node name="camera" type="Camera2D" parent="." unique_id=1871726771]
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 editor_draw_drag_margin = true
 script = ExtResource("27_rxaql")
 
-[node name="floating_icon_anchor" type="Control" parent="."]
+[node name="floating_icon_anchor" type="Control" parent="." unique_id=1851613241]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -251,7 +255,7 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1480294527]
 position = Vector2(0, 9)
 shape = SubResource("CircleShape2D_88w2o")
 

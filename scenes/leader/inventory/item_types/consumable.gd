@@ -1,6 +1,7 @@
+@abstract 
+class_name Consumable
 extends Item
 
-class_name Consumable;
 
 const type = "consumable"
 @export var use_sfx:AudioStream;
@@ -31,7 +32,6 @@ const type = "consumable"
 
 
 func use()->void:
-	printerr("USEMISSING")
-
+	printerr("MISSING USE ", name)
 func use_on_target(_target:FighterUnit)->void:
-	assert(false)
+	printerr("MISSIGUESONTARGET ", name)

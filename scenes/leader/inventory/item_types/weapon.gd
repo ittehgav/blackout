@@ -55,7 +55,8 @@ func use(_alt:bool=false)->void:
 	printerr(name + " MISSING USE")
 	
 func final_damage()->int:
-	## ONLY FOR UNITS NOT COMBAT
+	## ONLY FOR WEAPONS NOT COMBAT
+	## during combat the player's stats will be set dynamically
 	var damage:int = Entities.player.final_stats().attack;
 	damage += base_damage;
 	if applied_modifier:

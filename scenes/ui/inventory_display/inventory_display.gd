@@ -1,5 +1,5 @@
-extends Control
 class_name InventoryDisplay
+extends Control
 
 signal warnings_shown;
 signal warnings_attended(clear:bool)
@@ -13,9 +13,6 @@ signal invalid_move(message:String);
 signal accessory_equipped_on_unit;
 
 signal opened
-
-
-
 
 
 @export_enum("player_sheet", "trade", "loot")var context:String="player_sheet";

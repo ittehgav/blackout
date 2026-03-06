@@ -17,6 +17,7 @@ var unit:FighterUnit;
 
 @export var cooldown_timer:Timer;
 @export var skill_retry_timer:Timer;
+@export var movement_ticker:Timer;
 
 
 @export var overlay:FighterOverlay
@@ -30,8 +31,6 @@ var target_in_range:bool = false;
 ## and is playing on a different wait time
 var true_cooldown:float;
 
-var current_cell:Vector2i
-var movement_target:Vector2
 
 
 func load_fighter(new_unit:FighterUnit)->void:
@@ -84,53 +83,92 @@ func load_unit_stats()->void:
 	move_speed = stats.move_speed
 
 
-
-const angle_indexes = [
-	## put this in a place where both player and npcs catch?
-	Vector2i.UP,
-	Vector2i(1, -1),
-	Vector2i.RIGHT,
-	Vector2i(1, 1),
-	Vector2i.DOWN,
-	Vector2i(-1, 1),
-	Vector2i.LEFT,
-	Vector2i(-1, -1)
-]
-
-
 func set_direction()->void:
-	var direction:Vector2
-	if moving:
-		direction = position.direction_to(movement_target)
-	else:
-		direction = position.direction_to(target_unit.position)
-	
-	## to make ceil work on negative numbers
-	if direction.x < 0 and direction.x > -1:
-		direction.x -= 1;
-	if direction.y < 0 and direction.y > -1:
-		direction.y -= 1;
-	var angle:Vector2i = direction.ceil()
+	var direction_index:int = Index.isometric_rad_indexes.bsearch(direction_to_target.angle());
+	print(direction_index)
+	base.frame_coords.x = direction_index;
 
-	base.frame_coords.x = angle_indexes.find(angle);
-	
+
+## storing these throughout check_move calls
+## to reduce processing load
+## (by an amount which i think will start to become bigger and bigger as 
+## the movement system becomes more complex)
+var current_cell:Vector2i
+var movement_target:Vector2
+var target_cell_distance:int;
+var direction_to_target:Vector2
+
+var current_path:PackedVector2Array;
 func refresh_target()->void:
-	find_target();
+	## also refreshes all geometric data that takes a bit of math to call
+	## every movement refresh
+	var target:ActiveFighter=null;
+	match base.skill.targetting:
+		## maybe only ever need to target allies otherwise?
+		## make this a simpler code expression if so?
+		SkillComponent.TargetType.nearest_enemy:
+			target = nearest_enemy();
+			
+			
+	if target != target_unit:
+		target_unit = target;
+		target_changed.emit();
+	if target_unit:
+		Entities.arena.grid.assign_path(self)
+		## only ever doesn't get here when the last unit dies and everyone was targeting it?
+		target_cell_distance = Entities.arena.grid.cell_distance(position, target.position)
+		target_in_range = target_cell_distance <= base.skill.skill_range
+
+
+func check_move()->void:
+	if not len(enemy_team.units):
+		return
+	refresh_target();
+	if base.movement == FighterBase.MovementPattern.none:
+		return
 	
-	if not target_in_range:
-		move();
+	if not target_in_range or (base.movement == FighterBase.MovementPattern.chase and target_cell_distance > 1):
+		move_toward_target(current_path[1]);
 	else:
-		stop()
+		if base.movement == FighterBase.MovementPattern.hover:
+			check_flee()
+		else:
+			stop()
 	set_direction()
 
-func move()->void:
-	movement_target = Entities.arena.grid.get_next_cell_in_path(self);
+func check_flee()->void:
+	var cell_distance:int = Entities.arena.grid.cell_distance(position, target_unit.global_position);
+	if cell_distance - 2 < base.skill.skill_range:
+		flee_from_target();
+
+func flee_from_target()->void:
+	## just goes to the farthest from the target vague cell
+	## can result in silly behavior when cornered? (which might be fine?)
+	var direction:Vector2i = direction_to_target * -1;
+	var farthest_cell_index:int = Index.isometric_angle_indexes.bsearch(direction);
+	
+	direction = Index.isometric_angle_indexes[farthest_cell_index];
+	
+	var grid:NavigationGrid = Entities.arena.grid;
+	const shifts:Array[int] = [0, -1, 1, 2, -2, 3, -3, 4];
+	for s:int in shifts:
+		var neighbor:Vector2i = Index.isometric_angle_indexes[farthest_cell_index + s];
+		if not grid.spot_taken(neighbor):
+			move_toward_target(neighbor);
+			return
+			
+			
+	
+
+func move_toward_target(target:Vector2i)->void:
+	movement_target = target;
 	
 	if Entities.arena.grid.spot_taken(movement_target):
 		## to prevent two units from overlapping
 		## when they move towards eachother at the exact same time
 		## otherwise will respect the taken cells by only
 		## moving through astar pathfinding
+		
 		## BUG seems like melee units can't properly target enemies that are on the 
 		## cell to their bottom-right?
 		movement_target = Entities.arena.grid.next_closer_cell(self)
@@ -148,19 +186,6 @@ func stop()->void:
 		moving = false;
 		stopped_moving.emit()
 
-
-func find_target()->void:
-	var target:ActiveFighter=null;
-	match base.skill.targetting:
-		SkillComponent.TargetType.nearest_enemy:
-			target = nearest_enemy();
-			
-	if target != target_unit:
-		target_unit = target;
-		target_changed.emit();
-	if target_unit:
-		## only ever doesn't get here when the last unit dies and everyone was targeting it?
-		target_in_range = Entities.arena.grid.cell_distance(position, target.position) <= base.skill.skill_range
 
 
 
@@ -183,10 +208,11 @@ func use_skill()->void:
 	base.skill.lineup()
 	skill_used.emit();
 	
-	await base.skill.finished
-	base.frame_coords.y = 0;
+	await base.skill.impact
 	for target:ActiveFighter in hit_targets:
 		skill_hit.emit(target);
+	
+
 
 
 
@@ -227,11 +253,3 @@ func _on_death(_killer: ActiveFighter) -> void:
 	await base.fighter_died().finished
 	hide();
 	set_process_mode(PROCESS_MODE_DISABLED)
-
-func angle_to_target()->Vector2i:
-	var direction:Vector2 = position.direction_to(target_unit.position);
-	if direction.x < 0:
-		direction.x -= 1;
-	if direction.y < 0:
-		direction.y -= 1;
-	return direction.ceil()

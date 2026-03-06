@@ -120,14 +120,16 @@ const flavor_colors = {
 
 const combat_effect_colors = {
 	"stun":Color.PURPLE,
-	"damage":Color(.8, .1, .1)
+	"damage":Color(.8, .1, .1),
+	"debuff":Color.DARK_OLIVE_GREEN ## might be too dark?
 }
 
 const misc_colors = {
 	"no_dmg":Color.LIGHT_BLUE,
 	"shield":Color.YELLOW,
 	"morale":Color.YELLOW,
-	"electrify":Color.YELLOW
+	"electrify":Color.YELLOW,
+	"neutral":Color.LIGHT_GRAY
 }
 
 
@@ -237,3 +239,22 @@ func get_technique_scaled_string(unit:FighterUnit, mechanic:String, value_key:St
 		
 	return string + trailing_text + "[/color]";
 	
+const isometric_angle_indexes = [
+	## put this in a place where both player and npcs catch?
+	Vector2i.UP,
+	Vector2i(1, -1),
+	Vector2i.RIGHT,
+	Vector2i(1, 1),
+	Vector2i.DOWN,
+	Vector2i(-1, 1),
+	Vector2i.LEFT,
+	Vector2i(-1, -1)
+]
+@onready var isometric_rad_indexes:Array[float] = set_angle_degs();
+func set_angle_degs()->Array[float]:
+	## idk this is faster than bsearch a v2 array 
+	## and i couldnt get it to work right away with v2s
+	var angles:Array[float]
+	for angle:Vector2i in isometric_angle_indexes:
+		angles.append(Vector2(angle).angle())
+	return angles

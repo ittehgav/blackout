@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://buy3hmc8ungmr"]
+
+[ext_resource type="Script" uid="uid://cxat68htlsn71" path="res://scenes/index/fighters/scripts/termite_queen.gd" id="1_l8hqm"]
+[ext_resource type="Texture2D" uid="uid://bvw7sgqkhg120" path="res://assets/visual/sprites/fighters/monsters/termite_queen/termite_queen.png" id="1_oqdjl"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_oqdjl"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="4_lwr4b"]
+[ext_resource type="Texture2D" uid="uid://v820lf1b3gam" path="res://assets/visual/sprites/fighters/monsters/termite_queen/blur.png" id="4_r2pgj"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_sxdjq"]
+
+[node name="Termite Queen" type="Sprite2D" unique_id=381041469 node_paths=PackedStringArray("animation_player", "skill")]
+texture = ExtResource("1_oqdjl")
+hframes = 8
+vframes = 5
+script = ExtResource("1_l8hqm")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Queen\'s Children")
+tags = Array[int]([9, 13])
+
+[node name="Queen\'s Children" type="Node" parent="." unique_id=59021356]
+script = ExtResource("2_oqdjl")
+need_target = false
+scan_enemies = false
+position_lineup = false
+effects = Array[int]([6])
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="blur" type="Sprite2D" parent="." unique_id=1533659693]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("4_r2pgj")
+hframes = 8
+vframes = 2
+frame = 2
+script = ExtResource("4_lwr4b")
+metadata/_custom_type_script = "uid://bupk131cmv6l2"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2139344813]
+libraries/fighter_base = ExtResource("5_sxdjq")

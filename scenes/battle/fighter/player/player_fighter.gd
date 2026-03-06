@@ -69,18 +69,8 @@ func adjust_direction(d:Vector2)->void:
 	if d.x < 0: d.x = -1.1;
 	if d.y < 0: d.y = -1.1;
 	var rounded:Vector2i = d.ceil();
-	body.frame_coords.x =  angle_indexes.find(rounded)
+	body.frame_coords.x =  Index.isometric_angle_indexes.find(rounded)
 
-const angle_indexes = [
-	Vector2i.UP,
-	Vector2i(1, -1),
-	Vector2i.RIGHT,
-	Vector2i(1, 1),
-	Vector2i.DOWN,
-	Vector2i(-1, 1),
-	Vector2i.LEFT,
-	Vector2i(-1, -1)
-]
 
 
 func _physics_process(_delta:float)->void:
