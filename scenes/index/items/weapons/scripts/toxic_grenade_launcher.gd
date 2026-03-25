@@ -24,15 +24,14 @@ func use(_alt:bool=false)->void:
 	new_splash.rotation = new_projectile.rotation
 
 
-func projectile_hit(target:ActiveFighter, smoke:Sprite2D)->void:
+func projectile_hit(target:CombatEntity, smoke:Sprite2D)->void:
 	## smoke's hit scan mask is just hardcoded into team 2 
 	## which is fine for the build i'm working towards right now
-	hit.emit()
-	hit_sfx.play()
 	Entities.player_fighter.ally_team.projectiles.add_child.call_deferred(smoke);
 	
 	smoke.global_position = target.global_position;
 	smoke.explode();
+	hit.emit()
 	
 	## not fancy but should work and hardly ever have any impact in the hit outcome
 	await get_tree().create_timer(.05).timeout

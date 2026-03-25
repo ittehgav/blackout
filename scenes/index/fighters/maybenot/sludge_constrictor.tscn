@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://do0es5na5d34i"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_bk0c4"]
+[ext_resource type="Texture2D" uid="uid://flfkqqt277au" path="res://assets/visual/sprites/fighters/monsters/sludge_constrictor/sludge_constrictor.png" id="1_w3fo5"]
+[ext_resource type="Script" uid="uid://qxsmldvyl5kx" path="res://scenes/index/fighters/scripts/sludge_constrictor.gd" id="2_4g6n8"]
+[ext_resource type="Texture2D" uid="uid://cl7dpf5kghjoa" path="res://assets/visual/sprites/fighters/monsters/sludge_constrictor/blur.png" id="2_cl8dq"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="3_4g6n8"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_by2at"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="6_by2at"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_ttid4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ttid4"]
+radius = 18.110771
+
+[node name="Sludge Constrictor" type="Sprite2D" unique_id=1565204691 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
+material = ExtResource("1_bk0c4")
+texture = ExtResource("1_w3fo5")
+hframes = 8
+vframes = 5
+script = ExtResource("2_4g6n8")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Wrap")
+tags = Array[int]([12, 5])
+unit_type = "monster"
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
+
+[node name="Wrap" type="Node" parent="." unique_id=2113282979]
+script = ExtResource("3_by2at")
+effects = Array[int]([6])
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="blur" type="Sprite2D" parent="." unique_id=2135958455]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_cl8dq")
+hframes = 8
+vframes = 2
+frame = 3
+script = ExtResource("3_4g6n8")
+metadata/_custom_type_script = "uid://bupk131cmv6l2"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=195462106]
+libraries/fighter_base = ExtResource("6_by2at")
+
+[node name="stat_base" type="Node" parent="." unique_id=355643868]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=519786795]
+script = ExtResource("8_ttid4")
+max_hp = 200.0
+attack = 30.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=2111283799]
+script = ExtResource("8_ttid4")
+max_hp = 30.0
+attack = 10.0
+defense = 5.0
+agility = 5.0
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=2054208217]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_ttid4")

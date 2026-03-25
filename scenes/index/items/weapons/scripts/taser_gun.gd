@@ -19,8 +19,7 @@ func use(_alt:bool=false)->void:
 	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit)
 
 
-func projectile_hit(target:ActiveFighter)->void:
-	hit.emit()
-	hit_sfx.play()
+func projectile_hit(target:CombatEntity)->void:
 	Combat.deal_damage(Entities.player_fighter, target);
 	status.apply_on_target(target);
+	hit.emit()

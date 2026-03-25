@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dwfxkpkmxgib8"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_0f7rr"]
+[ext_resource type="Texture2D" uid="uid://cer4pbjissunl" path="res://assets/visual/sprites/fighters/monsters/sludge_stone/sludge_stone.png" id="2_svnd7"]
+[ext_resource type="Script" uid="uid://opvbu1lpmb2l" path="res://scenes/index/fighters/scripts/sludge_stone.gd" id="3_1homf"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="4_xvmn0"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_mip82"]
+[ext_resource type="Texture2D" uid="uid://diunkp313vx4l" path="res://assets/visual/sprites/fighters/monsters/sludge_stone/blur.png" id="6_dlrsx"]
+[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_fotst"]
+[ext_resource type="PackedScene" uid="uid://fdl1eu7c7t2k" path="res://scenes/index/vfx/falling_slam.tscn" id="8_ls7en"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_wpvj6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qenei"]
+radius = 37.01351
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s2bn0"]
+radius = 28.0
+
+[node name="Sludge Rock" type="Sprite2D" unique_id=1861199641 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+material = ExtResource("1_0f7rr")
+texture = ExtResource("2_svnd7")
+hframes = 8
+vframes = 5
+script = ExtResource("3_1homf")
+animation_player = NodePath("AnimationPlayer")
+skill = NodePath("Fling")
+tags = Array[int]([6, 12])
+unit_type = "monster"
+hit_scan = NodePath("scan")
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
+
+[node name="Fling" type="Node" parent="." unique_id=1311288299]
+script = ExtResource("4_xvmn0")
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="scan" type="Area2D" parent="." unique_id=231409721]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="scan" unique_id=2080762385]
+shape = SubResource("CircleShape2D_qenei")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1063017066]
+libraries/fighter_base = ExtResource("5_mip82")
+
+[node name="blur" type="Sprite2D" parent="." unique_id=194940006]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("6_dlrsx")
+hframes = 8
+vframes = 2
+frame = 2
+script = ExtResource("7_fotst")
+metadata/_custom_type_script = "uid://bupk131cmv6l2"
+
+[node name="Falling Slam" parent="." unique_id=1653537226 instance=ExtResource("8_ls7en")]
+
+[node name="stat_base" type="Node" parent="." unique_id=35654928]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=42115733]
+script = ExtResource("9_wpvj6")
+max_hp = 300.0
+attack = 20.0
+defense = 50.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=1469527616]
+script = ExtResource("9_wpvj6")
+max_hp = 100.0
+attack = 20.0
+defense = 10.0
+agility = 2.5
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1292527486]
+position = Vector2(3, -6)
+shape = SubResource("CircleShape2D_s2bn0")

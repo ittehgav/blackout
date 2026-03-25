@@ -12,7 +12,7 @@ enum TargetType {nearest_enemy}
 enum Effect {
 	## direct = apply to unit's target
 	direct_damage,
-	direct_status, ## TODO move status from
+	direct_status,
 	
 	## aoe = apply to all valid targets in unit's hit scan
 	aoe_damage,
@@ -22,9 +22,11 @@ enum Effect {
 	## people than just gravity
 	knock_back,
 	
-	passive_ticker, ## TODO implement this
+	passive, ## TODO implement this
 	## 0 cooldwn = necessarily passive ticker/other types of passive?
-	special
+	special,
+	
+	self_status
 };
 
 enum TransformVFX {
@@ -33,7 +35,8 @@ enum TransformVFX {
 	## plays AFTER WINDUP
 	lunge,
 	recoil,
-	grow
+	grow,
+	none
 }
 
 
@@ -42,7 +45,19 @@ enum RangeOptions {
 	mid = FighterBase.MID_RANGE,
 	long = FighterBase.LONG_RANGE
 }
-@export var fighter:NpcFighter;
+var fighter:NpcFighter;
+
+
+
+@export var targetting:TargetType;
+@export var base_cooldown:float; ## TODO 0 cooldown = passive
+@export var skill_range:RangeOptions=RangeOptions.melee;
+@export var effects:Array[Effect]
+
+@export var tranform_visual:TransformVFX
+
+
+@export var instant_impact:bool=false;
 
 @export var need_target:bool=true;
 
@@ -50,21 +65,27 @@ enum RangeOptions {
 @export var scan_allies:bool=false;
 @export var position_lineup:bool=true;
 
+@export var status:Status;
+
+## ONLY FOR ENEMY MOBS,
+## projections generated dynamically based on the hitscan's shape
+@export var aoe_projection:bool=true;
 ## for anything other than damage/generic statuses, used in special skill which
 ## goes in the fighter base script but it goes in the skillcomp node for consistency
 ## always scaled with technique but also gets resolved in special skill call
-@export var base_special_values:Dictionary[String, float];
-@export var modifiers:Dictionary[String, bool] = {
-	"technique_scaled_damage":false
-}
 
-@export var targetting:TargetType;
-@export var effects:Array[Effect]
-@export var tranform_visual:TransformVFX
-@export var base_cooldown:float; ## TODO 0 cooldown = passive
-## (rihght now only sludge car)
-@export var skill_range:RangeOptions=RangeOptions.melee;
+@export_subgroup("special modifiers")
 
+@export var technique_scaled_damage:bool=false;
+## calls Scaling.technique_scaled_damage
+## technique_scaled damage and own_damage_mod are mutually exclusive
+## but maybe dont have to be?
+
+@export var own_damage_modifier:bool=false;
+## calls the damage_modifier method that needs to be in the base
+
+@export var lifesteal:bool=false;
+## needs the base to have a vamp and vamp_technique_amp properties
 
 func lineup()->void:
 	if Effect.aoe_damage in effects or Effect.aoe_status in effects:
@@ -73,8 +94,9 @@ func lineup()->void:
 
 func line_up_hit_scan()->void:
 	if position_lineup:
-		fighter.base.hit_scan.global_position = fighter.target_unit.global_position;
-	fighter.base.hit_scan.rotation = fighter.global_position.angle_to_point(fighter.target_unit.global_position)
+		fighter.base.hit_scan.global_position = fighter.target_fighter.global_position;
+	fighter.base.hit_scan.rotation = fighter.global_position.angle_to_point(fighter.target_fighter.global_position)
+
 func use()->void:
 	## may end up with stuff before impact as skill get more complex?
 	await impact
@@ -84,13 +106,15 @@ func use()->void:
 			Effect.direct_damage:
 				Combat.deal_damage(fighter)
 			Effect.direct_status:
-				fighter.base.status.apply_on_target();
+				status.apply_on_target();
 			Effect.aoe_damage:
 				Combat.aoe_damage(fighter);
 			Effect.aoe_status:
 				Combat.aoe_status(fighter);
 			Effect.knock_back:
 				Combat.knock_back_target(fighter);
+			Effect.self_status:
+				status.apply_on_target(fighter);
 			Effect.special:
 				fighter.base.special_skill_effect();
 
@@ -105,16 +129,16 @@ func play_transform_vfx()->void:
 		## ALL TRANFORM VISUALS MUST EMIT THE IMPACT SIGNAL
 		TransformVFX.lunge:
 			var direction:Vector2 = fighter.direction_to_target;
-			fighter.base.offset = direction * tranform_movement;
-			tween.tween_property(fighter.base, "offset", Vector2.ZERO, vfx_duration);
+			fighter.sprite.offset = direction * tranform_movement;
+			tween.tween_property(fighter.sprite, "offset", Vector2.ZERO, vfx_duration);
 		TransformVFX.recoil:
 			var direction:Vector2 = fighter.direction_to_target;
-			fighter.base.offset = direction * -tranform_movement;
-			tween.tween_property(fighter.base, "offset", Vector2.ZERO, vfx_duration);
+			fighter.sprite.offset = direction * -tranform_movement;
+			tween.tween_property(fighter.sprite, "offset", Vector2.ZERO, vfx_duration);
 		TransformVFX.grow:
 			## transform of fighter bases is reserved for 
-			var original_scale:Vector2 = fighter.base.scale;
-			fighter.base.scale *= 2;
-			tween.tween_property(fighter.base, "scale", original_scale, vfx_duration)
+			var original_scale:Vector2 = fighter.sprite.scale;
+			fighter.sprite.scale *= 2;
+			tween.tween_property(fighter.sprite, "scale", original_scale, vfx_duration)
 	await tween.finished;
 	finished.emit()

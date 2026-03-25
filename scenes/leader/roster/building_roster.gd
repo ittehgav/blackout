@@ -21,6 +21,7 @@ func refresh_recruits()->void:
 	var base_pool:Array[FighterBase]
 	
 	for tag:String in Index.primary_fighter_tags:
+		## TODO: redo any instance of tags
 		if self[tag+"_recruiting"]:
 			tags.append(tag);
 	

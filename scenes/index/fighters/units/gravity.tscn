@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_ylbig"]
 [ext_resource type="Texture2D" uid="uid://cios5cxxceefl" path="res://assets/visual/sprites/fighters/units/gravity/blur.png" id="7_1p7r2"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_mg1c5"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_ba4bw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b08qk"]
 size = Vector2(400, 100)
@@ -15,7 +16,7 @@ size = Vector2(400, 100)
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ilq8"]
 radius = 15.033297
 
-[node name="Gravity" type="Sprite2D" unique_id=934399271 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "status")]
+[node name="Gravity" type="Sprite2D" unique_id=934399271 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_pya1c")
 texture = ExtResource("2_yvl46")
 hframes = 8
@@ -24,19 +25,22 @@ frame = 1
 script = ExtResource("3_pya1c")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Gravity Pulse")
-hit_scan = NodePath("hit_scan")
-status = NodePath("stun")
 tags = Array[int]([7, 3])
+movement = 1
+hit_scan = NodePath("hit_scan")
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="Gravity Pulse" type="Node" parent="." unique_id=882028580]
+[node name="Gravity Pulse" type="Node" parent="." unique_id=882028580 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xi7nn")
+skill_range = 10
 effects = Array[int]([4, 3])
 tranform_visual = 1
-skill_range = 5
+status = NodePath("stun")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="stun" type="Node" parent="." unique_id=219088143]
+[node name="stun" type="Node" parent="Gravity Pulse" unique_id=219088143]
 script = ExtResource("5_ylbig")
 type = "stun"
 duration = 2.0
@@ -67,3 +71,19 @@ hframes = 8
 vframes = 2
 frame = 1
 script = ExtResource("8_mg1c5")
+
+[node name="stat_base" type="Node" parent="." unique_id=122263424]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=92001362]
+script = ExtResource("9_ba4bw")
+max_hp = 200.0
+defense = 5.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=649243213]
+script = ExtResource("9_ba4bw")
+max_hp = 50.0
+agility = 2.5
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

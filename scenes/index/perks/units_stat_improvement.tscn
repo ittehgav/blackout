@@ -1,25 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxycymk6ofy0l"]
+[gd_scene format=3 uid="uid://bxycymk6ofy0l"]
 
 [ext_resource type="Script" uid="uid://d3ggu2rg0d2du" path="res://scenes/index/perks/scripts/units_stat_improvement.gd" id="1_1ti68"]
 [ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/gain_generic.wav" id="2_1ti68"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="3_ikuai"]
 
-[node name="UnitsStatImprovement" type="Node" node_paths=PackedStringArray("samples_hbox", "stat_change_hbox", "stat_label", "panel", "sfx")]
+[node name="UnitsStatImprovement" type="Node" unique_id=264826487 node_paths=PackedStringArray("samples_hbox", "stat_change_hbox", "stat_label", "panel", "sfx")]
 script = ExtResource("1_1ti68")
 samples_hbox = NodePath("Panel/samples")
 stat_change_hbox = NodePath("stat_change")
 stat_label = NodePath("stat_change/stat_label")
-description = null
-title_color = null
 panel = NodePath("Panel")
 sfx = NodePath("sfx")
 metadata/_custom_type_script = "uid://cvor0b75qlqh5"
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
+[node name="sfx" type="AudioStreamPlayer" parent="." unique_id=926524582]
 stream = ExtResource("2_1ti68")
 volume_db = -5.0
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=101423309]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -34,13 +32,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="samples" type="HBoxContainer" parent="Panel"]
+[node name="samples" type="HBoxContainer" parent="Panel" unique_id=1650022771]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="stat_change" type="HBoxContainer" parent="."]
+[node name="stat_change" type="HBoxContainer" parent="." unique_id=2129589985]
 visible = false
 offset_left = 50.0
 offset_top = 90.0
@@ -48,11 +46,11 @@ offset_right = 110.0
 offset_bottom = 122.0
 mouse_filter = 2
 
-[node name="icon" parent="stat_change" node_paths=PackedStringArray("label") instance=ExtResource("3_ikuai")]
+[node name="icon" parent="stat_change" unique_id=1428489546 node_paths=PackedStringArray("label") instance=ExtResource("3_ikuai")]
 layout_mode = 2
 mouse_filter = 2
 label = NodePath("../stat_label")
 
-[node name="stat_label" type="Label" parent="stat_change"]
+[node name="stat_label" type="Label" parent="stat_change" unique_id=1224186177]
 layout_mode = 2
 text = "11"

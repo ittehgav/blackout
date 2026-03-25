@@ -5,26 +5,89 @@
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_gu1h1"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_gu1h1"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_qfvgk"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_66a5h"]
+[ext_resource type="Texture2D" uid="uid://djw5bpk7bkbvq" path="res://assets/visual/particles/circles/circle_32x32_15x.png" id="5_qn5al"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="6_qfvgk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qn5al"]
-radius = 37.01351
+radius = 70.11419
 
-[node name="Sludge Car" type="Sprite2D" unique_id=2031111193 node_paths=PackedStringArray("animation_player", "skill", "hit_scan")]
+[sub_resource type="Animation" id="Animation_qn5al"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_66a5h"]
+resource_name = "warp"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.08726646259971647, 0.0, 0.08726646259971647]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7x5g"]
+_data = {
+&"RESET": SubResource("Animation_qn5al"),
+&"warp": SubResource("Animation_66a5h")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qfvgk"]
+radius = 28.01785
+
+[node name="Sludge Car" type="Sprite2D" unique_id=2031111193 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_gu1h1")
 texture = ExtResource("1_2766c")
 hframes = 8
 vframes = 3
-frame = 2
 script = ExtResource("1_5paln")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Stagnation Aura")
 tags = Array[int]([12, 6])
+fighter_type = "monster"
+body_type = 2
 hit_scan = NodePath("scan")
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 
-[node name="Stagnation Aura" type="Node" parent="." unique_id=1428610240]
+[node name="Stagnation Aura" type="Node" parent="." unique_id=1428610240 node_paths=PackedStringArray("status")]
 script = ExtResource("3_gu1h1")
-effects = Array[int]([5])
+base_cooldown = 1.0
+effects = Array[int]([3, 6])
+tranform_visual = 3
+instant_impact = true
+need_target = false
+position_lineup = false
+status = NodePath("Stagnation")
+aoe_projection = false
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="Stagnation" type="Node" parent="Stagnation Aura" unique_id=1635710407]
+script = ExtResource("5_66a5h")
+type = "stat_change"
+value = -2.0
+duration = 1.0
+stat = "agility"
+force_quiet = true
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="scan" type="Area2D" parent="." unique_id=877298012]
 collision_layer = 0
@@ -34,5 +97,33 @@ monitorable = false
 [node name="shape" type="CollisionShape2D" parent="scan" unique_id=1010299210]
 shape = SubResource("CircleShape2D_qn5al")
 
+[node name="aura" type="Sprite2D" parent="scan" unique_id=1624673440]
+modulate = Color(0, 0, 0, 0.14509805)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_qn5al")
+
+[node name="aura_vfx" type="AnimationPlayer" parent="scan/aura" unique_id=146276296]
+libraries/ = SubResource("AnimationLibrary_o7x5g")
+autoplay = &"warp"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2014152601]
 libraries/fighter_base = ExtResource("4_qfvgk")
+
+[node name="stat_base" type="Node" parent="." unique_id=516471229]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=67597437]
+script = ExtResource("6_qfvgk")
+max_hp = 1000.0
+defense = 40.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=253025398]
+script = ExtResource("6_qfvgk")
+max_hp = 100.0
+defense = 10.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1755822172]
+position = Vector2(1, 1)
+shape = SubResource("CircleShape2D_qfvgk")

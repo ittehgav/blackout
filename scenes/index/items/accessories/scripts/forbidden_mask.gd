@@ -19,13 +19,13 @@ func get_description()->String:
 	return description;
 
 func battle_start_apply(target:ActiveFighter, first:bool=true)->void:
-	var enemy_units:Array[ActiveFighter] = target.enemy_team.units;
-	if len(enemy_units):
+	var enemy_fighters:Array[ActiveFighter] = target.enemy_team.fighters;
+	if len(enemy_fighters):
 		var steal_target:ActiveFighter;
-		for unit:ActiveFighter in enemy_units:
+		for fighter:ActiveFighter in enemy_fighters:
 			@warning_ignore("unassigned_variable")
-			if not steal_target or unit.attack > steal_target.attack:
-				steal_target = unit;
+			if not steal_target or fighter.attack > steal_target.attack:
+				steal_target = fighter;
 				
 		var attack_steal:int = steal_target.attack/2;
 		
@@ -46,13 +46,13 @@ func battle_start_apply(target:ActiveFighter, first:bool=true)->void:
 
 func forbidden_insta_kill()->void:
 	var target:ActiveFighter;
-	var enemy_fighters:Array[ActiveFighter] = Entities.player_fighter.enemy_team.units;
+	var enemy_fighters:Array[ActiveFighter] = Entities.player_fighter.enemy_team.fighters;
 	for fighter:ActiveFighter in enemy_fighters:
 		@warning_ignore("unassigned_variable")
 		if not target or fighter.level > target.level:
 			target = fighter;
 	
-	Combat.deal_damage(Entities.player_fighter, target, Callable(), 99999)
+	Combat.deal_damage(Entities.player_fighter, target, 99999)
 
 
 func steal_vfx(target:ActiveFighter)->void:

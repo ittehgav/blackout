@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
-[ext_resource type="PackedScene" uid="uid://dacqy8pmfnjyf" path="res://scenes/test/combat/units/test_arena.tscn" id="2_7smn1"]
+[ext_resource type="PackedScene" uid="uid://dacqy8pmfnjyf" path="res://scenes/test/combat/test_arena.tscn" id="2_7smn1"]
 [ext_resource type="PackedScene" uid="uid://d0n0kjgpxpjit" path="res://scenes/main/main_menu.tscn" id="2_th5th"]
+[ext_resource type="PackedScene" uid="uid://cmvxjiccoi47m" path="res://scenes/special/combat_tutorial.tscn" id="3_7smn1"]
 [ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/intro.ogg" id="4_blune"]
 [ext_resource type="AudioStream" uid="uid://c275jcn8n3vda" path="res://assets/sound/bgm/loops/encounter.ogg" id="5_hujxm"]
 [ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="6_ouso4"]
@@ -17,6 +18,7 @@
 [node name="main" type="Node2D" unique_id=1340392074 node_paths=PackedStringArray("main_bgm")]
 script = ExtResource("1_8gx17")
 test_arena_scene = ExtResource("2_7smn1")
+tutorial_scene = ExtResource("3_7smn1")
 main_menu_ui_scene = ExtResource("2_th5th")
 main_bgm = NodePath("main_bgm")
 
@@ -34,6 +36,9 @@ defeat = ExtResource("13_i7in8")
 in_settlement = ExtResource("9_ouso4")
 
 [node name="main_menu" parent="." unique_id=304568004 instance=ExtResource("2_th5th")]
+
+[node name="Button2" parent="main_menu/main_ui/main_view/main_options/MarginContainer/VBoxContainer" index="1"]
+text = "New Game"
 
 [node name="global_overlay" type="CanvasLayer" parent="." unique_id=1730949830]
 layer = 5

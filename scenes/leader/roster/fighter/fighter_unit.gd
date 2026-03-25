@@ -11,12 +11,14 @@ signal accessory_equipped(new:Accessory, old:Accessory)
 @export var experience:int=0;
 
 
-@export var stats:CombatStats;
+@export var stats:CombatStats; ## EXCLUSIVELY FROM LEVELS
 @export var modifier_stats:CombatStats;
 @export var stat_multipliers:CombatStats;
 
 ## can put them in enemy units too btw
 @export var equipped_accessory:Accessory
+
+@export var summon:bool=false;
 
 var stats_loaded:bool=false;
 
@@ -25,17 +27,13 @@ func _ready()->void:
 	setup()
 
 func setup()->void:
-	print("sup?")
 	if not base:
-		print("nbase?")
 		find_base();
 	## needs to run with level and base assigned
 	update_stats();
 
 func find_base()->void:
-	print("fbase? ", get_child_count())
 	for c:Node in get_children():
-		print(c.name)
 		if c is FighterBase:
 			base = c;
 			remove_child(c)
@@ -62,8 +60,10 @@ func update_stats()->void:
 	## stats are only changeable by levels for now
 	stats_loaded = true;
 	
-	Scaling.initiate_unit_stats(self);
-	Scaling.level_up_stats(self, level)
+	for stat:String in Index.all_combat_stats:
+		stats[stat] = base.base_stats[stat];
+		stats[stat] += base.stats_per_level[stat] * level;
+	
 
 
 
@@ -89,13 +89,8 @@ func upgrade_affordable()->bool:
 	return false
 
 
-
-
-
-
 func _on_child_entered_tree(node: Node) -> void:
-	if node is FighterBase:
-		assert(not base);
+	if node is FighterBase and not summon:
 		await Index.ready
 		base = Index.fighters.find_base(node.name);
 		remove_child(node)

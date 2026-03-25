@@ -1,10 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbrj8rln7c5a0"]
+[gd_scene format=3 uid="uid://dbrj8rln7c5a0"]
 
 [ext_resource type="Texture2D" uid="uid://cx7gjiq6uq0w5" path="res://assets/visual/items/weapons/taser_gun.png" id="1_6uei2"]
 [ext_resource type="Script" uid="uid://62ydtwn1hjwj" path="res://scenes/index/items/weapons/scripts/taser_gun.gd" id="2_75x2e"]
 [ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="3_75x2e"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_q86tr"]
-[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="4_rm5r0"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/player/hit/flesh_hit.ogg" id="4_rm5r0"]
 [ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="4_xli5q"]
 
 [sub_resource type="Animation" id="Animation_rm5r0"]

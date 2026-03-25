@@ -4,5 +4,5 @@ extends Area2D
 
 
 func _physics_process(_delta: float) -> void:
-	if fighter.target_unit:
-		look_at(fighter.target_unit.global_position);
+	if fighter.target_fighter:
+		look_at(fighter.target_fighter.global_position);

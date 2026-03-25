@@ -3,6 +3,7 @@ extends Node
 class_name Main;
 
 @export var test_arena_scene:PackedScene
+@export var tutorial_scene:PackedScene
 
 ## main substate = no substate
 ## some kinda inherit others and some if not most change calls won't do much
@@ -116,6 +117,12 @@ func set_scenario(target:String)->void:
 			
 			Entities.arena = arena;
 			add_child(arena.get_parent())
+		
+		"tutorial":
+			scenario = "battle";
+			var arena:Node2D = tutorial_scene.instantiate().get_node("Arena");
+			Entities.arena = arena;
+			add_child(arena.get_parent());
 					
 	scenario_changed.emit(scenario, previous)
 func revert_substate()->void:

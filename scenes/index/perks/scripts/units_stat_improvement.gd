@@ -19,6 +19,14 @@ const tag_stat_gains:Dictionary[FighterBase.Tag, String] = {
 	FighterBase.Tag.mechanic:"attack"
 }
 
+const tag_stat_values:Dictionary[String, float] = {
+	## probably not balanced at all rn
+	"defense":5,
+	"agility":.25,
+	"technique":.5,
+	"attack":10
+}
+
 @export var samples_hbox:HBoxContainer;
 
 @export var stat_change_hbox:HBoxContainer;
@@ -41,7 +49,8 @@ func _ready()->void:
 	
 	name = tag_bonus_names[target_tag];
 	stat = tag_stat_gains[target_tag]
-	gain = to_gain();
+	gain = tag_stat_values[stat];
+	
 	icon = Index.textures.icons[stat]
 	var total_units:int = len(Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags))
 
@@ -70,12 +79,7 @@ func generate_samples()->void:
 		
 
 
-func to_gain()->float:
-	var stats:Dictionary = Scaling.tag_stats_per_level(target_tag);
-	## 4 times the tag's correspondign stat/level 
-	## to account for how the usual level gain has 2 tags' worth of gains
-	## for any individual stat
-	return stats[stat] * 4
+
 
 func select_tag()->FighterBase.Tag:
 	var counts:Dictionary[FighterBase.Tag, int] = {}

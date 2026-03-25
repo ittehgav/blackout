@@ -5,7 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://j2fcph3qk7ni" path="res://assets/visual/tiles/nav_grid.png" id="3_4tyoy"]
 [ext_resource type="Script" uid="uid://dx0yavi260x8a" path="res://scenes/battle/arena/teams.gd" id="3_hkvx5"]
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="4_hdymd"]
+[ext_resource type="Texture2D" uid="uid://2o3535w7b607" path="res://assets/visual/tiles/props/Environment/Props/Static/Furniture.png" id="5_wcj7x"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/player_fighter.tscn" id="7_8stbl"]
+[ext_resource type="Script" uid="uid://b6hbcvrxk1f5k" path="res://scenes/battle/arena/team_balances.gd" id="9_ra4bb"]
 [ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="15_awn3j"]
 [ext_resource type="Script" uid="uid://2jtodbhiwuk3" path="res://scenes/battle/fighter/player/player_bars.gd" id="15_iln1w"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="16_ajjla"]
@@ -60,7 +62,426 @@ custom_data_layer_0/name = "solid"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_ra4bb")
 
-[sub_resource type="Shader" id="Shader_88w2o"]
+[sub_resource type="TileMapPattern" id="TileMapPattern_wcj7x"]
+tile_data = PackedInt32Array(0, 65536, 27, 65536, 0, 29, 131072, 0, 30, 1, 65536, 28, 131073, 65536, 30, 196609, 262144, 29)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rgc01"]
+texture = ExtResource("5_wcj7x")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+48:0/0 = 0
+49:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+46:1/0 = 0
+47:1/0 = 0
+48:1/0 = 0
+49:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+48:2/0 = 0
+49:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+46:3/0 = 0
+47:3/0 = 0
+48:3/0 = 0
+49:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+45:4/0 = 0
+46:4/0 = 0
+47:4/0 = 0
+49:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+45:5/0 = 0
+46:5/0 = 0
+47:5/0 = 0
+48:5/0 = 0
+49:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+46:6/0 = 0
+47:6/0 = 0
+49:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+46:7/0 = 0
+47:7/0 = 0
+48:7/0 = 0
+49:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+46:8/0 = 0
+47:8/0 = 0
+48:8/0 = 0
+49:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+46:9/0 = 0
+47:9/0 = 0
+48:9/0 = 0
+49:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+46:10/0 = 0
+47:10/0 = 0
+48:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+46:11/0 = 0
+47:11/0 = 0
+48:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+3:12/0 = 0
+48:12/0 = 0
+6:16/0 = 0
+7:16/0 = 0
+0:17/0 = 0
+1:17/0 = 0
+2:17/0 = 0
+3:17/0 = 0
+4:17/0 = 0
+5:17/0 = 0
+6:17/0 = 0
+7:17/0 = 0
+8:17/0 = 0
+9:17/0 = 0
+10:17/0 = 0
+11:17/0 = 0
+12:17/0 = 0
+13:17/0 = 0
+14:17/0 = 0
+15:17/0 = 0
+0:18/0 = 0
+1:18/0 = 0
+2:18/0 = 0
+3:18/0 = 0
+4:18/0 = 0
+5:18/0 = 0
+6:18/0 = 0
+7:18/0 = 0
+8:18/0 = 0
+9:18/0 = 0
+10:18/0 = 0
+11:18/0 = 0
+12:18/0 = 0
+13:18/0 = 0
+14:18/0 = 0
+15:18/0 = 0
+0:19/0 = 0
+1:19/0 = 0
+2:19/0 = 0
+3:19/0 = 0
+4:19/0 = 0
+5:19/0 = 0
+6:19/0 = 0
+7:19/0 = 0
+8:19/0 = 0
+9:19/0 = 0
+10:19/0 = 0
+11:19/0 = 0
+12:19/0 = 0
+13:19/0 = 0
+14:19/0 = 0
+15:19/0 = 0
+0:20/0 = 0
+1:20/0 = 0
+2:20/0 = 0
+3:20/0 = 0
+4:20/0 = 0
+5:20/0 = 0
+6:20/0 = 0
+7:20/0 = 0
+8:20/0 = 0
+9:20/0 = 0
+10:20/0 = 0
+11:20/0 = 0
+12:20/0 = 0
+13:20/0 = 0
+0:21/0 = 0
+1:21/0 = 0
+2:21/0 = 0
+3:21/0 = 0
+4:21/0 = 0
+5:21/0 = 0
+6:21/0 = 0
+7:21/0 = 0
+8:21/0 = 0
+9:21/0 = 0
+10:21/0 = 0
+11:21/0 = 0
+12:21/0 = 0
+13:21/0 = 0
+0:22/0 = 0
+1:22/0 = 0
+2:22/0 = 0
+3:22/0 = 0
+4:22/0 = 0
+5:22/0 = 0
+6:22/0 = 0
+7:22/0 = 0
+8:22/0 = 0
+9:22/0 = 0
+0:23/0 = 0
+1:23/0 = 0
+2:23/0 = 0
+3:23/0 = 0
+4:23/0 = 0
+5:23/0 = 0
+6:23/0 = 0
+7:23/0 = 0
+8:23/0 = 0
+9:23/0 = 0
+0:24/0 = 0
+1:24/0 = 0
+2:24/0 = 0
+3:24/0 = 0
+4:24/0 = 0
+5:24/0 = 0
+6:24/0 = 0
+7:24/0 = 0
+8:24/0 = 0
+9:24/0 = 0
+10:24/0 = 0
+0:25/0 = 0
+3:25/0 = 0
+4:25/0 = 0
+5:25/0 = 0
+6:25/0 = 0
+7:25/0 = 0
+8:25/0 = 0
+9:25/0 = 0
+10:25/0 = 0
+0:26/0 = 0
+1:26/0 = 0
+2:26/0 = 0
+3:26/0 = 0
+4:26/0 = 0
+5:26/0 = 0
+6:26/0 = 0
+9:26/0 = 0
+10:26/0 = 0
+11:26/0 = 0
+13:26/0 = 0
+14:26/0 = 0
+0:27/0 = 0
+1:27/0 = 0
+2:27/0 = 0
+3:27/0 = 0
+4:27/0 = 0
+5:27/0 = 0
+6:27/0 = 0
+7:27/0 = 0
+8:27/0 = 0
+9:27/0 = 0
+10:27/0 = 0
+11:27/0 = 0
+12:27/0 = 0
+13:27/0 = 0
+14:27/0 = 0
+0:28/0 = 0
+1:28/0 = 0
+3:28/0 = 0
+4:28/0 = 0
+5:28/0 = 0
+6:28/0 = 0
+7:28/0 = 0
+8:28/0 = 0
+9:28/0 = 0
+10:28/0 = 0
+11:28/0 = 0
+12:28/0 = 0
+13:28/0 = 0
+14:28/0 = 0
+15:28/0 = 0
+0:29/0 = 0
+4:29/0 = 0
+5:29/0 = 0
+6:29/0 = 0
+7:29/0 = 0
+8:29/0 = 0
+9:29/0 = 0
+11:29/0 = 0
+0:30/0 = 0
+1:30/0 = 0
+3:30/0 = 0
+4:30/0 = 0
+5:30/0 = 0
+6:30/0 = 0
+7:30/0 = 0
+8:30/0 = 0
+9:30/0 = 0
+11:30/0 = 0
+0:31/0 = 0
+1:31/0 = 0
+2:31/0 = 0
+3:31/0 = 0
+5:31/0 = 0
+6:31/0 = 0
+7:31/0 = 0
+8:31/0 = 0
+0:32/0 = 0
+1:32/0 = 0
+2:32/0 = 0
+3:32/0 = 0
+5:32/0 = 0
+6:32/0 = 0
+7:32/0 = 0
+2:33/0 = 0
+3:33/0 = 0
+5:33/0 = 0
+6:33/0 = 0
+8:33/0 = 0
+0:34/0 = 0
+1:34/0 = 0
+2:34/0 = 0
+3:34/0 = 0
+4:34/0 = 0
+6:34/0 = 0
+7:34/0 = 0
+8:34/0 = 0
+0:35/0 = 0
+1:35/0 = 0
+2:35/0 = 0
+3:35/0 = 0
+4:35/0 = 0
+5:35/0 = 0
+6:35/0 = 0
+7:35/0 = 0
+8:35/0 = 0
+9:35/0 = 0
+10:35/0 = 0
+0:36/0 = 0
+1:36/0 = 0
+2:36/0 = 0
+3:36/0 = 0
+4:36/0 = 0
+5:36/0 = 0
+6:36/0 = 0
+7:36/0 = 0
+8:36/0 = 0
+9:36/0 = 0
+10:36/0 = 0
+0:37/0 = 0
+1:37/0 = 0
+2:37/0 = 0
+3:37/0 = 0
+4:37/0 = 0
+5:37/0 = 0
+6:37/0 = 0
+0:38/0 = 0
+1:38/0 = 0
+2:38/0 = 0
+3:38/0 = 0
+4:38/0 = 0
+5:38/0 = 0
+6:38/0 = 0
+1:39/0 = 0
+2:39/0 = 0
+3:39/0 = 0
+5:39/0 = 0
+6:39/0 = 0
+8:39/0 = 0
+9:39/0 = 0
+10:39/0 = 0
+11:39/0 = 0
+12:39/0 = 0
+0:40/0 = 0
+1:40/0 = 0
+3:40/0 = 0
+4:40/0 = 0
+5:40/0 = 0
+6:40/0 = 0
+8:40/0 = 0
+9:40/0 = 0
+10:40/0 = 0
+11:40/0 = 0
+12:40/0 = 0
+0:41/0 = 0
+4:41/0 = 0
+5:41/0 = 0
+6:41/0 = 0
+7:41/0 = 0
+8:41/0 = 0
+9:41/0 = 0
+10:41/0 = 0
+11:41/0 = 0
+12:41/0 = 0
+0:42/0 = 0
+1:42/0 = 0
+3:42/0 = 0
+4:42/0 = 0
+5:42/0 = 0
+6:42/0 = 0
+7:42/0 = 0
+8:42/0 = 0
+9:42/0 = 0
+11:42/0 = 0
+12:42/0 = 0
+1:43/0 = 0
+2:43/0 = 0
+3:43/0 = 0
+5:43/0 = 0
+6:43/0 = 0
+7:43/0 = 0
+8:43/0 = 0
+9:43/0 = 0
+10:43/0 = 0
+5:44/0 = 0
+6:44/0 = 0
+7:44/0 = 0
+8:44/0 = 0
+9:44/0 = 0
+5:45/0 = 0
+6:45/0 = 0
+7:45/0 = 0
+8:45/0 = 0
+9:45/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2ooqi"]
+sources/0 = SubResource("TileSetAtlasSource_rgc01")
+pattern_0 = SubResource("TileMapPattern_wcj7x")
+
+[sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;
 
 uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
@@ -148,117 +569,24 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4tyoy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wcj7x"]
 resource_local_to_scene = true
-shader = SubResource("Shader_88w2o")
+shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="Shader" id="Shader_r4qcv"]
-code = "shader_type canvas_item;
-
-uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
-uniform float grad:hint_range(0.0, 1.0);
-
-
-uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
-uniform float width : hint_range(0, 10) = 1.0;
-uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
-uniform bool inside = false;
-uniform bool add_margins = true; // only useful when inside is false
-uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
-
-varying flat vec4 modulate;
-
-void vertex() {
-	modulate = COLOR;
-
-	if (add_margins) {
-		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
-			VERTEX += (UV * 2.0 - 1.0) * width;
-		} else {
-			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
-		}
-	}
-}
-
-bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
-	for (float i = -ceil(width); i <= ceil(width); i++) {
-		float x = abs(i) > width ? width * sign(i) : i;
-		float offset;
-
-		if (pattern == 0) {
-			offset = width - abs(x);
-		} else if (pattern == 1) {
-			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
-		} else if (pattern == 2) {
-			offset = width;
-		}
-
-		for (float j = -ceil(offset); j <= ceil(offset); j++) {
-			float y = abs(j) > offset ? offset * sign(j) : j;
-			vec2 xy = uv + texture_pixel_size * vec2(x, y);
-
-			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-
-void fragment(){
-
-	// OUTLINE
-
-	vec2 uv = UV;
-	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
-	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
-
-	if (add_margins) {
-		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
-
-		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
-
-		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
-			COLOR.a = 0.0;
-		} else {
-			COLOR = texture(TEXTURE, uv) * modulate;
-		}
-	} else {
-		COLOR = texture(TEXTURE, uv) * modulate;
-	}
-
-	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
-		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
-	}
-
-	// BLINK ANIMATIONS
-	if(grad != 0.0 && COLOR.a != 0.0){
-		COLOR = mix(COLOR, target_color, grad);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ra4bb"]
-resource_local_to_scene = true
-shader = SubResource("Shader_r4qcv")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/color = Color(0, 0.5, 0.116666675, 0.28235295)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(6, 2)
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ra4bb"]
+load_path = "res://.godot/imported/puncher.png-1a79c3ef96533c8d5c37d8a5b73e7ef4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcj7x"]
+atlas = SubResource("CompressedTexture2D_ra4bb")
+region = Rect2(416, 32, 64, 64)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r4qcv"]
 shader = ExtResource("28_qkwvs")
@@ -270,7 +598,14 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wcj7x"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rgc01"]
+load_path = "res://.godot/imported/puncher.png-1a79c3ef96533c8d5c37d8a5b73e7ef4.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ooqi"]
+atlas = SubResource("CompressedTexture2D_rgc01")
+region = Rect2(672, 32, 64, 64)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgc01"]
 resource_local_to_scene = true
 shader = ExtResource("30_xs7fa")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -300,12 +635,19 @@ tile_map_data = PackedByteArray("AAA9/ysAAAAAAAAAAAA9/ywAAAAAAAAAAAA9/y0AAAAAAAA
 tile_set = SubResource("TileSet_d8imf")
 script = ExtResource("44_fewc5")
 
+[node name="props" type="TileMapLayer" parent="." unique_id=1843248942]
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAAeAAQAAAAAACMAAAAeAAUAAAAAACQAAAAeAAYAAAAAACMAAAAeAAcAAAAAACQAAAAeAAgAAAAAACUAAAAfAAQAAAACACIAAAAfAAUAAAABACQAAAAfAAYAAAABACMAAAAfAAcAAAABACQAAAAfAAgAAAACACYAAAAgAAQAAAACACIAAAAgAAUAAAACACQAAAAgAAYAAAACACMAAAAgAAcAAAACACQAAAAgAAgAAAACACYAAAAhAAQAAAACACIAAAAhAAUAAAACACQAAAAhAAYAAAACACUAAAAhAAcAAAACACMAAAAhAAgAAAACACYAAAAiAAQAAAACACIAAAAiAAUAAAACACQAAAAiAAYAAAACACMAAAAiAAcAAAACACQAAAAiAAgAAAACACYAAAAjAAQAAAACACIAAAAjAAUAAAACACQAAAAjAAYAAAACACMAAAAjAAcAAAACACQAAAAjAAgAAAACACYAAAAkAAQAAAACACIAAAAkAAUAAAACACQAAAAkAAYAAAACACUAAAAkAAcAAAACACQAAAAkAAgAAAACACYAAAAlAAQAAAACACIAAAAlAAUAAAACACQAAAAlAAYAAAACACUAAAAlAAcAAAACACQAAAAlAAgAAAACACYAAAAmAAQAAAACACIAAAAmAAUAAAACACQAAAAmAAYAAAACACUAAAAmAAcAAAACACQAAAAmAAgAAAACACYAAAAnAAQAAAACACIAAAAnAAUAAAACACQAAAAnAAYAAAACACUAAAAnAAcAAAACACQAAAAnAAgAAAACACYAAAAoAAQAAAACACIAAAAoAAUAAAACACQAAAAoAAYAAAACACUAAAAoAAcAAAACACQAAAAoAAgAAAACACYAAAApAAQAAAACACIAAAApAAUAAAACACQAAAApAAYAAAACACUAAAApAAcAAAACACQAAAApAAgAAAACACYAAAAqAAQAAAACACIAAAAqAAUAAAACACQAAAAqAAYAAAACACMAAAAqAAcAAAACACQAAAAqAAgAAAACACYAAAArAAQAAAACACIAAAArAAUAAAADACQAAAArAAYAAAADACMAAAArAAcAAAADACQAAAArAAgAAAACACYAAAAsAAQAAAAEACMAAAAsAAUAAAAEACQAAAAsAAYAAAAEACMAAAAsAAcAAAAEACQAAAAsAAgAAAAEACUAAABAACEAAAABABsAAABAACIAAAAAAB0AAABAACMAAAAAAB4AAABBACEAAAABABwAAABBACMAAAABAB4AAABBACQAAAAEAB0AAABAAB0AAAABABsAAABAAB4AAAAAAB0AAABAAB8AAAAAAB4AAABBAB0AAAABABwAAABBAB8AAAABAB4AAABBACAAAAAEAB0AAABAABkAAAABABsAAABAABoAAAAAAB0AAABAABsAAAAAAB4AAABBABkAAAABABwAAABBABsAAAABAB4AAABBABwAAAAEAB0AAABAABUAAAABABsAAABAABYAAAAAAB0AAABAABcAAAAAAB4AAABBABUAAAABABwAAABBABcAAAABAB4AAABBABgAAAAEAB0AAABAABEAAAABABsAAABAABIAAAAAAB0AAABAABMAAAAAAB4AAABBABEAAAABABwAAABBABMAAAABAB4AAABBABQAAAAEAB0AAABAAA0AAAABABsAAABAAA4AAAAAAB0AAABAAA8AAAAAAB4AAABBAA0AAAABABwAAABBAA8AAAABAB4AAABBABAAAAAEAB0AAABAAAkAAAABABsAAABAAAoAAAAAAB0AAABAAAsAAAAAAB4AAABBAAkAAAABABwAAABBAAsAAAABAB4AAABBAAwAAAAEAB0AAABAAAUAAAABABsAAABAAAYAAAAAAB0AAABAAAcAAAAAAB4AAABBAAUAAAABABwAAABBAAcAAAABAB4AAABBAAgAAAAEAB0AAABAAAEAAAABABsAAABAAAIAAAAAAB0AAABAAAMAAAAAAB4AAABBAAEAAAABABwAAABBAAMAAAABAB4AAABBAAQAAAAEAB0AAABAACUAAAABABsAAABAACYAAAAAAB0AAABAACcAAAAAAB4AAABBACUAAAABABwAAABBACcAAAABAB4AAABBACgAAAAEAB0AAABAACkAAAABABsAAABAACoAAAAAAB0AAABAACsAAAAAAB4AAABBACkAAAABABwAAABBACsAAAABAB4AAABBACwAAAAEAB0AAABAAC0AAAABABsAAABAAC4AAAAAAB0AAABAAC8AAAAAAB4AAABBAC0AAAABABwAAABBAC8AAAABAB4AAABBADAAAAAEAB0AAABAADEAAAABABsAAABAADIAAAAAAB0AAABAADMAAAAAAB4AAABBADEAAAABABwAAABBADMAAAABAB4AAABBADQAAAAEAB0AAABAADUAAAABABsAAABAADYAAAAAAB0AAABAADcAAAAAAB4AAABBADUAAAABABwAAABBADcAAAABAB4AAABBADgAAAAEAB0AAABAADkAAAABABsAAABAADoAAAAAAB0AAABAADsAAAAAAB4AAABBADkAAAABABwAAABBADsAAAABAB4AAABBADwAAAAEAB0AAABAAD0AAAABABsAAABAAD4AAAAAAB0AAABAAD8AAAAAAB4AAABBAD0AAAABABwAAABBAD8AAAABAB4AAABBAEAAAAAEAB0AAAA=")
+tile_set = SubResource("TileSet_2ooqi")
+
 [node name="teams" type="Node2D" parent="." unique_id=1264042758]
 script = ExtResource("3_hkvx5")
 
-[node name="team_1_projectiles" type="Node2D" parent="teams" unique_id=1806884197]
+[node name="projectiles" type="Node2D" parent="teams" unique_id=804384071]
 
-[node name="team_2_projectiles" type="Node2D" parent="teams" unique_id=1241082143]
+[node name="team_1_projectiles" type="Node2D" parent="teams/projectiles" unique_id=1806884197]
+
+[node name="team_2_projectiles" type="Node2D" parent="teams/projectiles" unique_id=1241082143]
 
 [node name="team_1" type="Node2D" parent="teams" unique_id=1279616264 node_paths=PackedStringArray("arena", "enemy_team", "projectiles")]
 z_index = 1
@@ -313,20 +655,16 @@ script = ExtResource("4_hdymd")
 arena = NodePath("../..")
 team_n = 1
 enemy_team = NodePath("../team_2")
-projectiles = NodePath("../team_1_projectiles")
+projectiles = NodePath("../projectiles/team_1_projectiles")
 metadata/_custom_type_script = "uid://dclobwhhhy4eu"
 
 [node name="player_fighter" parent="teams/team_1" unique_id=543559168 instance=ExtResource("7_8stbl")]
-material = SubResource("ShaderMaterial_4tyoy")
 position = Vector2(-92, 537)
 
-[node name="body" parent="teams/team_1/player_fighter" index="6"]
-material = SubResource("ShaderMaterial_ra4bb")
+[node name="body" parent="teams/team_1/player_fighter" index="7" unique_id=416499753]
+material = SubResource("ShaderMaterial_wcj7x")
 
-[node name="AnimationPlayer" parent="teams/team_1/player_fighter/body" index="0"]
-autoplay = &"player/idle"
-
-[node name="camera" parent="teams/team_1/player_fighter" index="8"]
+[node name="camera" parent="teams/team_1/player_fighter" index="9" unique_id=1871726771]
 limit_left = -5999
 limit_top = -147
 limit_right = 6001
@@ -346,7 +684,7 @@ script = ExtResource("4_hdymd")
 arena = NodePath("../..")
 team_n = 2
 enemy_team = NodePath("../team_1")
-projectiles = NodePath("../team_2_projectiles")
+projectiles = NodePath("../projectiles/team_2_projectiles")
 metadata/_custom_type_script = "uid://dclobwhhhy4eu"
 
 [node name="ui_canvas" type="CanvasLayer" parent="." unique_id=536567334]
@@ -359,9 +697,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("24_lli5l")
-screen_blink_rect = NodePath("TextureRect")
+screen_blink_rect = NodePath("screen_blink")
 
-[node name="TextureRect" type="ColorRect" parent="ui_canvas/hud" unique_id=928573371]
+[node name="screen_blink" type="ColorRect" parent="ui_canvas/hud" unique_id=928573371]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -370,7 +708,82 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
+[node name="team_balances" type="PanelContainer" parent="ui_canvas/hud" unique_id=1109468589 node_paths=PackedStringArray("arena", "team_1", "team_2", "team_1_icons", "team_2_icons", "team_1_icon_base", "team_2_icon_base")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -26.0
+offset_top = 10.0
+offset_right = 26.0
+offset_bottom = 54.0
+grow_horizontal = 2
+script = ExtResource("9_ra4bb")
+arena = NodePath("../../..")
+team_1 = NodePath("../../../teams/team_1")
+team_2 = NodePath("../../../teams/team_2")
+team_1_icons = NodePath("HBoxContainer/player_units")
+team_2_icons = NodePath("HBoxContainer/enemy_units")
+team_1_icon_base = NodePath("HBoxContainer/player_units/unit_icon_base")
+team_2_icon_base = NodePath("HBoxContainer/enemy_units/unit_icon_base")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/team_balances" unique_id=1419808599]
+layout_mode = 2
+alignment = 1
+
+[node name="player_units" type="HBoxContainer" parent="ui_canvas/hud/team_balances/HBoxContainer" unique_id=632001905]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = -41
+
+[node name="unit_icon_base" type="TextureRect" parent="ui_canvas/hud/team_balances/HBoxContainer/player_units" unique_id=1314641040]
+visible = false
+self_modulate = Color(13.432503, 18.892157, 12.06759, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_wcj7x")
+
+[node name="icon" type="TextureRect" parent="ui_canvas/hud/team_balances/HBoxContainer" unique_id=1424928604]
+texture_filter = 1
+material = SubResource("ShaderMaterial_r4qcv")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("29_f4dff")
+
+[node name="icon" type="TextureRect" parent="ui_canvas/hud/team_balances/HBoxContainer/icon" unique_id=486044875]
+texture_filter = 1
+use_parent_material = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("29_f4dff")
+expand_mode = 3
+flip_h = true
+
+[node name="enemy_units" type="HBoxContainer" parent="ui_canvas/hud/team_balances/HBoxContainer" unique_id=1810221717]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = -41
+
+[node name="unit_icon_base" type="TextureRect" parent="ui_canvas/hud/team_balances/HBoxContainer/enemy_units" unique_id=1904934215]
+visible = false
+self_modulate = Color(13.432503, 18.892157, 12.06759, 1)
+layout_mode = 2
+texture = SubResource("AtlasTexture_2ooqi")
+
 [node name="tide_bar" type="TextureProgressBar" parent="ui_canvas/hud" unique_id=133949005 node_paths=PackedStringArray("arena", "team_1", "team_2", "tide_icon")]
+visible = false
 custom_minimum_size = Vector2(384, 36)
 layout_mode = 1
 anchors_preset = 5
@@ -752,7 +1165,7 @@ offset_bottom = 197.0
 
 [node name="body" parent="ui_canvas/post_fight/victory_view/exp_panel/Control" unique_id=1946803950 instance=ExtResource("29_p7mpf")]
 process_mode = 4
-material = SubResource("ShaderMaterial_wcj7x")
+material = SubResource("ShaderMaterial_rgc01")
 position = Vector2(90, 23)
 scale = Vector2(4, 4)
 
@@ -797,8 +1210,6 @@ title_color = null
 [node name="Human Resources" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perks" unique_id=206254278 instance=ExtResource("37_tl0fu")]
 
 [node name="RecruitStatImprovement" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perks" unique_id=997417274 instance=ExtResource("38_d8imf")]
-description = ""
-title_color = Color(0, 0, 0, 1)
 
 [node name="StatGain" parent="ui_canvas/post_fight/victory_view/level_up_rewards/perks" unique_id=1741375478 instance=ExtResource("39_fewc5")]
 
@@ -978,10 +1389,10 @@ grow_vertical = 1
 context = "loot"
 exchanging_display = NodePath("../enemy_inventory")
 
-[node name="operation" parent="ui_canvas/post_fight/victory_view/loot_panel/player_inventory/cargo/send_rect" index="0"]
+[node name="operation" parent="ui_canvas/post_fight/victory_view/loot_panel/player_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(1102322486, 2139714282) index="0" unique_id=286290238]
 text = "LOOT"
 
-[node name="resources_dropdown" parent="ui_canvas/post_fight/victory_view/loot_panel/player_inventory" index="4" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="ui_canvas/post_fight/victory_view/loot_panel/player_inventory" index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 resource_hboxes = {
 "chips": NodePath("chips"),
 "food": NodePath("food"),
@@ -1014,10 +1425,10 @@ context = "loot"
 from_player = false
 exchanging_display = NodePath("../player_inventory")
 
-[node name="operation" parent="ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory/cargo/send_rect" index="0"]
+[node name="operation" parent="ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(944785117, 2139714282) index="0" unique_id=286290238]
 text = "DISCARD"
 
-[node name="resources_dropdown" parent="ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory" index="4" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory" index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 visible = false
 offset_left = 239.66663
 offset_right = 343.66663
@@ -1133,21 +1544,26 @@ theme_override_font_sizes/font_size = 128
 text = "You lost"
 
 [connection signal="child_entered_tree" from="teams/team_1" to="teams/team_1" method="_on_child_entered_tree"]
-[connection signal="unit_converted" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
-[connection signal="unit_died" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_team_1_unit_died"]
+[connection signal="fighter_converted" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_fighter_converted"]
+[connection signal="fighter_died" from="teams/team_1" to="ui_canvas/hud/team_balances" method="_on_team_1_fighter_died"]
+[connection signal="fighter_died" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_team_1_fighter_died"]
 [connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud" method="_on_player_fighter_damage_taken"]
 [connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_damage_taken"]
 [connection signal="death" from="teams/team_1/player_fighter" to="ui_canvas/hud/tide_bar" method="_on_player_fighter_death"]
 [connection signal="healing_received" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_healing_received"]
+[connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud" method="_on_player_fighter_status_applied"]
 [connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="_on_player_fighter_status_applied"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/PanelContainer/bars" method="ammo_consumed"]
 [connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="check_weapon_disabled"]
+[connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="_on_equipment_weapon_used"]
+[connection signal="timeout" from="teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="ui_canvas/hud/VBoxContainer/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
 [connection signal="child_entered_tree" from="teams/team_2" to="teams/team_2" method="_on_child_entered_tree"]
-[connection signal="unit_converted" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_unit_converted"]
-[connection signal="unit_died" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_team_2_unit_died"]
+[connection signal="fighter_converted" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_fighter_converted"]
+[connection signal="fighter_died" from="teams/team_2" to="ui_canvas/hud/team_balances" method="_on_team_2_fighter_died"]
+[connection signal="fighter_died" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_team_2_fighter_died"]
 [connection signal="timeout" from="ui_canvas/hud/countdown_overlay/countdown" to="ui_canvas/hud/countdown_overlay" method="_on_countdown_timeout"]
 [connection signal="pressed" from="ui_canvas/post_fight/victory_view/exp_panel/continue" to="ui_canvas/post_fight/victory_view" method="_on_exp_gains_continue_pressed"]
 [connection signal="level_up" from="ui_canvas/post_fight/victory_view/exp_panel/player_exp" to="ui_canvas/post_fight/victory_view/level_up_rewards" method="player_leveled_up"]

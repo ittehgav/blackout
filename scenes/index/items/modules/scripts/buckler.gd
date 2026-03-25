@@ -41,10 +41,10 @@ func cue_animation()->void:
 func release()->void:
 	current_status.remove()
 
-func check_parry(_damage:float, source:ActiveFighter)->void:
+func check_parry(_damage:float, source:ActiveFighter, quiet:bool)->void:
 	## matching the signature of damage_taken signal
 	## only ever procs from npcfighters
-	if not parry_timer.is_stopped() and source.base.skill_range == SkillComponent.RangeOptions.melee:
+	if not quiet and not parry_timer.is_stopped() and source.base.skill_range == SkillComponent.RangeOptions.melee:
 		parry_stun.apply_on_target(source);
 		parry_sfx.play()
 

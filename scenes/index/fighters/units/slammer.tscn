@@ -9,36 +9,94 @@
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_0jd70"]
 [ext_resource type="Texture2D" uid="uid://crdfgqjhj6svf" path="res://assets/visual/sprites/fighters/units/slammer/blur.png" id="7_815tu"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_6xpao"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_ikqys"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_plmof"]
 radius = 22.0
 
+[sub_resource type="Animation" id="Animation_ikqys"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blur:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1.0283699),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_38x4e"]
+_data = {
+&"RESET": SubResource("Animation_ikqys")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_twrrp"]
 radius = 15.033297
 
-[node name="Slammer" type="Sprite2D" unique_id=1342933973 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "status")]
+[node name="Slammer" type="Sprite2D" unique_id=1342933973 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_koqxp")
 texture = ExtResource("2_iwgp2")
 hframes = 8
 vframes = 5
-frame = 32
 script = ExtResource("3_koqxp")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Throw Hands")
-hit_scan = NodePath("hit_scan")
-status = NodePath("Status")
 tags = Array[int]([0, 6, 7])
+hit_scan = NodePath("hit_scan")
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="overhead_wide" parent="." unique_id=234288550 instance=ExtResource("4_6xpao")]
 
-[node name="Throw Hands" type="Node" parent="." unique_id=639767815]
+[node name="Throw Hands" type="Node" parent="." unique_id=639767815 node_paths=PackedStringArray("status")]
 script = ExtResource("3_53j4b")
-effects = Array[int]([2, 3])
 base_cooldown = 4.0
+effects = Array[int]([2, 3])
+status = NodePath("stun")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="Status" type="Node" parent="." unique_id=704248224]
+[node name="stun" type="Node" parent="Throw Hands" unique_id=704248224]
 script = ExtResource("5_0jd70")
 type = "stun"
 duration = 0.5
@@ -48,10 +106,11 @@ metadata/_custom_type_script = "uid://ulxvybj6ipka"
 collision_layer = 0
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=1708321969]
+[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=1708321969]
 shape = SubResource("CircleShape2D_plmof")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1022105912]
+libraries/ = SubResource("AnimationLibrary_38x4e")
 libraries/fighter_base = ExtResource("4_ocxoc")
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=567659890]
@@ -64,3 +123,22 @@ texture = ExtResource("7_815tu")
 hframes = 8
 vframes = 2
 script = ExtResource("8_6xpao")
+
+[node name="stat_base" type="Node" parent="." unique_id=1201847289]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=335532682]
+script = ExtResource("10_ikqys")
+max_hp = 500.0
+attack = 20.0
+defense = 10.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=2051116333]
+script = ExtResource("10_ikqys")
+max_hp = 50.0
+attack = 10.0
+defense = 5.0
+agility = 5.0
+technique = 10.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

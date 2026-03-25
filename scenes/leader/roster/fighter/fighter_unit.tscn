@@ -1,25 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://lls0f7qofwnf"]
+[gd_scene format=3 uid="uid://lls0f7qofwnf"]
 
 [ext_resource type="Script" uid="uid://cc7u84ibiprfk" path="res://scenes/leader/roster/fighter/fighter_unit.gd" id="1_tcogk"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_62l1n"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="3_umabv"]
 
-[node name="FighterUnit" type="Node2D" node_paths=PackedStringArray("stats", "modifier_stats", "stat_multipliers")]
+[node name="FighterUnit" type="Node2D" unique_id=2067750979 node_paths=PackedStringArray("stats", "modifier_stats", "stat_multipliers")]
 visible = false
 script = ExtResource("1_tcogk")
 stats = NodePath("stats")
 modifier_stats = NodePath("modifier_stats")
 stat_multipliers = NodePath("stat_multipliers")
 
-[node name="stats" parent="." instance=ExtResource("2_62l1n")]
+[node name="stats" parent="." unique_id=1750774480 instance=ExtResource("2_62l1n")]
 
-[node name="modifier_stats" type="Node" parent="."]
+[node name="modifier_stats" type="Node" parent="." unique_id=1026182715]
 script = ExtResource("3_umabv")
 technique = 0.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
-[node name="stat_multipliers" parent="." instance=ExtResource("2_62l1n")]
+[node name="stat_multipliers" parent="." unique_id=223399168 instance=ExtResource("2_62l1n")]
 max_hp = 1.0
 attack = 1.0
 defense = 1.0

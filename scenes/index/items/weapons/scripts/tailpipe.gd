@@ -27,5 +27,4 @@ func impact()->void:
 	
 	if len(Entities.player_fighter.hit_targets):
 		## projectiles do this on their own
-		hit_sfx.play();
 		hit.emit();

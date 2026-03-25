@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://do5h1o6m8i2yb"]
+[gd_scene format=3 uid="uid://do5h1o6m8i2yb"]
 
 [ext_resource type="Script" uid="uid://dv7gaypijb1ly" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.gd" id="1_r36q7"]
 [ext_resource type="Texture2D" uid="uid://cxxh5ddupo5k" path="res://assets/visual/sprites/projectiles/stone.png" id="1_v375r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r36q7"]
 
-[node name="Projectile" type="Sprite2D" node_paths=PackedStringArray("despawn_timer", "hitbox")]
+[node name="Projectile" type="Sprite2D" unique_id=1066315008 node_paths=PackedStringArray("despawn_timer", "hitbox")]
 visible = false
 scale = Vector2(2, 2)
 texture = ExtResource("1_v375r")
@@ -13,16 +13,16 @@ script = ExtResource("1_r36q7")
 despawn_timer = NodePath("despawn_timer")
 hitbox = NodePath("hitbox")
 
-[node name="despawn_timer" type="Timer" parent="."]
+[node name="despawn_timer" type="Timer" parent="." unique_id=141295334]
 wait_time = 10.0
 one_shot = true
 
-[node name="hitbox" type="Area2D" parent="."]
+[node name="hitbox" type="Area2D" parent="." unique_id=720859333]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="shape" type="CollisionShape2D" parent="hitbox"]
+[node name="shape" type="CollisionShape2D" parent="hitbox" unique_id=1515521781]
 shape = SubResource("CircleShape2D_r36q7")
 
 [connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]

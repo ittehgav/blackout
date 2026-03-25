@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_db8tu"]
 [ext_resource type="Texture2D" uid="uid://chx42v3gcomqg" path="res://assets/visual/sprites/fighters/units/toxic_hulk/blur.png" id="7_xfclm"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_xpmpj"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_epl0x"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_db2wx"]
 points = PackedVector2Array(80, -60, 80, 60, 0, 0)
@@ -15,7 +16,7 @@ points = PackedVector2Array(80, -60, 80, 60, 0, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_paj8a"]
 radius = 15.033297
 
-[node name="Toxic Hulk" type="Sprite2D" unique_id=754896079 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "status")]
+[node name="Toxic Hulk" type="Sprite2D" unique_id=754896079 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_kxg8q")
 texture = ExtResource("2_varji")
 hframes = 8
@@ -23,24 +24,26 @@ vframes = 5
 script = ExtResource("3_db2wx")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Gas Leak")
-hit_scan = NodePath("hit_scan")
-status = NodePath("Status")
 tags = Array[int]([7, 6, 5])
+hit_scan = NodePath("hit_scan")
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="Gas Leak" type="Node" parent="." unique_id=966815524]
+[node name="Gas Leak" type="Node" parent="." unique_id=966815524 node_paths=PackedStringArray("status")]
 script = ExtResource("3_fwyy1")
-position_lineup = false
-effects = Array[int]([2, 3])
 base_cooldown = 4.0
 skill_range = 6
+effects = Array[int]([2, 3])
+position_lineup = false
+status = NodePath("Status")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="Status" type="Node" parent="." unique_id=162292458]
+[node name="Status" type="Node" parent="Gas Leak" unique_id=162292458]
 script = ExtResource("5_db8tu")
 type = "stat_change"
-duration = -5.0
 value = 3.0
+duration = -5.0
 stat = "attack"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
@@ -52,7 +55,7 @@ scale = Vector2(1.1024557, 1.0162183)
 collision_layer = 0
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=89947844]
+[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=89947844]
 scale = Vector2(1.0537851, 0.4430384)
 shape = SubResource("ConvexPolygonShape2D_db2wx")
 
@@ -66,3 +69,22 @@ texture = ExtResource("7_xfclm")
 hframes = 8
 vframes = 2
 script = ExtResource("8_xpmpj")
+
+[node name="stat_base" type="Node" parent="." unique_id=1842538956]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=921795092]
+script = ExtResource("9_epl0x")
+max_hp = 500.0
+attack = 30.0
+defense = 10.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=1757146375]
+script = ExtResource("9_epl0x")
+max_hp = 75.0
+attack = 10.0
+defense = 10.0
+agility = 5.0
+technique = 10.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

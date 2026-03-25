@@ -58,9 +58,9 @@ func _on_equipped() -> void:
 func _on_timer_timeout() -> void:
 	proc_sfx.play();
 	
-	conversion_target.base.material.set_shader_parameter("width", 10);
+	conversion_target.sprite.material.set_shader_parameter("width", 10);
 	var tween:Tween = create_tween();
-	tween.tween_property(conversion_target.base, "material:shader_parameter/width", 1, .5)
+	tween.tween_property(conversion_target.sprite, "material:shader_parameter/width", 1, .5)
 	
-	Entities.player_fighter.ally_team.convert_unit(conversion_target)
+	Entities.player_fighter.ally_team.convert_fighter(conversion_target)
 	Entities.player_fighter.equipment.module_control.release_module_command()

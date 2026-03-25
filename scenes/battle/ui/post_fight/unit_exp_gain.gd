@@ -11,7 +11,7 @@ func load_unit(target:FighterUnit)->void:
 	
 	var base:FighterBase = unit.base.duplicate()
 	base.set_material(null)
-	base.clear_for_sample();
+
 	base.centered = false;
 	bar.build(unit)
 	level_label.text = "Level: " + str(unit.level)

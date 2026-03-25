@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ch8qcu16hp5uq"]
+
+[ext_resource type="Script" uid="uid://b8ccfl5g8u0fi" path="res://scenes/battle/fighter/neutral/breakable_prop.gd" id="1_476bl"]
+[ext_resource type="Script" uid="uid://vp6mjhqjonac" path="res://scenes/battle/fighter/npc_fighter/hurtbox.gd" id="3_fip8r"]
+
+[node name="prop" type="CharacterBody2D" unique_id=914816489 node_paths=PackedStringArray("statuses")]
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("1_476bl")
+body_type = 2
+statuses = NodePath("statuses")
+metadata/_custom_type_script = "uid://b8ccfl5g8u0fi"
+
+[node name="statuses" type="Node" parent="." unique_id=139033089]
+
+[node name="collision_box" type="CollisionShape2D" parent="." unique_id=1477260783]
+position = Vector2(1, 1)
+
+[node name="hurtbox" type="Area2D" parent="." unique_id=2122102762 node_paths=PackedStringArray("source")]
+collision_layer = 3
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_fip8r")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://vp6mjhqjonac"
+
+[node name="hurtbox_shape" type="CollisionShape2D" parent="hurtbox" unique_id=1456833574]
+position = Vector2(1, 1)
+
+[connection signal="death" from="." to="." method="_on_death"]

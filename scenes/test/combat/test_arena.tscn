@@ -1,0 +1,444 @@
+[gd_scene format=3 uid="uid://dacqy8pmfnjyf"]
+
+[ext_resource type="PackedScene" uid="uid://b3sr8al76si1g" path="res://scenes/battle/arena/arena.tscn" id="1_nnh8j"]
+[ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/leader/roster/roster.tscn" id="3_6a38p"]
+[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="3_xhi4m"]
+[ext_resource type="PackedScene" uid="uid://dhognr0ie2huf" path="res://scenes/index/items/weapons/merciless_katana.tscn" id="4_1iucv"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="4_2ixll"]
+[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/index/items/modules/buckler.tscn" id="4_hiooa"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="4_ic6ef"]
+[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="4_mrk65"]
+[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="5_oh16v"]
+[ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/units/electric_hulk.tscn" id="7_7sude"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_ejk4u"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="11_mrk65"]
+[ext_resource type="PackedScene" uid="uid://mwlq8jel4dww" path="res://scenes/index/fighters/units/wheel.tscn" id="11_ybjdj"]
+[ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/chakram.tscn" id="12_r7b2k"]
+[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/machete.tscn" id="13_v6xhn"]
+[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="15_p276g"]
+[ext_resource type="PackedScene" uid="uid://b3n7mk40hlld3" path="res://scenes/index/fighters/monsters/big_rat.tscn" id="16_a1us0"]
+[ext_resource type="PackedScene" uid="uid://bjc7irffaa805" path="res://scenes/index/fighters/monsters/calango.tscn" id="17_bycvj"]
+[ext_resource type="PackedScene" uid="uid://dch7fwggrtedg" path="res://scenes/index/items/weapons/toxic_grenade_launcher.tscn" id="18_l17fn"]
+[ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/allegiance_shifter.tscn" id="20_5njw2"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="22_5t08s"]
+[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="23_v2dkt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fla8t"]
+resource_local_to_scene = true
+shader = ExtResource("8_ejk4u")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wyu46"]
+resource_local_to_scene = true
+shader = ExtResource("8_ejk4u")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fc2qq"]
+resource_local_to_scene = true
+shader = ExtResource("8_ejk4u")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_81a23"]
+resource_local_to_scene = true
+shader = ExtResource("8_ejk4u")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1pyd"]
+resource_local_to_scene = true
+shader = ExtResource("8_ejk4u")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="Shader" id="Shader_1ut33"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q4jgi"]
+resource_local_to_scene = true
+shader = SubResource("Shader_1ut33")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Shader" id="Shader_r4qcv"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sff54"]
+resource_local_to_scene = true
+shader = SubResource("Shader_r4qcv")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(6, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oll51"]
+resource_local_to_scene = true
+shader = ExtResource("8_ejk4u")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0, 0, 0, 0.552941)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="TestArena" type="Node2D" unique_id=1680278370]
+
+[node name="Arena" parent="." unique_id=474914340 instance=ExtResource("1_nnh8j")]
+
+[node name="Roster" parent="Arena/teams" parent_id_path=PackedInt32Array(474914340, 1264042758) index="2" unique_id=1706554966 instance=ExtResource("3_6a38p")]
+
+[node name="FighterUnit" parent="Arena/teams/Roster" unique_id=2067750979 instance=ExtResource("4_2ixll")]
+level = 7
+
+[node name="Puncher" parent="Arena/teams/Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("11_mrk65")]
+material = SubResource("ShaderMaterial_fla8t")
+
+[node name="FighterUnit2" parent="Arena/teams/Roster" unique_id=1245287831 instance=ExtResource("4_2ixll")]
+level = 8
+
+[node name="Electric Hulk" parent="Arena/teams/Roster/FighterUnit2" unique_id=30330839 instance=ExtResource("7_7sude")]
+material = SubResource("ShaderMaterial_wyu46")
+
+[node name="Roster2" parent="Arena/teams" parent_id_path=PackedInt32Array(474914340, 1264042758) index="3" unique_id=881803508 instance=ExtResource("3_6a38p")]
+
+[node name="FighterUnit3" parent="Arena/teams/Roster2" unique_id=195888031 instance=ExtResource("4_2ixll")]
+level = 3
+
+[node name="Wheel" parent="Arena/teams/Roster2/FighterUnit3" unique_id=656115223 instance=ExtResource("11_ybjdj")]
+material = SubResource("ShaderMaterial_fc2qq")
+
+[node name="FighterUnit4" parent="Arena/teams/Roster2" unique_id=295997798 instance=ExtResource("4_2ixll")]
+level = 5
+
+[node name="Big Rat" parent="Arena/teams/Roster2/FighterUnit4" unique_id=779088301 instance=ExtResource("16_a1us0")]
+material = SubResource("ShaderMaterial_81a23")
+
+[node name="FighterUnit5" parent="Arena/teams/Roster2" unique_id=2070808503 instance=ExtResource("4_2ixll")]
+level = 13
+
+[node name="Calango" parent="Arena/teams/Roster2/FighterUnit5" unique_id=1356813743 instance=ExtResource("17_bycvj")]
+material = SubResource("ShaderMaterial_f1pyd")
+
+[node name="team_1" parent="Arena/teams" parent_id_path=PackedInt32Array(474914340, 1264042758) index="4" unique_id=1279616264 node_paths=PackedStringArray("roster")]
+roster = NodePath("../Roster")
+
+[node name="player_fighter" parent="Arena/teams/team_1" index="0" unique_id=543559168]
+material = SubResource("ShaderMaterial_q4jgi")
+
+[node name="initial_stats" parent="Arena/teams/team_1/player_fighter/stats" parent_id_path=PackedInt32Array(474914340, 543559168, 1676505557) index="0" unique_id=2095973971]
+attack = 0.03
+agility = 20.0
+
+[node name="body" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=416499753]
+material = SubResource("ShaderMaterial_sff54")
+
+[node name="Player" parent="Arena/teams/team_1/player_fighter" index="10" unique_id=573407477 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") instance=ExtResource("3_xhi4m")]
+equipped_weapon = NodePath("Inventory/Merciless Katana")
+alternative_weapon = NodePath("Inventory/Tailpipe")
+equipped_module = NodePath("Inventory/Dodge Roll")
+level = 30
+
+[node name="Chakram" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="0" unique_id=951296916 instance=ExtResource("12_r7b2k")]
+
+[node name="Machete" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="1" unique_id=2079083012 node_paths=PackedStringArray("projections") instance=ExtResource("13_v6xhn")]
+projections = []
+
+[node name="Merciless Katana" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="2" unique_id=1288738575 instance=ExtResource("4_1iucv")]
+
+[node name="Slingshot" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="3" unique_id=2034372209 instance=ExtResource("15_p276g")]
+
+[node name="Tailpipe" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="4" unique_id=1346076143 instance=ExtResource("4_ic6ef")]
+
+[node name="Taser Gun" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="5" unique_id=435912544 instance=ExtResource("4_mrk65")]
+
+[node name="Toxic Grenade Launcher" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="6" unique_id=1361651797 instance=ExtResource("18_l17fn")]
+
+[node name="Adrenaline Synthethizer" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="7" unique_id=298030728 instance=ExtResource("5_oh16v")]
+
+[node name="Allegiance Shifter" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="8" unique_id=1392394702 instance=ExtResource("20_5njw2")]
+
+[node name="Buckler" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="9" unique_id=1074327927 instance=ExtResource("4_hiooa")]
+
+[node name="Dodge Roll" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="10" unique_id=702678213 instance=ExtResource("22_5t08s")]
+
+[node name="The Consumer" parent="Arena/teams/team_1/player_fighter/Player/Inventory" index="11" unique_id=2097960121 instance=ExtResource("23_v2dkt")]
+
+[node name="team_2" parent="Arena/teams" parent_id_path=PackedInt32Array(474914340, 1264042758) index="5" unique_id=451149455 node_paths=PackedStringArray("roster")]
+roster = NodePath("../Roster2")
+
+[node name="countdown_overlay" parent="Arena/ui_canvas/hud" parent_id_path=PackedInt32Array(474914340, 990298264) index="4" unique_id=1268934347]
+countdown_second = 1
+
+[node name="victory_view" parent="Arena/ui_canvas/post_fight" parent_id_path=PackedInt32Array(474914340, 1463938977) index="2" unique_id=967956424]
+visible = false
+
+[node name="StatsDropdown" parent="Arena/ui_canvas/post_fight/victory_view/exp_panel/VBoxContainer" parent_id_path=PackedInt32Array(474914340, 941348118) index="1" unique_id=1099904655 node_paths=PackedStringArray("stat_labels")]
+stat_labels = {
+"agility": NodePath("agility/agility"),
+"attack": NodePath("attack/attack"),
+"defense": NodePath("defense/defense"),
+"max_hp": NodePath("max_hp/max_hp"),
+"technique": NodePath("technique/technique")
+}
+
+[node name="body" parent="Arena/ui_canvas/post_fight/victory_view/exp_panel/Control" parent_id_path=PackedInt32Array(474914340, 414460538) index="0" unique_id=1946803950]
+material = SubResource("ShaderMaterial_oll51")
+
+[node name="resources_dropdown" parent="Arena/ui_canvas/post_fight/victory_view/loot_panel/player_inventory" parent_id_path=PackedInt32Array(474914340, 1102322486) index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+
+[node name="resources_dropdown" parent="Arena/ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory" parent_id_path=PackedInt32Array(474914340, 944785117) index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+
+[editable path="Arena"]
+[editable path="Arena/teams/team_1/player_fighter"]
+[editable path="Arena/teams/team_1/player_fighter/body"]
+[editable path="Arena/teams/team_1/player_fighter/Player"]
+[editable path="Arena/ui_canvas/post_fight/victory_view/exp_panel/Control/body"]
+[editable path="Arena/ui_canvas/post_fight/victory_view/loot_panel/player_inventory"]
+[editable path="Arena/ui_canvas/post_fight/victory_view/loot_panel/enemy_inventory"]
+[editable path="Arena/ui_canvas/post_fight/defeat_view/Panel/VBoxContainer/morale_display"]

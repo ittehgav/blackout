@@ -88,6 +88,6 @@ func clear_for_sample()->void:
 
 func skill_impact()->void:
 	## cancels the skill when the battle's over or the target died during the animation
-	if not fighter or not fighter.target_unit or fighter.dead or fighter.target_unit.dead:
+	if not fighter or not fighter.target_fighter or fighter.dead or fighter.target_fighter.dead:
 		return
 	skill_effect()

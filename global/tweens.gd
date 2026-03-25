@@ -47,10 +47,10 @@ func gun_recoil(gun:Weapon)->Tween:
 	return tween
 
 func stun_vfx(target:ActiveFighter)->Tween:
-	return shader_color_blink(target.base, Color.PURPLE);
+	return shader_color_blink(target.sprite, Color.PURPLE);
 
 func heal_vfx(target:ActiveFighter, transparency:float =0.0)->Tween:
-	return shader_color_blink(target.base, Color.GREEN - Color(0, 0, 0, transparency), 1);
+	return shader_color_blink(target.sprite, Color.GREEN - Color(0, 0, 0, transparency), 1);
 
 func damage_vfx(target:ActiveFighter, intensity:int, from_player:bool=false)->Tween:
 	var target_color:Color = Color.RED
@@ -66,36 +66,36 @@ func damage_vfx(target:ActiveFighter, intensity:int, from_player:bool=false)->Tw
 	if from_player:
 		target_color = Color.WHITE;
 	
-	return shader_color_blink(target.base, target_color, duration)
+	return shader_color_blink(target.sprite, target_color, duration)
 
 func stat_debuff_vfx(target:ActiveFighter)->Tween:
-	return shader_color_blink(target.base, Color.PURPLE);
+	return shader_color_blink(target.sprite, Color.PURPLE);
 	
 func stat_buff_vfx(target:ActiveFighter)->Tween:
-	return shader_color_blink(target.base, Color.BLUE)
+	return shader_color_blink(target.sprite, Color.BLUE)
 
 
 	
 func lunge_forward_tween(fighter:ActiveFighter)->Tween:
 	var gap:Vector2;
 	if fighter.name != "player_fighter":
-		gap =  fighter.target_unit.position - fighter.position;
+		gap =  fighter.target_fighter.position - fighter.position;
 	else:
 		gap = fighter.get_node("hit_scan/shape").position
-	var shift:Vector2 = fighter.base.position.move_toward(gap, 100);
-	fighter.base.position = shift
+	var shift:Vector2 = fighter.sprite.position.move_toward(gap, 100);
+	fighter.sprite.position = shift
 
 	var tween:Tween = create_tween();
-	tween.tween_property(fighter.base,"position", Vector2.ZERO, .1);
+	tween.tween_property(fighter.sprite,"position", Vector2.ZERO, .1);
 	return tween
 
 func recoil_tween(fighter:ActiveFighter)->Tween:
-	var gap:Vector2 =  fighter.target_unit.position - fighter.position;
-	var shift:Vector2 = fighter.base.position.move_toward(-gap, 50);
-	fighter.base.position = shift
+	var gap:Vector2 =  fighter.target_fighter.position - fighter.position;
+	var shift:Vector2 = fighter.sprite.position.move_toward(-gap, 50);
+	fighter.sprite.position = shift
 	
 	var tween:Tween = create_tween();
-	tween.tween_property(fighter.base,"position", Vector2.ZERO, .2);
+	tween.tween_property(fighter.sprite,"position", Vector2.ZERO, .2);
 	return tween
 
 func camera_lunge(fighter:ActiveFighter)->Tween:
@@ -110,7 +110,7 @@ func camera_recoil(fighter:ActiveFighter)->Tween:
 	var gap:Vector2 = Vector2(-100, -50)
 	if fighter.body.flip_h:
 		gap.x *= -1
-	var shift:Vector2 = fighter.base.position.move_toward(gap,100);
+	var shift:Vector2 = fighter.sprite.position.move_toward(gap,100);
 	fighter.camera.offset = shift
 	
 	var tween:Tween = create_tween();

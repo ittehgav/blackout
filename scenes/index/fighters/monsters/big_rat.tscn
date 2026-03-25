@@ -8,33 +8,36 @@
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_nropm"]
 [ext_resource type="Texture2D" uid="uid://d1gvnnoc8ryp4" path="res://assets/visual/sprites/fighters/monsters/big_rat/blur.png" id="6_4x268"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ydyhp"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_hqlc8"]
 
-[node name="Big Rat" type="Sprite2D" unique_id=779088301 node_paths=PackedStringArray("animation_player", "skill")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_hqlc8"]
+radius = 15.033297
+
+[node name="Big Rat" type="Sprite2D" unique_id=779088301 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
 material = ExtResource("1_ydyhp")
 texture = ExtResource("1_wkevw")
 hframes = 8
 vframes = 5
-frame = 2
 script = ExtResource("1_3rsjv")
 animation_player = NodePath("AnimationPlayer")
-skill = NodePath("Big Bite")
+skill = NodePath("Rabid Bite")
 tags = Array[int]([9, 11])
+fighter_type = "monster"
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 
-[node name="Big Bite" type="Node" parent="." unique_id=839176132]
+[node name="Rabid Bite" type="Node" parent="." unique_id=839176132 node_paths=PackedStringArray("status")]
 script = ExtResource("2_nnsy7")
-effects = Array[int]([0, 1])
-base_cooldown = 4.0
+base_cooldown = 5.0
+effects = Array[int]([0, 7])
+status = NodePath("../Vicious")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="malaise" type="Node" parent="." unique_id=2030895574]
-script = ExtResource("3_wkevw")
-type = "special"
-metadata/_custom_type_script = "uid://ulxvybj6ipka"
-
-[node name="malaise_stat_debuff" type="Node" parent="malaise" unique_id=1074213550]
+[node name="Vicious" type="Node" parent="." unique_id=825948007]
 script = ExtResource("3_wkevw")
 type = "stat_change"
-value = -5.0
+value = 3.0
+stat = "attack"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1588836474]
@@ -48,3 +51,26 @@ vframes = 2
 frame = 2
 script = ExtResource("7_ydyhp")
 metadata/_custom_type_script = "uid://bupk131cmv6l2"
+
+[node name="stat_base" type="Node" parent="." unique_id=254356548]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=1729873768]
+script = ExtResource("9_hqlc8")
+max_hp = 100.0
+attack = 20.0
+defense = 5.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=540989136]
+script = ExtResource("9_hqlc8")
+max_hp = 25.0
+attack = 10.0
+defense = 2.5
+agility = 2.5
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1706895736]
+position = Vector2(-6, -5)
+shape = SubResource("CircleShape2D_hqlc8")

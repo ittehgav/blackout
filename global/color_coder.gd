@@ -30,9 +30,14 @@ func check_fighter_base_cache(base:FighterBase, team_n:int)->bool:
 
 func color_code_fighter(fighter:ActiveFighter, team_n:int)->void:
 	var base:FighterBase = fighter.base
-	if not check_fighter_base_cache(base, team_n):
-		cache_fighter_base_texture(base.texture, team_n,base.name)
-	base.texture = fighter_base_texture_cache[team_n][base.name]
+	
+	if not base:return;## skips over props (make this skip in-context instead?)
+	
+	if base.fighter_type != "monster":
+		## monsters textures aren't color-coded
+		if not check_fighter_base_cache(base, team_n):
+			cache_fighter_base_texture(base.texture, team_n,base.name)
+		base.texture = fighter_base_texture_cache[team_n][base.name]
 	
 	color_code_fighter_overlay(fighter.overlay, fighter.ally_team)
 
@@ -54,7 +59,7 @@ func color_code_fighter_overlay(target:FighterOverlay, team:Team)->void:
 	
 	target.hp_bar.tint_progress = hp_bar_color;
 	target.outline.border_color = hp_bar_color + Color.from_hsv(0, .4, -.5);
-	target.bg.color = hp_bar_color + Color.from_hsv(0, 0, -.5)
+
 
 
 func color_code_fighter_base_texture(base:FighterBase, scheme_index:int=1)->Texture:
@@ -73,7 +78,7 @@ func hue_shift_texture(texture:Texture2D, target_hue:float)->Texture:
 	for y in height:
 		for x in width:
 			var color:Color = img.get_pixel(x, y);
-			if color.a and color.h == 0:
+			if color.a:
 				color.h = target_hue;
 			img.set_pixel(x, y, color);
 	var final_texture: = ImageTexture.create_from_image(img)

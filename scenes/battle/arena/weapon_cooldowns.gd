@@ -131,3 +131,14 @@ func _on_equipment_ammo_consumed(ammo_type: String, _amount: int) -> void:
 		alt_weapon_ammo_hbox.modulate.a = .25;
 		var tween:Tween = create_tween();
 		tween.tween_property(alt_weapon_ammo_hbox, "modulate:a", 1, .5)
+
+
+func _on_weapon_cd_timeout() -> void:
+	self_modulate.v = 1
+	self_modulate.a = 1
+
+
+func _on_equipment_weapon_used() -> void:
+	await get_tree().create_timer(.01).timeout
+	self_modulate.v = .5
+	self_modulate.a = .5

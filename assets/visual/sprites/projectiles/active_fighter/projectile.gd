@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 	position += move_target * flight_speed * delta;
 
 
-func _on_hit(_fighter: ActiveFighter) -> void:
+func _on_hit(_fighter: CombatEntity) -> void:
 	hitbox.set_collision_mask_value(1, false);
 	hitbox.set_collision_mask_value(2, false);
 	queue_free()
@@ -77,19 +77,15 @@ func _on_despawn_timer_timeout() -> void:
 	queue_free();
 
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	if hit_allies:
-		if body != shooter:
-			hit.emit(body);
-	else:
-		hit.emit(body);
+
+		
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	assert(area is HurtBox);
-	var fighter:ActiveFighter = area.fighter
+	var target:CombatEntity = area.source
 	if hit_allies:
-		if fighter != shooter:
-			hit.emit(fighter);
+		if target != shooter:
+			hit.emit(target);
 	else:
-		hit.emit(fighter);
+		hit.emit(target);

@@ -69,5 +69,5 @@ func _on_button_pressed() -> void:
 
 
 func _on_button_2_pressed() -> void:
-	Entities.main.set_scenario("test_arena")
+	Entities.main.set_scenario("tutorial")
 	get_parent().queue_free()

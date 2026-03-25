@@ -29,7 +29,7 @@ func floating_party_icon()->void:
 	animation_finished.emit()
 
 
-func animation_callback(display:Control)->void:
+func animation_callback(display:Control)->void: 
 	## just show the unit and their stats?
 	panel.reparent(display)
 	panel.show()

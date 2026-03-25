@@ -33,7 +33,7 @@ func show_confirmation()->void:
 	after_container.add_child(evolved_sample);
 	evolved_sample.position = after_container.size/2;
 	
-	confirmation_message.modulate = Index.primary_tag_colors[initial_base.tags[0]];
+	## confirmation_message.modulate = Index.primary_tag_colors[initial_base.tags[0]];
 	confirmation_message.text = "Evolve your " + initial_base.name + " into " + evolved_base.name+"?"
 
 	

@@ -1,25 +1,17 @@
 extends Node
 
-func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, modifier:Callable=Callable(), hard_value:float=0, propagated:bool = false)->void:
+func deal_damage(source:ActiveFighter, target:CombatEntity=source.target_fighter, hard_value:float=0, quiet:bool=false)->void:
 	if not is_instance_valid(source) or not is_instance_valid(target):
 		return
+	source.catch_hit_target(target);
 	var damage:float
 	if not hard_value:
-		damage = source.attack;
+		damage = source.damage_modifier.call(source.attack, source);
 	else:
 		## hard value only overrides the source's attack stat, 
 		## not the modifier function that may come in
 		damage = hard_value;
-	if not modifier.is_null() or "damage_modifier" in source.base:
-		if "damage_modifier" in source.base:
-			modifier = source.base.damage_modifier;
-		## MODIFIER IS A FUNCTION THAT RECIEVES THE DAMAGE AND RETURNS IT MODIFIED
-		## can also be used to hardcode damage ignoring source's attack stat
-		damage = modifier.bind(damage).call();
-	## there may be both i suppose but theres no case of that atm
-	if "damage_modifier" in source.base:
-		damage = source.base.damage_modifier(damage);
-	
+
 	var mitigation:float = defense_mitigation(target);
 	damage -= damage * mitigation;
 	if target.shield:
@@ -28,27 +20,33 @@ func deal_damage(source:ActiveFighter, target:ActiveFighter=source.target_unit, 
 			var shield_overkill:float = -target.shield;
 			target.hp -= shield_overkill;
 			target.shield = 0;
-			if not propagated:
-				source.damage_dealt.emit(damage, target)
-				target.damage_taken.emit(shield_overkill, source);
+	
+			source.damage_dealt.emit(damage, target)
+			target.damage_taken.emit(shield_overkill, source, quiet);
 			if target.hp <= 0 and not target.dead:
 				target.death.emit(source);
 		else:
-			if not propagated:
-				source.damage_dealt.emit(damage, target)
-				target.damage_blocked.emit(source, damage);
+
+			source.damage_dealt.emit(damage, target)
+			target.damage_blocked.emit(source, damage, quiet);
 	else:
 		target.hp -= damage;
-		if not propagated:
-			source.damage_dealt.emit(damage, target)
-			target.damage_taken.emit(damage, source)
+
+		source.damage_dealt.emit(damage, target)
+		target.damage_taken.emit(damage, source, quiet)
+		
 		if target.hp <= 0 and not target.dead:
 			target.death.emit(source);
 
 
-func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.technique_scaled_value(source.attack, source.technique, "heal"))->void:
+func heal_target(source:ActiveFighter, target:CombatEntity, value:float)->void:
+	## technique applied in call above this one bc theres gonna be multiple
+	## heal sources and some will scale with other stuff too
 	if not is_instance_valid(source) or not is_instance_valid(target):
 		return
+		
+	source.catch_hit_target(target);
+	
 	target.hp += value;
 	if target.hp > target.max_hp:
 		target.hp = target.max_hp;
@@ -57,11 +55,11 @@ func heal_unit(source:ActiveFighter, target:ActiveFighter, value:float=Scaling.t
 
 
 
-func shield_unit(source:ActiveFighter, target:ActiveFighter, value:float)->void:
+func shield_target(source:ActiveFighter, target:CombatEntity, value:float, quiet:bool=false)->void:
 	if not is_instance_valid(source) or not is_instance_valid(target):
 		return
 	target.shield += value;
-	target.shield_gained.emit(source, value);
+	target.shield_gained.emit(source, value, quiet);
 
 
 
@@ -80,12 +78,12 @@ const excess_def_falloff_divider = 2;
 ## value the player gets from the first 200 points of defense
 const base_excess_mitigation = 42.5
 
-func defense_mitigation(unit:ActiveFighter)->float:
-	var def_left:float = unit.defense;
+func defense_mitigation(source:CombatEntity)->float:
+	var def_left:float = source.defense;
 	var total_mitigation:float = 0.0
 	var previous_point:float=0;
 
-	if unit.defense < 200:
+	if source.defense < 200:
 		for point:float in def_mitigation_breakpoints.keys():
 			var point_range:float = point - previous_point;
 			if def_left > point_range:
@@ -112,12 +110,12 @@ func defense_mitigation(unit:ActiveFighter)->float:
 	return total_mitigation/100
 
 
-func turn_ellusive(unit:ActiveFighter, duration:float)->void:
+func turn_ellusive(fighter:ActiveFighter, duration:float)->void:
 	var team_n:int;
-	if unit.get_collision_layer_value(1) == true:
+	if fighter.get_collision_layer_value(1) == true:
 		team_n = 1;
 	else:
 		team_n = 2;
-	unit.set_collision_layer_value(team_n, false)
+	fighter.set_collision_layer_value(team_n, false)
 	await get_tree().create_timer(duration).timeout;
-	unit.set_collision_layer_value(team_n, true)
+	fighter.set_collision_layer_value(team_n, true)

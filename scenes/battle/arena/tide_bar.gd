@@ -16,15 +16,12 @@ var t2_levels_sum:int = 0;
 
 
 func _ready()->void:
-	if arena is TestArena:
-		queue_free();
-		return
 	await arena.battle_started;
 	max_value = 0;
-	for fighter:ActiveFighter in team_1.units:
+	for fighter:ActiveFighter in team_1.fighters:
 		total_levels_sum += fighter.level
 		t1_levels_sum += fighter.level
-	for fighter:ActiveFighter in team_2.units:
+	for fighter:ActiveFighter in team_2.fighters:
 		total_levels_sum += fighter.level
 		t2_levels_sum += fighter.level
 	
@@ -87,19 +84,10 @@ func color_blink(target_color:Color)->void:
 	tween.tween_property(self, "self_modulate", target_color, blink_half_time);
 	tween.tween_property(self, "self_modulate", Color.WHITE, blink_half_time)
 
-func _on_team_1_unit_died(unit: ActiveFighter) -> void:
-	t1_levels_sum -= unit.level;
-	total_levels_sum -= unit.level;
-	refresh_value(1)
-
-func _on_team_2_unit_died(unit: ActiveFighter) -> void:
-	t2_levels_sum -= unit.level;
-	total_levels_sum -= unit.level
-	refresh_value(2)
 
 
-func _on_unit_converted(_unit: ActiveFighter) -> void:
-	refresh_value();
+
+
 
 
 func _on_player_fighter_death(_killer: ActiveFighter) -> void:
@@ -110,3 +98,21 @@ func battle_lost()->void:
 	
 func battle_won()->void:
 	Entities.arena.start_post_battle(true)
+
+
+func _on_team_1_fighter_died(fighter: ActiveFighter) -> void:
+	t1_levels_sum -= fighter.level;
+	total_levels_sum -= fighter.level;
+	refresh_value(1)
+
+
+func _on_team_2_fighter_died(fighter: ActiveFighter) -> void:
+	t2_levels_sum -= fighter.level;
+	total_levels_sum -= fighter.level
+	refresh_value(2)
+
+
+
+
+func _on_fighter_converted(_fighter: ActiveFighter) -> void:
+	refresh_value();

@@ -20,15 +20,16 @@ func occupy_cell(source:ActiveFighter)->void:
 
 func assign_path(fighter:NpcFighter)->void:
 	var from_cell:Vector2 = local_to_map(fighter.position);
-	var to_cell:Vector2 = local_to_map(fighter.target_unit.position)
+	var to_cell:Vector2 = local_to_map(fighter.target_fighter.position)
 	## need to keep target unit in local to map bc it can be the playe
 	var path:PackedVector2Array = astar_grid.get_path(from_cell, to_cell)
+	## PATH IS OF COORDS POSITIONS NOT GRID POSITIONS
 
-	var distance:int = cell_distance(fighter.position, fighter.target_unit.position);
+	var distance:int = cell_distance(fighter.position, fighter.target_fighter.position);
 	fighter.target_cell_distance = distance
 	fighter.target_in_range = distance <= fighter.base.skill.skill_range;
 
-	var direction:Vector2 = fighter.position.direction_to(fighter.target_unit.position);
+	var direction:Vector2 = fighter.position.direction_to(fighter.target_fighter.position);
 	fighter.direction_to_target = direction
 
 	fighter.current_path = path;
@@ -49,7 +50,7 @@ func cell_distance(p1:Vector2, p2:Vector2)->int:
 
 func next_closer_cell(fighter:ActiveFighter)->Vector2:
 	var from:Vector2i = fighter.current_cell
-	var to:Vector2 = local_to_map(fighter.target_unit.position);
+	var to:Vector2 = local_to_map(fighter.target_fighter.position);
 	
 	var current_distance:int= cell_distance(from, to);
 	

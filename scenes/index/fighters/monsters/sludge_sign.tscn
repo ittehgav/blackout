@@ -9,18 +9,25 @@
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="7_kgmnv"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="8_manpb"]
 [ext_resource type="PackedScene" uid="uid://dp4tm4fats44n" path="res://scenes/index/vfx/overhead.tscn" id="9_b2c0s"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_jhnwu"]
 
-[node name="Sludge Sign" type="Sprite2D" unique_id=1850800264 node_paths=PackedStringArray("animation_player", "skill", "status")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jhnwu"]
+radius = 15.0
+height = 62.0
+
+[node name="Sludge Sign" type="Sprite2D" unique_id=1850800264 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
 material = ExtResource("1_niry1")
 texture = ExtResource("2_b2c0s")
 hframes = 8
 vframes = 5
-frame = 3
 script = ExtResource("3_jhnwu")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Traffic Slam")
 tags = Array[int]([12, 1])
-status = NodePath("Traffic Slam/Status")
+fighter_type = "monster"
+body_type = 2
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="blur" type="Sprite2D" parent="." unique_id=366566219]
 modulate = Color(1, 1, 1, 0)
@@ -34,18 +41,42 @@ metadata/_custom_type_script = "uid://bupk131cmv6l2"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=546204385]
 libraries/fighter_base = ExtResource("6_5oljj")
 
-[node name="Traffic Slam" type="Node" parent="." unique_id=120315121]
+[node name="Traffic Slam" type="Node" parent="." unique_id=120315121 node_paths=PackedStringArray("status")]
 script = ExtResource("7_kgmnv")
-effects = Array[int]([0, 1])
 base_cooldown = 5.0
+effects = Array[int]([0, 1])
+status = NodePath("Stop")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="Status" type="Node" parent="Traffic Slam" unique_id=877605256]
+[node name="Stop" type="Node" parent="Traffic Slam" unique_id=877605256]
 script = ExtResource("8_manpb")
 type = "stat_change"
-duration = 5.0
 value = -5.0
+duration = 5.0
 stat = "attack"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="Overhead" parent="." unique_id=1766547426 instance=ExtResource("9_b2c0s")]
+
+[node name="stat_base" type="Node" parent="." unique_id=2080768659]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=764774773]
+script = ExtResource("10_jhnwu")
+max_hp = 200.0
+attack = 30.0
+defense = 30.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=796607045]
+script = ExtResource("10_jhnwu")
+max_hp = 50.0
+attack = 20.0
+defense = 10.0
+agility = 3.0
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=2142881474]
+position = Vector2(-1, -22)
+shape = SubResource("CapsuleShape2D_jhnwu")

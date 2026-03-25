@@ -1,12 +1,13 @@
 extends Node
 
-@export var unit:PlayerFighter;
+@export var fighter:PlayerFighter;
 @export var floating_icon_anchor:Control;
 
-func _on_in_fight_player_status_applied(_source: ActiveFighter, status:Status) -> void:
+func _on_in_fight_player_status_applied(_source: ActiveFighter, status:Status, quiet:bool) -> void:
+	if quiet:return
 	match status.type:
 		"stat_change":
-			if status.stat != "move_speed":
+			if not quiet and status.stat != "move_speed":
 				var icon:StatIcon = Index.scenes.ui.stat_icon.instantiate();
 				icon.stat = status.stat;
 				icon.floating = true;
@@ -19,4 +20,4 @@ func _on_in_fight_player_status_applied(_source: ActiveFighter, status:Status) -
 func _on_in_fight_player_status_removed(status:Status) -> void:
 	match status.type:
 		"stun":
-			unit.base.modulate = Color.WHITE;
+			fighter.sprite.modulate = Color.WHITE;

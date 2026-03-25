@@ -15,7 +15,7 @@ class_name SceneIndex
 @export_group("For World Generation")
 @export var settlement:PackedScene;
 
-@export_group("Units")
+@export_group("Units/Fighters")
 @export var fighter_unit:PackedScene;
 @export var npc_fighter:PackedScene;
 

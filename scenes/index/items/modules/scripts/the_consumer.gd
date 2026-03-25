@@ -32,7 +32,7 @@ func _on_ticker_timeout() -> void:
 	if use_sfx.pitch_scale < 7:
 		use_sfx.pitch_scale *= 1.1
 
-	Combat.aoe_damage(Entities.player_fighter, hit_scan, ticker_damage);
+	Combat.aoe_damage(Entities.player_fighter, hit_scan, base_damage);
 	consume_ammo();
 	ammo_cost += 1
 	
@@ -40,11 +40,6 @@ func _on_ticker_timeout() -> void:
 	growth_tween = create_tween();
 	growth_tween.tween_property(hit_scan, "scale", target_scale, .45)
 
-
-
-
-func ticker_damage(_damage:int)->int:
-	return base_damage;
 
 
 func _on_equipped() -> void:

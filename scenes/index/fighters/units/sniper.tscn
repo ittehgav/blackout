@@ -7,6 +7,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_hn5nq"]
 [ext_resource type="Texture2D" uid="uid://cygeqnjwn3rnk" path="res://assets/visual/sprites/fighters/units/sniper/blur.png" id="6_c3pfp"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ojifu"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_hahop"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lwa6y"]
 b = Vector2(1000, 0)
@@ -14,7 +15,7 @@ b = Vector2(1000, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_2iv6b"]
 radius = 15.033297
 
-[node name="Sniper" type="Sprite2D" unique_id=1797122592 node_paths=PackedStringArray("animation_player", "skill", "hit_scan")]
+[node name="Sniper" type="Sprite2D" unique_id=1797122592 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_m8axb")
 texture = ExtResource("2_r7jn3")
 hframes = 8
@@ -22,17 +23,21 @@ vframes = 5
 script = ExtResource("3_m8axb")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Piercing Shot")
-hit_scan = NodePath("scan")
 tags = Array[int]([3, 2])
+movement = 1
+hit_scan = NodePath("scan")
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Piercing Shot" type="Node" parent="." unique_id=1500444734]
 script = ExtResource("3_lwa6y")
-position_lineup = false
-effects = Array[int]([2])
-tranform_visual = 1
 base_cooldown = 7.0
 skill_range = 10
+effects = Array[int]([2])
+tranform_visual = 1
+position_lineup = false
+technique_scaled_damage = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=875831156]
@@ -56,3 +61,22 @@ texture = ExtResource("6_c3pfp")
 hframes = 8
 vframes = 2
 script = ExtResource("7_ojifu")
+
+[node name="stat_base" type="Node" parent="." unique_id=854284739]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=1364295129]
+script = ExtResource("8_hahop")
+max_hp = 100.0
+attack = 100.0
+defense = 5.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=1720571676]
+script = ExtResource("8_hahop")
+max_hp = 25.0
+attack = 15.0
+defense = 2.5
+agility = 5.0
+technique = 10.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

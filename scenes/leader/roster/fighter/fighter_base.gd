@@ -6,20 +6,18 @@ extends Sprite2D;
 
 
 ## range is now in cells rather than 2D space pixels
-const MELEE_RANGE = 2;
-const MID_RANGE = 6;
-const LONG_RANGE = 10;
+const MELEE_RANGE = 3;
+const MID_RANGE = 10;
+const LONG_RANGE = 20;
 
 @export var animation_player:AnimationPlayer
 @export var skill:SkillComponent;
 
-var fighter:ActiveFighter;
-@export var hit_scan:Area2D;
-@export var projectile:Projectile
-@export var status:Status;
-
+var fighter:NpcFighter;
 
 @export var tags:Array[Tag]
+
+
 enum Tag {
 	## just cv paste the old format if this becomes too much 
 	## work for too little payoff?
@@ -58,7 +56,21 @@ enum MovementPattern{
 	## never moves
 	## (but can still target and stuff?)
 }
+		
+@export_group("misc")
+## stuff that won't be changed as often as the other stuff
+@export_enum("recruit", "monster") var fighter_type:String = "recruit";
+## where we can add other special types like bosses or more complex NPCs?
+@export var body_type:CombatEntity.BodyType;
 
+@export var hit_scan:Area2D;
+@export var projectile:Projectile
+@export var base_stats:CombatStats;
+@export var stats_per_level:CombatStats;
+
+@export var idle_animation_path:String = "fighter_base/idle"
+@export var walk_animation_path:String = "fighter_base/walk"
+@export var skill_animation_path:String = "fighter_base/skill"
 signal started_moving;
 signal stopped_moving;
 
@@ -68,21 +80,26 @@ func _ready()->void:
 		started_moving.connect(on_started_moving)
 		stopped_moving.connect(on_stopped_moving)
 
+
 func on_started_moving()->void:
-	if animation_player.current_animation != "fighter_base/skill":
-		animation_player.play("fighter_base/walk");
+	if animation_player.current_animation != skill_animation_path:
+		animation_player.play(walk_animation_path);
 
 func on_stopped_moving()->void:
-	if animation_player.current_animation != "fighter_base/skill":
-		animation_player.play('fighter_base/idle')
+	if animation_player.current_animation != skill_animation_path:
+		animation_player.play(idle_animation_path)
 
 
 func skill_windup()->void:
 	## overrideable not abstract
-	animation_player.play("fighter_base/skill");
+	
+	animation_player.play(skill_animation_path);
 	skill.use()
-	await animation_player.animation_finished;
-	animation_player.play("fighter_base/idle");
+	if skill.instant_impact:
+		skill.impact.emit();
+	else:
+		await animation_player.animation_finished;
+	animation_player.play(idle_animation_path);
 
 func final_skill_cooldown(unit:FighterUnit)->float:
 	var base_cooldown:float = skill.base_cooldown;
@@ -104,9 +121,20 @@ func skill_impact()->void:
 	#printerr("MISSINGDMGMOD"); ## TODO make this abstract and less janky implementation of modifiers
 	#return 0;
 
-func fighter_died()->Tween:
+func fighter_died(killer:ActiveFighter)->Tween:
 	modulate.v = .5;
 	modulate.a = .5;
 	var tween:Tween = Tweens.ui_fade_out(self, false, .3)
-	tween.parallel().tween_property(self, "position:x", 20, .3);
+
+	var target_x:int
+	if killer.global_position.x > global_position.x:
+		target_x = -20;
+	else:
+		target_x = 20;
+	tween.parallel().tween_property(self, "position:x", target_x, .3);
 	return tween;
+
+func proximity_sort(a:ActiveFighter, b:ActiveFighter)->bool:
+	var ad:float = a.position.distance_to(fighter.position);
+	var bd:float = b.position.distance_to(fighter.position);
+	return ad < bd;

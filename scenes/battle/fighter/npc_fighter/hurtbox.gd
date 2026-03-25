@@ -1,4 +1,4 @@
 extends Area2D
 class_name HurtBox
 
-@export var fighter:ActiveFighter
+@export var source:CombatEntity

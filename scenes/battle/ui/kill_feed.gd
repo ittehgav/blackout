@@ -2,17 +2,18 @@ extends Control
 
 var queue:Array[Control] = []
 
-func unit_died(killer:ActiveFighter, dead:ActiveFighter)->void:
+func fighter_died(killer:ActiveFighter, dead:ActiveFighter)->void:
+	## not getting called ever right now
 	var killer_name:String;
 	if killer is PlayerFighter:
 		killer_name = killer.name
 	else:
-		killer_name = "Lv. " + str(killer.unit.level) + " "+ str(killer.base.name)
+		killer_name = "Lv. " + str(killer.fighter.level) + " "+ str(killer.base.name)
 	
 	if dead is PlayerFighter:
 		return;
 
-	var dead_name:String = "Lv. " + str(dead.unit.level) + " " + str(dead.base.name)
+	var dead_name:String = "Lv. " + str(dead.fighter.level) + " " + str(dead.base.name)
 
 	if killer.ally_team == Entities.player_fighter.ally_team:
 		$kill/data/dead.modulate = Color.RED;

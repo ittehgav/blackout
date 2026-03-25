@@ -51,6 +51,11 @@ func load_fighter()->void:
 	refresh_all_stats()
 	hp = max_hp;
 
+func _physics_process(_delta:float)->void:
+	if not walking_blocked:
+		get_input()
+		move_and_slide()
+		
 func get_input()->void:
 	var input_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if input_direction:
@@ -58,25 +63,11 @@ func get_input()->void:
 		if not moving:
 			started_moving.emit()
 			moving = true;
-		adjust_direction(input_direction)
 	else:
 		if moving:
 			velocity = Vector2.ZERO
 			stopped_moving.emit()
 			moving = false;
-			
-func adjust_direction(d:Vector2)->void:
-	if d.x < 0: d.x = -1.1;
-	if d.y < 0: d.y = -1.1;
-	var rounded:Vector2i = d.ceil();
-	body.frame_coords.x =  Index.isometric_angle_indexes.find(rounded)
-
-
-
-func _physics_process(_delta:float)->void:
-	if not walking_blocked:
-		get_input()
-		move_and_slide()
 
 
 func _on_stat_changed(stat: String) -> void:

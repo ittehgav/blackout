@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dch7fwggrtedg"]
+[gd_scene format=3 uid="uid://dch7fwggrtedg"]
 
 [ext_resource type="Script" uid="uid://cndyob28rlxfs" path="res://scenes/index/items/weapons/scripts/toxic_grenade_launcher.gd" id="1_8rm40"]
 [ext_resource type="Texture2D" uid="uid://wotuyfcx13uy" path="res://assets/visual/items/weapons/toxic_grenade_launcher.png" id="1_jjwyn"]
@@ -48,7 +48,7 @@ _data = {
 &"smoke_dissipation": SubResource("Animation_fndbj")
 }
 
-[node name="Toxic Grenade Launcher" type="Sprite2D" node_paths=PackedStringArray("splash", "projectile", "animation_player", "use_sfx", "hit_sfx", "status")]
+[node name="Toxic Grenade Launcher" type="Sprite2D" unique_id=704919183 node_paths=PackedStringArray("splash", "projectile", "animation_player", "use_sfx", "status")]
 use_parent_material = true
 position = Vector2(30, 0)
 texture = ExtResource("1_jjwyn")
@@ -59,34 +59,31 @@ cooldown = 1.0
 projectile = NodePath("Projectile")
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("use_sfx")
-hit_sfx = NodePath("hit_sfx")
 status = NodePath("Status")
 ammo_type = "juice"
 ammo_cost = 1
 color_tag = "juice"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
-[node name="Status" type="Node" parent="."]
+[node name="Status" type="Node" parent="." unique_id=918691564]
 script = ExtResource("3_6ni2h")
 type = "stat_change"
-stat = "defense"
 value = -5.0
+stat = "defense"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"weapon_generic": ExtResource("3_on2lj")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2040681394]
+libraries/weapon_generic = ExtResource("3_on2lj")
 
-[node name="use_sfx" type="AudioStreamPlayer" parent="."]
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=935514839]
 stream = ExtResource("4_aeldn")
 
-[node name="hit_sfx" type="AudioStreamPlayer" parent="."]
+[node name="hit_sfx" type="AudioStreamPlayer" parent="." unique_id=305314718]
 stream = ExtResource("5_r2si5")
 volume_db = 3.671
 pitch_scale = 0.82
 
-[node name="smoke" type="Sprite2D" parent="." node_paths=PackedStringArray("animation_player", "hit_scan")]
+[node name="smoke" type="Sprite2D" parent="." unique_id=1338992438 node_paths=PackedStringArray("animation_player", "hit_scan")]
 visible = false
 modulate = Color(0.74536, 0.58519995, 0.77, 1)
 self_modulate = Color(1, 1, 1, 0.7490196)
@@ -100,22 +97,20 @@ script = ExtResource("4_on2lj")
 animation_player = NodePath("smoke_dissipation")
 hit_scan = NodePath("Area2D")
 
-[node name="Area2D" type="Area2D" parent="smoke"]
+[node name="Area2D" type="Area2D" parent="smoke" unique_id=1656277525]
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="smoke/Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="smoke/Area2D" unique_id=1066593565]
 position = Vector2(94, 0)
 scale = Vector2(2, 2)
 polygon = PackedVector2Array(-48.5, 0, -10, -53, 48, -53, 48, 53, -10, 53)
 
-[node name="smoke_dissipation" type="AnimationPlayer" parent="smoke"]
-libraries = {
-&"": SubResource("AnimationLibrary_on2lj")
-}
+[node name="smoke_dissipation" type="AnimationPlayer" parent="smoke" unique_id=1413046537]
+libraries/ = SubResource("AnimationLibrary_on2lj")
 
-[node name="Projectile" parent="." instance=ExtResource("4_wwi0q")]
+[node name="Projectile" parent="." unique_id=1409555514 instance=ExtResource("4_wwi0q")]
 modulate = Color(0.9248333, 0.59000003, 1, 1)

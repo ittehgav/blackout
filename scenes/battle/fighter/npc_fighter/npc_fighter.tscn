@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.gd" id="1_a7x5t"]
+[ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="2_8vfuj"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_8440y"]
 [ext_resource type="Script" uid="uid://vp6mjhqjonac" path="res://scenes/battle/fighter/npc_fighter/hurtbox.gd" id="3_m77vo"]
+[ext_resource type="Texture2D" uid="uid://cy2xm601gdvas" path="res://assets/visual/particles/circles/circle_2x2.png" id="3_uoen3"]
 [ext_resource type="Texture2D" uid="uid://nnmygu4ogbnr" path="res://assets/visual/ui/bars/base_bar_trail.png" id="4_b8wnn"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="5_n8p1d"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
@@ -13,7 +15,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
 radius = 15.0
 
-[node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "movement_ticker", "overlay", "timers", "statuses", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox")]
+[node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "movement_ticker", "overlay", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "statuses")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
@@ -22,21 +24,23 @@ cooldown_timer = NodePath("timers/skill_cooldown")
 skill_retry_timer = NodePath("timers/skill_cooldown/skill_retry")
 movement_ticker = NodePath("timers/movement_ticker")
 overlay = NodePath("FighterOverlay")
+circle_projection_texture = ExtResource("2_8vfuj")
+rectangle_projection_texture = ExtResource("3_uoen3")
+aoe_projection_color = Color(0.58, 0.11599999, 0.11599999, 0.5921569)
 timers = NodePath("timers")
-statuses = NodePath("statuses")
 initial_stats = NodePath("stats/initial_stats")
 stat_modifiers = NodePath("stats/modifiers")
 stat_multipliers = NodePath("stats/multipliers")
 hurtbox = NodePath("hurtbox")
+statuses = NodePath("statuses")
+max_hp = null
 
 [node name="stats" type="Node" parent="." unique_id=425909678]
 
 [node name="initial_stats" parent="stats" unique_id=1639527394 instance=ExtResource("2_8440y")]
-technique = 0.0
 move_speed = 0.0
 
 [node name="modifiers" parent="stats" unique_id=2121395431 instance=ExtResource("2_8440y")]
-technique = 0.0
 move_speed = 0.0
 
 [node name="multipliers" parent="stats" unique_id=1106853300 instance=ExtResource("2_8440y")]
@@ -61,12 +65,12 @@ autostart = true
 [node name="skill_retry" type="Timer" parent="timers/skill_cooldown" unique_id=457014964]
 wait_time = 0.1
 
-[node name="hurtbox" type="Area2D" parent="." unique_id=1694393992 node_paths=PackedStringArray("fighter")]
+[node name="hurtbox" type="Area2D" parent="." unique_id=1694393992 node_paths=PackedStringArray("source")]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 script = ExtResource("3_m77vo")
-fighter = NodePath("..")
+source = NodePath("..")
 
 [node name="FighterOverlay" type="Control" parent="." unique_id=442767027 node_paths=PackedStringArray("outline", "bg", "hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter", "status_icons", "status_display", "special_statuses_container")]
 z_index = 1
@@ -191,7 +195,6 @@ texture_progress = ExtResource("5_n8p1d")
 tint_progress = Color(0.50133336, 0.8, 0.48000002, 1)
 
 [node name="shield" type="TextureProgressBar" parent="FighterOverlay/outline/VBoxContainer/hp_bar_trail" unique_id=1473089313]
-visible = false
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 1
 anchors_preset = 14

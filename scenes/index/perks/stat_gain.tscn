@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dod2x3hp0rdyd"]
+[gd_scene format=3 uid="uid://dod2x3hp0rdyd"]
 
 [ext_resource type="Script" uid="uid://bf4m7vw83uxx1" path="res://scenes/index/perks/scripts/stat_gain.gd" id="1_mbhg4"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="2_mwxnt"]
@@ -105,7 +105,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="StatGain" type="Node" node_paths=PackedStringArray("stat_icon", "stat_label", "panel", "sfx")]
+[node name="StatGain" type="Node" unique_id=47711456 node_paths=PackedStringArray("stat_icon", "stat_label", "panel", "sfx")]
 script = ExtResource("1_mbhg4")
 stat_icon = NodePath("panel/HBoxContainer/StatIcon")
 stat_label = NodePath("panel/HBoxContainer/stat_label")
@@ -113,11 +113,11 @@ panel = NodePath("panel")
 sfx = NodePath("sfx")
 metadata/_custom_type_script = "uid://cvor0b75qlqh5"
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
+[node name="sfx" type="AudioStreamPlayer" parent="." unique_id=378326748]
 stream = ExtResource("2_ymr5f")
 volume_db = -5.0
 
-[node name="panel" type="Panel" parent="."]
+[node name="panel" type="Panel" parent="." unique_id=521306887]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -132,13 +132,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="body" parent="panel" instance=ExtResource("2_mwxnt")]
+[node name="body" parent="panel" unique_id=1639788214 instance=ExtResource("2_mwxnt")]
 process_mode = 4
 material = SubResource("ShaderMaterial_ymr5f")
 position = Vector2(70, 74)
 scale = Vector2(4, 4)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="panel" unique_id=260901723]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -152,12 +152,12 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="StatIcon" parent="panel/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("3_mwxnt")]
+[node name="StatIcon" parent="panel/HBoxContainer" unique_id=1525350611 node_paths=PackedStringArray("label") instance=ExtResource("3_mwxnt")]
 layout_mode = 2
 mouse_filter = 2
 label = NodePath("../stat_label")
 
-[node name="stat_label" type="Label" parent="panel/HBoxContainer"]
+[node name="stat_label" type="Label" parent="panel/HBoxContainer" unique_id=2097405971]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64

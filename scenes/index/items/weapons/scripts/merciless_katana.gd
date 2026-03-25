@@ -46,11 +46,10 @@ func dash()->void:
 	
 	if len(Entities.player_fighter.hit_targets):
 		hit.emit()
-		hit_sfx.play()
 			
 func impact()->void:
 	Combat.aoe_damage(Entities.player_fighter, hit_scan)
 	if len(Entities.player_fighter.hit_targets):
 		hit.emit()
-		hit_sfx.play()
+
 			

@@ -1,18 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://by4mpa2wb2t7b"]
+[gd_scene format=3 uid="uid://by4mpa2wb2t7b"]
 
 [ext_resource type="Texture2D" uid="uid://cbptl4cvn7pul" path="res://assets/visual/items/weapons/chakram.png" id="1_6ewex"]
 [ext_resource type="Script" uid="uid://btpyltd5vb6p4" path="res://scenes/index/items/weapons/scripts/chakram.gd" id="2_h5wbs"]
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="4_5bglv"]
-[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/swing_hit.ogg" id="4_ua1k6"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/player/hit/flesh_hit.ogg" id="4_ua1k6"]
 [ext_resource type="Texture2D" uid="uid://chyk6j5cmchjv" path="res://assets/visual/items/weapons/active/chakram.png" id="5_5bglv"]
 [ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="6_ua1k6"]
+[ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="7_5bglv"]
 
 [sub_resource type="Animation" id="Animation_ua1k6"]
 length = 0.001
 
 [sub_resource type="Animation" id="Animation_ts0g7"]
 resource_name = "attack"
-length = 0.2
+length = 0.325
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -64,6 +65,46 @@ tracks/3/keys = {
 "method": &"impact"
 }]
 }
+tracks/4/type = "animation"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("vfx_root/Sweep right/vfx_animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": PackedStringArray("vfx"),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "animation"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("vfx_root/Sweep down/vfx_animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": PackedStringArray("vfx"),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "animation"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("vfx_root/Sweep up/vfx_animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": PackedStringArray("vfx"),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "animation"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("vfx_root/Sweep left/vfx_animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": PackedStringArray("vfx"),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5bglv"]
 _data = {
@@ -74,11 +115,12 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_qwo1v"]
 radius = 102.0049
 
-[node name="Chakram" type="Sprite2D" node_paths=PackedStringArray("hit_scan", "projections", "animation_player", "use_sfx", "hit_sfx")]
+[node name="Chakram" type="Sprite2D" unique_id=1491091324 node_paths=PackedStringArray("vfx_root", "hit_scan", "projections", "animation_player", "use_sfx", "hit_sfx")]
 modulate = Color(0.9999987, 0.9999987, 0.9999987, 1)
 use_parent_material = true
 texture = ExtResource("1_6ewex")
 script = ExtResource("2_h5wbs")
+vfx_root = NodePath("vfx_root")
 base_damage = 50
 cooldown = 3.0
 hit_scan = NodePath("Area2D")
@@ -91,32 +133,63 @@ active_texture = ExtResource("5_5bglv")
 color_tag = "agility"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
-[node name="use_sfx" type="AudioStreamPlayer" parent="."]
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=1627677246]
 stream = ExtResource("4_5bglv")
 
-[node name="hit_sfx" type="AudioStreamPlayer" parent="."]
+[node name="hit_sfx" type="AudioStreamPlayer" parent="." unique_id=1183007964]
 stream = ExtResource("4_ua1k6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_5bglv")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1489242143]
+libraries/ = SubResource("AnimationLibrary_5bglv")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1068979309]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1658357680]
 shape = SubResource("CircleShape2D_qwo1v")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=984971366]
 modulate = Color(1, 1, 1, 0.15294118)
 position = Vector2(60, 0)
 scale = Vector2(6, 8)
 texture = ExtResource("6_ua1k6")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Area2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="Area2D" unique_id=1092678593]
 modulate = Color(1, 1, 1, 0.15294118)
 position = Vector2(-60, 0)
 scale = Vector2(-6, 8)
 texture = ExtResource("6_ua1k6")
+
+[node name="vfx_root" type="Node2D" parent="." unique_id=1581331486]
+top_level = true
+
+[node name="Sweep right" parent="vfx_root" unique_id=773368217 instance=ExtResource("7_5bglv")]
+position = Vector2(80, 0)
+rotation = -1.5707963
+scale = Vector2(2.5, -1)
+track_source_angle = false
+
+[node name="Sweep down" parent="vfx_root" unique_id=327644857 instance=ExtResource("7_5bglv")]
+position = Vector2(0, 80)
+scale = Vector2(2.5, -1)
+track_source_angle = false
+
+[node name="Sweep left" parent="vfx_root" unique_id=1062637122 instance=ExtResource("7_5bglv")]
+position = Vector2(-80, 0)
+rotation = 1.5707964
+scale = Vector2(2.5, -1)
+track_source_angle = false
+
+[node name="Sweep up" parent="vfx_root" unique_id=17900955 instance=ExtResource("7_5bglv")]
+position = Vector2(0, -80)
+rotation = 3.1415927
+scale = Vector2(2.5, -1)
+track_source_angle = false
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
+
+[editable path="vfx_root/Sweep right"]
+[editable path="vfx_root/Sweep down"]
+[editable path="vfx_root/Sweep left"]
+[editable path="vfx_root/Sweep up"]

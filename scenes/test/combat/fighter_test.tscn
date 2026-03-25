@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://csfb4spydffb5"]
+
+[ext_resource type="Script" uid="uid://baihpjue8prfg" path="res://scenes/test/combat/fighter_test.gd" id="1_rgl56"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="2_eouuu"]
+[ext_resource type="Script" uid="uid://df75lw20fhu53" path="res://scenes/test/combat/units/analytic.gd" id="4_eouuu"]
+
+[node name="Fighter Test" type="Node2D" unique_id=762254561 node_paths=PackedStringArray("unit", "analytic")]
+script = ExtResource("1_rgl56")
+unit = NodePath("unit")
+analytic = NodePath("analytic")
+
+[node name="unit" parent="." unique_id=2102969138 instance=ExtResource("2_eouuu")]
+visible = true
+
+[node name="stats" parent="unit" index="0"]
+max_hp = 500.0
+
+[node name="analytic" type="Control" parent="." unique_id=1095865848 node_paths=PackedStringArray("level_label", "dps_label")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_eouuu")
+level_label = NodePath("VBoxContainer/level")
+dps_label = NodePath("VBoxContainer/dps")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="analytic" unique_id=835840017]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="level" type="Label" parent="analytic/VBoxContainer" unique_id=1980304883]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Level:"
+
+[node name="dps" type="Label" parent="analytic/VBoxContainer" unique_id=175686547]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "DPS: "
+
+[node name="stun_uptime" type="Label" parent="analytic/VBoxContainer" unique_id=178617045]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Stun Uptime"
+
+[node name="refresh" type="Timer" parent="analytic/VBoxContainer" unique_id=262423073]
+autostart = true
+
+[connection signal="timeout" from="analytic/VBoxContainer/refresh" to="analytic" method="refresh"]
+
+[editable path="unit"]

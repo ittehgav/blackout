@@ -6,12 +6,13 @@ const size_y = 2;
 
 const rarity = 2;
 
+@export var vfx_root:Node2D;
+
 func get_description()->String:
 	return "Damages all enemies surrounding you, dealing " + Index.get_color_tag("attack") + str(final_damage()) +\
 	" damage.[/color] Cooldown is 20% faster for each enemy you hit with the same attack, up to 80% faster.";
 
 func use(_alt:bool=false)->void:
-
 	use_sfx.play();
 	animation_player.play("attack")
 	
@@ -21,7 +22,6 @@ func impact()->void:
 	var hits:int = len(Entities.player_fighter.hit_targets)
 	if hits:
 		apply_cdr(hits);
-		hit_sfx.play();
 		hit.emit()
 
 func apply_cdr(hits:int)->void:
@@ -34,3 +34,7 @@ func apply_cdr(hits:int)->void:
 	var new_wait_time:float = previous_wait_time - previous_wait_time * reduction_multiplier;
 	timer.start(new_wait_time) ## apparently doesnt change wait_time?
 	timer.wait_time = previous_wait_time
+
+
+func _on_animation_player_animation_started(_anim_name: StringName) -> void:
+	vfx_root.global_position = Entities.player_fighter.global_position;

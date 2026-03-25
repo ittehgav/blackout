@@ -7,14 +7,15 @@
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_5fo68"]
 [ext_resource type="Texture2D" uid="uid://bxuv2skqnl140" path="res://assets/visual/sprites/fighters/units/wheel/blur.png" id="6_vxrli"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_fqy1x"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_n3lfl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_33oev"]
-radius = 37.01351
+radius = 63.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hel4h"]
 radius = 15.033297
 
-[node name="Wheel" type="Sprite2D" unique_id=656115223 node_paths=PackedStringArray("ticker", "animation_player", "skill", "hit_scan")]
+[node name="Wheel" type="Sprite2D" unique_id=656115223 node_paths=PackedStringArray("ticker", "animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_uh247")
 texture = ExtResource("2_37wss")
 hframes = 8
@@ -23,19 +24,19 @@ script = ExtResource("3_uh247")
 ticker = NodePath("ticker")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Accelerate")
-hit_scan = NodePath("hit_scan")
 tags = Array[int]([1, 4])
+hit_scan = NodePath("hit_scan")
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Accelerate" type="Node" parent="." unique_id=1632970445]
 script = ExtResource("3_33oev")
-position_lineup = false
-base_special_values = Dictionary[String, float]({
-"acceleration": 10.0
-})
-effects = Array[int]([5])
-tranform_visual = 2
 base_cooldown = 4.0
+effects = Array[int]([6])
+tranform_visual = 2
+position_lineup = false
+own_damage_modifier = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1232262713]
@@ -45,7 +46,7 @@ libraries/fighter_base = ExtResource("4_5fo68")
 collision_layer = 0
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=1648192589]
+[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=1648192589]
 shape = SubResource("CircleShape2D_33oev")
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1099299579]
@@ -61,5 +62,24 @@ texture = ExtResource("6_vxrli")
 hframes = 8
 vframes = 2
 script = ExtResource("7_fqy1x")
+
+[node name="stat_base" type="Node" parent="." unique_id=1956176164]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=846758734]
+script = ExtResource("8_n3lfl")
+max_hp = 300.0
+attack = 30.0
+defense = 20.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=1991617458]
+script = ExtResource("8_n3lfl")
+max_hp = 50.0
+attack = 40.0
+defense = 5.0
+agility = 2.5
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [connection signal="timeout" from="ticker" to="." method="_on_ticker_timeout"]

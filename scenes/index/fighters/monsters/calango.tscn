@@ -5,13 +5,19 @@
 [ext_resource type="Script" uid="uid://y3lc3idfs5he" path="res://scenes/index/fighters/scripts/calango.gd" id="2_6uly3"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_xjc1c"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_eabos"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_ocxnp"]
 [ext_resource type="Texture2D" uid="uid://blnoxkkapudw1" path="res://assets/visual/sprites/fighters/monsters/calango/blur.png" id="5_u2fmi"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="6_ocxnp"]
 [ext_resource type="Texture2D" uid="uid://cx3dwcwhghosa" path="res://assets/visual/sprites/fighters/monsters/calango/tail.png" id="7_6uly3"]
 [ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="9_eabos"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_u2fmi"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/settlements/shadow.png" id="12_kg8r3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kg8r3"]
-radius = 18.0
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u2fmi"]
+radius = 24.0
 
 [sub_resource type="Animation" id="Animation_xjc1c"]
 length = 0.001
@@ -26,6 +32,58 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ocxnp"]
+resource_name = "detonate"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2)]
 }
 
 [sub_resource type="Animation" id="Animation_eabos"]
@@ -47,25 +105,42 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u2fmi"]
 _data = {
 &"RESET": SubResource("Animation_xjc1c"),
+&"detonate": SubResource("Animation_ocxnp"),
 &"wiggle": SubResource("Animation_eabos")
 }
 
-[node name="Calango" type="Sprite2D" unique_id=1356813743 node_paths=PackedStringArray("animation_player", "skill", "hit_scan")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xdvov"]
+radius = 23.086792
+
+[node name="Calango" type="Sprite2D" unique_id=1356813743 node_paths=PackedStringArray("tail", "animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_xjc1c")
 texture = ExtResource("1_u8nhd")
 hframes = 8
 vframes = 5
-frame = 3
+frame = 5
 script = ExtResource("2_6uly3")
+tail = NodePath("tail")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Tail Whip")
-tags = Array[int]([8, 9])
+tags = Array[int]([8, 10])
+fighter_type = "monster"
 hit_scan = NodePath("scan")
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 
-[node name="Tail Whip" type="Node" parent="." unique_id=2066648331]
+[node name="Tail Whip" type="Node" parent="." unique_id=2066648331 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xjc1c")
-effects = Array[int]([2, 5])
+base_cooldown = 5.0
+effects = Array[int]([2, 6])
+status = NodePath("Poison")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="Poison" type="Node" parent="Tail Whip" unique_id=1336429188]
+script = ExtResource("5_ocxnp")
+type = "dot"
+value = 10.0
+duration = 5.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=646299992]
 libraries/fighter_base = ExtResource("4_eabos")
@@ -80,19 +155,61 @@ script = ExtResource("6_ocxnp")
 metadata/_custom_type_script = "uid://bupk131cmv6l2"
 
 [node name="scan" type="Area2D" parent="." unique_id=890821457]
+visible = false
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="scan" unique_id=885421959]
 shape = SubResource("CircleShape2D_kg8r3")
+debug_color = Color(0, 0.5950001, 0.7, 0)
 
-[node name="tail" type="Sprite2D" parent="." unique_id=1240448005]
-position = Vector2(152, 42)
+[node name="Sweep" parent="." unique_id=773368217 instance=ExtResource("9_eabos")]
+
+[node name="stat_base" type="Node" parent="." unique_id=467000274]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=1914071001]
+script = ExtResource("10_u2fmi")
+max_hp = 200.0
+attack = 20.0
+defense = 10.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=1734870507]
+script = ExtResource("10_u2fmi")
+max_hp = 30.0
+attack = 15.0
+defense = 5.0
+agility = 3.0
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1801098347]
+visible = false
+shape = SubResource("CircleShape2D_u2fmi")
+debug_color = Color(0, 0.5950001, 0.7, 0)
+
+[node name="tail" type="Area2D" parent="." unique_id=881855668]
+visible = false
+position = Vector2(150, 0)
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="tail" type="Sprite2D" parent="tail" unique_id=1240448005]
 texture = ExtResource("7_6uly3")
 hframes = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="tail" unique_id=1115194450]
+[node name="wiggle" type="AnimationPlayer" parent="tail/tail" unique_id=1115194450]
 libraries/ = SubResource("AnimationLibrary_u2fmi")
 
-[node name="Sweep" parent="." unique_id=773368217 instance=ExtResource("9_eabos")]
+[node name="shadow" type="Sprite2D" parent="tail/tail" unique_id=1675688934]
+modulate = Color(0, 0, 0, 0.14117648)
+z_index = -1
+position = Vector2(0, 5)
+texture = ExtResource("12_kg8r3")
+
+[node name="hitbox" type="CollisionShape2D" parent="tail" unique_id=1161539102]
+shape = SubResource("CircleShape2D_xdvov")
+debug_color = Color(0.80023223, 0.3649785, 0.5537536, 0.41960785)

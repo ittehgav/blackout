@@ -8,15 +8,22 @@ signal removed;
 var original:bool=true
 
 ## CHAIN STATUSES ARE APPLIED AND REMOVED TOGETHER
-@export var chain_root:bool=false
 var chain:Array[Status]
 
-@export_enum("stun", "stat_change", "special") var type:String;
-@export var duration:float=0;
-
+@export_enum("stun", "stat_change", "dot", "special") var type:String;
 @export var value:float;
+@export var duration:float=0;
+@export var chain_root:bool=false
 
+@export_enum("attack", "defense", "agility", "technique", "move_speed") var stat:String;
+
+## ONLY FOR ENEMY MOBS,
+## projections generated dynamically based on the hitscan's shape
+@export var aoe_prjection:bool=true;
+@export var force_quiet:bool=false;
 @export var unique:bool=false;
+@export var special_status_texture:Texture;
+
 
 var source:ActiveFighter
 
@@ -24,8 +31,6 @@ var host:ActiveFighter
 
 var timer:Timer;
 
-@export_enum("attack", "defense", "agility", "technique", "move_speed") var stat:String;
-@export var special_status_texture:Texture;
 
 func _ready() -> void:
 	if original and Entities.main.scenario == "battle":
@@ -49,7 +54,9 @@ func generate_status()->Status:
 	return new_status;
 
 
-func apply_on_target(target:ActiveFighter=source.target_unit, hard_value:float=0, propagated:bool=false)->Status:
+func apply_on_target(target:CombatEntity=source.target_fighter, hard_value:float=0, propagated:bool=false)->Status:
+	if not(target is ActiveFighter):return 
+	## simpler way to skip over props in AOE statuses
 	if unique:
 		var current_statuses:Array[Node] = target.statuses.get_children();
 		for s:Status in current_statuses:
@@ -68,11 +75,13 @@ func apply_on_target(target:ActiveFighter=source.target_unit, hard_value:float=0
 			assert(c is Status);
 			var chained_status:Status = c.apply_on_target(target)
 			new_status.chain.append(chained_status)
+			
 	new_status.apply(propagated);
 	return new_status
 
 func apply(propagated:bool)->void:
-	## TECHNIQUE SCALING IS APPLIED HERE
+	## TECHNIQUE SCALING IS APPLIED HERE FOR ALL STATUSES
+	## ran by the duplicate that goes on the host
 	source.catch_hit_target(host);
 	match type:
 		"stun":
@@ -86,14 +95,22 @@ func apply(propagated:bool)->void:
 		
 		"stat_change":
 			assert(value)
-			var technique_bonus:float = Scaling.technique_mechanic_multipliers["stat_change"] * source.technique * value;
-			value += technique_bonus
+			var final_value:float = Scaling.technique_scaled_value(value, source.technique, "stat_change");
 			
 			## catches buffs and debuffs by whether the value is negative of positive
-			host.stat_modifiers[stat] += value
+			host.stat_modifiers[stat] += final_value
 			
 			host.stat_changed.emit(stat)
-			
+		"dot":
+			## DOT scaled with technique i guess
+			## right now only on calango tail poison
+			## always quiet?
+			assert(value);
+			var final_value:float = Scaling.technique_scaled_value(value, source.technique, "damage")
+			var tween:Tween = create_tween();
+			for i:int in int(duration):
+				tween.tween_interval(1);
+				tween.tween_callback(Combat.deal_damage.bind(source, host, final_value, true))
 	
 	host.statuses.add_child(self)
 	if type == "special":
@@ -107,10 +124,8 @@ func apply(propagated:bool)->void:
 		timer.timeout.connect(remove);
 		timer.start();
 
-	if not propagated:
-		## status_applied signal only for vfx
-		## propagations don't emit to prevent VFX bloating?
-		host.status_applied.emit(source, self)
+
+	host.status_applied.emit(source, self, propagated or force_quiet)
 	
 func remove()->void:
 	if not is_instance_valid(host):
@@ -128,6 +143,7 @@ func remove()->void:
 			## works with negative values just fine
 			host.stat_modifiers[stat] -= value;
 			host.stat_changed.emit(stat);
+			
 			
 	if chain_root:
 		for status:Status in chain:

@@ -9,37 +9,40 @@
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_gqyy0"]
 [ext_resource type="PackedScene" uid="uid://dnln8vwomwh3n" path="res://scenes/index/vfx/punch.tscn" id="9_gqyy0"]
 [ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/pucnher/puncher.png" id="10_ocbov"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_xcn2u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_82vyf"]
 radius = 15.033297
 
-[node name="Puncher" type="Sprite2D" unique_id=1510142188 node_paths=PackedStringArray("animation_player", "skill", "status")]
+[node name="Puncher" type="Sprite2D" unique_id=1510142188 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
 material = ExtResource("1_as0e7")
 texture = ExtResource("10_ocbov")
 hframes = 8
 vframes = 5
-frame = 1
+frame = 25
 script = ExtResource("2_82vyf")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("One Punch")
-status = NodePath("stun")
 tags = Array[int]([0, 1])
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="One Punch" type="Node" parent="." unique_id=1213322069]
+[node name="One Punch" type="Node" parent="." unique_id=1213322069 node_paths=PackedStringArray("status")]
 script = ExtResource("3_eyj5g")
-effects = Array[int]([0, 1])
 base_cooldown = 5.0
+effects = Array[int]([0, 1])
+status = NodePath("stun")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2029514307]
-libraries/fighter_base = ExtResource("4_5dn4v")
-
-[node name="stun" type="Node" parent="." unique_id=1893140320]
+[node name="stun" type="Node" parent="One Punch" unique_id=1893140320]
 script = ExtResource("5_v5y7v")
 type = "stun"
 duration = 0.5
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2029514307]
+libraries/fighter_base = ExtResource("4_5dn4v")
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=553118480]
 position = Vector2(0, -11)
@@ -55,3 +58,22 @@ script = ExtResource("8_gqyy0")
 
 [node name="skill_vfx" parent="." unique_id=437169543 instance=ExtResource("9_gqyy0")]
 frame = 1
+
+[node name="stat_base" type="Node" parent="." unique_id=1205250198]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=2030993282]
+script = ExtResource("10_xcn2u")
+max_hp = 300.0
+attack = 30.0
+defense = 10.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=419977786]
+script = ExtResource("10_xcn2u")
+max_hp = 50.0
+attack = 10.0
+defense = 2.5
+agility = 2.5
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

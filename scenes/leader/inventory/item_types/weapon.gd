@@ -8,6 +8,7 @@ signal unequipped;
 
 signal use_finished ## to start the cooldown timer, controlled by the weapon's script
 signal hit; ## hit only triggers once for multiple sychronous AOE hits
+## emit AFTER combat calls (for hit_targets consistency)
 
 
 ## active_texture swaps in at battle start if the weapon has it
@@ -36,8 +37,6 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 @export var use_sfx:AudioStreamPlayer
 @export var alt_use_sfx:AudioStreamPlayer;
 
-@export var hit_sfx:AudioStreamPlayer
-@export var alt_hit_sfx:AudioStreamPlayer
 
 @export var active_texture:Texture;
 ## for when the item's own texture is not the same that appears next to the player

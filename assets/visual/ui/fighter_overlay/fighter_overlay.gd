@@ -38,12 +38,13 @@ func _ready()->void:
 
 	shield_bar.max_value = fighter.max_hp;
 
-func on_status_applied(_source:ActiveFighter, status:Status)->void:
+func on_status_applied(_source:ActiveFighter, status:Status, quiet:bool)->void:
 	match status.type:
 		"stun":
 			display_stun_timer(status.duration)
 		"stat_change":
-			generate_floating_icon(status.stat, status.value > 0);
+			if not quiet:
+				generate_floating_icon(status.stat, status.value > 0);
 		"special":
 			assert(status.special_status_texture);
 			add_special_status_icon(status)
@@ -79,17 +80,18 @@ func display_stun_timer(duration:float)->void:
 
 
 
-func _on_fighter_damage_taken(damage: float, source:ActiveFighter) -> void:
-	if source is PlayerFighter:
-		player_hit_feedback()
-		
+func _on_fighter_damage_taken(damage: float, source:ActiveFighter, quiet:bool) -> void:
 	floating_number(int(damage))
 	hp_bar.value = fighter.hp;
+	
+	if not quiet and source is PlayerFighter:
+		player_hit_feedback()
+		
 
 @onready var initial_position:Vector2 = position
 var player_hit_tween:Tween
 func player_hit_feedback()->void:
-	Tweens.shader_color_blink(fighter.base, Color.WHITE)
+	Tweens.shader_color_blink(fighter.sprite, Color.WHITE)
 	if player_hit_tween and not player_hit_tween.is_running():
 		const shake_range = 10
 		player_hit_tween = create_tween();
@@ -132,7 +134,7 @@ func _on_hp_bar_value_changed(value: float) -> void:
 		trail_tween.tween_callback(hp_bar_trail.set_value.bind(hp_bar.value))
 
 
-func _on_npc_fighter_healing_received(value: float) -> void:
+func _on_npc_fighter_healing_received(value: float, _quiet:bool) -> void:
 	floating_number(value, "heal");
 	hp_bar.value = fighter.hp;
 	
@@ -140,14 +142,16 @@ func refresh_charge_bar_max(_stat:String="")->void:
 	charge_bar.max_value = cooldown_timer.wait_time;
 
 
-func _on_npc_fighter_damage_blocked(_source: ActiveFighter, value: float) -> void:
-	floating_number(value, "block");
+func _on_npc_fighter_damage_blocked(_source: ActiveFighter, value: float, quiet:bool) -> void:
 	shield_bar.value = fighter.shield
 	
-	Tweens.squish_bar(shield_bar);
+	if not quiet:
+		floating_number(value, "block");
+		Tweens.squish_bar(shield_bar);
 
 
-func _on_npc_fighter_shield_gained(_source: ActiveFighter, value: float) -> void:
-	floating_number(value, "shield");
+func _on_npc_fighter_shield_gained(_source: ActiveFighter, value: float, quiet:bool) -> void:
 	shield_bar.value = fighter.shield
-	Tweens.stretch_bar(shield_bar);
+	if not quiet:
+		floating_number(value, "shield");
+		Tweens.stretch_bar(shield_bar);

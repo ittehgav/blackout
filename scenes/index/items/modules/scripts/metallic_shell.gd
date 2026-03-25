@@ -28,11 +28,11 @@ func use()->void:
 	
 	Entities.player.inventory.scrap -= scrap_cost;
 	
-	Combat.shield_unit(Entities.player_fighter, Entities.player_fighter, shield_value);
+	Combat.shield_target(Entities.player_fighter, Entities.player_fighter, shield_value);
 	for area:Area2D in aoe_range.get_overlapping_areas():
 		assert(area is HurtBox);
-		var target:ActiveFighter = area.fighter;
-		Combat.shield_unit(Entities.player_fighter, target, shield_value);
+		var target:CombatEntity = area.source;
+		Combat.shield_target(Entities.player_fighter, target, shield_value);
 
 
 func _on_equipped() -> void:

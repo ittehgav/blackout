@@ -1,27 +1,56 @@
 [gd_scene format=3 uid="uid://buy3hmc8ungmr"]
 
 [ext_resource type="Script" uid="uid://cxat68htlsn71" path="res://scenes/index/fighters/scripts/termite_queen.gd" id="1_l8hqm"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_lwr4b"]
 [ext_resource type="Texture2D" uid="uid://bvw7sgqkhg120" path="res://assets/visual/sprites/fighters/monsters/termite_queen/termite_queen.png" id="1_oqdjl"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_oqdjl"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="4_lwr4b"]
 [ext_resource type="Texture2D" uid="uid://v820lf1b3gam" path="res://assets/visual/sprites/fighters/monsters/termite_queen/blur.png" id="4_r2pgj"]
+[ext_resource type="PackedScene" uid="uid://mfpl5uasy6ff" path="res://scenes/index/fighters/monsters/termite.tscn" id="4_sxdjq"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_sxdjq"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="7_r2pgj"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="9_gm6ks"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="11_1fquf"]
 
-[node name="Termite Queen" type="Sprite2D" unique_id=381041469 node_paths=PackedStringArray("animation_player", "skill")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_r2pgj"]
+radius = 28.284271
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gm6ks"]
+resource_local_to_scene = true
+shader = ExtResource("11_1fquf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[node name="Termite Queen" type="Sprite2D" unique_id=381041469 node_paths=PackedStringArray("termite_unit", "animation_player", "skill", "base_stats", "stats_per_level")]
+material = ExtResource("1_lwr4b")
 texture = ExtResource("1_oqdjl")
 hframes = 8
 vframes = 5
 script = ExtResource("1_l8hqm")
+termite_unit = NodePath("termite_unit")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Queen\'s Children")
 tags = Array[int]([9, 13])
+movement = 1
+fighter_type = "monster"
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="Queen\'s Children" type="Node" parent="." unique_id=59021356]
 script = ExtResource("2_oqdjl")
+base_cooldown = 5.0
+skill_range = 20
+effects = Array[int]([6])
+tranform_visual = 2
 need_target = false
 scan_enemies = false
 position_lineup = false
-effects = Array[int]([6])
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="blur" type="Sprite2D" parent="." unique_id=1533659693]
@@ -35,3 +64,30 @@ metadata/_custom_type_script = "uid://bupk131cmv6l2"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2139344813]
 libraries/fighter_base = ExtResource("5_sxdjq")
+
+[node name="stat_base" type="Node" parent="." unique_id=1587696098]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=1896318496]
+script = ExtResource("7_r2pgj")
+max_hp = 300.0
+defense = 50.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=395533984]
+script = ExtResource("7_r2pgj")
+max_hp = 50.0
+defense = 10.0
+agility = 5.0
+technique = 3.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=836262361]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_r2pgj")
+
+[node name="termite_unit" parent="." unique_id=2067750979 instance=ExtResource("9_gm6ks")]
+summon = true
+
+[node name="Termite" parent="termite_unit" unique_id=561075248 instance=ExtResource("4_sxdjq")]
+material = SubResource("ShaderMaterial_gm6ks")

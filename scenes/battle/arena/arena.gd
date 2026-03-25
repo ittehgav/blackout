@@ -22,13 +22,10 @@ var won_battle:bool;
 
 func _ready()->void:
 	team_1.load_roster();
-	team_2.load_roster()
+	team_2.load_roster() 
+
 	
-	var projections:Array[Node] = get_tree().get_nodes_in_group("aoe_projections");  
-	var player_team_n:int = Entities.player_fighter.ally_team.team_n;
-	for p in projections:
-		if p.owner.fighter.ally_team.team_n == player_team_n:
-			p.hide();
+
 
 func load_layout(target:PackedScene)->void:
 	current_layout.queue_free();
@@ -38,6 +35,10 @@ func load_layout(target:PackedScene)->void:
 	move_child(current_layout, 0);
 
 func start_post_battle(won:bool=false)->void:
+	## TODO make post fight in an isolated node that gets 
+	## instantiated/parallel loaded that can be ran/tested with
+	## raw rosters (which is all that matters for EXP and loot calculations right now)
+	return
 	battle_ended.emit(won)
 	battle_over = true
 	Entities.main.set_substate("battle_finishing")

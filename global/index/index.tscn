@@ -36,7 +36,6 @@
 [ext_resource type="PackedScene" uid="uid://bjmnlpi6chnbj" path="res://scenes/index/items/containers/notyet/chips.tscn" id="37_y60qf"]
 [ext_resource type="Texture2D" uid="uid://cy2xm601gdvas" path="res://assets/visual/particles/circles/circle_2x2.png" id="40_m7afg"]
 [ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/units/electric_hulk.tscn" id="51_vvnt2"]
-[ext_resource type="PackedScene" uid="uid://b52pvgor34jns" path="res://scenes/index/fighters/maybenot/mower.tscn" id="54_m7afg"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="55_au47y"]
 [ext_resource type="PackedScene" uid="uid://bhmsli657i58w" path="res://scenes/index/fighters/units/scrap_hulk.tscn" id="56_fqlef"]
 [ext_resource type="Script" uid="uid://c2v3r4uaedrki" path="res://global/index/textures.gd" id="56_rddof"]
@@ -48,11 +47,18 @@
 [ext_resource type="Texture2D" uid="uid://dxn3vii4n7mar" path="res://assets/visual/particles/circles/circle_hollow_8x8.png" id="61_ekp1m"]
 [ext_resource type="Texture2D" uid="uid://cf7qn7nec5bvw" path="res://assets/visual/particles/circles/circle_hollow_16x16.png" id="62_js3li"]
 [ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="62_kn0pf"]
+[ext_resource type="PackedScene" uid="uid://bjnol1lrln1fk" path="res://scenes/index/fighters/monsters/aedes.tscn" id="62_v142k"]
+[ext_resource type="PackedScene" uid="uid://b3n7mk40hlld3" path="res://scenes/index/fighters/monsters/big_rat.tscn" id="63_kn0pf"]
 [ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="63_mrm47"]
+[ext_resource type="PackedScene" uid="uid://bjc7irffaa805" path="res://scenes/index/fighters/monsters/calango.tscn" id="64_ia5dt"]
 [ext_resource type="Texture2D" uid="uid://cui2boa6gcv18" path="res://assets/visual/particles/circles/circle_hollow_64x64.png" id="64_w8q8o"]
 [ext_resource type="Texture2D" uid="uid://bkvwsq6raaf6p" path="res://assets/visual/particles/circles/circle_4x4.png" id="65_50ns7"]
+[ext_resource type="PackedScene" uid="uid://blvhloouenfiu" path="res://scenes/index/fighters/monsters/sludge_car.tscn" id="65_roqj1"]
+[ext_resource type="PackedScene" uid="uid://datk48iuf2jce" path="res://scenes/index/fighters/monsters/sludge_sign.tscn" id="66_ifr8c"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="66_vgk1i"]
+[ext_resource type="PackedScene" uid="uid://mfpl5uasy6ff" path="res://scenes/index/fighters/monsters/termite.tscn" id="67_56oi4"]
 [ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="67_n3xga"]
+[ext_resource type="PackedScene" uid="uid://buy3hmc8ungmr" path="res://scenes/index/fighters/monsters/termite_queen.tscn" id="68_a8k3y"]
 [ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="68_e7p5s"]
 [ext_resource type="Texture2D" uid="uid://fvqn3burk27x" path="res://assets/visual/particles/circles/circle_64x64.png" id="69_q6wh7"]
 [ext_resource type="Script" uid="uid://v7kwggc2eei6" path="res://global/index/scenes.gd" id="74_f4g0r"]
@@ -68,8 +74,8 @@ script = ExtResource("1_oyx4q")
 scenes = NodePath("scenes")
 fighters = NodePath("fighters")
 textures = NodePath("textures")
-player_team_color = Color(0.24000001, 0.42199996, 0.5, 1)
-enemy_team_color = Color(0.4, 0.14000002, 0.14000002, 1)
+player_team_color = Color(0.42000002, 0.7, 0.42466667, 0.5882353)
+enemy_team_color = Color(0.4, 0.14000002, 0.14000002, 0.5882353)
 resource_colors = Dictionary[String, Color]({
 "chips": Color(0.16, 0.8, 0.8, 1),
 "food": Color(0.8, 0.8, 0.16, 1),
@@ -143,4 +149,4 @@ salesman_icon_texture = ExtResource("78_5qkj4")
 [node name="fighters" type="Node2D" parent="." unique_id=1407718655]
 visible = false
 script = ExtResource("57_jh7c7")
-all_fighter_base_scenes = Array[PackedScene]([ExtResource("5_id88d"), ExtResource("51_vvnt2"), ExtResource("3_f4g0r"), ExtResource("8_28bxi"), ExtResource("54_m7afg"), ExtResource("55_au47y"), ExtResource("56_fqlef"), ExtResource("57_yssh0"), ExtResource("58_qig7t"), ExtResource("4_iis6y"), ExtResource("60_v142k"), ExtResource("13_kdm76"), ExtResource("62_kn0pf")])
+all_fighter_base_scenes = Array[PackedScene]([ExtResource("5_id88d"), ExtResource("51_vvnt2"), ExtResource("3_f4g0r"), ExtResource("8_28bxi"), ExtResource("55_au47y"), ExtResource("56_fqlef"), ExtResource("57_yssh0"), ExtResource("58_qig7t"), ExtResource("4_iis6y"), ExtResource("60_v142k"), ExtResource("13_kdm76"), ExtResource("62_kn0pf"), ExtResource("62_v142k"), ExtResource("63_kn0pf"), ExtResource("64_ia5dt"), ExtResource("65_roqj1"), ExtResource("66_ifr8c"), ExtResource("67_56oi4"), ExtResource("68_a8k3y")])

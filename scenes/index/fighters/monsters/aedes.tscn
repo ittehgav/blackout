@@ -8,21 +8,29 @@
 [ext_resource type="Texture2D" uid="uid://cu83uthnmgpjj" path="res://assets/visual/sprites/fighters/monsters/aedes/blur.png" id="6_us8aj"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_as45u"]
 [ext_resource type="PackedScene" uid="uid://txc7073pnryn" path="res://scenes/index/vfx/direct.tscn" id="8_iuxof"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_q25pu"]
 
-[node name="Aedes" type="Sprite2D" unique_id=1948510965 node_paths=PackedStringArray("animation_player", "skill")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_q25pu"]
+radius = 37.0
+
+[node name="Aedes" type="Sprite2D" unique_id=1948510965 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
 material = ExtResource("1_w7hc1")
 texture = ExtResource("2_iuxof")
 hframes = 8
 vframes = 5
-frame = 6
 script = ExtResource("3_q25pu")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Draining Sting")
 tags = Array[int]([9, 13])
+fighter_type = "monster"
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="Draining Sting" type="Node" parent="." unique_id=82357762]
 script = ExtResource("4_tevc4")
+base_cooldown = 10.0
 effects = Array[int]([0])
+lifesteal = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=852715307]
@@ -38,3 +46,27 @@ script = ExtResource("7_as45u")
 metadata/_custom_type_script = "uid://bupk131cmv6l2"
 
 [node name="Direct" parent="." unique_id=1522588075 instance=ExtResource("8_iuxof")]
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1858577135]
+z_index = -1
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_q25pu")
+
+[node name="stat_base" type="Node" parent="." unique_id=1599315545]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=45074090]
+script = ExtResource("9_q25pu")
+max_hp = 500.0
+attack = 30.0
+defense = 5.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=2127310676]
+script = ExtResource("9_q25pu")
+max_hp = 50.0
+attack = 10.0
+defense = 5.0
+agility = 5.0
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

@@ -1,13 +1,9 @@
 extends FighterBase
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage:float = damage_modifier(unit.final_stat("attack"), unit);
+	var damage:float = Scaling.technique_scaled_value(unit.final_stat("attack"), unit.final_stat("technique"), "damage");
 	var damage_str:String = Index.colored_text("attack", damage, " damage");
-	var final_string:String = "Shoots a powerful bolt, dealing %s to all enemies in a straight line."%[damage_str];
+	var technique_str:String = Index.colored_text("technique", "Technique")
+	var final_string:String = "Shoots a powerful bolt, dealing %s to all enemies in a straight line, damage is amplified by %s."\
+	%[damage_str, technique_str];
 	return final_string;
-
-func damage_modifier(damage:float, unit:FighterUnit=null)->float:
-	if not unit:
-		return Scaling.technique_scaled_value(damage, fighter.technique, "damage")
-	else:
-		return Scaling.technique_scaled_value(damage, unit.stats.technique, "damage")

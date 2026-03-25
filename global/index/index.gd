@@ -250,9 +250,9 @@ const isometric_angle_indexes = [
 	Vector2i.LEFT,
 	Vector2i(-1, -1)
 ]
-@onready var isometric_rad_indexes:Array[float] = set_angle_degs();
-func set_angle_degs()->Array[float]:
-	## idk this is faster than bsearch a v2 array 
+@onready var isometric_rad_indexes:Array[float] = set_angle_rads();
+func set_angle_rads()->Array[float]:
+	## idk this is faster than to bsearch a v2 array 
 	## and i couldnt get it to work right away with v2s
 	var angles:Array[float]
 	for angle:Vector2i in isometric_angle_indexes:

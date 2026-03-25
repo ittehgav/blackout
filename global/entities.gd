@@ -10,7 +10,7 @@ var main_hud:UIRoot
 var current_area:Node2D;
 
 var player:Player;
-var player_unit:ActiveUnit;
+var player_unit:CombatEntity;
 var player_fighter:PlayerFighter;
 var player_party:PlayerParty;
 

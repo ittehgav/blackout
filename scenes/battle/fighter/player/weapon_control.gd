@@ -150,6 +150,7 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 func switch_weapon()->void:
 	var current_weapon:Weapon = weapon;
 	current_weapon.hide()
+	current_weapon.hit.disconnect(equipment.weapon_hit.emit)
 	current_weapon.hit.disconnect(weapon_hit);
 	
 	for p:CanvasItem in current_weapon.projections:
@@ -200,6 +201,7 @@ func play_weapon_vfx()->void:
 
 
 func refresh_weapon_cooldown(time_left:float=0.0, from_switch:bool=false)->void:
+	## BUG not working properly with agility change statuses
 	var new_wait_time:float = weapon.cooldown - Scaling.agility_cooldown_reduction(weapon.cooldown, equipment.holder.agility) 
 	if from_switch:
 		if time_left:

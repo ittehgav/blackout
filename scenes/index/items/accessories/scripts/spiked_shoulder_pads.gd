@@ -14,10 +14,12 @@ func get_description()->String:
 func battle_start_apply(target:ActiveFighter)->void:
 	target.damage_taken.connect(damage_reflection.bind(target));
 	
-func damage_reflection(damage:float, source:ActiveFighter, wearer:ActiveFighter)->void:
+func damage_reflection(damage:float, source:ActiveFighter, quiet:bool, wearer:ActiveFighter)->void:
+	if quiet:
+		return
 	if source is NpcFighter:
 		if source.base.skill_range == FighterBase.MELEE_RANGE:
-			Combat.deal_damage(wearer, source, Callable(), damage/2, false)
+			Combat.deal_damage(wearer, source, damage/2, true)
 	elif source is PlayerFighter:
 		if Entities.player_fighter.equipment.weapon_control.weapon.melee:
-			Combat.deal_damage(wearer, source, Callable(), damage/2, false);
+			Combat.deal_damage(wearer, source, damage/2, true);

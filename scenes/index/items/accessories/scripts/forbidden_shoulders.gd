@@ -22,13 +22,13 @@ func get_description()->String:
 
 
 func battle_start_apply(target:ActiveFighter, first:bool=true)->void:
-	var enemy_units:Array[ActiveFighter] = target.enemy_team.units;
-	if len(enemy_units):
+	var enemy_fighters:Array[ActiveFighter] = target.enemy_team.fighters;
+	if len(enemy_fighters):
 		var steal_target:ActiveFighter;
-		for unit:ActiveFighter in enemy_units:
+		for fighter:ActiveFighter in enemy_fighters:
 			@warning_ignore("unassigned_variable")
-			if not steal_target or unit.defense > steal_target.defense:
-				steal_target = unit;
+			if not steal_target or fighter.defense > steal_target.defense:
+				steal_target = fighter;
 				
 		var defense_steal:int = steal_target.defense/2;
 

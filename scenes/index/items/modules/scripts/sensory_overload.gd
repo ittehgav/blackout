@@ -24,7 +24,6 @@ func check_availability()->bool:
 	return Entities.player.inventory.chips >= chips_cost;
 
 func use()->void:
-	
 	var technique_frac:= base_technique_frac;
 	var stun_duration:= base_stun_duration;
 	var player_technique := Entities.player_fighter.technique;
@@ -37,8 +36,8 @@ func use()->void:
 	var player:PlayerFighter = Entities.player_fighter;
 	for area:Area2D in aoe_range.get_overlapping_areas():
 		assert(area is HurtBox);
-		var target:ActiveFighter = area.fighter;
-		if target in player.ally_team.units:
+		var target:CombatEntity = area.source;
+		if target in player.ally_team.fighters:
 			Combat.apply_stat_change(player, target, target.technique * technique_frac, "technique");
 		else:
 			Combat.stun_target(player, target, stun_duration)
