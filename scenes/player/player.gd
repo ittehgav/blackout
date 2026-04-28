@@ -1,10 +1,11 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node/icon_character.png")
 extends Leader
 class_name Player;
 
 @export var disciplines:DisciplineTree;
 
-signal entered_settlement(settlement:Settlement);
-signal left_settlement;
+signal entered_location(location:Location);
+signal left_location;
 
 
 
@@ -17,13 +18,7 @@ signal upkeep_paid_fully;
 signal upkeep_food_shortage;
 signal upkeep_fuel_shortage
 
-signal level_up;
-
-
-@export var experience:int = 0;
-
-
-
+signal leveled_up;
 
 
 ## ANY ITEMS THAT BELONG TO THE PLAYER WILL BE CHILDREN OF THE INVENTORY NODE
@@ -39,21 +34,21 @@ var equipment:Array[Equipment]
 @export var equipped_accessory_1:Accessory;
 @export var equipped_accessory_2:Accessory;
 
-
-
-
 var morale:float=3.7;
 
 func _ready()->void:
 	## TODO remove this once the new world map scene loads from proper context
-	Entities.player = self;
+	Entities.player = self
 
-	
+func level_up()->void:
+	level += 1;
+	experience = 0;
+	leveled_up.emit()
 
 
 func _on_level_up() -> void:
-	Scaling.level_up_player_stats()
-
+	for stat:String in Index.all_combat_stats:
+		stats[stat] += Scaling.player_level_stat_gains[stat]
 
 func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
@@ -123,47 +118,7 @@ func travel_upkeep_cost(per_hour:bool=false)->Dictionary[String, int]:
 	}
 	return final_dict;
 
-func travel_upkeep()->void:
-	## food and fuel start at 1 to account for player's expenses
-	if not Entities.player_party.current_settlement:
-		## EVERY 30 IGT MINUTES
-		var cost:Dictionary = travel_upkeep_cost();
-		var missing_food:int = 0;
-		var missing_fuel:int = 0;
-		
-		if inventory.food >= cost.food:
-			inventory.change_resource("food", cost.food * -1);
-		else:
-			missing_food = cost.food - inventory.food;
-			inventory.change_resource("food", inventory.food * -1)
-			
-		if inventory.fuel >= cost.fuel:
-			inventory.change_resource("fuel", cost.fuel * -1)
-		else:
-			missing_fuel = cost.fuel - inventory.fuel;
-			inventory.change_resource("fuel", inventory.fuel * -1);
-		
-		
-		if not missing_food and not missing_fuel:
-			upkeep_paid_fully.emit();
-			
-		
-		if missing_food:
-			upkeep_food_shortage.emit()
-			var morale_loss:float = -morale/3;
-			change_morale(morale_loss);
-			morale_changed.emit();
 
-		if missing_fuel:
-			upkeep_fuel_shortage.emit()
-			## speed will halve every hour down to a bottom cap
-			Entities.player_party.navigation_speed /= 2;
-			Entities.player_party.refresh_speed()
-			if Entities.player_party.navigation_speed < 50:
-				Entities.player_party.navigation_speed = 50;
-		
-		
-		inventory.refresh_resource_counts()
 
 func load_origin(origin:Player)->void:
 	## easier to do this than to have to reconnect the signals from the 
@@ -187,7 +142,7 @@ func load_origin(origin:Player)->void:
 	
 	sight_range = origin.sight_range;
 	
-	color_scheme_index = origin.color_scheme_index;
+	color_scheme_index = origin.color_scheme_index
 	
 	party_name = origin.name;
 	name = origin.name;
@@ -197,10 +152,7 @@ func load_origin(origin:Player)->void:
 	equipped_weapon = origin.equipped_weapon;
 	equipped_module = origin.equipped_module;
 	
-func _on_minute_ticker_timeout() -> void:
-	if not (Entities.world_map.current_minute%30):
-		travel_upkeep()
-		
+
 func change_morale(change:float)->void:
 	morale += change;
 	morale_changed.emit()

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://5uxs31seajqr"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_tbx0t"]
+
+[node name="Overclocked" type="Node" unique_id=613152091]
+script = ExtResource("1_tbx0t")
+description = "-25% cooldown."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

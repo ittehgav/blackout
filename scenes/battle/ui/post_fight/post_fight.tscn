@@ -1,0 +1,425 @@
+[gd_scene format=3 uid="uid://b2cy4v1ixmaic"]
+
+[ext_resource type="Script" uid="uid://ctep8o7ft87gn" path="res://scenes/battle/ui/post_fight/post_fight.gd" id="1_0aoyq"]
+[ext_resource type="Texture2D" uid="uid://pwgn6mnghr6v" path="res://resources/themes/panel.png" id="2_433o0"]
+[ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="2_am2jd"]
+[ext_resource type="Script" uid="uid://caojb5cym3hxa" path="res://scenes/battle/ui/post_fight/victory_sequence.gd" id="2_nsm0m"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="3_7eru0"]
+[ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="3_r614c"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="4_r614c"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="4_uki8n"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_wgbql"]
+[ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="7_do72l"]
+[ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="8_do72l"]
+[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="9_y05uc"]
+[ext_resource type="Script" uid="uid://dhxmswt5kblwd" path="res://scenes/battle/ui/post_fight/loot_panel.gd" id="13_uydno"]
+[ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="14_dh2mc"]
+[ext_resource type="Script" uid="uid://ftwv5dxqst16" path="res://scenes/battle/ui/post_fight/defeat_sequence.gd" id="15_dh2mc"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="16_c3ns4"]
+[ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="17_whl4c"]
+[ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="18_7r0vy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nsm0m"]
+resource_local_to_scene = true
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = ExtResource("2_433o0")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 0, 18, 18)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y05uc"]
+resource_local_to_scene = true
+shader = ExtResource("4_wgbql")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.48000002, 0.49, 0.6, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_wgbql"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_am2jd"]
+resource_name = "idle"
+length = 0.65
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y05uc"]
+_data = {
+&"RESET": SubResource("Animation_wgbql"),
+&"idle": SubResource("Animation_am2jd")
+}
+
+[node name="PostFight" type="Control" unique_id=1253284874 node_paths=PackedStringArray("bgm", "victory_sequence", "defeat_sequence", "player_exp_bar", "ui_sfx")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0aoyq")
+bgm = NodePath("bgm")
+victory_song = ExtResource("2_am2jd")
+defeat_song = ExtResource("3_r614c")
+victory_sequence = NodePath("victory_sequence")
+defeat_sequence = NodePath("defeat_sequence")
+player_exp_bar = NodePath("victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer/exp_bar")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." unique_id=1468079998 instance=ExtResource("4_r614c")]
+
+[node name="bgm" type="AudioStreamPlayer" parent="." unique_id=1516428419]
+
+[node name="victory_sequence" type="Control" parent="." unique_id=593787503 node_paths=PackedStringArray("post_fight", "player_exp_bar", "player_level_label", "party_power_label", "party_power_gain_label", "party_leveled_up", "party_level_up_counter", "continue_btn", "loot_panel")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_nsm0m")
+post_fight = NodePath("..")
+player_exp_bar = NodePath("exp_gain/VBoxContainer/player_levels/VBoxContainer/exp_bar")
+player_level_label = NodePath("exp_gain/VBoxContainer/player_levels/VBoxContainer/Label")
+party_power_label = NodePath("exp_gain/VBoxContainer/party_power/current_party_power")
+party_power_gain_label = NodePath("exp_gain/VBoxContainer/party_power/added_party_power")
+party_leveled_up = NodePath("exp_gain/VBoxContainer/party_levels")
+party_level_up_counter = NodePath("exp_gain/VBoxContainer/party_levels/Label3")
+continue_btn = NodePath("exp_gain/continue")
+loot_panel = NodePath("loot_panel")
+
+[node name="exp_gain" type="PanelContainer" parent="victory_sequence" unique_id=687899523]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nsm0m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_sequence/exp_gain" unique_id=1981374929]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="victory_sequence/exp_gain/VBoxContainer" unique_id=283961154]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 128
+text = "VICTORY"
+
+[node name="player_levels" type="HBoxContainer" parent="victory_sequence/exp_gain/VBoxContainer" unique_id=259573131]
+layout_mode = 2
+
+[node name="player_sprite" type="Control" parent="victory_sequence/exp_gain/VBoxContainer/player_levels" unique_id=1098461048]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="player_body" type="Sprite2D" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/player_sprite" unique_id=750694746]
+material = SubResource("ShaderMaterial_y05uc")
+position = Vector2(62, 82)
+scale = Vector2(2, 2)
+texture = ExtResource("3_7eru0")
+hframes = 8
+vframes = 9
+frame = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/player_sprite/player_body" unique_id=194477901]
+libraries/ = SubResource("AnimationLibrary_y05uc")
+libraries/player = ExtResource("4_uki8n")
+autoplay = &"idle"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_sequence/exp_gain/VBoxContainer/player_levels" unique_id=574342237]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer" unique_id=1248018276]
+layout_mode = 2
+text = "Level: 32"
+
+[node name="exp_bar" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer" unique_id=560217631 instance=ExtResource("7_do72l")]
+layout_mode = 2
+size_flags_vertical = 4
+step = 0.5
+from_player = true
+
+[node name="party_power" type="HBoxContainer" parent="victory_sequence/exp_gain/VBoxContainer" unique_id=1710208515]
+layout_mode = 2
+
+[node name="party_power_icon" parent="victory_sequence/exp_gain/VBoxContainer/party_power" unique_id=791021901 instance=ExtResource("8_do72l")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="current_party_power" type="Label" parent="victory_sequence/exp_gain/VBoxContainer/party_power" unique_id=410326672]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "2122"
+
+[node name="added_party_power" type="Label" parent="victory_sequence/exp_gain/VBoxContainer/party_power" unique_id=1614966694]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "2122"
+
+[node name="party_levels" type="HBoxContainer" parent="victory_sequence/exp_gain/VBoxContainer" unique_id=1392478017]
+layout_mode = 2
+
+[node name="Party Icon" parent="victory_sequence/exp_gain/VBoxContainer/party_levels" unique_id=2067684343 instance=ExtResource("9_y05uc")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="victory_sequence/exp_gain/VBoxContainer/party_levels" unique_id=1838982081]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "2122"
+
+[node name="continue" type="Button" parent="victory_sequence/exp_gain" unique_id=2104865482]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "Continue"
+
+[node name="loot_panel" type="Panel" parent="victory_sequence" unique_id=147266583 node_paths=PackedStringArray("player_inventory_display", "enemy_inventory_display", "take_loot_btn", "continue_btn")]
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 680.0
+offset_top = -350.0
+offset_right = 1880.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_uydno")
+player_inventory_display = NodePath("player_inventory")
+enemy_inventory_display = NodePath("enemy_inventory")
+take_loot_btn = NodePath("VBoxContainer/take_loot")
+continue_btn = NodePath("finish_post_fight")
+
+[node name="Label" type="Label" parent="victory_sequence/loot_panel" unique_id=1799319404]
+layout_mode = 0
+offset_left = 30.0
+offset_top = -8.0
+offset_right = 214.0
+offset_bottom = 94.0
+theme_override_font_sizes/font_size = 128
+text = "Loot"
+
+[node name="player_inventory" parent="victory_sequence/loot_panel" unique_id=1918470521 node_paths=PackedStringArray("exchanging_display") instance=ExtResource("14_dh2mc")]
+custom_minimum_size = Vector2(538, 0)
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 23.333374
+offset_top = 93.0
+offset_right = 561.3334
+offset_bottom = 767.0
+grow_horizontal = 1
+grow_vertical = 1
+context = "loot"
+exchanging_display = NodePath("../enemy_inventory")
+
+[node name="operation" parent="victory_sequence/loot_panel/player_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(1918470521, 2139714282) index="0" unique_id=286290238]
+text = "LOOT"
+
+[node name="resources_dropdown" parent="victory_sequence/loot_panel/player_inventory" index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+
+[node name="enemy_inventory" parent="victory_sequence/loot_panel" unique_id=1767096259 node_paths=PackedStringArray("exchanging_display") instance=ExtResource("14_dh2mc")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 801.0
+offset_top = 29.0
+offset_right = 801.0
+offset_bottom = 703.0
+grow_horizontal = 1
+grow_vertical = 1
+context = "loot"
+from_player = false
+exchanging_display = NodePath("../player_inventory")
+
+[node name="operation" parent="victory_sequence/loot_panel/enemy_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(1767096259, 2139714282) index="0" unique_id=286290238]
+text = "DISCARD"
+
+[node name="resources_dropdown" parent="victory_sequence/loot_panel/enemy_inventory" index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+visible = false
+offset_left = 239.66663
+offset_right = 343.66663
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="victory_sequence/loot_panel" unique_id=617565345]
+layout_mode = 0
+offset_left = 557.0
+offset_top = 132.0
+offset_right = 597.0
+offset_bottom = 172.0
+
+[node name="take_loot" type="Button" parent="victory_sequence/loot_panel/VBoxContainer" unique_id=1644811856]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Take Loot"
+
+[node name="finish_post_fight" type="Button" parent="victory_sequence/loot_panel" unique_id=2017450098]
+modulate = Color(0.5, 0.5, 0.5, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -66.0
+offset_right = -40.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Continue"
+
+[node name="defeat_sequence" type="Control" parent="." unique_id=150164074 node_paths=PackedStringArray("morale_icon")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_dh2mc")
+morale_icon = NodePath("PanelContainer/MarginContainer/HBoxContainer/MoraleIcon")
+
+[node name="PanelContainer" type="PanelContainer" parent="defeat_sequence" unique_id=343694042]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="defeat_sequence/PanelContainer" unique_id=1710435727]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="defeat_sequence/PanelContainer/MarginContainer" unique_id=1785323096]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 128
+text = "DEFEAT"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="defeat_sequence/PanelContainer/MarginContainer" unique_id=1187288503]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MoraleIcon" parent="defeat_sequence/PanelContainer/MarginContainer/HBoxContainer" unique_id=3574124 instance=ExtResource("16_c3ns4")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+auto_update = false
+
+[node name="ProgressBar" type="TextureProgressBar" parent="defeat_sequence/PanelContainer/MarginContainer/HBoxContainer" unique_id=491573684]
+custom_minimum_size = Vector2(192, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 5.0
+step = 0.1
+value = 5.0
+nine_patch_stretch = true
+texture_under = ExtResource("17_whl4c")
+texture_progress = ExtResource("18_7r0vy")
+
+[node name="finish_post_fight" type="Button" parent="defeat_sequence/PanelContainer/MarginContainer" unique_id=1068013173]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "Continue
+"
+
+[connection signal="level_up" from="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer/exp_bar" to="victory_sequence" method="refresh_player_level_label"]
+[connection signal="pressed" from="victory_sequence/exp_gain/continue" to="victory_sequence" method="_on_continue_pressed"]
+[connection signal="item_dropped" from="victory_sequence/loot_panel/player_inventory" to="victory_sequence/loot_panel" method="check_available_loot"]
+[connection signal="item_dropped" from="victory_sequence/loot_panel/enemy_inventory" to="victory_sequence/loot_panel" method="check_available_loot"]
+[connection signal="pressed" from="victory_sequence/loot_panel/VBoxContainer/take_loot" to="victory_sequence/loot_panel" method="_on_take_loot_pressed"]
+[connection signal="pressed" from="victory_sequence/loot_panel/finish_post_fight" to="." method="_on_finish_post_fight_pressed"]
+[connection signal="pressed" from="defeat_sequence/PanelContainer/MarginContainer/finish_post_fight" to="." method="_on_finish_post_fight_pressed"]
+
+[editable path="victory_sequence/loot_panel/player_inventory"]
+[editable path="victory_sequence/loot_panel/enemy_inventory"]

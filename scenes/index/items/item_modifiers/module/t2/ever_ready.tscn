@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://5ddfkvl64xgv"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_8k88c"]
+
+[node name="Ever-Ready" type="Node" unique_id=1733715332]
+script = ExtResource("1_8k88c")
+tier = 2
+description = "On use: 50% chance to reduce cooldown to 0.5 seconds."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

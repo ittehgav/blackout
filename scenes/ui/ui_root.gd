@@ -7,6 +7,7 @@ class_name UIRoot;
 @export var ui_sfx:UISFX;
 
 func _ready()->void:
+	assert(ui_sfx)
 	if not get_parent() is UIRoot:
 		get_window().size_changed.connect(resize);
 		resize.call_deferred()
@@ -23,13 +24,10 @@ func resize()->void:
 
 func recursive_connect_ui_feedback(node:Node)->void:
 	if "pressed" in node:
-		if not len(node.pressed.get_connections()) > 1:
-			node.pressed.connect(ui_sfx.ui_click_sound.bind(node));
-
+		node.pressed.connect(ui_sfx.ui_click_sound.bind(node));
 
 	if node is BaseButton:
-		if not len(node.mouse_entered.get_connections()):
-			node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
+		node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
 	if node is TabContainer:
 		node.tab_hovered.connect(ui_sfx.tab_mouseover_sound.bind(node))
 		node.tab_changed.connect(ui_sfx.tab_click_sound.bind(node))

@@ -5,9 +5,65 @@
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_33oev"]
 [ext_resource type="Script" uid="uid://bamqk8mp3b2xu" path="res://scenes/index/fighters/scripts/wheel.gd" id="3_uh247"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_5fo68"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_6qtwh"]
+[ext_resource type="Texture2D" uid="uid://d8kjwmwy3tq4" path="res://assets/visual/sprites/fighters/units/wheel/wheel_ally.png" id="4_fgt4m"]
+[ext_resource type="Texture2D" uid="uid://scenj6qujdxu" path="res://assets/visual/sprites/fighters/units/wheel/wheel_enemy.png" id="5_kr4bv"]
 [ext_resource type="Texture2D" uid="uid://bxuv2skqnl140" path="res://assets/visual/sprites/fighters/units/wheel/blur.png" id="6_vxrli"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_fqy1x"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_n3lfl"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="12_kr4bv"]
+
+[sub_resource type="Resource" id="Resource_6y8d5"]
+script = ExtResource("4_6qtwh")
+target_texture = ExtResource("2_37wss")
+base_name = "wheel"
+ally_texture = ExtResource("4_fgt4m")
+enemy_texture = ExtResource("5_kr4bv")
+metadata/_custom_type_script = "uid://drlbs6gxus35a"
+
+[sub_resource type="Animation" id="Animation_furyi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shadow_container:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1622q"]
+_data = {
+&"RESET": SubResource("Animation_furyi")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_33oev"]
 radius = 63.0
@@ -24,7 +80,9 @@ script = ExtResource("3_uh247")
 ticker = NodePath("ticker")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Accelerate")
-tags = Array[int]([1, 4])
+hue_shifter = SubResource("Resource_6y8d5")
+tags = Array[int]([1, 4, 6])
+body_type = 1
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
@@ -36,10 +94,12 @@ base_cooldown = 4.0
 effects = Array[int]([6])
 tranform_visual = 2
 position_lineup = false
+special_aoe_projection = true
 own_damage_modifier = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1232262713]
+libraries/ = SubResource("AnimationLibrary_1622q")
 libraries/fighter_base = ExtResource("4_5fo68")
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=458689013]
@@ -74,12 +134,22 @@ metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="stats_per_level" type="Node" parent="stat_base" unique_id=1991617458]
 script = ExtResource("8_n3lfl")
-max_hp = 50.0
+max_hp = 30.0
 attack = 40.0
 defense = 5.0
 agility = 2.5
 technique = 5.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=2033371142]
+position = Vector2(0, -8.000001)
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=1472866193]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 9.000001)
+scale = Vector2(0.7, 0.71941626)
+texture = ExtResource("12_kr4bv")
 
 [connection signal="timeout" from="ticker" to="." method="_on_ticker_timeout"]

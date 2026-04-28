@@ -58,7 +58,7 @@ func save_game()->void:
 		Tweens.ui_fade_out($save_data);
 		Tweens.ui_fade_in($overwrite_confirmation);
 	else:
-		SaveSystem.save_data(file_path)
+		#SaveSystem.save_data(file_path)
 		game_saved.emit();
 
 func parse_play_time()->String:
@@ -111,7 +111,7 @@ func _on_button_pressed() -> void:
 
 
 func _on_delete_pressed() -> void:
-	SaveSystem.delete_file(file_path)
+	#SaveSystem.delete_file(file_path)
 	game_saved.emit();
 
 

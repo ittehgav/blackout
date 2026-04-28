@@ -73,6 +73,7 @@ var fighter:NpcFighter;
 ## for anything other than damage/generic statuses, used in special skill which
 ## goes in the fighter base script but it goes in the skillcomp node for consistency
 ## always scaled with technique but also gets resolved in special skill call
+@export var special_aoe_projection:bool=false
 
 @export_subgroup("special modifiers")
 

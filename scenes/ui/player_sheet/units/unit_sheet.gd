@@ -4,10 +4,9 @@ class_name UnitSheet;
 
 
 @export_group("data_nodes")
-@export var sample:SpriteSample;
 @export var showing_unit:FighterUnit
+@export var unit_sprite:Sprite2D;
 
-@export var evolution_display:PanelContainer;
 
 @export var unit_name_label:Label;
 @export var skill_name_label:Label;
@@ -27,12 +26,10 @@ class_name UnitSheet;
 
 
 func display_unit(unit:FighterUnit)->void:
-	evolution_display.setup(unit);
 
 	showing_unit = unit;
 	
-	showing_unit.base.set_material(null);
-	sample.set_sample(showing_unit.base);
+	unit_sprite.texture = showing_unit.base.texture;
 	
 	stats_dropdown.source = unit;
 	stats_dropdown.update()
@@ -54,9 +51,8 @@ func refresh_data()->void:
 	else:
 		accessory_sample.load_blank(2);
 	
-	skill_name_label.text = "Skill: " + showing_unit.base.skill_name;
+	skill_name_label.text = "Skill: " + showing_unit.base.skill.name;
 	skill_description_label.text = showing_unit.base.full_skill_description(showing_unit);
-	flavor_label.text = showing_unit.base.flavor;
 
 	
 	skill_cooldown_label.text = "Cooldown: " + str(snapped(showing_unit.final_skill_cooldown(),.01)) + "s";
@@ -64,7 +60,7 @@ func refresh_data()->void:
 
 
 func get_skill_range(fighter:FighterBase)->String:
-	if fighter.skill_range == fighter.MELEE_RANGE:
+	if fighter.skill.skill_range == fighter.MELEE_RANGE:
 		return "Melee";
 	elif fighter.skill_range < 750:
 		return "Short Range";
@@ -90,8 +86,8 @@ func _on_item_sample_gui_input(e: InputEvent) -> void:
 	if e.is_action_pressed("use_item") and accessory_sample.item:
 		var item:Item = accessory_sample.item
 		var display:InventoryDisplay = Entities.player_sheet.player_inventory;
-		if display.find_clear_cell(item) != Vector2i(-1, -1):
-			showing_unit.equipped_accessory = null;
+		if not display.has_room(item):
+			showing_unit.unequip_accessory()
 			display.throw_in_inventory(item);
 			display.refresh_data();
 			accessory_sample.load_blank(2);

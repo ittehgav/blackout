@@ -1,16 +1,45 @@
+@tool
 extends Node2D
 
 class_name FighterIndex
 
+@export var refresh_index:bool:
+	set(val):
+		refresh_index = false;
+		refresh_fighter_bases()
+
 ## fighter bases are only stored as index references outside of combat
-@export var all_fighter_base_scenes:Array[PackedScene];
-var all_fighter_bases:Array[FighterBase];
+@export var unit_bases_dir:String;
+@export var monster_bases_dir:String
 
-func find_base(target_name:String)->FighterBase:
-	return all_fighter_bases.filter(func(b:FighterBase)->bool:return b.name == target_name)[0]
 
-func random_fighter_base(only_non_evolved:bool=false)->FighterBase:
-	var pool:Array[FighterBase] = all_fighter_bases;
-	if only_non_evolved:
-		pool = pool.filter(func(f:FighterBase)->bool:return len(f.tags) == 2);
-	return pool.pick_random();
+## only need this for matching evolutions, no reason to fetch monster bases like this rn
+@export var all_unit_bases:Dictionary[String, FighterBase];
+@export var all_unit_base_scenes:Dictionary[String, PackedScene];
+
+func refresh_fighter_bases()->void:
+	var root:Node = get_tree().edited_scene_root
+	all_unit_bases = {};
+	all_unit_base_scenes = {}
+	for c in get_children():
+		if c is FighterBase:
+			c.queue_free();
+	
+	
+	for dir:String in [unit_bases_dir, monster_bases_dir]:
+		var access:DirAccess = DirAccess.open(dir);
+		for filename:String in access.get_files():
+			var base_scene:PackedScene = load(dir + "/" + filename);
+			var true_name:String = base_scene.get_state().get_node_name(0);
+			
+			var base:FighterBase = base_scene.instantiate();
+			base.name = true_name;
+		
+
+			add_child(base);
+
+			base.owner = root
+			all_unit_bases[true_name] = base;
+			all_unit_base_scenes[true_name] = base_scene;
+			
+		

@@ -3,11 +3,11 @@ extends PanelContainer
 @export var date_label:Label;
 @export var hour_label:Label;
 
-
+@onready var world_map:WorldMap = get_tree().get_first_node_in_group("world_map")
 
 func refresh_date()->void:
-	var day:int = Entities.world_map.current_day;
-	var month:int = Entities.world_map.current_month;
+	var day:int = world_map.current_day;
+	var month:int = world_map.current_month;
 	var day_string:String;
 	var month_string:String;
 	if day < 10:
@@ -18,12 +18,12 @@ func refresh_date()->void:
 		month_string = "0" + str(month);
 	else:
 		month_string = str(month);
-	date_label.text = day_string + "/" + month_string + "/" + str(Entities.world_map.current_month);
+	date_label.text = day_string + "/" + month_string + "/" + str(world_map.current_month);
 
 
 func refresh_clock()->void:
-	var hour:int = Entities.world_map.current_hour;
-	var minute:int = Entities.world_map.current_minute;
+	var hour:int = world_map.current_hour;
+	var minute:int = world_map.current_minute;
 	
 	var hour_string:String;
 	var minute_string:String;

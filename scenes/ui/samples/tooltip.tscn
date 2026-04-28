@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://qt3uf6vc1tww"]
+[gd_scene format=3 uid="uid://qt3uf6vc1tww"]
 
-[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="1_b5j4s"]
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Blood.tres" id="1_b5j4s"]
 [ext_resource type="Script" uid="uid://bvfxh7uhjvokr" path="res://scenes/ui/samples/tooltip.gd" id="1_ufptg"]
 
-[node name="Tooltip" type="PanelContainer" node_paths=PackedStringArray("name_label", "sub_name_label", "description_label", "hint", "hover_timer")]
+[node name="Tooltip" type="PanelContainer" unique_id=2029286187 node_paths=PackedStringArray("name_label", "sub_name_label", "description_label", "hint", "hover_timer")]
 process_mode = 3
 visible = false
 top_level = true
@@ -31,7 +31,7 @@ description_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/descri
 hint = NodePath("MarginContainer/HBoxContainer/VBoxContainer/hint")
 hover_timer = NodePath("hover_timer")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=947831396]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 2
@@ -40,20 +40,20 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=334118593]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=406691123]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=401493449]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -61,14 +61,14 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 48
 text = "wawa"
 
-[node name="sub_name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="sub_name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1208562124]
 visible = false
 modulate = Color(1, 1, 1, 0.556863)
 layout_mode = 2
 text = "subname"
 horizontal_alignment = 1
 
-[node name="description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="description" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=2028765007]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -83,7 +83,7 @@ fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
 
-[node name="hint" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="hint" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=11698806]
 visible = false
 modulate = Color(1, 1, 1, 0.513726)
 layout_mode = 2
@@ -91,7 +91,7 @@ size_flags_vertical = 8
 text = "tooly"
 horizontal_alignment = 2
 
-[node name="hover_timer" type="Timer" parent="."]
+[node name="hover_timer" type="Timer" parent="." unique_id=209213669]
 wait_time = 0.5
 one_shot = true
 

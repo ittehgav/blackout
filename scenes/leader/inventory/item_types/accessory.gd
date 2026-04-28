@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_ring.png")
 @abstract
 class_name Accessory
 extends Equipment
@@ -23,17 +24,17 @@ const type = "accessory"
 }
 
 
-
+@export var tag_restriction:bool;
 @export var exclusive_tag:FighterBase.Tag;
 
 
 func get_description()->String:
 	var description:String = "Equippable on ";
-	if equippable.player and equippable.unit and not exclusive_tag:
+	if equippable.player and equippable.unit and not tag_restriction:
 		description += "anyone";
 	else:
 		if equippable.unit:
-			if exclusive_tag:
+			if tag_restriction:
 				var tag_str:String = FighterBase.Tag.keys()[exclusive_tag];
 				## only makes it here when not player or has exclusive tag
 				description += tag_str+"s"
@@ -43,7 +44,7 @@ func get_description()->String:
 				description += "units"
 		if equippable.player:
 			description += "you";
-	description += ".\n";
+	description += ".\n\n";
 	
 	if stat_modifiers:
 		for stat:String in Index.all_combat_stats:
@@ -54,12 +55,12 @@ func get_description()->String:
 	
 
 func other_equipped_accessory()->Accessory:
-	assert(self == Entities.player.equipped_accessory_1 or 
-	self == Entities.player.equipped_accessory_2)
-	if self == Entities.player.equipped_accessory_1:
-		return Entities.player.equipped_accessory_2;
+	assert(self == player.equipped_accessory_1 or 
+	self == player.equipped_accessory_2)
+	if self == player.equipped_accessory_1:
+		return player.equipped_accessory_2;
 	else:
-		return Entities.player.equipped_accessory_1
+		return player.equipped_accessory_1
 
 func battle_start_apply(_target:ActiveFighter)->void:
 	printerr("nobsa ", name)

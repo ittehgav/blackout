@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="24_nct2u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
-radius = 15.0
+radius = 40.60788
 
 [node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "movement_ticker", "overlay", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "statuses")]
 collision_layer = 256
@@ -33,7 +33,6 @@ stat_modifiers = NodePath("stats/modifiers")
 stat_multipliers = NodePath("stats/multipliers")
 hurtbox = NodePath("hurtbox")
 statuses = NodePath("statuses")
-max_hp = null
 
 [node name="stats" type="Node" parent="." unique_id=425909678]
 
@@ -118,7 +117,6 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
 [node name="outline" type="ReferenceRect" parent="FighterOverlay" unique_id=589895931]
-modulate = Color(1, 1, 1, 0.5294118)
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -131,8 +129,6 @@ offset_right = 1.0
 offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
-border_color = Color(0.43, 0.14619999, 0.14619999, 1)
-border_width = 2.0
 editor_only = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FighterOverlay/outline" unique_id=365123634]
@@ -236,7 +232,6 @@ shape = SubResource("CircleShape2D_m77vo")
 
 [connection signal="damage_blocked" from="." to="FighterOverlay" method="_on_npc_fighter_damage_blocked"]
 [connection signal="damage_taken" from="." to="FighterOverlay" method="_on_fighter_damage_taken"]
-[connection signal="death" from="." to="." method="_on_death"]
 [connection signal="healing_received" from="." to="FighterOverlay" method="_on_npc_fighter_healing_received"]
 [connection signal="shield_gained" from="." to="FighterOverlay" method="_on_npc_fighter_shield_gained"]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]

@@ -1,0 +1,368 @@
+[gd_scene format=3 uid="uid://dbe388224i5ve"]
+
+[ext_resource type="Script" uid="uid://cr868dirbxmu7" path="res://scenes/ui/location_menu/dungeon/dungeon_menu.gd" id="1_7hbv3"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_dqlpc"]
+[ext_resource type="Texture2D" uid="uid://2v8suik1qjog" path="res://assets/visual/buildings/dungeon_sign/skull_broken.png" id="3_x2qvw"]
+[ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="4_omstc"]
+[ext_resource type="Script" uid="uid://yn55dca3qplf" path="res://scenes/ui/sound/sfx_player.gd" id="5_tpeou"]
+[ext_resource type="Texture2D" uid="uid://5vfqfug0gssf" path="res://assets/visual/buildings/dungeon_sign/skull.png" id="5_x2qvw"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="6_8r6h2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpeou"]
+resource_local_to_scene = true
+shader = ExtResource("6_8r6h2")
+shader_parameter/color = Color(0.6, 0.12, 0.12, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_omstc"]
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.69, 0.69, 0.69, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../skull:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.4, 0.4, 0.4, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../skull:custom_minimum_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 64)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../skull:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_x2qvw")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../skull/cleared:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_x2qvw"]
+resource_name = "highlight"
+length = 0.76
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0.69, 0.69, 0.69, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../skull:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.03333334, 0.73333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.4, 0.4, 0.4, 1), Color(0.8, 0.8, 0.8, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8r6h2"]
+resource_name = "wave_cleared"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../skull:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(64, 64), Vector2(96, 96), Vector2(64, 64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../skull:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.4, 0.4, 0.4, 1), Color(4.0307617, 4.0307617, 4.0307617, 1), Color(0.3, 0.3, 0.3, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../skull:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("5_x2qvw"), ExtResource("3_x2qvw")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../skull/cleared:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8r6h2"]
+_data = {
+&"RESET": SubResource("Animation_omstc"),
+&"highlight": SubResource("Animation_x2qvw"),
+&"wave_cleared": SubResource("Animation_8r6h2")
+}
+
+[node name="DungeonMenu" type="Control" unique_id=1341485123 node_paths=PackedStringArray("dungeon_name_label", "content_hbox", "wave_hboxes", "wave_power_icon", "dungeon_power_label", "ui_sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7hbv3")
+dungeon_name_label = NodePath("content_hbox/PanelContainer/HBoxContainer2/dungeon_name")
+content_hbox = NodePath("content_hbox")
+wave_hboxes = [NodePath("content_hbox/PanelContainer2/VBoxContainer/wave_1/wave_1_data"), NodePath("content_hbox/PanelContainer2/VBoxContainer/wave_2/wave_2_data"), NodePath("content_hbox/PanelContainer2/VBoxContainer/wave_3/wave_3_data")]
+wave_power_icon = NodePath("content_hbox/PanelContainer/HBoxContainer/party_power_icon")
+dungeon_power_label = NodePath("content_hbox/PanelContainer/HBoxContainer/wave_power")
+whole_skull_texture = ExtResource("5_x2qvw")
+broken_skull_texture = ExtResource("3_x2qvw")
+ui_sfx = NodePath("ui_sfx")
+metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
+
+[node name="ui_sfx" parent="." unique_id=7682245 instance=ExtResource("2_dqlpc")]
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=511596070]
+script = ExtResource("5_tpeou")
+metadata/_custom_type_script = "uid://yn55dca3qplf"
+
+[node name="content_hbox" type="HBoxContainer" parent="." unique_id=1964465950]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -250.0
+offset_right = 192.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="content_hbox" unique_id=2028558988]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="content_hbox/PanelContainer" unique_id=480900253]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="exit_btn" type="Button" parent="content_hbox/PanelContainer/HBoxContainer2" unique_id=2135002520]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Exit
+"
+
+[node name="dungeon_name" type="Label" parent="content_hbox/PanelContainer/HBoxContainer2" unique_id=408035364]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "aga"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="content_hbox/PanelContainer" unique_id=22002494]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="party_power_icon" parent="content_hbox/PanelContainer/HBoxContainer" unique_id=259113010 instance=ExtResource("4_omstc")]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="wave_power" type="Label" parent="content_hbox/PanelContainer/HBoxContainer" unique_id=775466315]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "62"
+
+[node name="start_next_wave" type="Button" parent="content_hbox/PanelContainer" unique_id=1401088517]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "START NEXT WAVE"
+
+[node name="PanelContainer2" type="PanelContainer" parent="content_hbox" unique_id=240429511]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="content_hbox/PanelContainer2" unique_id=1695489316]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="content_hbox/PanelContainer2/VBoxContainer" unique_id=251540064]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "WAVES"
+
+[node name="wave_1" type="HBoxContainer" parent="content_hbox/PanelContainer2/VBoxContainer" unique_id=1990231549]
+layout_mode = 2
+theme_override_constants/separation = -35
+
+[node name="skull" type="TextureRect" parent="content_hbox/PanelContainer2/VBoxContainer/wave_1" unique_id=1071022233]
+modulate = Color(0.4, 0.4, 0.4, 1)
+self_modulate = Color(0.3, 0.3, 0.3, 1)
+material = SubResource("ShaderMaterial_tpeou")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_x2qvw")
+
+[node name="cleared" type="Label" parent="content_hbox/PanelContainer2/VBoxContainer/wave_1/skull" unique_id=1371374135]
+visible = false
+modulate = Color(2.9289904, 2.9289904, 2.9289904, 1)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 22.0
+offset_right = 102.0
+offset_bottom = 48.0
+rotation = -0.2565634
+text = "CLEARED"
+
+[node name="wave_1_data" type="HBoxContainer" parent="content_hbox/PanelContainer2/VBoxContainer/wave_1" unique_id=2061408402]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_constants/separation = -87
+
+[node name="highlight_animation" type="AnimationPlayer" parent="content_hbox/PanelContainer2/VBoxContainer/wave_1/wave_1_data" unique_id=762184769]
+libraries/ = SubResource("AnimationLibrary_8r6h2")
+
+[node name="wave_2" type="HBoxContainer" parent="content_hbox/PanelContainer2/VBoxContainer" unique_id=5844134]
+layout_mode = 2
+theme_override_constants/separation = -35
+
+[node name="skull" type="TextureRect" parent="content_hbox/PanelContainer2/VBoxContainer/wave_2" unique_id=1801443959]
+modulate = Color(0.4, 0.4, 0.4, 1)
+material = SubResource("ShaderMaterial_tpeou")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_x2qvw")
+
+[node name="cleared" type="Label" parent="content_hbox/PanelContainer2/VBoxContainer/wave_2/skull" unique_id=1468617170]
+visible = false
+modulate = Color(2.9289904, 2.9289904, 2.9289904, 1)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 22.0
+offset_right = 102.0
+offset_bottom = 48.0
+rotation = -0.2565634
+text = "CLEARED"
+
+[node name="wave_2_data" type="HBoxContainer" parent="content_hbox/PanelContainer2/VBoxContainer/wave_2" unique_id=1764291755]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_constants/separation = -87
+
+[node name="highlight_animation" type="AnimationPlayer" parent="content_hbox/PanelContainer2/VBoxContainer/wave_2/wave_2_data" unique_id=629901232]
+libraries/ = SubResource("AnimationLibrary_8r6h2")
+
+[node name="wave_3" type="HBoxContainer" parent="content_hbox/PanelContainer2/VBoxContainer" unique_id=1156760422]
+layout_mode = 2
+theme_override_constants/separation = -35
+
+[node name="skull" type="TextureRect" parent="content_hbox/PanelContainer2/VBoxContainer/wave_3" unique_id=1614233448]
+modulate = Color(0.4, 0.4, 0.4, 1)
+material = SubResource("ShaderMaterial_tpeou")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_x2qvw")
+
+[node name="cleared" type="Label" parent="content_hbox/PanelContainer2/VBoxContainer/wave_3/skull" unique_id=816777280]
+visible = false
+modulate = Color(2.9289904, 2.9289904, 2.9289904, 1)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 22.0
+offset_right = 102.0
+offset_bottom = 48.0
+rotation = -0.2565634
+text = "CLEARED"
+
+[node name="wave_3_data" type="HBoxContainer" parent="content_hbox/PanelContainer2/VBoxContainer/wave_3" unique_id=952702549]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_constants/separation = -87
+
+[node name="highlight_animation" type="AnimationPlayer" parent="content_hbox/PanelContainer2/VBoxContainer/wave_3/wave_3_data" unique_id=1253230750]
+libraries/ = SubResource("AnimationLibrary_8r6h2")
+
+[connection signal="pressed" from="content_hbox/PanelContainer/HBoxContainer2/exit_btn" to="." method="_on_exit_btn_pressed"]
+[connection signal="mouse_entered" from="content_hbox/PanelContainer/start_next_wave" to="." method="_on_start_next_wave_mouse_entered"]
+[connection signal="mouse_exited" from="content_hbox/PanelContainer/start_next_wave" to="." method="_on_start_next_wave_mouse_exited"]
+[connection signal="pressed" from="content_hbox/PanelContainer/start_next_wave" to="." method="_on_start_next_wave_pressed"]

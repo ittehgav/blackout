@@ -8,7 +8,6 @@ extends AudioStreamPlayer
 @export var victory:AudioStream;
 @export var defeat:AudioStream
 
-@export var in_settlement:AudioStream;
 
 
 
@@ -17,8 +16,9 @@ extends AudioStreamPlayer
 var current_key:String;
 
 func _ready()->void:
-	Entities.main_bgm = self;
-	play_bgm("intro")
+	if get_tree().root.get_children()[-1].name == "main":
+		## encapsulate f6 run checks if i end up doing this again eslehwewe
+		play_bgm("intro")
 
 
 func play_bgm(key:String)->void:
@@ -29,7 +29,7 @@ func play_bgm(key:String)->void:
 		pitch_scale = 1;
 		stream = target_stream;
 
-		#play();
+		play();
 
 
 func _on_finished() -> void:
@@ -37,41 +37,27 @@ func _on_finished() -> void:
 		play()
 
 
-func _on_main_scenario_changed(new: String, _old: String) -> void:
+func on_scenario_changed(new: State.Scenario, _old: State.Scenario) -> void:
 	match new:
-		"main":
+		State.Scenario.main:
 			play_bgm("main")
-		"world_map":
+		State.Scenario.battle:
+			play_bgm("battle")
+			if State.tutorial_scene:
+				volume_db = -5
+			else:
+				volume_db = 0;
+		State.Scenario.world_map:
 			play_bgm("world_map")
 
-		"in_settlement":
-			var location:Location = Entities.player_party.current_settlement.locations[0];
-			## will only ever hit a key if it's a single-location settlement?
-			var key:String = location.bgm_key;
-			if key:
-				play_bgm(key)
-			else:
-				if location is Building:
-					play_bgm("in_settlement")
-				elif location is Dungeon:
-					play_bgm("combat")
 
 
-func _on_main_substate_changed(new: String, _previous: String) -> void:
+func on_substate_changed(new: State.Substate, _previous: State.Substate) -> void:
 	match new:
-		"main":
-			volume_db = -10;
-		"dialogue":
-			volume_db = -15
-		"pre_battle":
-			volume_db = 0;
+		State.Substate.post_battle:
+			stop()
+		State.Substate.pre_battle:
+			volume_db = -5;
 			play_bgm("battle")
-		"battle_finishing":
+		State.Substate.battle_finishing:
 			stop();
-		"post_battle":
-			if Entities.arena.won_battle:
-				volume_db = -10
-				play_bgm('victory');
-			else:
-				volume_db = -10
-				play_bgm("defeat")

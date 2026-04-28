@@ -4,11 +4,67 @@
 [ext_resource type="Texture2D" uid="uid://bt3wcrywsfm4h" path="res://assets/visual/sprites/fighters/units/gravity/gravity.png" id="2_yvl46"]
 [ext_resource type="Script" uid="uid://t2fu6pbkan6i" path="res://scenes/index/fighters/scripts/gravity.gd" id="3_pya1c"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_xi7nn"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_04oj3"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_iq7f6"]
+[ext_resource type="Texture2D" uid="uid://dl4f6ylo8ln2w" path="res://assets/visual/sprites/fighters/units/gravity/gravity_ally.png" id="4_rjwwd"]
+[ext_resource type="Texture2D" uid="uid://cuh08uybpawsi" path="res://assets/visual/sprites/fighters/units/gravity/gravity_enemy.png" id="5_pleri"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_ylbig"]
 [ext_resource type="Texture2D" uid="uid://cios5cxxceefl" path="res://assets/visual/sprites/fighters/units/gravity/blur.png" id="7_1p7r2"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_mg1c5"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_ba4bw"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_pleri"]
+
+[sub_resource type="Resource" id="Resource_575tt"]
+script = ExtResource("4_04oj3")
+target_texture = ExtResource("2_yvl46")
+base_name = "gravity"
+ally_texture = ExtResource("4_rjwwd")
+enemy_texture = ExtResource("5_pleri")
+metadata/_custom_type_script = "uid://drlbs6gxus35a"
+
+[sub_resource type="Animation" id="Animation_73ebg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shadow_container:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8u1s7"]
+_data = {
+&"RESET": SubResource("Animation_73ebg")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b08qk"]
 size = Vector2(400, 100)
@@ -25,6 +81,7 @@ frame = 1
 script = ExtResource("3_pya1c")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Gravity Pulse")
+hue_shifter = SubResource("Resource_575tt")
 tags = Array[int]([7, 3])
 movement = 1
 hit_scan = NodePath("hit_scan")
@@ -34,6 +91,7 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Gravity Pulse" type="Node" parent="." unique_id=882028580 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xi7nn")
+base_cooldown = 7.0
 skill_range = 10
 effects = Array[int]([4, 3])
 tranform_visual = 1
@@ -47,6 +105,7 @@ duration = 2.0
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=144748180]
+libraries/ = SubResource("AnimationLibrary_8u1s7")
 libraries/fighter_base = ExtResource("4_iq7f6")
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=1880112702]
@@ -76,14 +135,24 @@ script = ExtResource("8_mg1c5")
 
 [node name="base_stats" type="Node" parent="stat_base" unique_id=92001362]
 script = ExtResource("9_ba4bw")
-max_hp = 200.0
+max_hp = 100.0
 defense = 5.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="stats_per_level" type="Node" parent="stat_base" unique_id=649243213]
 script = ExtResource("9_ba4bw")
-max_hp = 50.0
+max_hp = 10.0
 agility = 2.5
 technique = 5.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=1985599841]
+position = Vector2(0, -8.000001)
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=2033700996]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 8.000001)
+scale = Vector2(0.505, 0.68)
+texture = ExtResource("13_pleri")

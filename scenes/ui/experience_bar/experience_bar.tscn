@@ -1,27 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cl5wh0g2bs1n4"]
+[gd_scene format=3 uid="uid://cl5wh0g2bs1n4"]
 
 [ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="1_eqtnn"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="2_tumeb"]
 [ext_resource type="Script" uid="uid://dlrumf22vb77p" path="res://scenes/ui/experience_bar/experience_bar.gd" id="3_2ep7r"]
 [ext_resource type="Script" uid="uid://dsj0lio4vy5bi" path="res://scenes/ui/sound/level_up_sfx.gd" id="4_2ep7r"]
-[ext_resource type="AudioStream" uid="uid://pi6xjy2cxb0a" path="res://assets/sound/sfx/ui/level_up.wav" id="5_u8n47"]
+[ext_resource type="AudioStream" uid="uid://e1kfmeeqcqnr" path="res://assets/sound/sfx/ui/level_up.ogg" id="4_eqtnn"]
 
-[node name="exp_bar" type="TextureProgressBar" node_paths=PackedStringArray("level_up_text", "level_up_sfx")]
+[node name="exp_bar" type="TextureProgressBar" unique_id=622437059 node_paths=PackedStringArray("level_up_text", "level_up_sfx")]
 custom_minimum_size = Vector2(192, 36)
 offset_right = 192.0
 offset_bottom = 36.0
+step = 0.05
 value = 70.0
 allow_greater = true
 nine_patch_stretch = true
 texture_under = ExtResource("1_eqtnn")
 texture_progress = ExtResource("2_tumeb")
-tint_under = Color(0, 1, 0, 1)
-tint_progress = Color(0.45000002, 0.75, 0.45000002, 1)
+tint_under = Color(0.8, 1, 0.8, 1)
+tint_progress = Color(0.22500001, 0.75, 0.22500001, 1)
 script = ExtResource("3_2ep7r")
 level_up_text = NodePath("level_up")
 level_up_sfx = NodePath("level_up_sfx")
 
-[node name="level_up" type="Label" parent="."]
+[node name="level_up" type="Label" parent="." unique_id=223127501]
 visible = false
 z_index = 3
 layout_mode = 0
@@ -32,8 +33,19 @@ offset_bottom = 11.0
 theme_override_font_sizes/font_size = 64
 text = "LVL UP!"
 
-[node name="level_up_sfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_u8n47")
-pitch_scale = 1.25
+[node name="level_up_sfx" type="AudioStreamPlayer" parent="." unique_id=438797882]
+stream = ExtResource("4_eqtnn")
 script = ExtResource("4_2ep7r")
-level_up = ExtResource("5_u8n47")
+level_up = ExtResource("4_eqtnn")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1658399865]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2

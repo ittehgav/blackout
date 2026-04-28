@@ -9,12 +9,58 @@
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_as45u"]
 [ext_resource type="PackedScene" uid="uid://txc7073pnryn" path="res://scenes/index/vfx/direct.tscn" id="8_iuxof"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_q25pu"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="10_tevc4"]
+
+[sub_resource type="Animation" id="Animation_o77ds"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shadow_container:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame_coords:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_us8aj"]
+_data = {
+&"RESET": SubResource("Animation_o77ds")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q25pu"]
 radius = 37.0
 
 [node name="Aedes" type="Sprite2D" unique_id=1948510965 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
 material = ExtResource("1_w7hc1")
+position = Vector2(0, -1.4869016)
 texture = ExtResource("2_iuxof")
 hframes = 8
 vframes = 5
@@ -34,6 +80,7 @@ lifesteal = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=852715307]
+libraries/ = SubResource("AnimationLibrary_us8aj")
 libraries/fighter_base = ExtResource("5_o77ds")
 
 [node name="blur" type="Sprite2D" parent="." unique_id=831838547]
@@ -70,3 +117,11 @@ agility = 5.0
 technique = 5.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=257125194]
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=747841981]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 13.970094)
+texture = ExtResource("10_tevc4")

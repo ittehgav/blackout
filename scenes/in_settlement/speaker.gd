@@ -37,6 +37,6 @@ func hide_prompt()->void:
 	contact = false;
 	prompt.hide()
 	
-func _input(e:InputEvent)->void:
-	if contact and e.is_action_pressed("interact") and not get_tree().paused:
-		Dialogue.start_dialogue(dialogue, source, clerk_sprite);
+#func _input(e:InputEvent)->void:
+	#if contact and e.is_action_pressed("interact") and not get_tree().paused:
+		#Dialogue.start_dialogue(dialogue, source, clerk_sprite);

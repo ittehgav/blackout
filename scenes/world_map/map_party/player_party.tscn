@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://pqgqmqskja8a"]
+[gd_scene format=3 uid="uid://pqgqmqskja8a"]
 
 [ext_resource type="Script" uid="uid://d3vljfitvcc4" path="res://scenes/world_map/map_party/player_party.gd" id="1_gxa4y"]
 
-[node name="PlayerParty" type="Node2D"]
+[node name="PlayerParty" type="Node2D" unique_id=1715164722]
 script = ExtResource("1_gxa4y")
+
+[connection signal="location_visited" from="." to="." method="_on_location_visited"]
+[connection signal="started_moving" from="." to="." method="_on_started_moving"]

@@ -23,6 +23,8 @@ func use()->void:
 		mirror.display.throw_in_inventory(stack, self)
 		if stack.mirror and stack.mirror.inventory_position != Vector2i(-1, -1):
 			stack.match_mirror()
-	Entities.player.resource_changed.emit("food")
+
+	var player:Player = get_tree().get_first_node_in_group("player")
+	player.resource_changed.emit("food")
 	
 	

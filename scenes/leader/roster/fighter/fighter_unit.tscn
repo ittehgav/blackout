@@ -15,7 +15,6 @@ stat_multipliers = NodePath("stat_multipliers")
 
 [node name="modifier_stats" type="Node" parent="." unique_id=1026182715]
 script = ExtResource("3_umabv")
-technique = 0.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
@@ -24,6 +23,7 @@ max_hp = 1.0
 attack = 1.0
 defense = 1.0
 agility = 1.0
+technique = 1.0
 move_speed = 1.0
 
 [connection signal="accessory_equipped" from="." to="." method="_on_accessory_equipped"]

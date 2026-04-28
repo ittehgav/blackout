@@ -16,7 +16,7 @@ func save_data(file_path:String)->void:
 	save_file.player = store_player_data();
 
 	
-	for settlement:Settlement in get_tree().get_nodes_in_group("all_settlements"):
+	for settlement:Location in get_tree().get_nodes_in_group("all_buildings"):
 		save_file.settlements[settlement.name] = store_settlement_data(settlement)
 		
 	var to_save:String = JSON.stringify(save_file);
@@ -24,7 +24,7 @@ func save_data(file_path:String)->void:
 	file.store_string(to_save)
 	
 func store_player_data()->Dictionary:
-	var player:Player = Entities.player;
+	var player:Player = get_tree().get_first_node_in_group("player")
 	var equipped_weapon_index:int;
 	var alt_weapon_index:int;
 	if not player.alternative_weapon:
@@ -92,7 +92,7 @@ func store_world_data()->Dictionary:
 	return data
 
 
-func store_settlement_data(settlement:Settlement)->Dictionary:
+func store_settlement_data(settlement:Location)->Dictionary:
 	var data:Dictionary = {
 		"type":settlement.settlement_type_name,
 		"global_position":settlement.global_position,
@@ -103,7 +103,7 @@ func store_settlement_data(settlement:Settlement)->Dictionary:
 	for r:FighterUnit in settlement.available_recruits:
 		data.recruits.append(store_unit_data(r))
 	
-	for n:Settlement in settlement.neighbors:
+	for n:Location in settlement.neighbors:
 		data.neighbor_names.append(n.name)
 	return data
 	

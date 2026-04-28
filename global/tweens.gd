@@ -137,7 +137,7 @@ func ui_fade_out(target:CanvasItem, hide_after:bool=true, duration:float = .5)->
 
 
 
-func shader_color_blink(target:FighterBase, target_color:Color, duration:float = .3)->Tween:
+func shader_color_blink(target:Sprite2D, target_color:Color, duration:float = .3)->Tween:
 	target.material.set_shader_parameter("target_color", target_color);
 	target.material.set_shader_parameter("grad", 1.0);
 
@@ -204,5 +204,28 @@ func tween_count_label(target:Label, final_value:int, duration:float = .5)->Twee
 	tween.tween_method(set_label_text.bind(target), current_value, final_value, duration );
 	return tween
 
-func set_label_text(label:Label, target:int)->void:
+func set_label_text( target:int, label:Label)->void:
 	label.text = str(target)
+
+const default_floating_text_font_size = 64
+func floating_text(string:String, label_parent:Node, on_cursor:bool=true, font_color:Color=Color.BLACK, font_size:int=default_floating_text_font_size)->Tween:
+	var label:Label = Label.new();
+	label.text = string
+	label_parent.add_child(label);
+	if on_cursor:
+		label.global_position = label_parent.get_global_mouse_position();
+
+
+	if font_color != Color.BLACK:
+		label.add_theme_color_override("font_color", font_color);
+
+	label.add_theme_constant_override("font_size", font_size);
+	
+	var tween:Tween = create_tween();
+	tween.tween_property(label, "position:y", label.position.y - 30, 1);
+	tween.parallel().tween_property(label, "modulate:a", 0, 1);
+	tween.tween_callback(label.queue_free);
+
+	return tween
+	
+	

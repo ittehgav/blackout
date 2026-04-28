@@ -11,49 +11,42 @@ extends PanelContainer
 
 @export var location_sprite:TextureRect;
 
-@export var settlement_sign:SettlementSign;
+@export var location_sign:LocationSign;
 
 
 
 
 
-func display_current_settlement(target:Settlement = Entities.player_party.current_settlement)->void:
+func display_current_location(target:Location = Entities.player_party.current_location)->void:
 	main_text_label.text = target.unique_name;
 	sub_text_label.hide()
 	
-	var settlement_texture:Texture2D = target.sprite.texture
-	var texture_size:Vector2 =  settlement_texture.get_size();
+	var location_texture:Texture2D = target.sprite.texture
+	var texture_size:Vector2 =  location_texture.get_size();
 	location_sprite.custom_minimum_size = texture_size * 2
 	
-	location_sprite.texture = settlement_texture;
+	location_sprite.texture = location_texture;
 	location_sprite.self_modulate.a = 1;
 	
 	road_sprite.hide();
-	settlement_sign.show();
+	location_sign.show();
 
-	settlement_sign.load_settlement(target);
-
-
-func _on_player_upkeep_food_shortage() -> void:
-	sfx.play_sound_by_key("food_shortage")
-
-
-func _on_player_upkeep_fuel_shortage() -> void:
-	sfx.play_sound_by_key("fuel_shortage")
-
-
-func _on_player_upkeep_paid_fully() -> void:
-	sfx.play_sound_by_key("upkeep_paid")
+	location_sign.load_location(target);
 
 
 func _on_player_party_started_moving() -> void:
+	show()
 	location_sprite.self_modulate.a = 0;
 	location_sprite.custom_minimum_size = Vector2(128, 128);
 	location_sprite.size = Vector2(128, 128);
-	settlement_sign.hide();
+	location_sign.hide();
 	road_sprite.show();
 	
 	sub_text_label.show()
 	main_text_label.text = "Traveling...";
 	sub_text_label.text = "[spacebar] speed up time"
 	
+
+
+func _on_player_party_stopped_moving() -> void:
+	display_current_location();

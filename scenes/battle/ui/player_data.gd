@@ -26,11 +26,11 @@ func _ready()->void:
 	var colors:Dictionary = player_color_scheme();
 	var base_color:Color = Index.player_team_color;
 
-	module_progress_bar.texture_progress = ColorCoder.color_code_texture(Entities.player.equipped_module.texture, colors);
+	module_progress_bar.texture_progress = ColorCoder.color_code_texture(player.equipped_module.texture, colors);
 	module_progress_bar.tint_under = base_color.lightened(.2) - Color(0, 0, 0, .8);
 	module_progress_bar.max_value = module_cd_timer.wait_time;
 	
-	if not Entities.player.alternative_weapon:
+	if not player.alternative_weapon:
 		alternative_weapon_panel.hide();
 
 	refresh_hp_bars()
@@ -68,7 +68,7 @@ func set_weapon_textures()->void:
 	var colors:Dictionary = player_color_scheme();
 	var current_weapon:Weapon = equipment_node.weapon.duplicate();
 
-	ColorCoder.color_code_weapon(current_weapon, Entities.player.color_scheme_index)
+	ColorCoder.color_code_weapon(current_weapon, 1)
 	
 	weapon_cd_progress.texture_over = current_weapon.texture;
 

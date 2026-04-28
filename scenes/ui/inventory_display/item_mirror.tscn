@@ -1,10 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://0qsjppw7fils"]
+[gd_scene format=3 uid="uid://0qsjppw7fils"]
 
 [ext_resource type="Script" uid="uid://bxflqfjcfcxqb" path="res://scenes/ui/inventory_display/item_mirror.gd" id="2_7dtgv"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="2_sxf1m"]
+[ext_resource type="PackedScene" uid="uid://cr7mjllu5bxvg" path="res://scenes/ui/icons/item_modifier_icon.tscn" id="3_uq2i0"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="4_d8ygy"]
 
-[node name="ItemMirror" type="TextureRect" node_paths=PackedStringArray("modifier_sign", "outline", "bg", "being_traded_rect", "tooltip", "stack_size_label", "price_tag")]
-z_index = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uq2i0"]
+resource_local_to_scene = true
+shader = ExtResource("4_d8ygy")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="ItemMirror" type="TextureRect" unique_id=688900415 node_paths=PackedStringArray("outline", "bg", "being_traded_rect", "tooltip", "modifier_icon", "stack_size_label", "price_tag")]
+z_index = 5
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -16,17 +28,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 0
 script = ExtResource("2_7dtgv")
-modifier_sign = NodePath("modifier_sign")
 outline = NodePath("MarginContainer/outline")
 bg = NodePath("MarginContainer/mirror_bg")
 being_traded_rect = NodePath("being_traded")
 tooltip = NodePath("Tooltip")
+modifier_icon = NodePath("ItemModifierIcon")
 stack_size_label = NodePath("stack_size")
 price_tag = NodePath("price_tag")
 bought_color = Color(0, 1, 0, 0.3137255)
 sold_color = Color(1, 1, 0, 0.47058824)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=90665748]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -40,18 +52,18 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="mirror_bg" type="ColorRect" parent="MarginContainer"]
+[node name="mirror_bg" type="ColorRect" parent="MarginContainer" unique_id=1050198133]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="outline" type="ReferenceRect" parent="MarginContainer"]
+[node name="outline" type="ReferenceRect" parent="MarginContainer" unique_id=600167259]
 z_index = 1
 layout_mode = 2
 mouse_filter = 2
 border_width = 3.0
 editor_only = false
 
-[node name="Tooltip" parent="." instance=ExtResource("2_sxf1m")]
+[node name="Tooltip" parent="." unique_id=755899717 instance=ExtResource("2_sxf1m")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -65,7 +77,7 @@ offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="price_tag" type="Label" parent="."]
+[node name="price_tag" type="Label" parent="." unique_id=1154639968]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -79,7 +91,7 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_constants/outline_size = 12
 horizontal_alignment = 2
 
-[node name="stack_size" type="Label" parent="."]
+[node name="stack_size" type="Label" parent="." unique_id=909689931]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -96,7 +108,7 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="being_traded" type="ColorRect" parent="."]
+[node name="being_traded" type="ColorRect" parent="." unique_id=1145743205]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -106,21 +118,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="modifier_sign" type="Label" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -24.0
-offset_bottom = 51.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(0.964706, 1, 0.568627, 1)
-theme_override_font_sizes/font_size = 64
-text = "+"
-
-[node name="click_grab" type="Timer" parent="."]
+[node name="click_grab" type="Timer" parent="." unique_id=1953766206]
 wait_time = 0.25
+
+[node name="ItemModifierIcon" parent="." unique_id=1395602884 instance=ExtResource("3_uq2i0")]
+visible = false
+material = SubResource("ShaderMaterial_uq2i0")
+layout_mode = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

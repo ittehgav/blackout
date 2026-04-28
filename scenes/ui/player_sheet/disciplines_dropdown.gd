@@ -9,8 +9,6 @@ class_name DisciplinesDropdown
 @export var scavenging_icon:DisciplineIcon;
 
 func _ready()->void:
-
-	
 	update();
 
 func update()->void:

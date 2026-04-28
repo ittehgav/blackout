@@ -36,13 +36,13 @@ func build_option(label_text:String)->void:
 			
 			icon_rect.texture = Index.textures.icons.trade;
 			label.text = "Trade"
-			callback = Dialogue.start_trade;
+			#callback = Dialogue.start_trade;
 		"#recruitment_menu":
 			option_color = Color.GREEN
 			
 			icon_rect.texture = Index.textures.icons.recruit
 			label.text = "Recruit Units"
-			callback = Dialogue.start_recruitment;
+			#callback = Dialogue.start_recruitment;
 		"#leave":
 			modulate.v = .5;
 			
@@ -50,16 +50,16 @@ func build_option(label_text:String)->void:
 			label.text = "Leave"
 			## no callback so just advances the dialogue
 		"#evolution_menu":
-			var tag_to_evolve:String = Dialogue.current_speaker.evolve_option;
-			var tag_color:Color = Index.primary_tag_colors[tag_to_evolve]
-			option_color = tag_color
+			#var tag_to_evolve:String = Dialogue.current_speaker.evolve_option;
+			#var tag_color:Color = Index.primary_tag_colors[tag_to_evolve]
+			#option_color = tag_color
 
 			icon_rect.texture = Index.textures.icons.evolve;
-			label.text = "Evolve your " + tag_to_evolve + "s";
-			callback = Dialogue.evolution_menu;
+			#label.text = "Evolve your " + tag_to_evolve + "s";
+			#callback = Dialogue.evolution_menu;
 			
-			if len(Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return "evolutions" in unit.base and tag_to_evolve in unit.base.tags)) == 0:
-				disabled = true;
+			#if len(Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return "evolutions" in unit.base and tag_to_evolve in unit.base.tags)) == 0:
+				#disabled = true;
 				
 	if option_color != Color.WHITE:
 		icon_rect.self_modulate = option_color;

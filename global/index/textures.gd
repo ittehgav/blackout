@@ -9,12 +9,9 @@ class_name TextureIndex;
 
 
 
-@export_group("party behavior icons")
-@export var idle_icon_texture:Texture;
-@export var scared_icon_texture:Texture;
-@export var agressive_icon_texture:Texture;
-@export var salesman_icon_texture:Texture
-
+@export var player_body_texture:Texture;
+const player_body_frames:Vector2 = Vector2(8, 9);
+## to dynamically generate a player body animated thingy wherever with a few lines
 
 @onready var icons:Dictionary = {
 	"defense":load("res://assets/visual/icons/stats/defense.png"),

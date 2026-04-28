@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cl64bdidhiscc"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_wa2ug"]
+
+[node name="Of Transfusion" type="Node" unique_id=671858177]
+script = ExtResource("1_wa2ug")
+tier = 3
+suffix = "of transfusion"
+description = "On hit: heal the ally with the least HP by 50% of the damage dealt."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

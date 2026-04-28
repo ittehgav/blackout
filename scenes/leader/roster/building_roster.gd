@@ -1,38 +1,25 @@
 extends Roster
-class_name BuildingRoster
+class_name RecruitmentRoster
 ## roster with exported options for unit recruiting customization
 
 ## level range do how?
 @export_group("Available Tags")
 ## TODO make this more dynamic somehow?
-@export var bodybuilder_recruiting:bool=false;
-@export var cyborg_recruiting:bool=false;
-@export var scientist_recruiting:bool=false;
-@export var mechanic_recruiting:bool=false;
+var base_pool:Array[FighterBase]
 
-#func _ready()->void:
-	#refresh_recruits()
 
 func refresh_recruits()->void:
 	units.clear();
-	
-	## pricing is done as the recruiting menu starts
-	var tags:Array[String];
-	var base_pool:Array[FighterBase]
-	
-	for tag:String in Index.primary_fighter_tags:
-		## TODO: redo any instance of tags
-		if self[tag+"_recruiting"]:
-			tags.append(tag);
-	
-	for base:FighterBase in Index.fighters.all_fighter_bases:
-		for tag:FighterBase.Tag in base.tags:
-			if tag in tags and not base in base_pool:
-				base_pool.append(base);
-
 	for i in 4:
+		var player:Player = get_tree().get_first_node_in_group("player");
+	
 		var unit:FighterUnit = Index.scenes.fighter_unit.instantiate()
-		unit.level = randi_range(max(1, Entities.player.level - 3), Entities.player.level * 2)
+		unit.level = randi_range(max(1, player.level - 3), player.level * 2)
 		unit.base = base_pool.pick_random();
 		unit.update_stats();
 		units.append(unit);
+
+func _on_child_entered_tree(node: Node) -> void:
+	assert(node is FighterBase);
+	base_pool.append(node);
+	remove_child.call_deferred(node)

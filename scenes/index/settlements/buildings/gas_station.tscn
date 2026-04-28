@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://capijufintoqv"]
+
+[ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/settlements/building.gd" id="1_dmsc8"]
+[ext_resource type="Texture2D" uid="uid://dj2brhkhkw6bp" path="res://assets/visual/sprites/locations/settlements/portraits/gas_station.png" id="2_r2f7i"]
+[ext_resource type="Texture2D" uid="uid://cr5eu4lgncu6u" path="res://assets/visual/buildings/icons/gas_station.png" id="2_r6rwd"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="2_vgbht"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="3_vgbht"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="5_dmsc8"]
+[ext_resource type="PackedScene" uid="uid://blb80ofwrhyyg" path="res://scenes/index/items/_notyet/sharpener.tscn" id="5_frrlj"]
+[ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="5_ke5ly"]
+[ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="7_ke5ly"]
+[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="8_frrlj"]
+
+[node name="Gas Station" type="Node2D" unique_id=1406925595 node_paths=PackedStringArray("inventory") groups=["all_locations"]]
+script = ExtResource("1_dmsc8")
+theme_color = Color(0.7372549, 0.19215687, 0, 1)
+options = Array[int]([0, 3])
+inventory = NodePath("ShopInventory")
+size = 2
+portrait = ExtResource("2_r2f7i")
+icon_texture = ExtResource("2_r6rwd")
+metadata/_custom_type_script = "uid://lf67nwuvdmnt"
+
+[node name="ShopInventory" parent="." unique_id=175806669 node_paths=PackedStringArray("resource_storage", "holder") groups=["all_locations"] instance=ExtResource("2_vgbht")]
+batch_size = 2
+resource_storage = [NodePath("Food Bag"), NodePath("Fuel Barrel")]
+holder = NodePath("..")
+
+[node name="Sharpener" parent="ShopInventory" unique_id=342675877 instance=ExtResource("5_frrlj")]
+
+[node name="Jumpsuit" parent="ShopInventory" unique_id=1882015502 instance=ExtResource("5_ke5ly")]
+exclusive_tag = 0
+
+[node name="Food Bag" parent="ShopInventory" unique_id=2062626558 instance=ExtResource("5_dmsc8")]
+
+[node name="Fuel Barrel" parent="ShopInventory" unique_id=1059344415 instance=ExtResource("3_vgbht")]
+
+[node name="Fuel Barrel2" parent="ShopInventory" unique_id=302798992 instance=ExtResource("3_vgbht")]
+
+[node name="Mystery Snack Pack" parent="ShopInventory" unique_id=1632098671 instance=ExtResource("7_ke5ly")]
+
+[node name="Taser Gun" parent="ShopInventory" unique_id=1048614062 instance=ExtResource("8_frrlj")]

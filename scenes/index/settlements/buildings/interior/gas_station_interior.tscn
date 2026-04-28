@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://clriirxnk3pso"]
+
+[ext_resource type="Texture2D" uid="uid://ba15pmywnr2u6" path="res://assets/visual/buildings/gas_station.png" id="1_assm1"]
+[ext_resource type="Script" uid="uid://dy4crh0bwxl3o" path="res://scenes/in_settlement/settlements/front_porch.gd" id="2_8n4yi"]
+[ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/in_settlement/speaker.tscn" id="3_u2be3"]
+[ext_resource type="Resource" uid="uid://depibfurfok0y" path="res://resources/dialogues/buildings/gas_station.dialogue" id="4_gn0w3"]
+[ext_resource type="Texture2D" uid="uid://bqswaxkybn1hc" path="res://assets/visual/buildings/npcs/gas_station_clerk.png" id="5_r71wr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2fkry"]
+resource_local_to_scene = true
+radius = 130.015
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r71wr"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="GasStationFrontPorch" type="TextureRect" node_paths=PackedStringArray("right_side_anchor")]
+offset_left = -222.0
+offset_top = -680.0
+offset_right = 1058.0
+offset_bottom = 320.0
+texture = ExtResource("1_assm1")
+script = ExtResource("2_8n4yi")
+right_side_anchor = NodePath("right_side_anchor")
+metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(250, 678, 290, 678, 290, 680, 324, 680, 324, 678, 372, 678, 380, 670, 388, 634, 388, 612, 488, 637, 488, 678, 590, 678, 590, 680, 624, 680, 624, 678, 672, 678, 680, 670, 688, 634, 688, 612, 702, 588, 724, 588, 724, 586, 754, 586, 754, 557, 934, 556, 934, 680, 1060, 680, 1172, 456, 1172, 264, 1188, 232, 1188, 84, 324, 84, 222, 288, 82, 288, 56, 314, 56, 510, 58, 512, 241, 512, 240, 612, 242, 629)
+
+[node name="Speaker" parent="." node_paths=PackedStringArray("clerk_sprite") instance=ExtResource("3_u2be3")]
+z_index = 1
+position = Vector2(527, 624)
+dialogue = ExtResource("4_gn0w3")
+clerk_sprite = NodePath("Sprite2D2")
+
+[node name="Sprite2D" parent="Speaker" index="0"]
+position = Vector2(10, -117)
+scale = Vector2(5, 5)
+
+[node name="CollisionShape2D" parent="Speaker/Area2D" index="0"]
+position = Vector2(-8, 18)
+shape = SubResource("CircleShape2D_2fkry")
+debug_color = Color(0, 0.5950001, 0.7, 0.52156866)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Speaker"]
+material = SubResource("ShaderMaterial_r71wr")
+scale = Vector2(2, 2)
+texture = ExtResource("5_r71wr")
+
+[node name="right_side_anchor" type="Node2D" parent="."]
+position = Vector2(1172, 456)
+
+[node name="floor" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_left = 222.0
+offset_top = 401.0
+offset_right = 952.0
+offset_bottom = 680.0
+color = Color(0.22, 0.19257332, 0.18259999, 1)
+
+[editable path="Speaker"]

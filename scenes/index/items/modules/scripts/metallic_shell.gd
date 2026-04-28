@@ -17,7 +17,7 @@ const base_hp_frac = .2;
 
 
 func check_availability()->bool:
-	return Entities.player.inventory.scrap >= scrap_cost;
+	return player.inventory.scrap >= scrap_cost;
 
 func use()->void:
 	var hp_frac := base_hp_frac;
@@ -26,7 +26,7 @@ func use()->void:
 		hp_frac *= technique
 	var shield_value:float = Entities.player_fighter.max_hp * hp_frac;
 	
-	Entities.player.inventory.scrap -= scrap_cost;
+	player.inventory.scrap -= scrap_cost;
 	
 	Combat.shield_target(Entities.player_fighter, Entities.player_fighter, shield_value);
 	for area:Area2D in aoe_range.get_overlapping_areas():

@@ -24,6 +24,11 @@ func _ready() -> void:
 	parent.mouse_entered.connect(hover_timer.start);
 	parent.mouse_exited.connect(stop_hover_timer);
 	enable();
+	refresh()
+	
+
+func refresh()->void:
+	var parent:Node = get_parent();
 	if parent is Icon:
 		load_target(parent)
 		
@@ -35,12 +40,9 @@ func _ready() -> void:
 	if hardcoded_description:
 		description_label.show();
 		description_label.text = hardcoded_description
-	
-
-
 
 func load_target(new_target:Node)->void:
-	description_label.text=  ""
+	description_label.text = ""
 	target = new_target;
 
 	if target is ItemMirror:
@@ -77,6 +79,7 @@ func load_target(new_target:Node)->void:
 func item_sample_setup(sample:ItemSample)->void:
 	var item:Item = sample.item;
 	item_setup(item);
+
 	match item:
 		## tooltip just hides if the sample is blank
 		Entities.player.equipped_weapon:
@@ -118,6 +121,11 @@ func item_mirror_setup(mirror:ItemMirror)->void:
 				hint.text = "[right-click] to deposit";
 			else:
 				hint.text = "[right-click] to loot";
+		"forge":
+			if mirror.item is Equipment:
+				hint.text = "[right-click] to forge";
+			else:
+				hint.text = "can't be forged"
 	
 
 
@@ -125,23 +133,21 @@ func item_setup(item:Item)->void:
 	var target_name:String = item.name;
 	while target_name[-1].is_valid_int():
 		target_name = target_name.left(-1);
+	
+	description_label.text = "";
 	if item is Weapon or item is Module:
 		var cd:String = str(snapped(item.final_cooldown(), .01))
 		description_label.text += "Cooldown: " + cd+"\n"
-	if item.applied_modifier:
-		var modifier:ItemModifier = item.applied_modifier;
-		if modifier.prefix:
-			target_name = modifier.prefix + " " + target_name;
-		if modifier.suffix:
-			target_name += " " + modifier.suffix;
-		
-		if modifier.stat_modifiers:
-			for stat:String in Index.all_combat_stats:
-				var change:float = modifier.stat_modifiers[stat]
-				if change:
-					description_label.text += Index.get_color_tag(stat)\
-					 + "+" +str(snapped(change, .01)) +" "+stat+"[/color]"+ "\n";
-		
+	
+	var mod:ItemModifier = item.applied_modifier;
+	if mod:
+		if mod.prefix:
+			target_name = mod.prefix + " " + target_name;
+		if mod.suffix:
+			target_name += " " + mod.suffix;
+		var tier_key:String = "t"+str(mod.tier)
+		var tier_tag:String = Index.get_color_tag(tier_key)
+		description_label.text += tier_tag + mod.get_description()+"[/color]\n";
 
 	name_label.text = target_name;
 	

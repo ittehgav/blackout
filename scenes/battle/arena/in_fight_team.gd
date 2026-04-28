@@ -44,7 +44,8 @@ func load_roster()->void:
 	position_column(cols.melee, 500, 200);
 	position_column(cols.mid, 700, 200);
 	position_column(cols.long, 1000, 200)
-	
+
+
 func generate_fighter(unit:FighterUnit, force_position:Vector2=Vector2.ZERO)->NpcFighter:
 	var fighter:NpcFighter = Index.scenes.npc_fighter.instantiate();
 	fighter.ally_team = self;
@@ -55,11 +56,13 @@ func generate_fighter(unit:FighterUnit, force_position:Vector2=Vector2.ZERO)->Np
 		fighter.position = force_position
 		
 	assign_fighter(fighter)
-	add_child.call_deferred(fighter)
 	
 
 	
 	ColorCoder.color_code_fighter(fighter, team_n)
+	add_child.call_deferred(fighter)
+
+	
 	return fighter
 
 func position_column(col:Array, x_origin:int, y_origin:int)->void:
@@ -135,8 +138,19 @@ func _on_child_entered_tree(node: Node) -> void:
 		## you just need to add them to the team node and 
 		## it works just like everyone else
 		assert(node is ActiveFighter or node is NpcFighterTest or node is Prop);
+		if node is NpcFighter and node.dummy:return;
 		if node is ActiveFighter:
 			assign_fighter(node)
 
 func on_fighter_death(_killer:ActiveFighter, fighter:ActiveFighter)->void:
+	## WHERE BATTLES ARE FINISHED RIGHT NOW
+	## you lose when the player unit dies
+	## you win when you wipe out enemy team
+	
+	fighters.erase(fighter)
+	if len(fighters) == 0 and team_n == 2:
+		arena.finish_battle(true)
+
+	if fighter == Entities.player_fighter:
+		arena.finish_battle(false);
 	fighter_died.emit(fighter)

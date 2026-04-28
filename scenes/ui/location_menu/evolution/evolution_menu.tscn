@@ -1,0 +1,763 @@
+[gd_scene format=3 uid="uid://7epbb0cova3w"]
+
+[ext_resource type="Script" uid="uid://n8a7nfkr34g4" path="res://scenes/ui/location_menu/evolution/evolution_menu.gd" id="1_emd3k"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_3u6dg"]
+[ext_resource type="PackedScene" uid="uid://cbk0pwuwwf4px" path="res://scenes/ui/samples/unit_sample.tscn" id="3_3u6dg"]
+[ext_resource type="AudioStream" uid="uid://dhws222nfgn6t" path="res://assets/sound/sfx/ui/inventory/units/upgrade_unit.wav" id="3_gut26"]
+[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="4_0e2bk"]
+[ext_resource type="Script" uid="uid://dewxgt5s4vs70" path="res://scenes/ui/location_menu/evolution/evolution_confirmation.gd" id="4_bg2cd"]
+[ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="5_bg2cd"]
+[ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="7_moowv"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="8_oaayq"]
+[ext_resource type="Texture2D" uid="uid://csoj5qe27sos2" path="res://assets/visual/sprites/fighters/units/slammer/slammer.png" id="8_s0pn3"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="9_0n5a8"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="10_oaayq"]
+
+[sub_resource type="Gradient" id="Gradient_j4ld5"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rhw7h"]
+gradient = SubResource("Gradient_j4ld5")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j4ld5"]
+resource_local_to_scene = true
+shader = ExtResource("10_oaayq")
+shader_parameter/color = Color(0.9335, 1, 0.43, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 5)
+
+[sub_resource type="Animation" id="Animation_oaayq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_after:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(18.892157, 18.892157, 18.892157, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../evolution_sfx:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite_before:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(707, 353)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite_after:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("sprite_before:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("after_data:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("after_stats:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("after_data:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("after_stats:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("evolution_glow:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("evolution_glow:modulate:a")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.2627451]
+}
+
+[sub_resource type="Animation" id="Animation_j4ld5"]
+resource_name = "evolution_animation"
+length = 3.81
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_after:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.76666665, 1.5666666),
+"transitions": PackedFloat32Array(466516.84, 1, 1),
+"update": 0,
+"values": [Color(6.9061527, 6.9061527, 6.9061527, 0), Color(6.9061527, 6.9061527, 6.9061527, 1), Color(0.8509804, 0.8509804, 0.8509804, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../evolution_sfx:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.76666665),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite_before:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.77380395),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(606, 353), Vector2(707, 353)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite_after:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.76666665, 1.5666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(6, 6), Vector2(4, 4)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("sprite_before:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.76666665),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("after_data:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.7744021),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("after_stats:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.7744021),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("after_data:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.4333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("after_stats:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.4333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("evolution_glow:modulate:a")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.6666667, 0.8, 1.4333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.75, 0.3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rhw7h"]
+_data = {
+&"RESET": SubResource("Animation_oaayq"),
+&"evolution_animation": SubResource("Animation_j4ld5")
+}
+
+[sub_resource type="Animation" id="Animation_ip08a"]
+resource_name = "evolutions_idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_before:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite_after:frame_coords:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b26a8"]
+_data = {
+&"evolutions_idle": SubResource("Animation_ip08a")
+}
+
+[node name="EvolutionMenu" type="Control" unique_id=1447853777 node_paths=PackedStringArray("content_hbox", "available_units_vbox", "evolution_line_hbox", "confirmation_screen", "evolutions_view", "placeholder_text", "ui_sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_emd3k")
+content_hbox = NodePath("content")
+available_units_vbox = NodePath("content/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/available_units")
+evolution_line_hbox = NodePath("content/unit_to_evolve/evolution_view/VBoxContainer/evolutions_hbox")
+confirmation_screen = NodePath("evolution_confirmation")
+evolutions_view = NodePath("content/unit_to_evolve/evolution_view")
+placeholder_text = NodePath("content/unit_to_evolve/placeholder")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." unique_id=419682254 instance=ExtResource("2_3u6dg")]
+
+[node name="evolution_sfx" type="AudioStreamPlayer" parent="." unique_id=1925073767]
+stream = ExtResource("3_gut26")
+
+[node name="content" type="HBoxContainer" parent="." unique_id=1358979314]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="content" unique_id=2066842363]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="content/PanelContainer" unique_id=1934710769]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="content/PanelContainer/MarginContainer" unique_id=1319538186]
+custom_minimum_size = Vector2(134, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="content/PanelContainer/MarginContainer/ScrollContainer" unique_id=1284544867]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="content/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=547731210]
+layout_mode = 2
+text = "Your Units"
+
+[node name="available_units" type="VBoxContainer" parent="content/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1149623288]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="unit_sample" parent="content/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/available_units" unique_id=1911631300 instance=ExtResource("3_3u6dg")]
+layout_mode = 2
+
+[node name="unit_sample2" parent="content/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/available_units" unique_id=379233406 instance=ExtResource("3_3u6dg")]
+layout_mode = 2
+
+[node name="unit_sample3" parent="content/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/available_units" unique_id=1433375836 instance=ExtResource("3_3u6dg")]
+layout_mode = 2
+
+[node name="unit_to_evolve" type="PanelContainer" parent="content" unique_id=735229430]
+custom_minimum_size = Vector2(800, 600)
+layout_mode = 2
+
+[node name="exit" type="Button" parent="content/unit_to_evolve" unique_id=1949082198]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "exit"
+
+[node name="evolution_view" type="MarginContainer" parent="content/unit_to_evolve" unique_id=676775104]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="content/unit_to_evolve/evolution_view" unique_id=2145155451]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="content/unit_to_evolve/evolution_view/VBoxContainer" unique_id=2072500380]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "Evolutions:"
+
+[node name="evolutions_hbox" type="HBoxContainer" parent="content/unit_to_evolve/evolution_view/VBoxContainer" unique_id=1920596587]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="content/unit_to_evolve/evolution_view/VBoxContainer/evolutions_hbox" unique_id=1377566302]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="content/unit_to_evolve/evolution_view/VBoxContainer" unique_id=293268051]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Label2" type="Label" parent="content/unit_to_evolve/evolution_view/VBoxContainer/HBoxContainer" unique_id=1440424781]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.5372549, 0.21176471, 0.7019608, 1)
+theme_override_font_sizes/font_size = 64
+text = "Cost: 50"
+
+[node name="resource_icon" parent="content/unit_to_evolve/evolution_view/VBoxContainer/HBoxContainer" unique_id=121329112 instance=ExtResource("8_oaayq")]
+z_index = 0
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 0
+resource = "juice"
+match_player_inventory = false
+
+[node name="placeholder" type="Label" parent="content/unit_to_evolve" unique_id=1855450466]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Choose a unit to evolve"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="content/unit_to_evolve" unique_id=1593543638]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="resource_icon" parent="content/unit_to_evolve/HBoxContainer" unique_id=2073061590 node_paths=PackedStringArray("label") instance=ExtResource("8_oaayq")]
+layout_mode = 2
+resource = "juice"
+label = NodePath("../resource_counter")
+
+[node name="resource_counter" type="Label" parent="content/unit_to_evolve/HBoxContainer" unique_id=1572083568]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="evolution_confirmation" type="ColorRect" parent="." unique_id=2046365797 node_paths=PackedStringArray("player_juice_counter", "menu", "before_sample", "before_stats_dropdown", "after_sample", "after_stats_dropdown", "after_name", "after_skill_name", "after_skill_cd", "after_skill_description", "post_after_stats_dropdown", "post_after_name", "post_after_skill_name", "post_after_skill_cd", "post_after_skill_description", "confirmation_panel", "evolution_animation", "evolution_animation_player", "animation_before_sprite", "animation_after_sprite", "evolve_btn")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45490196)
+script = ExtResource("4_bg2cd")
+player_juice_counter = NodePath("confirmation_panel/MarginContainer/HBoxContainer/resource_counter")
+menu = NodePath("..")
+before_sample = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/before_sample")
+before_stats_dropdown = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/before_stats")
+after_sample = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/after_sample")
+after_stats_dropdown = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/after_stats")
+after_name = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/after_data/after_name")
+after_skill_name = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/after_data/skill_name")
+after_skill_cd = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/after_data/skill_cd")
+after_skill_description = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/after_data/after_skill_description")
+post_after_stats_dropdown = NodePath("evolution_animation/after_stats/after_stats")
+post_after_name = NodePath("evolution_animation/after_data/after_data/after_name")
+post_after_skill_name = NodePath("evolution_animation/after_data/after_data/skill_name")
+post_after_skill_cd = NodePath("evolution_animation/after_data/after_data/skill_cd")
+post_after_skill_description = NodePath("evolution_animation/after_data/after_data/after_skill_description")
+confirmation_panel = NodePath("confirmation_panel")
+evolution_animation = NodePath("evolution_animation")
+evolution_animation_player = NodePath("evolution_animation/evolution_animation")
+animation_before_sprite = NodePath("evolution_animation/sprite_before")
+animation_after_sprite = NodePath("evolution_animation/sprite_after")
+evolve_btn = NodePath("confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer2/confirm_evolution")
+
+[node name="confirmation_panel" type="PanelContainer" parent="evolution_confirmation" unique_id=958983460]
+custom_minimum_size = Vector2(800, 699)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="evolution_confirmation/confirmation_panel" unique_id=565044931]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="evolution_confirmation/confirmation_panel/MarginContainer" unique_id=1853916464]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer" unique_id=604319656]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 96
+text = "Confirm Evolution"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer" unique_id=1179724354]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=767592694]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="before_sample" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=345546200 instance=ExtResource("3_3u6dg")]
+layout_mode = 2
+
+[node name="before_stats" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=408589666 node_paths=PackedStringArray("stat_labels") instance=ExtResource("4_0e2bk")]
+layout_mode = 2
+stat_labels = {
+"agility": NodePath("agility/agility"),
+"attack": NodePath("attack/attack"),
+"defense": NodePath("defense/defense"),
+"max_hp": NodePath("max_hp/max_hp"),
+"technique": NodePath("technique/technique")
+}
+
+[node name="TextureRect" type="TextureRect" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1526531610]
+custom_minimum_size = Vector2(64, 124)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_bg2cd")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1581314519]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="after_sample" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=793663160 instance=ExtResource("3_3u6dg")]
+layout_mode = 2
+
+[node name="after_stats" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1812549832 node_paths=PackedStringArray("stat_labels") instance=ExtResource("4_0e2bk")]
+layout_mode = 2
+stat_labels = {
+"agility": NodePath("agility/agility"),
+"attack": NodePath("attack/attack"),
+"defense": NodePath("defense/defense"),
+"max_hp": NodePath("max_hp/max_hp"),
+"technique": NodePath("technique/technique")
+}
+
+[node name="after_data" type="VBoxContainer" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1360506707]
+layout_mode = 2
+
+[node name="after_name" type="Label" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/after_data" unique_id=861002508]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Name"
+
+[node name="skill_name" type="Label" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/after_data" unique_id=319990398]
+layout_mode = 2
+text = "Skill: peepee"
+
+[node name="skill_cd" type="Label" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/after_data" unique_id=1280630978]
+layout_mode = 2
+
+[node name="after_skill_description" type="RichTextLabel" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer/after_data" unique_id=260303424]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer" unique_id=256092715]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="confirm_evolution" type="Button" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=453904626]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "EVOLVE UNIT"
+
+[node name="Label2" type="Label" parent="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer" unique_id=1838591328]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.5372549, 0.21176471, 0.7019608, 1)
+theme_override_font_sizes/font_size = 64
+text = "Cost: 50 Juice"
+
+[node name="cancel" type="Button" parent="evolution_confirmation/confirmation_panel/MarginContainer" unique_id=620049037]
+modulate = Color(0.5, 0.5, 0.5, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "cancel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="evolution_confirmation/confirmation_panel/MarginContainer" unique_id=1230122771]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="resource_icon" parent="evolution_confirmation/confirmation_panel/MarginContainer/HBoxContainer" unique_id=1502473854 node_paths=PackedStringArray("label") instance=ExtResource("8_oaayq")]
+layout_mode = 2
+resource = "juice"
+label = NodePath("../resource_counter")
+
+[node name="resource_counter" type="Label" parent="evolution_confirmation/confirmation_panel/MarginContainer/HBoxContainer" unique_id=1481540435]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="evolution_animation" type="Control" parent="evolution_confirmation" unique_id=1979940063]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="evolution_glow" type="TextureRect" parent="evolution_confirmation/evolution_animation" unique_id=1342265657]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_rhw7h")
+
+[node name="sprite_before" type="Sprite2D" parent="evolution_confirmation/evolution_animation" unique_id=895964716]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+position = Vector2(707, 353)
+scale = Vector2(4, 4)
+texture = ExtResource("7_moowv")
+hframes = 8
+vframes = 5
+frame = 3
+
+[node name="sprite_after" type="Sprite2D" parent="evolution_confirmation/evolution_animation" unique_id=1576965958]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+material = SubResource("ShaderMaterial_j4ld5")
+position = Vector2(707, 353)
+scale = Vector2(4, 4)
+texture = ExtResource("8_s0pn3")
+hframes = 8
+vframes = 5
+frame = 3
+
+[node name="evolution_animation" type="AnimationPlayer" parent="evolution_confirmation/evolution_animation" unique_id=1304535115]
+libraries/ = SubResource("AnimationLibrary_rhw7h")
+
+[node name="idle_animation" type="AnimationPlayer" parent="evolution_confirmation/evolution_animation" unique_id=1252764321]
+libraries/ = SubResource("AnimationLibrary_b26a8")
+libraries/fighter_base = ExtResource("9_0n5a8")
+autoplay = &"evolutions_idle"
+
+[node name="after_stats" type="PanelContainer" parent="evolution_confirmation/evolution_animation" unique_id=758680895]
+layout_mode = 0
+offset_left = 336.0
+offset_top = 178.0
+offset_right = 454.0
+offset_bottom = 461.0
+
+[node name="after_stats" parent="evolution_confirmation/evolution_animation/after_stats" unique_id=762612253 node_paths=PackedStringArray("stat_labels") instance=ExtResource("4_0e2bk")]
+layout_mode = 2
+stat_labels = {
+"agility": NodePath("agility/agility"),
+"attack": NodePath("attack/attack"),
+"defense": NodePath("defense/defense"),
+"max_hp": NodePath("max_hp/max_hp"),
+"technique": NodePath("technique/technique")
+}
+
+[node name="after_data" type="PanelContainer" parent="evolution_confirmation/evolution_animation" unique_id=58940659]
+layout_mode = 0
+offset_left = 791.0
+offset_top = 235.0
+offset_right = 1103.0
+offset_bottom = 362.0
+
+[node name="after_data" type="VBoxContainer" parent="evolution_confirmation/evolution_animation/after_data" unique_id=928512381]
+layout_mode = 2
+
+[node name="after_name" type="Label" parent="evolution_confirmation/evolution_animation/after_data/after_data" unique_id=1573800512]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Name"
+
+[node name="skill_name" type="Label" parent="evolution_confirmation/evolution_animation/after_data/after_data" unique_id=140233310]
+layout_mode = 2
+text = "Skill: peepee"
+
+[node name="skill_cd" type="Label" parent="evolution_confirmation/evolution_animation/after_data/after_data" unique_id=1400285372]
+layout_mode = 2
+
+[node name="after_skill_description" type="RichTextLabel" parent="evolution_confirmation/evolution_animation/after_data/after_data" unique_id=1019340995]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="Label" type="Label" parent="evolution_confirmation/evolution_animation" unique_id=2094736941]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -278.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "click anywhere to continue"
+
+[connection signal="opened" from="." to="content/unit_to_evolve/HBoxContainer/resource_icon" method="update"]
+[connection signal="opened" from="." to="evolution_confirmation/confirmation_panel/MarginContainer/HBoxContainer/resource_icon" method="update"]
+[connection signal="pressed" from="content/unit_to_evolve/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="evolution_confirmation/confirmation_panel/MarginContainer/VBoxContainer/HBoxContainer2/confirm_evolution" to="evolution_confirmation" method="_on_confirm_evolution_pressed"]
+[connection signal="pressed" from="evolution_confirmation/confirmation_panel/MarginContainer/cancel" to="evolution_confirmation" method="_on_cancel_pressed"]

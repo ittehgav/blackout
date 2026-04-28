@@ -21,7 +21,7 @@ const base_technique_frac = .5;
 
 
 func check_availability()->bool:
-	return Entities.player.inventory.chips >= chips_cost;
+	return player.inventory.chips >= chips_cost;
 
 func use()->void:
 	var technique_frac:= base_technique_frac;
@@ -32,7 +32,7 @@ func use()->void:
 		technique_frac *= player_technique;
 		stun_duration *= player_technique
 	
-	Entities.player.inventory.chips -= chips_cost;
+	player.inventory.chips -= chips_cost;
 	var player:PlayerFighter = Entities.player_fighter;
 	for area:Area2D in aoe_range.get_overlapping_areas():
 		assert(area is HurtBox);

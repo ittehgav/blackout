@@ -1,4 +1,5 @@
 @abstract
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_follow.png")
 class_name FighterBase
 extends Sprite2D;
 
@@ -6,16 +7,20 @@ extends Sprite2D;
 
 
 ## range is now in cells rather than 2D space pixels
-const MELEE_RANGE = 3;
+const MELEE_RANGE = 5;
 const MID_RANGE = 10;
 const LONG_RANGE = 20;
 
 @export var animation_player:AnimationPlayer
 @export var skill:SkillComponent;
 
+@export var hue_shifter:HueShiftGen
+
 var fighter:NpcFighter;
 
 @export var tags:Array[Tag]
+
+@export var evolutions:Array[FighterBase]
 
 
 enum Tag {
@@ -38,6 +43,26 @@ enum Tag {
 	rodent,
 	sludge,
 	insect
+}
+
+enum RecruitTag{
+	bodybuilder = Tag.bodybuilder,
+	brawler = Tag.brawler,
+	cyborg = Tag.cyborg,
+	scientist = Tag.scientist,
+	mechanic = Tag.mechanic,
+	freak = Tag.freak,
+	juggernaut = Tag.juggernaut,
+	disruptor = Tag.disruptor,
+}
+
+enum MonsterTag{
+	toxic = Tag.toxic,
+	pest = Tag.pest,
+	reptile = Tag.reptile,
+	rodent = Tag.rodent,
+	sludge = Tag.sludge,
+	insec = Tag.insect
 }
 ## repeating this on the base scripts so movement/skill
 ## animations can be set for each individual base
@@ -120,19 +145,6 @@ func skill_impact()->void:
 #func damage_modifier(_damage:float, _unit:FighterUnit=null)->float:
 	#printerr("MISSINGDMGMOD"); ## TODO make this abstract and less janky implementation of modifiers
 	#return 0;
-
-func fighter_died(killer:ActiveFighter)->Tween:
-	modulate.v = .5;
-	modulate.a = .5;
-	var tween:Tween = Tweens.ui_fade_out(self, false, .3)
-
-	var target_x:int
-	if killer.global_position.x > global_position.x:
-		target_x = -20;
-	else:
-		target_x = 20;
-	tween.parallel().tween_property(self, "position:x", target_x, .3);
-	return tween;
 
 func proximity_sort(a:ActiveFighter, b:ActiveFighter)->bool:
 	var ad:float = a.position.distance_to(fighter.position);

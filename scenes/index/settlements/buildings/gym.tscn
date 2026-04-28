@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://brlc23bio8sdx"]
+
+[ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/settlements/building.gd" id="1_1igcj"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="2_oeueu"]
+[ext_resource type="Texture2D" uid="uid://5ntjtu1c0jeo" path="res://assets/visual/buildings/icons/gym.png" id="2_osyqs"]
+[ext_resource type="Texture2D" uid="uid://b7lqyjg2u20ut" path="res://assets/visual/sprites/locations/settlements/portraits/gym.png" id="2_tjn12"]
+[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="3_e6ovm"]
+[ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="3_oeueu"]
+[ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="4_sbfju"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="5_1igcj"]
+[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="5_rajmr"]
+[ext_resource type="PackedScene" uid="uid://5un73br0b5l0" path="res://scenes/index/items/containers/juice_can.tscn" id="6_u3pef"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="6_vhuem"]
+[ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="10_vhuem"]
+[ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="11_p4p05"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="14_tjn12"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="15_yntwk"]
+[ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="16_njfxd"]
+[ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="17_x5o0a"]
+[ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="18_iscbg"]
+[ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="19_amovc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yntwk"]
+resource_local_to_scene = true
+shader = ExtResource("15_yntwk")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_njfxd"]
+resource_local_to_scene = true
+shader = ExtResource("15_yntwk")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5o0a"]
+resource_local_to_scene = true
+shader = ExtResource("15_yntwk")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iscbg"]
+resource_local_to_scene = true
+shader = ExtResource("15_yntwk")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_amovc"]
+resource_local_to_scene = true
+shader = ExtResource("15_yntwk")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Gym" type="Node2D" unique_id=827517862 node_paths=PackedStringArray("inventory", "roster") groups=["all_locations"]]
+script = ExtResource("1_1igcj")
+theme_color = Color(0.47058824, 0.15686275, 0.8, 1)
+options = Array[int]([1, 2])
+inventory = NodePath("ShopInventory")
+roster = NodePath("Building Roster")
+portrait = ExtResource("2_tjn12")
+icon_texture = ExtResource("2_osyqs")
+metadata/_custom_type_script = "uid://lf67nwuvdmnt"
+
+[node name="ShopInventory" parent="." unique_id=339758542 node_paths=PackedStringArray("resource_storage", "holder") groups=["all_locations"] instance=ExtResource("2_oeueu")]
+rarity_rate = 2
+resource_storage = [NodePath("Juice Tank"), NodePath("Food Bag"), NodePath("Fuel Gallon")]
+holder = NodePath("..")
+
+[node name="Food Bag" parent="ShopInventory" unique_id=1299734589 instance=ExtResource("5_1igcj")]
+
+[node name="Fuel Gallon" parent="ShopInventory" unique_id=998590493 instance=ExtResource("6_vhuem")]
+
+[node name="Adrenaline Synthethizer" parent="ShopInventory" unique_id=1287989094 instance=ExtResource("3_e6ovm")]
+
+[node name="Juice Tank" parent="ShopInventory" unique_id=2070406720 instance=ExtResource("4_sbfju")]
+
+[node name="Juice Tank2" parent="ShopInventory" unique_id=931962954 instance=ExtResource("4_sbfju")]
+
+[node name="Juice Flask" parent="ShopInventory" unique_id=260990236 instance=ExtResource("5_rajmr")]
+
+[node name="Juice Can" parent="ShopInventory" unique_id=1928273878 instance=ExtResource("6_u3pef")]
+
+[node name="Brass Knuckles" parent="ShopInventory" unique_id=1524953542 instance=ExtResource("10_vhuem")]
+
+[node name="Protein Shake" parent="ShopInventory" unique_id=960069193 instance=ExtResource("11_p4p05")]
+
+[node name="Building Roster" parent="." unique_id=562564275 instance=ExtResource("3_oeueu")]
+
+[node name="Puncher" parent="Building Roster" unique_id=1510142188 instance=ExtResource("14_tjn12")]
+material = SubResource("ShaderMaterial_yntwk")
+
+[node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("16_njfxd")]
+material = SubResource("ShaderMaterial_njfxd")
+
+[node name="Slammer" parent="Building Roster" unique_id=1342933973 instance=ExtResource("17_x5o0a")]
+material = SubResource("ShaderMaterial_x5o0a")
+
+[node name="Toxic Hulk" parent="Building Roster" unique_id=754896079 instance=ExtResource("18_iscbg")]
+material = SubResource("ShaderMaterial_iscbg")
+
+[node name="Wrecker" parent="Building Roster" unique_id=1018236968 instance=ExtResource("19_amovc")]
+material = SubResource("ShaderMaterial_amovc")

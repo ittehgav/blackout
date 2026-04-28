@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_bullet.png")
 extends Node2D;
 
 class_name Projectile

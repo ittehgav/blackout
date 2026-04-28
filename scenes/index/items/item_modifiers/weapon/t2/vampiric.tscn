@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c3rvnbqg26t35"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_ikgxh"]
+
+[node name="Vampiric" type="Node" unique_id=1934216987]
+script = ExtResource("1_ikgxh")
+tier = 2
+description = "Heal for 20% of damage dealt."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

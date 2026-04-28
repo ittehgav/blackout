@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ofy6voyrdh1w"]
+
+[ext_resource type="Script" uid="uid://6xsoxh5pe6pt" path="res://scenes/leader/roster/npc_roster.gd" id="1_7yliw"]
+
+[node name="NPC Roster" type="Node" unique_id=159500697]
+script = ExtResource("1_7yliw")
+metadata/_custom_type_script = "uid://g3ijlm51y0pn"
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

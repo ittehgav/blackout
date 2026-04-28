@@ -5,11 +5,23 @@
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_53j4b"]
 [ext_resource type="Script" uid="uid://cepgldvhtvcb8" path="res://scenes/index/fighters/scripts/slammer.gd" id="3_koqxp"]
 [ext_resource type="PackedScene" uid="uid://clr0o7muuno6g" path="res://scenes/index/vfx/overhead_wide.tscn" id="4_6xpao"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_38x4e"]
+[ext_resource type="Texture2D" uid="uid://m6i3m30h1t5k" path="res://assets/visual/sprites/fighters/units/slammer/slammer_ally.png" id="4_jyje0"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_ocxoc"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_0jd70"]
+[ext_resource type="Texture2D" uid="uid://c0v222mnobn0" path="res://assets/visual/sprites/fighters/units/slammer/slammer_enemy.png" id="5_ceblu"]
 [ext_resource type="Texture2D" uid="uid://crdfgqjhj6svf" path="res://assets/visual/sprites/fighters/units/slammer/blur.png" id="7_815tu"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_6xpao"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_ikqys"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_ceblu"]
+
+[sub_resource type="Resource" id="Resource_0pccw"]
+script = ExtResource("4_38x4e")
+target_texture = ExtResource("2_iwgp2")
+base_name = "slammer"
+ally_texture = ExtResource("4_jyje0")
+enemy_texture = ExtResource("5_ceblu")
+metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_plmof"]
 radius = 22.0
@@ -31,19 +43,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("blur:modulate:a")
+tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1.0283699),
+"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:rotation")
+tracks/2/path = NodePath(".:position:y")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -55,14 +67,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".:position:y")
+tracks/3/path = NodePath("shadow_container:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_38x4e"]
@@ -81,6 +93,7 @@ vframes = 5
 script = ExtResource("3_koqxp")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Throw Hands")
+hue_shifter = SubResource("Resource_0pccw")
 tags = Array[int]([0, 6, 7])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -128,7 +141,7 @@ script = ExtResource("8_6xpao")
 
 [node name="base_stats" type="Node" parent="stat_base" unique_id=335532682]
 script = ExtResource("10_ikqys")
-max_hp = 500.0
+max_hp = 400.0
 attack = 20.0
 defense = 10.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
@@ -142,3 +155,12 @@ agility = 5.0
 technique = 10.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=1014178433]
+position = Vector2(0, -8.000001)
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=864315181]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 9.665546)
+texture = ExtResource("14_ceblu")

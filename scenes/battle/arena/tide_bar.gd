@@ -33,12 +33,14 @@ func _ready()->void:
 	
 
 func refresh_value(team_hit:int=0)->void:
+	## TODO make this how battles end
+	## when its more comprehensive that is
+	## or the other thing that shows the units in the middle
+	## right now you just lose if the player dies and win
+	## by wiping out the enemy team
 	max_value = total_levels_sum;
 	value = t1_levels_sum
-	if value == 0:
-		battle_lost();
-	elif value == max_value:
-		battle_won()
+	
 	match team_hit:
 		1:
 			color_blink(Color.INDIAN_RED)
@@ -87,17 +89,6 @@ func color_blink(target_color:Color)->void:
 
 
 
-
-
-
-func _on_player_fighter_death(_killer: ActiveFighter) -> void:
-	battle_lost();
-
-func battle_lost()->void:
-	Entities.arena.start_post_battle(false)
-	
-func battle_won()->void:
-	Entities.arena.start_post_battle(true)
 
 
 func _on_team_1_fighter_died(fighter: ActiveFighter) -> void:

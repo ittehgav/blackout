@@ -30,20 +30,14 @@ const all_fighter_tags = [
 ## make this catch the size properly?
 @export var irl_time_scale:float = 500;
 
-func _ready()->void:
-	for scene:PackedScene in fighters.all_fighter_base_scenes:
-		## because FighterBases need index to be ready
-		## they get reinstantiated for battle/displaying
-		var base:FighterBase = scene.instantiate();
-		for c:Node in base.get_children():
-			c.queue_free();
-		fighters.all_fighter_bases.append(scene.instantiate())
 
 ## colors and metadata stay in this file to facilitate fetching in UI
 @export_group("Colors")
 ## keepingthis as simple as possible for now
-@export var player_team_color:Color;
-@export var enemy_team_color:Color;
+@export var player_team_color:Color
+@export var enemy_team_color:Color
+
+@export var mod_tier_colors:Array[Color]
 
 @export var resource_colors:Dictionary[String, Color] = {
 	## really saturated here and we fix it out in-context?
@@ -89,8 +83,8 @@ const resource_base_prices = {
 
 
 
-func tagged_settlement_name(settlement:Settlement)->String:
-	return "[color=green][url="+settlement.name+"]"+settlement.name+"[/url][/color]"
+func tagged_location_name(location:Location)->String:
+	return "[color=green][url="+location.name+"]"+location.name+"[/url][/color]"
 
 const all_disciplines = [
 	"charisma",
@@ -142,6 +136,9 @@ const item_rarity_colors:={
 
 func get_color(key:String)->Color:
 	var color:Color;
+	if key in ["t1", "t2", "t3"]:
+		var tier:int = int(key[1]) - 1;
+		color = mod_tier_colors[tier];
 	if key in resource_colors:
 		color = resource_colors[key];
 	elif key in stat_colors:
@@ -193,14 +190,14 @@ var resource_descriptions:Dictionary[String, String] = {
 	"food": get_color_tag("food") + "Basic survival resource[/color], you and your party need to eat some food every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop.",
 	
 	"fuel": get_color_tag("fuel") + "Basic travel resource[/color], consumed every hour of travel in the world map, the more units there are in the party the more fuel travelling will\
-	 cost. If you have no fuel, you will travel much slower.",
+	cost.\nIf you have no fuel, you will travel much slower.",
 
 	"money": get_color_tag("money") + "Basic currency[/color] used for trading items and resources.",
 	
 	
-	"juice": "Strange substance with many practical uses, a [color=green]common[/color] trade comodity.\nUsed for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for equipment[/color].",
-	"scrap": "Broken down pieces of metal used for all kinds of purposes, usable scrap is [color=green]rare[/color] to come across.\nUsed for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for equipment[/color].",
-	"chips": "Intact processor chips are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for equipment[/color]."
+	"juice": get_color_tag("juice")+"Strange substance[/color] with many practical uses, a [color=green]common[/color] trade comodity.\nUsed for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for certain weapons and modules[/color].",
+	"scrap": "Broken down "+get_color_tag("scrap")+"pieces of metal[/color] used for all kinds of purposes, usable scrap is [color=green]rare[/color] to come across.\nUsed for [color=cyan]forging[/color] and as [color=cyan]ammo for certain weapons and module[/color].",
+	"chips": get_color_tag("chips")+"Intact processor chips[/color] are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for certain weapons and module[/color]."
 }
 
 const all_combat_stats:Array[String] = [

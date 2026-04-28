@@ -15,7 +15,9 @@ func special_skill_effect()->void:
 		termite_unit.level = fighter.level;
 		termite_unit.update_stats();
 		first_summon = false
-		
+
+
+
 	var x_roll:int = randi_range(-1, 1);
 	while x_roll == 0:
 		x_roll = randi_range(-1, 1)

@@ -1,4 +1,5 @@
 @abstract
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/robot.png")
 class_name CombatEntity
 
 extends CharacterBody2D;
@@ -63,3 +64,14 @@ var moving:bool=false;
 func get_sector(angle: float) -> int:
 	## not all units here will be isometric 3D
 	return int(fposmod(angle + PI / 2, TAU) / (PI / 4)) % 8
+
+func die(killer:ActiveFighter)->void:
+	dead = true;
+	
+	var tween:Tween = create_tween();
+	tween.tween_property(self, "modulate:a", 0, .7);
+	tween.parallel().tween_property(self, "modulate:v", 0, .7)
+	tween.tween_callback(queue_free)
+	
+	death.emit(killer)
+	

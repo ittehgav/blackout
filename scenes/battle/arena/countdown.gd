@@ -11,7 +11,10 @@ extends ColorRect
 func _ready()->void:
 	show() ## so it doesn't get in the way of the editor in the arena
 	get_tree().paused = true
-
+	await get_tree().create_timer(.1).timeout;
+	arena.battle_started.emit();
+	get_tree().paused = false
+	queue_free()
 
 func _on_countdown_timeout() -> void:
 	countdown_second -= 1;

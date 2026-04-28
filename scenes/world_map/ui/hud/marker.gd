@@ -5,7 +5,7 @@ extends Sprite2D
 
 const bounce_offsets:Array[int] = [-15, -10, -5]
 
-func show_in_settlement(target:Settlement)->void:
+func show_in_location(target:Location)->void:
 	show();
 	global_position = target.global_position - Vector2(0, 30);
 	start_bounce_animation();

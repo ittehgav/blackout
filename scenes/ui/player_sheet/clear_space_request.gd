@@ -18,7 +18,7 @@ func request_space_for_item(item:Item)->void:
 	sample.load_item(item, 3);
 	inventory_display.item_dropped.connect(check_clear_space)
 	setup_projection()
-	
+
 
 func check_clear_space(_mirror:ItemMirror)->void:
 	var spot:Vector2i = inventory_display.find_clear_cell(pending_item)
@@ -26,7 +26,7 @@ func check_clear_space(_mirror:ItemMirror)->void:
 		item_added_sfx.play()
 		var to_add:Item = pending_item.duplicate(DUPLICATE_USE_INSTANTIATION)
 		to_add.inventory_position = spot
-		Entities.player.inventory.add_item(to_add, true)
+		Entities.player.inventory.add_child(to_add, true)
 		inventory_display.mirror_item(to_add)
 		inventory_display.refresh_data()
 		

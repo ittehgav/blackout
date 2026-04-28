@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dage1xn2hqykd"]
+[gd_scene format=3 uid="uid://dage1xn2hqykd"]
 
 [ext_resource type="Script" uid="uid://bnm0wieao8nw8" path="res://scenes/in_settlement/unit/player/player_unit.gd" id="1_ufrsq"]
 [ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="2_ia1b5"]
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="2_me8i4"]
-[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/settlements/shadow.png" id="4_vitio"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="4_vitio"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1l141"]
 radius = 38.0

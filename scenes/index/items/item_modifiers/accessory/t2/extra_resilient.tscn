@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://nhvsis633jep"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_sgpoe"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_k07m2"]
+
+[node name="Extra Resilient" type="Node" unique_id=619543446 node_paths=PackedStringArray("stat_modifiers")]
+script = ExtResource("1_sgpoe")
+tier = 2
+stat_modifiers = NodePath("CombatStats")
+prefix = "Extra Resilient"
+metadata/_custom_type_script = "uid://dvekatbbdf76k"
+
+[node name="CombatStats" type="Node" parent="." unique_id=1050350816]
+script = ExtResource("2_k07m2")
+defense = 40.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

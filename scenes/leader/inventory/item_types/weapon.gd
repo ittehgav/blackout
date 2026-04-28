@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_sword.png")
 extends Equipment;
 
 class_name Weapon;
@@ -56,7 +57,8 @@ func use(_alt:bool=false)->void:
 func final_damage()->int:
 	## ONLY FOR WEAPONS NOT COMBAT
 	## during combat the player's stats will be set dynamically
-	var damage:int = Entities.player.final_stats().attack;
+
+	var damage:int = player.final_stats().attack;
 	damage += base_damage;
 	if applied_modifier:
 		if applied_modifier.stat_modifiers:

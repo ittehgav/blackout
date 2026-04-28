@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://cr7mjllu5bxvg"]
+
+[ext_resource type="Script" uid="uid://s3fk6pdt2bvq" path="res://scenes/ui/icons/item_modifier_icon.gd" id="1_k3ft0"]
+[ext_resource type="Material" uid="uid://dcudbe1ums6vc" path="res://resources/shaders/materials/outline.tres" id="1_td4r6"]
+[ext_resource type="Texture2D" uid="uid://1ald1jf8mj80" path="res://assets/visual/ui/items/item_modifier.png" id="3_0bvps"]
+
+[sub_resource type="Animation" id="Animation_0bvps"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7586g"]
+resource_name = "t3_glow"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.047374666, 1),
+"transitions": PackedFloat32Array(1, 1.035265),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wa0j0"]
+_data = {
+&"RESET": SubResource("Animation_0bvps"),
+&"t3_glow": SubResource("Animation_7586g")
+}
+
+[node name="ItemModifierIcon" type="Control" unique_id=1395602884 node_paths=PackedStringArray("arrow_1", "arrow_2", "arrow_3", "animation")]
+material = ExtResource("1_td4r6")
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 0
+script = ExtResource("1_k3ft0")
+arrow_1 = NodePath("HBoxContainer/arrow_1")
+arrow_2 = NodePath("HBoxContainer/arrow_2")
+arrow_3 = NodePath("HBoxContainer/arrow_3")
+animation = NodePath("AnimationPlayer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2056312262]
+use_parent_material = true
+layout_mode = 1
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 42.0
+offset_bottom = 44.0
+theme_override_constants/separation = -8
+
+[node name="arrow_1" type="TextureRect" parent="HBoxContainer" unique_id=1258407812]
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_0bvps")
+
+[node name="arrow_2" type="TextureRect" parent="HBoxContainer" unique_id=1589777227]
+visible = false
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_0bvps")
+
+[node name="arrow_3" type="TextureRect" parent="HBoxContainer" unique_id=1772673238]
+visible = false
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_0bvps")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2097473975]
+libraries/ = SubResource("AnimationLibrary_wa0j0")

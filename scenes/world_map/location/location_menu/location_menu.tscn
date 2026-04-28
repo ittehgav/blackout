@@ -1,0 +1,239 @@
+[gd_scene format=3 uid="uid://crqv35bkhuqac"]
+
+[ext_resource type="Script" uid="uid://dl22crf1pamh1" path="res://scenes/world_map/location/location_menu/location_menu.gd" id="1_68py7"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_67qrj"]
+[ext_resource type="AudioStream" uid="uid://drfmsbkpkmytd" path="res://assets/sound/sfx/ui/button_click.wav" id="3_4f855"]
+[ext_resource type="PackedScene" uid="uid://7iva7qsms5s0" path="res://scenes/world_map/location/location_menu/location_options.tscn" id="4_7vrr3"]
+[ext_resource type="PackedScene" uid="uid://ctxqhmgpiuoss" path="res://scenes/ui/location_menu/trade/trade_menu.tscn" id="6_4jn5u"]
+[ext_resource type="PackedScene" uid="uid://cqhmywx7yqdw6" path="res://scenes/ui/location_menu/recruitment/recruitment_menu.tscn" id="7_vgi1c"]
+[ext_resource type="PackedScene" uid="uid://c8aqipkg5upd" path="res://scenes/ui/location_menu/forge/forge_menu.tscn" id="8_jathp"]
+[ext_resource type="PackedScene" uid="uid://7epbb0cova3w" path="res://scenes/ui/location_menu/evolution/evolution_menu.tscn" id="9_krd6j"]
+[ext_resource type="PackedScene" uid="uid://dbe388224i5ve" path="res://scenes/ui/location_menu/dungeon/dungeon_menu.tscn" id="10_tgre5"]
+
+[sub_resource type="Gradient" id="Gradient_krd6j"]
+colors = PackedColorArray(0.57, 0.57, 0.57, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tgre5"]
+gradient = SubResource("Gradient_krd6j")
+width = 16
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[node name="Location Menu" type="Control" unique_id=300038436 node_paths=PackedStringArray("content_vbox", "name_label", "location_vboxes", "trade_menu", "recruitment_menu", "evolve_menu", "forge_menu", "dungeon_menu", "ui_sfx")]
+process_mode = 3
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_68py7")
+content_vbox = NodePath("content_vbox")
+name_label = NodePath("content_vbox/HBoxContainer/name")
+location_vboxes = [NodePath("content_vbox/main_panel/locations/l1"), NodePath("content_vbox/main_panel/locations/l2"), NodePath("content_vbox/main_panel/locations/l3")]
+trade_menu = NodePath("trade_menu")
+recruitment_menu = NodePath("RecruitmentMenu")
+evolve_menu = NodePath("EvolutionMenu")
+forge_menu = NodePath("ForgeMenu")
+dungeon_menu = NodePath("DungeonMenu")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." unique_id=2143108764 instance=ExtResource("2_67qrj")]
+stream = ExtResource("3_4f855")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=863377911]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.30588236)
+
+[node name="content_vbox" type="VBoxContainer" parent="." unique_id=1535210608]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -482.0
+offset_top = -223.5
+offset_right = 482.0
+offset_bottom = 223.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="content_vbox" unique_id=581288866]
+layout_mode = 2
+
+[node name="exit" type="Button" parent="content_vbox/HBoxContainer" unique_id=737375198]
+modulate = Color(0.8, 0.8, 0.8, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+text = "exit"
+
+[node name="name" type="Label" parent="content_vbox/HBoxContainer" unique_id=1916639382]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Location"
+
+[node name="main_panel" type="PanelContainer" parent="content_vbox" unique_id=1095993054]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+
+[node name="locations" type="HBoxContainer" parent="content_vbox/main_panel" unique_id=801423493]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="l1" type="VBoxContainer" parent="content_vbox/main_panel/locations" unique_id=985880643]
+layout_mode = 2
+
+[node name="portrait" type="TextureRect" parent="content_vbox/main_panel/locations/l1" unique_id=57988918]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_tgre5")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="content_vbox/main_panel/locations/l1/portrait" unique_id=17389764]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.101960786, 0.12941177, 0.15686275, 1)
+border_width = 5.0
+editor_only = false
+
+[node name="building_name" type="Label" parent="content_vbox/main_panel/locations/l1/portrait" unique_id=1570228689]
+modulate = Color(2.7075353, 2.7075353, 2.7075353, 1)
+layout_mode = 1
+offset_left = 4.0
+offset_top = 3.5
+offset_right = 44.0
+offset_bottom = 29.5
+theme_override_colors/font_color = Color(0.101960786, 0.12941177, 0.15686275, 1)
+theme_override_colors/font_shadow_color = Color(0.48000002, 0.49200004, 0.6, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="LocationOptions" parent="content_vbox/main_panel/locations/l1" unique_id=862781021 instance=ExtResource("4_7vrr3")]
+layout_mode = 2
+
+[node name="l2" type="VBoxContainer" parent="content_vbox/main_panel/locations" unique_id=555456897]
+layout_mode = 2
+
+[node name="portrait" type="TextureRect" parent="content_vbox/main_panel/locations/l2" unique_id=1151404529]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_tgre5")
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="content_vbox/main_panel/locations/l2/portrait" unique_id=433811206]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.101960786, 0.12941177, 0.15686275, 1)
+border_width = 5.0
+editor_only = false
+
+[node name="building_name" type="Label" parent="content_vbox/main_panel/locations/l2/portrait" unique_id=1151176511]
+modulate = Color(2.7075353, 2.7075353, 2.7075353, 1)
+layout_mode = 1
+offset_left = 4.0
+offset_top = 3.5
+offset_right = 44.0
+offset_bottom = 29.5
+theme_override_colors/font_color = Color(0.101960786, 0.12941177, 0.15686275, 1)
+theme_override_colors/font_shadow_color = Color(0.48000002, 0.49200004, 0.6, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="LocationOptions" parent="content_vbox/main_panel/locations/l2" unique_id=1264231009 instance=ExtResource("4_7vrr3")]
+layout_mode = 2
+
+[node name="l3" type="VBoxContainer" parent="content_vbox/main_panel/locations" unique_id=2083002394]
+layout_mode = 2
+
+[node name="portrait" type="TextureRect" parent="content_vbox/main_panel/locations/l3" unique_id=387427210]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_tgre5")
+
+[node name="ReferenceRect3" type="ReferenceRect" parent="content_vbox/main_panel/locations/l3/portrait" unique_id=1422129764]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0.101960786, 0.12941177, 0.15686275, 1)
+border_width = 5.0
+editor_only = false
+
+[node name="building_name" type="Label" parent="content_vbox/main_panel/locations/l3/portrait" unique_id=659430597]
+modulate = Color(2.7075353, 2.7075353, 2.7075353, 1)
+layout_mode = 1
+offset_left = 4.0
+offset_top = 3.5
+offset_right = 44.0
+offset_bottom = 29.5
+theme_override_colors/font_color = Color(0.101960786, 0.12941177, 0.15686275, 1)
+theme_override_colors/font_shadow_color = Color(0.48000002, 0.49200004, 0.6, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="LocationOptions" parent="content_vbox/main_panel/locations/l3" unique_id=1624530508 instance=ExtResource("4_7vrr3")]
+layout_mode = 2
+
+[node name="trade_menu" parent="." unique_id=2013329865 instance=ExtResource("6_4jn5u")]
+visible = false
+layout_mode = 1
+
+[node name="RecruitmentMenu" parent="." unique_id=206142612 instance=ExtResource("7_vgi1c")]
+visible = false
+layout_mode = 1
+
+[node name="ForgeMenu" parent="." unique_id=149389698 instance=ExtResource("8_jathp")]
+visible = false
+layout_mode = 1
+
+[node name="EvolutionMenu" parent="." unique_id=1447853777 instance=ExtResource("9_krd6j")]
+visible = false
+layout_mode = 1
+
+[node name="DungeonMenu" parent="." unique_id=1341485123 instance=ExtResource("10_tgre5")]
+visible = false
+top_level = true
+z_index = 4
+layout_mode = 1
+
+[connection signal="pressed" from="content_vbox/HBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="mouse_entered" from="content_vbox/main_panel/locations/l1" to="." method="_on_l_1_mouse_entered"]
+[connection signal="option_chosen" from="content_vbox/main_panel/locations/l1/LocationOptions" to="." method="_on_option_chosen"]
+[connection signal="mouse_entered" from="content_vbox/main_panel/locations/l2" to="." method="_on_l_2_mouse_entered"]
+[connection signal="option_chosen" from="content_vbox/main_panel/locations/l2/LocationOptions" to="." method="_on_option_chosen"]
+[connection signal="mouse_entered" from="content_vbox/main_panel/locations/l3" to="." method="_on_l_3_mouse_entered"]
+[connection signal="option_chosen" from="content_vbox/main_panel/locations/l3/LocationOptions" to="." method="_on_option_chosen"]
+[connection signal="trade_finished" from="trade_menu" to="." method="on_menu_closed"]
+[connection signal="recruitment_finished" from="RecruitmentMenu" to="." method="on_menu_closed"]
+[connection signal="forge_finished" from="ForgeMenu" to="." method="on_menu_closed"]
+[connection signal="evolution_finished" from="EvolutionMenu" to="." method="on_menu_closed"]
+[connection signal="exited" from="DungeonMenu" to="." method="on_menu_closed"]

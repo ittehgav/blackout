@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cq506jywmcjbm"]
+
+[ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/settlements/building.gd" id="1_d843j"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="2_kgj6b"]
+[ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/index/items/containers/chips_case.tscn" id="3_afyx4"]
+[ext_resource type="Script" uid="uid://b03rfuj7p4xxr" path="res://scenes/leader/roster/building_roster.gd" id="4_tx4j3"]
+
+[node name="TechShop" type="Node2D" groups=["all_locations"]]
+script = ExtResource("1_d843j")
+metadata/_custom_type_script = "uid://lf67nwuvdmnt"
+
+[node name="NpcInventory" parent="." node_paths=PackedStringArray("item_pool", "holder") instance=ExtResource("2_kgj6b")]
+item_pool = [NodePath("Chips Case2")]
+holder = NodePath("")
+
+[node name="Chips Case" parent="NpcInventory" instance=ExtResource("3_afyx4")]
+
+[node name="Chips Case2" parent="NpcInventory" instance=ExtResource("3_afyx4")]
+
+[node name="BuildingRoster" type="Node" parent="."]
+script = ExtResource("4_tx4j3")
+cyborg_recruiting = true
+metadata/_custom_type_script = "uid://b03rfuj7p4xxr"

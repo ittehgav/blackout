@@ -4,7 +4,7 @@ var current_player:DialoguePlayer;
 var current_speaker:Variant
 
 func get_ui_target()->Control:
-	match Entities.main.scenario:
+	match State.scenario:
 		## WHERE HUDS WILL BE HIDDEN/SHOWN
 		"in_settlement":
 			return Entities.current_area.ui;
@@ -28,7 +28,7 @@ func evolution_menu()->void:
 	var canvas:CanvasLayer = CanvasLayer.new();
 	canvas.layer = 4;
 	var menu:EvolutionMenu = Index.scenes.ui.evolution_menu.instantiate();
-	menu.load_options(Dialogue.current_speaker.evolve_option)
+	#menu.load_options(Dialogue.current_speaker.evolve_option)
 	canvas.add_child(menu)
 	var target:Control = get_ui_target();
 	target.add_child(canvas);

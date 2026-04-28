@@ -1,32 +1,39 @@
+@abstract
 extends Node2D
+
 
 class_name MapParty;
 
 signal started_moving;
 signal stopped_moving;
 
-signal settlement_visited(settlement:Settlement)
-signal settlement_entered(settlement:Settlement);
+
+
+
+signal location_visited(location:Location)
+signal location_entered(location:Location);
 
 const road_cell_size = 32;
 
 @export var leader:Leader;
 @export var vehicle:Vehicle;
-@export var current_settlement:Settlement;
+@export var current_location:Location;
 
 ## NAVIGATION SPEED = ROAD CELLS/IGT H
 @export var navigation_speed:float = 60.0;
+
+@onready var world_map:WorldMap = get_tree().get_first_node_in_group("world_map")
+
 var irl_cell_travel_time:float;
 
-var stops:Array[Settlement]
+var stops:Array[Location]
 var current_path:Array;
 
 
-var movement_target:Settlement;
+var movement_target:Location;
 var next_cell:Vector2;
 
 func _ready()->void:
-	ColorCoder.color_code_vehicle(vehicle, leader);
 	refresh_speed();
 	
 func refresh_speed()->void:
@@ -34,19 +41,19 @@ func refresh_speed()->void:
 
 
 
-func move_to_settlement(target:Settlement)->void:
-	if target in current_settlement.neighbor_paths:
+func move_to_location(target:Location)->void:
+	if target in current_location.neighbor_paths:
 		stops = [];
-		current_path = Array(current_settlement.neighbor_paths[target]);
+		current_path = Array(current_location.neighbor_paths[target]);
 		movement_target = target;
 	else:
-		stops = Entities.road.get_path_sequence(current_settlement, target);
-		current_path = Array(current_settlement.neighbor_paths[stops[1]]);
+		stops = Entities.road.get_path_sequence(current_location, target);
+		current_path = Array(current_location.neighbor_paths[stops[1]]);
 		movement_target = stops[1]
 	navigation_tween = create_tween();
 	
 	start_navigation_tween()
-	current_settlement = null;
+	current_location = null;
 	started_moving.emit();
 
 @onready var navigation_tween:Tween = create_tween();
@@ -58,7 +65,7 @@ func start_navigation_tween()->void:
 	navigation_tween.tween_callback(navigation_finished)
 	
 func navigation_finished()->void:
-	visit_settlement(movement_target)
+	visit_location(movement_target)
 
 
 
@@ -79,14 +86,17 @@ func get_next_cell()->void:
 	navigation_tween.tween_callback(vehicle.adjust_direction.bind(direction_vector))
 
 
-func get_travel_minutes(target:Settlement)->int:
-	var cell_distance:int = Entities.road.get_settlement_distance(current_settlement, target);
+func get_travel_minutes(target:Location)->int:
+	var cell_distance:int = Entities.road.get_location_distance(current_location, target);
 	var final_minutes:int = (cell_distance*60) /navigation_speed
 	return final_minutes
 
 
-func visit_settlement(target:Settlement = current_settlement)->void:
-	current_settlement = target;
-	current_settlement.data.visited = true;
-	settlement_visited.emit(target)
+func visit_location(target:Location = current_location)->void:
+	current_location = target;
+	current_location.data.visited = true;
+	
+	location_visited.emit(target)
 	target.player_visited.emit()
+
+@abstract func enter_location()->void;

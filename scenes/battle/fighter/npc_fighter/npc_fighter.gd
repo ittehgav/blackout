@@ -13,6 +13,8 @@ signal skill_hit(target_hit:ActiveFighter);
 
 var unit:FighterUnit;
 
+@export var dummy:bool=false;
+
 @export var npc_sfx:AudioStreamPlayer2D;
 
 @export var cooldown_timer:Timer;
@@ -39,7 +41,10 @@ var target_in_range:bool = false;
 ## and is playing on a different wait time
 var true_cooldown:float;
 
-
+func _ready()->void:
+	if dummy:
+		timers.free();
+		hp = max_hp
 
 func load_fighter(new_unit:FighterUnit)->void:
 	unit = new_unit
@@ -73,7 +78,8 @@ func load_fighter(new_unit:FighterUnit)->void:
 		base.hit_scan.reparent(self)
 		if base.skill.aoe_projection and ally_team.team_n == 2:
 			var shape:CollisionShape2D = base.hit_scan.get_node("shape");
-			show_aoe_projection = true;
+			if not base.skill.special_aoe_projection:
+				show_aoe_projection = true;
 			setup_aoe_projection(shape);
 			
 
@@ -108,11 +114,10 @@ func setup_aoe_projection(shape:CollisionShape2D)->void:
 	
 	if aoe_shape is CircleShape2D:
 		aoe_projection.texture = circle_projection_texture;
+		var diameter:int = aoe_shape.radius * 2;
+		## 32x32 pixel circle
 		var size:float;
-		if aoe_shape.radius > 16:
-			size = (aoe_shape.radius/2.0)/32.0## 32 = size of circle texture
-		else:
-			size = 32/(aoe_shape.radius*2)
+		size = diameter/32;
 		aoe_projection.scale = Vector2(size, size)
 	elif aoe_shape is RectangleShape2D:
 		aoe_projection.texture = rectangle_projection_texture;
@@ -125,6 +130,7 @@ func setup_aoe_projection(shape:CollisionShape2D)->void:
 	aoe_projection.modulate = aoe_projection_color
 	aoe_projection.self_modulate.a = 0;
 	shape.add_child(aoe_projection)
+	aoe_projection.z_index -= 1;
 
 func load_unit_stats()->void:
 	var stats:CombatStats = unit.final_stats();
@@ -262,7 +268,7 @@ func use_skill()->void:
 	skill_used.emit();
 	
 	if show_aoe_projection:
-		
+		## TODO this should all be controlled by SkillComponent
 		## TODO make the projection tweren time dynamic
 		## right now it's just the hardcoded time that all skill animations
 		## take between start and impact
@@ -305,13 +311,17 @@ func correct_cooldown_timer()->void:
 	cooldown_timer.start()
 	overlay.refresh_charge_bar_max();
 
-
-func _on_death(killer: ActiveFighter) -> void:
+func die(killer:ActiveFighter)->void:
+	death.emit(killer)
 	dead = true;
-	ally_team.fighters.erase(self);
-	await base.fighter_died(killer).finished
-	var cell_to_clear:Vector2i = current_cell
+	
+	var cell_to_clear:Vector2i = current_cell;
 	var grid:TileMapLayer = Entities.arena.grid
 	grid.set_cell(cell_to_clear, 0, grid.CELL_FREE)
 	hide();
-	set_process_mode(PROCESS_MODE_DISABLED)
+
+	
+	var tween:Tween = create_tween();
+	tween.tween_property(self, "modulate:a", 0, .7);
+	tween.parallel().tween_property(self, "modulate:v", 0, .7)
+	tween.tween_callback(queue_free);

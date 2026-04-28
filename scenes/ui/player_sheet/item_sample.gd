@@ -4,19 +4,22 @@ class_name ItemSample;
 
 var clickable:bool=false;
 
-signal clicked;
+signal clicked(item:Item);
 
-@export var modifier_sign:Label;
 @export var outline:ReferenceRect;
 @export var tooltip:Tooltip;
 @export var bg:ColorRect;
 @export var blank:TextureRect
 
+
+@export var modifier_icon:ItemModifierIcon
+
 var item:Item;
 @export var button:TextureButton
 
 
-func load_item(new_item:Item, sample_scale:int)->void:
+func load_item(new_item:Item, sample_scale:int=2, make_clickable:bool=false)->void:
+	clickable = make_clickable
 	item = new_item;
 	blank.hide();
 	texture = item.texture;
@@ -24,12 +27,14 @@ func load_item(new_item:Item, sample_scale:int)->void:
 	custom_minimum_size = sample_size;
 	size = sample_size;
 	
+	if sample_scale > 2:
+		modifier_icon.scale = Vector2(2, 2);
+	else:
+		modifier_icon.scale = Vector2.ONE
+	
 	tooltip.load_target(self);
 	tooltip.enable()
 	
-	modifier_sign.hide()
-	if item.applied_modifier:
-		modifier_sign.show()
 	
 	modulate = new_item.get_mirror_color();
 	self_modulate.a = 1;
@@ -37,11 +42,18 @@ func load_item(new_item:Item, sample_scale:int)->void:
 	
 	if clickable:
 		button.show()
+	refresh(false)
 
-
+func refresh(animated:bool=true)->void:
+	## push more stuff from load_item to here when need be?
+	if item:
+		modifier_icon.refresh(item)
+		tooltip.item_setup(item)
+	if animated:
+		highlight_blink()
 
 func load_blank(sample_scale:int = 2)->void:
-	modifier_sign.hide()
+	modifier_icon.hide()
 	blank.show();
 	modulate = Color.WHITE
 	self_modulate.a = 0;
@@ -70,4 +82,4 @@ func _on_mouse_exited() -> void:
 
 
 func _on_texture_button_pressed() -> void:
-	clicked.emit()
+	clicked.emit(item)

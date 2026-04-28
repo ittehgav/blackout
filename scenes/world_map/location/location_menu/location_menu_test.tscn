@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://cp5p2g3x0qqax"]
+
+[ext_resource type="PackedScene" uid="uid://crqv35bkhuqac" path="res://scenes/world_map/location/location_menu/location_menu.tscn" id="1_y4u6u"]
+[ext_resource type="PackedScene" uid="uid://buyf7yy7iuctf" path="res://scenes/world_map/location/location.tscn" id="2_ewm81"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="3_eldan"]
+[ext_resource type="PackedScene" uid="uid://brlc23bio8sdx" path="res://scenes/index/settlements/buildings/gym.tscn" id="4_avvhk"]
+[ext_resource type="PackedScene" uid="uid://c2um7mypog4cw" path="res://scenes/index/settlements/buildings/laboratory.tscn" id="5_80ijo"]
+[ext_resource type="PackedScene" uid="uid://1ardsa0qdcfv" path="res://scenes/index/settlements/buildings/chop_shop.tscn" id="6_2m4hw"]
+[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="6_4fhhf"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="7_ea7wj"]
+[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="8_wrmg3"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="9_avvhk"]
+[ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="10_80ijo"]
+[ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="10_avvhk"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="13_5p16a"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="14_blqe1"]
+[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="14_wrmg3"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="15_avvhk"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="15_kgodg"]
+[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="16_80ijo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ea7wj"]
+resource_local_to_scene = true
+shader = ExtResource("3_eldan")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrmg3"]
+resource_local_to_scene = true
+shader = ExtResource("15_kgodg")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.099999994, 0.099999994, 0.5, 0.39215687)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_avvhk"]
+resource_local_to_scene = true
+shader = ExtResource("15_kgodg")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_80ijo"]
+resource_local_to_scene = true
+shader = ExtResource("15_kgodg")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.099999994, 0.099999994, 0.5, 0.39215687)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[node name="LocationMenuTest" type="Control" unique_id=1626227816]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Location Menu" parent="." unique_id=300038436 node_paths=PackedStringArray("mock_location") instance=ExtResource("1_y4u6u")]
+layout_mode = 1
+mock_location = NodePath("../Street")
+
+[node name="Street" parent="." unique_id=1185826475 node_paths=PackedStringArray("settlements") instance=ExtResource("2_ewm81")]
+material = SubResource("ShaderMaterial_ea7wj")
+position = Vector2(3333, 289)
+settlements = [NodePath("Gym"), NodePath("Laboratory"), NodePath("Chop Shop")]
+
+[node name="Gym" parent="Street" unique_id=827517862 instance=ExtResource("4_avvhk")]
+
+[node name="Laboratory" parent="Street" unique_id=1684508635 instance=ExtResource("5_80ijo")]
+
+[node name="Chop Shop" parent="Street" unique_id=2070719463 instance=ExtResource("6_2m4hw")]
+
+[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "equipped_module") groups=["player"] instance=ExtResource("6_4fhhf")]
+process_priority = 1
+equipped_weapon = NodePath("Inventory/Slingshot")
+equipped_module = NodePath("Inventory/Dodge Roll")
+experience = 1
+
+[node name="FighterUnit" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="0" unique_id=2067750979 instance=ExtResource("13_5p16a")]
+level = 2
+
+[node name="Puncher" parent="Player/Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("14_blqe1")]
+material = SubResource("ShaderMaterial_wrmg3")
+
+[node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="1" unique_id=1187060834 instance=ExtResource("13_5p16a")]
+level = 2
+
+[node name="Crowbar" parent="Player/Roster/FighterUnit2" unique_id=2112712555 instance=ExtResource("10_80ijo")]
+material = SubResource("ShaderMaterial_avvhk")
+
+[node name="FighterUnit3" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="2" unique_id=1390462273 instance=ExtResource("13_5p16a")]
+level = 2
+
+[node name="Puncher" parent="Player/Roster/FighterUnit3" unique_id=663991513 instance=ExtResource("14_blqe1")]
+material = SubResource("ShaderMaterial_80ijo")
+
+[node name="Inventory" parent="Player" index="1" unique_id=1819646003]
+money = 315
+
+[node name="Brass Knuckles" parent="Player/Inventory" index="0" unique_id=834594505 instance=ExtResource("10_avvhk")]
+application = ""
+equippable = Dictionary[String, bool]({
+"player": false,
+"unit": false
+})
+color_tag = "none"
+
+[node name="Tailpipe" parent="Player/Inventory" index="1" unique_id=870722934 instance=ExtResource("7_ea7wj")]
+
+[node name="Slingshot" parent="Player/Inventory" index="2" unique_id=1530847075 instance=ExtResource("8_wrmg3")]
+
+[node name="Dodge Roll" parent="Player/Inventory" index="3" unique_id=1043224961 instance=ExtResource("9_avvhk")]
+cooldown = 2.0
+
+[node name="Juice Flask" parent="Player/Inventory" index="4" unique_id=188348208 instance=ExtResource("14_wrmg3")]
+stack_size = 50
+
+[node name="Food Basket" parent="Player/Inventory" index="5" unique_id=2082907014 instance=ExtResource("15_avvhk")]
+stack_size = 100
+
+[node name="Fuel Tank" parent="Player/Inventory" index="6" unique_id=1578068698 instance=ExtResource("16_80ijo")]
+stack_size = 100
+
+[node name="base_stats" parent="Player" index="2" unique_id=1645727257]
+max_hp = 100.0
+
+[editable path="Player"]

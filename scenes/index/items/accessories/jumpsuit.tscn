@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgkevwom7geat"]
+[gd_scene format=3 uid="uid://cgkevwom7geat"]
 
 [ext_resource type="Texture2D" uid="uid://rm02ifitug35" path="res://assets/visual/items/accessories/jumpsuit.png" id="1_uv1h5"]
 [ext_resource type="Script" uid="uid://ykyajdeiqxeh" path="res://scenes/index/items/accessories/scripts/jumpsuit.gd" id="1_w0ntk"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="3_72a84"]
 
-[node name="Jumpsuit" type="Sprite2D" node_paths=PackedStringArray("stat_modifiers")]
+[node name="Jumpsuit" type="Sprite2D" unique_id=342141630 node_paths=PackedStringArray("stat_modifiers")]
 texture = ExtResource("1_uv1h5")
 script = ExtResource("1_w0ntk")
 stat_modifiers = NodePath("stats")
@@ -12,11 +12,12 @@ equippable = Dictionary[String, bool]({
 "player": true,
 "unit": true
 })
-exclusive_tag = "mechanic"
+tag_restriction = true
+exclusive_tag = 4
 color_tag = "defense"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
-[node name="stats" parent="." instance=ExtResource("3_72a84")]
+[node name="stats" parent="." unique_id=1694161719 instance=ExtResource("3_72a84")]
 defense = 10.0
 agility = 2.0
 move_speed = 0.0

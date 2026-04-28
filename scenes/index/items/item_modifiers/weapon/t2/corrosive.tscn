@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ketk8414eb62"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_0qdrj"]
+
+[node name="Corrosive" type="Node" unique_id=504874261]
+script = ExtResource("1_0qdrj")
+tier = 2
+description = "On hit: reduce target's defense by 5%"
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

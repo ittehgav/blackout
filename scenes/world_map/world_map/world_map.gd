@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_minimap.png")
 extends Node2D
 
 class_name WorldMap
@@ -5,14 +6,15 @@ class_name WorldMap
 signal hour_passed;
 signal day_passed;
 
-signal settlement_hovered(settlement:Settlement);
-signal settlement_mouse_exited;
+
+signal location_hovered(location:Location);
+signal location_mouse_exited;
 
 signal returned_from_battle(won:bool);
 signal sped_up;
 ## to play animations/dialogues that depend on whether you won the battle
 
-@export var origin:Settlement;
+@export var origin:Location;
 @export var road_tiles:TileMapLayer;
 
 @export var speed_up_icon:TextureRect
@@ -22,7 +24,9 @@ signal sped_up;
 ## world map persists throughout the entire session
 ## the true player node is located here
 ## and set to Entities before the world enters the tree
-@export var player_node:Player;
+@export var player_party:PlayerParty;
+## make this easier to catch to reparent player
+## while changing scenarios
 
 ## y3k?
 @export var current_year:int = 3000;
@@ -34,8 +38,8 @@ signal sped_up;
 @export var speed_up_persist_timer:Timer;
 @export var speed_5x_persist_timer:Timer;
 
+
 func _ready()->void:
-	## TODO move this declaration for the moment the world map is instantiated
 	get_tree().paused = true;
 	speed_up_loop()
 	
@@ -47,12 +51,10 @@ func speed_up_loop()->void:
 	tween.tween_callback(speed_up_loop);
 
 
-func _on_enter_pressed() -> void:
-	enter_settlement();
 
 
-func enter_settlement(_target:Settlement = Entities.player_party.current_settlement)->void:
-	Entities.main.set_scenario("in_settlement")
+
+
 
 func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("skip_time") and not get_tree().paused:
@@ -70,7 +72,7 @@ func set_travel_speed(target:float)->void:
 	Engine.time_scale = target
 
 
-func _on_player_party_settlement_visited(_settlement: Settlement) -> void:
+func _on_player_party_location_visited(_location: Location) -> void:
 	set_travel_speed(1)
 	
 func advance_day()->void:

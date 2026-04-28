@@ -10,6 +10,6 @@ func _ready()->void:
 	
 	
 
-func _input(e:InputEvent)->void:
-	if contact and e.is_action_pressed("interact") and not get_tree().paused:
-		Dialogue.start_dialogue(dialogue, self, clerk_sprite);
+#func _input(e:InputEvent)->void:
+	#if contact and e.is_action_pressed("interact") and not get_tree().paused:
+		#Dialogue.start_dialogue(dialogue, self, clerk_sprite);

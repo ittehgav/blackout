@@ -8,7 +8,7 @@ class_name UISFX;
 
 @export var button_click:AudioStream;
 @export var cancel:AudioStream;
-@export var settlement_entered:AudioStream;
+@export var location_entered:AudioStream;
 @export var invalid:AudioStream;
 
 

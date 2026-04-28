@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck0ok0tnqaxob"]
+[gd_scene format=3 uid="uid://ck0ok0tnqaxob"]
 
 [ext_resource type="Script" uid="uid://dg4nymewwvdqv" path="res://scenes/leader/inventory/loot_inventory.gd" id="1_db3sy"]
 
-[node name="LootInventory" type="Node2D"]
+[node name="LootInventory" type="Node2D" unique_id=1047099870]
 visible = false
 script = ExtResource("1_db3sy")
 metadata/_custom_type_script = "uid://bjl8ll4agrd73"

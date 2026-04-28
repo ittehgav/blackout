@@ -7,8 +7,7 @@ extends Camera2D
 
 # Reference to the parent node (e.g., the player)
 @onready var parent: Node2D = get_parent()
-func _ready()->void:
-	Entities.current_camera = self;
+
 
 func _process(_delta: float) -> void:
 	var mouse_position: Vector2 = get_global_mouse_position()

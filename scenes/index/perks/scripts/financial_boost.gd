@@ -2,12 +2,15 @@ extends Perk
 
 @export var money_label:Label;
 var money_gain:int
+@onready var player:Player = get_tree().get_first_node_in_group("player")
+
+
 func _ready()->void:
 	if not (get_parent() is Control):
 		return
 	## happens after player gains money from the fight
 	print("_R??? ", name)
-	money_gain = int(Entities.player.inventory.money/3);
+	money_gain = int(player.inventory.money/3);
 	description = "Gain "+Index.get_color_tag("money")+str(money_gain) + " money.";
 	title_color = Index.get_color("money");
 	
@@ -33,4 +36,4 @@ func animation_callback(display:Control)->void:
 
 
 func apply()->void:
-	Entities.player.inventory.money += money_gain;
+	player.inventory.money += money_gain;

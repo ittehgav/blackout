@@ -5,7 +5,7 @@ extends CanvasModulate
 @export var horizon_colors:Array[Color]
 @export var backdrop:ColorRect
 @export var marker_colors:Array[Color];
-@export var settlement_colors:Array[Color];
+@export var location_colors:Array[Color];
 
 @export var roadside:TileMapLayer
 @export var horizon:TileMapLayer
@@ -15,6 +15,8 @@ extends CanvasModulate
 
 @export var ticker:Timer;
 
+@onready var world_map:WorldMap = get_tree().get_first_node_in_group("world_map")
+
 func _ready()->void:
 	await get_parent().ready;
 	## TODO eventually all onpening environment setups will be in a single script
@@ -22,7 +24,7 @@ func _ready()->void:
 	_on_world_map_hour_passed(true);
 
 func _on_world_map_hour_passed(instant:bool=false) -> void:
-	var hour:int = Entities.world_map.current_hour;
+	var hour:int = world_map.current_hour;
 	## 21:00 - 3:59 - darkest
 	## 4:00 - 10:59 - morning
 	## 11:00 - 16:59 - brightest

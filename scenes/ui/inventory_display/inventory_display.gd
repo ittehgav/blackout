@@ -1,10 +1,16 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/control/icon_bag.png")
 class_name InventoryDisplay
 extends Control
+
+signal item_hovered(mirrir:ItemMirror)
 
 signal warnings_shown;
 signal warnings_attended(clear:bool)
 
 signal item_received;
+signal item_chosen(item:Item);
+## right now only using this for forge but could use 
+## for other context and improving dynamicness of stuff?
 
 signal item_picked_up(mirror:ItemMirror);
 signal item_dropped(mirror:ItemMirror);
@@ -15,7 +21,7 @@ signal accessory_equipped_on_unit;
 signal opened
 
 
-@export_enum("player_sheet", "trade", "loot")var context:String="player_sheet";
+@export_enum("player_sheet", "trade", "loot", "forge")var context:String="player_sheet";
 
 ## warning takes up the whole screen so it needs to be the immediate child of a control
 ## that does that
@@ -58,8 +64,6 @@ var grid_cols:Array[Array];
 
 @export var from_player:bool=true;
 
-
-
 @export var exchanging_display:InventoryDisplay;
 
 @export var trade_excess:PanelContainer;
@@ -88,48 +92,57 @@ var choosing_item:bool=false;
 
 @export var food_icon:ResourceIcon
 
-func _ready()->void:
-	if context == "player_sheet":
-		inventory = Entities.player.inventory
-		hard_reset()
-
-var pre_trade_inventory:Inventory
+var pre_trade_items:Array[Item]
 var pre_trade_stack_sizes:Dictionary[ResourceContainer, int]
 var pre_trade_inventory_positions:Dictionary[Item, Vector2]
 var pre_trade_resource_counts:Dictionary[String, int]
 
-func set_reset_state()->Inventory:
+func set_reset_state()->void:
 	## mirrors here are already properly positioned and set to just get
 	## added into the display as freshly-loaded mirrors
-	pre_trade_inventory = inventory.duplicate()
+
+	pre_trade_items = inventory.items.duplicate()
 
 	for r:String in Index.all_resources:
 		pre_trade_resource_counts[r] = inventory[r];
-	for c:ResourceContainer in pre_trade_inventory.containers:
+		
+	for c:ResourceContainer in inventory.containers:
 		pre_trade_stack_sizes[c] = c.stack_size;
-	for item:Item in pre_trade_inventory.items:
+		
+	for item:Item in inventory.items:
 		pre_trade_inventory_positions[item] = item.inventory_position
 	## returns the pre trade inventory for resource count comparisons in trade
-	return pre_trade_inventory
 
 func reset_inventory()->void:
 	## items are still referenced in the backup so won't be 
 	## lost when they get unindexed from the inventyory
 	
-	
-	inventory.empty_inventory();
+	var i:int = 0;
+	while i < len(all_mirrors):
+		## destructive loop so cant just do for mirror in all_mirrors
+		var mirror:ItemMirror = all_mirrors[i];
+		i += 1;
+		if mirror.being_traded or not(mirror.item in pre_trade_items):
+			remove_mirror(mirror, true);
+			i -= 1;
 
-	while len(pre_trade_inventory.items):
-		var item:Item = pre_trade_inventory.items[0]
-		pre_trade_inventory.send_item(item, inventory)
+	while len(pre_trade_items):
+		var item:Item = pre_trade_items[0]
+		if not item in inventory.items:
+			item.reparent(inventory);
 		
 		item.inventory_position = pre_trade_inventory_positions[item];
+		if item is ResourceContainer:
+			## idk the editor was giving a red error for type
+			var rc:ResourceContainer = item;
+			item.stack_size = pre_trade_stack_sizes[rc];
+			
+		pre_trade_items.erase(item)
 
-	for c:ResourceContainer in inventory.containers:
-		if pre_trade_stack_sizes.has(c):
-			c.stack_size = pre_trade_stack_sizes[c];
+
 	for r:String in Index.all_resources:
 		inventory[r] = pre_trade_resource_counts[r]
+
 	hard_reset()
 
 
@@ -163,11 +176,13 @@ func set_grid()->void:
 	if not from_player:
 		send_rect.position = Vector2.ZERO 
 
+func item_mirror_hovered(mirror:ItemMirror)->void:
+	item_hovered.emit(mirror)
 
 func load_inventory()->void:
 	## INVENTORY IS ALREADY SET HERE FROM OUTSIDE CALL
 	resources_dropdown.target_inventory = inventory
-	resources_dropdown.setup()
+	resources_dropdown.setup(inventory);
 	
 	var unplaced:Array[Item];
 	for item:Item in inventory.items:
@@ -204,6 +219,8 @@ func add_mirror(mirror:ItemMirror)->void:
 func clear_all_mirrors(from_inventory:bool=true)->void:
 	while len(all_mirrors):
 		remove_mirror(all_mirrors[0], from_inventory)
+	for i:Item in inventory.items:
+		i.mirror = null;
 
 func remove_mirror(mirror:ItemMirror, from_inventory:bool=true)->void:
 	if from_inventory and mirror.item in inventory.items:
@@ -255,7 +272,7 @@ func refresh_data()->void:
 
 	
 	if context == "trade":
-		## one display uses  the other one's trade rect 
+		## one display uses the other one's trade rect 
 		exchanging_display.send_rect.hide()
 	
 	
@@ -263,6 +280,8 @@ func refresh_data()->void:
 	reset_warnings();
 	if context == "player_sheet":
 		## unallocated items in player sheet are those that came from trade/loot
+		for mirror:ItemMirror in all_mirrors:
+			mirror.item.mirror = mirror
 		var unallocated:Array[Item] = get_unallocated_items();
 		for item:Item in unallocated:
 			mirror_item(item)
@@ -283,9 +302,7 @@ func refresh_data()->void:
 		if inventory == Entities.player.inventory:
 			if len(exchanging_display.all_mirrors):
 				warnings["loot_discard"] = true;
-		else:
-			if len(all_mirrors):
-				exchanging_display.warnings["loot_discard"] = true;
+
 	
 	inventory.refresh_resource_counts()
 	refresh_container_mirrors();
@@ -313,8 +330,6 @@ func clear_resource_container_highlights(resource:String)->void:
 		mirror.undo_container_highlight();
 
 
-
-
 func throw_in_inventory(item:Item, replacing:Item = null)->void:
 	## finds the top-left-most spot where the item fits
 	## if there's no room it just skips it rn
@@ -323,7 +338,7 @@ func throw_in_inventory(item:Item, replacing:Item = null)->void:
 			if check_item_fit(item, Vector2(x, y), replacing):
 				item.inventory_position = Vector2(x, y)
 				if item not in inventory.items:
-					inventory.add_item(item);
+					inventory.add_child(item);
 				mirror_item(item).refresh();
 				return
 
@@ -346,10 +361,11 @@ func throw_mirror(item_mirror:ItemMirror, add_to_grid:bool=false)->void:
 func receive_resource(amount:int, resource:String)->int:
 	var returned:int = 0;
 	amount = store_resource(amount, resource);
-	amount = store_resource(amount, resource);
+	
 	while amount:
 		var raw_stack:ResourceContainer = Index.scenes.items[resource+"_stack"].instantiate();
-		inventory.add_item(raw_stack);
+		inventory.add_child(raw_stack);
+		
 		
 		if raw_stack.capacity >= amount or raw_stack.mirror_only:
 			raw_stack.stack_size = amount;
@@ -360,8 +376,8 @@ func receive_resource(amount:int, resource:String)->int:
 		
 		var mirror:ItemMirror = generate_mirror(raw_stack);
 		throw_mirror(mirror, true);
+		mirror.being_traded = true
 		if mirror.inventory_position != Vector2i(-1, -1):
-			raw_stack.match_mirror()
 			item_dropped.emit(mirror, "trade")
 		else:
 			remove_mirror(mirror, true);
@@ -386,7 +402,7 @@ func send_resource_by_amount(resource:String, amount:int)->void:
 			return
 		else:
 			send_resource(mirror, mirror.stack_size)
-
+			amount -= mirror.stack_size;
 func send_resource(source:ItemMirror, amount:int)->void:
 	var sent:int = amount;
 	if(amount == source.stack_size and source.item.raw_stack) or context == "loot":
@@ -405,44 +421,49 @@ func send_resource(source:ItemMirror, amount:int)->void:
 	exchanging_display.item_received.emit()
 
 		
+
+func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
+	## make this only apply to empty containers and non-resources?
+	if not has_room(item_mirror.item):
+		invalid_move.emit("NOT ENOUGH ROOM", item_mirror);
+		return false
+	var spot:Vector2i = find_clear_cell(item_mirror.item)
+	## EVERY MOVE IS APPLIED TO INVENTORIES RIGHT AWAY
+	## RESETTING FUNCTIONS WILL BE RESET STATES GENERATED AS THE MENUS ARE OPENED
+	## /TRADES ARE COMMITED
+	var space_occupied:bool=item_mirror.display.inventory.send_item(item_mirror.item, inventory)
+	
+	if item_mirror.item is ResourceContainer:
+		inventory.refresh_resource_counts();
+		exchanging_display.inventory.refresh_resource_counts()
+	
+	if space_occupied:
+		var new_mirror:ItemMirror;
+		
+		new_mirror = mirror_item(item_mirror.item)
+		new_mirror.traded_price = item_mirror.price;
+		new_mirror.set_inventory_position(spot)
+		new_mirror.being_traded = not item_mirror.being_traded;
+		if trade:
+			item_dropped.emit(new_mirror, "trade");
+		else:
+			sfx.play_sound_by_key("loot")
+			item_dropped.emit(new_mirror, "loot");
+	else:
+		## just so the inventory refreshes
+		item_dropped.emit(ItemMirror.new(), "trade")
+		exchanging_display.item_dropped.emit(ItemMirror.new())
+	item_received.emit();
+	return true
+
+
 func send_item(item_mirror:ItemMirror, trade:bool = false)->void:
 	## needs to be erased prior to other display refreshing so warnings behave properly
 	if exchanging_display.receive_item(item_mirror, trade):
 		## remove_mirror doesn't have to remove item
 		## because it's already removed by send_item if the receive passes
 		remove_mirror(item_mirror, false)
-	
 
-func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
-	## make this only apply to empty containers and non-resources?
-	var new_mirror:ItemMirror;
-	var spot:Vector2i = find_clear_cell(item_mirror.item)
-	if spot == Vector2i(-1, -1):
-		invalid_move.emit("NOT ENOUGH ROOM", item_mirror);
-		return false
-	## EVERY MOVE IS APPLIED TO INVENTORIES RIGHT AWAY
-	## RESETTING FUNCTIONS WILL BE RESET STATES GENERATED AS THE MENUS ARE OPENED
-	## /TRADES ARE COMMITED
-	item_mirror.display.inventory.send_item(item_mirror.item, inventory)
-	if item_mirror.item is ResourceContainer:
-		inventory.refresh_resource_counts();
-		exchanging_display.inventory.refresh_resource_counts()
-		
-	new_mirror = mirror_item(item_mirror.item)
-	new_mirror.traded_price = item_mirror.price;
-	new_mirror.set_inventory_position(spot)
-
-	item_received.emit();
-
-	new_mirror.being_traded = not item_mirror.being_traded;
-	
-	if trade:
-		item_dropped.emit(new_mirror, "trade");
-	else:
-		sfx.play_sound_by_key("loot")
-		item_dropped.emit(new_mirror, "loot");
-
-	return true
 
 func find_clear_cell(item:Item, replacing_item:Item=null)->Vector2i:
 	for x:int in len(grid_cols):
@@ -805,8 +826,24 @@ func _on_inventory_grid_resized() -> void:
 	cargo_space.size.x = size_x * 48
 	
 
+func open() ->void:
+	if inventory:
+		if refresh_data in inventory.changed.get_connections():
+			inventory.changed.disconnect(refresh_data);
 	
-func _on_opened() -> void:
+
+	
 	if from_player:
-		inventory = Entities.player.inventory
+		inventory = get_tree().get_first_node_in_group("player").inventory;
+	
+	if not (refresh_data in inventory.changed.get_connections()): 
+		inventory.changed.connect(refresh_data)
+
 	hard_reset();
+	refresh_data()
+	opened.emit()
+
+	
+func has_room(item:Item, replacing_item:Item=null)->bool:
+	var cell:Vector2i = find_clear_cell(item, replacing_item);
+	return cell != Vector2i(-1, -1)

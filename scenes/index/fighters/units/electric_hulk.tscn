@@ -4,13 +4,25 @@
 [ext_resource type="Texture2D" uid="uid://clx26uewlgflc" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk.png" id="2_uyhjf"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_5ejrg"]
 [ext_resource type="Script" uid="uid://ckoqd0eib1ilw" path="res://scenes/index/fighters/scripts/electric_hulk.gd" id="3_6afpe"]
+[ext_resource type="Texture2D" uid="uid://ckt662nqf0tw4" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk_ally.png" id="4_5au73"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_m8o5l"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_ra2ag"]
 [ext_resource type="PackedScene" uid="uid://bakra857y3ok0" path="res://scenes/index/special_statuses/electrified.tscn" id="5_6h33m"]
+[ext_resource type="Texture2D" uid="uid://cqwgwxi42xilu" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk_enemy.png" id="5_q1od0"]
 [ext_resource type="Texture2D" uid="uid://co0gy3qc3n5n0" path="res://assets/visual/sprites/fighters/units/electric_hulk/blur.png" id="7_kk0wj"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_6dfrt"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_0f68e"]
 [ext_resource type="Texture2D" uid="uid://gmnr7cy0edbe" path="res://assets/visual/particles/parry_cue.png" id="10_kvmho"]
 [ext_resource type="PackedScene" uid="uid://dmvr7ngbhq7v5" path="res://scenes/index/vfx/lightning.tscn" id="11_nxhr3"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="15_q1od0"]
+
+[sub_resource type="Resource" id="Resource_j05xm"]
+script = ExtResource("4_ra2ag")
+target_texture = ExtResource("2_uyhjf")
+base_name = "electric_hulk"
+ally_texture = ExtResource("4_5au73")
+enemy_texture = ExtResource("5_q1od0")
+metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_kvmho"]
 length = 0.001
@@ -73,6 +85,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("shadow_container:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ra2ag"]
@@ -203,6 +227,7 @@ damage_lightning = NodePath("damage_lightning")
 heal_lightning = NodePath("heal_lightning")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Electric Pulse")
+hue_shifter = SubResource("Resource_j05xm")
 tags = Array[int]([6, 2, 5])
 body_type = 2
 hit_scan = NodePath("hit_scan")
@@ -227,14 +252,14 @@ metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="base_stats" type="Node" parent="stat_base" unique_id=2124075598]
 script = ExtResource("9_0f68e")
-max_hp = 500.0
+max_hp = 300.0
 attack = 20.0
 defense = 20.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="stats_per_level" type="Node" parent="stat_base" unique_id=1641839055]
 script = ExtResource("9_0f68e")
-max_hp = 100.0
+max_hp = 50.0
 attack = 10.0
 defense = 10.0
 agility = 3.0
@@ -282,3 +307,12 @@ activator = 3
 [node name="heal_lightning" parent="." unique_id=323888998 instance=ExtResource("11_nxhr3")]
 modulate = Color(0.43999994, 1, 0.19999999, 0.39215687)
 activator = 3
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=1807025625]
+position = Vector2(0, -8.000001)
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=1774114257]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 7.5176473)
+texture = ExtResource("15_q1od0")

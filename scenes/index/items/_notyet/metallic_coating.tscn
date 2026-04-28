@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://q588p3i1d747"]
+
+[ext_resource type="Texture2D" uid="uid://c0qjxr27s5j7c" path="res://assets/visual/items/consumables/metallic_coating.png" id="1_8sfi5"]
+[ext_resource type="Script" uid="uid://bc71a6cred5y3" path="res://scenes/index/items/consumables/scripts/metallic_coating.gd" id="2_hiis6"]
+[ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="3_xwdpm"]
+[ext_resource type="PackedScene" uid="uid://w8wik67qu65p" path="res://scenes/leader/inventory/item_modifiers/item_modifier.tscn" id="4_ckeau"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="5_o0daj"]
+
+[node name="Metallic Coating" type="Sprite2D" unique_id=208828978 node_paths=PackedStringArray("modifier")]
+texture = ExtResource("1_8sfi5")
+script = ExtResource("2_hiis6")
+modifier = NodePath("Coated")
+use_sfx = ExtResource("3_xwdpm")
+use_type = "item"
+item_target = "accessory"
+color_tag = "defense"
+metadata/_custom_type_script = "uid://dvhpfp5dj4gno"
+
+[node name="Coated" parent="." unique_id=1619551990 node_paths=PackedStringArray("stat_modifiers") instance=ExtResource("4_ckeau")]
+stat_modifiers = NodePath("stats")
+prefix = "Coated"
+
+[node name="stats" parent="Coated" unique_id=2060365147 instance=ExtResource("5_o0daj")]
+defense = 5.0
+move_speed = 0.0

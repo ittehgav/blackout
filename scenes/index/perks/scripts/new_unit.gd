@@ -5,13 +5,14 @@ extends Perk
 
 var base:FighterBase
 var level:int
+@onready var player:Player = get_tree().get_first_node_in_group("player")
 
 func _ready()->void:
 	if not (get_parent() is Control):
 		return
 	print("_R??? ", name)
 	base = Index.fighters.random_fighter_base(true);
-	level = randi_range(Entities.player.level/2, Entities.player.level * 1.25);
+	level = randi_range(player.level/2, player.level * 1.25);
 	description = "Add a [color="+title_color.to_html()+"] Level " + str(level) + " " + base.name + "[/color] to your party.";
 	icon.atlas = base.texture
 	sample.set_sample(base)
@@ -48,4 +49,4 @@ func apply()->void:
 	unit.base = base;
 	unit.level = level;
 	unit.setup();
-	Entities.player.roster.add_unit(unit)
+	player.roster.add_unit(unit)

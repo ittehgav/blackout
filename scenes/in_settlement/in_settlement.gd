@@ -19,7 +19,7 @@ var world_map_ui:CanvasLayer
 
 @export var player_unit:CharacterBody2D
 
-var settlement:Settlement
+var location:Location
 
 @export var backdrop:TileMapLayer
 
@@ -34,15 +34,15 @@ func _ready()->void:
 var building_offset:int = 0;
 
 
-func load_settlement(target:Settlement)->void:
+func load_location(target:Location)->void:
 	## right now this only runs if the settlement is not a dungeon type
-	settlement = target
-	if len(settlement.locations) == 1:
-		var interior:Interior = load_interior(settlement.locations[0]);
+	location = target
+	if len(location.buildings) == 1:
+		var interior:Interior = load_interior(location.buildings[0]);
 		full_size_setup(interior)
 	else:
 		set_backdrop_color()
-		for building:Location in settlement.locations:
+		for building:Settlement in location.buildings:
 			## buildings are loaded in order
 			var interior:Interior = load_interior(building);
 			building_offset = interior.right_side_anchor.position.x + interior.position.x
@@ -78,7 +78,7 @@ func full_size_setup(interior:Interior)->void:
 	
 	 
 func return_to_world_map()->void:
-	Entities.main.set_scenario("world_map")
+	State.set_scenario(State.Scenario.world_map)
 	
 func set_backdrop_color()->void:
 	var hour:int = Entities.world_map.current_hour;

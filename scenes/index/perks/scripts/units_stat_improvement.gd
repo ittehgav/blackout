@@ -38,6 +38,9 @@ var gain:float
 
 var change_labels:Array[Label]
 
+@onready var player:Player = get_tree().get_first_node_in_group("player")
+
+
 func _ready()->void:
 	if not (get_parent() is Control):
 		return
@@ -52,7 +55,7 @@ func _ready()->void:
 	gain = tag_stat_values[stat];
 	
 	icon = Index.textures.icons[stat]
-	var total_units:int = len(Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags))
+	var total_units:int = len(player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags))
 
 	generate_samples();
 	
@@ -60,7 +63,7 @@ func _ready()->void:
 	str(snapped(gain, .1))+" " +stat+ "[/color].\n[font_size=16]You have "+str(total_units) + " " + Index.get_color_tag(str(target_tag)) + str(target_tag)+ "s[/color] in your party."
 
 func generate_samples()->void:
-	var units:Array[FighterUnit] = Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags);
+	var units:Array[FighterUnit] = player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags);
 	for unit:FighterUnit in units:
 		var sample:UnitSample = Index.scenes.ui.unit_sample.instantiate();
 		sample.load_unit(unit);
@@ -86,7 +89,7 @@ func select_tag()->FighterBase.Tag:
 	for tag:FighterBase.Tag in Index.primary_fighter_tags:
 		counts[tag] = 0;
 	
-	for unit:FighterUnit in Entities.player.roster.units:
+	for unit:FighterUnit in player.roster.units:
 		for tag:FighterBase.Tag in unit.base.tags:
 			if counts.has(tag):
 				counts[tag] += 1;
@@ -128,6 +131,6 @@ func set_label_text(target:float, label:Label)->void:
 	label.text = str(snapped(target, .01));
 
 func apply()->void:
-	var units:Array[FighterUnit] = Entities.player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags);
+	var units:Array[FighterUnit] = player.roster.units.filter(func(unit:FighterUnit)->bool:return target_tag in unit.base.tags);
 	for unit:FighterUnit in units:
 		unit.modifier_stats[stat] += gain;

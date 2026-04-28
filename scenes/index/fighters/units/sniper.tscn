@@ -4,10 +4,66 @@
 [ext_resource type="Texture2D" uid="uid://24ff13ba8vix" path="res://assets/visual/sprites/fighters/units/sniper/sniper.png" id="2_r7jn3"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_lwa6y"]
 [ext_resource type="Script" uid="uid://bquq6cnjfqscl" path="res://scenes/index/fighters/scripts/sniper.gd" id="3_m8axb"]
+[ext_resource type="Texture2D" uid="uid://bbmogbro0tyu1" path="res://assets/visual/sprites/fighters/units/sniper/sniper_ally.png" id="4_15sto"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_hn5nq"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_s425e"]
+[ext_resource type="Texture2D" uid="uid://d3q1vl6dcd870" path="res://assets/visual/sprites/fighters/units/sniper/sniper_enemy.png" id="5_psl8l"]
 [ext_resource type="Texture2D" uid="uid://cygeqnjwn3rnk" path="res://assets/visual/sprites/fighters/units/sniper/blur.png" id="6_c3pfp"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ojifu"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_hahop"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="12_psl8l"]
+
+[sub_resource type="Resource" id="Resource_15ekd"]
+script = ExtResource("4_s425e")
+target_texture = ExtResource("2_r7jn3")
+base_name = "sniper"
+ally_texture = ExtResource("4_15sto")
+enemy_texture = ExtResource("5_psl8l")
+metadata/_custom_type_script = "uid://drlbs6gxus35a"
+
+[sub_resource type="Animation" id="Animation_q0lj3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shadow_container:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame_coords:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cnlol"]
+_data = {
+&"RESET": SubResource("Animation_q0lj3")
+}
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lwa6y"]
 b = Vector2(1000, 0)
@@ -23,7 +79,8 @@ vframes = 5
 script = ExtResource("3_m8axb")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Piercing Shot")
-tags = Array[int]([3, 2])
+hue_shifter = SubResource("Resource_15ekd")
+tags = Array[int]([3, 2, 4])
 movement = 1
 hit_scan = NodePath("scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -41,6 +98,7 @@ technique_scaled_damage = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=875831156]
+libraries/ = SubResource("AnimationLibrary_cnlol")
 libraries/fighter_base = ExtResource("4_hn5nq")
 
 [node name="scan" type="Area2D" parent="." unique_id=1335909690]
@@ -73,10 +131,20 @@ metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="stats_per_level" type="Node" parent="stat_base" unique_id=1720571676]
 script = ExtResource("8_hahop")
-max_hp = 25.0
+max_hp = 5.0
 attack = 15.0
 defense = 2.5
 agility = 5.0
 technique = 10.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=1650571632]
+position = Vector2(0, -8.000001)
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=669530902]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 8.000002)
+scale = Vector2(0.55, 0.6141531)
+texture = ExtResource("12_psl8l")

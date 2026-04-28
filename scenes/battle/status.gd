@@ -33,7 +33,7 @@ var timer:Timer;
 
 
 func _ready() -> void:
-	if original and Entities.main.scenario == "battle":
+	if Entities.main and original and State.current_scenario == State.Scenario.battle:
 		set_source()
 
 func set_source()->void:

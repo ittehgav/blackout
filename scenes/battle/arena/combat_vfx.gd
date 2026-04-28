@@ -32,6 +32,7 @@ var skill:SkillComponent;
 
 var angle_source:Sprite2D
 func _ready() -> void:
+	## TODO make this stuff run only in combat
 	set_sprite_root()
 	
 func set_sprite_root()->void:
@@ -55,7 +56,6 @@ func set_sprite_root()->void:
 				rotation_offset = deg_to_rad(rotation_offset)
 				
 			parent.animation_player.animation_started.connect(match_weapon_angle_and_play)
-			
 
 
 	if angle_source is FighterBase:
@@ -67,7 +67,6 @@ func set_sprite_root()->void:
 				skill.impact.connect(play_vfx)
 			Activator.finished:
 				skill.finished.connect(play_vfx)
-		skill.impact.connect(play_vfx)
 
 func play_vfx()->void:
 	animation_player.play("vfx");

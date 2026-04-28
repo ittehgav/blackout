@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c2hfrud6qvyg"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_6mpbv"]
+
+[node name="Projecting" type="Node" unique_id=1376477976]
+script = ExtResource("1_6mpbv")
+tier = 3
+description = "At start of combat, equip a temporary copy of this accessory on a random unit in the party (if possible)."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

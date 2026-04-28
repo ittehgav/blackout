@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://yc0n86e5xmce"]
+[gd_scene format=3 uid="uid://yc0n86e5xmce"]
 
 [ext_resource type="Texture2D" uid="uid://dr5yrjeoncmrq" path="res://assets/visual/items/containers/food_basket.png" id="2_vy1s6"]
 [ext_resource type="Script" uid="uid://c44rlv1qalqt6" path="res://scenes/index/items/containers/scripts/food_basket.gd" id="3_ggnos"]
 
-[node name="Food Basket" type="Sprite2D"]
+[node name="Food Basket" type="Sprite2D" unique_id=2082907014]
 texture = ExtResource("2_vy1s6")
 script = ExtResource("3_ggnos")
 resource = "food"
 color_tag = "food"
-stack_size = 100
+stack_size = 0

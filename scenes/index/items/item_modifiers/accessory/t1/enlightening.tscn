@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c5ffe2oljsppt"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_3886h"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_aad8t"]
+
+[node name="Enlightening" type="Node" unique_id=1173732198 node_paths=PackedStringArray("stat_modifiers")]
+script = ExtResource("1_3886h")
+tier = 1
+stat_modifiers = NodePath("CombatStats")
+prefix = "Enlightening"
+metadata/_custom_type_script = "uid://dvekatbbdf76k"
+
+[node name="CombatStats" type="Node" parent="." unique_id=83400095]
+script = ExtResource("2_aad8t")
+technique = 20.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

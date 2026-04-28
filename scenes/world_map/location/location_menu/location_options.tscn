@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://7iva7qsms5s0"]
+
+[ext_resource type="Script" uid="uid://c7qfmg6iuw2vr" path="res://scenes/world_map/location/location_menu/location_options.gd" id="1_vbooe"]
+[ext_resource type="Texture2D" uid="uid://84hy7md7eyj5" path="res://assets/visual/ui/map/building_options/trade.png" id="2_1qsii"]
+[ext_resource type="Texture2D" uid="uid://da7eoo8ic8lrq" path="res://assets/visual/ui/map/building_options/recruit.png" id="3_kaytp"]
+[ext_resource type="Texture2D" uid="uid://chqsdcw5dh25f" path="res://assets/visual/ui/map/building_options/evolve.png" id="4_0jv3h"]
+[ext_resource type="Texture2D" uid="uid://dpks3leo4atbb" path="res://assets/visual/ui/map/building_options/forge.png" id="5_ihvu2"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="6_kaytp"]
+
+[node name="LocationOptions" type="HBoxContainer" unique_id=862781021 node_paths=PackedStringArray("buttons")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -4.0
+offset_right = 6.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_vbooe")
+buttons = [NodePath("Button"), NodePath("Button2"), NodePath("Button3")]
+option_textures = Dictionary[int, Texture]({
+0: ExtResource("2_1qsii"),
+1: ExtResource("3_kaytp"),
+2: ExtResource("4_0jv3h"),
+3: ExtResource("5_ihvu2")
+})
+option_colors = Dictionary[int, Color]({
+0: Color(0.16078432, 0.8, 0.16078432, 1),
+1: Color(0.4, 0.8, 0.4, 1),
+2: Color(0.5372549, 0.21176471, 0.7019608, 1),
+3: Color(0.8, 0.5882353, 0.16078432, 1)
+})
+
+[node name="Button" type="Button" parent="." unique_id=2065956890]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="option_image" type="TextureRect" parent="Button" unique_id=596130371]
+self_modulate = Color(1.4369954, 1.4369954, 1.4369954, 1)
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_0jv3h")
+
+[node name="Tooltip" parent="Button" unique_id=1380280520 instance=ExtResource("6_kaytp")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 322.0
+offset_bottom = 90.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Button2" type="Button" parent="." unique_id=908522059]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="option_image" type="TextureRect" parent="Button2" unique_id=803925607]
+self_modulate = Color(1.4369954, 1.4369954, 1.4369954, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_ihvu2")
+
+[node name="Tooltip" parent="Button2" unique_id=543998179 instance=ExtResource("6_kaytp")]
+layout_mode = 1
+
+[node name="Button3" type="Button" parent="." unique_id=1261014492]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="option_image" type="TextureRect" parent="Button3" unique_id=1195908355]
+self_modulate = Color(1.4369954, 1.4369954, 1.4369954, 1)
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_1qsii")
+
+[node name="Tooltip" parent="Button3" unique_id=1267631895 instance=ExtResource("6_kaytp")]
+layout_mode = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]

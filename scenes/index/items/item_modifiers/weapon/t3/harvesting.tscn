@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://drkho1qg36hxa"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_e46gc"]
+
+[node name="Harvesting" type="Node" unique_id=995964116]
+script = ExtResource("1_e46gc")
+tier = 3
+description = "On kill: permanently increase this weapon's damage by 1."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

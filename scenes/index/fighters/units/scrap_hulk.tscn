@@ -4,13 +4,69 @@
 [ext_resource type="Texture2D" uid="uid://bmpj6pp8dghp1" path="res://assets/visual/sprites/fighters/units/scrap_hulk/scrap_hulk.png" id="2_phvmd"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_7ynb7"]
 [ext_resource type="Script" uid="uid://mhopdbt7sb23" path="res://scenes/index/fighters/scripts/scrap_hulk.gd" id="3_15ylm"]
+[ext_resource type="Texture2D" uid="uid://doq3sa6viuyvm" path="res://assets/visual/sprites/fighters/units/scrap_hulk/scrap_hulk_ally.png" id="4_08al8"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_p04g1"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_ubfyc"]
+[ext_resource type="Texture2D" uid="uid://dp41gk54frkpr" path="res://assets/visual/sprites/fighters/units/scrap_hulk/scrap_hulk_enemy.png" id="5_wvbi5"]
 [ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="6_cvl87"]
 [ext_resource type="Texture2D" uid="uid://ds6fmd14bwy42" path="res://assets/visual/sprites/projectiles/shard.png" id="7_m1mlw"]
 [ext_resource type="Texture2D" uid="uid://bcndldaxl7osj" path="res://assets/visual/sprites/fighters/units/scrap_hulk/blur.png" id="8_syc3v"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="9_hnt12"]
 [ext_resource type="PackedScene" uid="uid://bhqyoqsugdn2q" path="res://scenes/index/vfx/overhead_spike_ball.tscn" id="10_hnt12"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="11_p2524"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="15_wvbi5"]
+
+[sub_resource type="Resource" id="Resource_fogvo"]
+script = ExtResource("4_p04g1")
+target_texture = ExtResource("2_phvmd")
+base_name = "scrap_hulk"
+ally_texture = ExtResource("4_08al8")
+enemy_texture = ExtResource("5_wvbi5")
+metadata/_custom_type_script = "uid://drlbs6gxus35a"
+
+[sub_resource type="Animation" id="Animation_jlc56"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shadow_container:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tcmwr"]
+_data = {
+&"RESET": SubResource("Animation_jlc56")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pvugs"]
 radius = 22.0
@@ -27,6 +83,7 @@ frame = 1
 script = ExtResource("3_15ylm")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Shrapnel Slam")
+hue_shifter = SubResource("Resource_fogvo")
 tags = Array[int]([1, 6, 5])
 body_type = 2
 hit_scan = NodePath("hit_scan")
@@ -42,6 +99,7 @@ effects = Array[int]([2, 6])
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1719065668]
+libraries/ = SubResource("AnimationLibrary_tcmwr")
 libraries/fighter_base = ExtResource("4_ubfyc")
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=78018770]
@@ -72,17 +130,27 @@ script = ExtResource("9_hnt12")
 
 [node name="base_stats" type="Node" parent="stat_base" unique_id=897622065]
 script = ExtResource("11_p2524")
-max_hp = 500.0
+max_hp = 400.0
 attack = 50.0
 defense = 30.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="stats_per_level" type="Node" parent="stat_base" unique_id=1975123997]
 script = ExtResource("11_p2524")
-max_hp = 100.0
+max_hp = 50.0
 attack = 30.0
 defense = 7.5
 agility = 5.0
 technique = 2.5
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=828833510]
+position = Vector2(0, -8.000001)
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=146390741]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(-2.1478992, 11.813445)
+scale = Vector2(0.75, 1)
+texture = ExtResource("15_wvbi5")

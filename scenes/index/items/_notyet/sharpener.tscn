@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://blb80ofwrhyyg"]
+
+[ext_resource type="Texture2D" uid="uid://or3u573u6nme" path="res://assets/visual/items/consumables/sharpener.png" id="1_g7vjk"]
+[ext_resource type="Script" uid="uid://b6la50odjgkfm" path="res://scenes/index/items/consumables/scripts/sharpener.gd" id="2_2qk0o"]
+[ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="3_bmgeb"]
+[ext_resource type="PackedScene" uid="uid://w8wik67qu65p" path="res://scenes/leader/inventory/item_modifiers/item_modifier.tscn" id="3_wpfyu"]
+[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_bmgeb"]
+
+[node name="Sharpener" type="Sprite2D" unique_id=1942291000 node_paths=PackedStringArray("modifier")]
+texture = ExtResource("1_g7vjk")
+script = ExtResource("2_2qk0o")
+modifier = NodePath("Sharp")
+use_sfx = ExtResource("3_bmgeb")
+use_type = "item"
+item_target = "weapon"
+color_tag = "attack"
+metadata/_custom_type_script = "uid://dvhpfp5dj4gno"
+
+[node name="Sharp" parent="." unique_id=769730419 node_paths=PackedStringArray("stat_modifiers") instance=ExtResource("3_wpfyu")]
+stat_modifiers = NodePath("stats")
+prefix = "Sharp"
+
+[node name="stats" parent="Sharp" unique_id=1267059775 instance=ExtResource("4_bmgeb")]
+attack = 10.0
+move_speed = 0.0

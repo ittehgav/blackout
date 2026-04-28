@@ -1,11 +1,8 @@
 extends Node
 
 
-func level_up_player_stats()->void:
-	var target:CombatStats = Entities.player.stats;
-	
-	for stat:String in Index.all_combat_stats:
-		target[stat] += player_level_stat_gains[stat]
+
+
 
 
 var player_level_stat_gains:Dictionary[String, float] = {

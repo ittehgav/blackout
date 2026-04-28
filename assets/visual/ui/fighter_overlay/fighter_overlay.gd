@@ -28,15 +28,20 @@ var trail_tween:Tween;
 
 func _ready()->void:
 	await fighter.ready;
-	charge_bar.max_value = cooldown_timer.wait_time;
-	
+		
 	hp_bar.max_value = fighter.max_hp;
 	hp_bar.value = fighter.hp;
 
 	hp_bar_trail.max_value = fighter.max_hp;
 	hp_bar_trail.value = fighter.hp;
+	if not fighter.dummy:
+		charge_bar.max_value = cooldown_timer.wait_time;
+		get_node("refresh_bar").start()
 
-	shield_bar.max_value = fighter.max_hp;
+
+		shield_bar.max_value = fighter.max_hp;
+	else:
+		charge_bar.hide()
 
 func on_status_applied(_source:ActiveFighter, status:Status, quiet:bool)->void:
 	match status.type:
@@ -90,6 +95,7 @@ func _on_fighter_damage_taken(damage: float, source:ActiveFighter, quiet:bool) -
 
 @onready var initial_position:Vector2 = position
 var player_hit_tween:Tween
+
 func player_hit_feedback()->void:
 	Tweens.shader_color_blink(fighter.sprite, Color.WHITE)
 	if player_hit_tween and not player_hit_tween.is_running():

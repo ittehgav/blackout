@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://ktux8nl5dxiw"]
+
+[ext_resource type="Script" uid="uid://bkriea6pf0chc" path="res://global/state_machine.gd" id="1_xsxsc"]
+[ext_resource type="PackedScene" uid="uid://dacqy8pmfnjyf" path="res://scenes/test/combat/test_arena.tscn" id="2_dy6nu"]
+[ext_resource type="PackedScene" uid="uid://cmvxjiccoi47m" path="res://scenes/special/combat_tutorial.tscn" id="3_85l75"]
+[ext_resource type="PackedScene" uid="uid://dphiet8wg7sd" path="res://scenes/world_map/world_map/world_map.tscn" id="4_85l75"]
+[ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="5_ounvg"]
+[ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/intro.ogg" id="6_ldplw"]
+[ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/world_map.ogg" id="7_pp2y6"]
+[ext_resource type="AudioStream" uid="uid://c275jcn8n3vda" path="res://assets/sound/bgm/loops/encounter.ogg" id="8_sbjg4"]
+[ext_resource type="AudioStream" uid="uid://el4bmf22ek8h" path="res://assets/sound/bgm/loops/combat.ogg" id="9_e24dp"]
+[ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="10_j3ys4"]
+[ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="11_0qd6r"]
+
+[node name="State" type="Node" unique_id=235628989 node_paths=PackedStringArray("bgm")]
+script = ExtResource("1_xsxsc")
+test_arena_scene = ExtResource("2_dy6nu")
+tutorial_scene = ExtResource("3_85l75")
+demo_world_map_scene = ExtResource("4_85l75")
+bgm = NodePath("main_bgm")
+
+[node name="main_bgm" type="AudioStreamPlayer" parent="." unique_id=1768235036]
+process_mode = 3
+bus = &"music"
+script = ExtResource("5_ounvg")
+intro = ExtResource("6_ldplw")
+world_map = ExtResource("7_pp2y6")
+encounter = ExtResource("8_sbjg4")
+battle = ExtResource("9_e24dp")
+victory = ExtResource("10_j3ys4")
+defeat = ExtResource("11_0qd6r")
+
+[connection signal="scenario_changed" from="." to="main_bgm" method="on_scenario_changed"]
+[connection signal="substate_changed" from="." to="main_bgm" method="on_substate_changed"]
+[connection signal="finished" from="main_bgm" to="main_bgm" method="_on_finished"]

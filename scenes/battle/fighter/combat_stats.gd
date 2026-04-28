@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node/icon_list.png")
 extends Node
 
 class_name CombatStats;

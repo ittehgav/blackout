@@ -24,11 +24,11 @@
 [ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_display/resource_picker.gd" id="21_15sfg"]
 [ext_resource type="Script" uid="uid://crrn6xtx5cmhf" path="res://scenes/ui/inventory_display/scroll_container.gd" id="22_qxt2g"]
 [ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="22_up2tu"]
-[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/PixelTheme-Sky.tres" id="25_ed75d"]
+[ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/theme_main.tres" id="25_ed75d"]
 [ext_resource type="Script" uid="uid://bjpqfptad5b01" path="res://scenes/ui/inventory_display/unit_selector.gd" id="25_yjuqr"]
 [ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_display/warnings.gd" id="26_8mqj8"]
 [ext_resource type="Script" uid="uid://c4t43pl7ro3sq" path="res://scenes/ui/inventory_display/item_selector.gd" id="26_up2tu"]
-[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="27_c5he3"]
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Blood.tres" id="27_c5he3"]
 
 [sub_resource type="Gradient" id="Gradient_qxt2g"]
 colors = PackedColorArray(0.101960786, 0.12941177, 0.15686275, 1, 1, 1, 1, 1)
@@ -442,7 +442,6 @@ layout_mode = 2
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
-[connection signal="opened" from="." to="." method="_on_opened"]
 [connection signal="resized" from="cargo/ScrollContainer/cargo_space/inventory_grid" to="." method="_on_inventory_grid_resized"]
 [connection signal="mouse_entered" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_entered"]
 [connection signal="mouse_exited" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_exited"]

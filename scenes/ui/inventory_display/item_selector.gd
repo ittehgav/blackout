@@ -12,8 +12,7 @@ func show_options(options:Array, source:Item)->void:
 	add_child(options_hbox)
 	for item:Item in options:
 		var sample:ItemSample = Index.scenes.ui.item_sample.instantiate();
-		sample.clickable = true;
-		sample.load_item(item, 4);
+		sample.load_item(item, 4, true);
 		
 		var wearer_sprite:Sprite2D;
 		if item in Entities.player.equipment:
@@ -33,7 +32,7 @@ func show_options(options:Array, source:Item)->void:
 			wearer_sprite.top_level = true;
 			anchor.position += Vector2(-10,15)
 			
-		sample.clicked.connect(item_chosen.bind(item, source))
+		sample.clicked.connect(item_chosen.bind(source))
 		options_hbox.add_child(sample);
 	
 	global_position = get_global_mouse_position();

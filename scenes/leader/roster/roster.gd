@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node/icon_parchment.png")
 extends Node
 
 class_name Roster;
@@ -10,10 +11,15 @@ var equipped_accessories:Array[Accessory]
 func add_unit(unit:FighterUnit)->void:
 	assert(not units.has(unit));
 	units.append(unit)
+	if unit.equipped_accessory:
+		equipped_accessories.append(unit.equipped_accessory)
+
+
 func remove_unit(unit:FighterUnit)->void:
 	assert(units.has(unit));
 	units.erase(unit)
-
+	if unit.equipped_accessory:
+		equipped_accessories.erase(unit.equipped_accessory)
 
 func _on_child_entered_tree(node: Node) -> void:
 	## so editor-made roster work and are easy to edit
@@ -41,3 +47,4 @@ func get_exp_bounty()->int:
 	## probably some tweaking to be done?
 	var base_bounty:int = get_level();
 	return base_bounty
+	

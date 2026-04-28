@@ -5,18 +5,27 @@ signal started_panning
 var panning:bool = false;
 var pan_speed:float = 10.0;
 
+var dragging_camera:bool=false;
+
+func _ready()->void:
+	State.substate_changed.connect(on_substate_changed);
+
+func on_substate_changed(new:State.Substate, _old:State.Substate)->void:
+	set_process_input(new == State.Substate.main);
+
 func _physics_process(_delta: float) -> void:
-	var vector:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down");
-	if vector:
-		if not panning:
-			panning = true;
-			started_panning.emit()
-		position += vector * pan_speed
-	elif panning:
-		panning = false;
-	
 	if Input.is_action_just_pressed("reset_camera"):
 		return_to_player();
+	
+	if Input.is_action_just_pressed("start_camera_drag"):
+		dragging_camera = true;
+	elif Input.is_action_just_released("start_camera_drag"):
+		dragging_camera = false
+		## TODO make the drag persist a little
+		## the way below behaves weirdly
+		#var tween:Tween = create_tween();
+		#tween.tween_property(self, "position", position - drag_velocity/2, .3)
+
 
 func return_to_player()->void:
 	var tween:Tween = create_tween();
@@ -30,14 +39,18 @@ const max_zoom = Vector2(1, 1)
 var zoom_moving:bool=false;
 func _input(e:InputEvent)->void:
 	## HIGHER ZOOM = FARTHER
-	## ZOOM IN = DECREASE SCALE
-	## ZOOM OUT = INCREASE SCALE = CAMERA SMALLER
+	## ZOOM IN = DECREASE SCALE = EVERYTHING WITHIN CAMERA BIGGER
+	## ZOOM OUT = INCREASE SCALE = EVERYTHING WITHIN CAMERA SMALLER
 	if e.is_action_pressed("world_map_zoom_in") and zoom < max_zoom and not zoom_moving\
-	and Entities.main.substate == "main":
+	and State.current_substate == State.Substate.main:
 		zoom_in()
 	elif e.is_action_pressed("world_map_zoom_out") and zoom > min_zoom and not zoom_moving\
-	and Entities.main.substate == "main":
+	and State.current_substate == State.Substate.main:
 		zoom_out()
+	if dragging_camera and e is InputEventMouseMotion:
+		position += e.relative * -2
+
+
 
 func zoom_out(target_zoom:Vector2=zoom/2)->void:
 	zoom_moving = true;

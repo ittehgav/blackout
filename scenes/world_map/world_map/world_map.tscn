@@ -1,69 +1,45 @@
-[gd_scene load_steps=80 format=3 uid="uid://dphiet8wg7sd"]
+[gd_scene format=3 uid="uid://dphiet8wg7sd"]
 
 [ext_resource type="Script" uid="uid://d0rxta3ju0m4" path="res://scenes/world_map/world_map/world_map.gd" id="1_irndy"]
 [ext_resource type="Script" uid="uid://wrywd826l7x3" path="res://scenes/world_map/world_map/world_map_sfx.gd" id="2_omxek"]
 [ext_resource type="AudioStream" uid="uid://bfbxg7q2ia2ej" path="res://assets/sound/sfx/world_map/movement_start.wav" id="3_fnjxc"]
-[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="3_h33nr"]
-[ext_resource type="PackedScene" uid="uid://pdygvkib8khb" path="res://scenes/index/items/consumables/apple_sticker.tscn" id="3_rnh6x"]
-[ext_resource type="PackedScene" uid="uid://dhognr0ie2huf" path="res://scenes/index/items/weapons/merciless_katana.tscn" id="3_t8y4u"]
-[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/index/items/modules/buckler.tscn" id="3_ulpn3"]
-[ext_resource type="AudioStream" uid="uid://iiwod51go8ml" path="res://assets/sound/sfx/world_map/settlement_contact.wav" id="4_b2tqr"]
-[ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="4_fuwqy"]
+[ext_resource type="AudioStream" uid="uid://iiwod51go8ml" path="res://assets/sound/sfx/world_map/settlement_contact.wav" id="4_fnjxc"]
 [ext_resource type="Script" uid="uid://cu3jtddlsid3a" path="res://scenes/world_map/world_map/minute_ticker.gd" id="5_1glhv"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="5_5k4yq"]
 [ext_resource type="Texture2D" uid="uid://cpoknj8hpjvcc" path="res://assets/visual/tiles/road_highlight.png" id="6_1glhv"]
-[ext_resource type="Script" uid="uid://cutl2ic7kaofk" path="res://scenes/world_map/world_map/road/road_highlights.gd" id="7_5vsub"]
-[ext_resource type="Script" uid="uid://bcg3i8ps1bk0l" path="res://scenes/world_map/world_map/road/road_tiles.gd" id="9_74ily"]
+[ext_resource type="Script" uid="uid://bnnjh7gh65ch0" path="res://scenes/world_map/world_map/upkeep.gd" id="7_5k4yq"]
+[ext_resource type="Script" uid="uid://cutl2ic7kaofk" path="res://scenes/world_map/world_map/tilemaps/road_highlights.gd" id="7_5vsub"]
+[ext_resource type="Script" uid="uid://bcg3i8ps1bk0l" path="res://scenes/world_map/world_map/tilemaps/road_tiles.gd" id="9_74ily"]
 [ext_resource type="PackedScene" uid="uid://pqgqmqskja8a" path="res://scenes/world_map/map_party/player_party.tscn" id="10_05tdn"]
 [ext_resource type="Texture2D" uid="uid://dk4hitgnd0bh7" path="res://assets/visual/tiles/props.png" id="11_bwi7y"]
 [ext_resource type="Texture2D" uid="uid://8jc4bn5mogf8" path="res://assets/visual/tiles/off_sight_cell.png" id="11_tlj38"]
-[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="11_xtkqv"]
-[ext_resource type="Script" uid="uid://c5qn7a6rb3kdf" path="res://scenes/world_map/world_map/fog.gd" id="14_q24oe"]
+[ext_resource type="Script" uid="uid://c5qn7a6rb3kdf" path="res://scenes/world_map/world_map/tilemaps/fog.gd" id="14_q24oe"]
 [ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/index/vehicles/doblo.tscn" id="15_tfwjm"]
+[ext_resource type="Texture2D" uid="uid://bfnjw87jbh204" path="res://assets/visual/sprites/vehicles/doblo_blue.png" id="16_xtkqv"]
 [ext_resource type="Script" uid="uid://cw53baq4lbbfw" path="res://scenes/world_map/ui/hud/marker.gd" id="17_cp71w"]
-[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="17_m17yv"]
-[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="17_rnh6x"]
 [ext_resource type="Script" uid="uid://cxnw2ya80gkuv" path="res://scenes/world_map/world_map/world_map_camera.gd" id="18_beb05"]
-[ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="18_gu5rp"]
-[ext_resource type="PackedScene" uid="uid://buyf7yy7iuctf" path="res://scenes/world_map/settlement/settlement.tscn" id="19_kulxh"]
-[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/settlement_outline.gdshader" id="20_tbp5f"]
-[ext_resource type="PackedScene" uid="uid://bmbg58lf6gxtp" path="res://scenes/index/locations/buildings/farm.tscn" id="21_4ypwe"]
-[ext_resource type="PackedScene" uid="uid://capijufintoqv" path="res://scenes/index/locations/buildings/gas_station.tscn" id="22_3x04a"]
-[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/machete.tscn" id="22_t8y4u"]
-[ext_resource type="PackedScene" uid="uid://brlc23bio8sdx" path="res://scenes/index/locations/buildings/gym.tscn" id="23_eunnb"]
-[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="23_x5mo2"]
-[ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/chakram.tscn" id="24_2irgy"]
-[ext_resource type="PackedScene" uid="uid://dch7fwggrtedg" path="res://scenes/index/items/weapons/toxic_grenade_launcher.tscn" id="25_nr4be"]
+[ext_resource type="PackedScene" uid="uid://buyf7yy7iuctf" path="res://scenes/world_map/location/location.tscn" id="19_kulxh"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="20_tbp5f"]
+[ext_resource type="PackedScene" uid="uid://bmbg58lf6gxtp" path="res://scenes/index/settlements/buildings/farm.tscn" id="24_5vsub"]
+[ext_resource type="PackedScene" uid="uid://capijufintoqv" path="res://scenes/index/settlements/buildings/gas_station.tscn" id="25_05tdn"]
+[ext_resource type="Texture2D" uid="uid://dg2kk4y1naqri" path="res://assets/visual/sprites/locations/dungeons/hideout_1.png" id="26_5k4yq"]
+[ext_resource type="PackedScene" uid="uid://1ardsa0qdcfv" path="res://scenes/index/settlements/buildings/chop_shop.tscn" id="26_xtkqv"]
+[ext_resource type="PackedScene" uid="uid://byprahh1mw3q7" path="res://scenes/index/settlements/dungeons/operation_base.tscn" id="27_otblt"]
 [ext_resource type="TileSet" uid="uid://db28p3nl8pseo" path="res://resources/tiles/road.tres" id="28_s7sax"]
-[ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="31_mgych"]
-[ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="32_jdqpe"]
-[ext_resource type="PackedScene" uid="uid://q588p3i1d747" path="res://scenes/index/items/consumables/metallic_coating.tscn" id="33_1vaf0"]
+[ext_resource type="PackedScene" uid="uid://crqv35bkhuqac" path="res://scenes/world_map/location/location_menu/location_menu.tscn" id="30_b2tqr"]
+[ext_resource type="PackedScene" uid="uid://dnxi0en03q16d" path="res://scenes/index/settlements/dungeons/sludge_colony.tscn" id="31_a0yse"]
+[ext_resource type="PackedScene" uid="uid://cvr56itteo5k8" path="res://scenes/index/settlements/dungeons/infested_swamp.tscn" id="33_74ily"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/ui/player_sheet/player_sheet.tscn" id="33_ulpn3"]
+[ext_resource type="Script" uid="uid://dcevcdvm611qh" path="res://scenes/world_map/world_map/world_map_tutorial.gd" id="35_1glhv"]
+[ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="36_5vsub"]
 [ext_resource type="Texture2D" uid="uid://c52gmpk6hbtcn" path="res://assets/visual/ui/map/movement_pointer_white.png" id="36_fuwqy"]
 [ext_resource type="Texture2D" uid="uid://djw5bpk7bkbvq" path="res://assets/visual/particles/circles/circle_32x32_15x.png" id="36_t8y4u"]
-[ext_resource type="PackedScene" uid="uid://b4ub8gqruq825" path="res://scenes/index/locations/buildings/black_market.tscn" id="38_ulpn3"]
-[ext_resource type="PackedScene" uid="uid://1ardsa0qdcfv" path="res://scenes/index/locations/buildings/chop_shop.tscn" id="39_s7sax"]
-[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="41_3x04a"]
-[ext_resource type="PackedScene" uid="uid://vbp24a3cvbde" path="res://scenes/index/locations/dungeons/hideout.tscn" id="44_eunnb"]
-[ext_resource type="Script" uid="uid://kftfgl28inq5" path="res://scenes/world_map/world_map/settlements.gd" id="45_cb2tt"]
+[ext_resource type="Script" uid="uid://dswpfdpni2xxc" path="res://scenes/world_map/world_map/enter_btn.gd" id="38_1glhv"]
+[ext_resource type="PackedScene" uid="uid://vbp24a3cvbde" path="res://scenes/index/settlements/dungeons/hideout.tscn" id="44_eunnb"]
+[ext_resource type="Script" uid="uid://kftfgl28inq5" path="res://scenes/world_map/world_map/tilemaps/locations.gd" id="45_cb2tt"]
 [ext_resource type="Script" uid="uid://e26cpfgp8ja0" path="res://scenes/world_map/world_map/environment_color.gd" id="46_fuwqy"]
-[ext_resource type="PackedScene" uid="uid://b31rsrhwu68hd" path="res://scenes/world_map/world_map/main_hud.tscn" id="47_3x04a"]
-[ext_resource type="PackedScene" uid="uid://cvr56itteo5k8" path="res://scenes/index/locations/dungeons/boss_stronghold.tscn" id="48_s7sax"]
-[ext_resource type="PackedScene" uid="uid://byprahh1mw3q7" path="res://scenes/index/locations/dungeons/operation_base.tscn" id="49_h33nr"]
+[ext_resource type="PackedScene" uid="uid://b31rsrhwu68hd" path="res://scenes/world_map/world_map/hud/main_hud.tscn" id="47_3x04a"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="49_x2ygm"]
-[ext_resource type="PackedScene" uid="uid://cccnmfam28gyo" path="res://scenes/world_map/world_map/dungeon_prompt/wave_sample.tscn" id="50_eunnb"]
-[ext_resource type="PackedScene" uid="uid://c2um7mypog4cw" path="res://scenes/index/locations/buildings/laboratory.tscn" id="51_gu5rp"]
-[ext_resource type="AudioStream" uid="uid://d12w7jrykipw" path="res://assets/sound/sfx/world_map/dungeon_loot.wav" id="51_m17yv"]
-[ext_resource type="Texture2D" uid="uid://c73bxxu7jqbgu" path="res://assets/visual/icons/misc/dungeon_wave_divider.png" id="51_x2ygm"]
-[ext_resource type="PackedScene" uid="uid://bl2vwwohl6yjy" path="res://scenes/index/locations/buildings/factory.tscn" id="52_alobk"]
-[ext_resource type="AudioStream" uid="uid://bcyhaljn2cynp" path="res://assets/sound/sfx/ui/dungeon_cleared.wav" id="53_r03dh"]
-[ext_resource type="Script" uid="uid://cmry4y46yo6x7" path="res://scenes/world_map/world_map/dungeon_loot_option.gd" id="54_2vhqf"]
-[ext_resource type="Script" uid="uid://pl5db4cm1i1l" path="res://scenes/world_map/world_map/loot_overlay.gd" id="54_bwi7y"]
-[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="54_omir2"]
-[ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="57_bwi7y"]
-[ext_resource type="Script" uid="uid://btb6lwcqdeb0e" path="res://scenes/ui/ui_root.gd" id="69_2irgy"]
-[ext_resource type="Script" uid="uid://dswpfdpni2xxc" path="res://scenes/world_map/world_map/enter_btn.gd" id="69_x5mo2"]
-[ext_resource type="Script" uid="uid://gp3350pfvmie" path="res://scenes/world_map/world_map/dungeon_prompt/dungeon_prompt.gd" id="70_cb2tt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8y4u"]
 texture = ExtResource("5_5k4yq")
@@ -294,7 +270,7 @@ tile_shape = 3
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_5sp40")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q24oe"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a0yse"]
 resource_local_to_scene = true
 shader = ExtResource("20_tbp5f")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -304,79 +280,170 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Gradient" id="Gradient_2vhqf"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_74ily"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bwi7y"]
-gradient = SubResource("Gradient_2vhqf")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05tdn"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtkqv"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_otblt"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlj38"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_a0yse"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_74ily"]
+resource_name = "tutorial_glow"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6333333, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(2.9289904, 2.9289904, 2.9289904, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_05tdn"]
+_data = {
+&"RESET": SubResource("Animation_a0yse"),
+&"tutorial_glow": SubResource("Animation_74ily")
+}
+
+[sub_resource type="Gradient" id="Gradient_5k4yq"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1glhv"]
+gradient = SubResource("Gradient_5k4yq")
+height = 10
 fill = 1
-fill_from = Vector2(0.5, 0.5)
+fill_from = Vector2(0.47435898, 0.47863248)
 
-[node name="WorldMap" type="Node2D" node_paths=PackedStringArray("origin", "road_tiles", "speed_up_icon", "minute_ticker", "ui_canvas", "player_node", "speed_up_persist_timer", "speed_5x_persist_timer")]
+[sub_resource type="Animation" id="Animation_5k4yq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.25882354)]
+}
+
+[sub_resource type="Animation" id="Animation_1glhv"]
+resource_name = "highlight_quick_buyh"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.25882354), Color(1, 1, 1, 0.4862745), Color(1, 1, 1, 0.25882354)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5vsub"]
+_data = {
+&"RESET": SubResource("Animation_5k4yq"),
+&"highlight_quick_buy": SubResource("Animation_1glhv")
+}
+
+[node name="WorldMap" type="Node2D" unique_id=1698110078 node_paths=PackedStringArray("origin", "road_tiles", "speed_up_icon", "minute_ticker", "ui_canvas", "player_party", "speed_up_persist_timer", "speed_5x_persist_timer") groups=["world_map"]]
 process_mode = 3
 script = ExtResource("1_irndy")
-origin = NodePath("settlements/origin")
+origin = NodePath("locations/Tutorial")
 road_tiles = NodePath("tiles/road")
 speed_up_icon = NodePath("static_ui/main_hud/speed_up_icon")
 minute_ticker = NodePath("minute_ticker")
 ui_canvas = NodePath("static_ui")
-player_node = NodePath("Player")
+player_party = NodePath("PlayerParty")
 current_hour = 12
 speed_up_persist_timer = NodePath("speed_up_persist")
 speed_5x_persist_timer = NodePath("speed_up_persist/speed_up_persist_5x")
 
-[node name="Player" parent="." node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") instance=ExtResource("11_xtkqv")]
-equipped_weapon = NodePath("Inventory/Tailpipe")
-alternative_weapon = NodePath("Inventory/Toxic Grenade Launcher")
-equipped_module = NodePath("Inventory/Dodge Roll")
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=573051956]
+volume_db = -2.616
+script = ExtResource("2_omxek")
+movement_started = ExtResource("3_fnjxc")
+location_visited = ExtResource("4_fnjxc")
+metadata/_custom_type_script = "uid://yn55dca3qplf"
 
-[node name="Inventory" parent="Player" index="0"]
-money = 100
-
-[node name="Buckler" parent="Player/Inventory" index="0" instance=ExtResource("3_ulpn3")]
-
-[node name="Merciless Katana" parent="Player/Inventory" index="1" instance=ExtResource("3_t8y4u")]
-
-[node name="Juice Flask" parent="Player/Inventory" index="2" instance=ExtResource("3_h33nr")]
-stack_size = 50
-
-[node name="Apple Sticker" parent="Player/Inventory" index="3" instance=ExtResource("3_rnh6x")]
-
-[node name="Tailpipe" parent="Player/Inventory" index="4" instance=ExtResource("17_m17yv")]
-
-[node name="Spiked Shoulder Pads" parent="Player/Inventory" index="5" instance=ExtResource("4_fuwqy")]
-
-[node name="Fuel Barrel" parent="Player/Inventory" index="6" instance=ExtResource("17_rnh6x")]
-stack_size = 500
-
-[node name="Food Barrel" parent="Player/Inventory" index="7" instance=ExtResource("18_gu5rp")]
-stack_size = 500
-
-[node name="Mystery Snack Pack" parent="Player/Inventory" index="8" instance=ExtResource("31_mgych")]
-
-[node name="Protein Shake" parent="Player/Inventory" index="9" instance=ExtResource("32_jdqpe")]
-
-[node name="MetallicCoating" parent="Player/Inventory" index="10" instance=ExtResource("33_1vaf0")]
-
-[node name="Machete" parent="Player/Inventory" index="11" instance=ExtResource("22_t8y4u")]
-
-[node name="Dodge Roll" parent="Player/Inventory" index="12" instance=ExtResource("23_x5mo2")]
-
-[node name="Chakram" parent="Player/Inventory" index="13" instance=ExtResource("24_2irgy")]
-
-[node name="Toxic Grenade Launcher" parent="Player/Inventory" index="14" instance=ExtResource("25_nr4be")]
-
-[node name="speed_up_persist" type="Timer" parent="."]
+[node name="speed_up_persist" type="Timer" parent="." unique_id=479565351]
 wait_time = 0.75
 one_shot = true
 ignore_time_scale = true
 
-[node name="speed_up_persist_5x" type="Timer" parent="speed_up_persist"]
+[node name="speed_up_persist_5x" type="Timer" parent="speed_up_persist" unique_id=310790252]
 wait_time = 2.0
 one_shot = true
 ignore_time_scale = true
 
-[node name="environment_color" type="CanvasModulate" parent="." node_paths=PackedStringArray("backdrop", "roadside", "horizon", "marker", "player_light", "ticker")]
+[node name="environment_color" type="CanvasModulate" parent="." unique_id=1891183299 node_paths=PackedStringArray("backdrop", "roadside", "horizon", "marker", "player_light", "ticker")]
 script = ExtResource("46_fuwqy")
 environment_colors = Array[Color]([Color(0.32, 0.333333, 0.4, 1), Color(0.49, 0.525, 0.7, 1), Color(0.9, 0.87, 0.72, 1), Color(0.7, 0.634667, 0.63, 1)])
 horizon_colors = Array[Color]([Color(0.09, 0.09, 0.15, 1), Color(0.25500003, 0.25500003, 0.3, 1), Color(0.3, 0.287, 0.27, 1), Color(0.25, 0.175, 0.175, 1)])
@@ -388,29 +455,27 @@ marker = NodePath("../PlayerParty/marker")
 player_light = NodePath("../PlayerParty/Doblo/PointLight2D")
 ticker = NodePath("../minute_ticker")
 
-[node name="minute_ticker" type="Timer" parent="." node_paths=PackedStringArray("world_map")]
+[node name="minute_ticker" type="Timer" parent="." unique_id=1629819586 node_paths=PackedStringArray("world_map", "upkeep")]
 process_mode = 1
 process_callback = 0
 autostart = true
 script = ExtResource("5_1glhv")
 world_map = NodePath("..")
+upkeep = NodePath("upkeep")
 
-[node name="SfxPlayer" type="AudioStreamPlayer" parent="."]
-script = ExtResource("2_omxek")
-movement_started = ExtResource("3_fnjxc")
-settlement_visited = ExtResource("4_b2tqr")
-metadata/_custom_type_script = "uid://yn55dca3qplf"
+[node name="upkeep" type="Node" parent="minute_ticker" unique_id=752992109]
+script = ExtResource("7_5k4yq")
 
-[node name="tiles" type="Node2D" parent="."]
+[node name="tiles" type="Node2D" parent="." unique_id=1127943677]
 visibility_layer = 4
 
-[node name="roadside" type="TileMapLayer" parent="tiles"]
+[node name="roadside" type="TileMapLayer" parent="tiles" unique_id=614289362]
 modulate = Color(0.6, 0.545098, 0.478431, 1)
 light_mask = 2
 use_parent_material = true
 tile_set = SubResource("TileSet_x5mo2")
 
-[node name="road" type="TileMapLayer" parent="tiles" node_paths=PackedStringArray("props_tiles", "roadside_tiles", "highlight_tiles")]
+[node name="road" type="TileMapLayer" parent="tiles" unique_id=579306451 node_paths=PackedStringArray("props_tiles", "roadside_tiles", "highlight_tiles")]
 use_parent_material = true
 tile_set = ExtResource("28_s7sax")
 collision_enabled = false
@@ -419,26 +484,26 @@ props_tiles = NodePath("../props")
 roadside_tiles = NodePath("../roadside")
 highlight_tiles = NodePath("../road_highlights")
 
-[node name="road_highlights" type="TileMapLayer" parent="tiles"]
+[node name="road_highlights" type="TileMapLayer" parent="tiles" unique_id=1809665280]
 modulate = Color(0.83, 0.760833, 0, 1)
 use_parent_material = true
 tile_set = SubResource("TileSet_50ku6")
 script = ExtResource("7_5vsub")
 
-[node name="props" type="TileMapLayer" parent="tiles"]
+[node name="props" type="TileMapLayer" parent="tiles" unique_id=1040692721]
 light_mask = 2
 z_index = 1
 use_parent_material = true
 tile_set = SubResource("TileSet_fuwqy")
 
-[node name="fog_buffer" type="TileMapLayer" parent="tiles"]
+[node name="fog_buffer" type="TileMapLayer" parent="tiles" unique_id=1420439145]
 modulate = Color(0.45, 0.395325, 0.3285, 1)
 visibility_layer = 8
 z_index = 2
 use_parent_material = true
 tile_set = SubResource("TileSet_tfwjm")
 
-[node name="fog" type="TileMapLayer" parent="tiles" node_paths=PackedStringArray("buffer", "over_horizon", "road", "player_party", "world_map")]
+[node name="fog" type="TileMapLayer" parent="tiles" unique_id=916663285 node_paths=PackedStringArray("buffer", "over_horizon", "road", "player_party", "world_map")]
 modulate = Color(0.45, 0.395325, 0.3285, 1)
 visibility_layer = 8
 z_index = 2
@@ -452,24 +517,25 @@ player_party = NodePath("../../PlayerParty")
 world_map = NodePath("../..")
 fog_range = 300
 
-[node name="over_horizon" type="TileMapLayer" parent="tiles"]
+[node name="over_horizon" type="TileMapLayer" parent="tiles" unique_id=1911672858]
 visibility_layer = 8
 z_index = 2
 use_parent_material = true
 tile_set = SubResource("TileSet_tfwjm")
 
-[node name="PlayerParty" parent="." node_paths=PackedStringArray("marker", "resources_warning", "leader", "vehicle", "current_settlement") instance=ExtResource("10_05tdn")]
+[node name="PlayerParty" parent="." unique_id=76874645 node_paths=PackedStringArray("marker", "resources_warning", "location_menu", "vehicle", "current_location") instance=ExtResource("10_05tdn")]
 process_mode = 3
-position = Vector2(-64, 256)
+position = Vector2(-65, 257)
 marker = NodePath("marker")
 resources_warning = NodePath("../static_ui/main_hud/warning")
-leader = NodePath("../Player")
+location_menu = NodePath("../static_ui/Location Menu")
 vehicle = NodePath("Doblo")
-current_settlement = NodePath("../settlements/origin")
+current_location = NodePath("../locations/Tutorial")
 
-[node name="Doblo" parent="PlayerParty" instance=ExtResource("15_tfwjm")]
+[node name="Doblo" parent="PlayerParty" unique_id=917311666 instance=ExtResource("15_tfwjm")]
+texture = ExtResource("16_xtkqv")
 
-[node name="PointLight2D" type="PointLight2D" parent="PlayerParty/Doblo"]
+[node name="PointLight2D" type="PointLight2D" parent="PlayerParty/Doblo" unique_id=1215031195]
 light_mask = 0
 color = Color(1, 1, 1, 0.117647)
 range_z_min = -4096
@@ -481,7 +547,7 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_item_cull_mask = 2
 texture = ExtResource("36_t8y4u")
 
-[node name="marker" type="Sprite2D" parent="PlayerParty" node_paths=PackedStringArray("bounce_timer")]
+[node name="marker" type="Sprite2D" parent="PlayerParty" unique_id=1806361242 node_paths=PackedStringArray("bounce_timer")]
 visible = false
 top_level = true
 z_index = 10
@@ -490,31 +556,81 @@ texture = ExtResource("36_fuwqy")
 script = ExtResource("17_cp71w")
 bounce_timer = NodePath("bounce_timer")
 
-[node name="bounce_timer" type="Timer" parent="PlayerParty/marker"]
+[node name="bounce_timer" type="Timer" parent="PlayerParty/marker" unique_id=138412513]
 wait_time = 0.3
 
-[node name="world_map_camera" type="Camera2D" parent="PlayerParty"]
+[node name="world_map_camera" type="Camera2D" parent="PlayerParty" unique_id=2126704789]
 zoom = Vector2(0.5, 0.5)
 process_callback = 0
+limit_enabled = false
+editor_draw_drag_margin = true
 script = ExtResource("18_beb05")
 
-[node name="settlements" type="Node2D" parent="." node_paths=PackedStringArray("road", "fog")]
+[node name="locations" type="Node2D" parent="." unique_id=640560362 node_paths=PackedStringArray("road", "fog")]
 z_index = 1
 script = ExtResource("45_cb2tt")
-all_location_scenes = Array[PackedScene]([ExtResource("38_ulpn3"), ExtResource("39_s7sax"), ExtResource("52_alobk"), ExtResource("21_4ypwe"), ExtResource("22_3x04a"), ExtResource("23_eunnb"), ExtResource("51_gu5rp"), ExtResource("44_eunnb"), ExtResource("48_s7sax"), ExtResource("49_h33nr")])
 road = NodePath("../tiles/road")
 fog = NodePath("../tiles/fog")
 
-[node name="origin" parent="settlements" instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_q24oe")
-position = Vector2(-64, 256)
+[node name="Tutorial" parent="locations" unique_id=273842454 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_a0yse")
+position = Vector2(-816, 256)
+settlements = [NodePath("Tutorial")]
 
-[node name="Hideout" parent="settlements/origin" instance=ExtResource("44_eunnb")]
+[node name="sprite" parent="locations/Tutorial" index="1" unique_id=1509604794]
+modulate = Color(0.4, 0.120000005, 0.120000005, 1)
+texture = ExtResource("26_5k4yq")
 
-[node name="clear" type="CanvasLayer" parent="."]
+[node name="shadow" parent="locations/Tutorial/sprite" index="0" unique_id=935364666]
+texture = ExtResource("26_5k4yq")
+
+[node name="hover_box" parent="locations/Tutorial" index="2" unique_id=1009350883]
+mouse_filter = 2
+
+[node name="Tutorial" parent="locations/Tutorial" unique_id=1015084999 instance=ExtResource("44_eunnb")]
+
+[node name="Farm" parent="locations" unique_id=1185826475 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_74ily")
+position = Vector2(1431, 289)
+settlements = [NodePath("Farm")]
+
+[node name="Farm" parent="locations/Farm" unique_id=13982226 instance=ExtResource("24_5vsub")]
+
+[node name="Street" parent="locations" unique_id=1850741843 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_05tdn")
+position = Vector2(3333, 289)
+settlements = [NodePath("Gas Station"), NodePath("Chop Shop")]
+
+[node name="Gas Station" parent="locations/Street" unique_id=1706922978 instance=ExtResource("25_05tdn")]
+
+[node name="Chop Shop" parent="locations/Street" unique_id=104254871 instance=ExtResource("26_xtkqv")]
+
+[node name="Sludge Colony" parent="locations" unique_id=669220767 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_xtkqv")
+position = Vector2(6576, -2182)
+settlements = [NodePath("Sludge Colony")]
+
+[node name="Sludge Colony" parent="locations/Sludge Colony" unique_id=926709683 instance=ExtResource("31_a0yse")]
+
+[node name="Operation Base" parent="locations" unique_id=853050099 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_otblt")
+position = Vector2(2592, 4581)
+settlements = [NodePath("Operation Base")]
+
+[node name="Operation Base" parent="locations/Operation Base" unique_id=1010159926 instance=ExtResource("27_otblt")]
+
+[node name="Infested Swamp" parent="locations" unique_id=1344063996 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
+material = SubResource("ShaderMaterial_tlj38")
+position = Vector2(2556, 1663)
+settlements = [NodePath("Infested Swamp")]
+
+[node name="Infested Swamp" parent="locations/Infested Swamp" unique_id=1967004726 instance=ExtResource("33_74ily")]
+position = Vector2(-2763, -1663)
+
+[node name="clear" type="CanvasLayer" parent="." unique_id=1275400995]
 layer = -2
 
-[node name="backdrop" type="ColorRect" parent="clear"]
+[node name="backdrop" type="ColorRect" parent="clear" unique_id=811775234]
 light_mask = 2
 z_index = -2715
 anchors_preset = 15
@@ -524,14 +640,51 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.6, 0.546, 0.48, 1)
 
-[node name="static_ui" type="CanvasLayer" parent="."]
+[node name="travel_instruction" type="Control" parent="." unique_id=753285186]
+top_level = true
+z_index = 6
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1607.0
+offset_top = 287.0
+offset_right = 1647.0
+offset_bottom = 327.0
+
+[node name="arrow" type="TextureRect" parent="travel_instruction" unique_id=767861279]
+layout_mode = 0
+offset_left = -66.0
+offset_top = -80.0
+offset_right = -50.0
+offset_bottom = -28.0
+scale = Vector2(4, 4)
+texture = ExtResource("36_5vsub")
+flip_h = true
+
+[node name="instruction" type="RichTextLabel" parent="travel_instruction" unique_id=2049152890]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 23.0
+offset_top = -83.0
+offset_right = 887.0
+offset_bottom = 121.0
+size_flags_vertical = 4
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "Click on a location
+to travel to it."
+fit_content = true
+
+[node name="static_ui" type="CanvasLayer" parent="." unique_id=1676134459]
 process_mode = 3
 layer = 3
 
-[node name="main_hud" parent="static_ui" node_paths=PackedStringArray("resources") instance=ExtResource("47_3x04a")]
-resources = NodePath("VBoxContainer/resources/resources_dropdown")
+[node name="Location Menu" parent="static_ui" unique_id=300038436 instance=ExtResource("30_b2tqr")]
+visible = false
 
-[node name="resources_dropdown" parent="static_ui/main_hud/VBoxContainer/resources" index="0" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="main_hud" parent="static_ui" unique_id=251680820 instance=ExtResource("47_3x04a")]
+
+[node name="resources_dropdown" parent="static_ui/main_hud/VBoxContainer/resources/VBoxContainer" parent_id_path=PackedInt32Array(251680820, 1764114174) index="0" unique_id=682307214 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 resource_hboxes = {
 "chips": NodePath("chips"),
 "food": NodePath("food"),
@@ -549,336 +702,222 @@ resource_icons = {
 "scrap": NodePath("scrap/scrap_icon")
 }
 
-[node name="Tooltip" parent="static_ui/main_hud/VBoxContainer/player_data/VBoxContainer/HBoxContainer2/inventory_space" index="0" instance=ExtResource("49_x2ygm")]
+[node name="Tooltip" parent="static_ui/main_hud/VBoxContainer/player_data/VBoxContainer/HBoxContainer2/inventory_space" parent_id_path=PackedInt32Array(251680820, 1564696217) index="0" unique_id=1768458914 instance=ExtResource("49_x2ygm")]
 layout_mode = 1
 hardcoded_name = "Inventory space"
 
-[node name="dungeon_prompt" type="Control" parent="static_ui" node_paths=PackedStringArray("dungeon_name_label", "current_wave_label", "wave_divider", "waves_hbox", "loot_sfx", "cleared_sfx", "cleared_overlay", "time_until_reset", "close_btn", "loot_overlay")]
+[node name="PlayerSheet" parent="static_ui" unique_id=1144975107 instance=ExtResource("33_ulpn3")]
 visible = false
-z_index = 1
+
+[node name="tutorial" type="Control" parent="static_ui" unique_id=1316629294 node_paths=PackedStringArray("location_menu", "drag_instruction", "travel_instruction", "upkeep_explanation", "quick_buy_highlight", "buy_resources_instruction", "confirm_trade_highlight", "free_travel_instruction")]
+process_mode = 3
+z_index = 140
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 2.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("70_cb2tt")
-dungeon_name_label = NodePath("waves_display/MarginContainer/VBoxContainer/title/dungeon_name")
-current_wave_label = NodePath("waves_display/MarginContainer/VBoxContainer/title/wave_n")
-wave_divider = NodePath("waves_display/wave_divider")
-wave_sample_scene = ExtResource("50_eunnb")
-waves_hbox = NodePath("waves_display/MarginContainer/VBoxContainer/waves")
-loot_sfx = NodePath("dungeon_loot_sfx")
-cleared_sfx = NodePath("dungeon_cleared_sfx")
-cleared_overlay = NodePath("waves_display/cleared_overlay")
-time_until_reset = NodePath("waves_display/cleared_overlay/time_until_reset")
-close_btn = NodePath("close_prompt")
-loot_overlay = NodePath("../loot_overlay")
-
-[node name="dungeon_loot_sfx" type="AudioStreamPlayer" parent="static_ui/dungeon_prompt"]
-stream = ExtResource("51_m17yv")
-
-[node name="dungeon_cleared_sfx" type="AudioStreamPlayer" parent="static_ui/dungeon_prompt"]
-stream = ExtResource("53_r03dh")
-
-[node name="ColorRect" type="ColorRect" parent="static_ui/dungeon_prompt"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.39215687)
-
-[node name="waves_display" type="PanelContainer" parent="static_ui/dungeon_prompt"]
-custom_minimum_size = Vector2(700, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -255.0
-offset_top = -200.0
-offset_right = 255.0
-offset_bottom = 200.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-
-[node name="wave_divider" type="TextureRect" parent="static_ui/dungeon_prompt/waves_display"]
-visible = false
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("51_x2ygm")
-expand_mode = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="static_ui/dungeon_prompt/waves_display"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/dungeon_prompt/waves_display/MarginContainer"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="dungeon_name" type="Label" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/title"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 112
-text = "Hideout"
-
-[node name="wave_n" type="Label" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/title"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Wave 1/3"
-horizontal_alignment = 2
-
-[node name="waves" type="HBoxContainer" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="options" type="HBoxContainer" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="return" type="Button" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options"]
-layout_mode = 2
-size_flags_vertical = 4
-text = "return"
-
-[node name="enter" type="Button" parent="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_font_sizes/font_size = 64
-text = "ENTER 
-DUNGEON"
-
-[node name="cleared_overlay" type="ColorRect" parent="static_ui/dungeon_prompt/waves_display"]
-visible = false
-layout_mode = 2
-color = Color(0, 0, 0, 0.8901961)
-
-[node name="Label" type="Label" parent="static_ui/dungeon_prompt/waves_display/cleared_overlay"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -226.0
-offset_top = 4.0
-offset_right = 110.0
-offset_bottom = 106.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.41373348
-theme_override_font_sizes/font_size = 128
-text = "CLEARED"
-
-[node name="time_until_reset" type="Label" parent="static_ui/dungeon_prompt/waves_display/cleared_overlay"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -194.0
-offset_top = -36.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Resets in 3d, 22h"
-
-[node name="close_prompt" type="Button" parent="static_ui/dungeon_prompt"]
-modulate = Color(0.79, 0.79, 0.79, 1)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 245.0
-offset_top = -252.0
-offset_right = 335.0
-offset_bottom = -206.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 48
-text = "close"
-
-[node name="loot_overlay" type="TextureRect" parent="static_ui" node_paths=PackedStringArray("dungeon_prompt", "item_option_panel", "options_hbox", "loot_chosen_sfx")]
-visible = false
-self_modulate = Color(1, 0.982, 0.73, 0.4)
-z_index = 4
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_bwi7y")
-script = ExtResource("54_bwi7y")
-dungeon_prompt = NodePath("../dungeon_prompt")
-item_option_panel = NodePath("_item_choice")
-options_hbox = NodePath("dungeon_loot/VBoxContainer/loot_options")
-loot_chosen_sfx = NodePath("loot_chosen")
-
-[node name="_item_choice" type="PanelContainer" parent="static_ui/loot_overlay" node_paths=PackedStringArray("sample", "name_label", "item_type_label", "choose_btn")]
-visible = false
-self_modulate = Color(2.0331757, 2.0331757, 2.0331757, 1)
-custom_minimum_size = Vector2(300, 350)
-layout_mode = 0
-offset_left = 296.0
-offset_top = 160.0
-offset_right = 596.0
-offset_bottom = 460.0
-script = ExtResource("54_2vhqf")
-sample = NodePath("MarginContainer/VBoxContainer/item_sample")
-name_label = NodePath("MarginContainer/VBoxContainer/item_name")
-item_type_label = NodePath("MarginContainer/VBoxContainer/type")
-choose_btn = NodePath("MarginContainer/choose")
-
-[node name="MarginContainer" type="MarginContainer" parent="static_ui/loot_overlay/_item_choice"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/loot_overlay/_item_choice/MarginContainer"]
-layout_mode = 2
 mouse_filter = 2
+mouse_default_cursor_shape = 9
+script = ExtResource("35_1glhv")
+location_menu = NodePath("../Location Menu")
+drag_instruction = NodePath("drag_instruction")
+travel_instruction = NodePath("../../travel_instruction")
+upkeep_explanation = NodePath("upkeep_explanation")
+quick_buy_highlight = NodePath("quick_buy")
+buy_resources_instruction = NodePath("buy_resources_instruction")
+confirm_trade_highlight = NodePath("confirm_trade")
+free_travel_instruction = NodePath("free_travel_instruction")
 
-[node name="item_sample" parent="static_ui/loot_overlay/_item_choice/MarginContainer/VBoxContainer" instance=ExtResource("54_omir2")]
-layout_mode = 2
+[node name="drag_instruction" type="RichTextLabel" parent="static_ui/tutorial" unique_id=1690751065]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 69.0
+offset_right = 955.0
+offset_bottom = 199.0
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[pulse]Drag the cursor to pan the map"
+fit_content = true
 
-[node name="item_name" type="Label" parent="static_ui/loot_overlay/_item_choice/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/outline_size = 8
-text = "nanm"
-horizontal_alignment = 1
-
-[node name="type" type="Label" parent="static_ui/loot_overlay/_item_choice/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "typei"
-horizontal_alignment = 1
-
-[node name="choose" type="Button" parent="static_ui/loot_overlay/_item_choice/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
-text = "CHOOSE"
-
-[node name="dungeon_loot" type="PanelContainer" parent="static_ui/loot_overlay"]
-custom_minimum_size = Vector2(700, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -350.0
-offset_top = -10.0
-offset_right = 350.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="static_ui/loot_overlay/dungeon_loot"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="static_ui/loot_overlay/dungeon_loot/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/outline_size = 16
-theme_override_font_sizes/font_size = 80
-text = "DUNGEON
-CLEARED!"
-horizontal_alignment = 1
-
-[node name="title" type="Label" parent="static_ui/loot_overlay/dungeon_loot/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48
-text = "Choose a Treasure:"
-
-[node name="loot_options" type="HBoxContainer" parent="static_ui/loot_overlay/dungeon_loot/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="static_ui/loot_overlay/dungeon_loot/VBoxContainer"]
-layout_mode = 2
-text = "mouse-over an item for more information"
-horizontal_alignment = 2
-
-[node name="loot_chosen" type="AudioStreamPlayer" parent="static_ui/loot_overlay"]
-stream = ExtResource("57_bwi7y")
-
-[node name="PlayerSheet" parent="static_ui" instance=ExtResource("33_ulpn3")]
+[node name="upkeep_explanation" type="Control" parent="static_ui/tutorial" unique_id=1499791529]
 visible = false
-
-[node name="dynamic_ui" type="Control" parent="." node_paths=PackedStringArray("ui_sfx")]
-layout_mode = 3
 anchors_preset = 0
-mouse_filter = 2
-script = ExtResource("69_2irgy")
-ui_sfx = NodePath("ui_sfx")
-metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
+offset_left = 211.0
+offset_top = 163.0
+offset_right = 251.0
+offset_bottom = 203.0
 
-[node name="ui_sfx" parent="dynamic_ui" instance=ExtResource("41_3x04a")]
-
-[node name="enter_btn" type="Button" parent="dynamic_ui" node_paths=PackedStringArray("dungeon_prompt")]
-visible = false
-top_level = true
-z_index = 10
+[node name="arrow" type="TextureRect" parent="static_ui/tutorial/upkeep_explanation" unique_id=2065463126]
 layout_mode = 0
-offset_right = 124.0
-offset_bottom = 59.0
+offset_left = -104.0
+offset_top = -15.0
+offset_right = -88.0
+offset_bottom = 16.0
+scale = Vector2(2, 2)
+texture = ExtResource("36_5vsub")
+flip_h = true
+
+[node name="arrow2" type="TextureRect" parent="static_ui/tutorial/upkeep_explanation" unique_id=713041116]
+layout_mode = 0
+offset_left = -105.0
+offset_top = -79.0
+offset_right = -89.0
+offset_bottom = -48.0
+scale = Vector2(2, 2)
+texture = ExtResource("36_5vsub")
+flip_h = true
+
+[node name="Label" type="Label" parent="static_ui/tutorial/upkeep_explanation" unique_id=1689064477]
+layout_mode = 0
+offset_left = -63.0
+offset_top = -5.0
+offset_right = 873.0
+offset_bottom = 46.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 64
+text = "When traveling, you consume Fuel and Food."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="static_ui/tutorial/upkeep_explanation/Label" unique_id=406086158]
+libraries/ = SubResource("AnimationLibrary_05tdn")
+autoplay = &"tutorial_glow"
+
+[node name="buy_resources_instruction" type="Control" parent="static_ui/tutorial" unique_id=1127827971]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="RichTextLabel" parent="static_ui/tutorial/buy_resources_instruction" unique_id=1142065730]
+layout_mode = 0
+offset_left = -20.0
+offset_top = 451.08
+offset_right = 454.0
+offset_bottom = 604.0801
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "Buy more resources at the [color=green]shop"
+fit_content = true
+horizontal_alignment = 2
+
+[node name="arrow" type="TextureRect" parent="static_ui/tutorial/buy_resources_instruction" unique_id=914480793]
+layout_mode = 0
+offset_left = 465.0
+offset_top = 471.0
+offset_right = 481.0
+offset_bottom = 523.0
+scale = Vector2(2, 2)
+texture = ExtResource("36_5vsub")
+
+[node name="quick_buy" type="TextureRect" parent="static_ui/tutorial" unique_id=465749576]
+visible = false
+modulate = Color(1, 1, 1, 0.25882354)
+self_modulate = Color(1, 1, 1, 0.4862745)
+layout_mode = 0
+offset_left = 407.865
+offset_top = 471.79
+offset_right = 489.86505
+offset_bottom = 535.7897
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_1glhv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="static_ui/tutorial/quick_buy" unique_id=1054982420]
+libraries/ = SubResource("AnimationLibrary_5vsub")
+autoplay = &"highlight_quick_buy"
+
+[node name="confirm_trade" type="TextureRect" parent="static_ui/tutorial" unique_id=855397589]
+visible = false
+modulate = Color(1, 1, 1, 0.25882354)
+layout_mode = 0
+offset_left = 540.985
+offset_top = 566.205
+offset_right = 684.985
+offset_bottom = 610.205
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_1glhv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="static_ui/tutorial/confirm_trade" unique_id=2077400639]
+libraries/ = SubResource("AnimationLibrary_5vsub")
+autoplay = &"highlight_quick_buy"
+
+[node name="free_travel_instruction" type="Control" parent="static_ui/tutorial" unique_id=536770539]
+visible = false
+anchors_preset = 0
+offset_left = 805.0
+offset_top = 235.0
+offset_right = 845.0
+offset_bottom = 275.0
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="static_ui/tutorial/free_travel_instruction" unique_id=1760117809]
+self_modulate = Color(1, 1, 1, 0.54901963)
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 0
+offset_left = -154.0
+offset_top = 117.0
+offset_right = 385.0
+offset_bottom = 450.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="static_ui/tutorial/free_travel_instruction/PanelContainer" unique_id=479431658]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "This is an early alpha demo.
+You can explore, trade, battle, as well as some other features.
+Have fun :)"
+autowrap_mode = 3
+
+[node name="enter_btn" type="Button" parent="." unique_id=783636623 node_paths=PackedStringArray("location_menu")]
+visible = false
+z_index = 40
+offset_left = 1416.0
+offset_top = 458.0
+offset_right = 1484.0
+offset_bottom = 492.0
 theme_override_font_sizes/font_size = 64
 text = "Enter"
-script = ExtResource("69_x5mo2")
-dungeon_prompt = NodePath("../../static_ui/dungeon_prompt")
+script = ExtResource("38_1glhv")
+location_menu = NodePath("../static_ui/Location Menu")
 
 [connection signal="hour_passed" from="." to="environment_color" method="_on_world_map_hour_passed"]
-[connection signal="ready" from="." to="static_ui/main_hud/clock" method="_on_world_map_ready"]
-[connection signal="settlement_hovered" from="." to="tiles/road" method="_on_world_map_settlement_hovered"]
-[connection signal="settlement_hovered" from="." to="static_ui/main_hud/navigation_data" method="show_settlement"]
-[connection signal="equipment_changed" from="Player" to="static_ui/PlayerSheet" method="_on_player_equipment_changed"]
-[connection signal="ready" from="Player" to="static_ui/main_hud/VBoxContainer/player_data" method="refresh"]
-[connection signal="upkeep_food_shortage" from="Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_food_shortage"]
-[connection signal="upkeep_fuel_shortage" from="Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_fuel_shortage"]
-[connection signal="upkeep_paid_fully" from="Player" to="static_ui/main_hud/upkeep_sfx" method="_on_player_upkeep_paid_fully"]
-[connection signal="changed" from="Player/Inventory" to="static_ui/main_hud/VBoxContainer/player_data" method="refresh"]
+[connection signal="location_hovered" from="." to="tiles/road" method="_on_world_map_location_hovered"]
+[connection signal="location_hovered" from="." to="static_ui/main_hud/navigation_data" method="show_location"]
+[connection signal="ready" from="." to="static_ui/main_hud/top_right_items/clock" method="_on_world_map_ready"]
+[connection signal="returned_from_battle" from="." to="static_ui/Location Menu" method="_on_world_map_returned_from_battle"]
 [connection signal="timeout" from="speed_up_persist" to="." method="_on_speed_up_persist_timeout"]
 [connection signal="timeout" from="speed_up_persist/speed_up_persist_5x" to="." method="_on_speed_up_persist_5x_timeout"]
-[connection signal="timeout" from="minute_ticker" to="Player" method="_on_minute_ticker_timeout"]
 [connection signal="timeout" from="minute_ticker" to="minute_ticker" method="_on_timeout"]
-[connection signal="timeout" from="minute_ticker" to="static_ui/main_hud/clock" method="_on_minute_ticker_timeout"]
-[connection signal="settlement_visited" from="PlayerParty" to="." method="_on_player_party_settlement_visited"]
-[connection signal="settlement_visited" from="PlayerParty" to="SfxPlayer" method="_on_player_party_settlement_visited"]
-[connection signal="settlement_visited" from="PlayerParty" to="tiles/fog" method="refresh_fog"]
-[connection signal="settlement_visited" from="PlayerParty" to="PlayerParty" method="_on_settlement_visited"]
-[connection signal="settlement_visited" from="PlayerParty" to="static_ui/main_hud/location_data" method="display_current_settlement"]
-[connection signal="settlement_visited" from="PlayerParty" to="dynamic_ui/enter_btn" method="_on_player_party_settlement_visited"]
+[connection signal="timeout" from="minute_ticker" to="static_ui/main_hud/top_right_items/clock" method="_on_minute_ticker_timeout"]
+[connection signal="food_shortage" from="minute_ticker/upkeep" to="static_ui/main_hud/upkeep_sfx" method="_on_upkeep_food_shortage"]
+[connection signal="fuel_shortage" from="minute_ticker/upkeep" to="static_ui/main_hud/upkeep_sfx" method="_on_upkeep_fuel_shortage"]
+[connection signal="paid_fully" from="minute_ticker/upkeep" to="static_ui/main_hud/upkeep_sfx" method="_on_upkeep_paid_fully"]
+[connection signal="location_visited" from="PlayerParty" to="." method="_on_player_party_location_visited"]
+[connection signal="location_visited" from="PlayerParty" to="SfxPlayer" method="_on_player_party_location_visited"]
+[connection signal="location_visited" from="PlayerParty" to="tiles/fog" method="reveal_neighbors"]
+[connection signal="location_visited" from="PlayerParty" to="enter_btn" method="_on_player_party_location_visited"]
 [connection signal="started_moving" from="PlayerParty" to="SfxPlayer" method="_on_player_party_started_moving"]
-[connection signal="started_moving" from="PlayerParty" to="PlayerParty" method="_on_started_moving"]
 [connection signal="started_moving" from="PlayerParty" to="PlayerParty/world_map_camera" method="pan_to_player"]
 [connection signal="started_moving" from="PlayerParty" to="static_ui/main_hud/location_data" method="_on_player_party_started_moving"]
 [connection signal="started_moving" from="PlayerParty" to="static_ui/main_hud/navigation_data" method="_on_player_party_started_moving"]
-[connection signal="started_moving" from="PlayerParty" to="dynamic_ui/enter_btn" method="_on_player_party_started_moving"]
-[connection signal="stopped_moving" from="PlayerParty" to="PlayerParty" method="_on_stopped_moving"]
+[connection signal="started_moving" from="PlayerParty" to="enter_btn" method="_on_player_party_started_moving"]
+[connection signal="stopped_moving" from="PlayerParty" to="static_ui/main_hud/location_data" method="_on_player_party_stopped_moving"]
 [connection signal="timeout" from="PlayerParty/marker/bounce_timer" to="PlayerParty/marker" method="bounce_animation"]
 [connection signal="started_panning" from="PlayerParty/world_map_camera" to="static_ui/main_hud/navigation_data" method="_on_world_map_camera_started_panning"]
-[connection signal="pressed" from="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options/return" to="static_ui/dungeon_prompt" method="_on_return_pressed"]
-[connection signal="pressed" from="static_ui/dungeon_prompt/waves_display/MarginContainer/VBoxContainer/options/enter" to="static_ui/dungeon_prompt" method="_on_enter_pressed"]
-[connection signal="pressed" from="static_ui/dungeon_prompt/close_prompt" to="static_ui/dungeon_prompt" method="_on_close_prompt_pressed"]
-[connection signal="start_battle_pressed" from="static_ui/PlayerSheet" to="static_ui/dungeon_prompt" method="_on_player_sheet_start_battle_pressed"]
-[connection signal="pressed" from="dynamic_ui/enter_btn" to="dynamic_ui/enter_btn" method="_on_pressed"]
+[connection signal="closed" from="static_ui/Location Menu" to="enter_btn" method="_on_location_menu_closed"]
+[connection signal="menu_closed" from="static_ui/Location Menu" to="static_ui/main_hud" method="_on_location_menu_menu_closed"]
+[connection signal="menu_opened" from="static_ui/Location Menu" to="static_ui/main_hud" method="_on_location_menu_menu_opened"]
+[connection signal="opened" from="static_ui/Location Menu" to="enter_btn" method="_on_location_menu_opened"]
+[connection signal="pressed" from="enter_btn" to="enter_btn" method="_on_pressed"]
 
-[editable path="Player"]
+[editable path="locations/Tutorial"]
 [editable path="static_ui/main_hud"]

@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://dgf3khawq2h5f"]
+
+[ext_resource type="Script" uid="uid://6xsoxh5pe6pt" path="res://scenes/leader/roster/npc_roster.gd" id="1_yns1s"]
+[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="2_4m6is"]
+[ext_resource type="PackedScene" uid="uid://pdygvkib8khb" path="res://scenes/index/items/_notyet/apple_sticker.tscn" id="3_fjqqd"]
+[ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="4_vhqu4"]
+[ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="5_0iwf6"]
+[ext_resource type="PackedScene" uid="uid://blb80ofwrhyyg" path="res://scenes/index/items/_notyet/sharpener.tscn" id="6_7qm07"]
+[ext_resource type="PackedScene" uid="uid://q588p3i1d747" path="res://scenes/index/items/_notyet/metallic_coating.tscn" id="7_8eas0"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="8_y68or"]
+[ext_resource type="PackedScene" uid="uid://5un73br0b5l0" path="res://scenes/index/items/containers/juice_can.tscn" id="9_ceqqo"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="10_neqlf"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="11_lk8eq"]
+[ext_resource type="PackedScene" uid="uid://b3n7mk40hlld3" path="res://scenes/index/fighters/monsters/big_rat.tscn" id="12_77axp"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="13_sd2us"]
+[ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="14_3ng4b"]
+[ext_resource type="PackedScene" uid="uid://bjc7irffaa805" path="res://scenes/index/fighters/monsters/calango.tscn" id="15_keaxy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4m6is"]
+resource_local_to_scene = true
+shader = ExtResource("13_sd2us")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 1, 0)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fjqqd"]
+resource_local_to_scene = true
+shader = ExtResource("13_sd2us")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 1, 0)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhqu4"]
+resource_local_to_scene = true
+shader = ExtResource("13_sd2us")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[node name="TutorialBattle" type="Node" unique_id=1071861322 node_paths=PackedStringArray("loot")]
+script = ExtResource("1_yns1s")
+loot = NodePath("basic_loot")
+metadata/_custom_type_script = "uid://6xsoxh5pe6pt"
+
+[node name="basic_loot" parent="." unique_id=609416018 instance=ExtResource("2_4m6is")]
+
+[node name="Apple Sticker" parent="basic_loot" unique_id=587126084 instance=ExtResource("3_fjqqd")]
+
+[node name="Brass Knuckles" parent="basic_loot" unique_id=834594505 instance=ExtResource("4_vhqu4")]
+
+[node name="Mystery Snack Pack" parent="basic_loot" unique_id=1469270528 instance=ExtResource("5_0iwf6")]
+
+[node name="Sharpener" parent="basic_loot" unique_id=375413785 instance=ExtResource("6_7qm07")]
+
+[node name="Metallic Coating" parent="basic_loot" unique_id=208828978 instance=ExtResource("7_8eas0")]
+
+[node name="Food Bag" parent="basic_loot" unique_id=1550126643 instance=ExtResource("8_y68or")]
+
+[node name="Juice Can" parent="basic_loot" unique_id=270466439 instance=ExtResource("9_ceqqo")]
+
+[node name="Fuel Gallon" parent="basic_loot" unique_id=332462502 instance=ExtResource("10_neqlf")]
+
+[node name="FighterUnit3" parent="." unique_id=2067750979 instance=ExtResource("11_lk8eq")]
+level = 3
+
+[node name="Big Rat" parent="FighterUnit3" unique_id=779088301 instance=ExtResource("12_77axp")]
+material = SubResource("ShaderMaterial_4m6is")
+
+[node name="FighterUnit4" parent="." unique_id=1215196295 instance=ExtResource("11_lk8eq")]
+level = 2
+
+[node name="Crowbar" parent="FighterUnit4" unique_id=2112712555 instance=ExtResource("14_3ng4b")]
+material = SubResource("ShaderMaterial_fjqqd")
+
+[node name="FighterUnit5" parent="." unique_id=1143152229 instance=ExtResource("11_lk8eq")]
+level = 3
+
+[node name="Calango" parent="FighterUnit5" unique_id=1356813743 instance=ExtResource("15_keaxy")]
+material = SubResource("ShaderMaterial_vhqu4")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cyql2mpcfm38x"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_l4eh2"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_xgbbp"]
+
+[node name="Vigorous" type="Node" unique_id=1022797017 node_paths=PackedStringArray("stat_modifiers")]
+script = ExtResource("1_l4eh2")
+tier = 1
+stat_modifiers = NodePath("CombatStats")
+prefix = "Vigorous"
+metadata/_custom_type_script = "uid://dvekatbbdf76k"
+
+[node name="CombatStats" type="Node" parent="." unique_id=1012919832]
+script = ExtResource("2_xgbbp")
+max_hp = 100.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"

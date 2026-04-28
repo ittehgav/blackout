@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c7n17yds528vk"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_2tc1o"]
+
+[node name="Amplified" type="Node" unique_id=102646344]
+script = ExtResource("1_2tc1o")
+tier = 3
+description = "This accessory has double effects."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_character.png")
 extends ActiveFighter;
 
 class_name PlayerFighter
@@ -19,25 +20,26 @@ class_name PlayerFighter
 var walking_blocked:bool=false;
 
 func _ready()->void:
-	if not Entities.main:
-		return
-	name = Entities.player.name;
+	var player:Player = get_tree().get_first_node_in_group("player")
+
+	name = player.name;
 	Entities.player_fighter = self;
-	level = Entities.player.level;
+	level = player.level;
 
 	## this node is the only fighter that'll always be in an arena instance
 	load_fighter()
 
 
 func load_fighter()->void:
-	var stats:CombatStats = Entities.player.final_stats();
+	var player:Player = get_tree().get_first_node_in_group("player")
+	var stats:CombatStats = player.final_stats();
 	
 	for stat:String in Index.all_combat_stats:
 		initial_stats[stat] = stats[stat];
 
 	
-	var accessory_1:Accessory = Entities.player.equipped_accessory_1;
-	var accessory_2:Accessory = Entities.player.equipped_accessory_2;
+	var accessory_1:Accessory = player.equipped_accessory_1;
+	var accessory_2:Accessory = player.equipped_accessory_2;
 	for accessory:Accessory in [accessory_1, accessory_2]:
 		if accessory:
 			if accessory.application == "battle_start":

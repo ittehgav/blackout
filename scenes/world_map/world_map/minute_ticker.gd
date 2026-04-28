@@ -1,6 +1,7 @@
 extends Timer
 
 @export var world_map:WorldMap;
+@export var upkeep:Node;
 
 const minutes_per_tick = 1
 func _ready()->void:
@@ -9,6 +10,8 @@ func _ready()->void:
 
 func _on_timeout() -> void:
 	world_map.current_minute += minutes_per_tick
+	if not world_map.current_minute % 30:
+		upkeep.travel_upkeep()
 	if world_map.current_minute >= 60:
 		world_map.current_minute = 0;
 		advance_hour();

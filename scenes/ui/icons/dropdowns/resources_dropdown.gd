@@ -3,22 +3,34 @@ class_name ResourcesDropdown
 
 @export var target_inventory:Inventory;
 
+
 @export var resource_hboxes:Dictionary[String, HBoxContainer]
 @export var resource_icons:Dictionary[String, ResourceIcon]
 @export var from_player:bool
 
 func _ready()->void:
+	if get_parent() is InventoryDisplay: return;
+	## gets and refreshed by inv display scripts
+	## only other scenario is the one in the world map that refreshses along 
+	## with player inventory (when it's in the tree)
 	if from_player:
-		target_inventory = Entities.player.inventory;
-		Entities.player.resource_changed.connect(_on_player_resource_changed)
+		var player:Player = get_tree().get_first_node_in_group("player")
+		target_inventory = player.inventory;
+		player.resource_changed.connect(_on_player_resource_changed)
 	if target_inventory:
-		setup();
+		setup(target_inventory);
 	
 	
-func setup()->void:
+func setup(target:Inventory)->void:
+	if update in target_inventory.changed.get_connections():
+		## for shop stuff mostly
+		target_inventory.changed.disconnect(update);
+
+		
+	target_inventory = target;
 	for r:String in Index.all_resources:
 		resource_icons[r].source = target_inventory;
-
+	target_inventory.changed.connect(update)
 
 	update();
 
@@ -26,12 +38,15 @@ func update(concurring_inventories:Array[Inventory] = [], animated:bool=false)->
 	## concurring inventories is so you can see your resources you have 0
 	## of when trading with someone who has it
 	if not animated:
+		## TODO clear the race condition in a cleaner way?
+		target_inventory.refresh_resource_counts()
+		
 		for r:String in Index.all_resources:
 			resource_icons[r].update();
 			if r not in ["money", "food", "fuel"]:
 				resource_hboxes[r].hide()
 				if target_inventory[r]:
-					resource_hboxes[r].show()
+						resource_hboxes[r].show()
 				for i:Inventory in concurring_inventories:
 					if i[r]:
 						resource_hboxes[r].show()

@@ -3,8 +3,6 @@ extends Icon
 class_name DisciplineIcon;
 
 
-
-
 @export_enum("charisma", "navigation", "tactics", "leadership", "scavenging") var discipline:String;
 
 func _ready() -> void:

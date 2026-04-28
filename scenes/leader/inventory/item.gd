@@ -40,11 +40,17 @@ func match_mirror()->void:
 func get_description()->String:
 	return "DESCRIPTION MISSOMG"
 
+
+const rarity_saturation = {
+	1:.5,
+	2:.8,
+	3:1
+}
 func get_mirror_color()->Color:
 	if color_tag != "none":
 		var target_color:Color = Index.get_color(color_tag);
-		var value_multiplier:float = (1.0/2.75) * float(self["rarity"]);
-		target_color.s *= value_multiplier;
+	
+		target_color.s *= rarity_saturation[self["rarity"]]
 		return target_color;
 	else:
 		return Index.item_rarity_colors[self["rarity"]];

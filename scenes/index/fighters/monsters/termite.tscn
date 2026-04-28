@@ -9,6 +9,51 @@
 [ext_resource type="Texture2D" uid="uid://c62btq06beknh" path="res://assets/visual/sprites/fighters/monsters/termite/blur.png" id="6_ced4w"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ym1w0"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_jwcm1"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="10_6d2dr"]
+
+[sub_resource type="Animation" id="Animation_6d2dr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shadow_container:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_laip8"]
+_data = {
+&"RESET": SubResource("Animation_6d2dr")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yeofw"]
 radius = 64.03124
@@ -47,6 +92,7 @@ stat = "defense"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1657673715]
+libraries/ = SubResource("AnimationLibrary_laip8")
 libraries/fighter_base = ExtResource("5_laip8")
 
 [node name="blur" type="Sprite2D" parent="." unique_id=743666023]
@@ -87,3 +133,12 @@ metadata/_custom_type_script = "uid://dn4endealcll1"
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=393756478]
 position = Vector2(-5, -6)
 shape = SubResource("CircleShape2D_jwcm1")
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=1491201525]
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=291329262]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 2.0721803)
+scale = Vector2(0.5, 1)
+texture = ExtResource("10_6d2dr")

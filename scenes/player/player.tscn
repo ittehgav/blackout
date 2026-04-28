@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cicrr5baffqaa"]
+[gd_scene format=3 uid="uid://cicrr5baffqaa"]
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_efaxt"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/leader/inventory/inventory.tscn" id="2_w3kr7"]
@@ -6,41 +6,40 @@
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_4udko"]
 [ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/ui/player_sheet/disciplines.gd" id="5_a3c1i"]
 
-[node name="Player" type="Node" node_paths=PackedStringArray("disciplines", "inventory", "roster", "stats", "modifier_stats", "stat_multipliers")]
+[node name="Player" type="Node" unique_id=526134067 node_paths=PackedStringArray("disciplines", "inventory", "roster", "stats", "modifier_stats", "stat_multipliers")]
 script = ExtResource("1_efaxt")
 disciplines = NodePath("disciplines")
 color_scheme_index = 1
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
-stats = NodePath("combat_stats")
+stats = NodePath("base_stats")
 modifier_stats = NodePath("modifier_stats")
 stat_multipliers = NodePath("multiplier_stats")
 sight_range = 256
 
-[node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_w3kr7")]
+[node name="Roster" parent="." unique_id=625375393 instance=ExtResource("3_5khbq")]
+
+[node name="Inventory" parent="." unique_id=1819646003 node_paths=PackedStringArray("holder") instance=ExtResource("2_w3kr7")]
 holder = NodePath("..")
 
-[node name="Roster" parent="." instance=ExtResource("3_5khbq")]
-
-[node name="combat_stats" parent="." instance=ExtResource("4_4udko")]
+[node name="base_stats" parent="." unique_id=1645727257 instance=ExtResource("4_4udko")]
 max_hp = 500.0
 attack = 5.0
 defense = 5.0
 agility = 5.0
 
-[node name="modifier_stats" parent="." instance=ExtResource("4_4udko")]
-technique = 0.0
+[node name="modifier_stats" parent="." unique_id=342441589 instance=ExtResource("4_4udko")]
 move_speed = 0.0
 
-[node name="multiplier_stats" parent="." instance=ExtResource("4_4udko")]
+[node name="multiplier_stats" parent="." unique_id=251843147 instance=ExtResource("4_4udko")]
 max_hp = 1.0
 attack = 1.0
 defense = 1.0
 agility = 1.0
 move_speed = 1.0
 
-[node name="disciplines" type="Node" parent="."]
+[node name="disciplines" type="Node" parent="." unique_id=1645247963]
 script = ExtResource("5_a3c1i")
 
-[connection signal="level_up" from="." to="." method="_on_level_up"]
+[connection signal="leveled_up" from="." to="." method="_on_level_up"]
 [connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

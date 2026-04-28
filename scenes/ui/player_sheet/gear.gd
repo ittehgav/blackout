@@ -104,7 +104,7 @@ func _on_weapon_sample_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_RIGHT:
 		if not Entities.player.alternative_weapon:
 			invalid_move("NEED AT LEAST 1 WEAPON EQUIPPED")
-		elif player_inventory_display.find_clear_cell(Entities.player.equipped_weapon) == Vector2i(-1, -1):
+		elif not player_inventory_display.has_room(Entities.player.equipped_weapon):
 			invalid_move("NOT ENOUGH ROOM IN INVENTORY");
 		else:
 			sfx.play_sound_by_key("weapon_equipped")
@@ -118,7 +118,7 @@ func _on_weapon_sample_gui_input(e: InputEvent) -> void:
 func _on_alt_weapon_sample_gui_input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_RIGHT\
 		and Entities.player.alternative_weapon:
-		if player_inventory_display.find_clear_cell(Entities.player.alternative_weapon) == Vector2i(-1, -1):
+		if not player_inventory_display.has_room(Entities.player.alternative_weapon):
 			invalid_move("NOT ENOUGH ROOM IN INVENTORY");
 		else:
 			sfx.play_sound_by_key("weapon_equipped")
@@ -157,15 +157,13 @@ func unequip_accessory(which:int)->void:
 	match which:
 		1:
 			to_unequip = Entities.player.equipped_accessory_1;
-			var clear_cell:Vector2i = player_inventory_display.find_clear_cell(to_unequip)
-			if clear_cell == Vector2i(-1, -1):
+			if not player_inventory_display.has_room(to_unequip):
 				invalid_move("NOT ENOUGH ROOM");
 				return
 			Entities.player.equipped_accessory_1 = null
 			accessory_1_sample.load_blank(2)
 		2:
-			to_unequip = Entities.player.equipped_accessory_2;
-			if player_inventory_display.find_clear_cell(to_unequip) == Vector2i(-1, -1):
+			if not player_inventory_display.has_room(to_unequip):
 				invalid_move("NOT ENOUGH ROOM");
 				return
 			Entities.player.equipped_accessory_2 = null

@@ -65,7 +65,7 @@ func generate_equip_options(accessory:Accessory)->void:
 	if accessory.equippable.player:
 		options.append(Entities.player);
 	if accessory.equippable.unit:
-		if accessory.exclusive_tag:
+		if accessory.tag_restriction:
 			for unit:FighterUnit in Entities.player.roster.units:
 				if unit.base.tags.has(accessory.exclusive_tag):
 					options.append(unit);

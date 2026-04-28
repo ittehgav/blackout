@@ -24,9 +24,8 @@ func deal_damage(source:ActiveFighter, target:CombatEntity=source.target_fighter
 			source.damage_dealt.emit(damage, target)
 			target.damage_taken.emit(shield_overkill, source, quiet);
 			if target.hp <= 0 and not target.dead:
-				target.death.emit(source);
+				target.die(source)
 		else:
-
 			source.damage_dealt.emit(damage, target)
 			target.damage_blocked.emit(source, damage, quiet);
 	else:
@@ -36,7 +35,7 @@ func deal_damage(source:ActiveFighter, target:CombatEntity=source.target_fighter
 		target.damage_taken.emit(damage, source, quiet)
 		
 		if target.hp <= 0 and not target.dead:
-			target.death.emit(source);
+			target.die(source)
 
 
 func heal_target(source:ActiveFighter, target:CombatEntity, value:float)->void:

@@ -1,10 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2atxui6lbsr0"]
+[gd_scene format=3 uid="uid://c2atxui6lbsr0"]
 
 [ext_resource type="Script" uid="uid://dpxa7a0vvejmm" path="res://scenes/ui/player_sheet/item_sample.gd" id="2_81f3s"]
 [ext_resource type="Texture2D" uid="uid://c70v3si5swr41" path="res://assets/visual/ui/items/blank_item.png" id="3_81f3s"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="3_qv57f"]
+[ext_resource type="PackedScene" uid="uid://cr7mjllu5bxvg" path="res://scenes/ui/icons/item_modifier_icon.tscn" id="4_qv57f"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="5_w5n8s"]
 
-[node name="item_sample" type="TextureRect" node_paths=PackedStringArray("modifier_sign", "outline", "tooltip", "bg", "blank", "button")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qv57f"]
+resource_local_to_scene = true
+shader = ExtResource("5_w5n8s")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="item_sample" type="TextureRect" unique_id=389664355 node_paths=PackedStringArray("outline", "tooltip", "bg", "blank", "modifier_icon", "button")]
 z_index = 1
 custom_minimum_size = Vector2(64, 128)
 size_flags_horizontal = 4
@@ -12,14 +24,14 @@ size_flags_vertical = 4
 mouse_filter = 0
 expand_mode = 5
 script = ExtResource("2_81f3s")
-modifier_sign = NodePath("modifier_sign")
 outline = NodePath("bg/outline")
 tooltip = NodePath("Tooltip")
 bg = NodePath("bg")
 blank = NodePath("bg/outline/blank")
+modifier_icon = NodePath("ItemModifierIcon")
 button = NodePath("button")
 
-[node name="bg" type="ColorRect" parent="."]
+[node name="bg" type="ColorRect" parent="." unique_id=1478659946]
 self_modulate = Color(0.43137255, 0.44705883, 0.6, 1)
 z_index = -1
 layout_mode = 1
@@ -31,7 +43,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.8, 0.8, 0.8, 1)
 
-[node name="outline" type="ReferenceRect" parent="bg"]
+[node name="outline" type="ReferenceRect" parent="bg" unique_id=191879688]
 modulate = Color(0.039215688, 0.043137256, 0.050980393, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -44,7 +56,7 @@ border_color = Color(1, 1, 1, 1)
 border_width = 3.0
 editor_only = false
 
-[node name="blank" type="TextureRect" parent="bg/outline"]
+[node name="blank" type="TextureRect" parent="bg/outline" unique_id=89306766]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,7 +65,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_81f3s")
 
-[node name="Tooltip" parent="." instance=ExtResource("3_qv57f")]
+[node name="Tooltip" parent="." unique_id=2043614203 instance=ExtResource("3_qv57f")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -67,7 +79,7 @@ offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="button" type="TextureButton" parent="."]
+[node name="button" type="TextureButton" parent="." unique_id=783773796]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -75,19 +87,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+button_mask = 3
 
-[node name="modifier_sign" type="Label" parent="."]
+[node name="ItemModifierIcon" parent="." unique_id=1395602884 instance=ExtResource("4_qv57f")]
 visible = false
+material = SubResource("ShaderMaterial_qv57f")
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -24.0
-offset_bottom = 51.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(0.964167, 1, 0.57, 1)
-theme_override_font_sizes/font_size = 64
-text = "+"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

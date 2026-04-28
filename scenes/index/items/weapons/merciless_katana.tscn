@@ -91,7 +91,7 @@ radius = 39.63
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b82ma"]
 size = Vector2(379, 31)
 
-[node name="Merciless Katana" type="Sprite2D" unique_id=1704664670 node_paths=PackedStringArray("dash_target", "hint", "hit_scan", "alt_hit_scan", "animation_player", "use_sfx", "alt_use_sfx", "hit_sfx", "status")]
+[node name="Merciless Katana" type="Sprite2D" unique_id=1704664670 node_paths=PackedStringArray("dash_target", "hint", "hit_scan", "alt_hit_scan", "projections", "animation_player", "use_sfx", "alt_use_sfx", "status")]
 use_parent_material = true
 position = Vector2(-50, 10)
 texture = ExtResource("1_a7g5q")
@@ -104,10 +104,10 @@ alt_cooldown = 5.0
 hit_scan = NodePath("hit_scan")
 alt_hit_scan = NodePath("alt")
 melee = true
+projections = [NodePath("hit_scan/Sprite2D")]
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("sfxes/use_sfx")
 alt_use_sfx = NodePath("sfxes/alt_use_sfx")
-hit_sfx = NodePath("sfxes/hit_normal")
 use_feedback = "none"
 status = NodePath("agi_buff")
 color_tag = "attack"

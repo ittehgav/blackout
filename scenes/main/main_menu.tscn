@@ -1,19 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0n0kjgpxpjit"]
+[gd_scene format=3 uid="uid://d0n0kjgpxpjit"]
 
-[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/PixelTheme-Blood.tres" id="1_st2cm"]
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Blood.tres" id="1_st2cm"]
 [ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="2_sohg7"]
 [ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="3_cnht7"]
 [ext_resource type="Texture2D" uid="uid://ctrdkvpa28p08" path="res://assets/visual/icons/portrait.png" id="4_n08up"]
 [ext_resource type="Texture2D" uid="uid://t0008chby5ff" path="res://icon.svg" id="5_bucyr"]
-[ext_resource type="Texture2D" uid="uid://etp7xxiib17j" path="res://assets/visual/ui/settlement/anomaly_arrow.png" id="6_133hv"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="7_cmqat"]
 [ext_resource type="Script" uid="uid://4aosun8uw6h4" path="res://scenes/main/save_files.gd" id="10_vsmr0"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="11_vinog"]
 
-[node name="main_menu" type="CanvasLayer"]
+[node name="main_menu" type="CanvasLayer" unique_id=2017087028]
 process_mode = 3
 
-[node name="main_ui" type="Control" parent="." node_paths=PackedStringArray("load_menu", "main_view", "full_screen_hint_arrow", "ui_sfx")]
+[node name="main_ui" type="Control" parent="." unique_id=2009822615 node_paths=PackedStringArray("load_menu", "main_view", "ui_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,10 +23,9 @@ theme = ExtResource("1_st2cm")
 script = ExtResource("2_sohg7")
 load_menu = NodePath("load_menu")
 main_view = NodePath("main_view")
-full_screen_hint_arrow = NodePath("full_screen_hint/arrow")
 ui_sfx = NodePath("ui_sfx")
 
-[node name="ColorRect" type="ColorRect" parent="main_ui"]
+[node name="ColorRect" type="ColorRect" parent="main_ui" unique_id=1430803723]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0.33, 0.33, 1)
 
-[node name="TextureRect" type="TextureRect" parent="main_ui"]
+[node name="TextureRect" type="TextureRect" parent="main_ui" unique_id=2115407295]
 texture_filter = 4
 layout_mode = 1
 anchors_preset = 15
@@ -48,7 +46,7 @@ texture = ExtResource("3_cnht7")
 expand_mode = 5
 flip_h = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_ui"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_ui" unique_id=476283043]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -57,19 +55,19 @@ offset_top = -64.0
 offset_right = 358.0
 grow_vertical = 0
 
-[node name="TextureRect2" type="TextureRect" parent="main_ui/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="main_ui/HBoxContainer" unique_id=1018720941]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("4_n08up")
 flip_h = true
 
-[node name="Label" type="Label" parent="main_ui/HBoxContainer"]
+[node name="Label" type="Label" parent="main_ui/HBoxContainer" unique_id=1100582035]
 layout_mode = 2
 text = "Created by	
 Vodok"
 
-[node name="TextureRect" type="TextureRect" parent="main_ui/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="main_ui/HBoxContainer" unique_id=207991729]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -77,45 +75,12 @@ size_flags_vertical = 4
 texture = ExtResource("5_bucyr")
 expand_mode = 1
 
-[node name="Label2" type="Label" parent="main_ui/HBoxContainer"]
+[node name="Label2" type="Label" parent="main_ui/HBoxContainer" unique_id=502612469]
 layout_mode = 2
 text = "Powered By
 Godot"
 
-[node name="full_screen_hint" type="Control" parent="main_ui"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -103.0
-offset_top = -39.0
-offset_right = -103.0
-offset_bottom = -39.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="Label" type="Label" parent="main_ui/full_screen_hint"]
-layout_mode = 0
-offset_left = -177.0
-offset_top = -114.0
-offset_right = 99.0
-offset_bottom = -9.0
-theme_override_font_sizes/font_size = 64
-text = "Full Screen
-Recommended"
-
-[node name="arrow" type="TextureRect" parent="main_ui/full_screen_hint"]
-modulate = Color(0.9, 0.66105, 0.369, 1)
-layout_mode = 0
-offset_left = 9.0
-offset_right = 49.0
-offset_bottom = 80.0
-rotation = 1.5708
-texture = ExtResource("6_133hv")
-
-[node name="main_view" type="Control" parent="main_ui"]
+[node name="main_view" type="Control" parent="main_ui" unique_id=798802058]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -123,7 +88,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="main_options" type="PanelContainer" parent="main_ui/main_view"]
+[node name="main_options" type="PanelContainer" parent="main_ui/main_view" unique_id=1524679816]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -135,7 +100,7 @@ offset_bottom = 25.0
 grow_vertical = 2
 scale = Vector2(2, 2)
 
-[node name="MarginContainer" type="MarginContainer" parent="main_ui/main_view/main_options"]
+[node name="MarginContainer" type="MarginContainer" parent="main_ui/main_view/main_options" unique_id=767071246]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/margin_left = 9
@@ -143,20 +108,20 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/main_view/main_options/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_ui/main_view/main_options/MarginContainer" unique_id=78103914]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer" unique_id=1331766265]
 layout_mode = 2
 text = "world map"
 
-[node name="Button2" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="main_ui/main_view/main_options/MarginContainer/VBoxContainer" unique_id=951473253]
 layout_mode = 2
 text = "testarenma"
 
-[node name="ui_sfx" parent="main_ui" instance=ExtResource("7_cmqat")]
+[node name="ui_sfx" parent="main_ui" unique_id=1447591405 instance=ExtResource("7_cmqat")]
 
-[node name="load_menu" type="Control" parent="main_ui" node_paths=PackedStringArray("main_ui", "main_menu", "options_container")]
+[node name="load_menu" type="Control" parent="main_ui" unique_id=1267180757 node_paths=PackedStringArray("main_ui", "main_menu", "options_container")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -169,7 +134,7 @@ main_ui = NodePath("..")
 main_menu = NodePath("../main_view")
 options_container = NodePath("PanelContainer/save_file_list")
 
-[node name="PanelContainer" type="PanelContainer" parent="main_ui/load_menu"]
+[node name="PanelContainer" type="PanelContainer" parent="main_ui/load_menu" unique_id=1011939177]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -183,10 +148,10 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="save_file_list" type="VBoxContainer" parent="main_ui/load_menu/PanelContainer"]
+[node name="save_file_list" type="VBoxContainer" parent="main_ui/load_menu/PanelContainer" unique_id=1676809324]
 layout_mode = 2
 
-[node name="return" type="Button" parent="main_ui/load_menu/PanelContainer/save_file_list"]
+[node name="return" type="Button" parent="main_ui/load_menu/PanelContainer/save_file_list" unique_id=384000923]
 layout_mode = 2
 shortcut = ExtResource("11_vinog")
 text = "[tab] return"

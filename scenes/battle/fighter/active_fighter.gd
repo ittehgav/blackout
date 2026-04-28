@@ -1,4 +1,5 @@
 @abstract
+
 class_name ActiveFighter;
 
 extends CombatEntity;
@@ -21,10 +22,6 @@ signal damage_dealt(damage:float, target:ActiveFighter)
 @export var stat_multipliers:CombatStats
 
 @export var hurtbox:Area2D;
-
-
-
-
 
 
 

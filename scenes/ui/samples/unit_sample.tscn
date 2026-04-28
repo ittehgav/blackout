@@ -1,9 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbk0pwuwwf4px"]
+[gd_scene format=3 uid="uid://cbk0pwuwwf4px"]
 
 [ext_resource type="Script" uid="uid://ckea4sigcg5mq" path="res://scenes/ui/player_sheet/unit_sample.gd" id="1_e8to1"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="2_mqdou"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="2_rdqv1"]
+[ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="3_rwqju"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_be7tu"]
 
-[node name="unit_sample" type="Button" node_paths=PackedStringArray("accessory_sample")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qbkmf"]
+resource_local_to_scene = true
+shader = ExtResource("2_mqdou")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.6, 0.6466667, 1, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_4wwa4"]
+resource_name = "idle_2"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xdf5g"]
+_data = {
+&"idle_2": SubResource("Animation_4wwa4")
+}
+
+[node name="unit_sample" type="Button" unique_id=1911631300 node_paths=PackedStringArray("accessory_sample", "sprite")]
 process_mode = 3
 custom_minimum_size = Vector2(128, 128)
 anchors_preset = 8
@@ -21,8 +58,23 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_e8to1")
 accessory_sample = NodePath("item_sample")
+sprite = NodePath("sprite")
 
-[node name="level" type="Label" parent="."]
+[node name="sprite" type="Sprite2D" parent="." unique_id=2042019594]
+material = SubResource("ShaderMaterial_qbkmf")
+position = Vector2(62, 80)
+scale = Vector2(2, 2)
+texture = ExtResource("3_rwqju")
+hframes = 8
+vframes = 5
+frame = 11
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sprite" unique_id=938839807]
+libraries/ = SubResource("AnimationLibrary_xdf5g")
+libraries/fighter_base = ExtResource("4_be7tu")
+autoplay = &"idle_2"
+
+[node name="level" type="Label" parent="." unique_id=259827993]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -33,7 +85,8 @@ offset_bottom = 26.0
 grow_horizontal = 2
 text = "Lv. 1"
 
-[node name="item_sample" parent="." instance=ExtResource("2_rdqv1")]
+[node name="item_sample" parent="." unique_id=222519023 instance=ExtResource("2_rdqv1")]
+z_index = 0
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
 anchors_preset = -1
@@ -47,7 +100,7 @@ grow_vertical = 0
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ReferenceRect" type="ReferenceRect" parent="."]
+[node name="ReferenceRect" type="ReferenceRect" parent="." unique_id=696559492]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

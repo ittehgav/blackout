@@ -1,0 +1,516 @@
+[gd_scene format=3 uid="uid://b31rsrhwu68hd"]
+
+[ext_resource type="Script" uid="uid://qu6a5k4s2fxw" path="res://scenes/world_map/world_map/hud/hud.gd" id="1_5n82e"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_huowc"]
+[ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="4_sdkdg"]
+[ext_resource type="Script" uid="uid://byc4rg5uenkt4" path="res://scenes/world_map/world_map/hud/player_data.gd" id="5_54va2"]
+[ext_resource type="PackedScene" uid="uid://bvqlr4av33k48" path="res://scenes/ui/player_sheet/morale_display.tscn" id="6_qyqwe"]
+[ext_resource type="Texture2D" uid="uid://dq3lqj55di8mq" path="res://assets/visual/icons/inventory_space.png" id="7_p52u4"]
+[ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Blood.tres" id="9_3s71w"]
+[ext_resource type="Script" uid="uid://dc3qmy00dnh50" path="res://scenes/world_map/ui/hud/location_data.gd" id="10_5vse6"]
+[ext_resource type="Texture2D" uid="uid://dnsa1twbya255" path="res://assets/visual/ui/world_map/road_loop.png" id="11_y6w72"]
+[ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="12_5n82e"]
+[ext_resource type="PackedScene" uid="uid://crtogvmqgyi4o" path="res://scenes/ui/samples/location_sign.tscn" id="12_fhbov"]
+[ext_resource type="Script" uid="uid://dik4cc5pjku7k" path="res://scenes/world_map/ui/sfx_player.gd" id="13_ty4o3"]
+[ext_resource type="AudioStream" uid="uid://ckh6cv5c0w7ix" path="res://assets/sound/sfx/ui/inventory/travel_upkeep.wav" id="14_f1l5a"]
+[ext_resource type="AudioStream" uid="uid://m6ibvpdinqyi" path="res://assets/sound/sfx/ui/inventory/food_shortage.wav" id="15_pl03f"]
+[ext_resource type="AudioStream" uid="uid://dlg5nk3tof2av" path="res://assets/sound/sfx/ui/inventory/fuel_shortage.wav" id="16_hfvjd"]
+[ext_resource type="Script" uid="uid://pgo0305dfj78" path="res://scenes/world_map/ui/hud/clock.gd" id="17_3q7xu"]
+[ext_resource type="Script" uid="uid://bdiy8opahj3n8" path="res://scenes/world_map/world_map/hud/navigation_data.gd" id="18_8w2oe"]
+[ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="19_1v5ml"]
+[ext_resource type="Texture2D" uid="uid://debsfe8pobkmi" path="res://assets/visual/ui/bars/complete_fill_square.png" id="20_kipvf"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="21_y8oxk"]
+[ext_resource type="Script" uid="uid://dc7ndh4wm34xt" path="res://scenes/world_map/world_map/hud/warning.gd" id="22_8x4ls"]
+[ext_resource type="Texture2D" uid="uid://wyeq2gk57g21" path="res://assets/visual/ui/world_map/speed_up.png" id="23_h7wiu"]
+
+[sub_resource type="Animation" id="Animation_s7sax"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_ulpn3"]
+resource_name = "travel_loop"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h33nr"]
+_data = {
+&"RESET": SubResource("Animation_s7sax"),
+&"travel_loop": SubResource("Animation_ulpn3")
+}
+
+[sub_resource type="Animation" id="Animation_x5mo2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../button:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t8y4u"]
+resource_name = "arrow_loop"
+length = 1.25
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -4), Vector2(60, -4), Vector2(120, -4), Vector2(180, -4), Vector2(250, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../button:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.156863), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2irgy"]
+_data = {
+&"RESET": SubResource("Animation_x5mo2"),
+&"arrow_loop": SubResource("Animation_t8y4u")
+}
+
+[node name="main_hud" type="Control" unique_id=1301469140 node_paths=PackedStringArray("navigation_data", "location_data", "player_data", "resources", "clock", "ui_sfx")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_5n82e")
+navigation_data = NodePath("navigation_data")
+location_data = NodePath("location_data")
+player_data = NodePath("VBoxContainer/player_data")
+resources = NodePath("VBoxContainer/resources/VBoxContainer/resources_dropdown")
+clock = NodePath("top_right_items/clock")
+ui_sfx = NodePath("ui_sfx")
+metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
+
+[node name="ui_sfx" parent="." unique_id=907330256 instance=ExtResource("2_huowc")]
+
+[node name="upkeep_sfx" type="AudioStreamPlayer" parent="." unique_id=1740917865]
+script = ExtResource("13_ty4o3")
+upkeep_paid = ExtResource("14_f1l5a")
+food_shortage = ExtResource("15_pl03f")
+fuel_shortage = ExtResource("16_hfvjd")
+metadata/_custom_type_script = "uid://yn55dca3qplf"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1807181686]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 448.0
+mouse_filter = 2
+
+[node name="resources" type="PanelContainer" parent="VBoxContainer" unique_id=1348104635]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/resources" unique_id=1764114174]
+layout_mode = 2
+
+[node name="resources_dropdown" parent="VBoxContainer/resources/VBoxContainer" unique_id=682307214 node_paths=PackedStringArray("resource_hboxes", "resource_icons") instance=ExtResource("4_sdkdg")]
+layout_mode = 2
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+from_player = true
+
+[node name="Label" type="Label" parent="VBoxContainer/resources/VBoxContainer" unique_id=277202981]
+layout_mode = 2
+text = "[tab] Open
+Inventory"
+
+[node name="player_data" type="PanelContainer" parent="VBoxContainer" unique_id=553294009 node_paths=PackedStringArray("inventory_space_label", "level_label")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("5_54va2")
+inventory_space_label = NodePath("VBoxContainer/HBoxContainer2/inventory_space_label")
+level_label = NodePath("VBoxContainer/HBoxContainer2/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/player_data" unique_id=1018193959]
+layout_mode = 2
+
+[node name="morale_display" parent="VBoxContainer/player_data/VBoxContainer" unique_id=2050219640 instance=ExtResource("6_qyqwe")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/player_data/VBoxContainer" unique_id=338099529]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="inventory_space" type="TextureRect" parent="VBoxContainer/player_data/VBoxContainer/HBoxContainer2" unique_id=1564696217]
+modulate = Color(0.6, 0.6784314, 1, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("7_p52u4")
+
+[node name="inventory_space_label" type="Label" parent="VBoxContainer/player_data/VBoxContainer/HBoxContainer2" unique_id=416215083]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "1/2"
+
+[node name="party_power_icon" parent="VBoxContainer/player_data/VBoxContainer/HBoxContainer2" unique_id=1973208263 instance=ExtResource("12_5n82e")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/player_data/VBoxContainer/HBoxContainer2" unique_id=1672534553]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "99"
+
+[node name="location_data" type="PanelContainer" parent="." unique_id=843991568 node_paths=PackedStringArray("sfx", "road_sprite", "main_text_label", "sub_text_label", "location_sprite", "location_sign")]
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+offset_right = 12.0
+grow_vertical = 0
+theme = ExtResource("9_3s71w")
+script = ExtResource("10_5vse6")
+sfx = NodePath("../upkeep_sfx")
+road_sprite = NodePath("VBoxContainer/HBoxContainer/location_icon/road")
+main_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/main_text")
+sub_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/sub_text")
+location_sprite = NodePath("VBoxContainer/HBoxContainer/location_icon")
+location_sign = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/location_sign")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="location_data" unique_id=240444104]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="location_data/VBoxContainer" unique_id=1047386308]
+layout_mode = 2
+
+[node name="location_icon" type="TextureRect" parent="location_data/VBoxContainer/HBoxContainer" unique_id=2013997855]
+self_modulate = Color(0.2901961, 0.28235295, 0.41568628, 1)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_vertical = 4
+stretch_mode = 4
+
+[node name="road" type="Sprite2D" parent="location_data/VBoxContainer/HBoxContainer/location_icon" unique_id=494771393]
+visible = false
+scale = Vector2(4, 4)
+texture = ExtResource("11_y6w72")
+centered = false
+hframes = 3
+frame = 1
+
+[node name="travel_loop" type="AnimationPlayer" parent="location_data/VBoxContainer/HBoxContainer/location_icon/road" unique_id=462416677]
+libraries/ = SubResource("AnimationLibrary_h33nr")
+autoplay = &"travel_loop"
+speed_scale = 0.75
+
+[node name="VBoxContainer" type="VBoxContainer" parent="location_data/VBoxContainer/HBoxContainer" unique_id=1643875212]
+layout_mode = 2
+
+[node name="main_text" type="Label" parent="location_data/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1157863571]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+
+[node name="location_sign" parent="location_data/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=953762289 instance=ExtResource("12_fhbov")]
+layout_mode = 2
+
+[node name="sub_text" type="Label" parent="location_data/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=838547544]
+visible = false
+layout_mode = 2
+text = "[spacebar] Enter"
+
+[node name="top_right_items" type="VBoxContainer" parent="." unique_id=1292098599]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -116.0
+offset_bottom = 122.0
+grow_horizontal = 0
+
+[node name="clock" type="PanelContainer" parent="top_right_items" unique_id=2098460732 node_paths=PackedStringArray("date_label", "hour_label")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+script = ExtResource("17_3q7xu")
+date_label = NodePath("VBoxContainer/current_date")
+hour_label = NodePath("VBoxContainer/current_hour")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="top_right_items/clock" unique_id=1308503365]
+layout_mode = 2
+
+[node name="current_date" type="Label" parent="top_right_items/clock/VBoxContainer" unique_id=820040491]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "3000
+25/11"
+horizontal_alignment = 1
+
+[node name="current_hour" type="Label" parent="top_right_items/clock/VBoxContainer" unique_id=1989891395]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "16:20"
+
+[node name="Label" type="Label" parent="top_right_items" unique_id=45077655]
+layout_mode = 2
+text = "[scroll up/down]
+zoom in/out
+[click and drag]
+pan the map"
+horizontal_alignment = 2
+
+[node name="navigation_data" type="PanelContainer" parent="." unique_id=457250829 node_paths=PackedStringArray("sign", "name_label", "eta_label", "food_cost_label", "fuel_cost_label", "arrow")]
+visible = false
+top_level = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -340.0
+offset_top = -190.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("18_8w2oe")
+sign = NodePath("VBoxContainer/HBoxContainer/location_sign")
+name_label = NodePath("VBoxContainer/HBoxContainer/location_name")
+eta_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/ETA")
+food_cost_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/food_cost")
+fuel_cost_label = NodePath("VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/fuel_cost")
+arrow = NodePath("Control/go_arrow")
+
+[node name="Control" type="Control" parent="navigation_data" unique_id=12434071]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="go_arrow" type="Sprite2D" parent="navigation_data/Control" unique_id=1112390821]
+modulate = Color(0.944167, 1, 0.33, 0.196078)
+position = Vector2(0, -3)
+scale = Vector2(6, 6)
+texture = ExtResource("19_1v5ml")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="navigation_data/Control/go_arrow" unique_id=1501012711]
+libraries/ = SubResource("AnimationLibrary_2irgy")
+autoplay = &"arrow_loop"
+speed_scale = 1.5
+
+[node name="button" type="TextureButton" parent="navigation_data/Control" unique_id=267837295]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_hover = ExtResource("20_kipvf")
+stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="navigation_data" unique_id=436988220]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="navigation_data/VBoxContainer" unique_id=1310719801]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="location_name" type="Label" parent="navigation_data/VBoxContainer/HBoxContainer" unique_id=89795158]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Street"
+
+[node name="location_sign" parent="navigation_data/VBoxContainer/HBoxContainer" unique_id=1633053580 instance=ExtResource("12_fhbov")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="navigation_data/VBoxContainer" unique_id=834044879]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="navigation_data/VBoxContainer/HBoxContainer2" unique_id=1915567164]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ETA" type="Label" parent="navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=1007045836]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Arrival by: 00:00"
+
+[node name="cost" type="Label" parent="navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=939450935]
+layout_mode = 2
+text = "Travel Cost:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer" unique_id=1392774971]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="food_icon" parent="navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=892709857 node_paths=PackedStringArray("label") instance=ExtResource("21_y8oxk")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+match_player_inventory = false
+label = NodePath("../food_cost")
+
+[node name="food_cost" type="Label" parent="navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1880562346]
+layout_mode = 2
+
+[node name="fuel_icon" parent="navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=509835334 node_paths=PackedStringArray("label") instance=ExtResource("21_y8oxk")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+resource = "fuel"
+match_player_inventory = false
+label = NodePath("../fuel_cost")
+
+[node name="fuel_cost" type="Label" parent="navigation_data/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1041883595]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="navigation_data/VBoxContainer/HBoxContainer2" unique_id=1833767692]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "GO"
+
+[node name="warning" type="Control" parent="." unique_id=857866885 node_paths=PackedStringArray("warning_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("22_8x4ls")
+warning_label = NodePath("PanelContainer/VBoxContainer/main_text")
+
+[node name="PanelContainer" type="PanelContainer" parent="warning" unique_id=754481837]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.0
+offset_top = -46.5
+offset_right = 236.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="warning/PanelContainer" unique_id=318972049]
+layout_mode = 2
+
+[node name="big_text" type="Label" parent="warning/PanelContainer/VBoxContainer" unique_id=233516587]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Not enough resources"
+
+[node name="main_text" type="RichTextLabel" parent="warning/PanelContainer/VBoxContainer" unique_id=970440994]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+bbcode_enabled = true
+text = "If you run out of food while travelling, your party's Morale will drop. 
+If your party runs out of fuel while travelling, your navigation speed will drop drastically!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="warning/PanelContainer/VBoxContainer" unique_id=217134375]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="cancel_btn" type="Button" parent="warning/PanelContainer/VBoxContainer/HBoxContainer" unique_id=519134339]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Cancel"
+
+[node name="go_btn" type="Button" parent="warning/PanelContainer/VBoxContainer/HBoxContainer" unique_id=788949160]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Go Anyway"
+
+[node name="speed_up_icon" type="TextureRect" parent="." unique_id=1593519441]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -113.0
+offset_top = 5.0
+offset_right = -1.0
+offset_bottom = 101.0
+grow_horizontal = 0
+texture = ExtResource("23_h7wiu")
+
+[connection signal="pressed" from="navigation_data/Control/button" to="navigation_data" method="_on_button_pressed"]
+[connection signal="pressed" from="warning/PanelContainer/VBoxContainer/HBoxContainer/cancel_btn" to="warning" method="_on_cancel_btn_pressed"]
+[connection signal="pressed" from="warning/PanelContainer/VBoxContainer/HBoxContainer/go_btn" to="warning" method="_on_go_btn_pressed"]

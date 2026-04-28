@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://dlbm4vmeyu6oj"]
+
+[ext_resource type="PackedScene" uid="uid://b2cy4v1ixmaic" path="res://scenes/battle/ui/post_fight/post_fight.tscn" id="1_pwucb"]
+[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="2_0o3pf"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="3_dqlb1"]
+[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="4_jv65o"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="5_n3nnd"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="6_acp4q"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="7_wq3sv"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_4s8dh"]
+[ext_resource type="PackedScene" uid="uid://dgf3khawq2h5f" path="res://scenes/special/tutorial_battle.tscn" id="9_3i7ef"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwucb"]
+resource_local_to_scene = true
+shader = ExtResource("8_4s8dh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.099999994, 0.099999994, 0.5, 0.39215687)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0o3pf"]
+resource_local_to_scene = true
+shader = ExtResource("8_4s8dh")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.099999994, 0.099999994, 0.5, 0.39215687)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[node name="PostFightTest" type="Control" unique_id=96310065]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PostFight" parent="." unique_id=1253284874 node_paths=PackedStringArray("player_sample", "enemy_roster_sample") instance=ExtResource("1_pwucb")]
+layout_mode = 1
+player_sample = NodePath("../Player")
+enemy_roster_sample = NodePath("../TutorialBattle")
+test_won = true
+
+[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") instance=ExtResource("2_0o3pf")]
+equipped_weapon = NodePath("Inventory/Tailpipe")
+alternative_weapon = NodePath("Inventory/Slingshot")
+equipped_module = NodePath("Inventory/Dodge Roll")
+
+[node name="Tailpipe" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="0" unique_id=870722934 instance=ExtResource("3_dqlb1")]
+
+[node name="Slingshot" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="1" unique_id=1530847075 instance=ExtResource("4_jv65o")]
+
+[node name="Dodge Roll" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="2" unique_id=1043224961 instance=ExtResource("5_n3nnd")]
+cooldown = 2.0
+
+[node name="FighterUnit" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="0" unique_id=2067750979 instance=ExtResource("6_acp4q")]
+level = 2
+
+[node name="Puncher" parent="Player/Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("7_wq3sv")]
+material = SubResource("ShaderMaterial_pwucb")
+
+[node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="1" unique_id=21309415 instance=ExtResource("6_acp4q")]
+level = 2
+
+[node name="Puncher" parent="Player/Roster/FighterUnit2" unique_id=874400431 instance=ExtResource("7_wq3sv")]
+material = SubResource("ShaderMaterial_0o3pf")
+
+[node name="TutorialBattle" parent="." unique_id=1071861322 instance=ExtResource("9_3i7ef")]
+
+[editable path="Player"]

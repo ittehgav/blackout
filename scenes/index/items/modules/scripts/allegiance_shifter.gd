@@ -16,7 +16,7 @@ func get_description()->String:
 
 func start()->void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	Statuses.suppress_fighter(Entities.player_fighter)
+	suppress_fighter(Entities.player_fighter)
 
 	use_sfx.play()
 
@@ -24,7 +24,7 @@ func start()->void:
 
 	timer.start()
 	tethers.show();
-	
+
 	tethers.global_position = Entities.player_fighter.global_position
 	tethers.size.x = Entities.player_fighter.global_position.distance_to(conversion_target.global_position)
 	
@@ -45,7 +45,7 @@ func tether_loop()->void:
 
 
 func release()->void:
-	Statuses.clear_suppress(Entities.player_fighter)
+	clear_suppress(Entities.player_fighter)
 	process_mode = Node.PROCESS_MODE_INHERIT
 	tethers.hide()
 	timer.stop()
@@ -64,3 +64,16 @@ func _on_timer_timeout() -> void:
 	
 	Entities.player_fighter.ally_team.convert_fighter(conversion_target)
 	Entities.player_fighter.equipment.module_control.release_module_command()
+
+var player_pre_suppress_move_speed:int;
+func suppress_fighter(target:ActiveFighter)->void:
+	## make this a status node if i end up using it elsewhere?
+	if target is PlayerFighter:
+		player_pre_suppress_move_speed = target.move_speed;
+		target.move_speed = 0
+		target.equipment.process_mode = Node.PROCESS_MODE_DISABLED;
+		
+func clear_suppress(target:ActiveFighter)->void:
+	if target is PlayerFighter:
+		target.move_speed = player_pre_suppress_move_speed;
+		target.equipment.process_mode = Node.PROCESS_MODE_INHERIT;

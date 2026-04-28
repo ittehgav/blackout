@@ -13,8 +13,9 @@ class_name StatsDropdown
 
 func _ready()->void:
 	if from_player:
-		Entities.player.level_up.connect(update)
-		source = Entities.player;
+		var player:Player = get_tree().get_first_node_in_group("player")
+		player.leveled_up.connect(update)
+		source = player;
 	if exp_bar:
 		exp_bar.level_up.connect(refresh_animation)
 	## needs to have source set before entering tree

@@ -7,6 +7,7 @@ class_name MoraleIcon
 @export var high_morale_icon:Texture;
 @export var very_high_morale_icon:Texture;
 
+@onready var player:Player = get_tree().get_first_node_in_group("player")
 
 @export var bar:TextureProgressBar;
 
@@ -14,10 +15,10 @@ class_name MoraleIcon
 
 func _ready()->void:
 	if auto_update:
-		Entities.player.morale_changed.connect(update)
+		player.morale_changed.connect(update)
 	update();
 
-func animated_update(target_value:float=Entities.player.morale)->Tween:
+func animated_update(target_value:float=player.morale)->Tween:
 	var tween:Tween = create_tween();
 	tween.tween_property(bar, "value", target_value, 1);
 	tween.tween_callback(update.bind(true))
@@ -26,7 +27,7 @@ func animated_update(target_value:float=Entities.player.morale)->Tween:
 
 func update(from_animation:bool=false)->void:
 	var previous_texture:Texture = texture;
-	var morale:float = Entities.player.morale;
+	var morale:float = player.morale;
 	
 	texture = get_texture_for_morale(morale);
 	modulate = get_color_for_morale(morale);
@@ -65,7 +66,3 @@ func icon_change_animation()->void:
 	custom_minimum_size = custom_minimum_size * 1.5;
 	var tween := create_tween();
 	tween.tween_property(self, "custom_minimum_size", custom_minimum_size/1.5, .2)
-
-
-func _on_player_morale_changed() -> void:
-	update()

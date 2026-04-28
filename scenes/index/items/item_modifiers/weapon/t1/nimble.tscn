@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://hc7uhtt3lau7"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_mo7h4"]
+
+[node name="Nimble" type="Node" unique_id=589064865]
+script = ExtResource("1_mo7h4")
+description = "+20% fire rate."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"

@@ -77,9 +77,9 @@ func add_status_bar(bar_color:Color, status_timer:Timer)->void:
 	tween.tween_property(bar, "value", 0, status_timer.wait_time);
 	tween.tween_callback(bar.queue_free);
 
-func _on_player_fighter_damage_taken(_damage: float, _source: ActiveFighter) -> void:
+func _on_player_fighter_damage_taken(_damage: float, _source: ActiveFighter, _quiet:bool=false) -> void:
 	refresh_hp_bar(Color.RED)
 
 
-func _on_player_fighter_healing_received(_value: float) -> void:
+func _on_player_fighter_healing_received(_value: float, _quiet:bool=false) -> void:
 	refresh_hp_bar(Color.GREEN);

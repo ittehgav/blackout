@@ -1,0 +1,68 @@
+extends HBoxContainer
+
+class_name LocationSign;
+
+var current_icons:Array[TextureRect]
+
+@export var dungeon_data:HBoxContainer
+@export var dungeon_level_label:Label
+
+@export var skull_1:TextureRect
+@export var skull_2:TextureRect
+@export var skull_3:TextureRect
+
+@export var cleared_sign:Panel;
+
+
+func load_location(target:Location)->void:
+	target.refresh_settlements()
+	reset()
+	if target.settlements[0] is Building:
+		if target.data.seen:
+			for building:Settlement in target.settlements:
+				var icon:Texture = building.icon_texture;
+				var rect:TextureRect = TextureRect.new();
+				rect.texture = icon;
+				rect.custom_minimum_size = Vector2(building.size * 64, 64);
+				add_child(rect);
+				current_icons.append(rect);
+	elif target.settlements[0] is Dungeon:
+		display_dungeon(target.settlements[0])
+
+func reset()->void:
+	while len(current_icons):
+		current_icons[0].free()
+		current_icons.remove_at(0);
+	dungeon_data.hide()
+	cleared_sign.hide()
+
+func display_dungeon(target:Dungeon)->void:
+	if target.cleared:
+		dungeon_data.hide()
+		cleared_sign.show();
+		return
+	
+	dungeon_data.show();
+	var danger_level:int = target.get_danger_level()
+	dungeon_level_label.text = str(target.get_current_wave().get_level());
+	match danger_level:
+		1:
+			skull_2.hide();
+			skull_3.hide();
+			
+			skull_1.material.set_shader_parameter("color:a", 0);
+		2:
+			skull_2.show();
+			skull_3.hide();
+			
+			skull_1.material.set_shader_parameter("color:a", 0);
+		3:
+			skull_2.show();
+			skull_3.show();
+			
+			skull_1.material.set_shader_parameter("color:a", 0);
+		_:
+			skull_2.show();
+			skull_3.show();
+		
+			skull_1.material.set_shader_parameter("color:a", 1);

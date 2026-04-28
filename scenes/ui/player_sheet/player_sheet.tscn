@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://1yund7taju3s"]
+[gd_scene format=3 uid="uid://1yund7taju3s"]
 
 [ext_resource type="Script" uid="uid://bf55yu27prpeu" path="res://scenes/ui/player_sheet/player_sheet.gd" id="1_nlbt1"]
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_hamfw"]
@@ -31,7 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="24_7b7li"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="32_in2cn"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="33_7ydhy"]
-[ext_resource type="PackedScene" uid="uid://chh07cq5d6iqk" path="res://scenes/ui/icons/dropdowns/disciplines_dropdown.tscn" id="33_in2cn"]
 [ext_resource type="Script" uid="uid://dd3sexthpletg" path="res://scenes/ui/player_sheet/clear_space_request.gd" id="36_kgp2d"]
 [ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="37_ihftv"]
 
@@ -135,9 +134,9 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(6, 3)
 
-[node name="PlayerSheet" type="Control" node_paths=PackedStringArray("bg", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "start_battle_prompt", "item_space_request", "ui_sfx")]
+[node name="PlayerSheet" type="Control" unique_id=692451359 node_paths=PackedStringArray("bg", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "start_battle_prompt", "item_space_request", "ui_sfx")]
 process_mode = 2
-z_index = 5
+z_index = 61
 y_sort_enabled = true
 layout_mode = 3
 anchors_preset = 15
@@ -163,9 +162,9 @@ open_sound = ExtResource("2_hamfw")
 close_sound = ExtResource("3_dfs8r")
 ui_sfx = NodePath("ui_sfx")
 
-[node name="ui_sfx" parent="." instance=ExtResource("6_5ybum")]
+[node name="ui_sfx" parent="." unique_id=1936339172 instance=ExtResource("6_5ybum")]
 
-[node name="main_bg" type="ColorRect" parent="."]
+[node name="main_bg" type="ColorRect" parent="." unique_id=198358243]
 process_mode = 2
 layout_mode = 1
 anchors_preset = 15
@@ -175,7 +174,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.768627)
 
-[node name="MarginContainer" type="MarginContainer" parent="main_bg"]
+[node name="MarginContainer" type="MarginContainer" parent="main_bg" unique_id=1751746993]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -187,19 +186,20 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer" unique_id=854993713]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 1700
 alignment = 1
 
-[node name="party_and_inventory" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer"]
+[node name="party_and_inventory" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer" unique_id=979362349]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-current_tab = 0
+current_tab = 1
 
-[node name="Inventory" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("inventory_panel", "inventory_display")]
+[node name="Inventory" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=708176484 node_paths=PackedStringArray("inventory_panel", "inventory_display")]
+visible = false
 custom_minimum_size = Vector2(825, 640)
 layout_mode = 2
 script = ExtResource("9_fsh5d")
@@ -207,7 +207,7 @@ inventory_panel = NodePath("inventory_display")
 inventory_display = NodePath("inventory_display/inventory_display")
 metadata/_tab_index = 0
 
-[node name="inventory_display" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" node_paths=PackedStringArray("discard_sfx", "discard_overlay", "inventory_display", "confirmation_overlay", "confirmation_label")]
+[node name="inventory_display" type="Panel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" unique_id=1102926821 node_paths=PackedStringArray("discard_sfx", "discard_overlay", "inventory_display", "confirmation_overlay", "confirmation_label")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -224,13 +224,13 @@ inventory_display = NodePath("inventory_display")
 confirmation_overlay = NodePath("discard_overlay/confirmation")
 confirmation_label = NodePath("discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/confirmation_text")
 
-[node name="inventory_display" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" instance=ExtResource("10_a1oup")]
+[node name="inventory_display" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" unique_id=1336254164 instance=ExtResource("10_a1oup")]
 layout_mode = 1
 offset_left = 20.0
 offset_top = 10.0
 offset_right = 11.0
 
-[node name="space_request_projection" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/cargo" index="0" instance=ExtResource("13_7sc2c")]
+[node name="space_request_projection" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/cargo" parent_id_path=PackedInt32Array(1336254164, 693213085) index="0" unique_id=1582191684 instance=ExtResource("13_7sc2c")]
 visible = false
 z_index = 4
 layout_mode = 0
@@ -240,7 +240,7 @@ offset_right = 459.0
 offset_bottom = 711.0
 mouse_filter = 2
 
-[node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="4" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display" index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 offset_left = 390.0
 offset_right = 494.0
 offset_bottom = 375.0
@@ -261,25 +261,25 @@ resource_icons = {
 "scrap": NodePath("scrap/scrap_icon")
 }
 
-[node name="money_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/money" index="0"]
+[node name="money_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/money" parent_id_path=PackedInt32Array(1336254164, 198135971, 1852868329) index="0" unique_id=604325780]
 material = SubResource("ShaderMaterial_in2cn")
 
-[node name="food_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/food" index="0"]
+[node name="food_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/food" parent_id_path=PackedInt32Array(1336254164, 198135971, 901840672) index="0" unique_id=183823663]
 material = SubResource("ShaderMaterial_7ydhy")
 
-[node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/fuel" index="0"]
+[node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/fuel" parent_id_path=PackedInt32Array(1336254164, 198135971, 1381534319) index="0" unique_id=1087245645]
 material = SubResource("ShaderMaterial_8oj3i")
 
-[node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/juice" index="0"]
+[node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/juice" parent_id_path=PackedInt32Array(1336254164, 198135971, 1531919764) index="0" unique_id=20070197]
 material = SubResource("ShaderMaterial_kgp2d")
 
-[node name="scrap_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/scrap" index="0"]
+[node name="scrap_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/scrap" parent_id_path=PackedInt32Array(1336254164, 198135971, 1784312822) index="0" unique_id=615530090]
 material = SubResource("ShaderMaterial_ihftv")
 
-[node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/chips" index="0"]
+[node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/chips" parent_id_path=PackedInt32Array(1336254164, 198135971, 1855174858) index="0" unique_id=1058611590]
 material = SubResource("ShaderMaterial_41eqv")
 
-[node name="discard_overlay" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display"]
+[node name="discard_overlay" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" unique_id=1594287045]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -289,10 +289,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="discard_sfx" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay"]
+[node name="discard_sfx" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay" unique_id=829647776]
 stream = ExtResource("10_kgp2d")
 
-[node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay"]
+[node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay" unique_id=1152801340]
 z_index = 15
 layout_mode = 0
 offset_left = 405.5
@@ -301,7 +301,7 @@ offset_right = 819.5
 offset_bottom = 599.0
 color = Color(0, 0, 0, 0.85490197)
 
-[node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/ColorRect"]
+[node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/ColorRect" unique_id=1897845644]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 525.0
@@ -309,7 +309,7 @@ offset_right = 92.0
 offset_bottom = 559.0
 text = "Cancel"
 
-[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/ColorRect"]
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/ColorRect" unique_id=532619767]
 z_index = 1
 layout_mode = 0
 offset_left = 164.0
@@ -321,7 +321,7 @@ text = "Choose An
 Item to
 Discard"
 
-[node name="confirmation" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay"]
+[node name="confirmation" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay" unique_id=1272090538]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -332,7 +332,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6392157)
 
-[node name="confirmation" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation"]
+[node name="confirmation" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation" unique_id=1783104402]
 z_index = 22
 layout_mode = 1
 anchors_preset = 8
@@ -347,19 +347,19 @@ offset_bottom = 99.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation"]
+[node name="MarginContainer" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation" unique_id=154957270]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer" unique_id=536467579]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="confirmation_text" type="RichTextLabel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer"]
+[node name="confirmation_text" type="RichTextLabel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer" unique_id=1399446698]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 48
@@ -368,22 +368,22 @@ text = "Discard [color=red]pee pee poo poo[/color] from your inventory?"
 fit_content = true
 scroll_active = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer" unique_id=1703257358]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="confirm_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="confirm_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1183267856]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Discard	"
 
-[node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1181690301]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Cancel"
 
-[node name="discard_item" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display"]
+[node name="discard_item" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" unique_id=300862051]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 425.0
@@ -392,7 +392,7 @@ offset_right = 489.0
 offset_bottom = 520.0
 size_flags_horizontal = 4
 
-[node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item" instance=ExtResource("11_7ydhy")]
+[node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item" unique_id=2055069168 instance=ExtResource("11_7ydhy")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -407,7 +407,7 @@ grow_horizontal = 1
 grow_vertical = 1
 hardcoded_name = "Discard an Item"
 
-[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item"]
+[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item" unique_id=2067454069]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -417,7 +417,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("12_8oj3i")
 
-[node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" node_paths=PackedStringArray("sfx", "player_inventory_display", "weapon_sample", "alt_weapon_sample", "module_sample", "accessory_1_sample", "accessory_2_sample", "switch_alt_button")]
+[node name="gear" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" unique_id=1774912573 node_paths=PackedStringArray("sfx", "player_inventory_display", "weapon_sample", "alt_weapon_sample", "module_sample", "accessory_1_sample", "accessory_2_sample", "switch_alt_button")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -439,7 +439,7 @@ accessory_2_sample = NodePath("accessories/HBoxContainer/accessory_2_sample")
 switch_alt_button = NodePath("switch_alt")
 gear_color = Color(1, 0.5, 0.5, 1)
 
-[node name="gear_sfx" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+[node name="gear_sfx" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" unique_id=510232346]
 script = ExtResource("13_tg7cy")
 weapon_equipped = ExtResource("15_7ydhy")
 module_equipped = ExtResource("15_in2cn")
@@ -447,7 +447,7 @@ accessory_equipped = ExtResource("16_7ydhy")
 invalid = ExtResource("15_vq5ye")
 metadata/_custom_type_script = "uid://yn55dca3qplf"
 
-[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" unique_id=2086215971]
 layout_mode = 1
 offset_left = 74.0
 offset_top = -20.0
@@ -456,7 +456,7 @@ offset_bottom = 31.0
 theme_override_font_sizes/font_size = 64
 text = "Gear"
 
-[node name="switch_alt" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+[node name="switch_alt" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" unique_id=1586766758]
 z_index = 8
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
@@ -465,7 +465,7 @@ offset_top = 92.0
 offset_right = 234.0
 offset_bottom = 126.0
 
-[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt"]
+[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt" unique_id=811258614]
 modulate = Color(0.670588, 0.494118, 0.27451, 1)
 z_index = 5
 custom_minimum_size = Vector2(32, 32)
@@ -484,7 +484,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("14_7sc2c")
 
-[node name="accessories" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+[node name="accessories" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" unique_id=1013208880]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -498,69 +498,68 @@ offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="accessories" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories"]
+[node name="accessories" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories" unique_id=1436253689]
 layout_mode = 2
 text = "Accessories"
 
-[node name="HBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories"]
+[node name="HBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories" unique_id=870593919]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="accessory_1_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
+[node name="accessory_1_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" unique_id=115839291 instance=ExtResource("13_7sc2c")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="accessory_2_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" instance=ExtResource("13_7sc2c")]
+[node name="accessory_2_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/accessories/HBoxContainer" unique_id=531149567 instance=ExtResource("13_7sc2c")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" unique_id=1189480287]
 layout_mode = 0
 offset_top = 15.0
 offset_right = 120.0
 offset_bottom = 466.0
 
-[node name="main_weapon" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
+[node name="main_weapon" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer" unique_id=350291467]
 layout_mode = 2
 
-[node name="weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/main_weapon"]
+[node name="weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/main_weapon" unique_id=981909076]
 layout_mode = 2
 text = "Weapon"
 
-[node name="weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/main_weapon" instance=ExtResource("13_7sc2c")]
+[node name="weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/main_weapon" unique_id=1547051456 instance=ExtResource("13_7sc2c")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="alt_weapon" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer"]
+[node name="alt_weapon" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer" unique_id=1618185690]
 layout_mode = 2
 
-[node name="alt_weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/alt_weapon"]
+[node name="alt_weapon" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/alt_weapon" unique_id=635355674]
 layout_mode = 2
 text = "Alt.
 Weapon"
 
-[node name="alt_weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/alt_weapon" instance=ExtResource("13_7sc2c")]
+[node name="alt_weapon_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/VBoxContainer/alt_weapon" unique_id=728442452 instance=ExtResource("13_7sc2c")]
 custom_minimum_size = Vector2(32, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="module" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear"]
+[node name="module" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear" unique_id=1659531398]
 layout_mode = 0
 offset_left = 173.0
 offset_top = 196.0
 offset_right = 243.0
 offset_bottom = 354.0
 
-[node name="module" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/module"]
+[node name="module" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/module" unique_id=1491151835]
 layout_mode = 2
 text = "Module"
 
-[node name="module_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/module" instance=ExtResource("13_7sc2c")]
+[node name="module_sample" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/module" unique_id=290648075 instance=ExtResource("13_7sc2c")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "units_grid", "upgrade_hint")]
-visible = false
+[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=299824284 node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "units_grid", "upgrade_hint")]
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("18_7ju3y")
@@ -572,7 +571,7 @@ units_grid = NodePath("VBoxContainer/ScrollContainer/units")
 upgrade_hint = NodePath("upgrade_hint")
 metadata/_tab_index = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" unique_id=670359116]
 layout_mode = 0
 offset_left = 33.0
 offset_top = 38.0
@@ -580,77 +579,77 @@ offset_right = 316.0
 offset_bottom = 118.0
 theme_override_constants/separation = 15
 
-[node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" instance=ExtResource("19_utjw6")]
+[node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" unique_id=1611603628 instance=ExtResource("19_utjw6")]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="morale_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer"]
+[node name="morale_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" unique_id=1541949225]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Morale: 5"
 
-[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer"]
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" unique_id=1746151267]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Travel
 Upkeep:"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" unique_id=696294605]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer" unique_id=1372955916]
 layout_mode = 2
 
-[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
+[node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1830759897 node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
 material = SubResource("ShaderMaterial_i2eyh")
 layout_mode = 2
 match_player_inventory = false
 label = NodePath("../food_cost")
 
-[node name="food_cost" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="food_cost" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2137160680]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "22"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer" unique_id=1628247777]
 layout_mode = 2
 
-[node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
+[node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=938964625 node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
 material = SubResource("ShaderMaterial_05eqd")
 layout_mode = 2
 resource = "fuel"
 match_player_inventory = false
 label = NodePath("../fuel_cost")
 
-[node name="fuel_cost" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="fuel_cost" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1298598255]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "22"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" unique_id=1759455942]
 layout_mode = 0
 offset_left = 35.0
 offset_top = 140.0
 offset_right = 139.0
 offset_bottom = 195.0
 
-[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer" unique_id=1038854456]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Units"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer" unique_id=2091445359]
 custom_minimum_size = Vector2(700, 350)
 layout_mode = 2
 horizontal_scroll_mode = 3
 
-[node name="units" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer/ScrollContainer"]
+[node name="units" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer/ScrollContainer" unique_id=1717770144]
 layout_mode = 2
 columns = 5
 
-[node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
+[node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" unique_id=1425371235]
 modulate = Color(1, 1, 1, 0.341176)
 layout_mode = 1
 anchors_preset = 3
@@ -666,7 +665,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Click on a unit for more information"
 
-[node name="upgrade_hint" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party"]
+[node name="upgrade_hint" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" unique_id=33408255]
 visible = false
 modulate = Color(1, 1, 1, 0.745098)
 layout_mode = 1
@@ -684,29 +683,31 @@ pivot_offset = Vector2(20, 0)
 texture = ExtResource("21_tovog")
 script = ExtResource("22_1edf1")
 
-[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" node_paths=PackedStringArray("name_label", "level_label")]
+[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" unique_id=636798843 node_paths=PackedStringArray("name_label", "level_label")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 script = ExtResource("23_brbep")
 name_label = NodePath("VBoxContainer/player_name")
 level_label = NodePath("VBoxContainer/level")
 
-[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player"]
+[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=30878424]
 anchors_preset = 0
 offset_top = 67.0
 offset_right = 92.0
 offset_bottom = 67.0
 
-[node name="body" parent="main_bg/MarginContainer/HBoxContainer/player/Control" instance=ExtResource("15_o0vop")]
+[node name="body" parent="main_bg/MarginContainer/HBoxContainer/player/Control" unique_id=105470107 instance=ExtResource("15_o0vop")]
 process_mode = 4
 material = SubResource("ShaderMaterial_s3o1i")
 position = Vector2(90, 63)
 scale = Vector2(4, 4)
+vframes = 9
 
 [node name="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" index="0"]
+autoplay = &"player/idle"
 speed_scale = 0.75
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=1402998536]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -717,22 +718,22 @@ offset_right = 163.0
 offset_bottom = 223.0
 grow_horizontal = 2
 
-[node name="player_name" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer"]
+[node name="player_name" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer" unique_id=323431954]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 80
 text = "Player"
 
-[node name="level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer"]
+[node name="level" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer" unique_id=902449098]
 layout_mode = 2
 text = "Level 2"
 
-[node name="exp_bar" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer" instance=ExtResource("24_7b7li")]
+[node name="exp_bar" parent="main_bg/MarginContainer/HBoxContainer/player/VBoxContainer" unique_id=456394018 instance=ExtResource("24_7b7li")]
 layout_mode = 2
 tint_under = Color(0.1914, 0.29, 0.1914, 1)
 from_player = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=3926838]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -746,7 +747,7 @@ offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="StatsDropdown" parent="main_bg/MarginContainer/HBoxContainer/player/HBoxContainer" node_paths=PackedStringArray("stat_labels") instance=ExtResource("32_in2cn")]
+[node name="StatsDropdown" parent="main_bg/MarginContainer/HBoxContainer/player/HBoxContainer" unique_id=1332555093 node_paths=PackedStringArray("stat_labels") instance=ExtResource("32_in2cn")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -759,11 +760,7 @@ stat_labels = {
 "technique": NodePath("technique/technique")
 }
 
-[node name="DisciplinesDropdown" parent="main_bg/MarginContainer/HBoxContainer/player/HBoxContainer" instance=ExtResource("33_in2cn")]
-visible = false
-layout_mode = 2
-
-[node name="start_battle" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/player"]
+[node name="start_battle" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=1621010783]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -776,7 +773,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="start_battle" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player/start_battle"]
+[node name="start_battle" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player/start_battle" unique_id=971089936]
 z_index = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
@@ -784,7 +781,7 @@ text = "START
 BATTLE"
 alignment = 0
 
-[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/player/start_battle/start_battle"]
+[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/player/start_battle/start_battle" unique_id=893759514]
 modulate = Color(0.6745098, 0.49803922, 0.2784314, 1)
 layout_mode = 0
 offset_left = 311.0
@@ -793,7 +790,7 @@ offset_right = 351.0
 offset_bottom = 421.0
 texture = ExtResource("33_7ydhy")
 
-[node name="clear_space_request" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/player" node_paths=PackedStringArray("sample", "request_label", "inventory_display", "item_added_sfx", "projection_sample")]
+[node name="clear_space_request" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=2020442944 node_paths=PackedStringArray("sample", "request_label", "inventory_display", "item_added_sfx", "projection_sample")]
 visible = false
 z_index = 1
 layout_mode = 1
@@ -809,30 +806,30 @@ inventory_display = NodePath("../../party_and_inventory/Inventory/inventory_disp
 item_added_sfx = NodePath("item_chosen")
 projection_sample = NodePath("../../party_and_inventory/Inventory/inventory_display/inventory_display/cargo/space_request_projection")
 
-[node name="item_chosen" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request"]
+[node name="item_chosen" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request" unique_id=1722777603]
 stream = ExtResource("37_ihftv")
 
-[node name="MarginContainer" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request"]
+[node name="MarginContainer" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request" unique_id=640130375]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer" unique_id=830630317]
 layout_mode = 2
 
-[node name="request" type="RichTextLabel" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer"]
+[node name="request" type="RichTextLabel" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer" unique_id=1548167712]
 layout_mode = 2
 bbcode_enabled = true
 text = "Not enough space in inventory, for aoiehjwaoie"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="item_sample" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer" instance=ExtResource("13_7sc2c")]
+[node name="item_sample" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer" unique_id=1388453904 instance=ExtResource("13_7sc2c")]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer" unique_id=986825341]
 layout_mode = 2
 text = "Free up the necessary space."
 

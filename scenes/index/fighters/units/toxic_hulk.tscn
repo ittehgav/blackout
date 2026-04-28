@@ -4,11 +4,67 @@
 [ext_resource type="Texture2D" uid="uid://bskpdo5n0gls2" path="res://assets/visual/sprites/fighters/units/toxic_hulk/toxic_hulk.png" id="2_varji"]
 [ext_resource type="Script" uid="uid://ca8013fstlydp" path="res://scenes/index/fighters/scripts/toxic_hulk.gd" id="3_db2wx"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_fwyy1"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_oc51e"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_vxgs3"]
+[ext_resource type="Texture2D" uid="uid://dk5guncef038n" path="res://assets/visual/sprites/fighters/units/toxic_hulk/toxic_hulk_ally.png" id="4_xg8pv"]
+[ext_resource type="Texture2D" uid="uid://cgmnbsqwsmmbe" path="res://assets/visual/sprites/fighters/units/toxic_hulk/toxic_hulk_enemy.png" id="5_8qhm5"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_db8tu"]
 [ext_resource type="Texture2D" uid="uid://chx42v3gcomqg" path="res://assets/visual/sprites/fighters/units/toxic_hulk/blur.png" id="7_xfclm"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_xpmpj"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_epl0x"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_8qhm5"]
+
+[sub_resource type="Resource" id="Resource_a1vrx"]
+script = ExtResource("4_oc51e")
+target_texture = ExtResource("2_varji")
+base_name = "toxic_hulk"
+ally_texture = ExtResource("4_xg8pv")
+enemy_texture = ExtResource("5_8qhm5")
+metadata/_custom_type_script = "uid://drlbs6gxus35a"
+
+[sub_resource type="Animation" id="Animation_i8nbj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shadow_container:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame_coords:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cf4bt"]
+_data = {
+&"RESET": SubResource("Animation_i8nbj")
+}
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_db2wx"]
 points = PackedVector2Array(80, -60, 80, 60, 0, 0)
@@ -24,6 +80,7 @@ vframes = 5
 script = ExtResource("3_db2wx")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Gas Leak")
+hue_shifter = SubResource("Resource_a1vrx")
 tags = Array[int]([7, 6, 5])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -48,6 +105,7 @@ stat = "attack"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2121434482]
+libraries/ = SubResource("AnimationLibrary_cf4bt")
 libraries/fighter_base = ExtResource("4_vxgs3")
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=1351793978]
@@ -74,17 +132,27 @@ script = ExtResource("8_xpmpj")
 
 [node name="base_stats" type="Node" parent="stat_base" unique_id=921795092]
 script = ExtResource("9_epl0x")
-max_hp = 500.0
+max_hp = 400.0
 attack = 30.0
 defense = 10.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="stats_per_level" type="Node" parent="stat_base" unique_id=1757146375]
 script = ExtResource("9_epl0x")
-max_hp = 75.0
+max_hp = 40.0
 attack = 10.0
 defense = 10.0
 agility = 5.0
 technique = 10.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=752605070]
+position = Vector2(0, -8.000001)
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=1734920264]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 11.105265)
+scale = Vector2(0.7, 0.7894737)
+texture = ExtResource("13_8qhm5")

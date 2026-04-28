@@ -1,0 +1,345 @@
+[gd_scene format=3 uid="uid://d3co1twv2jajr"]
+
+[ext_resource type="Texture2D" uid="uid://wwke524s0og5" path="res://assets/visual/buildings/black_market.png" id="1_y72rh"]
+[ext_resource type="Script" uid="uid://dy4crh0bwxl3o" path="res://scenes/in_settlement/settlements/front_porch.gd" id="1_yrn88"]
+[ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/in_settlement/speaker.tscn" id="3_hsvl5"]
+[ext_resource type="Resource" uid="uid://c2bhl2kb3kbpr" path="res://resources/dialogues/buildings/black_market.dialogue" id="4_hsvl5"]
+[ext_resource type="Texture2D" uid="uid://bf72s002fb810" path="res://assets/visual/buildings/npcs/black_market_clerk.png" id="4_skece"]
+[ext_resource type="Script" uid="uid://br8tvistnrk2n" path="res://scenes/in_settlement/black_market_speaker.gd" id="4_tnc1a"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="7_r4qjb"]
+[ext_resource type="Script" uid="uid://b8037pwr05tdw" path="res://scenes/leader/inventory/rotating_inventory.gd" id="8_odnjv"]
+[ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="9_d45sv"]
+[ext_resource type="PackedScene" uid="uid://c4s2cufch0vvv" path="res://scenes/index/items/accessories/external_processing_unit.tscn" id="10_ruaba"]
+[ext_resource type="PackedScene" uid="uid://dtd8165tljlor" path="res://scenes/index/items/accessories/forbidden_mask.tscn" id="11_j3xls"]
+[ext_resource type="PackedScene" uid="uid://cr3hxwb2o42kl" path="res://scenes/index/items/accessories/forbidden_shoulders.tscn" id="12_5bi6x"]
+[ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="13_8v3p1"]
+[ext_resource type="PackedScene" uid="uid://dt7tutmu87uy3" path="res://scenes/index/items/accessories/sapper.tscn" id="14_fnsxd"]
+[ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="15_dfp1d"]
+[ext_resource type="PackedScene" uid="uid://pdygvkib8khb" path="res://scenes/index/items/_notyet/apple_sticker.tscn" id="16_d12r7"]
+[ext_resource type="PackedScene" uid="uid://j3tt7eipwb1t" path="res://scenes/index/items/consumables/eye_chart.tscn" id="17_gkfk2"]
+[ext_resource type="PackedScene" uid="uid://q588p3i1d747" path="res://scenes/index/items/_notyet/metallic_coating.tscn" id="18_rmy87"]
+[ext_resource type="PackedScene" uid="uid://cnjcf4clj2cxd" path="res://scenes/index/items/consumables/motivational_speech_draft.tscn" id="19_7hcds"]
+[ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="20_fechm"]
+[ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="21_2yv18"]
+[ext_resource type="PackedScene" uid="uid://blb80ofwrhyyg" path="res://scenes/index/items/_notyet/sharpener.tscn" id="22_fsx3p"]
+[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="23_1r1eh"]
+[ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/allegiance_shifter.tscn" id="24_c3fh4"]
+[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/index/items/modules/buckler.tscn" id="25_m1pcp"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="26_78q7y"]
+[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="27_ahnj8"]
+[ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/chakram.tscn" id="28_kpyng"]
+[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/machete.tscn" id="29_eln41"]
+[ext_resource type="PackedScene" uid="uid://dhognr0ie2huf" path="res://scenes/index/items/weapons/merciless_katana.tscn" id="30_1tl83"]
+[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="31_fujv3"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="32_qutbm"]
+[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="33_ds7en"]
+[ext_resource type="PackedScene" uid="uid://dch7fwggrtedg" path="res://scenes/index/items/weapons/toxic_grenade_launcher.tscn" id="34_ngjel"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d45sv"]
+resource_local_to_scene = true
+radius = 95.005264
+
+[sub_resource type="Shader" id="Shader_4frhf"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color :source_color=vec4(0.0,0.0,0.0,1.0);
+uniform float grad:hint_range(0.0, 1.0);
+
+
+uniform vec4 color : source_color=vec4(1.0,0.0,1.0,1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+
+varying flat vec4 modulate;
+
+void vertex() {
+	modulate = COLOR;
+
+	if (add_margins) {
+		if ((UV.x <= 0.0 || UV.x >= 1.0) && (UV.y <= 0.0 || UV.y >= 1.0)) {
+			VERTEX += (UV * 2.0 - 1.0) * width;
+		} else {
+			VERTEX += sign(VERTEX) * width; // replace sign(VERTEX) by (sign(VERTEX) * 2.0 - 1.0) if your AnimatedSprite2D isn't Centered
+		}
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, vec2 image_top_left, vec2 image_bottom_right, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, image_top_left, image_bottom_right) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
+void fragment(){
+
+	// OUTLINE
+
+	vec2 uv = UV;
+	vec2 image_top_left = floor(uv * number_of_images) / number_of_images;
+	vec2 image_bottom_right = image_top_left + vec2(1.0) / number_of_images;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0) * number_of_images);
+
+		uv = (uv - texture_pixel_size * width - image_top_left) * TEXTURE_PIXEL_SIZE / texture_pixel_size + image_top_left;
+
+		if (uv != clamp(uv, image_top_left, image_bottom_right)) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv) * modulate;
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv) * modulate;
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, image_top_left, image_bottom_right, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb * modulate.rgb, color.a * modulate.a) : color.rgb * modulate.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a * modulate.a;
+	}
+
+	// BLINK ANIMATIONS
+	if(grad != 0.0 && COLOR.a != 0.0){
+		COLOR = mix(COLOR, target_color, grad);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d45sv"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ruaba"]
+resource_local_to_scene = true
+radius = 81.055534
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ruaba"]
+resource_local_to_scene = true
+shader = SubResource("Shader_4frhf")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Black Market" type="TextureRect" node_paths=PackedStringArray("right_side_anchor")]
+custom_minimum_size = Vector2(864, 672)
+offset_left = -96.0
+offset_top = -480.0
+offset_right = 768.0
+offset_bottom = 192.0
+texture = ExtResource("1_y72rh")
+script = ExtResource("1_yrn88")
+right_side_anchor = NodePath("Node2D")
+metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
+
+[node name="Smuggler" parent="." node_paths=PackedStringArray("clerk_sprite") instance=ExtResource("3_hsvl5")]
+position = Vector2(273, 279)
+script = ExtResource("4_tnc1a")
+index = 1
+dialogue = ExtResource("4_hsvl5")
+clerk_sprite = NodePath("Sprite2D2")
+
+[node name="Sprite2D" parent="Smuggler" index="0"]
+position = Vector2(3, 5)
+
+[node name="CollisionShape2D" parent="Smuggler/Area2D" index="0"]
+position = Vector2(2, 103)
+shape = SubResource("CircleShape2D_d45sv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Smuggler"]
+material = SubResource("ShaderMaterial_d45sv")
+position = Vector2(5, 96)
+scale = Vector2(3, 3)
+texture = ExtResource("4_skece")
+
+[node name="NpcInventory" parent="Smuggler" node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool", "holder") instance=ExtResource("7_r4qjb")]
+script = ExtResource("8_odnjv")
+accessory_pool = [NodePath("Brass Knuckles"), NodePath("External Processing Unit"), NodePath("Forbidden Mask"), NodePath("Forbidden Shoulders"), NodePath("Jumpsuit"), NodePath("Sapper"), NodePath("Spiked Shoulder Pads")]
+consumable_pool = [NodePath("Apple Sticker"), NodePath("Eye Chart"), NodePath("Metallic Coating"), NodePath("Motivational Speech Draft"), NodePath("Mystery Snack Pack"), NodePath("Protein Shake"), NodePath("Sharpener")]
+module_pool = [NodePath("The Consumer"), NodePath("Dodge Roll"), NodePath("Buckler"), NodePath("Allegiance Shifter"), NodePath("Adrenaline Synthethizer")]
+weapon_pool = [NodePath("Toxic Grenade Launcher"), NodePath("Taser Gun"), NodePath("Tailpipe"), NodePath("Slingshot"), NodePath("Merciless Katana"), NodePath("Machete"), NodePath("Chakram")]
+rarity_rate = 4
+batch_size = 10
+holder = NodePath("../..")
+
+[node name="Brass Knuckles" parent="Smuggler/NpcInventory" instance=ExtResource("9_d45sv")]
+
+[node name="External Processing Unit" parent="Smuggler/NpcInventory" instance=ExtResource("10_ruaba")]
+
+[node name="Forbidden Mask" parent="Smuggler/NpcInventory" instance=ExtResource("11_j3xls")]
+
+[node name="Forbidden Shoulders" parent="Smuggler/NpcInventory" instance=ExtResource("12_5bi6x")]
+
+[node name="Jumpsuit" parent="Smuggler/NpcInventory" instance=ExtResource("13_8v3p1")]
+
+[node name="Sapper" parent="Smuggler/NpcInventory" instance=ExtResource("14_fnsxd")]
+
+[node name="Spiked Shoulder Pads" parent="Smuggler/NpcInventory" instance=ExtResource("15_dfp1d")]
+
+[node name="Apple Sticker" parent="Smuggler/NpcInventory" instance=ExtResource("16_d12r7")]
+
+[node name="Eye Chart" parent="Smuggler/NpcInventory" instance=ExtResource("17_gkfk2")]
+
+[node name="Metallic Coating" parent="Smuggler/NpcInventory" instance=ExtResource("18_rmy87")]
+
+[node name="Motivational Speech Draft" parent="Smuggler/NpcInventory" instance=ExtResource("19_7hcds")]
+
+[node name="Mystery Snack Pack" parent="Smuggler/NpcInventory" instance=ExtResource("20_fechm")]
+
+[node name="Protein Shake" parent="Smuggler/NpcInventory" instance=ExtResource("21_2yv18")]
+
+[node name="Sharpener" parent="Smuggler/NpcInventory" instance=ExtResource("22_fsx3p")]
+
+[node name="Adrenaline Synthethizer" parent="Smuggler/NpcInventory" instance=ExtResource("23_1r1eh")]
+
+[node name="Allegiance Shifter" parent="Smuggler/NpcInventory" instance=ExtResource("24_c3fh4")]
+
+[node name="Buckler" parent="Smuggler/NpcInventory" instance=ExtResource("25_m1pcp")]
+
+[node name="Dodge Roll" parent="Smuggler/NpcInventory" instance=ExtResource("26_78q7y")]
+
+[node name="The Consumer" parent="Smuggler/NpcInventory" instance=ExtResource("27_ahnj8")]
+
+[node name="Chakram" parent="Smuggler/NpcInventory" instance=ExtResource("28_kpyng")]
+
+[node name="Machete" parent="Smuggler/NpcInventory" instance=ExtResource("29_eln41")]
+
+[node name="Merciless Katana" parent="Smuggler/NpcInventory" instance=ExtResource("30_1tl83")]
+
+[node name="Slingshot" parent="Smuggler/NpcInventory" instance=ExtResource("31_fujv3")]
+
+[node name="Tailpipe" parent="Smuggler/NpcInventory" instance=ExtResource("32_qutbm")]
+
+[node name="Taser Gun" parent="Smuggler/NpcInventory" instance=ExtResource("33_ds7en")]
+
+[node name="Toxic Grenade Launcher" parent="Smuggler/NpcInventory" instance=ExtResource("34_ngjel")]
+
+[node name="Smuggler2" parent="." node_paths=PackedStringArray("clerk_sprite") instance=ExtResource("3_hsvl5")]
+position = Vector2(605, 279)
+script = ExtResource("4_tnc1a")
+index = 2
+dialogue = ExtResource("4_hsvl5")
+clerk_sprite = NodePath("Sprite2D2")
+
+[node name="Sprite2D" parent="Smuggler2" index="0"]
+position = Vector2(0, 24)
+
+[node name="Area2D" parent="Smuggler2" index="1"]
+position = Vector2(2, 103)
+
+[node name="CollisionShape2D" parent="Smuggler2/Area2D" index="0"]
+shape = SubResource("CircleShape2D_ruaba")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Smuggler2"]
+material = SubResource("ShaderMaterial_ruaba")
+position = Vector2(5, 96)
+scale = Vector2(3, 3)
+texture = ExtResource("4_skece")
+
+[node name="NpcInventory" parent="Smuggler2" node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool", "holder") instance=ExtResource("7_r4qjb")]
+script = ExtResource("8_odnjv")
+accessory_pool = [NodePath("Brass Knuckles"), NodePath("External Processing Unit"), NodePath("Forbidden Mask"), NodePath("Forbidden Shoulders"), NodePath("Jumpsuit"), NodePath("Sapper"), NodePath("Spiked Shoulder Pads")]
+consumable_pool = [NodePath("Apple Sticker"), NodePath("Eye Chart"), NodePath("Metallic Coating"), NodePath("Motivational Speech Draft"), NodePath("Mystery Snack Pack"), NodePath("Protein Shake"), NodePath("Sharpener")]
+module_pool = [NodePath("The Consumer"), NodePath("Dodge Roll"), NodePath("Buckler"), NodePath("Allegiance Shifter"), NodePath("Adrenaline Synthethizer")]
+weapon_pool = [NodePath("Toxic Grenade Launcher"), NodePath("Taser Gun"), NodePath("Tailpipe"), NodePath("Slingshot"), NodePath("Merciless Katana"), NodePath("Machete"), NodePath("Chakram")]
+rarity_rate = 4
+batch_size = 10
+holder = NodePath("../..")
+
+[node name="Brass Knuckles" parent="Smuggler2/NpcInventory" instance=ExtResource("9_d45sv")]
+
+[node name="External Processing Unit" parent="Smuggler2/NpcInventory" instance=ExtResource("10_ruaba")]
+
+[node name="Forbidden Mask" parent="Smuggler2/NpcInventory" instance=ExtResource("11_j3xls")]
+
+[node name="Forbidden Shoulders" parent="Smuggler2/NpcInventory" instance=ExtResource("12_5bi6x")]
+
+[node name="Jumpsuit" parent="Smuggler2/NpcInventory" instance=ExtResource("13_8v3p1")]
+
+[node name="Sapper" parent="Smuggler2/NpcInventory" instance=ExtResource("14_fnsxd")]
+
+[node name="Spiked Shoulder Pads" parent="Smuggler2/NpcInventory" instance=ExtResource("15_dfp1d")]
+
+[node name="Apple Sticker" parent="Smuggler2/NpcInventory" instance=ExtResource("16_d12r7")]
+
+[node name="Eye Chart" parent="Smuggler2/NpcInventory" instance=ExtResource("17_gkfk2")]
+
+[node name="Metallic Coating" parent="Smuggler2/NpcInventory" instance=ExtResource("18_rmy87")]
+
+[node name="Motivational Speech Draft" parent="Smuggler2/NpcInventory" instance=ExtResource("19_7hcds")]
+
+[node name="Mystery Snack Pack" parent="Smuggler2/NpcInventory" instance=ExtResource("20_fechm")]
+
+[node name="Protein Shake" parent="Smuggler2/NpcInventory" instance=ExtResource("21_2yv18")]
+
+[node name="Sharpener" parent="Smuggler2/NpcInventory" instance=ExtResource("22_fsx3p")]
+
+[node name="Adrenaline Synthethizer" parent="Smuggler2/NpcInventory" instance=ExtResource("23_1r1eh")]
+
+[node name="Allegiance Shifter" parent="Smuggler2/NpcInventory" instance=ExtResource("24_c3fh4")]
+
+[node name="Buckler" parent="Smuggler2/NpcInventory" instance=ExtResource("25_m1pcp")]
+
+[node name="Dodge Roll" parent="Smuggler2/NpcInventory" instance=ExtResource("26_78q7y")]
+
+[node name="The Consumer" parent="Smuggler2/NpcInventory" instance=ExtResource("27_ahnj8")]
+
+[node name="Chakram" parent="Smuggler2/NpcInventory" instance=ExtResource("28_kpyng")]
+
+[node name="Machete" parent="Smuggler2/NpcInventory" instance=ExtResource("29_eln41")]
+
+[node name="Merciless Katana" parent="Smuggler2/NpcInventory" instance=ExtResource("30_1tl83")]
+
+[node name="Slingshot" parent="Smuggler2/NpcInventory" instance=ExtResource("31_fujv3")]
+
+[node name="Tailpipe" parent="Smuggler2/NpcInventory" instance=ExtResource("32_qutbm")]
+
+[node name="Taser Gun" parent="Smuggler2/NpcInventory" instance=ExtResource("33_ds7en")]
+
+[node name="Toxic Grenade Launcher" parent="Smuggler2/NpcInventory" instance=ExtResource("34_ngjel")]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(852, 314)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(480, 339)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-384, 87, -384, -144, -315, -252, 371, -252, 372, 9, 306, 87)
+
+[editable path="Smuggler"]
+[editable path="Smuggler2"]

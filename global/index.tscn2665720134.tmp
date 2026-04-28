@@ -35,9 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/indexes/items/containers/scrap_crate.tscn" id="33_m3o62"]
 [ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/indexes/items/containers/scrap_compactor.tscn" id="34_66xoq"]
 [ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/indexes/items/containers/chips_case.tscn" id="35_b8tab"]
-[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/indexes/fighters/armguy.tscn" id="36_bodi2"]
-[ext_resource type="PackedScene" uid="uid://c6vpew5mdwbdf" path="res://scenes/indexes/fighters/mecharmguy.tscn" id="37_uqtag"]
-[ext_resource type="PackedScene" uid="uid://bp6be4yyu4i6o" path="res://scenes/indexes/fighters/doublearmguy.tscn" id="38_rhk7g"]
+
 [ext_resource type="PackedScene" uid="uid://omexx2cfjuxi" path="res://scenes/indexes/fighters/crowbarguy.tscn" id="39_mosdq"]
 [ext_resource type="PackedScene" uid="uid://ofss0u0pyra0" path="res://scenes/indexes/fighters/crossbowguy.tscn" id="40_q54vm"]
 [ext_resource type="PackedScene" uid="uid://c55pra6yiugp3" path="res://scenes/indexes/fighters/gravityguy.tscn" id="41_c8d6o"]

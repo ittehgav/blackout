@@ -42,9 +42,3 @@ func refresh_arrow()->void:
 			if unit.upgrade_affordable():
 				upgrade_arrow.modulate.v = 1;
 				upgrade_arrow.modulate.a = 1;
-
-
-
-func _on_visibility_changed() -> void:
-	if leader:
-		refresh();

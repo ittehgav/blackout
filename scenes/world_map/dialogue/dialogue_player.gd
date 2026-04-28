@@ -6,9 +6,6 @@ signal dialogue_started;
 
 
 
-@onready var manager:DialogueManager=DialogueManager;
-
-
 @export var current_dialogue:DialogueResource;
 
 @export_group("Scenes")
@@ -33,16 +30,16 @@ var current_exposed:Sprite2D;
 @export var text_label:RichTextLabel;
 
 var current_line:DialogueLine;
-var previous_substate:String
+var previous_substate:State.Substate
 
 var speaker_texture:Texture; ## may or may not be used in a dialogue
 func _ready()->void:
 	super();
-	manager.mutated.connect(check_end)
-	manager.dialogue_ended.connect(end_dialogue)
+	#manager.mutated.connect(check_end)
+	#manager.dialogue_ended.connect(end_dialogue)
 	start_dialogue();
-	previous_substate = Entities.main.substate
-	Entities.main.set_substate("dialogue")
+	previous_substate = State.current_substate
+	State.set_substate(State.Substate.dialogue)
 	
 func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("dialogue_next") and visible and not choices_box.visible:
@@ -55,10 +52,10 @@ func start_dialogue(starting_line:String = "start")->void:
 	if speaker_texture:
 		speaker_sprite.texture = speaker_texture;
 	
-	current_line = await manager.get_next_dialogue_line(current_dialogue, starting_line);
+	#current_line = await manager.get_next_dialogue_line(current_dialogue, starting_line);
 	display_line()
 	dialogue_started.emit()
-	Entities.main.set_substate("dialogue")
+	State.set_substate(State.Substate.dialogue)
 
 func load_speaker_sprite(sprite:Sprite2D)->void:
 	var speaker_anchor:Control = speaker_sprite.get_parent();
@@ -68,12 +65,12 @@ func load_speaker_sprite(sprite:Sprite2D)->void:
 	speaker_anchor.add_child(speaker_sprite)
 
 func end_dialogue(_manager:DialogueResource=null)->void:
-	Entities.main.revert_substate()
+	State.revert_substate()
 	queue_free()
 
 func check_end()->void:
-	var next_line:DialogueLine = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
-	if not next_line is DialogueLine:
+	#var next_line:DialogueLine = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
+	#if not next_line is DialogueLine:
 		end_dialogue()
 
 
@@ -147,7 +144,7 @@ func type_out_text()->void:
 	tween.finished.connect(blip.stop)
 	
 func get_next_line()->void:
-	current_line = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
+	#current_line = await manager.get_next_dialogue_line(current_dialogue, current_line.next_id);
 	if current_line:
 		display_line()
 
@@ -157,7 +154,7 @@ func response_chosen(response:DialogueResponse)->void:
 	choices_box.hide();
 
 	var key:String = response.next_id;
-	current_line = await manager.get_next_dialogue_line(current_dialogue, key);
+	#current_line = await manager.get_next_dialogue_line(current_dialogue, key);
 	if current_line and current_line.text:
 		display_line();
 		

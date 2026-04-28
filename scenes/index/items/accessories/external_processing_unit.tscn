@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4s2cufch0vvv"]
+[gd_scene format=3 uid="uid://c4s2cufch0vvv"]
 
 [ext_resource type="Texture2D" uid="uid://cg8537sp5w1gg" path="res://assets/visual/items/accessories/external_processing_unit.png" id="1_b7l2g"]
 [ext_resource type="Script" uid="uid://1v4qj12rcgsy" path="res://scenes/index/items/accessories/scripts/external_processing_unit.gd" id="1_feqme"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="3_ydwha"]
 
-[node name="External Processing Unit" type="Sprite2D" node_paths=PackedStringArray("stat_multipliers")]
+[node name="External Processing Unit" type="Sprite2D" unique_id=1067690271 node_paths=PackedStringArray("stat_multipliers")]
 texture = ExtResource("1_b7l2g")
 script = ExtResource("1_feqme")
 stat_multipliers = NodePath("stats")
@@ -12,10 +12,11 @@ equippable = Dictionary[String, bool]({
 "player": false,
 "unit": true
 })
-exclusive_tag = "cyborg"
+tag_restriction = true
+exclusive_tag = 2
 color_tag = "technique"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
-[node name="stats" parent="." instance=ExtResource("3_ydwha")]
+[node name="stats" parent="." unique_id=80267232 instance=ExtResource("3_ydwha")]
 agility = 2.0
 technique = 2.0

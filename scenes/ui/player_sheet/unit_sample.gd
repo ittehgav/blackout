@@ -3,36 +3,35 @@ extends Button
 class_name UnitSample;
 
 @export var accessory_sample:ItemSample;
+@export var sprite:Sprite2D;
 
-
+func load_base(base:FighterBase, level:int, callback:Callable = Callable())->void:
+	## for samples of evolved bases in evolution menu
+	$level.text = "Lv." + str(level);
+	sprite.texture = base.texture;
+	
+	if callback.is_valid():
+		pressed.connect(callback)
 
 
 func load_unit(unit:FighterUnit, callback:Callable=Callable())->void:
 	$level.text = "Lv. " + str(unit.level);
-	
-	var base:FighterBase = unit.base.duplicate();
-	base.texture = ColorCoder.color_code_fighter_base_texture(base)
-	base.clear_for_sample()
-	base.scale = Vector2(2, 2);
-	base.centered = false;
-	base.material = null;
-	add_child(base);
+	sprite.texture = unit.base.texture;
 	
 	
 	if unit.equipped_accessory:
 		accessory_sample.load_item(unit.equipped_accessory,  1);
 	else:
 		accessory_sample.load_blank(1);
-	if callback:
+	if callback.is_valid():
 		pressed.connect(callback);
 	
 	
-func load_player(callback:Callable)->void:
-	var body:Sprite2D = Index.scenes.player_body.instantiate();
-	body.scale = Vector2(2, 2);
-	body.centered = false;
-	body.material = null;
-	add_child(body)
+func load_player(callback:Callable=Callable())->void:
+	sprite.texture = Index.textures.player_body_texture;
+	sprite.vframes = Index.textures.player_body_frames.y;
 	
-	pressed.connect(callback)
 	accessory_sample.queue_free()
+	
+	if callback.is_valid():
+		pressed.connect(callback)

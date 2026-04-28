@@ -9,7 +9,7 @@ const size_y = 2;
 const stun_duration = .75
 
 func get_description()->String:
-	return "Shoots taser darts that deal " + Index.get_color_tag("attack") +" "+ str(final_damage())+\
+	return "Shoots taser darts that deal " + Index.get_color_tag("attack") + str(final_damage())+" "+\
 			"damage[/color] and stun the target for " + str(stun_duration) +" seconds.";
 
 

@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceqkptsraqsqu"]
+[gd_scene format=3 uid="uid://ceqkptsraqsqu"]
 
 [ext_resource type="Script" uid="uid://dtwbblw3lqisu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.gd" id="1_3q0pa"]
 [ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_imdlh"]
 
-[node name="StatsDropdown" type="VBoxContainer" node_paths=PackedStringArray("stat_labels")]
+[node name="StatsDropdown" type="VBoxContainer" unique_id=408589666 node_paths=PackedStringArray("stat_labels")]
 z_index = 1
 offset_left = 696.0
 offset_top = 82.0
@@ -18,85 +18,90 @@ stat_labels = {
 "technique": NodePath("technique/technique")
 }
 
-[node name="stats" type="Label" parent="."]
+[node name="stats" type="Label" parent="." unique_id=1427825032]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Stats:"
 
-[node name="max_hp" type="HBoxContainer" parent="."]
+[node name="max_hp" type="HBoxContainer" parent="." unique_id=879368159]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="max_hp_icon" parent="max_hp" node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
+[node name="max_hp_icon" parent="max_hp" unique_id=1084514480 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 label = NodePath("../max_hp")
 
-[node name="max_hp" type="Label" parent="max_hp"]
+[node name="max_hp" type="Label" parent="max_hp" unique_id=1952093428]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "12"
 
-[node name="attack" type="HBoxContainer" parent="."]
+[node name="attack" type="HBoxContainer" parent="." unique_id=523508622]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="attack_icon" parent="attack" node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
+[node name="attack_icon" parent="attack" unique_id=1245140987 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 stat = "attack"
 label = NodePath("../attack")
 
-[node name="attack" type="Label" parent="attack"]
+[node name="attack" type="Label" parent="attack" unique_id=1704717145]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "12"
 
-[node name="defense" type="HBoxContainer" parent="."]
+[node name="defense" type="HBoxContainer" parent="." unique_id=1249331385]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="defense_icon" parent="defense" node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
+[node name="defense_icon" parent="defense" unique_id=714071709 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 stat = "defense"
 label = NodePath("../defense")
 
-[node name="defense" type="Label" parent="defense"]
+[node name="defense" type="Label" parent="defense" unique_id=1807945443]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "12"
 
-[node name="agility" type="HBoxContainer" parent="."]
+[node name="agility" type="HBoxContainer" parent="." unique_id=1022494949]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="agility_icon" parent="agility" node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
+[node name="agility_icon" parent="agility" unique_id=1718996867 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 stat = "agility"
 label = NodePath("../agility")
 
-[node name="agility" type="Label" parent="agility"]
+[node name="agility" type="Label" parent="agility" unique_id=1684223526]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "12"
 
-[node name="technique" type="HBoxContainer" parent="."]
+[node name="technique" type="HBoxContainer" parent="." unique_id=1011682043]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="technique_icon" parent="technique" node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
+[node name="technique_icon" parent="technique" unique_id=36948302 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 stat = "technique"
 label = NodePath("../technique")
 
-[node name="technique" type="Label" parent="technique"]
+[node name="technique" type="Label" parent="technique" unique_id=32419535]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

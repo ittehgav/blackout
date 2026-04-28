@@ -72,7 +72,7 @@ _data = {
 &"recoil": SubResource("Animation_xli5q")
 }
 
-[node name="Taser Gun" type="Sprite2D" node_paths=PackedStringArray("projectile", "animation_player", "use_sfx", "hit_sfx", "status")]
+[node name="Taser Gun" type="Sprite2D" unique_id=982173061 node_paths=PackedStringArray("projectile", "animation_player", "use_sfx", "status")]
 use_parent_material = true
 position = Vector2(84, 0)
 texture = ExtResource("1_6uei2")
@@ -82,32 +82,29 @@ cooldown = 2.0
 projectile = NodePath("Projectile")
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("shoot_sfx")
-hit_sfx = NodePath("hit_sfx")
 use_feedback = "camera_recoil"
 status = NodePath("stun")
 color_tag = "technique"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
-[node name="stun" type="Node" parent="."]
+[node name="stun" type="Node" parent="." unique_id=961013198]
 script = ExtResource("3_q86tr")
 type = "stun"
 duration = 0.75
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="shoot_sfx" type="AudioStreamPlayer" parent="."]
+[node name="shoot_sfx" type="AudioStreamPlayer" parent="." unique_id=915080159]
 stream = ExtResource("3_75x2e")
 volume_db = -4.751
 
-[node name="hit_sfx" type="AudioStreamPlayer" parent="."]
+[node name="hit_sfx" type="AudioStreamPlayer" parent="." unique_id=1663242365]
 stream = ExtResource("4_rm5r0")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_q86tr"),
-&"generic": SubResource("AnimationLibrary_rm5r0")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2041518520]
+libraries/ = SubResource("AnimationLibrary_q86tr")
+libraries/generic = SubResource("AnimationLibrary_rm5r0")
 
-[node name="Projectile" parent="." instance=ExtResource("4_xli5q")]
+[node name="Projectile" parent="." unique_id=953256119 instance=ExtResource("4_xli5q")]
 modulate = Color(0.706, 0.37, 1, 1)
 position = Vector2(62, 0)
 

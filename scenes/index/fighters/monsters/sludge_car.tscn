@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_66a5h"]
 [ext_resource type="Texture2D" uid="uid://djw5bpk7bkbvq" path="res://assets/visual/particles/circles/circle_32x32_15x.png" id="5_qn5al"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="6_qfvgk"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="9_o7x5g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qn5al"]
 radius = 70.11419
@@ -50,6 +51,50 @@ _data = {
 &"warp": SubResource("Animation_66a5h")
 }
 
+[sub_resource type="Animation" id="Animation_8r3ff"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("shadow_container:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:offset:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pqv4s"]
+_data = {
+&"RESET": SubResource("Animation_8r3ff")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_qfvgk"]
 radius = 28.01785
 
@@ -61,7 +106,7 @@ vframes = 3
 script = ExtResource("1_5paln")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Stagnation Aura")
-tags = Array[int]([12, 6])
+tags = Array[int]([12, 6, 7])
 fighter_type = "monster"
 body_type = 2
 hit_scan = NodePath("scan")
@@ -107,6 +152,7 @@ libraries/ = SubResource("AnimationLibrary_o7x5g")
 autoplay = &"warp"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2014152601]
+libraries/ = SubResource("AnimationLibrary_pqv4s")
 libraries/fighter_base = ExtResource("4_qfvgk")
 
 [node name="stat_base" type="Node" parent="." unique_id=516471229]
@@ -127,3 +173,12 @@ metadata/_custom_type_script = "uid://dn4endealcll1"
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1755822172]
 position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_qfvgk")
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=2044261480]
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=1496033323]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, -9.536743e-07)
+scale = Vector2(1, 2)
+texture = ExtResource("9_o7x5g")

@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_character_2.png")
 extends Node2D
 
 class_name FighterUnit
@@ -5,7 +6,11 @@ class_name FighterUnit
 signal level_up;
 signal accessory_equipped(new:Accessory, old:Accessory)
 ## fighter bases dont need to be loaded for each individual Fighter node
-@export var base:FighterBase;
+@export var base:FighterBase:
+	set(new_base):
+		## this runs when it gets first set and when changed right?
+		base = new_base;
+		update_stats()
 
 @export var level:int=1;
 @export var experience:int=0;
@@ -29,8 +34,7 @@ func _ready()->void:
 func setup()->void:
 	if not base:
 		find_base();
-	## needs to run with level and base assigned
-	update_stats();
+
 
 func find_base()->void:
 	for c:Node in get_children():
@@ -40,6 +44,27 @@ func find_base()->void:
 			return
 	assert(false)
 
+func gain_exp(amount:int)->int:
+	## returns the amount of levels gained from the EXP
+	## sets level and refreshes stuff all here
+	var levels_gained:int = 0;
+	var for_next_level:int = Scaling.exp_for_next_level(level) - experience;
+	while amount >= for_next_level:
+		experience = 0; ## experience here is the exp the unit previously had
+		amount -= for_next_level
+		
+		levels_gained += 1;
+		level += 1;
+
+		level_up.emit()
+		for_next_level = Scaling.exp_for_next_level(level);
+	
+	experience = amount
+
+	## returns levels for EXP bar animations
+	return levels_gained
+	
+	
 func final_stats()->CombatStats:
 	var modified_stats:CombatStats = Index.scenes.combat_stats.instantiate();
 	
@@ -69,30 +94,19 @@ func update_stats()->void:
 
 func final_skill_cooldown(_agi_acm:float=stats.agility)->float:
 	## can check from active fighter and from fighter unit
-	if base.skill_cooldown == 0.0:
+	if base.skill.base_cooldown == 0.0:
 		return 0.0
-	var cooldown:float = base.skill_cooldown;
-	cooldown -= Scaling.agility_cooldown_reduction(base.skill_cooldown, final_stats().agility)
+	var cooldown:float = base.skill.base_cooldown;
+	cooldown -= Scaling.agility_cooldown_reduction(base.skill.base_cooldown, final_stats().agility)
 	return cooldown
 	
-func upgrade_available()->bool:
-	return "evolutions" in base and level >= 5;
 
-func upgrade_affordable()->bool:
-	for e:String in base.evolutions.keys():
-		var affordable:int=0;
-		for resource:String in base.evolutions[e]:
-			if Entities.player.inventory[resource] >= base.evolutions[e][resource]:
-				affordable += 1
-		if affordable == 2:
-			return true;
-	return false
 
 
 func _on_child_entered_tree(node: Node) -> void:
 	if node is FighterBase and not summon:
 		await Index.ready
-		base = Index.fighters.find_base(node.name);
+		base = Index.fighters.all_unit_bases[node.name];
 		remove_child(node)
 
 func equip_accessory(new:Accessory)->Accessory:
@@ -129,3 +143,8 @@ func _on_accessory_equipped(new: Accessory, old: Accessory) -> void:
 				var modifier:float = old.stat_multipliers[stat]
 				if modifier:
 					stat_multipliers[stat] -= modifier
+
+func unequip_accessory()->void:
+	assert(equipped_accessory)
+	get_parent().equipped_accessories.erase(equipped_accessory);
+	equipped_accessory = null

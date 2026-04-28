@@ -1,14 +1,17 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/control/icon_ring.png")
 extends TextureRect
 
 class_name ItemMirror;
 
 var display:InventoryDisplay;
-@export var modifier_sign:Label
+
 @export var outline:ReferenceRect;
 @export var bg:ColorRect;
 @export var being_traded_rect:ColorRect;
 
 @export var tooltip:Tooltip;
+
+@export var modifier_icon:ItemModifierIcon;
 @export var stack_size_label:Label;
 @export var price_tag:Label;
 
@@ -59,11 +62,8 @@ func load_item(target:Item, new_item:bool=false)->void:
 	tooltip.load_target(self);
 	if item is ResourceContainer:
 		stack_size = item.stack_size
+	modifier_icon.refresh(item)
 
-	
-	modifier_sign.hide()
-	if item.applied_modifier:
-		modifier_sign.show()
 	
 	var item_color:Color = item.get_mirror_color();
 	self_modulate = item_color;
@@ -99,9 +99,6 @@ func load_item(target:Item, new_item:bool=false)->void:
 		refresh()
 
 
-
-
-
 func _process(_delta:float)->void:
 	if held:
 		global_position = get_global_mouse_position() - cursor_offset;
@@ -133,6 +130,9 @@ func _on_gui_input(e: InputEvent) -> void:
 				pick_up()
 				return
 			elif e.button_index == MOUSE_BUTTON_RIGHT:
+				if display.context == "forge":
+					display.item_chosen.emit(self);
+					return
 				if display.context == "player_sheet":
 					if item is ResourceContainer:
 						if item.raw_stack:
@@ -161,7 +161,6 @@ func _on_gui_input(e: InputEvent) -> void:
 func empty_storage()->void:
 	var moved:int=0;
 	var to_throw:Array[ItemMirror];
-
 	while stack_size:
 		var raw_stack:ResourceContainer = Index.scenes.items[item.resource+"_stack"].instantiate();
 		if raw_stack.mirror_only:
@@ -177,13 +176,14 @@ func empty_storage()->void:
 
 		var mirror:ItemMirror = display.generate_mirror(raw_stack);
 		to_throw.append(mirror);
+		
 	for mirror:ItemMirror in to_throw:
 		moved += mirror.stack_size
 		var cell:Vector2i = display.find_clear_cell(mirror.item)
 		if cell != Vector2i(-1, -1):
 			mirror.set_inventory_position(cell)
 			mirror.refresh()
-			display.inventory.add_item(mirror.item);
+			display.inventory.add_child(mirror.item);
 			mirror.item.match_mirror()
 		else:
 			change_stack_size(mirror.stack_size)
@@ -208,7 +208,7 @@ func set_inventory_position(target:Vector2i)->void:
 	item.inventory_position = target;
 
 func pick_up()->void:
-	if not display.inventory is ShopInventory or not item in display.inventory.resource_storage:
+	if not (display.inventory is ShopInventory) or not (item in display.inventory.resource_storage):
 		display.item_picked_up.emit(self);
 		if display.choosing_item:
 			## catches the click but doesn't pick up the item
@@ -340,7 +340,7 @@ func equip_accessory_on_player()->void:
 		just_unequipped = Entities.player.equip_accessory(item, 2);
 	else:
 		var new_ac2:Accessory = Entities.player.equipped_accessory_1
-		if display.find_clear_cell(new_ac2, item) == Vector2i(-1, -1):
+		if not display.has_room(new_ac2, item):
 			display.invalid_move.emit("NOT ENOUGH ROOM")
 			return;
 			
@@ -362,7 +362,7 @@ func equip_accessory_on_player()->void:
 func equip_accessory_on_unit(unit:FighterUnit)->void:
 	var previous:Accessory = unit.equipped_accessory;
 	if previous:
-		if not display.find_clear_cell(previous, item):
+		if not display.has_room(previous, item):
 			display.invalid_move.emit("NOT ENOUGH ROOM");
 			return;
 	
@@ -521,9 +521,9 @@ func _on_mouse_entered() -> void:
 		var clear:bool = send_to_containers();
 		if clear:
 			display.remove_mirror(self)
-
-
-	outline.border_color = highlighted_outline_color;
+	else:
+		display.item_mirror_hovered(self);
+		outline.border_color = highlighted_outline_color;
 
 func send_to_containers()->bool:
 	var amount_deposited:int=0;
@@ -552,9 +552,6 @@ func send_to_containers()->bool:
 			
 func _on_mouse_exited() -> void:
 	outline.border_color = outline_color;
-
-
-
 
 func set_price()->void:
 	price_tag.show();
@@ -590,9 +587,7 @@ func refresh()->void:
 	if display.context == "trade" or display.context == "loot":
 		set_price();
 		
-	modifier_sign.hide()
-	if item.applied_modifier:
-		modifier_sign.show()
+	modifier_icon.refresh(item)
 	
 	if item is ResourceContainer and item.raw_stack and stack_size == 0:
 		display.remove_mirror(self)
@@ -600,6 +595,10 @@ func refresh()->void:
 	stack_size_label.modulate.a = 1
 	
 	if "capacity" in item:
+		if stack_size != item.stack_size:
+			highlight_stack_label()
+	
+		stack_size = item.stack_size
 		stack_size_label.text = str(stack_size) + "/" + str(item.capacity);
 		if item.mirror_only:
 			stack_size_label.modulate.a = .5

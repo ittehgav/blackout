@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://1ardsa0qdcfv"]
+
+[ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/settlements/building.gd" id="1_p1cai"]
+[ext_resource type="Texture2D" uid="uid://c4bcnpeq7s2bs" path="res://assets/visual/buildings/icons/chop_shop.png" id="2_go530"]
+[ext_resource type="Texture2D" uid="uid://b24rmfw7ynl2i" path="res://assets/visual/sprites/locations/settlements/portraits/chop_shop.png" id="2_n8hn4"]
+[ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="5_n8hn4"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="6_wdm2t"]
+[ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="7_ckpkh"]
+[ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="8_ra58q"]
+[ext_resource type="PackedScene" uid="uid://mwlq8jel4dww" path="res://scenes/index/fighters/units/wheel.tscn" id="9_ttu56"]
+[ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="10_nmsa8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdm2t"]
+resource_local_to_scene = true
+shader = ExtResource("6_wdm2t")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ckpkh"]
+resource_local_to_scene = true
+shader = ExtResource("6_wdm2t")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ra58q"]
+resource_local_to_scene = true
+shader = ExtResource("6_wdm2t")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ttu56"]
+resource_local_to_scene = true
+shader = ExtResource("6_wdm2t")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Chop Shop" type="Node2D" unique_id=2070719463 node_paths=PackedStringArray("roster") groups=["all_locations"]]
+script = ExtResource("1_p1cai")
+theme_color = Color(0.5, 0.3005, 0.185, 1)
+options = Array[int]([1, 2])
+evolve_tag = 4
+roster = NodePath("Building Roster")
+size = null
+portrait = ExtResource("2_n8hn4")
+reset_cycle = null
+map_texture_modulate = null
+bgm_key = null
+icon_texture = ExtResource("2_go530")
+metadata/_custom_type_script = "uid://lf67nwuvdmnt"
+
+[node name="Building Roster" parent="." unique_id=1517900409 instance=ExtResource("10_nmsa8")]
+
+[node name="Crowbar" parent="Building Roster" unique_id=2112712555 instance=ExtResource("5_n8hn4")]
+material = SubResource("ShaderMaterial_wdm2t")
+
+[node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("7_ckpkh")]
+material = SubResource("ShaderMaterial_ckpkh")
+
+[node name="Sniper" parent="Building Roster" unique_id=1797122592 instance=ExtResource("8_ra58q")]
+material = SubResource("ShaderMaterial_ra58q")
+
+[node name="Wheel" parent="Building Roster" unique_id=656115223 instance=ExtResource("9_ttu56")]
+material = SubResource("ShaderMaterial_ttu56")

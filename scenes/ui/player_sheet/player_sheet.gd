@@ -3,7 +3,6 @@ extends UIRoot;
 class_name PlayerSheet;
 
 signal closed;
-signal start_battle_pressed;
 
 @export var bg:ColorRect;
 
@@ -27,16 +26,20 @@ signal start_battle_pressed;
 @export var open_sound:AudioStream;
 @export var close_sound:AudioStream;
 
+@onready var player:Player = get_tree().get_first_node_in_group("player");
+
 
 
 func _on_tree_entered() -> void:
+	## do we really need to do it like this?
 	Entities.player_sheet = self;
-	if Entities.player:
-		## easier to do it this way than to connect it again in every view with a player sheet?
-		Entities.player.equipment_changed.connect(_on_player_equipment_changed);
+
+		
+
 func _ready()->void:
 	super();
-
+	player.equipment_changed.connect(_on_player_equipment_changed);
+	
 
 var open:bool=false
 func show_player_sheet(left_tab_view:int=0)->void:
@@ -45,7 +48,7 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
 	show()
-	player_inventory.opened.emit()
+	player_inventory.open()
 	refresh_data();
 	bg.self_modulate.a = 0;
 	
@@ -55,20 +58,19 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	tween.tween_property(bg, "self_modulate:a", 1, tween_duration);
 	tween.parallel().tween_property(container, "theme_override_constants/separation", 20, tween_duration)
 	
-	if Entities.main.substate != "pre_battle":
-		Entities.main.set_substate("player_sheet")
+	if State.current_substate != State.Substate.pre_battle:
+		State.set_substate(State.Substate.player_sheet)
 	await tween.finished;
 	open = true;
 	## so the player can't mash tab and bug the UI
 
 
 func pre_battle_sheet()->void:
-	Entities.main.set_substate("pre_battle")
 	show_player_sheet();
 	start_battle_prompt.show();
 
 func request_space_for_item(item:Item)->void:
-	Entities.main.set_substate("inventory_space_request")
+	State.set_substate(State.Substate.inventory_space_request);
 	item_space_request.request_space_for_item(item)
 	show_player_sheet();
 
@@ -92,7 +94,7 @@ func hide_player_sheet(_meta:Variant="")->void:
 		open = false
 		closed.emit();
 
-		Entities.main.revert_substate()
+		State.revert_substate()
 		hide()
 
 
@@ -100,7 +102,7 @@ func hide_player_sheet(_meta:Variant="")->void:
 func _input(e:InputEvent)->void:
 	## opening is handled differently in contexts
 	if e.is_action_pressed("show_player_sheet") and open and not party_view.current_unit_sheet\
-	and Entities.main.substate == "player_sheet":
+	and State.current_substate == State.Substate.player_sheet:
 		## substate will not be player sheet if it's a special open
 		## IE pre-combat and item space request
 		hide_player_sheet();
@@ -138,5 +140,5 @@ func _on_start_battle_pressed() -> void:
 	## i just make the global call then pass it back to the emmiter
 	## for context-sensitive setups
 	## encapsulating most of the complexitiy out of player sheet
-	start_battle_pressed.emit();
 	hide_player_sheet();
+	State.set_scenario(State.Scenario.battle)

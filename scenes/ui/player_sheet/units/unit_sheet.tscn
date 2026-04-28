@@ -1,20 +1,25 @@
-[gd_scene load_steps=10 format=3 uid="uid://1hbrworalfdw"]
+[gd_scene format=3 uid="uid://1hbrworalfdw"]
 
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/player_sheet/units/unit_sheet.gd" id="1_ugdfa"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_tw0lw"]
-[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="3_kbewr"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="4_kpc33"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="5_kpc33"]
+[ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="6_ejnr3"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="6_kpc33"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="6_ugdfa"]
-[ext_resource type="Script" uid="uid://dhhsn8dr6b0sg" path="res://scenes/ui/player_sheet/units/panel_container.gd" id="8_0kn7o"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="7_kpc33"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xqdqb"]
-load_path = "res://.godot/imported/armguy.png-0256df781419550105bc51d7c0e19786.ctex"
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugdfa"]
+resource_local_to_scene = true
+shader = ExtResource("6_kpc33")
+shader_parameter/color = Color(0.6392157, 0.654902, 0.8, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g52xd"]
-load_path = "res://.godot/imported/armguy.png-0256df781419550105bc51d7c0e19786.ctex"
-
-[node name="Unit Sheet" type="Panel" node_paths=PackedStringArray("sample", "evolution_display", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "experience_bar", "accessory_sample", "tags_label", "unit_level_label", "stats_dropdown", "skill_range_label", "skill_cooldown_label", "ui_sfx")]
+[node name="Unit Sheet" type="Panel" unique_id=1654918354 node_paths=PackedStringArray("unit_sprite", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "experience_bar", "accessory_sample", "tags_label", "unit_level_label", "stats_dropdown", "skill_range_label", "skill_cooldown_label", "ui_sfx")]
 z_index = 2
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 8
@@ -31,8 +36,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_ugdfa")
-sample = NodePath("SpriteSample")
-evolution_display = NodePath("evolutin_display")
+unit_sprite = NodePath("Sprite2D")
 unit_name_label = NodePath("HBoxContainer/name")
 skill_name_label = NodePath("texts/skill_name")
 skill_description_label = NodePath("texts/skill_description")
@@ -46,9 +50,9 @@ skill_range_label = NodePath("texts/HBoxContainer/range")
 skill_cooldown_label = NodePath("texts/HBoxContainer/cooldown")
 ui_sfx = NodePath("ui_sfx")
 
-[node name="ui_sfx" parent="." instance=ExtResource("2_tw0lw")]
+[node name="ui_sfx" parent="." unique_id=259294312 instance=ExtResource("2_tw0lw")]
 
-[node name="exit" type="Label" parent="."]
+[node name="exit" type="Label" parent="." unique_id=382584999]
 layout_mode = 1
 offset_left = 29.0
 offset_top = 13.0
@@ -57,7 +61,7 @@ offset_bottom = 39.0
 theme_override_font_sizes/font_size = 32
 text = "Press [tab] or [right-click] to return"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=283631336]
 layout_mode = 1
 offset_left = 63.0
 offset_top = 72.0
@@ -65,36 +69,15 @@ offset_right = 373.0
 offset_bottom = 161.0
 theme_override_constants/separation = 15
 
-[node name="name" type="Label" parent="HBoxContainer"]
+[node name="name" type="Label" parent="HBoxContainer" unique_id=513547869]
 layout_mode = 2
 theme_override_font_sizes/font_size = 112
-text = "Arm Guy"
+text = "cu"
 
-[node name="tags" type="Label" parent="HBoxContainer"]
+[node name="tags" type="Label" parent="HBoxContainer" unique_id=1851535415]
 layout_mode = 2
 
-[node name="SpriteSample" parent="." instance=ExtResource("3_kbewr")]
-z_index = -4
-layout_mode = 1
-offset_left = 24.0
-offset_top = 235.0
-offset_right = 362.0
-offset_bottom = 693.0
-mouse_filter = 2
-add_tooltip = false
-enable_hover_panel = false
-target_scale = Vector2(10, 10)
-
-[node name="anchor" parent="SpriteSample" index="0"]
-offset_left = -27.0
-offset_top = -32.0
-offset_right = 13.0
-offset_bottom = 8.0
-
-[node name="panel" parent="SpriteSample" index="1"]
-use_parent_material = true
-
-[node name="texts" type="VBoxContainer" parent="."]
+[node name="texts" type="VBoxContainer" parent="." unique_id=470582013]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -105,39 +88,39 @@ offset_right = -64.0
 offset_bottom = 274.0
 grow_horizontal = 0
 
-[node name="skill_name" type="Label" parent="texts"]
+[node name="skill_name" type="Label" parent="texts" unique_id=1507392601]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Skill: Penes"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="texts"]
+[node name="HBoxContainer" type="HBoxContainer" parent="texts" unique_id=201165411]
 layout_mode = 2
 theme_override_constants/separation = 70
 
-[node name="cooldown" type="Label" parent="texts/HBoxContainer"]
+[node name="cooldown" type="Label" parent="texts/HBoxContainer" unique_id=1610220090]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.06, 1, 0.122667, 1)
 text = "Cooldown: 1.2s"
 
-[node name="range" type="Label" parent="texts/HBoxContainer"]
+[node name="range" type="Label" parent="texts/HBoxContainer" unique_id=1030219584]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0588235, 1, 0.121569, 1)
 text = "Melee"
 
-[node name="skill_description" type="RichTextLabel" parent="texts"]
+[node name="skill_description" type="RichTextLabel" parent="texts" unique_id=576506950]
 modulate = Color(0.76, 0.76, 0.76, 1)
 layout_mode = 2
 bbcode_enabled = true
 text = "opesnfçasejnfçasoerinfg´~"
 fit_content = true
 
-[node name="flavor" type="Label" parent="texts"]
+[node name="flavor" type="Label" parent="texts" unique_id=1732558146]
 modulate = Color(0.72, 0.72, 0.72, 0.584314)
 layout_mode = 2
 text = "cuzao"
 autowrap_mode = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=173276096]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -151,22 +134,22 @@ offset_bottom = -91.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2" unique_id=1535519110]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="level" type="Label" parent="HBoxContainer2/VBoxContainer"]
+[node name="level" type="Label" parent="HBoxContainer2/VBoxContainer" unique_id=2135980588]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 64
 text = "Level 2"
 
-[node name="exp_bar" parent="HBoxContainer2/VBoxContainer" instance=ExtResource("4_kpc33")]
+[node name="exp_bar" parent="HBoxContainer2/VBoxContainer" unique_id=1011470415 instance=ExtResource("4_kpc33")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="StatsDropdown" parent="HBoxContainer2/VBoxContainer" node_paths=PackedStringArray("stat_labels") instance=ExtResource("5_kpc33")]
+[node name="StatsDropdown" parent="HBoxContainer2/VBoxContainer" unique_id=725918644 node_paths=PackedStringArray("stat_labels") instance=ExtResource("5_kpc33")]
 layout_mode = 2
 size_flags_horizontal = 0
 stat_labels = {
@@ -177,75 +160,35 @@ stat_labels = {
 "technique": NodePath("technique/technique")
 }
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2" unique_id=985526786]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer2"]
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer2" unique_id=1772380718]
 layout_mode = 2
 text = "Accessory"
 
-[node name="item_sample" parent="HBoxContainer2/VBoxContainer2" instance=ExtResource("6_ugdfa")]
+[node name="item_sample" parent="HBoxContainer2/VBoxContainer2" unique_id=907535230 instance=ExtResource("6_ugdfa")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Label2" type="Label" parent="HBoxContainer2/VBoxContainer2"]
+[node name="Label2" type="Label" parent="HBoxContainer2/VBoxContainer2" unique_id=349117417]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "[right-click] to unequip"
 
-[node name="evolutin_display" type="PanelContainer" parent="." node_paths=PackedStringArray("ev1_sprite", "ev2_sprite", "hint_label")]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -209.0
-offset_right = -39.0
-offset_bottom = -26.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("8_0kn7o")
-ev1_sprite = NodePath("VBoxContainer/HBoxContainer/evolution_1/evolution_1")
-ev2_sprite = NodePath("VBoxContainer/HBoxContainer/evolution_2/evolution_2")
-hint_label = NodePath("VBoxContainer/Label")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1367586683]
+material = SubResource("ShaderMaterial_ugdfa")
+position = Vector2(208, 407.00003)
+scale = Vector2(5, 5)
+texture = ExtResource("6_ejnr3")
+hframes = 8
+vframes = 5
+frame = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="evolutin_display"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="evolutin_display/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Level up this unit to 
-unlock evolutions"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="evolutin_display/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="evolution_1" type="Control" parent="evolutin_display/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(112, 112)
-layout_mode = 2
-
-[node name="evolution_1" type="Sprite2D" parent="evolutin_display/VBoxContainer/HBoxContainer/evolution_1"]
-position = Vector2(64, 64)
-texture = SubResource("CompressedTexture2D_xqdqb")
-hframes = 3
-vframes = 3
-
-[node name="evolution_2" type="Control" parent="evolutin_display/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(112, 112)
-layout_mode = 2
-
-[node name="evolution_2" type="Sprite2D" parent="evolutin_display/VBoxContainer/HBoxContainer/evolution_2"]
-position = Vector2(64, 64)
-texture = SubResource("CompressedTexture2D_g52xd")
-hframes = 3
-vframes = 3
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=1486077208]
+libraries/fighter_base = ExtResource("7_kpc33")
+autoplay = &"fighter_base/idle"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="gui_input" from="HBoxContainer2/VBoxContainer2/item_sample" to="." method="_on_item_sample_gui_input"]
-
-[editable path="SpriteSample"]

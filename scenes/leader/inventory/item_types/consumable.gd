@@ -1,4 +1,5 @@
 @abstract 
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_potion.png")
 class_name Consumable
 extends Item
 

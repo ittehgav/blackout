@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://doeeabymirktu"]
+
+[ext_resource type="Texture2D" uid="uid://b8v4wrgedohi3" path="res://assets/visual/buildings/factory.png" id="1_7kwbc"]
+[ext_resource type="Script" uid="uid://dy4crh0bwxl3o" path="res://scenes/in_settlement/settlements/front_porch.gd" id="2_j21v7"]
+[ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/in_settlement/speaker.tscn" id="3_yeymu"]
+[ext_resource type="Texture2D" uid="uid://5kmx5llsxas3" path="res://assets/visual/buildings/npcs/factory_worker.png" id="4_5ccs5"]
+[ext_resource type="Resource" uid="uid://d1qu6q58skn8r" path="res://resources/dialogues/buildings/factory_worker.dialogue" id="4_j21v7"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_e5jhq"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="5_yeymu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3mat"]
+resource_local_to_scene = true
+radius = 173.003
+
+[node name="Factory Front" type="TextureRect" node_paths=PackedStringArray("exit_area")]
+offset_right = 1920.0
+offset_bottom = 1800.0
+texture = ExtResource("1_7kwbc")
+script = ExtResource("2_j21v7")
+exit_area = NodePath("exit")
+player_origin = Vector2(400, 1600)
+metadata/_custom_type_script = "uid://dy4crh0bwxl3o"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-13, 8)
+polygon = PackedVector2Array(75, 1336, 333, 1336, 557, 888, 557, 634, 297, 634, 295, 636, 75, 1072)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(1684, 1216, 1694, 1216, 1914, 776, 1914, 414, 1908, 402, 1892, 386, 1844, 362, 1754, 332, 1538, 278, 1520, 278, 1480, 288, 1336, 336, 1216, 396, 1204, 408, 984, 848, 984, 1216, 992, 1216, 1048, 1104, 1348, 1104, 1352, 1100, 1446, 912, 1684, 912)
+
+[node name="Speaker" parent="." node_paths=PackedStringArray("clerk_sprite") instance=ExtResource("3_yeymu")]
+position = Vector2(1529, 1151)
+dialogue = ExtResource("4_j21v7")
+clerk_sprite = NodePath("npc")
+
+[node name="CollisionShape2D" parent="Speaker/Area2D" index="0"]
+shape = SubResource("CircleShape2D_q3mat")
+
+[node name="npc" type="Sprite2D" parent="Speaker"]
+material = ExtResource("5_yeymu")
+scale = Vector2(2, 2)
+texture = ExtResource("4_5ccs5")
+flip_h = true
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Speaker/npc"]
+libraries = {
+&"fighter_base": ExtResource("5_e5jhq")
+}
+autoplay = "fighter_base/idle"
+
+[node name="exit" type="Node2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="exit"]
+polygon = PackedVector2Array(0, 0, 2015, 0, 2015, -90, -100, -92, -100, 1900, 2027, 1900, 2015, 0, 1920, 0, 1920, 1800, 0, 1800)
+
+[editable path="Speaker"]

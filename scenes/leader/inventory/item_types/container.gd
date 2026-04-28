@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_crate.png")
 @abstract
 class_name ResourceContainer
 extends Item

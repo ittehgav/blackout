@@ -11,11 +11,56 @@
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="7_r2pgj"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="9_gm6ks"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="11_1fquf"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="12_1fquf"]
+
+[sub_resource type="Animation" id="Animation_5yikj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shadow_container:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0wpk1"]
+_data = {
+&"RESET": SubResource("Animation_5yikj")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r2pgj"]
 radius = 28.284271
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gm6ks"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eniti"]
 resource_local_to_scene = true
 shader = ExtResource("11_1fquf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -63,19 +108,20 @@ script = ExtResource("4_lwr4b")
 metadata/_custom_type_script = "uid://bupk131cmv6l2"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2139344813]
+libraries/ = SubResource("AnimationLibrary_0wpk1")
 libraries/fighter_base = ExtResource("5_sxdjq")
 
 [node name="stat_base" type="Node" parent="." unique_id=1587696098]
 
 [node name="base_stats" type="Node" parent="stat_base" unique_id=1896318496]
 script = ExtResource("7_r2pgj")
-max_hp = 300.0
+max_hp = 200.0
 defense = 50.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="stats_per_level" type="Node" parent="stat_base" unique_id=395533984]
 script = ExtResource("7_r2pgj")
-max_hp = 50.0
+max_hp = 20.0
 defense = 10.0
 agility = 5.0
 technique = 3.0
@@ -90,4 +136,12 @@ shape = SubResource("CircleShape2D_r2pgj")
 summon = true
 
 [node name="Termite" parent="termite_unit" unique_id=561075248 instance=ExtResource("4_sxdjq")]
-material = SubResource("ShaderMaterial_gm6ks")
+material = SubResource("ShaderMaterial_eniti")
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=1425959910]
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=1571803810]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+scale = Vector2(1, 2)
+texture = ExtResource("12_1fquf")

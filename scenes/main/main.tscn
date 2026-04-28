@@ -1,72 +1,22 @@
 [gd_scene format=3 uid="uid://bbj4g27p0o6dw"]
 
 [ext_resource type="Script" uid="uid://crebagubnx3fr" path="res://scenes/main/main.gd" id="1_8gx17"]
-[ext_resource type="PackedScene" uid="uid://dacqy8pmfnjyf" path="res://scenes/test/combat/test_arena.tscn" id="2_7smn1"]
 [ext_resource type="PackedScene" uid="uid://d0n0kjgpxpjit" path="res://scenes/main/main_menu.tscn" id="2_th5th"]
-[ext_resource type="PackedScene" uid="uid://cmvxjiccoi47m" path="res://scenes/special/combat_tutorial.tscn" id="3_7smn1"]
-[ext_resource type="AudioStream" uid="uid://c1lyskecdqfuk" path="res://assets/sound/bgm/loops/intro.ogg" id="4_blune"]
-[ext_resource type="AudioStream" uid="uid://c275jcn8n3vda" path="res://assets/sound/bgm/loops/encounter.ogg" id="5_hujxm"]
-[ext_resource type="Script" uid="uid://cbmo360qftkaw" path="res://scenes/main/main_bgm.gd" id="6_ouso4"]
-[ext_resource type="AudioStream" uid="uid://dtk8npo8oegj6" path="res://assets/sound/bgm/loops/world_map.ogg" id="7_62atk"]
-[ext_resource type="AudioStream" uid="uid://el4bmf22ek8h" path="res://assets/sound/bgm/loops/combat.ogg" id="7_blune"]
-[ext_resource type="AudioStream" uid="uid://t5y3l37cjhn4" path="res://assets/sound/bgm/loops/in_settlement.ogg" id="9_ouso4"]
-[ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="13_i7in8"]
-[ext_resource type="AudioStream" uid="uid://dth38gyklk2ee" path="res://assets/sound/bgm/victory.ogg" id="14_0bhws"]
-[ext_resource type="Script" uid="uid://c5ydkff6c2nyn" path="res://scenes/main/loading_screen.gd" id="31_ii537"]
-[ext_resource type="Texture2D" uid="uid://drce0fgyc1x5i" path="res://assets/visual/splash/barrel.jpg" id="32_ii537"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="10_a8run"]
 
 [node name="main" type="Node2D" unique_id=1340392074 node_paths=PackedStringArray("main_bgm")]
 script = ExtResource("1_8gx17")
-test_arena_scene = ExtResource("2_7smn1")
-tutorial_scene = ExtResource("3_7smn1")
 main_menu_ui_scene = ExtResource("2_th5th")
-main_bgm = NodePath("main_bgm")
+main_bgm = NodePath("")
 
-[node name="main_bgm" type="AudioStreamPlayer" parent="." unique_id=277956121]
-process_mode = 3
-volume_db = -15.0
-bus = &"music"
-script = ExtResource("6_ouso4")
-intro = ExtResource("4_blune")
-world_map = ExtResource("7_62atk")
-encounter = ExtResource("5_hujxm")
-battle = ExtResource("7_blune")
-victory = ExtResource("14_0bhws")
-defeat = ExtResource("13_i7in8")
-in_settlement = ExtResource("9_ouso4")
+[node name="ui_sfx" parent="." unique_id=2121659425 instance=ExtResource("10_a8run")]
 
 [node name="main_menu" parent="." unique_id=304568004 instance=ExtResource("2_th5th")]
 
-[node name="Button2" parent="main_menu/main_ui/main_view/main_options/MarginContainer/VBoxContainer" index="1"]
+[node name="main_ui" parent="main_menu" index="0" unique_id=2009822615 node_paths=PackedStringArray("ui_sfx")]
+ui_sfx = NodePath("../../ui_sfx")
+
+[node name="Button2" parent="main_menu/main_ui/main_view/main_options/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(304568004, 78103914) index="1" unique_id=951473253]
 text = "New Game"
-
-[node name="global_overlay" type="CanvasLayer" parent="." unique_id=1730949830]
-layer = 5
-
-[node name="loading_overlay" type="Control" parent="global_overlay" unique_id=1847518365 node_paths=PackedStringArray("splash")]
-visible = false
-z_index = 10
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("31_ii537")
-splash = NodePath("TextureRect")
-
-[node name="TextureRect" type="TextureRect" parent="global_overlay/loading_overlay" unique_id=1234550722]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("32_ii537")
-expand_mode = 3
-
-[connection signal="scenario_changed" from="." to="main_bgm" method="_on_main_scenario_changed"]
-[connection signal="substate_changed" from="." to="main_bgm" method="_on_main_substate_changed"]
-[connection signal="finished" from="main_bgm" to="main_bgm" method="_on_finished"]
 
 [editable path="main_menu"]

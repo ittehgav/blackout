@@ -1,0 +1,240 @@
+[gd_scene format=3 uid="uid://cqyd4aj1d1d57"]
+
+[ext_resource type="Script" uid="uid://cjy4eec2ch65i" path="res://scenes/ui/location_menu/recruitment/recruitment_card.gd" id="1_4dx5q"]
+[ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="2_5o3de"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_p40ot"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="3_8plv6"]
+[ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_bsnkq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8plv6"]
+resource_local_to_scene = true
+shader = ExtResource("3_bsnkq")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jlwpe"]
+resource_local_to_scene = true
+shader = ExtResource("3_bsnkq")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4v68"]
+resource_local_to_scene = true
+shader = ExtResource("3_bsnkq")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bnoy"]
+resource_local_to_scene = true
+shader = ExtResource("3_bsnkq")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54kat"]
+resource_local_to_scene = true
+shader = ExtResource("3_bsnkq")
+shader_parameter/base_color = Color(0, 0.505882, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(0, 1, 0, 1)
+shader_parameter/light_color = Color(1, 0, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[node name="recruitment_card" type="Button" unique_id=888303313 node_paths=PackedStringArray("sprite", "hired_overlay", "sprite_anchor", "recruit_name_label", "price_tag", "recruit_max_hp_label", "recruit_attack_label", "recruit_defense_label", "recruit_agility_label", "recruit_technique_label")]
+z_index = 26
+custom_minimum_size = Vector2(420, 150)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -75.0
+offset_right = 200.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4dx5q")
+sprite = NodePath("HBoxContainer/sprite_anchor/Sprite2D")
+hired_overlay = NodePath("hired_overlay")
+sprite_anchor = NodePath("HBoxContainer/sprite_anchor")
+recruit_name_label = NodePath("recruit_name")
+price_tag = NodePath("HBoxContainer/VBoxContainer3/price_tag")
+recruit_max_hp_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/max_hp")
+recruit_attack_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/attack")
+recruit_defense_label = NodePath("HBoxContainer/VBoxContainer2/HBoxContainer/defense")
+recruit_agility_label = NodePath("HBoxContainer/VBoxContainer2/HBoxContainer2/agility")
+recruit_technique_label = NodePath("HBoxContainer/VBoxContainer3/HBoxContainer/technique")
+
+[node name="recruit_name" type="Label" parent="." unique_id=645343985]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 3.0
+offset_right = 263.0
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 48
+text = "Lvl. 69 Arm Guy"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1533956790]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -187.0
+offset_top = -128.0
+offset_right = 187.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="sprite_anchor" type="Control" parent="HBoxContainer" unique_id=238954309]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="HBoxContainer/sprite_anchor" unique_id=750945740]
+scale = Vector2(2, 2)
+texture = ExtResource("2_5o3de")
+offset = Vector2(30, 40)
+hframes = 8
+vframes = 5
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/sprite_anchor" unique_id=548149523]
+root_node = NodePath("../Sprite2D")
+libraries/fighter_base = ExtResource("3_8plv6")
+autoplay = &"fighter_base/idle"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1055214038]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=2096603880]
+layout_mode = 2
+
+[node name="hp_icon" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1969279388 node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
+material = SubResource("ShaderMaterial_8plv6")
+layout_mode = 2
+label = NodePath("../max_hp")
+
+[node name="max_hp" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=621900748]
+layout_mode = 2
+text = "aga"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1557765620]
+layout_mode = 2
+
+[node name="attack_icon" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=78414142 node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
+material = SubResource("ShaderMaterial_jlwpe")
+layout_mode = 2
+stat = "attack"
+label = NodePath("../attack")
+
+[node name="attack" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=388700946]
+layout_mode = 2
+text = "aga"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1208985969]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2" unique_id=122875808]
+layout_mode = 2
+
+[node name="defense_icon" parent="HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=325038083 node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
+material = SubResource("ShaderMaterial_m4v68")
+layout_mode = 2
+stat = "defense"
+label = NodePath("../defense")
+
+[node name="defense" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=2058957296]
+layout_mode = 2
+text = "aga"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2" unique_id=636162961]
+layout_mode = 2
+
+[node name="agility_icon" parent="HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=375287674 node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
+material = SubResource("ShaderMaterial_1bnoy")
+layout_mode = 2
+stat = "agility"
+label = NodePath("../agility")
+
+[node name="agility" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer2" unique_id=1170893462]
+layout_mode = 2
+text = "aga"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer" unique_id=1039278186]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer3" unique_id=591600181]
+layout_mode = 2
+
+[node name="technique_icon" parent="HBoxContainer/VBoxContainer3/HBoxContainer" unique_id=252570474 node_paths=PackedStringArray("label") instance=ExtResource("2_p40ot")]
+material = SubResource("ShaderMaterial_54kat")
+layout_mode = 2
+stat = "technique"
+label = NodePath("../technique")
+
+[node name="technique" type="Label" parent="HBoxContainer/VBoxContainer3/HBoxContainer" unique_id=1155917276]
+layout_mode = 2
+text = "aga"
+
+[node name="price_tag" type="Label" parent="HBoxContainer/VBoxContainer3" unique_id=1317040375]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 48
+
+[node name="hired_overlay" type="ColorRect" parent="." unique_id=1780384450]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.443137)
+
+[node name="Label" type="Label" parent="hired_overlay" unique_id=584540625]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -13.0
+offset_right = 20.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "HIRED"

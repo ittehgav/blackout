@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_bag.png")
 extends Node2D
 
 ## any settlement or party has an inventory
@@ -102,7 +103,7 @@ func change_resource(resource:String, amount:int)->void:
 							## sometimes there won't be enough room?
 							raw_stack.stack_size = raw_stack.capacity;
 							to_add -= raw_stack.capacity;
-							add_item(raw_stack)
+							add_child(raw_stack)
 				i += 1
 	else:
 		money += amount
@@ -110,7 +111,8 @@ func change_resource(resource:String, amount:int)->void:
 	if holder is Player:
 		## call deferred so the values are updated beofre the animation plays
 		Entities.player.resource_changed.emit.call_deferred(resource);
-
+	
+	changed.emit()
 
 
 func add_item(item: Item, emit_change:bool=false) -> void:
@@ -132,9 +134,20 @@ func add_item(item: Item, emit_change:bool=false) -> void:
 	if emit_change:
 		changed.emit()
 
-func send_item(item:Item, target:Inventory)->void:
+func send_item(item:Item, target:Inventory)->bool:
 	remove_item(item);
-	target.add_item(item);
+	if item is ResourceContainer and item.raw_stack:
+		for c:ResourceContainer in target.containers:
+			if c.resource == item.resource:
+				var space_left:int = c.space_left();
+				if space_left >= item.stack_size:
+					c.stack_size += item.stack_size;
+					return false;
+				else:
+					c.stack_size = c.capacity;
+					item.stack_size -= space_left;
+	target.add_child(item);
+	return true
 
 func remove_item(item:Item)->void:
 	## items are only ever removed by de-referencing
@@ -151,9 +164,7 @@ func remove_item(item:Item)->void:
 		weapons.erase(item);
 	elif item is ResourceContainer:
 		containers.erase(item)
-	
-	changed.emit()
-
+	remove_child(item)
 
 
 func clear_containers()->void:
@@ -199,7 +210,7 @@ func store_resources()->void:
 				else:
 					raw_stack.stack_size = raw_stack.capacity;
 					to_store -= raw_stack.capacity;
-				add_item(raw_stack);
+				add_child(raw_stack);
 
 
 func sort_items()->void:
@@ -286,14 +297,13 @@ func _on_child_entered_tree(node: Node) -> void:
 			holder.alternative_weapon,
 			holder.equipped_module,
 			holder.equipped_accessory_1,
-			holder.equipped_accessory_2
-		]:
+			holder.equipped_accessory_2,
+		] or node in holder.roster.equipped_accessories:
 			holder.equipment.append(node)
+
 	
 	if not items.has(node):
-		## ONLY EVER FROM INVENTORIES THAT WERE MADE IN-EDITOR
 		add_item(node);
-	remove_child.call_deferred(node);
 
 func sort_containers(a:ResourceContainer, b:ResourceContainer)->bool:
 	if a.capacity > b.capacity:

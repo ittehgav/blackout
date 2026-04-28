@@ -2,6 +2,7 @@ extends Perk
 
 @export var stat_icon:StatIcon;
 @export var stat_label:Label;
+@onready var player:Player = get_tree().get_first_node_in_group("player")
 
 
 var stat:String
@@ -16,7 +17,7 @@ func _ready()->void:
 	stat_icon.setup();
 	
 	icon = Index.textures.icons[stat];
-	stat_label.text = str(snapped(Entities.player.final_stat(stat), .01))
+	stat_label.text = str(snapped(player.final_stat(stat), .01))
 	
 	gain = Scaling.player_level_stat_gains[stat] * 2;
 	title_color = Index.get_color(stat);
@@ -53,4 +54,4 @@ func animation_callback(display:Control)->void:
 
 
 func apply()->void:
-	Entities.player.modifier_stats[stat] += gain;
+	player.modifier_stats[stat] += gain;

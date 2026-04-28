@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b7f3nouf5oqye"]
+
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_s5ruo"]
+
+[node name="Revitalizing" type="Node" unique_id=1736028412]
+script = ExtResource("1_s5ruo")
+tier = 2
+description = "On use, heal yourself and nearby allies for 30% of your missing HP."
+metadata/_custom_type_script = "uid://dvekatbbdf76k"
