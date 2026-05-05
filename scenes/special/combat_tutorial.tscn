@@ -2361,13 +2361,6 @@ tile_map_data = PackedByteArray("AADH/gQAAAAAAAEAAADH/gUAAAAAAAIAAADI/gQAAAABAAE
 tile_set = SubResource("TileSet_nw1k1")
 
 [connection signal="ready" from="Arena" to="." method="_on_arena_ready"]
-[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]
-[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
-[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/bars/bars" method="ammo_consumed"]
-[connection signal="weapon_changed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
-[connection signal="weapon_used" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="check_weapon_disabled"]
-[connection signal="weapon_used" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_used"]
-[connection signal="timeout" from="Arena/teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
 [connection signal="body_entered" from="Arena/tutorial_elements/tailpipe/tailpipe_area" to="." method="_on_tailpipe_area_body_entered"]
 [connection signal="body_exited" from="Arena/tutorial_elements/tailpipe/tailpipe_area" to="." method="_on_tailpipe_area_body_exited"]
 [connection signal="body_entered" from="Arena/tutorial_elements/slingshot/slingshot_area" to="." method="_on_slingshot_area_body_entered"]

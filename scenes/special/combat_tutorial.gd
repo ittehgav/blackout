@@ -33,13 +33,12 @@ var chosen_weapon:Weapon;
 
 @export var main_hud:Control;
 
-#
-#
-func _input(e:InputEvent)->void:
-	## remove this before delivery please
-	if e.is_action_pressed("use_module"):
-		main_hud.show()
-		arena.finish_battle(true)
+
+#func _input(e:InputEvent)->void:
+	### remove this before delivery please
+	#if e.is_action_pressed("use_module"):
+		#main_hud.show()
+		#arena.finish_battle(true)
 
 
 var to_reenable:Array[ActiveFighter]
