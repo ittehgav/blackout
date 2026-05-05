@@ -13,10 +13,13 @@ func get_description()->String:
 	description += "Increases damage from melee weapons by 20%, if you have two [u]brass knuckles[/u] equipped, the bonus for each is 40%.";
 	return description
 
-func battle_start_apply(_target:ActiveFighter)->void:
+func battle_start_apply(target:ActiveFighter)->void:
 	## runs before weapon control setup right?
-	Entities.player_fighter.equipment.weapon_equipped.connect(check_bonus)
-		
+	await target.equipment.ready;
+	## untested
+	var wc:WeaponControl = target.equipment.weapon_control;
+	check_bonus(wc.weapon);
+	check_bonus(wc.alternative_weapon)
 		
 func check_bonus(target:Weapon)->void:
 	## needs to match the signature of EquipmentControl.weapon_equipped
@@ -32,5 +35,5 @@ func check_bonus(target:Weapon)->void:
 
 		var bonus:float = target.base_damage * bonus_multiplier;
 		
-		current_attack_change = status.apply_on_target(Entities.player_fighter, bonus);
+		target.base_damage += bonus;
 		

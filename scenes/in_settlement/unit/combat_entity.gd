@@ -21,6 +21,7 @@ signal stat_changed(stat:String);
 signal status_removed(status:Status);
 
 enum BodyType {flesh, metal, wood};
+@export var hurtbox:Area2D;
 
 @export var body_type:BodyType;
 
@@ -63,7 +64,23 @@ var moving:bool=false;
 
 func get_sector(angle: float) -> int:
 	## not all units here will be isometric 3D
-	return int(fposmod(angle + PI / 2, TAU) / (PI / 4)) % 8
+	var direction_sector:int = int(fposmod(angle + PI / 2, TAU) / (PI / 4)) % 8;
+	if direction_sector == 0:
+		## facing up
+		## angle ~= -PI/2
+		if angle > -PI/2:
+			direction_sector = 1;
+		else:
+			direction_sector = 7
+	elif direction_sector == 4:
+		## facing down
+		## angle ~= PI/2
+		if angle < PI/2:
+			direction_sector = 3;
+		else:
+			direction_sector = 5
+	return direction_sector;
+	
 
 func die(killer:ActiveFighter)->void:
 	dead = true;

@@ -53,23 +53,26 @@ func load_fighter()->void:
 	refresh_all_stats()
 	hp = max_hp;
 
-func _physics_process(_delta:float)->void:
+func _physics_process(delta:float)->void:
 	if not walking_blocked:
-		get_input()
+		movement_input(delta)
 		move_and_slide()
 		
-func get_input()->void:
+func movement_input(delta:float)->void:
 	var input_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if input_direction:
-		velocity = input_direction * move_speed
 		if not moving:
 			started_moving.emit()
 			moving = true;
 	else:
 		if moving:
-			velocity = Vector2.ZERO
 			stopped_moving.emit()
 			moving = false;
+			
+	var target_velocity:Vector2 = input_direction * move_speed
+	velocity = velocity.lerp(target_velocity, 1.0  - exp(-10 * delta))
+
+
 
 
 func _on_stat_changed(stat: String) -> void:

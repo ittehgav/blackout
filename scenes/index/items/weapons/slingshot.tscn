@@ -9,14 +9,16 @@
 
 [node name="Slingshot" type="Sprite2D" unique_id=1530847075 node_paths=PackedStringArray("projectile", "animation_player", "use_sfx")]
 use_parent_material = true
+position = Vector2(30, 0)
 texture = ExtResource("1_skrhi")
 offset = Vector2(30, -30)
 script = ExtResource("2_i4lfk")
-base_damage = 25
+base_damage = 20
 cooldown = 1.0
 projectile = NodePath("Projectile")
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("use_sfx")
+use_feedback = "camera_recoil"
 color_tag = "scrap"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 

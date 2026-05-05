@@ -1,5 +1,7 @@
 extends FighterBase
 
+const evolution_names = ["Sniper", "Gravity"]
+
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_string:String = Index.colored_text("attack", Scaling.technique_scaled_value(unit.final_stat("attack"), unit.final_stat("technique"), "damage"));
 	var technique_str:String = Index.colored_text("technique", "Technique");

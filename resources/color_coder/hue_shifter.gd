@@ -66,7 +66,7 @@ func apply_color_coding(target:ActiveFighter, team_n:int)->void:
 		coded_texture = ally_texture;
 	else:
 		coded_texture=enemy_texture;
-		
+	
 	target.sprite.texture = coded_texture;
 	
 	

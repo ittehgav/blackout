@@ -86,10 +86,10 @@ func start_trade(target:Inventory, target_name:String)->void:
 	fuel_hourly_cost = upkeep_cost.fuel * 3;
 	
 	food_hourly_cost_label.text = str(food_hourly_cost)
-	food_daily_cost_label.text = str(food_hourly_cost * 24)
+	food_daily_cost_label.text = str(food_hourly_cost * 5)
 	
 	fuel_hourly_cost_label.text = str(fuel_hourly_cost)
-	fuel_daily_cost_label.text = str(fuel_hourly_cost * 24)
+	fuel_daily_cost_label.text = str(fuel_hourly_cost * 5)
 
 	trade_started.emit();
 	slide_in();
@@ -256,8 +256,10 @@ func finish_trade()->void:
 		Entities.player.resource_changed.emit.call_deferred("money")
 	
 	set_reset_state();
-	player_inventory_display.hard_reset()
-	trader_inventory_display.hard_reset()
+	
+	
+	player_inventory_display.open()
+	trader_inventory_display.open()
 	refresh_trade_balance()
 
 func reset_trade() -> void:
@@ -271,9 +273,6 @@ func reset_trade() -> void:
 
 
 	player_inventory_display.sfx.play_sound_by_key("reset");
-
-
-
 
 
 func trade_finished_sfx()->void:
@@ -292,6 +291,8 @@ func _on_exit_pressed() -> void:
 	if not reset_btn.disabled:
 		show_exit_prompt();
 	else:
+		Entities.player.inventory.last_display = null;
+		
 		trade_finished.emit();
 		slide_out()
 
@@ -313,8 +314,8 @@ func _on_24_hour_upkeep_pressed() -> void:
 	var trader_food_total:int = trader_inventory_display.current_resource_amount("food")
 	var trader_fuel_total:int = trader_inventory_display.current_resource_amount("fuel")
 	
-	var food_to_get:int = min(trader_food_total, food_hourly_cost*24)
-	var fuel_to_get:int = min(trader_fuel_total, fuel_hourly_cost*24)
+	var food_to_get:int = min(trader_food_total, food_hourly_cost*5)
+	var fuel_to_get:int = min(trader_fuel_total, fuel_hourly_cost*5)
 	
 	trader_inventory_display.send_resource_by_amount("food", food_to_get)
 	trader_inventory_display.send_resource_by_amount("fuel", fuel_to_get)

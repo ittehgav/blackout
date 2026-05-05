@@ -4,22 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://bt3wcrywsfm4h" path="res://assets/visual/sprites/fighters/units/gravity/gravity.png" id="2_yvl46"]
 [ext_resource type="Script" uid="uid://t2fu6pbkan6i" path="res://scenes/index/fighters/scripts/gravity.gd" id="3_pya1c"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_xi7nn"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_04oj3"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_575tt"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_iq7f6"]
-[ext_resource type="Texture2D" uid="uid://dl4f6ylo8ln2w" path="res://assets/visual/sprites/fighters/units/gravity/gravity_ally.png" id="4_rjwwd"]
-[ext_resource type="Texture2D" uid="uid://cuh08uybpawsi" path="res://assets/visual/sprites/fighters/units/gravity/gravity_enemy.png" id="5_pleri"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_ylbig"]
 [ext_resource type="Texture2D" uid="uid://cios5cxxceefl" path="res://assets/visual/sprites/fighters/units/gravity/blur.png" id="7_1p7r2"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_mg1c5"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_ba4bw"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_pleri"]
 
-[sub_resource type="Resource" id="Resource_575tt"]
-script = ExtResource("4_04oj3")
-target_texture = ExtResource("2_yvl46")
-base_name = "gravity"
-ally_texture = ExtResource("4_rjwwd")
-enemy_texture = ExtResource("5_pleri")
+[sub_resource type="Resource" id="Resource_rjwwd"]
+script = ExtResource("4_575tt")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_73ebg"]
@@ -81,7 +75,7 @@ frame = 1
 script = ExtResource("3_pya1c")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Gravity Pulse")
-hue_shifter = SubResource("Resource_575tt")
+hue_shifter = SubResource("Resource_rjwwd")
 tags = Array[int]([7, 3])
 movement = 1
 hit_scan = NodePath("hit_scan")

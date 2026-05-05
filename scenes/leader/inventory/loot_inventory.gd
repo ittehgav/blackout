@@ -31,6 +31,8 @@ func generate_loot(party_level:int)->void:
 	while current_sum < target_value_sum:
 		var new_item:Item = generate_item(current_rare_count() < rare_count);
 		current_sum += new_item.get_price()
+		if new_item is ResourceContainer:
+			new_item.stack_size = randi_range(1, int(new_item.capacity/2))
 
 func generate_item(force_rare:bool=false)->Item:
 	var new_item:Item;

@@ -20,7 +20,7 @@ var fighter:NpcFighter;
 
 @export var tags:Array[Tag]
 
-@export var evolutions:Array[FighterBase]
+@export var evolutions:Array[FighterBase] = []
 
 
 enum Tag {

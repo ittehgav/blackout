@@ -59,7 +59,7 @@ offset_top = 13.0
 offset_right = 445.0
 offset_bottom = 39.0
 theme_override_font_sizes/font_size = 32
-text = "Press [tab] or [right-click] to return"
+text = "[right-click] to return"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=283631336]
 layout_mode = 1

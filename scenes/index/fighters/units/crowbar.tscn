@@ -4,22 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://ckiw6avol7akq" path="res://assets/visual/sprites/fighters/units/crowbar/crowbar.png" id="2_hvweh"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_xan8i"]
 [ext_resource type="Script" uid="uid://cvv3cdqvtpsyk" path="res://scenes/index/fighters/scripts/crowbar.gd" id="3_y4yls"]
-[ext_resource type="Texture2D" uid="uid://b0iqsmfewqx4q" path="res://assets/visual/sprites/fighters/units/crowbar/crowbar_ally.png" id="4_1xb1c"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_eto5e"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_r4p40"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_t43eb"]
-[ext_resource type="Texture2D" uid="uid://ccoofluhcf544" path="res://assets/visual/sprites/fighters/units/crowbar/crowbar_enemy.png" id="5_khmx1"]
 [ext_resource type="Texture2D" uid="uid://bxd6dg7cb41uh" path="res://assets/visual/sprites/fighters/units/crowbar/blur.png" id="6_40ajn"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_uj4h2"]
 [ext_resource type="PackedScene" uid="uid://dp4tm4fats44n" path="res://scenes/index/vfx/overhead.tscn" id="8_hvweh"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_d4cht"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_khmx1"]
 
-[sub_resource type="Resource" id="Resource_r4p40"]
-script = ExtResource("4_eto5e")
-target_texture = ExtResource("2_hvweh")
-base_name = "crowbar"
-ally_texture = ExtResource("4_1xb1c")
-enemy_texture = ExtResource("5_khmx1")
+[sub_resource type="Resource" id="Resource_1xb1c"]
+script = ExtResource("4_r4p40")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_y4yls"]
@@ -125,7 +119,7 @@ vframes = 5
 script = ExtResource("3_y4yls")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Crowbar Swing")
-hue_shifter = SubResource("Resource_r4p40")
+hue_shifter = SubResource("Resource_1xb1c")
 tags = Array[int]([3, 1])
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")

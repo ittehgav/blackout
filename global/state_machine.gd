@@ -91,7 +91,7 @@ func set_scenario(target:Scenario)->void:
 					## where this will fork into other places to get enemy parties from
 					## when those are added
 					await Splash.show_loading_screen().finished;
-					Entities.main.remove_child(Entities.world_map);
+					Entities.main.remove_child.call_deferred(Entities.world_map);
 					var dungeon:Dungeon = Entities.current_dungeon
 
 					var arena:Arena = Index.scenes.arena.instantiate();
@@ -124,7 +124,15 @@ func set_scenario(target:Scenario)->void:
 			Entities.arena = arena;
 
 			Entities.main.add_child(arena.get_parent());
+		Scenario.main:
+			## make a cleaner full cleanup routine?
+			match previous:
+				Scenario.battle:
+					Entities.arena.queue_free();
+				Scenario.world_map:
+					Entities.world_map.queue_free()
 
+			Entities.main.return_to_main_menu()
 	revert_substate();
 	scenario_changed.emit(current_scenario, previous)
 

@@ -9,15 +9,20 @@
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="4_r614c"]
 [ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="4_uki8n"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_wgbql"]
+[ext_resource type="Script" uid="uid://yn55dca3qplf" path="res://scenes/ui/sound/sfx_player.gd" id="5_3hyth"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="7_do72l"]
+[ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="7_glk5u"]
 [ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="8_do72l"]
 [ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="9_y05uc"]
+[ext_resource type="PackedScene" uid="uid://bvqlr4av33k48" path="res://scenes/ui/player_sheet/morale_display.tscn" id="13_glk5u"]
 [ext_resource type="Script" uid="uid://dhxmswt5kblwd" path="res://scenes/battle/ui/post_fight/loot_panel.gd" id="13_uydno"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="14_dh2mc"]
 [ext_resource type="Script" uid="uid://ftwv5dxqst16" path="res://scenes/battle/ui/post_fight/defeat_sequence.gd" id="15_dh2mc"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="15_whl4c"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="16_c3ns4"]
 [ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="17_whl4c"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="18_7r0vy"]
+[ext_resource type="Texture2D" uid="uid://cls8arw0ftbvy" path="res://assets/visual/icons/morale/low.png" id="20_7r0vy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nsm0m"]
 resource_local_to_scene = true
@@ -37,7 +42,7 @@ resource_local_to_scene = true
 shader = ExtResource("4_wgbql")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.48000002, 0.49, 0.6, 1)
+shader_parameter/color = Color(0.61200005, 0.85, 0.69530004, 1)
 shader_parameter/width = 1.0000000475
 shader_parameter/pattern = 0
 shader_parameter/inside = false
@@ -70,7 +75,7 @@ _data = {
 &"idle": SubResource("Animation_am2jd")
 }
 
-[node name="PostFight" type="Control" unique_id=1253284874 node_paths=PackedStringArray("bgm", "victory_sequence", "defeat_sequence", "player_exp_bar", "ui_sfx")]
+[node name="PostFight" type="Control" unique_id=1253284874 node_paths=PackedStringArray("sfx", "bgm", "victory_sequence", "defeat_sequence", "player_exp_bar", "ui_sfx")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -79,7 +84,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0aoyq")
+sfx = NodePath("SfxPlayer")
 bgm = NodePath("bgm")
+money_gain_sfx = ExtResource("7_glk5u")
 victory_song = ExtResource("2_am2jd")
 defeat_song = ExtResource("3_r614c")
 victory_sequence = NodePath("victory_sequence")
@@ -90,9 +97,13 @@ ui_sfx = NodePath("ui_sfx")
 [node name="ui_sfx" parent="." unique_id=1468079998 instance=ExtResource("4_r614c")]
 
 [node name="bgm" type="AudioStreamPlayer" parent="." unique_id=1516428419]
+volume_db = -5.0
 
-[node name="victory_sequence" type="Control" parent="." unique_id=593787503 node_paths=PackedStringArray("post_fight", "player_exp_bar", "player_level_label", "party_power_label", "party_power_gain_label", "party_leveled_up", "party_level_up_counter", "continue_btn", "loot_panel")]
-visible = false
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=718585677]
+script = ExtResource("5_3hyth")
+metadata/_custom_type_script = "uid://yn55dca3qplf"
+
+[node name="victory_sequence" type="Control" parent="." unique_id=593787503 node_paths=PackedStringArray("post_fight", "player_exp_bar", "player_level_label", "party_power_label", "party_power_gain_label", "party_leveled_up", "party_level_up_counter", "morale_icon", "continue_btn", "loot_panel")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,6 +118,7 @@ party_power_label = NodePath("exp_gain/VBoxContainer/party_power/current_party_p
 party_power_gain_label = NodePath("exp_gain/VBoxContainer/party_power/added_party_power")
 party_leveled_up = NodePath("exp_gain/VBoxContainer/party_levels")
 party_level_up_counter = NodePath("exp_gain/VBoxContainer/party_levels/Label3")
+morale_icon = NodePath("exp_gain/VBoxContainer/player_levels/VBoxContainer/morale_display/MoraleIcon")
 continue_btn = NodePath("exp_gain/continue")
 loot_panel = NodePath("loot_panel")
 
@@ -146,8 +158,8 @@ size_flags_vertical = 0
 
 [node name="player_body" type="Sprite2D" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/player_sprite" unique_id=750694746]
 material = SubResource("ShaderMaterial_y05uc")
-position = Vector2(62, 82)
-scale = Vector2(2, 2)
+position = Vector2(62, 101)
+scale = Vector2(3, 3)
 texture = ExtResource("3_7eru0")
 hframes = 8
 vframes = 9
@@ -167,9 +179,16 @@ text = "Level: 32"
 
 [node name="exp_bar" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer" unique_id=560217631 instance=ExtResource("7_do72l")]
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 4
 step = 0.5
 from_player = true
+
+[node name="morale_display" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer" unique_id=55843812 instance=ExtResource("13_glk5u")]
+layout_mode = 2
+
+[node name="MoraleIcon" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer/morale_display" index="0"]
+auto_update = false
 
 [node name="party_power" type="HBoxContainer" parent="victory_sequence/exp_gain/VBoxContainer" unique_id=1710208515]
 layout_mode = 2
@@ -202,14 +221,13 @@ theme_override_font_sizes/font_size = 64
 text = "2122"
 
 [node name="continue" type="Button" parent="victory_sequence/exp_gain" unique_id=2104865482]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "Continue"
 
-[node name="loot_panel" type="Panel" parent="victory_sequence" unique_id=147266583 node_paths=PackedStringArray("player_inventory_display", "enemy_inventory_display", "take_loot_btn", "continue_btn")]
+[node name="loot_panel" type="Panel" parent="victory_sequence" unique_id=147266583 node_paths=PackedStringArray("player_inventory_display", "enemy_inventory_display", "take_loot_btn", "continue_btn", "looted_money_label", "player_resources")]
 custom_minimum_size = Vector2(1000, 600)
 layout_mode = 1
 anchors_preset = 8
@@ -228,6 +246,8 @@ player_inventory_display = NodePath("player_inventory")
 enemy_inventory_display = NodePath("enemy_inventory")
 take_loot_btn = NodePath("VBoxContainer/take_loot")
 continue_btn = NodePath("finish_post_fight")
+looted_money_label = NodePath("VBoxContainer/HBoxContainer/looted_money")
+player_resources = NodePath("player_inventory/resources_dropdown")
 
 [node name="Label" type="Label" parent="victory_sequence/loot_panel" unique_id=1799319404]
 layout_mode = 0
@@ -316,9 +336,24 @@ resource_icons = {
 [node name="VBoxContainer" type="VBoxContainer" parent="victory_sequence/loot_panel" unique_id=617565345]
 layout_mode = 0
 offset_left = 557.0
-offset_top = 132.0
-offset_right = 597.0
-offset_bottom = 172.0
+offset_top = 221.0
+offset_right = 773.0
+offset_bottom = 332.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="victory_sequence/loot_panel/VBoxContainer" unique_id=2112095151]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="resource_icon" parent="victory_sequence/loot_panel/VBoxContainer/HBoxContainer" unique_id=2127627087 node_paths=PackedStringArray("label") instance=ExtResource("15_whl4c")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+resource = "money"
+match_player_inventory = false
+label = NodePath("../looted_money")
+
+[node name="looted_money" type="Label" parent="victory_sequence/loot_panel/VBoxContainer/HBoxContainer" unique_id=644987782]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
 
 [node name="take_loot" type="Button" parent="victory_sequence/loot_panel/VBoxContainer" unique_id=1644811856]
 layout_mode = 2
@@ -342,7 +377,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 48
 text = "Continue"
 
-[node name="defeat_sequence" type="Control" parent="." unique_id=150164074 node_paths=PackedStringArray("morale_icon")]
+[node name="defeat_sequence" type="Control" parent="." unique_id=150164074 node_paths=PackedStringArray("morale_icon", "defeat_view", "game_over_view")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -351,9 +386,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_dh2mc")
-morale_icon = NodePath("PanelContainer/MarginContainer/HBoxContainer/MoraleIcon")
+morale_icon = NodePath("defeat/MarginContainer/HBoxContainer/MoraleIcon")
+defeat_view = NodePath("defeat")
+game_over_view = NodePath("game_over")
 
-[node name="PanelContainer" type="PanelContainer" parent="defeat_sequence" unique_id=343694042]
+[node name="defeat" type="PanelContainer" parent="defeat_sequence" unique_id=343694042]
+visible = false
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 1
 anchors_preset = 8
@@ -368,32 +406,32 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="defeat_sequence/PanelContainer" unique_id=1710435727]
+[node name="MarginContainer" type="MarginContainer" parent="defeat_sequence/defeat" unique_id=1710435727]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="defeat_sequence/PanelContainer/MarginContainer" unique_id=1785323096]
+[node name="Label" type="Label" parent="defeat_sequence/defeat/MarginContainer" unique_id=1785323096]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 128
 text = "DEFEAT"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="defeat_sequence/PanelContainer/MarginContainer" unique_id=1187288503]
+[node name="HBoxContainer" type="HBoxContainer" parent="defeat_sequence/defeat/MarginContainer" unique_id=1187288503]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MoraleIcon" parent="defeat_sequence/PanelContainer/MarginContainer/HBoxContainer" unique_id=3574124 instance=ExtResource("16_c3ns4")]
+[node name="MoraleIcon" parent="defeat_sequence/defeat/MarginContainer/HBoxContainer" unique_id=3574124 instance=ExtResource("16_c3ns4")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 auto_update = false
 
-[node name="ProgressBar" type="TextureProgressBar" parent="defeat_sequence/PanelContainer/MarginContainer/HBoxContainer" unique_id=491573684]
+[node name="ProgressBar" type="TextureProgressBar" parent="defeat_sequence/defeat/MarginContainer/HBoxContainer" unique_id=491573684]
 custom_minimum_size = Vector2(192, 36)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -405,7 +443,7 @@ nine_patch_stretch = true
 texture_under = ExtResource("17_whl4c")
 texture_progress = ExtResource("18_7r0vy")
 
-[node name="finish_post_fight" type="Button" parent="defeat_sequence/PanelContainer/MarginContainer" unique_id=1068013173]
+[node name="finish_post_fight" type="Button" parent="defeat_sequence/defeat/MarginContainer" unique_id=1068013173]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -413,13 +451,72 @@ theme_override_font_sizes/font_size = 64
 text = "Continue
 "
 
+[node name="game_over" type="PanelContainer" parent="defeat_sequence" unique_id=1743190928]
+visible = false
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="defeat_sequence/game_over" unique_id=1128391187]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="defeat_sequence/game_over/MarginContainer" unique_id=994443229]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 128
+text = "GAME OVER"
+
+[node name="return_to_main_menu" type="Button" parent="defeat_sequence/game_over/MarginContainer" unique_id=765203138]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "Return to 
+Main Menu"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="defeat_sequence/game_over/MarginContainer" unique_id=1726462900]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="RichTextLabel" parent="defeat_sequence/game_over/MarginContainer/VBoxContainer" unique_id=1541108469]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "Your party has lost all [color=green]morale[/color] and has disbadned."
+fit_content = true
+
+[node name="MoraleIcon" type="TextureRect" parent="defeat_sequence/game_over/MarginContainer/VBoxContainer" unique_id=1750478250]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("20_7r0vy")
+
 [connection signal="level_up" from="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer/exp_bar" to="victory_sequence" method="refresh_player_level_label"]
 [connection signal="pressed" from="victory_sequence/exp_gain/continue" to="victory_sequence" method="_on_continue_pressed"]
 [connection signal="item_dropped" from="victory_sequence/loot_panel/player_inventory" to="victory_sequence/loot_panel" method="check_available_loot"]
 [connection signal="item_dropped" from="victory_sequence/loot_panel/enemy_inventory" to="victory_sequence/loot_panel" method="check_available_loot"]
 [connection signal="pressed" from="victory_sequence/loot_panel/VBoxContainer/take_loot" to="victory_sequence/loot_panel" method="_on_take_loot_pressed"]
 [connection signal="pressed" from="victory_sequence/loot_panel/finish_post_fight" to="." method="_on_finish_post_fight_pressed"]
-[connection signal="pressed" from="defeat_sequence/PanelContainer/MarginContainer/finish_post_fight" to="." method="_on_finish_post_fight_pressed"]
+[connection signal="pressed" from="defeat_sequence/defeat/MarginContainer/finish_post_fight" to="." method="_on_finish_post_fight_pressed"]
+[connection signal="pressed" from="defeat_sequence/game_over/MarginContainer/return_to_main_menu" to="defeat_sequence" method="_on_return_to_main_menu_pressed"]
 
+[editable path="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer/morale_display"]
 [editable path="victory_sequence/loot_panel/player_inventory"]
 [editable path="victory_sequence/loot_panel/enemy_inventory"]

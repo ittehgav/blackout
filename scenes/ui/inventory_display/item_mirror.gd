@@ -178,18 +178,25 @@ func empty_storage()->void:
 		to_throw.append(mirror);
 		
 	for mirror:ItemMirror in to_throw:
+		display.throw_mirror(mirror);
 		moved += mirror.stack_size
-		var cell:Vector2i = display.find_clear_cell(mirror.item)
-		if cell != Vector2i(-1, -1):
-			mirror.set_inventory_position(cell)
-			mirror.refresh()
-			display.inventory.add_child(mirror.item);
-			mirror.item.match_mirror()
-		else:
+		if mirror.inventory_position == Vector2i(-1, -1):
 			change_stack_size(mirror.stack_size)
 			moved -= mirror.stack_size
 			display.remove_mirror(mirror, true)
-	
+		else:
+			display.inventory.add_child(mirror.item)
+			display.add_mirror(mirror)
+			mirror.refresh()
+
+		#var cell:Vector2i = display.find_clear_cell(mirror.item)
+		#if cell != Vector2i(-1, -1):
+			#mirror.set_inventory_position(cell)
+			#mirror.refresh()
+			#display.inventory.add_child(mirror.item);
+			#mirror.item.match_mirror()
+
+			
 	highlight_stack_label()
 	display.item_dropped.emit(self)
 	

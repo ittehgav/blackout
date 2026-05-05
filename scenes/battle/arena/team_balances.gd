@@ -57,11 +57,13 @@ func fade_out_icon(icon:TextureRect)->void:
 
 
 func _on_team_1_fighter_died(fighter: ActiveFighter) -> void:
+	if fighter.summon:return
 	fade_out_icon(team_1_icon_owners[fighter])
 	team_1_icon_owners.erase(fighter)
 
 
 
 func _on_team_2_fighter_died(fighter: ActiveFighter) -> void:
+	if fighter.summon:return
 	fade_out_icon(team_2_icon_owners[fighter])
 	team_2_icon_owners.erase(fighter)

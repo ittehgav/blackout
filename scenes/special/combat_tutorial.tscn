@@ -33,12 +33,12 @@ resource_local_to_scene = true
 shader = ExtResource("3_hrh4y")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.099999994, 0.099999994, 0.5, 0.39215687)
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
 shader_parameter/width = 1.0000000475
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(3, 3)
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rrc26"]
 resource_local_to_scene = true
@@ -245,9 +245,9 @@ resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0, 0.2, 0.04666667, 1)
+shader_parameter/color = Color(0, 0.3, 0.07000001, 1)
 shader_parameter/width = 1.0
-shader_parameter/pattern = 0
+shader_parameter/pattern = 1
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
@@ -1139,6 +1139,7 @@ main_hud = NodePath("Arena/ui_canvas/hud")
 equipped_weapon = NodePath("Inventory/Tailpipe")
 alternative_weapon = NodePath("Inventory/Slingshot")
 equipped_module = NodePath("Inventory/Dodge Roll")
+morale = 2.0
 experience = 1
 
 [node name="FighterUnit" parent="Player/Roster" parent_id_path=PackedInt32Array(900407328, 625375393) index="0" unique_id=2073853245 instance=ExtResource("3_xwckw")]
@@ -1153,7 +1154,7 @@ level = 2
 [node name="Puncher" parent="Player/Roster/FighterUnit2" unique_id=44660637 instance=ExtResource("12_cy0vp")]
 material = SubResource("ShaderMaterial_rrc26")
 
-[node name="Inventory" parent="Player" index="1" unique_id=1819646003]
+[node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 200
 
 [node name="Tailpipe" parent="Player/Inventory" index="0" unique_id=870722934 instance=ExtResource("3_myqxe")]
@@ -1175,8 +1176,9 @@ stack_size = 6
 [node name="Fuel Tank" parent="Player/Inventory" index="6" unique_id=1957387314 instance=ExtResource("13_rrc26")]
 stack_size = 6
 
-[node name="base_stats" parent="Player" index="2" unique_id=1645727257]
-max_hp = 100.0
+[node name="base_stats" parent="Player" index="3" unique_id=1645727257]
+max_hp = 300.0
+move_speed = 500.0
 
 [node name="Arena" parent="." unique_id=896888135 instance=ExtResource("1_047mw")]
 
@@ -1691,6 +1693,7 @@ offset_left = 851.0
 offset_top = 78.0
 offset_right = 1151.0
 offset_bottom = 146.0
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Arena/ui_canvas/tutorial_hud/walking/HBoxContainer" unique_id=153308976]
 layout_mode = 2
@@ -1870,6 +1873,7 @@ visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Arena/ui_canvas/tutorial_hud/choose_a_weapon" unique_id=927605442]
 layout_mode = 0
@@ -1890,6 +1894,7 @@ visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Label" type="RichTextLabel" parent="Arena/ui_canvas/tutorial_hud/attack_instruction" unique_id=1938111601]
 layout_mode = 0
@@ -1897,6 +1902,7 @@ offset_left = 553.0
 offset_top = 50.0
 offset_right = 1106.0
 offset_bottom = 101.0
+mouse_filter = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 0
 theme_override_constants/shadow_offset_x = 3
@@ -1910,6 +1916,7 @@ visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Arena/ui_canvas/tutorial_hud/destroy_obstables" unique_id=11977927]
 layout_mode = 0
@@ -1930,6 +1937,7 @@ visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Label" type="RichTextLabel" parent="Arena/ui_canvas/tutorial_hud/module_instruction" unique_id=794384816]
 layout_mode = 0
@@ -1937,6 +1945,7 @@ offset_left = 553.0
 offset_top = 50.0
 offset_right = 1106.0
 offset_bottom = 164.0
+mouse_filter = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 0
 theme_override_constants/shadow_offset_x = 3
@@ -1950,6 +1959,7 @@ visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Label2" type="RichTextLabel" parent="Arena/ui_canvas/tutorial_hud/jump_over_obstables" unique_id=259696129]
 layout_mode = 0
@@ -1957,6 +1967,7 @@ offset_left = 553.0
 offset_top = 50.0
 offset_right = 1106.0
 offset_bottom = 164.0
+mouse_filter = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 0
 theme_override_constants/shadow_offset_x = 3
@@ -1970,6 +1981,7 @@ visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="Label2" type="RichTextLabel" parent="Arena/ui_canvas/tutorial_hud/defeat_all_enemies" unique_id=2142391266]
 layout_mode = 0
@@ -1977,6 +1989,7 @@ offset_left = 760.0
 offset_top = 112.0
 offset_right = 1313.0
 offset_bottom = 226.0
+mouse_filter = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 0
 theme_override_constants/shadow_offset_x = 3
@@ -2084,12 +2097,14 @@ offset_left = -57.0
 offset_top = -92.0
 offset_right = 129.0
 offset_bottom = -37.0
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="Arena/tutorial_elements/tailpipe/equip_tailpipe" unique_id=1876869000]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 color = Color(0.78, 0.78, 0.78, 1)
 
 [node name="Label" type="Label" parent="Arena/tutorial_elements/tailpipe/equip_tailpipe/ColorRect" unique_id=14452113]
@@ -2115,6 +2130,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 border_color = Color(0.12, 0.12, 0.12, 1)
 border_width = 2.0
 editor_only = false
@@ -2122,6 +2138,7 @@ editor_only = false
 [node name="Label" type="RichTextLabel" parent="Arena/tutorial_elements/tailpipe/equip_tailpipe" unique_id=384483277]
 custom_minimum_size = Vector2(150.22, 55.515)
 layout_mode = 2
+mouse_filter = 2
 bbcode_enabled = true
 text = "Equip
 [color=white]Tailpipe"
@@ -2150,12 +2167,14 @@ offset_left = -51.0
 offset_top = -92.0
 offset_right = 135.0
 offset_bottom = -37.0
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="Arena/tutorial_elements/slingshot/equip_slingshot" unique_id=291598767]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 color = Color(0.78, 0.78, 0.78, 1)
 
 [node name="Label" type="Label" parent="Arena/tutorial_elements/slingshot/equip_slingshot/ColorRect" unique_id=2012088939]
@@ -2181,6 +2200,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 border_color = Color(0.12, 0.12, 0.12, 1)
 border_width = 2.0
 editor_only = false
@@ -2188,6 +2208,7 @@ editor_only = false
 [node name="Label" type="RichTextLabel" parent="Arena/tutorial_elements/slingshot/equip_slingshot" unique_id=179159696]
 custom_minimum_size = Vector2(150.22, 55.515)
 layout_mode = 2
+mouse_filter = 2
 bbcode_enabled = true
 text = "Equip
 [color=white]Slingshot"
@@ -2367,7 +2388,6 @@ tile_set = SubResource("TileSet_nw1k1")
 [editable path="Arena"]
 [editable path="Arena/Tutorial Backdrop"]
 [editable path="Arena/teams/team_1/player_fighter"]
-[editable path="Arena/teams/team_1/player_fighter/body"]
 [editable path="Arena/teams/team_2/prop"]
 [editable path="Arena/teams/team_2/prop2"]
 [editable path="Arena/teams/team_2/prop3"]

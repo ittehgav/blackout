@@ -3,10 +3,13 @@ extends Node2D
 
 class_name FighterIndex
 
+
+
 @export var refresh_index:bool:
 	set(val):
 		refresh_index = false;
 		refresh_fighter_bases()
+		
 
 ## fighter bases are only stored as index references outside of combat
 @export var unit_bases_dir:String;
@@ -23,9 +26,10 @@ func refresh_fighter_bases()->void:
 	all_unit_base_scenes = {}
 	for c in get_children():
 		if c is FighterBase:
+			c.name = "a"
 			c.queue_free();
-	
-	
+
+
 	for dir:String in [unit_bases_dir, monster_bases_dir]:
 		var access:DirAccess = DirAccess.open(dir);
 		for filename:String in access.get_files():
@@ -34,12 +38,28 @@ func refresh_fighter_bases()->void:
 			
 			var base:FighterBase = base_scene.instantiate();
 			base.name = true_name;
-		
 
 			add_child(base);
 
 			base.owner = root
 			all_unit_bases[true_name] = base;
 			all_unit_base_scenes[true_name] = base_scene;
-			
+	
+	for key:String in all_unit_bases.keys():
+		var base:FighterBase = all_unit_bases[key];
+		if base.hue_shifter:
+			base.hue_shifter.target_texture = base.texture;
+			base.hue_shifter.base_name = base.name.to_snake_case();
+			base.hue_shifter.generate_color_coded_sprites();
+
+		if "evolution_names" in base:
+			var evolutions:Array[FighterBase]
+			for ev_name:String in base.evolution_names:
+				evolutions.append(all_unit_bases[ev_name]);
+			base.evolutions = evolutions;
+	
+	
+	
+
+	
 		

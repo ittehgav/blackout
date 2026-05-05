@@ -11,6 +11,8 @@ extends Control
 @export var party_leveled_up:HBoxContainer;
 @export var party_level_up_counter:Label;
 
+@export var morale_icon:MoraleIcon
+
 @export var continue_btn:Button;
 
 @export var loot_panel:Panel;
@@ -24,6 +26,10 @@ func start_sequence()->void:
 	var exp_gain:int = post_fight.enemy_roster.get_exp_bounty();
 	var player:Player = post_fight.player;
 	
+	player.morale += 1;
+	morale_icon.animated_update()
+	
+	
 	var party_power_before:int = player.get_party_level()
 	party_power_label.text = str(party_power_before)
 
@@ -32,7 +38,7 @@ func start_sequence()->void:
 	if party_levels_gained:
 		gained_power = true
 		party_leveled_up.show()
-		party_level_up_counter.text = "LVL+"+str(party_levels_gained);
+		party_level_up_counter.text = "Party LVL +"+str(party_levels_gained);
 	
 	var party_power_after:int = player.get_party_level();
 	

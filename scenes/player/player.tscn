@@ -17,6 +17,8 @@ modifier_stats = NodePath("modifier_stats")
 stat_multipliers = NodePath("multiplier_stats")
 sight_range = 256
 
+[node name="run_tracker" type="Node" parent="." unique_id=1374388424]
+
 [node name="Roster" parent="." unique_id=625375393 instance=ExtResource("3_5khbq")]
 
 [node name="Inventory" parent="." unique_id=1819646003 node_paths=PackedStringArray("holder") instance=ExtResource("2_w3kr7")]
@@ -27,6 +29,7 @@ max_hp = 500.0
 attack = 5.0
 defense = 5.0
 agility = 5.0
+technique = 1.0
 
 [node name="modifier_stats" parent="." unique_id=342441589 instance=ExtResource("4_4udko")]
 move_speed = 0.0

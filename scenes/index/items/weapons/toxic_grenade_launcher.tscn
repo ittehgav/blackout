@@ -59,13 +59,15 @@ cooldown = 1.0
 projectile = NodePath("Projectile")
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("use_sfx")
-status = NodePath("Status")
+use_feedback = "camera_recoil"
+hit_feedback = "screen_shake"
+status = NodePath("Erosion")
 ammo_type = "juice"
 ammo_cost = 1
 color_tag = "juice"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
-[node name="Status" type="Node" parent="." unique_id=918691564]
+[node name="Erosion" type="Node" parent="." unique_id=918691564]
 script = ExtResource("3_6ni2h")
 type = "stat_change"
 value = -5.0

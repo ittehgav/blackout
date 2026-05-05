@@ -42,7 +42,6 @@ var alt_weapon:Weapon;
 
 
 func _process(_delta:float)->void:
-	
 	look_at(get_global_mouse_position())
 	## some weapons may not rotate with the cursor
 

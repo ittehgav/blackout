@@ -4,9 +4,7 @@
 [ext_resource type="Script" uid="uid://ctnukmol1go71" path="res://scenes/index/fighters/scripts/puncher.gd" id="2_82vyf"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_eyj5g"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_5dn4v"]
-[ext_resource type="Texture2D" uid="uid://cs3p1dhhf3q4p" path="res://assets/visual/sprites/fighters/units/puncher/puncher_ally.png" id="4_nhga5"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_xcn2u"]
-[ext_resource type="Texture2D" uid="uid://c4hn68x16qss7" path="res://assets/visual/sprites/fighters/units/puncher/puncher_enemy.png" id="5_kfhh7"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_x38hv"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_v5y7v"]
 [ext_resource type="Texture2D" uid="uid://chyks7ufp34c0" path="res://assets/visual/sprites/fighters/units/puncher/blur.png" id="7_uj6mk"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_gqyy0"]
@@ -15,12 +13,8 @@
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_xcn2u"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_kfhh7"]
 
-[sub_resource type="Resource" id="Resource_xcn2u"]
-script = ExtResource("4_xcn2u")
-target_texture = ExtResource("10_ocbov")
-base_name = "puncher"
-ally_texture = ExtResource("4_nhga5")
-enemy_texture = ExtResource("5_kfhh7")
+[sub_resource type="Resource" id="Resource_nhga5"]
+script = ExtResource("4_x38hv")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_6lg74"]
@@ -79,7 +73,7 @@ frame = 1
 script = ExtResource("2_82vyf")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("One Punch")
-hue_shifter = SubResource("Resource_xcn2u")
+hue_shifter = SubResource("Resource_nhga5")
 tags = Array[int]([0, 1])
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")

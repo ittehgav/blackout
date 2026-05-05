@@ -8,7 +8,6 @@ signal entered_location(location:Location);
 signal left_location;
 
 
-
 signal resource_changed(resource:String);
 signal morale_changed;
 signal party_changed;
@@ -34,7 +33,7 @@ var equipment:Array[Equipment]
 @export var equipped_accessory_1:Accessory;
 @export var equipped_accessory_2:Accessory;
 
-var morale:float=3.7;
+@export var morale:float=3.7;
 
 func _ready()->void:
 	## TODO remove this once the new world map scene loads from proper context
@@ -54,7 +53,7 @@ func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
 	equipment.erase(equipped_weapon)
 	equipped_weapon = weapon;
-	weapon.inventory_position = Vector2(-1, -1);
+	weapon.inventory_position = InventoryDisplay.ITEM_UNPLACED;
 	
 	equipment.append(equipped_weapon)
 	equipment_changed.emit(weapon);
@@ -63,7 +62,7 @@ func equip_alt_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
 	equipment.erase(alternative_weapon)
 	alternative_weapon = weapon;
-	weapon.inventory_position = Vector2(-1, -1);
+	weapon.inventory_position = InventoryDisplay.ITEM_UNPLACED;
 	
 	equipment.append(alternative_weapon)
 	equipment_changed.emit(weapon);
@@ -72,7 +71,7 @@ func equip_module(module:Module)->void:
 	assert(module in inventory.modules);
 	equipment.erase(equipped_module)
 	equipped_module = module;
-	module.inventory_position = Vector2(-1, -1);
+	module.inventory_position = InventoryDisplay.ITEM_UNPLACED
 	
 	equipment.append(equipped_module)
 	equipment_changed.emit(module);

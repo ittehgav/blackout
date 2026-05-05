@@ -46,7 +46,7 @@ var item_texture:Texture = texture;
 ## than adding an extra layer of setting up the weapon into play
 
 @export_enum("camera_lunge", "camera_recoil", "none") var use_feedback:String = "camera_lunge"
-@export_enum("freeze_frame") var hit_feedback:String = "freeze_frame";
+@export_enum("freeze_frame", "screen_shake") var hit_feedback:String = "freeze_frame";
 
 
 func use(_alt:bool=false)->void:

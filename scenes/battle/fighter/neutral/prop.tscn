@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://b8ccfl5g8u0fi" path="res://scenes/battle/fighter/neutral/breakable_prop.gd" id="1_476bl"]
 [ext_resource type="Script" uid="uid://vp6mjhqjonac" path="res://scenes/battle/fighter/npc_fighter/hurtbox.gd" id="3_fip8r"]
 
-[node name="prop" type="CharacterBody2D" unique_id=914816489 node_paths=PackedStringArray("statuses")]
+[node name="prop" type="CharacterBody2D" unique_id=914816489 node_paths=PackedStringArray("hurtbox", "statuses")]
 collision_layer = 256
 collision_mask = 256
 script = ExtResource("1_476bl")
+hurtbox = NodePath("hurtbox")
 body_type = 2
 statuses = NodePath("statuses")
 metadata/_custom_type_script = "uid://b8ccfl5g8u0fi"

@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/allegiance_shifter.tscn" id="20_5njw2"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="22_5t08s"]
 [ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="23_v2dkt"]
+[ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="24_fc2qq"]
 
 [sub_resource type="Shader" id="Shader_1ut33"]
 code = "shader_type canvas_item;
@@ -344,8 +345,9 @@ countdown_second = 1
 
 [node name="Roadside" parent="Arena" unique_id=2113447058 instance=ExtResource("2_wyu46")]
 
-[node name="Player" parent="." unique_id=573407477 node_paths=PackedStringArray("equipped_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_xhi4m")]
+[node name="Player" parent="." unique_id=573407477 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_xhi4m")]
 equipped_weapon = NodePath("Inventory/Tailpipe")
+alternative_weapon = NodePath("Inventory/Toxic Grenade Launcher")
 equipped_module = NodePath("Inventory/Dodge Roll")
 level = 30
 
@@ -373,6 +375,17 @@ projections = []
 [node name="Dodge Roll" parent="Player/Inventory" parent_id_path=PackedInt32Array(573407477, 1819646003) index="10" unique_id=702678213 instance=ExtResource("22_5t08s")]
 
 [node name="The Consumer" parent="Player/Inventory" parent_id_path=PackedInt32Array(573407477, 1819646003) index="11" unique_id=2097960121 instance=ExtResource("23_v2dkt")]
+
+[node name="Juice Tank" parent="Player/Inventory" parent_id_path=PackedInt32Array(573407477, 1819646003) index="12" unique_id=1756916812 instance=ExtResource("24_fc2qq")]
+stack_size = 500
+
+[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]
+[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
+[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/bars/bars" method="ammo_consumed"]
+[connection signal="weapon_changed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
+[connection signal="weapon_used" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="check_weapon_disabled"]
+[connection signal="weapon_used" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_used"]
+[connection signal="timeout" from="Arena/teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
 
 [editable path="Arena"]
 [editable path="Arena/teams/team_1/player_fighter"]

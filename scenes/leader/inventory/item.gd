@@ -24,7 +24,7 @@ var applied_modifier:ItemModifier
 	## if no color tag, just color it based on the rarity
 	)var color_tag:String= "none";
 
-@export var inventory_position:Vector2=Vector2(-1, -1);
+@export var inventory_position:Vector2=InventoryDisplay.ITEM_UNPLACED;
 
 @export var stack_size:int=1;
 
@@ -42,8 +42,8 @@ func get_description()->String:
 
 
 const rarity_saturation = {
-	1:.5,
-	2:.8,
+	1:.8,
+	2:.95,
 	3:1
 }
 func get_mirror_color()->Color:

@@ -4,22 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://6acvycpgho6a" path="res://assets/visual/sprites/fighters/units/scythe/scythe.png" id="2_cm433"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_ly1nj"]
 [ext_resource type="Script" uid="uid://c22ry32eswkql" path="res://scenes/index/fighters/scripts/scythe.gd" id="3_pg4qo"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_awlar"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_hop5t"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_sq7xn"]
-[ext_resource type="Texture2D" uid="uid://cxxpwwbqpj26g" path="res://assets/visual/sprites/fighters/units/scythe/scythe_ally.png" id="4_ybmsm"]
-[ext_resource type="Texture2D" uid="uid://bxmy6blgeocb5" path="res://assets/visual/sprites/fighters/units/scythe/scythe_enemy.png" id="5_xonel"]
 [ext_resource type="Texture2D" uid="uid://cqwfygfe8vk6k" path="res://assets/visual/sprites/fighters/units/scythe/blur.png" id="6_j7v0f"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_lpcpv"]
 [ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="8_lpcpv"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_vb5n4"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_xonel"]
 
-[sub_resource type="Resource" id="Resource_awlar"]
-script = ExtResource("4_sq7xn")
-target_texture = ExtResource("2_cm433")
-base_name = "scythe"
-ally_texture = ExtResource("4_ybmsm")
-enemy_texture = ExtResource("5_xonel")
+[sub_resource type="Resource" id="Resource_ybmsm"]
+script = ExtResource("4_awlar")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_6ksp7"]
@@ -81,7 +75,7 @@ frame = 7
 script = ExtResource("3_pg4qo")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Reaping Swing")
-hue_shifter = SubResource("Resource_awlar")
+hue_shifter = SubResource("Resource_ybmsm")
 tags = Array[int]([4, 6])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")

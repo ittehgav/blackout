@@ -133,9 +133,9 @@ resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0, 0.5, 0.116666675, 0.28235295)
+shader_parameter/color = Color(0, 0.2, 0.04666667, 1)
 shader_parameter/width = 1.0
-shader_parameter/pattern = 0
+shader_parameter/pattern = 1
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
@@ -504,7 +504,7 @@ horizontal_alignment = 1
 [node name="bars" type="PanelContainer" parent="ui_canvas/hud/player_data" unique_id=83984637]
 layout_mode = 2
 
-[node name="bars" type="VBoxContainer" parent="ui_canvas/hud/player_data/bars" unique_id=375403283 node_paths=PackedStringArray("hud_section", "player_fighter", "hp_bar", "status_bar", "floating_icon_anchor")]
+[node name="bars" type="VBoxContainer" parent="ui_canvas/hud/player_data/bars" unique_id=375403283 node_paths=PackedStringArray("hud_section", "player_fighter", "hp_bar", "status_bar", "floating_icon_anchor", "hp_counter")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -514,6 +514,7 @@ player_fighter = NodePath("../../../../../teams/team_1/player_fighter")
 hp_bar = NodePath("hp_bar")
 status_bar = NodePath("status_bar")
 floating_icon_anchor = NodePath("../../../../../teams/team_1/player_fighter/floating_icon_anchor")
+hp_counter = NodePath("hp_bar/hp_counter")
 
 [node name="hp_bar" type="TextureProgressBar" parent="ui_canvas/hud/player_data/bars/bars" unique_id=1864388477]
 custom_minimum_size = Vector2(256, 24)
@@ -525,6 +526,21 @@ nine_patch_stretch = true
 texture_under = ExtResource("15_awn3j")
 texture_progress = ExtResource("16_ajjla")
 tint_progress = Color(0.4, 1, 0.4, 1)
+
+[node name="hp_counter" type="Label" parent="ui_canvas/hud/player_data/bars/bars/hp_bar" unique_id=1737446379]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = -15.0
+offset_right = 65.0
+offset_bottom = 11.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0.34117648, 0.8509804, 0.34117648, 1)
+theme_override_constants/outline_size = 8
+text = "22/22"
 
 [node name="status_bar" type="TextureProgressBar" parent="ui_canvas/hud/player_data/bars/bars" unique_id=1686045936]
 visible = false
@@ -567,9 +583,10 @@ text = "3"
 [node name="countdown" type="Timer" parent="ui_canvas/hud/countdown_overlay" unique_id=962898541]
 autostart = true
 
-[node name="PostFight" parent="ui_canvas/hud" unique_id=1253284874 instance=ExtResource("26_slj5k")]
+[node name="PostFight" parent="ui_canvas/hud" unique_id=1253284874 node_paths=PackedStringArray("arena") instance=ExtResource("26_slj5k")]
 visible = false
 layout_mode = 1
+arena = NodePath("../../..")
 
 [connection signal="child_entered_tree" from="teams/team_1" to="teams/team_1" method="_on_child_entered_tree"]
 [connection signal="fighter_converted" from="teams/team_1" to="ui_canvas/hud/tide_bar" method="_on_fighter_converted"]
@@ -585,6 +602,8 @@ layout_mode = 1
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/bars/bars" method="ammo_consumed"]
 [connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
+[connection signal="weapon_hit" from="teams/team_1/player_fighter/equipment" to="teams/team_1/player_fighter/sfx/hit_sfx" method="weapon_hit"]
+[connection signal="weapon_hit" from="teams/team_1/player_fighter/equipment" to="teams/team_1/player_fighter/equipment/weapon_control" method="weapon_hit"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="check_weapon_disabled"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_used"]
 [connection signal="timeout" from="teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
@@ -596,4 +615,3 @@ layout_mode = 1
 [connection signal="post_fight_finished" from="ui_canvas/hud/PostFight" to="." method="_on_post_fight_finished"]
 
 [editable path="teams/team_1/player_fighter"]
-[editable path="teams/team_1/player_fighter/body"]

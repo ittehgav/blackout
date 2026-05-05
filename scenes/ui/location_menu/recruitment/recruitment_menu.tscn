@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="7_6554f"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="8_l4l3x"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="9_l2i6a"]
-[ext_resource type="Script" uid="uid://dhhsn8dr6b0sg" path="res://scenes/ui/player_sheet/units/panel_container.gd" id="10_p4q43"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xqdqb"]
 
@@ -254,7 +253,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "[right-click] to unequip"
 
-[node name="evolutin_display" type="PanelContainer" parent="main/Unit Sheet" unique_id=218746522 node_paths=PackedStringArray("ev1_sprite", "ev2_sprite", "hint_label")]
+[node name="evolutin_display" type="PanelContainer" parent="main/Unit Sheet" unique_id=218746522]
 visible = false
 layout_mode = 1
 anchors_preset = 3
@@ -268,10 +267,6 @@ offset_right = -39.0
 offset_bottom = -26.0
 grow_horizontal = 0
 grow_vertical = 0
-script = ExtResource("10_p4q43")
-ev1_sprite = NodePath("VBoxContainer/HBoxContainer/evolution_1/evolution_1")
-ev2_sprite = NodePath("VBoxContainer/HBoxContainer/evolution_2/evolution_2")
-hint_label = NodePath("VBoxContainer/Label")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main/Unit Sheet/evolutin_display" unique_id=1588305415]
 layout_mode = 2

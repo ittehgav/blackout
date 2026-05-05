@@ -7,7 +7,8 @@ extends Panel
 @export var take_loot_btn:Button;
 @export var continue_btn:Button
 
-
+@export var looted_money_label:Label;
+@export var player_resources:ResourcesDropdown
 
 
 
@@ -23,6 +24,8 @@ func display_loot(player_inventory:Inventory, loot_inventory:LootInventory)->voi
 	player_inventory_display.open()
 	enemy_inventory_display.inventory = loot_inventory;
 	enemy_inventory_display.open();
+	
+	looted_money_label.text = str(loot_inventory.money)
 	
 	player_inventory_display.refresh_data();
 	enemy_inventory_display.refresh_data();
@@ -40,3 +43,16 @@ func check_available_loot(_mirror:ItemMirror=null, _arg:Variant = null)->void:
 	else:
 		take_loot_btn.disabled = false;
 		continue_btn.modulate.v = .5
+	
+func loot_money()->Tween:
+	var player:Player = get_tree().get_first_node_in_group("player")
+	var money_gain:int = int(looted_money_label.text);
+	
+	var tween:Tween = Tweens.tween_count_label(looted_money_label, 0);
+	var player_money_label:Label = player_resources.resource_icons["money"].label
+	
+	Tweens.tween_count_label(player_money_label, player.inventory.money + money_gain);
+	
+	player.inventory.change_resource("money", money_gain)
+	
+	return tween;

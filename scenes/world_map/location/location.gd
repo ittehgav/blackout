@@ -18,6 +18,8 @@ var neighbors:Array[Location];
 ## used for pathfinding 
 var neighbor_paths:Dictionary[Location, PackedVector2Array];
 
+@export var cleared_color:Color;
+
 @export var sprite:Sprite2D;
 @export var shadow_sprite:Sprite2D
 @export var settlements:Array[Settlement];
@@ -43,6 +45,7 @@ func _ready()->void:
 
 func refresh_sprite()->void:
 	settlements.clear()
+	flag.hide()
 	for c:Node in get_children():
 		if c is Settlement:
 			settlements.append(c)
@@ -52,6 +55,9 @@ func refresh_sprite()->void:
 				sprite.modulate = c.map_texture_modulate
 				name = c.name
 				unique_name = c.name
+				if c is Dungeon and c.cleared:
+					sprite.modulate = cleared_color;
+					flag.show();
 			else:
 				if sprite.modulate != street_modulate:
 					sprite.texture = street_texture

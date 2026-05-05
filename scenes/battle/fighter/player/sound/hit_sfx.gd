@@ -6,6 +6,7 @@ extends AudioStreamPlayer
 
 func weapon_hit()->void:
 	var target:CombatEntity = Entities.player_fighter.hit_targets[0]
+	if not is_instance_valid(target):return
 	pitch_scale = 1
 	match target.body_type:
 		CombatEntity.BodyType.flesh:

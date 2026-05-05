@@ -1,6 +1,6 @@
 extends FighterBase;
 
-
+const evolution_names = ["Slammer", "Wrecker"]
 
 func full_skill_description(unit:FighterUnit)->String:
 	var damage:String = Index.colored_text("attack", unit.final_stat("attack"), " damage");

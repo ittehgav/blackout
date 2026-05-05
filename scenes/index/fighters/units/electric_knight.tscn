@@ -5,9 +5,7 @@
 [ext_resource type="Script" uid="uid://cg8uxie8daimk" path="res://scenes/index/fighters/scripts/electric_knight.gd" id="3_50ick"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_lsi74"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_2fruu"]
-[ext_resource type="Texture2D" uid="uid://b5ojndoisfjpx" path="res://assets/visual/sprites/fighters/units/electric_knight/electric_knight_ally.png" id="4_5slmp"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_7v7mg"]
-[ext_resource type="Texture2D" uid="uid://cafaecic73vh6" path="res://assets/visual/sprites/fighters/units/electric_knight/electric_knight_enemy.png" id="5_f7wbb"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_o8vp4"]
 [ext_resource type="PackedScene" uid="uid://bakra857y3ok0" path="res://scenes/index/special_statuses/electrified.tscn" id="5_glkcm"]
 [ext_resource type="Texture2D" uid="uid://bygdqb7fhcmkh" path="res://assets/visual/sprites/fighters/units/electric_knight/blur.png" id="7_wlm78"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_jtae0"]
@@ -15,12 +13,8 @@
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_x15ew"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_f7wbb"]
 
-[sub_resource type="Resource" id="Resource_o8vp4"]
-script = ExtResource("4_7v7mg")
-target_texture = ExtResource("2_kg7qa")
-base_name = "electric_knight"
-ally_texture = ExtResource("4_5slmp")
-enemy_texture = ExtResource("5_f7wbb")
+[sub_resource type="Resource" id="Resource_5slmp"]
+script = ExtResource("4_o8vp4")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_lsi74"]
@@ -79,7 +73,7 @@ script = ExtResource("3_50ick")
 lightning_vfx = NodePath("Lightning")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Lightning Swing")
-hue_shifter = SubResource("Resource_o8vp4")
+hue_shifter = SubResource("Resource_5slmp")
 tags = Array[int]([1, 3, 4])
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")

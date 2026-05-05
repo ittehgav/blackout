@@ -36,17 +36,18 @@ func _on_finished() -> void:
 	if stream not in [victory, defeat]:
 		play()
 
+@onready var initial_db:float = volume_db;
 
 func on_scenario_changed(new: State.Scenario, _old: State.Scenario) -> void:
 	match new:
 		State.Scenario.main:
-			play_bgm("main")
+			play_bgm("intro")
 		State.Scenario.battle:
 			play_bgm("battle")
 			if State.tutorial_scene:
-				volume_db = -5
+				volume_db = initial_db - 5;
 			else:
-				volume_db = 0;
+				volume_db = initial_db;
 		State.Scenario.world_map:
 			play_bgm("world_map")
 
@@ -57,7 +58,6 @@ func on_substate_changed(new: State.Substate, _previous: State.Substate) -> void
 		State.Substate.post_battle:
 			stop()
 		State.Substate.pre_battle:
-			volume_db = -5;
 			play_bgm("battle")
 		State.Substate.battle_finishing:
 			stop();

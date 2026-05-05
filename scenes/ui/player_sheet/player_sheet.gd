@@ -3,6 +3,8 @@ extends UIRoot;
 class_name PlayerSheet;
 
 signal closed;
+signal space_request_cleared;
+signal item_discarded;
 
 @export var bg:ColorRect;
 
@@ -17,6 +19,7 @@ signal closed;
 @export var container:HBoxContainer;
 @export var gear:Control;
 @export var morale_label:Label;
+@export var disable_display_rect:ColorRect;
 
 @export var start_battle_prompt:MarginContainer
 @export var item_space_request:PanelContainer
@@ -48,7 +51,16 @@ func show_player_sheet(left_tab_view:int=0)->void:
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
 	show()
-	player_inventory.open()
+	
+	var overlapping_inventory_display:InventoryDisplay = player.inventory.last_display;
+
+	player_inventory.open(false)
+	if overlapping_inventory_display and overlapping_inventory_display != player_inventory:
+		player.inventory.last_display = overlapping_inventory_display;
+		disable_display_rect.show();
+	else:
+		disable_display_rect.hide()
+		
 	refresh_data();
 	bg.self_modulate.a = 0;
 	

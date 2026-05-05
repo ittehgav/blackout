@@ -21,6 +21,7 @@ var swung:bool = false;
 func use(_alt:bool=false)->void:
 	use_sfx.play();
 	animation_player.play("weapon_generic/swing")
+	
 
 func impact()->void:
 	Combat.aoe_damage(Entities.player_fighter, hit_scan);

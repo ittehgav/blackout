@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="3_tqeut"]
 [ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="4_4n25o"]
 [ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="5_s21v8"]
-[ext_resource type="PackedScene" uid="uid://pdygvkib8khb" path="res://scenes/index/items/_notyet/apple_sticker.tscn" id="6_3j10w"]
 [ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="7_1g74x"]
 [ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="12_e0nd8"]
 [ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/machete.tscn" id="13_tgh2a"]
@@ -18,6 +17,18 @@
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="16_ksra5"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="17_xg60q"]
 [ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="18_sq13r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bf5yu"]
+resource_local_to_scene = true
+shader = ExtResource("16_ksra5")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nokkd"]
 resource_local_to_scene = true
@@ -32,18 +43,6 @@ shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s5dff"]
-resource_local_to_scene = true
-shader = ExtResource("16_ksra5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ksra5"]
 resource_local_to_scene = true
 shader = ExtResource("16_ksra5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -73,8 +72,6 @@ batch_size = 4
 resource_storage = [NodePath("Food Barrel"), NodePath("Fuel Barrel")]
 holder = NodePath("..")
 
-[node name="Apple Sticker" parent="ShopInventory" unique_id=804006463 instance=ExtResource("6_3j10w")]
-
 [node name="Protein Shake" parent="ShopInventory" unique_id=510740578 instance=ExtResource("7_1g74x")]
 
 [node name="Fuel Barrel" parent="ShopInventory" unique_id=120633693 instance=ExtResource("3_tqeut")]
@@ -94,10 +91,10 @@ holder = NodePath("..")
 [node name="Building Roster" parent="." unique_id=479241797 instance=ExtResource("14_nokkd")]
 
 [node name="Crowbar" parent="Building Roster" unique_id=2112712555 instance=ExtResource("15_s5dff")]
-material = SubResource("ShaderMaterial_nokkd")
+material = SubResource("ShaderMaterial_bf5yu")
 
 [node name="Puncher" parent="Building Roster" unique_id=1510142188 instance=ExtResource("17_xg60q")]
-material = SubResource("ShaderMaterial_s5dff")
+material = SubResource("ShaderMaterial_nokkd")
 
 [node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("18_sq13r")]
-material = SubResource("ShaderMaterial_ksra5")
+material = SubResource("ShaderMaterial_s5dff")

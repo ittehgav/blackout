@@ -37,6 +37,9 @@ signal changed;
 @export var capacity_x:int = 8;
 @export var capacity_y:int = 12;
 
+var last_display:InventoryDisplay;
+## to keep track of shops/forges that were opened before the player sheet
+
 func _ready()->void:
 	await get_parent().ready
 	refresh_resource_counts();
@@ -164,7 +167,7 @@ func remove_item(item:Item)->void:
 		weapons.erase(item);
 	elif item is ResourceContainer:
 		containers.erase(item)
-	remove_child(item)
+	remove_child.call_deferred(item)
 
 
 func clear_containers()->void:
@@ -213,69 +216,22 @@ func store_resources()->void:
 				add_child(raw_stack);
 
 
-func sort_items()->void:
-	## only ever run if guaranteed that everything will fit
-	
-	## backup if sort gets an infinite loop
-	var original_positions:Dictionary[Item, Vector2];
-	store_resources()
-	
-	for item in items:
-		original_positions[item] = item.inventory_position;
-		item.inventory_position = Vector2(-1, -1)
+func has_room(item:Item)->bool:
+	for x:int in capacity_x:
+		for y:int in capacity_y:
+			var spot:Vector2i = Vector2i(x, y);
+			if fits_in_spot(item, spot):
+				print("FITS ", spot)
+				return true;
+	return false
 
-	var taken_cells:Array[Vector2];
-	var reset:bool = false;
-	for item in items:
-		if item not in Entities.player.equipment:
-			var fit:bool = throw_item(item, taken_cells);
-			if not fit:
-				reset = true
-				break;
-	if reset:
-		for item in items:
-			item.inventory_position = original_positions[item];
-
-
-func size_sort(a:Item, b:Item)->bool:
-	return a.size_x * a.size_y > b.size_x * b.size_y;
-
-
-func throw_item(item:Item, taken_cells:Array[Vector2])->bool:
-	## every non-player inventory is top-right oriented instead of top-left
-	## ONLY ITEMS THAT FIT CAN MAKE IT HERE
-	var spot:Vector2;
-	if self == Entities.player.inventory:
-		spot = Vector2.ZERO;
-	else:
-		spot = Vector2(capacity_x - 1, 0);
-	while not fits_in_spot(item, spot, taken_cells):
-		if self == Entities.player.inventory:
-			spot.x += 1;
-			if spot.x == capacity_x:
-				spot.x = 0;
-				spot.y  += 1;
-		else:
-			spot.x -= 1;
-			if spot.x == - 1:
-				spot.x = capacity_x - 1;
-				spot.y += 1;
-		if spot.y == capacity_y + 1:
-			return false;
-
-	item.inventory_position = spot;
-	for x:int in item.size_x:
-		for y:int in item.size_y:
-			taken_cells.append(Vector2(x + spot.x, y + spot.y))
-	return true
-	
-	
-func fits_in_spot(item:Item, spot:Vector2, taken_cells:Array[Vector2])->bool:
+func fits_in_spot(item:Item, spot:Vector2)->bool:
 	for x:int in item.size_x:
 		for y:int in item.size_y:
 			var to_check:Vector2 = Vector2(x + spot.x, y + spot.y);
-			if not cell_in_grid(to_check) or to_check in taken_cells:
+			if not cell_in_grid(to_check):
 				return false;
+			
 	return true
 
 func cell_in_grid(cell:Vector2)->bool:

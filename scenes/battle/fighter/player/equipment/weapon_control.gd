@@ -15,7 +15,6 @@ var alternative_weapon:Weapon;
 var holding_continuous:bool=false
 
 func _ready()->void:
-
 	await equipment.holder.ready
 	var player:Player = get_tree().get_first_node_in_group("player")
 	var equipped_weapon:Weapon = load_weapon(player.equipped_weapon);
@@ -32,6 +31,9 @@ func _ready()->void:
 		
 func load_weapon(target:Weapon)->Weapon:
 	var new_weapon:Weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION)
+	if new_weapon.status:
+		new_weapon.status.source = equipment.holder;
+	
 	new_weapon.use_parent_material = true;
 	for p:CanvasItem in new_weapon.projections:
 		p.hide()
@@ -47,7 +49,8 @@ func load_weapon(target:Weapon)->Weapon:
 		new_weapon.projectile.setup(equipment.holder)
 	
 	new_weapon.hit.connect(equipment.weapon_hit.emit)
-	## its ok if hit signals are called from unequipped weapon
+	
+	
 		
 	return new_weapon
 
@@ -71,6 +74,7 @@ func use_weapon_command(alt:bool=false)->void:
 	if weapon_cd.is_stopped() and not weapon.check_disabled():
 		equipment.holder.hit_targets.clear();
 		if not weapon.continuous:
+			
 			use_weapon(alt)
 			weapon_cd.start() ## alt uses may have different cooldown?
 		else:
@@ -91,6 +95,10 @@ func release_weapon_command()->void:
 
 
 func use_weapon(alt:bool)->void:
+	if weapon.melee and weapon.animation_player.is_playing():
+		## very likely this behavior will eventually need 
+		## to apply in non meee weapons
+		weapon.impact();
 	weapon.use(alt)
 	play_weapon_vfx()
 	equipment.weapon_used.emit()
@@ -101,6 +109,15 @@ func weapon_hit()->void:
 		"freeze_frame":
 			Engine.time_scale = 0
 			freeze_frame_timer.start()
+		"screen_shake":
+			Tweens.camera_shake(Entities.player_fighter)
+
+func play_weapon_vfx()->void:
+	match weapon.use_feedback:
+		"camera_lunge":
+			Tweens.camera_lunge(Entities.player_fighter);
+		"camera_recoil":
+			Tweens.camera_recoil(Entities.player_fighter)
 
 func _on_weapon_cd_timeout() -> void:
 	## so you can just hold the attack button
@@ -195,12 +212,6 @@ func switch_weapon()->void:
 	equipment.weapon_changed.emit();
 	
 
-func play_weapon_vfx()->void:
-	match weapon.use_feedback:
-		"camera_lunge":
-			Tweens.camera_lunge(Entities.player_fighter);
-		"camera_recoil":
-			Tweens.camera_recoil(Entities.player_fighter)
 
 
 func refresh_weapon_cooldown(time_left:float=0.0, from_switch:bool=false)->void:

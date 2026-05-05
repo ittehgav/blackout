@@ -8,6 +8,7 @@ extends Control
 @export var status_bar:TextureProgressBar;
 
 @export var floating_icon_anchor:Control
+@export var hp_counter:Label
 
 func _ready()->void:
 	hp_bar.max_value = player_fighter.max_hp;
@@ -22,7 +23,8 @@ func refresh_hp_bar(blink_color:Color = Color.WHITE)->void:
 	bar_tween.tween_property(hp_bar, "value", player_fighter.hp, bar_refresh_time);
 	bar_tween.parallel().tween_property(hp_bar, "modulate", blink_color, bar_refresh_time);
 	bar_tween.tween_property(hp_bar, "modulate", hp_frac_color(), bar_refresh_time)
-
+	
+	hp_counter.text = str(player_fighter.hp) + "/" + str(player_fighter.max_hp)
 func hp_frac_color()->Color:
 	var fraction:float = float(player_fighter.hp)/float(player_fighter.max_hp)
 
@@ -79,6 +81,7 @@ func add_status_bar(bar_color:Color, status_timer:Timer)->void:
 
 func _on_player_fighter_damage_taken(_damage: float, _source: ActiveFighter, _quiet:bool=false) -> void:
 	refresh_hp_bar(Color.RED)
+	
 
 
 func _on_player_fighter_healing_received(_value: float, _quiet:bool=false) -> void:

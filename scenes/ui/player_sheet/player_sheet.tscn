@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://dukv0syidcclp" path="res://assets/sound/sfx/ui/open_player_sheet.wav" id="2_hamfw"]
 [ext_resource type="AudioStream" uid="uid://cidv5tcb082h5" path="res://assets/sound/sfx/ui/close_player_sheet.wav" id="3_dfs8r"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="6_5ybum"]
-[ext_resource type="Script" uid="uid://cv3kymtuh61xu" path="res://scenes/ui/player_sheet/inventory_display.gd" id="9_8oj3i"]
+[ext_resource type="Script" uid="uid://cv3kymtuh61xu" path="res://scenes/ui/player_sheet/display_container.gd" id="9_8oj3i"]
 [ext_resource type="Script" uid="uid://4xy3dgtjm31i" path="res://scenes/ui/player_sheet/inventory_tab.gd" id="9_fsh5d"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="10_a1oup"]
 [ext_resource type="AudioStream" uid="uid://v8eaae2kskmo" path="res://assets/sound/sfx/world_map/discard_item.wav" id="10_kgp2d"]
@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://mqb4ehy4w2c8" path="res://assets/visual/ui/settings/reset.png" id="14_7sc2c"]
 [ext_resource type="AudioStream" uid="uid://vpo6iftx601k" path="res://assets/sound/sfx/ui/inventory/weapon_equipped.wav" id="15_7ydhy"]
 [ext_resource type="AudioStream" uid="uid://byq71hx2dnw65" path="res://assets/sound/sfx/ui/inventory/module_equipped.wav" id="15_in2cn"]
-[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="15_o0vop"]
 [ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="15_vq5ye"]
 [ext_resource type="AudioStream" uid="uid://bwgkjo3dybjj2" path="res://assets/sound/sfx/ui/inventory/accessory_equipped.wav" id="16_7ydhy"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="16_e0imn"]
@@ -29,10 +28,11 @@
 [ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/unit_sheet.tscn" id="22_in2cn"]
 [ext_resource type="Script" uid="uid://c3t5hlpw6vsaq" path="res://scenes/ui/player_sheet/player_data.gd" id="23_brbep"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="24_7b7li"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="28_in2cn"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="29_7ydhy"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="32_in2cn"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="33_7ydhy"]
 [ext_resource type="Script" uid="uid://dd3sexthpletg" path="res://scenes/ui/player_sheet/clear_space_request.gd" id="36_kgp2d"]
-[ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="37_ihftv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_in2cn"]
 resource_local_to_scene = true
@@ -122,19 +122,51 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3o1i"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nvsay"]
 resource_local_to_scene = true
 shader = ExtResource("16_e0imn")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0, 0, 0, 0.552941)
+shader_parameter/color = Color(0.4862745, 0.5019608, 0.6745098, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(6, 3)
+shader_parameter/number_of_images = Vector2(9, 7)
 
-[node name="PlayerSheet" type="Control" unique_id=692451359 node_paths=PackedStringArray("bg", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "start_battle_prompt", "item_space_request", "ui_sfx")]
+[sub_resource type="Animation" id="Animation_sqvxk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xbk01"]
+_data = {
+&"RESET": SubResource("Animation_sqvxk")
+}
+
+[node name="PlayerSheet" type="Control" unique_id=692451359 node_paths=PackedStringArray("bg", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "disable_display_rect", "start_battle_prompt", "item_space_request", "ui_sfx")]
 process_mode = 2
 z_index = 61
 y_sort_enabled = true
@@ -156,6 +188,7 @@ left_tab_container = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_i
 container = NodePath("main_bg/MarginContainer/HBoxContainer")
 gear = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear")
 morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/morale_display")
+disable_display_rect = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/disable_rect")
 start_battle_prompt = NodePath("main_bg/MarginContainer/HBoxContainer/player/start_battle")
 item_space_request = NodePath("main_bg/MarginContainer/HBoxContainer/player/clear_space_request")
 open_sound = ExtResource("2_hamfw")
@@ -196,10 +229,9 @@ alignment = 1
 [node name="party_and_inventory" type="TabContainer" parent="main_bg/MarginContainer/HBoxContainer" unique_id=979362349]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-current_tab = 1
+current_tab = 0
 
 [node name="Inventory" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=708176484 node_paths=PackedStringArray("inventory_panel", "inventory_display")]
-visible = false
 custom_minimum_size = Vector2(825, 640)
 layout_mode = 2
 script = ExtResource("9_fsh5d")
@@ -559,7 +591,27 @@ text = "Module"
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
+[node name="disable_rect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory" unique_id=1757841974]
+visible = false
+z_index = 68
+layout_mode = 0
+offset_left = 25.5
+offset_top = 31.0
+offset_right = 538.5
+offset_bottom = 605.0
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/disable_rect" unique_id=1812719240]
+z_index = 68
+layout_mode = 0
+offset_left = 529.0
+offset_top = -18.0
+offset_right = 790.0
+offset_bottom = 542.0
+color = Color(0, 0, 0, 0.39215687)
+
 [node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=299824284 node_paths=PackedStringArray("food_cost", "fuel_cost", "ui_sfx", "units_grid", "upgrade_hint")]
+visible = false
 custom_minimum_size = Vector2(800, 600)
 layout_mode = 2
 script = ExtResource("18_7ju3y")
@@ -696,14 +748,19 @@ offset_top = 67.0
 offset_right = 92.0
 offset_bottom = 67.0
 
-[node name="body" parent="main_bg/MarginContainer/HBoxContainer/player/Control" unique_id=105470107 instance=ExtResource("15_o0vop")]
-process_mode = 4
-material = SubResource("ShaderMaterial_s3o1i")
+[node name="body" type="Sprite2D" parent="main_bg/MarginContainer/HBoxContainer/player/Control" unique_id=105470107]
+material = SubResource("ShaderMaterial_nvsay")
 position = Vector2(90, 63)
 scale = Vector2(4, 4)
+texture = ExtResource("28_in2cn")
+hframes = 8
 vframes = 9
+frame = 6
 
-[node name="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" unique_id=1747179211]
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_xbk01")
+libraries/player = ExtResource("29_7ydhy")
 autoplay = &"player/idle"
 speed_scale = 0.75
 
@@ -790,7 +847,7 @@ offset_right = 351.0
 offset_bottom = 421.0
 texture = ExtResource("33_7ydhy")
 
-[node name="clear_space_request" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=2020442944 node_paths=PackedStringArray("sample", "request_label", "inventory_display", "item_added_sfx", "projection_sample")]
+[node name="clear_space_request" type="PanelContainer" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=2020442944 node_paths=PackedStringArray("sample", "request_label", "inventory_display", "projection_sample")]
 visible = false
 z_index = 1
 layout_mode = 1
@@ -803,11 +860,7 @@ script = ExtResource("36_kgp2d")
 sample = NodePath("MarginContainer/VBoxContainer/item_sample")
 request_label = NodePath("MarginContainer/VBoxContainer/request")
 inventory_display = NodePath("../../party_and_inventory/Inventory/inventory_display/inventory_display")
-item_added_sfx = NodePath("item_chosen")
 projection_sample = NodePath("../../party_and_inventory/Inventory/inventory_display/inventory_display/cargo/space_request_projection")
-
-[node name="item_chosen" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request" unique_id=1722777603]
-stream = ExtResource("37_ihftv")
 
 [node name="MarginContainer" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request" unique_id=640130375]
 layout_mode = 2
@@ -852,4 +905,3 @@ text = "Free up the necessary space."
 
 [editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display"]
 [editable path="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown"]
-[editable path="main_bg/MarginContainer/HBoxContainer/player/Control/body"]

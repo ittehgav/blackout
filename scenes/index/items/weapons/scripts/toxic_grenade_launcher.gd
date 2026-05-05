@@ -1,6 +1,6 @@
 extends Weapon
 
-const rarity = 2;
+const rarity = 3;
 
 const size_x = 3;
 const size_y = 2;
@@ -25,15 +25,14 @@ func use(_alt:bool=false)->void:
 
 
 func projectile_hit(target:CombatEntity, smoke:Sprite2D)->void:
-	## smoke's hit scan mask is just hardcoded into team 2 
-	## which is fine for the build i'm working towards right now
 	Entities.player_fighter.ally_team.projectiles.add_child.call_deferred(smoke);
 	
 	smoke.global_position = target.global_position;
-	smoke.explode();
-	hit.emit()
-	
+
 	## not fancy but should work and hardly ever have any impact in the hit outcome
 	await get_tree().create_timer(.05).timeout
 	Combat.aoe_damage(Entities.player_fighter, smoke.hit_scan);
 	Combat.aoe_status(Entities.player_fighter, status, smoke.hit_scan)
+	
+	smoke.explode();
+	hit.emit()

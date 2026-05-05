@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://h1nud3p17bpd" path="res://scenes/battle/fighter/player/sound/hit_sfx.gd" id="4_t13x7"]
 [ext_resource type="AudioStream" uid="uid://b51a48pddixp1" path="res://assets/sound/sfx/combat/damage_taken.ogg" id="5_0y55v"]
 [ext_resource type="AudioStream" uid="uid://gj4244o7s514" path="res://assets/sound/sfx/combat/player/hit/wood_hit.ogg" id="5_ung86"]
-[ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="6_bbywa"]
 [ext_resource type="AudioStream" uid="uid://db0qsxl1ljgpd" path="res://assets/sound/sfx/combat/player/module_unavailable.mp3" id="6_plyqv"]
 [ext_resource type="AudioStream" uid="uid://cmvu7h5kfmq24" path="res://assets/sound/sfx/combat/player/hit/metal_hit.wav" id="6_rwav2"]
 [ext_resource type="Script" uid="uid://biydr5n82hw5f" path="res://scenes/battle/fighter/player/equipment/weapon_control.gd" id="7_k0pw4"]
@@ -20,6 +19,9 @@
 [ext_resource type="AudioStream" uid="uid://ms2ad5kg5m8b" path="res://assets/sound/sfx/combat/player/debuff_received/stun.wav" id="10_24aya"]
 [ext_resource type="AudioStream" uid="uid://cpx6rffx48wxd" path="res://assets/sound/sfx/combat/weapon_fumbled.mp3" id="10_p55mw"]
 [ext_resource type="AudioStream" uid="uid://c7cqjf17r2asi" path="res://assets/sound/sfx/combat/player/debuff_received/poison.wav" id="11_rwav2"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="16_k0pw4"]
+[ext_resource type="Script" uid="uid://cqf12thilix0a" path="res://scenes/battle/fighter/player/body.gd" id="17_5atum"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="18_iubqv"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="22_ung86"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/fighter/player/camera.gd" id="27_rxaql"]
 
@@ -128,12 +130,44 @@ resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
+shader_parameter/color = Color(0, 0.2, 0.04666667, 1)
 shader_parameter/width = 1.0
-shader_parameter/pattern = 0
+shader_parameter/pattern = 1
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_sqvxk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xbk01"]
+_data = {
+&"RESET": SubResource("Animation_sqvxk")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88w2o"]
 radius = 15.0
@@ -216,14 +250,21 @@ shape = SubResource("CapsuleShape2D_wutkk")
 
 [node name="timers" type="Node" parent="." unique_id=2053695415]
 
-[node name="body" parent="." unique_id=416499753 node_paths=PackedStringArray("player", "animation_player") instance=ExtResource("6_bbywa")]
+[node name="body" type="Sprite2D" parent="." unique_id=416499753 node_paths=PackedStringArray("player", "animation_player")]
 material = SubResource("ShaderMaterial_ung86")
 scale = Vector2(2, 2)
+texture = ExtResource("16_k0pw4")
+hframes = 8
 vframes = 9
+frame = 6
+script = ExtResource("17_5atum")
 player = NodePath("..")
 animation_player = NodePath("AnimationPlayer")
 
-[node name="AnimationPlayer" parent="body" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="body" unique_id=488095827]
+process_mode = 3
+libraries/ = SubResource("AnimationLibrary_xbk01")
+libraries/player = ExtResource("18_iubqv")
 autoplay = &"player/idle"
 
 [node name="equipment" type="Node2D" parent="." unique_id=488158529 node_paths=PackedStringArray("weapon_control", "module_control", "holder", "body", "freeze_frame_timer")]
@@ -315,5 +356,3 @@ texture = ExtResource("22_ung86")
 [connection signal="weapon_unequipped" from="equipment" to="." method="_on_equipment_weapon_unequipped"]
 [connection signal="timeout" from="equipment/weapon_control/weapon_cd" to="equipment/weapon_control" method="_on_weapon_cd_timeout"]
 [connection signal="timeout" from="equipment/freeze_frame_control" to="equipment" method="_on_freeze_frame_control_timeout"]
-
-[editable path="body"]

@@ -2,6 +2,8 @@
 class_name InventoryDisplay
 extends Control
 
+const ITEM_UNPLACED = Vector2(-1, -1)
+
 signal item_hovered(mirrir:ItemMirror)
 
 signal warnings_shown;
@@ -144,6 +146,7 @@ func reset_inventory()->void:
 		inventory[r] = pre_trade_resource_counts[r]
 
 	hard_reset()
+	refresh_data()
 
 
 
@@ -153,7 +156,7 @@ func set_grid()->void:
 
 	grid_cols.clear();
 	size_x = inventory.capacity_x;
-	size_y = 12 ## non-player inventories can be infinitely flexible 
+	size_y = 12 ## non-player inventories can be infinitely flexible
 	grid.columns = size_x;
 	var rows:Array[Array];
 	for y in size_y:
@@ -174,33 +177,18 @@ func set_grid()->void:
 			
 	send_rect.set_size.call_deferred(Vector2(size_x * grid_cell_size, size_y * grid_cell_size))
 	if not from_player:
-		send_rect.position = Vector2.ZERO 
+		send_rect.position = Vector2.ZERO
 
 func item_mirror_hovered(mirror:ItemMirror)->void:
 	item_hovered.emit(mirror)
 
-func load_inventory()->void:
-	## INVENTORY IS ALREADY SET HERE FROM OUTSIDE CALL
-	resources_dropdown.target_inventory = inventory
-	resources_dropdown.setup(inventory);
-	
-	var unplaced:Array[Item];
-	for item:Item in inventory.items:
-		if not (item is Equipment) or item not in Entities.player.equipment:
-			if item.inventory_position == Vector2(-1, -1):
-				unplaced.append(item);
-			else:
-				mirror_item(item)
 
-	for item:Item in unplaced:
-		throw_in_inventory(item);
-
-	
-	refresh_data();
 	
 func mirror_item(item:Item)->ItemMirror:
 	var mirror:ItemMirror = generate_mirror(item);
-	mirror.set_inventory_position(item.inventory_position)
+	mirror.set_inventory_position(item.inventory_position);
+	
+		
 	add_mirror(mirror)
 	return mirror
 
@@ -236,17 +224,49 @@ func remove_mirror(mirror:ItemMirror, from_inventory:bool=true)->void:
 	all_mirrors.erase(mirror)
 	mirror.queue_free();
 
+func open(and_refresh:bool=true) ->void:
+	## plays once per lifecycle of any display other 
+	## than player sheet
+	if from_player:
+		inventory = get_tree().get_first_node_in_group("player").inventory;
+	inventory.last_display = self;
+	
+	if not (refresh_data in inventory.changed.get_connections()):
+		inventory.changed.connect(refresh_data)
+
+	hard_reset();
+	
+	if and_refresh:
+		refresh_data()
+	opened.emit()
+
+
 func hard_reset()->void:
 	clear_all_mirrors(false);
 	set_grid()
-	load_inventory();
+	
+	resources_dropdown.target_inventory = inventory
+	resources_dropdown.setup(inventory);
+	
+	var unplaced:Array[Item];
+	for item:Item in inventory.items:
+		if not is_equipped(item):
+			if item.inventory_position == ITEM_UNPLACED:
+				unplaced.append(item);
+			else:
+				## so they fill their cells right away
+				mirror_item(item).refresh();
+
+	for item:Item in unplaced:
+		throw_in_inventory(item);
+	
 	board_shake(5)
 
 func get_unallocated_items()->Array[Item]:
 	## for items that just got into the inventory and haven't been mirrored properly
 	var items:Array[Item]
 	for item:Item in inventory.items:
-		if not is_equipped(item) and (not item.mirror or item.mirror not in all_mirrors):
+		if not is_equipped(item) and item.inventory_position == ITEM_UNPLACED:
 			items.append(item);
 	return items
 
@@ -278,10 +298,12 @@ func refresh_data()->void:
 	
 	liquid_item_mirrors = []
 	reset_warnings();
+	
 	if context == "player_sheet":
 		## unallocated items in player sheet are those that came from trade/loot
 		for mirror:ItemMirror in all_mirrors:
 			mirror.item.mirror = mirror
+			
 		var unallocated:Array[Item] = get_unallocated_items();
 		for item:Item in unallocated:
 			mirror_item(item)
@@ -310,7 +332,7 @@ func refresh_data()->void:
 
 func refresh_container_mirrors()->void:
 	for r:String in Index.all_resources:
-		if r != "money": 
+		if r != "money":
 			self[r+"_containers"].clear()
 
 	for c:Node in all_mirrors:
@@ -321,7 +343,7 @@ func refresh_container_mirrors()->void:
 
 
 
-func highlight_resource_containers(resource:String)->void:	
+func highlight_resource_containers(resource:String)->void:
 	for mirror:ItemMirror in self[resource+"_containers"]:
 		mirror.highlight_item()
 
@@ -355,7 +377,7 @@ func throw_mirror(item_mirror:ItemMirror, add_to_grid:bool=false)->void:
 					add_mirror(item_mirror)
 					item_mirror.refresh();
 					return
-				return;
+				return
 	item_mirror.set_inventory_position(Vector2i(-1, -1))
 
 func receive_resource(amount:int, resource:String)->int:
@@ -476,7 +498,7 @@ func find_clear_cell(item:Item, replacing_item:Item=null)->Vector2i:
 			else:
 				spot = Vector2i(x, y)
 			if check_item_fit(item, spot, replacing_item):
-					return spot;
+				return spot;
 
 	return Vector2i(-1, -1);
 	
@@ -489,11 +511,10 @@ func check_item_fit(item:Item, spot:Vector2,  replacing_item:Item=null)->bool:
 			if not inside_grid(Vector2(cell_x, cell_y)):
 				return false;
 			var cell:InventoryGridCell = grid_cols[cell_x][cell_y];
-
 			if replacing_item:
 				if cell.filled and\
-				 cell.filling_item_mirror != item.mirror and\
-				 cell.filling_item_mirror.item != replacing_item:
+					cell.filling_item_mirror != item.mirror and\
+					cell.filling_item_mirror.item != replacing_item:
 					return false
 			elif cell.filled and is_instance_valid(cell.filling_item_mirror) and cell.filling_item_mirror.item != item:
 				return false;
@@ -544,8 +565,6 @@ func project_item_mirror(item_mirror:ItemMirror)->void:
 			var coords_y:int = origin.y + y
 			
 			if inside_grid(Vector2(coords_x, coords_y)):
-				
-				
 				var cell:InventoryGridCell = grid_cols[coords_x][coords_y]
 				if not cell.filled or cell.filling_item_mirror == item_mirror:
 					## fills an array with the cells that will be highlighted if droppable
@@ -569,7 +588,6 @@ func project_item_mirror(item_mirror:ItemMirror)->void:
 						exchanging_display.send_rect.show();
 					else:
 						item_mirror.droppable = false;
-						
 				else:
 					item_mirror.droppable = false
 
@@ -620,7 +638,7 @@ func find_adjacent_vacant_spot(item_mirror:ItemMirror)->Vector2i:
 	for angle in angles_to_check:
 		var spot:Vector2i = item_mirror.projection_position + angle;
 		if not(spot.x < 0 or spot.y < 0 or spot.x >=\
-		 size_x or spot.y >= size_y):
+			size_x or spot.y >= size_y):
 			if check_item_fit(item_mirror.item, spot):
 				return spot
 	return Vector2i(-1, -1);
@@ -640,12 +658,6 @@ func inside_grid(coords:Vector2)->bool:
 	return true;
 
 
-func sort_inventory()->void:
-	inventory.sort_items();
-	
-	refresh_data()
-	sfx.play_sound_by_key("reset")
-	board_shake(10, .5)
 
 func store_resource(amount:int, resource:String)->int:
 	var initial_amount:int = amount;
@@ -777,20 +789,24 @@ func _on_trade_excess_label_panel_mouse_exited() -> void:
 	trade_excess.hide()
 
 func pending_warnings()->bool:
+	if context == "player_sheet" and find_parent("PlayerSheet").disable_display_rect.visible:
+		return false;
 	for key:String in warnings.keys():
 		if warnings[key]:
 			return true;
 	return false
 
+
 func warn_player()->void:
 	warnings_popup.show_warnings();
 	warnings_shown.emit();
-	
+
+
 func reset_warnings()->void:
 	for key:String in warnings.keys():
 		warnings[key] = false;
-		
-		
+
+
 func play_deposit_sfx(amount_deposited:int, resource:String)->void:
 	match resource:
 		"food":
@@ -812,7 +828,6 @@ func play_deposit_sfx(amount_deposited:int, resource:String)->void:
 			sfx.play_item_sfx("deposit_chips")
 
 
-
 func sort_container_mirrors(a:ItemMirror, b:ItemMirror)->bool:
 	if a.item.capacity > b.item.capacity:
 		return true;
@@ -824,26 +839,8 @@ func sort_container_mirrors(a:ItemMirror, b:ItemMirror)->bool:
 func _on_inventory_grid_resized() -> void:
 	cargo_space.custom_minimum_size.x = size_x * 48
 	cargo_space.size.x = size_x * 48
-	
 
-func open() ->void:
-	if inventory:
-		if refresh_data in inventory.changed.get_connections():
-			inventory.changed.disconnect(refresh_data);
-	
 
-	
-	if from_player:
-		inventory = get_tree().get_first_node_in_group("player").inventory;
-	
-	if not (refresh_data in inventory.changed.get_connections()): 
-		inventory.changed.connect(refresh_data)
-
-	hard_reset();
-	refresh_data()
-	opened.emit()
-
-	
 func has_room(item:Item, replacing_item:Item=null)->bool:
 	var cell:Vector2i = find_clear_cell(item, replacing_item);
 	return cell != Vector2i(-1, -1)

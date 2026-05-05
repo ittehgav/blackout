@@ -1,5 +1,7 @@
 extends FighterBase
 
+const evolution_names = ["Scrap Hulk", "Toxic Hulk"]
+
 const lifesteal_frac = .1;
 const lifesteal_technique_amp = .05
 

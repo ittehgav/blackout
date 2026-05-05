@@ -23,6 +23,7 @@ func discard_confirmation(mirror:ItemMirror)->void:
 	
 	await Tweens.ui_fade_in(confirmation_overlay).finished
 	inventory_display.choosing_item = false;
+	Entities.player_sheet.item_discarded.emit()
 	
 
 

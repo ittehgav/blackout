@@ -5,9 +5,7 @@
 [ext_resource type="Script" uid="uid://c0djhkafrh10j" path="res://scenes/index/fighters/scripts/wrecker.gd" id="3_p28ga"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_sp1sy"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_8drad"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_biiqu"]
-[ext_resource type="Texture2D" uid="uid://c72y5l5if5bjh" path="res://assets/visual/sprites/fighters/units/wrecker/wrecker_ally.png" id="4_g588m"]
-[ext_resource type="Texture2D" uid="uid://dxp5tvjuhxuj5" path="res://assets/visual/sprites/fighters/units/wrecker/wrecker_enemy.png" id="5_ml28j"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_dtm77"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_wn7on"]
 [ext_resource type="Texture2D" uid="uid://cdr25r3dw8h0v" path="res://assets/visual/sprites/fighters/units/wrecker/blur.png" id="7_0q1c6"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_0p68p"]
@@ -15,12 +13,8 @@
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_4sabw"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_ml28j"]
 
-[sub_resource type="Resource" id="Resource_dtm77"]
-script = ExtResource("4_biiqu")
-target_texture = ExtResource("2_o3g6e")
-base_name = "wrecker"
-ally_texture = ExtResource("4_g588m")
-enemy_texture = ExtResource("5_ml28j")
+[sub_resource type="Resource" id="Resource_g588m"]
+script = ExtResource("4_dtm77")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_s5sid"]
@@ -81,7 +75,7 @@ vframes = 5
 script = ExtResource("3_p28ga")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Wrecking Strike")
-hue_shifter = SubResource("Resource_dtm77")
+hue_shifter = SubResource("Resource_g588m")
 tags = Array[int]([2, 1, 5])
 body_type = 2
 hit_scan = NodePath("hit_scan")

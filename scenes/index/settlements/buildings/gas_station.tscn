@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="2_vgbht"]
 [ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="3_vgbht"]
 [ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="5_dmsc8"]
-[ext_resource type="PackedScene" uid="uid://blb80ofwrhyyg" path="res://scenes/index/items/_notyet/sharpener.tscn" id="5_frrlj"]
 [ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="5_ke5ly"]
 [ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="7_ke5ly"]
 [ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="8_frrlj"]
+[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="10_cdr2v"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="11_wn6m5"]
 
 [node name="Gas Station" type="Node2D" unique_id=1406925595 node_paths=PackedStringArray("inventory") groups=["all_locations"]]
 script = ExtResource("1_dmsc8")
@@ -26,8 +27,6 @@ batch_size = 2
 resource_storage = [NodePath("Food Bag"), NodePath("Fuel Barrel")]
 holder = NodePath("..")
 
-[node name="Sharpener" parent="ShopInventory" unique_id=342675877 instance=ExtResource("5_frrlj")]
-
 [node name="Jumpsuit" parent="ShopInventory" unique_id=1882015502 instance=ExtResource("5_ke5ly")]
 exclusive_tag = 0
 
@@ -40,3 +39,7 @@ exclusive_tag = 0
 [node name="Mystery Snack Pack" parent="ShopInventory" unique_id=1632098671 instance=ExtResource("7_ke5ly")]
 
 [node name="Taser Gun" parent="ShopInventory" unique_id=1048614062 instance=ExtResource("8_frrlj")]
+
+[node name="Fuel Tank" parent="ShopInventory" unique_id=599390175 instance=ExtResource("10_cdr2v")]
+
+[node name="Fuel Gallon" parent="ShopInventory" unique_id=642880604 instance=ExtResource("11_wn6m5")]

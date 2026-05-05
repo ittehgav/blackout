@@ -39,8 +39,8 @@ func setup()->void:
 func find_base()->void:
 	for c:Node in get_children():
 		if c is FighterBase:
-			base = c;
-			remove_child(c)
+			base = Index.fighters.all_unit_bases[c.name];
+			remove_child.call_deferred(c)
 			return
 	assert(false)
 
@@ -105,9 +105,8 @@ func final_skill_cooldown(_agi_acm:float=stats.agility)->float:
 
 func _on_child_entered_tree(node: Node) -> void:
 	if node is FighterBase and not summon:
-		await Index.ready
 		base = Index.fighters.all_unit_bases[node.name];
-		remove_child(node)
+		remove_child.call_deferred(node)
 
 func equip_accessory(new:Accessory)->Accessory:
 	var previous:Accessory = equipped_accessory;

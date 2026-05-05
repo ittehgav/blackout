@@ -37,7 +37,11 @@ func _ready()->void:
 	refresh_speed();
 	
 func refresh_speed()->void:
+	if leader.inventory.fuel:
+		navigation_speed = 60;
+		
 	irl_cell_travel_time = 3600/(navigation_speed*Index.irl_time_scale)
+
 
 
 

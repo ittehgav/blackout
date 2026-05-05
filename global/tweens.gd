@@ -98,24 +98,46 @@ func recoil_tween(fighter:ActiveFighter)->Tween:
 	tween.tween_property(fighter.sprite,"position", Vector2.ZERO, .2);
 	return tween
 
+var camera_tween:Tween=Tween.new();
 func camera_lunge(fighter:ActiveFighter)->Tween:
+	if camera_tween.is_running():
+		camera_tween.kill();
+		fighter.camera.offset = Vector2.ZERO;
 	var shift:Vector2 = fighter.camera.position.move_toward(fighter.camera.get_local_mouse_position(), 1);
 	fighter.camera.offset = shift
 	
-	var tween:Tween = create_tween();
-	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
-	return tween;
+	camera_tween = create_tween();
+	camera_tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .1 );
+	return camera_tween;
 
 func camera_recoil(fighter:ActiveFighter)->Tween:
+	if camera_tween.is_running():
+		camera_tween.kill();
+		fighter.camera.offset = Vector2.ZERO;
+	
 	var gap:Vector2 = Vector2(-100, -50)
 	if fighter.body.flip_h:
 		gap.x *= -1
 	var shift:Vector2 = fighter.sprite.position.move_toward(gap,100);
 	fighter.camera.offset = shift
 	
-	var tween:Tween = create_tween();
-	tween.tween_property(fighter.camera, "offset", Vector2.ZERO, .5 );
-	return tween;
+	camera_tween = create_tween();
+	camera_tween.tween_property(fighter.camera, "offset", Vector2.ZERO,.1 );
+	return camera_tween;
+
+func camera_shake(fighter:ActiveFighter)->void:
+	if camera_tween.is_running():
+		camera_tween.kill();
+		fighter.camera.offset = Vector2.ZERO;
+	
+	camera_tween = create_tween();
+	for i in range(5):
+		var direction:Vector2 = Vector2(randf_range(-1, 1), randf_range(-1, -1))
+		camera_tween.tween_callback(fighter.camera.set_offset.bind(direction * 30))
+		camera_tween.tween_interval(.05)
+		#camera_tween.tween_property(fighter.camera, "offset", direction * 50, .05);
+	
+	camera_tween.tween_callback(fighter.camera.set_offset.bind(Vector2.ZERO))
 
 func ui_fade_in(target:CanvasItem, duration:float = .5)->Tween:
 	target.show();

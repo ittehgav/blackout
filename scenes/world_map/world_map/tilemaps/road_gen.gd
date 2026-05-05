@@ -1,5 +1,7 @@
 extends TileMapLayer;
 
+@export var origin:Location;
+
 @export var props_tiles:TileMapLayer
 @export var roadside_tiles:TileMapLayer;
 @export var highlight_tiles:TileMapLayer;
@@ -15,6 +17,7 @@ var road_cells:Array[Vector2i];
 var roadside:Array[Vector2i];
 var props_slots:Array[Vector2i];
 func generate_roads(locations:Array[Location])->void:
+	origin.neighbors = [origin.neighbors[0]]
 	for location:Location in locations:
 		for neighbor:Location in location.neighbors:
 			if location not in neighbor.neighbor_paths:

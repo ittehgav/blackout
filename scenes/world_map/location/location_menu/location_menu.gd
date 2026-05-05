@@ -144,7 +144,8 @@ func _on_exit_pressed() -> void:
 	close_location_menu()
 
 func close_location_menu()->void:
-	await slide_out().finished;
+	slide_out()
+	await get_tree().create_timer(.5).timeout;
 	State.revert_substate();
 	hide()
 	closed.emit()

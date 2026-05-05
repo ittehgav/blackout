@@ -51,11 +51,6 @@ func speed_up_loop()->void:
 	tween.tween_callback(speed_up_loop);
 
 
-
-
-
-
-
 func _process(_delta:float)->void:
 	if Input.is_action_just_pressed("skip_time") and not get_tree().paused:
 		set_travel_speed(2);
@@ -63,6 +58,7 @@ func _process(_delta:float)->void:
 		speed_up_persist_timer.start()
 	elif Input.is_action_just_released("skip_time") and not get_tree().paused:
 		set_travel_speed(1);
+
 
 func set_travel_speed(target:float)->void:
 	if target > 1:

@@ -4,10 +4,15 @@ signal paid_fully
 signal food_shortage
 signal fuel_shortage
 
+signal game_over
+
+@export var player_party:PlayerParty;
+
 @onready var player:Player = get_tree().get_first_node_in_group("player");
 
-func travel_upkeep()->void:
 
+
+func travel_upkeep()->void:
 	## EVERY 30 IGT MINUTES
 	var cost:Dictionary = player.travel_upkeep_cost();
 	var missing_food:int = 0;
@@ -32,16 +37,28 @@ func travel_upkeep()->void:
 	
 	if missing_food:
 		food_shortage.emit()
-		var morale_loss:float = -player.morale/3;
+		var morale_loss:float = -1 - player.morale/5;
 		player.change_morale(morale_loss);
+		if player.morale < 0:
+			get_tree().paused = true;
+			game_over.emit()
+			## likely will eventually have more conditions other than the car being moving
+			player_party.navigation_tween.kill();
+			return
 
 	if missing_fuel:
 		fuel_shortage.emit()
 		## speed will halve every hour down to a bottom cap
-		Entities.player_party.navigation_speed /= 2;
-		Entities.player_party.refresh_speed()
-		if Entities.player_party.navigation_speed < 50:
-			Entities.player_party.navigation_speed = 50;
-	
+		player_party.navigation_speed /= 2;
+		if player_party.navigation_speed < 5:
+			player_party.navigation_speed = 5
+		## need to manually slow down current tween 
+		## bc it's easier than recalculating everything?
+		var speed_scale:float = player_party.navigation_speed/60
+		player_party.navigation_tween.set_speed_scale(speed_scale)
 	
 	player.inventory.refresh_resource_counts()
+
+
+func _on_return_to_main_menu_pressed() -> void:
+	State.set_scenario(State.Scenario.main);

@@ -15,8 +15,6 @@ func _on_death(_killer: ActiveFighter) -> void:
 	dead = true;
 	modulate.v = .5;
 	modulate.a = .5;
-	
-	get_node("hurtbox").queue_free()
 
 	var tween:Tween = create_tween();
 	tween.tween_property(self, "scale", Vector2(1.5, 1.5), .3);

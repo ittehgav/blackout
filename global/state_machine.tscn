@@ -21,6 +21,7 @@ bgm = NodePath("main_bgm")
 
 [node name="main_bgm" type="AudioStreamPlayer" parent="." unique_id=1768235036]
 process_mode = 3
+volume_db = -10.0
 bus = &"music"
 script = ExtResource("5_ounvg")
 intro = ExtResource("6_ldplw")

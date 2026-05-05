@@ -4,21 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://24ff13ba8vix" path="res://assets/visual/sprites/fighters/units/sniper/sniper.png" id="2_r7jn3"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_lwa6y"]
 [ext_resource type="Script" uid="uid://bquq6cnjfqscl" path="res://scenes/index/fighters/scripts/sniper.gd" id="3_m8axb"]
-[ext_resource type="Texture2D" uid="uid://bbmogbro0tyu1" path="res://assets/visual/sprites/fighters/units/sniper/sniper_ally.png" id="4_15sto"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_15ekd"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_hn5nq"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_s425e"]
-[ext_resource type="Texture2D" uid="uid://d3q1vl6dcd870" path="res://assets/visual/sprites/fighters/units/sniper/sniper_enemy.png" id="5_psl8l"]
 [ext_resource type="Texture2D" uid="uid://cygeqnjwn3rnk" path="res://assets/visual/sprites/fighters/units/sniper/blur.png" id="6_c3pfp"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ojifu"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_hahop"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="12_psl8l"]
 
-[sub_resource type="Resource" id="Resource_15ekd"]
-script = ExtResource("4_s425e")
-target_texture = ExtResource("2_r7jn3")
-base_name = "sniper"
-ally_texture = ExtResource("4_15sto")
-enemy_texture = ExtResource("5_psl8l")
+[sub_resource type="Resource" id="Resource_15sto"]
+script = ExtResource("4_15ekd")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_q0lj3"]
@@ -79,7 +73,7 @@ vframes = 5
 script = ExtResource("3_m8axb")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Piercing Shot")
-hue_shifter = SubResource("Resource_15ekd")
+hue_shifter = SubResource("Resource_15sto")
 tags = Array[int]([3, 2, 4])
 movement = 1
 hit_scan = NodePath("scan")

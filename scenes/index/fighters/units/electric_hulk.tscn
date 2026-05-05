@@ -4,11 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://clx26uewlgflc" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk.png" id="2_uyhjf"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_5ejrg"]
 [ext_resource type="Script" uid="uid://ckoqd0eib1ilw" path="res://scenes/index/fighters/scripts/electric_hulk.gd" id="3_6afpe"]
-[ext_resource type="Texture2D" uid="uid://ckt662nqf0tw4" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk_ally.png" id="4_5au73"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_j05xm"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_m8o5l"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_ra2ag"]
 [ext_resource type="PackedScene" uid="uid://bakra857y3ok0" path="res://scenes/index/special_statuses/electrified.tscn" id="5_6h33m"]
-[ext_resource type="Texture2D" uid="uid://cqwgwxi42xilu" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk_enemy.png" id="5_q1od0"]
 [ext_resource type="Texture2D" uid="uid://co0gy3qc3n5n0" path="res://assets/visual/sprites/fighters/units/electric_hulk/blur.png" id="7_kk0wj"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_6dfrt"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_0f68e"]
@@ -16,12 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://dmvr7ngbhq7v5" path="res://scenes/index/vfx/lightning.tscn" id="11_nxhr3"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="15_q1od0"]
 
-[sub_resource type="Resource" id="Resource_j05xm"]
-script = ExtResource("4_ra2ag")
-target_texture = ExtResource("2_uyhjf")
-base_name = "electric_hulk"
-ally_texture = ExtResource("4_5au73")
-enemy_texture = ExtResource("5_q1od0")
+[sub_resource type="Resource" id="Resource_5au73"]
+script = ExtResource("4_j05xm")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_kvmho"]
@@ -227,7 +221,7 @@ damage_lightning = NodePath("damage_lightning")
 heal_lightning = NodePath("heal_lightning")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Electric Pulse")
-hue_shifter = SubResource("Resource_j05xm")
+hue_shifter = SubResource("Resource_5au73")
 tags = Array[int]([6, 2, 5])
 body_type = 2
 hit_scan = NodePath("hit_scan")

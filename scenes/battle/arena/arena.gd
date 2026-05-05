@@ -22,8 +22,7 @@ var won_battle:bool;
 func _ready()->void:
 	team_1.load_roster();
 	team_2.load_roster();
-
-
+	Entities.arena = self
 
 func load_layout(target:PackedScene)->void:
 	current_layout.queue_free();
@@ -31,7 +30,6 @@ func load_layout(target:PackedScene)->void:
 	current_layout.z_index = -1;
 	add_child(current_layout);
 	move_child(current_layout, 0);
-
 
 
 func finish_battle(won:bool)->void:

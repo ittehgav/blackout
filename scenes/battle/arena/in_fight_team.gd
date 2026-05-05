@@ -59,8 +59,8 @@ func generate_fighter(unit:FighterUnit, force_position:Vector2=Vector2.ZERO)->Np
 	
 
 	
-	ColorCoder.color_code_fighter(fighter, team_n)
 	add_child.call_deferred(fighter)
+	ColorCoder.color_code_fighter(fighter, team_n)
 
 	
 	return fighter

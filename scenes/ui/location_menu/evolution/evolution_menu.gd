@@ -21,7 +21,6 @@ signal evolution_finished;
 var current_unit:FighterUnit
 
 func start_evolution_menu()->void:
-	opened.emit()
 	for c:Node in available_units_vbox.get_children():
 		c.queue_free()
 	for unit:FighterUnit in player.roster.units:
@@ -33,6 +32,7 @@ func start_evolution_menu()->void:
 	evolutions_view.hide();
 	placeholder_text.show()
 
+	opened.emit()
 	slide_in()
 
 func add_unit_option(unit:FighterUnit)->void:

@@ -27,7 +27,7 @@ func special_skill_effect()->void:
 		
 	var target_position:Vector2 = fighter.position + Vector2(x_roll, y_roll) * Entities.arena.grid.tile_set.tile_size.x
 	
-	fighter.ally_team.generate_fighter(termite_unit, target_position)
+	fighter.ally_team.generate_fighter(termite_unit, target_position).summon = true
 
 
 	

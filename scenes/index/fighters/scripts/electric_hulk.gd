@@ -47,7 +47,11 @@ func chain_damage(targets:Array[ActiveFighter])->void:
 	var bolt_origin:ActiveFighter = fighter;
 	
 	for t:ActiveFighter in targets:
-		Combat.deal_damage(fighter, t)
-		damage_lightning.bolt_animation(bolt_origin, t)
-		await damage_lightning.animation_player.animation_finished;
-		bolt_origin = t;
+		if is_instance_valid(bolt_origin) and is_instance_valid(t):
+			Combat.deal_damage(fighter, t)
+			damage_lightning.bolt_animation(bolt_origin, t)
+			await damage_lightning.animation_player.animation_finished;
+			bolt_origin = t;
+		
+		if is_instance_valid(t):
+			bolt_origin = t;

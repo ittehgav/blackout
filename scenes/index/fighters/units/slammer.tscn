@@ -4,23 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://csoj5qe27sos2" path="res://assets/visual/sprites/fighters/units/slammer/slammer.png" id="2_iwgp2"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_53j4b"]
 [ext_resource type="Script" uid="uid://cepgldvhtvcb8" path="res://scenes/index/fighters/scripts/slammer.gd" id="3_koqxp"]
+[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_0pccw"]
 [ext_resource type="PackedScene" uid="uid://clr0o7muuno6g" path="res://scenes/index/vfx/overhead_wide.tscn" id="4_6xpao"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_38x4e"]
-[ext_resource type="Texture2D" uid="uid://m6i3m30h1t5k" path="res://assets/visual/sprites/fighters/units/slammer/slammer_ally.png" id="4_jyje0"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_ocxoc"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_0jd70"]
-[ext_resource type="Texture2D" uid="uid://c0v222mnobn0" path="res://assets/visual/sprites/fighters/units/slammer/slammer_enemy.png" id="5_ceblu"]
 [ext_resource type="Texture2D" uid="uid://crdfgqjhj6svf" path="res://assets/visual/sprites/fighters/units/slammer/blur.png" id="7_815tu"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_6xpao"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_ikqys"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_ceblu"]
 
-[sub_resource type="Resource" id="Resource_0pccw"]
-script = ExtResource("4_38x4e")
-target_texture = ExtResource("2_iwgp2")
-base_name = "slammer"
-ally_texture = ExtResource("4_jyje0")
-enemy_texture = ExtResource("5_ceblu")
+[sub_resource type="Resource" id="Resource_jyje0"]
+script = ExtResource("4_0pccw")
 metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_plmof"]
@@ -93,7 +87,7 @@ vframes = 5
 script = ExtResource("3_koqxp")
 animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Throw Hands")
-hue_shifter = SubResource("Resource_0pccw")
+hue_shifter = SubResource("Resource_jyje0")
 tags = Array[int]([0, 6, 7])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")

@@ -11,10 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://dnsa1twbya255" path="res://assets/visual/ui/world_map/road_loop.png" id="11_y6w72"]
 [ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="12_5n82e"]
 [ext_resource type="PackedScene" uid="uid://crtogvmqgyi4o" path="res://scenes/ui/samples/location_sign.tscn" id="12_fhbov"]
-[ext_resource type="Script" uid="uid://dik4cc5pjku7k" path="res://scenes/world_map/ui/sfx_player.gd" id="13_ty4o3"]
-[ext_resource type="AudioStream" uid="uid://ckh6cv5c0w7ix" path="res://assets/sound/sfx/ui/inventory/travel_upkeep.wav" id="14_f1l5a"]
-[ext_resource type="AudioStream" uid="uid://m6ibvpdinqyi" path="res://assets/sound/sfx/ui/inventory/food_shortage.wav" id="15_pl03f"]
-[ext_resource type="AudioStream" uid="uid://dlg5nk3tof2av" path="res://assets/sound/sfx/ui/inventory/fuel_shortage.wav" id="16_hfvjd"]
 [ext_resource type="Script" uid="uid://pgo0305dfj78" path="res://scenes/world_map/ui/hud/clock.gd" id="17_3q7xu"]
 [ext_resource type="Script" uid="uid://bdiy8opahj3n8" path="res://scenes/world_map/world_map/hud/navigation_data.gd" id="18_8w2oe"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="19_1v5ml"]
@@ -144,13 +140,6 @@ metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
 
 [node name="ui_sfx" parent="." unique_id=907330256 instance=ExtResource("2_huowc")]
 
-[node name="upkeep_sfx" type="AudioStreamPlayer" parent="." unique_id=1740917865]
-script = ExtResource("13_ty4o3")
-upkeep_paid = ExtResource("14_f1l5a")
-food_shortage = ExtResource("15_pl03f")
-fuel_shortage = ExtResource("16_hfvjd")
-metadata/_custom_type_script = "uid://yn55dca3qplf"
-
 [node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1807181686]
 layout_mode = 0
 offset_right = 400.0
@@ -239,7 +228,7 @@ offset_right = 12.0
 grow_vertical = 0
 theme = ExtResource("9_3s71w")
 script = ExtResource("10_5vse6")
-sfx = NodePath("../upkeep_sfx")
+sfx = NodePath("")
 road_sprite = NodePath("VBoxContainer/HBoxContainer/location_icon/road")
 main_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/main_text")
 sub_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/sub_text")

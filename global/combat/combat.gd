@@ -29,8 +29,7 @@ func aoe_damage(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan, ha
 
 func aoe_status(source:ActiveFighter, status:Status=source.base.skill.status, hit_scan:Area2D=source.base.hit_scan, hard_value:float = 0)->void:
 	var hurtboxes:Array[Area2D] = hit_scan.get_overlapping_areas();
-	if source.target_fighter.hurtbox not in hurtboxes:
-		hurtboxes.append(source.target_fighter.hurtbox)
+
 	for area:Area2D in hurtboxes:
 		assert(area is HurtBox);
 		var target:CombatEntity = area.source;

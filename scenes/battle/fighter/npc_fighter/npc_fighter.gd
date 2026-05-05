@@ -31,6 +31,7 @@ var aoe_projection:Sprite2D;
 
 @export var aoe_projection_color:Color;
 
+
 var show_aoe_projection:bool=false;
 
 var target_fighter:ActiveFighter;
@@ -50,8 +51,11 @@ func load_fighter(new_unit:FighterUnit)->void:
 	unit = new_unit
 	level = new_unit.level
 	unit = new_unit
-	base = unit.base.duplicate(DUPLICATE_USE_INSTANTIATION);
+	base = unit.base.duplicate();
 	body_type = base.body_type
+	
+	if base.skill.status:
+		base.skill.status.source = self;
 	
 	sprite = base
 	## sprite is a pointer to base only in NPC fighters
@@ -88,6 +92,7 @@ func load_fighter(new_unit:FighterUnit)->void:
 	add_child(base)
 	base.set_owner(self)
 	base.get_node("hurtbox").reparent(hurtbox);
+	
 	
 	load_unit_stats();
 
@@ -140,7 +145,8 @@ func load_unit_stats()->void:
 	## because it's hardly ever used
 
 	move_speed = stats.move_speed
-
+	movement_ticker.wait_time = .2 * (500/move_speed)
+	movement_interval = movement_ticker.wait_time
 
 func set_direction()->void:
 	var direction_index:int = Index.isometric_rad_indexes.bsearch(direction_to_target.angle());
@@ -297,7 +303,9 @@ func _on_stat_changed(stat:String)->void:
 				if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
 					cooldown_timer.timeout.disconnect(correct_cooldown_timer);
 				cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);
-
+		"move_speed":
+			movement_ticker.wait_time = .2 * (500/move_speed)
+			movement_interval = movement_ticker.wait_time
 func final_skill_cooldown()->float:
 	return base.skill.base_cooldown - Scaling.agility_cooldown_reduction(base.skill.base_cooldown, agility)
 

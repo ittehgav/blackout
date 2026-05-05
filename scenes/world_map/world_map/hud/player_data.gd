@@ -6,12 +6,13 @@ extends PanelContainer
 @onready var player:Player = get_tree().get_first_node_in_group("player")
 
 func _ready()->void:
-	await player.ready;
+	if not player.is_node_ready():
+		await player.ready
 	player.inventory.changed.connect(refresh)
 	refresh()
 
 func refresh()->void:
-	var inventory:Inventory = Entities.player.inventory;
+	var inventory:Inventory = player.inventory;
 	var total_space:int = inventory.capacity_x * inventory.capacity_y
 	var space_taken:int = inventory.taken_space()
 	inventory_space_label.text = str(space_taken) + "/" + str(total_space)

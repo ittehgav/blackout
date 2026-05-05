@@ -14,42 +14,65 @@ signal battle_started(wave:Roster)
 
 @export var wave_power_icon:PartyPowerIcon;
 @export var dungeon_power_label:Label;
+@export var start_wave_btn:Button
 
 @export var whole_skull_texture:Texture;
 @export var broken_skull_texture:Texture;
+
+@export var final_loot:ColorRect
+
+@export var wave_clear_sound:AudioStream;
+@export var dungeon_clear_sound:AudioStream
+@export var wave_sfx:SfxPlayer;
+
+@export var dungeon_cleared_overlay:MarginContainer;
 
 var dungeon:Dungeon
 var current_wave_index:int;
 
 func load_dungeon(target:Dungeon)->void:
+	start_wave_btn.mouse_filter = Control.MOUSE_FILTER_STOP
 	dungeon = target
 	Entities.current_dungeon = dungeon
+	dungeon_cleared_overlay.hide()
+	## won't even be able to see menu of cleared dungeons?
+	start_wave_btn.disabled = false;
+	
+	for h:HBoxContainer in wave_hboxes:
+		for c:Node in h.get_children():
+			if c is CanvasItem:
+				c.queue_free();
 	
 	dungeon_name_label.text = dungeon.name;
 	current_wave_index = dungeon.current_wave - 1;
 	
-	var current_wave:NpcRoster = dungeon.get_current_wave();
-	var current_wave_level:int = current_wave.get_level();
-	var current_wave_danger:int = dungeon.get_current_wave().get_danger_level()
+	if not dungeon.cleared:
+		var current_wave:NpcRoster = dungeon.get_current_wave();
+		var current_wave_level:int = current_wave.get_level();
+		var current_wave_danger:int = dungeon.get_current_wave().get_danger_level()
+		
+		dungeon_power_label.text = str(current_wave_level);
 	
-	dungeon_power_label.text = str(current_wave_level);
 	
-	
-	var target_modulate:Color
-	match current_wave_danger:
-		1:
-			target_modulate = Color.GREEN_YELLOW;
-		2:
-			target_modulate = Color.WHITE;
-		3:
-			target_modulate = Color.PALE_VIOLET_RED;
-			dungeon_power_label.text += "!"
-		4:
-			target_modulate = Color.FIREBRICK
-			dungeon_power_label.text += "!!!"
-	
-	wave_power_icon.modulate = target_modulate;
-	dungeon_power_label.modulate = target_modulate
+		var target_modulate:Color
+		match current_wave_danger:
+			1:
+				target_modulate = Color.GREEN_YELLOW;
+			2:
+				target_modulate = Color.WHITE;
+			3:
+				target_modulate = Color.PALE_VIOLET_RED;
+				dungeon_power_label.text += "!"
+			4:
+				target_modulate = Color.FIREBRICK
+				dungeon_power_label.text += "!!!"
+		
+		wave_power_icon.modulate = target_modulate;
+		dungeon_power_label.modulate = target_modulate
+	else:
+		dungeon_cleared_overlay.show()
+
+
 	var i:int = 0;
 	for wave:NpcRoster in dungeon.waves:
 		var hbox:HBoxContainer=wave_hboxes[i];
@@ -98,34 +121,56 @@ func generate_unit_preview(base:FighterBase)->TextureRect:
 
 @onready var initial_wave_hbox_modulate:Color = wave_hboxes[0].modulate;
 func _on_start_next_wave_mouse_entered() -> void:
-	wave_hboxes[current_wave_index].get_node("highlight_animation").play("highlight")
-
+	if current_wave_index < 3:
+		wave_hboxes[current_wave_index].get_node("highlight_animation").play("highlight")
+## easier than to make it work with disable?
 
 func _on_start_next_wave_mouse_exited() -> void:
-	wave_hboxes[current_wave_index].get_node("highlight_animation").stop()
+	if current_wave_index < 3:
+		wave_hboxes[current_wave_index].get_node("highlight_animation").stop()
 
 
 func _on_start_next_wave_pressed() -> void:
 	State.set_substate(State.Substate.pre_battle)
 
 
-func _on_exit_btn_pressed() -> void:
-	slide_out();
-	exited.emit()
-
 func show_post_fight(won:bool)->void:
 	if not dungeon:return ## keep the tutorial location from popping up
 	load_dungeon(dungeon)
-	wave_cleared();
+	if won:
+		wave_cleared();
 
 func wave_cleared()->void:
+	start_wave_btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var just_cleared_wave:int = dungeon.current_wave;
+
+	var hbox:HBoxContainer = wave_hboxes[dungeon.current_wave - 1]
+	var animation:AnimationPlayer = hbox.find_child("highlight_animation")
+	
+	animation.play("wave_cleared")
+	
+	await animation.animation_finished;
+	start_wave_btn.mouse_filter = Control.MOUSE_FILTER_STOP
 	dungeon.current_wave += 1;
 	current_wave_index += 1;
 	
+	if just_cleared_wave < 3:
+		start_wave_btn.mouse_filter = Control.MOUSE_FILTER_STOP
+		wave_sfx.play_sound_obj(wave_clear_sound)
+	else:
+		wave_sfx.play_sound_obj(dungeon_clear_sound);
+		final_loot.show_dungeon_loot(dungeon.final_loot)
+		
+		
 
-	var hbox:HBoxContainer = wave_hboxes[just_cleared_wave - 1]
-	var animation:AnimationPlayer = hbox.find_child("highlight_animation")
-	animation.play("wave_cleared")
+func _on_dungeon_final_loot_looting_finished() -> void:
+	final_loot.hide();
+	Entities.player_party.current_location.refresh_sprite()
+	exit();
 
+func _on_exit_btn_pressed() -> void:
+	exit()
 	
+func exit()->void:
+	slide_out();
+	exited.emit()

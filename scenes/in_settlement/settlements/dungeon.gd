@@ -24,13 +24,9 @@ var cleared:bool=false
 
 func refresh()->void:
 	## called when generated as well as when needed and pending
-	
 	for wave:NpcRoster in waves:
 		wave.loot.generate_loot(wave.get_level());
 	pending_refresh = false
-
-
-
 
 
 func get_danger_level()->int:

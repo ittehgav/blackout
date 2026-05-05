@@ -4,6 +4,7 @@ extends SfxPlayer
 @export var food_shortage:AudioStream;
 @export var fuel_shortage:AudioStream;
 
+@export var game_over:AudioStream;
 
 func _on_upkeep_paid_fully() -> void:
 	play_sound_obj(upkeep_paid)
@@ -15,3 +16,7 @@ func _on_upkeep_fuel_shortage() -> void:
 
 func _on_upkeep_food_shortage() -> void:
 	play_sound_obj(food_shortage)
+
+
+func _on_upkeep_game_over() -> void:
+	play_sound_obj(game_over)

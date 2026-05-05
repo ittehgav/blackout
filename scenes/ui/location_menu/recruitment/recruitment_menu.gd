@@ -2,9 +2,7 @@ extends UIRoot
 
 class_name RecruitmentMenu
 
-signal recruitment_started;
 signal recruitment_finished;
-signal unit_recruited(unit:FighterUnit)
 
 @export_subgroup("nodes")
 @export var hire_sfx:AudioStreamPlayer;
@@ -52,7 +50,6 @@ func start_recruitment(roster:RecruitmentRoster)->void:
 	refresh_affordability();
 	recursive_connect_ui_feedback(options_vbox)
 	slide_in()
-	recruitment_started.emit()
 	
 func slide_in()->void:
 	show()
@@ -103,7 +100,6 @@ func load_option(card:RecruitmentCard)->void:
 
 
 func _on_hire_pressed() -> void:
-	unit_recruited.emit(current_unit);
 	Entities.player.inventory.change_resource("money", -current_price);
 	Entities.player.roster.add_unit(current_unit)
 	current_option.unit_hired()

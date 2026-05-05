@@ -232,4 +232,5 @@ func refresh_view()->void:
 
 func _on_exit_btn_pressed() -> void:
 	forge_finished.emit();
+	Entities.player.inventory.last_display = null;
 	slide_out()

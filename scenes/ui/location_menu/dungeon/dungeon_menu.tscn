@@ -4,9 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_dqlpc"]
 [ext_resource type="Texture2D" uid="uid://2v8suik1qjog" path="res://assets/visual/buildings/dungeon_sign/skull_broken.png" id="3_x2qvw"]
 [ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="4_omstc"]
+[ext_resource type="AudioStream" uid="uid://6fite33b5nqx" path="res://assets/sound/sfx/world_map/wave_cleared.mp3" id="4_t6shr"]
+[ext_resource type="AudioStream" uid="uid://ccn130n4j1oaj" path="res://assets/sound/sfx/world_map/dungeon_cleared.mp3" id="5_qvabo"]
 [ext_resource type="Script" uid="uid://yn55dca3qplf" path="res://scenes/ui/sound/sfx_player.gd" id="5_tpeou"]
 [ext_resource type="Texture2D" uid="uid://5vfqfug0gssf" path="res://assets/visual/buildings/dungeon_sign/skull.png" id="5_x2qvw"]
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="6_8r6h2"]
+[ext_resource type="Theme" uid="uid://c1jtdl1fnsdxk" path="res://resources/themes/pixel_ui_theme/theme_light.tres" id="8_fdkk1"]
+[ext_resource type="Script" uid="uid://8ajplln3cdd4" path="res://scenes/ui/location_menu/dungeon/dungeon_final_loot.gd" id="8_ja3g6"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="9_nvkdk"]
+[ext_resource type="Theme" uid="uid://d15sy73urfl2o" path="res://resources/themes/main_theme.tres" id="11_c5kcj"]
+[ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="11_qvabo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tpeou"]
 resource_local_to_scene = true
@@ -169,7 +176,7 @@ _data = {
 &"wave_cleared": SubResource("Animation_8r6h2")
 }
 
-[node name="DungeonMenu" type="Control" unique_id=1341485123 node_paths=PackedStringArray("dungeon_name_label", "content_hbox", "wave_hboxes", "wave_power_icon", "dungeon_power_label", "ui_sfx")]
+[node name="DungeonMenu" type="Control" unique_id=1341485123 node_paths=PackedStringArray("dungeon_name_label", "content_hbox", "wave_hboxes", "wave_power_icon", "dungeon_power_label", "start_wave_btn", "final_loot", "wave_sfx", "dungeon_cleared_overlay", "ui_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,8 +189,14 @@ content_hbox = NodePath("content_hbox")
 wave_hboxes = [NodePath("content_hbox/PanelContainer2/VBoxContainer/wave_1/wave_1_data"), NodePath("content_hbox/PanelContainer2/VBoxContainer/wave_2/wave_2_data"), NodePath("content_hbox/PanelContainer2/VBoxContainer/wave_3/wave_3_data")]
 wave_power_icon = NodePath("content_hbox/PanelContainer/HBoxContainer/party_power_icon")
 dungeon_power_label = NodePath("content_hbox/PanelContainer/HBoxContainer/wave_power")
+start_wave_btn = NodePath("content_hbox/PanelContainer/start_next_wave")
 whole_skull_texture = ExtResource("5_x2qvw")
 broken_skull_texture = ExtResource("3_x2qvw")
+final_loot = NodePath("dungeon_final_loot")
+wave_clear_sound = ExtResource("4_t6shr")
+dungeon_clear_sound = ExtResource("5_qvabo")
+wave_sfx = NodePath("SfxPlayer")
+dungeon_cleared_overlay = NodePath("content_hbox/PanelContainer/cleared")
 ui_sfx = NodePath("ui_sfx")
 metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
 
@@ -254,6 +267,34 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "START NEXT WAVE"
+
+[node name="cleared" type="MarginContainer" parent="content_hbox/PanelContainer" unique_id=396193598]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 62
+
+[node name="dungeon_cleared" type="Panel" parent="content_hbox/PanelContainer/cleared" unique_id=625761819]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="content_hbox/PanelContainer/cleared/dungeon_cleared" unique_id=755867898]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = 35.0
+offset_right = 169.0
+offset_bottom = 111.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.5235988
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 96
+text = "CLEARED"
+horizontal_alignment = 1
 
 [node name="PanelContainer2" type="PanelContainer" parent="content_hbox" unique_id=240429511]
 layout_mode = 2
@@ -362,7 +403,142 @@ theme_override_constants/separation = -87
 [node name="highlight_animation" type="AnimationPlayer" parent="content_hbox/PanelContainer2/VBoxContainer/wave_3/wave_3_data" unique_id=1253230750]
 libraries/ = SubResource("AnimationLibrary_8r6h2")
 
+[node name="dungeon_final_loot" type="ColorRect" parent="." unique_id=410683171 node_paths=PackedStringArray("samples", "item_chosen_sfx")]
+visible = false
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6749, 0.68, 0.374, 0.34117648)
+script = ExtResource("8_ja3g6")
+samples = [NodePath("PanelContainer/VBoxContainer/samples/PanelContainer/MarginContainer/VBoxContainer/item_sample"), NodePath("PanelContainer/VBoxContainer/samples/PanelContainer2/MarginContainer/VBoxContainer/item_sample"), NodePath("PanelContainer/VBoxContainer/samples/PanelContainer3/MarginContainer/VBoxContainer/item_sample")]
+item_chosen_sfx = NodePath("item_chosen")
+
+[node name="item_chosen" type="AudioStreamPlayer" parent="dungeon_final_loot" unique_id=1011397720]
+stream = ExtResource("11_qvabo")
+
+[node name="PanelContainer" type="PanelContainer" parent="dungeon_final_loot" unique_id=904127087]
+custom_minimum_size = Vector2(600, 350)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -205.0
+offset_top = -148.5
+offset_right = 205.0
+offset_bottom = 148.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="dungeon_final_loot/PanelContainer" unique_id=956348504]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="dungeon_final_loot/PanelContainer/VBoxContainer" unique_id=865254268]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "DUNGEON CLEARED!"
+
+[node name="Label2" type="Label" parent="dungeon_final_loot/PanelContainer/VBoxContainer" unique_id=746361849]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Choose a Reward"
+
+[node name="samples" type="HBoxContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer" unique_id=1639648177]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples" unique_id=1471655483]
+custom_minimum_size = Vector2(130, 280)
+layout_mode = 2
+theme = ExtResource("8_fdkk1")
+
+[node name="MarginContainer" type="MarginContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer" unique_id=1347119929]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer/MarginContainer" unique_id=1891836323]
+layout_mode = 2
+
+[node name="item_sample" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer/MarginContainer/VBoxContainer" unique_id=389664355 instance=ExtResource("9_nvkdk")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="choice_1" type="Button" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer/MarginContainer/VBoxContainer" unique_id=1946101433]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("11_c5kcj")
+text = "CHOOSE"
+
+[node name="PanelContainer2" type="PanelContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples" unique_id=640654920]
+custom_minimum_size = Vector2(130, 280)
+layout_mode = 2
+theme = ExtResource("8_fdkk1")
+
+[node name="MarginContainer" type="MarginContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer2" unique_id=1573347731]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer2/MarginContainer" unique_id=1889143005]
+layout_mode = 2
+
+[node name="item_sample" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer2/MarginContainer/VBoxContainer" unique_id=500184468 instance=ExtResource("9_nvkdk")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="choice_2" type="Button" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer2/MarginContainer/VBoxContainer" unique_id=1408294647]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("11_c5kcj")
+text = "CHOOSE"
+
+[node name="PanelContainer3" type="PanelContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples" unique_id=1989476069]
+custom_minimum_size = Vector2(130, 280)
+layout_mode = 2
+theme = ExtResource("8_fdkk1")
+
+[node name="MarginContainer" type="MarginContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer3" unique_id=1878753695]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer3/MarginContainer" unique_id=1986626319]
+layout_mode = 2
+
+[node name="item_sample" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer3/MarginContainer/VBoxContainer" unique_id=1831823763 instance=ExtResource("9_nvkdk")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="choice_3" type="Button" parent="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer3/MarginContainer/VBoxContainer" unique_id=1906910322]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("11_c5kcj")
+text = "CHOOSE"
+
 [connection signal="pressed" from="content_hbox/PanelContainer/HBoxContainer2/exit_btn" to="." method="_on_exit_btn_pressed"]
 [connection signal="mouse_entered" from="content_hbox/PanelContainer/start_next_wave" to="." method="_on_start_next_wave_mouse_entered"]
 [connection signal="mouse_exited" from="content_hbox/PanelContainer/start_next_wave" to="." method="_on_start_next_wave_mouse_exited"]
 [connection signal="pressed" from="content_hbox/PanelContainer/start_next_wave" to="." method="_on_start_next_wave_pressed"]
+[connection signal="looting_finished" from="dungeon_final_loot" to="." method="_on_dungeon_final_loot_looting_finished"]
+[connection signal="pressed" from="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer/MarginContainer/VBoxContainer/choice_1" to="dungeon_final_loot" method="_on_choice_1_pressed"]
+[connection signal="pressed" from="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer2/MarginContainer/VBoxContainer/choice_2" to="dungeon_final_loot" method="_on_choice_2_pressed"]
+[connection signal="pressed" from="dungeon_final_loot/PanelContainer/VBoxContainer/samples/PanelContainer3/MarginContainer/VBoxContainer/choice_3" to="dungeon_final_loot" method="_on_choice_3_pressed"]

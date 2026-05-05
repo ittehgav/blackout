@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0n0kjgpxpjit"]
 
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Blood.tres" id="1_st2cm"]
-[ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_ui.gd" id="2_sohg7"]
+[ext_resource type="Script" uid="uid://c08xyyg1873uu" path="res://scenes/main/main_menu.gd" id="2_sohg7"]
 [ext_resource type="Texture2D" uid="uid://dup4gbmc7jy05" path="res://assets/visual/splash/hands.jpg" id="3_cnht7"]
 [ext_resource type="Texture2D" uid="uid://ctrdkvpa28p08" path="res://assets/visual/icons/portrait.png" id="4_n08up"]
 [ext_resource type="Texture2D" uid="uid://t0008chby5ff" path="res://icon.svg" id="5_bucyr"]

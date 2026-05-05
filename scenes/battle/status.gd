@@ -32,9 +32,6 @@ var host:ActiveFighter
 var timer:Timer;
 
 
-func _ready() -> void:
-	if Entities.main and original and State.current_scenario == State.Scenario.battle:
-		set_source()
 
 func set_source()->void:
 	var target_source:Node = get_parent();

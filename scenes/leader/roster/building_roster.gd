@@ -21,5 +21,5 @@ func refresh_recruits()->void:
 
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is FighterBase);
-	base_pool.append(node);
+	base_pool.append(Index.fighters.all_unit_bases[node.name]);
 	remove_child.call_deferred(node)

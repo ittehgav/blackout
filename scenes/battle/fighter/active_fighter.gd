@@ -21,9 +21,9 @@ signal damage_dealt(damage:float, target:ActiveFighter)
 @export var stat_modifiers:CombatStats;
 @export var stat_multipliers:CombatStats
 
-@export var hurtbox:Area2D;
 
 
+var summon:bool=false;
 
 var hit_targets:Array[CombatEntity]
 

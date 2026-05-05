@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjmnlpi6chnbj"]
+[gd_scene format=3 uid="uid://bjmnlpi6chnbj"]
 
 [ext_resource type="Texture2D" uid="uid://dbesccl2h38ie" path="res://assets/visual/icons/resources/chips.png" id="2_2p31w"]
 [ext_resource type="Script" uid="uid://y3s3xpga46g0" path="res://scenes/index/items/containers/scripts/chips.gd" id="3_8ljyg"]
 
-[node name="Chips" type="Sprite2D"]
+[node name="Chips" type="Sprite2D" unique_id=409922609]
 texture = ExtResource("2_2p31w")
 script = ExtResource("3_8ljyg")
 resource = "chips"
