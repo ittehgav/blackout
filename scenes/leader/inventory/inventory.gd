@@ -149,7 +149,7 @@ func send_item(item:Item, target:Inventory)->bool:
 				else:
 					c.stack_size = c.capacity;
 					item.stack_size -= space_left;
-	target.add_child(item);
+	item.reparent(target)
 	return true
 
 func remove_item(item:Item)->void:

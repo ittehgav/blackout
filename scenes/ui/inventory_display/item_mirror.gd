@@ -483,7 +483,7 @@ func trade_command()->void:
 						return
 		else:
 			if display.from_player or not item in display.inventory.resource_storage:
-				display.send_item(self);
+				display.send_item(self, true);
 				return
 			else:
 				if held:
@@ -491,7 +491,7 @@ func trade_command()->void:
 				display.invalid_move.emit("CONTAINER NOT FOR SALE")
 				return
 	else:
-		display.send_item(self);
+		display.send_item(self, true);
 
 
 func highlight_stack_label()->void:

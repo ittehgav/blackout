@@ -449,6 +449,7 @@ func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
 	if not has_room(item_mirror.item):
 		invalid_move.emit("NOT ENOUGH ROOM", item_mirror);
 		return false
+	inventory.add_child(item_mirror.item)
 	var spot:Vector2i = find_clear_cell(item_mirror.item)
 	## EVERY MOVE IS APPLIED TO INVENTORIES RIGHT AWAY
 	## RESETTING FUNCTIONS WILL BE RESET STATES GENERATED AS THE MENUS ARE OPENED
@@ -460,6 +461,7 @@ func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
 		exchanging_display.inventory.refresh_resource_counts()
 	
 	if space_occupied:
+		print("soc?")
 		var new_mirror:ItemMirror;
 		
 		new_mirror = mirror_item(item_mirror.item)
