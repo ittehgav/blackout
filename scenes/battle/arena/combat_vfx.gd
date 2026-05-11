@@ -50,12 +50,17 @@ func set_sprite_root()->void:
 			angle_source = parent;
 			angle_source.frame_changed.connect(match_source_angle);
 		elif parent is Weapon:
+			var holder:Node = parent.get_parent();
+			if not holder is EquipmentControl:
+				print("isnotit?")
+				return
 			animation_player.speed_scale = .75
 			## just to keep this adjustment from being called twice when weapon is duplicated
 			if rotation_offset and rotation_offset > PI:
 				rotation_offset = deg_to_rad(rotation_offset)
 				
-			parent.animation_player.animation_started.connect(match_weapon_angle_and_play)
+			## CONNECTS TO EquipmentControl node in player_fighter
+			holder.weapon_used.connect(play)
 
 
 	if angle_source is FighterBase:
@@ -80,7 +85,7 @@ func match_source_angle()->void:
 	## likely will have to add more adjustments?
 	frame_coords.x = angle_source.frame_coords.x;
 
-func match_weapon_angle_and_play(_a:Variant)->void:
+func play()->void:
 	var eq_rotation:float = Entities.player_fighter.equipment.rotation;
 	
 	rotation = eq_rotation + rotation_offset

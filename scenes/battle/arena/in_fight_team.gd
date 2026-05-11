@@ -28,7 +28,7 @@ var col_count:int = 0;
 func load_roster()->void:
 	var cols := {"melee":[], "mid":[], "long":[]};
 	for unit:FighterUnit in roster.units:
-		
+
 		var fighter:NpcFighter = generate_fighter(unit);
 		
 		match unit.base.skill.skill_range:

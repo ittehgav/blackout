@@ -17,10 +17,9 @@ total_frames = 5
 
 
 top_light = bpy.data.objects.get("top_light");
-bottom_light = bpy.data.objects.get("bottom_light")
 camera = bpy.context.scene.camera
 ## will raise error on its own if one isnt found???
-to_rotate = [top_light, bottom_light, camera]
+to_rotate = [top_light, camera]
 
 
 collection = bpy.data.collections.get("all")
@@ -39,3 +38,15 @@ sprite_gen.generate_spritesheet(png_files, total_frames);
 print("✅ Finished rendering 360° around Y-axis.")
 
 
+sample_files = ["render_00-3.png", "render_01-3.png", "render_02-3.png"]
+sample_images = [Image.open(os.path.join("renders", f)) for f in sample_files]
+frame_durations = [133, 233, 284]
+
+sample_path = "sample.gif"
+sample_images[0].save(
+    sample_path,
+    save_all=True,
+    append_images=sample_images[1:],
+    duration = frame_durations,
+    loop=0
+)

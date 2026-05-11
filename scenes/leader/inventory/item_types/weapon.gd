@@ -13,6 +13,17 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 
 
 ## active_texture swaps in at battle start if the weapon has it
+@export var animation_root_key:String = "melee"
+## WEAPON ANIMATIONS ALWAYS HAVE THE SAME NAMES BETWEEN LIBRARIES
+## right now either melee or ranged
+## or overrides from the default ones
+## ATTACK ANIMATION KEYS
+## attack <- NEEDS TO CALL THE WEAPON'S IMPACT FN
+## after_attack
+## idle
+## walk
+## TODO make a clear way to override timing of specific keys
+## so weapons become more customizable:?
 
 @export var base_damage:int;
 @export var cooldown:float;
@@ -48,6 +59,7 @@ var item_texture:Texture = texture;
 @export_enum("camera_lunge", "camera_recoil", "none") var use_feedback:String = "camera_lunge"
 @export_enum("freeze_frame", "screen_shake") var hit_feedback:String = "freeze_frame";
 
+var pending_impact:bool=false;
 
 func use(_alt:bool=false)->void:
 	## these are gonna look a lot similar between eachother but i'd 

@@ -340,11 +340,13 @@ scale = Vector2(0.75, 0.8)
 texture = ExtResource("22_ung86")
 
 [connection signal="damage_taken" from="." to="sfx/sfx" method="damage_taken_sfx"]
+[connection signal="started_moving" from="." to="equipment" method="_on_player_fighter_started_moving"]
 [connection signal="started_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/walk"]]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
 [connection signal="status_applied" from="." to="vfx_control" method="_on_in_fight_player_status_applied"]
 [connection signal="status_applied" from="." to="sfx/debuff_received_sfx" method="_on_player_fighter_status_applied"]
 [connection signal="status_removed" from="." to="vfx_control" method="_on_in_fight_player_status_removed"]
+[connection signal="stopped_moving" from="." to="equipment" method="_on_player_fighter_stopped_moving"]
 [connection signal="stopped_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/idle"]]
 [connection signal="module_fumbled" from="equipment" to="sfx/sfx" method="_on_equipment_module_fumbled"]
 [connection signal="weapon_changed" from="equipment" to="sfx/sfx" method="_on_equipment_weapon_changed"]
@@ -354,5 +356,6 @@ texture = ExtResource("22_ung86")
 [connection signal="weapon_hit" from="equipment" to="sfx/hit_sfx" method="weapon_hit"]
 [connection signal="weapon_hit" from="equipment" to="equipment/weapon_control" method="weapon_hit"]
 [connection signal="weapon_unequipped" from="equipment" to="." method="_on_equipment_weapon_unequipped"]
+[connection signal="weapon_used" from="equipment" to="equipment" method="_on_weapon_used"]
 [connection signal="timeout" from="equipment/weapon_control/weapon_cd" to="equipment/weapon_control" method="_on_weapon_cd_timeout"]
 [connection signal="timeout" from="equipment/freeze_frame_control" to="equipment" method="_on_freeze_frame_control_timeout"]

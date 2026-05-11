@@ -31,6 +31,8 @@ func _ready()->void:
 		
 func load_weapon(target:Weapon)->Weapon:
 	var new_weapon:Weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION)
+	new_weapon.scale = Vector2(2, 2)
+	new_weapon.animation_player.animation_finished.connect(equipment.weapon_animation_finished.bind(new_weapon))
 	if new_weapon.status:
 		new_weapon.status.source = equipment.holder;
 	
@@ -62,8 +64,6 @@ func _process(_delta:float)->void:
 		use_weapon_command(true);
 	elif Input.is_action_just_released("use_weapon") and holding_continuous:
 		release_weapon_command()
-	
-	
 	if Input.is_action_just_pressed("switch_weapon") and alternative_weapon and not holding_continuous:
 		switch_weapon();
 
@@ -95,10 +95,12 @@ func release_weapon_command()->void:
 
 
 func use_weapon(alt:bool)->void:
-	if weapon.melee and weapon.animation_player.is_playing():
-		## very likely this behavior will eventually need 
-		## to apply in non meee weapons
-		weapon.impact();
+	print("uwe?")
+	if weapon.pending_impact:
+		## to make sure all hits get in with high atk speeds
+		## right now catches all animation overlaps
+		weapon.impact()
+		
 	weapon.use(alt)
 	play_weapon_vfx()
 	equipment.weapon_used.emit()
@@ -142,6 +144,7 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 	
 	if weapon.hit_scan:
 		weapon.hit_scan.reparent(equipment)
+		weapon.hit_scan.show()
 	to_equip.hit.connect(weapon_hit)
 	
 	for p:CanvasItem in to_equip.projections:

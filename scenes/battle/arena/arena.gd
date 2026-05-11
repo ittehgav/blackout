@@ -20,8 +20,10 @@ var won_battle:bool;
 
 
 func _ready()->void:
-	team_1.load_roster();
-	team_2.load_roster();
+	if team_1.roster:
+		team_1.load_roster();
+	if team_2.roster:
+		team_2.load_roster();
 	Entities.arena = self
 
 func load_layout(target:PackedScene)->void:

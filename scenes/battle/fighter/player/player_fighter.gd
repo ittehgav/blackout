@@ -75,6 +75,7 @@ func movement_input(delta:float)->void:
 
 
 
+
 func _on_stat_changed(stat: String) -> void:
 	refresh_stat(stat)
 	match stat:

@@ -3,6 +3,8 @@ extends Node2D
 
 class_name FighterIndex
 
+func _run()->void:
+	pass
 
 
 @export var refresh_index:bool:

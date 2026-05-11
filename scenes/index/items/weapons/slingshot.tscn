@@ -25,12 +25,12 @@ metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 [node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=1044056905]
 stream = ExtResource("3_d4t51")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1826344498]
+libraries/weapon_generic = ExtResource("4_q7svf")
+
 [node name="hit_sfx" type="AudioStreamPlayer" parent="." unique_id=766499621]
 stream = ExtResource("4_4n02f")
 
 [node name="Projectile" parent="." unique_id=99424119 instance=ExtResource("3_i4lfk")]
 self_modulate = Color(0.55, 0.55, 0.55, 1)
 scale = Vector2(1, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1826344498]
-libraries/weapon_generic = ExtResource("4_q7svf")
