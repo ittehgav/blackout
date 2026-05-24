@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0blxyg3y6dq6"]
+[gd_scene format=3 uid="uid://d0blxyg3y6dq6"]
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_difbx"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/leader/inventory/inventory.tscn" id="2_ylhkj"]
 [ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/leader/roster/roster.tscn" id="3_45c4c"]
-[ext_resource type="PackedScene" path="res://scenes/index/items/weapons/taser_gun.tscn" id="3_ctxbb"]
+[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/unimplemented/taser_gun.tscn" id="3_ctxbb"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_7ppvm"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="4_q5xkx"]
 [ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/ui/player_sheet/disciplines.gd" id="5_560op"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="6_8ex1r"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="6_gsj6j"]
 [ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="7_8aq5y"]
-[ext_resource type="PackedScene" uid="uid://cpe6djjx0cu5o" path="res://scenes/index/fighters/punchy.tscn" id="7_8ex1r"]
+[ext_resource type="PackedScene" path="res://scenes/index/fighters/punchy.tscn" id="7_8ex1r"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_8aq5y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ex1r"]

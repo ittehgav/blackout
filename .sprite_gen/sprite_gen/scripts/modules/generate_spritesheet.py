@@ -29,6 +29,8 @@ collection = bpy.data.collections.get("all")
 if camera is None:
     raise Exception("No active camera in the scene.")
 
+camera.location = (-25, 25, 0)
+
 sprite_gen.generate_frames(collection, total_frames, steps, output_path, pivot, to_rotate);
 
 png_files = ["//renders/"+f for f in os.listdir(bpy.path.abspath("//renders")) if f.lower().endswith('.png')] 

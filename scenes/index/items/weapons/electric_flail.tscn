@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b322626nnhpf7"]
+
+[ext_resource type="Texture2D" uid="uid://b1dvj4wwj013" path="res://assets/visual/items/weapons/electric_flail.png" id="1_3nvc3"]
+[ext_resource type="Script" uid="uid://b1n5j31htw3xx" path="res://scenes/index/items/weapons/scripts/electric_flail.gd" id="1_q7hwv"]
+[ext_resource type="Script" uid="uid://nkvusiyd18wl" path="res://scenes/battle/fighter/player/equipment/weapon_display/melee_display.gd" id="2_3nvc3"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="3_3ml7h"]
+[ext_resource type="PackedScene" uid="uid://bakra857y3ok0" path="res://scenes/index/special_statuses/electrified.tscn" id="3_i2vce"]
+[ext_resource type="AudioStream" uid="uid://cme1mcex521ov" path="res://assets/sound/sfx/combat/special/lightning_heavy.wav" id="4_3ml7h"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="6_alcyt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kuc8p"]
+radius = 59.03389
+
+[node name="Electric Flail" type="Sprite2D" unique_id=1979784302 node_paths=PackedStringArray("display", "hit_scan", "projections", "animation_player", "use_sfx", "status")]
+texture = ExtResource("1_3nvc3")
+script = ExtResource("1_q7hwv")
+display = NodePath("MeleeWeaponDisplay")
+base_damage = 50
+cooldown = 3.0
+hit_scan = NodePath("hit_scan")
+melee = true
+projections = [NodePath("hit_scan/Sprite2D")]
+animation_player = NodePath("AnimationPlayer")
+use_sfx = NodePath("use_sfx")
+use_feedback = "lunge"
+hit_feedback = "screen_shake"
+status = NodePath("electrified")
+color_tag = "agility"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="electrified" parent="." unique_id=1285836166 instance=ExtResource("3_i2vce")]
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=163949018]
+stream = ExtResource("3_3ml7h")
+
+[node name="hit_sfx" type="AudioStreamPlayer" parent="." unique_id=1576720554]
+stream = ExtResource("4_3ml7h")
+
+[node name="MeleeWeaponDisplay" type="Node" parent="." unique_id=1992925223]
+script = ExtResource("2_3nvc3")
+metadata/_custom_type_script = "uid://nkvusiyd18wl"
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=1585339928]
+position = Vector2(0, 80)
+rotation = 1.5707964
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=452768568]
+shape = SubResource("CircleShape2D_kuc8p")
+debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=870838813]
+modulate = Color(1, 1, 1, 0.11764706)
+position = Vector2(1, -1)
+scale = Vector2(6, 8)
+texture = ExtResource("6_alcyt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=290525257]

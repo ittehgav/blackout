@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="5_dmsc8"]
 [ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="5_ke5ly"]
 [ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="7_ke5ly"]
-[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="8_frrlj"]
+[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/unimplemented/taser_gun.tscn" id="8_frrlj"]
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="10_cdr2v"]
 [ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="11_wn6m5"]
 

@@ -64,7 +64,7 @@ func generate_locations()->void:
 	
 	
 
-func populate_location(location:Location, type:String)->void:
+func populate_location(_location:Location, _type:String)->void:
 	pass
 	## TODO make it so this makes an even-ish spread of the settlements?
 	## TODO POPULATE_LOCATION = fill it with settlements

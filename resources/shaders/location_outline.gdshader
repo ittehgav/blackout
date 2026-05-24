@@ -5,7 +5,7 @@ uniform float width : hint_range(0, 10) = 1.0;
 uniform int pattern : hint_range(0, 2) = 1; // diamond, circle, square
 uniform bool inside = false;
 uniform bool add_margins = true; // only useful when inside is false
-uniform vec2 number_of_images = vec2(1.0); // number of horizontal and vertical images in the sprite sheet
+uniform vec2 number_of_images = vec2(1); // number of horizontal and vertical images in the sprite sheet
 
 varying flat vec4 modulate;
 

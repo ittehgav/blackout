@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="5_s21v8"]
 [ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="7_1g74x"]
 [ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="12_e0nd8"]
-[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/machete.tscn" id="13_tgh2a"]
+[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/unimplemented/machete.tscn" id="13_tgh2a"]
 [ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="14_nokkd"]
 [ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="15_s5dff"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="16_ksra5"]

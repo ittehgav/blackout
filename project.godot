@@ -68,7 +68,8 @@ folder_colors={
 "res://resources/": "green",
 "res://scenes/": "yellow",
 "res://scenes/index/": "blue",
-"res://scenes/special/": "purple"
+"res://scenes/special/": "purple",
+"res://scenes/test/": "purple"
 }
 
 [filesystem]
@@ -82,6 +83,7 @@ all_settlements=""
 player=""
 world_map=""
 arena=""
+combat_vfx=""
 
 [gui]
 

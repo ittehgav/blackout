@@ -10,7 +10,7 @@ func get_description()->String:
 
 func use(_alt:bool=false)->void:
 	use_sfx.play();
-	animation_player.play("weapon_generic/recoil");
+	animation_player.play(animation_root_key+"/attack");
 	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit);
 
 func projectile_hit(target:CombatEntity)->void:

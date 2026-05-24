@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bje71kchucju4"]
+
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="1_kwfdt"]
+[ext_resource type="Texture2D" uid="uid://dxilmorapc7nh" path="res://scenes/test/sheet.png" id="2_wmr35"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="3_gd4av"]
+[ext_resource type="Texture2D" uid="uid://vvpqjj3pxtbs" path="res://assets/visual/items/weapons/pipe.png" id="4_wmr35"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1u0lg"]
+resource_local_to_scene = true
+shader = ExtResource("1_kwfdt")
+shader_parameter/color = Color(0.13403001, 0.1118, 0.26, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 8)
+
+[sub_resource type="Animation" id="Animation_gd4av"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pipe:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -20)]
+}
+
+[sub_resource type="Animation" id="Animation_wmr35"]
+resource_name = "idle"
+length = 0.65
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pipe:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, -25), Vector2(2.5, -25), Vector2(0, -25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1u0lg"]
+_data = {
+&"RESET": SubResource("Animation_gd4av"),
+&"idle": SubResource("Animation_wmr35")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vd4b"]
+resource_local_to_scene = true
+shader = ExtResource("1_kwfdt")
+shader_parameter/color = Color(0.13333334, 0.10980392, 0.25882354, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Node2D" type="Sprite2D" unique_id=2098779108]
+material = SubResource("ShaderMaterial_1u0lg")
+texture = ExtResource("2_wmr35")
+hframes = 8
+vframes = 8
+frame = 19
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=942480701]
+libraries/ = SubResource("AnimationLibrary_1u0lg")
+libraries/player = ExtResource("3_gd4av")
+
+[node name="pipe" type="Sprite2D" parent="." unique_id=606355968]
+material = SubResource("ShaderMaterial_3vd4b")
+rotation = -1.5707964
+scale = Vector2(2, 2)
+texture = ExtResource("4_wmr35")
+offset = Vector2(0, -20)
+flip_h = true

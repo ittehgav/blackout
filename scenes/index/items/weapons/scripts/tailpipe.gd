@@ -12,9 +12,6 @@ func get_description()->String:
 	+ Index.get_color_tag("attack") + str(final_damage()) + " damage.";
 
 
-const aoe_radius = 100;
-
-
 var swung:bool = false;
 
 func use(_alt:bool=false)->void:

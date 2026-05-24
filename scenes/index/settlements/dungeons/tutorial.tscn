@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/index/items/containers/food.tscn" id="9_65voj"]
 [ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="9_a85wh"]
 [ext_resource type="PackedScene" uid="uid://5un73br0b5l0" path="res://scenes/index/items/containers/juice_can.tscn" id="10_tx2u1"]
-[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/machete.tscn" id="11_ivab3"]
-[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/taser_gun.tscn" id="12_3cs63"]
+[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/unimplemented/machete.tscn" id="11_ivab3"]
+[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/unimplemented/taser_gun.tscn" id="12_3cs63"]
 
 [node name="Tutorial" type="Node2D" unique_id=1276118715 node_paths=PackedStringArray("waves", "final_loot") groups=["all_settlements"]]
 script = ExtResource("1_nj60p")

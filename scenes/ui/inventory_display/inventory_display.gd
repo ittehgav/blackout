@@ -461,7 +461,6 @@ func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
 		exchanging_display.inventory.refresh_resource_counts()
 	
 	if space_occupied:
-		print("soc?")
 		var new_mirror:ItemMirror;
 		
 		new_mirror = mirror_item(item_mirror.item)

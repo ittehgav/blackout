@@ -25,6 +25,11 @@ func _ready()->void:
 	if team_2.roster:
 		team_2.load_roster();
 	Entities.arena = self
+	for vfx:Node in get_tree().get_nodes_in_group("combat_vfx"):
+		if vfx and is_ancestor_of(vfx)\
+		 and (not team_1.roster or not team_1.roster.is_ancestor_of(vfx))\
+		 and (not team_2.roster or not team_2.roster.is_ancestor_of(vfx)):
+			vfx.set_sprite_root();
 
 func load_layout(target:PackedScene)->void:
 	current_layout.queue_free();

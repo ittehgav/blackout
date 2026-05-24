@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cyprmlcxfx7ty"]
+
+[ext_resource type="Texture2D" uid="uid://k1wgnx2icwf4" path="res://assets/visual/items/weapons/flaming_mace.png" id="1_8xhum"]
+[ext_resource type="Script" uid="uid://c3ysj0b6grhta" path="res://scenes/index/items/weapons/scripts/flaming_mace.gd" id="2_4tiub"]
+[ext_resource type="Script" uid="uid://nkvusiyd18wl" path="res://scenes/battle/fighter/player/equipment/weapon_display/melee_display.gd" id="3_b5kx7"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="4_shomg"]
+[ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="5_837ys"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="6_wex52"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3o48k"]
+radius = 59.03389
+
+[node name="Flaming Mace" type="Sprite2D" unique_id=142070375 node_paths=PackedStringArray("display", "hit_scan", "projections", "animation_player", "use_sfx")]
+texture = ExtResource("1_8xhum")
+script = ExtResource("2_4tiub")
+display = NodePath("MeleeWeaponDisplay")
+hit_scan = NodePath("hit_scan")
+melee = true
+projections = [NodePath("hit_scan/Sprite2D")]
+animation_player = NodePath("AnimationPlayer")
+use_sfx = NodePath("use_sfx")
+hit_feedback = "screen_shake"
+color_tag = "fuel"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="MeleeWeaponDisplay" type="Node" parent="." unique_id=717855442]
+script = ExtResource("3_b5kx7")
+metadata/_custom_type_script = "uid://nkvusiyd18wl"
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=890893939]
+position = Vector2(0, 80)
+rotation = 1.5707964
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=454620364]
+shape = SubResource("CircleShape2D_3o48k")
+debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=751626248]
+modulate = Color(1, 1, 1, 0.11764706)
+position = Vector2(1, -1)
+scale = Vector2(6, 8)
+texture = ExtResource("4_shomg")
+
+[node name="Sweep" parent="hit_scan" unique_id=773368217 instance=ExtResource("5_837ys")]
+top_level = true
+rotation = -3.1415927
+scale = Vector2(3, -3)
+source_type = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2031046260]
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=966850788]
+stream = ExtResource("6_wex52")

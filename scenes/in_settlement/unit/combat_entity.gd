@@ -63,8 +63,10 @@ var shield:float = 0;
 var moving:bool=false;
 
 func get_sector(angle: float) -> int:
-	## not all units here will be isometric 3D
-	var direction_sector:int = int(fposmod(angle + PI / 2, TAU) / (PI / 4)) % 8;
+	## idk the secto function dont catch 7 properly
+	## and this is still simpler than making an if to catch all 8 sectors
+	var direction_sector:int = get_sector_full(angle)
+	
 	if direction_sector == 0:
 		## facing up
 		## angle ~= -PI/2
@@ -81,6 +83,26 @@ func get_sector(angle: float) -> int:
 			direction_sector = 5
 	return direction_sector;
 	
+const first_sector_margin = -7*PI/8
+const sector_margin_step = PI/4
+
+	
+func get_sector_full(angle: float) -> int:
+	## not all units here will be isometric 3D
+	var sector:int = -2;
+	var margin:float = first_sector_margin;
+	while angle > margin:
+		sector += 1;
+		margin += sector_margin_step;
+	## returns 0 if either angle < first sector margin or it it's 8
+	if sector == -2:
+		return 6
+	if sector == -1:
+		return 7
+	return sector;
+	
+
+
 
 func die(killer:ActiveFighter)->void:
 	dead = true;

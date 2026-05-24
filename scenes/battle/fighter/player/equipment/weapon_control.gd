@@ -12,6 +12,8 @@ var alternative_weapon:Weapon;
 @export var alt_weapon_cd:Timer;
 @export var freeze_frame_timer:Timer;
 
+
+
 var holding_continuous:bool=false
 
 func _ready()->void:
@@ -31,6 +33,9 @@ func _ready()->void:
 		
 func load_weapon(target:Weapon)->Weapon:
 	var new_weapon:Weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION)
+	new_weapon.display.setup(equipment.holder, new_weapon);
+
+	new_weapon.z_index = 1;
 	new_weapon.scale = Vector2(2, 2)
 	new_weapon.animation_player.animation_finished.connect(equipment.weapon_animation_finished.bind(new_weapon))
 	if new_weapon.status:
@@ -40,7 +45,7 @@ func load_weapon(target:Weapon)->Weapon:
 	for p:CanvasItem in new_weapon.projections:
 		p.hide()
 	check_active_texture(new_weapon);
-	equipment.add_child(new_weapon)
+	equipment.weapon_anchor.add_child(new_weapon)
 	new_weapon.modulate = new_weapon.get_mirror_color();
 	
 	if new_weapon.ammo_type:
@@ -74,7 +79,6 @@ func use_weapon_command(alt:bool=false)->void:
 	if weapon_cd.is_stopped() and not weapon.check_disabled():
 		equipment.holder.hit_targets.clear();
 		if not weapon.continuous:
-			
 			use_weapon(alt)
 			weapon_cd.start() ## alt uses may have different cooldown?
 		else:
@@ -95,15 +99,21 @@ func release_weapon_command()->void:
 
 
 func use_weapon(alt:bool)->void:
-	print("uwe?")
 	if weapon.pending_impact:
 		## to make sure all hits get in with high atk speeds
 		## right now catches all animation overlaps
 		weapon.impact()
-		
+	line_up_weapon()
+	
 	weapon.use(alt)
 	play_weapon_vfx()
 	equipment.weapon_used.emit()
+
+func line_up_weapon()->void:
+	var x_offset:int = 30
+	if weapon.display.behind_player:
+		x_offset *= -1
+	weapon.position = Vector2(x_offset, 0);
 
 
 func weapon_hit()->void:
@@ -116,9 +126,9 @@ func weapon_hit()->void:
 
 func play_weapon_vfx()->void:
 	match weapon.use_feedback:
-		"camera_lunge":
+		"lunge":
 			Tweens.camera_lunge(Entities.player_fighter);
-		"camera_recoil":
+		"recoil":
 			Tweens.camera_recoil(Entities.player_fighter)
 
 func _on_weapon_cd_timeout() -> void:
@@ -141,9 +151,10 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 	## decouple the refreshing one of these days?
 	to_equip.show()
 	weapon = to_equip;
+	weapon.display.set_process_mode(Node.PROCESS_MODE_INHERIT);
 	
 	if weapon.hit_scan:
-		weapon.hit_scan.reparent(equipment)
+		weapon.hit_scan.reparent(equipment.hitbox_anchor)
 		weapon.hit_scan.show()
 	to_equip.hit.connect(weapon_hit)
 	
@@ -174,7 +185,7 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 func switch_weapon()->void:
 	var current_weapon:Weapon = weapon;
 	current_weapon.hide()
-
+	current_weapon.display.set_process_mode(PROCESS_MODE_DISABLED)
 	
 	for p:CanvasItem in current_weapon.projections:
 		p.hide()

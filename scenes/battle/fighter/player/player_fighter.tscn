@@ -19,9 +19,11 @@
 [ext_resource type="AudioStream" uid="uid://ms2ad5kg5m8b" path="res://assets/sound/sfx/combat/player/debuff_received/stun.wav" id="10_24aya"]
 [ext_resource type="AudioStream" uid="uid://cpx6rffx48wxd" path="res://assets/sound/sfx/combat/weapon_fumbled.mp3" id="10_p55mw"]
 [ext_resource type="AudioStream" uid="uid://c7cqjf17r2asi" path="res://assets/sound/sfx/combat/player/debuff_received/poison.wav" id="11_rwav2"]
-[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="16_k0pw4"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="16_5atum"]
 [ext_resource type="Script" uid="uid://cqf12thilix0a" path="res://scenes/battle/fighter/player/body.gd" id="17_5atum"]
 [ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="18_iubqv"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="19_5atum"]
+[ext_resource type="Texture2D" uid="uid://neqnmg1o3623" path="res://assets/visual/sprites/player/hand.png" id="20_iubqv"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="22_ung86"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/fighter/player/camera.gd" id="27_rxaql"]
 
@@ -34,8 +36,8 @@ sampling_rate = 44100.0
 packet_sequence = SubResource("OggPacketSequence_1mm1k")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
-radius = 14.0
-height = 60.0
+radius = 29.0
+height = 78.0
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;
@@ -132,10 +134,10 @@ shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0, 0.2, 0.04666667, 1)
 shader_parameter/width = 1.0
-shader_parameter/pattern = 1
+shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
+shader_parameter/number_of_images = Vector2(8, 11)
 
 [sub_resource type="Animation" id="Animation_sqvxk"]
 length = 0.001
@@ -168,6 +170,26 @@ tracks/1/keys = {
 _data = {
 &"RESET": SubResource("Animation_sqvxk")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxj8n"]
+resource_local_to_scene = true
+shader = ExtResource("19_5atum")
+shader_parameter/color = Color(0, 0.2, 0.047058824, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iubqv"]
+resource_local_to_scene = true
+shader = ExtResource("19_5atum")
+shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88w2o"]
 radius = 15.0
@@ -243,22 +265,22 @@ script = ExtResource("8_ufe8c")
 source = NodePath("..")
 
 [node name="hurtbox" type="CollisionShape2D" parent="hurtbox" unique_id=1594144591]
-position = Vector2(0, 4)
+position = Vector2(1, -27)
 shape = SubResource("CapsuleShape2D_wutkk")
 
 [node name="statuses" type="Node" parent="." unique_id=625187668]
 
 [node name="timers" type="Node" parent="." unique_id=2053695415]
 
-[node name="body" type="Sprite2D" parent="." unique_id=416499753 node_paths=PackedStringArray("player", "animation_player")]
+[node name="body" type="Sprite2D" parent="." unique_id=416499753 node_paths=PackedStringArray("player", "weapon_control", "animation_player")]
 material = SubResource("ShaderMaterial_ung86")
-scale = Vector2(2, 2)
-texture = ExtResource("16_k0pw4")
+texture = ExtResource("16_5atum")
 hframes = 8
-vframes = 9
+vframes = 11
 frame = 6
 script = ExtResource("17_5atum")
 player = NodePath("..")
+weapon_control = NodePath("../equipment/weapon_control")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="body" unique_id=488095827]
@@ -267,14 +289,37 @@ libraries/ = SubResource("AnimationLibrary_xbk01")
 libraries/player = ExtResource("18_iubqv")
 autoplay = &"player/idle"
 
-[node name="equipment" type="Node2D" parent="." unique_id=488158529 node_paths=PackedStringArray("weapon_control", "module_control", "holder", "body", "freeze_frame_timer")]
-use_parent_material = true
+[node name="shadow" type="Sprite2D" parent="body" unique_id=890583952]
+modulate = Color(0, 0, 0, 0.26666668)
+z_index = -1
+position = Vector2(0, 4)
+scale = Vector2(0.75, 0.8)
+texture = ExtResource("22_ung86")
+
+[node name="left_hand" type="Sprite2D" parent="body" unique_id=7873661]
+material = SubResource("ShaderMaterial_oxj8n")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_iubqv")
+
+[node name="right_hand" type="Sprite2D" parent="body" unique_id=1602105371]
+material = SubResource("ShaderMaterial_oxj8n")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_iubqv")
+
+[node name="equipment" type="Node2D" parent="." unique_id=488158529 node_paths=PackedStringArray("weapon_control", "module_control", "holder", "body", "hitbox_anchor", "freeze_frame_timer", "attack_slow_timer", "weapon_anchor", "right_hand", "left_hand")]
+material = SubResource("ShaderMaterial_iubqv")
+position = Vector2(0, -19)
 script = ExtResource("7_skhxj")
 weapon_control = NodePath("weapon_control")
 module_control = NodePath("module_control")
 holder = NodePath("..")
 body = NodePath("../body")
+hitbox_anchor = NodePath("hitbox_anchor")
 freeze_frame_timer = NodePath("freeze_frame_control")
+attack_slow_timer = NodePath("weapon_control/attack_slow")
+weapon_anchor = NodePath("weapon_anchor")
+right_hand = NodePath("../body/right_hand")
+left_hand = NodePath("../body/left_hand")
 
 [node name="weapon_fumbled_sfx" type="AudioStreamPlayer" parent="equipment" unique_id=1072859342]
 stream = ExtResource("10_p55mw")
@@ -296,6 +341,10 @@ one_shot = true
 process_callback = 0
 one_shot = true
 
+[node name="attack_slow" type="Timer" parent="equipment/weapon_control" unique_id=1671762674]
+process_callback = 0
+one_shot = true
+
 [node name="module_control" type="Node" parent="equipment" unique_id=733144912 node_paths=PackedStringArray("module_cd", "equipment", "sfx")]
 script = ExtResource("9_sdapf")
 module_cd = NodePath("module_cd")
@@ -306,9 +355,14 @@ sfx = NodePath("../../sfx/sfx")
 one_shot = true
 
 [node name="freeze_frame_control" type="Timer" parent="equipment" unique_id=1033120575]
-wait_time = 0.00999999999999999
+process_callback = 0
+wait_time = 0.1
 one_shot = true
 ignore_time_scale = true
+
+[node name="hitbox_anchor" type="Node2D" parent="equipment" unique_id=1447438724]
+
+[node name="weapon_anchor" type="Node2D" parent="equipment" unique_id=721645441]
 
 [node name="camera" type="Camera2D" parent="." unique_id=1871726771]
 position_smoothing_enabled = true
@@ -329,15 +383,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1480294527]
-position = Vector2(0, 9)
+position = Vector2(0, -28)
 shape = SubResource("CircleShape2D_88w2o")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=890583952]
-modulate = Color(0, 0, 0, 0.26666668)
-z_index = -1
-position = Vector2(0, 4)
-scale = Vector2(0.75, 0.8)
-texture = ExtResource("22_ung86")
 
 [connection signal="damage_taken" from="." to="sfx/sfx" method="damage_taken_sfx"]
 [connection signal="started_moving" from="." to="equipment" method="_on_player_fighter_started_moving"]
@@ -348,6 +395,8 @@ texture = ExtResource("22_ung86")
 [connection signal="status_removed" from="." to="vfx_control" method="_on_in_fight_player_status_removed"]
 [connection signal="stopped_moving" from="." to="equipment" method="_on_player_fighter_stopped_moving"]
 [connection signal="stopped_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/idle"]]
+[connection signal="frame_changed" from="body" to="equipment" method="_on_body_frame_changed"]
+[connection signal="animation_finished" from="body/AnimationPlayer" to="body" method="_on_animation_player_animation_finished"]
 [connection signal="module_fumbled" from="equipment" to="sfx/sfx" method="_on_equipment_module_fumbled"]
 [connection signal="weapon_changed" from="equipment" to="sfx/sfx" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_equipped" from="equipment" to="." method="_on_equipment_weapon_equipped"]
@@ -356,6 +405,8 @@ texture = ExtResource("22_ung86")
 [connection signal="weapon_hit" from="equipment" to="sfx/hit_sfx" method="weapon_hit"]
 [connection signal="weapon_hit" from="equipment" to="equipment/weapon_control" method="weapon_hit"]
 [connection signal="weapon_unequipped" from="equipment" to="." method="_on_equipment_weapon_unequipped"]
+[connection signal="weapon_used" from="equipment" to="body" method="_on_equipment_weapon_used"]
 [connection signal="weapon_used" from="equipment" to="equipment" method="_on_weapon_used"]
 [connection signal="timeout" from="equipment/weapon_control/weapon_cd" to="equipment/weapon_control" method="_on_weapon_cd_timeout"]
+[connection signal="timeout" from="equipment/weapon_control/attack_slow" to="equipment" method="_on_attack_slow_timeout"]
 [connection signal="timeout" from="equipment/freeze_frame_control" to="equipment" method="_on_freeze_frame_control_timeout"]

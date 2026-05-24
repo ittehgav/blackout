@@ -221,7 +221,6 @@ func has_room(item:Item)->bool:
 		for y:int in capacity_y:
 			var spot:Vector2i = Vector2i(x, y);
 			if fits_in_spot(item, spot):
-				print("FITS ", spot)
 				return true;
 	return false
 

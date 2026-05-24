@@ -6,7 +6,7 @@ import os
 
 ## leaving this as a global here since all sheets are gonna be overlapping visualizations of the same objects
 ## (at least for all fighter sprites)
-frame_size = 128
+frame_size = 256
 
 def get_unique_name(base_name, directory="."):
     """
@@ -56,6 +56,7 @@ def generate_frames(collection, total_frames, steps, output_path, pivot, to_rota
                     obj.update_tag()
             # Set file path for render
             file_name = f"{output_path}"
+            
             if frame < 10:
                 file_name += "0"
             file_name += f"{int(frame)}-{int(i)}.png"
@@ -67,6 +68,7 @@ def generate_frames(collection, total_frames, steps, output_path, pivot, to_rota
             # Rotate camera for next frame
             
             for obj in to_rotate:
+                print(i, " ", obj.location)
                 rotate_around_y(obj, pivot)
 
 def generate_spritesheet(png_files, total_frames, dir="sheets"):

@@ -15,6 +15,7 @@ class_name PlayerFighter
 
 @export var floating_icon_anchor:Control
 
+var body_angle:float;
 
 
 var walking_blocked:bool=false;
@@ -57,7 +58,18 @@ func _physics_process(delta:float)->void:
 	if not walking_blocked:
 		movement_input(delta)
 		move_and_slide()
+
+	if equipment.not_attacking():
+		var direction:Vector2;
+		if not moving:
+			direction = global_position.direction_to(get_global_mouse_position())
+		else:
+			direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		
+		body_angle = direction.angle()
+
+## where slowdown from attacking is applied
+var action_force:float = 1;
 func movement_input(delta:float)->void:
 	var input_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if input_direction:
@@ -69,10 +81,45 @@ func movement_input(delta:float)->void:
 			stopped_moving.emit()
 			moving = false;
 			
-	var target_velocity:Vector2 = input_direction * move_speed
+	var target_velocity:Vector2 = input_direction * move_speed * action_force
 	velocity = velocity.lerp(target_velocity, 1.0  - exp(-10 * delta))
 
 
+func get_sector(angle: float) -> int:
+	## idk the secto function dont catch 7 properly
+	## and this is still simpler than making an if to catch all 8 sectors
+	var direction_sector:int = get_sector_full(angle)
+	match direction_sector:
+		0:
+			if not moving:
+				var cursor_x:int = get_global_mouse_position().x;
+				var body_x:int = global_position.x;
+
+				if cursor_x > body_x:
+					direction_sector = 1;
+				else:
+					direction_sector = 7
+			else:
+				var weapon:Weapon = equipment.weapon_control.weapon;
+				if weapon.scale > Vector2.ZERO:
+					direction_sector = 1;
+				else:
+					direction_sector = 7
+		4:
+			if not moving:
+				var cursor_x:int = get_global_mouse_position().x;
+				var body_x:int = global_position.x;
+				if cursor_x > body_x:
+					direction_sector = 3;
+				else:
+					direction_sector = 5
+			else:
+				var weapon:Weapon = equipment.weapon_control.weapon;
+				if weapon.scale > Vector2.ZERO:
+					direction_sector = 3;
+				else:
+					direction_sector = 5
+	return direction_sector;
 
 
 

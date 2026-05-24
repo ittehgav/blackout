@@ -4,15 +4,13 @@ class_name EquipmentControl;
 ## giving these class names because they'll be used 
 ## for fetching very specific stuff from the global scope
 
-## ONLY NODE THAT CONTROLS EQUIPPED WEAPON TRANSFORM/OFFSET
-
 
 signal weapon_changed
 
 signal weapon_used;
 signal weapon_fumbled
 signal weapon_hit
-## propagates from the weapon nodes so i can connect them via editor
+## propagates from the weapon nodes so it's easier to connect them via editor
 
 signal continuous_weapon_started;
 signal continuous_weapon_released;
@@ -31,8 +29,6 @@ signal continuous_module_released;
 
 @export var weapon_control:WeaponControl
 @export var module_control:ModuleControl;
-## right now just to be able to access the 
-## variables in that script from global scope
 
 
 @export var holder:ActiveFighter;
@@ -41,14 +37,25 @@ signal continuous_module_released;
 var equipped_weapon:Weapon;
 var alt_weapon:Weapon;
 
+@export var hitbox_anchor:Node2D;
 @export var freeze_frame_timer:Timer;
+@export var attack_slow_timer:Timer;
+
+@export var weapon_anchor:Node2D;
+@export var right_hand:Sprite2D;
+@export var left_hand:Sprite2D;
 
 
-func _input(e:InputEvent)->void:
-	pass
+
+func _physics_process(_delta: float) -> void:
+	hitbox_anchor.rotation = global_position.angle_to_point(get_global_mouse_position())
+
 
 func _on_weapon_used() -> void:
-	pass # Replace with function body.
+	holder.action_force = .4;
+	attack_slow_timer.start()
+
+
 
 func _on_freeze_frame_control_timeout() -> void:
 	## may be used by weapons and modules?
@@ -59,7 +66,9 @@ func _on_weapon_equipped(weapon: Weapon) -> void:
 	## just to encapsulate the weapon to the other script some more
 	## and leave this as more of a signal emitter and anchor for the weapon sprite
 	equipped_weapon = weapon;
-
+	
+	right_hand.reparent(weapon.get_node("right_hand_anchor"), false)
+	left_hand.reparent(weapon.get_node("left_hand_anchor"), false)
 
 func refresh_weapon_cooldowns()->void:
 	weapon_control.refresh_weapon_cooldown();
@@ -73,29 +82,38 @@ func weapon_animation_finished(anim_name:String, source:Weapon)->void:
 	
 	var root_key:String = source.animation_root_key;
 	var atk_key:String = root_key + "/attack";
-	var after_atk_key:String = root_key + "/after_attack"
+	
 	if anim_name == atk_key:
-		source.animation_player.play(after_atk_key)
-	elif anim_name == after_atk_key:
-		if holder.velocity:
+		if holder.moving:
 			source.animation_player.play(root_key+"/walk")
 		else:
 			source.animation_player.play(root_key+"/idle")
 
-func weapon_is_attacking(weapon:Weapon)->bool:
-	var current_key:String = weapon.animation_player.current_animation;
-	var atk_key:String = weapon.animation_root_key + "/attack"
-	var after_atk_key:String = weapon.animation_root_key + "/after_attack"
+	source.display.weapon_animation_finished(anim_name)
 
-	return current_key in [atk_key, after_atk_key]
+	# set_process_input(not_attacking())
+
+func not_attacking()->bool:
+	var root_key:String = equipped_weapon.animation_root_key;
+	var atk_key:String = root_key+"/attack";
+	
+	var current:String = equipped_weapon.animation_player.current_animation
+	
+	return current != atk_key;
+
+
 	
 func _on_player_fighter_started_moving() -> void:
-	if not weapon_is_attacking(equipped_weapon):
+	if not_attacking():
 		var walk_key:String = equipped_weapon.animation_root_key + "/walk"
 		equipped_weapon.animation_player.play(walk_key)
 
 
 func _on_player_fighter_stopped_moving() -> void:
-	if not weapon_is_attacking(equipped_weapon):
+	if not_attacking():
 		var idle_key:String = equipped_weapon.animation_root_key + "/idle"
 		equipped_weapon.animation_player.play(idle_key)
+
+func _on_attack_slow_timeout() -> void:
+	## controls player attack slowdown
+	holder.action_force = 1;

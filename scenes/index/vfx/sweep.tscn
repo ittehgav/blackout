@@ -65,13 +65,15 @@ _data = {
 &"vfx": SubResource("Animation_dc5wl")
 }
 
-[node name="Sweep" type="Sprite2D" unique_id=773368217 node_paths=PackedStringArray("animation_player")]
+[node name="Sweep" type="Sprite2D" unique_id=773368217 node_paths=PackedStringArray("animation_player") groups=["combat_vfx"]]
 self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("1_u4nbq")
 hframes = 8
 vframes = 3
 script = ExtResource("1_e341d")
 animation_player = NodePath("vfx_animation")
+activator = 0
+motion_offset = 80
 metadata/_custom_type_script = "uid://dulyebo8yjrxt"
 
 [node name="vfx_animation" type="AnimationPlayer" parent="." unique_id=1459386369]

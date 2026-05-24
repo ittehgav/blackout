@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://prw4abfgie7j"]
+
+[ext_resource type="Texture2D" uid="uid://0ptp5odl6qfk" path="res://assets/visual/items/weapons/firebomb_launcher.png" id="1_nqo38"]
+[ext_resource type="Script" uid="uid://dnrnn648teguo" path="res://scenes/index/items/weapons/scripts/firebomb_launcher.gd" id="2_vm3hj"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_bl1ud"]
+[ext_resource type="Script" uid="uid://b0e1rmg27d5ii" path="res://scenes/battle/fighter/player/equipment/weapon_display/ranged_display.gd" id="4_asmib"]
+[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="5_xkp80"]
+[ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="6_sb8v6"]
+
+[node name="Firebomb Launcher" type="Sprite2D" unique_id=785300769 node_paths=PackedStringArray("display", "projectile", "animation_player", "use_sfx")]
+texture = ExtResource("1_nqo38")
+script = ExtResource("2_vm3hj")
+display = NodePath("RangedWeaponDisplay")
+base_damage = 20
+cooldown = 10.0
+projectile = NodePath("Projectile")
+animation_player = NodePath("AnimationPlayer")
+use_sfx = NodePath("use_sfx")
+use_feedback = "recoil"
+hit_feedback = "screen_shake"
+ammo_type = "fuel"
+ammo_cost = 2
+color_tag = "fuel"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=457277202]
+
+[node name="Burning" type="Node" parent="." unique_id=245324118]
+script = ExtResource("3_bl1ud")
+type = "dot"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="RangedWeaponDisplay" type="Node" parent="." unique_id=446172153]
+script = ExtResource("4_asmib")
+metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
+
+[node name="Projectile" parent="." unique_id=1066315008 instance=ExtResource("5_xkp80")]
+scale = Vector2(1, 1)
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=152678523]
+stream = ExtResource("6_sb8v6")

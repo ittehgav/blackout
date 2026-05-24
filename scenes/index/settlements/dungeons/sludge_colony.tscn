@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="15_yeoap"]
 [ext_resource type="PackedScene" uid="uid://datk48iuf2jce" path="res://scenes/index/fighters/monsters/sludge_sign.tscn" id="16_3p4l4"]
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="16_sxe6p"]
-[ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/chakram.tscn" id="17_i1xj3"]
+[ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/unimplemented/chakram.tscn" id="17_i1xj3"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="17_oxijx"]
 [ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="18_3p4l4"]
 [ext_resource type="PackedScene" uid="uid://blvhloouenfiu" path="res://scenes/index/fighters/monsters/sludge_car.tscn" id="19_j3cg5"]

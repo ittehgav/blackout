@@ -10,7 +10,7 @@ signal unequipped;
 signal use_finished ## to start the cooldown timer, controlled by the weapon's script
 signal hit; ## hit only triggers once for multiple sychronous AOE hits
 ## emit AFTER combat calls (for hit_targets consistency)
-
+@export var display:WeaponDisplay;
 
 ## active_texture swaps in at battle start if the weapon has it
 @export var animation_root_key:String = "melee"
@@ -36,9 +36,7 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 @export var projectile:Projectile;
 
 @export_group("More specific adjustments")
-@export var angle_adjust:int;
 @export var melee:bool=false;
-
 
 
 @export_group("Feedback, visuals, sounds")
@@ -51,12 +49,14 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 
 
 @export var active_texture:Texture;
+
+
 ## for when the item's own texture is not the same that appears next to the player
 var item_texture:Texture = texture;
 ## easier to do this and use an instance of the item as the weapon 
 ## than adding an extra layer of setting up the weapon into play
 
-@export_enum("camera_lunge", "camera_recoil", "none") var use_feedback:String = "camera_lunge"
+@export_enum("lunge", "recoil") var use_feedback:String = "camera_lunge"
 @export_enum("freeze_frame", "screen_shake") var hit_feedback:String = "freeze_frame";
 
 var pending_impact:bool=false;
@@ -76,3 +76,10 @@ func final_damage()->int:
 		if applied_modifier.stat_modifiers:
 			damage += applied_modifier.stat_modifiers.attack;
 	return damage
+
+func ammo_cost_string()->String:
+	assert(ammo_cost);
+	return Index.colored_text(ammo_type, ammo_cost, " " + ammo_type)
+	
+func damage_string()->String:
+	return Index.colored_text("attack", str(final_damage()) + " damage");

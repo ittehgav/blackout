@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dhmyvsvrw476x"]
+
+[ext_resource type="Texture2D" uid="uid://dldyyjlth0kkr" path="res://assets/visual/items/weapons/toxic_shotgun.png" id="1_d8qlx"]
+[ext_resource type="Script" uid="uid://bqwcao3h1775" path="res://scenes/index/items/weapons/scripts/toxic_shotgun.gd" id="2_hvjgl"]
+[ext_resource type="Script" uid="uid://b0e1rmg27d5ii" path="res://scenes/battle/fighter/player/equipment/weapon_display/ranged_display.gd" id="3_hald5"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="4_uhcbr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_di8ht"]
+radius = 59.03389
+
+[node name="Toxic Shotgun" type="Sprite2D" unique_id=264886156 node_paths=PackedStringArray("display", "hit_scan", "animation_player", "use_sfx")]
+texture = ExtResource("1_d8qlx")
+script = ExtResource("2_hvjgl")
+display = NodePath("RangedWeaponDisplay")
+hit_scan = NodePath("hit_scan")
+animation_player = NodePath("AnimationPlayer")
+use_sfx = NodePath("AudioStreamPlayer")
+use_feedback = "recoil"
+hit_feedback = "screen_shake"
+color_tag = "juice"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1923456105]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1389686286]
+
+[node name="RangedWeaponDisplay" type="Node" parent="." unique_id=1846375307]
+script = ExtResource("3_hald5")
+metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=614586254]
+position = Vector2(0, 80)
+rotation = 1.5707964
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=1135417799]
+shape = SubResource("CircleShape2D_di8ht")
+debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=64554738]
+modulate = Color(1, 1, 1, 0.11764706)
+position = Vector2(1, -1)
+scale = Vector2(6, 8)
+texture = ExtResource("4_uhcbr")

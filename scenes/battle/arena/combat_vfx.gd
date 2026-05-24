@@ -23,55 +23,46 @@ enum Activator{start, impact, finished, manual}
 ## manual implies calls through code or more specific signals
 @export var activator:Activator=Activator.impact;
 
+enum SourceType{npc_fighter, weapon}
+@export var source_type:SourceType;
+
 var skill:SkillComponent;
 @export var motion_offset:int = 0;
 @export var track_source_angle:bool=true;
-@export var rotation_offset:float; ## in degrees and gets converted into radians afterward
+
 ## so it's easier to type in
 
 
 var angle_source:Sprite2D
-func _ready() -> void:
-	## TODO make this stuff run only in combat
-	set_sprite_root()
-	
+
+
 func set_sprite_root()->void:
 	## setup that dynamically does a lot of stuff that would be a bitch to
 	## connect manually/keep track of if connecting signals in the UI
 	## right now only works for fightertbases
-
 	var parent:Node = get_parent();
-	while not (parent is Sprite2D or parent is Item):
-		parent = parent.get_parent();
-		assert (not (parent is Arena)) ## catches misplaced vfx node
-	
-	if track_source_angle:
-		if parent is FighterBase:
+	if source_type == SourceType.npc_fighter:
+		## TODO not tested in npcfighters after reimplementation
+		while not (parent is FighterBase):
+			parent = parent.get_parent();
+			assert (not (parent is Arena)) ## catches misplaced vfx node
+		if track_source_angle:
 			angle_source = parent;
 			angle_source.frame_changed.connect(match_source_angle);
-		elif parent is Weapon:
-			var holder:Node = parent.get_parent();
-			if not holder is EquipmentControl:
-				print("isnotit?")
-				return
-			animation_player.speed_scale = .75
-			## just to keep this adjustment from being called twice when weapon is duplicated
-			if rotation_offset and rotation_offset > PI:
-				rotation_offset = deg_to_rad(rotation_offset)
-				
-			## CONNECTS TO EquipmentControl node in player_fighter
-			holder.weapon_used.connect(play)
+			skill = angle_source.skill;
+			match activator:
+				Activator.start:
+					skill.start.connect(play_vfx)
+				Activator.impact:
+					skill.impact.connect(play_vfx)
+				Activator.finished:
+					skill.finished.connect(play_vfx)
 
+	elif source_type == SourceType.weapon:
+		## can apply the same activator stuff for other vfx eventually
+		
+		Entities.player_fighter.equipment.weapon_used.connect(play_vfx)
 
-	if angle_source is FighterBase:
-		skill = angle_source.skill;
-		match activator:
-			Activator.start:
-				skill.start.connect(play_vfx)
-			Activator.impact:
-				skill.impact.connect(play_vfx)
-			Activator.finished:
-				skill.finished.connect(play_vfx)
 
 func play_vfx()->void:
 	animation_player.play("vfx");
@@ -86,8 +77,6 @@ func match_source_angle()->void:
 	frame_coords.x = angle_source.frame_coords.x;
 
 func play()->void:
-	var eq_rotation:float = Entities.player_fighter.equipment.rotation;
 	
-	rotation = eq_rotation + rotation_offset
-	global_position = Entities.player_fighter.position + Vector2.RIGHT.rotated(eq_rotation) * motion_offset;
+
 	animation_player.play("vfx");

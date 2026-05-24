@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cj5ljxvm16m8c"]
+
+[ext_resource type="Script" uid="uid://dfktq4wasb27n" path="res://scenes/index/items/weapons/scripts/shrapnel_shotgun.gd" id="1_5hg34"]
+[ext_resource type="Texture2D" uid="uid://btt5vdk8xcowd" path="res://assets/visual/items/weapons/shrapnel_shotgun.png" id="1_vrtai"]
+[ext_resource type="Script" uid="uid://b0e1rmg27d5ii" path="res://scenes/battle/fighter/player/equipment/weapon_display/ranged_display.gd" id="3_kagd4"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="4_mvmo7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q0r20"]
+radius = 59.03389
+
+[node name="ShrapnelShotgun" type="Sprite2D" unique_id=1126198983 node_paths=PackedStringArray("display", "hit_scan", "animation_player", "use_sfx")]
+texture = ExtResource("1_vrtai")
+script = ExtResource("1_5hg34")
+display = NodePath("RangedWeaponDisplay")
+hit_scan = NodePath("hit_scan")
+animation_player = NodePath("AnimationPlayer")
+use_sfx = NodePath("AudioStreamPlayer")
+use_feedback = "recoil"
+hit_feedback = "screen_shake"
+color_tag = "scrap"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="RangedWeaponDisplay" type="Node" parent="." unique_id=58503729]
+script = ExtResource("3_kagd4")
+metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=607293741]
+position = Vector2(0, 80)
+rotation = 1.5707964
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=539414566]
+shape = SubResource("CircleShape2D_q0r20")
+debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=1239916499]
+modulate = Color(1, 1, 1, 0.11764706)
+position = Vector2(1, -1)
+scale = Vector2(6, 8)
+texture = ExtResource("4_mvmo7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2004319821]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=367804434]

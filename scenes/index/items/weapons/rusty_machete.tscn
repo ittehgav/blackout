@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cv0g2uxpxnuwq"]
+
+[ext_resource type="Texture2D" uid="uid://pqh012ym6c2" path="res://assets/visual/items/weapons/rusty_machete.png" id="1_53ag6"]
+[ext_resource type="Script" uid="uid://cu6a67nkgd1sg" path="res://scenes/index/items/weapons/scripts/rusty_machete.gd" id="1_bt5kh"]
+[ext_resource type="Script" uid="uid://nkvusiyd18wl" path="res://scenes/battle/fighter/player/equipment/weapon_display/melee_display.gd" id="2_1ifno"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="3_53ag6"]
+[ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="4_7bw60"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="5_krwvq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x157q"]
+radius = 59.03389
+
+[node name="Rusty Machete" type="Sprite2D" unique_id=1448566440 node_paths=PackedStringArray("display", "hit_scan", "projections", "animation_player", "use_sfx")]
+texture = ExtResource("1_53ag6")
+script = ExtResource("1_bt5kh")
+display = NodePath("MeleeWeaponDisplay")
+base_damage = 20
+cooldown = 5.0
+hit_scan = NodePath("hit_scan")
+melee = true
+projections = [NodePath("hit_scan/Sprite2D")]
+animation_player = NodePath("AnimationPlayer")
+use_sfx = NodePath("use_sfx")
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="MeleeWeaponDisplay" type="Node" parent="." unique_id=1325511721]
+script = ExtResource("2_1ifno")
+metadata/_custom_type_script = "uid://nkvusiyd18wl"
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=1150898892]
+position = Vector2(0, 80)
+rotation = 1.5707964
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=2141918455]
+shape = SubResource("CircleShape2D_x157q")
+debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=1058544206]
+modulate = Color(1, 1, 1, 0.11764706)
+position = Vector2(1, -1)
+scale = Vector2(6, 8)
+texture = ExtResource("3_53ag6")
+
+[node name="Sweep" parent="hit_scan" unique_id=773368217 instance=ExtResource("4_7bw60")]
+top_level = true
+rotation = -3.1415927
+scale = Vector2(3, -3)
+source_type = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1282916639]
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=1270970240]
+stream = ExtResource("5_krwvq")
