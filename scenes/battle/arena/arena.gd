@@ -5,7 +5,6 @@ class_name Arena;
 signal battle_started
 signal battle_ended(won:bool);
 
-@export var grid:NavigationGrid
 
 ## used for nodes outside of the arena contex to interact with wether the player won or lost
 
@@ -18,18 +17,18 @@ signal battle_ended(won:bool);
 var won_battle:bool;
 @export var post_fight_view:PostFight;
 
+func _enter_tree() -> void:
+	Entities.arena = self;
 
 func _ready()->void:
 	if team_1.roster:
 		team_1.load_roster();
 	if team_2.roster:
 		team_2.load_roster();
-	Entities.arena = self
+	await get_tree().process_frame
+	## to make sure every fighter is in the tree before setting up vfxes
 	for vfx:Node in get_tree().get_nodes_in_group("combat_vfx"):
-		if vfx and is_ancestor_of(vfx)\
-		 and (not team_1.roster or not team_1.roster.is_ancestor_of(vfx))\
-		 and (not team_2.roster or not team_2.roster.is_ancestor_of(vfx)):
-			vfx.set_sprite_root();
+		vfx.set_sprite_root();
 
 func load_layout(target:PackedScene)->void:
 	current_layout.queue_free();

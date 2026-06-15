@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3q2rj3eol6t"]
+[gd_scene format=3 uid="uid://b3q2rj3eol6t"]
 
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="2_tn4cm"]
 [ext_resource type="Script" uid="uid://cqf12thilix0a" path="res://scenes/battle/fighter/player/body.gd" id="3_dsuet"]
-[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="4_p2cmb"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/active_fighter/player.res" id="4_p2cmb"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;

@@ -8,6 +8,7 @@ class_name SkillComponent
 ## try and keep these easy to transplant to NPCfighter
 signal impact
 signal finished
+
 enum TargetType {nearest_enemy}
 enum Effect {
 	## direct = apply to unit's target
@@ -18,15 +19,17 @@ enum Effect {
 	aoe_damage,
 	aoe_status,
 
-	## knock back effects are cool and i could put them on more 
-	## people than just gravity
-	knock_back,
+	## knockbacks either send enemies away from unit
+	## or away from the radial center
+	knockback,
+	aoe_knockback,
+	radial_knockback,
 	
 	passive, ## TODO implement this
 	## 0 cooldwn = necessarily passive ticker/other types of passive?
-	special,
 	
-	self_status
+	self_status,
+	special
 };
 
 enum TransformVFX {
@@ -40,31 +43,25 @@ enum TransformVFX {
 }
 
 
-enum RangeOptions {
-	melee = FighterBase.MELEE_RANGE,
-	mid = FighterBase.MID_RANGE,
-	long = FighterBase.LONG_RANGE
-}
 var fighter:NpcFighter;
-
-
 
 @export var targetting:TargetType;
 @export var base_cooldown:float; ## TODO 0 cooldown = passive
-@export var skill_range:RangeOptions=RangeOptions.melee;
 @export var effects:Array[Effect]
 
-@export var tranform_visual:TransformVFX
-
-
+@export_subgroup("Settings")
 @export var instant_impact:bool=false;
+@export var position_lineup:bool=true;
+
+@export_subgroup("Aoe Settings")
+@export var transform_visual:TransformVFX
 
 @export var need_target:bool=true;
 
 @export var scan_enemies:bool=true;
 @export var scan_allies:bool=false;
-@export var position_lineup:bool=true;
 
+@export_subgroup("Mechanic-specific")
 @export var status:Status;
 
 ## ONLY FOR ENEMY MOBS,
@@ -76,17 +73,15 @@ var fighter:NpcFighter;
 @export var special_aoe_projection:bool=false
 
 @export_subgroup("special modifiers")
-
-@export var technique_scaled_damage:bool=false;
 ## calls Scaling.technique_scaled_damage
 ## technique_scaled damage and own_damage_mod are mutually exclusive
 ## but maybe dont have to be?
+@export var technique_scaled_damage:bool=false;
 
-@export var own_damage_modifier:bool=false;
 ## calls the damage_modifier method that needs to be in the base
-
-@export var lifesteal:bool=false;
-## needs the base to have a vamp and vamp_technique_amp properties
+@export var own_damage_modifier:bool=false;
+## needs to be at least 1 if the skill causes knockback
+@export_range(0, 5) var knockback_strength:int=0;
 
 func lineup()->void:
 	if Effect.aoe_damage in effects or Effect.aoe_status in effects:
@@ -112,8 +107,12 @@ func use()->void:
 				Combat.aoe_damage(fighter);
 			Effect.aoe_status:
 				Combat.aoe_status(fighter);
-			Effect.knock_back:
+			Effect.knockback:
 				Combat.knock_back_target(fighter);
+			Effect.aoe_knockback:
+				Combat.aoe_knockback(fighter);
+			Effect.radial_knockback:
+				Combat.radial_knockback(fighter)
 			Effect.self_status:
 				status.apply_on_target(fighter);
 			Effect.special:
@@ -125,16 +124,17 @@ func play_transform_vfx()->void:
 	## AFTER IMPACT
 	var tween:Tween = create_tween();
 	const vfx_duration = .3
-	const tranform_movement = 30;
-	match tranform_visual:
-		## ALL TRANFORM VISUALS MUST EMIT THE IMPACT SIGNAL
+	const transform_movement = 60;
+	match transform_visual:
+		## ALL TRANSFORM VISUALS MUST EMIT THE IMPACT SIGNAL
 		TransformVFX.lunge:
-			var direction:Vector2 = fighter.direction_to_target;
-			fighter.sprite.offset = direction * tranform_movement;
+			print("lung?")
+			var direction:Vector2 = fighter.target_direction();
+			fighter.sprite.offset = direction * transform_movement;
 			tween.tween_property(fighter.sprite, "offset", Vector2.ZERO, vfx_duration);
 		TransformVFX.recoil:
-			var direction:Vector2 = fighter.direction_to_target;
-			fighter.sprite.offset = direction * -tranform_movement;
+			var direction:Vector2 = fighter.target_direction();
+			fighter.sprite.offset = direction * -transform_movement;
 			tween.tween_property(fighter.sprite, "offset", Vector2.ZERO, vfx_duration);
 		TransformVFX.grow:
 			## transform of fighter bases is reserved for 

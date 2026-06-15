@@ -35,8 +35,31 @@
 [ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="34_d1e62"]
 [ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="35_i5jl6"]
 [ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="36_hu1ix"]
-[ext_resource type="PackedScene" uid="uid://mwlq8jel4dww" path="res://scenes/index/fighters/units/wheel.tscn" id="37_j1yh0"]
 [ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="38_nnxq8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xpgi"]
+resource_local_to_scene = true
+shader = ExtResource("27_gxsu5")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16uiq"]
+resource_local_to_scene = true
+shader = ExtResource("27_gxsu5")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4oal8"]
 resource_local_to_scene = true
@@ -146,42 +169,6 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5jl6"]
-resource_local_to_scene = true
-shader = ExtResource("27_gxsu5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hu1ix"]
-resource_local_to_scene = true
-shader = ExtResource("27_gxsu5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1yh0"]
-resource_local_to_scene = true
-shader = ExtResource("27_gxsu5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
 [node name="Factory" type="Node2D" unique_id=288129802 node_paths=PackedStringArray("inventory", "roster") groups=["all_locations"]]
 script = ExtResource("1_rgx4l")
 theme_color = Color(0.6392157, 0.64705884, 0.8, 1)
@@ -208,7 +195,6 @@ holder = NodePath("..")
 [node name="Brass Knuckles" parent="ShopInventory" unique_id=476126111 instance=ExtResource("5_rgx4l")]
 
 [node name="Jumpsuit" parent="ShopInventory" unique_id=182857600 instance=ExtResource("5_gt0ex")]
-exclusive_tag = 0
 
 [node name="Sapper" parent="ShopInventory" unique_id=1674238534 instance=ExtResource("7_hexne")]
 exclusive_tag = 0
@@ -244,37 +230,34 @@ exclusive_tag = 0
 [node name="Building Roster" parent="." unique_id=1928447804 instance=ExtResource("25_wtqfl")]
 
 [node name="Crowbar" parent="Building Roster" unique_id=2112712555 instance=ExtResource("26_4oal8")]
-material = SubResource("ShaderMaterial_4oal8")
+material = SubResource("ShaderMaterial_5xpgi")
 
 [node name="Electric Hulk" parent="Building Roster" unique_id=30330839 instance=ExtResource("28_bcplk")]
-material = SubResource("ShaderMaterial_gxsu5")
+material = SubResource("ShaderMaterial_16uiq")
 
 [node name="Electric Knight" parent="Building Roster" unique_id=366716137 instance=ExtResource("29_eebtn")]
-material = SubResource("ShaderMaterial_bcplk")
+material = SubResource("ShaderMaterial_4oal8")
 
 [node name="Gravity" parent="Building Roster" unique_id=934399271 instance=ExtResource("30_0r854")]
-material = SubResource("ShaderMaterial_eebtn")
+material = SubResource("ShaderMaterial_gxsu5")
 
 [node name="Puncher" parent="Building Roster" unique_id=1510142188 instance=ExtResource("31_fq407")]
-material = SubResource("ShaderMaterial_0r854")
+material = SubResource("ShaderMaterial_bcplk")
 
 [node name="Scrap Hulk" parent="Building Roster" unique_id=1648266463 instance=ExtResource("32_i30i1")]
-material = SubResource("ShaderMaterial_fq407")
+material = SubResource("ShaderMaterial_eebtn")
 
 [node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("33_jjto0")]
-material = SubResource("ShaderMaterial_i30i1")
+material = SubResource("ShaderMaterial_0r854")
 
 [node name="Slammer" parent="Building Roster" unique_id=1342933973 instance=ExtResource("34_d1e62")]
-material = SubResource("ShaderMaterial_jjto0")
+material = SubResource("ShaderMaterial_fq407")
 
 [node name="Sniper" parent="Building Roster" unique_id=1797122592 instance=ExtResource("35_i5jl6")]
-material = SubResource("ShaderMaterial_d1e62")
+material = SubResource("ShaderMaterial_i30i1")
 
 [node name="Toxic Hulk" parent="Building Roster" unique_id=754896079 instance=ExtResource("36_hu1ix")]
-material = SubResource("ShaderMaterial_i5jl6")
-
-[node name="Wheel" parent="Building Roster" unique_id=656115223 instance=ExtResource("37_j1yh0")]
-material = SubResource("ShaderMaterial_hu1ix")
+material = SubResource("ShaderMaterial_jjto0")
 
 [node name="Wrecker" parent="Building Roster" unique_id=1018236968 instance=ExtResource("38_nnxq8")]
-material = SubResource("ShaderMaterial_j1yh0")
+material = SubResource("ShaderMaterial_d1e62")

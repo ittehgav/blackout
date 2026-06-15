@@ -10,19 +10,46 @@ const dungeon_rate = .3
 
 var all_locations:Array[Location]
 
+var locations_with_room:int = 0;
+## may go negative towards the end but its fine
 func _ready()->void:
 	for c:Node in get_children():
 		if c is Location:
+			if not c.room_for_neighbors():
+				## to catch locations that got their space filled by export
+				locations_with_room -= 1;
 			all_locations.append(c);
-
+	locations_with_room += len(all_locations)
 	for l:Location in all_locations:
-		assign_neighbors(l)
+		if l.room_for_neighbors():
+			assign_neighbors(l)
 	
 	road.generate_roads(all_locations);
 	## just does nothing when loading previous session?
 	## which we can't even do rn
 	fog.reveal_neighbors();
 	
+func assign_neighbors(target:Location)->void:
+	var to_check:Array[Location] = all_locations.filter(neighbor_distance_sort.bind(target))
+	
+	while target.room_for_neighbors():
+		var l:Location = to_check[0];
+		if l in target.neighbors:
+			to_check.pop_back()
+
+		elif l.room_for_neighbors() or locations_with_room <= 0:
+			## only place where neigbors are ever assigned
+			
+			target.neighbors.append(l);
+			if not target.room_for_neighbors():
+				locations_with_room -= 1;
+			l.neighbors.append(target)
+			if not l.room_for_neighbors():
+				locations_with_room -= 1;
+				
+	
+func neighbor_distance_sort(a:Location, b:Location, target:Location)->bool:
+	return target.position.distance_to(a.position) < target.position.distance_to(b.position);
 
 func generate_locations()->void:
 	pass
@@ -90,39 +117,8 @@ func space_taken(location:Location)->int:
 		total += b.size;
 	return total
 
-func check_position_clear(roll:Vector2, all_locations:Array[Location])->bool:
+func check_position_clear(roll:Vector2)->bool:
 	for s:Location in all_locations:
 		if roll.distance_to(s.position) < 100:
 			return false;
 	return true
-
-func assign_neighbors(target:Location)->void:
-	var distances:Array[float]
-	for location:Location in all_locations:
-		if location != target:
-			var distance:float = target.position.distance_to(location.position)
-			if len(target.neighbors) < 3:
-				target.neighbors.append(location);
-				
-				if len(target.neighbors) == 3:
-					target.neighbors.sort_custom(neighbor_distance_sort.bind(target));
-					for neighbor:Location in target.neighbors:
-						## already sorted by the neighbors sort
-						distances.append(target.position.distance_to(neighbor.position));
-				
-			else:
-				if distance < distances[2]:
-					distances.remove_at(2)
-					target.neighbors.remove_at(2);
-					if distance > distances[1]:
-						target.neighbors.append(location);
-						distances.append(distance)
-					elif distance > distances[0]:
-						target.neighbors.insert(1, location);
-						distances.insert(1, distance);
-					else:
-						target.neighbors.insert(0, location);
-						distances.insert(0, distance);
-
-func neighbor_distance_sort(a:Location, b:Location, target:Location)->bool:
-	return target.position.distance_to(a.position) < target.position.distance_to(b.position);

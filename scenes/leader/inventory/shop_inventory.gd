@@ -41,13 +41,13 @@ func _on_child_entered_tree(node: Node) -> void:
 	if not pool_generated:
 		if not node is ResourceContainer or not node in resource_storage:
 			item_pool.append(node);
-			remove_child.call_deferred(node)
 		else:
 			add_item(node);
 		## pool items can be removed as they're only ever used for duplicating
 		## to the same index pointer bullshit as i did for fighterbases?
 	else:
 		super(node)
+
 func refresh_inventory()->void:
 	var to_erase:Array[Item]
 	for item in items:
@@ -58,11 +58,6 @@ func refresh_inventory()->void:
 	for item:Item in to_erase:
 		remove_item(item);
 		
-	## will establish trade prices for all resources, farms (and other resource-trade based buildings)
-	## will buy any resources the player gives them and sell them at the turn of the day
-	## getting back the money they spent on them
-
-	
 	for c:ResourceContainer in resource_storage:
 		c.stack_size = randi_range(c.capacity/1.75, c.capacity)
 	

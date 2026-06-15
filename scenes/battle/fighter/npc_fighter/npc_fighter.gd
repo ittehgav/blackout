@@ -7,22 +7,25 @@ signal target_changed;
 
 signal skill_attempted;
 signal skill_used;
+## WHEN THE BASE STARTS THE WINDUP
 signal skill_hit(target_hit:ActiveFighter);
-
 
 
 var unit:FighterUnit;
 
 @export var dummy:bool=false;
 
-@export var npc_sfx:AudioStreamPlayer2D;
+@export_subgroup("visuals")
+@export var dust:Dust;
+@export var skill_dust:Dust
+@export var overlay:FighterOverlay
 
+@export_subgroup("timers")
 @export var cooldown_timer:Timer;
 @export var skill_retry_timer:Timer;
 @export var movement_ticker:Timer;
 
 
-@export var overlay:FighterOverlay
 
 @export_subgroup("aoe projection")
 var aoe_projection:Sprite2D;
@@ -44,7 +47,9 @@ var true_cooldown:float;
 
 func _ready()->void:
 	if dummy:
-		timers.free();
+		movement_ticker.queue_free()
+		cooldown_timer.queue_free()
+		overlay.charge_bar.hide()
 		hp = max_hp
 
 func load_fighter(new_unit:FighterUnit)->void:
@@ -52,47 +57,8 @@ func load_fighter(new_unit:FighterUnit)->void:
 	level = new_unit.level
 	unit = new_unit
 	base = unit.base.duplicate();
-	body_type = base.body_type
-	
-	if base.skill.status:
-		base.skill.status.source = self;
-	
-	sprite = base
-	## sprite is a pointer to base only in NPC fighters
-	## (unlike for player and props)
-	sprite.scale = Vector2(2, 2);
-	base.skill.reparent(self);
-	base.skill.fighter = self;
-	
-	if base.skill.technique_scaled_damage:
-		damage_modifier = Scaling.technique_scaled_damage;
-	elif base.skill.own_damage_modifier:
-		assert(base.damage_modifier)
-		damage_modifier = base.damage_modifier;
-	
-	if base.skill.lifesteal:
-		assert(base.lifesteal_frac);
-		assert(base.lifesteal_technique_amp)
-		damage_dealt.connect(Combat.lifesteal_heal.bind(self))
-
-	started_moving.connect(base.started_moving.emit)
-	stopped_moving.connect(base.stopped_moving.emit)
-	
-	if base.hit_scan:
-		base.hit_scan.reparent(self)
-		if base.skill.aoe_projection and ally_team.team_n == 2:
-			var shape:CollisionShape2D = base.hit_scan.get_node("shape");
-			if not base.skill.special_aoe_projection:
-				show_aoe_projection = true;
-			setup_aoe_projection(shape);
-			
-
+	load_base()
 	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the tree
-	base.fighter = self;
-	add_child(base)
-	base.set_owner(self)
-	base.get_node("hurtbox").reparent(hurtbox);
-	
 	
 	load_unit_stats();
 
@@ -113,10 +79,52 @@ func load_fighter(new_unit:FighterUnit)->void:
 	if true_cooldown == 0:
 		cooldown_timer.set_process(false)
 
+func load_base()->void:
+	body_type = base.body_type
+	
+	dust.reparent(base)
+	dust.position = Vector2.ZERO
+	skill_dust.reparent(base);
+	skill_dust.position = Vector2.ZERO;
+	skill_dust.setup_impact_dust(self);
+
+	if base.skill.status:
+		base.skill.status.source = self;
+	
+	sprite = base
+	sprite.scale = Vector2(2, 2)
+	sprite.position.y = 10
+	## sprite is a pointer to base only in NPC fighters
+	## (unlike for player and props)
+	base.skill.reparent(self);
+	base.skill.fighter = self;
+	
+	if base.skill.technique_scaled_damage:
+		damage_modifier = Scaling.technique_scaled_damage;
+	elif base.skill.own_damage_modifier:
+		assert(base.damage_modifier)
+		damage_modifier = base.damage_modifier;
+
+	started_moving.connect(base.started_moving.emit)
+	stopped_moving.connect(base.stopped_moving.emit)
+
+	if base.hit_scan:
+		base.hit_scan.reparent(self)
+		if base.skill.aoe_projection and ally_team.team_n == 2:
+			var shape:CollisionShape2D = base.hit_scan.get_node("shape");
+			if not base.skill.special_aoe_projection:
+				show_aoe_projection = true;
+			setup_aoe_projection(shape);
+	
+	base.fighter = self;
+	add_child(base)
+	base.set_owner(self)
+	base.get_node("hurtbox").reparent(hurtbox);
+
 func setup_aoe_projection(shape:CollisionShape2D)->void:
+	## NOT WORKING AT ALL?
 	aoe_projection = Sprite2D.new();
 	var aoe_shape:Shape2D = shape.shape;
-	
 	if aoe_shape is CircleShape2D:
 		aoe_projection.texture = circle_projection_texture;
 		var diameter:int = aoe_shape.radius * 2;
@@ -141,120 +149,108 @@ func load_unit_stats()->void:
 	var stats:CombatStats = unit.final_stats();
 	for stat:String in Index.all_combat_stats:
 		initial_stats[stat] = stats[stat];
-	## leaving move_speed out of the index stats call
-	## because it's hardly ever used
-
-	move_speed = stats.move_speed
-	movement_ticker.wait_time = .2 * (500/move_speed)
-	movement_interval = movement_ticker.wait_time
-
-func set_direction()->void:
-	var direction_index:int = Index.isometric_rad_indexes.bsearch(direction_to_target.angle());
-	sprite.frame_coords.x = direction_index;
+	move_speed = base.base_stats['move_speed']
 
 
 ## storing these throughout check_move calls
 ## to reduce processing load
 ## (by an amount which i think will start to become bigger and bigger as 
 ## the movement system becomes more complex)
-var current_cell:Vector2i
-var movement_target:Vector2
-var target_cell_distance:int;
-var direction_to_target:Vector2
+var current_cell:Vector2i = Vector2(-1, -1); 
+## shorthand for unallocated/invalid spot everywhere sice no V2s evaluate as false?
+var movement_target:Vector2: ## ALREADY A POSITION IN SPACE RATHER THAN THE GRIDS
+	set(value):
+		movement_target = value
+		refresh_velocity();
 
-var current_path:PackedVector2Array;
+var target_cell_distance:int;
+func target_direction()->Vector2:
+	return position.direction_to(target_fighter.position)
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
+func refresh_velocity()->void:
+	## only when cell changes?
+	
+	var direction:Vector2 = position.direction_to(movement_target);
+	if direction == Vector2.ZERO:
+		if moving:
+			moving = false;
+			stopped_moving.emit();
+	else:
+		if not moving:
+			moving = true;
+			started_moving.emit()
+
+	velocity = direction * move_speed
+
+func check_move()->void:
+	refresh_target();
+	if stunned:
+		stop();
+		return;
+	if flying:
+		## override velocity val at source until kb stops
+		return
+
+	if base.movement == FighterBase.MovementPattern.none:
+		return
+
+	if not target_in_range:
+		movement_target = target_fighter.position
+	else:
+		if base.movement == FighterBase.MovementPattern.hover:
+			check_flee();
+		else:
+			stop()
+	
+	set_direction()
+
+
+
+func set_direction()->void:
+	var angle:float;
+	
+	if base.animation_player.current_animation == base.skill_animation_path:
+		## plays this outside of ticker when skill starts being 
+		## used so it instantly turns to the targer
+		angle = position.angle_to_point(target_fighter.position);
+	elif moving:
+		angle = velocity.angle()
+	else:
+		angle = position.angle_to_point(target_fighter.position);
+	var direction_index:int = get_sector_full(angle)
+	sprite.frame_coords.x = direction_index;
+
+
 func refresh_target()->void:
-	## also refreshes all geometric data that takes a bit of math to call
-	## every movement refresh
+
 	var target:ActiveFighter=null;
 	match base.skill.targetting:
 		## maybe only ever need to target allies otherwise?
 		## make this a simpler code expression if so?
 		SkillComponent.TargetType.nearest_enemy:
 			target = nearest_enemy();
-			
-			
+
 	if target != target_fighter:
 		target_fighter = target;
 		target_changed.emit();
 	if target_fighter:
-		Entities.arena.grid.assign_path(self)
-		## only ever doesn't get here when the last unit dies and everyone was targeting it?
-		target_cell_distance = Entities.arena.grid.cell_distance(position, target.position)
-		target_in_range = target_cell_distance <= base.skill.skill_range
+		target_cell_distance = position.distance_to(target_fighter.position)/64;
+		target_in_range = target_cell_distance < base.skill_range;
+	
 
-
-func check_move()->void:
-	if not len(enemy_team.fighters):
-		return
-	refresh_target();
-	if base.movement == FighterBase.MovementPattern.none:
-		return
-	if not target_in_range or (base.movement == FighterBase.MovementPattern.chase and target_cell_distance > 2):
-		move_toward_target(current_path[1]);
-	else:
-		if base.movement == FighterBase.MovementPattern.hover:
-			check_flee()
-		else:
-			stop()
-	set_direction()
-
+const hover_space = 3
 func check_flee()->void:
-	if target_cell_distance - 2 > base.skill.skill_range:
+	if target_cell_distance < base.skill_range - hover_space:
 		flee_from_target();
-
+	else:
+		stop()
 func flee_from_target()->void:
-	## just goes to the farthest from the target vague cell
-	## can result in silly behavior when cornered? (which might be fine?)
-	var direction:Vector2i = direction_to_target * -1;
-	var farthest_cell_index:int = Index.isometric_angle_indexes.bsearch(direction);
-	
-	direction = Index.isometric_angle_indexes[farthest_cell_index];
-	
-	var grid:NavigationGrid = Entities.arena.grid;
-	const shifts:Array[int] = [0, -1, 1, 2, -2, 3, -3, 4];
-	for s:int in shifts:
-		var neighbor:Vector2i = current_cell + Index.isometric_angle_indexes[farthest_cell_index + s];
-		if not grid.spot_taken(neighbor):
-			var target_position:Vector2 = grid.map_to_local(neighbor)
-			move_toward_target(target_position);
-			return
-			
-			
-	
-@onready var movement_interval:float = movement_ticker.wait_time;
-## movement speed gets edited here eventually?
-func move_toward_target(target:Vector2i)->void:
-	## MOVEMENT TARGET = REGULAR POSITION
-	movement_target = target;
-	
-	if Entities.arena.grid.spot_taken(movement_target):
-		printerr("takenshouldneverhappen??")
-		return
-		## to prevent two units from overlapping
-		## when they move towards eachother at the exact same time
-		## otherwise will respect the taken cells by only
-		## moving through astar pathfinding
-		
-		## BUG seems like melee units can't properly target enemies that are on the 
-		## cell to their bottom-right?
-		movement_target = Entities.arena.grid.next_closer_cell(self)
-
-	var tween:Tween = create_tween();
-	tween.tween_property(self, "position", movement_target, movement_interval);
-	Entities.arena.grid.occupy_cell(self)
-	
-	if not moving:
-		moving = true;
-		started_moving.emit()
-
+	var direction:Vector2 = position + target_fighter.position.direction_to(position)
+	movement_target = direction
 func stop()->void:
-	if moving:
-		moving = false;
-		stopped_moving.emit()
-
-
-
+	movement_target = position;
+	## find a way to make this a slowdown instead of a full stop?
 
 
 func skill_cooldown() -> void:
@@ -269,12 +265,13 @@ func skill_cooldown() -> void:
 
 func use_skill()->void:
 	hit_targets = [];
-	base.skill_windup()
-	base.skill.lineup()
 	skill_used.emit();
 	
+	base.skill_windup()
+	base.skill.lineup()
+	
 	if show_aoe_projection:
-		## TODO this should all be controlled by SkillComponent
+		## TODO this should all be controlled by SkillComponent/animationplayer
 		## TODO make the projection tweren time dynamic
 		## right now it's just the hardcoded time that all skill animations
 		## take between start and impact
@@ -285,6 +282,8 @@ func use_skill()->void:
 	await base.skill.impact
 	for target:ActiveFighter in hit_targets:
 		skill_hit.emit(target);
+
+
 
 
 func _on_stat_changed(stat:String)->void:
@@ -303,9 +302,8 @@ func _on_stat_changed(stat:String)->void:
 				if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
 					cooldown_timer.timeout.disconnect(correct_cooldown_timer);
 				cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);
-		"move_speed":
-			movement_ticker.wait_time = .2 * (500/move_speed)
-			movement_interval = movement_ticker.wait_time
+
+
 func final_skill_cooldown()->float:
 	return base.skill.base_cooldown - Scaling.agility_cooldown_reduction(base.skill.base_cooldown, agility)
 
@@ -322,10 +320,6 @@ func correct_cooldown_timer()->void:
 func die(killer:ActiveFighter)->void:
 	death.emit(killer)
 	dead = true;
-	
-	var cell_to_clear:Vector2i = current_cell;
-	var grid:TileMapLayer = Entities.arena.grid
-	grid.set_cell(cell_to_clear, 0, grid.CELL_FREE)
 	hide();
 
 	

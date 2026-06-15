@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="1_kwfdt"]
 [ext_resource type="Texture2D" uid="uid://dxilmorapc7nh" path="res://scenes/test/sheet.png" id="2_wmr35"]
-[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="3_gd4av"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/active_fighter/player.res" id="3_gd4av"]
 [ext_resource type="Texture2D" uid="uid://vvpqjj3pxtbs" path="res://assets/visual/items/weapons/pipe.png" id="4_wmr35"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1u0lg"]

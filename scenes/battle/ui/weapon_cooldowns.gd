@@ -13,6 +13,8 @@ extends PanelContainer
 @export var main_weapon_ammo_hbox:HBoxContainer
 @export var alt_weapon_ammo_hbox:HBoxContainer
 
+@export var ammo_warning_animation:AnimationPlayer
+
 @onready var player:Player = get_tree().get_first_node_in_group("player")
 
 
@@ -22,8 +24,6 @@ var displaying_weapon:Weapon;
 var displaying_alt_weapon:Weapon;
 
 func _ready() -> void:
-	var player:Player = get_tree().get_first_node_in_group("player")
-	
 	display_weapon(player.equipped_weapon)
 	cooldown_bar.max_value = main_weapon_cd_timer.wait_time;
 	
@@ -57,8 +57,6 @@ func load_weapon_to_bar(weapon:Weapon, bar:TextureProgressBar, alt:bool=false)->
 	
 	var target_size:Vector2 = weapon_texture.get_size();
 	
-
-	
 	if not alt:
 		target_size *= 2
 
@@ -71,10 +69,11 @@ func load_weapon_to_bar(weapon:Weapon, bar:TextureProgressBar, alt:bool=false)->
 		var icon:ResourceIcon = Index.scenes.ui.resource_icon.instantiate();
 			
 		icon.bg.hide()
-		icon.custom_minimum_size = Vector2(16, 16)
-		icon.size = Vector2(16, 16)
+		icon.custom_minimum_size = Vector2(32, 32)
+		icon.size = Vector2(32, 32)
 
 		var label:Label = Label.new();
+		label.add_theme_constant_override("font_size", 32)
 		icon.resource = weapon.ammo_type;
 		icon.label = label;
 		if not ammo_labels.has(weapon.ammo_type):
@@ -82,7 +81,8 @@ func load_weapon_to_bar(weapon:Weapon, bar:TextureProgressBar, alt:bool=false)->
 		ammo_labels[weapon.ammo_type].append(label)
 		
 		if alt:
-			icon.size = Vector2(8, 8);
+			icon.custom_minimum_size = Vector2(16,16)
+			icon.size = Vector2(16, 16)
 			label.add_theme_font_size_override("font_size", 16)
 		
 		
@@ -105,21 +105,6 @@ func _on_equipment_weapon_changed() -> void:
 	cooldown_bar.max_value = main_weapon_cd_timer.wait_time;
 	alt_cooldown_bar.max_value = alt_weapon_cd_timer.wait_time;
 
-	check_weapon_disabled();
-	
-func check_weapon_disabled()->void:
-	if equipment.equipped_weapon.check_disabled():
-		cooldown_bar.modulate.a = .5;
-		cooldown_bar.modulate.v = .5;
-	else:
-		cooldown_bar.modulate = Color.WHITE;
-	
-	if equipment.alt_weapon:
-		if equipment.alt_weapon.check_disabled():
-			alt_cooldown_bar.modulate.a = .5;
-			alt_cooldown_bar.modulate.v = .5;
-		else:
-			alt_cooldown_bar.modulate = Color.WHITE
 
 
 func _on_equipment_ammo_consumed(ammo_type: String, _amount: int) -> void:
@@ -140,10 +125,15 @@ func _on_equipment_ammo_consumed(ammo_type: String, _amount: int) -> void:
 
 func _on_weapon_cd_timeout() -> void:
 	self_modulate.v = 1
-	self_modulate.a = 1
 
 
 func _on_equipment_weapon_used() -> void:
-	await get_tree().create_timer(.01).timeout
-	self_modulate.v = .5
-	self_modulate.a = .5
+	await get_tree().create_timer(.1).timeout
+	self_modulate.v = .25
+
+
+
+func _on_equipment_weapon_fumbled() -> void:
+	if not ammo_warning_animation.is_playing():
+		ammo_warning_animation.play("ammo_warning")
+	

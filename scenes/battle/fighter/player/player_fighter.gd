@@ -18,7 +18,6 @@ class_name PlayerFighter
 var body_angle:float;
 
 
-var walking_blocked:bool=false;
 
 func _ready()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
@@ -55,9 +54,9 @@ func load_fighter()->void:
 	hp = max_hp;
 
 func _physics_process(delta:float)->void:
-	if not walking_blocked:
+	if not flying:
 		movement_input(delta)
-		move_and_slide()
+	move_and_slide()
 
 	if equipment.not_attacking():
 		var direction:Vector2;

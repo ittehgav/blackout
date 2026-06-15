@@ -89,7 +89,7 @@ _data = {
 &"vfx": SubResource("Animation_gedaf")
 }
 
-[node name="Punch" type="Sprite2D" unique_id=437169543 node_paths=PackedStringArray("animation_player")]
+[node name="Punch" type="Sprite2D" unique_id=437169543 node_paths=PackedStringArray("animation_player") groups=["combat_vfx"]]
 self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("1_a52pj")
 hframes = 8

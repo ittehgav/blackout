@@ -4,18 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://bymxi6obmi5yg" path="res://assets/visual/sprites/fighters/units/wrecker/wrecker.png" id="2_o3g6e"]
 [ext_resource type="Script" uid="uid://c0djhkafrh10j" path="res://scenes/index/fighters/scripts/wrecker.gd" id="3_p28ga"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_sp1sy"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_8drad"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_dtm77"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_8drad"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_wn7on"]
-[ext_resource type="Texture2D" uid="uid://cdr25r3dw8h0v" path="res://assets/visual/sprites/fighters/units/wrecker/blur.png" id="7_0q1c6"]
-[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_0p68p"]
 [ext_resource type="PackedScene" uid="uid://dnln8vwomwh3n" path="res://scenes/index/vfx/punch.tscn" id="9_0p68p"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_4sabw"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_ml28j"]
-
-[sub_resource type="Resource" id="Resource_g588m"]
-script = ExtResource("4_dtm77")
-metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_s5sid"]
 length = 0.001
@@ -61,24 +54,20 @@ _data = {
 &"RESET": SubResource("Animation_s5sid")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_q25gu"]
-radius = 22.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_dwlbk"]
 radius = 15.033297
 
-[node name="Wrecker" type="Sprite2D" unique_id=1018236968 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Wrecker" type="Sprite2D" unique_id=1018236968 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level")]
 material = ExtResource("1_p28ga")
 texture = ExtResource("2_o3g6e")
 hframes = 8
-vframes = 5
+vframes = 7
+frame = 5
 script = ExtResource("3_p28ga")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Wrecking Strike")
-hue_shifter = SubResource("Resource_g588m")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([2, 1, 5])
 body_type = 2
-hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
@@ -90,7 +79,7 @@ libraries/fighter_base = ExtResource("4_8drad")
 [node name="Wrecking Strike" type="Node" parent="." unique_id=445132636 node_paths=PackedStringArray("status")]
 script = ExtResource("3_sp1sy")
 base_cooldown = 4.0
-effects = Array[int]([0, 1])
+effects = Array[int]([0, 4])
 status = NodePath("Wrecked")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
@@ -101,23 +90,10 @@ value = -2.5
 stat = "defense"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="hit_scan" type="Area2D" parent="." unique_id=24833102]
-collision_layer = 0
-collision_mask = 0
-
-[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=5626544]
-shape = SubResource("CircleShape2D_q25gu")
-
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1578105595]
-position = Vector2(0, -11)
+position = Vector2(0, -15)
 shape = SubResource("CircleShape2D_dwlbk")
-
-[node name="blur" type="Sprite2D" parent="." unique_id=2131118593]
-modulate = Color(1, 1, 1, 0)
-texture = ExtResource("7_0q1c6")
-hframes = 8
-vframes = 2
-script = ExtResource("8_0p68p")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Punch" parent="." unique_id=437169543 instance=ExtResource("9_0p68p")]
 
@@ -136,7 +112,7 @@ max_hp = 40.0
 attack = 25.0
 defense = 10.0
 agility = 5.0
-technique = 5.0
+technique = 3.5
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 

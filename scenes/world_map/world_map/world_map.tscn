@@ -621,9 +621,11 @@ script = ExtResource("45_cb2tt")
 road = NodePath("../tiles/road")
 fog = NodePath("../tiles/fog")
 
-[node name="Tutorial" parent="locations" unique_id=273842454 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
+[node name="Tutorial" parent="locations" unique_id=273842454 node_paths=PackedStringArray("neighbors", "settlements") instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_cp71w")
 position = Vector2(-816, 256)
+neighbors = [NodePath("../Farm")]
+max_neighbors = 1
 settlements = [NodePath("Tutorial")]
 
 [node name="sprite" parent="locations/Tutorial" index="1" unique_id=1509604794]
@@ -642,6 +644,7 @@ waves = [NodePath("DungeonRoster"), null, null]
 [node name="Farm" parent="locations" unique_id=1185826475 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_beb05")
 position = Vector2(1431, 289)
+max_neighbors = 3
 settlements = [NodePath("Farm")]
 
 [node name="Farm" parent="locations/Farm" unique_id=13982226 instance=ExtResource("24_5vsub")]
@@ -649,6 +652,7 @@ settlements = [NodePath("Farm")]
 [node name="Factory" parent="locations" unique_id=1850741843 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_kulxh")
 position = Vector2(8522, -79)
+max_neighbors = 3
 settlements = [NodePath("Factory")]
 
 [node name="Factory" parent="locations/Factory" unique_id=288129802 instance=ExtResource("29_xtkqv")]
@@ -656,6 +660,7 @@ settlements = [NodePath("Factory")]
 [node name="Street" parent="locations" unique_id=69350772 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_tbp5f")
 position = Vector2(6968, -1599)
+max_neighbors = 3
 settlements = [NodePath("Gas Station"), NodePath("Chop Shop")]
 
 [node name="Gas Station" parent="locations/Street" unique_id=1406925595 instance=ExtResource("25_05tdn")]
@@ -665,6 +670,7 @@ settlements = [NodePath("Gas Station"), NodePath("Chop Shop")]
 [node name="Street2" parent="locations" unique_id=424630876 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_4ypwe")
 position = Vector2(5852, 257)
+max_neighbors = 3
 settlements = [NodePath("Chop Shop"), NodePath("Gym"), NodePath("Laboratory")]
 
 [node name="Chop Shop" parent="locations/Street2" unique_id=344644369 instance=ExtResource("26_xtkqv")]
@@ -676,6 +682,7 @@ settlements = [NodePath("Chop Shop"), NodePath("Gym"), NodePath("Laboratory")]
 [node name="Sludge Colony" parent="locations" unique_id=669220767 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_3x04a")
 position = Vector2(8842, 4229)
+max_neighbors = 3
 settlements = [NodePath("Sludge Colony")]
 
 [node name="Sludge Colony" parent="locations/Sludge Colony" unique_id=926709683 instance=ExtResource("31_a0yse")]
@@ -683,6 +690,7 @@ settlements = [NodePath("Sludge Colony")]
 [node name="Operation Base" parent="locations" unique_id=853050099 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_eunnb")
 position = Vector2(5772, 2419)
+max_neighbors = 3
 settlements = [NodePath("Operation Base")]
 
 [node name="Operation Base" parent="locations/Operation Base" unique_id=1010159926 instance=ExtResource("27_otblt")]
@@ -690,6 +698,7 @@ settlements = [NodePath("Operation Base")]
 [node name="Infested Swamp" parent="locations" unique_id=1344063996 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
 material = SubResource("ShaderMaterial_x2ygm")
 position = Vector2(3550, 2210)
+max_neighbors = 3
 settlements = [NodePath("Infested Swamp")]
 
 [node name="Infested Swamp" parent="locations/Infested Swamp" unique_id=1967004726 instance=ExtResource("33_74ily")]

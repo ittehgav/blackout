@@ -123,11 +123,17 @@ func highlight_location(index:int)->void:
 			vbox.modulate.v = 1;
 
 
-func _on_option_chosen(building:Building, option: Building.Option) -> void:
+func _on_option_chosen(building:Building, option: Building.Option, extra_arg:Variant = null) -> void:
 	menu_opened.emit()
 	match option:
 		Building.Option.trade:
-			trade_menu.start_trade(building.inventory, building.name);
+			## right now only using it here, 
+			## will add more overrides as i 
+			## create featres that demand them
+			if extra_arg:
+				trade_menu.start_trade(building.inventory, building.name, extra_arg);
+			else:
+				trade_menu.start_trade(building.inventory, building.name);
 			slide_out()
 		Building.Option.recruit:
 			recruitment_menu.start_recruitment(building.roster);

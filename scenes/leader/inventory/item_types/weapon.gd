@@ -1,5 +1,5 @@
 @icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_sword.png")
-extends Equipment;
+extends ActiveEquipment;
 
 class_name Weapon;
 

@@ -4,17 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bt3wcrywsfm4h" path="res://assets/visual/sprites/fighters/units/gravity/gravity.png" id="2_yvl46"]
 [ext_resource type="Script" uid="uid://t2fu6pbkan6i" path="res://scenes/index/fighters/scripts/gravity.gd" id="3_pya1c"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_xi7nn"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_575tt"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_iq7f6"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_iq7f6"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_ylbig"]
-[ext_resource type="Texture2D" uid="uid://cios5cxxceefl" path="res://assets/visual/sprites/fighters/units/gravity/blur.png" id="7_1p7r2"]
-[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_mg1c5"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_ba4bw"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_pleri"]
-
-[sub_resource type="Resource" id="Resource_rjwwd"]
-script = ExtResource("4_575tt")
-metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_73ebg"]
 length = 0.001
@@ -64,35 +57,36 @@ _data = {
 size = Vector2(400, 100)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ilq8"]
-radius = 15.033297
+radius = 17.029387
 
-[node name="Gravity" type="Sprite2D" unique_id=934399271 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Gravity" type="Sprite2D" unique_id=934399271 node_paths=PackedStringArray("beam", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_pya1c")
 texture = ExtResource("2_yvl46")
 hframes = 8
-vframes = 5
-frame = 1
+vframes = 7
+frame = 3
 script = ExtResource("3_pya1c")
-animation_player = NodePath("AnimationPlayer")
+beam = NodePath("Node2D/beam")
 skill = NodePath("Gravity Pulse")
-hue_shifter = SubResource("Resource_rjwwd")
+skill_range = 10
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([7, 3])
 movement = 1
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+metadata/_edit_vertical_guides_ = [-198.0]
 
 [node name="Gravity Pulse" type="Node" parent="." unique_id=882028580 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xi7nn")
 base_cooldown = 7.0
-skill_range = 10
 effects = Array[int]([4, 3])
-tranform_visual = 1
-status = NodePath("stun")
+transform_visual = 1
+status = NodePath("Phaselock")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="stun" type="Node" parent="Gravity Pulse" unique_id=219088143]
+[node name="Phaselock" type="Node" parent="Gravity Pulse" unique_id=219088143]
 script = ExtResource("5_ylbig")
 type = "stun"
 duration = 2.0
@@ -114,16 +108,9 @@ position = Vector2(200, 0)
 shape = SubResource("RectangleShape2D_b08qk")
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1930519657]
-position = Vector2(0, -11)
+position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_8ilq8")
-
-[node name="blur" type="Sprite2D" parent="." unique_id=1070223093]
-modulate = Color(1, 1, 1, 0)
-texture = ExtResource("7_1p7r2")
-hframes = 8
-vframes = 2
-frame = 1
-script = ExtResource("8_mg1c5")
+debug_color = Color(0, 0.5950001, 0.7, 0)
 
 [node name="stat_base" type="Node" parent="." unique_id=122263424]
 
@@ -147,6 +134,18 @@ position = Vector2(0, -8.000001)
 [node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=2033700996]
 modulate = Color(0, 0, 0, 0.11764706)
 z_index = -1
-position = Vector2(0, 8.000001)
-scale = Vector2(0.505, 0.68)
+position = Vector2(0, 12.044322)
+scale = Vector2(0.55, 0.5955678)
 texture = ExtResource("13_pleri")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1654431970]
+position = Vector2(0, -8)
+rotation = -0.9145525
+
+[node name="beam" type="Polygon2D" parent="Node2D" unique_id=2048778460]
+z_index = -1
+position = Vector2(0, 20)
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-2, 0, 2, 0, 2, 1, -2, 1)
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

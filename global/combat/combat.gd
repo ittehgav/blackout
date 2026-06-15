@@ -37,21 +37,42 @@ func aoe_status(source:ActiveFighter, status:Status=source.base.skill.status, hi
 	
 
 
-func knock_back_target(source:ActiveFighter, target:ActiveFighter = source.target_fighter)->void:
-	var direction:Vector2 = source.position.direction_to(target.position);
-	var shift:Vector2 = direction * source.base.knock_back_distance;
-	
-	var target_collision_layer:int = target.ally_team.team_n;
-	target.set_collision_layer_value(target_collision_layer, false);
-	
-	var tween:= create_tween();
-	tween.tween_property(target, "position", target.position + shift, .25);
-	tween.tween_callback(target.set_collision_layer_value.bind(target_collision_layer, true));
 
-func lifesteal_heal(damage:float, _target:ActiveFighter, source:ActiveFighter)->void:
-	## will stack heal floating texts in AOE vamp attacks
-	var frac:float = source.base.lifesteal_frac;
-	var to_heal:float = damage * frac;
-	var amp:float = source.base.lifesteal_technique_amp;
-	var final_heal:float = Scaling.technique_scaled_value(to_heal, source.technique, "", amp)
-	Combat.heal_target(source, source, final_heal)
+
+
+func aoe_knockback(source:ActiveFighter, hit_scan:Area2D = source.base.hit_scan,\
+					strength:int = source.base.skill.knockback_strength)->void:
+	var hurtboxes:Array[Area2D] = hit_scan.get_overlapping_areas();
+	for area:Area2D in hurtboxes:
+		assert(area is HurtBox);
+		var target:CombatEntity = area.source
+		knock_back_target(source, target, strength);
+
+func radial_knockback(source:ActiveFighter, hit_scan:Area2D=source.base.hit_scan,\
+						strength:int=source.base.skill.knockback_strength)->void:
+	var hurtboxes:Array[Area2D] = hit_scan.get_overlapping_areas();
+	for area:Area2D in hurtboxes:
+		assert(area is HurtBox);
+		var target:CombatEntity = area.source;
+		var direction:Vector2 = hit_scan.global_position.direction_to(target.global_position);
+		knock_back_target(source, target, strength, Vector2.ZERO, direction)
+func flying_collision(t1:CombatEntity, t2:CombatEntity)->void:
+	if t2 == t1.knockback_source:return
+	var collision_velocity:float = t1.velocity.distance_to(Vector2.ZERO);
+	t1.knockback_tween.kill();
+	finish_flight(t1)
+	if collision_velocity < 100:
+		return
+	else:
+		collision_damage(t1.knockback_source, t1, t2)
+		
+	if collision_velocity < 1000:
+		## just deals damage to both and stops
+		t1.velocity = Vector2.ZERO;
+	elif collision_velocity < 1500:
+		## deals damage to both and send second one flying
+		t1.velocity = Vector2.ZERO;
+		var direction:Vector2 = t1.position.direction_to(t2.position)
+		knock_back_target(t1.knockback_source, t2, 1, direction*t1.velocity.length()/2)
+	else:
+		pass

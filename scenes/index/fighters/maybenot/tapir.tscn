@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://vprhyptrupba" path="res://assets/visual/sprites/fighters/monsters/tapir/blur.png" id="3_pihfw"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="4_445n5"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="5_uwufw"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="6_h7trf"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="6_h7trf"]
 [ext_resource type="PackedScene" uid="uid://txc7073pnryn" path="res://scenes/index/vfx/direct.tscn" id="8_pihfw"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_445n5"]
 

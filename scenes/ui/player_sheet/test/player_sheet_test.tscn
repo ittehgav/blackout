@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dfrniyqegsrjt"]
+
+[ext_resource type="Script" uid="uid://bniuv5xlkiml0" path="res://scenes/ui/player_sheet/test/player_sheet_test.gd" id="1_5f7a3"]
+[ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/ui/player_sheet/player_sheet.tscn" id="2_dogm3"]
+[ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="3_wtvuk"]
+[ext_resource type="PackedScene" uid="uid://cj5ljxvm16m8c" path="res://scenes/index/items/weapons/shrapnel_shotgun.tscn" id="4_bwr52"]
+[ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="5_keskt"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="6_nb7r1"]
+[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="7_2mu2v"]
+[ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="7_dogm3"]
+[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="8_ltks1"]
+[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="9_p43kw"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="10_8ve6e"]
+[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="11_qx3b8"]
+[ext_resource type="PackedScene" uid="uid://b322626nnhpf7" path="res://scenes/index/items/weapons/electric_baton.tscn" id="12_nydl1"]
+[ext_resource type="PackedScene" uid="uid://prw4abfgie7j" path="res://scenes/index/items/weapons/firebomb_launcher.tscn" id="13_1jgw4"]
+[ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="14_o127q"]
+
+[node name="PlayerSheetTest" type="Control" unique_id=1788022027 node_paths=PackedStringArray("sheet")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5f7a3")
+sheet = NodePath("PlayerSheet")
+
+[node name="PlayerSheet" parent="." unique_id=692451359 instance=ExtResource("2_dogm3")]
+layout_mode = 1
+
+[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_wtvuk")]
+process_priority = 1
+equipped_weapon = NodePath("Inventory/Shrapnel Shotgun")
+alternative_weapon = NodePath("Inventory/Electric Baton")
+equipped_module = NodePath("Inventory/Dodge Roll")
+experience = 1
+
+[node name="Inventory" parent="Player" index="2" unique_id=1819646003]
+money = 315
+
+[node name="Shrapnel Shotgun" parent="Player/Inventory" index="0" unique_id=1126198983 instance=ExtResource("4_bwr52")]
+
+[node name="Brass Knuckles" parent="Player/Inventory" index="1" unique_id=834594505 instance=ExtResource("5_keskt")]
+color_tag = "none"
+
+[node name="Tailpipe" parent="Player/Inventory" index="2" unique_id=870722934 instance=ExtResource("6_nb7r1")]
+
+[node name="Mystery Snack Pack" parent="Player/Inventory" index="3" unique_id=218051020 instance=ExtResource("7_dogm3")]
+
+[node name="Slingshot" parent="Player/Inventory" index="4" unique_id=1249202197 instance=ExtResource("7_2mu2v")]
+
+[node name="Dodge Roll" parent="Player/Inventory" index="5" unique_id=1043224961 instance=ExtResource("8_ltks1")]
+cooldown = 2.0
+
+[node name="Juice Flask" parent="Player/Inventory" index="6" unique_id=1121906403 instance=ExtResource("9_p43kw")]
+stack_size = 50
+
+[node name="Food Basket" parent="Player/Inventory" index="7" unique_id=2082907014 instance=ExtResource("10_8ve6e")]
+stack_size = 100
+
+[node name="Fuel Tank" parent="Player/Inventory" index="8" unique_id=1789125589 instance=ExtResource("11_qx3b8")]
+stack_size = 100
+
+[node name="Electric Baton" parent="Player/Inventory" index="9" unique_id=1979784302 instance=ExtResource("12_nydl1")]
+
+[node name="Firebomb Launcher" parent="Player/Inventory" index="10" unique_id=785300769 instance=ExtResource("13_1jgw4")]
+
+[node name="Scrap Compactor" parent="Player/Inventory" index="11" unique_id=443601441 instance=ExtResource("14_o127q")]
+stack_size = 200
+
+[node name="base_stats" parent="Player" index="3" unique_id=1645727257]
+max_hp = 50000.0
+
+[editable path="Player"]

@@ -29,7 +29,7 @@
 [ext_resource type="Script" uid="uid://c3t5hlpw6vsaq" path="res://scenes/ui/player_sheet/player_data.gd" id="23_brbep"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="24_7b7li"]
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="28_in2cn"]
-[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="29_7ydhy"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/active_fighter/player.res" id="29_7ydhy"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="32_in2cn"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="33_7ydhy"]
 [ext_resource type="Script" uid="uid://dd3sexthpletg" path="res://scenes/ui/player_sheet/clear_space_request.gd" id="36_kgp2d"]
@@ -750,11 +750,11 @@ offset_bottom = 67.0
 
 [node name="body" type="Sprite2D" parent="main_bg/MarginContainer/HBoxContainer/player/Control" unique_id=105470107]
 material = SubResource("ShaderMaterial_nvsay")
-position = Vector2(90, 63)
-scale = Vector2(4, 4)
+position = Vector2(90, 78.5)
+scale = Vector2(2, 2)
 texture = ExtResource("28_in2cn")
 hframes = 8
-vframes = 9
+vframes = 11
 frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" unique_id=1747179211]

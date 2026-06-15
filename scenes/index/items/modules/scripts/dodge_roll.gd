@@ -3,7 +3,6 @@ extends Module
 const rarity = 1;
 
 @export var trail:Sprite2D;
-@export var dust:Sprite2D;
 
 func get_description()->String:
 	return "Quickly dashes in the direction you're facing, briefly becoming invulnerable and able to move through enemies.";
@@ -46,14 +45,6 @@ func play_animation()->void:
 	## try and do these separately from the use functions
 	## because module use functions are 
 	## already gonna be clusterfucks of code as is
-	dust.position = Entities.player_fighter.global_position;
-	dust.flip_h = Entities.player_fighter.body.flip_h;
-	var shift: = -20;
-	if dust.flip_h:
-		shift *= -1
-	dust.position.x += shift;
-	animation_player.play("dodge_roll")
-	dust.get_node("dust_animation").play("dust")
 	
 	trail.frame = Entities.player_fighter.body.frame;
 	const after_images = 3;

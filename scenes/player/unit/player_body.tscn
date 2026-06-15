@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dx6w0vn2gqy7s"]
 
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="1_d84ec"]
-[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="2_nrpsu"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/active_fighter/player.res" id="2_nrpsu"]
 
 [node name="body" type="Sprite2D" unique_id=1301694924]
 scale = Vector2(2, 2)

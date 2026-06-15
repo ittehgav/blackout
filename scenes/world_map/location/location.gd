@@ -13,7 +13,9 @@ signal player_visited;
 @onready var world_map:WorldMap = get_tree().get_first_node_in_group("world_map")
 
 ## assigned before roads are generated
-var neighbors:Array[Location];
+@export var neighbors:Array[Location];
+@export var max_neighbors:int = 3;
+## if any neighbors are assigne in editor, dosnt auto-assign any
 
 ## used for pathfinding 
 var neighbor_paths:Dictionary[Location, PackedVector2Array];
@@ -107,3 +109,6 @@ func refresh_settlements()->void:
 	for l:Settlement in settlements:
 		if l.pending_refresh:
 			l.refresh()
+
+func room_for_neighbors()->int:
+	return max_neighbors - len(neighbors)

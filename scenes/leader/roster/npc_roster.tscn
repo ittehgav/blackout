@@ -1,9 +1,13 @@
 [gd_scene format=3 uid="uid://ofy6voyrdh1w"]
 
 [ext_resource type="Script" uid="uid://6xsoxh5pe6pt" path="res://scenes/leader/roster/npc_roster.gd" id="1_7yliw"]
+[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="2_n3vwl"]
 
-[node name="NPC Roster" type="Node" unique_id=159500697]
+[node name="NPC Roster" type="Node" unique_id=159500697 node_paths=PackedStringArray("loot")]
 script = ExtResource("1_7yliw")
+loot = NodePath("LootInventory")
 metadata/_custom_type_script = "uid://g3ijlm51y0pn"
+
+[node name="LootInventory" parent="." unique_id=1047099870 instance=ExtResource("2_n3vwl")]
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

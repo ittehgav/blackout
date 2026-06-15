@@ -1,37 +1,42 @@
 [gd_scene format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.gd" id="1_a7x5t"]
-[ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="2_8vfuj"]
+[ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="2_8vfuj"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_8440y"]
+[ext_resource type="Texture2D" uid="uid://botca2i02uhd7" path="res://assets/visual/particles/squares/square_hollow_32x32.png" id="3_8vfuj"]
 [ext_resource type="Script" uid="uid://vp6mjhqjonac" path="res://scenes/battle/fighter/npc_fighter/hurtbox.gd" id="3_m77vo"]
-[ext_resource type="Texture2D" uid="uid://cy2xm601gdvas" path="res://assets/visual/particles/circles/circle_2x2.png" id="3_uoen3"]
 [ext_resource type="Texture2D" uid="uid://nnmygu4ogbnr" path="res://assets/visual/ui/bars/base_bar_trail.png" id="4_b8wnn"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="5_n8p1d"]
+[ext_resource type="Script" uid="uid://d03oto63awsxv" path="res://scenes/battle/fighter/collision_scan.gd" id="6_aumva"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="12_uoen3"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="20_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="24_nct2u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
-radius = 40.60788
+radius = 9.486833
 
-[node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("cooldown_timer", "skill_retry_timer", "movement_ticker", "overlay", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "statuses")]
+[node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("dust", "skill_dust", "overlay", "cooldown_timer", "skill_retry_timer", "movement_ticker", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
 script = ExtResource("1_a7x5t")
+dust = NodePath("Dust")
+skill_dust = NodePath("skill_dust")
+overlay = NodePath("FighterOverlay")
 cooldown_timer = NodePath("timers/skill_cooldown")
 skill_retry_timer = NodePath("timers/skill_cooldown/skill_retry")
 movement_ticker = NodePath("timers/movement_ticker")
-overlay = NodePath("FighterOverlay")
 circle_projection_texture = ExtResource("2_8vfuj")
-rectangle_projection_texture = ExtResource("3_uoen3")
+rectangle_projection_texture = ExtResource("3_8vfuj")
 aoe_projection_color = Color(0.58, 0.11599999, 0.11599999, 0.5921569)
 timers = NodePath("timers")
 initial_stats = NodePath("stats/initial_stats")
 stat_modifiers = NodePath("stats/modifiers")
 stat_multipliers = NodePath("stats/multipliers")
 hurtbox = NodePath("hurtbox")
+collision_scan = NodePath("collision_scan")
 statuses = NodePath("statuses")
 
 [node name="stats" type="Node" parent="." unique_id=425909678]
@@ -47,15 +52,12 @@ max_hp = 1.0
 attack = 1.0
 defense = 1.0
 agility = 1.0
+technique = 1.0
 move_speed = 1.0
 
 [node name="statuses" type="Node" parent="." unique_id=1718279762]
 
 [node name="timers" type="Node" parent="." unique_id=1770658080]
-
-[node name="movement_ticker" type="Timer" parent="timers" unique_id=1983161789]
-wait_time = 0.2
-autostart = true
 
 [node name="skill_cooldown" type="Timer" parent="timers" unique_id=87390109]
 one_shot = true
@@ -64,12 +66,26 @@ autostart = true
 [node name="skill_retry" type="Timer" parent="timers/skill_cooldown" unique_id=457014964]
 wait_time = 0.1
 
+[node name="movement_ticker" type="Timer" parent="timers" unique_id=1983161789]
+wait_time = 0.1
+autostart = true
+
 [node name="hurtbox" type="Area2D" parent="." unique_id=1694393992 node_paths=PackedStringArray("source")]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 script = ExtResource("3_m77vo")
 source = NodePath("..")
+
+[node name="collision_scan" type="Area2D" parent="." unique_id=869280054 node_paths=PackedStringArray("source", "shape")]
+collision_layer = 8
+collision_mask = 8
+monitoring = false
+script = ExtResource("6_aumva")
+source = NodePath("..")
+shape = NodePath("shape")
+
+[node name="shape" type="CollisionShape2D" parent="collision_scan" unique_id=328150148]
 
 [node name="FighterOverlay" type="Control" parent="." unique_id=442767027 node_paths=PackedStringArray("outline", "bg", "hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter", "status_icons", "status_display", "special_statuses_container")]
 z_index = 1
@@ -230,14 +246,26 @@ autostart = true
 [node name="unit_collision" type="CollisionShape2D" parent="." unique_id=1716436569]
 shape = SubResource("CircleShape2D_m77vo")
 
+[node name="Dust" parent="." unique_id=1010148439 instance=ExtResource("12_uoen3")]
+modulate = Color(0.2, 0.2, 0.2, 0.05882353)
+position = Vector2(0, 51)
+
+[node name="skill_dust" parent="." unique_id=469956729 instance=ExtResource("12_uoen3")]
+modulate = Color(0.8, 0.8, 0.8, 0.39215687)
+position = Vector2(0, 51)
+amount = 50
+manual = true
+
 [connection signal="damage_blocked" from="." to="FighterOverlay" method="_on_npc_fighter_damage_blocked"]
 [connection signal="damage_taken" from="." to="FighterOverlay" method="_on_fighter_damage_taken"]
 [connection signal="healing_received" from="." to="FighterOverlay" method="_on_npc_fighter_healing_received"]
 [connection signal="shield_gained" from="." to="FighterOverlay" method="_on_npc_fighter_shield_gained"]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
 [connection signal="status_applied" from="." to="FighterOverlay" method="on_status_applied"]
-[connection signal="timeout" from="timers/movement_ticker" to="." method="check_move"]
 [connection signal="timeout" from="timers/skill_cooldown" to="." method="skill_cooldown"]
 [connection signal="timeout" from="timers/skill_cooldown/skill_retry" to="." method="skill_cooldown"]
+[connection signal="timeout" from="timers/movement_ticker" to="." method="check_move"]
+[connection signal="child_entered_tree" from="hurtbox" to="collision_scan" method="_on_hurtbox_child_entered_tree"]
+[connection signal="area_entered" from="collision_scan" to="." method="_on_collision_scan_area_entered"]
 [connection signal="value_changed" from="FighterOverlay/outline/VBoxContainer/hp_bar_trail/hp_bar" to="FighterOverlay" method="_on_hp_bar_value_changed"]
 [connection signal="timeout" from="FighterOverlay/refresh_bar" to="FighterOverlay" method="refresh_charge_bar"]

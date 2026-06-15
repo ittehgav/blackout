@@ -7,14 +7,22 @@ extends Sprite2D;
 
 
 ## range is now in cells rather than 2D space pixels
-const MELEE_RANGE = 5;
-const MID_RANGE = 10;
-const LONG_RANGE = 20;
 
-@export var animation_player:AnimationPlayer
+const MELEE_RANGE = 1;
+const MID_RANGE = 5;
+const LONG_RANGE = 10;
+enum SkillRange{
+	melee_range=MELEE_RANGE,
+	mid_range=MID_RANGE,
+	long_range=LONG_RANGE
+}
 @export var skill:SkillComponent;
 
-@export var hue_shifter:HueShiftGen
+@warning_ignore("int_as_enum_without_cast")
+@export var skill_range:SkillRange=MELEE_RANGE;
+
+@export var animation_player:AnimationPlayer
+
 
 var fighter:NpcFighter;
 
@@ -99,8 +107,16 @@ enum MovementPattern{
 signal started_moving;
 signal stopped_moving;
 
+
+
 func _ready()->void:
 	if not self is PlayerFighterBase:
+		if not fighter:
+			## makes them take up less memory space?
+			## make this happen before ready somehow?
+			for c:Node in get_children():
+				c.queue_free();
+			return
 		## faster to reiterate than if i had to manually make the connections on each unit
 		started_moving.connect(on_started_moving)
 		stopped_moving.connect(on_stopped_moving)
@@ -114,17 +130,21 @@ func on_stopped_moving()->void:
 	if animation_player.current_animation != skill_animation_path:
 		animation_player.play(idle_animation_path)
 
+func post_skill_update()->void:
+	if fighter.moving:
+		animation_player.play(walk_animation_path);
+	else:
+		animation_player.play(idle_animation_path)
 
 func skill_windup()->void:
 	## overrideable not abstract
-	
 	animation_player.play(skill_animation_path);
 	skill.use()
 	if skill.instant_impact:
 		skill.impact.emit();
 	else:
 		await animation_player.animation_finished;
-	animation_player.play(idle_animation_path);
+	post_skill_update()
 
 func final_skill_cooldown(unit:FighterUnit)->float:
 	var base_cooldown:float = skill.base_cooldown;
@@ -134,17 +154,16 @@ func final_skill_cooldown(unit:FighterUnit)->float:
 
 func special_skill_effect()->void:
 	## not abstract most units dont have it so its just a fallback
+	## can be used to add vfx/sfx to skill start
 	printerr("specialeffect missing")
 
 func skill_impact()->void:
 	## cant call it from skill node for whatever reason but this makes
 	## it more modular
+	## can be used to add special vfx/sfx to skill impact
 	skill.impact.emit();
 
 
-#func damage_modifier(_damage:float, _unit:FighterUnit=null)->float:
-	#printerr("MISSINGDMGMOD"); ## TODO make this abstract and less janky implementation of modifiers
-	#return 0;
 
 func proximity_sort(a:ActiveFighter, b:ActiveFighter)->bool:
 	var ad:float = a.position.distance_to(fighter.position);

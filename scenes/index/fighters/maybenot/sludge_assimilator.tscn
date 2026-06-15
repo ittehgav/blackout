@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_kvoru"]
 [ext_resource type="Texture2D" uid="uid://b3je8mw70xeeq" path="res://assets/visual/sprites/fighters/monsters/sludge_assimilator/sludge_assimilator.png" id="2_0gl6x"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_78qt2"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_ssf2x"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="5_ssf2x"]
 [ext_resource type="Texture2D" uid="uid://cv6n80ge7no0t" path="res://assets/visual/sprites/fighters/monsters/sludge_assimilator/blur.png" id="6_ha3my"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_h1q6r"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_0gl6x"]

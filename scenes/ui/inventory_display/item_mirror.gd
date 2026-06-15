@@ -309,9 +309,15 @@ func equip_weapon_command(alt:bool=false)->void:
 	var current_weapon:Weapon;
 	if alt:
 		current_weapon = Entities.player.alternative_weapon;
+		if current_weapon and not display.has_room(current_weapon, item):
+			display.invalid_move.emit("NOT ENOUGH ROOM");
+			return
 		Entities.player.equip_alt_weapon(item);
 	else:
 		current_weapon = Entities.player.equipped_weapon;
+		if not display.has_room(current_weapon, item):
+			display.invalid_move.emit("NOT ENOUGH ROOM");
+			return
 		Entities.player.equip_weapon(item);
 		
 	if current_weapon:
@@ -321,9 +327,7 @@ func equip_weapon_command(alt:bool=false)->void:
 
 		display.throw_mirror(self);
 		
-		if inventory_position == Vector2i(-1, -1):
-			display.sort_inventory();
-		else:
+		if inventory_position != Vector2i(-1, -1):
 			display.item_dropped.emit(self);
 			refresh();
 	else:

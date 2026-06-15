@@ -33,17 +33,17 @@ func check_skew()->void:
 		7:
 			weapon.skew = skew_shift;
 			weapon.position = Vector2(position_x_shift, position_y_shift)
-			
-const behind_scale = Vector2(-2, -2);
-const front_scale = Vector2(2, 2)
+
+const behind_scale = Vector2(-1, -1);
+const front_scale = Vector2(1, 1)
 
 const behind_z_index = -1;
 const front_z_index = 1;
 
-const front_self_modulate = Color.WHITE;
-const behind_self_modulate = Color("4d4d4dff")
+const front_modulate = Color.WHITE;
+const behind_modulate = Color("a0a0a0ff")
 
-const z_sensitive_attributes = ["scale", "z_index", "self_modulate"]
+const z_sensitive_attributes = ["scale", "z_index", "modulate"]
 
 func set_behind_player(behind:bool)->void:
 	behind_player = behind
@@ -68,7 +68,6 @@ func check_behind_player(force_update:bool=false)->void:
 			set_behind_player(false)
 
 func weapon_used() -> void:
-	print("wu?")
 	if behind_player:
 		equipment.weapon_anchor.scale.x = -1;
 		weapon.scale = front_scale

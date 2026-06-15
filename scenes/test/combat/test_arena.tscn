@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/units/electric_hulk.tscn" id="7_7sude"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_ejk4u"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="11_mrk65"]
-[ext_resource type="PackedScene" uid="uid://mwlq8jel4dww" path="res://scenes/index/fighters/units/wheel.tscn" id="11_ybjdj"]
+[ext_resource type="PackedScene" uid="uid://mwlq8jel4dww" path="res://scenes/index/fighters/maybenot/wheel.tscn" id="11_ybjdj"]
 [ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/unimplemented/chakram.tscn" id="12_r7b2k"]
 [ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/unimplemented/machete.tscn" id="13_v6xhn"]
 [ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="15_p276g"]

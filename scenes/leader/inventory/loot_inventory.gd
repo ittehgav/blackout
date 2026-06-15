@@ -23,7 +23,9 @@ func _on_child_entered_tree(node: Node) -> void:
 		super(node)
 
 func generate_loot(party_level:int)->void:
-	assert(len(item_pool))
+	if not len(item_pool):return
+	## not all npcrosters will have loot but this is 
+	## still worth the simpler nodes?
 	money = randi_range(party_level, party_level * 2)
 	## loot formula = generates a total sum of item value based on the level of the roster
 	var target_value_sum:int = party_level/2;

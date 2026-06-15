@@ -7,35 +7,13 @@ const fighter_sprite_darkening = .35
 
 
 
-var fighter_base_texture_cache:Dictionary[int, Dictionary]
-func cache_fighter_base_texture(texture:Texture, team_n:int, base_name:String)->void:
-	## because this cache is hit by 2 different methods
-	## TODO hue-based color-coding more comprehensible
-	if not team_n in fighter_base_texture_cache:
-		fighter_base_texture_cache[team_n] = {};
-	var target_hue:float;
-	if team_n == 1:
-		target_hue = Index.player_team_color.h;
-	else:
-		target_hue = Index.enemy_team_color.h
-	
-	var new_texture:Texture = hue_shift_texture(texture, target_hue);
-	fighter_base_texture_cache[team_n][base_name] = new_texture;
-
-func check_fighter_base_cache(base:FighterBase, team_n:int)->bool:
-	if team_n in fighter_base_texture_cache and\
-	base.name in fighter_base_texture_cache[team_n]:
-		return true;
-	return false
 
 func color_code_fighter(fighter:ActiveFighter, team_n:int)->void:
 	var base:FighterBase = fighter.base
 	
 	if not base:return;## skips over props (make this skip in-context instead?)
 	
-	if base.fighter_type == "recruit":
-		## monsters textures aren't color-coded
-		base.hue_shifter.apply_color_coding(fighter, team_n)
+
 
 		
 	
@@ -61,28 +39,6 @@ func color_code_fighter_overlay(target:FighterOverlay, team:Team)->void:
 	target.outline.border_color = hp_bar_color + Color.from_hsv(0, .4, -.5);
 
 
-
-func color_code_fighter_base_texture(base:FighterBase, scheme_index:int=1)->Texture:
-	if not scheme_index in fighter_base_texture_cache or not\
-	base.name in fighter_base_texture_cache[scheme_index]:
-		cache_fighter_base_texture(base.texture, scheme_index, base.name);
-
-	return fighter_base_texture_cache[scheme_index][base.name];
-
-
-func hue_shift_texture(texture:Texture2D, target_hue:float)->Texture:
-	var img:Image = texture.get_image();
-	
-	var width:int = img.get_width();
-	var height:int = img.get_height();
-	for y in height:
-		for x in width:
-			var color:Color = img.get_pixel(x, y);
-			if color.a and color.s  >.15:
-				color.h = target_hue;
-			img.set_pixel(x, y, color);
-	var final_texture: = ImageTexture.create_from_image(img)
-	return final_texture
 
 
 var vehicle_texture_cache:Dictionary[String, Texture];

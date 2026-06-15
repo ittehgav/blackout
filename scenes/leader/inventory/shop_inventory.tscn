@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ug7b4apvtj65"]
+[gd_scene format=3 uid="uid://ug7b4apvtj65"]
 
 [ext_resource type="Script" uid="uid://qpc1krgf6oe2" path="res://scenes/leader/inventory/shop_inventory.gd" id="1_vpncq"]
 
-[node name="ShopInventory" type="Node2D"]
+[node name="ShopInventory" type="Node2D" unique_id=1084697740]
 visible = false
 script = ExtResource("1_vpncq")
 expandable = true

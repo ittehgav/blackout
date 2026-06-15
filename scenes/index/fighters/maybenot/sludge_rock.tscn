@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cer4pbjissunl" path="res://assets/visual/sprites/fighters/monsters/sludge_stone/sludge_stone.png" id="2_svnd7"]
 [ext_resource type="Script" uid="uid://opvbu1lpmb2l" path="res://scenes/index/fighters/scripts/sludge_stone.gd" id="3_1homf"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="4_xvmn0"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_mip82"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="5_mip82"]
 [ext_resource type="Texture2D" uid="uid://diunkp313vx4l" path="res://assets/visual/sprites/fighters/monsters/sludge_stone/blur.png" id="6_dlrsx"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_fotst"]
 [ext_resource type="PackedScene" uid="uid://fdl1eu7c7t2k" path="res://scenes/index/vfx/falling_slam.tscn" id="8_ls7en"]

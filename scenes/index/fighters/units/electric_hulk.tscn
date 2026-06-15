@@ -4,19 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://clx26uewlgflc" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk.png" id="2_uyhjf"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_5ejrg"]
 [ext_resource type="Script" uid="uid://ckoqd0eib1ilw" path="res://scenes/index/fighters/scripts/electric_hulk.gd" id="3_6afpe"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_j05xm"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_m8o5l"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_m8o5l"]
 [ext_resource type="PackedScene" uid="uid://bakra857y3ok0" path="res://scenes/index/special_statuses/electrified.tscn" id="5_6h33m"]
-[ext_resource type="Texture2D" uid="uid://co0gy3qc3n5n0" path="res://assets/visual/sprites/fighters/units/electric_hulk/blur.png" id="7_kk0wj"]
-[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_6dfrt"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="8_5au73"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_0f68e"]
 [ext_resource type="Texture2D" uid="uid://gmnr7cy0edbe" path="res://assets/visual/particles/parry_cue.png" id="10_kvmho"]
-[ext_resource type="PackedScene" uid="uid://dmvr7ngbhq7v5" path="res://scenes/index/vfx/lightning.tscn" id="11_nxhr3"]
+[ext_resource type="PackedScene" uid="uid://dmvr7ngbhq7v5" path="res://scenes/index/vfx/lightning_vfx.tscn" id="11_nxhr3"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="15_q1od0"]
-
-[sub_resource type="Resource" id="Resource_5au73"]
-script = ExtResource("4_j05xm")
-metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_kvmho"]
 length = 0.001
@@ -47,19 +41,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("blur:modulate:a")
+tracks/2/path = NodePath(".:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1.0283699),
+"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".:rotation")
+tracks/3/path = NodePath(".:position:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -71,26 +65,26 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath(".:position:y")
+tracks/4/path = NodePath("shadow_container:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("shadow_container:scale")
+tracks/5/path = NodePath("Dust:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ra2ag"]
@@ -113,25 +107,13 @@ tracks/0/keys = {
 "update": 1,
 "values": [3, 4]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("blur:modulate:a")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.65, 0.84999996),
-"transitions": PackedFloat32Array(1.0283699, 1e-05, 1),
-"update": 0,
-"values": [0.0, 1.0, 0.0]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0.65),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -139,27 +121,39 @@ tracks/2/keys = {
 "method": &"skill_impact"
 }]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("lightning_focus:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("lightning_focus:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.65000004, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
 }
-tracks/4/type = "animation"
+tracks/3/type = "animation"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("lightning_focus/lightning_animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": PackedStringArray("cue"),
+"times": PackedFloat32Array(0.65)
+}
+tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("lightning_focus/lightning_animation")
+tracks/4/path = NodePath("Dust:emitting")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"clips": PackedStringArray("cue"),
-"times": PackedFloat32Array(0.65)
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5au73"]
@@ -168,10 +162,10 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i2adc"]
-radius = 15.033297
+radius = 24.020824
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yl5li"]
-radius = 69.0
+radius = 214.02103
 
 [sub_resource type="Animation" id="Animation_xxsex"]
 length = 0.001
@@ -211,17 +205,17 @@ _data = {
 &"cue": SubResource("Animation_2a87t")
 }
 
-[node name="Electric Hulk" type="Sprite2D" unique_id=30330839 node_paths=PackedStringArray("damage_lightning", "heal_lightning", "animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Electric Hulk" type="Sprite2D" unique_id=30330839 node_paths=PackedStringArray("damage_lightning", "heal_lightning", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_6afpe")
 texture = ExtResource("2_uyhjf")
 hframes = 8
-vframes = 5
+vframes = 7
+frame = 7
 script = ExtResource("3_6afpe")
 damage_lightning = NodePath("damage_lightning")
 heal_lightning = NodePath("heal_lightning")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Electric Pulse")
-hue_shifter = SubResource("Resource_5au73")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([6, 2, 5])
 body_type = 2
 hit_scan = NodePath("hit_scan")
@@ -233,8 +227,8 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 [node name="Electric Pulse" type="Node" parent="." unique_id=1249795646 node_paths=PackedStringArray("status")]
 script = ExtResource("3_5ejrg")
 base_cooldown = 10.0
-effects = Array[int]([3, 6])
-tranform_visual = 2
+effects = Array[int]([3, 9])
+transform_visual = 2
 need_target = false
 scan_allies = true
 status = NodePath("electrified")
@@ -256,10 +250,28 @@ script = ExtResource("9_0f68e")
 max_hp = 50.0
 attack = 10.0
 defense = 10.0
-agility = 3.0
-technique = 5.0
+agility = 2.0
+technique = 3.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="Dust" parent="." unique_id=1010148439 instance=ExtResource("8_5au73")]
+modulate = Color(0.6, 0.6, 0.6, 0.42745098)
+amount = 40
+lifetime = 0.7
+randomness = 0.46
+emission_ring_inner_radius = 1.925
+emission_ring_radius = 2.59
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 26.83
+initial_velocity_max = 50.0
+damping_min = 19.672
+damping_max = 19.672
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+manual = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=637288307]
 libraries/ = SubResource("AnimationLibrary_ra2ag")
@@ -267,8 +279,9 @@ libraries/electric_hulk = SubResource("AnimationLibrary_5au73")
 libraries/fighter_base = ExtResource("4_m8o5l")
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=125655312]
-position = Vector2(0, -11)
+position = Vector2(0, -24)
 shape = SubResource("CircleShape2D_i2adc")
+debug_color = Color(0, 0.5950001, 0.7, 0)
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=1484579924]
 collision_layer = 0
@@ -276,14 +289,7 @@ collision_mask = 0
 
 [node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=2017763478]
 shape = SubResource("CircleShape2D_yl5li")
-
-[node name="blur" type="Sprite2D" parent="." unique_id=779456094]
-modulate = Color(1, 1, 1, 0)
-texture = ExtResource("7_kk0wj")
-hframes = 8
-vframes = 2
-frame = 1
-script = ExtResource("8_6dfrt")
+debug_color = Color(0, 0.5950001, 0.7, 0)
 
 [node name="lightning_focus" type="Sprite2D" parent="." unique_id=748061931]
 visible = false

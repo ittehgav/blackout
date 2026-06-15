@@ -6,7 +6,7 @@ import os
 
 ## leaving this as a global here since all sheets are gonna be overlapping visualizations of the same objects
 ## (at least for all fighter sprites)
-frame_size = 256
+frame_size = 128
 
 def get_unique_name(base_name, directory="."):
     """

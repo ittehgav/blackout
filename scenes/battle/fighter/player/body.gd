@@ -21,7 +21,7 @@ func _on_equipment_weapon_used() -> void:
 	set_physics_process(false)
 	turn_to_cursor()
 	var weapon:Weapon = weapon_control.weapon;
-	animation_player.play("player/"+weapon.use_feedback);
+	animation_player.play("player/" + weapon.use_feedback);
 	var facing_left:bool = global_position.x > get_global_mouse_position().x;
 	var offset_target:int = 30;
 	if facing_left:

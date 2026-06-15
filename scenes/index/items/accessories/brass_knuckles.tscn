@@ -12,11 +12,11 @@ equippable = Dictionary[String, bool]({
 "player": true,
 "unit": false
 })
-status = NodePath("Status")
+status = NodePath("Attack Buff")
 color_tag = "attack"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
-[node name="Status" type="Node" parent="." unique_id=1680887300]
+[node name="Attack Buff" type="Node" parent="." unique_id=1680887300]
 script = ExtResource("3_f81ru")
 type = "stat_change"
 stat = "attack"

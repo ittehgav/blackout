@@ -4,21 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://csoj5qe27sos2" path="res://assets/visual/sprites/fighters/units/slammer/slammer.png" id="2_iwgp2"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_53j4b"]
 [ext_resource type="Script" uid="uid://cepgldvhtvcb8" path="res://scenes/index/fighters/scripts/slammer.gd" id="3_koqxp"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_0pccw"]
 [ext_resource type="PackedScene" uid="uid://clr0o7muuno6g" path="res://scenes/index/vfx/overhead_wide.tscn" id="4_6xpao"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_ocxoc"]
-[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_0jd70"]
-[ext_resource type="Texture2D" uid="uid://crdfgqjhj6svf" path="res://assets/visual/sprites/fighters/units/slammer/blur.png" id="7_815tu"]
-[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_6xpao"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_ocxoc"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_ikqys"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_ceblu"]
 
-[sub_resource type="Resource" id="Resource_jyje0"]
-script = ExtResource("4_0pccw")
-metadata/_custom_type_script = "uid://drlbs6gxus35a"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_plmof"]
-radius = 22.0
+radius = 58.00862
 
 [sub_resource type="Animation" id="Animation_ikqys"]
 length = 0.001
@@ -77,17 +69,17 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_twrrp"]
-radius = 15.033297
+radius = 17.029387
 
-[node name="Slammer" type="Sprite2D" unique_id=1342933973 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Slammer" type="Sprite2D" unique_id=1342933973 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_koqxp")
 texture = ExtResource("2_iwgp2")
 hframes = 8
-vframes = 5
+vframes = 7
+frame = 3
 script = ExtResource("3_koqxp")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Throw Hands")
-hue_shifter = SubResource("Resource_jyje0")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([0, 6, 7])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -99,37 +91,28 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 [node name="Throw Hands" type="Node" parent="." unique_id=639767815 node_paths=PackedStringArray("status")]
 script = ExtResource("3_53j4b")
 base_cooldown = 4.0
-effects = Array[int]([2, 3])
-status = NodePath("stun")
+effects = Array[int]([2, 6])
+status = NodePath("")
+knockback_strength = 3
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
-
-[node name="stun" type="Node" parent="Throw Hands" unique_id=704248224]
-script = ExtResource("5_0jd70")
-type = "stun"
-duration = 0.5
-metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=474198670]
 collision_layer = 0
 collision_mask = 0
 
 [node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=1708321969]
+position = Vector2(50, 18)
 shape = SubResource("CircleShape2D_plmof")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1022105912]
 libraries/ = SubResource("AnimationLibrary_38x4e")
 libraries/fighter_base = ExtResource("4_ocxoc")
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=567659890]
-position = Vector2(0, -11)
+position = Vector2(0, -15)
 shape = SubResource("CircleShape2D_twrrp")
-
-[node name="blur" type="Sprite2D" parent="." unique_id=94141737]
-modulate = Color(1, 1, 1, 0)
-texture = ExtResource("7_815tu")
-hframes = 8
-vframes = 2
-script = ExtResource("8_6xpao")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="stat_base" type="Node" parent="." unique_id=1201847289]
 
@@ -146,7 +129,7 @@ max_hp = 50.0
 attack = 10.0
 defense = 5.0
 agility = 5.0
-technique = 10.0
+technique = 4.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 

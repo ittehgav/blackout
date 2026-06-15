@@ -1,25 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://0et87sb7ldb8"]
+[gd_scene format=3 uid="uid://0et87sb7ldb8"]
 
 [ext_resource type="Texture2D" uid="uid://bcqrxejf1uq4d" path="res://assets/visual/items/modules/adrenaline_synthethizer.png" id="1_58m51"]
 [ext_resource type="Script" uid="uid://dwsdxh85q0h4v" path="res://scenes/index/items/modules/scripts/adrenaline_synthethizer.gd" id="2_vxjm1"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_bj1bd"]
 [ext_resource type="AudioStream" uid="uid://cf5r6sya87ovr" path="res://assets/sound/sfx/combat/player/adrenaline.wav" id="3_pw1h4"]
 
-[node name="Adrenaline Synthethizer" type="Sprite2D" node_paths=PackedStringArray("use_sfx", "status")]
+[node name="Adrenaline Synthethizer" type="Sprite2D" unique_id=97319363 node_paths=PackedStringArray("use_sfx", "status")]
 texture = ExtResource("1_58m51")
 script = ExtResource("2_vxjm1")
 use_sfx = NodePath("use_sfx")
 cooldown = 5.0
-status = NodePath("Status")
 ammo_type = "juice"
 ammo_cost = 2
+status = NodePath("Adrenaline Pump")
 color_tag = "agility"
 
-[node name="Status" type="Node" parent="."]
+[node name="Adrenaline Pump" type="Node" parent="." unique_id=475973740]
 script = ExtResource("3_bj1bd")
 type = "stat_change"
 stat = "agility"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="use_sfx" type="AudioStreamPlayer" parent="."]
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=960569664]
 stream = ExtResource("3_pw1h4")

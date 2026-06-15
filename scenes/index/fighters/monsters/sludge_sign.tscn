@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://c6q00tt13p4q3" path="res://scenes/index/fighters/scripts/sludge_sign.gd" id="3_jhnwu"]
 [ext_resource type="Texture2D" uid="uid://bq05ur4swjqao" path="res://assets/visual/sprites/fighters/monsters/sludge_sign/blur.png" id="4_ij0jp"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="5_uqm0m"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="6_5oljj"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="6_5oljj"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="7_kgmnv"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="8_manpb"]
 [ext_resource type="PackedScene" uid="uid://dp4tm4fats44n" path="res://scenes/index/vfx/overhead.tscn" id="9_b2c0s"]

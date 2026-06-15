@@ -22,6 +22,7 @@ signal status_removed(status:Status);
 
 enum BodyType {flesh, metal, wood};
 @export var hurtbox:Area2D;
+@export var collision_scan:Area2D;
 
 @export var body_type:BodyType;
 
@@ -29,9 +30,18 @@ enum BodyType {flesh, metal, wood};
 
 var stun_stack:int = 0;
 var stunned:bool;
+var flying:bool;
+
+## set every time a knockback is applied to unit
+## assigned as source for all damage/signals 
+## emitted by the knockback collisions
+var knockback_source:ActiveFighter;
+var knockback_tween:Tween;
+
+
 
 ## combat stats (will get more complicated when it needs to)
-var level:int;
+var level:int = 5;
 ## storing level (right now) only for the forbidden mask thingy
 
 
@@ -86,7 +96,6 @@ func get_sector(angle: float) -> int:
 const first_sector_margin = -7*PI/8
 const sector_margin_step = PI/4
 
-	
 func get_sector_full(angle: float) -> int:
 	## not all units here will be isometric 3D
 	var sector:int = -2;
@@ -100,8 +109,6 @@ func get_sector_full(angle: float) -> int:
 	if sector == -1:
 		return 7
 	return sector;
-	
-
 
 
 func die(killer:ActiveFighter)->void:
@@ -113,4 +120,11 @@ func die(killer:ActiveFighter)->void:
 	tween.tween_callback(queue_free)
 	
 	death.emit(killer)
+
+func _on_collision_scan_area_entered(area: Area2D) -> void:
+	assert(area is CollisionScan);
+	## only happens when a unit is sent flying and collides
+	## CollisionScans are always identical to the hurtbox
+	Combat.flying_collision(self, area.source)
+
 	

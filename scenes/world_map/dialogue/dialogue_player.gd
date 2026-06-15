@@ -188,7 +188,7 @@ func play_effect(effect:String)->void:
 	match effect:
 		"angry":
 			Tweens.color_blink(current_speaking_sprite, Color.RED, .5);
-			Tweens.y_shake(current_speaking_sprite, 2, 10);
+			#Tweens.y_shake(current_speaking_sprite, 2, 10);
 			dialogue_sfx.play_sound_by_key("angry")
 		"scared":
 			dialogue_sfx.play_sound_by_key("success")

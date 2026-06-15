@@ -2,46 +2,224 @@
 
 [ext_resource type="Texture2D" uid="uid://dldyyjlth0kkr" path="res://assets/visual/items/weapons/toxic_shotgun.png" id="1_d8qlx"]
 [ext_resource type="Script" uid="uid://bqwcao3h1775" path="res://scenes/index/items/weapons/scripts/toxic_shotgun.gd" id="2_hvjgl"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_234pw"]
 [ext_resource type="Script" uid="uid://b0e1rmg27d5ii" path="res://scenes/battle/fighter/player/equipment/weapon_display/ranged_display.gd" id="3_hald5"]
+[ext_resource type="AudioStream" uid="uid://bwkbetuxywpwd" path="res://assets/sound/sfx/combat/blast.wav" id="3_uhcbr"]
 [ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="4_uhcbr"]
+[ext_resource type="AnimationLibrary" uid="uid://brrltqeijrp22" path="res://resources/animations/weapons/ranged_two_hand.res" id="5_6el7y"]
+[ext_resource type="Texture2D" uid="uid://d2yia70umivgc" path="res://assets/visual/particles/dust.png" id="7_234pw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_di8ht"]
-radius = 59.03389
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_hsbep"]
+points = PackedVector2Array(300, 300, 478, 0, 300, -300, 0, 0)
 
-[node name="Toxic Shotgun" type="Sprite2D" unique_id=264886156 node_paths=PackedStringArray("display", "hit_scan", "animation_player", "use_sfx")]
+[sub_resource type="Curve" id="Curve_6j67s"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.14233576, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ce7ej"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.11764706)
+
+[sub_resource type="Animation" id="Animation_xs6uu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("use_sfx:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2mbjq"]
+_data = {
+&"RESET": SubResource("Animation_xs6uu")
+}
+
+[sub_resource type="Animation" id="Animation_mvmo7"]
+resource_name = "attack"
+length = 0.325
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../right_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1575),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5, 11), Vector2(-20.506048, 0.7085819)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../left_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1575),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(31, 13), Vector2(5.657055, 2.8280172)]
+}
+
+[sub_resource type="Animation" id="Animation_q0r20"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../left_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4000169),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(31.163103, 13.119435), Vector2(31.163103, 15.119435)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../right_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4000169),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(5, 11), Vector2(5, 13)]
+}
+
+[sub_resource type="Animation" id="Animation_plxna"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../right_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5000211),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(5, 11), Vector2(5, 15)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../left_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5000211),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(31.163103, 13.119435), Vector2(31.163103, 17.119434)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mah1u"]
+_data = {
+&"attack": SubResource("Animation_mvmo7"),
+&"idle": SubResource("Animation_q0r20"),
+&"walk": SubResource("Animation_plxna")
+}
+
+[node name="Toxic Shotgun" type="Sprite2D" unique_id=264886156 node_paths=PackedStringArray("smoke", "display", "hit_scan", "projections", "animation_player", "use_sfx", "status")]
 texture = ExtResource("1_d8qlx")
+offset = Vector2(15, 5)
 script = ExtResource("2_hvjgl")
+smoke = NodePath("hit_scan/smoke")
 display = NodePath("RangedWeaponDisplay")
+animation_root_key = "ranged_two_hand"
+base_damage = 30
+cooldown = 7.0
 hit_scan = NodePath("hit_scan")
-animation_player = NodePath("AnimationPlayer")
-use_sfx = NodePath("AudioStreamPlayer")
+projections = [NodePath("hit_scan/projection")]
+animation_player = NodePath("weapon_animation")
+use_sfx = NodePath("use_sfx")
 use_feedback = "recoil"
-hit_feedback = "screen_shake"
+ammo_type = "juice"
+ammo_cost = 5
+status = NodePath("Intoxicated")
 color_tag = "juice"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1923456105]
+[node name="Intoxicated" type="Node" parent="." unique_id=2137230434]
+script = ExtResource("3_234pw")
+type = "stat_change"
+value = -5.0
+duration = 20.0
+stat = "defense"
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1389686286]
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=1923456105]
+stream = ExtResource("3_uhcbr")
+volume_db = -5.0
+pitch_scale = 0.75
+bus = &"sfx"
 
 [node name="RangedWeaponDisplay" type="Node" parent="." unique_id=1846375307]
 script = ExtResource("3_hald5")
 metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
 
-[node name="hit_scan" type="Area2D" parent="." unique_id=614586254]
-position = Vector2(0, 80)
-rotation = 1.5707964
+[node name="hit_scan" type="Area2D" parent="." unique_id=1404506961]
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=1135417799]
-shape = SubResource("CircleShape2D_di8ht")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=1298295790]
+position = Vector2(2, 0)
+shape = SubResource("ConvexPolygonShape2D_hsbep")
 debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
 
-[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=64554738]
-modulate = Color(1, 1, 1, 0.11764706)
-position = Vector2(1, -1)
-scale = Vector2(6, 8)
+[node name="projection" type="Sprite2D" parent="hit_scan" unique_id=936701830]
+modulate = Color(0.4, 0.4, 0.4, 0.19607843)
+position = Vector2(202, -1.1920929e-07)
+scale = Vector2(13.999997, 23.125)
 texture = ExtResource("4_uhcbr")
+
+[node name="smoke" type="CPUParticles2D" parent="hit_scan" unique_id=1382117617]
+modulate = Color(0.49, 0.19999999, 0.5, 1)
+scale = Vector2(0.9070659, 0.98404056)
+emitting = false
+amount = 100
+texture = ExtResource("7_234pw")
+lifetime = 5.27
+one_shot = true
+speed_scale = 9.11
+explosiveness = 1.0
+randomness = 0.5
+lifetime_randomness = 0.5
+fixed_fps = 24
+fract_delta = false
+gravity = Vector2(0, -1)
+initial_velocity_min = 70.83
+initial_velocity_max = 104.72
+angular_velocity_min = 230.0
+angular_velocity_max = 230.0
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_6j67s")
+color = Color(1, 1, 1, 0.39215687)
+color_ramp = SubResource("Gradient_ce7ej")
+
+[node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=1952617425]
+libraries/ = SubResource("AnimationLibrary_2mbjq")
+libraries/ranged_two_hand = ExtResource("5_6el7y")
+
+[node name="hands_animation" type="AnimationPlayer" parent="weapon_animation" unique_id=256193519]
+libraries/ = SubResource("AnimationLibrary_mah1u")
+
+[node name="right_hand_anchor" type="Node2D" parent="." unique_id=1505462894]
+position = Vector2(5, 11)
+
+[node name="left_hand_anchor" type="Node2D" parent="." unique_id=1931494362]
+position = Vector2(31, 13)

@@ -50,5 +50,6 @@ sample_images[0].save(
     save_all=True,
     append_images=sample_images[1:],
     duration = frame_durations,
-    loop=0
+    loop=0,
+    disposal = 2
 )

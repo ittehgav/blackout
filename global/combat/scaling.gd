@@ -39,7 +39,7 @@ const technique_mechanic_multipliers = {
 	## TODO make stun duration tech scaling get diminishing returns bc rn stuns 
 	## are either gonna be useless or units will be permastunning after a certain point in the game
 	"stat_change":.2,
-	"heal":.25,
+	"heal":.1,
 	"damage":.1
 }
 const agility_yield_breakpoints = {

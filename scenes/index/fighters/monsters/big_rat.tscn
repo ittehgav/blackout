@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_ydyhp"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_nnsy7"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="3_wkevw"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_nropm"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_nropm"]
 [ext_resource type="Texture2D" uid="uid://d1gvnnoc8ryp4" path="res://assets/visual/sprites/fighters/monsters/big_rat/blur.png" id="6_4x268"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ydyhp"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_hqlc8"]
@@ -76,7 +76,7 @@ texture = ExtResource("1_wkevw")
 hframes = 8
 vframes = 5
 script = ExtResource("1_3rsjv")
-animation_player = NodePath("AnimationPlayer")
+animation_player = NodePath("Rabid Bite/AnimationPlayer")
 skill = NodePath("Rabid Bite")
 tags = Array[int]([9, 11])
 fighter_type = "monster"
@@ -87,17 +87,18 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 script = ExtResource("2_nnsy7")
 base_cooldown = 5.0
 effects = Array[int]([0, 7])
-status = NodePath("../Vicious")
+status = NodePath("Vicious")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="Vicious" type="Node" parent="." unique_id=825948007]
+[node name="Vicious" type="Node" parent="Rabid Bite" unique_id=825948007]
 script = ExtResource("3_wkevw")
 type = "stat_change"
 value = 3.0
 stat = "attack"
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1588836474]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rabid Bite" unique_id=1588836474]
+root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_bft0e")
 libraries/fighter_base = ExtResource("4_nropm")
 

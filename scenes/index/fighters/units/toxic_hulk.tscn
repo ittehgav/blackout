@@ -4,17 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://bskpdo5n0gls2" path="res://assets/visual/sprites/fighters/units/toxic_hulk/toxic_hulk.png" id="2_varji"]
 [ext_resource type="Script" uid="uid://ca8013fstlydp" path="res://scenes/index/fighters/scripts/toxic_hulk.gd" id="3_db2wx"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_fwyy1"]
-[ext_resource type="Script" uid="uid://drlbs6gxus35a" path="res://resources/color_coder/hue_shifter.gd" id="4_a1vrx"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="4_vxgs3"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_vxgs3"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_db8tu"]
-[ext_resource type="Texture2D" uid="uid://chx42v3gcomqg" path="res://assets/visual/sprites/fighters/units/toxic_hulk/blur.png" id="7_xfclm"]
-[ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="8_xpmpj"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_epl0x"]
+[ext_resource type="Texture2D" uid="uid://d2yia70umivgc" path="res://assets/visual/particles/dust.png" id="9_oc51e"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_8qhm5"]
-
-[sub_resource type="Resource" id="Resource_xg8pv"]
-script = ExtResource("4_a1vrx")
-metadata/_custom_type_script = "uid://drlbs6gxus35a"
 
 [sub_resource type="Animation" id="Animation_i8nbj"]
 length = 0.001
@@ -60,21 +54,36 @@ _data = {
 &"RESET": SubResource("Animation_i8nbj")
 }
 
+[sub_resource type="Curve" id="Curve_oc51e"]
+_limits = [-10.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.33941606, 5.88501), 0.0, 0.0, 0, 0, Vector2(0.43065694, 200), 0.0, 0.0, 0, 0, Vector2(0.9343066, 200), 0.0, 0.0, 0, 0, Vector2(1, -10), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_epl0x"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.14233576, 1), 0.0, 0.0, 0, 0, Vector2(0.45255473, 1.075643), 0.0, 0.0, 0, 0, Vector2(1, 2), 6.4665728, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_epl0x"]
+offsets = PackedFloat32Array(0, 0.7016129, 0.8185484)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.24313726, 2.4061394, 2.4061394, 2.4061394, 0.11764706)
+
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_db2wx"]
-points = PackedVector2Array(80, -60, 80, 60, 0, 0)
+points = PackedVector2Array(350, -400, 350, 400, 0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_paj8a"]
-radius = 15.033297
+radius = 23.086792
 
-[node name="Toxic Hulk" type="Sprite2D" unique_id=754896079 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Toxic Hulk" type="Sprite2D" unique_id=754896079 node_paths=PackedStringArray("smoke", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_kxg8q")
 texture = ExtResource("2_varji")
 hframes = 8
-vframes = 5
+vframes = 7
+frame = 4
 script = ExtResource("3_db2wx")
-animation_player = NodePath("AnimationPlayer")
+smoke = NodePath("hit_scan/smoke")
 skill = NodePath("Gas Leak")
-hue_shifter = SubResource("Resource_xg8pv")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([7, 6, 5])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -84,13 +93,13 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 [node name="Gas Leak" type="Node" parent="." unique_id=966815524 node_paths=PackedStringArray("status")]
 script = ExtResource("3_fwyy1")
 base_cooldown = 4.0
-skill_range = 6
-effects = Array[int]([2, 3])
+effects = Array[int]([2, 3, 5])
+transform_visual = 2
 position_lineup = false
-status = NodePath("Status")
+status = NodePath("Intoxicated")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="Status" type="Node" parent="Gas Leak" unique_id=162292458]
+[node name="Intoxicated" type="Node" parent="Gas Leak" unique_id=162292458]
 script = ExtResource("5_db8tu")
 type = "stat_change"
 value = 3.0
@@ -107,20 +116,41 @@ scale = Vector2(1.1024557, 1.0162183)
 collision_layer = 0
 collision_mask = 0
 
+[node name="smoke" type="CPUParticles2D" parent="hit_scan" unique_id=1428726449]
+modulate = Color(0.58800006, 0.24, 0.6, 1)
+scale = Vector2(0.9070659, 0.98404056)
+emitting = false
+amount = 100
+texture = ExtResource("9_oc51e")
+lifetime = 6.08
+one_shot = true
+preprocess = 1.22
+explosiveness = 0.9
+randomness = 0.5
+lifetime_randomness = 0.5
+fixed_fps = 24
+fract_delta = false
+spread = 20.0
+gravity = Vector2(0, -1)
+initial_velocity_min = 129.54
+initial_velocity_max = 437.5
+linear_accel_min = -100.0
+damping_min = 100.0
+damping_max = 100.0
+damping_curve = SubResource("Curve_oc51e")
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_epl0x")
+color = Color(1, 1, 1, 0.19607843)
+color_ramp = SubResource("Gradient_epl0x")
+
 [node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=89947844]
 scale = Vector2(1.0537851, 0.4430384)
 shape = SubResource("ConvexPolygonShape2D_db2wx")
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=151806938]
-position = Vector2(0, -11)
+position = Vector2(0, -18)
 shape = SubResource("CircleShape2D_paj8a")
-
-[node name="blur" type="Sprite2D" parent="." unique_id=1742918289]
-modulate = Color(1, 1, 1, 0)
-texture = ExtResource("7_xfclm")
-hframes = 8
-vframes = 2
-script = ExtResource("8_xpmpj")
 
 [node name="stat_base" type="Node" parent="." unique_id=1842538956]
 
@@ -137,7 +167,7 @@ max_hp = 40.0
 attack = 10.0
 defense = 10.0
 agility = 5.0
-technique = 10.0
+technique = 3.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
@@ -150,3 +180,5 @@ z_index = -1
 position = Vector2(0, 11.105265)
 scale = Vector2(0.7, 0.7894737)
 texture = ExtResource("13_8qhm5")
+
+[connection signal="impact" from="Gas Leak" to="." method="_on_gas_leak_impact"]

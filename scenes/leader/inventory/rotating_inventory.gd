@@ -1,5 +1,7 @@
 extends ShopInventory
+class_name RotatingShopInventory;
 
+## typing these as items to make them easier to parse to the filters
 @export var accessory_pool:Array[Item]
 @export var consumable_pool:Array[Item]
 @export var module_pool:Array[Item]
@@ -14,7 +16,7 @@ func refresh_inventory()->void:
 	item_pool.clear();
 	for item:Item in pool:
 		item_pool.append(item.duplicate());
-		
+	pool_generated = true
 	super()
 
 func _on_child_entered_tree(node: Node) -> void:

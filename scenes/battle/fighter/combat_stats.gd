@@ -9,4 +9,4 @@ class_name CombatStats;
 @export var agility:float;
 @export var technique:float;
 
-@export var move_speed:float=1000;
+@export var move_speed:float=200;

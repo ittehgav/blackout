@@ -56,16 +56,21 @@ var trader_inventory:ShopInventory;
 
 
 
-func start_trade(target:Inventory, target_name:String)->void:
+func start_trade(target:Inventory, target_name:String, override_inventory:Inventory=null)->void:
 	## initiation routines require both inventories to be assigned
 	player_name_label.text = Entities.player.name;
 	trader_name_label.text = target_name
 	
+	if override_inventory:
+		## for a cleaner path from a button click to here
+		## on multiple inventory scenarios
+		trader_inventory = override_inventory;
+	else:
+		trader_inventory = target
 	player_inventory = Entities.player.inventory
-	trader_inventory = target
+
 	## needs to load trader first because buying/selling prices are defined by the NPC
 	
-
 	trader_inventory_display.inventory = trader_inventory
 	trader_inventory_display.open()
 	

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/in_settlement/speaker.tscn" id="3_qdsrk"]
 [ext_resource type="Resource" uid="uid://dju2p34l1ibao" path="res://resources/dialogues/buildings/laboratory.dialogue" id="4_gwgtx"]
 [ext_resource type="Texture2D" uid="uid://samdjldve85y" path="res://assets/visual/buildings/npcs/laboratory_worker.png" id="5_12d3g"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="6_fmitu"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="6_fmitu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cus3e"]
 resource_local_to_scene = true

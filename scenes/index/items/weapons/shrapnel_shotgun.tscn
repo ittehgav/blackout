@@ -4,44 +4,219 @@
 [ext_resource type="Texture2D" uid="uid://btt5vdk8xcowd" path="res://assets/visual/items/weapons/shrapnel_shotgun.png" id="1_vrtai"]
 [ext_resource type="Script" uid="uid://b0e1rmg27d5ii" path="res://scenes/battle/fighter/player/equipment/weapon_display/ranged_display.gd" id="3_kagd4"]
 [ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="4_mvmo7"]
+[ext_resource type="AudioStream" uid="uid://dhy561fdsun6b" path="res://assets/sound/sfx/combat/player/explosion.ogg" id="4_q0r20"]
+[ext_resource type="Texture2D" uid="uid://d0ihmqgcfqcrf" path="res://assets/visual/particles/vfx/shrapnel.png" id="5_kagd4"]
+[ext_resource type="AnimationLibrary" uid="uid://brrltqeijrp22" path="res://resources/animations/weapons/ranged_two_hand.res" id="5_mvmo7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_q0r20"]
-radius = 59.03389
+[sub_resource type="Gradient" id="Gradient_kagd4"]
+offsets = PackedFloat32Array(0.5, 0.9074074)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.27450982)
 
-[node name="ShrapnelShotgun" type="Sprite2D" unique_id=1126198983 node_paths=PackedStringArray("display", "hit_scan", "animation_player", "use_sfx")]
+[sub_resource type="Gradient" id="Gradient_mvmo7"]
+colors = PackedColorArray(0.2, 0.2, 0.2, 1, 0.8, 0.8, 0.8, 1)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_kagd4"]
+points = PackedVector2Array(300, 300, 478, 0, 300, -300, 0, 0)
+
+[sub_resource type="Animation" id="Animation_xs6uu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("use_sfx:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oskey"]
+_data = {
+&"RESET": SubResource("Animation_xs6uu")
+}
+
+[sub_resource type="Animation" id="Animation_mvmo7"]
+resource_name = "attack"
+length = 0.325
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../right_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1575),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5, 11), Vector2(-20.506048, 0.7085819)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../left_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1575),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(31, 13), Vector2(5.657055, 2.8280172)]
+}
+
+[sub_resource type="Animation" id="Animation_q0r20"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../left_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4000169),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(31.163103, 13.119435), Vector2(31.163103, 15.119435)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../right_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4000169),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(5, 11), Vector2(5, 13)]
+}
+
+[sub_resource type="Animation" id="Animation_plxna"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../right_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5000211),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(5, 11), Vector2(5, 15)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../left_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5000211),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(31.163103, 13.119435), Vector2(31.163103, 17.119434)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xs6uu"]
+_data = {
+&"attack": SubResource("Animation_mvmo7"),
+&"idle": SubResource("Animation_q0r20"),
+&"walk": SubResource("Animation_plxna")
+}
+
+[node name="Shrapnel Shotgun" type="Sprite2D" unique_id=1126198983 node_paths=PackedStringArray("shrapnel", "display", "hit_scan", "projections", "animation_player", "use_sfx")]
 texture = ExtResource("1_vrtai")
+offset = Vector2(15, 5)
 script = ExtResource("1_5hg34")
+shrapnel = NodePath("hit_scan/shrapnel")
 display = NodePath("RangedWeaponDisplay")
+animation_root_key = "ranged_two_hand"
+base_damage = 200
+cooldown = 5.0
+alt_cooldown = null
 hit_scan = NodePath("hit_scan")
-animation_player = NodePath("AnimationPlayer")
-use_sfx = NodePath("AudioStreamPlayer")
+melee = null
+projections = [NodePath("hit_scan/projection")]
+animation_player = NodePath("weapon_animation")
+use_sfx = NodePath("use_sfx")
 use_feedback = "recoil"
 hit_feedback = "screen_shake"
+refinement_level = null
+continuous = null
+ammo_type = "scrap"
+ammo_cost = 20
 color_tag = "scrap"
+inventory_position = null
+stack_size = null
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
 [node name="RangedWeaponDisplay" type="Node" parent="." unique_id=58503729]
 script = ExtResource("3_kagd4")
 metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
 
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=784959205]
+stream = ExtResource("4_q0r20")
+bus = &"sfx"
+
 [node name="hit_scan" type="Area2D" parent="." unique_id=607293741]
-position = Vector2(0, 80)
-rotation = 1.5707964
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
 
+[node name="shrapnel" type="CPUParticles2D" parent="hit_scan" unique_id=1559480764]
+position = Vector2(89, 2)
+scale = Vector2(2, 2)
+emitting = false
+amount = 100
+texture = ExtResource("5_kagd4")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.1
+fixed_fps = 10
+fract_delta = false
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 60.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 500.0
+angular_velocity_min = -485.33
+angular_velocity_max = 485.33
+damping_max = 200.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_kagd4")
+color_initial_ramp = SubResource("Gradient_mvmo7")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=539414566]
-shape = SubResource("CircleShape2D_q0r20")
+position = Vector2(2, 0)
+shape = SubResource("ConvexPolygonShape2D_kagd4")
 debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
 
-[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=1239916499]
-modulate = Color(1, 1, 1, 0.11764706)
-position = Vector2(1, -1)
-scale = Vector2(6, 8)
+[node name="projection" type="Sprite2D" parent="hit_scan" unique_id=1239916499]
+modulate = Color(0.4, 0.4, 0.4, 0.19607843)
+position = Vector2(107.674034, -1.1920929e-07)
+scale = Vector2(9.834251, 13.249999)
 texture = ExtResource("4_mvmo7")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2004319821]
+[node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=2004319821]
+libraries/ = SubResource("AnimationLibrary_oskey")
+libraries/ranged_two_hand = ExtResource("5_mvmo7")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=367804434]
+[node name="hands_animation" type="AnimationPlayer" parent="weapon_animation" unique_id=175453886]
+libraries/ = SubResource("AnimationLibrary_xs6uu")
+
+[node name="right_hand_anchor" type="Node2D" parent="." unique_id=756976701]
+position = Vector2(-20.506048, 0.7085819)
+
+[node name="left_hand_anchor" type="Node2D" parent="." unique_id=1435575376]
+position = Vector2(5.657055, 2.8280172)

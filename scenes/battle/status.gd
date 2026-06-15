@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node/icon_card.png")
 extends Node
 
 class_name Status
@@ -85,9 +86,8 @@ func apply(propagated:bool)->void:
 			assert(duration);
 			duration += Scaling.technique_mechanic_multipliers["stun"] * source.technique * duration
 			host.stunned = true;
-			if host is NpcFighter:
-				host.timers.set_process_mode(PROCESS_MODE_DISABLED);
-			host.move_speed = 0;
+			if host is NpcFighter and not host.dummy:
+				host.cooldown_timer.paused = true;
 			host.stun_stack += 1;
 		
 		"stat_change":
@@ -132,10 +132,9 @@ func remove()->void:
 			host.stun_stack -= 1;
 			if not host.stun_stack:
 				host.stunned = false;
-				if host is NpcFighter:
-					host.timers.set_process_mode(PROCESS_MODE_INHERIT);
+				if host is NpcFighter and not host.dummy:
+					host.cooldown_timer.paused = false;
 
-				host.move_speed = 500;
 		"stat_change":
 			## works with negative values just fine
 			host.stat_modifiers[stat] -= value;

@@ -108,7 +108,10 @@ func player_hit_feedback()->void:
 		position = target;
 		player_hit_tween.tween_property(self, "position", initial_position,.25 )
 
+const min_fn_delay = .15
+var current_floating_numbers:Array[Label]
 func floating_number(value:int, type:String = "damage")->void:
+
 	var floating_n:Label = Label.new();
 	match type:
 		"damage":
@@ -123,9 +126,17 @@ func floating_number(value:int, type:String = "damage")->void:
 	
 	floating_n.text = str(value);
 	floating_icon_anchor.add_child(floating_n);
+	current_floating_numbers.append(floating_n)
 	
-	Tweens.fade_up(floating_n);
+	if len(current_floating_numbers) > 1:
+		await get_tree().create_timer(min_fn_delay * len(current_floating_numbers)).timeout
 
+	Tweens.fade_up(floating_n);
+	await get_tree().create_timer(min_fn_delay).timeout;
+	clear_floating_number(floating_n);
+
+func clear_floating_number(target:Label)->void:
+	current_floating_numbers.erase(target)
 
 func refresh_charge_bar() -> void:
 	charge_bar.value = cooldown_timer.wait_time - cooldown_timer.time_left
@@ -140,7 +151,7 @@ func _on_hp_bar_value_changed(value: float) -> void:
 		trail_tween.tween_callback(hp_bar_trail.set_value.bind(hp_bar.value))
 
 
-func _on_npc_fighter_healing_received(value: float, _quiet:bool) -> void:
+func _on_npc_fighter_healing_received(value: float, _quiet:bool=false) -> void:
 	floating_number(value, "heal");
 	hp_bar.value = fighter.hp;
 	

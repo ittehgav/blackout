@@ -60,7 +60,7 @@ func refresh_data()->void:
 
 
 func get_skill_range(fighter:FighterBase)->String:
-	if fighter.skill.skill_range == fighter.MELEE_RANGE:
+	if fighter.skill_range == fighter.MELEE_RANGE:
 		return "Melee";
 	elif fighter.skill_range < 750:
 		return "Short Range";

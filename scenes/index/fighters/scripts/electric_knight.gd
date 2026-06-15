@@ -1,6 +1,6 @@
 extends FighterBase
 
-@export var lightning_vfx:CombatVFX
+@export var lightning_vfx:LightningVFX
 
 const elec_count_bonus = .5
 const elec_count_bonus_technique_amp = .1
@@ -20,8 +20,8 @@ func full_skill_description(unit:FighterUnit)->String:
 	return final_string
 
 func special_skill_effect()->void:
-	var non_elec_targets:Array[ActiveFighter];
-	for target:ActiveFighter in fighter.enemy_team.fighters:
+	var non_elec_targets:Array[CombatEntity];
+	for target:CombatEntity in fighter.enemy_team.fighters:
 		if not target.is_in_group("electrified"):
 			non_elec_targets.append(target);
 
@@ -37,14 +37,15 @@ func special_skill_effect()->void:
 	for target:ActiveFighter in get_tree().get_nodes_in_group("electrified"):
 		if target in fighter.enemy_team.fighters:
 			to_hit.append(target);
+	to_hit.sort_custom(proximity_sort)
 	chain_lightning(to_hit)
 	
 func chain_lightning(targets:Array[ActiveFighter])->void:
-	var bolt_origin:ActiveFighter = fighter;
+	var bolt_origin:CombatEntity = fighter;
 	
 	for t:ActiveFighter in targets:
 		Combat.deal_damage(fighter, t)
-		lightning_vfx.bolt_animation(bolt_origin, t)
+		lightning_vfx.shoot_bolt(bolt_origin, t)
 		await lightning_vfx.animation_player.animation_finished;
 		bolt_origin = t;
 

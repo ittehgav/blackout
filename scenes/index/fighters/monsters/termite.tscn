@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://up8stcqsoa20" path="res://scenes/index/fighters/scripts/termite.gd" id="2_yeofw"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_jwcm1"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="4_6d2dr"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_laip8"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="5_laip8"]
 [ext_resource type="Texture2D" uid="uid://c62btq06beknh" path="res://assets/visual/sprites/fighters/monsters/termite/blur.png" id="6_ced4w"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_ym1w0"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_jwcm1"]

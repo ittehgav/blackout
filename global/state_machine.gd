@@ -50,8 +50,8 @@ func set_scenario(target:Scenario)->void:
 						tween.finished.connect(Entities.arena.queue_free);
 					else:
 						tween.finished.connect(Entities.arena.get_parent().queue_free);
-						
-				
+
+
 					var won:bool = Entities.arena.won_battle
 
 					

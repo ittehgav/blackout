@@ -1,7 +1,7 @@
 @abstract
 @icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_thunder.png")
 class_name Module
-extends Equipment
+extends ActiveEquipment
 
 
 const type = "module"

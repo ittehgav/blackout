@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cl7dpf5kghjoa" path="res://assets/visual/sprites/fighters/monsters/sludge_constrictor/blur.png" id="2_cl8dq"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="3_4g6n8"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_by2at"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="6_by2at"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="6_by2at"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_ttid4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttid4"]

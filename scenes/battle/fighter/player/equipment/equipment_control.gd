@@ -67,14 +67,26 @@ func _on_weapon_equipped(weapon: Weapon) -> void:
 	## and leave this as more of a signal emitter and anchor for the weapon sprite
 	equipped_weapon = weapon;
 	
+	
 	right_hand.reparent(weapon.get_node("right_hand_anchor"), false)
 	left_hand.reparent(weapon.get_node("left_hand_anchor"), false)
+	
+	weapon_anchor.rotation = 0;
+	if weapon.size_x > 2 and weapon.size_y > 2:
+		weapon_anchor.scale = Vector2.ONE
+		right_hand.scale = Vector2.ONE;
+		left_hand.scale = Vector2.ONE
+		
+	else:
+		weapon_anchor.scale = Vector2(2, 2)
+		right_hand.scale = Vector2(.5, .5)
+		left_hand.scale = Vector2(.5, .5)
+
 
 func refresh_weapon_cooldowns()->void:
-	weapon_control.refresh_weapon_cooldown();
-	var player:Player = get_tree().get_first_node_in_group("player")
-	if player.alternative_weapon:
-		weapon_control.refresh_alt_weapon_cooldown()
+	weapon_control.refresh_weapon_cooldown(weapon_control.weapon);
+	if weapon_control.alternative_weapon:
+		weapon_control.refresh_weapon_cooldown(weapon_control.alternative_weapon);
 
 
 func weapon_animation_finished(anim_name:String, source:Weapon)->void:
@@ -94,6 +106,7 @@ func weapon_animation_finished(anim_name:String, source:Weapon)->void:
 	# set_process_input(not_attacking())
 
 func not_attacking()->bool:
+	## will return true when in knockback frame i spose
 	var root_key:String = equipped_weapon.animation_root_key;
 	var atk_key:String = root_key+"/attack";
 	

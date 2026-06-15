@@ -118,3 +118,44 @@ func turn_ellusive(fighter:ActiveFighter, duration:float)->void:
 	fighter.set_collision_layer_value(team_n, false)
 	await get_tree().create_timer(duration).timeout;
 	fighter.set_collision_layer_value(team_n, true)
+
+
+func knock_back_target(source:ActiveFighter, target:ActiveFighter = source.target_fighter,\
+						strength:int=source.base.skill.knockback_strength, \
+						override_velocity:Vector2 = Vector2.ZERO,
+						override_direction:Vector2 = Vector2.ZERO)->void:
+	assert(strength);
+	## catches not setting a skillcomponents's kb strength
+	source.catch_hit_target(target);
+	const base_distance = 35
+	target.knockback_source = source;
+	var level_gap:float = float(source.level)/float(target.level);
+	var velocity:Vector2;
+	if override_velocity == Vector2.ZERO:
+		var final_distance:float = base_distance * level_gap * strength
+		var direction:Vector2 = source.position.direction_to(target.position);
+		if override_direction != Vector2.ZERO:
+			direction = override_direction
+		velocity = direction * final_distance * 20;
+	else:
+		velocity = override_velocity * level_gap
+	
+	target.flying = true;
+	target.collision_scan.monitoring = true
+	target.velocity = velocity;
+	
+	if target.knockback_tween and target.knockback_tween.is_running():
+		target.knockback_tween.kill();
+	
+	target.knockback_tween = create_tween();
+	target.knockback_tween.tween_property(target, "velocity", Vector2.ZERO, 1)
+	target.knockback_tween.tween_callback(finish_flight.bind(target))
+
+func collision_damage(source:ActiveFighter, t1:ActiveFighter, t2:ActiveFighter)->void:
+	deal_damage(source, t1);
+	if t2 in source.enemy_team.fighters:
+		deal_damage(source, t2);
+
+func finish_flight(target:ActiveFighter)->void:
+	target.flying = false
+	target.collision_scan.monitoring = false

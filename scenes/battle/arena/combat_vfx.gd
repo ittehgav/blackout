@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_animation.png")
 class_name CombatVFX
 extends Sprite2D
 
@@ -42,25 +43,27 @@ func set_sprite_root()->void:
 	## right now only works for fightertbases
 	var parent:Node = get_parent();
 	if source_type == SourceType.npc_fighter:
+		if not (get_parent().get_parent() is NpcFighter):return
 		## TODO not tested in npcfighters after reimplementation
 		while not (parent is FighterBase):
 			parent = parent.get_parent();
 			assert (not (parent is Arena)) ## catches misplaced vfx node
+		skill = parent.skill;
+
 		if track_source_angle:
 			angle_source = parent;
 			angle_source.frame_changed.connect(match_source_angle);
-			skill = angle_source.skill;
-			match activator:
-				Activator.start:
-					skill.start.connect(play_vfx)
-				Activator.impact:
-					skill.impact.connect(play_vfx)
-				Activator.finished:
-					skill.finished.connect(play_vfx)
+			
+		match activator:
+			Activator.start:
+				skill.fighter.skill_used.connect(play_vfx)
+			Activator.impact:
+				skill.impact.connect(play_vfx)
+			Activator.finished:
+				skill.finished.connect(play_vfx)
 
-	elif source_type == SourceType.weapon:
+	elif source_type == SourceType.weapon and activator != Activator.manual:
 		## can apply the same activator stuff for other vfx eventually
-		
 		Entities.player_fighter.equipment.weapon_used.connect(play_vfx)
 
 
@@ -77,6 +80,4 @@ func match_source_angle()->void:
 	frame_coords.x = angle_source.frame_coords.x;
 
 func play()->void:
-	
-
 	animation_player.play("vfx");

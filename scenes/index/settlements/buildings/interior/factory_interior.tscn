@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://csmjpaj3gbwco" path="res://scenes/in_settlement/speaker.tscn" id="3_yeymu"]
 [ext_resource type="Texture2D" uid="uid://5kmx5llsxas3" path="res://assets/visual/buildings/npcs/factory_worker.png" id="4_5ccs5"]
 [ext_resource type="Resource" uid="uid://d1qu6q58skn8r" path="res://resources/dialogues/buildings/factory_worker.dialogue" id="4_j21v7"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_e5jhq"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="5_e5jhq"]
 [ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="5_yeymu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3mat"]

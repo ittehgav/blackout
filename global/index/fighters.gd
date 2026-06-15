@@ -49,10 +49,7 @@ func refresh_fighter_bases()->void:
 	
 	for key:String in all_unit_bases.keys():
 		var base:FighterBase = all_unit_bases[key];
-		if base.hue_shifter:
-			base.hue_shifter.target_texture = base.texture;
-			base.hue_shifter.base_name = base.name.to_snake_case();
-			base.hue_shifter.generate_color_coded_sprites();
+
 
 		if "evolution_names" in base:
 			var evolutions:Array[FighterBase]

@@ -20,11 +20,13 @@
 [ext_resource type="AudioStream" uid="uid://cpx6rffx48wxd" path="res://assets/sound/sfx/combat/weapon_fumbled.mp3" id="10_p55mw"]
 [ext_resource type="AudioStream" uid="uid://c7cqjf17r2asi" path="res://assets/sound/sfx/combat/player/debuff_received/poison.wav" id="11_rwav2"]
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="16_5atum"]
+[ext_resource type="Script" uid="uid://d03oto63awsxv" path="res://scenes/battle/fighter/collision_scan.gd" id="17_2bwky"]
 [ext_resource type="Script" uid="uid://cqf12thilix0a" path="res://scenes/battle/fighter/player/body.gd" id="17_5atum"]
-[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="18_iubqv"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/active_fighter/player.res" id="18_iubqv"]
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="19_5atum"]
 [ext_resource type="Texture2D" uid="uid://neqnmg1o3623" path="res://assets/visual/sprites/player/hand.png" id="20_iubqv"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="22_ung86"]
+[ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="27_oxj8n"]
 [ext_resource type="Script" uid="uid://bodkdbglupvsm" path="res://scenes/battle/fighter/player/camera.gd" id="27_rxaql"]
 
 [sub_resource type="OggPacketSequence" id="OggPacketSequence_1mm1k"]
@@ -181,6 +183,9 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_88w2o"]
+radius = 15.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iubqv"]
 resource_local_to_scene = true
 shader = ExtResource("19_5atum")
@@ -191,10 +196,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_88w2o"]
-radius = 15.0
-
-[node name="player_fighter" type="CharacterBody2D" unique_id=952457738 node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "floating_icon_anchor", "base", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "statuses", "sprite")]
+[node name="player_fighter" type="CharacterBody2D" unique_id=952457738 node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "floating_icon_anchor", "base", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses", "sprite")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
@@ -203,39 +205,42 @@ script = ExtResource("2_2bwky")
 body = NodePath("body")
 equipment = NodePath("equipment")
 camera = NodePath("camera")
-sfx = NodePath("sfx/sfx")
+sfx = NodePath("misc/sfx/sfx")
 floating_icon_anchor = NodePath("floating_icon_anchor")
 base = NodePath("body")
-timers = NodePath("timers")
-initial_stats = NodePath("stats/initial_stats")
-stat_modifiers = NodePath("stats/modifiers")
-stat_multipliers = NodePath("stats/multipliers")
+timers = NodePath("misc/timers")
+initial_stats = NodePath("misc/stats/initial_stats")
+stat_modifiers = NodePath("misc/stats/modifiers")
+stat_multipliers = NodePath("misc/stats/multipliers")
 hurtbox = NodePath("hurtbox")
-statuses = NodePath("statuses")
+collision_scan = NodePath("collision_scan")
+statuses = NodePath("misc/statuses")
 sprite = NodePath("body")
 
-[node name="stats" type="Node" parent="." unique_id=1676505557]
+[node name="misc" type="Node" parent="." unique_id=412976950]
 
-[node name="initial_stats" parent="stats" unique_id=2095973971 instance=ExtResource("2_afulj")]
+[node name="stats" type="Node" parent="misc" unique_id=1676505557]
 
-[node name="modifiers" parent="stats" unique_id=1946580805 instance=ExtResource("2_afulj")]
+[node name="initial_stats" parent="misc/stats" unique_id=2095973971 instance=ExtResource("2_afulj")]
+
+[node name="modifiers" parent="misc/stats" unique_id=1946580805 instance=ExtResource("2_afulj")]
 move_speed = 0.0
 
-[node name="multipliers" parent="stats" unique_id=1104299743 instance=ExtResource("2_afulj")]
+[node name="multipliers" parent="misc/stats" unique_id=1104299743 instance=ExtResource("2_afulj")]
 max_hp = 1.0
 attack = 1.0
 defense = 1.0
 agility = 1.0
 move_speed = 1.0
 
-[node name="vfx_control" type="Node" parent="." unique_id=929113244 node_paths=PackedStringArray("fighter", "floating_icon_anchor")]
+[node name="vfx_control" type="Node" parent="misc" unique_id=929113244 node_paths=PackedStringArray("fighter", "floating_icon_anchor")]
 script = ExtResource("3_r3ibm")
-fighter = NodePath("..")
-floating_icon_anchor = NodePath("../floating_icon_anchor")
+fighter = NodePath("../..")
+floating_icon_anchor = NodePath("../../floating_icon_anchor")
 
-[node name="sfx" type="Node" parent="." unique_id=882425252]
+[node name="sfx" type="Node" parent="misc" unique_id=882425252]
 
-[node name="hit_sfx" type="AudioStreamPlayer" parent="sfx" unique_id=2457195]
+[node name="hit_sfx" type="AudioStreamPlayer" parent="misc/sfx" unique_id=2457195]
 stream = ExtResource("6_rwav2")
 pitch_scale = 0.96
 script = ExtResource("4_t13x7")
@@ -243,7 +248,7 @@ wood_hit = ExtResource("5_ung86")
 flesh_hit = SubResource("AudioStreamOggVorbis_rwav2")
 metal_hit = ExtResource("6_rwav2")
 
-[node name="sfx" type="AudioStreamPlayer" parent="sfx" unique_id=504591273]
+[node name="sfx" type="AudioStreamPlayer" parent="misc/sfx" unique_id=504591273]
 stream = ExtResource("5_0y55v")
 bus = &"sfx"
 script = ExtResource("4_dxwve")
@@ -251,13 +256,26 @@ damage_taken = ExtResource("5_0y55v")
 weapon_change = ExtResource("9_rwav2")
 module_unavailable = ExtResource("6_plyqv")
 
-[node name="debuff_received_sfx" type="AudioStreamPlayer" parent="sfx" unique_id=281044584]
+[node name="debuff_received_sfx" type="AudioStreamPlayer" parent="misc/sfx" unique_id=281044584]
 script = ExtResource("8_mepqy")
 stat_debuff = ExtResource("9_t13x7")
 stun = ExtResource("10_24aya")
 poison = ExtResource("11_rwav2")
 
+[node name="statuses" type="Node" parent="misc" unique_id=625187668]
+
+[node name="timers" type="Node" parent="misc" unique_id=2053695415]
+
+[node name="walk_dust" parent="." unique_id=1591303957 instance=ExtResource("27_oxj8n")]
+modulate = Color(0.2, 0.142, 0.142, 0.05882353)
+
+[node name="weapon_dust" parent="." unique_id=1010148439 instance=ExtResource("27_oxj8n")]
+modulate = Color(1, 1, 1, 0.42745098)
+initial_velocity_max = 122.16
+manual = true
+
 [node name="hurtbox" type="Area2D" parent="." unique_id=502840166 node_paths=PackedStringArray("source")]
+position = Vector2(0, 10)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -268,12 +286,20 @@ source = NodePath("..")
 position = Vector2(1, -27)
 shape = SubResource("CapsuleShape2D_wutkk")
 
-[node name="statuses" type="Node" parent="." unique_id=625187668]
+[node name="collision_scan" type="Area2D" parent="." unique_id=478586360 node_paths=PackedStringArray("source")]
+collision_layer = 8
+collision_mask = 8
+monitoring = false
+script = ExtResource("17_2bwky")
+source = NodePath("..")
 
-[node name="timers" type="Node" parent="." unique_id=2053695415]
+[node name="collision_scan_shape" type="CollisionShape2D" parent="collision_scan" unique_id=1182467404]
+position = Vector2(1, -17)
+shape = SubResource("CapsuleShape2D_wutkk")
 
 [node name="body" type="Sprite2D" parent="." unique_id=416499753 node_paths=PackedStringArray("player", "weapon_control", "animation_player")]
 material = SubResource("ShaderMaterial_ung86")
+position = Vector2(0, 10)
 texture = ExtResource("16_5atum")
 hframes = 8
 vframes = 11
@@ -306,9 +332,13 @@ material = SubResource("ShaderMaterial_oxj8n")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("20_iubqv")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1480294527]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_88w2o")
+
 [node name="equipment" type="Node2D" parent="." unique_id=488158529 node_paths=PackedStringArray("weapon_control", "module_control", "holder", "body", "hitbox_anchor", "freeze_frame_timer", "attack_slow_timer", "weapon_anchor", "right_hand", "left_hand")]
 material = SubResource("ShaderMaterial_iubqv")
-position = Vector2(0, -19)
+position = Vector2(0, -20)
 script = ExtResource("7_skhxj")
 weapon_control = NodePath("weapon_control")
 module_control = NodePath("module_control")
@@ -324,10 +354,12 @@ left_hand = NodePath("../body/left_hand")
 [node name="weapon_fumbled_sfx" type="AudioStreamPlayer" parent="equipment" unique_id=1072859342]
 stream = ExtResource("10_p55mw")
 
-[node name="weapon_control" type="Node" parent="equipment" unique_id=1301522479 node_paths=PackedStringArray("sfx", "equipment", "weapon_cd", "alt_weapon_cd", "freeze_frame_timer")]
+[node name="weapon_control" type="Node" parent="equipment" unique_id=1301522479 node_paths=PackedStringArray("sfx", "equipment", "dust", "camera", "weapon_cd", "alt_weapon_cd", "freeze_frame_timer")]
 script = ExtResource("7_k0pw4")
-sfx = NodePath("../../sfx/sfx")
+sfx = NodePath("../../misc/sfx/sfx")
 equipment = NodePath("..")
+dust = NodePath("../../weapon_dust")
+camera = NodePath("../../camera")
 weapon_cd = NodePath("weapon_cd")
 alt_weapon_cd = NodePath("alt_weapon_cd")
 freeze_frame_timer = NodePath("../freeze_frame_control")
@@ -349,7 +381,7 @@ one_shot = true
 script = ExtResource("9_sdapf")
 module_cd = NodePath("module_cd")
 equipment = NodePath("..")
-sfx = NodePath("../../sfx/sfx")
+sfx = NodePath("../../misc/sfx/sfx")
 
 [node name="module_cd" type="Timer" parent="equipment/module_control" unique_id=682365859]
 one_shot = true
@@ -363,6 +395,7 @@ ignore_time_scale = true
 [node name="hitbox_anchor" type="Node2D" parent="equipment" unique_id=1447438724]
 
 [node name="weapon_anchor" type="Node2D" parent="equipment" unique_id=721645441]
+scale = Vector2(2, 2)
 
 [node name="camera" type="Camera2D" parent="." unique_id=1871726771]
 position_smoothing_enabled = true
@@ -382,27 +415,24 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1480294527]
-position = Vector2(0, -28)
-shape = SubResource("CircleShape2D_88w2o")
-
-[connection signal="damage_taken" from="." to="sfx/sfx" method="damage_taken_sfx"]
+[connection signal="damage_taken" from="." to="misc/sfx/sfx" method="damage_taken_sfx"]
 [connection signal="started_moving" from="." to="equipment" method="_on_player_fighter_started_moving"]
 [connection signal="started_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/walk"]]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
-[connection signal="status_applied" from="." to="vfx_control" method="_on_in_fight_player_status_applied"]
-[connection signal="status_applied" from="." to="sfx/debuff_received_sfx" method="_on_player_fighter_status_applied"]
-[connection signal="status_removed" from="." to="vfx_control" method="_on_in_fight_player_status_removed"]
+[connection signal="status_applied" from="." to="misc/vfx_control" method="_on_in_fight_player_status_applied"]
+[connection signal="status_applied" from="." to="misc/sfx/debuff_received_sfx" method="_on_player_fighter_status_applied"]
+[connection signal="status_removed" from="." to="misc/vfx_control" method="_on_in_fight_player_status_removed"]
 [connection signal="stopped_moving" from="." to="equipment" method="_on_player_fighter_stopped_moving"]
 [connection signal="stopped_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/idle"]]
+[connection signal="area_entered" from="collision_scan" to="." method="_on_collision_scan_area_entered"]
 [connection signal="frame_changed" from="body" to="equipment" method="_on_body_frame_changed"]
 [connection signal="animation_finished" from="body/AnimationPlayer" to="body" method="_on_animation_player_animation_finished"]
-[connection signal="module_fumbled" from="equipment" to="sfx/sfx" method="_on_equipment_module_fumbled"]
-[connection signal="weapon_changed" from="equipment" to="sfx/sfx" method="_on_equipment_weapon_changed"]
+[connection signal="module_fumbled" from="equipment" to="misc/sfx/sfx" method="_on_equipment_module_fumbled"]
+[connection signal="weapon_changed" from="equipment" to="misc/sfx/sfx" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_equipped" from="equipment" to="." method="_on_equipment_weapon_equipped"]
 [connection signal="weapon_equipped" from="equipment" to="equipment" method="_on_weapon_equipped"]
 [connection signal="weapon_fumbled" from="equipment" to="equipment/weapon_fumbled_sfx" method="play"]
-[connection signal="weapon_hit" from="equipment" to="sfx/hit_sfx" method="weapon_hit"]
+[connection signal="weapon_hit" from="equipment" to="misc/sfx/hit_sfx" method="weapon_hit"]
 [connection signal="weapon_hit" from="equipment" to="equipment/weapon_control" method="weapon_hit"]
 [connection signal="weapon_unequipped" from="equipment" to="." method="_on_equipment_weapon_unequipped"]
 [connection signal="weapon_used" from="equipment" to="body" method="_on_equipment_weapon_used"]

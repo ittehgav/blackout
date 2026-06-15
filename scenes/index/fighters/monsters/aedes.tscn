@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ekc043xv5d2a" path="res://assets/visual/sprites/fighters/monsters/aedes/aedes.png" id="2_iuxof"]
 [ext_resource type="Script" uid="uid://c0v03uu26r0o1" path="res://scenes/index/fighters/scripts/aedes.gd" id="3_q25pu"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="4_tevc4"]
-[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/fighter_base.res" id="5_o77ds"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="5_o77ds"]
 [ext_resource type="Texture2D" uid="uid://cu83uthnmgpjj" path="res://assets/visual/sprites/fighters/monsters/aedes/blur.png" id="6_us8aj"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="7_as45u"]
 [ext_resource type="PackedScene" uid="uid://txc7073pnryn" path="res://scenes/index/vfx/direct.tscn" id="8_iuxof"]

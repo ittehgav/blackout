@@ -65,7 +65,7 @@ _data = {
 &"vfx": SubResource("Animation_fw5ov")
 }
 
-[node name="Overhead" type="Sprite2D" unique_id=1766547426 node_paths=PackedStringArray("animation_player")]
+[node name="Overhead" type="Sprite2D" unique_id=1766547426 node_paths=PackedStringArray("animation_player") groups=["combat_vfx"]]
 self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("1_m2dq0")
 hframes = 8

@@ -1,0 +1,262 @@
+[gd_scene format=3 uid="uid://b322626nnhpf7"]
+
+[ext_resource type="Texture2D" uid="uid://ciwjmi6f4wvsg" path="res://assets/visual/items/weapons/electric_baton.png" id="1_saugq"]
+[ext_resource type="Script" uid="uid://b1n5j31htw3xx" path="res://scenes/index/items/weapons/scripts/electric_flail.gd" id="2_0q57w"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="4_y34v8"]
+[ext_resource type="AudioStream" uid="uid://cme1mcex521ov" path="res://assets/sound/sfx/combat/special/lightning_heavy.wav" id="5_ysdc1"]
+[ext_resource type="Script" uid="uid://nkvusiyd18wl" path="res://scenes/battle/fighter/player/equipment/weapon_display/melee_display.gd" id="6_1k2qk"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="7_pfuvk"]
+[ext_resource type="AnimationLibrary" uid="uid://i0u7lhwyn7mk" path="res://resources/animations/weapons/melee.res" id="8_0q57w"]
+[ext_resource type="PackedScene" uid="uid://dmvr7ngbhq7v5" path="res://scenes/index/vfx/lightning_vfx.tscn" id="9_tlqyt"]
+
+[sub_resource type="Animation" id="Animation_tlqyt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y34v8"]
+_data = {
+&"RESET": SubResource("Animation_tlqyt")
+}
+
+[sub_resource type="Animation" id="Animation_0q57w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../left_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-20, 5.999999)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../right_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-20, -2.000001)]
+}
+
+[sub_resource type="Animation" id="Animation_jodic"]
+resource_local_to_scene = true
+resource_name = "attack"
+length = 0.325
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../right_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -14)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../left_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -7)]
+}
+
+[sub_resource type="Animation" id="Animation_vmql4"]
+resource_local_to_scene = true
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../right_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-20, -2.000001), Vector2(-18, -2.000001)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../left_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-20, 5.999999), Vector2(-18, 5.999999)]
+}
+
+[sub_resource type="Animation" id="Animation_bf1cx"]
+resource_local_to_scene = true
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../right_hand_anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-20, -12.000001), Vector2(-15, -12.000001)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../left_hand_anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-20, -4.000001), Vector2(-15, -4.000001)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0q57w"]
+_data = {
+&"RESET": SubResource("Animation_0q57w"),
+&"attack": SubResource("Animation_jodic"),
+&"idle": SubResource("Animation_vmql4"),
+&"walk": SubResource("Animation_bf1cx")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kuc8p"]
+radius = 59.03389
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlqyt"]
+size = Vector2(20, 250)
+
+[node name="Electric Baton" type="Sprite2D" unique_id=1979784302 node_paths=PackedStringArray("hit_sfx", "lightning", "bolts_aoe", "display", "hit_scan", "projections", "animation_player", "use_sfx")]
+texture = ExtResource("1_saugq")
+offset = Vector2(-20, -30)
+flip_h = true
+script = ExtResource("2_0q57w")
+hit_sfx = NodePath("hit_sfx")
+lightning = NodePath("special/Lightning")
+bolts_aoe = [NodePath("special/bolts_aoe/bolt_1_aoe"), NodePath("special/bolts_aoe/bolt_2_aoe"), NodePath("special/bolts_aoe/bolt_3_aoe")]
+display = NodePath("MeleeWeaponDisplay")
+base_damage = 50
+cooldown = 2.0
+hit_scan = NodePath("hit_scan")
+melee = true
+projections = [NodePath("hit_scan/Sprite2D")]
+animation_player = NodePath("weapon_animation")
+use_sfx = NodePath("use_sfx")
+use_feedback = "lunge"
+hit_feedback = "screen_shake"
+color_tag = "agility"
+metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
+
+[node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=290525257]
+libraries/ = SubResource("AnimationLibrary_y34v8")
+libraries/melee = ExtResource("8_0q57w")
+
+[node name="hands_animation" type="AnimationPlayer" parent="weapon_animation" unique_id=285348539]
+libraries/ = SubResource("AnimationLibrary_0q57w")
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=163949018]
+stream = ExtResource("4_y34v8")
+
+[node name="hit_sfx" type="AudioStreamPlayer" parent="." unique_id=1576720554]
+stream = ExtResource("5_ysdc1")
+
+[node name="MeleeWeaponDisplay" type="Node" parent="." unique_id=1992925223]
+script = ExtResource("6_1k2qk")
+metadata/_custom_type_script = "uid://nkvusiyd18wl"
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=1585339928]
+position = Vector2(80, 0)
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=452768568]
+shape = SubResource("CircleShape2D_kuc8p")
+debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=870838813]
+modulate = Color(1, 1, 1, 0.11764706)
+position = Vector2(1, -1)
+scale = Vector2(6, 8)
+texture = ExtResource("7_pfuvk")
+
+[node name="right_hand_anchor" type="Node2D" parent="." unique_id=182137675]
+position = Vector2(-20, -2.000001)
+
+[node name="left_hand_anchor" type="Node2D" parent="." unique_id=725661103]
+position = Vector2(-20, 5.999999)
+
+[node name="special" type="Node2D" parent="." unique_id=951522741]
+
+[node name="Lightning" parent="special" unique_id=379496120 instance=ExtResource("9_tlqyt")]
+frame = 0
+activator = 3
+source_type = 1
+
+[node name="bolts_aoe" type="Node2D" parent="special" unique_id=1520519350]
+
+[node name="bolt_1_aoe" type="Area2D" parent="special/bolts_aoe" unique_id=1911731523]
+top_level = true
+scale = Vector2(2, 2)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="special/bolts_aoe/bolt_1_aoe" unique_id=1091753660]
+position = Vector2(0, 124.5)
+shape = SubResource("RectangleShape2D_tlqyt")
+
+[node name="bolt_2_aoe" type="Area2D" parent="special/bolts_aoe" unique_id=1184075776]
+top_level = true
+scale = Vector2(2, 2)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="special/bolts_aoe/bolt_2_aoe" unique_id=1139856168]
+position = Vector2(0, 124.5)
+shape = SubResource("RectangleShape2D_tlqyt")
+
+[node name="bolt_3_aoe" type="Area2D" parent="special/bolts_aoe" unique_id=1875091859]
+top_level = true
+scale = Vector2(2, 2)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="special/bolts_aoe/bolt_3_aoe" unique_id=1008330925]
+position = Vector2(0, 124.5)
+shape = SubResource("RectangleShape2D_tlqyt")

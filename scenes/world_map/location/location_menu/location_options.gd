@@ -18,13 +18,18 @@ func load_building(target:Building)->void:
 		b.hide()
 	current_options.clear()
 	building = target;
+	opt1_extra_arg = null;
+	opt2_extra_arg = null;
+	opt3_extra_arg = null;
 	
 	var i:int = 0;
 	for option:Building.Option in building.options:
 		var button:Button = buttons[i];
-		
-
 		i += 1;
+		if "opt_"+str(i)+'_arg' in building: 
+
+			## make this a less ugly way to do this? 
+			self["opt"+str(i)+"_extra_arg"] = building["opt_"+str(i)+"_arg"]
 		
 		current_options.append(option)
 		button.show();
@@ -45,12 +50,23 @@ func load_building(target:Building)->void:
 		tooltip.refresh();
 
 
-
+var opt1_extra_arg:Variant
 func _on_button_pressed() -> void:
-	option_chosen.emit(building, current_options[0])
+	if opt1_extra_arg:
+		option_chosen.emit(building, current_options[0], opt1_extra_arg);
+	else:
+		option_chosen.emit(building, current_options[0])
 
+var opt2_extra_arg:Variant
 func _on_button_2_pressed() -> void:
-	option_chosen.emit(building, current_options[1])
+	if opt2_extra_arg:
+		option_chosen.emit(building, current_options[1], opt2_extra_arg);
+	else:
+		option_chosen.emit(building, current_options[1])
 
+var opt3_extra_arg:Variant
 func _on_button_3_pressed() -> void:
-	option_chosen.emit(building, current_options[2])
+	if opt3_extra_arg:
+		option_chosen.emit(building, current_options[2], opt3_extra_arg);
+	else:
+		option_chosen.emit(building, current_options[2])

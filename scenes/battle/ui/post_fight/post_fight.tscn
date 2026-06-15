@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="3_7eru0"]
 [ext_resource type="AudioStream" uid="uid://bxdjqu8iqwg31" path="res://assets/sound/bgm/defeat.ogg" id="3_r614c"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="4_r614c"]
-[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/player.res" id="4_uki8n"]
+[ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/active_fighter/player.res" id="4_uki8n"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_wgbql"]
 [ext_resource type="Script" uid="uid://yn55dca3qplf" path="res://scenes/ui/sound/sfx_player.gd" id="5_3hyth"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="7_do72l"]
