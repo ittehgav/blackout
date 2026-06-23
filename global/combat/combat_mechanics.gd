@@ -1,10 +1,10 @@
-extends Node
+extends RefCounted
 
-func deal_damage(source:ActiveFighter, target:CombatEntity=source.target_fighter, hard_value:float=0, quiet:bool=false)->void:
+static func deal_damage(source:ActiveFighter, target:CombatEntity=source.target_fighter, hard_value:float=0, quiet:bool=false)->void:
 	if not is_instance_valid(source) or not is_instance_valid(target):
 		return
 	source.catch_hit_target(target);
-	var damage:float
+	var damage:float;
 	if not hard_value:
 		damage = source.damage_modifier.call(source.attack, source);
 	else:
@@ -38,7 +38,7 @@ func deal_damage(source:ActiveFighter, target:CombatEntity=source.target_fighter
 			target.die(source)
 
 
-func heal_target(source:ActiveFighter, target:CombatEntity, value:float)->void:
+static func heal_target(source:ActiveFighter, target:CombatEntity, value:float)->void:
 	## technique applied in call above this one bc theres gonna be multiple
 	## heal sources and some will scale with other stuff too
 	if not is_instance_valid(source) or not is_instance_valid(target):
@@ -54,7 +54,7 @@ func heal_target(source:ActiveFighter, target:CombatEntity, value:float)->void:
 
 
 
-func shield_target(source:ActiveFighter, target:CombatEntity, value:float, quiet:bool=false)->void:
+static func shield_target(source:ActiveFighter, target:CombatEntity, value:float, quiet:bool=false)->void:
 	if not is_instance_valid(source) or not is_instance_valid(target):
 		return
 	target.shield += value;
@@ -77,7 +77,7 @@ const excess_def_falloff_divider = 2;
 ## value the player gets from the first 200 points of defense
 const base_excess_mitigation = 42.5
 
-func defense_mitigation(source:CombatEntity)->float:
+static func defense_mitigation(source:CombatEntity)->float:
 	var def_left:float = source.defense;
 	var total_mitigation:float = 0.0
 	var previous_point:float=0;
@@ -109,25 +109,42 @@ func defense_mitigation(source:CombatEntity)->float:
 	return total_mitigation/100
 
 
-func turn_ellusive(fighter:ActiveFighter, duration:float)->void:
+static func turn_ellusive(fighter:ActiveFighter, duration:float)->void:
 	var team_n:int;
 	if fighter.get_collision_layer_value(1) == true:
 		team_n = 1;
 	else:
 		team_n = 2;
 	fighter.set_collision_layer_value(team_n, false)
-	await get_tree().create_timer(duration).timeout;
+	await fighter.get_tree().create_timer(duration).timeout;
 	fighter.set_collision_layer_value(team_n, true)
 
 
-func knock_back_target(source:ActiveFighter, target:ActiveFighter = source.target_fighter,\
-						strength:int=source.base.skill.knockback_strength, \
+static func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant)->Projectile:
+	var target_direction:Vector2;
+	if source is PlayerFighter:
+		target_direction = Entities.player_fighter.global_position.direction_to(Entities.player_fighter.get_global_mouse_position())
+	elif source is NpcFighter:
+		target_direction = source.global_position.direction_to(source.target_fighter.global_position);
+	
+	var shot:Projectile = projectile.shoot(target_direction);
+
+	if hit_callback is Callable:
+		shot.hit.connect(hit_callback);
+	elif hit_callback is Array:
+		for c:Callable in hit_callback:
+			shot.hit.connect(c);
+	return shot;
+		
+
+static func knock_back_target(source:ActiveFighter, target:ActiveFighter = source.target_fighter,\
+						strength:int=source.base.skill.knockback_strength,
 						override_velocity:Vector2 = Vector2.ZERO,
 						override_direction:Vector2 = Vector2.ZERO)->void:
 	assert(strength);
 	## catches not setting a skillcomponents's kb strength
 	source.catch_hit_target(target);
-	const base_distance = 35
+	const base_distance = 15
 	target.knockback_source = source;
 	var level_gap:float = float(source.level)/float(target.level);
 	var velocity:Vector2;
@@ -140,6 +157,17 @@ func knock_back_target(source:ActiveFighter, target:ActiveFighter = source.targe
 	else:
 		velocity = override_velocity * level_gap
 	
+	var duration:float = .2 * strength
+	match target.weight_class:
+		CombatEntity.WeightClass.light:
+			velocity *= 1.25
+			duration *= 1.1
+		## medium weight = no change
+		CombatEntity.WeightClass.heavy:
+			velocity *= .5
+			duration *= .75
+		
+	
 	target.flying = true;
 	target.collision_scan.monitoring = true
 	target.velocity = velocity;
@@ -147,15 +175,17 @@ func knock_back_target(source:ActiveFighter, target:ActiveFighter = source.targe
 	if target.knockback_tween and target.knockback_tween.is_running():
 		target.knockback_tween.kill();
 	
-	target.knockback_tween = create_tween();
-	target.knockback_tween.tween_property(target, "velocity", Vector2.ZERO, 1)
+	target.knocked_back.emit(source, strength);
+	
+	target.knockback_tween = target.create_tween();
+	target.knockback_tween.tween_property(target, "velocity", Vector2.ZERO, duration)
 	target.knockback_tween.tween_callback(finish_flight.bind(target))
 
-func collision_damage(source:ActiveFighter, t1:ActiveFighter, t2:ActiveFighter)->void:
+static func collision_damage(source:ActiveFighter, t1:ActiveFighter, t2:ActiveFighter)->void:
 	deal_damage(source, t1);
 	if t2 in source.enemy_team.fighters:
 		deal_damage(source, t2);
 
-func finish_flight(target:ActiveFighter)->void:
+static func finish_flight(target:ActiveFighter)->void:
 	target.flying = false
 	target.collision_scan.monitoring = false

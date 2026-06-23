@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b7f3nouf5oqye"]
 
-[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_s5ruo"]
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/inventory/item_modifiers/item_modifier.gd" id="1_s5ruo"]
 
 [node name="Revitalizing" type="Node" unique_id=1736028412]
 script = ExtResource("1_s5ruo")

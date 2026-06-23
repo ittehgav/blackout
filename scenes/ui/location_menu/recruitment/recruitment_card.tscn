@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cjy4eec2ch65i" path="res://scenes/ui/location_menu/recruitment/recruitment_card.gd" id="1_4dx5q"]
 [ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="2_5o3de"]
-[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="2_p40ot"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/modular/stat_icon.tscn" id="2_p40ot"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="3_8plv6"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_bsnkq"]
 
@@ -120,7 +120,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_5o3de")
 offset = Vector2(30, 40)
 hframes = 8
-vframes = 5
+vframes = 7
 frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/sprite_anchor" unique_id=548149523]

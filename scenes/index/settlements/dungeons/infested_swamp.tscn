@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_5v7sr"]
 [ext_resource type="Texture2D" uid="uid://bmab7n2cj0ahj" path="res://assets/visual/sprites/locations/dungeons/portraits/dungeon_ph.png" id="3_6ct4u"]
 [ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/npc_roster.tscn" id="3_epnjo"]
-[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="4_5v7sr"]
+[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/inventory/loot_inventory.tscn" id="4_5v7sr"]
 [ext_resource type="Texture2D" uid="uid://dg2kk4y1naqri" path="res://assets/visual/sprites/locations/dungeons/hideout_1.png" id="4_gtn0p"]
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="7_s6pwo"]
 [ext_resource type="PackedScene" uid="uid://dt7tutmu87uy3" path="res://scenes/index/items/accessories/sapper.tscn" id="8_yapav"]
@@ -26,10 +26,21 @@
 [ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="18_qcd0k"]
 [ext_resource type="PackedScene" uid="uid://bjnol1lrln1fk" path="res://scenes/index/fighters/monsters/aedes.tscn" id="19_yt5ar"]
 [ext_resource type="PackedScene" uid="uid://buy3hmc8ungmr" path="res://scenes/index/fighters/monsters/termite_queen.tscn" id="20_klytj"]
-[ext_resource type="PackedScene" uid="uid://dhognr0ie2huf" path="res://scenes/index/items/weapons/unimplemented/merciless_katana.tscn" id="21_yff52"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="23_ya602"]
 [ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="24_7n1pf"]
 [ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="26_qcd0k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ya602"]
+resource_local_to_scene = true
+shader = ExtResource("17_m86gc")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gtn0p"]
 resource_local_to_scene = true
@@ -199,18 +210,6 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_857n1"]
-resource_local_to_scene = true
-shader = ExtResource("17_m86gc")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
 [node name="Infested Swamp" type="Node2D" unique_id=926709683 node_paths=PackedStringArray("waves", "final_loot") groups=["all_locations"]]
 script = ExtResource("1_jj465")
 highest_level_target = 500
@@ -239,31 +238,31 @@ metadata/_custom_type_script = "uid://qm0sco0on2a5"
 level = 2
 
 [node name="Calango" parent="NPC Roster/FighterUnit" unique_id=1356813743 instance=ExtResource("16_klytj")]
-material = SubResource("ShaderMaterial_gtn0p")
+material = SubResource("ShaderMaterial_ya602")
 
 [node name="FighterUnit2" parent="NPC Roster" unique_id=724131380 instance=ExtResource("15_5mv46")]
 level = 2
 
 [node name="Calango" parent="NPC Roster/FighterUnit2" unique_id=1911309819 instance=ExtResource("16_klytj")]
-material = SubResource("ShaderMaterial_k4men")
+material = SubResource("ShaderMaterial_gtn0p")
 
 [node name="FighterUnit3" parent="NPC Roster" unique_id=1318439384 instance=ExtResource("15_5mv46")]
 level = 2
 
 [node name="Calango" parent="NPC Roster/FighterUnit3" unique_id=1639753506 instance=ExtResource("16_klytj")]
-material = SubResource("ShaderMaterial_i4bdm")
+material = SubResource("ShaderMaterial_k4men")
 
 [node name="FighterUnit4" parent="NPC Roster" unique_id=470331231 instance=ExtResource("15_5mv46")]
 level = 2
 
 [node name="Big Rat" parent="NPC Roster/FighterUnit4" unique_id=779088301 instance=ExtResource("18_aqaq6")]
-material = SubResource("ShaderMaterial_f6yb8")
+material = SubResource("ShaderMaterial_i4bdm")
 
 [node name="FighterUnit5" parent="NPC Roster" unique_id=443096000 instance=ExtResource("15_5mv46")]
 level = 2
 
 [node name="Big Rat" parent="NPC Roster/FighterUnit5" unique_id=1523441817 instance=ExtResource("18_aqaq6")]
-material = SubResource("ShaderMaterial_07gl3")
+material = SubResource("ShaderMaterial_f6yb8")
 
 [node name="NPC Roster2" parent="." unique_id=1557767277 instance=ExtResource("3_epnjo")]
 
@@ -283,31 +282,31 @@ material = SubResource("ShaderMaterial_07gl3")
 level = 3
 
 [node name="Big Rat" parent="NPC Roster2/FighterUnit5" unique_id=105115665 instance=ExtResource("18_aqaq6")]
-material = SubResource("ShaderMaterial_60i7p")
+material = SubResource("ShaderMaterial_07gl3")
 
 [node name="FighterUnit6" parent="NPC Roster2" unique_id=126136071 instance=ExtResource("15_5mv46")]
 level = 3
 
 [node name="Big Rat" parent="NPC Roster2/FighterUnit6" unique_id=1889504070 instance=ExtResource("18_aqaq6")]
-material = SubResource("ShaderMaterial_qgmtl")
+material = SubResource("ShaderMaterial_60i7p")
 
 [node name="FighterUnit7" parent="NPC Roster2" unique_id=714887339 instance=ExtResource("15_5mv46")]
 level = 3
 
 [node name="Aedes" parent="NPC Roster2/FighterUnit7" unique_id=1948510965 instance=ExtResource("19_yt5ar")]
-material = SubResource("ShaderMaterial_eix17")
+material = SubResource("ShaderMaterial_qgmtl")
 
 [node name="FighterUnit8" parent="NPC Roster2" unique_id=1699570328 instance=ExtResource("15_5mv46")]
 level = 3
 
 [node name="Aedes" parent="NPC Roster2/FighterUnit8" unique_id=790574056 instance=ExtResource("19_yt5ar")]
-material = SubResource("ShaderMaterial_oinnt")
+material = SubResource("ShaderMaterial_eix17")
 
 [node name="FighterUnit9" parent="NPC Roster2" unique_id=538017241 instance=ExtResource("15_5mv46")]
 level = 3
 
 [node name="Aedes" parent="NPC Roster2/FighterUnit9" unique_id=781139861 instance=ExtResource("19_yt5ar")]
-material = SubResource("ShaderMaterial_8t0lg")
+material = SubResource("ShaderMaterial_oinnt")
 
 [node name="NPC Roster3" parent="." unique_id=174912214 instance=ExtResource("3_epnjo")]
 
@@ -319,43 +318,41 @@ material = SubResource("ShaderMaterial_8t0lg")
 
 [node name="Protein Shake" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="3" unique_id=199944525 instance=ExtResource("9_w3w3u")]
 
-[node name="Merciless Katana" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="4" unique_id=1704664670 instance=ExtResource("21_yff52")]
+[node name="Tailpipe" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="4" unique_id=870722934 instance=ExtResource("23_ya602")]
 
-[node name="Tailpipe" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="5" unique_id=870722934 instance=ExtResource("23_ya602")]
+[node name="Jumpsuit" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="5" unique_id=342141630 instance=ExtResource("24_7n1pf")]
 
-[node name="Jumpsuit" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="6" unique_id=342141630 instance=ExtResource("24_7n1pf")]
-
-[node name="Juice Flask" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="7" unique_id=1428369178 instance=ExtResource("11_gtn0p")]
+[node name="Juice Flask" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="6" unique_id=1428369178 instance=ExtResource("11_gtn0p")]
 
 [node name="FighterUnit5" parent="NPC Roster3" unique_id=696959328 instance=ExtResource("15_5mv46")]
 level = 5
 
 [node name="Big Rat" parent="NPC Roster3/FighterUnit5" unique_id=2141123928 instance=ExtResource("18_aqaq6")]
-material = SubResource("ShaderMaterial_gvsv2")
+material = SubResource("ShaderMaterial_8t0lg")
 
 [node name="FighterUnit6" parent="NPC Roster3" unique_id=1312024135 instance=ExtResource("15_5mv46")]
 level = 5
 
 [node name="Big Rat" parent="NPC Roster3/FighterUnit6" unique_id=1917116714 instance=ExtResource("18_aqaq6")]
-material = SubResource("ShaderMaterial_c47oo")
+material = SubResource("ShaderMaterial_gvsv2")
 
 [node name="FighterUnit7" parent="NPC Roster3" unique_id=1770855845 instance=ExtResource("15_5mv46")]
 level = 5
 
 [node name="Aedes" parent="NPC Roster3/FighterUnit7" unique_id=1757605495 instance=ExtResource("19_yt5ar")]
-material = SubResource("ShaderMaterial_sxlp1")
+material = SubResource("ShaderMaterial_c47oo")
 
 [node name="FighterUnit8" parent="NPC Roster3" unique_id=140030826 instance=ExtResource("15_5mv46")]
 level = 5
 
 [node name="Aedes" parent="NPC Roster3/FighterUnit8" unique_id=52087729 instance=ExtResource("19_yt5ar")]
-material = SubResource("ShaderMaterial_lqntf")
+material = SubResource("ShaderMaterial_sxlp1")
 
 [node name="FighterUnit9" parent="NPC Roster3" unique_id=2035980694 instance=ExtResource("15_5mv46")]
 level = 5
 
 [node name="Termite Queen" parent="NPC Roster3/FighterUnit9" unique_id=381041469 instance=ExtResource("20_klytj")]
-material = SubResource("ShaderMaterial_857n1")
+material = SubResource("ShaderMaterial_lqntf")
 
 [node name="final_loot" parent="." unique_id=955501022 instance=ExtResource("4_5v7sr")]
 

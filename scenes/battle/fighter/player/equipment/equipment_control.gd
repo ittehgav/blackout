@@ -67,9 +67,8 @@ func _on_weapon_equipped(weapon: Weapon) -> void:
 	## and leave this as more of a signal emitter and anchor for the weapon sprite
 	equipped_weapon = weapon;
 	
-	
-	right_hand.reparent(weapon.get_node("right_hand_anchor"), false)
-	left_hand.reparent(weapon.get_node("left_hand_anchor"), false)
+	weapon.attach_hands(right_hand, left_hand)
+
 	
 	weapon_anchor.rotation = 0;
 	if weapon.size_x > 2 and weapon.size_y > 2:
@@ -92,14 +91,15 @@ func refresh_weapon_cooldowns()->void:
 func weapon_animation_finished(anim_name:String, source:Weapon)->void:
 	source.animation_player.play("RESET")
 	
-	var root_key:String = source.animation_root_key;
-	var atk_key:String = root_key + "/attack";
+	var atk_key:String = source.get_animation_key("attack")
+	var walk_key:String = source.get_animation_key("walk")
+	var idle_key:String = source.get_animation_key("idle")
 	
 	if anim_name == atk_key:
 		if holder.moving:
-			source.animation_player.play(root_key+"/walk")
+			source.animation_player.play(walk_key)
 		else:
-			source.animation_player.play(root_key+"/idle")
+			source.animation_player.play(idle_key)
 
 	source.display.weapon_animation_finished(anim_name)
 
@@ -107,8 +107,7 @@ func weapon_animation_finished(anim_name:String, source:Weapon)->void:
 
 func not_attacking()->bool:
 	## will return true when in knockback frame i spose
-	var root_key:String = equipped_weapon.animation_root_key;
-	var atk_key:String = root_key+"/attack";
+	var atk_key:String = equipped_weapon.get_animation_key("attack");
 	
 	var current:String = equipped_weapon.animation_player.current_animation
 	
@@ -118,13 +117,13 @@ func not_attacking()->bool:
 	
 func _on_player_fighter_started_moving() -> void:
 	if not_attacking():
-		var walk_key:String = equipped_weapon.animation_root_key + "/walk"
+		var walk_key:String = equipped_weapon.get_animation_key("walk")
 		equipped_weapon.animation_player.play(walk_key)
 
 
 func _on_player_fighter_stopped_moving() -> void:
 	if not_attacking():
-		var idle_key:String = equipped_weapon.animation_root_key + "/idle"
+		var idle_key:String = equipped_weapon.get_animation_key("idle")
 		equipped_weapon.animation_player.play(idle_key)
 
 func _on_attack_slow_timeout() -> void:

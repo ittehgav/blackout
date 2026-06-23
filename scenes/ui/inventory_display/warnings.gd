@@ -7,7 +7,7 @@ extends Control
 @onready var all_labels:Array[Control] = [liquid_discard_label, loot_discard_label];
 
 func _ready()->void:
-	liquid_discard_label.text = Index.resource_colored_name("fuel", true, true) + " and " + Index.resource_colored_name("juice", true, true)\
+	liquid_discard_label.text = Resources.resource_colored_name("fuel", true, true) + " and " + Resources.resource_colored_name("juice", true, true)\
 	 + " are [u]liquid[/u] and need to be stored in containers, otherwise they'll be discarded.";
 
 

@@ -14,7 +14,7 @@ const rarity = 3;
 
 func get_description()->String:
 	var string:String = "Deals " + str(final_damage()) + " damage to enemies in front of you.\nAlternative use: slice through enemies, dashing a long distance and gaining an "\
-	+ Index.stat_colored_name("agility") + " bonus for each enemy hit.";
+	+ CombatStats.stat_colored_name("agility") + " bonus for each enemy hit.";
 	return string
 
 

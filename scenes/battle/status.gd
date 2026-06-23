@@ -84,7 +84,7 @@ func apply(propagated:bool)->void:
 	match type:
 		"stun":
 			assert(duration);
-			duration += Scaling.technique_mechanic_multipliers["stun"] * source.technique * duration
+			duration += CombatStats.technique_mechanic_multipliers["stun"] * source.technique * duration
 			host.stunned = true;
 			if host is NpcFighter and not host.dummy:
 				host.cooldown_timer.paused = true;
@@ -92,8 +92,8 @@ func apply(propagated:bool)->void:
 		
 		"stat_change":
 			assert(value)
-			var final_value:float = Scaling.technique_scaled_value(value, source.technique, "stat_change");
-			
+			var final_value:float = CombatStats.technique_scaled_value(value, source.technique, "stat_change");
+		
 			## catches buffs and debuffs by whether the value is negative of positive
 			host.stat_modifiers[stat] += final_value
 			
@@ -103,7 +103,7 @@ func apply(propagated:bool)->void:
 			## right now only on calango tail poison
 			## always quiet?
 			assert(value);
-			var final_value:float = Scaling.technique_scaled_value(value, source.technique, "damage")
+			var final_value:float = CombatStats.technique_scaled_value(value, source.technique, "damage")
 			var tween:Tween = create_tween();
 			for i:int in int(duration):
 				tween.tween_interval(1);

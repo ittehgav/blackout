@@ -3,8 +3,8 @@ extends Module
 const rarity = 2;
 
 func get_description()->String:
-	return "Consumes " + str(scrap_cost) +" "+ Index.resource_colored_name("scrap") + " and"\
-			+Index.get_color_tag("shield") + " shields[/color] you and nearby allies for a percentage of your " + Index.stat_colored_name("max_hp") + ".";
+	return "Consumes " + str(scrap_cost) +" "+ Resources.resource_colored_name("scrap") + " and"\
+			+Index.get_color_tag("shield") + " shields[/color] you and nearby allies for a percentage of your " + CombatStats.stat_colored_name("max_hp") + ".";
 
 
 const scrap_cost = 5;

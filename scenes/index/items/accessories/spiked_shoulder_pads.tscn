@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://djoxa1rcdyl57"]
+[gd_scene format=3 uid="uid://djoxa1rcdyl57"]
 
 [ext_resource type="Texture2D" uid="uid://cf8e5wx7paq8y" path="res://assets/visual/items/accessories/spiked_shoulder_pads.png" id="1_vs0yq"]
 [ext_resource type="Script" uid="uid://bqt8g4mlluqgt" path="res://scenes/index/items/accessories/scripts/spiked_shoulder_pads.gd" id="2_8kxpn"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="3_8kxpn"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="3_8kxpn"]
 
-[node name="Spiked Shoulder Pads" type="Sprite2D" node_paths=PackedStringArray("stat_modifiers")]
+[node name="Spiked Shoulder Pads" type="Sprite2D" unique_id=2145240947 node_paths=PackedStringArray("stat_modifiers")]
 texture = ExtResource("1_vs0yq")
 script = ExtResource("2_8kxpn")
 stat_modifiers = NodePath("stats")
@@ -16,7 +16,7 @@ equippable = Dictionary[String, bool]({
 color_tag = "defense"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
-[node name="stats" parent="." instance=ExtResource("3_8kxpn")]
+[node name="stats" type="Node" parent="." unique_id=466471470]
+script = ExtResource("3_8kxpn")
 defense = 10.0
-technique = 0.0
 move_speed = 0.0

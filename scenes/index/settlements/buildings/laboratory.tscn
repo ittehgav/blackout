@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/settlements/building.gd" id="1_12vat"]
 [ext_resource type="Texture2D" uid="uid://cf6s2vg4xqwpg" path="res://assets/visual/buildings/icons/laboratory.png" id="2_7eaf0"]
 [ext_resource type="Texture2D" uid="uid://ckdbec5h33f5u" path="res://assets/visual/sprites/locations/settlements/portraits/laboratory.png" id="2_tfmdr"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="3_d1cbj"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/inventory/shop_inventory.tscn" id="3_d1cbj"]
 [ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="4_32kyk"]
 [ext_resource type="PackedScene" uid="uid://dt7tutmu87uy3" path="res://scenes/index/items/accessories/sapper.tscn" id="4_yt32p"]
 [ext_resource type="PackedScene" uid="uid://j3tt7eipwb1t" path="res://scenes/index/items/consumables/eye_chart.tscn" id="5_k5j6q"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="9_cwfbo"]
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="10_xfwq6"]
 [ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/allegiance_shifter.tscn" id="11_v5i3r"]
-[ext_resource type="PackedScene" uid="uid://dch7fwggrtedg" path="res://scenes/index/items/weapons/unimplemented/toxic_grenade_launcher.tscn" id="12_ov11c"]
 
 [node name="Laboratory" type="Node2D" unique_id=1684508635 node_paths=PackedStringArray("inventory") groups=["all_settlements"]]
 script = ExtResource("1_12vat")
@@ -53,5 +52,3 @@ exclusive_tag = 0
 [node name="Adrenaline Synthethizer" parent="ShopInventory" unique_id=871190808 instance=ExtResource("10_xfwq6")]
 
 [node name="Allegiance Shifter" parent="ShopInventory" unique_id=997935511 instance=ExtResource("11_v5i3r")]
-
-[node name="Toxic Grenade Launcher" parent="ShopInventory" unique_id=1413496883 instance=ExtResource("12_ov11c")]

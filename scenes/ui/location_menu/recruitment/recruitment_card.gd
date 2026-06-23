@@ -40,7 +40,7 @@ func setup(target:FighterUnit)->void:
 	recruit_name_label.text = "Lvl. " + str(unit.level) + " " + unit.base.name
 	
 	var final_stats:CombatStats = unit.final_stats()
-	for stat:String in Index.all_combat_stats:
+	for stat:String in CombatStats.all_stats:
 		self["recruit_"+stat+"_label"].text = str(final_stats[stat]);
 
 func refresh_affordability()->void:

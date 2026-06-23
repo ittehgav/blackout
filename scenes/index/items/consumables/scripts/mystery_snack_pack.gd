@@ -6,7 +6,7 @@ const size_y = 1;
 const rarity = 2;
 
 func get_description()->String:
-	return "Use to gain a random amount of " + Index.resource_colored_name("food")+"."
+	return "Use to gain a random amount of " + Resources.resource_colored_name("food")+"."
 
 func use()->void:
 	var roll:int = randi_range(25, 50);

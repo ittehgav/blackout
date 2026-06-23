@@ -59,10 +59,9 @@ func load_item(target:Item, new_item:bool=false)->void:
 	custom_minimum_size = Vector2.ZERO;
 	size = Vector2.ZERO;
 	custom_minimum_size = Vector2(item.size_x, item.size_y) * display.grid_cell_size;
-	tooltip.load_target(self);
+
 	if item is ResourceContainer:
 		stack_size = item.stack_size
-	modifier_icon.refresh(item)
 
 	
 	var item_color:Color = item.get_mirror_color();
@@ -593,12 +592,10 @@ func set_price()->void:
 		price_tag.text = "$" + str(traded_price);
 
 func refresh()->void:
-	tooltip.load_target(self)
-	
 	if display.context == "trade" or display.context == "loot":
 		set_price();
 		
-	modifier_icon.refresh(item)
+	#modifier_icon.refresh(item)
 	
 	if item is ResourceContainer and item.raw_stack and stack_size == 0:
 		display.remove_mirror(self)

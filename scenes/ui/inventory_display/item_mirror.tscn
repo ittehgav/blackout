@@ -2,18 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bxflqfjcfcxqb" path="res://scenes/ui/inventory_display/item_mirror.gd" id="2_7dtgv"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="2_sxf1m"]
-[ext_resource type="PackedScene" uid="uid://cr7mjllu5bxvg" path="res://scenes/ui/icons/item_modifier_icon.tscn" id="3_uq2i0"]
-[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="4_d8ygy"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uq2i0"]
-resource_local_to_scene = true
-shader = ExtResource("4_d8ygy")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="ItemMirror" type="TextureRect" unique_id=688900415 node_paths=PackedStringArray("outline", "bg", "being_traded_rect", "tooltip", "modifier_icon", "stack_size_label", "price_tag")]
 z_index = 5
@@ -32,7 +20,7 @@ outline = NodePath("MarginContainer/outline")
 bg = NodePath("MarginContainer/mirror_bg")
 being_traded_rect = NodePath("being_traded")
 tooltip = NodePath("Tooltip")
-modifier_icon = NodePath("ItemModifierIcon")
+modifier_icon = NodePath("")
 stack_size_label = NodePath("stack_size")
 price_tag = NodePath("price_tag")
 bought_color = Color(0, 1, 0, 0.3137255)
@@ -76,6 +64,7 @@ offset_right = 322.0
 offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
+target_type = 2
 
 [node name="price_tag" type="Label" parent="." unique_id=1154639968]
 visible = false
@@ -120,11 +109,6 @@ mouse_filter = 2
 
 [node name="click_grab" type="Timer" parent="." unique_id=1953766206]
 wait_time = 0.25
-
-[node name="ItemModifierIcon" parent="." unique_id=1395602884 instance=ExtResource("3_uq2i0")]
-visible = false
-material = SubResource("ShaderMaterial_uq2i0")
-layout_mode = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

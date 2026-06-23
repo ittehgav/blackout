@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://b4ub8gqruq825"]
 
-[ext_resource type="Script" uid="uid://blqfh3mdw2m5r" path="res://scenes/index/settlements/buildings/black_market.gd" id="1_tnb7f"]
+[ext_resource type="Script" uid="uid://blqfh3mdw2m5r" path="res://scenes/index/settlements/scripts/black_market.gd" id="1_tnb7f"]
 [ext_resource type="Texture2D" uid="uid://o7gu8aermqps" path="res://assets/visual/sprites/locations/settlements/portraits/s2_building_ph.png" id="2_so51c"]
 [ext_resource type="Texture2D" uid="uid://bswpu2g6cclwj" path="res://assets/visual/buildings/icons/black_market.png" id="2_twu2y"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="4_cbvov"]
-[ext_resource type="Script" uid="uid://b8037pwr05tdw" path="res://scenes/leader/inventory/rotating_inventory.gd" id="5_j7wsn"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/inventory/shop_inventory.tscn" id="4_cbvov"]
+[ext_resource type="Script" uid="uid://b8037pwr05tdw" path="res://scenes/inventory/rotating_inventory.gd" id="5_j7wsn"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="6_5tdgl"]
 [ext_resource type="PackedScene" uid="uid://c4s2cufch0vvv" path="res://scenes/index/items/accessories/external_processing_unit.tscn" id="7_13hku"]
 [ext_resource type="PackedScene" uid="uid://dtd8165tljlor" path="res://scenes/index/items/accessories/forbidden_mask.tscn" id="8_qw1gl"]

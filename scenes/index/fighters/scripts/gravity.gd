@@ -4,12 +4,8 @@ extends FighterBase
 @export var beam:Polygon2D
 
 func full_skill_description(unit:FighterUnit)->String:
-	var stun_duration:String = Index.colored_text("technique", Scaling.technique_scaled_value(skill.status.duration, unit.final_stat("technique"), "stun")," seconds");
-	
-	var final_string:String = "Knocks back and stuns an enemy for %s, also stuns any enemies they collide with."%stun_duration;
+	var final_string:String = "Knocks back and stuns an enemy, also stuns and damages any enemies they collide with.";
 	return final_string
-
-
 
 
 func _on_animation_player_animation_started(anim_name: StringName) -> void:

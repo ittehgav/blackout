@@ -7,9 +7,9 @@ signal response
 var accepted:bool;
 
 func _ready()->void:
-	warning_label.text = "If you run out of " + Index.resource_colored_name("food")\
+	warning_label.text = "If you run out of " + Resources.resource_colored_name("food")\
 	+" while travelling, your party's [color=green]Morale[/color] will drop.\n\n"\
-	+ "If your party runs out of " + Index.resource_colored_name("fuel") + \
+	+ "If your party runs out of " + Resources.resource_colored_name("fuel") + \
 	" while travelling, your [color=green]navigation speed[/color] will drop drastically!";
 
 

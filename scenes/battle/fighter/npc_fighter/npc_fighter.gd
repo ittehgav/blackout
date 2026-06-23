@@ -82,6 +82,8 @@ func load_fighter(new_unit:FighterUnit)->void:
 func load_base()->void:
 	body_type = base.body_type
 	
+	weight_class = base.weight_class
+	
 	dust.reparent(base)
 	dust.position = Vector2.ZERO
 	skill_dust.reparent(base);
@@ -100,7 +102,7 @@ func load_base()->void:
 	base.skill.fighter = self;
 	
 	if base.skill.technique_scaled_damage:
-		damage_modifier = Scaling.technique_scaled_damage;
+		damage_modifier = CombatStats.technique_scaled_damage;
 	elif base.skill.own_damage_modifier:
 		assert(base.damage_modifier)
 		damage_modifier = base.damage_modifier;
@@ -147,7 +149,7 @@ func setup_aoe_projection(shape:CollisionShape2D)->void:
 
 func load_unit_stats()->void:
 	var stats:CombatStats = unit.final_stats();
-	for stat:String in Index.all_combat_stats:
+	for stat:String in CombatStats.all_stats:
 		initial_stats[stat] = stats[stat];
 	move_speed = base.base_stats['move_speed']
 
@@ -305,7 +307,7 @@ func _on_stat_changed(stat:String)->void:
 
 
 func final_skill_cooldown()->float:
-	return base.skill.base_cooldown - Scaling.agility_cooldown_reduction(base.skill.base_cooldown, agility)
+	return base.skill.base_cooldown - CombatStats.agility_cooldown_reduction(base.skill.base_cooldown, agility)
 
 func refresh_skill_cooldown()->void:
 	true_cooldown = final_skill_cooldown();

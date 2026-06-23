@@ -6,6 +6,7 @@ signal fighter_died(fighter:ActiveFighter)
 
 
 signal fighter_converted(fighter:ActiveFighter);
+@export var npc_fighter_scene:PackedScene
 ## team that LOSES the converted unit emits it
 
 
@@ -49,7 +50,7 @@ func load_roster()->void:
 
 
 func generate_fighter(unit:FighterUnit, force_position:Vector2=Vector2.ZERO)->NpcFighter:
-	var fighter:NpcFighter = Index.scenes.npc_fighter.instantiate();
+	var fighter:NpcFighter = npc_fighter_scene.instantiate();
 	fighter.ally_team = self;
 	fighter.load_fighter(unit);
 	

@@ -33,7 +33,7 @@ func catch_hit_target(hit_figher:CombatEntity)->void:
 		hit_targets.append(hit_figher);
 		
 func refresh_all_stats()->void:
-	for stat:String in Index.all_combat_stats:
+	for stat:String in CombatStats.all_stats:
 		refresh_stat(stat)
 
 func refresh_stat(stat:String)->void:

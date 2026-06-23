@@ -84,6 +84,7 @@ script = ExtResource("3_db2wx")
 smoke = NodePath("hit_scan/smoke")
 skill = NodePath("Gas Leak")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 2
 tags = Array[int]([7, 6, 5])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -94,9 +95,10 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 script = ExtResource("3_fwyy1")
 base_cooldown = 4.0
 effects = Array[int]([2, 3, 5])
-transform_visual = 2
 position_lineup = false
+transform_visual = 2
 status = NodePath("Intoxicated")
+knockback_strength = 2
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="Intoxicated" type="Node" parent="Gas Leak" unique_id=162292458]

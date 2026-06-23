@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_rdoh2"]
 [ext_resource type="Texture2D" uid="uid://bmab7n2cj0ahj" path="res://assets/visual/sprites/locations/dungeons/portraits/dungeon_ph.png" id="3_dwcle"]
 [ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/npc_roster.tscn" id="4_wuwmq"]
-[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="5_b0lvi"]
+[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/inventory/loot_inventory.tscn" id="5_b0lvi"]
 [ext_resource type="PackedScene" uid="uid://bjmnlpi6chnbj" path="res://scenes/index/items/containers/chips.tscn" id="7_bg3hg"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="7_k8vc6"]
 [ext_resource type="PackedScene" uid="uid://cr3hxwb2o42kl" path="res://scenes/index/items/accessories/forbidden_shoulders.tscn" id="8_qltu7"]
@@ -15,15 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://dt7tutmu87uy3" path="res://scenes/index/items/accessories/sapper.tscn" id="11_vd74n"]
 [ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="12_6fits"]
 [ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="12_k8vc6"]
-[ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/unimplemented/taser_gun.tscn" id="13_71vm3"]
-[ext_resource type="PackedScene" uid="uid://dhognr0ie2huf" path="res://scenes/index/items/weapons/unimplemented/merciless_katana.tscn" id="14_8qmq3"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="15_4trfj"]
-[ext_resource type="PackedScene" uid="uid://dch7fwggrtedg" path="res://scenes/index/items/weapons/unimplemented/toxic_grenade_launcher.tscn" id="15_8rxpv"]
 [ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/index/items/containers/chips_case.tscn" id="15_fdd6x"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="16_rv67h"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="17_3ro28"]
 [ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="18_fahr4"]
-[ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/unimplemented/chakram.tscn" id="18_ppk8v"]
 [ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="18_yeuqy"]
 [ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="19_8tou1"]
 [ext_resource type="PackedScene" uid="uid://j3tt7eipwb1t" path="res://scenes/index/items/consumables/eye_chart.tscn" id="19_tbfn3"]
@@ -35,6 +31,78 @@
 [ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/units/electric_hulk.tscn" id="23_ppk8v"]
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="25_06nmh"]
 [ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="28_qgcsb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnse0"]
+resource_local_to_scene = true
+shader = ExtResource("17_3ro28")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a45b0"]
+resource_local_to_scene = true
+shader = ExtResource("17_3ro28")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fahr4"]
+resource_local_to_scene = true
+shader = ExtResource("17_3ro28")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8tou1"]
+resource_local_to_scene = true
+shader = ExtResource("17_3ro28")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd74n"]
+resource_local_to_scene = true
+shader = ExtResource("17_3ro28")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6fits"]
+resource_local_to_scene = true
+shader = ExtResource("17_3ro28")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_71vm3"]
 resource_local_to_scene = true
@@ -192,78 +260,6 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uql8r"]
-resource_local_to_scene = true
-shader = ExtResource("17_3ro28")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4ifv"]
-resource_local_to_scene = true
-shader = ExtResource("17_3ro28")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y42mw"]
-resource_local_to_scene = true
-shader = ExtResource("17_3ro28")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6xi7"]
-resource_local_to_scene = true
-shader = ExtResource("17_3ro28")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dwsg"]
-resource_local_to_scene = true
-shader = ExtResource("17_3ro28")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j85lq"]
-resource_local_to_scene = true
-shader = ExtResource("17_3ro28")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
 [node name="Operation Base" type="Node2D" unique_id=589192659 node_paths=PackedStringArray("waves", "final_loot") groups=["all_locations"]]
 script = ExtResource("1_1q6nh")
 highest_level_target = 200
@@ -293,37 +289,35 @@ loot = NodePath("basic_loot")
 
 [node name="Protein Shake" parent="DungeonRoster/basic_loot" unique_id=317002424 instance=ExtResource("12_6fits")]
 
-[node name="Taser Gun" parent="DungeonRoster/basic_loot" unique_id=982173061 instance=ExtResource("13_71vm3")]
-
 [node name="FighterUnit" parent="DungeonRoster" unique_id=2067750979 instance=ExtResource("15_4trfj")]
 level = 2
 
 [node name="Puncher" parent="DungeonRoster/FighterUnit" unique_id=1510142188 instance=ExtResource("16_rv67h")]
-material = SubResource("ShaderMaterial_71vm3")
+material = SubResource("ShaderMaterial_dnse0")
 
 [node name="FighterUnit2" parent="DungeonRoster" unique_id=1120564738 instance=ExtResource("15_4trfj")]
 level = 2
 
 [node name="Puncher" parent="DungeonRoster/FighterUnit2" unique_id=183345916 instance=ExtResource("16_rv67h")]
-material = SubResource("ShaderMaterial_ppk8v")
+material = SubResource("ShaderMaterial_a45b0")
 
 [node name="FighterUnit3" parent="DungeonRoster" unique_id=1144957659 instance=ExtResource("15_4trfj")]
 level = 2
 
 [node name="Puncher" parent="DungeonRoster/FighterUnit3" unique_id=2090706667 instance=ExtResource("16_rv67h")]
-material = SubResource("ShaderMaterial_tbfn3")
+material = SubResource("ShaderMaterial_fahr4")
 
 [node name="FighterUnit4" parent="DungeonRoster" unique_id=823524420 instance=ExtResource("15_4trfj")]
 level = 3
 
 [node name="Sniper" parent="DungeonRoster/FighterUnit4" unique_id=1797122592 instance=ExtResource("18_fahr4")]
-material = SubResource("ShaderMaterial_06nmh")
+material = SubResource("ShaderMaterial_8tou1")
 
 [node name="FighterUnit5" parent="DungeonRoster" unique_id=1223267105 instance=ExtResource("15_4trfj")]
 level = 3
 
 [node name="Sniper" parent="DungeonRoster/FighterUnit5" unique_id=1536879302 instance=ExtResource("18_fahr4")]
-material = SubResource("ShaderMaterial_qgcsb")
+material = SubResource("ShaderMaterial_vd74n")
 
 [node name="DungeonRoster2" parent="." unique_id=874317596 node_paths=PackedStringArray("loot") instance=ExtResource("4_wuwmq")]
 loot = NodePath("basic_loot")
@@ -331,19 +325,11 @@ loot = NodePath("basic_loot")
 [node name="basic_loot" parent="DungeonRoster2" unique_id=469683366 instance=ExtResource("5_b0lvi")]
 rare_count = 1
 
-[node name="Chakram" parent="DungeonRoster2/basic_loot" unique_id=1491091324 instance=ExtResource("18_ppk8v")]
-
 [node name="Chips" parent="DungeonRoster2/basic_loot" unique_id=2095210262 instance=ExtResource("7_bg3hg")]
 
 [node name="Eye Chart" parent="DungeonRoster2/basic_loot" unique_id=844260367 instance=ExtResource("19_tbfn3")]
 
-[node name="Merciless Katana" parent="DungeonRoster2/basic_loot" unique_id=1704664670 instance=ExtResource("14_8qmq3")]
-
-[node name="Taser Gun" parent="DungeonRoster2/basic_loot" unique_id=444555155 instance=ExtResource("13_71vm3")]
-
 [node name="External Processing Unit" parent="DungeonRoster2/basic_loot" unique_id=1067690271 instance=ExtResource("21_vd74n")]
-
-[node name="Toxic Grenade Launcher" parent="DungeonRoster2/basic_loot" unique_id=704919183 instance=ExtResource("15_8rxpv")]
 
 [node name="Scrap Crate" parent="DungeonRoster2/basic_loot" unique_id=2037587017 instance=ExtResource("23_6fits")]
 
@@ -351,37 +337,37 @@ rare_count = 1
 level = 3
 
 [node name="Slammer" parent="DungeonRoster2/FighterUnit6" unique_id=1342933973 instance=ExtResource("19_8tou1")]
-material = SubResource("ShaderMaterial_g3yvf")
+material = SubResource("ShaderMaterial_6fits")
 
 [node name="FighterUnit7" parent="DungeonRoster2" unique_id=213922824 instance=ExtResource("15_4trfj")]
 level = 3
 
 [node name="Wrecker" parent="DungeonRoster2/FighterUnit7" unique_id=1018236968 instance=ExtResource("20_vd74n")]
-material = SubResource("ShaderMaterial_5b7mt")
+material = SubResource("ShaderMaterial_71vm3")
 
 [node name="FighterUnit8" parent="DungeonRoster2" unique_id=448994672 instance=ExtResource("15_4trfj")]
 level = 3
 
 [node name="Slammer" parent="DungeonRoster2/FighterUnit8" unique_id=476355858 instance=ExtResource("19_8tou1")]
-material = SubResource("ShaderMaterial_aqug8")
+material = SubResource("ShaderMaterial_ppk8v")
 
 [node name="FighterUnit9" parent="DungeonRoster2" unique_id=798806330 instance=ExtResource("15_4trfj")]
 level = 3
 
 [node name="Sniper" parent="DungeonRoster2/FighterUnit9" unique_id=533838996 instance=ExtResource("18_fahr4")]
-material = SubResource("ShaderMaterial_rr2wo")
+material = SubResource("ShaderMaterial_tbfn3")
 
 [node name="FighterUnit10" parent="DungeonRoster2" unique_id=887714137 instance=ExtResource("15_4trfj")]
 level = 3
 
 [node name="Sniper" parent="DungeonRoster2/FighterUnit10" unique_id=1350058437 instance=ExtResource("18_fahr4")]
-material = SubResource("ShaderMaterial_lagdx")
+material = SubResource("ShaderMaterial_06nmh")
 
 [node name="FighterUnit11" parent="DungeonRoster2" unique_id=29310017 instance=ExtResource("15_4trfj")]
 level = 3
 
 [node name="Gravity" parent="DungeonRoster2/FighterUnit11" unique_id=934399271 instance=ExtResource("21_6fits")]
-material = SubResource("ShaderMaterial_gsq56")
+material = SubResource("ShaderMaterial_qgcsb")
 
 [node name="DungeonRoster3" parent="." unique_id=2095577177 node_paths=PackedStringArray("loot") instance=ExtResource("4_wuwmq")]
 loot = NodePath("basic_loot")
@@ -407,49 +393,49 @@ rare_count = 2
 level = 5
 
 [node name="Slammer" parent="DungeonRoster3/FighterUnit6" unique_id=394901998 instance=ExtResource("19_8tou1")]
-material = SubResource("ShaderMaterial_hf25t")
+material = SubResource("ShaderMaterial_g3yvf")
 
 [node name="FighterUnit12" parent="DungeonRoster3" unique_id=1748921712 instance=ExtResource("15_4trfj")]
 level = 5
 
 [node name="Scythe" parent="DungeonRoster3/FighterUnit12" unique_id=255476344 instance=ExtResource("22_71vm3")]
-material = SubResource("ShaderMaterial_nuogb")
+material = SubResource("ShaderMaterial_5b7mt")
 
 [node name="FighterUnit7" parent="DungeonRoster3" unique_id=237044438 instance=ExtResource("15_4trfj")]
 level = 5
 
 [node name="Wrecker" parent="DungeonRoster3/FighterUnit7" unique_id=1274734064 instance=ExtResource("20_vd74n")]
-material = SubResource("ShaderMaterial_uql8r")
+material = SubResource("ShaderMaterial_aqug8")
 
 [node name="FighterUnit8" parent="DungeonRoster3" unique_id=450050946 instance=ExtResource("15_4trfj")]
 level = 5
 
 [node name="Electric Hulk" parent="DungeonRoster3/FighterUnit8" unique_id=30330839 instance=ExtResource("23_ppk8v")]
-material = SubResource("ShaderMaterial_d4ifv")
+material = SubResource("ShaderMaterial_rr2wo")
 
 [node name="FighterUnit9" parent="DungeonRoster3" unique_id=395413386 instance=ExtResource("15_4trfj")]
 level = 5
 
 [node name="Sniper" parent="DungeonRoster3/FighterUnit9" unique_id=341270966 instance=ExtResource("18_fahr4")]
-material = SubResource("ShaderMaterial_y42mw")
+material = SubResource("ShaderMaterial_lagdx")
 
 [node name="FighterUnit10" parent="DungeonRoster3" unique_id=61870526 instance=ExtResource("15_4trfj")]
 level = 5
 
 [node name="Sniper" parent="DungeonRoster3/FighterUnit10" unique_id=2021213696 instance=ExtResource("18_fahr4")]
-material = SubResource("ShaderMaterial_v6xi7")
+material = SubResource("ShaderMaterial_gsq56")
 
 [node name="FighterUnit11" parent="DungeonRoster3" unique_id=469533796 instance=ExtResource("15_4trfj")]
 level = 5
 
 [node name="Gravity" parent="DungeonRoster3/FighterUnit11" unique_id=1838494936 instance=ExtResource("21_6fits")]
-material = SubResource("ShaderMaterial_5dwsg")
+material = SubResource("ShaderMaterial_hf25t")
 
 [node name="FighterUnit13" parent="DungeonRoster3" unique_id=1146997692 instance=ExtResource("15_4trfj")]
 level = 5
 
 [node name="Gravity" parent="DungeonRoster3/FighterUnit13" unique_id=1799367658 instance=ExtResource("21_6fits")]
-material = SubResource("ShaderMaterial_j85lq")
+material = SubResource("ShaderMaterial_nuogb")
 
 [node name="final_loot" parent="." unique_id=844288525 instance=ExtResource("5_b0lvi")]
 

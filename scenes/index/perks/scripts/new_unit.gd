@@ -1,6 +1,5 @@
 extends Perk
 
-@export var sample:SpriteSample
 @export var party_icon:PartyIcon
 
 var base:FighterBase
@@ -15,7 +14,6 @@ func _ready()->void:
 	level = randi_range(player.level/2, player.level * 1.25);
 	description = "Add a [color="+title_color.to_html()+"] Level " + str(level) + " " + base.name + "[/color] to your party.";
 	icon.atlas = base.texture
-	sample.set_sample(base)
 
 
 

@@ -5,6 +5,7 @@ class_name SkillComponent
 ## eventually will be in the fighter base and replace a lot of 
 ## stuff that's currently just lines in their script
 
+
 ## try and keep these easy to transplant to NPCfighter
 signal impact
 signal finished
@@ -73,7 +74,7 @@ var fighter:NpcFighter;
 @export var special_aoe_projection:bool=false
 
 @export_subgroup("special modifiers")
-## calls Scaling.technique_scaled_damage
+## calls CombatStats.technique_scaled_damage
 ## technique_scaled damage and own_damage_mod are mutually exclusive
 ## but maybe dont have to be?
 @export var technique_scaled_damage:bool=false;
@@ -82,6 +83,18 @@ var fighter:NpcFighter;
 @export var own_damage_modifier:bool=false;
 ## needs to be at least 1 if the skill causes knockback
 @export_range(0, 5) var knockback_strength:int=0;
+
+func knockback_strength_string()->String:
+	assert(knockback_strength)
+	match knockback_strength:
+		1:
+			return "Weak Knockback";
+		2, 3:
+			return "Medium Knockback";
+		_:
+			return "Strong Knockback"
+
+
 
 func lineup()->void:
 	if Effect.aoe_damage in effects or Effect.aoe_status in effects:
@@ -128,7 +141,6 @@ func play_transform_vfx()->void:
 	match transform_visual:
 		## ALL TRANSFORM VISUALS MUST EMIT THE IMPACT SIGNAL
 		TransformVFX.lunge:
-			print("lung?")
 			var direction:Vector2 = fighter.target_direction();
 			fighter.sprite.offset = direction * transform_movement;
 			tween.tween_property(fighter.sprite, "offset", Vector2.ZERO, vfx_duration);

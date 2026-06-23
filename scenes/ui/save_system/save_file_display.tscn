@@ -2,10 +2,10 @@
 
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Blood.tres" id="1_awx0l"]
 [ext_resource type="Script" uid="uid://bhbgetrgpojab" path="res://scenes/main/save_file_display.gd" id="2_88ppu"]
-[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="3_vy2cn"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="3_vy2cn"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="4_2dm55"]
-[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="5_sict8"]
-[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="6_1ll52"]
+[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party/party_icon.tscn" id="5_sict8"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale/morale_icon.tscn" id="6_1ll52"]
 [ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Paper.tres" id="7_g1hqk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i7in8"]

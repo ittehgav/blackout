@@ -4,10 +4,17 @@ class_name Tooltip;
 
 var target:Node;
 
+enum TargetType{
+	constant, 
+	## default value bc it will fire an error if this has no hardcoded values
+	single_load,
+	fully_dynamic
+}
+@export var target_type:TargetType=TargetType.constant;
+
 @export var name_label:Label;
 @export var sub_name_label:Label;
 @export var description_label:RichTextLabel;
-@export var icon:TextureRect;
 @export var hint:Label;
 
 @export var hover_timer:Timer;
@@ -18,68 +25,129 @@ var target:Node;
 @export var hardcoded_sub_name:String;
 @export var hardcoded_description:String;
 
+
 func _ready() -> void:
 	var parent:Node = get_parent();
 	assert(parent is Control)
-	parent.mouse_entered.connect(hover_timer.start);
-	parent.mouse_exited.connect(stop_hover_timer);
+	target = parent;
+	setup_target()
+	
 	enable();
-	refresh()
 	
-
-func refresh()->void:
-	var parent:Node = get_parent();
-	if parent is Icon:
-		load_target(parent)
-		
-	if hardcoded_name:
-		name_label.text = hardcoded_name;
-	if hardcoded_sub_name:
-		sub_name_label.show()
-		sub_name_label.text = hardcoded_sub_name
-	if hardcoded_description:
-		description_label.show();
-		description_label.text = hardcoded_description
-
-func load_target(new_target:Node)->void:
-	description_label.text = ""
-	target = new_target;
-
-	if target is ItemMirror:
-		## item mirrors and displays will call the item_setup on their own
-		item_mirror_setup(target);
-	elif target is ItemSample:
-		item_sample_setup(target)
-	
+func setup_target()->void:
 	if target is Icon and target.floating:
 		queue_free();
-		return;
+		return
+
+	if target_type == TargetType.single_load:
+		refresh();
+	elif target_type == TargetType.fully_dynamic:
+		target.mouse_entered.connect(refresh)
 	
-	elif target is ResourceIcon:
-		name_label.text = target.resource.capitalize();
-		name_label.add_theme_color_override("font_color", Index.resource_colors[target.resource]);
-		description_label.text = Index.resource_descriptions[target.resource];
+	target.mouse_entered.connect(hover_timer.start);
+	target.mouse_exited.connect(stop_hover_timer);
+func disable()->void:
+	if len(hover_timer.timeout.get_connections()):
+		hover_timer.timeout.disconnect(_on_hover_timer_timeout)
+	
+func enable()->void:
+	if not len(hover_timer.timeout.get_connections()):
+		hover_timer.timeout.connect(_on_hover_timer_timeout)
 
+
+func _on_hover_timer_timeout() -> void:
+	Tweens.ui_fade_in(self);
+	var window_size:Vector2 = get_window().size;
+	
+	var target_position:Vector2 = get_global_mouse_position();
+	global_position = target_position
+	
+	if target_position.x + size.x >= window_size.x - 50:
+		position.x -= size.x
+	if target_position.y + size.y >= window_size.y -10:
+		position.y -= size.y
+		
+func stop_hover_timer()->void:
+	if not hover_timer.is_stopped():
+		hover_timer.stop();
+	hide();
+
+func refresh()->void:
+	match target_type:
+		TargetType.constant:
+			assert(hardcoded_name or hardcoded_description);
+			if hardcoded_name:
+				name_label.text = hardcoded_name;
+			if hardcoded_description:
+				description_label.text = hardcoded_description
+		TargetType.single_load:
+			single_load_target()
+		TargetType.fully_dynamic:
+			dynamic_load_target()
+
+
+func single_load_target()->void:
+	## LIST ALL CLASS THAT USE THIS
+	if target is ResourceIcon:
+		load_resource_icon()
 	elif target is StatIcon:
-		var stat_name:String = target.stat.capitalize();
-		if stat_name == "Max Hp":
-			stat_name = "Max HP"
-		name_label.text = stat_name;
-		
-		name_label.add_theme_color_override("font_color", Index.stat_colors[target.stat]);
-		description_label.text = Index.stat_descriptions[target.stat];
-	elif target is DisciplineIcon:
-		var discipline:String = target.discipline;
-		name_label.text = discipline.capitalize();
-		description_label.text = Index.discipline_descriptions[discipline]
+		load_stat_icon();
+
+func load_resource_icon()->void:
+	var icon:ResourceIcon = target;
+	
+	name_label.text = icon.resource.capitalize();
+	name_label.add_theme_color_override("font_color", Resources.resource_colors[icon.resource]);
+	description_label.text = Resources.resource_descriptions[icon.resource];
+
+func load_stat_icon()->void:
+	var icon:StatIcon = target;
+	var stat_name:String = icon.stat.capitalize();
+	if stat_name == "Max Hp":
+		stat_name = "Max HP"
+	name_label.text = stat_name;
+	
+	name_label.add_theme_color_override("font_color", CombatStats.stat_colors[icon.stat]);
+	description_label.text = CombatStats.stat_descriptions[target.stat];
+func dynamic_load_target()->void:
+	## LIST ALL CLASS THAT USE THIS
+	## ItemSample
+	## ItemMirror
+	if target is CombatMechanicIcon:
+		load_combat_mechanic_icon()
+	if target is ItemMirror:
+		## item mirrors and displays will call the item_setup on their own
+		item_mirror_setup();
+	elif target is ItemSample and target.item:
+		item_sample_setup()
 
 
-		
+func load_combat_mechanic_icon()->void:
+	@warning_ignore("confusable_local_usage", "shadowed_variable")
+	var icon:CombatMechanicIcon = target
+	var mechanic:CombatMechanicIcon.Mechanics = icon.mechanic;
+	match mechanic:
+		CombatMechanicIcon.Mechanics.damage:
+			name_label.text = "Damage"
+		CombatMechanicIcon.Mechanics.range:
+			name_label.text = "Range"
+		CombatMechanicIcon.Mechanics.stun:
+			name_label.text = "Stun Duration"
+		CombatMechanicIcon.Mechanics.knockback:
+			name_label.text = "Knockback Distance"
+		CombatMechanicIcon.Mechanics.stat_up:
+			name_label.text = target.stat.capitalize() + " buff"
+		CombatMechanicIcon.Mechanics.stat_down:
+			name_label.text = target.stat.capitalize() + " debuff"
+		CombatMechanicIcon.Mechanics.cooldown:
+			name_label.text = "Cooldown"
 
-func item_sample_setup(sample:ItemSample)->void:
-	var item:Item = sample.item;
-	item_setup(item);
 
+
+func item_sample_setup()->void:
+	item_setup();
+
+	var item:Item = target.item;
 	match item:
 		## tooltip just hides if the sample is blank
 		Entities.player.equipped_weapon:
@@ -94,10 +162,11 @@ func item_sample_setup(sample:ItemSample)->void:
 
 
 
-func item_mirror_setup(mirror:ItemMirror)->void:
-	var item:Item = mirror.item;
-	item_setup(item);
+func item_mirror_setup()->void:
+	var mirror:ItemMirror = target;
+	item_setup();
 	hint.show()
+	var item:Item = target.item;
 	match mirror.display.context:
 		"player_sheet":
 			if item is ResourceContainer:
@@ -129,7 +198,9 @@ func item_mirror_setup(mirror:ItemMirror)->void:
 	
 
 
-func item_setup(item:Item)->void:
+func item_setup()->void:
+	var item:Item = target.item;
+	name_label.add_theme_color_override("font_color", Index.get_color(item.color_tag))
 	var target_name:String = item.name;
 	while target_name[-1].is_valid_int():
 		target_name = target_name.left(-1);
@@ -168,28 +239,3 @@ func item_setup(item:Item)->void:
 	## do the just method for everything that gets colors from index?
 	## some other way that's gonna make me feel stupid once i find out about how do modularize this stuff?
 	description_label.text += item.get_description()
-
-func disable()->void:
-	if len(hover_timer.timeout.get_connections()):
-		hover_timer.timeout.disconnect(_on_hover_timer_timeout)
-	
-func enable()->void:
-	if not len(hover_timer.timeout.get_connections()):
-		hover_timer.timeout.connect(_on_hover_timer_timeout)
-
-func _on_hover_timer_timeout() -> void:
-	Tweens.ui_fade_in(self);
-	var window_size:Vector2 = get_window().size;
-	
-	var target_position:Vector2 = get_global_mouse_position();
-	global_position = target_position
-	
-	if target_position.x + size.x >= window_size.x - 50:
-		position.x -= size.x
-	if target_position.y + size.y >= window_size.y -10:
-		position.y -= size.y
-		
-func stop_hover_timer()->void:
-	if not hover_timer.is_stopped():
-		hover_timer.stop();
-	hide();

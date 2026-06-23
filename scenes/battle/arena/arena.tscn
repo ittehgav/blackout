@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ce637gjkft40w" path="res://scenes/index/tile_maps/tutorial_backdrop.tscn" id="2_rj7gd"]
 [ext_resource type="Script" uid="uid://dx0yavi260x8a" path="res://scenes/battle/arena/teams.gd" id="3_hkvx5"]
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="4_hdymd"]
+[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="5_rj7gd"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/player_fighter.tscn" id="7_8stbl"]
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="8_2foka"]
 [ext_resource type="Script" uid="uid://dv8qc4korx4fo" path="res://scenes/battle/arena/screen_blink.gd" id="9_2foka"]
@@ -229,6 +230,7 @@ script = ExtResource("3_hkvx5")
 [node name="team_1" type="Node2D" parent="teams" unique_id=1279616264 node_paths=PackedStringArray("arena", "enemy_team", "ground_elements", "projectiles")]
 z_index = 1
 script = ExtResource("4_hdymd")
+npc_fighter_scene = ExtResource("5_rj7gd")
 arena = NodePath("../..")
 team_n = 1
 enemy_team = NodePath("../team_2")
@@ -239,7 +241,7 @@ metadata/_custom_type_script = "uid://dclobwhhhy4eu"
 [node name="player_fighter" parent="teams/team_1" unique_id=543559168 instance=ExtResource("7_8stbl")]
 position = Vector2(-92, 537)
 
-[node name="body" parent="teams/team_1/player_fighter" index="4" unique_id=416499753]
+[node name="body" parent="teams/team_1/player_fighter" index="5" unique_id=416499753]
 material = SubResource("ShaderMaterial_2foka")
 
 [node name="left_hand" parent="teams/team_1/player_fighter/body" index="2" unique_id=7873661]
@@ -248,10 +250,10 @@ material = SubResource("ShaderMaterial_slj5k")
 [node name="right_hand" parent="teams/team_1/player_fighter/body" index="3" unique_id=1602105371]
 material = SubResource("ShaderMaterial_slj5k")
 
-[node name="equipment" parent="teams/team_1/player_fighter" index="6" unique_id=488158529]
+[node name="equipment" parent="teams/team_1/player_fighter" index="7" unique_id=488158529]
 material = SubResource("ShaderMaterial_bbn25")
 
-[node name="camera" parent="teams/team_1/player_fighter" index="7" unique_id=1871726771]
+[node name="camera" parent="teams/team_1/player_fighter" index="8" unique_id=1871726771]
 limit_left = -5999
 limit_top = -147
 limit_right = 6001
@@ -268,6 +270,7 @@ offset_bottom = -101.0
 [node name="team_2" type="Node2D" parent="teams" unique_id=451149455 node_paths=PackedStringArray("arena", "enemy_team", "ground_elements", "projectiles")]
 z_index = 1
 script = ExtResource("4_hdymd")
+npc_fighter_scene = ExtResource("5_rj7gd")
 arena = NodePath("../..")
 team_n = 2
 enemy_team = NodePath("../team_1")
@@ -649,6 +652,7 @@ arena = NodePath("../../..")
 [connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/bars" method="_on_player_fighter_damage_taken"]
 [connection signal="death" from="teams/team_1/player_fighter" to="ui_canvas/hud/tide_bar" method="_on_player_fighter_death"]
 [connection signal="healing_received" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/bars" method="_on_player_fighter_healing_received"]
+[connection signal="knocked_back" from="teams/team_1/player_fighter" to="ui_canvas/hud/screen_blink" method="_on_player_fighter_knocked_back"]
 [connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/screen_blink" method="_on_player_fighter_status_applied"]
 [connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/bars" method="_on_player_fighter_status_applied"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]

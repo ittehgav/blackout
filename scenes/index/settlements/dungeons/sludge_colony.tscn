@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bmab7n2cj0ahj" path="res://assets/visual/sprites/locations/dungeons/portraits/dungeon_ph.png" id="3_qhk5e"]
 [ext_resource type="Texture2D" uid="uid://k58lrdqj0c8o" path="res://assets/visual/sprites/locations/dungeons/hideout_3.png" id="4_almqn"]
 [ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/npc_roster.tscn" id="5_ea2d1"]
-[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="6_ofkkm"]
+[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/inventory/loot_inventory.tscn" id="6_ofkkm"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="8_ac116"]
 [ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="9_aewnh"]
 [ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="9_t31k1"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="15_yeoap"]
 [ext_resource type="PackedScene" uid="uid://datk48iuf2jce" path="res://scenes/index/fighters/monsters/sludge_sign.tscn" id="16_3p4l4"]
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="16_sxe6p"]
-[ext_resource type="PackedScene" uid="uid://by4mpa2wb2t7b" path="res://scenes/index/items/weapons/unimplemented/chakram.tscn" id="17_i1xj3"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="17_oxijx"]
 [ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="18_3p4l4"]
 [ext_resource type="PackedScene" uid="uid://blvhloouenfiu" path="res://scenes/index/fighters/monsters/sludge_car.tscn" id="19_j3cg5"]
@@ -26,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="25_em7tv"]
 [ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="25_gj525"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3k2e1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t31k1"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -38,7 +37,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkcwj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3g7jn"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -50,7 +49,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5e5l1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gj525"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -62,7 +61,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_db15r"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sxe6p"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -74,7 +73,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_el6x3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1xj3"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -86,7 +85,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnlbi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3p4l4"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -98,7 +97,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3bvmn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3cg5"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -110,7 +109,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uqsms"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rjfn"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -122,7 +121,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c2j4a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhk5e"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -134,7 +133,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o44wt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_almqn"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -146,7 +145,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d168t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ea2d1"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -158,7 +157,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fhb10"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofkkm"]
 resource_local_to_scene = true
 shader = ExtResource("17_oxijx")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -205,31 +204,31 @@ loot = NodePath("basic_loot")
 level = 2
 
 [node name="Sludge Sign" parent="NPC Roster/FighterUnit" unique_id=1850800264 instance=ExtResource("16_3p4l4")]
-material = SubResource("ShaderMaterial_3k2e1")
+material = SubResource("ShaderMaterial_t31k1")
 
 [node name="FighterUnit2" parent="NPC Roster" unique_id=724131380 instance=ExtResource("15_yeoap")]
 level = 2
 
 [node name="Sludge Sign" parent="NPC Roster/FighterUnit2" unique_id=1222788413 instance=ExtResource("16_3p4l4")]
-material = SubResource("ShaderMaterial_lkcwj")
+material = SubResource("ShaderMaterial_3g7jn")
 
 [node name="FighterUnit3" parent="NPC Roster" unique_id=1318439384 instance=ExtResource("15_yeoap")]
 level = 2
 
 [node name="Sludge Sign" parent="NPC Roster/FighterUnit3" unique_id=1804094780 instance=ExtResource("16_3p4l4")]
-material = SubResource("ShaderMaterial_5e5l1")
+material = SubResource("ShaderMaterial_gj525")
 
 [node name="FighterUnit4" parent="NPC Roster" unique_id=470331231 instance=ExtResource("15_yeoap")]
 level = 2
 
 [node name="Sludge Sign" parent="NPC Roster/FighterUnit4" unique_id=52032528 instance=ExtResource("16_3p4l4")]
-material = SubResource("ShaderMaterial_db15r")
+material = SubResource("ShaderMaterial_sxe6p")
 
 [node name="FighterUnit5" parent="NPC Roster" unique_id=443096000 instance=ExtResource("15_yeoap")]
 level = 2
 
 [node name="Sludge Sign" parent="NPC Roster/FighterUnit5" unique_id=1132184466 instance=ExtResource("16_3p4l4")]
-material = SubResource("ShaderMaterial_el6x3")
+material = SubResource("ShaderMaterial_i1xj3")
 
 [node name="NPC Roster2" parent="." unique_id=1557767277 node_paths=PackedStringArray("loot") instance=ExtResource("5_ea2d1")]
 loot = NodePath("basic_loot")
@@ -237,8 +236,6 @@ loot = NodePath("basic_loot")
 [node name="basic_loot" parent="NPC Roster2" unique_id=1995696206 instance=ExtResource("6_ofkkm")]
 
 [node name="Fuel Tank" parent="NPC Roster2/basic_loot" unique_id=1903203423 instance=ExtResource("16_sxe6p")]
-
-[node name="Chakram" parent="NPC Roster2/basic_loot" unique_id=1491091324 instance=ExtResource("17_i1xj3")]
 
 [node name="Slingshot" parent="NPC Roster2/basic_loot" unique_id=1530847075 instance=ExtResource("18_3p4l4")]
 
@@ -248,13 +245,13 @@ loot = NodePath("basic_loot")
 level = 3
 
 [node name="Termite Queen" parent="NPC Roster2/FighterUnit5" unique_id=381041469 instance=ExtResource("20_y7pn3")]
-material = SubResource("ShaderMaterial_dnlbi")
+material = SubResource("ShaderMaterial_3p4l4")
 
 [node name="FighterUnit6" parent="NPC Roster2" unique_id=126136071 instance=ExtResource("15_yeoap")]
 level = 3
 
 [node name="Sludge Car" parent="NPC Roster2/FighterUnit6" unique_id=2031111193 instance=ExtResource("19_j3cg5")]
-material = SubResource("ShaderMaterial_3bvmn")
+material = SubResource("ShaderMaterial_j3cg5")
 
 [node name="NPC Roster3" parent="." unique_id=174912214 node_paths=PackedStringArray("loot") instance=ExtResource("5_ea2d1")]
 loot = NodePath("basic_loot")
@@ -278,31 +275,31 @@ rare_count = 1
 level = 5
 
 [node name="Termite Queen" parent="NPC Roster3/FighterUnit5" unique_id=164822190 instance=ExtResource("20_y7pn3")]
-material = SubResource("ShaderMaterial_uqsms")
+material = SubResource("ShaderMaterial_2rjfn")
 
 [node name="FighterUnit6" parent="NPC Roster3" unique_id=1312024135 instance=ExtResource("15_yeoap")]
 level = 5
 
 [node name="Termite Queen" parent="NPC Roster3/FighterUnit6" unique_id=2015593065 instance=ExtResource("20_y7pn3")]
-material = SubResource("ShaderMaterial_c2j4a")
+material = SubResource("ShaderMaterial_qhk5e")
 
 [node name="FighterUnit7" parent="NPC Roster3" unique_id=1770855845 instance=ExtResource("15_yeoap")]
 level = 5
 
 [node name="Sludge Car" parent="NPC Roster3/FighterUnit7" unique_id=2041167367 instance=ExtResource("19_j3cg5")]
-material = SubResource("ShaderMaterial_o44wt")
+material = SubResource("ShaderMaterial_almqn")
 
 [node name="FighterUnit8" parent="NPC Roster3" unique_id=140030826 instance=ExtResource("15_yeoap")]
 level = 5
 
 [node name="Sludge Car" parent="NPC Roster3/FighterUnit8" unique_id=1224614142 instance=ExtResource("19_j3cg5")]
-material = SubResource("ShaderMaterial_d168t")
+material = SubResource("ShaderMaterial_ea2d1")
 
 [node name="FighterUnit9" parent="NPC Roster3" unique_id=2035980694 instance=ExtResource("15_yeoap")]
 level = 5
 
 [node name="Sludge Sign" parent="NPC Roster3/FighterUnit9" unique_id=1742904462 instance=ExtResource("16_3p4l4")]
-material = SubResource("ShaderMaterial_fhb10")
+material = SubResource("ShaderMaterial_ofkkm")
 
 [node name="final_loot" parent="." unique_id=955501022 instance=ExtResource("6_ofkkm")]
 

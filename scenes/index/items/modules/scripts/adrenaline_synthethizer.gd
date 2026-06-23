@@ -3,8 +3,8 @@ extends Module
 const rarity = 2;
 
 func get_description()->String:
-	return "Cosumes " + str(ammo_cost)+" " + Index.resource_colored_name(ammo_type) +\
-	" and increases your "+Index.stat_colored_name("agility")+" for the rest of the battle.";
+	return "Cosumes " + str(ammo_cost)+" " + Resources.resource_colored_name(ammo_type) +\
+	" and increases your "+CombatStats.stat_colored_name("agility")+" for the rest of the battle.";
 
 
 const base_agility_frac = 1

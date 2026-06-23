@@ -129,7 +129,7 @@ func refresh_trade_balance()->void:
 
 	reset_btn.disabled = true;
 	
-	var resources:Array = Index.all_resources.filter(func(r:String)->bool:return r != "money")
+	var resources:Array = Resources.all_resources.filter(func(r:String)->bool:return r != "money")
 	for r:String in resources:
 		## POSITIVE DELTA = SOURCE GAINED RESOURCE
 		var player_delta:int = Entities.player.inventory[r]-player_inventory_display.pre_trade_resource_counts[r];  
@@ -181,7 +181,7 @@ func refresh_trade_balance()->void:
 
 	
 
-	for r:String in Index.all_resources:
+	for r:String in Resources.all_resources:
 		var label:Label = self[r+"_trade_label"];
 		label.text = "";
 		
@@ -207,7 +207,7 @@ func refresh_trade_balance()->void:
 		confirm_btn.disabled = true;
 		money_trade_label.add_theme_color_override("font_color", Color.GRAY.darkened(.5));
 	else:
-		money_trade_label.add_theme_color_override("font_color", Index.resource_colors["money"]);
+		money_trade_label.add_theme_color_override("font_color", Resources.resource_colors["money"]);
 	
 
 
@@ -235,7 +235,7 @@ func _on_confirm_pressed() -> void:
 
 func finish_trade()->void:
 	const tween_duration = 1.25
-	for r:String in Index.all_resources:
+	for r:String in Resources.all_resources:
 		var trade:int = self[r+"_trade"];
 		if trade:
 			var tween:Tween = create_tween();

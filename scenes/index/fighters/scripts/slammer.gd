@@ -1,9 +1,6 @@
 extends FighterBase
 
 func full_skill_description(unit:FighterUnit)->String:
-	var damage:String = Index.colored_text("attack", unit.final_stat("attack"), " damage");
-	var duration:float = Scaling.technique_scaled_value(skill.status.duration, unit.final_stat("technique"), "stun");
-	var duration_str:String = Index.colored_text("technique", duration, " seconds");
-	var final_str:String = "Deals %s and stuns enemies in an area for %s"%[damage, duration_str];
+	var final_str:String = "Slams the ground in a round area, damaging and knocking away enemies."
 	return final_str;
 	

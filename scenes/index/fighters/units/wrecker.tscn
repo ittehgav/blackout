@@ -79,8 +79,9 @@ libraries/fighter_base = ExtResource("4_8drad")
 [node name="Wrecking Strike" type="Node" parent="." unique_id=445132636 node_paths=PackedStringArray("status")]
 script = ExtResource("3_sp1sy")
 base_cooldown = 4.0
-effects = Array[int]([0, 4])
+effects = Array[int]([0, 1, 4])
 status = NodePath("Wrecked")
+knockback_strength = 5
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="Wrecked" type="Node" parent="Wrecking Strike" unique_id=1426852083]

@@ -43,7 +43,6 @@ func travel_upkeep()->void:
 			get_tree().paused = true;
 			game_over.emit()
 			## likely will eventually have more conditions other than the car being moving
-			player_party.navigation_tween.kill();
 			return
 
 	if missing_fuel:
@@ -54,8 +53,7 @@ func travel_upkeep()->void:
 			player_party.navigation_speed = 5
 		## need to manually slow down current tween 
 		## bc it's easier than recalculating everything?
-		var speed_scale:float = player_party.navigation_speed/60
-		player_party.navigation_tween.set_speed_scale(speed_scale)
+
 	
 	player.inventory.refresh_resource_counts()
 

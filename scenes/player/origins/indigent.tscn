@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://doposyedwj544"]
+[gd_scene format=3 uid="uid://doposyedwj544"]
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_ahft4"]
-[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/leader/inventory/inventory.tscn" id="2_3xh6s"]
+[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/inventory/inventory.tscn" id="2_3xh6s"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="3_vupg8"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="4_ow5pe"]
 [ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="5_aiie3"]

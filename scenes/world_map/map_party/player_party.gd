@@ -28,6 +28,7 @@ func _input(e:InputEvent)->void:
 			navigation_tween.pause();
 			Entities.player_sheet.closed.connect(resume_navigation, CONNECT_ONE_SHOT)
 
+
 func move_to_location(target:Location)->void:
 	var costs:Dictionary = get_travel_cost(target);
 	if leader.inventory.food < costs.food or\
@@ -72,3 +73,18 @@ func get_travel_cost(target:Location)->Dictionary[String, int]:
 
 func enter_location()->void:
 	location_menu.show_location()
+
+
+func _on_shift_skill_check_fail_hit() -> void:
+	assert(navigation_tween.is_running())
+	navigation_tween.set_speed_scale(.75)
+
+
+func _on_shift_skill_check_good_hit() -> void:
+	assert(navigation_tween.is_running())
+	navigation_tween.set_speed_scale(1)
+
+
+func _on_shift_skill_check_perfect_hit() -> void:
+	assert(navigation_tween.is_running())
+	navigation_tween.set_speed_scale(1.5)

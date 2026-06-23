@@ -46,8 +46,8 @@ func level_up()->void:
 
 
 func _on_level_up() -> void:
-	for stat:String in Index.all_combat_stats:
-		stats[stat] += Scaling.player_level_stat_gains[stat]
+	for stat:String in CombatStats.all_stats:
+		stats[stat] += CombatStats.player_level_stat_gains[stat]
 
 func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);

@@ -44,6 +44,8 @@ func load_building(target:Building)->void:
 
 		button.self_modulate.v = 1
 		
+		## this works i guess
+		## would be too impractical to reimplement directly into tooltip code
 		var tooltip:Tooltip = button.get_node("Tooltip");
 		tooltip.hardcoded_name = Building.Option.keys()[option].capitalize();
 		tooltip.hardcoded_description = building.option_descriptions[option];

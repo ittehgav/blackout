@@ -11,7 +11,7 @@ func _ready()->void:
 func _on_timeout() -> void:
 	world_map.current_minute += minutes_per_tick
 	if not world_map.current_minute % 30:
-		upkeep.travel_upkeep()
+		world_map.half_hour_passed.emit()
 	if world_map.current_minute >= 60:
 		world_map.current_minute = 0;
 		advance_hour();

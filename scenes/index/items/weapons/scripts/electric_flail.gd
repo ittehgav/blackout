@@ -21,7 +21,7 @@ const bolt_range = 500
 
 func get_description()->String:
 	var damage:String = Index.colored_text("attack", str(final_damage()) + " damage");
-	return "On hit, shoots lightning in random directions, dealing %s to hit enemies." % [damage];
+	return "On hit, shoots lightning in random directions, dealing %s to enemies." % [damage];
 
 func use(_alt:bool=false)->void:
 	animation_player.play("melee/attack");

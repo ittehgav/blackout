@@ -20,7 +20,7 @@ func ui_fade_out(target:CanvasItem, hide_after:bool=true, duration:float = .5)->
 		return tween;
 
 
-func shader_color_blink(target:Sprite2D, target_color:Color, duration:float = .3)->Tween:
+func shader_color_blink(target:Sprite2D, target_color:Color, duration:float = .5)->Tween:
 	## TODO make this just tween the I property of the fighter's modulate
 	## when they make it accessible by code
 	target.material.set_shader_parameter("target_color", target_color);

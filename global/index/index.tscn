@@ -4,24 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://uacsw306t8nv" path="res://scenes/index/fighters/units/electric_knight.tscn" id="3_f4g0r"]
 [ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="5_id88d"]
 [ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="8_28bxi"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="8_v142k"]
-[ext_resource type="PackedScene" uid="uid://dx6w0vn2gqy7s" path="res://scenes/player/unit/player_body.tscn" id="11_qig7t"]
-[ext_resource type="PackedScene" uid="uid://b3sr8al76si1g" path="res://scenes/battle/arena/arena.tscn" id="14_38kar"]
-[ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/index/vehicles/doblo.tscn" id="18_2wv2w"]
-[ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/index/vehicles/gol.tscn" id="19_c3xjx"]
-[ext_resource type="PackedScene" uid="uid://c83u8udv4ox01" path="res://scenes/index/vehicles/uno.tscn" id="20_t1lvq"]
-[ext_resource type="PackedScene" uid="uid://dphiet8wg7sd" path="res://scenes/world_map/world_map/world_map.tscn" id="21_8q2tu"]
 [ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/world_map/dialogue/dialogue_player.tscn" id="22_au47y"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="25_tiko5"]
-[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="26_t3d8t"]
 [ext_resource type="PackedScene" uid="uid://cbk0pwuwwf4px" path="res://scenes/ui/samples/unit_sample.tscn" id="26_yssh0"]
-[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="27_x86u7"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/modular/stat_icon.tscn" id="27_x86u7"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="28_kn0pf"]
-[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="28_v8r68"]
-[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="29_j1h2w"]
-[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="30_n4gql"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="28_v8r68"]
 [ext_resource type="PackedScene" uid="uid://c7p87ik4k71ub" path="res://scenes/ui/save_system/save_file_display.tscn" id="31_6wgsf"]
-[ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_display/item_mirror.tscn" id="32_co4i5"]
 [ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/index/items/containers/food.tscn" id="33_qyikr"]
 [ext_resource type="PackedScene" uid="uid://c35c0o3u2g7aj" path="res://scenes/index/items/containers/fuel.tscn" id="34_y8csm"]
 [ext_resource type="PackedScene" uid="uid://b1ohkwyjvqmfo" path="res://scenes/index/items/containers/juice.tscn" id="35_do1gh"]
@@ -33,71 +22,71 @@
 [ext_resource type="PackedScene" uid="uid://bhmsli657i58w" path="res://scenes/index/fighters/units/scrap_hulk.tscn" id="47_t1lvq"]
 [ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="48_8q2tu"]
 [ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="49_ob4ih"]
+[ext_resource type="Texture2D" uid="uid://ckiw6avol7akq" path="res://assets/visual/sprites/fighters/units/crowbar/crowbar.png" id="50_28bxi"]
 [ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="50_hdp4t"]
 [ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="51_8gxj7"]
+[ext_resource type="Script" uid="uid://cvv3cdqvtpsyk" path="res://scenes/index/fighters/scripts/crowbar.gd" id="51_jil7q"]
 [ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/units/electric_hulk.tscn" id="51_vvnt2"]
+[ext_resource type="Texture2D" uid="uid://clx26uewlgflc" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk.png" id="52_sgray"]
 [ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="52_tiko5"]
+[ext_resource type="Script" uid="uid://ckoqd0eib1ilw" path="res://scenes/index/fighters/scripts/electric_hulk.gd" id="53_3kqhx"]
 [ext_resource type="PackedScene" uid="uid://bjnol1lrln1fk" path="res://scenes/index/fighters/monsters/aedes.tscn" id="53_t3d8t"]
 [ext_resource type="PackedScene" uid="uid://b3n7mk40hlld3" path="res://scenes/index/fighters/monsters/big_rat.tscn" id="54_x86u7"]
+[ext_resource type="Texture2D" uid="uid://chjym72kp8fjm" path="res://assets/visual/sprites/fighters/units/electric_knight/electric_knight.png" id="54_ym5qr"]
+[ext_resource type="Script" uid="uid://cg8uxie8daimk" path="res://scenes/index/fighters/scripts/electric_knight.gd" id="55_kdm76"]
 [ext_resource type="PackedScene" uid="uid://bjc7irffaa805" path="res://scenes/index/fighters/monsters/calango.tscn" id="55_v8r68"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="55_x86u7"]
+[ext_resource type="Texture2D" uid="uid://bt3wcrywsfm4h" path="res://assets/visual/sprites/fighters/units/gravity/gravity.png" id="56_38kar"]
 [ext_resource type="PackedScene" uid="uid://blvhloouenfiu" path="res://scenes/index/fighters/monsters/sludge_car.tscn" id="56_j1h2w"]
 [ext_resource type="Script" uid="uid://c2v3r4uaedrki" path="res://global/index/textures.gd" id="56_rddof"]
-[ext_resource type="Texture2D" uid="uid://ckiw6avol7akq" path="res://assets/visual/sprites/fighters/units/crowbar/crowbar.png" id="56_v8r68"]
+[ext_resource type="Script" uid="uid://t2fu6pbkan6i" path="res://scenes/index/fighters/scripts/gravity.gd" id="57_5ikm4"]
 [ext_resource type="Script" uid="uid://dqnom05cxvnww" path="res://global/index/fighters.gd" id="57_jh7c7"]
 [ext_resource type="PackedScene" uid="uid://datk48iuf2jce" path="res://scenes/index/fighters/monsters/sludge_sign.tscn" id="57_n4gql"]
 [ext_resource type="PackedScene" uid="uid://mfpl5uasy6ff" path="res://scenes/index/fighters/monsters/termite.tscn" id="58_6wgsf"]
+[ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="58_j2xya"]
+[ext_resource type="Script" uid="uid://ctnukmol1go71" path="res://scenes/index/fighters/scripts/puncher.gd" id="59_3jth8"]
 [ext_resource type="PackedScene" uid="uid://buy3hmc8ungmr" path="res://scenes/index/fighters/monsters/termite_queen.tscn" id="59_co4i5"]
+[ext_resource type="Texture2D" uid="uid://bmpj6pp8dghp1" path="res://assets/visual/sprites/fighters/units/scrap_hulk/scrap_hulk.png" id="60_2wv2w"]
 [ext_resource type="Texture2D" uid="uid://07xmhqaquw88" path="res://assets/visual/particles/circles/circle_hollow_4x4.png" id="60_mrj2u"]
+[ext_resource type="Script" uid="uid://mhopdbt7sb23" path="res://scenes/index/fighters/scripts/scrap_hulk.gd" id="61_c3xjx"]
 [ext_resource type="Texture2D" uid="uid://dxn3vii4n7mar" path="res://assets/visual/particles/circles/circle_hollow_8x8.png" id="61_ekp1m"]
-[ext_resource type="Texture2D" uid="uid://clx26uewlgflc" path="res://assets/visual/sprites/fighters/units/electric_hulk/electric_hulk.png" id="61_qyikr"]
 [ext_resource type="Texture2D" uid="uid://cf7qn7nec5bvw" path="res://assets/visual/particles/circles/circle_hollow_16x16.png" id="62_js3li"]
-[ext_resource type="Script" uid="uid://cvv3cdqvtpsyk" path="res://scenes/index/fighters/scripts/crowbar.gd" id="63_b8k7y"]
+[ext_resource type="Texture2D" uid="uid://6acvycpgho6a" path="res://assets/visual/sprites/fighters/units/scythe/scythe.png" id="62_t1lvq"]
+[ext_resource type="Script" uid="uid://c22ry32eswkql" path="res://scenes/index/fighters/scripts/scythe.gd" id="63_8q2tu"]
 [ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="63_mrm47"]
+[ext_resource type="Texture2D" uid="uid://csoj5qe27sos2" path="res://assets/visual/sprites/fighters/units/slammer/slammer.png" id="64_ob4ih"]
 [ext_resource type="Texture2D" uid="uid://cui2boa6gcv18" path="res://assets/visual/particles/circles/circle_hollow_64x64.png" id="64_w8q8o"]
 [ext_resource type="Texture2D" uid="uid://bkvwsq6raaf6p" path="res://assets/visual/particles/circles/circle_4x4.png" id="65_50ns7"]
-[ext_resource type="Texture2D" uid="uid://chjym72kp8fjm" path="res://assets/visual/sprites/fighters/units/electric_knight/electric_knight.png" id="65_y60qf"]
+[ext_resource type="Script" uid="uid://cepgldvhtvcb8" path="res://scenes/index/fighters/scripts/slammer.gd" id="65_hdp4t"]
+[ext_resource type="Texture2D" uid="uid://24ff13ba8vix" path="res://assets/visual/sprites/fighters/units/sniper/sniper.png" id="66_8gxj7"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="66_vgk1i"]
 [ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="67_n3xga"]
-[ext_resource type="Script" uid="uid://ckoqd0eib1ilw" path="res://scenes/index/fighters/scripts/electric_hulk.gd" id="68_7wsqo"]
+[ext_resource type="Script" uid="uid://bquq6cnjfqscl" path="res://scenes/index/fighters/scripts/sniper.gd" id="67_tiko5"]
 [ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="68_e7p5s"]
-[ext_resource type="Texture2D" uid="uid://bt3wcrywsfm4h" path="res://assets/visual/sprites/fighters/units/gravity/gravity.png" id="69_mm2j4"]
+[ext_resource type="Texture2D" uid="uid://bskpdo5n0gls2" path="res://assets/visual/sprites/fighters/units/toxic_hulk/toxic_hulk.png" id="68_t3d8t"]
 [ext_resource type="Texture2D" uid="uid://fvqn3burk27x" path="res://assets/visual/particles/circles/circle_64x64.png" id="69_q6wh7"]
-[ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="69_qyikr"]
-[ext_resource type="Script" uid="uid://ctnukmol1go71" path="res://scenes/index/fighters/scripts/puncher.gd" id="70_y8csm"]
-[ext_resource type="Texture2D" uid="uid://bmpj6pp8dghp1" path="res://assets/visual/sprites/fighters/units/scrap_hulk/scrap_hulk.png" id="71_do1gh"]
-[ext_resource type="Script" uid="uid://cg8uxie8daimk" path="res://scenes/index/fighters/scripts/electric_knight.gd" id="72_eb6au"]
-[ext_resource type="Script" uid="uid://mhopdbt7sb23" path="res://scenes/index/fighters/scripts/scrap_hulk.gd" id="72_j7eeh"]
-[ext_resource type="Texture2D" uid="uid://6acvycpgho6a" path="res://assets/visual/sprites/fighters/units/scythe/scythe.png" id="73_y60qf"]
+[ext_resource type="Script" uid="uid://ca8013fstlydp" path="res://scenes/index/fighters/scripts/toxic_hulk.gd" id="69_x86u7"]
+[ext_resource type="Texture2D" uid="uid://bymxi6obmi5yg" path="res://assets/visual/sprites/fighters/units/wrecker/wrecker.png" id="70_v8r68"]
+[ext_resource type="Script" uid="uid://c0djhkafrh10j" path="res://scenes/index/fighters/scripts/wrecker.gd" id="71_j1h2w"]
+[ext_resource type="Texture2D" uid="uid://ekc043xv5d2a" path="res://assets/visual/sprites/fighters/monsters/aedes/aedes.png" id="72_n4gql"]
+[ext_resource type="Script" uid="uid://c0v03uu26r0o1" path="res://scenes/index/fighters/scripts/aedes.gd" id="73_6wgsf"]
+[ext_resource type="Texture2D" uid="uid://un6aoa3ddagn" path="res://assets/visual/sprites/fighters/monsters/big_rat/big_rat.png" id="74_co4i5"]
 [ext_resource type="Script" uid="uid://v7kwggc2eei6" path="res://global/index/scenes.gd" id="74_f4g0r"]
-[ext_resource type="Script" uid="uid://c22ry32eswkql" path="res://scenes/index/fighters/scripts/scythe.gd" id="74_r6br5"]
-[ext_resource type="Texture2D" uid="uid://csoj5qe27sos2" path="res://assets/visual/sprites/fighters/units/slammer/slammer.png" id="75_if62t"]
-[ext_resource type="Script" uid="uid://cepgldvhtvcb8" path="res://scenes/index/fighters/scripts/slammer.gd" id="76_3u8b6"]
-[ext_resource type="Script" uid="uid://t2fu6pbkan6i" path="res://scenes/index/fighters/scripts/gravity.gd" id="76_3u23q"]
-[ext_resource type="Texture2D" uid="uid://24ff13ba8vix" path="res://assets/visual/sprites/fighters/units/sniper/sniper.png" id="77_mm2j4"]
-[ext_resource type="Script" uid="uid://bquq6cnjfqscl" path="res://scenes/index/fighters/scripts/sniper.gd" id="78_olcrs"]
-[ext_resource type="Texture2D" uid="uid://bskpdo5n0gls2" path="res://assets/visual/sprites/fighters/units/toxic_hulk/toxic_hulk.png" id="79_lb30k"]
-[ext_resource type="Script" uid="uid://ca8013fstlydp" path="res://scenes/index/fighters/scripts/toxic_hulk.gd" id="80_egaqg"]
+[ext_resource type="Script" uid="uid://cln30xescq2bg" path="res://scenes/index/fighters/scripts/big_rat.gd" id="75_qyikr"]
+[ext_resource type="Texture2D" uid="uid://bmta4nfbq3nhs" path="res://assets/visual/sprites/fighters/monsters/calango/calango.png" id="76_y8csm"]
+[ext_resource type="Script" uid="uid://y3lc3idfs5he" path="res://scenes/index/fighters/scripts/calango.gd" id="77_do1gh"]
+[ext_resource type="Texture2D" uid="uid://w3sb5fkv1hrb" path="res://assets/visual/sprites/fighters/monsters/sludge_car/sludge_car.png" id="78_j7eeh"]
+[ext_resource type="Script" uid="uid://dt25yjqvlgo37" path="res://scenes/index/fighters/scripts/sludge_car.gd" id="79_y60qf"]
 [ext_resource type="Script" uid="uid://bmx20g00xyoa6" path="res://global/index/ui.gd" id="80_f4g0r"]
+[ext_resource type="Texture2D" uid="uid://8hifigu73yo6" path="res://assets/visual/sprites/fighters/monsters/sludge_sign/sludge_sign.png" id="80_r6br5"]
+[ext_resource type="Script" uid="uid://c6q00tt13p4q3" path="res://scenes/index/fighters/scripts/sludge_sign.gd" id="81_if62t"]
 [ext_resource type="Script" uid="uid://bxp6tl07qg7ae" path="res://global/index/items.gd" id="81_iis6y"]
-[ext_resource type="Texture2D" uid="uid://bymxi6obmi5yg" path="res://assets/visual/sprites/fighters/units/wrecker/wrecker.png" id="81_kde6v"]
-[ext_resource type="Script" uid="uid://c0djhkafrh10j" path="res://scenes/index/fighters/scripts/wrecker.gd" id="82_8p8jw"]
-[ext_resource type="Texture2D" uid="uid://ekc043xv5d2a" path="res://assets/visual/sprites/fighters/monsters/aedes/aedes.png" id="83_b8k7y"]
-[ext_resource type="Script" uid="uid://c0v03uu26r0o1" path="res://scenes/index/fighters/scripts/aedes.gd" id="84_7wsqo"]
-[ext_resource type="Texture2D" uid="uid://un6aoa3ddagn" path="res://assets/visual/sprites/fighters/monsters/big_rat/big_rat.png" id="85_eb6au"]
-[ext_resource type="Script" uid="uid://cln30xescq2bg" path="res://scenes/index/fighters/scripts/big_rat.gd" id="86_3u23q"]
-[ext_resource type="Texture2D" uid="uid://bmta4nfbq3nhs" path="res://assets/visual/sprites/fighters/monsters/calango/calango.png" id="87_q6dwr"]
-[ext_resource type="Script" uid="uid://y3lc3idfs5he" path="res://scenes/index/fighters/scripts/calango.gd" id="88_pg4qd"]
-[ext_resource type="Texture2D" uid="uid://w3sb5fkv1hrb" path="res://assets/visual/sprites/fighters/monsters/sludge_car/sludge_car.png" id="89_eg63u"]
-[ext_resource type="Script" uid="uid://dt25yjqvlgo37" path="res://scenes/index/fighters/scripts/sludge_car.gd" id="90_fdym7"]
-[ext_resource type="Texture2D" uid="uid://8hifigu73yo6" path="res://assets/visual/sprites/fighters/monsters/sludge_sign/sludge_sign.png" id="91_ylt4j"]
-[ext_resource type="Script" uid="uid://c6q00tt13p4q3" path="res://scenes/index/fighters/scripts/sludge_sign.gd" id="92_dhg3i"]
-[ext_resource type="Texture2D" uid="uid://b2x0g8jwds0pl" path="res://assets/visual/sprites/fighters/monsters/termite/termite.png" id="93_c4n4h"]
-[ext_resource type="Script" uid="uid://up8stcqsoa20" path="res://scenes/index/fighters/scripts/termite.gd" id="94_m467d"]
-[ext_resource type="Texture2D" uid="uid://bvw7sgqkhg120" path="res://assets/visual/sprites/fighters/monsters/termite_queen/termite_queen.png" id="95_fi2im"]
-[ext_resource type="Script" uid="uid://cxat68htlsn71" path="res://scenes/index/fighters/scripts/termite_queen.gd" id="96_mrj2u"]
+[ext_resource type="Texture2D" uid="uid://b2x0g8jwds0pl" path="res://assets/visual/sprites/fighters/monsters/termite/termite.png" id="82_3u8b6"]
+[ext_resource type="Script" uid="uid://up8stcqsoa20" path="res://scenes/index/fighters/scripts/termite.gd" id="83_mm2j4"]
+[ext_resource type="Texture2D" uid="uid://bvw7sgqkhg120" path="res://assets/visual/sprites/fighters/monsters/termite_queen/termite_queen.png" id="84_olcrs"]
+[ext_resource type="Script" uid="uid://cxat68htlsn71" path="res://scenes/index/fighters/scripts/termite_queen.gd" id="85_lb30k"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3xjx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_egaqg"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -109,7 +98,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t1lvq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kde6v"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -121,7 +110,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8q2tu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8p8jw"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -133,7 +122,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ob4ih"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8k7y"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -145,7 +134,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdp4t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7wsqo"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -157,7 +146,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8gxj7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eb6au"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -169,7 +158,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tiko5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3u23q"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -181,7 +170,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t3d8t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q6dwr"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -193,7 +182,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x86u7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pg4qd"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -205,7 +194,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v8r68"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eg63u"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -217,7 +206,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1h2w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fdym7"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -229,7 +218,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n4gql"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ylt4j"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -241,7 +230,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wgsf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dhg3i"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -253,7 +242,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_co4i5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c4n4h"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -265,7 +254,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qyikr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m467d"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -277,7 +266,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8csm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fi2im"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -289,7 +278,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_do1gh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mrj2u"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -301,7 +290,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j7eeh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekp1m"]
 resource_local_to_scene = true
 shader = ExtResource("55_x86u7")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -321,23 +310,8 @@ textures = NodePath("textures")
 player_team_color = Color(0.120000005, 0.2, 0.12133334, 1)
 enemy_team_color = Color(0.6, 0.12, 0.12, 1)
 mod_tier_colors = Array[Color]([Color(0.8, 0.8, 0.8, 1), Color(0.32156864, 0.8, 0.38431373, 1), Color(0.8, 0.5882353, 0.16078432, 1)])
-resource_colors = Dictionary[String, Color]({
-"chips": Color(0.21000001, 0.7, 0.7, 1),
-"food": Color(0.7, 0.7, 0.21000001, 1),
-"fuel": Color(0.7, 0.34066668, 0.21000001, 1),
-"juice": Color(0.5366668, 0.21000001, 0.7, 1),
-"money": Color(0.16, 0.8, 0.16, 1),
-"scrap": Color(0.8, 0.8, 0.8, 1)
-})
 day_reflection_color = Color(0.2, 0.076, 0.076, 1)
 night_reflection_color = Color(0.487, 0.46, 1, 1)
-stat_colors = Dictionary[String, Color]({
-"agility": Color(0.7, 0.7, 0.21000001, 1),
-"attack": Color(0.7, 0.21000001, 0.21000001, 1),
-"defense": Color(0.21000001, 0.56116664, 0.7, 1),
-"max_hp": Color(0.32, 0.8, 0.32, 1),
-"technique": Color(0.7019608, 0.21176471, 0.47058824, 1)
-})
 primary_tag_colors = Dictionary[String, Color]({
 "bodybuilder": Color(0.8, 0.8, 0.48000002, 1),
 "cyborg": Color(0.48000002, 0.8, 0.8, 1),
@@ -349,23 +323,14 @@ primary_tag_colors = Dictionary[String, Color]({
 script = ExtResource("74_f4g0r")
 ui = NodePath("ui")
 items = NodePath("items")
-arena = ExtResource("14_38kar")
-world_map = ExtResource("21_8q2tu")
 fighter_unit = ExtResource("25_tiko5")
-npc_fighter = ExtResource("26_t3d8t")
-combat_stats = ExtResource("8_v142k")
-vehicles = Array[PackedScene]([ExtResource("18_2wv2w"), ExtResource("19_c3xjx"), ExtResource("20_t1lvq")])
-player_body = ExtResource("11_qig7t")
 
 [node name="ui" type="Node" parent="scenes" unique_id=1254369096]
 script = ExtResource("80_f4g0r")
 stat_icon = ExtResource("27_x86u7")
 resource_icon = ExtResource("28_v8r68")
-sprite_sample = ExtResource("29_j1h2w")
-tooltip = ExtResource("30_n4gql")
 save_file_display = ExtResource("31_6wgsf")
 dialogue_player = ExtResource("22_au47y")
-item_mirror = ExtResource("32_co4i5")
 item_sample = ExtResource("28_kn0pf")
 unit_sample = ExtResource("26_yssh0")
 
@@ -430,14 +395,15 @@ all_unit_base_scenes = Dictionary[String, PackedScene]({
 })
 
 [node name="Crowbar" type="Sprite2D" parent="fighters" unique_id=2112712555 node_paths=PackedStringArray("skill", "animation_player", "evolutions", "base_stats", "stats_per_level") instance=ExtResource("5_id88d")]
-material = SubResource("ShaderMaterial_c3xjx")
-texture = ExtResource("56_v8r68")
+material = SubResource("ShaderMaterial_egaqg")
+texture = ExtResource("50_28bxi")
 hframes = 8
 vframes = 7
 frame = 5
-script = ExtResource("63_b8k7y")
+script = ExtResource("51_jil7q")
 skill = NodePath("Crowbar Swing")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 0
 tags = Array[int]([3, 1])
 evolutions = [NodePath("../Sniper"), NodePath("../Gravity")]
 base_stats = NodePath("stat_base/base_stats")
@@ -445,16 +411,17 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Electric Hulk" type="Sprite2D" parent="fighters" unique_id=30330839 node_paths=PackedStringArray("damage_lightning", "heal_lightning", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("51_vvnt2")]
-material = SubResource("ShaderMaterial_t1lvq")
-texture = ExtResource("61_qyikr")
+material = SubResource("ShaderMaterial_kde6v")
+texture = ExtResource("52_sgray")
 hframes = 8
 vframes = 7
 frame = 7
-script = ExtResource("68_7wsqo")
+script = ExtResource("53_3kqhx")
 damage_lightning = NodePath("damage_lightning")
 heal_lightning = NodePath("heal_lightning")
 skill = NodePath("Electric Pulse")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 2
 tags = Array[int]([6, 2, 5])
 body_type = 2
 hit_scan = NodePath("hit_scan")
@@ -464,12 +431,12 @@ skill_animation_path = "electric_hulk/skill"
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Electric Knight" type="Sprite2D" parent="fighters" unique_id=366716137 node_paths=PackedStringArray("lightning_vfx", "skill", "animation_player", "base_stats", "stats_per_level") instance=ExtResource("3_f4g0r")]
-material = SubResource("ShaderMaterial_8q2tu")
-texture = ExtResource("65_y60qf")
+material = SubResource("ShaderMaterial_8p8jw")
+texture = ExtResource("54_ym5qr")
 hframes = 8
 vframes = 7
 frame = 3
-script = ExtResource("72_eb6au")
+script = ExtResource("55_kdm76")
 lightning_vfx = NodePath("Lightning")
 skill = NodePath("Lightning Swing")
 animation_player = NodePath("AnimationPlayer")
@@ -479,16 +446,17 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Gravity" type="Sprite2D" parent="fighters" unique_id=934399271 node_paths=PackedStringArray("beam", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("8_28bxi")]
-material = SubResource("ShaderMaterial_ob4ih")
-texture = ExtResource("69_mm2j4")
+material = SubResource("ShaderMaterial_b8k7y")
+texture = ExtResource("56_38kar")
 hframes = 8
 vframes = 7
 frame = 3
-script = ExtResource("76_3u23q")
+script = ExtResource("57_5ikm4")
 beam = NodePath("Node2D/beam")
 skill = NodePath("Gravity Pulse")
 skill_range = 10
 animation_player = NodePath("AnimationPlayer")
+weight_class = 0
 tags = Array[int]([7, 3])
 movement = 1
 hit_scan = NodePath("hit_scan")
@@ -498,12 +466,12 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 metadata/_edit_vertical_guides_ = [-198.0]
 
 [node name="Puncher" type="Sprite2D" parent="fighters" unique_id=1510142188 node_paths=PackedStringArray("skill", "animation_player", "evolutions", "base_stats", "stats_per_level") instance=ExtResource("46_c3xjx")]
-material = SubResource("ShaderMaterial_hdp4t")
-texture = ExtResource("69_qyikr")
+material = SubResource("ShaderMaterial_7wsqo")
+texture = ExtResource("58_j2xya")
 hframes = 8
 vframes = 7
 frame = 4
-script = ExtResource("70_y8csm")
+script = ExtResource("59_3jth8")
 skill = NodePath("One Punch")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([0, 1])
@@ -513,14 +481,15 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Scrap Hulk" type="Sprite2D" parent="fighters" unique_id=1648266463 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "projectile", "base_stats", "stats_per_level") instance=ExtResource("47_t1lvq")]
-material = SubResource("ShaderMaterial_8gxj7")
-texture = ExtResource("71_do1gh")
+material = SubResource("ShaderMaterial_eb6au")
+texture = ExtResource("60_2wv2w")
 hframes = 8
 vframes = 7
 frame = 3
-script = ExtResource("72_j7eeh")
+script = ExtResource("61_c3xjx")
 skill = NodePath("Shrapnel Slam")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 2
 tags = Array[int]([1, 6, 5])
 body_type = 1
 hit_scan = NodePath("hit_scan")
@@ -530,12 +499,12 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Scythe" type="Sprite2D" parent="fighters" unique_id=255476344 node_paths=PackedStringArray("skill", "animation_player", "evolutions", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("48_8q2tu")]
-material = SubResource("ShaderMaterial_tiko5")
-texture = ExtResource("73_y60qf")
+material = SubResource("ShaderMaterial_3u23q")
+texture = ExtResource("62_t1lvq")
 hframes = 8
 vframes = 7
 frame = 5
-script = ExtResource("74_r6br5")
+script = ExtResource("63_8q2tu")
 skill = NodePath("Reaping Swing")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([4, 6])
@@ -546,14 +515,15 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Slammer" type="Sprite2D" parent="fighters" unique_id=1342933973 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("49_ob4ih")]
-material = SubResource("ShaderMaterial_t3d8t")
-texture = ExtResource("75_if62t")
+material = SubResource("ShaderMaterial_q6dwr")
+texture = ExtResource("64_ob4ih")
 hframes = 8
 vframes = 7
 frame = 3
-script = ExtResource("76_3u8b6")
+script = ExtResource("65_hdp4t")
 skill = NodePath("Throw Hands")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 2
 tags = Array[int]([0, 6, 7])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -561,15 +531,16 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Sniper" type="Sprite2D" parent="fighters" unique_id=1797122592 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("50_hdp4t")]
-material = SubResource("ShaderMaterial_x86u7")
-texture = ExtResource("77_mm2j4")
+material = SubResource("ShaderMaterial_pg4qd")
+texture = ExtResource("66_8gxj7")
 hframes = 8
 vframes = 7
 frame = 4
-script = ExtResource("78_olcrs")
+script = ExtResource("67_tiko5")
 skill = NodePath("Piercing Shot")
 skill_range = 30
 animation_player = NodePath("AnimationPlayer")
+weight_class = 0
 tags = Array[int]([3, 2, 4])
 movement = 1
 hit_scan = NodePath("scan")
@@ -578,15 +549,16 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Toxic Hulk" type="Sprite2D" parent="fighters" unique_id=754896079 node_paths=PackedStringArray("smoke", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("51_8gxj7")]
-material = SubResource("ShaderMaterial_v8r68")
-texture = ExtResource("79_lb30k")
+material = SubResource("ShaderMaterial_eg63u")
+texture = ExtResource("68_t3d8t")
 hframes = 8
 vframes = 7
 frame = 4
-script = ExtResource("80_egaqg")
+script = ExtResource("69_x86u7")
 smoke = NodePath("hit_scan/smoke")
 skill = NodePath("Gas Leak")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 2
 tags = Array[int]([7, 6, 5])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -594,12 +566,12 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Wrecker" type="Sprite2D" parent="fighters" unique_id=1018236968 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level") instance=ExtResource("52_tiko5")]
-material = SubResource("ShaderMaterial_j1h2w")
-texture = ExtResource("81_kde6v")
+material = SubResource("ShaderMaterial_fdym7")
+texture = ExtResource("70_v8r68")
 hframes = 8
 vframes = 7
 frame = 5
-script = ExtResource("82_8p8jw")
+script = ExtResource("71_j1h2w")
 skill = NodePath("Wrecking Strike")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([2, 1, 5])
@@ -609,12 +581,12 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Aedes" type="Sprite2D" parent="fighters" unique_id=1948510965 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level") instance=ExtResource("53_t3d8t")]
-material = SubResource("ShaderMaterial_n4gql")
+material = SubResource("ShaderMaterial_ylt4j")
 position = Vector2(0, -1.4869016)
-texture = ExtResource("83_b8k7y")
+texture = ExtResource("72_n4gql")
 hframes = 8
 vframes = 5
-script = ExtResource("84_7wsqo")
+script = ExtResource("73_6wgsf")
 skill = NodePath("Draining Sting")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([9, 13])
@@ -623,11 +595,11 @@ base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="Big Rat" type="Sprite2D" parent="fighters" unique_id=779088301 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level") instance=ExtResource("54_x86u7")]
-material = SubResource("ShaderMaterial_6wgsf")
-texture = ExtResource("85_eb6au")
+material = SubResource("ShaderMaterial_dhg3i")
+texture = ExtResource("74_co4i5")
 hframes = 8
 vframes = 5
-script = ExtResource("86_3u23q")
+script = ExtResource("75_qyikr")
 skill = NodePath("Rabid Bite")
 animation_player = NodePath("Rabid Bite/AnimationPlayer")
 tags = Array[int]([9, 11])
@@ -636,12 +608,12 @@ base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="Calango" type="Sprite2D" parent="fighters" unique_id=1356813743 node_paths=PackedStringArray("tail", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("55_v8r68")]
-material = SubResource("ShaderMaterial_co4i5")
-texture = ExtResource("87_q6dwr")
+material = SubResource("ShaderMaterial_c4n4h")
+texture = ExtResource("76_y8csm")
 hframes = 8
 vframes = 5
 frame = 5
-script = ExtResource("88_pg4qd")
+script = ExtResource("77_do1gh")
 tail = NodePath("tail")
 skill = NodePath("Tail Whip")
 animation_player = NodePath("AnimationPlayer")
@@ -652,11 +624,11 @@ base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="Sludge Car" type="Sprite2D" parent="fighters" unique_id=2031111193 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("56_j1h2w")]
-material = SubResource("ShaderMaterial_qyikr")
-texture = ExtResource("89_eg63u")
+material = SubResource("ShaderMaterial_m467d")
+texture = ExtResource("78_j7eeh")
 hframes = 8
 vframes = 3
-script = ExtResource("90_fdym7")
+script = ExtResource("79_y60qf")
 skill = NodePath("Stagnation Aura")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([12, 6, 7])
@@ -667,11 +639,11 @@ base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="Sludge Sign" type="Sprite2D" parent="fighters" unique_id=1850800264 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level") instance=ExtResource("57_n4gql")]
-material = SubResource("ShaderMaterial_y8csm")
-texture = ExtResource("91_ylt4j")
+material = SubResource("ShaderMaterial_fi2im")
+texture = ExtResource("80_r6br5")
 hframes = 8
 vframes = 5
-script = ExtResource("92_dhg3i")
+script = ExtResource("81_if62t")
 skill = NodePath("Traffic Slam")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([12, 1])
@@ -681,11 +653,11 @@ base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="Termite" type="Sprite2D" parent="fighters" unique_id=561075248 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level") instance=ExtResource("58_6wgsf")]
-material = SubResource("ShaderMaterial_do1gh")
-texture = ExtResource("93_c4n4h")
+material = SubResource("ShaderMaterial_mrj2u")
+texture = ExtResource("82_3u8b6")
 hframes = 8
 vframes = 5
-script = ExtResource("94_m467d")
+script = ExtResource("83_mm2j4")
 skill = NodePath("Self Destruct")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([13, 9])
@@ -695,11 +667,11 @@ base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 
 [node name="Termite Queen" type="Sprite2D" parent="fighters" unique_id=381041469 node_paths=PackedStringArray("termite_unit", "skill", "animation_player", "base_stats", "stats_per_level") instance=ExtResource("59_co4i5")]
-material = SubResource("ShaderMaterial_j7eeh")
-texture = ExtResource("95_fi2im")
+material = SubResource("ShaderMaterial_ekp1m")
+texture = ExtResource("84_olcrs")
 hframes = 8
 vframes = 5
-script = ExtResource("96_mrj2u")
+script = ExtResource("85_lb30k")
 termite_unit = NodePath("termite_unit")
 skill = NodePath("Queen\'s Children")
 animation_player = NodePath("AnimationPlayer")

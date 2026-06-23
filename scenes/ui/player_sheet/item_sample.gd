@@ -12,7 +12,7 @@ signal clicked(item:Item);
 @export var blank:TextureRect
 
 
-@export var modifier_icon:ItemModifierIcon
+#@export var modifier_icon:ItemModifierIcon
 
 var item:Item;
 @export var button:TextureButton
@@ -27,12 +27,11 @@ func load_item(new_item:Item, sample_scale:int=2, make_clickable:bool=false)->vo
 	custom_minimum_size = sample_size;
 	size = sample_size;
 	
-	if sample_scale > 2:
-		modifier_icon.scale = Vector2(2, 2);
-	else:
-		modifier_icon.scale = Vector2.ONE
+	#if sample_scale > 2:
+		#modifier_icon.scale = Vector2(2, 2);
+	#else:
+		#modifier_icon.scale = Vector2.ONE
 	
-	tooltip.load_target(self);
 	tooltip.enable()
 	
 	
@@ -46,14 +45,13 @@ func load_item(new_item:Item, sample_scale:int=2, make_clickable:bool=false)->vo
 
 func refresh(animated:bool=true)->void:
 	## push more stuff from load_item to here when need be?
-	if item:
-		modifier_icon.refresh(item)
-		tooltip.item_setup(item)
+	#if item:
+		#modifier_icon.refresh(item)
 	if animated:
 		highlight_blink()
 
 func load_blank(sample_scale:int = 2)->void:
-	modifier_icon.hide()
+	#modifier_icon.hide()
 	blank.show();
 	modulate = Color.WHITE
 	self_modulate.a = 0;

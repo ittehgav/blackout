@@ -135,6 +135,7 @@ func refresh_data(_r:String="", _change:float=0)->void:
 
 func _on_player_equipment_changed(changed:Equipment) -> void:
 	gear.refresh_samples(changed)
+	player_view.refresh_data()
 
 func _on_inventory_display_warnings_shown() -> void:
 	left_tab_container.set_tab_disabled(0, true)

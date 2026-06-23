@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://brlc23bio8sdx"]
 
 [ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/settlements/building.gd" id="1_1igcj"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="2_oeueu"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/inventory/shop_inventory.tscn" id="2_oeueu"]
 [ext_resource type="Texture2D" uid="uid://5ntjtu1c0jeo" path="res://assets/visual/buildings/icons/gym.png" id="2_osyqs"]
 [ext_resource type="Texture2D" uid="uid://b7lqyjg2u20ut" path="res://assets/visual/sprites/locations/settlements/portraits/gym.png" id="2_tjn12"]
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="3_e6ovm"]

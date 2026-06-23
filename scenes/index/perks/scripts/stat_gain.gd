@@ -12,14 +12,14 @@ func _ready()->void:
 	if not (get_parent() is Control):
 		return
 	print("_R??? ", name)
-	stat = Index.all_combat_stats.pick_random();
+	stat = CombatStats.all_stats.pick_random();
 	stat_icon.stat = stat;
 	stat_icon.setup();
 	
 	icon = Index.textures.icons[stat];
 	stat_label.text = str(snapped(player.final_stat(stat), .01))
 	
-	gain = Scaling.player_level_stat_gains[stat] * 2;
+	gain = CombatStats.player_level_stat_gains[stat] * 2;
 	title_color = Index.get_color(stat);
 	
 	name = stat.capitalize() +" Bonus";

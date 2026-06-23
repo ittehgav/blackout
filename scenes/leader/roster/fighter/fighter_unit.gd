@@ -48,7 +48,7 @@ func gain_exp(amount:int)->int:
 	## returns the amount of levels gained from the EXP
 	## sets level and refreshes stuff all here
 	var levels_gained:int = 0;
-	var for_next_level:int = Scaling.exp_for_next_level(level) - experience;
+	var for_next_level:int = CombatStats.exp_for_next_level(level) - experience;
 	while amount >= for_next_level:
 		experience = 0; ## experience here is the exp the unit previously had
 		amount -= for_next_level
@@ -57,7 +57,7 @@ func gain_exp(amount:int)->int:
 		level += 1;
 
 		level_up.emit()
-		for_next_level = Scaling.exp_for_next_level(level);
+		for_next_level = CombatStats.exp_for_next_level(level);
 	
 	experience = amount
 
@@ -66,9 +66,9 @@ func gain_exp(amount:int)->int:
 	
 	
 func final_stats()->CombatStats:
-	var modified_stats:CombatStats = Index.scenes.combat_stats.instantiate();
+	var modified_stats:CombatStats = CombatStats.new();
 	
-	for stat:String in Index.all_combat_stats + ["move_speed"]:
+	for stat:String in CombatStats.all_stats + ["move_speed"]:
 		modified_stats[stat] = final_stat(stat);
 
 	return modified_stats;
@@ -85,7 +85,7 @@ func update_stats()->void:
 	## stats are only changeable by levels for now
 	stats_loaded = true;
 	
-	for stat:String in Index.all_combat_stats:
+	for stat:String in CombatStats.all_stats:
 		stats[stat] = base.base_stats[stat];
 		stats[stat] += base.stats_per_level[stat] * level;
 	
@@ -97,7 +97,7 @@ func final_skill_cooldown(_agi_acm:float=stats.agility)->float:
 	if base.skill.base_cooldown == 0.0:
 		return 0.0
 	var cooldown:float = base.skill.base_cooldown;
-	cooldown -= Scaling.agility_cooldown_reduction(base.skill.base_cooldown, final_stats().agility)
+	cooldown -= CombatStats.agility_cooldown_reduction(base.skill.base_cooldown, final_stats().agility)
 	return cooldown
 	
 
@@ -119,26 +119,26 @@ func equip_accessory(new:Accessory)->Accessory:
 func _on_accessory_equipped(new: Accessory, old: Accessory) -> void:
 	equipped_accessory = new;
 	if new.stat_modifiers:
-		for stat:String in Index.all_combat_stats:
+		for stat:String in CombatStats.all_stats:
 			var modifier:float = new.stat_modifiers[stat]
 			if modifier:
 				modifier_stats[stat] += modifier
 				
 	if new.stat_multipliers:
-		for stat:String in Index.all_combat_stats:
+		for stat:String in CombatStats.all_stats:
 			var modifier:float = new.stat_multipliers[stat]
 			if modifier:
 				stat_multipliers[stat] += modifier
 	
 	if old:
 		if old.stat_modifiers:
-			for stat:String in Index.all_combat_stats:
+			for stat:String in CombatStats.all_stats:
 				var modifier:float = old.stat_modifiers[stat]
 				if modifier:
 					modifier_stats[stat] -= modifier
 					
 		if old.stat_multipliers:
-			for stat:String in Index.all_combat_stats:
+			for stat:String in CombatStats.all_stats:
 				var modifier:float = old.stat_multipliers[stat]
 				if modifier:
 					stat_multipliers[stat] -= modifier

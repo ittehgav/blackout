@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cr868dirbxmu7" path="res://scenes/ui/location_menu/dungeon/dungeon_menu.gd" id="1_7hbv3"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_dqlpc"]
 [ext_resource type="Texture2D" uid="uid://2v8suik1qjog" path="res://assets/visual/buildings/dungeon_sign/skull_broken.png" id="3_x2qvw"]
-[ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party_power_icon.tscn" id="4_omstc"]
+[ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party/party_power_icon.tscn" id="4_omstc"]
 [ext_resource type="AudioStream" uid="uid://6fite33b5nqx" path="res://assets/sound/sfx/world_map/wave_cleared.mp3" id="4_t6shr"]
 [ext_resource type="AudioStream" uid="uid://ccn130n4j1oaj" path="res://assets/sound/sfx/world_map/dungeon_cleared.mp3" id="5_qvabo"]
 [ext_resource type="Script" uid="uid://yn55dca3qplf" path="res://scenes/ui/sound/sfx_player.gd" id="5_tpeou"]

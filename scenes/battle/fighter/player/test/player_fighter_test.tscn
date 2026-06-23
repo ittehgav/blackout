@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="7_l8w5n"]
 [ext_resource type="PackedScene" uid="uid://cj5ljxvm16m8c" path="res://scenes/index/items/weapons/shrapnel_shotgun.tscn" id="7_mysod"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="8_5w0nc"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="9_hombn"]
 [ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="9_l8w5n"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="9_toood"]
 [ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="10_l8w5n"]
@@ -110,7 +111,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8w5n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hombn"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -122,7 +123,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hombn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yoboh"]
 resource_local_to_scene = true
 shader = ExtResource("2_yxwnb")
 shader_parameter/color = Color(0, 0.2, 0.047058824, 1)
@@ -132,7 +133,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yoboh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ytje"]
 resource_local_to_scene = true
 shader = ExtResource("2_yxwnb")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -157,7 +158,19 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ytje"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux3o3"]
+resource_local_to_scene = true
+shader = ExtResource("4_t331a")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o48da"]
 resource_local_to_scene = true
 shader = ExtResource("4_t331a")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -180,16 +193,16 @@ roster = NodePath("../../../Player/Roster")
 position = Vector2(191, 18)
 
 [node name="body" parent="Arena/teams/team_1/player_fighter" index="5" unique_id=416499753]
-material = SubResource("ShaderMaterial_l8w5n")
+material = SubResource("ShaderMaterial_hombn")
 
 [node name="left_hand" parent="Arena/teams/team_1/player_fighter/body" index="2" unique_id=7873661]
-material = SubResource("ShaderMaterial_hombn")
+material = SubResource("ShaderMaterial_yoboh")
 
 [node name="right_hand" parent="Arena/teams/team_1/player_fighter/body" index="3" unique_id=1602105371]
-material = SubResource("ShaderMaterial_hombn")
+material = SubResource("ShaderMaterial_yoboh")
 
 [node name="equipment" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=488158529]
-material = SubResource("ShaderMaterial_yoboh")
+material = SubResource("ShaderMaterial_6ytje")
 
 [node name="team_2" parent="Arena/teams" parent_id_path=PackedInt32Array(896888135, 1264042758) index="3" unique_id=451149455 node_paths=PackedStringArray("roster")]
 roster = NodePath("../../NPC Roster")
@@ -280,31 +293,31 @@ texture = ExtResource("4_mysod")
 
 [node name="NPC Roster" parent="Arena" unique_id=159500697 instance=ExtResource("6_toood")]
 
-[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_t331a")]
-process_priority = 1
-equipped_weapon = NodePath("Inventory/Toxic Shotgun")
-alternative_weapon = NodePath("Inventory/Electric Baton")
-equipped_module = NodePath("Inventory/Dodge Roll")
-experience = 1
-
-[node name="FighterUnit" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="0" unique_id=1849357981 instance=ExtResource("7_l8w5n")]
+[node name="FighterUnit" parent="Arena/NPC Roster" unique_id=1849357981 instance=ExtResource("7_l8w5n")]
 level = 4
 
-[node name="Slammer" parent="Player/Roster/FighterUnit" unique_id=1342933973 instance=ExtResource("9_l8w5n")]
-material = SubResource("ShaderMaterial_6ytje")
+[node name="Slammer" parent="Arena/NPC Roster/FighterUnit" unique_id=1342933973 instance=ExtResource("9_l8w5n")]
+material = SubResource("ShaderMaterial_ux3o3")
 position = Vector2(732.9054, 0)
+
+[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_t331a")]
+process_priority = 1
+equipped_weapon = NodePath("Inventory/Tailpipe")
+alternative_weapon = NodePath("Inventory/Slingshot")
+equipped_module = NodePath("Inventory/Dodge Roll")
+level = 4
+experience = 1
+
+[node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="0" unique_id=2067750979 instance=ExtResource("7_l8w5n")]
+level = 4
+
+[node name="Puncher" parent="Player/Roster/FighterUnit2" unique_id=1510142188 instance=ExtResource("9_hombn")]
+material = SubResource("ShaderMaterial_o48da")
 
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 315
 
-[node name="Shrapnel Shotgun" parent="Player/Inventory" index="0" unique_id=1126198983 node_paths=PackedStringArray("projections") instance=ExtResource("7_mysod")]
-alt_cooldown = 0.0
-melee = false
-projections = []
-refinement_level = 0
-continuous = false
-inventory_position = Vector2(-1, -1)
-stack_size = 1
+[node name="Shrapnel Shotgun" parent="Player/Inventory" index="0" unique_id=1126198983 instance=ExtResource("7_mysod")]
 
 [node name="Brass Knuckles" parent="Player/Inventory" index="1" unique_id=834594505 instance=ExtResource("8_5w0nc")]
 application = ""

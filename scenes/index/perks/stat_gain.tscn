@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bf4m7vw83uxx1" path="res://scenes/index/perks/scripts/stat_gain.gd" id="1_mbhg4"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="2_mwxnt"]
 [ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/gain_generic.wav" id="2_ymr5f"]
-[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/stat_icon.tscn" id="3_mwxnt"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/modular/stat_icon.tscn" id="3_mwxnt"]
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;

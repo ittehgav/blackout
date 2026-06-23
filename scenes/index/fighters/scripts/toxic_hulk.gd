@@ -3,10 +3,7 @@ extends FighterBase
 @export var smoke:CPUParticles2D
 
 func full_skill_description(unit:FighterUnit)->String:
-	var dps:String = Index.colored_text("attack", unit.final_stat("attack"), " damage")
-	var debuff:float = Scaling.technique_scaled_value(skill.status.value, unit.final_stat("technique"), "stat_change");
-	var debuff_str:String = Index.colored_text("technique", debuff, " attack reduction")
-	var final_string:String = "Fires toxic gas on enemies, dealing %s and applying a stacking %s."%[dps, debuff_str];
+	var final_string:String = "Shoots toxic gas on enemies in front of him, damaging them, sending them flying and applying a defense debuff.";
 	return final_string
 
 

@@ -4,6 +4,7 @@ class_name PlayerView;
 
 @export var name_label:Label;
 
+@export var player_sample:Control;
 
 @export_subgroup("Levels")
 @export var level_label:Label;
@@ -17,6 +18,7 @@ func _ready()->void:
 
 func refresh_data()->void:
 	level_label.text = "Level: " + str(player.level)
-
+	var current_weapon:Weapon = player.equipped_weapon;
+	player_sample.load_weapon(current_weapon)
 	
 	

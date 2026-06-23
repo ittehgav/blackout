@@ -71,9 +71,19 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="One Punch" type="Node" parent="." unique_id=1213322069]
 script = ExtResource("3_eyj5g")
+targetting = null
 base_cooldown = 5.0
 effects = Array[int]([0, 4])
+instant_impact = null
+position_lineup = null
+transform_visual = null
+need_target = null
+scan_enemies = null
+scan_allies = null
 aoe_projection = false
+special_aoe_projection = null
+technique_scaled_damage = null
+own_damage_modifier = null
 knockback_strength = 2
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 

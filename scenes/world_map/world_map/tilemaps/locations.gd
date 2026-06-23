@@ -23,30 +23,41 @@ func _ready()->void:
 	for l:Location in all_locations:
 		if l.room_for_neighbors():
 			assign_neighbors(l)
+
 	
 	road.generate_roads(all_locations);
 	## just does nothing when loading previous session?
 	## which we can't even do rn
 	fog.reveal_neighbors();
+
+func match_neighbors(l1:Location, l2:Location)->void:
+	l1.neighbors.append(l2);
+	if not l1.room_for_neighbors():
+		locations_with_room -= 1;
 	
+	l2.neighbors.append(l1);
+	if not l2.room_for_neighbors():
+		locations_with_room -= 1;
+
 func assign_neighbors(target:Location)->void:
-	var to_check:Array[Location] = all_locations.filter(neighbor_distance_sort.bind(target))
-	
+	var to_check:Array = all_locations.duplicate();
+	to_check.erase(target)
+	to_check.sort_custom(neighbor_distance_sort.bind(target))
 	while target.room_for_neighbors():
 		var l:Location = to_check[0];
-		if l in target.neighbors:
-			to_check.pop_back()
+		
+		while l in target.neighbors or (not l.room_for_neighbors() and locations_with_room > 2):
+			to_check.pop_front()
+			if not len(to_check):
+				to_check = all_locations.duplicate();
+				to_check.erase(target)
+				to_check.sort_custom(neighbor_distance_sort.bind(target))
 
-		elif l.room_for_neighbors() or locations_with_room <= 0:
-			## only place where neigbors are ever assigned
+			l = to_check[0];
 			
-			target.neighbors.append(l);
-			if not target.room_for_neighbors():
-				locations_with_room -= 1;
-			l.neighbors.append(target)
-			if not l.room_for_neighbors():
-				locations_with_room -= 1;
-				
+		to_check.pop_front()
+		
+		match_neighbors(target, l);
 	
 func neighbor_distance_sort(a:Location, b:Location, target:Location)->bool:
 	return target.position.distance_to(a.position) < target.position.distance_to(b.position);

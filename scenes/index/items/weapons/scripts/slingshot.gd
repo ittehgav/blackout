@@ -14,9 +14,10 @@ func get_description()->String:
 	return "Flings stones at enemies, dealing " + str(final_damage()) + " damage to enemies.";
 
 func use(_alt:bool=false)->void:
-	animation_player.play(animation_root_key+"/attack");
+	animation_player.play(get_animation_key("attack"));
 	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit);
 
 func projectile_hit(target:CombatEntity)->void:
 	Combat.deal_damage(Entities.player_fighter, target);
+	Combat.knock_back_target(Entities.player_fighter, target, 1)
 	hit.emit()

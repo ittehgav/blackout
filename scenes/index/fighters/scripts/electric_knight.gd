@@ -8,7 +8,7 @@ const elec_count_bonus_technique_amp = .1
 func full_skill_description(unit:FighterUnit)->String:
 	var damage_string:String = Index.colored_text("attack", unit.final_stat("attack"), " damage")
 	var electrified_tag:String = Index.get_color_tag("electrify");
-	var elec_count_increase:String = Index.colored_text("technique", Scaling.technique_scaled_value(
+	var elec_count_increase:String = Index.colored_text("technique", CombatStats.technique_scaled_value(
 		elec_count_bonus, unit.final_stat("technique"), "", elec_count_bonus_technique_amp),"%")
 	
 	var f:Dictionary = {
@@ -51,6 +51,6 @@ func chain_lightning(targets:Array[ActiveFighter])->void:
 
 func damage_modifier(damage:float, source:ActiveFighter)->float:
 	var elec_count:int = get_tree().get_node_count_in_group("electrified");
-	var per_elec_bonus:float = Scaling.technique_scaled_value\
+	var per_elec_bonus:float = CombatStats.technique_scaled_value\
 	(elec_count_bonus, source.technique, "", elec_count_bonus_technique_amp);
 	return damage * elec_count * per_elec_bonus;

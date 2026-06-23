@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://ispkvosqmcxc"]
+
+[ext_resource type="Script" uid="uid://c2s047ot7rscb" path="res://scenes/ui/icons/modular/combat_mechanic_icon.gd" id="1_ti1gb"]
+[ext_resource type="Texture2D" uid="uid://bnodj0olc5drs" path="res://assets/visual/icons/stats/attack.png" id="2_2atle"]
+[ext_resource type="Texture2D" uid="uid://ofroxfgshmkr" path="res://assets/visual/particles/aim.png" id="3_s24vb"]
+[ext_resource type="Texture2D" uid="uid://bpoqyg6t3ifka" path="res://assets/visual/icons/combat_mechanics/knockback.png" id="4_2atle"]
+[ext_resource type="Texture2D" uid="uid://b0ckycvtw1dr6" path="res://assets/visual/editor_ui/IconGodotNode/node/icon_spiral.png" id="4_17d47"]
+[ext_resource type="Texture2D" uid="uid://cmhs4ifqs7ujs" path="res://assets/visual/icons/combat_mechanics/stat_up.png" id="5_wgnta"]
+[ext_resource type="Texture2D" uid="uid://c26dbknrhbcwb" path="res://assets/visual/icons/combat_mechanics/stat_down.png" id="6_6gjhy"]
+[ext_resource type="Texture2D" uid="uid://crjrii0nyjfn5" path="res://assets/visual/editor_ui/IconGodotNode/node/icon_time.png" id="8_6gjhy"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="9_slgv3"]
+
+[node name="CombatMechanicIcon" type="TextureRect" unique_id=534107716 node_paths=PackedStringArray("texture_under", "tooltip")]
+z_index = 1
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ti1gb")
+texture_under = NodePath("TextureRect")
+tooltip = NodePath("Tooltip")
+mechanic_textures = Dictionary[int, Texture]({
+0: ExtResource("2_2atle"),
+1: ExtResource("3_s24vb"),
+2: ExtResource("4_17d47"),
+3: ExtResource("4_2atle"),
+4: ExtResource("5_wgnta"),
+5: ExtResource("6_6gjhy"),
+6: ExtResource("8_6gjhy")
+})
+mechanic_colors = Dictionary[int, Color]({
+0: Color(0.8, 0.24000001, 0.24000001, 1),
+1: Color(0.8, 0.8, 0.8, 1),
+2: Color(0.49800006, 0.24, 0.6, 1),
+3: Color(0.8, 0.8, 0.8, 1),
+4: Color(0.27999997, 0.7, 0.7, 1),
+5: Color(0.41999984, 0.27999997, 0.7, 1),
+6: Color(0.8, 0.8, 0.8, 1)
+})
+metadata/_custom_type_script = "uid://c2s047ot7rscb"
+
+[node name="Tooltip" parent="." unique_id=2029286187 instance=ExtResource("9_slgv3")]
+layout_mode = 1
+offset_left = -640.0
+offset_top = -360.0
+offset_right = -534.0
+offset_bottom = -296.0
+target_type = 2
+
+[node name="VBoxContainer" parent="Tooltip/MarginContainer/HBoxContainer" parent_id_path=PackedInt32Array(2029286187, 334118593) index="0" unique_id=406691123]
+custom_minimum_size = Vector2(0, 0)
+
+[node name="description" parent="Tooltip/MarginContainer/HBoxContainer/VBoxContainer" index="2" unique_id=2028765007]
+custom_minimum_size = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1545354856]
+z_index = -1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+
+[editable path="Tooltip"]

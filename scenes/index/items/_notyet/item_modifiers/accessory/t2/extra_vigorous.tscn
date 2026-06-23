@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://db28pboum1xae"]
 
-[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_q8e0y"]
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/inventory/item_modifiers/item_modifier.gd" id="1_q8e0y"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_y36bn"]
 
 [node name="Extra Vigorous" type="Node" unique_id=1022797017 node_paths=PackedStringArray("stat_modifiers")]

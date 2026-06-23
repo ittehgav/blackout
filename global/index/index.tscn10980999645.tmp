@@ -1,0 +1,440 @@
+[gd_scene format=3 uid="uid://bwtklnymx24l2"]
+
+[ext_resource type="Script" uid="uid://b5rv5dkv0laex" path="res://global/index/index.gd" id="1_oyx4q"]
+[ext_resource type="PackedScene" uid="uid://uacsw306t8nv" path="res://scenes/index/fighters/units/electric_knight.tscn" id="3_f4g0r"]
+[ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="5_id88d"]
+[ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="8_28bxi"]
+[ext_resource type="PackedScene" uid="uid://dx6w0vn2gqy7s" path="res://scenes/player/unit/player_body.tscn" id="11_qig7t"]
+[ext_resource type="PackedScene" uid="uid://b3sr8al76si1g" path="res://scenes/battle/arena/arena.tscn" id="14_38kar"]
+[ext_resource type="PackedScene" uid="uid://if0mdd1xo0lc" path="res://scenes/index/vehicles/doblo.tscn" id="18_2wv2w"]
+[ext_resource type="PackedScene" uid="uid://dpqa03jkcvh3o" path="res://scenes/index/vehicles/gol.tscn" id="19_c3xjx"]
+[ext_resource type="PackedScene" uid="uid://c83u8udv4ox01" path="res://scenes/index/vehicles/uno.tscn" id="20_t1lvq"]
+[ext_resource type="PackedScene" uid="uid://dphiet8wg7sd" path="res://scenes/world_map/world_map/world_map.tscn" id="21_8q2tu"]
+[ext_resource type="PackedScene" uid="uid://di52ctdy1nihl" path="res://scenes/world_map/dialogue/dialogue_player.tscn" id="22_au47y"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="25_tiko5"]
+[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="26_t3d8t"]
+[ext_resource type="PackedScene" uid="uid://cbk0pwuwwf4px" path="res://scenes/ui/samples/unit_sample.tscn" id="26_yssh0"]
+[ext_resource type="PackedScene" uid="uid://c7ylp6mxbcewc" path="res://scenes/ui/icons/modular/stat_icon.tscn" id="27_x86u7"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="28_kn0pf"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="28_v8r68"]
+[ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="30_n4gql"]
+[ext_resource type="PackedScene" uid="uid://c7p87ik4k71ub" path="res://scenes/ui/save_system/save_file_display.tscn" id="31_6wgsf"]
+[ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_display/item_mirror.tscn" id="32_co4i5"]
+[ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/index/items/containers/food.tscn" id="33_qyikr"]
+[ext_resource type="PackedScene" uid="uid://c35c0o3u2g7aj" path="res://scenes/index/items/containers/fuel.tscn" id="34_y8csm"]
+[ext_resource type="PackedScene" uid="uid://b1ohkwyjvqmfo" path="res://scenes/index/items/containers/juice.tscn" id="35_do1gh"]
+[ext_resource type="PackedScene" uid="uid://di0vghxs4bkgh" path="res://scenes/index/items/containers/scrap_pile.tscn" id="36_j7eeh"]
+[ext_resource type="PackedScene" uid="uid://bjmnlpi6chnbj" path="res://scenes/index/items/containers/chips.tscn" id="37_y60qf"]
+[ext_resource type="Texture2D" uid="uid://cy2xm601gdvas" path="res://assets/visual/particles/circles/circle_2x2.png" id="40_m7afg"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="43_au47y"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="46_c3xjx"]
+[ext_resource type="PackedScene" uid="uid://bhmsli657i58w" path="res://scenes/index/fighters/units/scrap_hulk.tscn" id="47_t1lvq"]
+[ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="48_8q2tu"]
+[ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="49_ob4ih"]
+[ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="50_hdp4t"]
+[ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="51_8gxj7"]
+[ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/units/electric_hulk.tscn" id="51_vvnt2"]
+[ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="52_tiko5"]
+[ext_resource type="PackedScene" uid="uid://bjnol1lrln1fk" path="res://scenes/index/fighters/monsters/aedes.tscn" id="53_t3d8t"]
+[ext_resource type="PackedScene" uid="uid://b3n7mk40hlld3" path="res://scenes/index/fighters/monsters/big_rat.tscn" id="54_x86u7"]
+[ext_resource type="PackedScene" uid="uid://bjc7irffaa805" path="res://scenes/index/fighters/monsters/calango.tscn" id="55_v8r68"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="55_x86u7"]
+[ext_resource type="PackedScene" uid="uid://blvhloouenfiu" path="res://scenes/index/fighters/monsters/sludge_car.tscn" id="56_j1h2w"]
+[ext_resource type="Script" uid="uid://c2v3r4uaedrki" path="res://global/index/textures.gd" id="56_rddof"]
+[ext_resource type="Script" uid="uid://dqnom05cxvnww" path="res://global/index/fighters.gd" id="57_jh7c7"]
+[ext_resource type="PackedScene" uid="uid://datk48iuf2jce" path="res://scenes/index/fighters/monsters/sludge_sign.tscn" id="57_n4gql"]
+[ext_resource type="PackedScene" uid="uid://mfpl5uasy6ff" path="res://scenes/index/fighters/monsters/termite.tscn" id="58_6wgsf"]
+[ext_resource type="PackedScene" uid="uid://buy3hmc8ungmr" path="res://scenes/index/fighters/monsters/termite_queen.tscn" id="59_co4i5"]
+[ext_resource type="Texture2D" uid="uid://07xmhqaquw88" path="res://assets/visual/particles/circles/circle_hollow_4x4.png" id="60_mrj2u"]
+[ext_resource type="Texture2D" uid="uid://dxn3vii4n7mar" path="res://assets/visual/particles/circles/circle_hollow_8x8.png" id="61_ekp1m"]
+[ext_resource type="Texture2D" uid="uid://cf7qn7nec5bvw" path="res://assets/visual/particles/circles/circle_hollow_16x16.png" id="62_js3li"]
+[ext_resource type="Texture2D" uid="uid://dub52mln06in4" path="res://assets/visual/particles/circles/circle_hollow_32x32.png" id="63_mrm47"]
+[ext_resource type="Texture2D" uid="uid://cui2boa6gcv18" path="res://assets/visual/particles/circles/circle_hollow_64x64.png" id="64_w8q8o"]
+[ext_resource type="Texture2D" uid="uid://bkvwsq6raaf6p" path="res://assets/visual/particles/circles/circle_4x4.png" id="65_50ns7"]
+[ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="66_vgk1i"]
+[ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="67_n3xga"]
+[ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="68_e7p5s"]
+[ext_resource type="Texture2D" uid="uid://fvqn3burk27x" path="res://assets/visual/particles/circles/circle_64x64.png" id="69_q6wh7"]
+[ext_resource type="Script" uid="uid://v7kwggc2eei6" path="res://global/index/scenes.gd" id="74_f4g0r"]
+[ext_resource type="Script" uid="uid://bmx20g00xyoa6" path="res://global/index/ui.gd" id="80_f4g0r"]
+[ext_resource type="Script" uid="uid://bxp6tl07qg7ae" path="res://global/index/items.gd" id="81_iis6y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jh7c7"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vprqi"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tud0w"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15ey7"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vvnt2"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m7afg"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_au47y"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fqlef"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yssh0"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qig7t"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v142k"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kn0pf"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ia5dt"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_roqj1"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ifr8c"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_56oi4"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a8k3y"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4deuf"]
+resource_local_to_scene = true
+shader = ExtResource("55_x86u7")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[node name="Index" type="Node" unique_id=700446529 node_paths=PackedStringArray("scenes", "fighters", "textures")]
+script = ExtResource("1_oyx4q")
+scenes = NodePath("scenes")
+fighters = NodePath("fighters")
+textures = NodePath("textures")
+player_team_color = Color(0.120000005, 0.2, 0.12133334, 1)
+enemy_team_color = Color(0.6, 0.12, 0.12, 1)
+mod_tier_colors = Array[Color]([Color(0.8, 0.8, 0.8, 1), Color(0.32156864, 0.8, 0.38431373, 1), Color(0.8, 0.5882353, 0.16078432, 1)])
+resource_colors = Dictionary[String, Color]({
+"chips": Color(0.21000001, 0.7, 0.7, 1),
+"food": Color(0.7, 0.7, 0.21000001, 1),
+"fuel": Color(0.7, 0.34066668, 0.21000001, 1),
+"juice": Color(0.5366668, 0.21000001, 0.7, 1),
+"money": Color(0.16, 0.8, 0.16, 1),
+"scrap": Color(0.8, 0.8, 0.8, 1)
+})
+day_reflection_color = Color(0.2, 0.076, 0.076, 1)
+night_reflection_color = Color(0.487, 0.46, 1, 1)
+primary_tag_colors = Dictionary[String, Color]({
+"bodybuilder": Color(0.8, 0.8, 0.48000002, 1),
+"cyborg": Color(0.48000002, 0.8, 0.8, 1),
+"mechanic": Color(0.8, 0.50666666, 0.4, 1),
+"scientist": Color(0.65999985, 0.4, 0.8, 1)
+})
+
+[node name="scenes" type="Node" parent="." unique_id=1576804442 node_paths=PackedStringArray("ui", "items")]
+script = ExtResource("74_f4g0r")
+ui = NodePath("ui")
+items = NodePath("items")
+arena = ExtResource("14_38kar")
+world_map = ExtResource("21_8q2tu")
+fighter_unit = ExtResource("25_tiko5")
+npc_fighter = ExtResource("26_t3d8t")
+vehicles = Array[PackedScene]([ExtResource("18_2wv2w"), ExtResource("19_c3xjx"), ExtResource("20_t1lvq")])
+player_body = ExtResource("11_qig7t")
+
+[node name="ui" type="Node" parent="scenes" unique_id=1254369096]
+script = ExtResource("80_f4g0r")
+stat_icon = ExtResource("27_x86u7")
+resource_icon = ExtResource("28_v8r68")
+tooltip = ExtResource("30_n4gql")
+save_file_display = ExtResource("31_6wgsf")
+dialogue_player = ExtResource("22_au47y")
+item_mirror = ExtResource("32_co4i5")
+item_sample = ExtResource("28_kn0pf")
+unit_sample = ExtResource("26_yssh0")
+
+[node name="items" type="Node" parent="scenes" unique_id=2077709842]
+script = ExtResource("81_iis6y")
+food_stack = ExtResource("33_qyikr")
+fuel_stack = ExtResource("34_y8csm")
+juice_stack = ExtResource("35_do1gh")
+scrap_stack = ExtResource("36_j7eeh")
+chips_stack = ExtResource("37_y60qf")
+
+[node name="textures" type="Node" parent="." unique_id=176587227]
+script = ExtResource("56_rddof")
+hollow_circles = Array[Texture]([ExtResource("60_mrj2u"), ExtResource("61_ekp1m"), ExtResource("62_js3li"), ExtResource("63_mrm47"), ExtResource("64_w8q8o")])
+filled_circles = Array[Texture]([ExtResource("40_m7afg"), ExtResource("65_50ns7"), ExtResource("66_vgk1i"), ExtResource("67_n3xga"), ExtResource("68_e7p5s"), ExtResource("69_q6wh7")])
+player_body_texture = ExtResource("43_au47y")
+
+[node name="fighters" type="Node2D" parent="." unique_id=1407718655 node_paths=PackedStringArray("all_unit_bases")]
+visible = false
+script = ExtResource("57_jh7c7")
+unit_bases_dir = "res://scenes/index/fighters/units/"
+monster_bases_dir = "res://scenes/index/fighters/monsters/"
+all_unit_bases = {
+"Aedes": NodePath("Aedes"),
+"Big Rat": NodePath("Big Rat"),
+"Calango": NodePath("Calango"),
+"Crowbar": NodePath("Crowbar"),
+"Electric Hulk": NodePath("Electric Hulk"),
+"Electric Knight": NodePath("Electric Knight"),
+"Gravity": NodePath("Gravity"),
+"Puncher": NodePath("Puncher"),
+"Scrap Hulk": NodePath("Scrap Hulk"),
+"Scythe": NodePath("Scythe"),
+"Slammer": NodePath("Slammer"),
+"Sludge Car": NodePath("Sludge Car"),
+"Sludge Sign": NodePath("Sludge Sign"),
+"Sniper": NodePath("Sniper"),
+"Termite": NodePath("Termite"),
+"Termite Queen": NodePath("Termite Queen"),
+"Toxic Hulk": NodePath("Toxic Hulk"),
+"Wrecker": NodePath("Wrecker")
+}
+all_unit_base_scenes = Dictionary[String, PackedScene]({
+"Aedes": ExtResource("53_t3d8t"),
+"Big Rat": ExtResource("54_x86u7"),
+"Calango": ExtResource("55_v8r68"),
+"Crowbar": ExtResource("5_id88d"),
+"Electric Hulk": ExtResource("51_vvnt2"),
+"Electric Knight": ExtResource("3_f4g0r"),
+"Gravity": ExtResource("8_28bxi"),
+"Puncher": ExtResource("46_c3xjx"),
+"Scrap Hulk": ExtResource("47_t1lvq"),
+"Scythe": ExtResource("48_8q2tu"),
+"Slammer": ExtResource("49_ob4ih"),
+"Sludge Car": ExtResource("56_j1h2w"),
+"Sludge Sign": ExtResource("57_n4gql"),
+"Sniper": ExtResource("50_hdp4t"),
+"Termite": ExtResource("58_6wgsf"),
+"Termite Queen": ExtResource("59_co4i5"),
+"Toxic Hulk": ExtResource("51_8gxj7"),
+"Wrecker": ExtResource("52_tiko5")
+})
+
+[node name="Crowbar" parent="fighters" unique_id=2112712555 node_paths=PackedStringArray("evolutions") instance=ExtResource("5_id88d")]
+material = SubResource("ShaderMaterial_jh7c7")
+evolutions = [NodePath("../Sniper"), NodePath("../Gravity")]
+
+[node name="Electric Hulk" parent="fighters" unique_id=30330839 instance=ExtResource("51_vvnt2")]
+material = SubResource("ShaderMaterial_vprqi")
+
+[node name="Electric Knight" parent="fighters" unique_id=366716137 instance=ExtResource("3_f4g0r")]
+material = SubResource("ShaderMaterial_tud0w")
+
+[node name="Gravity" parent="fighters" unique_id=934399271 instance=ExtResource("8_28bxi")]
+material = SubResource("ShaderMaterial_15ey7")
+
+[node name="Puncher" parent="fighters" unique_id=1510142188 node_paths=PackedStringArray("evolutions") instance=ExtResource("46_c3xjx")]
+material = SubResource("ShaderMaterial_vvnt2")
+evolutions = [NodePath("../Slammer"), NodePath("../Wrecker")]
+
+[node name="Scrap Hulk" parent="fighters" unique_id=1648266463 instance=ExtResource("47_t1lvq")]
+material = SubResource("ShaderMaterial_m7afg")
+
+[node name="Scythe" parent="fighters" unique_id=255476344 node_paths=PackedStringArray("evolutions") instance=ExtResource("48_8q2tu")]
+material = SubResource("ShaderMaterial_au47y")
+evolutions = [NodePath("../Scrap Hulk"), NodePath("../Toxic Hulk")]
+
+[node name="Slammer" parent="fighters" unique_id=1342933973 instance=ExtResource("49_ob4ih")]
+material = SubResource("ShaderMaterial_fqlef")
+
+[node name="Sniper" parent="fighters" unique_id=1797122592 instance=ExtResource("50_hdp4t")]
+material = SubResource("ShaderMaterial_yssh0")
+
+[node name="Toxic Hulk" parent="fighters" unique_id=754896079 instance=ExtResource("51_8gxj7")]
+material = SubResource("ShaderMaterial_qig7t")
+
+[node name="Wrecker" parent="fighters" unique_id=1018236968 instance=ExtResource("52_tiko5")]
+material = SubResource("ShaderMaterial_v142k")
+
+[node name="Aedes" parent="fighters" unique_id=1948510965 instance=ExtResource("53_t3d8t")]
+material = SubResource("ShaderMaterial_kn0pf")
+
+[node name="Big Rat" parent="fighters" unique_id=779088301 instance=ExtResource("54_x86u7")]
+material = SubResource("ShaderMaterial_ia5dt")
+
+[node name="Calango" parent="fighters" unique_id=1356813743 instance=ExtResource("55_v8r68")]
+material = SubResource("ShaderMaterial_roqj1")
+
+[node name="Sludge Car" parent="fighters" unique_id=2031111193 instance=ExtResource("56_j1h2w")]
+material = SubResource("ShaderMaterial_ifr8c")
+
+[node name="Sludge Sign" parent="fighters" unique_id=1850800264 instance=ExtResource("57_n4gql")]
+material = SubResource("ShaderMaterial_56oi4")
+
+[node name="Termite" parent="fighters" unique_id=561075248 instance=ExtResource("58_6wgsf")]
+material = SubResource("ShaderMaterial_a8k3y")
+
+[node name="Termite Queen" parent="fighters" unique_id=381041469 instance=ExtResource("59_co4i5")]
+material = SubResource("ShaderMaterial_4deuf")

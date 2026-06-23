@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://clxl0g1dnu81h"]
 
 [ext_resource type="Script" uid="uid://2y7vluvytyub" path="res://scenes/battle/fighter/player/player_fighter.gd" id="2_2bwky"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_afulj"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_r3ibm"]
 [ext_resource type="Script" uid="uid://ce0gefe8a16v1" path="res://scenes/battle/fighter/player/vfx_control.gd" id="3_r3ibm"]
 [ext_resource type="Script" uid="uid://c1mom3xvj15xj" path="res://scenes/battle/fighter/player/sound/sfx.gd" id="4_dxwve"]
 [ext_resource type="Script" uid="uid://h1nud3p17bpd" path="res://scenes/battle/fighter/player/sound/hit_sfx.gd" id="4_t13x7"]
@@ -196,7 +196,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="player_fighter" type="CharacterBody2D" unique_id=952457738 node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "floating_icon_anchor", "base", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses", "sprite")]
+[node name="player_fighter" type="CharacterBody2D" unique_id=952457738 node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses", "sprite")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
@@ -206,7 +206,6 @@ body = NodePath("body")
 equipment = NodePath("equipment")
 camera = NodePath("camera")
 sfx = NodePath("misc/sfx/sfx")
-floating_icon_anchor = NodePath("floating_icon_anchor")
 base = NodePath("body")
 timers = NodePath("misc/timers")
 initial_stats = NodePath("misc/stats/initial_stats")
@@ -221,12 +220,15 @@ sprite = NodePath("body")
 
 [node name="stats" type="Node" parent="misc" unique_id=1676505557]
 
-[node name="initial_stats" parent="misc/stats" unique_id=2095973971 instance=ExtResource("2_afulj")]
+[node name="initial_stats" type="Node" parent="misc/stats" unique_id=2095973971]
+script = ExtResource("2_r3ibm")
 
-[node name="modifiers" parent="misc/stats" unique_id=1946580805 instance=ExtResource("2_afulj")]
+[node name="modifiers" type="Node" parent="misc/stats" unique_id=1946580805]
+script = ExtResource("2_r3ibm")
 move_speed = 0.0
 
-[node name="multipliers" parent="misc/stats" unique_id=1104299743 instance=ExtResource("2_afulj")]
+[node name="multipliers" type="Node" parent="misc/stats" unique_id=1104299743]
+script = ExtResource("2_r3ibm")
 max_hp = 1.0
 attack = 1.0
 defense = 1.0

@@ -70,6 +70,7 @@ beam = NodePath("Node2D/beam")
 skill = NodePath("Gravity Pulse")
 skill_range = 10
 animation_player = NodePath("AnimationPlayer")
+weight_class = 0
 tags = Array[int]([7, 3])
 movement = 1
 hit_scan = NodePath("hit_scan")
@@ -84,6 +85,7 @@ base_cooldown = 7.0
 effects = Array[int]([4, 3])
 transform_visual = 1
 status = NodePath("Phaselock")
+knockback_strength = 4
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="Phaselock" type="Node" parent="Gravity Pulse" unique_id=219088143]

@@ -27,31 +27,48 @@ signal opened
 
 ## warning takes up the whole screen so it needs to be the immediate child of a control
 ## that does that
+@export var exchanging_display:InventoryDisplay;
+@export var from_player:bool=true;
+
+@export_subgroup("elements")
 @export var warnings_popup:Control;
-var liquid_item_mirrors:Array[ItemMirror];
-var warnings:Dictionary[String, bool] = {
-	"liquid_discard":false,
-	"loot_discard":false
-}
 
 
 @export var resource_picker:Control;
 @export var unit_selector:UnitSelector;
 @export var item_selector:ItemSelector;
-
 @export var item_mirrors_node:Control;
-
 @export var cargo:Control;
 
-@export var grid_cell_scene:PackedScene;
 @export var cargo_space:Control
 
 @export var grid:GridContainer;
 @export var sfx:AudioStreamPlayer;
 @export var hover_sfx:AudioStreamPlayer;
 @export var warning_label:Label;
-
 @export var send_rect:ColorRect;
+
+
+
+@onready var original_position:Vector2 = position;
+
+
+
+@export var trade_excess:PanelContainer;
+@export var trade_excess_container:VBoxContainer;
+
+@export var trade_excess_label_panel:PanelContainer;
+@export var trade_excess_label:Label;
+@export var resources_dropdown:ResourcesDropdown;
+@export_subgroup("scenes")
+@export var grid_cell_scene:PackedScene;
+@export var item_mirror_scene:PackedScene
+
+var liquid_item_mirrors:Array[ItemMirror];
+var warnings:Dictionary[String, bool] = {
+	"liquid_discard":false,
+	"loot_discard":false
+}
 var size_x:int;
 var size_y:int;
 
@@ -61,22 +78,6 @@ var inventory:Inventory;
 const grid_cell_size = 48;
 
 var grid_cols:Array[Array];
-
-@onready var original_position:Vector2 = position;
-
-@export var from_player:bool=true;
-
-@export var exchanging_display:InventoryDisplay;
-
-@export var trade_excess:PanelContainer;
-@export var trade_excess_container:VBoxContainer;
-
-@export var trade_excess_label_panel:PanelContainer;
-@export var trade_excess_label:Label;
-
-
-@export var resources_dropdown:ResourcesDropdown;
-
 
 var all_mirrors:Array[ItemMirror];
 
@@ -91,9 +92,6 @@ var held_item_mirror:ItemMirror;
 
 var grid_set:bool=false;
 var choosing_item:bool=false;
-
-@export var food_icon:ResourceIcon
-
 var pre_trade_items:Array[Item]
 var pre_trade_stack_sizes:Dictionary[ResourceContainer, int]
 var pre_trade_inventory_positions:Dictionary[Item, Vector2]
@@ -105,7 +103,7 @@ func set_reset_state()->void:
 
 	pre_trade_items = inventory.items.duplicate()
 
-	for r:String in Index.all_resources:
+	for r:String in Resources.all_resources:
 		pre_trade_resource_counts[r] = inventory[r];
 		
 	for c:ResourceContainer in inventory.containers:
@@ -142,7 +140,7 @@ func reset_inventory()->void:
 		pre_trade_items.erase(item)
 
 
-	for r:String in Index.all_resources:
+	for r:String in Resources.all_resources:
 		inventory[r] = pre_trade_resource_counts[r]
 
 	hard_reset()
@@ -193,7 +191,7 @@ func mirror_item(item:Item)->ItemMirror:
 	return mirror
 
 func generate_mirror(item:Item)->ItemMirror:
-	var mirror:ItemMirror = Index.scenes.ui.item_mirror.instantiate();
+	var mirror:ItemMirror = item_mirror_scene.instantiate();
 	item.mirror = mirror
 	mirror.display = self;
 	mirror.load_item(item, true);
@@ -331,7 +329,7 @@ func refresh_data()->void:
 
 
 func refresh_container_mirrors()->void:
-	for r:String in Index.all_resources:
+	for r:String in Resources.all_resources:
 		if r != "money":
 			self[r+"_containers"].clear()
 

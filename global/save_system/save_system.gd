@@ -120,7 +120,7 @@ func store_unit_data(unit:FighterUnit)->Dictionary:
 
 func store_combat_stats(stats:CombatStats)->Dictionary:
 	var data:Dictionary = {};
-	for s:String in Index.all_combat_stats:
+	for s:String in CombatStats.all_stats:
 		data[s] = stats[s];
 	
 	return data

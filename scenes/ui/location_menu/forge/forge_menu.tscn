@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c5ffe2oljsppt" path="res://scenes/index/items/_notyet/item_modifiers/accessory/t1/enlightening.tscn" id="7_twg0r"]
 [ext_resource type="PackedScene" uid="uid://dq7b1tut5im8" path="res://scenes/index/items/_notyet/item_modifiers/accessory/t1/light.tscn" id="8_m3me0"]
 [ext_resource type="PackedScene" uid="uid://c8jv1o053srdn" path="res://scenes/index/items/_notyet/item_modifiers/accessory/t1/resilient.tscn" id="9_5o1wa"]
-[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="9_14cdg"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="9_14cdg"]
 [ext_resource type="PackedScene" uid="uid://cyql2mpcfm38x" path="res://scenes/index/items/_notyet/item_modifiers/accessory/t1/vigorous.tscn" id="10_o7im8"]
 [ext_resource type="PackedScene" uid="uid://d0lhl3o5hq5h0" path="res://scenes/index/items/_notyet/item_modifiers/accessory/t2/extra_brutal.tscn" id="11_27ku7"]
 [ext_resource type="PackedScene" uid="uid://scw3b0xpgyiq" path="res://scenes/index/items/_notyet/item_modifiers/accessory/t2/extra_enlightening.tscn" id="12_ux3cy"]

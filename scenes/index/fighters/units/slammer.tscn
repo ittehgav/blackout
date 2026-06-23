@@ -80,6 +80,7 @@ frame = 3
 script = ExtResource("3_koqxp")
 skill = NodePath("Throw Hands")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 2
 tags = Array[int]([0, 6, 7])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
@@ -88,11 +89,10 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="overhead_wide" parent="." unique_id=234288550 instance=ExtResource("4_6xpao")]
 
-[node name="Throw Hands" type="Node" parent="." unique_id=639767815 node_paths=PackedStringArray("status")]
+[node name="Throw Hands" type="Node" parent="." unique_id=639767815]
 script = ExtResource("3_53j4b")
 base_cooldown = 4.0
 effects = Array[int]([2, 6])
-status = NodePath("")
 knockback_strength = 3
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 

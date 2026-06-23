@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://da7ib3nv4i07t" path="res://scenes/index/items/accessories/scripts/sapper.gd" id="1_4o57d"]
 [ext_resource type="Texture2D" uid="uid://b158wc1npnxjn" path="res://assets/visual/items/accessories/sapper.png" id="1_oecko"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="2_8e1gc"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="3_oecko"]
 
 [node name="Sapper" type="Sprite2D" unique_id=4971161 node_paths=PackedStringArray("stat_multipliers")]
 texture = ExtResource("1_oecko")
@@ -17,7 +17,8 @@ exclusive_tag = 7
 color_tag = "technique"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
-[node name="stats" parent="." unique_id=973418849 instance=ExtResource("2_8e1gc")]
+[node name="stats" type="Node" parent="." unique_id=973418849]
+script = ExtResource("3_oecko")
 max_hp = 1.0
 attack = 1.0
 defense = 1.0

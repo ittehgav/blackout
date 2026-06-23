@@ -173,14 +173,14 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 
 	var modifier:ItemModifier = weapon.applied_modifier
 	if modifier and modifier.stat_modifiers:
-		for stat:String in Index.all_combat_stats:
+		for stat:String in CombatStats.all_stats:
 			if modifier.stat_modifiers[stat]:
 				## feels like it's not this simple?
 				equipment.holder.stat_modifiers[stat] += modifier.stat_modifiers[stat];
 				equipment.holder.stat_changed.emit(stat)
 
 	if modifier and modifier.stat_multipliers:
-		for stat:String in Index.all_combat_stats:
+		for stat:String in CombatStats.all_stats:
 			if modifier.stat_multipliers[stat]:
 				## feels like it's not this simple?
 				equipment.holder.stat_multipliers[stat] += modifier.stat_multipliers[stat];
@@ -204,7 +204,7 @@ func switch_weapon()->void:
 
 	var modifier:ItemModifier = current_weapon.applied_modifier
 	if modifier and modifier.stat_modifiers:
-		for stat:String in Index.all_combat_stats:
+		for stat:String in CombatStats.all_stats:
 			equipment.holder.in_battle_stat_modifiers[stat] -= modifier.stat_modifiers[stat];
 	
 	current_weapon.unequipped.emit();
@@ -233,7 +233,7 @@ func switch_weapon()->void:
 
 
 func refresh_weapon_cooldown(target_weapon:Weapon, time_left:float=0.0)->void:
-	var new_wait_time:float = target_weapon.cooldown - Scaling.agility_cooldown_reduction(target_weapon.cooldown, equipment.holder.agility);	
+	var new_wait_time:float = target_weapon.cooldown - CombatStats.agility_cooldown_reduction(target_weapon.cooldown, equipment.holder.agility);	
 	var timer:Timer = weapon_cd
 	if target_weapon == alternative_weapon:
 		timer = alt_weapon_cd

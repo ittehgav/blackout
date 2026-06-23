@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
 [ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
+[ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_display/item_mirror.tscn" id="3_c2vy3"]
 [ext_resource type="Script" uid="uid://k28ilsb15q1d" path="res://scenes/ui/inventory_display/sfx.gd" id="3_ke6sf"]
 [ext_resource type="AudioStream" uid="uid://027kj1l582qq" path="res://assets/sound/sfx/ui/inventory/cell_hover.wav" id="4_rchr5"]
 [ext_resource type="Script" uid="uid://b67hvkww5tvpb" path="res://scenes/ui/inventory_display/hover_sfx.gd" id="5_qglwj"]
@@ -23,12 +24,13 @@
 [ext_resource type="AudioStream" uid="uid://887fjhopo7n2" path="res://assets/sound/sfx/ui/inventory/trade/coin.wav" id="20_fnwsv"]
 [ext_resource type="Script" uid="uid://bhyla2hbqooex" path="res://scenes/ui/inventory_display/resource_picker.gd" id="21_15sfg"]
 [ext_resource type="Script" uid="uid://crrn6xtx5cmhf" path="res://scenes/ui/inventory_display/scroll_container.gd" id="22_qxt2g"]
-[ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="22_up2tu"]
+[ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/collections/resources_dropdown.tscn" id="22_up2tu"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/theme_main.tres" id="25_ed75d"]
 [ext_resource type="Script" uid="uid://bjpqfptad5b01" path="res://scenes/ui/inventory_display/unit_selector.gd" id="25_yjuqr"]
 [ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_display/warnings.gd" id="26_8mqj8"]
 [ext_resource type="Script" uid="uid://c4t43pl7ro3sq" path="res://scenes/ui/inventory_display/item_selector.gd" id="26_up2tu"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Blood.tres" id="27_c5he3"]
+[ext_resource type="PackedScene" uid="uid://dx6w0vn2gqy7s" path="res://scenes/player/unit/player_body.tscn" id="30_xdq4l"]
 
 [sub_resource type="Gradient" id="Gradient_qxt2g"]
 colors = PackedColorArray(0.101960786, 0.12941177, 0.15686275, 1, 1, 1, 1, 1)
@@ -40,7 +42,7 @@ height = 4
 fill_from = Vector2(1, 0)
 fill_to = Vector2(0, 0)
 
-[node name="inventory_display" type="Control" unique_id=1918470521 node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "cargo_space", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown", "food_icon")]
+[node name="inventory_display" type="Control" unique_id=1918470521 node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "cargo_space", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,11 +56,10 @@ warnings_popup = NodePath("warnings")
 resource_picker = NodePath("resource_picker")
 unit_selector = NodePath("unit_selector")
 item_selector = NodePath("item_selector")
-item_mirrors_node = NodePath("cargo/ScrollContainer/cargo_space/item_mirrors")
+item_mirrors_node = NodePath("cargo/ReferenceRect/ScrollContainer/cargo_space/item_mirrors")
 cargo = NodePath("cargo")
-grid_cell_scene = ExtResource("2_ke6sf")
-cargo_space = NodePath("cargo/ScrollContainer/cargo_space")
-grid = NodePath("cargo/ScrollContainer/cargo_space/inventory_grid")
+cargo_space = NodePath("cargo/ReferenceRect/ScrollContainer/cargo_space")
+grid = NodePath("cargo/ReferenceRect/ScrollContainer/cargo_space/inventory_grid")
 sfx = NodePath("sfx")
 hover_sfx = NodePath("hover_sfx")
 warning_label = NodePath("warning")
@@ -68,7 +69,8 @@ trade_excess_container = NodePath("trade_excess/trade_excess_container")
 trade_excess_label_panel = NodePath("trade_excess_label_panel")
 trade_excess_label = NodePath("trade_excess_label_panel/trade_excess_label")
 resources_dropdown = NodePath("resources_dropdown")
-food_icon = NodePath("resources_dropdown/food/food_icon")
+grid_cell_scene = ExtResource("2_ke6sf")
+item_mirror_scene = ExtResource("3_c2vy3")
 metadata/_tab_index = 0
 
 [node name="hover_sfx" type="AudioStreamPlayer" parent="." unique_id=1571618890]
@@ -106,24 +108,36 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="cargo" unique_id=1632140027 node_paths=PackedStringArray("excess_left", "excess_right")]
+[node name="ReferenceRect" type="ReferenceRect" parent="cargo" unique_id=971443670]
+z_index = 5
+layout_mode = 0
+offset_left = -4.0
+offset_top = -2.0
+offset_right = 386.0
+offset_bottom = 579.0
+mouse_filter = 2
+border_color = Color(0.47843137, 0.49019608, 0.6, 1)
+border_width = 4.0
+editor_only = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="cargo/ReferenceRect" unique_id=1632140027 node_paths=PackedStringArray("excess_left", "excess_right")]
 custom_minimum_size = Vector2(386, 589)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 386.0
+offset_bottom = 589.0
 script = ExtResource("22_qxt2g")
-excess_left = NodePath("../excess_left")
-excess_right = NodePath("../excess_right")
+excess_left = NodePath("../../excess_left")
+excess_right = NodePath("../../excess_right")
 
-[node name="cargo_space" type="Control" parent="cargo/ScrollContainer" unique_id=1807393006]
+[node name="cargo_space" type="Control" parent="cargo/ReferenceRect/ScrollContainer" unique_id=1807393006]
 layout_mode = 2
 
-[node name="inventory_grid" type="GridContainer" parent="cargo/ScrollContainer/cargo_space" unique_id=723460154]
+[node name="inventory_grid" type="GridContainer" parent="cargo/ReferenceRect/ScrollContainer/cargo_space" unique_id=723460154]
 layout_mode = 0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 
-[node name="item_mirrors" type="Control" parent="cargo/ScrollContainer/cargo_space" unique_id=759655697]
+[node name="item_mirrors" type="Control" parent="cargo/ReferenceRect/ScrollContainer/cargo_space" unique_id=759655697]
 anchors_preset = 0
 
 [node name="send_rect" type="ColorRect" parent="cargo" unique_id=2139714282]
@@ -434,6 +448,7 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("26_up2tu")
+player_body_scene = ExtResource("30_xdq4l")
 options_hbox = NodePath("options")
 
 [node name="options" type="HBoxContainer" parent="item_selector" unique_id=1237007783]
@@ -442,7 +457,7 @@ layout_mode = 2
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
-[connection signal="resized" from="cargo/ScrollContainer/cargo_space/inventory_grid" to="." method="_on_inventory_grid_resized"]
+[connection signal="resized" from="cargo/ReferenceRect/ScrollContainer/cargo_space/inventory_grid" to="." method="_on_inventory_grid_resized"]
 [connection signal="mouse_entered" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_entered"]
 [connection signal="mouse_exited" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_exited"]
 [connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_1" to="resource_picker" method="_on_pick_1_pressed"]

@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bteusaeptopnl"]
+[gd_scene format=3 uid="uid://bteusaeptopnl"]
 
 [ext_resource type="Script" uid="uid://c1stg5kmtc68e" path="res://scenes/index/perks/scripts/financial_boost.gd" id="1_nwnbf"]
 [ext_resource type="Texture2D" uid="uid://br4sa081ylalm" path="res://assets/visual/icons/resources/money.png" id="2_k171s"]
-[ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/dropdowns/resources_dropdown.tscn" id="3_secrd"]
+[ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/collections/resources_dropdown.tscn" id="3_secrd"]
 [ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="3_yux3d"]
 [ext_resource type="PackedScene" uid="uid://b3q2rj3eol6t" path="res://scenes/battle/fighter/player/body.tscn" id="4_yux3d"]
 

@@ -1,7 +1,7 @@
 extends PanelContainer
 
 class_name ItemSelector
-
+@export var player_body_scene:PackedScene
 
 @export var options_hbox:HBoxContainer
 
@@ -16,7 +16,7 @@ func show_options(options:Array, source:Item)->void:
 		
 		var wearer_sprite:Sprite2D;
 		if item in Entities.player.equipment:
-			wearer_sprite= Index.scenes.player_body.instantiate();
+			wearer_sprite = player_body_scene.instantiate();
 
 		elif item in Entities.player.roster.equipped_accessories:
 			## only ever gets here if item is accessory

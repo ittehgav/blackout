@@ -6,7 +6,7 @@ func full_skill_description(unit:FighterUnit)->String:
 	var damage:String = Index.colored_text("attack", unit.final_stat("attack"), " damage");
 
 	var t:float = unit.final_stat("technique")
-	var shrapnel_count:int = int(Scaling.technique_scaled_value(base_shrapnel_count, t, "", .2));
+	var shrapnel_count:int = int(CombatStats.technique_scaled_value(base_shrapnel_count, t, "", .2));
 	''
 	var final_string:String = "Slams the ground, dealing %s to enemies in an area and fires %d shards of shrapnel in random directions that deal %s to enemies."%[damage, shrapnel_count, damage];
 	return final_string;
@@ -20,4 +20,4 @@ func special_skill_effect()->void:
 		projectile.shoot(angle)
 
 func get_shrapnel()->int:
-	return int(Scaling.technique_scaled_value(base_shrapnel_count, fighter.technique, "", .5))
+	return int(CombatStats.technique_scaled_value(base_shrapnel_count, fighter.technique, "", .5))

@@ -22,6 +22,8 @@ enum SkillRange{
 @export var skill_range:SkillRange=MELEE_RANGE;
 
 @export var animation_player:AnimationPlayer
+@export var weight_class:CombatEntity.WeightClass=CombatEntity.WeightClass.medium
+
 
 
 var fighter:NpcFighter;
@@ -107,11 +109,32 @@ enum MovementPattern{
 signal started_moving;
 signal stopped_moving;
 
+const combat_effect_colors:Dictionary[String, Color]={
+	## FighterOverlay and the player's overlay
+	## will use these colors to illustrate the effect
+	## the blink effect will be a blend of 
+	## all combat effect colors applied by a given
+	## propagation (skill/weapon/module use)
+	
+	## transparency will be implemented base on the source/target
+	## feedback from hits from the player will start of fully opaque
+	## NPCfighter to NPC fighter hits will start off on a lower alpha
+	"heal":Color(0.16, 0.8, 0.16, 1.0),
+	
+	"damage":Color(0.6, 0.0, 0.0, 1.0),
+	"knockback":Color(1.0, 1.0, 1.0, 1.0),
+	
+	"stun":Color(0.333, 0.24, 0.4, 1.0),
+	"stat_gain":Color(0.48, 0.48, 0.8, 1.0),
+	"stat_loss":Color(0.5, 0.35, 0.352, 1.0)
+}
+
+
 
 
 func _ready()->void:
 	if not self is PlayerFighterBase:
-		if not fighter:
+		if not fighter and not (get_parent() is FighterIndex):
 			## makes them take up less memory space?
 			## make this happen before ready somehow?
 			for c:Node in get_children():
@@ -148,7 +171,7 @@ func skill_windup()->void:
 
 func final_skill_cooldown(unit:FighterUnit)->float:
 	var base_cooldown:float = skill.base_cooldown;
-	return base_cooldown - Scaling.agility_cooldown_reduction(base_cooldown, unit.final_stats().agility);
+	return base_cooldown - CombatStats.agility_cooldown_reduction(base_cooldown, unit.final_stats().agility);
 
 @abstract func full_skill_description(_unit:FighterUnit)->String;
 

@@ -216,6 +216,7 @@ damage_lightning = NodePath("damage_lightning")
 heal_lightning = NodePath("heal_lightning")
 skill = NodePath("Electric Pulse")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 2
 tags = Array[int]([6, 2, 5])
 body_type = 2
 hit_scan = NodePath("hit_scan")

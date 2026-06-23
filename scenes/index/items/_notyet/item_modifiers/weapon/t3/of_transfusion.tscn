@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cl64bdidhiscc"]
 
-[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_wa2ug"]
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/inventory/item_modifiers/item_modifier.gd" id="1_wa2ug"]
 
 [node name="Of Transfusion" type="Node" unique_id=671858177]
 script = ExtResource("1_wa2ug")

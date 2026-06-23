@@ -21,51 +21,21 @@
 [ext_resource type="AudioStream" uid="uid://bwgkjo3dybjj2" path="res://assets/sound/sfx/ui/inventory/accessory_equipped.wav" id="16_7ydhy"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="16_e0imn"]
 [ext_resource type="Script" uid="uid://dqpi700chh4i" path="res://scenes/ui/player_sheet/units/party_view.gd" id="18_7ju3y"]
-[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale_icon.tscn" id="19_utjw6"]
-[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="20_dcru6"]
+[ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale/morale_icon.tscn" id="19_utjw6"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="20_dcru6"]
 [ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="21_tovog"]
 [ext_resource type="Script" uid="uid://4586apxxsg85" path="res://scenes/ui/player_sheet/units/upgrade_hint.gd" id="22_1edf1"]
 [ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/unit_sheet.tscn" id="22_in2cn"]
 [ext_resource type="Script" uid="uid://c3t5hlpw6vsaq" path="res://scenes/ui/player_sheet/player_data.gd" id="23_brbep"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="24_7b7li"]
+[ext_resource type="Script" uid="uid://3d6g4g77bxl5" path="res://scenes/ui/player_sheet/player_sample.gd" id="27_7ydhy"]
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="28_in2cn"]
 [ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/active_fighter/player.res" id="29_7ydhy"]
-[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="32_in2cn"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="31_kgp2d"]
+[ext_resource type="Texture2D" uid="uid://neqnmg1o3623" path="res://assets/visual/sprites/player/hand.png" id="32_ihftv"]
+[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/collections/stats_dropdown.tscn" id="32_in2cn"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="33_7ydhy"]
 [ext_resource type="Script" uid="uid://dd3sexthpletg" path="res://scenes/ui/player_sheet/clear_space_request.gd" id="36_kgp2d"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_in2cn"]
-resource_local_to_scene = true
-shader = ExtResource("11_0wwji")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ydhy"]
-resource_local_to_scene = true
-shader = ExtResource("11_0wwji")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8oj3i"]
-resource_local_to_scene = true
-shader = ExtResource("11_0wwji")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kgp2d"]
 resource_local_to_scene = true
@@ -122,6 +92,39 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2iguy"]
+resource_local_to_scene = true
+shader = ExtResource("11_0wwji")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ti70"]
+resource_local_to_scene = true
+shader = ExtResource("11_0wwji")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bflq7"]
+resource_local_to_scene = true
+shader = ExtResource("11_0wwji")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nvsay"]
 resource_local_to_scene = true
 shader = ExtResource("16_e0imn")
@@ -160,11 +163,33 @@ tracks/1/keys = {
 "update": 1,
 "values": [6]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame_coords")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(2, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xbk01"]
 _data = {
 &"RESET": SubResource("Animation_sqvxk")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3o1i"]
+resource_local_to_scene = true
+shader = ExtResource("31_kgp2d")
+shader_parameter/color = Color(0, 0.2, 0.047058824, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="PlayerSheet" type="Control" unique_id=692451359 node_paths=PackedStringArray("bg", "party_view", "inventory_view", "player_view", "player_inventory", "left_tab_container", "container", "gear", "morale_label", "disable_display_rect", "start_battle_prompt", "item_space_request", "ui_sfx")]
 process_mode = 2
@@ -294,22 +319,22 @@ resource_icons = {
 }
 
 [node name="money_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/money" parent_id_path=PackedInt32Array(1336254164, 198135971, 1852868329) index="0" unique_id=604325780]
-material = SubResource("ShaderMaterial_in2cn")
-
-[node name="food_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/food" parent_id_path=PackedInt32Array(1336254164, 198135971, 901840672) index="0" unique_id=183823663]
-material = SubResource("ShaderMaterial_7ydhy")
-
-[node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/fuel" parent_id_path=PackedInt32Array(1336254164, 198135971, 1381534319) index="0" unique_id=1087245645]
-material = SubResource("ShaderMaterial_8oj3i")
-
-[node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/juice" parent_id_path=PackedInt32Array(1336254164, 198135971, 1531919764) index="0" unique_id=20070197]
 material = SubResource("ShaderMaterial_kgp2d")
 
-[node name="scrap_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/scrap" parent_id_path=PackedInt32Array(1336254164, 198135971, 1784312822) index="0" unique_id=615530090]
+[node name="food_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/food" parent_id_path=PackedInt32Array(1336254164, 198135971, 901840672) index="0" unique_id=183823663]
 material = SubResource("ShaderMaterial_ihftv")
 
-[node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/chips" parent_id_path=PackedInt32Array(1336254164, 198135971, 1855174858) index="0" unique_id=1058611590]
+[node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/fuel" parent_id_path=PackedInt32Array(1336254164, 198135971, 1381534319) index="0" unique_id=1087245645]
 material = SubResource("ShaderMaterial_41eqv")
+
+[node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/juice" parent_id_path=PackedInt32Array(1336254164, 198135971, 1531919764) index="0" unique_id=20070197]
+material = SubResource("ShaderMaterial_i2eyh")
+
+[node name="scrap_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/scrap" parent_id_path=PackedInt32Array(1336254164, 198135971, 1784312822) index="0" unique_id=615530090]
+material = SubResource("ShaderMaterial_05eqd")
+
+[node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/chips" parent_id_path=PackedInt32Array(1336254164, 198135971, 1855174858) index="0" unique_id=1058611590]
+material = SubResource("ShaderMaterial_2iguy")
 
 [node name="discard_overlay" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" unique_id=1594287045]
 visible = false
@@ -655,7 +680,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1830759897 node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
-material = SubResource("ShaderMaterial_i2eyh")
+material = SubResource("ShaderMaterial_6ti70")
 layout_mode = 2
 match_player_inventory = false
 label = NodePath("../food_cost")
@@ -669,7 +694,7 @@ text = "22"
 layout_mode = 2
 
 [node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=938964625 node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
-material = SubResource("ShaderMaterial_05eqd")
+material = SubResource("ShaderMaterial_bflq7")
 layout_mode = 2
 resource = "fuel"
 match_player_inventory = false
@@ -735,34 +760,52 @@ pivot_offset = Vector2(20, 0)
 texture = ExtResource("21_tovog")
 script = ExtResource("22_1edf1")
 
-[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" unique_id=636798843 node_paths=PackedStringArray("name_label", "level_label")]
+[node name="player" type="Panel" parent="main_bg/MarginContainer/HBoxContainer" unique_id=636798843 node_paths=PackedStringArray("name_label", "player_sample", "level_label")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 script = ExtResource("23_brbep")
 name_label = NodePath("VBoxContainer/player_name")
+player_sample = NodePath("player_sample")
 level_label = NodePath("VBoxContainer/level")
 
-[node name="Control" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=30878424]
+[node name="player_sample" type="Control" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=30878424 node_paths=PackedStringArray("player_body", "right_hand", "left_hand", "body_animation_player", "equipment_anchor")]
 anchors_preset = 0
 offset_top = 67.0
 offset_right = 92.0
 offset_bottom = 67.0
+script = ExtResource("27_7ydhy")
+player_body = NodePath("body")
+right_hand = NodePath("body/right_hand")
+left_hand = NodePath("body/left_hand")
+body_animation_player = NodePath("body/AnimationPlayer")
+equipment_anchor = NodePath("body/equipment")
 
-[node name="body" type="Sprite2D" parent="main_bg/MarginContainer/HBoxContainer/player/Control" unique_id=105470107]
+[node name="body" type="Sprite2D" parent="main_bg/MarginContainer/HBoxContainer/player/player_sample" unique_id=105470107]
 material = SubResource("ShaderMaterial_nvsay")
 position = Vector2(90, 78.5)
 scale = Vector2(2, 2)
 texture = ExtResource("28_in2cn")
 hframes = 8
 vframes = 11
-frame = 6
+frame = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/Control/body" unique_id=1747179211]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="main_bg/MarginContainer/HBoxContainer/player/player_sample/body" unique_id=1747179211]
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_xbk01")
 libraries/player = ExtResource("29_7ydhy")
 autoplay = &"player/idle"
 speed_scale = 0.75
+
+[node name="equipment" type="Node2D" parent="main_bg/MarginContainer/HBoxContainer/player/player_sample/body" unique_id=289498899]
+position = Vector2(-7.25, -21.25)
+
+[node name="left_hand" type="Sprite2D" parent="main_bg/MarginContainer/HBoxContainer/player/player_sample/body" unique_id=1644546609]
+material = SubResource("ShaderMaterial_s3o1i")
+texture = ExtResource("32_ihftv")
+
+[node name="right_hand" type="Sprite2D" parent="main_bg/MarginContainer/HBoxContainer/player/player_sample/body" unique_id=5823494]
+material = SubResource("ShaderMaterial_s3o1i")
+texture = ExtResource("32_ihftv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/player" unique_id=1402998536]
 layout_mode = 1

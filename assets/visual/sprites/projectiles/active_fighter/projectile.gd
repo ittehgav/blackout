@@ -1,7 +1,6 @@
-@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_bullet.png")
-extends Node2D;
-
 class_name Projectile
+extends Sprite2D;
+
 
 signal hit(fighter:ActiveFighter);
 
@@ -16,6 +15,7 @@ var move_target:Vector2;
 @export var hitbox:Area2D;
 
 @export var flight_speed:int = 2000
+
 
 
 var self_target:bool = false;

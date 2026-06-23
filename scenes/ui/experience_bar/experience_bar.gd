@@ -23,12 +23,12 @@ func build(node: Node)->void:
 func levels_from_exp(level:int, current_exp:int, amount:int)->Array[int]:
 	var gain:int = 0
 	
-	var for_next_level:int = Scaling.exp_for_next_level(level) - current_exp
+	var for_next_level:int = CombatStats.exp_for_next_level(level) - current_exp
 	while amount >= for_next_level:
 		amount -= for_next_level;
 		gain += 1;
 		
-		for_next_level = Scaling.exp_for_next_level(level + gain);
+		for_next_level = CombatStats.exp_for_next_level(level + gain);
 
 
 	return [gain, amount]
@@ -72,7 +72,7 @@ func set_target_exp(experience:int)->void:
 
 func update_max_value(update_value:bool=false)->void:
 	value = 0;
-	max_value = Scaling.exp_for_next_level(target.level)
+	max_value = CombatStats.exp_for_next_level(target.level)
 	if update_value:
 		value = target.experience;
 

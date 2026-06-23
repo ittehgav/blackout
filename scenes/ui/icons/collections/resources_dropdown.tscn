@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://c0cfd3mr7dsam"]
+
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="1_lfol1"]
+[ext_resource type="Script" uid="uid://mxtxljd7fw3s" path="res://scenes/ui/icons/collections/resources_dropdown.gd" id="1_lsvr5"]
+
+[node name="resources_dropdown" type="VBoxContainer" unique_id=682307214 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+process_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 404.0
+offset_top = 10.0
+offset_right = 496.0
+offset_bottom = 366.0
+grow_horizontal = 2
+mouse_filter = 2
+script = ExtResource("1_lsvr5")
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+
+[node name="money" type="HBoxContainer" parent="." unique_id=1852868329]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="money_icon" parent="money" unique_id=604325780 node_paths=PackedStringArray("label") instance=ExtResource("1_lfol1")]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "money"
+label = NodePath("../money")
+
+[node name="money" type="Label" parent="money" unique_id=1723403983]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=1116237593]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="food" type="HBoxContainer" parent="." unique_id=901840672]
+layout_mode = 2
+
+[node name="food_icon" parent="food" unique_id=183823663 node_paths=PackedStringArray("label") instance=ExtResource("1_lfol1")]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+label = NodePath("../food")
+
+[node name="food" type="Label" parent="food" unique_id=728507174]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="fuel" type="HBoxContainer" parent="." unique_id=1381534319]
+layout_mode = 2
+
+[node name="fuel_icon" parent="fuel" unique_id=1087245645 node_paths=PackedStringArray("label") instance=ExtResource("1_lfol1")]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "fuel"
+label = NodePath("../fuel")
+
+[node name="fuel" type="Label" parent="fuel" unique_id=213947528]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="juice" type="HBoxContainer" parent="." unique_id=1531919764]
+layout_mode = 2
+
+[node name="juice_icon" parent="juice" unique_id=20070197 node_paths=PackedStringArray("label") instance=ExtResource("1_lfol1")]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "juice"
+label = NodePath("../juice")
+
+[node name="juice" type="Label" parent="juice" unique_id=1895832449]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="scrap" type="HBoxContainer" parent="." unique_id=1784312822]
+layout_mode = 2
+
+[node name="scrap_icon" parent="scrap" unique_id=615530090 node_paths=PackedStringArray("label") instance=ExtResource("1_lfol1")]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "scrap"
+label = NodePath("../scrap")
+
+[node name="scrap" type="Label" parent="scrap" unique_id=1117902014]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="chips" type="HBoxContainer" parent="." unique_id=1855174858]
+layout_mode = 2
+
+[node name="chips_icon" parent="chips" unique_id=1058611590 node_paths=PackedStringArray("label") instance=ExtResource("1_lfol1")]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+resource = "chips"
+label = NodePath("../chips")
+
+[node name="chips" type="Label" parent="chips" unique_id=2011089105]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"

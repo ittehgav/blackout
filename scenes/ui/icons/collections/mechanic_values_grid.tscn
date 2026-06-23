@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dx62x7db5niad"]
+
+[ext_resource type="Script" uid="uid://bojsbqmfejbuj" path="res://scenes/ui/icons/collections/mechanic_values_grid.gd" id="1_r1qvj"]
+[ext_resource type="PackedScene" uid="uid://ispkvosqmcxc" path="res://scenes/ui/icons/modular/combat_mechanic_icon.tscn" id="2_nvqt1"]
+
+[node name="Mechanic Values Grid" type="GridContainer" unique_id=453319241]
+columns = 2
+script = ExtResource("1_r1qvj")
+icon_scene = ExtResource("2_nvqt1")

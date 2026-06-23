@@ -8,24 +8,7 @@ extends Node
 @export var fighters:FighterIndex;
 @export var textures:TextureIndex;
 
-const primary_fighter_tags = [
-	FighterBase.Tag.bodybuilder,
-	FighterBase.Tag.mechanic,
-	FighterBase.Tag.scientist,
-	FighterBase.Tag.cyborg
-]
 
-const all_fighter_tags = [
-	FighterBase.Tag.bodybuilder,
-	FighterBase.Tag.mechanic,
-	FighterBase.Tag.scientist,
-	FighterBase.Tag.cyborg,
-
-	FighterBase.Tag.brawler,
-	FighterBase.Tag.freak,
-	FighterBase.Tag.juggernaut,
-	FighterBase.Tag.disruptor
-]
 
 ## make this catch the size properly?
 @export var irl_time_scale:float = 500;
@@ -39,73 +22,40 @@ const all_fighter_tags = [
 
 @export var mod_tier_colors:Array[Color]
 
-@export var resource_colors:Dictionary[String, Color] = {
-	## really saturated here and we fix it out in-context?
-	"food":Color.YELLOW,
-	"fuel":Color.ORANGE_RED,
-	"money":Color.GREEN,
-	
-	"juice":Color.PURPLE,
-	"scrap":Color.DIM_GRAY,
-	"chips":Color.CYAN
-}
+
 
 @export var day_reflection_color:Color;
 @export var night_reflection_color:Color;
 
-@export var  stat_colors:Dictionary[String, Color] = {
-	"max_hp": Color.WEB_GREEN,
-	"attack": Color(.8, 0, 0),
-	"defense": Color.SKY_BLUE,
-	"agility": Color(.8, .8, 0),
-	"technique": Color.DEEP_PINK
-}
+
 
 @export var primary_tag_colors:Dictionary[String, Color];
-
-const all_resources = [
-	"money",
-	
-	"food",
-	"fuel",
-	
-	"juice",
-	"scrap",
-	"chips"
-]
-const resource_base_prices = {
-	"food":1.25,
-	"fuel":1.5,
-	"juice":2.0,
-	"scrap":3.0,
-	"chips":5.0
-}
-
 
 
 func tagged_location_name(location:Location)->String:
 	return "[color=green][url="+location.name+"]"+location.name+"[/url][/color]"
 
-const all_disciplines = [
-	"charisma",
-	"navigation",
-	"tactics",
-	"leadership",
-	"scavenging"
-]
 
-const discipline_descriptions = {
-	"charisma":
-		"Charisma improves your trading skills, the rate at which your relations improve and your ability to [u]convince[/u] people.",
-	"navigation":
-		"Navigation improves [u]movement[/u] and [u]vision[/u] in the [u]world map[/u].",
-	"tactics":
-		"Tactics unlocks [u]tactical abilities[/u] in battle and allows you to control the [u]Tide of Battle[/u].",
-	"leadership":
-		"Leadership improves the [u]units in your party[/u], making them [u]level up faster[/u] and imrpoving their resource efficiency.",
-	"scavenging":
-		"Scavenging improves the efficiency of [u]resources[/u] and the rate at which you find [/u]resources[/u]."
-}
+# const all_disciplines = [
+# 	"charisma",
+# 	"navigation",
+# 	"tactics",
+# 	"leadership",
+# 	"scavenging"
+# ]
+
+# const discipline_descriptions = {
+# 	"charisma":
+# 		"Charisma improves your trading skills, the rate at which your relations improve and your ability to [u]convince[/u] people.",
+# 	"navigation":
+# 		"Navigation improves [u]movement[/u] and [u]vision[/u] in the [u]world map[/u].",
+# 	"tactics":
+# 		"Tactics unlocks [u]tactical abilities[/u] in battle and allows you to control the [u]Tide of Battle[/u].",
+# 	"leadership":
+# 		"Leadership improves the [u]units in your party[/u], making them [u]level up faster[/u] and imrpoving their resource efficiency.",
+# 	"scavenging":
+# 		"Scavenging improves the efficiency of [u]resources[/u] and the rate at which you find [/u]resources[/u]."
+# }
 
 
 const flavor_colors = {
@@ -127,22 +77,16 @@ const misc_colors = {
 }
 
 
-const item_rarity_colors:={
-	1: Color.LIGHT_GRAY,
-	2: Color.GREEN_YELLOW,
-	3: Color.RED
-}
-
-
 func get_color(key:String)->Color:
+	## this can just reference the other classes as i remove stuff from here
 	var color:Color;
 	if key in ["t1", "t2", "t3"]:
 		var tier:int = int(key[1]) - 1;
 		color = mod_tier_colors[tier];
-	if key in resource_colors:
-		color = resource_colors[key];
-	elif key in stat_colors:
-		color = stat_colors[key]
+	if key in Resources.resource_colors:
+		color = Resources.resource_colors[key];
+	elif key in CombatStats.stat_colors:
+		color = CombatStats.stat_colors[key]
 	elif key in flavor_colors:
 		color = flavor_colors[key]
 	elif key in misc_colors:
@@ -167,74 +111,6 @@ func colored_text(color_tag:String, data:Variant, trailing_text:String="")->Stri
 		data = snapped(data, .01)
 	return get_color_tag(color_tag ) + str(data)+trailing_text + "[/color]"
 
-func resource_colored_name(resource:String, close_tag:bool=true, capitalize:bool=false)->String:
-	var color:String = resource_colors[resource].to_html();
-	var string:String = "[color=" + color + "]";
-	if capitalize:
-		string += resource.capitalize();
-	else:
-		string += resource;
-	if close_tag:
-		string += "[/color]"
-	return string
-	
-func stat_colored_name(stat:String, close_tag:bool=true)->String:
-	var color:String = stat_colors[stat].to_html();
-	var string:String = "[color=" + color + "]" + stat.capitalize();
-	if close_tag:
-		string += "[/color]";
-	return string;
-
-
-var resource_descriptions:Dictionary[String, String] = {
-	"food": get_color_tag("food") + "Basic survival resource[/color], you and your party need to eat some food every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop.",
-	
-	"fuel": get_color_tag("fuel") + "Basic travel resource[/color], consumed every hour of travel in the world map, the more units there are in the party the more fuel travelling will\
-	cost.\nIf you have no fuel, you will travel much slower.",
-
-	"money": get_color_tag("money") + "Basic currency[/color] used for trading items and resources.",
-	
-	
-	"juice": get_color_tag("juice")+"Strange substance[/color] with many practical uses, a [color=green]common[/color] trade comodity.\nUsed for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for certain weapons and modules[/color].",
-	"scrap": "Broken down "+get_color_tag("scrap")+"pieces of metal[/color] used for all kinds of purposes, usable scrap is [color=green]rare[/color] to come across.\nUsed for [color=cyan]forging[/color] and as [color=cyan]ammo for certain weapons and module[/color].",
-	"chips": get_color_tag("chips")+"Intact processor chips[/color] are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for certain weapons and module[/color]."
-}
-
-const all_combat_stats:Array[String] = [
-	"max_hp", "attack", "defense", "agility", "technique"
-]
-
-
-const stat_descriptions = {
-	"max_hp": "The unit's total HP at the start of battle.",
-	"attack": "The damage dealt by weapons and skills. (some units and some weapons deal no damage)",
-	"defense": "Reduces the damage taken by the unit.",
-	"agility": "Reduces the cooldown of the player's weapon and units' skills.",
-	"technique": "Improves special effects in modules and units' skills."
-}
-
-
-func get_unit_damage_string(unit:FighterUnit, trailing_text:String=" damage")->String:
-	var damage:float = unit.stats.attack
-	if "damage_modifier" in unit.base:
-		damage = unit.base.damage_modifier(damage, unit)
-
-	var string:String = get_color_tag("damage") + str(int(damage)) + trailing_text + "[/color]"
-	return string
-	
-func get_technique_scaled_string(unit:FighterUnit, mechanic:String, value_key:String="", hard_value:float = 0.0, trailing_text:String = "")->String:
-	## TECHNIQUE IS ALWAYS AT LEAST 1 (unless you get debuffed in which case its ok?)
-	## technique stat debuffs always fractal?
-	var string:String = Index.get_color_tag("technique");
-	if hard_value:
-		## WILL COME FROM EITHER A HARD-SET VALUE OR A KEY FROM THE SOURCE'S BASE
-		var final_value:float = snapped(Scaling.technique_scaled_value(hard_value, unit.stats.technique, mechanic) , .01)
-		string += str(final_value)
-	else:
-		var final_value:float = snapped(Scaling.technique_scaled_value(unit.base[value_key], unit.stats.technique, mechanic), .01)
-		string += str(final_value)
-		
-	return string + trailing_text + "[/color]";
 	
 const isometric_angle_indexes = [
 	## put this in a place where both player and npcs catch?

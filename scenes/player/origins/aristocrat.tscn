@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0blxyg3y6dq6"]
 
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_difbx"]
-[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/leader/inventory/inventory.tscn" id="2_ylhkj"]
+[ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/inventory/inventory.tscn" id="2_ylhkj"]
 [ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/leader/roster/roster.tscn" id="3_45c4c"]
 [ext_resource type="PackedScene" uid="uid://dbrj8rln7c5a0" path="res://scenes/index/items/weapons/unimplemented/taser_gun.tscn" id="3_ctxbb"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="4_7ppvm"]

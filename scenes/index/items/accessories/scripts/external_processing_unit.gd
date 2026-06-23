@@ -7,5 +7,5 @@ const rarity = 3
 
 func get_description()->String:
 	var description:String = super();
-	description += "Doubles the wearer's " + Index.stat_colored_name("technique") + " and " + Index.stat_colored_name("agility") + "."
+	description += "Doubles the wearer's " + CombatStats.stat_colored_name("technique") + " and " + CombatStats.stat_colored_name("agility") + "."
 	return description;

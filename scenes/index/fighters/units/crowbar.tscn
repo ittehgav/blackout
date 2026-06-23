@@ -65,6 +65,7 @@ frame = 5
 script = ExtResource("3_y4yls")
 skill = NodePath("Crowbar Swing")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 0
 tags = Array[int]([3, 1])
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")

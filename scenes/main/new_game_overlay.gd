@@ -183,7 +183,7 @@ func refresh_origin_data()->void:
 	origin_name_label.text = origin.name;
 	origin_description_label.text = origin_descriptions[origin_name];
 	
-	for stat:String in Index.all_combat_stats:
+	for stat:String in CombatStats.all_stats:
 		self[stat+"_label"].text = str(origin.combat_stats[stat])
 	
 	var weapon:Weapon = origin.equipped_weapon;

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://nkvusiyd18wl" path="res://scenes/battle/fighter/player/equipment/weapon_display/melee_display.gd" id="3_577ip"]
 [ext_resource type="AnimationLibrary" uid="uid://i0u7lhwyn7mk" path="res://resources/animations/weapons/melee.res" id="3_jodic"]
 [ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="5_hl2mp"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="5_jodic"]
 [ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="7_jodic"]
 
 [sub_resource type="Animation" id="Animation_577ip"]
@@ -32,6 +33,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vmql4"]
@@ -134,17 +147,17 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_053ln"]
 radius = 59.03389
 
-[node name="Tailpipe" type="Sprite2D" unique_id=870722934 node_paths=PackedStringArray("display", "hit_scan", "animation_player", "use_sfx")]
+[node name="Tailpipe" type="Sprite2D" unique_id=870722934 node_paths=PackedStringArray("display", "hit_scan", "projections", "animation_player", "use_sfx")]
 use_parent_material = true
 position = Vector2(6, 0)
 texture = ExtResource("1_4334k")
-offset = Vector2(0, -32)
 script = ExtResource("1_1n7ey")
 display = NodePath("MeleeWeaponDisplay")
 base_damage = 20
 cooldown = 1.0
 hit_scan = NodePath("hit_scan")
 melee = true
+projections = [NodePath("hit_scan/Sprite2D")]
 animation_player = NodePath("weapon_animation")
 use_sfx = NodePath("use_sfx")
 use_feedback = "lunge"
@@ -158,12 +171,14 @@ metadata/_custom_type_script = "uid://nkvusiyd18wl"
 deterministic = true
 libraries/ = SubResource("AnimationLibrary_vmql4")
 libraries/melee = ExtResource("3_jodic")
-autoplay = &"melee/idle"
 
 [node name="hands_animation" type="AnimationPlayer" parent="weapon_animation" unique_id=1845496605]
 libraries/ = SubResource("AnimationLibrary_bf1cx")
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=562682770]
+stream = ExtResource("5_jodic")
+bus = &"sfx"
+parameters/looping = false
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=955711957]
 position = Vector2(80, 0)
@@ -189,7 +204,7 @@ scale = Vector2(3, -3)
 source_type = 1
 
 [node name="right_hand_anchor" type="Node2D" parent="." unique_id=1975632132]
-position = Vector2(-3, -18)
+position = Vector2(-16, -5.000001)
 
 [node name="left_hand_anchor" type="Node2D" parent="." unique_id=523263237]
-position = Vector2(-7, -9)
+position = Vector2(-13, 3.9999993)

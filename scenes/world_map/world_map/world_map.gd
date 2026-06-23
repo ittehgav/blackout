@@ -3,6 +3,7 @@ extends Node2D
 
 class_name WorldMap
 
+signal half_hour_passed; ## being used more than regular hour lowk
 signal hour_passed;
 signal day_passed;
 
@@ -41,7 +42,6 @@ signal sped_up;
 
 func _ready()->void:
 	get_tree().paused = true;
-	speed_up_loop()
 	
 func speed_up_loop()->void:
 	const loop_latency = 1
@@ -51,13 +51,13 @@ func speed_up_loop()->void:
 	tween.tween_callback(speed_up_loop);
 
 
-func _process(_delta:float)->void:
-	if Input.is_action_just_pressed("skip_time") and not get_tree().paused:
-		set_travel_speed(2);
-		sped_up.emit()
-		speed_up_persist_timer.start()
-	elif Input.is_action_just_released("skip_time") and not get_tree().paused:
-		set_travel_speed(1);
+#func _process(_delta:float)->void:
+	#if Input.is_action_just_pressed("skip_time") and not get_tree().paused:
+		#set_travel_speed(2);
+		#sped_up.emit()
+		#speed_up_persist_timer.start()
+	#elif Input.is_action_just_released("skip_time") and not get_tree().paused:
+		#set_travel_speed(1);
 
 
 func set_travel_speed(target:float)->void:

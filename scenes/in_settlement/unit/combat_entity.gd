@@ -13,12 +13,16 @@ signal damage_blocked(source:ActiveFighter, value:float, quiet:bool)
 signal damage_taken(damage:float, source:ActiveFighter, quiet:bool);
 signal healing_received(value:float, quiet:bool);
 signal status_applied(source:ActiveFighter, status:Status, quiet:bool);
+signal knocked_back(source:ActiveFighter, strength:int);
 
 signal death(killer:ActiveFighter);
 ## ONLY FOR RECALCULATING STAT MECHANICS, VFX/SFX ARE ON STATUS_APPLIED SIGNALS
 signal stat_changed(stat:String);
 
 signal status_removed(status:Status);
+
+enum WeightClass{light, medium, heavy}
+@export var weight_class:WeightClass=WeightClass.medium;
 
 enum BodyType {flesh, metal, wood};
 @export var hurtbox:Area2D;

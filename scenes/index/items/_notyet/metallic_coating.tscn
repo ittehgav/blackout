@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c0qjxr27s5j7c" path="res://assets/visual/items/consumables/metallic_coating.png" id="1_8sfi5"]
 [ext_resource type="Script" uid="uid://bc71a6cred5y3" path="res://scenes/index/items/consumables/scripts/metallic_coating.gd" id="2_hiis6"]
 [ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="3_xwdpm"]
-[ext_resource type="PackedScene" uid="uid://w8wik67qu65p" path="res://scenes/leader/inventory/item_modifiers/item_modifier.tscn" id="4_ckeau"]
+[ext_resource type="PackedScene" uid="uid://w8wik67qu65p" path="res://scenes/inventory/item_modifiers/item_modifier.tscn" id="4_ckeau"]
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="5_o0daj"]
 
 [node name="Metallic Coating" type="Sprite2D" unique_id=208828978 node_paths=PackedStringArray("modifier")]

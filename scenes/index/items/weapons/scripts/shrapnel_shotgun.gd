@@ -17,9 +17,9 @@ func get_description()->String:
 
 func use(_alt:bool=false)->void:
 	consume_ammo();
-	animation_player.play(animation_root_key+"/attack");
+	animation_player.play(get_animation_key("attack"));
 	shrapnel.emitting = true;
 
 	Combat.aoe_damage(Entities.player_fighter, hit_scan);
 	for t:CombatEntity in Entities.player_fighter.hit_targets:
-		Combat.knock_back_target(Entities.player_fighter, t, 200)
+		Combat.knock_back_target(Entities.player_fighter, t, 4)

@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://x53osnjl6cir" path="res://scenes/ui/player_sheet/units/unit_sheet.gd" id="1_ugdfa"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_tw0lw"]
+[ext_resource type="PackedScene" uid="uid://dx62x7db5niad" path="res://scenes/ui/icons/collections/mechanic_values_grid.tscn" id="3_ugdfa"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="4_kpc33"]
-[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="5_kpc33"]
+[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/collections/stats_dropdown.tscn" id="5_kpc33"]
 [ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="6_ejnr3"]
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="6_kpc33"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="6_ugdfa"]
@@ -19,7 +20,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="Unit Sheet" type="Panel" unique_id=1654918354 node_paths=PackedStringArray("unit_sprite", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "experience_bar", "accessory_sample", "tags_label", "unit_level_label", "stats_dropdown", "skill_range_label", "skill_cooldown_label", "ui_sfx")]
+[node name="Unit Sheet" type="Panel" unique_id=1654918354 node_paths=PackedStringArray("unit_sprite", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "experience_bar", "accessory_sample", "tags_label", "unit_level_label", "stats_dropdown", "mechanic_values", "ui_sfx")]
 z_index = 2
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 8
@@ -46,8 +47,7 @@ accessory_sample = NodePath("HBoxContainer2/VBoxContainer2/item_sample")
 tags_label = NodePath("HBoxContainer/tags")
 unit_level_label = NodePath("HBoxContainer2/VBoxContainer/level")
 stats_dropdown = NodePath("HBoxContainer2/VBoxContainer/StatsDropdown")
-skill_range_label = NodePath("texts/HBoxContainer/range")
-skill_cooldown_label = NodePath("texts/HBoxContainer/cooldown")
+mechanic_values = NodePath("texts/Mechanic Values Grid")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." unique_id=259294312 instance=ExtResource("2_tw0lw")]
@@ -93,19 +93,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Skill: Penes"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="texts" unique_id=201165411]
+[node name="Mechanic Values Grid" parent="texts" unique_id=453319241 instance=ExtResource("3_ugdfa")]
 layout_mode = 2
-theme_override_constants/separation = 70
-
-[node name="cooldown" type="Label" parent="texts/HBoxContainer" unique_id=1610220090]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.06, 1, 0.122667, 1)
-text = "Cooldown: 1.2s"
-
-[node name="range" type="Label" parent="texts/HBoxContainer" unique_id=1030219584]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0588235, 1, 0.121569, 1)
-text = "Melee"
 
 [node name="skill_description" type="RichTextLabel" parent="texts" unique_id=576506950]
 modulate = Color(0.76, 0.76, 0.76, 1)
@@ -115,6 +104,7 @@ text = "opesnfçasejnfçasoerinfg´~"
 fit_content = true
 
 [node name="flavor" type="Label" parent="texts" unique_id=1732558146]
+visible = false
 modulate = Color(0.72, 0.72, 0.72, 0.584314)
 layout_mode = 2
 text = "cuzao"
@@ -133,6 +123,7 @@ offset_right = 234.0
 offset_bottom = -91.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2" unique_id=1535519110]
 custom_minimum_size = Vector2(200, 0)
@@ -179,11 +170,11 @@ text = "[right-click] to unequip"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1367586683]
 material = SubResource("ShaderMaterial_ugdfa")
-position = Vector2(208, 407.00003)
+position = Vector2(208, 504.99997)
 scale = Vector2(5, 5)
 texture = ExtResource("6_ejnr3")
 hframes = 8
-vframes = 5
+vframes = 7
 frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=1486077208]

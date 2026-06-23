@@ -3,8 +3,6 @@ extends Node2D
 
 class_name FighterIndex
 
-func _run()->void:
-	pass
 
 
 @export var refresh_index:bool:
@@ -50,15 +48,8 @@ func refresh_fighter_bases()->void:
 	for key:String in all_unit_bases.keys():
 		var base:FighterBase = all_unit_bases[key];
 
-
 		if "evolution_names" in base:
 			var evolutions:Array[FighterBase]
 			for ev_name:String in base.evolution_names:
 				evolutions.append(all_unit_bases[ev_name]);
 			base.evolutions = evolutions;
-	
-	
-	
-
-	
-		

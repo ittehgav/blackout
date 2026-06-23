@@ -2,14 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://rm02ifitug35" path="res://assets/visual/items/accessories/jumpsuit.png" id="1_uv1h5"]
 [ext_resource type="Script" uid="uid://ykyajdeiqxeh" path="res://scenes/index/items/accessories/scripts/jumpsuit.gd" id="1_w0ntk"]
-[ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="3_72a84"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="3_72a84"]
 
 [node name="Jumpsuit" type="Sprite2D" unique_id=342141630]
 texture = ExtResource("1_uv1h5")
 script = ExtResource("1_w0ntk")
+color_tag = "defense"
 metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 
-[node name="stats" parent="." unique_id=1694161719 instance=ExtResource("3_72a84")]
+[node name="stats" type="Node" parent="." unique_id=1694161719]
+script = ExtResource("3_72a84")
 defense = 10.0
 agility = 2.0
 move_speed = 0.0

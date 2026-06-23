@@ -43,10 +43,13 @@ func _ready()->void:
 	else:
 		charge_bar.hide()
 
-func on_status_applied(_source:ActiveFighter, status:Status, quiet:bool)->void:
+func on_status_applied(source:ActiveFighter, status:Status, quiet:bool)->void:
+	if source is PlayerFighter:
+		struck_by_player = true
 	match status.type:
 		"stun":
 			display_stun_timer(status.duration)
+			apply_color_blink(FighterBase.combat_effect_colors.stun)
 		"stat_change":
 			if not quiet:
 				generate_floating_icon(status.stat, status.value > 0);
@@ -60,7 +63,6 @@ func add_special_status_icon(status:Status)->void:
 	icon.texture = status.special_status_texture;
 	special_statuses_container.add_child(icon);
 	status.removed.connect(icon.queue_free)
-	
 
 
 func generate_floating_icon(key:String, positive:bool)->void:
@@ -69,7 +71,6 @@ func generate_floating_icon(key:String, positive:bool)->void:
 	icon.floating = true;
 	icon.positive = positive
 	floating_icon_anchor.add_child(icon);
-
 
 
 func display_stun_timer(duration:float)->void:
@@ -83,30 +84,21 @@ func display_stun_timer(duration:float)->void:
 	bar.modulate = Color.PURPLE
 
 
-
-
 func _on_fighter_damage_taken(damage: float, source:ActiveFighter, quiet:bool) -> void:
+	if source is PlayerFighter:
+		struck_by_player = true
 	floating_number(int(damage))
 	hp_bar.value = fighter.hp;
 	
-	if not quiet and source is PlayerFighter:
-		player_hit_feedback()
-		
+	if not quiet:
+		apply_color_blink(FighterBase.combat_effect_colors.damage)
+	
+
 
 @onready var initial_position:Vector2 = position
 var player_hit_tween:Tween
 
-func player_hit_feedback()->void:
-	Tweens.shader_color_blink(fighter.sprite, Color.WHITE)
-	if player_hit_tween and not player_hit_tween.is_running():
-		const shake_range = 10
-		player_hit_tween = create_tween();
-		var target:Vector2 = Vector2(
-			randi_range(-shake_range, shake_range),
-			randi_range(-shake_range, shake_range)
-		)
-		position = target;
-		player_hit_tween.tween_property(self, "position", initial_position,.25 )
+
 
 const min_fn_delay = .15
 var current_floating_numbers:Array[Label]
@@ -154,6 +146,7 @@ func _on_hp_bar_value_changed(value: float) -> void:
 func _on_npc_fighter_healing_received(value: float, _quiet:bool=false) -> void:
 	floating_number(value, "heal");
 	hp_bar.value = fighter.hp;
+	apply_color_blink(FighterBase.combat_effect_colors.heal);
 	
 func refresh_charge_bar_max(_stat:String="")->void:
 	charge_bar.max_value = cooldown_timer.wait_time;
@@ -172,3 +165,31 @@ func _on_npc_fighter_shield_gained(_source: ActiveFighter, value: float, quiet:b
 	if not quiet:
 		floating_number(value, "shield");
 		Tweens.stretch_bar(shield_bar);
+
+
+var pending_blink:bool=false;
+var blink_color:Color;
+var struck_by_player:bool=false
+func play_color_blink()->void:
+	if pending_blink:
+		if not struck_by_player:
+			blink_color.a = .5
+		Tweens.shader_color_blink(fighter.sprite, blink_color);
+		pending_blink = false
+		struck_by_player = false;
+
+func apply_color_blink(target:Color)->void:
+	if not pending_blink:
+		## pending_blink when this fn is called = 
+		## other colors applied in current propagation
+		blink_color = target;
+	else:
+		blink_color = target/2 + blink_color/2
+	pending_blink = true;
+	play_color_blink.call_deferred();
+
+
+func on_fighter_knocked_back(source: ActiveFighter, _strength: int) -> void:
+	if source is PlayerFighter:
+		struck_by_player = true
+	apply_color_blink(FighterBase.combat_effect_colors.knockback);

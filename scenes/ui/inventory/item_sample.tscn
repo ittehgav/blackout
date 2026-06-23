@@ -3,20 +3,8 @@
 [ext_resource type="Script" uid="uid://dpxa7a0vvejmm" path="res://scenes/ui/player_sheet/item_sample.gd" id="2_81f3s"]
 [ext_resource type="Texture2D" uid="uid://c70v3si5swr41" path="res://assets/visual/ui/items/blank_item.png" id="3_81f3s"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="3_qv57f"]
-[ext_resource type="PackedScene" uid="uid://cr7mjllu5bxvg" path="res://scenes/ui/icons/item_modifier_icon.tscn" id="4_qv57f"]
-[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="5_w5n8s"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qv57f"]
-resource_local_to_scene = true
-shader = ExtResource("5_w5n8s")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 2.000000095
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[node name="item_sample" type="TextureRect" unique_id=389664355 node_paths=PackedStringArray("outline", "tooltip", "bg", "blank", "modifier_icon", "button")]
+[node name="item_sample" type="TextureRect" unique_id=389664355 node_paths=PackedStringArray("outline", "tooltip", "bg", "blank", "button")]
 z_index = 1
 custom_minimum_size = Vector2(64, 128)
 size_flags_horizontal = 4
@@ -28,7 +16,6 @@ outline = NodePath("bg/outline")
 tooltip = NodePath("Tooltip")
 bg = NodePath("bg")
 blank = NodePath("bg/outline/blank")
-modifier_icon = NodePath("ItemModifierIcon")
 button = NodePath("button")
 
 [node name="bg" type="ColorRect" parent="." unique_id=1478659946]
@@ -78,6 +65,7 @@ offset_right = 322.0
 offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
+target_type = 2
 
 [node name="button" type="TextureButton" parent="." unique_id=783773796]
 visible = false
@@ -89,11 +77,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 button_mask = 3
-
-[node name="ItemModifierIcon" parent="." unique_id=1395602884 instance=ExtResource("4_qv57f")]
-visible = false
-material = SubResource("ShaderMaterial_qv57f")
-layout_mode = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

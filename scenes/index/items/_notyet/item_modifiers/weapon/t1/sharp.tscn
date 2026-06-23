@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ch40j5s27js5b"]
 
-[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_qwl60"]
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/inventory/item_modifiers/item_modifier.gd" id="1_qwl60"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_ewakx"]
 
 [node name="Sharp" type="Node" unique_id=1552328594]

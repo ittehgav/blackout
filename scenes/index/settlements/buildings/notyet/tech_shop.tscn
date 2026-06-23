@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cq506jywmcjbm"]
 
 [ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/settlements/building.gd" id="1_d843j"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="2_kgj6b"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/inventory/shop_inventory.tscn" id="2_kgj6b"]
 [ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/index/items/containers/chips_case.tscn" id="3_afyx4"]
 [ext_resource type="Script" uid="uid://b03rfuj7p4xxr" path="res://scenes/leader/roster/building_roster.gd" id="4_tx4j3"]
 

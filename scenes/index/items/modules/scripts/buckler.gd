@@ -10,7 +10,7 @@ const rarity = 1;
 var current_status:Status
 
 func get_description()->String:
-	return "Hold to reduce speed and damage and greatly increase your " + Index.stat_colored_name("defense") +\
+	return "Hold to reduce speed and damage and greatly increase your " + CombatStats.stat_colored_name("defense") +\
 	", if an enemy damages you immediately after activating [u]Module - Buckler[/u], the enemy is stunned.";
 
 

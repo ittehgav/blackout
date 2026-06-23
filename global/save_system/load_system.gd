@@ -52,7 +52,7 @@ func load_fighter_unit(data:Dictionary)->FighterUnit:
 	## they never get referenced from the children of the fighter
 
 	
-	for stat:String in Index.all_combat_stats:
+	for stat:String in CombatStats.all_stats:
 		unit.modifier_stats[stat] = data.modifier_stats[stat];
 	
 	unit.update_stats();

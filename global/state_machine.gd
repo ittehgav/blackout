@@ -1,6 +1,7 @@
 extends Node
 
-@export var test_arena_scene:PackedScene;
+@export var arena_scene:PackedScene;
+@export var world_map_scene:PackedScene
 
 @export var tutorial_scene:PackedScene;
 @export var demo_world_map_scene:PackedScene;
@@ -34,7 +35,7 @@ func set_scenario(target:Scenario)->void:
 				Scenario.main:
 					## eventually this becomes new game as opposed to just starting the world map
 					## can break them down based on substate to keep common calls together
-					var world_map:WorldMap = Index.scenes.world_map.instantiate();
+					var world_map:WorldMap = world_map_scene.instantiate();
 					Entities.world_map = world_map;
 
 					
@@ -94,7 +95,7 @@ func set_scenario(target:Scenario)->void:
 					Entities.main.remove_child.call_deferred(Entities.world_map);
 					var dungeon:Dungeon = Entities.current_dungeon
 
-					var arena:Arena = Index.scenes.arena.instantiate();
+					var arena:Arena = arena_scene.instantiate();
 					Entities.arena = arena;
 					Splash.set_fade_callback(arena.tree_entered)
 					arena.load_layout(dungeon.tile_layout_scene);
@@ -103,17 +104,7 @@ func set_scenario(target:Scenario)->void:
 					arena.team_2.roster = dungeon.get_current_wave()
 					
 					Entities.main.add_child(arena)
-		Scenario.test_arena:
-			## set calls for special instances
-			## IE tests and tutorial
-			## will override the initial scenario change calls
-			## and change it to the true scenario
-			current_scenario = Scenario.battle
-			var arena:Node2D = test_arena_scene.instantiate().get_node("Arena");
-			
-			Entities.arena = arena;
-			add_child(arena.get_parent())
-		
+
 		Scenario.tutorial:
 
 			await Splash.show_loading_screen().finished

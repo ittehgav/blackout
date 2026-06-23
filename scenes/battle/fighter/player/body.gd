@@ -18,6 +18,10 @@ func turn_to_cursor()->void:
 	frame_coords.x = player.get_sector(angle);
 	
 func _on_equipment_weapon_used() -> void:
+	## sorta duplicated on player and player sheet
+	## could in fight version extend the base node in a 
+	## way where they get the animation calls from the same placE? 
+	
 	set_physics_process(false)
 	turn_to_cursor()
 	var weapon:Weapon = weapon_control.weapon;

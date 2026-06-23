@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://lf67nwuvdmnt" path="res://scenes/in_settlement/settlements/building.gd" id="1_3j10w"]
 [ext_resource type="Texture2D" uid="uid://btxapn8epd61d" path="res://assets/visual/sprites/locations/settlements/farm.png" id="2_gujca"]
 [ext_resource type="Texture2D" uid="uid://c2jb6tg6pwqgr" path="res://assets/visual/sprites/locations/settlements/portraits/farm.png" id="2_nokkd"]
-[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/leader/inventory/shop_inventory.tscn" id="2_wj5t2"]
+[ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/inventory/shop_inventory.tscn" id="2_wj5t2"]
 [ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="3_h3neu"]
 [ext_resource type="Texture2D" uid="uid://b320ybky15dm" path="res://assets/visual/buildings/icons/farm.png" id="3_jd5ao"]
 [ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="3_tqeut"]
@@ -11,12 +11,23 @@
 [ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="5_s21v8"]
 [ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="7_1g74x"]
 [ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="12_e0nd8"]
-[ext_resource type="PackedScene" uid="uid://tlqljr8ktlvn" path="res://scenes/index/items/weapons/unimplemented/machete.tscn" id="13_tgh2a"]
 [ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="14_nokkd"]
 [ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="15_s5dff"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="16_ksra5"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="17_xg60q"]
 [ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="18_sq13r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nyrpd"]
+resource_local_to_scene = true
+shader = ExtResource("16_ksra5")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bf5yu"]
 resource_local_to_scene = true
@@ -31,18 +42,6 @@ shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nokkd"]
-resource_local_to_scene = true
-shader = ExtResource("16_ksra5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5dff"]
 resource_local_to_scene = true
 shader = ExtResource("16_ksra5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -86,15 +85,13 @@ holder = NodePath("..")
 
 [node name="Mystery Snack Pack" parent="ShopInventory" unique_id=2073086656 instance=ExtResource("12_e0nd8")]
 
-[node name="Machete" parent="ShopInventory" unique_id=1639509720 instance=ExtResource("13_tgh2a")]
-
 [node name="Building Roster" parent="." unique_id=479241797 instance=ExtResource("14_nokkd")]
 
 [node name="Crowbar" parent="Building Roster" unique_id=2112712555 instance=ExtResource("15_s5dff")]
-material = SubResource("ShaderMaterial_bf5yu")
+material = SubResource("ShaderMaterial_nyrpd")
 
 [node name="Puncher" parent="Building Roster" unique_id=1510142188 instance=ExtResource("17_xg60q")]
-material = SubResource("ShaderMaterial_nokkd")
+material = SubResource("ShaderMaterial_bf5yu")
 
 [node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("18_sq13r")]
-material = SubResource("ShaderMaterial_s5dff")
+material = SubResource("ShaderMaterial_nokkd")

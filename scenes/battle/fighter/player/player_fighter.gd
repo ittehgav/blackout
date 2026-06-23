@@ -13,7 +13,6 @@ class_name PlayerFighter
 @export var camera:Camera2D;
 @export var sfx:AudioStreamPlayer
 
-@export var floating_icon_anchor:Control
 
 var body_angle:float;
 
@@ -34,7 +33,7 @@ func load_fighter()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	var stats:CombatStats = player.final_stats();
 	
-	for stat:String in Index.all_combat_stats:
+	for stat:String in CombatStats.all_stats:
 		initial_stats[stat] = stats[stat];
 
 	

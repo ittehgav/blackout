@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_5yui1"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="2_ln21g"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="3_gamgw"]
-[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/resource_icon.tscn" id="4_pwk7p"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="4_pwk7p"]
 [ext_resource type="Shortcut" uid="uid://vftyg7m77b8u" path="res://resources/shortcuts/return_btn.tres" id="6_yg835"]
 [ext_resource type="InputEventAction" uid="uid://daklc08dpi106" path="res://resources/shortcuts/reset.tres" id="10_5jtfv"]
 
@@ -143,6 +143,12 @@ grow_horizontal = 1
 grow_vertical = 1
 context = "trade"
 exchanging_display = NodePath("../../trader_panel/trader_inventory_display")
+
+[node name="ScrollContainer" parent="content/player_panel/player_inventory_display/cargo/ReferenceRect" parent_id_path=PackedInt32Array(534043124, 971443670) index="0" unique_id=1632140027]
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 388.0
+offset_bottom = 590.0
 
 [node name="resources_dropdown" parent="content/player_panel/player_inventory_display" index="4" unique_id=198135971 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 layout_mode = 1
@@ -416,12 +422,18 @@ offset_right = 15.0
 offset_bottom = 24.0
 mouse_filter = 2
 context = "trade"
-from_player = false
 exchanging_display = NodePath("../../player_panel/player_inventory_display")
+from_player = false
 
 [node name="cargo" parent="content/trader_panel/trader_inventory_display" index="3" unique_id=693213085]
 offset_left = 133.0
 offset_right = 173.0
+
+[node name="ScrollContainer" parent="content/trader_panel/trader_inventory_display/cargo/ReferenceRect" parent_id_path=PackedInt32Array(1183489701, 971443670) index="0" unique_id=1632140027]
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 388.0
+offset_bottom = 590.0
 
 [node name="operation" parent="content/trader_panel/trader_inventory_display/cargo/send_rect" parent_id_path=PackedInt32Array(1183489701, 2139714282) index="0" unique_id=286290238]
 text = "SELL"

@@ -18,28 +18,6 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Animation" id="Animation_4wwa4"]
-resource_name = "idle_2"
-length = 0.5
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame_coords:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0001, 0.1, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 0, 1, 2]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xdf5g"]
-_data = {
-&"idle_2": SubResource("Animation_4wwa4")
-}
-
 [node name="unit_sample" type="Button" unique_id=1911631300 node_paths=PackedStringArray("accessory_sample", "sprite")]
 process_mode = 3
 custom_minimum_size = Vector2(128, 128)
@@ -62,17 +40,17 @@ sprite = NodePath("sprite")
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=2042019594]
 material = SubResource("ShaderMaterial_qbkmf")
-position = Vector2(62, 80)
+position = Vector2(62, 91)
 scale = Vector2(2, 2)
 texture = ExtResource("3_rwqju")
 hframes = 8
-vframes = 5
-frame = 11
+vframes = 7
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="sprite" unique_id=938839807]
-libraries/ = SubResource("AnimationLibrary_xdf5g")
 libraries/fighter_base = ExtResource("4_be7tu")
-autoplay = &"idle_2"
+autoplay = &"fighter_base/idle"
+speed_scale = 0.75
 
 [node name="level" type="Label" parent="." unique_id=259827993]
 layout_mode = 1

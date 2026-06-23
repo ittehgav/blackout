@@ -15,8 +15,7 @@ func _ready() -> void:
 
 
 func not_attacking()->bool:
-	var root_key:String = weapon.animation_root_key;
-	var atk_key:String = root_key+"/attack";
+	var atk_key:String = weapon.get_animation_key("attack")
 	
 	var current:String = weapon.animation_player.current_animation
 	

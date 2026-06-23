@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bft6taofwhued"]
 
-[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_ljd8m"]
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/inventory/item_modifiers/item_modifier.gd" id="1_ljd8m"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_hfpm1"]
 
 [node name="Extra Light" type="Node" unique_id=396007335 node_paths=PackedStringArray("stat_modifiers")]

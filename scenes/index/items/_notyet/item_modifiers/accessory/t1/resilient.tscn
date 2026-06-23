@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c8jv1o053srdn"]
 
-[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_ftnhl"]
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/inventory/item_modifiers/item_modifier.gd" id="1_ftnhl"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_8a8wg"]
 
 [node name="Resilient" type="Node" unique_id=619543446 node_paths=PackedStringArray("stat_modifiers")]

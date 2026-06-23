@@ -22,7 +22,7 @@ func get_description()->String:
 
 func use(_alt:bool=false)->void:
 	consume_ammo()
-	animation_player.play(animation_root_key+"/attack")
+	animation_player.play(get_animation_key("attack"))
 	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit);
 
 

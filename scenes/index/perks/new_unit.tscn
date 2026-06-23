@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" uid="uid://be1jvor67qwki" path="res://scenes/index/perks/scripts/new_unit.gd" id="1_m07pm"]
 [ext_resource type="AudioStream" uid="uid://doufgihepcxi1" path="res://assets/sound/sfx/ui/gain_generic.wav" id="3_8i3q8"]
-[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="3_nmc03"]
-[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party_icon.tscn" id="4_mp2q7"]
+[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party/party_icon.tscn" id="4_mp2q7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmc03"]
 region = Rect2(0, 0, 64, 64)
 
 [node name="Human Resources" type="Node" unique_id=404718208 node_paths=PackedStringArray("sample", "party_icon", "panel", "sfx")]
 script = ExtResource("1_m07pm")
-sample = NodePath("Panel/VBoxContainer/SpriteSample")
+sample = NodePath("")
 party_icon = NodePath("Panel/Party Icon")
 icon = SubResource("AtlasTexture_nmc03")
 title_color = Color(1, 1, 1, 1)
@@ -54,13 +53,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="SpriteSample" parent="Panel/VBoxContainer" unique_id=1333071524 instance=ExtResource("3_nmc03")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-target_scale = Vector2(2, 2)
-
 [node name="Party Icon" parent="Panel" unique_id=616535348 instance=ExtResource("4_mp2q7")]
 visible = false
 top_level = true
@@ -79,5 +71,3 @@ grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(2, 2)
 mouse_filter = 2
-
-[editable path="Panel/VBoxContainer/SpriteSample"]

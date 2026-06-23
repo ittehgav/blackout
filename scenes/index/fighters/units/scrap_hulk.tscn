@@ -70,6 +70,7 @@ frame = 3
 script = ExtResource("3_15ylm")
 skill = NodePath("Shrapnel Slam")
 animation_player = NodePath("AnimationPlayer")
+weight_class = 2
 tags = Array[int]([1, 6, 5])
 body_type = 1
 hit_scan = NodePath("hit_scan")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dgf3khawq2h5f"]
 
 [ext_resource type="Script" uid="uid://6xsoxh5pe6pt" path="res://scenes/leader/roster/npc_roster.gd" id="1_yns1s"]
-[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/leader/inventory/loot_inventory.tscn" id="2_4m6is"]
+[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/inventory/loot_inventory.tscn" id="2_4m6is"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="4_vhqu4"]
 [ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="5_0iwf6"]
 [ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/index/items/containers/food.tscn" id="8_221v0"]

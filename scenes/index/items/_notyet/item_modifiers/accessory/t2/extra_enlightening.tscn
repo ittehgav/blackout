@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://scw3b0xpgyiq"]
 
-[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_62fhj"]
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/inventory/item_modifiers/item_modifier.gd" id="1_62fhj"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_1v4st"]
 
 [node name="Extra Enlightening" type="Node" unique_id=1173732198 node_paths=PackedStringArray("stat_modifiers")]

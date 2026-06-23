@@ -7,7 +7,7 @@ func highlight_travel(l1:Location, l2:Location)->void:
 		highlight_path(l1, l2)
 	else:
 		var stops:Array[Location] = get_path_sequence(l1, l2);
-		for i:int in len(stops) - 1:
+		for i:int in len(stops):
 			highlight_path(stops[i], stops[i + 1]);
 
 

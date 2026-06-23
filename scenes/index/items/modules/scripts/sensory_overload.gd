@@ -3,9 +3,9 @@ extends Module
 const rarity = 3;
 
 func get_description()->String:
-	return "Consumes " + str(chips_cost) +" " + Index.resource_colored_name("chips") + \
+	return "Consumes " + str(chips_cost) +" " + Resources.resource_colored_name("chips") + \
 			" to stun all nearby enemies for second and greatly increase the "\
-			 + Index.stat_colored_name("technique") + " of nearby allies for the rest of the battle.";
+			 + CombatStats.stat_colored_name("technique") + " of nearby allies for the rest of the battle.";
 
 
 
@@ -35,13 +35,6 @@ func use()->void:
 	player.inventory.chips -= chips_cost;
 	
 	var player_target:PlayerFighter = Entities.player_fighter;
-	for area:Area2D in aoe_range.get_overlapping_areas():
-		assert(area is HurtBox);
-		var target:CombatEntity = area.source;
-		if target in player_target.ally_team.fighters:
-			Combat.apply_stat_change(player_target, target, target.technique * technique_frac, "technique");
-		else:
-			Combat.stun_target(player_target, target, stun_duration)
 
 
 func _on_equipped() -> void:

@@ -19,7 +19,7 @@ var current_option:RecruitmentCard
 @export var options_holder:VBoxContainer
 @export var options_vbox:VBoxContainer;
 
-@export var sprite_sample:SpriteSample
+@export var unit_sprite:Sprite2D;
 
 @export var stats:StatsDropdown;
 
@@ -78,7 +78,7 @@ func load_option(card:RecruitmentCard)->void:
 	
 	name_label.text = unit.base.name;
 	level_label.text = "Level " + str(unit.level);
-	sprite_sample.set_sample(unit.base)
+	unit_sprite.texture = unit.base.texture;
 	
 	tags_label.text = "";
 	var keys:Array = FighterBase.Tag.keys()

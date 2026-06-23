@@ -4,10 +4,32 @@
 [ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="2_vg248"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="3_6k2ih"]
 [ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/ui/location_menu/recruitment/recruitment_card.tscn" id="3_jvi8e"]
-[ext_resource type="PackedScene" uid="uid://dhxxwme6lff0h" path="res://scenes/ui/samples/sprite_sample.tscn" id="6_t22po"]
+[ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="5_1eonm"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="7_6554f"]
-[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/dropdowns/stats_dropdown.tscn" id="8_l4l3x"]
+[ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/collections/stats_dropdown.tscn" id="8_l4l3x"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="9_l2i6a"]
+
+[sub_resource type="Animation" id="Animation_adifi"]
+resource_name = "idle_2"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c6mb3"]
+_data = {
+&"idle": SubResource("Animation_adifi")
+}
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xqdqb"]
 
@@ -20,7 +42,7 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_vg248"]
 events = [SubResource("InputEventAction_6k2ih")]
 
-[node name="RecruitmentMenu" type="Control" unique_id=206142612 node_paths=PackedStringArray("hire_sfx", "content_hbox", "options_holder", "options_vbox", "sprite_sample", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "recruit_button", "hired_overlay", "placeholder", "ui_sfx")]
+[node name="RecruitmentMenu" type="Control" unique_id=206142612 node_paths=PackedStringArray("hire_sfx", "content_hbox", "options_holder", "options_vbox", "unit_sprite", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "recruit_button", "hired_overlay", "placeholder", "ui_sfx")]
 process_mode = 3
 visibility_layer = 7
 z_index = 17
@@ -37,7 +59,7 @@ content_hbox = NodePath("main")
 option_scene = ExtResource("3_jvi8e")
 options_holder = NodePath("main/options_holder")
 options_vbox = NodePath("main/options_holder/VBoxContainer")
-sprite_sample = NodePath("main/Unit Sheet/SpriteSample")
+unit_sprite = NodePath("main/Unit Sheet/sprite_sample/unit_sprite")
 stats = NodePath("main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown")
 name_label = NodePath("main/Unit Sheet/VBoxContainer/HBoxContainer/name")
 level_label = NodePath("main/Unit Sheet/VBoxContainer/level")
@@ -114,7 +136,8 @@ size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 64
 text = "Level 2"
 
-[node name="SpriteSample" parent="main/Unit Sheet" unique_id=1095054403 instance=ExtResource("6_t22po")]
+[node name="sprite_sample" type="TextureButton" parent="main/Unit Sheet" unique_id=1095054403]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -123,21 +146,57 @@ offset_top = -222.0
 offset_right = 128.0
 offset_bottom = -94.0
 grow_vertical = 2
-add_tooltip = false
-enable_hover_panel = false
 
-[node name="anchor" parent="main/Unit Sheet/SpriteSample" index="0" unique_id=1364425088]
+[node name="anchor" type="Control" parent="main/Unit Sheet/sprite_sample" unique_id=1364425088]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = 45.5
 offset_top = 153.0
 offset_right = 45.5
 offset_bottom = 153.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="panel" parent="main/Unit Sheet/SpriteSample" index="1" unique_id=1463305848]
+[node name="panel" type="Panel" parent="main/Unit Sheet/sprite_sample" unique_id=1463305848]
+modulate = Color(1, 1, 1, 0)
 use_parent_material = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="Sprite2D" parent="main/Unit Sheet/SpriteSample" index="3" unique_id=458180260]
-position = Vector2(122.5, 186)
+[node name="additional_data" type="Label" parent="main/Unit Sheet/sprite_sample" unique_id=46261003]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 4
+horizontal_alignment = 1
+
+[node name="unit_sprite" type="Sprite2D" parent="main/Unit Sheet/sprite_sample" unique_id=458180260]
+position = Vector2(122.5, 303)
 scale = Vector2(4, 4)
+texture = ExtResource("5_1eonm")
+hframes = 8
+vframes = 7
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="main/Unit Sheet/sprite_sample/unit_sprite" unique_id=2010096810]
+libraries/ = SubResource("AnimationLibrary_c6mb3")
+autoplay = &"idle"
 
 [node name="texts" type="VBoxContainer" parent="main/Unit Sheet" unique_id=2141458915]
 layout_mode = 1
@@ -408,5 +467,4 @@ layout_mode = 2
 [connection signal="pressed" from="main/Unit Sheet/hire" to="." method="_on_hire_pressed"]
 [connection signal="pressed" from="main/options_holder/Button" to="." method="exit"]
 
-[editable path="main/Unit Sheet/SpriteSample"]
 [editable path="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown"]

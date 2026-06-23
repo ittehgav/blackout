@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cyql2mpcfm38x"]
 
-[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/leader/inventory/item_modifiers/item_modifier.gd" id="1_l4eh2"]
+[ext_resource type="Script" uid="uid://dvekatbbdf76k" path="res://scenes/inventory/item_modifiers/item_modifier.gd" id="1_l4eh2"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="2_xgbbp"]
 
 [node name="Vigorous" type="Node" unique_id=1022797017 node_paths=PackedStringArray("stat_modifiers")]

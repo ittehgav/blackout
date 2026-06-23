@@ -255,18 +255,12 @@ gradient = SubResource("Gradient_nqo38")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_bl1ud"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.049763024, 0.125, 0.18725097, 1)
-colors = PackedColorArray(1, 0.5, 0, 1, 0.46, 0.23, 0, 1, 1, 0.5, 0, 1, 0.2, 0.04, 0.04, 1, 0.18, 0.1602, 0.1602, 1)
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_asmib"]
 noise_type = 0
 frequency = 0.2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xkp80"]
 noise = SubResource("FastNoiseLite_asmib")
-color_ramp = SubResource("Gradient_bl1ud")
 
 [sub_resource type="Animation" id="Animation_nqo38"]
 length = 1.5
@@ -283,6 +277,11 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(0.72156864, 0.72156864, 0.72156864, 0.54901963), Color(1.2237577, 1.2237577, 1.2237577, 0.54901963)]
 }
+
+[sub_resource type="Gradient" id="Gradient_bl1ud"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.049763024, 0.125, 0.18725097, 1)
+colors = PackedColorArray(1, 0.5, 0, 1, 0.46, 0.23, 0, 1, 1, 0.5, 0, 1, 0.2, 0.04, 0.04, 1, 0.18, 0.1602, 0.1602, 1)
 
 [sub_resource type="Animation" id="Animation_sb8v6"]
 resource_name = "burning_ground_glow"
@@ -316,7 +315,7 @@ scorched_ground = NodePath("scorched_ground_mask")
 scorched_ground_hit_scan = NodePath("scorched_ground_hit_scan")
 scorched_ground_sfx = NodePath("explosion_sfx")
 display = NodePath("RangedWeaponDisplay")
-animation_root_key = "ranged_one_hand"
+animation_root_key = "ranged_two_hand"
 base_damage = 50
 cooldown = 10.0
 projectile = NodePath("Projectile")

@@ -20,9 +20,7 @@ class_name UnitSheet;
 
 @export var unit_level_label:Label;
 @export var stats_dropdown:StatsDropdown
-
-@export var skill_range_label:Label;
-@export var skill_cooldown_label:Label;
+@export var mechanic_values:MechanicValuesGrid
 
 
 func display_unit(unit:FighterUnit)->void:
@@ -39,9 +37,12 @@ func display_unit(unit:FighterUnit)->void:
 
 func refresh_data()->void:
 	unit_name_label.text = showing_unit.base.name;
+	
+	var keys:Array = FighterBase.Tag.keys()
 
 	for tag:FighterBase.Tag  in showing_unit.base.tags:
-		tags_label.text += str(tag).capitalize() + "\n"
+		var tag_name:String = keys[tag]
+		tags_label.text += str(tag_name).capitalize() + "\n"
 	
 	unit_level_label.text = "Level " + str(showing_unit.level);
 	experience_bar.build(showing_unit);
@@ -55,8 +56,7 @@ func refresh_data()->void:
 	skill_description_label.text = showing_unit.base.full_skill_description(showing_unit);
 
 	
-	skill_cooldown_label.text = "Cooldown: " + str(snapped(showing_unit.final_skill_cooldown(),.01)) + "s";
-	skill_range_label.text = get_skill_range(showing_unit.base);
+	mechanic_values.setup(showing_unit)
 
 
 func get_skill_range(fighter:FighterBase)->String:

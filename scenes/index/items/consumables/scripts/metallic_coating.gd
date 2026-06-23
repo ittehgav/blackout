@@ -7,7 +7,7 @@ const rarity = 2;
 @export var modifier:ItemModifier
 
 func get_description()->String:
-	return "Use to give +5 "+Index.stat_colored_name("defense") + " to an accessory.";
+	return "Use to give +5 "+CombatStats.stat_colored_name("defense") + " to an accessory.";
 
 
 func use_on_item(target:Accessory)->void:

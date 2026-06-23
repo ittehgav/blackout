@@ -103,8 +103,6 @@ func _process(_delta:float)->void:
 			slingshot_sample.self_modulate.v = 1
 			tailpipe_sample.self_modulate.v = .1
 			if not player_fighter.equipment.weapon_control.weapon.melee:
-
-
 				player_fighter.equipment.weapon_control.switch_weapon()
 				
 		elif equip_slingshot_prompt.visible:
