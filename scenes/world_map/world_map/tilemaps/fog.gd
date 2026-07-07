@@ -9,6 +9,17 @@ extends TileMapLayer
 @export var world_map:WorldMap
 
 
+const fog_range = 300;
+
+func _enter_tree()->void:
+	for x in fog_range * 2:
+		for y in fog_range * 2:
+			var target:Vector2i = Vector2i(x, y) - Vector2i(fog_range, fog_range)
+			set_cell(target ,0, Vector2.ZERO)
+			buffer.set_cell(target,0, Vector2.ZERO)
+			over_horizon.set_cell(target,0, Vector2.ZERO)
+
+
 
 func reveal_neighbors(current_location:Location=player_party.current_location)->void:
 	for location:Location in current_location.neighbor_paths.keys():

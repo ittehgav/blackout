@@ -44,7 +44,6 @@ func set_sprite_root()->void:
 	var parent:Node = get_parent();
 	if source_type == SourceType.npc_fighter:
 		if not (get_parent().get_parent() is NpcFighter):return
-		## TODO not tested in npcfighters after reimplementation
 		while not (parent is FighterBase):
 			parent = parent.get_parent();
 			assert (not (parent is Arena)) ## catches misplaced vfx node

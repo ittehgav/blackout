@@ -25,15 +25,10 @@ func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status, q
 		if not quiet:
 			match status.type:
 				"stun":
-					apply_screen_blink(FighterBase.combat_effect_colors.stun)
+					apply_screen_blink(status.get_status_color())
 				"stat_change":
-					assert(status.value) ## can never be 0
-					var target_color:Color;
-					if status.value < 0:
-						target_color = FighterBase.combat_effect_colors.stat_loss;
-					else:
-						target_color = FighterBase.combat_effect_colors.stat_gain;
-					apply_screen_blink(target_color)
+					assert(status.value) 
+					apply_screen_blink(status.get_status_color())
 				
 func apply_screen_blink(target:Color)->void:
 	pending_blink = true

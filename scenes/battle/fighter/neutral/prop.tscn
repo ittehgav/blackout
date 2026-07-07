@@ -3,19 +3,20 @@
 [ext_resource type="Script" uid="uid://b8ccfl5g8u0fi" path="res://scenes/battle/fighter/neutral/breakable_prop.gd" id="1_476bl"]
 [ext_resource type="Script" uid="uid://vp6mjhqjonac" path="res://scenes/battle/fighter/npc_fighter/hurtbox.gd" id="3_fip8r"]
 
-[node name="prop" type="CharacterBody2D" unique_id=914816489 node_paths=PackedStringArray("hurtbox", "statuses")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gajmi"]
+size = Vector2(96, 232)
+
+[node name="prop" type="CharacterBody2D" unique_id=914816489 node_paths=PackedStringArray("hurtbox", "collision_scan", "statuses")]
 collision_layer = 256
 collision_mask = 256
 script = ExtResource("1_476bl")
 hurtbox = NodePath("hurtbox")
+collision_scan = NodePath("collision_scan")
 body_type = 2
 statuses = NodePath("statuses")
 metadata/_custom_type_script = "uid://b8ccfl5g8u0fi"
 
 [node name="statuses" type="Node" parent="." unique_id=139033089]
-
-[node name="collision_box" type="CollisionShape2D" parent="." unique_id=1477260783]
-position = Vector2(1, 1)
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=2122102762 node_paths=PackedStringArray("source")]
 collision_layer = 3
@@ -27,5 +28,16 @@ metadata/_custom_type_script = "uid://vp6mjhqjonac"
 
 [node name="hurtbox_shape" type="CollisionShape2D" parent="hurtbox" unique_id=1456833574]
 position = Vector2(1, 1)
+
+[node name="collision_scan" type="Area2D" parent="." unique_id=1813541284]
+collision_layer = 8
+collision_mask = 8
+
+[node name="collision_box" type="CollisionShape2D" parent="collision_scan" unique_id=1477260783]
+position = Vector2(1, 1)
+
+[node name="collision_box" type="CollisionShape2D" parent="." unique_id=854813031]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_gajmi")
 
 [connection signal="death" from="." to="." method="_on_death"]

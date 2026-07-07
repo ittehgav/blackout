@@ -1,0 +1,313 @@
+[gd_scene format=3 uid="uid://dnxi0en03q16d"]
+
+[ext_resource type="Script" uid="uid://qm0sco0on2a5" path="res://scenes/in_settlement/settlements/dungeon.gd" id="1_dq4lg"]
+[ext_resource type="PackedScene" uid="uid://bx2wddbx7dyvd" path="res://scenes/index/tile_maps/hideout_layout.tscn" id="2_k1rne"]
+[ext_resource type="Texture2D" uid="uid://bmab7n2cj0ahj" path="res://assets/visual/sprites/locations/dungeons/portraits/dungeon_ph.png" id="3_3oqa1"]
+[ext_resource type="Texture2D" uid="uid://k58lrdqj0c8o" path="res://assets/visual/sprites/locations/dungeons/hideout_3.png" id="4_5eyr7"]
+[ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/npc_roster.tscn" id="5_ypggt"]
+[ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/inventory/loot_inventory.tscn" id="6_xq1oq"]
+[ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="7_05uei"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="8_xnhfi"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="9_i88il"]
+[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="10_murha"]
+[ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="11_spqda"]
+[ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/index/items/containers/scrap_crate.tscn" id="12_1y1fu"]
+[ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="13_g86ii"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="14_rktq6"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="15_rn5fu"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="16_kitgy"]
+[ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="17_74805"]
+[ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="18_kbrsw"]
+[ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="19_ye2v5"]
+[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="20_cnuc1"]
+[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="21_apprw"]
+[ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="22_5jwbe"]
+[ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="23_ol7d4"]
+[ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="24_fio4l"]
+[ext_resource type="PackedScene" uid="uid://cr3hxwb2o42kl" path="res://scenes/index/items/accessories/forbidden_shoulders.tscn" id="25_1tm63"]
+[ext_resource type="PackedScene" uid="uid://bhmsli657i58w" path="res://scenes/index/fighters/units/scrap_hulk.tscn" id="26_gg8wv"]
+[ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="27_au4y3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lhfrt"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_almqn"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ea2d1"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofkkm"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ef8k4"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ukjwk"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aoo72"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pa4g0"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_feiqd"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jgoom"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p13da"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugqek"]
+resource_local_to_scene = true
+shader = ExtResource("16_kitgy")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[node name="Outlaw Hideout" type="Node2D" unique_id=926709683 node_paths=PackedStringArray("waves", "final_loot") groups=["all_locations"]]
+script = ExtResource("1_dq4lg")
+highest_level_target = 500
+waves = [NodePath("NPC Roster"), NodePath("NPC Roster2"), NodePath("NPC Roster3")]
+tile_layout_scene = ExtResource("2_k1rne")
+final_loot = NodePath("final_loot")
+size = 3
+portrait = ExtResource("3_3oqa1")
+map_texture = ExtResource("4_5eyr7")
+map_texture_modulate = Color(0.4, 0.120000005, 0.120000005, 1)
+metadata/_custom_type_script = "uid://qm0sco0on2a5"
+
+[node name="NPC Roster" parent="." unique_id=754053323 node_paths=PackedStringArray("loot") instance=ExtResource("5_ypggt")]
+loot = NodePath("basic_loot")
+
+[node name="basic_loot" parent="NPC Roster" unique_id=1524543422 instance=ExtResource("6_xq1oq")]
+
+[node name="Mystery Snack Pack" parent="NPC Roster/basic_loot" unique_id=941295016 instance=ExtResource("7_05uei")]
+
+[node name="Tailpipe" parent="NPC Roster/basic_loot" unique_id=870722934 instance=ExtResource("8_xnhfi")]
+
+[node name="Food Basket" parent="NPC Roster/basic_loot" unique_id=2082907014 instance=ExtResource("9_i88il")]
+
+[node name="Juice Flask" parent="NPC Roster/basic_loot" unique_id=1995627789 instance=ExtResource("10_murha")]
+
+[node name="Fuel Gallon" parent="NPC Roster/basic_loot" unique_id=1808231459 instance=ExtResource("11_spqda")]
+
+[node name="Scrap Crate" parent="NPC Roster/basic_loot" unique_id=1500927285 instance=ExtResource("12_1y1fu")]
+
+[node name="Protein Shake" parent="NPC Roster/basic_loot" unique_id=1020794768 instance=ExtResource("13_g86ii")]
+
+[node name="FighterUnit" parent="NPC Roster" unique_id=2067750979 instance=ExtResource("14_rktq6")]
+level = 2
+
+[node name="Puncher" parent="NPC Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("15_rn5fu")]
+material = SubResource("ShaderMaterial_lhfrt")
+
+[node name="FighterUnit2" parent="NPC Roster" unique_id=724131380 instance=ExtResource("14_rktq6")]
+level = 2
+
+[node name="Puncher" parent="NPC Roster/FighterUnit2" unique_id=1478998849 instance=ExtResource("15_rn5fu")]
+material = SubResource("ShaderMaterial_almqn")
+
+[node name="FighterUnit3" parent="NPC Roster" unique_id=1318439384 instance=ExtResource("14_rktq6")]
+level = 2
+
+[node name="Scythe" parent="NPC Roster/FighterUnit3" unique_id=255476344 instance=ExtResource("17_74805")]
+material = SubResource("ShaderMaterial_ea2d1")
+
+[node name="FighterUnit4" parent="NPC Roster" unique_id=470331231 instance=ExtResource("14_rktq6")]
+level = 2
+
+[node name="Gravity" parent="NPC Roster/FighterUnit4" unique_id=934399271 instance=ExtResource("18_kbrsw")]
+material = SubResource("ShaderMaterial_ofkkm")
+
+[node name="FighterUnit5" parent="NPC Roster" unique_id=443096000 instance=ExtResource("14_rktq6")]
+level = 2
+
+[node name="Sniper" parent="NPC Roster/FighterUnit5" unique_id=1797122592 instance=ExtResource("19_ye2v5")]
+material = SubResource("ShaderMaterial_ef8k4")
+
+[node name="NPC Roster2" parent="." unique_id=1557767277 node_paths=PackedStringArray("loot") instance=ExtResource("5_ypggt")]
+loot = NodePath("basic_loot")
+
+[node name="basic_loot" parent="NPC Roster2" unique_id=1995696206 instance=ExtResource("6_xq1oq")]
+
+[node name="Fuel Tank" parent="NPC Roster2/basic_loot" unique_id=1903203423 instance=ExtResource("20_cnuc1")]
+
+[node name="Slingshot" parent="NPC Roster2/basic_loot" unique_id=1530847075 instance=ExtResource("21_apprw")]
+
+[node name="Protein Shake" parent="NPC Roster2/basic_loot" unique_id=475991228 instance=ExtResource("13_g86ii")]
+
+[node name="FighterUnit5" parent="NPC Roster2" unique_id=295400541 instance=ExtResource("14_rktq6")]
+level = 3
+
+[node name="Slammer" parent="NPC Roster2/FighterUnit5" unique_id=1342933973 instance=ExtResource("22_5jwbe")]
+material = SubResource("ShaderMaterial_ukjwk")
+
+[node name="FighterUnit6" parent="NPC Roster2" unique_id=126136071 instance=ExtResource("14_rktq6")]
+level = 3
+
+[node name="Sniper" parent="NPC Roster2/FighterUnit6" unique_id=35741914 instance=ExtResource("19_ye2v5")]
+material = SubResource("ShaderMaterial_aoo72")
+
+[node name="NPC Roster3" parent="." unique_id=174912214 node_paths=PackedStringArray("loot") instance=ExtResource("5_ypggt")]
+loot = NodePath("basic_loot")
+
+[node name="basic_loot" parent="NPC Roster3" unique_id=2046273616 instance=ExtResource("6_xq1oq")]
+rare_count = 1
+
+[node name="Juice Flask" parent="NPC Roster3/basic_loot" unique_id=636066981 instance=ExtResource("10_murha")]
+
+[node name="Juice Tank" parent="NPC Roster3/basic_loot" unique_id=1414404651 instance=ExtResource("23_ol7d4")]
+
+[node name="Fuel Tank" parent="NPC Roster3/basic_loot" unique_id=98996559 instance=ExtResource("20_cnuc1")]
+
+[node name="Fuel Barrel" parent="NPC Roster3/basic_loot" unique_id=1256350301 instance=ExtResource("24_fio4l")]
+
+[node name="Forbidden Shoulders" parent="NPC Roster3/basic_loot" unique_id=2080848406 instance=ExtResource("25_1tm63")]
+
+[node name="Protein Shake" parent="NPC Roster3/basic_loot" unique_id=1747156571 instance=ExtResource("13_g86ii")]
+
+[node name="FighterUnit5" parent="NPC Roster3" unique_id=696959328 instance=ExtResource("14_rktq6")]
+level = 5
+
+[node name="Slammer" parent="NPC Roster3/FighterUnit5" unique_id=2057783410 instance=ExtResource("22_5jwbe")]
+material = SubResource("ShaderMaterial_pa4g0")
+
+[node name="FighterUnit6" parent="NPC Roster3" unique_id=1312024135 instance=ExtResource("14_rktq6")]
+level = 5
+
+[node name="Slammer" parent="NPC Roster3/FighterUnit6" unique_id=1479731838 instance=ExtResource("22_5jwbe")]
+material = SubResource("ShaderMaterial_feiqd")
+
+[node name="FighterUnit7" parent="NPC Roster3" unique_id=1770855845 instance=ExtResource("14_rktq6")]
+level = 5
+
+[node name="Scrap Hulk" parent="NPC Roster3/FighterUnit7" unique_id=1648266463 instance=ExtResource("26_gg8wv")]
+material = SubResource("ShaderMaterial_jgoom")
+
+[node name="FighterUnit8" parent="NPC Roster3" unique_id=140030826 instance=ExtResource("14_rktq6")]
+level = 5
+
+[node name="Gravity" parent="NPC Roster3/FighterUnit8" unique_id=1827417254 instance=ExtResource("18_kbrsw")]
+material = SubResource("ShaderMaterial_p13da")
+
+[node name="FighterUnit9" parent="NPC Roster3" unique_id=2035980694 instance=ExtResource("14_rktq6")]
+level = 5
+
+[node name="Sniper" parent="NPC Roster3/FighterUnit9" unique_id=245372272 instance=ExtResource("19_ye2v5")]
+material = SubResource("ShaderMaterial_ugqek")
+
+[node name="final_loot" parent="." unique_id=955501022 instance=ExtResource("6_xq1oq")]
+
+[node name="Juice Tank" parent="final_loot" unique_id=2066508278 instance=ExtResource("23_ol7d4")]
+
+[node name="Fuel Barrel" parent="final_loot" unique_id=1280001897 instance=ExtResource("24_fio4l")]
+
+[node name="Scrap Compactor" parent="final_loot" unique_id=224895615 instance=ExtResource("27_au4y3")]

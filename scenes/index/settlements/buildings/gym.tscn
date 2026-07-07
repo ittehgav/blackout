@@ -20,6 +20,18 @@
 [ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="18_iscbg"]
 [ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="19_amovc"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjn12"]
+resource_local_to_scene = true
+shader = ExtResource("15_yntwk")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yntwk"]
 resource_local_to_scene = true
 shader = ExtResource("15_yntwk")
@@ -68,18 +80,6 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_amovc"]
-resource_local_to_scene = true
-shader = ExtResource("15_yntwk")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
 [node name="Gym" type="Node2D" unique_id=827517862 node_paths=PackedStringArray("inventory", "roster") groups=["all_locations"]]
 script = ExtResource("1_1igcj")
 theme_color = Color(0.47058824, 0.15686275, 0.8, 1)
@@ -116,16 +116,16 @@ holder = NodePath("..")
 [node name="Building Roster" parent="." unique_id=562564275 instance=ExtResource("3_oeueu")]
 
 [node name="Puncher" parent="Building Roster" unique_id=1510142188 instance=ExtResource("14_tjn12")]
-material = SubResource("ShaderMaterial_yntwk")
+material = SubResource("ShaderMaterial_tjn12")
 
 [node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("16_njfxd")]
-material = SubResource("ShaderMaterial_njfxd")
+material = SubResource("ShaderMaterial_yntwk")
 
 [node name="Slammer" parent="Building Roster" unique_id=1342933973 instance=ExtResource("17_x5o0a")]
-material = SubResource("ShaderMaterial_x5o0a")
+material = SubResource("ShaderMaterial_njfxd")
 
 [node name="Toxic Hulk" parent="Building Roster" unique_id=754896079 instance=ExtResource("18_iscbg")]
-material = SubResource("ShaderMaterial_iscbg")
+material = SubResource("ShaderMaterial_x5o0a")
 
 [node name="Wrecker" parent="Building Roster" unique_id=1018236968 instance=ExtResource("19_amovc")]
-material = SubResource("ShaderMaterial_amovc")
+material = SubResource("ShaderMaterial_iscbg")

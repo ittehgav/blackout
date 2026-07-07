@@ -63,6 +63,12 @@ func generate_fighter(unit:FighterUnit, force_position:Vector2=Vector2.ZERO)->Np
 
 	
 	add_child.call_deferred(fighter)
+	
+	## so i can keep setting the fighter_base shader and then it just 
+	## gets turned to unique resource here
+	## and combat effects can affect the shaders individually
+	fighter.sprite.material = fighter.sprite.material.duplicate();
+	
 	ColorCoder.color_code_fighter(fighter, team_n)
 
 	
@@ -101,6 +107,8 @@ func assign_entity(target:CombatEntity)->void:
 	target.enemy_team = enemy_team;
 	target.death.connect(on_entity_death.bind(target))
 	target.hurtbox.set_collision_layer_value(team_n, true);
+	
+	arena.battle_ended.connect(target.on_battle_over)
 	if not target is PlayerFighter and not target.dummy:
 		assign_fighter(target)
 	
@@ -115,7 +123,6 @@ func unassign_fighter(fighter:ActiveFighter)->void:
 	if fighter.base.hit_scan:
 		## will just hide it if converted from enemy team
 		## to playe team
-		fighter.base.hit_scan.get_node("projection").show();
 		if fighter.base.skill.scan_enemies:
 			fighter.base.hit_scan.set_collision_mask_value(enemy_team.team_n, false);
 		if fighter.base.skill.scan_allies:
@@ -140,11 +147,11 @@ func _on_child_entered_tree(node: Node) -> void:
 		## it where  also summoning units makes
 		## you just need to add them to the team node and 
 		## it works just like everyone else
-		assert(node is ActiveFighter or node is NpcFighterTest or node is Prop);
+		assert(node is CombatEntity or node is NpcFighterTest or node is Prop);
 		if node is ActiveFighter:
 			assign_entity(node)
 
-func on_entity_death(_killer:ActiveFighter, fighter:ActiveFighter)->void:
+func on_entity_death(_killer:ActiveFighter, fighter:CombatEntity)->void:
 	## WHERE BATTLES ARE FINISHED RIGHT NOW
 	## you lose when the player unit dies
 	## you win when you wipe out enemy team

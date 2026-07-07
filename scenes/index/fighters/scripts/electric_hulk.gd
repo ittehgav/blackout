@@ -1,55 +1,18 @@
 extends FighterBase
 
 @export var damage_lightning:LightningVFX;
-@export var heal_lightning:LightningVFX;
 
+func fight_start_setup()->void:
+	for enemy:ActiveFighter in fighter.enemy_team.fighters:
+		var bolt:LightningVFX = damage_lightning.duplicate();
+		fighter.ally_team.projectiles.add_child(bolt)
+		enemy.collided.connect(collision_hit.bind(enemy, bolt))
+		fighter.death.connect(enemy.collided.disconnect.bind(collision_hit))
 
+func collision_hit(_t:ActiveFighter, target:ActiveFighter, bolt:LightningVFX)->void:
+	bolt.shoot_bolt(fighter, target)
+	Combat.deal_damage(fighter, target);
 
-func full_skill_description(unit:FighterUnit)->String:
-
-
-	var final_string:String = "(NOT IMPLEMENTED)Passive: whenever enemies collide, Electric hulk deals damage to them.\nSkill: Damages and sends all nearby enemies flying.";
+func full_skill_description(_unit:FighterUnit)->String:
+	var final_string:String = "Passive: whenever enemies collide with eachother, Electric Hulk deals damage to them.\nSkill: Damages and sends all nearby enemies flying.";
 	return final_string
-
-var enemy_bolts:Dictionary[CombatEntity, LightningVFX];
-var ally_bolts:Dictionary[CombatEntity, LightningVFX]
-var current_bolts:Array[LightningVFX];
-func skill_windup()->void:
-	super();
-	enemy_bolts = {};
-	ally_bolts = {}
-	## not that big a deal to generate a bunch of stuff that doesnt get used
-	## instead of having to check for changes in the enemy team
-	for e:CombatEntity in fighter.ally_team.fighters:
-		if not (e in ally_bolts):
-			var bolt:LightningVFX = heal_lightning.duplicate()
-			ally_bolts[e] = bolt
-			fighter.ally_team.projectiles.add_child(bolt)
-
-	for e:CombatEntity in fighter.enemy_team.fighters:
-		if not (e in enemy_bolts):
-			var bolt:LightningVFX = damage_lightning.duplicate()
-			enemy_bolts[e] = bolt;
-			fighter.ally_team.projectiles.add_child(bolt)
-
-
-func special_skill_effect()->void:
-	var all_elec:Array[Node] = get_tree().get_nodes_in_group("electrified");
-	## they stay sorted when filtered into friend/foe
-	all_elec.sort_custom(proximity_sort);
-	var healing:float = CombatStats.technique_scaled_value(fighter.attack, fighter.technique, "heal");
-
-
-	for target:ActiveFighter in all_elec:
-		if target in fighter.enemy_team.fighters:
-			Combat.deal_damage(fighter, target);
-			if target in enemy_bolts:
-				var bolt:LightningVFX = enemy_bolts[target];
-				bolt.shoot_bolt(fighter, target)
-		else:
-			Combat.heal_target(fighter, target, healing)
-			if target in ally_bolts:
-				var bolt:LightningVFX = ally_bolts[target];
-				bolt.shoot_bolt(fighter, target)
-
-	

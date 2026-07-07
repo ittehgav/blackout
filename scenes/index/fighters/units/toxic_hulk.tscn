@@ -93,7 +93,7 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Gas Leak" type="Node" parent="." unique_id=966815524 node_paths=PackedStringArray("status")]
 script = ExtResource("3_fwyy1")
-base_cooldown = 4.0
+base_cooldown = 10.0
 effects = Array[int]([2, 3, 5])
 position_lineup = false
 transform_visual = 2

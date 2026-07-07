@@ -114,7 +114,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2foka"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rj7gd"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -126,7 +126,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_slj5k"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2foka"]
 resource_local_to_scene = true
 shader = ExtResource("8_2foka")
 shader_parameter/color = Color(0, 0.2, 0.047058824, 1)
@@ -136,7 +136,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bbn25"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_slj5k"]
 resource_local_to_scene = true
 shader = ExtResource("8_2foka")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -242,16 +242,16 @@ metadata/_custom_type_script = "uid://dclobwhhhy4eu"
 position = Vector2(-92, 537)
 
 [node name="body" parent="teams/team_1/player_fighter" index="5" unique_id=416499753]
-material = SubResource("ShaderMaterial_2foka")
+material = SubResource("ShaderMaterial_rj7gd")
 
 [node name="left_hand" parent="teams/team_1/player_fighter/body" index="2" unique_id=7873661]
-material = SubResource("ShaderMaterial_slj5k")
+material = SubResource("ShaderMaterial_2foka")
 
 [node name="right_hand" parent="teams/team_1/player_fighter/body" index="3" unique_id=1602105371]
-material = SubResource("ShaderMaterial_slj5k")
+material = SubResource("ShaderMaterial_2foka")
 
 [node name="equipment" parent="teams/team_1/player_fighter" index="7" unique_id=488158529]
-material = SubResource("ShaderMaterial_bbn25")
+material = SubResource("ShaderMaterial_slj5k")
 
 [node name="camera" parent="teams/team_1/player_fighter" index="8" unique_id=1871726771]
 limit_left = -5999
@@ -662,8 +662,8 @@ arena = NodePath("../../..")
 [connection signal="weapon_fumbled" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_fumbled"]
 [connection signal="weapon_hit" from="teams/team_1/player_fighter/equipment" to="teams/team_1/player_fighter/misc/sfx/hit_sfx" method="weapon_hit"]
 [connection signal="weapon_hit" from="teams/team_1/player_fighter/equipment" to="teams/team_1/player_fighter/equipment/weapon_control" method="weapon_hit"]
-[connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="check_weapon_disabled"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_used"]
+[connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="check_weapon_disabled"]
 [connection signal="timeout" from="teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
 [connection signal="child_entered_tree" from="teams/team_2" to="teams/team_2" method="_on_child_entered_tree"]
 [connection signal="fighter_converted" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_fighter_converted"]

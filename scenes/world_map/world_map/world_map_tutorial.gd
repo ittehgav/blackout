@@ -38,7 +38,6 @@ func _ready()->void:
 	await get_tree().create_timer(.25).timeout;
 	Tweens.ui_fade_in(upkeep_explanation)
 	await skill_check.started;
-	print("stori?")
 	shift_tutorial()
 	await Entities.player_party.stopped_moving;
 	upkeep_explanation.queue_free();
@@ -72,10 +71,8 @@ func shift_tutorial()->void:
 func _input(e:InputEvent)->void:
 	if e.is_action_pressed("shift_press"):
 		if not spacebar_clear.is_stopped():
-			print("star2?")
 			spacebar_clear.start(2)
 		else:
-			print("else?")
 			skill_check.set_process_input(true)
 			skill_check.motion_tween.play()
 			shift_animation.play("RESET")
@@ -84,6 +81,5 @@ func _input(e:InputEvent)->void:
 			set_process_input(false)
 
 func _on_spacebar_clear_timeout() -> void:
-	print("to?")
 	shift_press_to_start.show();
 	

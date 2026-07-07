@@ -129,9 +129,6 @@ const combat_effect_colors:Dictionary[String, Color]={
 	"stat_loss":Color(0.5, 0.35, 0.352, 1.0)
 }
 
-
-
-
 func _ready()->void:
 	if not self is PlayerFighterBase:
 		if not fighter and not (get_parent() is FighterIndex):

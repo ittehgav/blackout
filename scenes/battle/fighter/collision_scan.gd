@@ -2,7 +2,7 @@ extends Area2D
 
 class_name CollisionScan;
 
-@export var source:ActiveFighter
+@export var source:CombatEntity
 @export var shape:CollisionShape2D
 
 func _on_hurtbox_child_entered_tree(node: Node) -> void:

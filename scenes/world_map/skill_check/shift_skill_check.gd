@@ -55,7 +55,7 @@ func roll_values()->void:
 var motion_tween:Tween;
 func start_motion_tween()->void:
 	needle_bar.value = 10;
-	var time_roll:float = randf_range(2.5, 4)
+	var time_roll:float = randf_range(1.5, 3)
 	
 	motion_tween = create_tween();
 	motion_tween.set_ignore_time_scale(true)

@@ -10,8 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="7_l8w5n"]
 [ext_resource type="PackedScene" uid="uid://cj5ljxvm16m8c" path="res://scenes/index/items/weapons/shrapnel_shotgun.tscn" id="7_mysod"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="8_5w0nc"]
-[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="9_hombn"]
-[ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="9_l8w5n"]
+[ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="9_l8w5n"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="9_toood"]
 [ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="10_l8w5n"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="11_hombn"]
@@ -22,6 +21,21 @@
 [ext_resource type="PackedScene" uid="uid://prw4abfgie7j" path="res://scenes/index/items/weapons/firebomb_launcher.tscn" id="15_6lu73"]
 [ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="17_gjkyl"]
 [ext_resource type="PackedScene" uid="uid://dhmyvsvrw476x" path="res://scenes/index/items/weapons/toxic_shotgun.tscn" id="22_hombn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cpvf4"]
+radius = 70.028564
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0da2b"]
+resource_local_to_scene = true
+shader = ExtResource("4_t331a")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;
@@ -111,7 +125,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hombn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8w5n"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -123,7 +137,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yoboh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hombn"]
 resource_local_to_scene = true
 shader = ExtResource("2_yxwnb")
 shader_parameter/color = Color(0, 0.2, 0.047058824, 1)
@@ -133,7 +147,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ytje"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yoboh"]
 resource_local_to_scene = true
 shader = ExtResource("2_yxwnb")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -143,34 +157,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cpvf4"]
-radius = 70.028564
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0da2b"]
-resource_local_to_scene = true
-shader = ExtResource("4_t331a")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux3o3"]
-resource_local_to_scene = true
-shader = ExtResource("4_t331a")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(8, 7)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o48da"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ytje"]
 resource_local_to_scene = true
 shader = ExtResource("4_t331a")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -189,73 +176,75 @@ shader_parameter/number_of_images = Vector2(8, 7)
 [node name="team_1" parent="Arena/teams" parent_id_path=PackedInt32Array(896888135, 1264042758) index="2" unique_id=1279616264 node_paths=PackedStringArray("roster")]
 roster = NodePath("../../../Player/Roster")
 
-[node name="player_fighter" parent="Arena/teams/team_1" index="0" unique_id=543559168]
-position = Vector2(191, 18)
-
-[node name="body" parent="Arena/teams/team_1/player_fighter" index="5" unique_id=416499753]
-material = SubResource("ShaderMaterial_hombn")
-
-[node name="left_hand" parent="Arena/teams/team_1/player_fighter/body" index="2" unique_id=7873661]
-material = SubResource("ShaderMaterial_yoboh")
-
-[node name="right_hand" parent="Arena/teams/team_1/player_fighter/body" index="3" unique_id=1602105371]
-material = SubResource("ShaderMaterial_yoboh")
-
-[node name="equipment" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=488158529]
-material = SubResource("ShaderMaterial_6ytje")
-
-[node name="team_2" parent="Arena/teams" parent_id_path=PackedInt32Array(896888135, 1264042758) index="3" unique_id=451149455 node_paths=PackedStringArray("roster")]
-roster = NodePath("../../NPC Roster")
-
-[node name="dummy" parent="Arena/teams/team_2" index="0" unique_id=1353693342 node_paths=PackedStringArray("sprite") instance=ExtResource("2_6lu73")]
-position = Vector2(464, 435)
+[node name="dummy" parent="Arena/teams/team_1" index="0" unique_id=1353693342 node_paths=PackedStringArray("sprite") instance=ExtResource("2_6lu73")]
+position = Vector2(274, 460)
 dummy = true
 sprite = NodePath("dummy")
 max_hp = 10000.0
 
-[node name="hurtbox" parent="Arena/teams/team_2/dummy" index="3" unique_id=1694393992]
+[node name="hurtbox" parent="Arena/teams/team_1/dummy" index="3" unique_id=1866307460]
 position = Vector2(0, -27)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/teams/team_2/dummy/hurtbox" index="0" unique_id=268604563]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/teams/team_1/dummy/hurtbox" index="0" unique_id=268604563]
 position = Vector2(0, 23)
 shape = SubResource("CircleShape2D_cpvf4")
 
-[node name="shape" parent="Arena/teams/team_2/dummy/collision_scan" parent_id_path=PackedInt32Array(1353693342, 869280054) index="0" unique_id=328150148]
+[node name="shape" parent="Arena/teams/team_1/dummy/collision_scan" parent_id_path=PackedInt32Array(1353693342, 869280054) index="0" unique_id=328150148]
 shape = SubResource("CircleShape2D_cpvf4")
 
-[node name="FighterOverlay" parent="Arena/teams/team_2/dummy" index="5" unique_id=442767027]
+[node name="FighterOverlay" parent="Arena/teams/team_1/dummy" index="5" unique_id=442767027]
 offset_left = -33.0
 offset_top = -72.0
 offset_right = 31.0
 offset_bottom = -72.0
 
-[node name="outline" parent="Arena/teams/team_2/dummy/FighterOverlay" index="2" unique_id=589895931]
+[node name="outline" parent="Arena/teams/team_1/dummy/FighterOverlay" index="2" unique_id=589895931]
 modulate = Color(1, 1, 1, 0.9529412)
 
-[node name="hp_bar" parent="Arena/teams/team_2/dummy/FighterOverlay/outline/VBoxContainer/hp_bar_trail" parent_id_path=PackedInt32Array(1353693342, 931099160) index="0" unique_id=1356032778]
+[node name="hp_bar" parent="Arena/teams/team_1/dummy/FighterOverlay/outline/VBoxContainer/hp_bar_trail" parent_id_path=PackedInt32Array(1353693342, 931099160) index="0" unique_id=1356032778]
 stretch_margin_left = 2
 stretch_margin_top = 2
 stretch_margin_right = 2
 stretch_margin_bottom = 2
 
-[node name="refresh_bar" parent="Arena/teams/team_2/dummy/FighterOverlay" index="3" unique_id=395766779]
+[node name="refresh_bar" parent="Arena/teams/team_1/dummy/FighterOverlay" index="3" unique_id=395766779]
 autostart = false
 
-[node name="unit_collision" parent="Arena/teams/team_2/dummy" index="6" unique_id=1716436569]
+[node name="unit_collision" parent="Arena/teams/team_1/dummy" index="6" unique_id=1716436569]
 position = Vector2(0, -9)
 
-[node name="dummy" type="Sprite2D" parent="Arena/teams/team_2/dummy" unique_id=418877120]
+[node name="dummy" type="Sprite2D" parent="Arena/teams/team_1/dummy" unique_id=418877120]
 material = SubResource("ShaderMaterial_0da2b")
 position = Vector2(0, -27)
 texture = ExtResource("4_mysod")
 
-[node name="dummy2" parent="Arena/teams/team_2" index="1" unique_id=1723811507 node_paths=PackedStringArray("sprite") instance=ExtResource("2_6lu73")]
+[node name="player_fighter" parent="Arena/teams/team_1" index="1" unique_id=543559168]
+position = Vector2(191, 18)
+body_type = 0
+max_hp = 0.0
+
+[node name="body" parent="Arena/teams/team_1/player_fighter" index="5" unique_id=416499753]
+material = SubResource("ShaderMaterial_l8w5n")
+
+[node name="left_hand" parent="Arena/teams/team_1/player_fighter/body" index="2" unique_id=7873661]
+material = SubResource("ShaderMaterial_hombn")
+
+[node name="right_hand" parent="Arena/teams/team_1/player_fighter/body" index="3" unique_id=1602105371]
+material = SubResource("ShaderMaterial_hombn")
+
+[node name="equipment" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=488158529]
+material = SubResource("ShaderMaterial_yoboh")
+
+[node name="team_2" parent="Arena/teams" parent_id_path=PackedInt32Array(896888135, 1264042758) index="3" unique_id=451149455 node_paths=PackedStringArray("roster")]
+roster = NodePath("../../NPC Roster")
+
+[node name="dummy2" parent="Arena/teams/team_2" index="0" unique_id=1723811507 node_paths=PackedStringArray("sprite") instance=ExtResource("2_6lu73")]
 position = Vector2(401, 294)
 dummy = true
 sprite = NodePath("dummy")
 max_hp = 10000.0
 
-[node name="hurtbox" parent="Arena/teams/team_2/dummy2" index="3" unique_id=1694393992]
+[node name="hurtbox" parent="Arena/teams/team_2/dummy2" index="3" unique_id=1866307460]
 position = Vector2(0, -27)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/teams/team_2/dummy2/hurtbox" index="0" unique_id=786116503]
@@ -296,9 +285,8 @@ texture = ExtResource("4_mysod")
 [node name="FighterUnit" parent="Arena/NPC Roster" unique_id=1849357981 instance=ExtResource("7_l8w5n")]
 level = 4
 
-[node name="Slammer" parent="Arena/NPC Roster/FighterUnit" unique_id=1342933973 instance=ExtResource("9_l8w5n")]
-material = SubResource("ShaderMaterial_ux3o3")
-position = Vector2(732.9054, 0)
+[node name="Gravity" parent="Arena/NPC Roster/FighterUnit" unique_id=934399271 instance=ExtResource("9_l8w5n")]
+material = SubResource("ShaderMaterial_6ytje")
 
 [node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_t331a")]
 process_priority = 1
@@ -307,12 +295,6 @@ alternative_weapon = NodePath("Inventory/Slingshot")
 equipped_module = NodePath("Inventory/Dodge Roll")
 level = 4
 experience = 1
-
-[node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="0" unique_id=2067750979 instance=ExtResource("7_l8w5n")]
-level = 4
-
-[node name="Puncher" parent="Player/Roster/FighterUnit2" unique_id=1510142188 instance=ExtResource("9_hombn")]
-material = SubResource("ShaderMaterial_o48da")
 
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 315
@@ -356,7 +338,7 @@ stack_size = 200
 max_hp = 50000.0
 
 [editable path="Arena"]
+[editable path="Arena/teams/team_1/dummy"]
 [editable path="Arena/teams/team_1/player_fighter"]
-[editable path="Arena/teams/team_2/dummy"]
 [editable path="Arena/teams/team_2/dummy2"]
 [editable path="Player"]

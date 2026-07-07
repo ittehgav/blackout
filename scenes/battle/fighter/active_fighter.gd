@@ -57,3 +57,4 @@ func no_dmg_mod(damage:float, _source:ActiveFighter)->float:
 	## whether or not the source has a modifier
 	## gets replaced when necessary by a real modifier at battle start
 	return damage
+@abstract func on_battle_over(player_won:bool)->void;

@@ -27,6 +27,10 @@ func _ready()->void:
 		team_2.load_roster();
 	await get_tree().process_frame
 	## to make sure every fighter is in the tree before setting up vfxes
+	for f:ActiveFighter in team_1.fighters + team_2.fighters:
+		if f is NpcFighter and f.base and "fight_start_setup" in f.base:
+			f.base.fight_start_setup();
+
 	for vfx:Node in get_tree().get_nodes_in_group("combat_vfx"):
 		vfx.set_sprite_root();
 

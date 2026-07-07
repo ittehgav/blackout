@@ -88,7 +88,6 @@ money = 315
 [node name="Sapper" parent="Player/Inventory" index="0" unique_id=4971161 instance=ExtResource("7_qigu1")]
 
 [node name="Brass Knuckles" parent="Player/Inventory" index="1" unique_id=834594505 instance=ExtResource("7_tsypy")]
-color_tag = "none"
 
 [node name="Tailpipe" parent="Player/Inventory" index="2" unique_id=870722934 instance=ExtResource("8_2f5bq")]
 base_damage = 500

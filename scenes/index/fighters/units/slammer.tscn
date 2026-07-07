@@ -6,11 +6,49 @@
 [ext_resource type="Script" uid="uid://cepgldvhtvcb8" path="res://scenes/index/fighters/scripts/slammer.gd" id="3_koqxp"]
 [ext_resource type="PackedScene" uid="uid://clr0o7muuno6g" path="res://scenes/index/vfx/overhead_wide.tscn" id="4_6xpao"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_ocxoc"]
+[ext_resource type="Script" uid="uid://x6th0xrv2iy2" path="res://scenes/battle/fighter/skill_projection.gd" id="7_iwgp2"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_ikqys"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_ceblu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_plmof"]
-radius = 58.00862
+radius = 60.0
+
+[sub_resource type="Animation" id="Animation_iwgp2"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ikqys"]
+_data = {
+&"projection": SubResource("Animation_iwgp2")
+}
+
+[sub_resource type="Gradient" id="Gradient_ikqys"]
+offsets = PackedFloat32Array(0, 0.5233645, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.6509804, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u5bk5"]
+gradient = SubResource("Gradient_ikqys")
+width = 128
+
+[sub_resource type="Gradient" id="Gradient_iwgp2"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.09885932, 0.40304184, 0.62737644, 0.66159695, 0.7110266)
+colors = PackedColorArray(1, 1, 1, 0.73333335, 1, 1, 1, 0.40416664, 1, 1, 1, 0.3529412, 0.8, 0.8, 0.8, 0.5882353, 1, 1, 1, 0.5882353, 1, 1, 1, 0.35833335)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ikqys"]
+gradient = SubResource("Gradient_iwgp2")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_38x4e"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iwgp2"]
+gradient = SubResource("Gradient_38x4e")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Animation" id="Animation_ikqys"]
 length = 0.001
@@ -79,15 +117,13 @@ vframes = 7
 frame = 3
 script = ExtResource("3_koqxp")
 skill = NodePath("Throw Hands")
-animation_player = NodePath("AnimationPlayer")
+animation_player = NodePath("base_animations")
 weight_class = 2
 tags = Array[int]([0, 6, 7])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
-
-[node name="overhead_wide" parent="." unique_id=234288550 instance=ExtResource("4_6xpao")]
 
 [node name="Throw Hands" type="Node" parent="." unique_id=639767815]
 script = ExtResource("3_53j4b")
@@ -96,16 +132,36 @@ effects = Array[int]([2, 6])
 knockback_strength = 3
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
+[node name="overhead_wide" parent="." unique_id=234288550 instance=ExtResource("4_6xpao")]
+
 [node name="hit_scan" type="Area2D" parent="." unique_id=474198670]
 collision_layer = 0
 collision_mask = 0
 
 [node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=1708321969]
-position = Vector2(50, 18)
 shape = SubResource("CircleShape2D_plmof")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1022105912]
+[node name="skill_projection" type="AnimationPlayer" parent="hit_scan" unique_id=1027582980 node_paths=PackedStringArray("source", "generated_elements")]
+libraries/projection = SubResource("AnimationLibrary_ikqys")
+script = ExtResource("7_iwgp2")
+source = NodePath("../..")
+knockback_gradient = SubResource("GradientTexture1D_u5bk5")
+radial_gradient = SubResource("GradientTexture2D_ikqys")
+generated_elements = [NodePath("../@Node2D@26170")]
+
+[node name="@Node2D@26170" type="Node2D" parent="hit_scan" unique_id=1196304165]
+modulate = Color(1, 1, 1, 0)
+
+[node name="shape" type="Polygon2D" parent="hit_scan/@Node2D@26170" unique_id=108043820]
+clip_children = 1
+polygon = PackedVector2Array(60, 0, 59.711082, 5.8810287, 58.847115, 11.70542, 57.41642, 17.41708, 55.43277, 22.961008, 52.915276, 28.283802, 49.888176, 33.334213, 46.38063, 38.063595, 42.426407, 42.426407, 38.063595, 46.380627, 33.334213, 49.888176, 28.283806, 52.915276, 22.961006, 55.43277, 17.417078, 57.41642, 11.705421, 58.847115, 5.881028, 59.711082, -2.6226833e-06, 60, -5.8810263, 59.711082, -11.70542, 58.847115, -17.417084, 57.416416, -22.961004, 55.432774, -28.283798, 52.915276, -33.33421, 49.88818, -38.063595, 46.38063, -42.426407, 42.426407, -46.38063, 38.063595, -49.88818, 33.33421, -52.915276, 28.28381, -55.43277, 22.96101, -57.41642, 17.417084, -58.84712, 11.705419, -59.711082, 5.881026, -60, -5.2453665e-06, -59.711082, -5.881022, -58.84712, -11.705415, -57.41642, -17.417078, -55.43277, -22.961006, -52.915276, -28.283806, -49.888172, -33.334217, -46.380634, -38.06359, -42.42641, -42.426403, -38.0636, -46.380627, -33.334225, -49.88817, -28.283802, -52.915276, -22.961014, -55.43277, -17.417072, -57.41642, -11.705423, -58.847115, -5.881016, -59.711082, 7.1549283e-07, -60, 5.881017, -59.711082, 11.705425, -58.847115, 17.417074, -57.41642, 22.961016, -55.432766, 28.283802, -52.915276, 33.334206, -49.888184, 38.0636, -46.380627, 42.4264, -42.426414, 46.380634, -38.06359, 49.888176, -33.334217, 52.91528, -28.283792, 55.432774, -22.961006, 57.416416, -17.417091, 58.84712, -11.705414, 59.711082, -5.881035)
+
+[node name="@Sprite2D@26169" type="Sprite2D" parent="hit_scan/@Node2D@26170/shape" unique_id=1910314205]
+scale = Vector2(3.75, 3.75)
+texture = SubResource("GradientTexture2D_iwgp2")
+
+[node name="base_animations" type="AnimationPlayer" parent="." unique_id=1022105912]
 libraries/ = SubResource("AnimationLibrary_38x4e")
 libraries/fighter_base = ExtResource("4_ocxoc")
 

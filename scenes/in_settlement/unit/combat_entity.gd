@@ -14,6 +14,7 @@ signal damage_taken(damage:float, source:ActiveFighter, quiet:bool);
 signal healing_received(value:float, quiet:bool);
 signal status_applied(source:ActiveFighter, status:Status, quiet:bool);
 signal knocked_back(source:ActiveFighter, strength:int);
+signal collided(target:CombatEntity)
 
 signal death(killer:ActiveFighter);
 ## ONLY FOR RECALCULATING STAT MECHANICS, VFX/SFX ARE ON STATUS_APPLIED SIGNALS
@@ -129,6 +130,7 @@ func _on_collision_scan_area_entered(area: Area2D) -> void:
 	assert(area is CollisionScan);
 	## only happens when a unit is sent flying and collides
 	## CollisionScans are always identical to the hurtbox
+	collided.emit(area.source) ## always emits from both units
 	Combat.flying_collision(self, area.source)
 
 	

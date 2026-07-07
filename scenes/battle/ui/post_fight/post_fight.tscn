@@ -162,8 +162,8 @@ position = Vector2(62, 101)
 scale = Vector2(3, 3)
 texture = ExtResource("3_7eru0")
 hframes = 8
-vframes = 9
-frame = 12
+vframes = 11
+frame = 11
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/player_sprite/player_body" unique_id=194477901]
 libraries/ = SubResource("AnimationLibrary_y05uc")
@@ -306,8 +306,8 @@ offset_bottom = 703.0
 grow_horizontal = 1
 grow_vertical = 1
 context = "loot"
-from_player = false
 exchanging_display = NodePath("../player_inventory")
+from_player = false
 
 [node name="operation" parent="victory_sequence/loot_panel/enemy_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(1767096259, 2139714282) index="0" unique_id=286290238]
 text = "DISCARD"

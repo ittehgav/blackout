@@ -52,7 +52,6 @@ func set_scenario(target:Scenario)->void:
 					else:
 						tween.finished.connect(Entities.arena.get_parent().queue_free);
 
-
 					var won:bool = Entities.arena.won_battle
 
 					
@@ -60,16 +59,20 @@ func set_scenario(target:Scenario)->void:
 					if in_tutorial:
 						player.reparent(Entities.main);
 						var chosen_weapon:Weapon = Entities.arena.get_parent().chosen_weapon;
-						if chosen_weapon.name == player.alternative_weapon.name:
-							player.inventory.remove_item(player.equipped_weapon)
-							player.equipped_weapon.queue_free();
-							player.equipped_weapon = player.alternative_weapon;
-						else:
-							player.inventory.remove_item(player.alternative_weapon);
-							player.alternative_weapon.queue_free();
-						player.alternative_weapon = null
+						var copy:Weapon = load(chosen_weapon.scene_file_path).instantiate()
 						
+						var main_weapon:Weapon = player.equipped_weapon;
 						
+						player.inventory.add_child(copy);
+						player.equip_weapon(copy)
+						
+						player.equipment.erase(player.alternative_weapon);
+						var alt:Weapon = player.alternative_weapon
+						player.alternative_weapon = null;
+
+						player.inventory.remove_item(main_weapon);
+						player.inventory.remove_item(alt)
+
 						world_map = demo_world_map_scene.instantiate();
 						Entities.world_map = world_map;
 						world_map.player_party.leader = player;
@@ -106,10 +109,11 @@ func set_scenario(target:Scenario)->void:
 					Entities.main.add_child(arena)
 
 		Scenario.tutorial:
-
+			## rn just loads up an arena and the arena scene is the tutorial
 			await Splash.show_loading_screen().finished
 			current_scenario = Scenario.battle;
 			in_tutorial = true;
+			
 			var arena:Node2D = tutorial_scene.instantiate().get_node("Arena");
 			Splash.set_fade_callback(arena.tree_entered);
 			Entities.arena = arena;

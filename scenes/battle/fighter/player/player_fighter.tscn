@@ -213,8 +213,10 @@ stat_modifiers = NodePath("misc/stats/modifiers")
 stat_multipliers = NodePath("misc/stats/multipliers")
 hurtbox = NodePath("hurtbox")
 collision_scan = NodePath("collision_scan")
+body_type = null
 statuses = NodePath("misc/statuses")
 sprite = NodePath("body")
+max_hp = null
 
 [node name="misc" type="Node" parent="." unique_id=412976950]
 
@@ -302,6 +304,7 @@ shape = SubResource("CapsuleShape2D_wutkk")
 [node name="body" type="Sprite2D" parent="." unique_id=416499753 node_paths=PackedStringArray("player", "weapon_control", "animation_player")]
 material = SubResource("ShaderMaterial_ung86")
 position = Vector2(0, 10)
+scale = Vector2(2, 2)
 texture = ExtResource("16_5atum")
 hframes = 8
 vframes = 11

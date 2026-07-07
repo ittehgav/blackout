@@ -147,7 +147,7 @@ func _on_option_chosen(building:Building, option: Building.Option, extra_arg:Var
 
 
 func _on_exit_pressed() -> void:
-	close_location_menu()
+	close_location_menu()	
 
 func close_location_menu()->void:
 	slide_out()

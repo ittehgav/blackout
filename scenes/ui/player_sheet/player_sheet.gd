@@ -80,6 +80,9 @@ func show_player_sheet(left_tab_view:int=0)->void:
 func pre_battle_sheet()->void:
 	show_player_sheet();
 	start_battle_prompt.show();
+	player_view.player_sample.hide()
+	## is this too loose?
+	Entities.world_map.returned_from_battle.connect(player_view.player_sample.show)
 
 func request_space_for_item(item:Item)->void:
 	State.set_substate(State.Substate.inventory_space_request);

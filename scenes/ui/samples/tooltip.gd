@@ -82,6 +82,7 @@ func refresh()->void:
 				description_label.text = hardcoded_description
 		TargetType.single_load:
 			single_load_target()
+			
 		TargetType.fully_dynamic:
 			dynamic_load_target()
 
@@ -220,7 +221,7 @@ func item_setup()->void:
 		var tier_tag:String = Index.get_color_tag(tier_key)
 		description_label.text += tier_tag + mod.get_description()+"[/color]\n";
 
-	name_label.text = target_name;
+	name_label.text = target_name;\
 	
 	if item is Weapon:
 		sub_name_label.text = "Weapon";

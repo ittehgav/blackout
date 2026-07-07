@@ -44,7 +44,7 @@ func _on_player_party_started_moving() -> void:
 	
 	sub_text_label.show()
 	main_text_label.text = "Traveling...";
-	sub_text_label.text = "[spacebar] speed up time"
+	sub_text_label.text = ""
 	
 
 

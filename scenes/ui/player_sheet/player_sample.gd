@@ -13,12 +13,13 @@ var current_weapon:Weapon;
 func load_weapon(target:Weapon)->void:
 	if current_weapon:
 		current_weapon.queue_free();
-	
+
 	current_weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION);
+
 	equipment_anchor.add_child(current_weapon);
 	var attack_key:String = current_weapon.get_animation_key("attack")
 	var player:AnimationPlayer = current_weapon.animation_player;
-	var attack_animation:Animation= player.get_animation(attack_key);
+	var attack_animation:Animation = player.get_animation(attack_key);
 	for c:Node in current_weapon.get_children():
 		## easier to sterilize them here and not have to change anything in every single weapon?
 		if c is CanvasItem and not c.name in ["right_hand_anchor", "left_hand_anchor"]:

@@ -31,10 +31,14 @@ func _ready()->void:
 		alternative_weapon.hide();
 		alternative_weapon.set_process(false)
 		refresh_weapon_cooldown(alternative_weapon)
-		
+
+
 func load_weapon(target:Weapon)->Weapon:
-	var new_weapon:Weapon = target.duplicate(DUPLICATE_USE_INSTANTIATION)
+	var new_weapon:Weapon = load(target.scene_file_path).instantiate()
+	## duplicate that behave the way i wish
+	## duplicate use instantiation worked?
 	new_weapon.display.setup(equipment.holder, new_weapon);
+
 
 	new_weapon.z_index = 1;
 	#new_weapon.scale = Vector2(2, 2)
@@ -46,7 +50,18 @@ func load_weapon(target:Weapon)->Weapon:
 	for p:CanvasItem in new_weapon.projections:
 		p.hide()
 	check_active_texture(new_weapon);
+	
+	
+	#var hit_scan_origin:Vector2;
+	#if new_weapon.hit_scan:
+		#hit_scan_origin = target.hit_scan.position;
+
 	equipment.weapon_anchor.add_child(new_weapon)
+	
+	#if new_weapon.hit_scan:
+		### to make sure it applies to the weapon after it enters the tree?
+		#new_weapon.hit_scan.set_position.bind(hit_scan_origin).call_deferred()
+		#
 	new_weapon.self_modulate = new_weapon.get_mirror_color();
 	
 	if new_weapon.ammo_type:
@@ -164,6 +179,7 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 	weapon.display.set_process_mode(Node.PROCESS_MODE_INHERIT);
 	
 	if weapon.hit_scan:
+		## idk sometimes it doesnt keep its position properly
 		weapon.hit_scan.reparent(equipment.hitbox_anchor)
 		weapon.hit_scan.show()
 	to_equip.hit.connect(weapon_hit)

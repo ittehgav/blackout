@@ -9,7 +9,7 @@ const fighter_sprite_darkening = .35
 
 
 
-static func color_code_fighter(fighter:ActiveFighter, team_n:int)->void:
+func color_code_fighter(fighter:ActiveFighter, team_n:int)->void:
 	var base:FighterBase = fighter.base
 	
 	if not base:return;## skips over props (make this skip in-context instead?)

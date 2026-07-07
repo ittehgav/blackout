@@ -157,7 +157,7 @@ base_damage = 20
 cooldown = 1.0
 hit_scan = NodePath("hit_scan")
 melee = true
-projections = [NodePath("hit_scan/Sprite2D")]
+projections = [NodePath("hit_scan/projection")]
 animation_player = NodePath("weapon_animation")
 use_sfx = NodePath("use_sfx")
 use_feedback = "lunge"
@@ -191,7 +191,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_053ln")
 debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
 
-[node name="Sprite2D" type="Sprite2D" parent="hit_scan" unique_id=731778444]
+[node name="projection" type="Sprite2D" parent="hit_scan" unique_id=731778444]
 modulate = Color(1, 1, 1, 0.11764706)
 position = Vector2(1, -1)
 scale = Vector2(6, 8)

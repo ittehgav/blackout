@@ -66,7 +66,7 @@ func set_weapon_textures()->void:
 	weapon_cd_bg.max_value = weapon_cd_timer.wait_time;
 
 	var colors:Dictionary = player_color_scheme();
-	var current_weapon:Weapon = equipment_node.weapon.duplicate();
+	var current_weapon:Weapon = equipment_node.weapon.duplicate(DUPLICATE_USE_INSTANTIATION);
 
 	ColorCoder.color_code_weapon(current_weapon, 1)
 	

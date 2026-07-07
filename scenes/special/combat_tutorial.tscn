@@ -29,7 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="19_cy0vp"]
 [ext_resource type="TileSet" uid="uid://db28p3nl8pseo" path="res://resources/tiles/road.tres" id="22_77537"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rrc26"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mt1iq"]
 resource_local_to_scene = true
 shader = ExtResource("3_hrh4y")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -41,7 +41,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8a727"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rrc26"]
 resource_local_to_scene = true
 shader = ExtResource("3_hrh4y")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -141,7 +141,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lor5l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8a727"]
 resource_local_to_scene = true
 shader = SubResource("Shader_88w2o")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -241,7 +241,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lnwx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lor5l"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -253,7 +253,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4klxu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lnwx"]
 resource_local_to_scene = true
 shader = ExtResource("14_mt1iq")
 shader_parameter/color = Color(0, 0.2, 0.047058824, 1)
@@ -263,7 +263,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hl3o"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4klxu"]
 resource_local_to_scene = true
 shader = ExtResource("14_mt1iq")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -288,19 +288,22 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l0ugp"]
-radius = 41.109608
+[sub_resource type="CircleShape2D" id="CircleShape2D_mt1iq"]
+radius = 44.04543
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mt1iq"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rrc26"]
+radius = 42.190044
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hl3o"]
 resource_local_to_scene = true
 shader = ExtResource("3_hrh4y")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 1, 1, 0.32941177)
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
 shader_parameter/width = 1.0000000475
 shader_parameter/pattern = 0
 shader_parameter/inside = false
-shader_parameter/add_margins = false
+shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="Animation" id="Animation_cy0vp"]
@@ -1165,20 +1168,18 @@ level = null
 experience = 1
 
 [node name="FighterUnit" parent="Player/Roster" parent_id_path=PackedInt32Array(900407328, 625375393) index="0" unique_id=2073853245 instance=ExtResource("3_xwckw")]
-level = 2
 experience = null
 summon = null
 
 [node name="Puncher" parent="Player/Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("12_cy0vp")]
-material = SubResource("ShaderMaterial_rrc26")
+material = SubResource("ShaderMaterial_mt1iq")
 
 [node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(900407328, 625375393) index="1" unique_id=1974507018 instance=ExtResource("3_xwckw")]
-level = 2
 experience = null
 summon = null
 
 [node name="Puncher" parent="Player/Roster/FighterUnit2" unique_id=44660637 instance=ExtResource("12_cy0vp")]
-material = SubResource("ShaderMaterial_8a727")
+material = SubResource("ShaderMaterial_rrc26")
 
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 200
@@ -1224,21 +1225,23 @@ position = Vector2(2792, 425.0675)
 roster = NodePath("../../../Player/Roster")
 
 [node name="player_fighter" parent="Arena/teams/team_1" index="0" unique_id=543559168]
-material = SubResource("ShaderMaterial_lor5l")
+material = SubResource("ShaderMaterial_8a727")
 position = Vector2(-7668, 638)
+collision_layer = 1114368
+collision_mask = 65792
 
 [node name="body" parent="Arena/teams/team_1/player_fighter" index="5" unique_id=416499753]
-material = SubResource("ShaderMaterial_3lnwx")
+material = SubResource("ShaderMaterial_lor5l")
 
 [node name="left_hand" parent="Arena/teams/team_1/player_fighter/body" index="2" unique_id=7873661]
-material = SubResource("ShaderMaterial_4klxu")
+material = SubResource("ShaderMaterial_3lnwx")
 
 [node name="right_hand" parent="Arena/teams/team_1/player_fighter/body" index="3" unique_id=1602105371]
-material = SubResource("ShaderMaterial_4klxu")
+material = SubResource("ShaderMaterial_3lnwx")
 
 [node name="equipment" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=488158529]
 visible = false
-material = SubResource("ShaderMaterial_6hl3o")
+material = SubResource("ShaderMaterial_4klxu")
 
 [node name="weapon_control" parent="Arena/teams/team_1/player_fighter/equipment" index="1" unique_id=1301522479]
 script = ExtResource("10_61gdm")
@@ -1257,12 +1260,12 @@ roster = NodePath("../TutorialBattle")
 [node name="prop" parent="Arena/teams/team_2" index="0" unique_id=914816489 instance=ExtResource("2_047mw")]
 position = Vector2(-4201, 77)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop/hurtbox" parent_id_path=PackedInt32Array(914816489, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop/collision_scan" parent_id_path=PackedInt32Array(914816489, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop" unique_id=687427992]
@@ -1274,12 +1277,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4160, 235)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop2" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop2/hurtbox" parent_id_path=PackedInt32Array(468929131, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop2/collision_scan" parent_id_path=PackedInt32Array(468929131, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop2" unique_id=439697337]
@@ -1290,12 +1293,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop3" parent="Arena/teams/team_2" index="2" unique_id=1267179857 instance=ExtResource("2_047mw")]
 position = Vector2(-4201, 393)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop3" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop3/hurtbox" parent_id_path=PackedInt32Array(1267179857, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop3/collision_scan" parent_id_path=PackedInt32Array(1267179857, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop3" unique_id=1573831509]
@@ -1307,12 +1310,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4160, 551)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop4" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop4/hurtbox" parent_id_path=PackedInt32Array(1714486128, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop4/collision_scan" parent_id_path=PackedInt32Array(1714486128, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop4" unique_id=1887115414]
@@ -1323,12 +1326,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop5" parent="Arena/teams/team_2" index="4" unique_id=746933278 instance=ExtResource("2_047mw")]
 position = Vector2(-4201, 709)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop5" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop5/hurtbox" parent_id_path=PackedInt32Array(746933278, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop5/collision_scan" parent_id_path=PackedInt32Array(746933278, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop5" unique_id=776974378]
@@ -1340,12 +1343,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4160, 867)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop6" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop6/hurtbox" parent_id_path=PackedInt32Array(1046173952, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop6/collision_scan" parent_id_path=PackedInt32Array(1046173952, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop6" unique_id=805836629]
@@ -1356,12 +1359,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop7" parent="Arena/teams/team_2" index="6" unique_id=735926883 instance=ExtResource("2_047mw")]
 position = Vector2(-4201, 1025)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop7" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop7/hurtbox" parent_id_path=PackedInt32Array(735926883, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop7/collision_scan" parent_id_path=PackedInt32Array(735926883, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop7" unique_id=249487580]
@@ -1372,12 +1375,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop8" parent="Arena/teams/team_2" index="7" unique_id=459214062 instance=ExtResource("2_047mw")]
 position = Vector2(-4201, 1183)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop8" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop8/hurtbox" parent_id_path=PackedInt32Array(459214062, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop8/collision_scan" parent_id_path=PackedInt32Array(459214062, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop8" unique_id=995070694]
@@ -1389,12 +1392,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4160, 1341)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop9" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop9/hurtbox" parent_id_path=PackedInt32Array(949253426, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop9/collision_scan" parent_id_path=PackedInt32Array(949253426, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop9" unique_id=1548494351]
@@ -1405,12 +1408,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop10" parent="Arena/teams/team_2" index="9" unique_id=1194463952 instance=ExtResource("2_047mw")]
 position = Vector2(-4201, 1499)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop10" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop10/hurtbox" parent_id_path=PackedInt32Array(1194463952, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop10/collision_scan" parent_id_path=PackedInt32Array(1194463952, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop10" unique_id=1588070941]
@@ -1422,12 +1425,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4160, 1657)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop11" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop11/hurtbox" parent_id_path=PackedInt32Array(1022279995, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop11/collision_scan" parent_id_path=PackedInt32Array(1022279995, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop11" unique_id=337050025]
@@ -1438,12 +1441,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop12" parent="Arena/teams/team_2" index="11" unique_id=1186022071 instance=ExtResource("2_047mw")]
 position = Vector2(-4201, 1815)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop12" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop12/hurtbox" parent_id_path=PackedInt32Array(1186022071, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop12/collision_scan" parent_id_path=PackedInt32Array(1186022071, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop12" unique_id=1327917432]
@@ -1454,12 +1457,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop13" parent="Arena/teams/team_2" index="12" unique_id=1929889370 instance=ExtResource("2_047mw")]
 position = Vector2(-4114, 2)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop13" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop13/hurtbox" parent_id_path=PackedInt32Array(1929889370, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop13/collision_scan" parent_id_path=PackedInt32Array(1929889370, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop13" unique_id=1794593957]
@@ -1471,12 +1474,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4073, 160)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop14" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop14/hurtbox" parent_id_path=PackedInt32Array(1090493590, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop14/collision_scan" parent_id_path=PackedInt32Array(1090493590, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop14" unique_id=1508369843]
@@ -1487,12 +1490,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop15" parent="Arena/teams/team_2" index="14" unique_id=1587866048 instance=ExtResource("2_047mw")]
 position = Vector2(-4114, 318)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop15" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop15/hurtbox" parent_id_path=PackedInt32Array(1587866048, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop15/collision_scan" parent_id_path=PackedInt32Array(1587866048, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop15" unique_id=1261930697]
@@ -1504,12 +1507,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4073, 476)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop16" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop16/hurtbox" parent_id_path=PackedInt32Array(743685923, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop16/collision_scan" parent_id_path=PackedInt32Array(743685923, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop16" unique_id=2047315811]
@@ -1520,12 +1523,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop17" parent="Arena/teams/team_2" index="16" unique_id=993218516 instance=ExtResource("2_047mw")]
 position = Vector2(-4114, 634)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop17" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop17/hurtbox" parent_id_path=PackedInt32Array(993218516, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop17/collision_scan" parent_id_path=PackedInt32Array(993218516, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop17" unique_id=876837821]
@@ -1537,12 +1540,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4073, 792)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop18" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop18/hurtbox" parent_id_path=PackedInt32Array(196397482, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop18/collision_scan" parent_id_path=PackedInt32Array(196397482, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop18" unique_id=1118070682]
@@ -1553,12 +1556,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop19" parent="Arena/teams/team_2" index="18" unique_id=1102216315 instance=ExtResource("2_047mw")]
 position = Vector2(-4114, 950)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop19" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop19/hurtbox" parent_id_path=PackedInt32Array(1102216315, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop19/collision_scan" parent_id_path=PackedInt32Array(1102216315, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop19" unique_id=1129394864]
@@ -1569,12 +1572,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop20" parent="Arena/teams/team_2" index="19" unique_id=842159954 instance=ExtResource("2_047mw")]
 position = Vector2(-4114, 1108)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop20" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop20/hurtbox" parent_id_path=PackedInt32Array(842159954, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop20/collision_scan" parent_id_path=PackedInt32Array(842159954, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop20" unique_id=390969304]
@@ -1586,12 +1589,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4073, 1266)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop21" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop21/hurtbox" parent_id_path=PackedInt32Array(2037876928, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop21/collision_scan" parent_id_path=PackedInt32Array(2037876928, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop21" unique_id=1288285753]
@@ -1602,12 +1605,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop22" parent="Arena/teams/team_2" index="21" unique_id=173588102 instance=ExtResource("2_047mw")]
 position = Vector2(-4114, 1424)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop22" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop22/hurtbox" parent_id_path=PackedInt32Array(173588102, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop22/collision_scan" parent_id_path=PackedInt32Array(173588102, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop22" unique_id=442311158]
@@ -1619,12 +1622,12 @@ texture = ExtResource("3_5on8k")
 position = Vector2(-4073, 1582)
 scale = Vector2(-1, 1)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop23" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop23/hurtbox" parent_id_path=PackedInt32Array(1598329458, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop23/collision_scan" parent_id_path=PackedInt32Array(1598329458, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop23" unique_id=433617141]
@@ -1635,12 +1638,12 @@ texture = ExtResource("3_5on8k")
 [node name="prop24" parent="Arena/teams/team_2" index="23" unique_id=632099768 instance=ExtResource("2_047mw")]
 position = Vector2(-4114, 1740)
 
-[node name="collision_box" parent="Arena/teams/team_2/prop24" index="1" unique_id=1477260783]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_5tun8")
-
 [node name="hurtbox_shape" parent="Arena/teams/team_2/prop24/hurtbox" parent_id_path=PackedInt32Array(632099768, 2122102762) index="0" unique_id=1456833574]
 position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_5tun8")
+
+[node name="collision_box" parent="Arena/teams/team_2/prop24/collision_scan" parent_id_path=PackedInt32Array(632099768, 1813541284) index="0" unique_id=1477260783]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_5tun8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/prop24" unique_id=278109481]
@@ -1649,43 +1652,22 @@ scale = Vector2(2, 2)
 texture = ExtResource("3_5on8k")
 
 [node name="dummy" parent="Arena/teams/team_2" index="24" unique_id=1723811507 node_paths=PackedStringArray("sprite") instance=ExtResource("14_l0ugp")]
-position = Vector2(-5466, 642)
+position = Vector2(-5128.2944, 645.74756)
+scale = Vector2(2, 2)
 dummy = true
-weight_class = null
-body_type = null
-sprite = NodePath("dummy")
-max_hp = 1000.0
+sprite = NodePath("Sprite2D")
+max_hp = 2000.0
 
-[node name="hurtbox" parent="Arena/teams/team_2/dummy" index="3" unique_id=1694393992]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/teams/team_2/dummy/hurtbox" index="0" unique_id=702082516]
-position = Vector2(0, 23)
-shape = SubResource("CircleShape2D_l0ugp")
-
-[node name="FighterOverlay" parent="Arena/teams/team_2/dummy" index="5" unique_id=442767027]
-offset_left = -33.0
-offset_top = -72.0
-offset_right = 31.0
-offset_bottom = -72.0
-
-[node name="outline" parent="Arena/teams/team_2/dummy/FighterOverlay" index="2" unique_id=589895931]
-modulate = Color(1, 1, 1, 0.9529412)
-
-[node name="hp_bar" parent="Arena/teams/team_2/dummy/FighterOverlay/outline/VBoxContainer/hp_bar_trail" parent_id_path=PackedInt32Array(1723811507, 931099160) index="0" unique_id=1356032778]
-stretch_margin_left = 2
-stretch_margin_top = 2
-stretch_margin_right = 2
-stretch_margin_bottom = 2
-
-[node name="refresh_bar" parent="Arena/teams/team_2/dummy/FighterOverlay" index="3" unique_id=395766779]
-autostart = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/teams/team_2/dummy/hurtbox" parent_id_path=PackedInt32Array(1723811507, 1866307460) index="0" unique_id=1105935485]
+position = Vector2(-0.7055664, -13.747559)
+shape = SubResource("CircleShape2D_mt1iq")
 
 [node name="unit_collision" parent="Arena/teams/team_2/dummy" index="6" unique_id=1716436569]
-position = Vector2(0, 23)
+shape = SubResource("CircleShape2D_rrc26")
 
-[node name="dummy" type="Sprite2D" parent="Arena/teams/team_2/dummy" unique_id=871683139]
-material = SubResource("ShaderMaterial_mt1iq")
+[node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/dummy" unique_id=246693144]
+material = SubResource("ShaderMaterial_6hl3o")
+position = Vector2(0, -28.747559)
 texture = ExtResource("15_77537")
 
 [node name="hud" parent="Arena/ui_canvas" parent_id_path=PackedInt32Array(896888135, 536567334) index="0" unique_id=990298264]
@@ -2082,7 +2064,7 @@ tile_set = ExtResource("3_bhskp")
 [node name="off_bounds2" type="TileMapLayer" parent="Arena" unique_id=18110302]
 position = Vector2(2871, 0)
 scale = Vector2(4, 4)
-tile_map_data = PackedByteArray("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")
+tile_map_data = PackedByteArray("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")
 tile_set = ExtResource("22_77537")
 
 [node name="tutorial_elements" type="Node2D" parent="Arena" unique_id=1800426389]
@@ -2247,8 +2229,8 @@ scale = Vector2(2, 2)
 
 [node name="before_weapon" type="Area2D" parent="Arena/tutorial_elements/boundaries" unique_id=759744401]
 position = Vector2(662.5, 0)
-collision_layer = 256
-collision_mask = 256
+collision_layer = 65536
+collision_mask = 65536
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/before_weapon" unique_id=993768122]
@@ -2259,7 +2241,7 @@ debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 [node name="boundary_barrier_1" type="StaticBody2D" parent="Arena/tutorial_elements/boundaries/before_weapon" unique_id=21565590]
 position = Vector2(-117.5, 0)
 collision_layer = 0
-collision_mask = 256
+collision_mask = 65536
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/before_weapon/boundary_barrier_1" unique_id=1935979022]
 position = Vector2(-328, 243.5)
@@ -2268,8 +2250,8 @@ debug_color = Color(0.98, 0, 0.35933346, 0)
 
 [node name="before_weapon_obstacles" type="Area2D" parent="Arena/tutorial_elements/boundaries" unique_id=1137995151]
 position = Vector2(1379, 0)
-collision_layer = 256
-collision_mask = 256
+collision_layer = 65536
+collision_mask = 65536
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/before_weapon_obstacles" unique_id=612139827]
@@ -2280,7 +2262,7 @@ debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 [node name="boundary_barrier_2" type="StaticBody2D" parent="Arena/tutorial_elements/boundaries/before_weapon_obstacles" unique_id=574837963]
 position = Vector2(63.5, -2.5)
 collision_layer = 0
-collision_mask = 256
+collision_mask = 65536
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/before_weapon_obstacles/boundary_barrier_2" unique_id=293291893]
 position = Vector2(-328, 243.5)
@@ -2288,8 +2270,8 @@ shape = SubResource("RectangleShape2D_l0ugp")
 debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 
 [node name="after_obstacles" type="Area2D" parent="Arena/tutorial_elements/boundaries" unique_id=354028627]
-collision_layer = 256
-collision_mask = 256
+collision_layer = 65536
+collision_mask = 65536
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/after_obstacles" unique_id=337472173]
@@ -2299,8 +2281,8 @@ debug_color = Color(0.07393942, 0.58095443, 0.7950449, 0.41960785)
 
 [node name="before_module" type="Area2D" parent="Arena/tutorial_elements/boundaries" unique_id=1849475278]
 position = Vector2(2108.5, 0)
-collision_layer = 256
-collision_mask = 256
+collision_layer = 65536
+collision_mask = 65536
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/before_module" unique_id=153434614]
@@ -2311,7 +2293,7 @@ debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 [node name="boundary_barrier_3" type="StaticBody2D" parent="Arena/tutorial_elements/boundaries/before_module" unique_id=1796274773]
 position = Vector2(-45.5, 0)
 collision_layer = 0
-collision_mask = 256
+collision_mask = 65536
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/before_module/boundary_barrier_3" unique_id=774361424]
 position = Vector2(-366.75, 243.5)
@@ -2320,8 +2302,8 @@ debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 
 [node name="before_module_obstacles" type="Area2D" parent="Arena/tutorial_elements/boundaries" unique_id=813397209]
 position = Vector2(2825.5, 0)
-collision_layer = 256
-collision_mask = 256
+collision_layer = 65536
+collision_mask = 65536
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/before_module_obstacles" unique_id=1329902151]
@@ -2332,7 +2314,7 @@ debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 [node name="boundary_barrier_4" type="StaticBody2D" parent="Arena/tutorial_elements/boundaries/before_module_obstacles" unique_id=1608592196]
 position = Vector2(-39, 0)
 collision_layer = 0
-collision_mask = 256
+collision_mask = 65536
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/before_module_obstacles/boundary_barrier_4" unique_id=1990360202]
 position = Vector2(-328, 243.5)
@@ -2341,8 +2323,8 @@ debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 
 [node name="after_items_tutorial" type="Area2D" parent="Arena/tutorial_elements/boundaries" unique_id=911528620]
 position = Vector2(3261, 0)
-collision_layer = 256
-collision_mask = 256
+collision_layer = 65536
+collision_mask = 65536
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/after_items_tutorial" unique_id=1950879829]
@@ -2353,7 +2335,7 @@ debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 [node name="boundary_barrier_4" type="StaticBody2D" parent="Arena/tutorial_elements/boundaries/after_items_tutorial" unique_id=1798677331]
 position = Vector2(-39, 0)
 collision_layer = 0
-collision_mask = 256
+collision_mask = 65536
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/after_items_tutorial/boundary_barrier_4" unique_id=971769622]
 position = Vector2(-328, 243.5)
@@ -2362,8 +2344,8 @@ debug_color = Color(0.9825645, 0, 0.365261, 0.41960785)
 
 [node name="module_obstacle" type="StaticBody2D" parent="Arena/tutorial_elements/boundaries" unique_id=1112435227]
 position = Vector2(3098.5, 0)
-collision_layer = 256
-collision_mask = 256
+collision_layer = 65536
+collision_mask = 65536
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/tutorial_elements/boundaries/module_obstacle" unique_id=672594400]
 position = Vector2(2, 241)
@@ -2393,17 +2375,17 @@ tile_set = SubResource("TileSet_nw1k1")
 [connection signal="body_exited" from="Arena/tutorial_elements/tailpipe/tailpipe_area" to="." method="_on_tailpipe_area_body_exited"]
 [connection signal="body_entered" from="Arena/tutorial_elements/slingshot/slingshot_area" to="." method="_on_slingshot_area_body_entered"]
 [connection signal="body_exited" from="Arena/tutorial_elements/slingshot/slingshot_area" to="." method="_on_slingshot_area_body_exited"]
-[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_weapon" to="." method="_on_advance_boundary_body_entered"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_weapon" to="." method="_on_before_weapon_body_entered"]
-[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_weapon_obstacles" to="." method="_on_advance_boundary_body_entered"]
+[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_weapon" to="." method="_on_advance_boundary_body_entered"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_weapon_obstacles" to="." method="_on_before_obstacles_body_entered"]
+[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_weapon_obstacles" to="." method="_on_advance_boundary_body_entered"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/after_obstacles" to="." method="_on_after_obstacles_body_entered"]
-[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_module" to="." method="_on_advance_boundary_body_entered"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_module" to="." method="_on_before_module_body_entered"]
-[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_module_obstacles" to="." method="_on_advance_boundary_body_entered"]
+[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_module" to="." method="_on_advance_boundary_body_entered"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_module_obstacles" to="." method="_on_before_module_obstacles_body_entered"]
-[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/after_items_tutorial" to="." method="_on_advance_boundary_body_entered"]
+[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_module_obstacles" to="." method="_on_advance_boundary_body_entered"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/after_items_tutorial" to="." method="_on_after_items_tutorial_body_entered"]
+[connection signal="body_entered" from="Arena/tutorial_elements/boundaries/after_items_tutorial" to="." method="_on_advance_boundary_body_entered"]
 
 [editable path="Player"]
 [editable path="Arena"]

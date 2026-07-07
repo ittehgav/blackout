@@ -49,12 +49,15 @@ func _on_arena_ready() -> void:
 			to_reenable.append(f)
 			
 	for f:ActiveFighter in Entities.arena.team_2.fighters:
-		f.set_process_mode(Node.PROCESS_MODE_DISABLED);
-		to_reenable.append(f)
+		if not f.dummy:
+			f.set_process_mode(Node.PROCESS_MODE_DISABLED);
+			to_reenable.append(f)
 	
 	player_fighter.equipment.weapon_control.set_process(false)
 	player_fighter.equipment.module_control.set_process(false)
-	
+	## so the fight ends
+	## make a separate array for dummies and regular units:?
+	arena.team_2.fighters.erase(dummy)
 	
 	await player_fighter.started_moving;
 	Tweens.ui_fade_out(walking_instructions);
@@ -116,8 +119,8 @@ func _process(_delta:float)->void:
 func _on_advance_boundary_body_entered(body: Node2D) -> void:
 	if body == player_fighter:
 		var barrier:StaticBody2D = boundary_barriers[0];
-		barrier.set_collision_layer_value(9, true)
-		barrier.get_parent().set_collision_mask_value(9, false)
+		barrier.set_collision_layer_value(17, true)
+		barrier.get_parent().set_collision_mask_value(17, false)
 		boundary_barriers.pop_front()
 		
 		Tweens.ui_fade_out(forward_arrow)

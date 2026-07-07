@@ -137,7 +137,7 @@ static func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_ca
 	return shot;
 		
 
-static func knock_back_target(source:ActiveFighter, target:ActiveFighter = source.target_fighter,\
+static func knock_back_target(source:ActiveFighter, target:CombatEntity = source.target_fighter,\
 						strength:int=source.base.skill.knockback_strength,
 						override_velocity:Vector2 = Vector2.ZERO,
 						override_direction:Vector2 = Vector2.ZERO)->void:
@@ -179,7 +179,7 @@ static func knock_back_target(source:ActiveFighter, target:ActiveFighter = sourc
 	
 	target.knockback_tween = target.create_tween();
 	target.knockback_tween.tween_property(target, "velocity", Vector2.ZERO, duration)
-	target.knockback_tween.tween_callback(finish_flight.bind(target))
+	target.knockback_tween.tween_callback(finish_flight.call_deferred.bind(target))
 
 static func collision_damage(source:ActiveFighter, t1:ActiveFighter, t2:ActiveFighter)->void:
 	deal_damage(source, t1);

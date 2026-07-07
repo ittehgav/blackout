@@ -135,3 +135,6 @@ func _on_equipment_weapon_unequipped(weapon: Weapon) -> void:
 func _on_equipment_weapon_equipped(weapon: Weapon) -> void:
 	stat_modifiers.attack += weapon.base_damage;
 	stat_changed.emit('attack')
+
+func on_battle_over(_won:bool)->void:
+	pass

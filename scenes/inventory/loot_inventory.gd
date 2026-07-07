@@ -39,7 +39,7 @@ func generate_loot(party_level:int)->void:
 func generate_item(force_rare:bool=false)->Item:
 	var new_item:Item;
 	if force_rare:
-		new_item = item_pool.filter(func(item:Item)->bool:return item.rarity == 3).pick_random()
+		new_item = item_pool.filter(func(item:Item)->bool:return item.rarity == 3).pick_random().duplicate(DUPLICATE_USE_INSTANTIATION)
 	else:
 		new_item = item_pool.pick_random().duplicate(DUPLICATE_USE_INSTANTIATION);
 	assert(new_item)

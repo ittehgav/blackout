@@ -336,6 +336,33 @@ material = SubResource("ShaderMaterial_05eqd")
 [node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resources_dropdown/chips" parent_id_path=PackedInt32Array(1336254164, 198135971, 1855174858) index="0" unique_id=1058611590]
 material = SubResource("ShaderMaterial_2iguy")
 
+[node name="pick_1" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resource_picker/PanelContainer/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1336254164, 1538008034) index="0" unique_id=117561327]
+focus_mode = 0
+
+[node name="pick_5" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resource_picker/PanelContainer/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1336254164, 1538008034) index="1" unique_id=1075313511]
+focus_mode = 0
+
+[node name="pick_max" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resource_picker/PanelContainer/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1336254164, 1538008034) index="2" unique_id=1079396619]
+focus_mode = 0
+
+[node name="slider" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resource_picker/PanelContainer/VBoxContainer" parent_id_path=PackedInt32Array(1336254164, 977364809) index="1" unique_id=799560199]
+focus_mode = 0
+
+[node name="add_custom" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/resource_picker/PanelContainer/VBoxContainer" parent_id_path=PackedInt32Array(1336254164, 977364809) index="2" unique_id=1865427532]
+focus_mode = 0
+
+[node name="liquid_discard" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/warnings/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1336254164, 488106780) index="2" unique_id=1157708548]
+focus_mode = 0
+
+[node name="accept" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1336254164, 1958901660) index="0" unique_id=1816832023]
+focus_mode = 0
+
+[node name="auto_sort" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1336254164, 1958901660) index="1" unique_id=201009806]
+focus_mode = 0
+
+[node name="return" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/inventory_display/warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1336254164, 1958901660) index="2" unique_id=21182488]
+focus_mode = 0
+
 [node name="discard_overlay" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display" unique_id=1594287045]
 visible = false
 layout_mode = 1
@@ -364,6 +391,7 @@ offset_left = 16.0
 offset_top = 525.0
 offset_right = 92.0
 offset_bottom = 559.0
+focus_mode = 0
 text = "Cancel"
 
 [node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/ColorRect" unique_id=532619767]
@@ -419,6 +447,7 @@ size_flags_vertical = 4
 [node name="confirmation_text" type="RichTextLabel" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer" unique_id=1399446698]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "Discard [color=red]pee pee poo poo[/color] from your inventory?"
@@ -432,11 +461,13 @@ size_flags_vertical = 4
 
 [node name="confirm_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1183267856]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 64
 text = "Discard	"
 
 [node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1181690301]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 64
 text = "Cancel"
 
@@ -448,6 +479,7 @@ offset_top = 456.0
 offset_right = 489.0
 offset_bottom = 520.0
 size_flags_horizontal = 4
+focus_mode = 0
 
 [node name="Tooltip" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/inventory_display/discard_item" unique_id=2055069168 instance=ExtResource("11_7ydhy")]
 layout_mode = 0
@@ -521,6 +553,7 @@ offset_left = 200.0
 offset_top = 92.0
 offset_right = 234.0
 offset_bottom = 126.0
+focus_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Inventory/gear/switch_alt" unique_id=811258614]
 modulate = Color(0.670588, 0.494118, 0.27451, 1)
@@ -876,6 +909,7 @@ theme_override_constants/margin_bottom = 10
 [node name="start_battle" type="Button" parent="main_bg/MarginContainer/HBoxContainer/player/start_battle" unique_id=971089936]
 z_index = 1
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 text = "START 
 BATTLE"
@@ -917,6 +951,7 @@ layout_mode = 2
 
 [node name="request" type="RichTextLabel" parent="main_bg/MarginContainer/HBoxContainer/player/clear_space_request/MarginContainer/VBoxContainer" unique_id=1548167712]
 layout_mode = 2
+focus_mode = 0
 bbcode_enabled = true
 text = "Not enough space in inventory, for aoiehjwaoie"
 fit_content = true

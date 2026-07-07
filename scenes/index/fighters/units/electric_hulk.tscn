@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bakra857y3ok0" path="res://scenes/index/special_statuses/electrified.tscn" id="5_6h33m"]
 [ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="8_5au73"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_0f68e"]
+[ext_resource type="Script" uid="uid://x6th0xrv2iy2" path="res://scenes/battle/fighter/skill_projection.gd" id="9_ra2ag"]
 [ext_resource type="Texture2D" uid="uid://gmnr7cy0edbe" path="res://assets/visual/particles/parry_cue.png" id="10_kvmho"]
 [ext_resource type="PackedScene" uid="uid://dmvr7ngbhq7v5" path="res://scenes/index/vfx/lightning_vfx.tscn" id="11_nxhr3"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="15_q1od0"]
@@ -165,7 +166,58 @@ _data = {
 radius = 24.020824
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yl5li"]
-radius = 214.02103
+radius = 128.0
+
+[sub_resource type="Animation" id="Animation_ra2ag"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("projection:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.16, 0.4, 0.65, 0.66),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.75, 0.3, 0.75, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("projection/shape/expansion:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.65),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1od0"]
+_data = {
+&"projection": SubResource("Animation_ra2ag")
+}
+
+[sub_resource type="Gradient" id="Gradient_iwgp2"]
+offsets = PackedFloat32Array(0, 0.5233645, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.6509804, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tjn2n"]
+gradient = SubResource("Gradient_iwgp2")
+width = 128
+
+[sub_resource type="Gradient" id="Gradient_ra2ag"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.09885932, 0.40304184, 0.62737644, 0.66159695, 0.7110266)
+colors = PackedColorArray(1, 1, 1, 0.73333335, 1, 1, 1, 0.40416664, 1, 1, 1, 0.3529412, 0.8, 0.8, 0.8, 0.5882353, 1, 1, 1, 0.5882353, 1, 1, 1, 0.35833335)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qmj7q"]
+gradient = SubResource("Gradient_ra2ag")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Animation" id="Animation_xxsex"]
 length = 0.001
@@ -205,7 +257,7 @@ _data = {
 &"cue": SubResource("Animation_2a87t")
 }
 
-[node name="Electric Hulk" type="Sprite2D" unique_id=30330839 node_paths=PackedStringArray("damage_lightning", "heal_lightning", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Electric Hulk" type="Sprite2D" unique_id=30330839 node_paths=PackedStringArray("damage_lightning", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_6afpe")
 texture = ExtResource("2_uyhjf")
 hframes = 8
@@ -213,7 +265,6 @@ vframes = 7
 frame = 7
 script = ExtResource("3_6afpe")
 damage_lightning = NodePath("damage_lightning")
-heal_lightning = NodePath("heal_lightning")
 skill = NodePath("Electric Pulse")
 animation_player = NodePath("AnimationPlayer")
 weight_class = 2
@@ -227,12 +278,12 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Electric Pulse" type="Node" parent="." unique_id=1249795646 node_paths=PackedStringArray("status")]
 script = ExtResource("3_5ejrg")
-base_cooldown = 10.0
-effects = Array[int]([3, 9])
+base_cooldown = 5.0
+effects = Array[int]([2, 6])
+position_lineup = false
 transform_visual = 2
-need_target = false
-scan_allies = true
 status = NodePath("electrified")
+knockback_strength = 4
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="electrified" parent="Electric Pulse" unique_id=1560076450 instance=ExtResource("5_6h33m")]
@@ -287,10 +338,34 @@ debug_color = Color(0, 0.5950001, 0.7, 0)
 [node name="hit_scan" type="Area2D" parent="." unique_id=1484579924]
 collision_layer = 0
 collision_mask = 0
+monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=2017763478]
 shape = SubResource("CircleShape2D_yl5li")
 debug_color = Color(0, 0.5950001, 0.7, 0)
+
+[node name="skill_projection" type="AnimationPlayer" parent="hit_scan" unique_id=75656958 node_paths=PackedStringArray("source", "generated_elements")]
+libraries/projection = SubResource("AnimationLibrary_q1od0")
+script = ExtResource("9_ra2ag")
+source = NodePath("../..")
+knockback_gradient = SubResource("GradientTexture1D_tjn2n")
+radial_gradient = SubResource("GradientTexture2D_qmj7q")
+generated_elements = [NodePath("../projection")]
+
+[node name="projection" type="Node2D" parent="hit_scan" unique_id=1681754566]
+modulate = Color(1, 1, 1, 0.75)
+
+[node name="shape" type="Polygon2D" parent="hit_scan/projection" unique_id=206947248]
+clip_children = 1
+polygon = PackedVector2Array(128, 0, 127.383644, 12.546194, 125.54051, 24.971561, 122.488365, 37.156437, 118.25658, 48.983482, 112.885925, 60.33878, 106.42811, 71.11299, 98.94534, 81.20234, 90.50967, 90.50967, 81.20234, 98.945335, 71.11299, 106.42811, 60.338787, 112.88592, 48.98348, 118.25658, 37.156433, 122.488365, 24.971565, 125.54051, 12.546193, 127.383644, -5.5950577e-06, 128, -12.546189, 127.383644, -24.971561, 125.54051, -37.156445, 122.48836, -48.983475, 118.256584, -60.338768, 112.885925, -71.11298, 106.428116, -81.20234, 98.94534, -90.50967, 90.50967, -98.94534, 81.20234, -106.428116, 71.11298, -112.88592, 60.338795, -118.25658, 48.983486, -122.488365, 37.156445, -125.54052, 24.97156, -127.383644, 12.546188, -128, -1.1190115e-05, -127.383644, -12.54618, -125.54052, -24.971552, -122.488365, -37.156433, -118.25658, -48.98348, -112.88592, -60.338787, -106.4281, -71.113, -98.94535, -81.20233, -90.509674, -90.50966, -81.20235, -98.945335, -71.113014, -106.42809, -60.338776, -112.885925, -48.983498, -118.25658, -37.15642, -122.488365, -24.97157, -125.54051, -12.546167, -127.383644, 1.5263847e-06, -128, 12.54617, -127.383644, 24.971573, -125.54051, 37.156425, -122.488365, 48.9835, -118.25657, 60.33878, -112.885925, 71.11297, -106.42812, 81.20235, -98.945335, 90.50965, -90.50968, 98.94535, -81.202324, 106.42811, -71.113, 112.88593, -60.338757, 118.256584, -48.98348, 122.48836, -37.15646, 125.54052, -24.97155, 127.383644, -12.546207)
+
+[node name="gradient" type="Sprite2D" parent="hit_scan/projection/shape" unique_id=1209251641]
+scale = Vector2(8, 8)
+texture = SubResource("GradientTexture2D_qmj7q")
+
+[node name="expansion" type="Polygon2D" parent="hit_scan/projection/shape" unique_id=693571827]
+scale = Vector2(1e-05, 1e-05)
+polygon = PackedVector2Array(128, 0, 127.383644, 12.546194, 125.54051, 24.971561, 122.488365, 37.156437, 118.25658, 48.983482, 112.885925, 60.33878, 106.42811, 71.11299, 98.94534, 81.20234, 90.50967, 90.50967, 81.20234, 98.945335, 71.11299, 106.42811, 60.338787, 112.88592, 48.98348, 118.25658, 37.156433, 122.488365, 24.971565, 125.54051, 12.546193, 127.383644, -5.5950577e-06, 128, -12.546189, 127.383644, -24.971561, 125.54051, -37.156445, 122.48836, -48.983475, 118.256584, -60.338768, 112.885925, -71.11298, 106.428116, -81.20234, 98.94534, -90.50967, 90.50967, -98.94534, 81.20234, -106.428116, 71.11298, -112.88592, 60.338795, -118.25658, 48.983486, -122.488365, 37.156445, -125.54052, 24.97156, -127.383644, 12.546188, -128, -1.1190115e-05, -127.383644, -12.54618, -125.54052, -24.971552, -122.488365, -37.156433, -118.25658, -48.98348, -112.88592, -60.338787, -106.4281, -71.113, -98.94535, -81.20233, -90.509674, -90.50966, -81.20235, -98.945335, -71.113014, -106.42809, -60.338776, -112.885925, -48.983498, -118.25658, -37.15642, -122.488365, -24.97157, -125.54051, -12.546167, -127.383644, 1.5263847e-06, -128, 12.54617, -127.383644, 24.971573, -125.54051, 37.156425, -122.488365, 48.9835, -118.25657, 60.33878, -112.885925, 71.11297, -106.42812, 81.20235, -98.945335, 90.50965, -90.50968, 98.94535, -81.202324, 106.42811, -71.113, 112.88593, -60.338757, 118.256584, -48.98348, 122.48836, -37.15646, 125.54052, -24.97155, 127.383644, -12.546207)
 
 [node name="lightning_focus" type="Sprite2D" parent="." unique_id=748061931]
 visible = false
@@ -303,10 +378,6 @@ hframes = 3
 libraries/ = SubResource("AnimationLibrary_nxhr3")
 
 [node name="damage_lightning" parent="." unique_id=379496120 instance=ExtResource("11_nxhr3")]
-activator = 3
-
-[node name="heal_lightning" parent="." unique_id=323888998 instance=ExtResource("11_nxhr3")]
-modulate = Color(0.43999994, 1, 0.19999999, 0.39215687)
 activator = 3
 
 [node name="shadow_container" type="Node2D" parent="." unique_id=1807025625]

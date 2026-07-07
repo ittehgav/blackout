@@ -20,14 +20,16 @@ func _ready()->void:
 
 func generate_fighters_icons()->void:
 	for fighter:ActiveFighter in team_1.fighters:
-		var icon:TextureRect = generate_fighter_icon(fighter, 1);
-		team_1_icons.add_child(icon);
-		team_1_icon_owners[fighter] = icon
+		if fighter is PlayerFighter or not fighter.dummy:
+			var icon:TextureRect = generate_fighter_icon(fighter, 1);
+			team_1_icons.add_child(icon);
+			team_1_icon_owners[fighter] = icon
 		
 	for fighter:ActiveFighter in team_2.fighters:
-		var icon:TextureRect = generate_fighter_icon(fighter, 2);
-		team_2_icons.add_child(icon);
-		team_2_icon_owners[fighter] = icon
+		if not fighter.dummy:
+			var icon:TextureRect = generate_fighter_icon(fighter, 2);
+			team_2_icons.add_child(icon);
+			team_2_icon_owners[fighter] = icon
 	
 
 func generate_fighter_icon(fighter:ActiveFighter, team_n:int)->TextureRect:
@@ -36,16 +38,12 @@ func generate_fighter_icon(fighter:ActiveFighter, team_n:int)->TextureRect:
 		target_icon = team_1_icon_base;
 	else:
 		target_icon = team_2_icon_base;
-	var new_icon:TextureRect =target_icon.duplicate();
+	var new_icon:TextureRect = target_icon.duplicate();
 	new_icon.texture = target_icon.texture.duplicate();
 	new_icon.texture.atlas = fighter.sprite.texture;
 	new_icon.show()
 	return new_icon
 	
-
-
-
-
 
 func fade_out_icon(icon:TextureRect)->void:
 	var tween:Tween = create_tween();

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ctnukmol1go71" path="res://scenes/index/fighters/scripts/puncher.gd" id="2_82vyf"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_eyj5g"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_5dn4v"]
+[ext_resource type="Script" uid="uid://x6th0xrv2iy2" path="res://scenes/battle/fighter/skill_projection.gd" id="6_lfx0t"]
 [ext_resource type="PackedScene" uid="uid://dnln8vwomwh3n" path="res://scenes/index/vfx/punch.tscn" id="9_gqyy0"]
 [ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="10_ocbov"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_xcn2u"]
@@ -53,6 +54,16 @@ _data = {
 &"RESET": SubResource("Animation_6lg74")
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfx0t"]
+
+[sub_resource type="Gradient" id="Gradient_iwgp2"]
+offsets = PackedFloat32Array(0, 0.5233645, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.6509804, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ocbov"]
+gradient = SubResource("Gradient_iwgp2")
+width = 128
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_82vyf"]
 
 [node name="Puncher" type="Sprite2D" unique_id=1510142188 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level")]
@@ -71,7 +82,6 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="One Punch" type="Node" parent="." unique_id=1213322069]
 script = ExtResource("3_eyj5g")
-targetting = null
 base_cooldown = 5.0
 effects = Array[int]([0, 4])
 instant_impact = null
@@ -90,6 +100,14 @@ metadata/_custom_type_script = "uid://cboofk6f5g5t"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2029514307]
 libraries/ = SubResource("AnimationLibrary_mg14s")
 libraries/fighter_base = ExtResource("4_5dn4v")
+
+[node name="skill_projection" type="AnimationPlayer" parent="AnimationPlayer" unique_id=2032370354 node_paths=PackedStringArray("source", "generated_elements")]
+root_node = NodePath("../..")
+libraries/projection = SubResource("AnimationLibrary_lfx0t")
+script = ExtResource("6_lfx0t")
+source = NodePath("../..")
+knockback_gradient = SubResource("GradientTexture1D_ocbov")
+generated_elements = [null]
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=553118480]
 position = Vector2(0, -14)

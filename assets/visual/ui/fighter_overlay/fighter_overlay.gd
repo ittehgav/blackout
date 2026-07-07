@@ -46,13 +46,15 @@ func _ready()->void:
 func on_status_applied(source:ActiveFighter, status:Status, quiet:bool)->void:
 	if source is PlayerFighter:
 		struck_by_player = true
+
 	match status.type:
 		"stun":
 			display_stun_timer(status.duration)
-			apply_color_blink(FighterBase.combat_effect_colors.stun)
+			apply_color_blink(status.get_status_color())
 		"stat_change":
 			if not quiet:
 				generate_floating_icon(status.stat, status.value > 0);
+				apply_color_blink(status.get_status_color())
 		"special":
 			assert(status.special_status_texture);
 			add_special_status_icon(status)
@@ -131,7 +133,8 @@ func clear_floating_number(target:Label)->void:
 	current_floating_numbers.erase(target)
 
 func refresh_charge_bar() -> void:
-	charge_bar.value = cooldown_timer.wait_time - cooldown_timer.time_left
+	if not fighter.dummy:
+		charge_bar.value = cooldown_timer.wait_time - cooldown_timer.time_left
 
 
 func _on_hp_bar_value_changed(value: float) -> void:

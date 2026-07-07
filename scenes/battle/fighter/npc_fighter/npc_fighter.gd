@@ -27,15 +27,7 @@ var unit:FighterUnit;
 
 
 
-@export_subgroup("aoe projection")
-var aoe_projection:Sprite2D;
-@export var circle_projection_texture:Texture;
-@export var rectangle_projection_texture:Texture;
 
-@export var aoe_projection_color:Color;
-
-
-var show_aoe_projection:bool=false;
 
 var target_fighter:ActiveFighter;
 var target_in_range:bool = false;
@@ -47,7 +39,8 @@ var true_cooldown:float;
 
 func _ready()->void:
 	if dummy:
-		movement_ticker.queue_free()
+		movement_ticker.stop();
+		
 		cooldown_timer.queue_free()
 		overlay.charge_bar.hide()
 		hp = max_hp
@@ -112,40 +105,14 @@ func load_base()->void:
 
 	if base.hit_scan:
 		base.hit_scan.reparent(self)
-		if base.skill.aoe_projection and ally_team.team_n == 2:
-			var shape:CollisionShape2D = base.hit_scan.get_node("shape");
-			if not base.skill.special_aoe_projection:
-				show_aoe_projection = true;
-			setup_aoe_projection(shape);
+
+
 	
 	base.fighter = self;
 	add_child(base)
 	base.set_owner(self)
 	base.get_node("hurtbox").reparent(hurtbox);
 
-func setup_aoe_projection(shape:CollisionShape2D)->void:
-	## NOT WORKING AT ALL?
-	aoe_projection = Sprite2D.new();
-	var aoe_shape:Shape2D = shape.shape;
-	if aoe_shape is CircleShape2D:
-		aoe_projection.texture = circle_projection_texture;
-		var diameter:int = aoe_shape.radius * 2;
-		## 32x32 pixel circle
-		var size:float;
-		size = diameter/32;
-		aoe_projection.scale = Vector2(size, size)
-	elif aoe_shape is RectangleShape2D:
-		aoe_projection.texture = rectangle_projection_texture;
-		aoe_projection.scale = aoe_shape.size/2 ## /2 because texture is a 2x2 square
-	elif aoe_shape is SegmentShape2D:
-		aoe_projection.texture = rectangle_projection_texture;
-		aoe_projection.scale = Vector2( aoe_shape.b.x/2, 1); ## 
-		aoe_projection.centered = false;
-	
-	aoe_projection.modulate = aoe_projection_color
-	aoe_projection.self_modulate.a = 0;
-	shape.add_child(aoe_projection)
-	aoe_projection.z_index -= 1;
 
 func load_unit_stats()->void:
 	var stats:CombatStats = unit.final_stats();
@@ -204,14 +171,13 @@ func check_move()->void:
 			check_flee();
 		else:
 			stop()
-	
 	set_direction()
 
 
 
 func set_direction()->void:
 	var angle:float;
-	
+
 	if base.animation_player.current_animation == base.skill_animation_path:
 		## plays this outside of ticker when skill starts being 
 		## used so it instantly turns to the targer
@@ -238,7 +204,7 @@ func refresh_target()->void:
 		target_changed.emit();
 	if target_fighter:
 		target_cell_distance = position.distance_to(target_fighter.position)/64;
-		target_in_range = target_cell_distance < base.skill_range;
+		target_in_range = target_cell_distance <= base.skill_range;
 	
 
 const hover_space = 3
@@ -271,15 +237,6 @@ func use_skill()->void:
 	
 	base.skill_windup()
 	base.skill.lineup()
-	
-	if show_aoe_projection:
-		## TODO this should all be controlled by SkillComponent/animationplayer
-		## TODO make the projection tweren time dynamic
-		## right now it's just the hardcoded time that all skill animations
-		## take between start and impact
-		var tween:Tween = create_tween();
-		tween.tween_property(aoe_projection, "self_modulate:a",  1, .65);
-		tween.tween_callback(aoe_projection.set_self_modulate.bind(Color.from_rgba8(255, 255, 255, 0)))
 	
 	await base.skill.impact
 	for target:ActiveFighter in hit_targets:
@@ -329,3 +286,6 @@ func die(killer:ActiveFighter)->void:
 	tween.tween_property(self, "modulate:a", 0, .7);
 	tween.parallel().tween_property(self, "modulate:v", 0, .7)
 	tween.tween_callback(queue_free);
+
+func on_battle_over(_player_won:bool)->void:
+	movement_ticker.stop()

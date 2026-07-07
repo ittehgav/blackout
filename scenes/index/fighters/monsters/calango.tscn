@@ -181,7 +181,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_xdvov"]
 radius = 23.086792
 
-[node name="Calango" type="Sprite2D" unique_id=1356813743 node_paths=PackedStringArray("tail", "animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Calango" type="Sprite2D" unique_id=1356813743 node_paths=PackedStringArray("tail", "skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_xjc1c")
 texture = ExtResource("1_u8nhd")
 hframes = 8
@@ -189,8 +189,8 @@ vframes = 5
 frame = 5
 script = ExtResource("2_6uly3")
 tail = NodePath("tail")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Tail Whip")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([8, 10])
 fighter_type = "monster"
 hit_scan = NodePath("scan")
@@ -200,7 +200,7 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 [node name="Tail Whip" type="Node" parent="." unique_id=2066648331 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xjc1c")
 base_cooldown = 5.0
-effects = Array[int]([2, 6])
+effects = Array[int]([2, 9])
 status = NodePath("Poison")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 

@@ -1,3 +1,4 @@
+@tool
 @icon("res://assets/visual/editor_ui/IconGodotNode/node/icon_card.png")
 extends Node
 
@@ -146,3 +147,20 @@ func remove()->void:
 			status.remove();
 				
 	queue_free()
+
+func get_status_color()->Color:
+	match type:
+		"stun":
+			return Index.combat_effect_colors.stun;
+		"stat_change":
+			var stat_color:Color = Index.get_color(stat);
+			if value > 0:
+				stat_color.s += .15;
+			else:
+				stat_color.s -= .3;
+				stat_color.v -= .2;
+			return stat_color;
+		_:
+			## never meant to happen?
+			return Color.PINK
+	

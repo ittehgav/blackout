@@ -39,9 +39,10 @@ static func radial_knockback(source:ActiveFighter, hit_scan:Area2D=source.base.h
 
 static func flying_collision(t1:CombatEntity, t2:CombatEntity)->void:
 	if t2 == t1.knockback_source:return
+	
 	var collision_velocity:float = t1.velocity.distance_to(Vector2.ZERO);
 	t1.knockback_tween.kill();
-	finish_flight(t1)
+	finish_flight.call_deferred(t1)
 	if collision_velocity < 100:
 		return
 	else:

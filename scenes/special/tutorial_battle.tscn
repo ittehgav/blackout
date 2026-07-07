@@ -9,47 +9,47 @@
 [ext_resource type="PackedScene" uid="uid://di0vghxs4bkgh" path="res://scenes/index/items/containers/scrap_pile.tscn" id="9_4m6is"]
 [ext_resource type="PackedScene" uid="uid://5un73br0b5l0" path="res://scenes/index/items/containers/juice_can.tscn" id="9_ceqqo"]
 [ext_resource type="PackedScene" uid="uid://dojka81peou6a" path="res://scenes/index/items/containers/fuel_gallon.tscn" id="10_neqlf"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="11_221v0"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="11_lk8eq"]
-[ext_resource type="PackedScene" uid="uid://b3n7mk40hlld3" path="res://scenes/index/fighters/monsters/big_rat.tscn" id="12_77axp"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="13_sd2us"]
 [ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="14_3ng4b"]
-[ext_resource type="PackedScene" uid="uid://bjc7irffaa805" path="res://scenes/index/fighters/monsters/calango.tscn" id="15_keaxy"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_221v0"]
-resource_local_to_scene = true
-shader = ExtResource("13_sd2us")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 1, 1, 0)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4m6is"]
-resource_local_to_scene = true
-shader = ExtResource("13_sd2us")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(1, 1, 1, 0)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
+[ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="14_4m6is"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fjqqd"]
 resource_local_to_scene = true
 shader = ExtResource("13_sd2us")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.1, 0.1, 0.5, 1)
-shader_parameter/width = 1.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhqu4"]
+resource_local_to_scene = true
+shader = ExtResource("13_sd2us")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(1, 1, 1, 0)
+shader_parameter/width = 1.0000000475
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(3, 3)
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0iwf6"]
+resource_local_to_scene = true
+shader = ExtResource("13_sd2us")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
 
 [node name="TutorialBattle" type="Node" unique_id=1071861322 node_paths=PackedStringArray("loot")]
 script = ExtResource("1_yns1s")
@@ -75,19 +75,18 @@ metadata/_custom_type_script = "uid://6xsoxh5pe6pt"
 [node name="FighterUnit3" parent="." unique_id=2067750979 instance=ExtResource("11_lk8eq")]
 level = 3
 
-[node name="Big Rat" parent="FighterUnit3" unique_id=779088301 instance=ExtResource("12_77axp")]
-material = SubResource("ShaderMaterial_221v0")
+[node name="Puncher" parent="FighterUnit3" unique_id=1510142188 instance=ExtResource("11_221v0")]
+material = SubResource("ShaderMaterial_fjqqd")
 
 [node name="FighterUnit4" parent="." unique_id=1215196295 instance=ExtResource("11_lk8eq")]
 level = 2
 
 [node name="Crowbar" parent="FighterUnit4" unique_id=2112712555 instance=ExtResource("14_3ng4b")]
-material = SubResource("ShaderMaterial_4m6is")
+material = SubResource("ShaderMaterial_vhqu4")
 
 [node name="FighterUnit5" parent="." unique_id=1143152229 instance=ExtResource("11_lk8eq")]
-level = 3
 
-[node name="Calango" parent="FighterUnit5" unique_id=1356813743 instance=ExtResource("15_keaxy")]
-material = SubResource("ShaderMaterial_fjqqd")
+[node name="Gravity" parent="FighterUnit5" unique_id=934399271 instance=ExtResource("14_4m6is")]
+material = SubResource("ShaderMaterial_0iwf6")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

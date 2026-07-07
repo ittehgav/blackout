@@ -16,9 +16,7 @@ func _ready() -> void:
 
 func not_attacking()->bool:
 	var atk_key:String = weapon.get_animation_key("attack")
-	
 	var current:String = weapon.animation_player.current_animation
-	
 	return current != atk_key;
 
 @abstract func body_frame_changed()->void;

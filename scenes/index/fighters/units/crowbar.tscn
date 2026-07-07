@@ -64,7 +64,7 @@ vframes = 7
 frame = 5
 script = ExtResource("3_y4yls")
 skill = NodePath("Crowbar Swing")
-animation_player = NodePath("AnimationPlayer")
+animation_player = NodePath("base_animations")
 weight_class = 0
 tags = Array[int]([3, 1])
 base_stats = NodePath("stat_base/base_stats")
@@ -78,7 +78,7 @@ effects = Array[int]([0])
 technique_scaled_damage = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=128421000]
+[node name="base_animations" type="AnimationPlayer" parent="." unique_id=128421000]
 libraries/ = SubResource("AnimationLibrary_l0xen")
 libraries/fighter_base = ExtResource("4_t43eb")
 
