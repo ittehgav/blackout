@@ -1,23 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://c14j25tgu3icd"]
+[gd_scene format=3 uid="uid://c14j25tgu3icd"]
 
 [ext_resource type="Texture2D" uid="uid://dvgpwoqsdta66" path="res://assets/visual/items/modules/sensory_overloader.png" id="1_uoo42"]
 [ext_resource type="Script" uid="uid://ba505caq6mcv" path="res://scenes/index/items/modules/scripts/sensory_overload.gd" id="2_qlhdj"]
-[ext_resource type="AudioStream" uid="uid://c8q1nsc7cl0f0" path="res://assets/sound/sfx/combat/special/overload.wav" id="3_3bgf7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uoo42"]
 radius = 150.0
 
-[node name="Sensory Overload" type="Sprite2D" node_paths=PackedStringArray("aoe_range")]
+[node name="Sensory Overload" type="Sprite2D" unique_id=1335555284 node_paths=PackedStringArray("aoe_range")]
 texture = ExtResource("1_uoo42")
 script = ExtResource("2_qlhdj")
 aoe_range = NodePath("range")
-sfx = ExtResource("3_3bgf7")
 
-[node name="range" type="Area2D" parent="."]
+[node name="range" type="Area2D" parent="." unique_id=1734222965]
 collision_layer = 0
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="range"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="range" unique_id=1044408916]
 shape = SubResource("CircleShape2D_uoo42")
 
 [connection signal="equipped" from="." to="." method="_on_equipped"]

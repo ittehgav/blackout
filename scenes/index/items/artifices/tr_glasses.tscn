@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dnyx4ccaeei22"]
+
+[ext_resource type="Texture2D" uid="uid://qajpemj3b3k" path="res://assets/visual/items/artifices/tr_glasses.png" id="1_0h33q"]
+[ext_resource type="Script" uid="uid://dp4l8xx7e2sp1" path="res://scenes/index/items/artifices/scripts/tr_glasses.gd" id="1_ilnx2"]
+[ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="3_tsmmw"]
+
+[node name="TR Glasses" type="Sprite2D" unique_id=1536145250]
+texture = ExtResource("1_0h33q")
+script = ExtResource("1_ilnx2")
+color_tag = "chips"
+
+[node name="Throw" type="AudioStreamPlayer" parent="." unique_id=1243773031]
+stream = ExtResource("3_tsmmw")

@@ -1,30 +1,34 @@
 extends Control
+class_name PlayerHpBar
 
 @export var hud_section:VBoxContainer
 
 @export var player_fighter:PlayerFighter;
 
+@export var heart_animation:AnimationPlayer;
 @export var hp_bar:TextureProgressBar;
+@export var hp_label:Label;
+
 @export var status_bar:TextureProgressBar;
 
 @export var floating_icon_anchor:Control
 @export var hp_counter:Label
 
-func _ready()->void:
-	hp_bar.max_value = player_fighter.max_hp;
-	hp_bar.value = player_fighter.hp;
 
 @onready var bar_tween:Tween = create_tween();
 func refresh_hp_bar(blink_color:Color = Color.WHITE)->void:
 	const bar_refresh_time = .25
 	if bar_tween.is_running():
 		bar_tween.kill()
+
 	bar_tween = create_tween()
 	bar_tween.tween_property(hp_bar, "value", player_fighter.hp, bar_refresh_time);
 	bar_tween.parallel().tween_property(hp_bar, "modulate", blink_color, bar_refresh_time);
-	bar_tween.tween_property(hp_bar, "modulate", hp_frac_color(), bar_refresh_time)
-	
-	hp_counter.text = str(player_fighter.hp) + "/" + str(player_fighter.max_hp)
+	bar_tween.tween_property(hp_bar, "modulate", Color.WHITE, bar_refresh_time)
+	hp_counter.text = str(int(player_fighter.hp)) + "/" + str(int(player_fighter.max_hp))
+
+	refresh_bar_animation()
+
 func hp_frac_color()->Color:
 	var fraction:float = float(player_fighter.hp)/float(player_fighter.max_hp)
 
@@ -82,7 +86,29 @@ func add_status_bar(bar_color:Color, status_timer:Timer)->void:
 func _on_player_fighter_damage_taken(_damage: float, _source: ActiveFighter, _quiet:bool=false) -> void:
 	refresh_hp_bar(Color.RED)
 	
-
-
 func _on_player_fighter_healing_received(_value: float, _quiet:bool=false) -> void:
 	refresh_hp_bar(Color.GREEN);
+
+const high_hp_threshold = .9;
+const critical_hp_threshold = .2
+
+func refresh_bar_animation()->void:
+	var current_animation:String = heart_animation.current_animation;
+	var frac:float = player_fighter.hp/player_fighter.max_hp;
+
+	if frac > high_hp_threshold and current_animation != "hp_high":
+		heart_animation.play("RESET")
+		heart_animation.play("hp_high");
+	elif frac > critical_hp_threshold and current_animation != "hp_medium":
+		heart_animation.play("RESET");
+		heart_animation.play("hp_medium");
+	elif frac <= critical_hp_threshold and current_animation != "hp_critical":
+		heart_animation.play("RESET");
+		heart_animation.play("hp_critical")
+
+func _on_player_fighter_ready() -> void:
+	refresh_bar_animation()
+	hp_bar.max_value = player_fighter.max_hp;
+	hp_bar.value = player_fighter.hp;
+
+	hp_counter.text = str(int(player_fighter.hp)) + "/" + str(int(player_fighter.max_hp))

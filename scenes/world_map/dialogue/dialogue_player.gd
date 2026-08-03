@@ -46,7 +46,7 @@ func _process(_delta:float)->void:
 		dialogue_next();
 
 
-func start_dialogue(starting_line:String = "start")->void:
+func start_dialogue(_starting_line:String = "start")->void:
 	Tweens.ui_fade_in(self);
 	choices_box.hide();
 	if speaker_texture:
@@ -150,10 +150,10 @@ func get_next_line()->void:
 
 
 
-func response_chosen(response:DialogueResponse)->void:
+func response_chosen(_response:DialogueResponse)->void:
 	choices_box.hide();
 
-	var key:String = response.next_id;
+	#var key:String = response.next_id;
 	#current_line = await manager.get_next_dialogue_line(current_dialogue, key);
 	if current_line and current_line.text:
 		display_line();

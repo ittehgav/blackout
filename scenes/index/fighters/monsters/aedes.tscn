@@ -58,15 +58,15 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_q25pu"]
 radius = 37.0
 
-[node name="Aedes" type="Sprite2D" unique_id=1948510965 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
+[node name="Aedes" type="Sprite2D" unique_id=1948510965 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level")]
 material = ExtResource("1_w7hc1")
 position = Vector2(0, -1.4869016)
 texture = ExtResource("2_iuxof")
 hframes = 8
 vframes = 5
 script = ExtResource("3_q25pu")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Draining Sting")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([9, 13])
 fighter_type = "monster"
 base_stats = NodePath("stat_base/base_stats")
@@ -76,7 +76,6 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 script = ExtResource("4_tevc4")
 base_cooldown = 10.0
 effects = Array[int]([0])
-lifesteal = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=852715307]

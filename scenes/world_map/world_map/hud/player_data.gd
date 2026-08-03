@@ -3,7 +3,7 @@ extends PanelContainer
 @export var inventory_space_label:Label;
 @export var level_label:Label;
 
-@onready var player:Player = get_tree().get_first_node_in_group("player")
+@onready var player:Player = Entities.player
 
 func _ready()->void:
 	if not player.is_node_ready():

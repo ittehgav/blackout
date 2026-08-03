@@ -61,14 +61,14 @@ radius = 64.03124
 [sub_resource type="CircleShape2D" id="CircleShape2D_jwcm1"]
 radius = 21.0
 
-[node name="Termite" type="Sprite2D" unique_id=561075248 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Termite" type="Sprite2D" unique_id=561075248 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_yeofw")
 texture = ExtResource("1_qfl1n")
 hframes = 8
 vframes = 5
 script = ExtResource("2_yeofw")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Self Destruct")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([13, 9])
 fighter_type = "monster"
 hit_scan = NodePath("scan")
@@ -79,7 +79,6 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 script = ExtResource("3_jwcm1")
 base_cooldown = 10.0
 effects = Array[int]([2, 3, 6])
-tranform_visual = 2
 position_lineup = false
 status = NodePath("Corrosion")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"

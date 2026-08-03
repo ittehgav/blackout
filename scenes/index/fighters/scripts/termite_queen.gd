@@ -25,10 +25,9 @@ func special_skill_effect()->void:
 	while y_roll == 0:
 		y_roll = randi_range(-1, 1)
 		
-	var target_position:Vector2 = fighter.position + Vector2(x_roll, y_roll) * Entities.arena.grid.tile_set.tile_size.x
+	var target_position:Vector2 = fighter.position + Vector2(x_roll, y_roll) * 32
 	
-	fighter.ally_team.generate_fighter(termite_unit, target_position).summon = true
-
+	Combat.summon_unit(fighter, termite_unit, target_position)
 
 	
 

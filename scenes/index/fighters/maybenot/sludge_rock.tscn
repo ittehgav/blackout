@@ -16,16 +16,15 @@ radius = 37.01351
 [sub_resource type="CircleShape2D" id="CircleShape2D_s2bn0"]
 radius = 28.0
 
-[node name="Sludge Rock" type="Sprite2D" unique_id=1861199641 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Sludge Rock" type="Sprite2D" unique_id=1861199641 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_0f7rr")
 texture = ExtResource("2_svnd7")
 hframes = 8
 vframes = 5
 script = ExtResource("3_1homf")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Fling")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([6, 12])
-unit_type = "monster"
 hit_scan = NodePath("scan")
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")

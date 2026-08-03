@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://wlcq8bxxtwax"]
+
+[ext_resource type="Script" uid="uid://dxggo2xccst1f" path="res://scenes/index/items/artifices/scripts/berserker_serum.gd" id="1_62yp0"]
+[ext_resource type="Texture2D" uid="uid://dor33d5s221s4" path="res://assets/visual/items/artifices/berserker_serum.png" id="1_cen4i"]
+[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://scenes/battle/fighter/neutral/projectile/straight_projectile.tscn" id="3_nj0ti"]
+[ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="3_s4ift"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="4_r68mv"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/player/hit/flesh_hit.ogg" id="4_s4ift"]
+
+[node name="Berserker Serum" type="Sprite2D" unique_id=1307446497 node_paths=PackedStringArray("projectile", "use_sfx", "hit_sfx", "status")]
+texture = ExtResource("1_cen4i")
+script = ExtResource("1_62yp0")
+projectile = NodePath("Straight Projectile")
+use_sfx = NodePath("use_sfx")
+hit_sfx = NodePath("hit_sfx")
+target_types = Array[int]([0, 1])
+status = NodePath("Berserker\'s Rage")
+color_tag = "attack"
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=229898171]
+stream = ExtResource("3_s4ift")
+
+[node name="hit_sfx" type="AudioStreamPlayer" parent="." unique_id=1367089288]
+stream = ExtResource("4_s4ift")
+pitch_scale = 1.5
+
+[node name="Straight Projectile" parent="." unique_id=1066315008 instance=ExtResource("3_nj0ti")]
+modulate = Color(1, 0.65, 0.65, 1)
+texture = ExtResource("1_cen4i")
+hit_allies = true
+flight_speed = 1000
+
+[node name="trail" parent="Straight Projectile" index="2" unique_id=1816209269]
+modulate = Color(0.8, 0, 0, 0.6)
+
+[node name="Berserker\'s Rage" type="Node" parent="." unique_id=967113656]
+script = ExtResource("4_r68mv")
+type = "stat_change"
+value = 1.0
+chain_root = true
+stat = "attack"
+stat_fractal_value = true
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="Berserker\'s Demise" type="Node" parent="Berserker\'s Rage" unique_id=1872436370]
+script = ExtResource("4_r68mv")
+type = "stat_change"
+value = -0.5
+stat = "defense"
+stat_fractal_value = true
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[editable path="Straight Projectile"]

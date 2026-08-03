@@ -12,16 +12,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gl6x"]
 radius = 15.033297
 
-[node name="Sludge Assimilator" type="Sprite2D" unique_id=1552321751 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
+[node name="Sludge Assimilator" type="Sprite2D" unique_id=1552321751 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level")]
 material = ExtResource("1_kvoru")
 texture = ExtResource("2_0gl6x")
 hframes = 8
 vframes = 5
 script = ExtResource("1_j6d47")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Join Us")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([12, 6])
-unit_type = "monster"
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://csmjpaj3gbwco"]
+[gd_scene format=3 uid="uid://csmjpaj3gbwco"]
 
 [ext_resource type="Script" uid="uid://dbtkk5slc2333" path="res://scenes/in_settlement/speaker.gd" id="1_vvp1l"]
 [ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="2_8u6pk"]
@@ -17,23 +17,23 @@ shader_parameter/number_of_images = Vector2(1, 1)
 resource_local_to_scene = true
 radius = 173.003
 
-[node name="Speaker" type="Node2D" node_paths=PackedStringArray("prompt")]
+[node name="Speaker" type="Node2D" unique_id=1960684365 node_paths=PackedStringArray("prompt")]
 script = ExtResource("1_vvp1l")
 prompt = NodePath("Label")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=555628266]
 modulate = Color(0.2294, 0.74, 0.27195, 1)
 material = SubResource("ShaderMaterial_u22i6")
 position = Vector2(0, -89)
 scale = Vector2(3, 3)
 texture = ExtResource("3_6gxum")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=785921108]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1087398335]
 shape = SubResource("CircleShape2D_hnnq3")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=445148878]
 visible = false
 z_index = 1
 offset_left = 49.0

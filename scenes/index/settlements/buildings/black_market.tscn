@@ -32,12 +32,13 @@ portrait = ExtResource("2_dtac6")
 icon_texture = ExtResource("2_twu2y")
 metadata/_custom_type_script = "uid://lf67nwuvdmnt"
 
-[node name="shop_1" parent="." unique_id=643465266 node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
+[node name="shop_1" parent="." unique_id=643465266 node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool", "artifice_pool") instance=ExtResource("4_cbvov")]
 script = ExtResource("5_j7wsn")
 accessory_pool = [null, NodePath("Sapper"), NodePath("External Processing Unit")]
 consumable_pool = [NodePath("Eye Chart"), NodePath("Motivational Speech Draft"), NodePath("Protein Shake")]
 module_pool = [NodePath("Adrenaline Synthethizer"), NodePath("Dodge Roll"), NodePath("Allegiance Shifter")]
 weapon_pool = [NodePath("Toxic Shotgun"), NodePath("Electric Baton"), NodePath("Tailpipe")]
+artifice_pool = []
 rarity_rate = 2
 batch_size = 7
 
@@ -65,12 +66,13 @@ batch_size = 7
 
 [node name="Tailpipe" parent="shop_1" unique_id=870722934 instance=ExtResource("29_varik")]
 
-[node name="shop_2" parent="." unique_id=1597441170 node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
+[node name="shop_2" parent="." unique_id=1597441170 node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool", "artifice_pool") instance=ExtResource("4_cbvov")]
 script = ExtResource("5_j7wsn")
 accessory_pool = [NodePath("Forbidden Shoulders"), NodePath("Brass Knuckles"), NodePath("Sapper")]
 consumable_pool = [NodePath("Protein Shake"), NodePath("Motivational Speech Draft"), NodePath("Eye Chart")]
 module_pool = [NodePath("Adrenaline Synthethizer"), NodePath("Dodge Roll"), NodePath("Allegiance Shifter")]
 weapon_pool = [NodePath("Toxic Shotgun"), NodePath("Electric Baton"), NodePath("Tailpipe")]
+artifice_pool = []
 rarity_rate = 2
 batch_size = 10
 
@@ -98,12 +100,13 @@ batch_size = 10
 
 [node name="Tailpipe" parent="shop_2" unique_id=1569383704 instance=ExtResource("29_varik")]
 
-[node name="shop_3" parent="." unique_id=2105165631 node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool") instance=ExtResource("4_cbvov")]
+[node name="shop_3" parent="." unique_id=2105165631 node_paths=PackedStringArray("accessory_pool", "consumable_pool", "module_pool", "weapon_pool", "artifice_pool") instance=ExtResource("4_cbvov")]
 script = ExtResource("5_j7wsn")
 accessory_pool = [NodePath("Forbidden Mask2"), NodePath("Brass Knuckles"), NodePath("Sapper")]
 consumable_pool = [NodePath("Protein Shake"), NodePath("Motivational Speech Draft"), NodePath("Eye Chart")]
 module_pool = [NodePath("Adrenaline Synthethizer"), NodePath("Dodge Roll"), NodePath("Allegiance Shifter")]
 weapon_pool = [NodePath("Toxic Shotgun"), NodePath("Electric Baton"), NodePath("Tailpipe")]
+artifice_pool = []
 rarity_rate = 2
 batch_size = 10
 

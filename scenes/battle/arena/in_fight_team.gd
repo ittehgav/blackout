@@ -6,11 +6,11 @@ signal fighter_died(fighter:ActiveFighter)
 
 
 signal fighter_converted(fighter:ActiveFighter);
-@export var npc_fighter_scene:PackedScene
 ## team that LOSES the converted unit emits it
 
 
 @export var roster:Roster;
+@export var npc_fighter_scene:PackedScene
 
 @export var arena:Arena
 

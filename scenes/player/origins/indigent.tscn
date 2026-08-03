@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://lqdqixbqupq0" path="res://scenes/battle/fighter/combat_stats.tscn" id="8_qme7h"]
 [ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/ui/player_sheet/disciplines.gd" id="9_hk2cr"]
 
-[node name="Indigent" type="Node" node_paths=PackedStringArray("equipped_weapon", "equipped_module", "inventory", "roster")]
+[node name="Indigent" type="Node" unique_id=1569959897 node_paths=PackedStringArray("equipped_weapon", "equipped_module", "inventory", "roster")]
 script = ExtResource("1_ahft4")
 equipped_weapon = NodePath("Inventory/Tailpipe")
 equipped_module = NodePath("Inventory/Dodge Roll")
@@ -18,26 +18,25 @@ inventory = NodePath("Inventory")
 roster = NodePath("Roster")
 sight_range = 256
 
-[node name="Inventory" parent="." node_paths=PackedStringArray("holder") instance=ExtResource("2_3xh6s")]
+[node name="Inventory" parent="." unique_id=1498113338 node_paths=PackedStringArray("holder") instance=ExtResource("2_3xh6s")]
 holder = NodePath("..")
 
-[node name="Tailpipe" parent="Inventory" instance=ExtResource("3_vupg8")]
+[node name="Tailpipe" parent="Inventory" unique_id=543664126 instance=ExtResource("3_vupg8")]
 
-[node name="Dodge Roll" parent="Inventory" instance=ExtResource("4_ow5pe")]
+[node name="Dodge Roll" parent="Inventory" unique_id=1954681130 instance=ExtResource("4_ow5pe")]
 
-[node name="Food Bag" parent="Inventory" instance=ExtResource("5_aiie3")]
+[node name="Food Bag" parent="Inventory" unique_id=224492337 instance=ExtResource("5_aiie3")]
 stack_size = 10
 
-[node name="Fuel Gallon" parent="Inventory" instance=ExtResource("6_4sir4")]
+[node name="Fuel Gallon" parent="Inventory" unique_id=1441372107 instance=ExtResource("6_4sir4")]
 stack_size = 10
 
-[node name="Roster" parent="." instance=ExtResource("7_gi2fp")]
+[node name="Roster" parent="." unique_id=679646047 instance=ExtResource("7_gi2fp")]
 
-[node name="combat_stats" parent="." instance=ExtResource("8_qme7h")]
+[node name="combat_stats" parent="." unique_id=1827162185 instance=ExtResource("8_qme7h")]
 max_hp = 100.0
-move_speed = 200.0
 
-[node name="leadership_stats" type="Node" parent="."]
+[node name="leadership_stats" type="Node" parent="." unique_id=493077018]
 script = ExtResource("9_hk2cr")
 
 [connection signal="resource_changed" from="." to="Inventory" method="refresh_resource_counts"]

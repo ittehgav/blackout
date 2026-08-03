@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://c2atxui6lbsr0"]
 
 [ext_resource type="Script" uid="uid://dpxa7a0vvejmm" path="res://scenes/ui/player_sheet/item_sample.gd" id="2_81f3s"]
+[ext_resource type="AudioStream" uid="uid://027kj1l582qq" path="res://assets/sound/sfx/ui/inventory/cell_hover.wav" id="2_qv57f"]
 [ext_resource type="Texture2D" uid="uid://c70v3si5swr41" path="res://assets/visual/ui/items/blank_item.png" id="3_81f3s"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="3_qv57f"]
 
-[node name="item_sample" type="TextureRect" unique_id=389664355 node_paths=PackedStringArray("outline", "tooltip", "bg", "blank", "button")]
+[node name="item_sample" type="TextureRect" unique_id=389664355 node_paths=PackedStringArray("outline", "tooltip", "bg", "blank", "hover_sfx", "button")]
 z_index = 1
-custom_minimum_size = Vector2(64, 128)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+offset_transform_enabled = true
 mouse_filter = 0
 expand_mode = 5
 script = ExtResource("2_81f3s")
@@ -16,7 +17,11 @@ outline = NodePath("bg/outline")
 tooltip = NodePath("Tooltip")
 bg = NodePath("bg")
 blank = NodePath("bg/outline/blank")
+hover_sfx = NodePath("hover_sfx")
 button = NodePath("button")
+
+[node name="hover_sfx" type="AudioStreamPlayer" parent="." unique_id=2139518973]
+stream = ExtResource("2_qv57f")
 
 [node name="bg" type="ColorRect" parent="." unique_id=1478659946]
 self_modulate = Color(0.43137255, 0.44705883, 0.6, 1)

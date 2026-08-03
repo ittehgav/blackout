@@ -45,7 +45,7 @@ func check_available_loot(_mirror:ItemMirror=null, _arg:Variant = null)->void:
 		continue_btn.modulate.v = .5
 	
 func loot_money()->Tween:
-	var player:Player = get_tree().get_first_node_in_group("player")
+	var player:Player = Entities.player
 	var money_gain:int = int(looted_money_label.text);
 	
 	var tween:Tween = Tweens.tween_count_label(looted_money_label, 0);

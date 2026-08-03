@@ -4,7 +4,7 @@ extends ItemSpecialGraphics
 @export var sound:AudioStreamPlayer
 
 func play()->void:
-	var player:Player = get_tree().get_first_node_in_group("player")
+	var player:Player = Entities.player;
 
 	var target_value:float = (5 - player.morale)/3
 	player.morale += target_value

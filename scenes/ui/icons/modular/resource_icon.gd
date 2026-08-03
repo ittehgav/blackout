@@ -12,7 +12,7 @@ func _ready()->void:
 	if floating:
 		return
 	if match_player_inventory:
-		source = get_tree().get_first_node_in_group("player").inventory;
+		source = Entities.player.inventory;
 	if resource == "money":
 		bg.hide();
 	if source:

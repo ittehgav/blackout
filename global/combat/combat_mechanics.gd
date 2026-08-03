@@ -120,20 +120,42 @@ static func turn_ellusive(fighter:ActiveFighter, duration:float)->void:
 	fighter.set_collision_layer_value(team_n, true)
 
 
-static func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant)->Projectile:
-	var target_direction:Vector2;
-	if source is PlayerFighter:
-		target_direction = Entities.player_fighter.global_position.direction_to(Entities.player_fighter.get_global_mouse_position())
-	elif source is NpcFighter:
-		target_direction = source.global_position.direction_to(source.target_fighter.global_position);
-	
-	var shot:Projectile = projectile.shoot(target_direction);
+static func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant, detonate_callback:Variant=null, override_target:Vector2 = Vector2(-1, -1))->Projectile:
+	var projectile_target:Vector2=Vector2(-1, -1);
+	if override_target == Vector2(-1, -1):
+		if projectile is StraightProjectile:
+			var target_direction:Vector2;
+			if source is PlayerFighter:
+				target_direction = Entities.player_fighter.global_position.direction_to(Entities.player_fighter.get_global_mouse_position())
+			elif source is NpcFighter:
+				target_direction = source.global_position.direction_to(source.target_fighter.global_position);
+			projectile_target = target_direction
+		else: ## ArcProjectile
+			if source is PlayerFighter:
+				## could make this more sophisticated if i ever need to
+				projectile_target = source.get_global_mouse_position();
+			else:
+				projectile_target = source.target_fighter.global_position
+	else:
+		projectile_target = override_target;
+			
+		
+	var shot:Projectile = projectile.shoot(projectile_target);
 
 	if hit_callback is Callable:
 		shot.hit.connect(hit_callback);
+
 	elif hit_callback is Array:
 		for c:Callable in hit_callback:
 			shot.hit.connect(c);
+
+	if projectile is ArcProjectile and detonate_callback:
+		if detonate_callback is Callable:
+			shot.detonated.connect(detonate_callback);
+		elif detonate_callback is Array:
+			for c:Callable in detonate_callback:
+				shot.detonated.connect(c)
+	
 	return shot;
 		
 
@@ -153,6 +175,8 @@ static func knock_back_target(source:ActiveFighter, target:CombatEntity = source
 		var direction:Vector2 = source.position.direction_to(target.position);
 		if override_direction != Vector2.ZERO:
 			direction = override_direction
+	
+			
 		velocity = direction * final_distance * 20;
 	else:
 		velocity = override_velocity * level_gap
@@ -176,10 +200,12 @@ static func knock_back_target(source:ActiveFighter, target:CombatEntity = source
 		target.knockback_tween.kill();
 	
 	target.knocked_back.emit(source, strength);
+
 	
 	target.knockback_tween = target.create_tween();
 	target.knockback_tween.tween_property(target, "velocity", Vector2.ZERO, duration)
 	target.knockback_tween.tween_callback(finish_flight.call_deferred.bind(target))
+
 
 static func collision_damage(source:ActiveFighter, t1:ActiveFighter, t2:ActiveFighter)->void:
 	deal_damage(source, t1);

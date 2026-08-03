@@ -34,13 +34,13 @@ var current_scrap_cost:int;
 
 var item_to_forge:Item;
 
-var player:Player
+@onready var player:Player = Entities.player;
 
 var equipped_samples:Array[ItemSample]
 
 func start_forge_menu()->void:
 	scrap_cost_label.hide()
-	player = get_tree().get_first_node_in_group("player");
+
 	
 	inventory_display.open()
 	

@@ -7,7 +7,7 @@ class_name HurtBox
 func _ready()->void:
 	source.death.connect(source_died)
 
-func source_died()->void:
+func source_died(_killer:ActiveFighter)->void:
 	## source always gets freed, this is just so the hurtbox disappears right away
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(2, false)

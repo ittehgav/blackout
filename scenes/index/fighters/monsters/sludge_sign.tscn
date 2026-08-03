@@ -47,14 +47,14 @@ _data = {
 radius = 15.0
 height = 62.0
 
-[node name="Sludge Sign" type="Sprite2D" unique_id=1850800264 node_paths=PackedStringArray("animation_player", "skill", "base_stats", "stats_per_level")]
+[node name="Sludge Sign" type="Sprite2D" unique_id=1850800264 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level")]
 material = ExtResource("1_niry1")
 texture = ExtResource("2_b2c0s")
 hframes = 8
 vframes = 5
 script = ExtResource("3_jhnwu")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Traffic Slam")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([12, 1])
 fighter_type = "monster"
 body_type = 2

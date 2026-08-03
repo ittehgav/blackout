@@ -70,7 +70,8 @@ func load_fighter(new_unit:FighterUnit)->void:
 	true_cooldown = final_skill_cooldown()
 	cooldown_timer.wait_time = true_cooldown
 	if true_cooldown == 0:
-		cooldown_timer.set_process(false)
+
+		cooldown_timer.stop()
 
 func load_base()->void:
 	body_type = base.body_type

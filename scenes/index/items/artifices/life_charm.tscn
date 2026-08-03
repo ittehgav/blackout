@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bvuw04qb36x7e"]
+
+[ext_resource type="Texture2D" uid="uid://c8e7rimw78rh1" path="res://assets/visual/items/artifices/life_charm.png" id="1_5d7e4"]
+[ext_resource type="Script" uid="uid://bo282da4eglbl" path="res://scenes/index/items/artifices/scripts/life_charm.gd" id="1_deb76"]
+
+[node name="Life Charm" type="Sprite2D" unique_id=281711132]
+texture = ExtResource("1_5d7e4")
+script = ExtResource("1_deb76")
+use_type = 2
+target_types = Array[int]([])
+color_tag = "max_hp"

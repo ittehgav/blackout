@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c83u8udv4ox01"]
+[gd_scene format=3 uid="uid://c83u8udv4ox01"]
 
 [ext_resource type="Material" uid="uid://dyp3b8gftu3t7" path="res://resources/shaders/materials/vehicle.tres" id="1_05gr4"]
 [ext_resource type="Texture2D" uid="uid://dhrroled0o0a5" path="res://assets/visual/sprites/vehicles/uno.png" id="1_gjlxu"]
 [ext_resource type="Script" uid="uid://dqa1gjdx6lk2m" path="res://scenes/world_map/map_party/vehicle.gd" id="2_jugko"]
 
-[node name="Uno" type="Sprite2D" node_paths=PackedStringArray("bounce_timer")]
+[node name="Uno" type="Sprite2D" unique_id=1603952288 node_paths=PackedStringArray("bounce_timer")]
 material = ExtResource("1_05gr4")
 scale = Vector2(2, 2)
 texture = ExtResource("1_gjlxu")
@@ -14,7 +14,7 @@ frame = 2
 script = ExtResource("2_jugko")
 bounce_timer = NodePath("bounce_animation")
 
-[node name="bounce_animation" type="Timer" parent="."]
+[node name="bounce_animation" type="Timer" parent="." unique_id=677515230]
 wait_time = 0.15
 autostart = true
 

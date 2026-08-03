@@ -42,7 +42,7 @@ func battle_start_apply(target:ActiveFighter, first:bool=true)->void:
 	
 	if first:
 		var other_accessory:Accessory = other_equipped_accessory()
-		if other_accessory and "Forbidden Mask" in other_accessory.name and not insta_kill_applied:
+		if other_accessory and "Forbidden Mask" in other_accessory.unique_name and not insta_kill_applied:
 			insta_kill_applied = true;
 			other_accessory.insta_kill_applied = true;
 			other_accessory.forbidden_insta_kill();

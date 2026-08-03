@@ -256,16 +256,6 @@ shader_parameter/number_of_images = Vector2(1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3lnwx"]
 resource_local_to_scene = true
 shader = ExtResource("14_mt1iq")
-shader_parameter/color = Color(0, 0.2, 0.047058824, 1)
-shader_parameter/width = 2.000000095
-shader_parameter/pattern = 1
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4klxu"]
-resource_local_to_scene = true
-shader = ExtResource("14_mt1iq")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -1233,15 +1223,9 @@ collision_mask = 65792
 [node name="body" parent="Arena/teams/team_1/player_fighter" index="5" unique_id=416499753]
 material = SubResource("ShaderMaterial_lor5l")
 
-[node name="left_hand" parent="Arena/teams/team_1/player_fighter/body" index="2" unique_id=7873661]
-material = SubResource("ShaderMaterial_3lnwx")
-
-[node name="right_hand" parent="Arena/teams/team_1/player_fighter/body" index="3" unique_id=1602105371]
-material = SubResource("ShaderMaterial_3lnwx")
-
 [node name="equipment" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=488158529]
 visible = false
-material = SubResource("ShaderMaterial_4klxu")
+material = SubResource("ShaderMaterial_3lnwx")
 
 [node name="weapon_control" parent="Arena/teams/team_1/player_fighter/equipment" index="1" unique_id=1301522479]
 script = ExtResource("10_61gdm")
@@ -1662,7 +1646,7 @@ max_hp = 2000.0
 position = Vector2(-0.7055664, -13.747559)
 shape = SubResource("CircleShape2D_mt1iq")
 
-[node name="unit_collision" parent="Arena/teams/team_2/dummy" index="6" unique_id=1716436569]
+[node name="unit_collision" parent="Arena/teams/team_2/dummy" index="4" unique_id=1716436569]
 shape = SubResource("CircleShape2D_rrc26")
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/dummy" unique_id=246693144]
@@ -2371,6 +2355,10 @@ tile_map_data = PackedByteArray("AADH/gQAAAAAAAEAAADH/gUAAAAAAAIAAADI/gQAAAABAAE
 tile_set = SubResource("TileSet_nw1k1")
 
 [connection signal="ready" from="Arena" to="." method="_on_arena_ready"]
+[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/bars/bars" method="ammo_consumed"]
+[connection signal="weapon_hit" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/teams/team_1/player_fighter/components/sfx/hit_sfx" method="weapon_hit"]
+[connection signal="weapon_hit" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/teams/team_1/player_fighter/equipment/weapon_control" method="weapon_hit"]
+[connection signal="timeout" from="Arena/teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
 [connection signal="body_entered" from="Arena/tutorial_elements/tailpipe/tailpipe_area" to="." method="_on_tailpipe_area_body_entered"]
 [connection signal="body_exited" from="Arena/tutorial_elements/tailpipe/tailpipe_area" to="." method="_on_tailpipe_area_body_exited"]
 [connection signal="body_entered" from="Arena/tutorial_elements/slingshot/slingshot_area" to="." method="_on_slingshot_area_body_entered"]

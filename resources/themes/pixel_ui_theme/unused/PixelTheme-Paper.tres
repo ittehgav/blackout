@@ -127,6 +127,9 @@ data = {
 }
 
 [sub_resource type="FontFile" id="37"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 fixed_size = 16
 cache/0/variation_coordinates = {}
 cache/0/face_index = 0
@@ -1444,6 +1447,9 @@ anti_aliasing = false
 
 [sub_resource type="FontFile" id="2"]
 fallbacks = Array[Font]([ExtResource("2_s355e")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/variation_coordinates = {}
 cache/0/face_index = 0
 cache/0/embolden = 0.0
@@ -2101,6 +2107,9 @@ region = Rect2(111, 48, 10, 8)
 
 [sub_resource type="FontFile" id="600"]
 fallbacks = Array[Font]([ExtResource("2_s355e")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/variation_coordinates = {}
 cache/0/face_index = 0
 cache/0/embolden = 0.0

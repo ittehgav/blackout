@@ -116,7 +116,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(6, 2)
 
-[node name="Dialoge Player" type="Control" node_paths=PackedStringArray("input_hold_timer", "speaker_sprite", "blip", "dialogue_sfx", "player_sprite", "choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
+[node name="Dialoge Player" type="Control" unique_id=628443517 node_paths=PackedStringArray("input_hold_timer", "speaker_sprite", "blip", "dialogue_sfx", "player_sprite", "choices_box", "choices_container", "speaker_name_label", "text_label", "ui_sfx")]
 process_mode = 3
 texture_filter = 1
 layout_mode = 3
@@ -138,21 +138,21 @@ speaker_name_label = NodePath("Panel/speaker_name")
 text_label = NodePath("Panel/MarginContainer/DialogueLabel")
 ui_sfx = NodePath("ui_sfx")
 
-[node name="ui_sfx" parent="." instance=ExtResource("3_5y6lb")]
+[node name="ui_sfx" parent="." unique_id=490381548 instance=ExtResource("3_5y6lb")]
 
-[node name="speech_blip" type="AudioStreamPlayer" parent="."]
+[node name="speech_blip" type="AudioStreamPlayer" parent="." unique_id=363228209]
 stream = SubResource("AudioStreamRandomizer_8aum2")
 pitch_scale = 1.5
 bus = &"sfx"
 
-[node name="dialogue_sfx" type="AudioStreamPlayer" parent="."]
+[node name="dialogue_sfx" type="AudioStreamPlayer" parent="." unique_id=264887592]
 bus = &"sfx"
 script = ExtResource("5_2v7b0")
 angry = ExtResource("6_k8mrl")
 success = ExtResource("7_2v7b0")
 mock = ExtResource("8_wypdb")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1403491477]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -161,7 +161,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0901961, 0.0431373, 0.0235294, 0.309804)
 
-[node name="player_avatar" type="Control" parent="."]
+[node name="player_avatar" type="Control" parent="." unique_id=1712561738]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -171,7 +171,7 @@ offset_right = 40.0
 offset_bottom = 20.0
 grow_vertical = 2
 
-[node name="player_avatar" type="Sprite2D" parent="player_avatar"]
+[node name="player_avatar" type="Sprite2D" parent="player_avatar" unique_id=459106292]
 material = SubResource("ShaderMaterial_3v3gh")
 position = Vector2(124, -64)
 scale = Vector2(5, 5)
@@ -179,13 +179,11 @@ texture = ExtResource("9_3v3gh")
 hframes = 6
 vframes = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="player_avatar/player_avatar"]
-libraries = {
-&"player": ExtResource("10_bxvyw")
-}
-autoplay = "player/idle"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="player_avatar/player_avatar" unique_id=50131661]
+libraries/player = ExtResource("10_bxvyw")
+autoplay = &"player/idle"
 
-[node name="speaking_avatar" type="Control" parent="."]
+[node name="speaking_avatar" type="Control" parent="." unique_id=1369804694]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -199,10 +197,10 @@ offset_bottom = -58.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="speaking_avatar"]
+[node name="Sprite2D" type="Sprite2D" parent="speaking_avatar" unique_id=330170018]
 scale = Vector2(6, 6)
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1754721322]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -215,7 +213,7 @@ offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="speaker_name" type="Label" parent="Panel"]
+[node name="speaker_name" type="Label" parent="Panel" unique_id=1912598375]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -236,7 +234,7 @@ theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 96
 text = "wawa"
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1986012902]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -248,7 +246,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="DialogueLabel" type="RichTextLabel" parent="Panel/MarginContainer"]
+[node name="DialogueLabel" type="RichTextLabel" parent="Panel/MarginContainer" unique_id=1808972927]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 48
 theme_override_font_sizes/bold_font_size = 48
@@ -257,7 +255,7 @@ theme_override_font_sizes/italics_font_size = 48
 theme_override_font_sizes/mono_font_size = 48
 bbcode_enabled = true
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=171671901]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -271,19 +269,19 @@ offset_bottom = -152.12
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=415493929]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1543606407]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 12
 
-[node name="input_hold" type="Timer" parent="."]
+[node name="input_hold" type="Timer" parent="." unique_id=773390781]
 wait_time = 0.25
 
 [connection signal="finished" from="speech_blip" to="." method="_on_speech_blip_finished"]

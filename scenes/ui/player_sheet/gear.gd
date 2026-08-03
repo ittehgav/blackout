@@ -11,7 +11,15 @@ extends Control
 @export var accessory_1_sample:ItemSample;
 @export var accessory_2_sample:ItemSample;
 
-@onready var all_samples: = [weapon_sample, alt_weapon_sample, module_sample, accessory_1_sample, accessory_2_sample]
+@export var artifice_1_sample:ItemSample;
+@export var artifice_2_sample:ItemSample;
+@export var artifice_3_sample:ItemSample;
+
+@onready var all_samples: = [
+	weapon_sample, alt_weapon_sample, module_sample,
+	accessory_1_sample, accessory_2_sample,
+	artifice_1_sample, artifice_2_sample, artifice_3_sample
+	]
 
 @export var switch_alt_button:Button;
 
@@ -22,18 +30,32 @@ var first_refresh:bool=true;
 var first_alt_refresh:bool=true;
 
 	
+func enable_switch_btn()->void:
+	switch_alt_button.disabled = false;
+	switch_alt_button.modulate = Color.WHITE;
+
+func disable_switch_btn()->void:
+	switch_alt_button.disabled = true;
+	switch_alt_button.modulate = Color.from_hsv(0, 0, .5, .75)
 
 func refresh_samples(just_changed:Equipment=null)->void:
+	## just_changed = from Player equipment_changed signal
 	if Entities.player.alternative_weapon:
-		switch_alt_button.disabled = false;
+		enable_switch_btn()
 	else:
-		switch_alt_button.disabled = true
-	
-	
+		disable_switch_btn()
 
 	weapon_sample.load_item(Entities.player.equipped_weapon, 3)
 	module_sample.load_item(Entities.player.equipped_module, 3);
-
+	
+	for i:int in 3:
+		var sample:ItemSample = self["artifice_"+str(i+1)+"_sample"]
+		var equipped:Artifice = Entities.player.equipped_artifices[i+1];
+		if equipped:
+			sample.load_item(equipped, 3);
+		else:
+			sample.load_blank();
+		
 	if Entities.player.alternative_weapon:
 		alt_weapon_sample.load_item(Entities.player.alternative_weapon, 2);
 	else:
@@ -64,7 +86,14 @@ func refresh_samples(just_changed:Equipment=null)->void:
 			Entities.player.equipped_accessory_2:
 				sfx.play_sound_by_key("accessory_equipped")
 				accessory_2_sample.highlight_blink();
-			
+
+
+		if just_changed is Artifice:
+			sfx.play_sound_by_key("artifice_equipped");
+			var key:Variant= Entities.player.equipped_artifices.find_key(just_changed)
+			if key:
+				self["artifice_"+str(key)+"_sample"].highlight_blink()
+	
 	first_refresh=false;
 
 func _on_inventory_display_extension_shown() -> void:
@@ -75,14 +104,11 @@ func _on_inventory_display_extension_hidden() -> void:
 
 
 func _on_switch_alt_pressed() -> void:
-	#shake_samples();
 	sfx.play_sound_by_key("weapon_equipped")
-	var new_main_weapon:Weapon = Entities.player.alternative_weapon;
-	var new_alt_weapon:Weapon = Entities.player.equipped_weapon;
-	
-	Entities.player.equip_weapon(new_main_weapon);
-	Entities.player.equip_alt_weapon(new_alt_weapon)
+	Entities.player.switch_weapons()
+
 	weapon_sample.highlight_blink();
+	alt_weapon_sample.highlight_blink()
 
 var shake_delay:Timer=Timer.new();
 func shake_samples()->void:
@@ -153,26 +179,35 @@ func invalid_move(message:String)->void:
 	
 
 func unequip_accessory(which:int)->void:
-	var to_unequip:Accessory
-	match which:
-		1:
-			to_unequip = Entities.player.equipped_accessory_1;
-			if not player_inventory_display.has_room(to_unequip):
-				invalid_move("NOT ENOUGH ROOM");
-				return
-			Entities.player.equipped_accessory_1 = null
-			accessory_1_sample.load_blank(2)
-		2:
-			if not player_inventory_display.has_room(to_unequip):
-				invalid_move("NOT ENOUGH ROOM");
-				return
-			Entities.player.equipped_accessory_2 = null
-			accessory_2_sample.load_blank(2)
+	var ac_key:String = "equipped_accessory_"+str(which)
+	var sample:ItemSample = self["accessory_"+str(which)+"_sample"]
+	var to_unequip:Accessory=Entities.player[ac_key]
+	if not player_inventory_display.has_room(to_unequip):
+		invalid_move("NOT ENOUGH ROOM");
+		return;
+		
+	Entities.player.unequip_accessory(to_unequip, which);
+	sample.load_blank(2)
+	
 
-	Entities.player.equipment.erase(to_unequip);
-	send_item_to_inventory(to_unequip)
+	player_inventory_display.throw_in_inventory(to_unequip)
+
 	
 	sfx.play_sound_by_key("accessory_equipped")
+
+func unequip_artifice(slot:int)->void:
+	var to_unequip:Artifice = Entities.player.equipped_artifices[slot]
+	
+	if not player_inventory_display.has_room(to_unequip):
+		invalid_move("NOT ENOUGH ROOM")
+		return
+		
+	Entities.player.unequip_artifice(slot)
+	self["artifice_"+str(slot)+"_sample"].load_blank()
+	for item:Artifice in Entities.player.inventory.artifices:
+		if item.unique_name == to_unequip.unique_name:
+			item.mirror.refresh()
+	to_unequip.mirror.display.board_shake(5)
 
 
 func _on_accessory_1_sample_gui_input(e: InputEvent) -> void:
@@ -190,3 +225,17 @@ func _on_accessory_2_sample_gui_input(e: InputEvent) -> void:
 
 func _on_inventory_display_accessory_equipped_on_unit() -> void:
 	sfx.play_sound_by_key("accessory_equipped")
+
+
+func _on_artifice_1_gui_input(e: InputEvent) -> void:
+	if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_RIGHT\
+		and Entities.player.equipped_artifices[1]:
+			unequip_artifice(1)
+func _on_artifice_2_gui_input(e: InputEvent) -> void:
+	if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_RIGHT\
+		and Entities.player.equipped_artifices[2]:
+			unequip_artifice(2)
+func _on_artifice_3_gui_input(e: InputEvent) -> void:
+	if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_RIGHT\
+		and Entities.player.equipped_artifices[3]:
+			unequip_artifice(3)

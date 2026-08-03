@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://frf7reky0e51"]
+
+[ext_resource type="Texture2D" uid="uid://du1atgwb4kxsd" path="res://assets/visual/items/artifices/smart_boomerang.png" id="1_ujjn8"]
+[ext_resource type="Script" uid="uid://bsioh0b3eyb0o" path="res://scenes/index/items/artifices/scripts/smart_boomerang.gd" id="2_ujjn8"]
+[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://scenes/battle/fighter/neutral/projectile/straight_projectile.tscn" id="3_5lt2f"]
+[ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="3_xnyym"]
+[ext_resource type="AudioStream" uid="uid://cyo6x3dpuu18u" path="res://assets/sound/sfx/combat/player/smart_boomerang_hit.wav" id="4_xiaau"]
+[ext_resource type="Texture2D" uid="uid://cf7qn7nec5bvw" path="res://assets/visual/particles/circles/circle_hollow_16x16.png" id="6_ckimi"]
+[ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="7_51tt4"]
+[ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="8_t8ich"]
+
+[sub_resource type="Animation" id="Animation_n3jvn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite2D3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -60)]
+}
+
+[sub_resource type="Animation" id="Animation_hu8hy"]
+resource_name = "retrieve_blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.8, 1, 0.99, 0.6156863), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite2D3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, -80), Vector2(0, -75), Vector2(0, -70)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6d23r"]
+_data = {
+&"RESET": SubResource("Animation_n3jvn"),
+&"retrieve_blink": SubResource("Animation_hu8hy")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u5bk5"]
+radius = 34.058773
+
+[node name="Smart Boomerang" type="Sprite2D" unique_id=1235041317 node_paths=PackedStringArray("retrieve_spot", "retrieve_hitbox", "projectile", "use_sfx", "hit_sfx")]
+texture = ExtResource("1_ujjn8")
+script = ExtResource("2_ujjn8")
+retrieve_spot = NodePath("retrieve_spot")
+retrieve_hitbox = NodePath("retrieve_spot/retrieve_hitbox")
+projectile = NodePath("Straight Projectile")
+use_sfx = NodePath("Throw")
+hit_sfx = NodePath("SmartBoomerangHit")
+color_tag = "chips"
+
+[node name="Throw" type="AudioStreamPlayer" parent="." unique_id=946069381]
+stream = ExtResource("3_xnyym")
+
+[node name="SmartBoomerangHit" type="AudioStreamPlayer" parent="." unique_id=1587850377]
+stream = ExtResource("4_xiaau")
+
+[node name="Straight Projectile" parent="." unique_id=1066315008 instance=ExtResource("3_5lt2f")]
+rotation = 102.83198
+texture = ExtResource("1_ujjn8")
+auto_expire = false
+rotating = true
+flight_speed = 700
+
+[node name="despawn_timer" parent="Straight Projectile" index="0" unique_id=141295334]
+wait_time = 3.0
+
+[node name="trail" parent="Straight Projectile" index="2" unique_id=1816209269]
+modulate = Color(1, 1, 1, 1)
+texture = ExtResource("6_ckimi")
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.26, 0.98766685, 1, 1)
+
+[node name="retrieve_spot" type="Node2D" parent="." unique_id=587641728]
+visible = false
+position = Vector2(190, -8)
+
+[node name="Sprite2D2" type="Sprite2D" parent="retrieve_spot" unique_id=93007492]
+scale = Vector2(4, 4)
+texture = ExtResource("7_51tt4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="retrieve_spot/Sprite2D2" unique_id=1508244950]
+libraries/ = SubResource("AnimationLibrary_6d23r")
+autoplay = &"retrieve_blink"
+
+[node name="Sprite2D" type="Sprite2D" parent="retrieve_spot" unique_id=244506617]
+scale = Vector2(2, 2)
+texture = ExtResource("1_ujjn8")
+
+[node name="retrieve_hitbox" type="Area2D" parent="retrieve_spot" unique_id=1915297324]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="retrieve_spot/retrieve_hitbox" unique_id=578416999]
+shape = SubResource("CircleShape2D_u5bk5")
+
+[node name="Sprite2D3" type="Sprite2D" parent="retrieve_spot" unique_id=1570441791]
+modulate = Color(0.78, 0.97800004, 1, 1)
+z_index = -1
+position = Vector2(0, -60)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+texture = ExtResource("8_t8ich")
+
+[connection signal="area_entered" from="retrieve_spot/retrieve_hitbox" to="." method="_on_retrieve_hitbox_area_entered"]
+
+[editable path="Straight Projectile"]

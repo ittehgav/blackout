@@ -24,7 +24,7 @@ signal post_fight_finished;
 @export var enemy_roster_sample:NpcRoster
 @export var test_won:bool;
 
-@onready var player:Player = get_tree().get_first_node_in_group("player")
+@onready var player:Player = Entities.player;
 
 var won_battle:bool;
 

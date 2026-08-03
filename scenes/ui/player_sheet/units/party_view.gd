@@ -4,6 +4,8 @@ class_name PartyView;
 
 signal unit_accessories_changed
 
+@export var party_power_icon:PartyPowerIcon
+
 @export var food_cost:Label;
 @export var fuel_cost:Label;
 
@@ -15,11 +17,12 @@ signal unit_accessories_changed
 
 @export var upgrade_hint:TextureRect
 
-@onready var player:Player = get_tree().get_first_node_in_group("player")
+@onready var player:Player = Entities.player
 
 func refresh_data()->void:
 	for c in units_grid.get_children():
 		c.queue_free()
+	party_power_icon.refresh()
 	
 	for unit:FighterUnit in player.roster.units:
 		var sample:UnitSample = Index.scenes.ui.unit_sample.instantiate();

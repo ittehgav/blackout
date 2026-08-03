@@ -10,7 +10,7 @@ class_name TextureIndex;
 
 
 @export var player_body_texture:Texture;
-const player_body_frames:Vector2 = Vector2(8, 9);
+const player_body_frames:Vector2 = Vector2(8, 11);
 ## to dynamically generate a player body animated thingy wherever with a few lines
 
 @onready var icons:Dictionary = {

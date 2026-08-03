@@ -1,4 +1,3 @@
-@tool
 @icon("res://assets/visual/editor_ui/IconGodotNode/node/icon_card.png")
 extends Node
 
@@ -18,10 +17,9 @@ var chain:Array[Status]
 @export var chain_root:bool=false
 
 @export_enum("attack", "defense", "agility", "technique", "move_speed") var stat:String;
-
+@export var stat_fractal_value:bool=false
 ## ONLY FOR ENEMY MOBS,
 ## projections generated dynamically based on the hitscan's shape
-@export var aoe_prjection:bool=true;
 @export var force_quiet:bool=false;
 @export var unique:bool=false;
 @export var special_status_texture:Texture;
@@ -35,14 +33,6 @@ var timer:Timer;
 
 
 
-func set_source()->void:
-	var target_source:Node = get_parent();
-
-	while not (target_source is ActiveFighter):
-		if target_source is FighterUnit or not target_source:
-			return
-		target_source = target_source.get_parent();
-	source = target_source;
 
 
 func generate_status()->Status:
@@ -61,6 +51,7 @@ func apply_on_target(target:CombatEntity=source.target_fighter, hard_value:float
 		for s:Status in current_statuses:
 			if s.name == name:
 				return
+				
 	var new_status:Status = generate_status();
 
 	if hard_value:
@@ -73,6 +64,7 @@ func apply_on_target(target:CombatEntity=source.target_fighter, hard_value:float
 		for c:Node in get_children():
 			assert(c is Status);
 			var chained_status:Status = c.apply_on_target(target)
+			chained_status.source = source;
 			new_status.chain.append(chained_status)
 			
 	new_status.apply(propagated);
@@ -93,8 +85,13 @@ func apply(propagated:bool)->void:
 		
 		"stat_change":
 			assert(value)
-			var final_value:float = CombatStats.technique_scaled_value(value, source.technique, "stat_change");
-		
+			var final_value:float;
+			if not stat_fractal_value:
+				final_value = CombatStats.technique_scaled_value(value, source.technique, "stat_change");
+			else:
+				var val:float = host[stat] * value;
+				final_value = CombatStats.technique_scaled_value(val, source.technique, "stat_change");
+				
 			## catches buffs and debuffs by whether the value is negative of positive
 			host.stat_modifiers[stat] += final_value
 			
@@ -157,8 +154,8 @@ func get_status_color()->Color:
 			if value > 0:
 				stat_color.s += .15;
 			else:
-				stat_color.s -= .3;
-				stat_color.v -= .2;
+				stat_color.s -= .1;
+				stat_color.v -= .1;
 			return stat_color;
 		_:
 			## never meant to happen?

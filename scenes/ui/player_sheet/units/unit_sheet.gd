@@ -48,7 +48,7 @@ func refresh_data()->void:
 	experience_bar.build(showing_unit);
 	
 	if showing_unit.equipped_accessory:
-		accessory_sample.load_item(showing_unit.equipped_accessory, 2);
+		accessory_sample.load_item(showing_unit.equipped_accessory, 4);
 	else:
 		accessory_sample.load_blank(2);
 	
@@ -86,7 +86,7 @@ func _on_item_sample_gui_input(e: InputEvent) -> void:
 	if e.is_action_pressed("use_item") and accessory_sample.item:
 		var item:Item = accessory_sample.item
 		var display:InventoryDisplay = Entities.player_sheet.player_inventory;
-		if not display.has_room(item):
+		if display.has_room(item):
 			showing_unit.unequip_accessory()
 			display.throw_in_inventory(item);
 			display.refresh_data();

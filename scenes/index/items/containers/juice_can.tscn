@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://5un73br0b5l0"]
+[gd_scene format=3 uid="uid://5un73br0b5l0"]
 
 [ext_resource type="Texture2D" uid="uid://dsultvkvwmrk5" path="res://assets/visual/items/containers/juice_can.png" id="2_gket2"]
 [ext_resource type="Script" uid="uid://5c065l7nnoih" path="res://scenes/index/items/containers/scripts/juice_can.gd" id="3_xey65"]
 
-[node name="Juice Can" type="Sprite2D"]
+[node name="Juice Can" type="Sprite2D" unique_id=1266152060]
 texture = ExtResource("2_gket2")
 script = ExtResource("3_xey65")
 resource = "juice"

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cpqwlk68y6e6t"]
+
+[ext_resource type="Script" uid="uid://dy21so4j1dq5p" path="res://scenes/index/items/artifices/scripts/blow_up_dummy.gd" id="1_1tc5i"]
+[ext_resource type="Texture2D" uid="uid://dbf7r37nx7cke" path="res://assets/visual/items/artifices/blow_up_dummy.png" id="1_c1smf"]
+[ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="3_4rvvl"]
+[ext_resource type="PackedScene" uid="uid://ns0jdchcd7sk" path="res://scenes/battle/fighter/neutral/projectile/arc_projectile.tscn" id="3_8y34a"]
+[ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="4_evk5a"]
+[ext_resource type="AudioStream" uid="uid://c214wc3wpvafu" path="res://assets/sound/sfx/combat/special/gravity.ogg" id="4_tbu2a"]
+[ext_resource type="PackedScene" uid="uid://bqhrbes0ge2p5" path="res://scenes/index/fighters/blow_up_dummy_base.tscn" id="5_ugtpq"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="6_ugtpq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8aa22"]
+resource_local_to_scene = true
+shader = ExtResource("6_ugtpq")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Blow-Up Dummy" type="Sprite2D" unique_id=258388888 node_paths=PackedStringArray("dummy_unit", "projectile", "use_sfx", "detonate_sfx")]
+texture = ExtResource("1_c1smf")
+script = ExtResource("1_1tc5i")
+dummy_unit = NodePath("FighterUnit")
+projectile = NodePath("Arc Projectile")
+use_sfx = NodePath("use_sfx")
+detonate_sfx = NodePath("detonate_sfx")
+target_types = Array[int]([])
+color_tag = "defense"
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=1665644081]
+stream = ExtResource("3_4rvvl")
+
+[node name="detonate_sfx" type="AudioStreamPlayer" parent="." unique_id=1261902981]
+stream = ExtResource("4_tbu2a")
+
+[node name="Arc Projectile" parent="." unique_id=1190316787 instance=ExtResource("3_8y34a")]
+texture = ExtResource("1_c1smf")
+
+[node name="FighterUnit" parent="." unique_id=2067750979 node_paths=PackedStringArray("base") instance=ExtResource("4_evk5a")]
+base = NodePath("BlowUpDummyBase")
+summon = true
+
+[node name="BlowUpDummyBase" parent="FighterUnit" unique_id=957661949 instance=ExtResource("5_ugtpq")]
+material = SubResource("ShaderMaterial_8aa22")

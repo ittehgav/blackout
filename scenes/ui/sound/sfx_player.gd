@@ -1,5 +1,5 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/node/icon_audio.png")
 extends AudioStreamPlayer
-
 class_name SfxPlayer
 
 func play_sound_by_key(key:String)->void:

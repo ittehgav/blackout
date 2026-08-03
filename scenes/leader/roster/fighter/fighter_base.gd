@@ -3,6 +3,7 @@
 class_name FighterBase
 extends Sprite2D;
 
+const test_key = "combat"
 ## will fully replace FighterBase eventually
 
 

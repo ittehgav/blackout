@@ -94,7 +94,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hv8o2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yux3d"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -106,7 +106,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="Financial Boost" type="Node" node_paths=PackedStringArray("money_label", "panel", "sfx")]
+[node name="Financial Boost" type="Node" unique_id=1469068201 node_paths=PackedStringArray("money_label", "panel", "sfx")]
 script = ExtResource("1_nwnbf")
 money_label = NodePath("Panel/resources_dropdown/money/money")
 icon = ExtResource("2_k171s")
@@ -114,10 +114,10 @@ panel = NodePath("Panel")
 sfx = NodePath("sfx")
 metadata/_custom_type_script = "uid://cvor0b75qlqh5"
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
+[node name="sfx" type="AudioStreamPlayer" parent="." unique_id=1064260235]
 stream = ExtResource("3_yux3d")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1391526332]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -132,7 +132,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="resources_dropdown" parent="Panel" node_paths=PackedStringArray("resource_hboxes", "resource_icons") instance=ExtResource("3_secrd")]
+[node name="resources_dropdown" parent="Panel" unique_id=533432007 node_paths=PackedStringArray("resource_hboxes", "resource_icons") instance=ExtResource("3_secrd")]
 layout_mode = 1
 anchors_preset = 7
 anchor_top = 1.0
@@ -159,54 +159,54 @@ resource_icons = {
 "scrap": NodePath("scrap/scrap_icon")
 }
 
-[node name="money" parent="Panel/resources_dropdown" index="0"]
+[node name="money" parent="Panel/resources_dropdown" index="0" unique_id=1852868329]
 mouse_filter = 2
 
-[node name="money_icon" parent="Panel/resources_dropdown/money" index="0"]
+[node name="money_icon" parent="Panel/resources_dropdown/money" index="0" unique_id=604325780]
 mouse_filter = 2
 
-[node name="HSeparator" parent="Panel/resources_dropdown" index="1"]
+[node name="HSeparator" parent="Panel/resources_dropdown" index="1" unique_id=1116237593]
 visible = false
 mouse_filter = 2
 
-[node name="food" parent="Panel/resources_dropdown" index="2"]
+[node name="food" parent="Panel/resources_dropdown" index="2" unique_id=901840672]
 visible = false
 mouse_filter = 2
 
-[node name="food_icon" parent="Panel/resources_dropdown/food" index="0"]
+[node name="food_icon" parent="Panel/resources_dropdown/food" index="0" unique_id=183823663]
 mouse_filter = 2
 
-[node name="fuel" parent="Panel/resources_dropdown" index="3"]
+[node name="fuel" parent="Panel/resources_dropdown" index="3" unique_id=1381534319]
 visible = false
 mouse_filter = 2
 
-[node name="fuel_icon" parent="Panel/resources_dropdown/fuel" index="0"]
+[node name="fuel_icon" parent="Panel/resources_dropdown/fuel" index="0" unique_id=1087245645]
 mouse_filter = 2
 
-[node name="juice" parent="Panel/resources_dropdown" index="4"]
+[node name="juice" parent="Panel/resources_dropdown" index="4" unique_id=1531919764]
 visible = false
 mouse_filter = 2
 
-[node name="juice_icon" parent="Panel/resources_dropdown/juice" index="0"]
+[node name="juice_icon" parent="Panel/resources_dropdown/juice" index="0" unique_id=20070197]
 mouse_filter = 2
 
-[node name="scrap" parent="Panel/resources_dropdown" index="5"]
+[node name="scrap" parent="Panel/resources_dropdown" index="5" unique_id=1784312822]
 visible = false
 mouse_filter = 2
 
-[node name="scrap_icon" parent="Panel/resources_dropdown/scrap" index="0"]
+[node name="scrap_icon" parent="Panel/resources_dropdown/scrap" index="0" unique_id=615530090]
 mouse_filter = 2
 
-[node name="chips" parent="Panel/resources_dropdown" index="6"]
+[node name="chips" parent="Panel/resources_dropdown" index="6" unique_id=1855174858]
 visible = false
 mouse_filter = 2
 
-[node name="chips_icon" parent="Panel/resources_dropdown/chips" index="0"]
+[node name="chips_icon" parent="Panel/resources_dropdown/chips" index="0" unique_id=1058611590]
 mouse_filter = 2
 
-[node name="body" parent="Panel" instance=ExtResource("4_yux3d")]
+[node name="body" parent="Panel" unique_id=1300535079 instance=ExtResource("4_yux3d")]
 process_mode = 4
-material = SubResource("ShaderMaterial_hv8o2")
+material = SubResource("ShaderMaterial_yux3d")
 position = Vector2(91, 101)
 scale = Vector2(4, 4)
 

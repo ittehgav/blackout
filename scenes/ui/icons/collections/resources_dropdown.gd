@@ -14,7 +14,7 @@ func _ready()->void:
 	## only other scenario is the one in the world map that refreshses along 
 	## with player inventory (when it's in the tree)
 	if from_player:
-		var player:Player = get_tree().get_first_node_in_group("player")
+		var player:Player = Entities.player;
 		target_inventory = player.inventory;
 		player.resource_changed.connect(_on_player_resource_changed)
 	if target_inventory:

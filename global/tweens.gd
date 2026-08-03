@@ -61,22 +61,8 @@ func color_blink(target:CanvasItem, target_color:Color, duration:float = .2, tar
 	var tween:Tween = create_tween();
 	tween.tween_property(target, target_property, Color.WHITE, duration);
 	return tween
-#
-#func y_shake(target:CanvasItem, shake_count:int = 2, shake_range:int = 50)->Tween:
-	#var initial_y:int = target.position.y;
-	#var roll_1:int = randi_range(0, shake_range)
-	#target.position.y -= roll_1
-	#
-	#var tween:Tween = create_tween();
-	#for i in shake_count:
-		#var roll:int = randi_range(0, shake_range)
-		#if i % 2:
-			#roll *= -1;
-		#tween.tween_property(target, "position:y", initial_y + roll, .1)
-	#tween.tween_property(target, "position:y", initial_y, .1);
-#
-	#return tween
-	#
+
+
 func tween_count_label(target:Label, final_value:int, duration:float = .5)->Tween:
 	var tween:Tween = create_tween();
 	var current_value:int = int(target.text)
@@ -104,4 +90,20 @@ func floating_text(string:String, label_parent:Node, on_cursor:bool=true, font_c
 	tween.parallel().tween_property(label, "modulate:a", 0, 1);
 	tween.tween_callback(label.queue_free);
 
+	return tween
+
+func mouseover_shake(target:Control, srr:float = PI/32, cycle:float = .05, target_scale:Vector2=Vector2(1.05, 1.05))->Tween:
+	var offset_enabled_before:bool = target.offset_transform_enabled;
+	target.offset_transform_enabled = true;
+
+	var tween:Tween = create_tween();
+	tween.tween_property(target, "offset_transform_rotation", srr, cycle);
+	tween.parallel().tween_property(target, "offset_transform_scale", target_scale, cycle)
+	tween.tween_property(target, "offset_transform_rotation", -srr, cycle);
+	
+	
+	tween.tween_property(target, "offset_transform_rotation", 0, cycle);
+	tween.parallel().tween_property(target, "offset_rotation_scale", Vector2.ONE, cycle)
+	tween.tween_callback(target.set_offset_transform_enabled.bind(offset_enabled_before));
+	
 	return tween

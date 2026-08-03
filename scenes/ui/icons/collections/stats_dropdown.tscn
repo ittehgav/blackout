@@ -29,15 +29,13 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="max_hp_icon" parent="max_hp" unique_id=1084514480 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
-custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 label = NodePath("../max_hp")
 
 [node name="max_hp" type="Label" parent="max_hp" unique_id=1952093428]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "12"
 
 [node name="attack" type="HBoxContainer" parent="." unique_id=523508622]
@@ -45,7 +43,6 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="attack_icon" parent="attack" unique_id=1245140987 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
-custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 stat = "attack"
 label = NodePath("../attack")
@@ -53,8 +50,7 @@ label = NodePath("../attack")
 [node name="attack" type="Label" parent="attack" unique_id=1704717145]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "12"
 
 [node name="defense" type="HBoxContainer" parent="." unique_id=1249331385]
@@ -62,7 +58,6 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="defense_icon" parent="defense" unique_id=714071709 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
-custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 stat = "defense"
 label = NodePath("../defense")
@@ -70,8 +65,7 @@ label = NodePath("../defense")
 [node name="defense" type="Label" parent="defense" unique_id=1807945443]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "12"
 
 [node name="agility" type="HBoxContainer" parent="." unique_id=1022494949]
@@ -79,7 +73,6 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="agility_icon" parent="agility" unique_id=1718996867 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
-custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 stat = "agility"
 label = NodePath("../agility")
@@ -87,8 +80,7 @@ label = NodePath("../agility")
 [node name="agility" type="Label" parent="agility" unique_id=1684223526]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "12"
 
 [node name="technique" type="HBoxContainer" parent="." unique_id=1011682043]
@@ -96,7 +88,6 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="technique_icon" parent="technique" unique_id=36948302 node_paths=PackedStringArray("label") instance=ExtResource("2_imdlh")]
-custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 stat = "technique"
 label = NodePath("../technique")
@@ -104,6 +95,5 @@ label = NodePath("../technique")
 [node name="technique" type="Label" parent="technique" unique_id=32419535]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "12"

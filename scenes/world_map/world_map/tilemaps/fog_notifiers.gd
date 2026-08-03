@@ -71,12 +71,10 @@ func notifier_seen(spot: Vector2i) -> void:
 			add_child.call_deferred(new_notifier)
 
 func clear_cells(target:TileMapLayer, cells:PackedVector2Array)->void:
-	print("cleear? ", target.name)
 	## catches cleanly all clearance of cells in and out of loaded array?
 	var map:Array = tilemaps_maps[target];
 	for cell:Vector2 in cells:
 		if not map.has(cell):
-			print("mapnothas ", cell)
 			map.append(cell);
 			if cell in loaded_spots and target.get_cell_atlas_coords(cell) != Vector2i(-1, -1):
 				target.erase_cell(cell)

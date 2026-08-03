@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://xqy2xqq8h78b"]
+
+[ext_resource type="Texture2D" uid="uid://cf8gtv7ooj50" path="res://assets/visual/items/artifices/first_aid_kit.png" id="1_lq3xh"]
+[ext_resource type="Script" uid="uid://bkf14an4ou0j1" path="res://scenes/index/items/artifices/scripts/first_aid_kit.gd" id="2_2sph6"]
+[ext_resource type="AudioStream" uid="uid://okch88sen1bj" path="res://assets/sound/sfx/combat/generic/heal.wav" id="3_2sph6"]
+
+[node name="First Aid Kit" type="Sprite2D" unique_id=1890543780 node_paths=PackedStringArray("use_sfx")]
+texture = ExtResource("1_lq3xh")
+script = ExtResource("2_2sph6")
+use_sfx = NodePath("Heal")
+use_type = 1
+target_types = Array[int]([])
+color_tag = "max_hp"
+inventory_position = null
+stack_size = null
+
+[node name="Heal" type="AudioStreamPlayer" parent="." unique_id=1792506348]
+stream = ExtResource("3_2sph6")

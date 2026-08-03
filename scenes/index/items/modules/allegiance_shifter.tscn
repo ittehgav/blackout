@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://cpx3rlag56m1l"]
+[gd_scene format=4 uid="uid://cpx3rlag56m1l"]
 
 [ext_resource type="Texture2D" uid="uid://b3ge6fpksdx42" path="res://assets/visual/items/modules/allegiance_shifter.png" id="1_t168q"]
 [ext_resource type="Script" uid="uid://bnqci625xyhyt" path="res://scenes/index/items/modules/scripts/allegiance_shifter.gd" id="2_pe7uf"]
@@ -12,7 +12,7 @@ loop_mode = 2
 loop_end = 200000
 stereo = true
 
-[node name="Allegiance Shifter" type="Sprite2D" node_paths=PackedStringArray("tethers", "tether_1", "tether_2", "proc_sfx", "timer", "use_sfx")]
+[node name="Allegiance Shifter" type="Sprite2D" unique_id=2147136400 node_paths=PackedStringArray("tethers", "tether_1", "tether_2", "proc_sfx", "timer", "use_sfx")]
 texture = ExtResource("1_t168q")
 script = ExtResource("2_pe7uf")
 tethers = NodePath("Control")
@@ -25,19 +25,19 @@ cooldown = 60.0
 continuous = true
 metadata/_custom_type_script = "uid://qune1pdymvmr"
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
+[node name="sfx" type="AudioStreamPlayer" parent="." unique_id=1150805661]
 stream = SubResource("AudioStreamWAV_k2u2k")
 volume_db = 10.0
 
-[node name="proc_sfx" type="AudioStreamPlayer" parent="sfx"]
+[node name="proc_sfx" type="AudioStreamPlayer" parent="sfx" unique_id=89544583]
 stream = ExtResource("3_5glgx")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=578128819]
 process_callback = 0
 wait_time = 3.0
 one_shot = true
 
-[node name="Control" type="VBoxContainer" parent="."]
+[node name="Control" type="VBoxContainer" parent="." unique_id=1503969319]
 visible = false
 modulate = Color(1, 1, 1, 0.58431375)
 top_level = true
@@ -45,7 +45,7 @@ offset_right = 629.0
 offset_bottom = 28.0
 theme_override_constants/separation = 0
 
-[node name="out_tether" type="TextureProgressBar" parent="Control"]
+[node name="out_tether" type="TextureProgressBar" parent="Control" unique_id=924348096]
 modulate = Color(0.48000002, 1, 0.5926667, 1)
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
@@ -53,7 +53,7 @@ value = 52.0
 nine_patch_stretch = true
 texture_progress = ExtResource("4_0ytjk")
 
-[node name="in_tehter" type="TextureProgressBar" parent="Control"]
+[node name="in_tehter" type="TextureProgressBar" parent="Control" unique_id=618292627]
 modulate = Color(1, 0.52, 0.52, 1)
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2

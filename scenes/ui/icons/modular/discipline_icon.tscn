@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://2skufmw50w7v" path="res://scenes/ui/icons/modular/discipline_icon.gd" id="2_vo0ko"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="3_5u4ai"]
 
-[node name="DisciplineIcon" type="TextureRect"]
+[node name="DisciplineIcon" type="TextureRect" unique_id=1490206610]
 modulate = Color(0.168, 0.399733, 0.8, 1)
 z_index = 1
 custom_minimum_size = Vector2(50, 50)
@@ -24,7 +24,7 @@ texture = ExtResource("1_bi3aj")
 script = ExtResource("2_vo0ko")
 metadata/_custom_type_script = "uid://45aspkskncx0"
 
-[node name="Tooltip" parent="." instance=ExtResource("3_5u4ai")]
+[node name="Tooltip" parent="." unique_id=13667886 instance=ExtResource("3_5u4ai")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -38,7 +38,7 @@ offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=575442658]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -49,7 +49,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.6, 0.6, 0.6, 1)
 
-[node name="ReferenceRect" type="ReferenceRect" parent="."]
+[node name="ReferenceRect" type="ReferenceRect" parent="." unique_id=398861985]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

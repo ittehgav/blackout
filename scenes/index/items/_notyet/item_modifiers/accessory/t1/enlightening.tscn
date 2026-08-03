@@ -5,7 +5,6 @@
 
 [node name="Enlightening" type="Node" unique_id=1173732198 node_paths=PackedStringArray("stat_modifiers")]
 script = ExtResource("1_3886h")
-tier = 1
 stat_modifiers = NodePath("CombatStats")
 prefix = "Enlightening"
 metadata/_custom_type_script = "uid://dvekatbbdf76k"

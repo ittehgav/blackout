@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://ce1p6ul7ivkdu"]
+[gd_scene format=3 uid="uid://ce1p6ul7ivkdu"]
 
 [ext_resource type="Texture2D" uid="uid://cvl6mvo2h4hvv" path="res://assets/visual/items/consumables/protein_shake.png" id="1_43q6u"]
 [ext_resource type="Script" uid="uid://bv2o3lkncyelo" path="res://scenes/index/items/consumables/scripts/protein_shake.gd" id="2_cyrng"]
 [ext_resource type="AudioStream" uid="uid://bngypmgr0rmeh" path="res://assets/sound/sfx/combat/player/buff.wav" id="3_cyrng"]
 
-[node name="Protein Shake" type="Sprite2D"]
+[node name="Protein Shake" type="Sprite2D" unique_id=1742140705]
 texture = ExtResource("1_43q6u")
 script = ExtResource("2_cyrng")
+feedback = Array[int]([2, 1])
 use_sfx = ExtResource("3_cyrng")
 use_type = "unit"
-tag_target = "bodybuilder"
 color_tag = "max_hp"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

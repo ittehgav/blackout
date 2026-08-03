@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cwbeqy517dp8o"]
+
+[ext_resource type="Texture2D" uid="uid://btyn4qoj8rrna" path="res://assets/visual/items/artifices/lure.png" id="1_i3k5k"]
+[ext_resource type="Script" uid="uid://dfy8jy847fv5y" path="res://scenes/index/items/artifices/scripts/lure.gd" id="1_s1qqg"]
+[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://scenes/battle/fighter/neutral/projectile/straight_projectile.tscn" id="3_ps1t3"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/player/hit/flesh_hit.ogg" id="4_5b4fk"]
+[ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="5_5b4fk"]
+
+[node name="Lure" type="Sprite2D" unique_id=1769649863 node_paths=PackedStringArray("projectile", "use_sfx", "hit_sfx")]
+texture = ExtResource("1_i3k5k")
+script = ExtResource("1_s1qqg")
+projectile = NodePath("Straight Projectile")
+use_sfx = NodePath("use_sfx")
+hit_sfx = NodePath("FleshHit")
+color_tag = "agility"
+
+[node name="Straight Projectile" parent="." unique_id=1066315008 instance=ExtResource("3_ps1t3")]
+texture = ExtResource("1_i3k5k")
+
+[node name="FleshHit" type="AudioStreamPlayer" parent="." unique_id=425459048]
+stream = ExtResource("4_5b4fk")
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=144389944]
+stream = ExtResource("5_5b4fk")
+
+[editable path="Straight Projectile"]

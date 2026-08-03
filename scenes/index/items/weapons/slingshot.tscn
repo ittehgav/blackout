@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://nlqsknr54i2t" path="res://scenes/index/items/weapons/scripts/slingshot.gd" id="2_i4lfk"]
 [ext_resource type="Script" uid="uid://b0e1rmg27d5ii" path="res://scenes/battle/fighter/player/equipment/weapon_display/ranged_display.gd" id="3_4n02f"]
 [ext_resource type="AudioStream" uid="uid://b2uyt178tixpi" path="res://assets/sound/sfx/combat/player/shoot.ogg" id="3_d4t51"]
-[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="3_i4lfk"]
+[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://scenes/battle/fighter/neutral/projectile/straight_projectile.tscn" id="3_i4lfk"]
 [ext_resource type="AnimationLibrary" uid="uid://bu41wvduumwcp" path="res://resources/animations/weapons/ranged_one_hand.res" id="5_d4t51"]
 
 [sub_resource type="Animation" id="Animation_leknc"]
@@ -12,7 +12,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("use_sfx:playing")
+tracks/0/path = NodePath("components/use_sfx:playing")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27,162 +27,57 @@ _data = {
 &"RESET": SubResource("Animation_leknc")
 }
 
-[sub_resource type="Animation" id="Animation_d4t51"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../left_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(15, -20)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../right_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(20, -16)]
-}
+[sub_resource type="Gradient" id="Gradient_d4t51"]
+offsets = PackedFloat32Array(0, 0.21673004, 0.82129276)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.27058825, 1, 1, 1, 0)
 
-[sub_resource type="Animation" id="Animation_4n02f"]
-resource_name = "attack"
-length = 0.325
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../left_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1575),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(20, -16), Vector2(9.89827, -16.971277)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../right_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1575),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(15, -20), Vector2(-9.193455, -14.848579)]
-}
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u5bk5"]
+gradient = SubResource("Gradient_d4t51")
 
-[sub_resource type="Animation" id="Animation_mqra3"]
-resource_name = "idlel"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../left_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(5, -6), Vector2(5, -4)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../right_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(0, -10), Vector2(0, -8)]
-}
-
-[sub_resource type="Animation" id="Animation_ombot"]
-resource_name = "walk"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../right_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(10, -6), Vector2(5, -4)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../left_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(5, -10), Vector2(10, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_leknc"]
-_data = {
-&"RESET": SubResource("Animation_d4t51"),
-&"attack": SubResource("Animation_4n02f"),
-&"idle": SubResource("Animation_mqra3"),
-&"walk": SubResource("Animation_ombot")
-}
-
-[node name="Slingshot" type="Sprite2D" unique_id=1249202197 node_paths=PackedStringArray("display", "projectile", "animation_player", "use_sfx")]
+[node name="Slingshot" type="Sprite2D" unique_id=1249202197 node_paths=PackedStringArray("display", "projectile", "projections", "animation_player", "use_sfx")]
 use_parent_material = true
 texture = ExtResource("1_skrhi")
-offset = Vector2(15, -30)
+offset = Vector2(10, -20)
 script = ExtResource("2_i4lfk")
-display = NodePath("RangedWeaponDisplay")
+display = NodePath("components/RangedWeaponDisplay")
 animation_root_key = "ranged_one_hand"
 base_damage = 20
 cooldown = 1.0
-projectile = NodePath("Projectile")
+projectile = NodePath("components/Straight Projectile")
+projections = [NodePath("projection")]
 animation_player = NodePath("weapon_animation")
-use_sfx = NodePath("use_sfx")
-use_feedback = "recoil"
+use_sfx = NodePath("components/use_sfx")
 color_tag = "scrap"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
-[node name="RangedWeaponDisplay" type="Node" parent="." unique_id=448182386]
+[node name="components" type="Node" parent="." unique_id=1659894983]
+
+[node name="Straight Projectile" parent="components" unique_id=99424119 instance=ExtResource("3_i4lfk")]
+scale = Vector2(1, 1)
+flight_speed = 1000
+
+[node name="RangedWeaponDisplay" type="Node" parent="components" unique_id=448182386]
 script = ExtResource("3_4n02f")
+use_feedback = 2
+hit_feedback = 1
+camera_range = 1
 metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
 
-[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=1044056905]
+[node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=1044056905]
 stream = ExtResource("3_d4t51")
 
 [node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=1826344498]
 libraries/ = SubResource("AnimationLibrary_043so")
 libraries/ranged_one_hand = ExtResource("5_d4t51")
 
-[node name="hands_animation" type="AnimationPlayer" parent="weapon_animation" unique_id=751217211]
-libraries/ = SubResource("AnimationLibrary_leknc")
-
-[node name="Projectile" parent="." unique_id=99424119 instance=ExtResource("3_i4lfk")]
-self_modulate = Color(0.55, 0.55, 0.55, 1)
-scale = Vector2(1, 1)
-
-[node name="left_hand_anchor" type="Node2D" parent="." unique_id=1353954090]
-position = Vector2(15, -20)
-
-[node name="right_hand_anchor" type="Node2D" parent="." unique_id=660546044]
-position = Vector2(20, -16)
+[node name="projection" type="TextureRect" parent="." unique_id=1473235024]
+modulate = Color(0.4, 0.4, 0.4, 0.3019608)
+z_index = -1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -18.0
+offset_right = 1205.0
+offset_bottom = -14.5
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_u5bk5")

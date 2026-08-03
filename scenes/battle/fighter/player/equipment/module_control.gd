@@ -14,11 +14,11 @@ var holding_continuous:bool=false
 func _ready()->void:
 
 	await equipment.holder.ready
-	var player:Player = get_tree().get_first_node_in_group("player")
-	module = player.equipped_module.duplicate(DUPLICATE_USE_INSTANTIATION);
+
+	module = Entities.player.equipped_module.duplicate(DUPLICATE_USE_INSTANTIATION);
 	module.hide();
 	
-	if module.ammo_type:
+	if module.ammo_cost:
 		module.ammo_consumed.connect(equipment.ammo_consumed.emit);
 		module.ammo_ran_out.connect(equipment.ammo_ran_out.emit)
 	
@@ -28,7 +28,7 @@ func _ready()->void:
 	
 	module.equipped.emit();
 
-func _process(_delta:float)->void:
+func _physics_process(_delta:float)->void:
 	if Input.is_action_just_pressed("use_module"):
 		module_input();
 	elif Input.is_action_just_released("use_module") and holding_continuous:

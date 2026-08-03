@@ -1,6 +1,6 @@
+@abstract
 @icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_sword.png")
 extends ActiveEquipment;
-
 class_name Weapon;
 
 const type = "weapon"
@@ -56,8 +56,7 @@ var item_texture:Texture = texture;
 ## easier to do this and use an instance of the item as the weapon 
 ## than adding an extra layer of setting up the weapon into play
 
-@export_enum("lunge", "recoil") var use_feedback:String = "camera_lunge"
-@export_enum("freeze_frame", "screen_shake") var hit_feedback:String = "freeze_frame";
+
 
 var pending_impact:bool=false;
 
@@ -84,12 +83,7 @@ func ammo_cost_string()->String:
 func damage_string()->String:
 	return Index.colored_text("attack", str(final_damage()) + " damage");
 
-func attach_hands(right:Sprite2D, left:Sprite2D)->void:
-	## used in fight and for the sample
-	## just pass on functionalities to weapon/item node when they
-	## need to be used in multiple Scenarios?
-	right.reparent(get_node("right_hand_anchor"), false)
-	left.reparent(get_node("left_hand_anchor"), false)
+
 
 func get_animation_key(track:String)->String:
 	return animation_root_key+"/"+track

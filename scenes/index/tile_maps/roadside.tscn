@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bg16071vgma4v"]
+[gd_scene format=3 uid="uid://bg16071vgma4v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77ksy"]
 size = Vector2(6376, 227.9663)
@@ -6,24 +6,24 @@ size = Vector2(6376, 227.9663)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ug6m"]
 size = Vector2(279.5, 3872.135)
 
-[node name="Roadside" type="Node2D"]
+[node name="Roadside" type="Node2D" unique_id=1852015579]
 
-[node name="edges" type="StaticBody2D" parent="."]
+[node name="edges" type="StaticBody2D" parent="." unique_id=1821902139]
 collision_layer = 256
 collision_mask = 256
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="edges"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="edges" unique_id=1122040200]
 position = Vector2(1206, 2247)
 shape = SubResource("RectangleShape2D_77ksy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="edges"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="edges" unique_id=1691516730]
 position = Vector2(-1843.25, 425.0675)
 shape = SubResource("RectangleShape2D_2ug6m")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="edges"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="edges" unique_id=1087492758]
 position = Vector2(1205, -1398.0168)
 shape = SubResource("RectangleShape2D_77ksy")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="edges"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="edges" unique_id=573009631]
 position = Vector2(4254, 425.0675)
 shape = SubResource("RectangleShape2D_2ug6m")

@@ -11,7 +11,7 @@ var base_pool:Array[FighterBase]
 func refresh_recruits()->void:
 	units.clear();
 	for i in 4:
-		var player:Player = get_tree().get_first_node_in_group("player");
+		var player:Player = Entities.player;
 	
 		var unit:FighterUnit = Index.scenes.fighter_unit.instantiate()
 		unit.level = randi_range(max(1, player.level - 3), player.level * 2)

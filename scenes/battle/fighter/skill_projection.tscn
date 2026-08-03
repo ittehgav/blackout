@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bxnd13x1scd0r"]
+
+[ext_resource type="Script" uid="uid://x6th0xrv2iy2" path="res://scenes/battle/fighter/skill_projection.gd" id="1_75rax"]
+[ext_resource type="Texture2D" uid="uid://bfe6mu3cnowep" path="res://assets/visual/ui/bars/single_pixel_fill.png" id="2_ewlca"]
+[ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="3_exr1g"]
+
+[sub_resource type="Animation" id="Animation_exr1g"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1od0"]
+_data = {
+&"projection": SubResource("Animation_exr1g")
+}
+
+[sub_resource type="Gradient" id="Gradient_iwgp2"]
+offsets = PackedFloat32Array(0, 0.5233645, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.6509804, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tjn2n"]
+gradient = SubResource("Gradient_iwgp2")
+width = 128
+
+[sub_resource type="Gradient" id="Gradient_ra2ag"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.09885932, 0.40304184, 0.62737644, 0.66159695, 0.7110266)
+colors = PackedColorArray(1, 1, 1, 0.73333335, 1, 1, 1, 0.40416664, 1, 1, 1, 0.3529412, 0.8, 0.8, 0.8, 0.5882353, 1, 1, 1, 0.5882353, 1, 1, 1, 0.35833335)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qmj7q"]
+gradient = SubResource("Gradient_ra2ag")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="skill_projection" type="AnimationPlayer" unique_id=1906345224]
+libraries/projection = SubResource("AnimationLibrary_q1od0")
+script = ExtResource("1_75rax")
+single_pixel_fill = ExtResource("2_ewlca")
+knockback_gradient = SubResource("GradientTexture1D_tjn2n")
+radial_gradient = SubResource("GradientTexture2D_qmj7q")
+knockback_arrow = ExtResource("3_exr1g")

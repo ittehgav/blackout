@@ -1,5 +1,4 @@
 @abstract
-
 class_name ActiveFighter;
 
 extends CombatEntity;

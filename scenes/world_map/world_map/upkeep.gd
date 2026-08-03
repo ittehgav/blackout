@@ -8,7 +8,7 @@ signal game_over
 
 @export var player_party:PlayerParty;
 
-@onready var player:Player = get_tree().get_first_node_in_group("player");
+@onready var player:Player = Entities.player
 
 
 

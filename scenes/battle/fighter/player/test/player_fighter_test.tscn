@@ -7,23 +7,36 @@
 [ext_resource type="Texture2D" uid="uid://bkodas6x4i7wu" path="res://assets/visual/sprites/fighters/special/dummy.png" id="4_mysod"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_t331a"]
 [ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/npc_roster.tscn" id="6_toood"]
+[ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="6_ux3o3"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="7_l8w5n"]
-[ext_resource type="PackedScene" uid="uid://cj5ljxvm16m8c" path="res://scenes/index/items/weapons/shrapnel_shotgun.tscn" id="7_mysod"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="8_5w0nc"]
-[ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="9_l8w5n"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="8_l8w5n"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="9_toood"]
 [ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="10_l8w5n"]
+[ext_resource type="PackedScene" uid="uid://cpqwlk68y6e6t" path="res://scenes/index/items/artifices/blow_up_dummy.tscn" id="11_6ytje"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="11_hombn"]
-[ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="12_yoboh"]
-[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="13_6ytje"]
-[ext_resource type="PackedScene" uid="uid://b322626nnhpf7" path="res://scenes/index/items/weapons/electric_baton.tscn" id="14_t331a"]
-[ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="14_ux3o3"]
-[ext_resource type="PackedScene" uid="uid://prw4abfgie7j" path="res://scenes/index/items/weapons/firebomb_launcher.tscn" id="15_6lu73"]
-[ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="17_gjkyl"]
-[ext_resource type="PackedScene" uid="uid://dhmyvsvrw476x" path="res://scenes/index/items/weapons/toxic_shotgun.tscn" id="22_hombn"]
+[ext_resource type="PackedScene" uid="uid://wlcq8bxxtwax" path="res://scenes/index/items/artifices/berserker_serum.tscn" id="12_ux3o3"]
+[ext_resource type="PackedScene" uid="uid://xqy2xqq8h78b" path="res://scenes/index/items/artifices/first_aid_kit.tscn" id="18_ux3o3"]
+[ext_resource type="PackedScene" uid="uid://bvuw04qb36x7e" path="res://scenes/index/items/artifices/life_charm.tscn" id="19_o48da"]
+[ext_resource type="PackedScene" uid="uid://cwbeqy517dp8o" path="res://scenes/index/items/artifices/lure.tscn" id="20_cjrk3"]
+[ext_resource type="PackedScene" uid="uid://bgpplecc7vmuh" path="res://scenes/index/items/artifices/overgrowth_powder.tscn" id="21_spwac"]
+[ext_resource type="PackedScene" uid="uid://dm8mv4gcuj7sc" path="res://scenes/index/items/artifices/pressure_grenade.tscn" id="22_0da2b"]
+[ext_resource type="PackedScene" uid="uid://moh5lw5akuo5" path="res://scenes/index/items/artifices/singularity_grenade.tscn" id="23_ndr2i"]
+[ext_resource type="PackedScene" uid="uid://frf7reky0e51" path="res://scenes/index/items/artifices/smart_boomerang.tscn" id="24_u80vi"]
+[ext_resource type="PackedScene" uid="uid://dnyx4ccaeei22" path="res://scenes/index/items/artifices/tr_glasses.tscn" id="25_74asn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cpvf4"]
 radius = 70.028564
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ytje"]
+resource_local_to_scene = true
+shader = ExtResource("6_ux3o3")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 1
+shader_parameter/inside = true
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0da2b"]
 resource_local_to_scene = true
@@ -125,7 +138,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8w5n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux3o3"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -137,17 +150,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hombn"]
-resource_local_to_scene = true
-shader = ExtResource("2_yxwnb")
-shader_parameter/color = Color(0, 0.2, 0.047058824, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 1
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yoboh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o48da"]
 resource_local_to_scene = true
 shader = ExtResource("2_yxwnb")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -157,7 +160,49 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ytje"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjrk3"]
+resource_local_to_scene = true
+shader = ExtResource("6_ux3o3")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 1
+shader_parameter/inside = true
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_74asn"]
+resource_local_to_scene = true
+shader = ExtResource("4_t331a")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_spwac"]
+resource_local_to_scene = true
+shader = ExtResource("6_ux3o3")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ndr2i"]
+resource_local_to_scene = true
+shader = ExtResource("6_ux3o3")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u80vi"]
 resource_local_to_scene = true
 shader = ExtResource("4_t331a")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -182,7 +227,7 @@ dummy = true
 sprite = NodePath("dummy")
 max_hp = 10000.0
 
-[node name="hurtbox" parent="Arena/teams/team_1/dummy" index="3" unique_id=1866307460]
+[node name="hurtbox" parent="Arena/teams/team_1/dummy" index="1" unique_id=1866307460]
 position = Vector2(0, -27)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/teams/team_1/dummy/hurtbox" index="0" unique_id=268604563]
@@ -192,25 +237,19 @@ shape = SubResource("CircleShape2D_cpvf4")
 [node name="shape" parent="Arena/teams/team_1/dummy/collision_scan" parent_id_path=PackedInt32Array(1353693342, 869280054) index="0" unique_id=328150148]
 shape = SubResource("CircleShape2D_cpvf4")
 
-[node name="FighterOverlay" parent="Arena/teams/team_1/dummy" index="5" unique_id=442767027]
+[node name="FighterOverlay" parent="Arena/teams/team_1/dummy" index="3" unique_id=442767027]
 offset_left = -33.0
 offset_top = -72.0
 offset_right = 31.0
 offset_bottom = -72.0
 
-[node name="outline" parent="Arena/teams/team_1/dummy/FighterOverlay" index="2" unique_id=589895931]
-modulate = Color(1, 1, 1, 0.9529412)
-
-[node name="hp_bar" parent="Arena/teams/team_1/dummy/FighterOverlay/outline/VBoxContainer/hp_bar_trail" parent_id_path=PackedInt32Array(1353693342, 931099160) index="0" unique_id=1356032778]
-stretch_margin_left = 2
-stretch_margin_top = 2
-stretch_margin_right = 2
-stretch_margin_bottom = 2
+[node name="hp_bar" parent="Arena/teams/team_1/dummy/FighterOverlay/VBoxContainer/hp_bars" parent_id_path=PackedInt32Array(1353693342, 558500387) index="1" unique_id=1356032778]
+material = SubResource("ShaderMaterial_6ytje")
 
 [node name="refresh_bar" parent="Arena/teams/team_1/dummy/FighterOverlay" index="3" unique_id=395766779]
 autostart = false
 
-[node name="unit_collision" parent="Arena/teams/team_1/dummy" index="6" unique_id=1716436569]
+[node name="unit_collision" parent="Arena/teams/team_1/dummy" index="4" unique_id=1716436569]
 position = Vector2(0, -9)
 
 [node name="dummy" type="Sprite2D" parent="Arena/teams/team_1/dummy" unique_id=418877120]
@@ -220,20 +259,12 @@ texture = ExtResource("4_mysod")
 
 [node name="player_fighter" parent="Arena/teams/team_1" index="1" unique_id=543559168]
 position = Vector2(191, 18)
-body_type = 0
-max_hp = 0.0
 
 [node name="body" parent="Arena/teams/team_1/player_fighter" index="5" unique_id=416499753]
-material = SubResource("ShaderMaterial_l8w5n")
-
-[node name="left_hand" parent="Arena/teams/team_1/player_fighter/body" index="2" unique_id=7873661]
-material = SubResource("ShaderMaterial_hombn")
-
-[node name="right_hand" parent="Arena/teams/team_1/player_fighter/body" index="3" unique_id=1602105371]
-material = SubResource("ShaderMaterial_hombn")
+material = SubResource("ShaderMaterial_ux3o3")
 
 [node name="equipment" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=488158529]
-material = SubResource("ShaderMaterial_yoboh")
+material = SubResource("ShaderMaterial_o48da")
 
 [node name="team_2" parent="Arena/teams" parent_id_path=PackedInt32Array(896888135, 1264042758) index="3" unique_id=451149455 node_paths=PackedStringArray("roster")]
 roster = NodePath("../../NPC Roster")
@@ -244,7 +275,7 @@ dummy = true
 sprite = NodePath("dummy")
 max_hp = 10000.0
 
-[node name="hurtbox" parent="Arena/teams/team_2/dummy2" index="3" unique_id=1866307460]
+[node name="hurtbox" parent="Arena/teams/team_2/dummy2" index="1" unique_id=1866307460]
 position = Vector2(0, -27)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/teams/team_2/dummy2/hurtbox" index="0" unique_id=786116503]
@@ -254,54 +285,63 @@ shape = SubResource("CircleShape2D_cpvf4")
 [node name="shape" parent="Arena/teams/team_2/dummy2/collision_scan" parent_id_path=PackedInt32Array(1723811507, 869280054) index="0" unique_id=328150148]
 shape = SubResource("CircleShape2D_cpvf4")
 
-[node name="FighterOverlay" parent="Arena/teams/team_2/dummy2" index="5" unique_id=442767027]
+[node name="FighterOverlay" parent="Arena/teams/team_2/dummy2" index="3" unique_id=442767027]
 offset_left = -33.0
 offset_top = -72.0
 offset_right = 31.0
 offset_bottom = -72.0
 
-[node name="outline" parent="Arena/teams/team_2/dummy2/FighterOverlay" index="2" unique_id=589895931]
-modulate = Color(1, 1, 1, 0.9529412)
-
-[node name="hp_bar" parent="Arena/teams/team_2/dummy2/FighterOverlay/outline/VBoxContainer/hp_bar_trail" parent_id_path=PackedInt32Array(1723811507, 931099160) index="0" unique_id=1356032778]
-stretch_margin_left = 2
-stretch_margin_top = 2
-stretch_margin_right = 2
-stretch_margin_bottom = 2
+[node name="hp_bar" parent="Arena/teams/team_2/dummy2/FighterOverlay/VBoxContainer/hp_bars" parent_id_path=PackedInt32Array(1723811507, 558500387) index="1" unique_id=1356032778]
+material = SubResource("ShaderMaterial_cjrk3")
 
 [node name="refresh_bar" parent="Arena/teams/team_2/dummy2/FighterOverlay" index="3" unique_id=395766779]
 autostart = false
 
-[node name="unit_collision" parent="Arena/teams/team_2/dummy2" index="6" unique_id=1716436569]
+[node name="unit_collision" parent="Arena/teams/team_2/dummy2" index="4" unique_id=1716436569]
 position = Vector2(0, -9)
 
 [node name="dummy" type="Sprite2D" parent="Arena/teams/team_2/dummy2" unique_id=250593320]
-material = SubResource("ShaderMaterial_0da2b")
+material = SubResource("ShaderMaterial_74asn")
 position = Vector2(0, -27)
 texture = ExtResource("4_mysod")
+
+[node name="bars" parent="Arena/ui_canvas/hud/player_data" parent_id_path=PackedInt32Array(896888135, 2089638048) index="0" unique_id=963650891]
+material = SubResource("ShaderMaterial_spwac")
+
+[node name="power_icon" parent="Arena/ui_canvas/hud/player_data/bars/party_power" parent_id_path=PackedInt32Array(896888135, 920717971) index="0" unique_id=2146997654]
+material = SubResource("ShaderMaterial_ndr2i")
 
 [node name="NPC Roster" parent="Arena" unique_id=159500697 instance=ExtResource("6_toood")]
 
 [node name="FighterUnit" parent="Arena/NPC Roster" unique_id=1849357981 instance=ExtResource("7_l8w5n")]
 level = 4
 
-[node name="Gravity" parent="Arena/NPC Roster/FighterUnit" unique_id=934399271 instance=ExtResource("9_l8w5n")]
-material = SubResource("ShaderMaterial_6ytje")
+[node name="Puncher" parent="Arena/NPC Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("8_l8w5n")]
+material = SubResource("ShaderMaterial_u80vi")
 
-[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_t331a")]
+[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module", "equipped_artifices") groups=["player"] instance=ExtResource("3_t331a")]
 process_priority = 1
-equipped_weapon = NodePath("Inventory/Tailpipe")
-alternative_weapon = NodePath("Inventory/Slingshot")
+equipped_weapon = NodePath("Inventory/Slingshot")
+alternative_weapon = NodePath("Inventory/Tailpipe")
 equipped_module = NodePath("Inventory/Dodge Roll")
+equipped_artifices = {
+1: NodePath("Inventory/Smart Boomerang"),
+2: NodePath("Inventory/Lure"),
+3: NodePath("Inventory/First Aid Kit")
+}
 level = 4
 experience = 1
 
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 315
 
-[node name="Shrapnel Shotgun" parent="Player/Inventory" index="0" unique_id=1126198983 instance=ExtResource("7_mysod")]
+[node name="Smart Boomerang" parent="Player/Inventory" index="0" unique_id=1235041317 instance=ExtResource("24_u80vi")]
 
-[node name="Brass Knuckles" parent="Player/Inventory" index="1" unique_id=834594505 instance=ExtResource("8_5w0nc")]
+[node name="Smart Boomerang2" parent="Player/Inventory" index="1" unique_id=467578014 instance=ExtResource("24_u80vi")]
+
+[node name="Smart Boomerang3" parent="Player/Inventory" index="2" unique_id=672381203 instance=ExtResource("24_u80vi")]
+
+[node name="Brass Knuckles" parent="Player/Inventory" index="3" unique_id=834594505 instance=ExtResource("8_5w0nc")]
 application = ""
 equippable = Dictionary[String, bool]({
 "player": false,
@@ -309,33 +349,81 @@ equippable = Dictionary[String, bool]({
 })
 color_tag = "none"
 
-[node name="Tailpipe" parent="Player/Inventory" index="2" unique_id=870722934 instance=ExtResource("9_toood")]
+[node name="Tailpipe" parent="Player/Inventory" index="4" unique_id=870722934 instance=ExtResource("9_toood")]
 
-[node name="Slingshot" parent="Player/Inventory" index="3" unique_id=1530847075 instance=ExtResource("10_l8w5n")]
+[node name="Slingshot" parent="Player/Inventory" index="5" unique_id=1530847075 instance=ExtResource("10_l8w5n")]
 
-[node name="Dodge Roll" parent="Player/Inventory" index="4" unique_id=1043224961 instance=ExtResource("11_hombn")]
+[node name="Dodge Roll" parent="Player/Inventory" index="6" unique_id=1043224961 instance=ExtResource("11_hombn")]
 cooldown = 2.0
 
-[node name="Juice Flask" parent="Player/Inventory" index="5" unique_id=2052957904 instance=ExtResource("12_yoboh")]
-stack_size = 50
+[node name="Berserker Serum" parent="Player/Inventory" index="7" unique_id=1307446497 instance=ExtResource("12_ux3o3")]
 
-[node name="Food Basket" parent="Player/Inventory" index="6" unique_id=2082907014 instance=ExtResource("13_6ytje")]
-stack_size = 100
+[node name="Blow-Up Dummy" parent="Player/Inventory" index="8" unique_id=258388888 instance=ExtResource("11_6ytje")]
 
-[node name="Fuel Tank" parent="Player/Inventory" index="7" unique_id=448891862 instance=ExtResource("14_ux3o3")]
-stack_size = 100
+[node name="First Aid Kit" parent="Player/Inventory" index="9" unique_id=1890543780 instance=ExtResource("18_ux3o3")]
+inventory_position = Vector2(-1, -1)
+stack_size = 1
 
-[node name="Electric Baton" parent="Player/Inventory" index="8" unique_id=1979784302 instance=ExtResource("14_t331a")]
+[node name="Life Charm" parent="Player/Inventory" index="10" unique_id=281711132 instance=ExtResource("19_o48da")]
 
-[node name="Firebomb Launcher" parent="Player/Inventory" index="9" unique_id=785300769 instance=ExtResource("15_6lu73")]
+[node name="Lure" parent="Player/Inventory" index="11" unique_id=1769649863 instance=ExtResource("20_cjrk3")]
 
-[node name="Scrap Compactor" parent="Player/Inventory" index="10" unique_id=2017163579 instance=ExtResource("17_gjkyl")]
-stack_size = 200
+[node name="Overgrowth Powder" parent="Player/Inventory" index="12" unique_id=529379539 instance=ExtResource("21_spwac")]
 
-[node name="Toxic Shotgun" parent="Player/Inventory" index="11" unique_id=264886156 instance=ExtResource("22_hombn")]
+[node name="Pressure Grenade" parent="Player/Inventory" index="13" unique_id=886888236 instance=ExtResource("22_0da2b")]
+
+[node name="SingularityGrenade" parent="Player/Inventory" index="14" unique_id=1662175675 instance=ExtResource("23_ndr2i")]
+
+[node name="TR Glasses" parent="Player/Inventory" index="15" unique_id=1536145250 instance=ExtResource("25_74asn")]
+
+[node name="Berserker Serum2" parent="Player/Inventory" index="16" unique_id=869659445 instance=ExtResource("12_ux3o3")]
+
+[node name="Blow-Up Dummy2" parent="Player/Inventory" index="17" unique_id=1243721141 instance=ExtResource("11_6ytje")]
+
+[node name="First Aid Kit2" parent="Player/Inventory" index="18" unique_id=1530894452 instance=ExtResource("18_ux3o3")]
+inventory_position = Vector2(-1, -1)
+stack_size = 1
+
+[node name="Life Charm2" parent="Player/Inventory" index="19" unique_id=1196279711 instance=ExtResource("19_o48da")]
+
+[node name="Lure2" parent="Player/Inventory" index="20" unique_id=1565345932 instance=ExtResource("20_cjrk3")]
+
+[node name="Overgrowth Powder2" parent="Player/Inventory" index="21" unique_id=1524998818 instance=ExtResource("21_spwac")]
+
+[node name="Pressure Grenade2" parent="Player/Inventory" index="22" unique_id=1158695930 instance=ExtResource("22_0da2b")]
+
+[node name="SingularityGrenade2" parent="Player/Inventory" index="23" unique_id=51826458 instance=ExtResource("23_ndr2i")]
+
+[node name="TR Glasses2" parent="Player/Inventory" index="24" unique_id=1961704851 instance=ExtResource("25_74asn")]
+
+[node name="Berserker Serum3" parent="Player/Inventory" index="25" unique_id=691567594 instance=ExtResource("12_ux3o3")]
+
+[node name="Blow-Up Dummy3" parent="Player/Inventory" index="26" unique_id=1453771445 instance=ExtResource("11_6ytje")]
+
+[node name="First Aid Kit3" parent="Player/Inventory" index="27" unique_id=1833431138 instance=ExtResource("18_ux3o3")]
+inventory_position = Vector2(-1, -1)
+stack_size = 1
+
+[node name="Life Charm3" parent="Player/Inventory" index="28" unique_id=473327859 instance=ExtResource("19_o48da")]
+
+[node name="Lure3" parent="Player/Inventory" index="29" unique_id=2133909252 instance=ExtResource("20_cjrk3")]
+
+[node name="Overgrowth Powder3" parent="Player/Inventory" index="30" unique_id=1651063099 instance=ExtResource("21_spwac")]
+
+[node name="Pressure Grenade3" parent="Player/Inventory" index="31" unique_id=2116883925 instance=ExtResource("22_0da2b")]
+
+[node name="SingularityGrenade3" parent="Player/Inventory" index="32" unique_id=82625716 instance=ExtResource("23_ndr2i")]
+
+[node name="TR Glasses3" parent="Player/Inventory" index="33" unique_id=1726243548 instance=ExtResource("25_74asn")]
 
 [node name="base_stats" parent="Player" index="3" unique_id=1645727257]
-max_hp = 50000.0
+max_hp = 1000.0
+
+[connection signal="ready" from="Arena/teams/team_1/player_fighter" to="Arena/ui_canvas/hud/player_data/bars/hp_bar" method="_on_player_fighter_ready"]
+[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/bars/hp_bar" method="ammo_consumed"]
+[connection signal="weapon_hit" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/teams/team_1/player_fighter/components/sfx/hit_sfx" method="weapon_hit"]
+[connection signal="weapon_hit" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/teams/team_1/player_fighter/equipment/weapon_control" method="weapon_hit"]
+[connection signal="timeout" from="Arena/teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
 
 [editable path="Arena"]
 [editable path="Arena/teams/team_1/dummy"]

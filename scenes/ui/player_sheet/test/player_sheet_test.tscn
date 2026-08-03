@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bniuv5xlkiml0" path="res://scenes/ui/player_sheet/test/player_sheet_test.gd" id="1_5f7a3"]
 [ext_resource type="PackedScene" uid="uid://1yund7taju3s" path="res://scenes/ui/player_sheet/player_sheet.tscn" id="2_dogm3"]
 [ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="3_wtvuk"]
-[ext_resource type="PackedScene" uid="uid://cj5ljxvm16m8c" path="res://scenes/index/items/weapons/shrapnel_shotgun.tscn" id="4_bwr52"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="4_keskt"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="5_keskt"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="5_nb7r1"]
@@ -17,54 +16,22 @@
 [ext_resource type="PackedScene" uid="uid://uacsw306t8nv" path="res://scenes/index/fighters/units/electric_knight.tscn" id="9_bghc2"]
 [ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="9_p43kw"]
 [ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="10_01y70"]
-[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="10_8ve6e"]
 [ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="11_8h6uc"]
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="11_qx3b8"]
 [ext_resource type="PackedScene" uid="uid://bhmsli657i58w" path="res://scenes/index/fighters/units/scrap_hulk.tscn" id="12_gwxuh"]
-[ext_resource type="PackedScene" uid="uid://b322626nnhpf7" path="res://scenes/index/items/weapons/electric_baton.tscn" id="12_nydl1"]
 [ext_resource type="PackedScene" uid="uid://prw4abfgie7j" path="res://scenes/index/items/weapons/firebomb_launcher.tscn" id="13_1jgw4"]
 [ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="13_ff00m"]
 [ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="14_dr4ki"]
-[ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="14_o127q"]
 [ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="15_8sep3"]
 [ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="16_b33xb"]
-[ext_resource type="PackedScene" uid="uid://c4s2cufch0vvv" path="res://scenes/index/items/accessories/external_processing_unit.tscn" id="29_bghc2"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bghc2"]
-resource_local_to_scene = true
-shader = ExtResource("6_2mu2v")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(8, 7)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_01y70"]
-resource_local_to_scene = true
-shader = ExtResource("6_2mu2v")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(8, 7)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8h6uc"]
-resource_local_to_scene = true
-shader = ExtResource("6_2mu2v")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(8, 7)
+[ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/index/items/containers/scrap_crate.tscn" id="17_ff00m"]
+[ext_resource type="PackedScene" uid="uid://cr3hxwb2o42kl" path="res://scenes/index/items/accessories/forbidden_shoulders.tscn" id="17_gwxuh"]
+[ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="18_ff00m"]
+[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="18_gwxuh"]
+[ext_resource type="PackedScene" uid="uid://cwbeqy517dp8o" path="res://scenes/index/items/artifices/lure.tscn" id="22_gwxuh"]
+[ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="23_gwxuh"]
+[ext_resource type="PackedScene" uid="uid://dm8mv4gcuj7sc" path="res://scenes/index/items/artifices/pressure_grenade.tscn" id="26_ff00m"]
+[ext_resource type="PackedScene" uid="uid://bgpplecc7vmuh" path="res://scenes/index/items/artifices/overgrowth_powder.tscn" id="27_8h6uc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gwxuh"]
 resource_local_to_scene = true
@@ -162,6 +129,42 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oat7h"]
+resource_local_to_scene = true
+shader = ExtResource("6_2mu2v")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o5iv1"]
+resource_local_to_scene = true
+shader = ExtResource("6_2mu2v")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7158"]
+resource_local_to_scene = true
+shader = ExtResource("6_2mu2v")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(8, 7)
+
 [node name="PlayerSheetTest" type="Control" unique_id=1788022027 node_paths=PackedStringArray("sheet")]
 layout_mode = 3
 anchors_preset = 15
@@ -176,101 +179,109 @@ sheet = NodePath("PlayerSheet")
 process_mode = 3
 layout_mode = 1
 
-[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_wtvuk")]
+[node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "equipped_module") groups=["player"] instance=ExtResource("3_wtvuk")]
 process_priority = 1
-equipped_weapon = NodePath("Inventory/Shrapnel Shotgun")
-alternative_weapon = NodePath("Inventory/Electric Baton")
+equipped_weapon = NodePath("Inventory/Tailpipe")
 equipped_module = NodePath("Inventory/Dodge Roll")
 experience = 1
 
 [node name="FighterUnit" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="0" unique_id=2067750979 instance=ExtResource("4_keskt")]
 
 [node name="Puncher" parent="Player/Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("5_nb7r1")]
-material = SubResource("ShaderMaterial_bghc2")
+material = SubResource("ShaderMaterial_gwxuh")
 
 [node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="1" unique_id=1644437525 instance=ExtResource("4_keskt")]
 
 [node name="Crowbar" parent="Player/Roster/FighterUnit2" unique_id=2112712555 instance=ExtResource("7_o127q")]
-material = SubResource("ShaderMaterial_01y70")
+material = SubResource("ShaderMaterial_ff00m")
 
 [node name="FighterUnit3" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="2" unique_id=319959723 instance=ExtResource("4_keskt")]
 
 [node name="Electric Hulk" parent="Player/Roster/FighterUnit3" unique_id=30330839 instance=ExtResource("8_b33xb")]
-material = SubResource("ShaderMaterial_8h6uc")
+material = SubResource("ShaderMaterial_dr4ki")
 
 [node name="FighterUnit4" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="3" unique_id=1113865701 instance=ExtResource("4_keskt")]
 
 [node name="Electric Knight" parent="Player/Roster/FighterUnit4" unique_id=366716137 instance=ExtResource("9_bghc2")]
-material = SubResource("ShaderMaterial_gwxuh")
+material = SubResource("ShaderMaterial_8sep3")
 
 [node name="FighterUnit5" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="4" unique_id=326811216 instance=ExtResource("4_keskt")]
 
 [node name="Gravity" parent="Player/Roster/FighterUnit5" unique_id=934399271 instance=ExtResource("10_01y70")]
-material = SubResource("ShaderMaterial_ff00m")
+material = SubResource("ShaderMaterial_3cof8")
 
 [node name="FighterUnit6" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="5" unique_id=1613113372 instance=ExtResource("4_keskt")]
 
 [node name="Slammer" parent="Player/Roster/FighterUnit6" unique_id=1342933973 instance=ExtResource("11_8h6uc")]
-material = SubResource("ShaderMaterial_dr4ki")
+material = SubResource("ShaderMaterial_4fdj3")
 
 [node name="FighterUnit7" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="6" unique_id=1581914280 instance=ExtResource("4_keskt")]
 
 [node name="Scrap Hulk" parent="Player/Roster/FighterUnit7" unique_id=1648266463 instance=ExtResource("12_gwxuh")]
-material = SubResource("ShaderMaterial_8sep3")
+material = SubResource("ShaderMaterial_4836b")
 
 [node name="FighterUnit8" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="7" unique_id=452870226 instance=ExtResource("4_keskt")]
 
 [node name="Scythe" parent="Player/Roster/FighterUnit8" unique_id=255476344 instance=ExtResource("13_ff00m")]
-material = SubResource("ShaderMaterial_3cof8")
+material = SubResource("ShaderMaterial_l21c7")
 
 [node name="FighterUnit9" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="8" unique_id=1817240631 instance=ExtResource("4_keskt")]
 
 [node name="Toxic Hulk" parent="Player/Roster/FighterUnit9" unique_id=754896079 instance=ExtResource("14_dr4ki")]
-material = SubResource("ShaderMaterial_4fdj3")
+material = SubResource("ShaderMaterial_oat7h")
 
 [node name="FighterUnit10" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="9" unique_id=1684195571 instance=ExtResource("4_keskt")]
 
 [node name="Wrecker" parent="Player/Roster/FighterUnit10" unique_id=1018236968 instance=ExtResource("15_8sep3")]
-material = SubResource("ShaderMaterial_4836b")
+material = SubResource("ShaderMaterial_o5iv1")
 
 [node name="FighterUnit11" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="10" unique_id=2098597192 instance=ExtResource("4_keskt")]
 
 [node name="Sniper" parent="Player/Roster/FighterUnit11" unique_id=1797122592 instance=ExtResource("16_b33xb")]
-material = SubResource("ShaderMaterial_l21c7")
+material = SubResource("ShaderMaterial_r7158")
 
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 315
 
-[node name="Shrapnel Shotgun" parent="Player/Inventory" index="0" unique_id=1126198983 instance=ExtResource("4_bwr52")]
+[node name="Forbidden Shoulders" parent="Player/Inventory" index="0" unique_id=938066758 instance=ExtResource("17_gwxuh")]
 
-[node name="Brass Knuckles" parent="Player/Inventory" index="1" unique_id=834594505 instance=ExtResource("5_keskt")]
+[node name="Spiked Shoulder Pads" parent="Player/Inventory" index="1" unique_id=2145240947 instance=ExtResource("18_ff00m")]
 
-[node name="Tailpipe" parent="Player/Inventory" index="2" unique_id=870722934 instance=ExtResource("6_nb7r1")]
+[node name="Scrap Crate" parent="Player/Inventory" index="2" unique_id=737927307 instance=ExtResource("17_ff00m")]
+stack_size = 1
 
-[node name="Mystery Snack Pack" parent="Player/Inventory" index="3" unique_id=218051020 instance=ExtResource("7_dogm3")]
+[node name="Food Basket" parent="Player/Inventory" index="3" unique_id=2082907014 instance=ExtResource("18_gwxuh")]
 
-[node name="Slingshot" parent="Player/Inventory" index="4" unique_id=1249202197 instance=ExtResource("7_2mu2v")]
+[node name="Brass Knuckles" parent="Player/Inventory" index="4" unique_id=834594505 instance=ExtResource("5_keskt")]
 
-[node name="Dodge Roll" parent="Player/Inventory" index="5" unique_id=1043224961 instance=ExtResource("8_ltks1")]
+[node name="Tailpipe" parent="Player/Inventory" index="5" unique_id=870722934 instance=ExtResource("6_nb7r1")]
+
+[node name="Mystery Snack Pack" parent="Player/Inventory" index="6" unique_id=218051020 instance=ExtResource("7_dogm3")]
+
+[node name="Slingshot" parent="Player/Inventory" index="7" unique_id=1249202197 instance=ExtResource("7_2mu2v")]
+
+[node name="Lure" parent="Player/Inventory" index="8" unique_id=1769649863 instance=ExtResource("22_gwxuh")]
+
+[node name="Dodge Roll" parent="Player/Inventory" index="9" unique_id=1043224961 instance=ExtResource("8_ltks1")]
 cooldown = 2.0
 
-[node name="Juice Flask" parent="Player/Inventory" index="6" unique_id=1121906403 instance=ExtResource("9_p43kw")]
+[node name="Protein Shake" parent="Player/Inventory" index="10" unique_id=1379624907 instance=ExtResource("23_gwxuh")]
+
+[node name="Juice Flask" parent="Player/Inventory" index="11" unique_id=1121906403 instance=ExtResource("9_p43kw")]
 stack_size = 50
 
-[node name="Food Basket" parent="Player/Inventory" index="7" unique_id=2082907014 instance=ExtResource("10_8ve6e")]
+[node name="Pressure Grenade" parent="Player/Inventory" index="12" unique_id=886888236 instance=ExtResource("26_ff00m")]
+
+[node name="Fuel Tank" parent="Player/Inventory" index="13" unique_id=1789125589 instance=ExtResource("11_qx3b8")]
 stack_size = 100
 
-[node name="Fuel Tank" parent="Player/Inventory" index="8" unique_id=1789125589 instance=ExtResource("11_qx3b8")]
-stack_size = 100
+[node name="Overgrowth Powder" parent="Player/Inventory" index="14" unique_id=529379539 instance=ExtResource("27_8h6uc")]
 
-[node name="Electric Baton" parent="Player/Inventory" index="9" unique_id=1979784302 instance=ExtResource("12_nydl1")]
+[node name="Overgrowth Powder2" parent="Player/Inventory" index="15" unique_id=201764144 instance=ExtResource("27_8h6uc")]
 
-[node name="Firebomb Launcher" parent="Player/Inventory" index="10" unique_id=785300769 instance=ExtResource("13_1jgw4")]
+[node name="Overgrowth Powder3" parent="Player/Inventory" index="16" unique_id=272035737 instance=ExtResource("27_8h6uc")]
 
-[node name="Scrap Compactor" parent="Player/Inventory" index="11" unique_id=443601441 instance=ExtResource("14_o127q")]
-stack_size = 200
-
-[node name="External Processing Unit" parent="Player/Inventory" index="12" unique_id=1067690271 instance=ExtResource("29_bghc2")]
+[node name="Firebomb Launcher" parent="Player/Inventory" index="17" unique_id=785300769 instance=ExtResource("13_1jgw4")]
 
 [node name="base_stats" parent="Player" index="3" unique_id=1645727257]
 max_hp = 50000.0

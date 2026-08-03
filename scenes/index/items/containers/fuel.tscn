@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c35c0o3u2g7aj"]
+[gd_scene format=3 uid="uid://c35c0o3u2g7aj"]
 
 [ext_resource type="Script" uid="uid://bcpjjec3jdey6" path="res://scenes/index/items/containers/scripts/fuel.gd" id="1_akbjx"]
 [ext_resource type="Texture2D" uid="uid://crcuy0k66wkxi" path="res://assets/visual/icons/resources/fuel.png" id="2_ruqqy"]
 
-[node name="Fuel" type="Sprite2D"]
+[node name="Fuel" type="Sprite2D" unique_id=734516992]
 texture = ExtResource("2_ruqqy")
 script = ExtResource("1_akbjx")
 resource = "fuel"

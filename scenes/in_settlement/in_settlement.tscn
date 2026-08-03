@@ -120,7 +120,7 @@ grow_vertical = 2
 [node name="main_hud" parent="ui/ui" unique_id=737359698 instance=ExtResource("4_hxhmu")]
 layout_mode = 1
 
-[node name="resources_dropdown" parent="ui/ui/main_hud/VBoxContainer/resources" index="0" node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+[node name="resources_dropdown" parent="ui/ui/main_hud/VBoxContainer/resources/VBoxContainer" parent_id_path=PackedInt32Array(737359698, 1764114174) index="0" unique_id=682307214 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
 resource_hboxes = {
 "chips": NodePath("chips"),
 "food": NodePath("food"),
@@ -137,12 +137,6 @@ resource_icons = {
 "money": NodePath("money/money_icon"),
 "scrap": NodePath("scrap/scrap_icon")
 }
-
-[node name="travel_loop" parent="ui/ui/main_hud/location_data/VBoxContainer/HBoxContainer/location_icon/road" index="0"]
-autoplay = &"travel_loop"
-
-[node name="AnimationPlayer" parent="ui/ui/main_hud/navigation_data/Control/go_arrow" index="0"]
-autoplay = &"arrow_loop"
 
 [node name="exit_prompt" type="Control" parent="ui/ui" unique_id=471928995]
 process_mode = 3
@@ -241,4 +235,3 @@ layout_mode = 1
 [connection signal="pressed" from="ui/ui/exit_prompt/Panel/stay" to="ui/ui/exit_prompt" method="_on_stay_pressed"]
 
 [editable path="ui/ui/main_hud"]
-[editable path="ui/ui/main_hud/VBoxContainer/resources/resources_dropdown"]

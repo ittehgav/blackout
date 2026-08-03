@@ -1,22 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqb34e0bl7mr7"]
+[gd_scene format=3 uid="uid://dqb34e0bl7mr7"]
 
 [ext_resource type="Texture2D" uid="uid://c3sieu5720tpa" path="res://assets/visual/items/modules/metallic_shell.png" id="1_tpyep"]
 [ext_resource type="Script" uid="uid://dccgke2bi7otk" path="res://scenes/index/items/modules/scripts/metallic_shell.gd" id="2_jsric"]
-[ext_resource type="AudioStream" uid="uid://0ykkqmvak3d7" path="res://assets/sound/sfx/combat/player/metallic_shell.wav" id="3_oox25"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tpyep"]
 radius = 100.0
 
-[node name="Metallic Shell" type="Sprite2D" node_paths=PackedStringArray("aoe_range")]
+[node name="Metallic Shell" type="Sprite2D" unique_id=1857587171 node_paths=PackedStringArray("aoe_range")]
 texture = ExtResource("1_tpyep")
 script = ExtResource("2_jsric")
 aoe_range = NodePath("range")
-sfx = ExtResource("3_oox25")
 
-[node name="range" type="Area2D" parent="."]
+[node name="range" type="Area2D" parent="." unique_id=1548870549]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="range"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="range" unique_id=473008225]
 shape = SubResource("CircleShape2D_tpyep")
 
 [connection signal="equipped" from="." to="." method="_on_equipped"]

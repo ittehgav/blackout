@@ -6,7 +6,6 @@ class_name PlayerFighter
 
 
 ##redeclaring body as base so it gets its VFX to work the same way as they do on ActiveFighter
-@export_category("Unique to Player")
 @export var body: FighterBase;
 @export var equipment:EquipmentControl;
 @export var hit_scan:Area2D;
@@ -19,18 +18,20 @@ var body_angle:float;
 
 
 func _ready()->void:
-	var player:Player = get_tree().get_first_node_in_group("player")
+	var player:Player = Entities.player;
 
 	name = player.name;
 	Entities.player_fighter = self;
 	level = player.level;
 
-	## this node is the only fighter that'll always be in an arena instance
+	## this node is the only fighter 
+	## that'll always be in any arena instance
 	load_fighter()
 
 
+
 func load_fighter()->void:
-	var player:Player = get_tree().get_first_node_in_group("player")
+	var player:Player = Entities.player
 	var stats:CombatStats = player.final_stats();
 	
 	for stat:String in CombatStats.all_stats:
@@ -57,7 +58,7 @@ func _physics_process(delta:float)->void:
 		movement_input(delta)
 	move_and_slide()
 
-	if equipment.not_attacking():
+	if equipment.not_attacking() or not equipment.equipped_weapon.melee:
 		var direction:Vector2;
 		if not moving:
 			direction = global_position.direction_to(get_global_mouse_position())

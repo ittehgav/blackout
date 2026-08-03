@@ -57,21 +57,18 @@ func accepts_trade(item:Item)->bool:
 	return item is ResourceContainer;
 	
 func has_use(o:Option)->bool:
-
+	var player:Player = Entities.player;
 	match o:
 		Option.trade:
 			return true
 		Option.recruit:
-			var player:Player = get_tree().get_first_node_in_group("player")
 			if player.inventory.money > 0:
 				return true
 		Option.evolve:
-			var player:Player = get_tree().get_first_node_in_group("player")
 			for unit:FighterUnit in player.roster.units:
 				if len(unit.base.evolutions):
 					return true
 		Option.forge:
-			var player:Player = get_tree().get_first_node_in_group("player")
 			if player.inventory.scrap > 0:
 				return true
 	return false

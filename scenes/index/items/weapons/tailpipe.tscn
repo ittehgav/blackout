@@ -25,7 +25,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("use_sfx:playing")
+tracks/1/path = NodePath("components/use_sfx:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -52,130 +52,40 @@ _data = {
 &"RESET": SubResource("Animation_577ip")
 }
 
-[sub_resource type="Animation" id="Animation_jodic"]
-resource_name = "attack"
-length = 0.325
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../right_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-3, -18)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../left_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-7, -9)]
-}
-
-[sub_resource type="Animation" id="Animation_vmql4"]
-resource_name = "idle"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../right_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.40105745),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(-16, -5.000001), Vector2(-14, -5.000001)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../left_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.40105745),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(-13, 3.9999993), Vector2(-11, 3.9999993)]
-}
-
-[sub_resource type="Animation" id="Animation_bf1cx"]
-resource_name = "walk"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../right_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(-14, -6.0000005), Vector2(-7.9999995, -6)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../left_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = false
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(-18, -16.000002), Vector2(-12, -16.000002)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bf1cx"]
-_data = {
-&"attack": SubResource("Animation_jodic"),
-&"idle": SubResource("Animation_vmql4"),
-&"walk": SubResource("Animation_bf1cx")
-}
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_053ln"]
 radius = 59.03389
 
 [node name="Tailpipe" type="Sprite2D" unique_id=870722934 node_paths=PackedStringArray("display", "hit_scan", "projections", "animation_player", "use_sfx")]
 use_parent_material = true
-position = Vector2(6, 0)
 texture = ExtResource("1_4334k")
+offset = Vector2(0, -32)
 script = ExtResource("1_1n7ey")
-display = NodePath("MeleeWeaponDisplay")
+display = NodePath("components/MeleeWeaponDisplay")
 base_damage = 20
 cooldown = 1.0
 hit_scan = NodePath("hit_scan")
 melee = true
 projections = [NodePath("hit_scan/projection")]
-animation_player = NodePath("weapon_animation")
-use_sfx = NodePath("use_sfx")
+animation_player = NodePath("components/weapon_animation")
+use_sfx = NodePath("components/use_sfx")
 use_feedback = "lunge"
 color_tag = "scrap"
 
-[node name="MeleeWeaponDisplay" type="Node" parent="." unique_id=203417275]
+[node name="components" type="Node" parent="." unique_id=372097303]
+
+[node name="MeleeWeaponDisplay" type="Node" parent="components" unique_id=203417275]
 script = ExtResource("3_577ip")
+use_feedback = 0
+hit_feedback = 1
 metadata/_custom_type_script = "uid://nkvusiyd18wl"
 
-[node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=1686799378]
+[node name="weapon_animation" type="AnimationPlayer" parent="components" unique_id=1686799378]
 deterministic = true
+root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_vmql4")
 libraries/melee = ExtResource("3_jodic")
 
-[node name="hands_animation" type="AnimationPlayer" parent="weapon_animation" unique_id=1845496605]
-libraries/ = SubResource("AnimationLibrary_bf1cx")
-
-[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=562682770]
+[node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=562682770]
 stream = ExtResource("5_jodic")
 bus = &"sfx"
 parameters/looping = false
@@ -202,9 +112,3 @@ top_level = true
 rotation = -3.1415927
 scale = Vector2(3, -3)
 source_type = 1
-
-[node name="right_hand_anchor" type="Node2D" parent="." unique_id=1975632132]
-position = Vector2(-16, -5.000001)
-
-[node name="left_hand_anchor" type="Node2D" parent="." unique_id=523263237]
-position = Vector2(-13, 3.9999993)

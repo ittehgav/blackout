@@ -7,6 +7,7 @@
 [node name="Motivational Speech Draft" type="Sprite2D" unique_id=1695171539]
 texture = ExtResource("1_6q4qa")
 script = ExtResource("1_ctr3f")
+feedback = Array[int]([2, 1])
 special_graphics = ExtResource("3_8iae4")
 color_tag = "money"
 metadata/_custom_type_script = "uid://dvhpfp5dj4gno"

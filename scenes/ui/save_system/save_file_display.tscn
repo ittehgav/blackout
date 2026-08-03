@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale/morale_icon.tscn" id="6_1ll52"]
 [ext_resource type="Theme" uid="uid://dcgo00eer8grs" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Paper.tres" id="7_g1hqk"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i7in8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g1hqk"]
 resource_local_to_scene = true
 shader = ExtResource("4_2dm55")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -19,7 +19,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[node name="save_file_display" type="Button" node_paths=PackedStringArray("delete_btn", "save_file_name", "save_file_play_time", "save_file_money", "save_file_party_size", "save_file_morale", "save_file_leadership_level", "save_file_combat_level")]
+[node name="save_file_display" type="Button" unique_id=739416344 node_paths=PackedStringArray("delete_btn", "save_file_name", "save_file_play_time", "save_file_money", "save_file_party_size", "save_file_morale", "save_file_leadership_level", "save_file_combat_level")]
 custom_minimum_size = Vector2(500, 100)
 offset_left = 6.0
 offset_top = 6.0
@@ -36,7 +36,7 @@ save_file_morale = NodePath("save_data/metadata/HBoxContainer/morale")
 save_file_leadership_level = NodePath("save_data/metadata/HBoxContainer2/leadership_level")
 save_file_combat_level = NodePath("save_data/metadata/HBoxContainer3/combat_level")
 
-[node name="save_data" type="Control" parent="."]
+[node name="save_data" type="Control" parent="." unique_id=1422722730]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,7 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="name" type="Label" parent="save_data"]
+[node name="name" type="Label" parent="save_data" unique_id=881386579]
 layout_mode = 1
 offset_left = 6.0
 offset_top = 6.0
@@ -54,7 +54,7 @@ offset_bottom = 57.0
 theme_override_font_sizes/font_size = 64
 text = "Name"
 
-[node name="play_time" type="Label" parent="save_data"]
+[node name="play_time" type="Label" parent="save_data" unique_id=1842774533]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -66,7 +66,7 @@ offset_bottom = -6.0
 grow_vertical = 0
 text = "5h, 20 min."
 
-[node name="metadata" type="VBoxContainer" parent="save_data"]
+[node name="metadata" type="VBoxContainer" parent="save_data" unique_id=1287260579]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -77,60 +77,59 @@ offset_right = -10.0
 offset_bottom = 99.0
 grow_horizontal = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="save_data/metadata"]
+[node name="HBoxContainer" type="HBoxContainer" parent="save_data/metadata" unique_id=1486916960]
 layout_mode = 2
 
-[node name="resource_icon" parent="save_data/metadata/HBoxContainer" node_paths=PackedStringArray("adjacent_items") instance=ExtResource("3_vy2cn")]
-material = SubResource("ShaderMaterial_i7in8")
+[node name="resource_icon" parent="save_data/metadata/HBoxContainer" unique_id=1491206037 instance=ExtResource("3_vy2cn")]
+material = SubResource("ShaderMaterial_g1hqk")
 layout_mode = 2
 resource = "money"
 match_player_inventory = false
-adjacent_items = [NodePath("../money")]
 
-[node name="money" type="Label" parent="save_data/metadata/HBoxContainer"]
+[node name="money" type="Label" parent="save_data/metadata/HBoxContainer" unique_id=506048249]
 layout_mode = 2
 text = "111"
 
-[node name="Party Icon" parent="save_data/metadata/HBoxContainer" node_paths=PackedStringArray("count_label") instance=ExtResource("5_sict8")]
+[node name="Party Icon" parent="save_data/metadata/HBoxContainer" unique_id=1863728602 node_paths=PackedStringArray("count_label") instance=ExtResource("5_sict8")]
 layout_mode = 2
 count_label = NodePath("../party_size")
 
-[node name="party_size" type="Label" parent="save_data/metadata/HBoxContainer"]
+[node name="party_size" type="Label" parent="save_data/metadata/HBoxContainer" unique_id=4128260]
 layout_mode = 2
 text = "11"
 
-[node name="MoraleIcon" parent="save_data/metadata/HBoxContainer" instance=ExtResource("6_1ll52")]
+[node name="MoraleIcon" parent="save_data/metadata/HBoxContainer" unique_id=1768121874 instance=ExtResource("6_1ll52")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="morale" type="Label" parent="save_data/metadata/HBoxContainer"]
+[node name="morale" type="Label" parent="save_data/metadata/HBoxContainer" unique_id=1655403541]
 layout_mode = 2
 text = "4.33"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="save_data/metadata"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="save_data/metadata" unique_id=1300784094]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="save_data/metadata/HBoxContainer2"]
+[node name="Label" type="Label" parent="save_data/metadata/HBoxContainer2" unique_id=1375254101]
 layout_mode = 2
 text = "Leadership Level: "
 
-[node name="leadership_level" type="Label" parent="save_data/metadata/HBoxContainer2"]
+[node name="leadership_level" type="Label" parent="save_data/metadata/HBoxContainer2" unique_id=748609501]
 layout_mode = 2
 text = "21"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="save_data/metadata"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="save_data/metadata" unique_id=285692849]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="save_data/metadata/HBoxContainer3"]
+[node name="Label" type="Label" parent="save_data/metadata/HBoxContainer3" unique_id=1948017102]
 layout_mode = 2
 text = "Combat Level: "
 
-[node name="combat_level" type="Label" parent="save_data/metadata/HBoxContainer3"]
+[node name="combat_level" type="Label" parent="save_data/metadata/HBoxContainer3" unique_id=1424472463]
 layout_mode = 2
 text = "22"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="save_data"]
+[node name="VBoxContainer" type="VBoxContainer" parent="save_data" unique_id=1144356837]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -139,13 +138,13 @@ offset_left = -40.0
 offset_bottom = 56.0
 grow_horizontal = 2
 
-[node name="date" type="Label" parent="save_data/VBoxContainer"]
+[node name="date" type="Label" parent="save_data/VBoxContainer" unique_id=1694613857]
 layout_mode = 2
 
-[node name="time" type="Label" parent="save_data/VBoxContainer"]
+[node name="time" type="Label" parent="save_data/VBoxContainer" unique_id=839947510]
 layout_mode = 2
 
-[node name="delete" type="Button" parent="save_data"]
+[node name="delete" type="Button" parent="save_data" unique_id=1007632322]
 visible = false
 modulate = Color(1, 0.28, 0.28, 1)
 layout_mode = 1
@@ -159,7 +158,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "DELETE"
 
-[node name="placeholder" type="Control" parent="."]
+[node name="placeholder" type="Control" parent="." unique_id=21784760]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -169,7 +168,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="empy" type="Label" parent="placeholder"]
+[node name="empy" type="Label" parent="placeholder" unique_id=1175213333]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -184,7 +183,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "empty"
 
-[node name="overwrite_confirmation" type="Control" parent="."]
+[node name="overwrite_confirmation" type="Control" parent="." unique_id=1159861838]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -193,7 +192,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="overwrite_confirmation"]
+[node name="VBoxContainer" type="VBoxContainer" parent="overwrite_confirmation" unique_id=1182293185]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -207,25 +206,25 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="overwrite" type="Label" parent="overwrite_confirmation/VBoxContainer"]
+[node name="overwrite" type="Label" parent="overwrite_confirmation/VBoxContainer" unique_id=47223306]
 layout_mode = 2
 text = "Overwrite save file?"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="overwrite_confirmation/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="overwrite_confirmation/VBoxContainer" unique_id=1293704607]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="overwrite" type="Button" parent="overwrite_confirmation/VBoxContainer/HBoxContainer"]
+[node name="overwrite" type="Button" parent="overwrite_confirmation/VBoxContainer/HBoxContainer" unique_id=232380862]
 layout_mode = 2
 theme = ExtResource("7_g1hqk")
 text = "OVERWRITE"
 
-[node name="cancel_overwrite" type="Button" parent="overwrite_confirmation/VBoxContainer/HBoxContainer"]
+[node name="cancel_overwrite" type="Button" parent="overwrite_confirmation/VBoxContainer/HBoxContainer" unique_id=1034246816]
 modulate = Color(0.62, 0.62, 0.62, 1)
 layout_mode = 2
 text = "Cancel"
 
-[node name="delete_confirmation" type="Control" parent="."]
+[node name="delete_confirmation" type="Control" parent="." unique_id=461539787]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -234,7 +233,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="delete_confirmation"]
+[node name="VBoxContainer" type="VBoxContainer" parent="delete_confirmation" unique_id=1355575446]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -248,25 +247,25 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="delete" type="Label" parent="delete_confirmation/VBoxContainer"]
+[node name="delete" type="Label" parent="delete_confirmation/VBoxContainer" unique_id=717677785]
 layout_mode = 2
 text = "Delete save file?"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="delete_confirmation/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="delete_confirmation/VBoxContainer" unique_id=1036380710]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="delete" type="Button" parent="delete_confirmation/VBoxContainer/HBoxContainer"]
+[node name="delete" type="Button" parent="delete_confirmation/VBoxContainer/HBoxContainer" unique_id=1187236119]
 layout_mode = 2
 theme = ExtResource("7_g1hqk")
 text = "DELETE"
 
-[node name="cancel_delete" type="Button" parent="delete_confirmation/VBoxContainer/HBoxContainer"]
+[node name="cancel_delete" type="Button" parent="delete_confirmation/VBoxContainer/HBoxContainer" unique_id=647622015]
 modulate = Color(0.62, 0.62, 0.62, 1)
 layout_mode = 2
 text = "Cancel"
 
-[node name="load_confirmation" type="Control" parent="."]
+[node name="load_confirmation" type="Control" parent="." unique_id=1829270935]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -275,7 +274,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="load_confirmation"]
+[node name="VBoxContainer" type="VBoxContainer" parent="load_confirmation" unique_id=303088656]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -289,21 +288,21 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="delete" type="Label" parent="load_confirmation/VBoxContainer"]
+[node name="delete" type="Label" parent="load_confirmation/VBoxContainer" unique_id=1651384543]
 layout_mode = 2
 text = "Load Save file?
 All unsaved progress will be lost."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="load_confirmation/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="load_confirmation/VBoxContainer" unique_id=625909118]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="load" type="Button" parent="load_confirmation/VBoxContainer/HBoxContainer"]
+[node name="load" type="Button" parent="load_confirmation/VBoxContainer/HBoxContainer" unique_id=2108724390]
 layout_mode = 2
 theme = ExtResource("7_g1hqk")
 text = "Load"
 
-[node name="cancel_load" type="Button" parent="load_confirmation/VBoxContainer/HBoxContainer"]
+[node name="cancel_load" type="Button" parent="load_confirmation/VBoxContainer/HBoxContainer" unique_id=1841170603]
 layout_mode = 2
 text = "Cancel"
 

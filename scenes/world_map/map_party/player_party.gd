@@ -11,7 +11,7 @@ class_name PlayerParty;
 func _ready()->void:
 	## PLAYER PARTY IS COMPLETELY IMPLEMENTED IN WORLD MAP AS IT APPEARS NOWHERE ELSE
 	Entities.player_party = self;
-	leader = get_tree().get_first_node_in_group("player")
+	leader = Entities.player
 	super()
 	
 	leader.inventory.changed.connect(refresh_speed)

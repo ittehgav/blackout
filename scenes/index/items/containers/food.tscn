@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsvx7fnl7axj8"]
+[gd_scene format=3 uid="uid://bsvx7fnl7axj8"]
 
 [ext_resource type="Texture2D" uid="uid://dwnbrv5st6qi0" path="res://assets/visual/icons/resources/food.png" id="2_pmfpv"]
 [ext_resource type="Script" uid="uid://cnatvtwt8rggx" path="res://scenes/index/items/containers/scripts/food.gd" id="3_0llw5"]
 
-[node name="Food" type="Sprite2D"]
+[node name="Food" type="Sprite2D" unique_id=323888754]
 texture = ExtResource("2_pmfpv")
 script = ExtResource("3_0llw5")
 resource = "food"

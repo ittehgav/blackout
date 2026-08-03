@@ -27,7 +27,7 @@ func set_scenario(target:Scenario)->void:
 	## scenario transitions only available in F5 runs
 	var previous:Scenario = current_scenario;
 	current_scenario = target;
-	var player:Player = get_tree().get_first_node_in_group("player")
+	var player:Player = Entities.player;
 	
 	match target:
 		Scenario.world_map:

@@ -3,9 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://0ptp5odl6qfk" path="res://assets/visual/items/weapons/firebomb_launcher.png" id="1_nqo38"]
 [ext_resource type="Script" uid="uid://dnrnn648teguo" path="res://scenes/index/items/weapons/scripts/firebomb_launcher.gd" id="2_vm3hj"]
 [ext_resource type="Script" uid="uid://b0e1rmg27d5ii" path="res://scenes/battle/fighter/player/equipment/weapon_display/ranged_display.gd" id="4_asmib"]
+[ext_resource type="AnimationLibrary" uid="uid://brrltqeijrp22" path="res://resources/animations/weapons/ranged_two_hand.res" id="4_vm3hj"]
 [ext_resource type="AudioStream" uid="uid://bw73d8n2poosb" path="res://assets/sound/sfx/combat/generic/scorched_ground.wav" id="5_vm3hj"]
-[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="5_xkp80"]
 [ext_resource type="AudioStream" uid="uid://ksdgnk2ql1r6" path="res://assets/sound/sfx/combat/generic/shoot.ogg" id="6_sb8v6"]
+[ext_resource type="PackedScene" uid="uid://ns0jdchcd7sk" path="res://scenes/battle/fighter/neutral/projectile/arc_projectile.tscn" id="7_vm3hj"]
 
 [sub_resource type="Animation" id="Animation_vm3hj"]
 length = 0.001
@@ -25,224 +26,6 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bl1ud"]
 _data = {
 &"RESET": SubResource("Animation_vm3hj")
-}
-
-[sub_resource type="Animation" id="Animation_asmib"]
-resource_name = "attack"
-length = 0.325
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15751445),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(15, 5), Vector2(-10, -5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15751445, 0.23333333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, -0.7853982, 0.0]
-}
-tracks/2/type = "animation"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("weapon_animation/hands_animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"clips": PackedStringArray("attack"),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_xkp80"]
-resource_name = "idle"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(15, 5), Vector2(15, 7)]
-}
-tracks/1/type = "animation"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("weapon_animation/hands_animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": PackedStringArray("idle"),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_u2e0a"]
-resource_name = "walk"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(15, 5), Vector2(15, 9)]
-}
-tracks/1/type = "animation"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("weapon_animation/hands_animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"clips": PackedStringArray("walk"),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_o48iu"]
-_data = {
-&"attack": SubResource("Animation_asmib"),
-&"idle": SubResource("Animation_xkp80"),
-&"walk": SubResource("Animation_u2e0a")
-}
-
-[sub_resource type="Animation" id="Animation_h81ph"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../right_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(5, 15)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../left_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(31, 16)]
-}
-
-[sub_resource type="Animation" id="Animation_ievp0"]
-resource_name = "attack"
-length = 0.325
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../right_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1575),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(5, 11), Vector2(-20.506048, 0.7085819)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../left_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1575),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(31, 13), Vector2(5.657055, 2.8280172)]
-}
-
-[sub_resource type="Animation" id="Animation_5yptb"]
-resource_name = "idle"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../left_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4000169),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(31.163103, 13.119435), Vector2(31.163103, 15.119435)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../right_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4000169),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(5, 11), Vector2(5, 13)]
-}
-
-[sub_resource type="Animation" id="Animation_e1n5w"]
-resource_name = "walk"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../right_hand_anchor:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5000211),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(5, 11), Vector2(5, 15)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../left_hand_anchor:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5000211),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Vector2(31.163103, 13.119435), Vector2(31.163103, 17.119434)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nmeun"]
-_data = {
-&"RESET": SubResource("Animation_h81ph"),
-&"attack": SubResource("Animation_ievp0"),
-&"idle": SubResource("Animation_5yptb"),
-&"walk": SubResource("Animation_e1n5w")
 }
 
 [sub_resource type="Gradient" id="Gradient_nqo38"]
@@ -307,54 +90,54 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_nqo38"]
 radius = 65.50191
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vm3hj"]
+radius = 129.03
+
 [node name="Firebomb Launcher" type="Sprite2D" unique_id=785300769 node_paths=PackedStringArray("scorched_ground", "scorched_ground_hit_scan", "scorched_ground_sfx", "display", "projectile", "animation_player", "use_sfx")]
 texture = ExtResource("1_nqo38")
 offset = Vector2(15, 5)
 script = ExtResource("2_vm3hj")
-scorched_ground = NodePath("scorched_ground_mask")
+scorched_ground = NodePath("components/scorched_ground_mask")
 scorched_ground_hit_scan = NodePath("scorched_ground_hit_scan")
-scorched_ground_sfx = NodePath("explosion_sfx")
-display = NodePath("RangedWeaponDisplay")
+scorched_ground_sfx = NodePath("components/explosion_sfx")
+display = NodePath("components/RangedWeaponDisplay")
 animation_root_key = "ranged_two_hand"
 base_damage = 50
 cooldown = 10.0
-projectile = NodePath("Projectile")
-animation_player = NodePath("weapon_animation")
-use_sfx = NodePath("use_sfx")
-use_feedback = "recoil"
-hit_feedback = "screen_shake"
+projectile = NodePath("Arc Projectile")
+animation_player = NodePath("components/weapon_animation")
+use_sfx = NodePath("components/use_sfx")
 ammo_type = "fuel"
 ammo_cost = 5
 color_tag = "fuel"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
-[node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=457277202]
+[node name="components" type="Node" parent="." unique_id=1147045169]
+
+[node name="RangedWeaponDisplay" type="Node" parent="components" unique_id=446172153]
+script = ExtResource("4_asmib")
+use_feedback = 2
+hit_feedback = 3
+camera_range = 1
+metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
+
+[node name="weapon_animation" type="AnimationPlayer" parent="components" unique_id=457277202]
+root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_bl1ud")
-libraries/ranged_two_hand = SubResource("AnimationLibrary_o48iu")
+libraries/ranged_two_hand = ExtResource("4_vm3hj")
 autoplay = &"ranged_one_hand/attack"
 
-[node name="hands_animation" type="AnimationPlayer" parent="weapon_animation" unique_id=1962861645]
-libraries/ = SubResource("AnimationLibrary_nmeun")
-
-[node name="scoched_ground_dmg_ticker" type="Timer" parent="." unique_id=2084148521]
+[node name="scoched_ground_dmg_ticker" type="Timer" parent="components" unique_id=2084148521]
 process_callback = 0
 autostart = true
 
-[node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=152678523]
+[node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=152678523]
 stream = ExtResource("6_sb8v6")
 
-[node name="explosion_sfx" type="AudioStreamPlayer" parent="." unique_id=1645965388]
+[node name="explosion_sfx" type="AudioStreamPlayer" parent="components" unique_id=1645965388]
 stream = ExtResource("5_vm3hj")
 
-[node name="RangedWeaponDisplay" type="Node" parent="." unique_id=446172153]
-script = ExtResource("4_asmib")
-metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
-
-[node name="Projectile" parent="." unique_id=1066315008 instance=ExtResource("5_xkp80")]
-modulate = Color(0.8, 0.37333336, 0.16, 1)
-flight_speed = 1000
-
-[node name="scorched_ground_mask" type="TextureRect" parent="." unique_id=657606774]
+[node name="scorched_ground_mask" type="TextureRect" parent="components" unique_id=657606774]
 visible = false
 modulate = Color(0.72156864, 0.72156864, 0.72156864, 0.54901963)
 clip_children = 2
@@ -364,25 +147,19 @@ scale = Vector2(2, 2)
 pivot_offset = Vector2(128, 128)
 texture = SubResource("GradientTexture2D_vm3hj")
 
-[node name="texture" type="TextureRect" parent="scorched_ground_mask" unique_id=2085650224]
+[node name="texture" type="TextureRect" parent="components/scorched_ground_mask" unique_id=2085650224]
 layout_mode = 0
 offset_right = 512.0
 offset_bottom = 512.0
 scale = Vector2(2, 2)
 texture = SubResource("NoiseTexture2D_xkp80")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="scorched_ground_mask" unique_id=449866668]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="components/scorched_ground_mask" unique_id=449866668]
 libraries/ = SubResource("AnimationLibrary_u2e0a")
 
-[node name="blast_area" type="CollisionShape2D" parent="scorched_ground_mask" unique_id=836085827]
+[node name="blast_area" type="CollisionShape2D" parent="components/scorched_ground_mask" unique_id=836085827]
 position = Vector2(64, 64)
 shape = SubResource("CircleShape2D_nqo38")
-
-[node name="right_hand_anchor" type="Node2D" parent="." unique_id=256742315]
-position = Vector2(5, 15)
-
-[node name="left_hand_anchor" type="Node2D" parent="." unique_id=65647117]
-position = Vector2(31, 16)
 
 [node name="scorched_ground_hit_scan" type="Area2D" parent="." unique_id=155157433]
 top_level = true
@@ -391,6 +168,13 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 
-[connection signal="timeout" from="scoched_ground_dmg_ticker" to="." method="_on_scoched_ground_dmg_ticker_timeout"]
+[node name="Arc Projectile" parent="." unique_id=749309102 instance=ExtResource("7_vm3hj")]
+modulate = Color(0.5, 0.23966667, 0.14500001, 1)
+flight_speed = 1000
 
-[editable path="Projectile"]
+[node name="CollisionShape2D" parent="Arc Projectile/hit_scan" parent_id_path=PackedInt32Array(749309102, 1490198669) index="0" unique_id=708169688]
+shape = SubResource("CircleShape2D_vm3hj")
+
+[connection signal="timeout" from="components/scoched_ground_dmg_ticker" to="." method="_on_scoched_ground_dmg_ticker_timeout"]
+
+[editable path="Arc Projectile"]

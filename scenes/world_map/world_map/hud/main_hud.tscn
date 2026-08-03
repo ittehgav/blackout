@@ -216,7 +216,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "99"
 
-[node name="location_data" type="PanelContainer" parent="." unique_id=843991568 node_paths=PackedStringArray("sfx", "road_sprite", "main_text_label", "sub_text_label", "location_sprite", "location_sign")]
+[node name="location_data" type="PanelContainer" parent="." unique_id=843991568 node_paths=PackedStringArray("road_sprite", "main_text_label", "sub_text_label", "location_sprite", "location_sign")]
 visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
@@ -228,7 +228,6 @@ offset_right = 12.0
 grow_vertical = 0
 theme = ExtResource("9_3s71w")
 script = ExtResource("10_5vse6")
-sfx = NodePath("")
 road_sprite = NodePath("VBoxContainer/HBoxContainer/location_icon/road")
 main_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/main_text")
 sub_text_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/sub_text")

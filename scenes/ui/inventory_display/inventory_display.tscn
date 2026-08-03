@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ba833ve2fbwcf"]
 
 [ext_resource type="Script" uid="uid://cofh7ym3o2p33" path="res://scenes/ui/inventory_display/inventory_display.gd" id="1_bv60r"]
-[ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/inventory_grid_cell.tscn" id="2_ke6sf"]
-[ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_display/item_mirror.tscn" id="3_c2vy3"]
+[ext_resource type="PackedScene" uid="uid://cgy437yop01qu" path="res://scenes/ui/inventory_display/internal/inventory_grid_cell.tscn" id="2_ke6sf"]
+[ext_resource type="PackedScene" uid="uid://0qsjppw7fils" path="res://scenes/ui/inventory_display/internal/item_mirror.tscn" id="3_c2vy3"]
 [ext_resource type="Script" uid="uid://k28ilsb15q1d" path="res://scenes/ui/inventory_display/sfx.gd" id="3_ke6sf"]
 [ext_resource type="AudioStream" uid="uid://027kj1l582qq" path="res://assets/sound/sfx/ui/inventory/cell_hover.wav" id="4_rchr5"]
 [ext_resource type="Script" uid="uid://b67hvkww5tvpb" path="res://scenes/ui/inventory_display/hover_sfx.gd" id="5_qglwj"]
@@ -14,9 +14,9 @@
 [ext_resource type="AudioStream" uid="uid://bo843b1jpdnre" path="res://assets/sound/sfx/ui/inventory/resources/deposit_liquid_small.wav" id="10_an643"]
 [ext_resource type="AudioStream" uid="uid://dii0q6g35g68o" path="res://assets/sound/sfx/ui/inventory/resources/deposit_liquid_big.wav" id="11_qglwj"]
 [ext_resource type="AudioStream" uid="uid://cavubig57jevv" path="res://assets/sound/sfx/ui/inventory/resources/deposit_scrap_small.wav" id="12_jjio2"]
-[ext_resource type="AudioStream" uid="uid://d020y7kwdl3hp" path="res://assets/sound/sfx/ui/inventory/consumable_target.wav" id="13_jtqjk"]
 [ext_resource type="AudioStream" uid="uid://b6fwkkoof86w3" path="res://assets/sound/sfx/ui/inventory/resources/deposit_scrap_big.wav" id="13_ormkh"]
 [ext_resource type="AudioStream" uid="uid://cg6ya8ntw4pr4" path="res://assets/sound/sfx/ui/inventory/resources/deposit_chips.wav" id="14_15sfg"]
+[ext_resource type="AudioStream" uid="uid://d020y7kwdl3hp" path="res://assets/sound/sfx/ui/inventory/item_target.wav" id="15_i3ng6"]
 [ext_resource type="AudioStream" uid="uid://cmthuuhpkrahu" path="res://assets/sound/sfx/ui/inventory/loot.wav" id="15_n8bvc"]
 [ext_resource type="AudioStream" uid="uid://ch3t7uy42ms3k" path="res://assets/sound/sfx/ui/inventory/trade/trade.wav" id="17_ormkh"]
 [ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="18_7uvto"]
@@ -26,11 +26,13 @@
 [ext_resource type="Script" uid="uid://crrn6xtx5cmhf" path="res://scenes/ui/inventory_display/scroll_container.gd" id="22_qxt2g"]
 [ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/collections/resources_dropdown.tscn" id="22_up2tu"]
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/theme_main.tres" id="25_ed75d"]
-[ext_resource type="Script" uid="uid://bjpqfptad5b01" path="res://scenes/ui/inventory_display/unit_selector.gd" id="25_yjuqr"]
+[ext_resource type="Script" uid="uid://bjpqfptad5b01" path="res://scenes/ui/inventory_display/selectors/unit_selector.gd" id="25_yjuqr"]
 [ext_resource type="Script" uid="uid://uf34l8srmfqm" path="res://scenes/ui/inventory_display/warnings.gd" id="26_8mqj8"]
-[ext_resource type="Script" uid="uid://c4t43pl7ro3sq" path="res://scenes/ui/inventory_display/item_selector.gd" id="26_up2tu"]
+[ext_resource type="Script" uid="uid://c4t43pl7ro3sq" path="res://scenes/ui/inventory_display/selectors/item_selector.gd" id="26_up2tu"]
 [ext_resource type="Theme" uid="uid://b7n6onus7l7v3" path="res://resources/themes/pixel_ui_theme/unused/PixelTheme-Blood.tres" id="27_c5he3"]
 [ext_resource type="PackedScene" uid="uid://dx6w0vn2gqy7s" path="res://scenes/player/unit/player_body.tscn" id="30_xdq4l"]
+[ext_resource type="Script" uid="uid://bxx1uptqaj1mq" path="res://scenes/ui/inventory_display/selectors/artifice_slot_selector.gd" id="32_2jho5"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="33_i3ng6"]
 
 [sub_resource type="Gradient" id="Gradient_qxt2g"]
 colors = PackedColorArray(0.101960786, 0.12941177, 0.15686275, 1, 1, 1, 1, 1)
@@ -42,7 +44,7 @@ height = 4
 fill_from = Vector2(1, 0)
 fill_to = Vector2(0, 0)
 
-[node name="inventory_display" type="Control" unique_id=1918470521 node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "item_mirrors_node", "cargo", "cargo_space", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown")]
+[node name="inventory_display" type="Control" unique_id=1918470521 node_paths=PackedStringArray("warnings_popup", "resource_picker", "unit_selector", "item_selector", "artifice_slot_selector", "item_mirrors_node", "cargo", "cargo_space", "grid", "sfx", "hover_sfx", "warning_label", "send_rect", "trade_excess", "trade_excess_container", "trade_excess_label_panel", "trade_excess_label", "resources_dropdown")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,6 +58,7 @@ warnings_popup = NodePath("warnings")
 resource_picker = NodePath("resource_picker")
 unit_selector = NodePath("unit_selector")
 item_selector = NodePath("item_selector")
+artifice_slot_selector = NodePath("artifice_slot_selector")
 item_mirrors_node = NodePath("cargo/ReferenceRect/ScrollContainer/cargo_space/item_mirrors")
 cargo = NodePath("cargo")
 cargo_space = NodePath("cargo/ReferenceRect/ScrollContainer/cargo_space")
@@ -92,7 +95,7 @@ invalid = ExtResource("18_7uvto")
 reset = ExtResource("19_h4har")
 coin_drop = ExtResource("20_fnwsv")
 loot = ExtResource("15_n8bvc")
-consumable_target = ExtResource("13_jtqjk")
+item_target = ExtResource("15_i3ng6")
 deposit_food_small = ExtResource("8_7cfyp")
 deposit_food_big = ExtResource("9_odn8d")
 deposit_liquid_small = ExtResource("10_an643")
@@ -402,7 +405,6 @@ text = "Discard items
 and continue"
 
 [node name="auto_sort" type="Button" parent="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=201009806]
-visible = false
 layout_mode = 2
 text = "Auto-Sort
 and continue"
@@ -411,9 +413,9 @@ and continue"
 layout_mode = 2
 text = "Return"
 
-[node name="unit_selector" type="PanelContainer" parent="." unique_id=488670982 node_paths=PackedStringArray("options_hbox")]
+[node name="unit_selector" type="PanelContainer" parent="." unique_id=488670982 node_paths=PackedStringArray("options_container")]
 visible = false
-z_index = 7
+z_index = 30
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -427,14 +429,15 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("25_yjuqr")
-options_hbox = NodePath("options")
+options_container = NodePath("options")
 
-[node name="options" type="HBoxContainer" parent="unit_selector" unique_id=1351969398]
+[node name="options" type="GridContainer" parent="unit_selector" unique_id=803083190]
 layout_mode = 2
+columns = 5
 
 [node name="item_selector" type="PanelContainer" parent="." unique_id=1812004539 node_paths=PackedStringArray("options_hbox")]
 visible = false
-z_index = 4
+z_index = 30
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -453,6 +456,79 @@ options_hbox = NodePath("options")
 
 [node name="options" type="HBoxContainer" parent="item_selector" unique_id=1237007783]
 layout_mode = 2
+
+[node name="artifice_slot_selector" type="PanelContainer" parent="." unique_id=1974281672 node_paths=PackedStringArray("sample_1", "sample_2", "sample_3")]
+visible = false
+z_index = 30
+layout_mode = 0
+offset_right = 12.0
+offset_bottom = 12.0
+script = ExtResource("32_2jho5")
+sample_1 = NodePath("VBoxContainer/HBoxContainer/artifice_1")
+sample_2 = NodePath("VBoxContainer/HBoxContainer/artifice_2")
+sample_3 = NodePath("VBoxContainer/HBoxContainer/artifice_3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="artifice_slot_selector" unique_id=110866522]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="artifice_slot_selector/VBoxContainer" unique_id=1379182888]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Choose a slot:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="artifice_slot_selector/VBoxContainer" unique_id=240775123]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="artifice_1" parent="artifice_slot_selector/VBoxContainer/HBoxContainer" unique_id=389664355 instance=ExtResource("33_i3ng6")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="artifice_n" type="Label" parent="artifice_slot_selector/VBoxContainer/HBoxContainer/artifice_1" unique_id=69893967]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 26.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.11000001, 0.1175, 0.2, 1)
+text = "1"
+horizontal_alignment = 2
+
+[node name="artifice_2" parent="artifice_slot_selector/VBoxContainer/HBoxContainer" unique_id=1481765484 instance=ExtResource("33_i3ng6")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="artifice_n" type="Label" parent="artifice_slot_selector/VBoxContainer/HBoxContainer/artifice_2" unique_id=1361990531]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 26.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.11000001, 0.1175, 0.2, 1)
+text = "2"
+horizontal_alignment = 2
+
+[node name="artifice_3" parent="artifice_slot_selector/VBoxContainer/HBoxContainer" unique_id=1351082815 instance=ExtResource("33_i3ng6")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="artifice_n" type="Label" parent="artifice_slot_selector/VBoxContainer/HBoxContainer/artifice_3" unique_id=226483053]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 26.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.11000001, 0.1175, 0.2, 1)
+text = "3"
+horizontal_alignment = 2
 
 [connection signal="invalid_move" from="." to="." method="_on_invalid_move"]
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
@@ -473,3 +549,7 @@ layout_mode = 2
 [connection signal="pressed" from="warnings/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/return" to="warnings" method="_on_return_pressed"]
 [connection signal="mouse_exited" from="unit_selector" to="unit_selector" method="_on_mouse_exited"]
 [connection signal="mouse_exited" from="item_selector" to="item_selector" method="_on_mouse_exited"]
+[connection signal="mouse_exited" from="artifice_slot_selector" to="artifice_slot_selector" method="_on_mouse_exited"]
+[connection signal="gui_input" from="artifice_slot_selector/VBoxContainer/HBoxContainer/artifice_1" to="artifice_slot_selector" method="_on_artifice_1_gui_input"]
+[connection signal="gui_input" from="artifice_slot_selector/VBoxContainer/HBoxContainer/artifice_2" to="artifice_slot_selector" method="_on_artifice_2_gui_input"]
+[connection signal="gui_input" from="artifice_slot_selector/VBoxContainer/HBoxContainer/artifice_3" to="artifice_slot_selector" method="_on_artifice_3_gui_input"]

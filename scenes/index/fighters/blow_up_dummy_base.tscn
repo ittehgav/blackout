@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bqhrbes0ge2p5"]
+
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="1_hhv1i"]
+[ext_resource type="Script" uid="uid://x2ffran2ngq5" path="res://scenes/index/fighters/blow_up_dummy_base.gd" id="1_nva3j"]
+[ext_resource type="Texture2D" uid="uid://6yov50e48nnm" path="res://assets/visual/items/artifices/extra_textures/blow_up_dummy.png" id="2_22lue"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_505s3"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="3_hhv1i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lcfli"]
+resource_local_to_scene = true
+shader = ExtResource("1_hhv1i")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_22lue"]
+radius = 13.0
+height = 60.0
+
+[node name="Blow-up Dummy" type="Sprite2D" unique_id=957661949 node_paths=PackedStringArray("skill", "base_stats", "stats_per_level")]
+material = SubResource("ShaderMaterial_lcfli")
+texture = ExtResource("2_22lue")
+script = ExtResource("1_nva3j")
+skill = NodePath("SkillComponent")
+movement = 2
+base_stats = NodePath("stat_base/base_stats")
+stats_per_level = NodePath("stat_base/stats_per_level")
+
+[node name="SkillComponent" type="Node" parent="." unique_id=1824487253]
+script = ExtResource("2_505s3")
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="stat_base" type="Node" parent="." unique_id=1002327717]
+
+[node name="base_stats" type="Node" parent="stat_base" unique_id=558210395]
+script = ExtResource("3_hhv1i")
+max_hp = 200.0
+defense = 50.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="stat_base" unique_id=2002319123]
+script = ExtResource("3_hhv1i")
+max_hp = 20.0
+defense = 10.0
+agility = 5.0
+technique = 3.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1143795911]
+shape = SubResource("CapsuleShape2D_22lue")

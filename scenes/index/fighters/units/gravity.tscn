@@ -62,14 +62,26 @@ size = Vector2(400, 100)
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../hit_scan/projection:modulate:a")
+tracks/0/path = NodePath("projection/shape/expansion:scale:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.16, 0.4, 0.65, 0.66),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.65),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.75, 0.3, 0.75, 0]
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("projection:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.4, 0.65, 0.66),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.75, 0.3, 0.75, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_575tt"]
@@ -109,40 +121,57 @@ vframes = 7
 frame = 3
 script = ExtResource("3_pya1c")
 beam = NodePath("Node2D/beam")
-skill = NodePath("Gravity Pulse")
+skill = NodePath("components/Gravity Pulse")
 skill_range = 10
-animation_player = NodePath("AnimationPlayer")
+animation_player = NodePath("components/base_animations")
 weight_class = 0
 tags = Array[int]([7, 3])
 movement = 1
 hit_scan = NodePath("hit_scan")
-base_stats = NodePath("stat_base/base_stats")
-stats_per_level = NodePath("stat_base/stats_per_level")
+base_stats = NodePath("components/stats/base_stats")
+stats_per_level = NodePath("components/stats/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
-metadata/_edit_vertical_guides_ = [-198.0]
 
-[node name="Gravity Pulse" type="Node" parent="." unique_id=882028580 node_paths=PackedStringArray("status")]
+[node name="components" type="Node" parent="." unique_id=482454684]
+
+[node name="Gravity Pulse" type="Node" parent="components" unique_id=882028580 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xi7nn")
 base_cooldown = 7.0
-effects = Array[int]([4, 3])
+effects = Array[int]([5, 3])
 transform_visual = 1
 status = NodePath("Phaselock")
 knockback_strength = 4
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="Phaselock" type="Node" parent="Gravity Pulse" unique_id=219088143]
+[node name="Phaselock" type="Node" parent="components/Gravity Pulse" unique_id=219088143]
 script = ExtResource("5_ylbig")
 type = "stun"
 duration = 2.0
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=144748180]
+[node name="stats" type="Node" parent="components" unique_id=122263424]
+
+[node name="base_stats" type="Node" parent="components/stats" unique_id=92001362]
+script = ExtResource("9_ba4bw")
+max_hp = 100.0
+defense = 5.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="components/stats" unique_id=649243213]
+script = ExtResource("9_ba4bw")
+max_hp = 10.0
+agility = 2.5
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="base_animations" type="AnimationPlayer" parent="components" unique_id=144748180]
+root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_8u1s7")
 libraries/fighter_base = ExtResource("4_iq7f6")
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=1880112702]
 top_level = true
-position = Vector2(221, 26)
 collision_layer = 0
 collision_mask = 0
 monitorable = false
@@ -155,40 +184,28 @@ shape = SubResource("RectangleShape2D_u5bk5")
 libraries/projection = SubResource("AnimationLibrary_575tt")
 script = ExtResource("7_ba4bw")
 source = NodePath("../..")
+generated_elements = [NodePath("../projection")]
 single_pixel_fill = ExtResource("8_04oj3")
 knockback_gradient = SubResource("GradientTexture1D_04oj3")
 radial_gradient = SubResource("GradientTexture2D_575tt")
-generated_elements = [NodePath("../projection")]
 
-[node name="projection" type="Node2D" parent="hit_scan" unique_id=372042433]
-modulate = Color(1, 1, 1, 0.75)
+[node name="projection" type="Node2D" parent="hit_scan" unique_id=269135087]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(0, -50)
 
-[node name="shape" type="Sprite2D" parent="hit_scan/projection" unique_id=1537396963]
+[node name="shape" type="Sprite2D" parent="hit_scan/projection" unique_id=1714135278]
 modulate = Color(0.627451, 0.1254902, 0.9411765, 0.39999998)
 scale = Vector2(400, 100)
+texture = ExtResource("8_04oj3")
+
+[node name="expansion" type="Sprite2D" parent="hit_scan/projection/shape" unique_id=520719356]
+scale = Vector2(1e-05, 1)
 texture = ExtResource("8_04oj3")
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1930519657]
 position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_8ilq8")
 debug_color = Color(0, 0.5950001, 0.7, 0)
-
-[node name="stat_base" type="Node" parent="." unique_id=122263424]
-
-[node name="base_stats" type="Node" parent="stat_base" unique_id=92001362]
-script = ExtResource("9_ba4bw")
-max_hp = 100.0
-defense = 5.0
-metadata/_custom_type_script = "uid://dn4endealcll1"
-
-[node name="stats_per_level" type="Node" parent="stat_base" unique_id=649243213]
-script = ExtResource("9_ba4bw")
-max_hp = 10.0
-agility = 2.5
-technique = 5.0
-move_speed = 0.0
-metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="shadow_container" type="Node2D" parent="." unique_id=1985599841]
 position = Vector2(0, -8.000001)
@@ -210,4 +227,4 @@ position = Vector2(0, 20)
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-2, 0, 2, 0, 2, 1, -2, 1)
 
-[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
+[connection signal="animation_started" from="components/base_animations" to="." method="_on_animation_player_animation_started"]

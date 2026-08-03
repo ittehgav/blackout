@@ -7,9 +7,8 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmc03"]
 region = Rect2(0, 0, 64, 64)
 
-[node name="Human Resources" type="Node" unique_id=404718208 node_paths=PackedStringArray("sample", "party_icon", "panel", "sfx")]
+[node name="Human Resources" type="Node" unique_id=404718208 node_paths=PackedStringArray("party_icon", "panel", "sfx")]
 script = ExtResource("1_m07pm")
-sample = NodePath("")
 party_icon = NodePath("Panel/Party Icon")
 icon = SubResource("AtlasTexture_nmc03")
 title_color = Color(1, 1, 1, 1)

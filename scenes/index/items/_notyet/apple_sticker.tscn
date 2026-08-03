@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://pdygvkib8khb"]
+[gd_scene format=3 uid="uid://pdygvkib8khb"]
 
 [ext_resource type="Texture2D" uid="uid://c8x1fy6ibwul3" path="res://assets/visual/items/consumables/apple_sticker.png" id="1_qh353"]
 [ext_resource type="Script" uid="uid://dbkde7jy1paes" path="res://scenes/index/items/consumables/scripts/apple_sticker.gd" id="2_jw2ka"]
 [ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="3_jw2ka"]
 
-[node name="Apple Sticker" type="Sprite2D"]
+[node name="Apple Sticker" type="Sprite2D" unique_id=1208497831]
 texture = ExtResource("1_qh353")
 script = ExtResource("2_jw2ka")
 use_sfx = ExtResource("3_jw2ka")

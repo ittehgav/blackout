@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c4ek8xhdc86yb" path="res://assets/visual/icons/morale/neutral.png" id="5_jqfe8"]
 [ext_resource type="Texture2D" uid="uid://cfgpq1o6fmhsl" path="res://assets/visual/icons/morale/very_high.png" id="6_bbonm"]
 
-[node name="MoraleIcon" type="TextureRect"]
+[node name="MoraleIcon" type="TextureRect" unique_id=466639648]
 custom_minimum_size = Vector2(64, 64)
 anchors_preset = 8
 anchor_left = 0.5

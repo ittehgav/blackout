@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhxxi2711i5k2"]
+[gd_scene format=3 uid="uid://bhxxi2711i5k2"]
 
 [ext_resource type="Script" uid="uid://db1dwr7y73v3n" path="res://scenes/world_map/dialogue/_choice.gd" id="1_bi8yq"]
 
-[node name="_choice" type="Button" node_paths=PackedStringArray("icon_rect", "label")]
+[node name="_choice" type="Button" unique_id=1874280093 node_paths=PackedStringArray("icon_rect", "label")]
 custom_minimum_size = Vector2(700, 70)
 anchors_preset = 8
 anchor_left = 0.5
@@ -21,7 +21,7 @@ script = ExtResource("1_bi8yq")
 icon_rect = NodePath("HBoxContainer/icon")
 label = NodePath("HBoxContainer/MarginContainer/text")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1339326872]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,20 +29,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="icon" type="TextureRect" parent="HBoxContainer"]
+[node name="icon" type="TextureRect" parent="HBoxContainer" unique_id=1064174227]
 visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1192546423]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="text" type="RichTextLabel" parent="HBoxContainer/MarginContainer"]
+[node name="text" type="RichTextLabel" parent="HBoxContainer/MarginContainer" unique_id=372901364]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 mouse_filter = 2

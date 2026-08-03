@@ -17,3 +17,7 @@ func _on_equipment_weapon_changed() -> void:
 
 func _on_equipment_module_fumbled() -> void:
 	play_sound_obj(module_unavailable)
+
+
+func _on_equipment_artifice_fumbled() -> void:
+	play_sound_obj(module_unavailable)

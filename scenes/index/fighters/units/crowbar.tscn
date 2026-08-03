@@ -63,22 +63,44 @@ hframes = 8
 vframes = 7
 frame = 5
 script = ExtResource("3_y4yls")
-skill = NodePath("Crowbar Swing")
-animation_player = NodePath("base_animations")
+skill = NodePath("components/Crowbar Swing")
+animation_player = NodePath("components/base_animations")
 weight_class = 0
 tags = Array[int]([3, 1])
-base_stats = NodePath("stat_base/base_stats")
-stats_per_level = NodePath("stat_base/stats_per_level")
+base_stats = NodePath("components/stats/base_stats")
+stats_per_level = NodePath("components/stats/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="Crowbar Swing" type="Node" parent="." unique_id=1567435836]
+[node name="components" type="Node" parent="." unique_id=1577716914]
+
+[node name="stats" type="Node" parent="components" unique_id=366475761]
+
+[node name="base_stats" type="Node" parent="components/stats" unique_id=31049632]
+script = ExtResource("9_d4cht")
+max_hp = 100.0
+attack = 15.0
+defense = 5.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="components/stats" unique_id=1312934670]
+script = ExtResource("9_d4cht")
+max_hp = 10.0
+attack = 10.0
+defense = 2.5
+agility = 4.0
+technique = 1.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="Crowbar Swing" type="Node" parent="components" unique_id=1567435836]
 script = ExtResource("3_xan8i")
 base_cooldown = 3.0
 effects = Array[int]([0])
 technique_scaled_damage = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="base_animations" type="AnimationPlayer" parent="." unique_id=128421000]
+[node name="base_animations" type="AnimationPlayer" parent="components" unique_id=128421000]
+root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_l0xen")
 libraries/fighter_base = ExtResource("4_t43eb")
 
@@ -88,25 +110,6 @@ shape = SubResource("CircleShape2D_lsh81")
 debug_color = Color(0, 0.5950001, 0.7, 0)
 
 [node name="Overhead" parent="." unique_id=1766547426 instance=ExtResource("8_hvweh")]
-
-[node name="stat_base" type="Node" parent="." unique_id=366475761]
-
-[node name="base_stats" type="Node" parent="stat_base" unique_id=31049632]
-script = ExtResource("9_d4cht")
-max_hp = 100.0
-attack = 15.0
-defense = 5.0
-metadata/_custom_type_script = "uid://dn4endealcll1"
-
-[node name="stats_per_level" type="Node" parent="stat_base" unique_id=1312934670]
-script = ExtResource("9_d4cht")
-max_hp = 10.0
-attack = 10.0
-defense = 2.5
-agility = 4.0
-technique = 1.0
-move_speed = 0.0
-metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="shadow_container" type="Node2D" parent="." unique_id=331567218]
 

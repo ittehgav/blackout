@@ -33,11 +33,22 @@ var equipment:Array[Equipment]
 @export var equipped_accessory_1:Accessory;
 @export var equipped_accessory_2:Accessory;
 
+@export var equipped_artifices:Dictionary[int, Artifice]={
+	1:null, 2:null, 3:null
+}
+@export var equipped_artifices_names:Dictionary[int, String]={
+	## keep the unique_name property of the artifices so they all
+	## count as equipped together
+	## some functions will use the obejct-base dict and some the name-based
+	## the propagation of any changes start in this script
+	## after all values are updated here
+	1:"",2:"",3:""
+}
+func get_equipped_artfice(slot:int)->Artifice:
+	return equipped_artifices[slot]
+
 @export var morale:float=3.7;
 
-func _ready()->void:
-	## TODO remove this once the new world map scene loads from proper context
-	Entities.player = self
 
 func level_up()->void:
 	level += 1;
@@ -48,6 +59,14 @@ func level_up()->void:
 func _on_level_up() -> void:
 	for stat:String in CombatStats.all_stats:
 		stats[stat] += CombatStats.player_level_stat_gains[stat]
+		
+func switch_weapons()->void:
+	assert(equipped_weapon and alternative_weapon);
+	var alt:Weapon = alternative_weapon;
+	alternative_weapon = equipped_weapon;
+	equipped_weapon = alt
+	
+	equipment_changed.emit(equipped_weapon)
 
 func equip_weapon(weapon:Weapon)->void:
 	assert(weapon in inventory.weapons);
@@ -58,14 +77,15 @@ func equip_weapon(weapon:Weapon)->void:
 	equipment.append(equipped_weapon)
 	equipment_changed.emit(weapon);
 
-func equip_alt_weapon(weapon:Weapon)->void:
+func equip_alt_weapon(weapon:Weapon, quiet:bool=false)->void:
 	assert(weapon in inventory.weapons);
 	equipment.erase(alternative_weapon)
 	alternative_weapon = weapon;
 	weapon.inventory_position = InventoryDisplay.ITEM_UNPLACED;
 	
 	equipment.append(alternative_weapon)
-	equipment_changed.emit(weapon);
+	if not quiet:
+		equipment_changed.emit(weapon);
 
 func equip_module(module:Module)->void:
 	assert(module in inventory.modules);
@@ -81,20 +101,50 @@ func equip_accessory(accessory:Accessory, index:int)->Accessory:
 	assert(accessory in inventory.accessories);
 	var just_unequipped:Accessory
 	accessory.inventory_position = Vector2i(-1, -1)
-	match index:
-		1:
-			just_unequipped = equipped_accessory_1;
-			equipped_accessory_1 = accessory
-		2:
-			just_unequipped = equipped_accessory_2;
-			equipped_accessory_2 = accessory
 	
-	equipment.erase(just_unequipped);
+	var key:String = "equipped_accessory_"+str(index);
+	just_unequipped = self[key];
+
+	if just_unequipped:
+		unequip_accessory(just_unequipped, index, true)
+
+	self[key] = accessory
 	equipment.append(accessory);
 	equipment_changed.emit(accessory);
 	
 	return just_unequipped
+
+func unequip_accessory(target:Accessory, index:int, quiet:bool=false)->void:
+	equipment.erase(target);
+	self["equipped_accessory_"+str(index)] = null;
+	if not quiet:
+		equipment_changed.emit(target)
 	
+
+
+func equip_artifice(target:Artifice, slot:int)->Artifice:
+	var current_slot:Variant = equipped_artifices_names.find_key(target.unique_name);
+	if current_slot:
+		unequip_artifice(current_slot, true)
+	var unequipped:Artifice=null;
+	if equipped_artifices[slot] != null:
+		unequipped = equipped_artifices[slot]
+		unequip_artifice(slot, true);
+		
+	equipped_artifices[slot] = target;
+	equipped_artifices_names[slot] = target.unique_name
+	
+	equipment_changed.emit(target);
+	return unequipped
+	
+func unequip_artifice(slot:int, quiet:bool=false)->void:
+
+	var eq:Artifice = equipped_artifices[slot]
+	equipped_artifices[slot] = null;
+	equipped_artifices_names[slot] = ""
+	if not quiet:
+		equipment_changed.emit(eq)
+
 
 
 func travel_upkeep_cost(per_hour:bool=false)->Dictionary[String, int]:
@@ -119,38 +169,6 @@ func travel_upkeep_cost(per_hour:bool=false)->Dictionary[String, int]:
 
 
 
-func load_origin(origin:Player)->void:
-	## easier to do this than to have to reconnect the signals from the 
-	## world map player node
-	while len(origin.roster.units):
-		var unit:FighterUnit = origin.roster.units[0]
-		origin.roster.units.erase(unit)
-		roster.add_unit(unit)
-
-	
-	inventory.queue_free();
-	var new_inventory:Inventory = origin.inventory;
-	new_inventory.reparent(self);
-	inventory = new_inventory;
-	inventory.refresh_resource_counts()
-	new_inventory.holder = self;
-	stats.queue_free();
-	var new_combat_stats:CombatStats = origin.combat_stats;
-	new_combat_stats.reparent(self);
-	stats = new_combat_stats;
-	
-	sight_range = origin.sight_range;
-	
-	color_scheme_index = origin.color_scheme_index
-	
-	party_name = origin.name;
-	name = origin.name;
-
-	level = origin.level;
-	
-	equipped_weapon = origin.equipped_weapon;
-	equipped_module = origin.equipped_module;
-	
 
 func change_morale(change:float)->void:
 	morale += change;

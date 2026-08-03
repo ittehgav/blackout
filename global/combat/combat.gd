@@ -34,8 +34,17 @@ static func radial_knockback(source:ActiveFighter, hit_scan:Area2D=source.base.h
 	for area:Area2D in hurtboxes:
 		assert(area is HurtBox);
 		var target:CombatEntity = area.source;
-		var direction:Vector2 = hit_scan.global_position.direction_to(target.global_position);
+		var direction:Vector2 = hit_scan.global_position.direction_to(target.global_position)
 		knock_back_target(source, target, strength, Vector2.ZERO, direction)
+
+static func radial_pull(source:ActiveFighter, hit_scan:Area2D=source.base.hit_scan,\
+			strength:int = source.base.skill.knockback_strength)->void:
+				var hurtboxes:Array[Area2D] = hit_scan.get_overlapping_areas();
+				for area:Area2D in hurtboxes:
+					assert(area is HurtBox);
+					var target:CombatEntity = area.source;
+					var direction:Vector2 = hit_scan.global_position.direction_to(target.global_position) * -1;
+					knock_back_target(source, target, strength, Vector2.ZERO, direction)
 
 static func flying_collision(t1:CombatEntity, t2:CombatEntity)->void:
 	if t2 == t1.knockback_source:return
@@ -57,3 +66,6 @@ static func flying_collision(t1:CombatEntity, t2:CombatEntity)->void:
 		t1.velocity = Vector2.ZERO;
 		var direction:Vector2 = t1.position.direction_to(t2.position)
 		knock_back_target(t1.knockback_source, t2, 1, direction*t1.velocity.length()/2)
+
+static func summon_unit(source:ActiveFighter, unit:FighterUnit, target_position:Vector2)->void:
+	source.ally_team.generate_fighter(unit, target_position).summon = true

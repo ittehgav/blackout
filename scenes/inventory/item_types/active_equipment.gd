@@ -12,8 +12,7 @@ signal continuous_released
 signal ammo_consumed(ammo_type:String, amount:int)
 signal ammo_ran_out(ammo_type:String)
 
-@export_range(1, 10) var refinement_level:int;
-@export var refinement_component:RefinementComponent;
+
 
 @export var continuous:bool=false;
 

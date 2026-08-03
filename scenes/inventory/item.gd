@@ -2,7 +2,13 @@
 class_name Item
 extends Sprite2D
 
+const test_key = "combat";
+
 var mirror:ItemMirror;
+
+var unique_name:String;
+func _enter_tree() -> void:
+	unique_name = scene_file_path.get_file().get_basename().capitalize()
 
 var applied_modifier:ItemModifier
 const rarity_colors:={

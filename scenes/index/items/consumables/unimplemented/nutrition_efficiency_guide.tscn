@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b30o8q3dpe8q8"]
+[gd_scene format=3 uid="uid://b30o8q3dpe8q8"]
 
 [ext_resource type="Script" uid="uid://dgb3c401ilom7" path="res://scenes/index/items/consumables/scripts/nutrition_efficiency_guide.gd" id="1_cuvfw"]
 [ext_resource type="Texture2D" uid="uid://bho2h176v06lo" path="res://assets/visual/items/consumables/nutrition_efficiency_guide.png" id="1_un5qf"]
 
-[node name="Nutrition Efficiency Guide" type="Sprite2D"]
+[node name="Nutrition Efficiency Guide" type="Sprite2D" unique_id=1449269451]
 texture = ExtResource("1_un5qf")
 script = ExtResource("1_cuvfw")
 color_tag = "food"

@@ -14,7 +14,7 @@ func request_space_for_item(item:Item)->void:
 	Entities.player_sheet.item_discarded.connect(check_clear_space)
 	pending_item = item
 	var color_tag:String = Index.get_color_tag(item.color_tag)
-	request_label.text = "Not enough space in inventory for "+color_tag + item.name
+	request_label.text = "Not enough space in inventory for "+color_tag + item.unique_name
 	sample.load_item(item, 3);
 	inventory_display.item_dropped.connect(check_clear_space)
 	setup_projection()

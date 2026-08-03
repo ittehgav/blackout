@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bgpplecc7vmuh"]
+
+[ext_resource type="Texture2D" uid="uid://qr1bp8im3i21" path="res://assets/visual/items/artifices/overgrowth_powder.png" id="1_g6e78"]
+[ext_resource type="Script" uid="uid://dha65qo6op625" path="res://scenes/index/items/artifices/scripts/overgrowth_powder.gd" id="1_pqx2c"]
+[ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="3_mjpf8"]
+[ext_resource type="PackedScene" uid="uid://ns0jdchcd7sk" path="res://scenes/battle/fighter/neutral/projectile/arc_projectile.tscn" id="3_sisyf"]
+[ext_resource type="AudioStream" uid="uid://cm4xgyye8khd7" path="res://assets/sound/sfx/combat/overgrowth.wav" id="4_hereo"]
+
+[node name="Overgrowth Powder" type="Sprite2D" unique_id=529379539 node_paths=PackedStringArray("projectile", "use_sfx", "detonate_sfx")]
+texture = ExtResource("1_g6e78")
+script = ExtResource("1_pqx2c")
+projectile = NodePath("Arc Projectile")
+use_sfx = NodePath("Throw")
+detonate_sfx = NodePath("Overgrowth")
+color_tag = "max_hp"
+
+[node name="Throw" type="AudioStreamPlayer" parent="." unique_id=1767147088]
+stream = ExtResource("3_mjpf8")
+
+[node name="Overgrowth" type="AudioStreamPlayer" parent="." unique_id=643089869]
+stream = ExtResource("4_hereo")
+
+[node name="Arc Projectile" parent="." unique_id=1190316787 instance=ExtResource("3_sisyf")]
+texture = ExtResource("1_g6e78")
+
+[editable path="Arc Projectile"]

@@ -27,8 +27,17 @@ signal module_fumbled
 signal continuous_module_started;
 signal continuous_module_released;
 
+signal artifice_aiming_started(which:int);
+signal artifice_aiming_stopped(which:int)
+signal artifice_used(which:int)
+signal artifice_fumbled;
+
+@export var hit_sfx:AudioStreamPlayer;
+## to make it fetchable from global scope
+
 @export var weapon_control:WeaponControl
 @export var module_control:ModuleControl;
+@export var artifice_control:ArtificeControl
 
 
 @export var holder:ActiveFighter;
@@ -42,8 +51,7 @@ var alt_weapon:Weapon;
 @export var attack_slow_timer:Timer;
 
 @export var weapon_anchor:Node2D;
-@export var right_hand:Sprite2D;
-@export var left_hand:Sprite2D;
+
 
 
 
@@ -66,20 +74,13 @@ func _on_weapon_equipped(weapon: Weapon) -> void:
 	## just to encapsulate the weapon to the other script some more
 	## and leave this as more of a signal emitter and anchor for the weapon sprite
 	equipped_weapon = weapon;
-	
-	weapon.attach_hands(right_hand, left_hand)
 
-	
 	weapon_anchor.rotation = 0;
-	if weapon.size_x > 2 and weapon.size_y > 2:
-		weapon_anchor.scale = Vector2.ONE
-		right_hand.scale = Vector2.ONE;
-		left_hand.scale = Vector2.ONE
-		
-	else:
-		weapon_anchor.scale = Vector2(2, 2)
-		right_hand.scale = Vector2(.5, .5)
-		left_hand.scale = Vector2(.5, .5)
+	
+	var s:int = weapon.display.visual_scale;
+	weapon_anchor.scale = Vector2(s, s);
+	
+	position = weapon.display.equipment_offset
 
 
 func refresh_weapon_cooldowns()->void:

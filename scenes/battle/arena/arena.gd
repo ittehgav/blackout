@@ -13,12 +13,12 @@ signal battle_ended(won:bool);
 
 @export var current_layout:Node2D;
 
+
 ## only checked during post_fight
 var won_battle:bool;
 @export var post_fight_view:PostFight;
 
-func _enter_tree() -> void:
-	Entities.arena = self;
+
 
 func _ready()->void:
 	if team_1.roster:

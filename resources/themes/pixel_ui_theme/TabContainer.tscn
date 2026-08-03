@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://c2sh6wq48x321" path="res://resources/themes/pixel_ui_theme/theme_main.tres" id="1_pjvdr"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=38561854]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_pjvdr")
 
-[node name="TabContainer" type="TabContainer" parent="."]
+[node name="TabContainer" type="TabContainer" parent="." unique_id=421772789]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -28,55 +28,55 @@ grow_vertical = 2
 current_tab = 0
 drag_to_rearrange_enabled = true
 
-[node name="Tab 1" type="VBoxContainer" parent="TabContainer"]
+[node name="Tab 1" type="VBoxContainer" parent="TabContainer" unique_id=668526494]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 1"]
+[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 1" unique_id=1491353217]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "This is the first tab"
 fit_content = true
 
-[node name="Tab 2" type="VBoxContainer" parent="TabContainer"]
+[node name="Tab 2" type="VBoxContainer" parent="TabContainer" unique_id=1143650705]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 2"]
+[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 2" unique_id=1365089635]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "This is the first tab"
 fit_content = true
 
-[node name="Tab 3" type="VBoxContainer" parent="TabContainer"]
+[node name="Tab 3" type="VBoxContainer" parent="TabContainer" unique_id=627790901]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 3"]
+[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 3" unique_id=1793887900]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "This is the first tab"
 fit_content = true
 
-[node name="Tab 4" type="VBoxContainer" parent="TabContainer"]
+[node name="Tab 4" type="VBoxContainer" parent="TabContainer" unique_id=1058531419]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 4"]
+[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 4" unique_id=715926529]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "This is the first tab"
 fit_content = true
 
-[node name="Tab 5" type="VBoxContainer" parent="TabContainer"]
+[node name="Tab 5" type="VBoxContainer" parent="TabContainer" unique_id=1731875502]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 5"]
+[node name="Text" type="RichTextLabel" parent="TabContainer/Tab 5" unique_id=1724674788]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "This is the first tab"

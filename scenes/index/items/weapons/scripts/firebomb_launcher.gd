@@ -9,7 +9,7 @@ const scorched_ground_duration = 5
 
 const r1_improvement = "+50% scorched area size";
 const r2_improvement = "Enemies directly hit by the grenade take double damage from scorched ground";
-const r3_improvement = "Enemies in the scorched ground have -50% agility.";
+const r3_improvement = "Enemies in the scorched ground have -50% attack.";
 
 @export var scorched_ground:TextureRect;
 @export var scorched_ground_hit_scan:Area2D;
@@ -23,21 +23,20 @@ func get_description()->String:
 func use(_alt:bool=false)->void:
 	consume_ammo()
 	animation_player.play(get_animation_key("attack"))
-	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit);
+	Combat.shoot_projectile(projectile, Entities.player_fighter, projectile_hit, apply_scorched_ground);
 
 
 func projectile_hit(target:CombatEntity)->void:
 	Combat.deal_damage(Entities.player_fighter, target);
-	scorched_ground_sfx.play()
-	apply_scorched_ground(target)
 	hit.emit()
 
-func apply_scorched_ground(target:CombatEntity)->void:
+func apply_scorched_ground(target:Vector2)->void:
 	var ground:TextureRect = scorched_ground.duplicate();
 	Entities.player_fighter.ally_team.ground_elements.add_child(ground);
 	ground.scale = Vector2(4, 4)
-	ground.global_position = target.global_position - Vector2(256, 256);
+	ground.global_position = target - Vector2(256, 256);
 	ground.show();
+	scorched_ground_sfx.play()
 	
 	var blast_area:CollisionShape2D = ground.get_node("blast_area")
 	blast_area.reparent(scorched_ground_hit_scan)

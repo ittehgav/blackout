@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://crjrii0nyjfn5" path="res://assets/visual/editor_ui/IconGodotNode/node/icon_time.png" id="8_6gjhy"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="9_slgv3"]
 
-[node name="CombatMechanicIcon" type="TextureRect" unique_id=534107716 node_paths=PackedStringArray("texture_under", "tooltip")]
+[node name="CombatMechanicIcon" type="TextureRect" unique_id=534107716 node_paths=PackedStringArray("texture_under")]
 z_index = 1
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
@@ -28,7 +28,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_ti1gb")
 texture_under = NodePath("TextureRect")
-tooltip = NodePath("Tooltip")
 mechanic_textures = Dictionary[int, Texture]({
 0: ExtResource("2_2atle"),
 1: ExtResource("3_s24vb"),

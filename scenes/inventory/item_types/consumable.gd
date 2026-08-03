@@ -3,6 +3,14 @@
 class_name Consumable
 extends Item
 
+enum UseFeedback{
+	show_player_view,## MUTUALLY EXCLUSIVE
+	show_party_view,
+	
+	board_shake,
+	play_sfx
+}
+@export var feedback:Array[UseFeedback] = [UseFeedback.board_shake]
 
 const type = "consumable"
 @export var use_sfx:AudioStream;
@@ -18,21 +26,17 @@ const type = "consumable"
 	"accessory",
 	
 	"consumable",
-	"container"
+	"container",
+	"artifice"
 ) var item_target:String;
-@export_enum(
-	"bodybuilder",
-	"mechanic",
-	"scientist",
-	"cyborg",
 
-	"brawler",
-	"hunter",
-	"juggernaut",
-	"disruptor") var tag_target:String;
+@export var tag_target:FighterBase.Tag;
 
 
 func use()->void:
 	printerr("MISSING USE ", name)
 func use_on_target(_target:FighterUnit)->void:
 	printerr("MISSIGUESONTARGET ", name)
+
+func filter_valid_target(target:FighterUnit)->bool:
+	return tag_target in target.base.tags;

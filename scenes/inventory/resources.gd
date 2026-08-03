@@ -6,7 +6,7 @@ const resource_colors = {
 	"money":Color(0.161, 0.8, 0.161, 1.0),
 	
 	"juice":Color(0.537, 0.212, 0.698, 1.0),
-	"scrap":Color(0.8, 0.8, 0.8, 1.0),
+	"scrap":Color(0.65, 0.562, 0.553, 1.0),
 	"chips":Color(0.212, 0.698, 0.698, 1.0)
 }
 const all_resources = [

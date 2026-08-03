@@ -1,5 +1,5 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/control/icon_audio.png")
 extends AudioStreamPlayer
-
 class_name UISFX;
 
 

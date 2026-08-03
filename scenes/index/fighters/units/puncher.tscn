@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://ctnukmol1go71" path="res://scenes/index/fighters/scripts/puncher.gd" id="2_82vyf"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_eyj5g"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_5dn4v"]
-[ext_resource type="Script" uid="uid://x6th0xrv2iy2" path="res://scenes/battle/fighter/skill_projection.gd" id="6_lfx0t"]
+[ext_resource type="PackedScene" uid="uid://bxnd13x1scd0r" path="res://scenes/battle/fighter/skill_projection.tscn" id="4_lfx0t"]
 [ext_resource type="PackedScene" uid="uid://dnln8vwomwh3n" path="res://scenes/index/vfx/punch.tscn" id="9_gqyy0"]
 [ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="10_ocbov"]
+[ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="10_x38hv"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_xcn2u"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="14_kfhh7"]
 
@@ -54,17 +55,58 @@ _data = {
 &"RESET": SubResource("Animation_6lg74")
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfx0t"]
+[sub_resource type="Animation" id="Animation_ocbov"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("kncokback_projection/knockback_projection:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.65, 0.655),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("kncokback_projection/knockback_projection:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.65, 0.655),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xcn2u"]
+_data = {
+&"projection": SubResource("Animation_ocbov")
+}
+
+[sub_resource type="Gradient" id="Gradient_ra2ag"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.09885932, 0.40304184, 0.62737644, 0.66159695, 0.7110266)
+colors = PackedColorArray(1, 1, 1, 0.73333335, 1, 1, 1, 0.40416664, 1, 1, 1, 0.3529412, 0.8, 0.8, 0.8, 0.5882353, 1, 1, 1, 0.5882353, 1, 1, 1, 0.35833335)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qmj7q"]
+gradient = SubResource("Gradient_ra2ag")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_82vyf"]
 
 [sub_resource type="Gradient" id="Gradient_iwgp2"]
 offsets = PackedFloat32Array(0, 0.5233645, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.6509804, 0, 0, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ocbov"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x38hv"]
 gradient = SubResource("Gradient_iwgp2")
 width = 128
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_82vyf"]
 
 [node name="Puncher" type="Sprite2D" unique_id=1510142188 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level")]
 material = ExtResource("1_as0e7")
@@ -74,11 +116,44 @@ vframes = 7
 frame = 4
 script = ExtResource("2_82vyf")
 skill = NodePath("One Punch")
-animation_player = NodePath("AnimationPlayer")
+animation_player = NodePath("components/base_animations")
 tags = Array[int]([0, 1])
-base_stats = NodePath("stat_base/base_stats")
-stats_per_level = NodePath("stat_base/stats_per_level")
+base_stats = NodePath("components/stats/base_stats")
+stats_per_level = NodePath("components/stats/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
+
+[node name="components" type="Node" parent="." unique_id=927007374]
+
+[node name="stats" type="Node" parent="components" unique_id=1205250198]
+
+[node name="base_stats" type="Node" parent="components/stats" unique_id=2030993282]
+script = ExtResource("10_xcn2u")
+max_hp = 175.0
+attack = 30.0
+defense = 10.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="components/stats" unique_id=419977786]
+script = ExtResource("10_xcn2u")
+max_hp = 20.0
+attack = 10.0
+defense = 2.5
+agility = 2.5
+technique = 2.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="base_animations" type="AnimationPlayer" parent="components" unique_id=2029514307]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_mg14s")
+libraries/fighter_base = ExtResource("4_5dn4v")
+
+[node name="skill_projection" parent="." unique_id=1906345224 node_paths=PackedStringArray("source", "generated_elements", "knockback_projection") instance=ExtResource("4_lfx0t")]
+libraries/projection = SubResource("AnimationLibrary_xcn2u")
+source = NodePath("..")
+generated_elements = [NodePath("../kncokback_projection")]
+knockback_projection = NodePath("../kncokback_projection/knockback_projection")
+radial_gradient = SubResource("GradientTexture2D_qmj7q")
 
 [node name="One Punch" type="Node" parent="." unique_id=1213322069]
 script = ExtResource("3_eyj5g")
@@ -97,18 +172,6 @@ own_damage_modifier = null
 knockback_strength = 2
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2029514307]
-libraries/ = SubResource("AnimationLibrary_mg14s")
-libraries/fighter_base = ExtResource("4_5dn4v")
-
-[node name="skill_projection" type="AnimationPlayer" parent="AnimationPlayer" unique_id=2032370354 node_paths=PackedStringArray("source", "generated_elements")]
-root_node = NodePath("../..")
-libraries/projection = SubResource("AnimationLibrary_lfx0t")
-script = ExtResource("6_lfx0t")
-source = NodePath("../..")
-knockback_gradient = SubResource("GradientTexture1D_ocbov")
-generated_elements = [null]
-
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=553118480]
 position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_82vyf")
@@ -116,25 +179,6 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="skill_vfx" parent="." unique_id=437169543 instance=ExtResource("9_gqyy0")]
 frame = 1
-
-[node name="stat_base" type="Node" parent="." unique_id=1205250198]
-
-[node name="base_stats" type="Node" parent="stat_base" unique_id=2030993282]
-script = ExtResource("10_xcn2u")
-max_hp = 175.0
-attack = 30.0
-defense = 10.0
-metadata/_custom_type_script = "uid://dn4endealcll1"
-
-[node name="stats_per_level" type="Node" parent="stat_base" unique_id=419977786]
-script = ExtResource("10_xcn2u")
-max_hp = 20.0
-attack = 10.0
-defense = 2.5
-agility = 2.5
-technique = 2.0
-move_speed = 0.0
-metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="shadow_container" type="Node2D" parent="." unique_id=1327847149]
 position = Vector2(0, -8.000001)
@@ -145,3 +189,24 @@ z_index = -1
 position = Vector2(0, 8.591597)
 scale = Vector2(0.5, 0.8)
 texture = ExtResource("14_kfhh7")
+
+[node name="kncokback_projection" type="Node2D" parent="." unique_id=852310259]
+scale = Vector2(0.4, 1)
+
+[node name="knockback_projection" type="TextureRect" parent="kncokback_projection" unique_id=1780797504]
+modulate = Color(1, 1, 1, 0)
+offset_right = 256.0
+offset_bottom = 2.0
+scale = Vector2(1e-05, 1)
+texture = SubResource("GradientTexture1D_x38hv")
+
+[node name="arrow" type="TextureRect" parent="kncokback_projection/knockback_projection" unique_id=418370700]
+modulate = Color(0.8, 0.8, 0.8, 0.5)
+layout_mode = 0
+offset_left = 200.0
+offset_top = -14.0
+offset_right = 216.0
+offset_bottom = 17.0
+texture = ExtResource("10_x38hv")
+
+[connection signal="animation_started" from="skill_projection" to="skill_projection" method="_on_animation_started"]

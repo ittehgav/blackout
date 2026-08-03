@@ -1,0 +1,202 @@
+[gd_scene format=3 uid="uid://moh5lw5akuo5"]
+
+[ext_resource type="Script" uid="uid://cv21x1ac844ch" path="res://scenes/index/items/artifices/scripts/singularity_grenade.gd" id="1_qa83a"]
+[ext_resource type="Texture2D" uid="uid://bkm8hlx7bo0v8" path="res://assets/visual/items/artifices/singularity_grenade.png" id="1_u4igg"]
+[ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="3_mbqh2"]
+[ext_resource type="PackedScene" uid="uid://ns0jdchcd7sk" path="res://scenes/battle/fighter/neutral/projectile/arc_projectile.tscn" id="3_u6y8b"]
+[ext_resource type="AudioStream" uid="uid://dieeuhkaevyw5" path="res://assets/sound/sfx/combat/thud.wav" id="4_r3xs8"]
+[ext_resource type="Texture2D" uid="uid://cf7qn7nec5bvw" path="res://assets/visual/particles/circles/circle_hollow_16x16.png" id="6_nt5vp"]
+[ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="7_584ma"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nt5vp"]
+radius = 134.01492
+
+[sub_resource type="Animation" id="Animation_nt5vp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("inner_ring:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("outer_ring:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("inner_ring:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("outer_ring:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_584ma"]
+resource_name = "singularity"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("inner_ring:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(6, 6), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("outer_ring:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(6, 6), Vector2(6, 6), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("inner_ring:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("outer_ring:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.19999999),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7g1xl"]
+_data = {
+&"RESET": SubResource("Animation_nt5vp"),
+&"singularity": SubResource("Animation_584ma")
+}
+
+[node name="Singularity Grenade" type="Sprite2D" unique_id=1662175675 node_paths=PackedStringArray("hit_scan", "vfx", "animation", "projectile", "use_sfx", "hit_sfx", "detonate_sfx")]
+texture = ExtResource("1_u4igg")
+script = ExtResource("1_qa83a")
+hit_scan = NodePath("Arc Projectile/hit_scan")
+vfx = NodePath("vfx")
+animation = NodePath("vfx/animation")
+projectile = NodePath("Arc Projectile")
+use_sfx = NodePath("Throw")
+hit_sfx = NodePath("Throw")
+detonate_sfx = NodePath("Thud")
+color_tag = "chips"
+
+[node name="Throw" type="AudioStreamPlayer" parent="." unique_id=1450975435]
+stream = ExtResource("3_mbqh2")
+
+[node name="Thud" type="AudioStreamPlayer" parent="." unique_id=1164328067]
+stream = ExtResource("4_r3xs8")
+
+[node name="Arc Projectile" parent="." unique_id=1190316787 instance=ExtResource("3_u6y8b")]
+visible = true
+
+[node name="CollisionShape2D" parent="Arc Projectile/hit_scan" parent_id_path=PackedInt32Array(1190316787, 1490198669) index="0" unique_id=708169688]
+shape = SubResource("CircleShape2D_nt5vp")
+
+[node name="vfx" type="Node2D" parent="." unique_id=695714335]
+scale = Vector2(2, 2)
+
+[node name="outer_ring" type="Sprite2D" parent="vfx" unique_id=1462148616]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("6_nt5vp")
+
+[node name="inner_ring" type="Sprite2D" parent="vfx" unique_id=383579282]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("7_584ma")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="vfx" unique_id=2074949318]
+modulate = Color(1, 1, 1, 0.21176471)
+emitting = false
+amount = 162
+lifetime = 0.52
+one_shot = true
+speed_scale = 0.8
+explosiveness = 0.8
+randomness = 0.19
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 137.72
+initial_velocity_max = 137.72
+scale_amount_max = 6.74
+
+[node name="animation" type="AnimationPlayer" parent="vfx" unique_id=825786723]
+libraries/ = SubResource("AnimationLibrary_7g1xl")
+speed_scale = 1.2
+
+[editable path="Arc Projectile"]

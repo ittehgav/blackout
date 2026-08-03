@@ -145,5 +145,5 @@ func _on_accessory_equipped(new: Accessory, old: Accessory) -> void:
 
 func unequip_accessory()->void:
 	assert(equipped_accessory)
-	get_parent().equipped_accessories.erase(equipped_accessory);
+	Entities.player.roster.equipped_accessories.erase(equipped_accessory);
 	equipped_accessory = null

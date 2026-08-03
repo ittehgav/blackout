@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://ns0jdchcd7sk"]
+
+[ext_resource type="Texture2D" uid="uid://cxxh5ddupo5k" path="res://assets/visual/sprites/projectiles/stone.png" id="1_bq3qv"]
+[ext_resource type="Script" uid="uid://r3srbmg7o48h" path="res://scenes/battle/fighter/neutral/projectile/scripts/arc_projectile.gd" id="1_g6tps"]
+[ext_resource type="Texture2D" uid="uid://moyqlxg84rgu" path="res://assets/visual/particles/circle.png" id="2_wy6sx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u5bk5"]
+radius = 64.00781
+
+[sub_resource type="Curve" id="Curve_bq3qv"]
+_data = [Vector2(0, 0.98130834), 0.0, 0.0, 0, 0, Vector2(1, 0.4299065), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dtmyy"]
+offsets = PackedFloat32Array(0, 0.64478767, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.93822396, 1, 1, 1, 0)
+
+[node name="Arc Projectile" type="Sprite2D" unique_id=1190316787 node_paths=PackedStringArray("hit_scan", "particles")]
+visible = false
+texture = ExtResource("1_bq3qv")
+script = ExtResource("1_g6tps")
+arc_height = null
+hit_allies = null
+hit_enemies = null
+hit_scan = NodePath("hit_scan")
+flight_speed = 1000
+particles = NodePath("trail")
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=1490198669]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=708169688]
+shape = SubResource("CircleShape2D_u5bk5")
+
+[node name="trail" type="CPUParticles2D" parent="." unique_id=1023998669]
+z_index = -1
+emitting = false
+amount = 100
+texture = ExtResource("2_wy6sx")
+lifetime = 0.3
+fixed_fps = 24
+gravity = Vector2(0, -100)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_bq3qv")
+color = Color(1, 1, 1, 0.14509805)
+color_ramp = SubResource("Gradient_dtmyy")

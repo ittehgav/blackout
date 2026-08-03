@@ -16,17 +16,16 @@ b = Vector2(324, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_445n5"]
 radius = 26.019224
 
-[node name="Tapir" type="Sprite2D" unique_id=909057422 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Tapir" type="Sprite2D" unique_id=909057422 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_xeppe")
 texture = ExtResource("1_lu30b")
 hframes = 8
 vframes = 5
 frame = 24
 script = ExtResource("2_xeppe")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Snout Stab")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([1, 5])
-unit_type = "monster"
 hit_scan = NodePath("scan")
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")

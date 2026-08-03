@@ -2,7 +2,7 @@
 class_name Equipment
 extends Item
 
-@onready var player:Player = get_tree().get_first_node_in_group("player")
+@onready var player:Player = Entities.player;
 @export var status:Status;
 
 signal equipped

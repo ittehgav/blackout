@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ohx2n0s0wju6"]
+[gd_scene format=3 uid="uid://ohx2n0s0wju6"]
 
 [ext_resource type="Script" uid="uid://dem7wyvcfrhjm" path="res://scenes/index/perks/scripts/inventory_space.gd" id="1_e06pe"]
 [ext_resource type="Texture2D" uid="uid://dq3lqj55di8mq" path="res://assets/visual/icons/inventory_space.png" id="2_lgqaf"]
@@ -93,7 +93,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lgqaf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mocse"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -105,7 +105,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="Inventory Space" type="Node" node_paths=PackedStringArray("space_label", "panel", "sfx")]
+[node name="Inventory Space" type="Node" unique_id=1780136792 node_paths=PackedStringArray("space_label", "panel", "sfx")]
 script = ExtResource("1_e06pe")
 space_label = NodePath("Panel/HBoxContainer/space")
 icon = ExtResource("2_lgqaf")
@@ -115,11 +115,11 @@ panel = NodePath("Panel")
 sfx = NodePath("sfx")
 metadata/_custom_type_script = "uid://cvor0b75qlqh5"
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
+[node name="sfx" type="AudioStreamPlayer" parent="." unique_id=1897228438]
 stream = ExtResource("3_mocse")
 volume_db = -5.0
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1696737127]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -134,13 +134,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="body" parent="Panel" instance=ExtResource("3_lgqaf")]
+[node name="body" parent="Panel" unique_id=383631320 instance=ExtResource("3_lgqaf")]
 process_mode = 4
-material = SubResource("ShaderMaterial_lgqaf")
+material = SubResource("ShaderMaterial_mocse")
 position = Vector2(123, 121)
 scale = Vector2(4, 4)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=1770934572]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -155,7 +155,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer" unique_id=874957165]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -163,7 +163,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("2_lgqaf")
 
-[node name="space" type="Label" parent="Panel/HBoxContainer"]
+[node name="space" type="Label" parent="Panel/HBoxContainer" unique_id=529262712]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "12/22"

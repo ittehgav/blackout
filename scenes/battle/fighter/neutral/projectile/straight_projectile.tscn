@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://do5h1o6m8i2yb"]
+
+[ext_resource type="Texture2D" uid="uid://cxxh5ddupo5k" path="res://assets/visual/sprites/projectiles/stone.png" id="1_flpvt"]
+[ext_resource type="Script" uid="uid://ct77mmtu4qx12" path="res://scenes/battle/fighter/neutral/projectile/scripts/straight_projectile.gd" id="2_flpvt"]
+[ext_resource type="Texture2D" uid="uid://moyqlxg84rgu" path="res://assets/visual/particles/circle.png" id="3_my5y8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r36q7"]
+radius = 15.0
+
+[sub_resource type="Curve" id="Curve_kddjp"]
+_data = [Vector2(0, 0.98130834), 0.0, 0.0, 0, 0, Vector2(1, 0.4299065), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_kh5iw"]
+offsets = PackedFloat32Array(0, 0.64478767, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.93822396, 1, 1, 1, 0)
+
+[node name="Straight Projectile" type="Sprite2D" unique_id=1066315008 node_paths=PackedStringArray("despawn_timer", "hit_scan", "particles")]
+visible = false
+scale = Vector2(2, 2)
+texture = ExtResource("1_flpvt")
+script = ExtResource("2_flpvt")
+despawn_timer = NodePath("despawn_timer")
+hit_scan = NodePath("hit_scan")
+flight_speed = 1000
+particles = NodePath("trail")
+
+[node name="despawn_timer" type="Timer" parent="." unique_id=141295334]
+wait_time = 10.0
+one_shot = true
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=720859333]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=1515521781]
+shape = SubResource("CircleShape2D_r36q7")
+
+[node name="trail" type="CPUParticles2D" parent="." unique_id=1816209269]
+modulate = Color(0.8, 0.8, 0.8, 0.2901961)
+z_index = -1
+emitting = false
+amount = 50
+texture = ExtResource("3_my5y8")
+lifetime = 0.3
+randomness = 1.0
+fixed_fps = 24
+gravity = Vector2(0, -100)
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_kddjp")
+color = Color(1, 1, 1, 0.14509805)
+color_ramp = SubResource("Gradient_kh5iw")
+
+[connection signal="timeout" from="despawn_timer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="area_entered" from="hit_scan" to="." method="_on_hitbox_area_entered"]

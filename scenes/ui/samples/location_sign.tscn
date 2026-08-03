@@ -23,7 +23,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="settlement_sign" type="HBoxContainer" node_paths=PackedStringArray("dungeon_data", "dungeon_level_label", "skull_1", "skull_2", "skull_3", "cleared_sign")]
+[node name="settlement_sign" type="HBoxContainer" unique_id=584773560 node_paths=PackedStringArray("dungeon_data", "dungeon_level_label", "skull_1", "skull_2", "skull_3", "cleared_sign")]
 custom_minimum_size = Vector2(192, 64)
 theme_override_constants/separation = 0
 script = ExtResource("1_w48cx")
@@ -34,52 +34,52 @@ skull_2 = NodePath("dungeon_data/skulls/skull_2")
 skull_3 = NodePath("dungeon_data/skulls/skull_3")
 cleared_sign = NodePath("cleared")
 
-[node name="dungeon_data" type="HBoxContainer" parent="."]
+[node name="dungeon_data" type="HBoxContainer" parent="." unique_id=1463543596]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="dungeon_data"]
+[node name="TextureRect" type="TextureRect" parent="dungeon_data" unique_id=1336492880]
 modulate = Color(1, 0.36, 0.36, 1)
 material = SubResource("ShaderMaterial_dhb46")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("3_i13me")
 
-[node name="Label" type="Label" parent="dungeon_data"]
+[node name="Label" type="Label" parent="dungeon_data" unique_id=1548767015]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "23"
 
-[node name="skulls" type="HBoxContainer" parent="dungeon_data"]
+[node name="skulls" type="HBoxContainer" parent="dungeon_data" unique_id=1476393808]
 layout_mode = 2
 theme_override_constants/separation = -26
 
-[node name="skull_1" type="TextureRect" parent="dungeon_data/skulls"]
+[node name="skull_1" type="TextureRect" parent="dungeon_data/skulls" unique_id=1572077525]
 visible = false
 material = SubResource("ShaderMaterial_buud0")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("4_6v7mw")
 
-[node name="skull_2" type="TextureRect" parent="dungeon_data/skulls"]
+[node name="skull_2" type="TextureRect" parent="dungeon_data/skulls" unique_id=1730769949]
 visible = false
 material = SubResource("ShaderMaterial_buud0")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("4_6v7mw")
 
-[node name="skull_3" type="TextureRect" parent="dungeon_data/skulls"]
+[node name="skull_3" type="TextureRect" parent="dungeon_data/skulls" unique_id=2055845494]
 visible = false
 material = SubResource("ShaderMaterial_buud0")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("4_6v7mw")
 
-[node name="cleared" type="Panel" parent="."]
+[node name="cleared" type="Panel" parent="." unique_id=86073232]
 self_modulate = Color(0.6, 0.6, 0.6, 0.78431374)
 custom_minimum_size = Vector2(192, 64)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="cleared"]
+[node name="Label" type="Label" parent="cleared" unique_id=1855654632]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

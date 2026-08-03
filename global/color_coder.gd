@@ -25,16 +25,19 @@ func color_code_fighter(fighter:ActiveFighter, team_n:int)->void:
 			outline_color = Index.enemy_team_color
 	base.material.set_shader_parameter("color", outline_color)
 
+
+const t1_hp_bar_color:Color=Color(0.36, 0.9, 0.432, 1.0)
+const t2_hp_bar_color:Color = Color(1.0, 0.1, 0.1, 1.0)
 static func color_code_fighter_overlay(target:FighterOverlay, team:Team)->void:
 	var hp_bar_color:Color;
 	match team.team_n:
 		1:
-			hp_bar_color = Color.LIGHT_BLUE;
+			hp_bar_color = t1_hp_bar_color
 		2:
-			hp_bar_color = Color.INDIAN_RED
+			hp_bar_color = t2_hp_bar_color
 	
-	target.hp_bar.tint_progress = hp_bar_color;
-	target.outline.border_color = hp_bar_color + Color.from_hsv(0, .4, -.5);
+	target.hp_bar.modulate = hp_bar_color;
+	target.hp_bar.material.set_shader_parameter("color", hp_bar_color + Color.from_hsv(0, -.5, -.5));
 
 	
 

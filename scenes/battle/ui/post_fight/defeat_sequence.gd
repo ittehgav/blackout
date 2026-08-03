@@ -7,7 +7,7 @@ extends Control
 
 func start_sequence()->void:
 	show()
-	var player:Player = get_tree().get_first_node_in_group("player");
+	var player:Player = Entities.player;
 	player.morale -= 1 + player.morale/5;
 	if player.morale < 0:
 		Tweens.ui_fade_in(game_over_view)

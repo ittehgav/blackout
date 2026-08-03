@@ -12,7 +12,7 @@ analytic = NodePath("analytic")
 [node name="unit" parent="." unique_id=2102969138 instance=ExtResource("2_eouuu")]
 visible = true
 
-[node name="stats" parent="unit" index="0"]
+[node name="stats" parent="unit" index="0" unique_id=1750774480]
 max_hp = 500.0
 
 [node name="analytic" type="Control" parent="." unique_id=1095865848 node_paths=PackedStringArray("level_label", "dps_label")]

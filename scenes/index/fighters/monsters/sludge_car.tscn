@@ -74,14 +74,14 @@ radius = 141.25554
 [sub_resource type="CircleShape2D" id="CircleShape2D_qfvgk"]
 radius = 28.01785
 
-[node name="Sludge Car" type="Sprite2D" unique_id=2031111193 node_paths=PackedStringArray("animation_player", "skill", "hit_scan", "base_stats", "stats_per_level")]
+[node name="Sludge Car" type="Sprite2D" unique_id=2031111193 node_paths=PackedStringArray("skill", "animation_player", "hit_scan", "base_stats", "stats_per_level")]
 material = ExtResource("1_gu1h1")
 texture = ExtResource("1_2766c")
 hframes = 8
 vframes = 3
 script = ExtResource("1_5paln")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Stagnation Aura")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([12, 6, 7])
 fighter_type = "monster"
 body_type = 2
@@ -93,10 +93,9 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 script = ExtResource("3_gu1h1")
 base_cooldown = 1.0
 effects = Array[int]([3, 6])
-tranform_visual = 3
 instant_impact = true
-need_target = false
 position_lineup = false
+need_target = false
 status = NodePath("Stagnation")
 aoe_projection = false
 metadata/_custom_type_script = "uid://cboofk6f5g5t"

@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://di0vghxs4bkgh"]
+[gd_scene format=3 uid="uid://di0vghxs4bkgh"]
 
 [ext_resource type="Texture2D" uid="uid://b2yjixqdjpe1t" path="res://assets/visual/items/containers/scrap_pile.png" id="2_sd44b"]
 [ext_resource type="Script" uid="uid://b8x1448i2r5qp" path="res://scenes/index/items/containers/scripts/scrap_pile.gd" id="3_ctew6"]
 
-[node name="Scrap Pile" type="Sprite2D"]
+[node name="Scrap Pile" type="Sprite2D" unique_id=10195012]
 texture = ExtResource("2_sd44b")
 script = ExtResource("3_ctew6")
 resource = "scrap"

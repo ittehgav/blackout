@@ -4,6 +4,7 @@ class_name WeaponControl
 ## easier to keep the signals in the equipment node
 @export var sfx:AudioStreamPlayer;
 @export var equipment:EquipmentControl;
+@export var artifice_control:ArtificeControl
 @export var dust:Dust
 
 @export var camera:PlayerCamera;
@@ -19,7 +20,7 @@ var holding_continuous:bool=false
 
 func _ready()->void:
 	await equipment.holder.ready
-	var player:Player = get_tree().get_first_node_in_group("player")
+	var player:Player = Entities.player;
 	var equipped_weapon:Weapon = load_weapon(player.equipped_weapon);
 
 	equip_weapon(equipped_weapon)
@@ -41,7 +42,7 @@ func load_weapon(target:Weapon)->Weapon:
 
 
 	new_weapon.z_index = 1;
-	#new_weapon.scale = Vector2(2, 2)
+
 	new_weapon.animation_player.animation_finished.connect(equipment.weapon_animation_finished.bind(new_weapon))
 	if new_weapon.status:
 		new_weapon.status.source = equipment.holder;
@@ -64,7 +65,7 @@ func load_weapon(target:Weapon)->Weapon:
 		#
 	new_weapon.self_modulate = new_weapon.get_mirror_color();
 	
-	if new_weapon.ammo_type:
+	if new_weapon.ammo_cost:
 		new_weapon.ammo_consumed.connect(equipment.ammo_consumed.emit)
 		new_weapon.ammo_ran_out.connect(equipment.ammo_ran_out.emit);
 
@@ -76,7 +77,9 @@ func load_weapon(target:Weapon)->Weapon:
 	return new_weapon
 
 
-func _process(_delta:float)->void:
+
+func _physics_process(_delta:float)->void:
+	## disable processing in this node to override mouse click for artifices
 	if Input.is_action_just_pressed("use_weapon") and not equipment.holder.stunned:
 		use_weapon_command()
 	elif Input.is_action_just_pressed("weapon_alt") and not equipment.holder.stunned:
@@ -90,7 +93,7 @@ func _process(_delta:float)->void:
 func use_weapon_command(alt:bool=false)->void:
 	## using alt in a weapon that doesn't have an alt use
 	## just makes it fire the regular attack
-	if weapon_cd.is_stopped() and not weapon.check_disabled():
+	if weapon_cd.is_stopped() and not weapon.check_disabled() and not artifice_control.aiming:
 		equipment.holder.hit_targets.clear();
 		if not weapon.continuous:
 			use_weapon(alt)
@@ -116,46 +119,51 @@ func release_weapon_command()->void:
 func use_weapon(alt:bool)->void:
 	if weapon.pending_impact:
 		## to make sure all hits get in with high atk speeds
-		## right now catches all animation overlaps
+		## catches animation overlaps
 		weapon.impact()
-	line_up_weapon()
 	
 	weapon.use(alt)
 	play_weapon_vfx()
 	equipment.weapon_used.emit()
 
-func line_up_weapon()->void:
-	var x_offset:int = 30
-	if weapon.display.behind_player:
-		x_offset *= -1
-	weapon.position = Vector2(x_offset, 0);
 
-
-func weapon_hit()->void:
-	match weapon.hit_feedback:
-		"freeze_frame":
-			Engine.time_scale = 0
-			freeze_frame_timer.start()
-		"screen_shake":
-			camera.camera_vfx("shake", 2)
-
-func play_weapon_vfx()->void:
+func play_feedback(which:WeaponDisplay.PlayerScreenFeedback)->void:
+	assert(which != -1);
+	const feedback = WeaponDisplay.PlayerScreenFeedback;
 	var player_fighter:PlayerFighter = Entities.player_fighter
-	var dust_direction:Vector2 = Vector2(-1, -.5);
-	match weapon.use_feedback:
-		"lunge":
+	
+	match which:
+		feedback.lunge:
+			var dust_direction:Vector2 = Vector2(-1, -.5);
 			if player_fighter.global_position.x > player_fighter.get_global_mouse_position().x:
 				dust_direction.x = 1
-			camera.camera_vfx("lunge", 1)
-			
-		"recoil":
+			camera.camera_vfx(PlayerCamera.TransformVFX.lunge, 1)
+			dust.dust_animation(dust_direction)
+
+		feedback.recoil:
+			var dust_direction:Vector2 = Vector2(-1, -.5);
 			if player_fighter.global_position.x < player_fighter.get_global_mouse_position().x:
 				dust_direction.x = -1
 			else:
 				dust_direction.x = 1
-			camera.camera_vfx("recoil", 1)
+			camera.camera_vfx(PlayerCamera.TransformVFX.recoil, 1)
+			dust.dust_animation(dust_direction)
+		
+		feedback.freeze_frame:
+			Engine.time_scale = 0
+			freeze_frame_timer.start()
+		
+		feedback.shake:
+			camera.camera_vfx(PlayerCamera.TransformVFX.shake, 3)
+	
 
-	dust.dust_animation(dust_direction)
+func weapon_hit()->void:
+	play_feedback(weapon.display.hit_feedback)
+
+func play_weapon_vfx()->void:
+	play_feedback(weapon.display.use_feedback)
+
+
 func _on_weapon_cd_timeout() -> void:
 	## so you can just hold the attack button
 	## may not be doable for all weapons?

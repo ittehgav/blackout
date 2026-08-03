@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cgy437yop01qu"]
+
+[ext_resource type="Script" uid="uid://batxvvss5bs67" path="res://scenes/ui/inventory_display/internal/inventory_grid_cell.gd" id="1_kfb6x"]
+
+[node name="grid_cell" type="ReferenceRect" unique_id=1250790297 node_paths=PackedStringArray("bg", "extension_bg")]
+custom_minimum_size = Vector2(48, 48)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1232.0
+offset_bottom = -672.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.0385, 0.04425, 0.05, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("1_kfb6x")
+held_item_shadow_bg_color = Color(1, 1, 1, 0.0901961)
+bg = NodePath("bg")
+extension_bg = NodePath("extension_bg")
+
+[node name="extension_bg" type="ColorRect" parent="." unique_id=321705844]
+visible = false
+modulate = Color(1, 1, 1, 0.737255)
+z_index = 2
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="bg" type="ColorRect" parent="." unique_id=196649900]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.48000002, 0.49, 0.6, 1)
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

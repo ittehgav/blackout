@@ -5,7 +5,7 @@ signal opened;
 signal evolution_finished;
 
 
-@onready var player:Player = get_tree().get_first_node_in_group("player");
+@onready var player:Player = Entities.player
 
 @export var content_hbox:HBoxContainer;
 @export var available_units_vbox:VBoxContainer

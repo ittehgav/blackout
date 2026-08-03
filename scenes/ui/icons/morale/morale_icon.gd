@@ -7,7 +7,7 @@ class_name MoraleIcon
 @export var high_morale_icon:Texture;
 @export var very_high_morale_icon:Texture;
 
-@onready var player:Player = get_tree().get_first_node_in_group("player")
+@onready var player:Player = Entities.player;
 
 @export var bar:TextureProgressBar;
 

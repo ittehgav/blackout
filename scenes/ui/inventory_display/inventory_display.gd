@@ -37,6 +37,8 @@ signal opened
 @export var resource_picker:Control;
 @export var unit_selector:UnitSelector;
 @export var item_selector:ItemSelector;
+@export var artifice_slot_selector:ArtificeSlotSelector
+
 @export var item_mirrors_node:Control;
 @export var cargo:Control;
 
@@ -47,8 +49,6 @@ signal opened
 @export var hover_sfx:AudioStreamPlayer;
 @export var warning_label:Label;
 @export var send_rect:ColorRect;
-
-
 
 @onready var original_position:Vector2 = position;
 
@@ -97,6 +97,25 @@ var pre_trade_stack_sizes:Dictionary[ResourceContainer, int]
 var pre_trade_inventory_positions:Dictionary[Item, Vector2]
 var pre_trade_resource_counts:Dictionary[String, int]
 
+
+func open(and_refresh:bool=true) ->void:
+	## plays once per lifecycle of any display other 
+	## than player sheet
+	if from_player:
+		inventory = Entities.player.inventory;
+	inventory.last_display = self;
+
+	''
+	if not (refresh_data in inventory.changed.get_connections()):
+		inventory.changed.connect(refresh_data)
+
+	hard_reset();
+	
+	if and_refresh:
+		refresh_data()
+	opened.emit()
+
+
 func set_reset_state()->void:
 	## mirrors here are already properly positioned and set to just get
 	## added into the display as freshly-loaded mirrors
@@ -122,7 +141,7 @@ func reset_inventory()->void:
 		## destructive loop so cant just do for mirror in all_mirrors
 		var mirror:ItemMirror = all_mirrors[i];
 		i += 1;
-		if mirror.being_traded or not(mirror.item in pre_trade_items):
+		if mirror.being_tradefd or not(mirror.item in pre_trade_items):
 			remove_mirror(mirror, true);
 			i -= 1;
 
@@ -181,7 +200,6 @@ func item_mirror_hovered(mirror:ItemMirror)->void:
 	item_hovered.emit(mirror)
 
 
-	
 func mirror_item(item:Item)->ItemMirror:
 	var mirror:ItemMirror = generate_mirror(item);
 	mirror.set_inventory_position(item.inventory_position);
@@ -202,13 +220,13 @@ func add_mirror(mirror:ItemMirror)->void:
 	item_mirrors_node.add_child(mirror);
 	all_mirrors.append(mirror);
 	
-func clear_all_mirrors(from_inventory:bool=true)->void:
+func clear_all_mirrors()->void:
 	while len(all_mirrors):
-		remove_mirror(all_mirrors[0], from_inventory)
+		remove_mirror(all_mirrors[0], false, false)
 	for i:Item in inventory.items:
 		i.mirror = null;
 
-func remove_mirror(mirror:ItemMirror, from_inventory:bool=true)->void:
+func remove_mirror(mirror:ItemMirror, from_inventory:bool=true, and_refresh:bool=true)->void:
 	if from_inventory and mirror.item in inventory.items:
 		inventory.remove_item(mirror.item);
 	
@@ -221,26 +239,14 @@ func remove_mirror(mirror:ItemMirror, from_inventory:bool=true)->void:
 	
 	all_mirrors.erase(mirror)
 	mirror.queue_free();
-
-func open(and_refresh:bool=true) ->void:
-	## plays once per lifecycle of any display other 
-	## than player sheet
-	if from_player:
-		inventory = get_tree().get_first_node_in_group("player").inventory;
-	inventory.last_display = self;
-	
-	if not (refresh_data in inventory.changed.get_connections()):
-		inventory.changed.connect(refresh_data)
-
-	hard_reset();
-	
 	if and_refresh:
 		refresh_data()
-	opened.emit()
+
+
 
 
 func hard_reset()->void:
-	clear_all_mirrors(false);
+	clear_all_mirrors();
 	set_grid()
 	
 	resources_dropdown.target_inventory = inventory
@@ -272,7 +278,7 @@ func is_equipped(item:Item)->bool:
 	if not item is Equipment:
 		return false;
 	else:
-		return (item in Entities.player.equipment or item in Entities.player.roster.equipped_accessories);
+		return (item in Entities.player.equipment or (item is Accessory and item in Entities.player.roster.equipped_accessories));
 
 func refresh_data()->void:
 	var concurring_inventory:Array[Inventory];
@@ -337,8 +343,6 @@ func refresh_container_mirrors()->void:
 		assert(c is ItemMirror)
 		if c.item is ResourceContainer:
 			self[c.item.resource+"_containers"].append(c);
-
-
 
 
 func highlight_resource_containers(resource:String)->void:
@@ -423,6 +427,8 @@ func send_resource_by_amount(resource:String, amount:int)->void:
 		else:
 			send_resource(mirror, mirror.stack_size)
 			amount -= mirror.stack_size;
+
+
 func send_resource(source:ItemMirror, amount:int)->void:
 	var sent:int = amount;
 	if(amount == source.stack_size and source.item.raw_stack) or context == "loot":
@@ -474,8 +480,8 @@ func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
 			item_dropped.emit(new_mirror, "loot");
 	else:
 		## just so the inventory refreshes
-		item_dropped.emit(ItemMirror.new(), "trade")
-		exchanging_display.item_dropped.emit(ItemMirror.new())
+		refresh_data()
+		exchanging_display.refresh_data()
 	item_received.emit();
 	return true
 
@@ -734,8 +740,6 @@ func _on_item_dropped(_mirror:ItemMirror, from:String="move") -> void:
 			sfx.play_sound_by_key("trade")
 
 	clear_hovered_cells()
-
-	
 	refresh_data();
 	board_shake(5)
 
@@ -845,3 +849,14 @@ func _on_inventory_grid_resized() -> void:
 func has_room(item:Item, replacing_item:Item=null)->bool:
 	var cell:Vector2i = find_clear_cell(item, replacing_item);
 	return cell != Vector2i(-1, -1)
+
+func consumable_feedback(item:Consumable)->void:
+	const FB = Consumable.UseFeedback;
+	for f:FB in item.feedback:
+		match f:
+			FB.board_shake:
+				board_shake(5)
+			FB.show_player_view:
+				pass
+			FB.show_party_view:
+				pass

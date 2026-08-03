@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_fwyy1"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_vxgs3"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_db8tu"]
+[ext_resource type="PackedScene" uid="uid://bxnd13x1scd0r" path="res://scenes/battle/fighter/skill_projection.tscn" id="8_oc51e"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_epl0x"]
 [ext_resource type="Texture2D" uid="uid://d2yia70umivgc" path="res://assets/visual/particles/dust.png" id="9_oc51e"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_8qhm5"]
@@ -114,7 +115,6 @@ libraries/ = SubResource("AnimationLibrary_cf4bt")
 libraries/fighter_base = ExtResource("4_vxgs3")
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=1351793978]
-scale = Vector2(1.1024557, 1.0162183)
 collision_layer = 0
 collision_mask = 0
 
@@ -149,6 +149,22 @@ color_ramp = SubResource("Gradient_epl0x")
 [node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=89947844]
 scale = Vector2(1.0537851, 0.4430384)
 shape = SubResource("ConvexPolygonShape2D_db2wx")
+
+[node name="skill_projection" parent="hit_scan" unique_id=1906345224 node_paths=PackedStringArray("source", "generated_elements") instance=ExtResource("8_oc51e")]
+source = NodePath("../..")
+generated_elements = [NodePath("../projection")]
+
+[node name="projection" type="Node2D" parent="hit_scan" unique_id=840293197]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(1.0537851, 0.4430384)
+
+[node name="shape" type="Polygon2D" parent="hit_scan/projection" unique_id=531250663]
+modulate = Color(0.8, 0.2, 0.2, 0.39999998)
+polygon = PackedVector2Array(350, -400, 350, 400, 0, 0)
+
+[node name="expansion" type="Polygon2D" parent="hit_scan/projection/shape" unique_id=690661180]
+modulate = Color(0.8, 0.2, 0.2, 0.39999998)
+polygon = PackedVector2Array(350, -400, 350, 400, 0, 0)
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=151806938]
 position = Vector2(0, -18)

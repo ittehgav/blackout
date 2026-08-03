@@ -8,7 +8,11 @@ enum TargetType{
 	constant, 
 	## default value bc it will fire an error if this has no hardcoded values
 	single_load,
-	fully_dynamic
+	fully_dynamic,
+	manual ## calls refresh manually from source
+	## right now only for the simple tooltips in location options 
+	## where it's cleaner to set the hardcoded texts from there
+	## rather than further bloating the tooltip script
 }
 @export var target_type:TargetType=TargetType.constant;
 
@@ -39,11 +43,12 @@ func setup_target()->void:
 		queue_free();
 		return
 
-	if target_type == TargetType.single_load:
-		refresh();
-	elif target_type == TargetType.fully_dynamic:
-		target.mouse_entered.connect(refresh)
 	
+	if target_type == TargetType.fully_dynamic:
+		target.mouse_entered.connect(refresh)
+	elif target_type != TargetType.manual:
+		refresh();
+		
 	target.mouse_entered.connect(hover_timer.start);
 	target.mouse_exited.connect(stop_hover_timer);
 func disable()->void:
@@ -74,7 +79,7 @@ func stop_hover_timer()->void:
 
 func refresh()->void:
 	match target_type:
-		TargetType.constant:
+		TargetType.constant, TargetType.manual:
 			assert(hardcoded_name or hardcoded_description);
 			if hardcoded_name:
 				name_label.text = hardcoded_name;
@@ -147,21 +152,24 @@ func load_combat_mechanic_icon()->void:
 
 func item_sample_setup()->void:
 	item_setup();
-
+	var player:Player = Entities.player
 	var item:Item = target.item;
 	match item:
 		## tooltip just hides if the sample is blank
-		Entities.player.equipped_weapon:
+		player.equipped_weapon:
 			hint.show()
 			hint.text = "[right-click] to unequip";
-		Entities.player.alternative_weapon:
+		player.alternative_weapon:
 			hint.show()
 			hint.text = "[right-click] to unequip";
-		Entities.player.equipped_accessory_1, Entities.player.equipped_accessory_2:
+		player.equipped_accessory_1, Entities.player.equipped_accessory_2:
 			hint.show()
 			hint.text = "[right-click] to unequip";
-
-
+	
+	if item.unique_name in Entities.player.equipped_artifices_names.values():
+		hint.show();
+		hint.text = "[right-click] to unequip or change slots"
+		## idk why when this line is there the script gets a bug at the bottom line?
 
 func item_mirror_setup()->void:
 	var mirror:ItemMirror = target;
@@ -202,7 +210,7 @@ func item_mirror_setup()->void:
 func item_setup()->void:
 	var item:Item = target.item;
 	name_label.add_theme_color_override("font_color", Index.get_color(item.color_tag))
-	var target_name:String = item.name;
+	var target_name:String = item.unique_name;
 	while target_name[-1].is_valid_int():
 		target_name = target_name.left(-1);
 	
@@ -236,7 +244,10 @@ func item_setup()->void:
 		sub_name_label.text = "Accessory";
 	elif item is Consumable:
 		sub_name_label.text = "Consumable"
+	elif item is Artifice:
+		sub_name_label.text = "Artifice";
 	sub_name_label.show()
 	## do the just method for everything that gets colors from index?
 	## some other way that's gonna make me feel stupid once i find out about how do modularize this stuff?
-	description_label.text += item.get_description()
+	description_label.text += item.get_description();
+	

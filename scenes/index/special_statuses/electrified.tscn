@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bakra857y3ok0"]
+[gd_scene format=3 uid="uid://bakra857y3ok0"]
 
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="1_hrpt0"]
 [ext_resource type="Texture2D" uid="uid://c0jti2qycq68f" path="res://assets/visual/icons/statuses/electrified.png" id="2_wc4km"]
 
-[node name="electrified" type="Node"]
+[node name="electrified" type="Node" unique_id=541027342]
 script = ExtResource("1_hrpt0")
 type = "special"
 unique = true

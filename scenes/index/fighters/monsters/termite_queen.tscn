@@ -72,15 +72,15 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(3, 3)
 
-[node name="Termite Queen" type="Sprite2D" unique_id=381041469 node_paths=PackedStringArray("termite_unit", "animation_player", "skill", "base_stats", "stats_per_level")]
+[node name="Termite Queen" type="Sprite2D" unique_id=381041469 node_paths=PackedStringArray("termite_unit", "skill", "animation_player", "base_stats", "stats_per_level")]
 material = ExtResource("1_lwr4b")
 texture = ExtResource("1_oqdjl")
 hframes = 8
 vframes = 5
 script = ExtResource("1_l8hqm")
 termite_unit = NodePath("termite_unit")
-animation_player = NodePath("AnimationPlayer")
 skill = NodePath("Queen\'s Children")
+animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([9, 13])
 movement = 1
 fighter_type = "monster"
@@ -90,11 +90,10 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 [node name="Queen\'s Children" type="Node" parent="." unique_id=59021356]
 script = ExtResource("2_oqdjl")
 base_cooldown = 5.0
-skill_range = 40
 effects = Array[int]([6])
+position_lineup = false
 need_target = false
 scan_enemies = false
-position_lineup = false
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="blur" type="Sprite2D" parent="." unique_id=1533659693]

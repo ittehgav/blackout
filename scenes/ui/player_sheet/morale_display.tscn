@@ -5,20 +5,20 @@
 [ext_resource type="Texture2D" uid="uid://c6bpqyeser0xh" path="res://assets/visual/ui/bars/base_bar_bg.png" id="2_up1ih"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="3_fmoru"]
 
-[node name="morale_display" type="HBoxContainer"]
+[node name="morale_display" type="HBoxContainer" unique_id=1298316900]
 
-[node name="MoraleIcon" parent="." node_paths=PackedStringArray("bar") instance=ExtResource("1_suhdd")]
+[node name="MoraleIcon" parent="." unique_id=419504722 node_paths=PackedStringArray("bar") instance=ExtResource("1_suhdd")]
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 0
 bar = NodePath("../morale_bar")
 
-[node name="Tooltip" parent="MoraleIcon" instance=ExtResource("2_fmoru")]
+[node name="Tooltip" parent="MoraleIcon" unique_id=58044934 instance=ExtResource("2_fmoru")]
 layout_mode = 1
 hardcoded_name = "Morale"
 hardcoded_description = "Your party's morale, if it reaches zero, it's game over."
 
-[node name="morale_bar" type="TextureProgressBar" parent="."]
+[node name="morale_bar" type="TextureProgressBar" parent="." unique_id=548752759]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 size_flags_vertical = 4

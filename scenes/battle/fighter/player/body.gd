@@ -7,6 +7,13 @@ class_name PlayerFighterBase;
 ## very ugly how this inherits fighterbase and has a ton of properties that do nothing
 ## and could lead to bugs as i expand on fighterbase
 
+const feedback_animation_keys:Dictionary[WeaponDisplay.PlayerScreenFeedback, String] = \
+{
+	## need to model motion for any weapon use feedback otherwise this breaks i guess
+	WeaponDisplay.PlayerScreenFeedback.lunge:"lunge",
+	WeaponDisplay.PlayerScreenFeedback.recoil:"recoil"
+}
+
 func full_skill_description(_unit:FighterUnit)->String:
 	return "fsd?"
 
@@ -21,17 +28,17 @@ func _on_equipment_weapon_used() -> void:
 	## sorta duplicated on player and player sheet
 	## could in fight version extend the base node in a 
 	## way where they get the animation calls from the same placE? 
-	
 	set_physics_process(false)
 	turn_to_cursor()
 	var weapon:Weapon = weapon_control.weapon;
-	animation_player.play("player/" + weapon.use_feedback);
+	var key:String = feedback_animation_keys[weapon.display.use_feedback];
+	animation_player.play("player/" + key);
 	var facing_left:bool = global_position.x > get_global_mouse_position().x;
 	var offset_target:int = 30;
 	if facing_left:
 		offset_target *= -1;
 
-	if weapon.use_feedback == "recoil":
+	if  key == "recoil":
 		offset_target *= -1;
 
 	var tween:Tween = create_tween()

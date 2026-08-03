@@ -53,13 +53,6 @@ equipped_weapon = NodePath("Inventory/Tailpipe")
 alternative_weapon = NodePath("Inventory/Slingshot")
 equipped_module = NodePath("Inventory/Dodge Roll")
 
-[node name="Tailpipe" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="0" unique_id=870722934 instance=ExtResource("3_dqlb1")]
-
-[node name="Slingshot" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="1" unique_id=1530847075 instance=ExtResource("4_jv65o")]
-
-[node name="Dodge Roll" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="2" unique_id=1043224961 instance=ExtResource("5_n3nnd")]
-cooldown = 2.0
-
 [node name="FighterUnit" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="0" unique_id=2067750979 instance=ExtResource("6_acp4q")]
 level = 2
 
@@ -71,6 +64,13 @@ level = 2
 
 [node name="Puncher" parent="Player/Roster/FighterUnit2" unique_id=874400431 instance=ExtResource("7_wq3sv")]
 material = SubResource("ShaderMaterial_0o3pf")
+
+[node name="Tailpipe" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="0" unique_id=870722934 instance=ExtResource("3_dqlb1")]
+
+[node name="Slingshot" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="1" unique_id=1530847075 instance=ExtResource("4_jv65o")]
+
+[node name="Dodge Roll" parent="Player/Inventory" parent_id_path=PackedInt32Array(526134067, 1819646003) index="2" unique_id=1043224961 instance=ExtResource("5_n3nnd")]
+cooldown = 2.0
 
 [node name="TutorialBattle" parent="." unique_id=1071861322 instance=ExtResource("9_3i7ef")]
 

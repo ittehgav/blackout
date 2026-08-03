@@ -1,4 +1,5 @@
 extends PanelContainer
+class_name WeaponsCooldownDisplay
 
 @export var equipment:EquipmentControl
 
@@ -15,7 +16,7 @@ extends PanelContainer
 
 @export var ammo_warning_animation:AnimationPlayer
 
-@onready var player:Player = get_tree().get_first_node_in_group("player")
+@onready var player:Player =  Entities.player
 
 
 var ammo_labels:Dictionary[String, Array];

@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_7ynb7"]
 [ext_resource type="Script" uid="uid://mhopdbt7sb23" path="res://scenes/index/fighters/scripts/scrap_hulk.gd" id="3_15ylm"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_ubfyc"]
-[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://assets/visual/sprites/projectiles/active_fighter/projectile.tscn" id="6_cvl87"]
+[ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://scenes/battle/fighter/neutral/projectile/straight_projectile.tscn" id="6_cvl87"]
 [ext_resource type="Texture2D" uid="uid://ds6fmd14bwy42" path="res://assets/visual/sprites/projectiles/shard.png" id="7_m1mlw"]
 [ext_resource type="PackedScene" uid="uid://bhqyoqsugdn2q" path="res://scenes/index/vfx/overhead_spike_ball.tscn" id="10_hnt12"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="11_p2524"]
@@ -68,24 +68,46 @@ hframes = 8
 vframes = 7
 frame = 3
 script = ExtResource("3_15ylm")
-skill = NodePath("Shrapnel Slam")
-animation_player = NodePath("AnimationPlayer")
+skill = NodePath("components/Shrapnel Slam")
+animation_player = NodePath("components/base_animations")
 weight_class = 2
 tags = Array[int]([1, 6, 5])
 body_type = 1
 hit_scan = NodePath("hit_scan")
 projectile = NodePath("Projectile")
-base_stats = NodePath("stat_base/base_stats")
-stats_per_level = NodePath("stat_base/stats_per_level")
+base_stats = NodePath("components/stats/base_stats")
+stats_per_level = NodePath("components/stats/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="Shrapnel Slam" type="Node" parent="." unique_id=1381515576]
+[node name="components" type="Node" parent="." unique_id=949938085]
+
+[node name="stats" type="Node" parent="components" unique_id=644658046]
+
+[node name="base_stats" type="Node" parent="components/stats" unique_id=897622065]
+script = ExtResource("11_p2524")
+max_hp = 400.0
+attack = 50.0
+defense = 30.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="components/stats" unique_id=1975123997]
+script = ExtResource("11_p2524")
+max_hp = 50.0
+attack = 30.0
+defense = 7.5
+agility = 5.0
+technique = 2.5
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="Shrapnel Slam" type="Node" parent="components" unique_id=1381515576]
 script = ExtResource("3_7ynb7")
 base_cooldown = 5.0
 effects = Array[int]([2, 9])
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1719065668]
+[node name="base_animations" type="AnimationPlayer" parent="components" unique_id=1719065668]
+root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_tcmwr")
 libraries/fighter_base = ExtResource("4_ubfyc")
 
@@ -106,25 +128,6 @@ debug_color = Color(0, 0.5950001, 0.7, 0)
 texture = ExtResource("7_m1mlw")
 
 [node name="skill_vfx" parent="." unique_id=234288550 instance=ExtResource("10_hnt12")]
-
-[node name="stat_base" type="Node" parent="." unique_id=644658046]
-
-[node name="base_stats" type="Node" parent="stat_base" unique_id=897622065]
-script = ExtResource("11_p2524")
-max_hp = 400.0
-attack = 50.0
-defense = 30.0
-metadata/_custom_type_script = "uid://dn4endealcll1"
-
-[node name="stats_per_level" type="Node" parent="stat_base" unique_id=1975123997]
-script = ExtResource("11_p2524")
-max_hp = 50.0
-attack = 30.0
-defense = 7.5
-agility = 5.0
-technique = 2.5
-move_speed = 0.0
-metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="shadow_container" type="Node2D" parent="." unique_id=828833510]
 position = Vector2(0, -8.000001)

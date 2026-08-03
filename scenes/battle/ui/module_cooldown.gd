@@ -1,11 +1,12 @@
 extends PanelContainer
+class_name ModuleCooldownDisplay
 
 @export var module_cd_timer:Timer;
 @export var module_bar:TextureProgressBar
 
 @export var module_ammo_hbox:HBoxContainer;
 
-@onready var player:Player = get_tree().get_first_node_in_group("player")
+@onready var player:Player = Entities.player
 
 var module:Module;
 
@@ -13,9 +14,7 @@ var ammo_label:Label
 
 func _ready()->void:
 	module = player.equipped_module;
-	
 	module_bar.max_value = module.cooldown
-	
 	if module.ammo_cost:
 		var icon:ResourceIcon = Index.scenes.ui.resource_icon.instantiate();
 		icon.bg.hide();

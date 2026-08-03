@@ -12,7 +12,6 @@ const r2_improvement = "-10 scrap cost."
 const r3_improvement = "Enemies hit lose 5 defense for the rest of the fight";
 
 func get_description()->String:
-	var damage_str:String = damage_string();
 	return "Consumes %s to deal %s and knock back all enemies in a cone area in front of you."
 
 func use(_alt:bool=false)->void:

@@ -4,6 +4,8 @@ class_name CombatEntity
 
 extends CharacterBody2D;
 
+const test_key = "combat"
+
 signal started_moving;
 signal stopped_moving;
 

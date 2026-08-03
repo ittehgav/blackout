@@ -15,7 +15,7 @@ const all_stats  = [
 ]
 
 const stat_colors:Dictionary[String, Color] = {
-	"max_hp": Color(0.32, 0.8, 0.32, 1.0),
+	"max_hp": Color("52cc52ff"),
 	"attack": Color(0.8, 0.32, 0.32, 1.0),
 	"defense": Color(0.32, 0.528, 0.8, 1.0),
 	"agility": Color(0.8, 0.8, 0.32, 1.0),

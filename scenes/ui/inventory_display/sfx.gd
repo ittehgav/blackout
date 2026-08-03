@@ -15,7 +15,8 @@ extends SfxPlayer;
 @export var coin_drop:AudioStream;
 
 @export var loot:AudioStream;
-@export var consumable_target:AudioStream;
+@export var item_target:AudioStream;
+
 
 @export_group("resource drops")
 @export var deposit_food_small:AudioStream;

@@ -30,9 +30,11 @@ signal changed;
 @export var consumables:Array[Consumable];
 @export var accessories:Array[Accessory];
 
+
 @export_subgroup("Equipment")
 @export var weapons:Array[Weapon];
 @export var modules:Array[Module];
+@export var artifices:Array[Artifice]
 
 @export var capacity_x:int = 8;
 @export var capacity_y:int = 12;
@@ -133,6 +135,8 @@ func add_item(item: Item, emit_change:bool=false) -> void:
 		## default containers from travelling traders will be manually added to the containers array 
 		## so the resources can be restored before entering the tree
 		containers.append(item)
+	elif item is Artifice:
+		artifices.append(item)
 	if emit_change:
 		changed.emit()
 
@@ -166,6 +170,8 @@ func remove_item(item:Item)->void:
 		weapons.erase(item);
 	elif item is ResourceContainer:
 		containers.erase(item)
+	elif item is Artifice:
+		artifices.erase(item)
 	remove_child.call_deferred(item)
 
 
@@ -243,18 +249,22 @@ func cell_in_grid(cell:Vector2)->bool:
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
 	## so editor-made nodes work and are easy to edit
+	
 	if holder is Player:
 		## will need to do something similar for npc leaders and equipment?
 		## NPCs just have infinite inventory space that shrinks to fit their items however?
-		if node in [
-			holder.equipped_weapon,
-			holder.alternative_weapon,
-			holder.equipped_module,
-			holder.equipped_accessory_1,
-			holder.equipped_accessory_2,
-		] or node in holder.roster.equipped_accessories:
+		var equipped_artifices:Array[Artifice] = holder.equipped_artifices.values()
+		var equipped_slots:Array[Item] =  [
+				holder.equipped_weapon,
+				holder.alternative_weapon,
+				holder.equipped_module,
+				holder.equipped_accessory_1,
+				holder.equipped_accessory_2,
+			]
+		equipped_slots.append_array(equipped_artifices)
+		if node in equipped_slots or node in holder.roster.equipped_accessories:
 			holder.equipment.append(node)
-
+	
 	
 	if not items.has(node):
 		add_item(node);
@@ -292,3 +302,22 @@ func taken_space()->int:
 			space += item.size_x * item.size_y;
 	assert(space <= capacity_x * capacity_y)
 	return space
+
+func sort_items_by_size()->void:
+	items.sort_custom(size_sort);
+	for i in items:
+		i.inventory_position = InventoryDisplay.ITEM_UNPLACED
+
+func size_sort(i1:Item, i2:Item)->bool:
+	return i1.size_x * i2.size_y > i2.size_x * i2.size_y;
+
+func get_item_count(item:Item)->int:
+
+	## right now this would never show an error over something 
+	## correctly placed but not really a rule that needs to be?
+	var total:int=0
+	for i:Item in items:
+		if i.unique_name == item.unique_name:
+			total += 1;
+	
+	return total;

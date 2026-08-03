@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_lwa6y"]
 [ext_resource type="Script" uid="uid://bquq6cnjfqscl" path="res://scenes/index/fighters/scripts/sniper.gd" id="3_m8axb"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_hn5nq"]
+[ext_resource type="PackedScene" uid="uid://bxnd13x1scd0r" path="res://scenes/battle/fighter/skill_projection.tscn" id="6_hahop"]
+[ext_resource type="Texture2D" uid="uid://bfe6mu3cnowep" path="res://assets/visual/ui/bars/single_pixel_fill.png" id="7_s425e"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="8_hahop"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="12_psl8l"]
 
@@ -52,6 +54,37 @@ _data = {
 &"RESET": SubResource("Animation_q0lj3")
 }
 
+[sub_resource type="Animation" id="Animation_s425e"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("projection:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.4, 0.65, 0.66),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.75, 0.3, 0.75, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("projection/shape/expansion:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.65),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_15ekd"]
+_data = {
+&"projection": SubResource("Animation_s425e")
+}
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_lwa6y"]
 b = Vector2(1000, 0)
 
@@ -65,18 +98,20 @@ hframes = 8
 vframes = 7
 frame = 4
 script = ExtResource("3_m8axb")
-skill = NodePath("Piercing Shot")
+skill = NodePath("components/Piercing Shot")
 skill_range = 30
-animation_player = NodePath("AnimationPlayer")
+animation_player = NodePath("components/base_animations")
 weight_class = 0
 tags = Array[int]([3, 2, 4])
 movement = 1
-hit_scan = NodePath("scan")
-base_stats = NodePath("stat_base/base_stats")
-stats_per_level = NodePath("stat_base/stats_per_level")
+hit_scan = NodePath("hit_scan")
+base_stats = NodePath("components/stats/base_stats")
+stats_per_level = NodePath("components/stats/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
-[node name="Piercing Shot" type="Node" parent="." unique_id=1500444734]
+[node name="components" type="Node" parent="." unique_id=308208788]
+
+[node name="Piercing Shot" type="Node" parent="components" unique_id=1500444734]
 script = ExtResource("3_lwa6y")
 base_cooldown = 7.0
 effects = Array[int]([2, 5])
@@ -86,32 +121,16 @@ technique_scaled_damage = true
 knockback_strength = 4
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=875831156]
-libraries/ = SubResource("AnimationLibrary_cnlol")
-libraries/fighter_base = ExtResource("4_hn5nq")
+[node name="stats" type="Node" parent="components" unique_id=854284739]
 
-[node name="scan" type="Area2D" parent="." unique_id=1335909690]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="shape" type="CollisionShape2D" parent="scan" unique_id=934614126]
-shape = SubResource("SegmentShape2D_lwa6y")
-
-[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1549499441]
-position = Vector2(0, -14)
-shape = SubResource("CircleShape2D_2iv6b")
-
-[node name="stat_base" type="Node" parent="." unique_id=854284739]
-
-[node name="base_stats" type="Node" parent="stat_base" unique_id=1364295129]
+[node name="base_stats" type="Node" parent="components/stats" unique_id=1364295129]
 script = ExtResource("8_hahop")
 max_hp = 100.0
 attack = 100.0
 defense = 5.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
-[node name="stats_per_level" type="Node" parent="stat_base" unique_id=1720571676]
+[node name="stats_per_level" type="Node" parent="components/stats" unique_id=1720571676]
 script = ExtResource("8_hahop")
 max_hp = 5.0
 attack = 15.0
@@ -120,6 +139,40 @@ agility = 5.0
 technique = 5.0
 move_speed = 0.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="base_animations" type="AnimationPlayer" parent="components" unique_id=875831156]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_cnlol")
+libraries/fighter_base = ExtResource("4_hn5nq")
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=1335909690]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="skill_projection" parent="hit_scan" unique_id=1906345224 node_paths=PackedStringArray("source", "generated_elements") instance=ExtResource("6_hahop")]
+libraries/projection = SubResource("AnimationLibrary_15ekd")
+source = NodePath("../..")
+generated_elements = [NodePath("../projection")]
+
+[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=934614126]
+shape = SubResource("SegmentShape2D_lwa6y")
+
+[node name="projection" type="Node2D" parent="hit_scan" unique_id=481541386]
+modulate = Color(1, 1, 1, 0)
+
+[node name="shape" type="Sprite2D" parent="hit_scan/projection" unique_id=464718024]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(1000, 1)
+texture = ExtResource("7_s425e")
+
+[node name="expansion" type="Sprite2D" parent="hit_scan/projection/shape" unique_id=153159337]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("7_s425e")
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1549499441]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_2iv6b")
 
 [node name="shadow_container" type="Node2D" parent="." unique_id=1650571632]
 position = Vector2(0, -8.000001)

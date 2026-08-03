@@ -1,8 +1,8 @@
-@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_animation.png")
+@icon("res://assets/visual/editor_ui/IconGodotNode/node_2D/icon_particle.png")
 class_name CombatVFX
 extends Sprite2D
 
-
+ 
 ## class for any VFX that will play in combat 
 ## besides skill windup highlights
 

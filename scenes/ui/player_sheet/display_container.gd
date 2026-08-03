@@ -19,7 +19,7 @@ func _on_discard_item_pressed() -> void:
 func discard_confirmation(mirror:ItemMirror)->void:
 	to_discard = mirror;
 	var item_color_tag:String = Index.get_color_tag(mirror.item.color_tag)
-	confirmation_label.text = "Discard "+item_color_tag + mirror.item.name + "[/color] from your inventory?";
+	confirmation_label.text = "Discard "+item_color_tag + mirror.item.unique_name + "[/color] from your inventory?";
 	
 	await Tweens.ui_fade_in(confirmation_overlay).finished
 	inventory_display.choosing_item = false;
@@ -29,6 +29,7 @@ func discard_confirmation(mirror:ItemMirror)->void:
 
 func _on_confirm_discard_pressed() -> void:
 	discard_sfx.play()
+	
 	inventory_display.remove_mirror(to_discard, true);
 	revert_discard_overlay();
 	

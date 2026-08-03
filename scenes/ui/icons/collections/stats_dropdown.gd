@@ -13,7 +13,7 @@ class_name StatsDropdown
 
 func _ready()->void:
 	if from_player:
-		var player:Player = get_tree().get_first_node_in_group("player")
+		var player:Player = Entities.player;
 		player.leveled_up.connect(update)
 		source = player;
 	if exp_bar:

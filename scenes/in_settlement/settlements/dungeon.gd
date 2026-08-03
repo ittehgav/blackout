@@ -19,7 +19,6 @@ var cleared:bool=false
 
 @export var final_loot:LootInventory;
 
-@onready var player:Player = get_tree().get_first_node_in_group("player")
 
 
 func refresh()->void:
@@ -30,7 +29,7 @@ func refresh()->void:
 
 
 func get_danger_level()->int:
-	var frac:float = highest_level_target/player.get_party_level()
+	var frac:float = highest_level_target/Entities.player.get_party_level()
 	if frac <= .5:
 		return 1;
 	elif frac < .75:

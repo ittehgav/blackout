@@ -17,8 +17,7 @@ func _on_child_entered_tree(node: Node) -> void:
 
 
 func get_danger_level()->int:
-	var player:Player = get_tree().get_first_node_in_group("player")
-	var frac:float = get_level()/player.get_party_level()
+	var frac:float = get_level()/Entities.player.get_party_level()
 	if frac <= .5:
 		return 1;
 	elif frac < .75:

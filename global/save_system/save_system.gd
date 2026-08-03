@@ -24,7 +24,7 @@ func save_data(file_path:String)->void:
 	file.store_string(to_save)
 	
 func store_player_data()->Dictionary:
-	var player:Player = get_tree().get_first_node_in_group("player")
+	var player:Player = Entities.player
 	var equipped_weapon_index:int;
 	var alt_weapon_index:int;
 	if not player.alternative_weapon:

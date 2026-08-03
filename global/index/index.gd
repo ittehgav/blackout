@@ -20,9 +20,6 @@ extends Node
 @export var player_team_color:Color
 @export var enemy_team_color:Color
 
-@export var mod_tier_colors:Array[Color]
-
-
 
 @export var day_reflection_color:Color;
 @export var night_reflection_color:Color;
@@ -34,28 +31,6 @@ extends Node
 
 func tagged_location_name(location:Location)->String:
 	return "[color=green][url="+location.name+"]"+location.name+"[/url][/color]"
-
-
-# const all_disciplines = [
-# 	"charisma",
-# 	"navigation",
-# 	"tactics",
-# 	"leadership",
-# 	"scavenging"
-# ]
-
-# const discipline_descriptions = {
-# 	"charisma":
-# 		"Charisma improves your trading skills, the rate at which your relations improve and your ability to [u]convince[/u] people.",
-# 	"navigation":
-# 		"Navigation improves [u]movement[/u] and [u]vision[/u] in the [u]world map[/u].",
-# 	"tactics":
-# 		"Tactics unlocks [u]tactical abilities[/u] in battle and allows you to control the [u]Tide of Battle[/u].",
-# 	"leadership":
-# 		"Leadership improves the [u]units in your party[/u], making them [u]level up faster[/u] and imrpoving their resource efficiency.",
-# 	"scavenging":
-# 		"Scavenging improves the efficiency of [u]resources[/u] and the rate at which you find [/u]resources[/u]."
-# }
 
 
 const flavor_colors = {
@@ -76,13 +51,55 @@ const misc_colors = {
 	"neutral":Color.LIGHT_GRAY
 }
 
+@onready var color_keys:Dictionary[String, Color] = generate_color_key_dict();
+
+func generate_color_key_dict()->Dictionary[String, Color]:
+	var sources:Array[Dictionary] = [
+		Resources.resource_colors,
+		CombatStats.stat_colors,
+		flavor_colors,
+		misc_colors,
+		combat_effect_colors,
+		primary_tag_colors
+	]
+	var final:Dictionary[String, Color];
+	for s:Dictionary in sources:
+		for key:String in s.keys():
+			final[key] = s[key]
+	return final
+
+func color_string(target:String)->String:
+	## adds BBcode color tags for any words matching the color_keys dict
+	## only way any string should ever be colored instead of 
+	## manually calling index over and over
+	## only works in RichTextLabels with BBcode enabled
+	var regex :RegEx = RegEx.new()
+	regex.compile("[^A-Za-z0-9 ]")
+	
+	var final:String="";
+	var keys:Array[String] = color_keys.keys();
+	for word:String in target.split(" "):
+		var before_punc:String = "";
+		if regex.search(word[0]):
+			before_punc = word[0];
+			word = word.substr(1)
+		var after_punc:String = "";
+		if regex.search(word[-1]):
+			after_punc = word[-1];
+			word = word.substr(0, len(word)-2)
+		
+		var to_add:String = word
+		if word.to_lower() in keys:
+			to_add = "[color="+color_keys[word].to_html()+"]" + before_punc + word + after_punc + "[/color] ";
+		final += to_add
+	final = final.substr(0, len(final)-2)
+	
+	return final
 
 func get_color(key:String)->Color:
 	## this can just reference the other classes as i remove stuff from here
 	var color:Color;
-	if key in ["t1", "t2", "t3"]:
-		var tier:int = int(key[1]) - 1;
-		color = mod_tier_colors[tier];
+
 	if key in Resources.resource_colors:
 		color = Resources.resource_colors[key];
 	elif key in CombatStats.stat_colors:
