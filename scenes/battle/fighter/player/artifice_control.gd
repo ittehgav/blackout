@@ -40,6 +40,7 @@ func setup()->void:
 func _on_player_equipment_changed(eq:Equipment)->void:
 	if eq is Artifice:
 		var slot:int = eq.get_equipped_slot();
+		## not working aaaaa
 		if slot and slot in depleted:
 			depleted.erase(slot)
 			self["artifice_"+str(slot)] = eq
@@ -61,6 +62,10 @@ func _input(e:InputEvent)->void:
 var depleted:Array[int]
 var current_using_artifice:int=0;
 func use_artifice_command(which:int)->void:
+	if not Entities.player.equipped_artifices[which]:
+		equipment.artifice_fumbled.emit()
+		return
+		
 	if which in depleted:
 		equipment.artifice_fumbled.emit()
 		return

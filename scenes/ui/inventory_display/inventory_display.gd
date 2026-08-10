@@ -11,7 +11,7 @@ signal warnings_attended(clear:bool)
 
 signal item_received;
 signal item_chosen(item:Item);
-## right now only using this for forge but could use 
+## right now only using this for refining but could use 
 ## for other context and improving dynamicness of stuff?
 
 signal item_picked_up(mirror:ItemMirror);
@@ -23,7 +23,7 @@ signal accessory_equipped_on_unit;
 signal opened
 
 
-@export_enum("player_sheet", "trade", "loot", "forge")var context:String="player_sheet";
+@export_enum("player_sheet", "trade", "loot", "refinement")var context:String="player_sheet";
 
 ## warning takes up the whole screen so it needs to be the immediate child of a control
 ## that does that
@@ -141,7 +141,7 @@ func reset_inventory()->void:
 		## destructive loop so cant just do for mirror in all_mirrors
 		var mirror:ItemMirror = all_mirrors[i];
 		i += 1;
-		if mirror.being_tradefd or not(mirror.item in pre_trade_items):
+		if mirror.being_traded or not(mirror.item in pre_trade_items):
 			remove_mirror(mirror, true);
 			i -= 1;
 
@@ -330,7 +330,6 @@ func refresh_data()->void:
 				warnings["loot_discard"] = true;
 
 	
-	inventory.refresh_resource_counts()
 	refresh_container_mirrors();
 
 
@@ -441,10 +440,8 @@ func send_resource(source:ItemMirror, amount:int)->void:
 		source.highlight_stack_label()
 		item_dropped.emit(source, "trade");
 		
-	inventory.refresh_resource_counts();
-	exchanging_display.inventory.refresh_resource_counts()
 	
-	exchanging_display.item_received.emit()
+	exchanging_display.item_received.emit();
 
 		
 
@@ -454,19 +451,16 @@ func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
 		invalid_move.emit("NOT ENOUGH ROOM", item_mirror);
 		return false
 	
-	item_mirror.item.reparent(inventory)
 	
 	var spot:Vector2i = find_clear_cell(item_mirror.item)
 	## EVERY MOVE IS APPLIED TO INVENTORIES RIGHT AWAY
 	## RESETTING FUNCTIONS WILL BE RESET STATES GENERATED AS THE MENUS ARE OPENED
 	## /TRADES ARE COMMITED
 	var space_occupied:bool=item_mirror.display.inventory.send_item(item_mirror.item, inventory)
-	
-	if item_mirror.item is ResourceContainer:
-		inventory.refresh_resource_counts();
-		exchanging_display.inventory.refresh_resource_counts()
+
 	
 	if space_occupied:
+		print("socc?")
 		var new_mirror:ItemMirror;
 		
 		new_mirror = mirror_item(item_mirror.item)
@@ -480,7 +474,7 @@ func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
 			item_dropped.emit(new_mirror, "loot");
 	else:
 		## just so the inventory refreshes
-		refresh_data()
+		item_dropped.emit(item_mirror)
 		exchanging_display.refresh_data()
 	item_received.emit();
 	return true
@@ -748,17 +742,21 @@ func _on_item_picked_up(_mirror:ItemMirror) -> void:
 
 var shake_tween:Tween;
 func board_shake(intensity:int=3, return_duration:float=.1)->void:
-	
-	var x_shift:int = randi_range(-intensity, intensity)
-	var y_shift:int = randi_range(-intensity, intensity)
-	var shift: = Vector2(x_shift, y_shift);
-	
-	var origin:Vector2 = cargo.position;
-	cargo.position += shift;
-	
-	if not shake_tween or not shake_tween.is_running():
-		shake_tween= create_tween();
-		shake_tween.tween_property(cargo, "position", origin, return_duration)
+	intensity *= 2
+	for mirror:ItemMirror in all_mirrors:
+		var x_shift:int = randi_range(-intensity, intensity)
+		var y_shift:int = randi_range(-intensity, intensity)
+		var shift: = Vector2(x_shift, y_shift);
+		
+		var origin:Vector2 = cargo.position;
+		mirror.offset_transform_position += shift;
+		
+		var tween:= create_tween();
+		tween.tween_property(mirror, "offset_transform_position", Vector2.ZERO, return_duration)
+		
+		#if not shake_tween or not shake_tween.is_running():
+			#shake_tween= create_tween();
+			#shake_tween.tween_property(cargo, "position", origin, return_duration)
 	
 	
 	send_rect.hide();

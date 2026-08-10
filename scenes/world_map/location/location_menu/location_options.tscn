@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://84hy7md7eyj5" path="res://assets/visual/ui/map/building_options/trade.png" id="2_1qsii"]
 [ext_resource type="Texture2D" uid="uid://da7eoo8ic8lrq" path="res://assets/visual/ui/map/building_options/recruit.png" id="3_kaytp"]
 [ext_resource type="Texture2D" uid="uid://chqsdcw5dh25f" path="res://assets/visual/ui/map/building_options/evolve.png" id="4_0jv3h"]
-[ext_resource type="Texture2D" uid="uid://dpks3leo4atbb" path="res://assets/visual/ui/map/building_options/forge.png" id="5_ihvu2"]
+[ext_resource type="Texture2D" uid="uid://dpks3leo4atbb" path="res://assets/visual/ui/map/building_options/anvil.png" id="5_ihvu2"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="6_kaytp"]
 
 [node name="LocationOptions" type="HBoxContainer" unique_id=862781021 node_paths=PackedStringArray("buttons")]

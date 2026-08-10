@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="4_hdymd"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="5_rj7gd"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/player_fighter.tscn" id="7_8stbl"]
+[ext_resource type="AudioStream" uid="uid://db0qsxl1ljgpd" path="res://assets/sound/sfx/combat/player/module_unavailable.mp3" id="7_p7mpf"]
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="8_2foka"]
 [ext_resource type="Script" uid="uid://dv8qc4korx4fo" path="res://scenes/battle/arena/screen_blink.gd" id="9_2foka"]
 [ext_resource type="Script" uid="uid://b6hbcvrxk1f5k" path="res://scenes/battle/arena/team_balances.gd" id="9_ra4bb"]
@@ -554,6 +555,9 @@ metadata/_custom_type_script = "uid://dclobwhhhy4eu"
 
 [node name="player_fighter" parent="teams/team_1" unique_id=543559168 instance=ExtResource("7_8stbl")]
 position = Vector2(-92, 537)
+
+[node name="sfx" parent="teams/team_1/player_fighter/components/sfx" parent_id_path=PackedInt32Array(543559168, 882425252) index="1" unique_id=504591273]
+stream = ExtResource("7_p7mpf")
 
 [node name="body" parent="teams/team_1/player_fighter" index="5" unique_id=416499753]
 material = SubResource("ShaderMaterial_w5ded")
@@ -1220,8 +1224,6 @@ arena = NodePath("../../..")
 [connection signal="artifice_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/artifices" method="_on_equipment_artifice_used"]
 [connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_fumbled" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_fumbled"]
-[connection signal="weapon_hit" from="teams/team_1/player_fighter/equipment" to="teams/team_1/player_fighter/components/sfx/hit_sfx" method="weapon_hit"]
-[connection signal="weapon_hit" from="teams/team_1/player_fighter/equipment" to="teams/team_1/player_fighter/equipment/weapon_control" method="weapon_hit"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_used"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="check_weapon_disabled"]
 [connection signal="timeout" from="teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]

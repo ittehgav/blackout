@@ -10,14 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://d2yia70umivgc" path="res://assets/visual/particles/dust.png" id="7_234pw"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_hsbep"]
-points = PackedVector2Array(300, 300, 478, 0, 300, -300, 0, 0)
+points = PackedVector2Array(200, 200, 300, 0, 200, -200, 0, 0)
 
 [sub_resource type="Curve" id="Curve_6j67s"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.14233576, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_ce7ej"]
+offsets = PackedFloat32Array(0, 0.7867036)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.11764706)
+
+[sub_resource type="Gradient" id="Gradient_u5bk5"]
+colors = PackedColorArray(0.6, 0.6, 0.6, 1, 0.8, 0.8, 0.8, 1)
 
 [sub_resource type="Animation" id="Animation_xs6uu"]
 length = 0.001
@@ -39,11 +43,12 @@ _data = {
 &"RESET": SubResource("Animation_xs6uu")
 }
 
-[node name="Toxic Shotgun" type="Sprite2D" unique_id=264886156 node_paths=PackedStringArray("smoke", "display", "hit_scan", "projections", "animation_player", "use_sfx", "status")]
+[node name="Toxic Shotgun" type="Sprite2D" unique_id=264886156 node_paths=PackedStringArray("smoke", "agi_debuff", "display", "hit_scan", "projections", "animation_player", "use_sfx", "status")]
 texture = ExtResource("1_d8qlx")
 offset = Vector2(10, 5)
 script = ExtResource("2_hvjgl")
 smoke = NodePath("hit_scan/smoke")
+agi_debuff = NodePath("components/agi_debuff")
 display = NodePath("components/RangedWeaponDisplay")
 animation_root_key = "ranged_two_hand"
 base_damage = 30
@@ -52,7 +57,6 @@ hit_scan = NodePath("hit_scan")
 projections = [NodePath("hit_scan/projection")]
 animation_player = NodePath("weapon_animation")
 use_sfx = NodePath("components/use_sfx")
-use_feedback = "recoil"
 ammo_type = "juice"
 ammo_cost = 5
 status = NodePath("components/Intoxicated")
@@ -69,10 +73,10 @@ metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
 
 [node name="Intoxicated" type="Node" parent="components" unique_id=2137230434]
 script = ExtResource("3_234pw")
-type = "stat_change"
-value = -5.0
-duration = 20.0
-stat = "defense"
+type = "dot"
+value = 10.0
+duration = 5.0
+latency = 0.5
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=1923456105]
@@ -80,6 +84,15 @@ stream = ExtResource("3_uhcbr")
 volume_db = -5.0
 pitch_scale = 0.75
 bus = &"sfx"
+
+[node name="agi_debuff" type="Node" parent="components" unique_id=1681719336]
+script = ExtResource("3_234pw")
+type = "stat_change"
+value = 0.2
+duration = 5.0
+stat = "agility"
+stat_fractal_value = true
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=1404506961]
 collision_layer = 0
@@ -94,20 +107,20 @@ debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
 
 [node name="projection" type="Sprite2D" parent="hit_scan" unique_id=936701830]
 modulate = Color(0.4, 0.4, 0.4, 0.19607843)
-position = Vector2(202, -1.1920929e-07)
+position = Vector2(177.835, 0)
 scale = Vector2(13.999997, 23.125)
 texture = ExtResource("4_uhcbr")
 
 [node name="smoke" type="CPUParticles2D" parent="hit_scan" unique_id=1382117617]
-modulate = Color(0.49, 0.19999999, 0.5, 1)
+modulate = Color(0.78400004, 0.32, 0.8, 1)
 scale = Vector2(0.9070659, 0.98404056)
 emitting = false
 amount = 100
 texture = ExtResource("7_234pw")
-lifetime = 5.27
+lifetime = 5.0
 one_shot = true
-speed_scale = 9.11
-explosiveness = 1.0
+speed_scale = 9.0
+explosiveness = 0.8
 randomness = 0.5
 lifetime_randomness = 0.5
 fixed_fps = 24
@@ -122,6 +135,7 @@ scale_amount_max = 6.0
 scale_amount_curve = SubResource("Curve_6j67s")
 color = Color(1, 1, 1, 0.39215687)
 color_ramp = SubResource("Gradient_ce7ej")
+color_initial_ramp = SubResource("Gradient_u5bk5")
 
 [node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=1952617425]
 libraries/ = SubResource("AnimationLibrary_2mbjq")

@@ -11,6 +11,8 @@ const rarity = 3
 @export var timer:Timer;
 var conversion_target:ActiveFighter
 
+
+
 func get_description()->String:
 	return "Hold to start converting a nearby enemy, becoming unable to move and attack for the duration, when the conversion finishes, the enemy starts fighting for your party until the end of battle.";
 
@@ -77,3 +79,10 @@ func clear_suppress(target:ActiveFighter)->void:
 	if target is PlayerFighter:
 		target.move_speed = player_pre_suppress_move_speed;
 		target.equipment.process_mode = Node.PROCESS_MODE_INHERIT;
+
+
+const m1_description = "Takes half as long to convert enemies."
+const m1_prefix = "Efficient"
+
+const m2_description = "Converted enemies gain a 50% agility and technique buff."
+const m2_prefix = "Enabling"

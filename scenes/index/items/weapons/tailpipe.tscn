@@ -6,7 +6,8 @@
 [ext_resource type="AnimationLibrary" uid="uid://i0u7lhwyn7mk" path="res://resources/animations/weapons/melee.res" id="3_jodic"]
 [ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="5_hl2mp"]
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="5_jodic"]
-[ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="7_jodic"]
+[ext_resource type="AudioStream" uid="uid://cmvu7h5kfmq24" path="res://assets/sound/sfx/combat/player/hit/metal_hit.wav" id="6_577ip"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="7_vmql4"]
 
 [sub_resource type="Animation" id="Animation_577ip"]
 length = 0.001
@@ -53,13 +54,14 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_053ln"]
-radius = 59.03389
+radius = 60.0
 
-[node name="Tailpipe" type="Sprite2D" unique_id=870722934 node_paths=PackedStringArray("display", "hit_scan", "projections", "animation_player", "use_sfx")]
+[node name="Tailpipe" type="Sprite2D" unique_id=870722934 node_paths=PackedStringArray("stun_sfx", "display", "hit_scan", "projections", "animation_player", "use_sfx", "status")]
 use_parent_material = true
 texture = ExtResource("1_4334k")
 offset = Vector2(0, -32)
 script = ExtResource("1_1n7ey")
+stun_sfx = NodePath("components/stun_sfx")
 display = NodePath("components/MeleeWeaponDisplay")
 base_damage = 20
 cooldown = 1.0
@@ -68,7 +70,7 @@ melee = true
 projections = [NodePath("hit_scan/projection")]
 animation_player = NodePath("components/weapon_animation")
 use_sfx = NodePath("components/use_sfx")
-use_feedback = "lunge"
+status = NodePath("components/stun")
 color_tag = "scrap"
 
 [node name="components" type="Node" parent="." unique_id=372097303]
@@ -90,6 +92,16 @@ stream = ExtResource("5_jodic")
 bus = &"sfx"
 parameters/looping = false
 
+[node name="stun_sfx" type="AudioStreamPlayer" parent="components" unique_id=1150565066]
+stream = ExtResource("6_577ip")
+pitch_scale = 1.25
+
+[node name="stun" type="Node" parent="components" unique_id=601410638]
+script = ExtResource("7_vmql4")
+type = "stun"
+duration = 1.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
 [node name="hit_scan" type="Area2D" parent="." unique_id=955711957]
 position = Vector2(80, 0)
 collision_layer = 0
@@ -97,7 +109,8 @@ collision_mask = 2
 input_pickable = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=552233929]
+[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=552233929]
+position = Vector2(-21, 0)
 shape = SubResource("CircleShape2D_053ln")
 debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
 
@@ -106,9 +119,3 @@ modulate = Color(1, 1, 1, 0.11764706)
 position = Vector2(1, -1)
 scale = Vector2(6, 8)
 texture = ExtResource("5_hl2mp")
-
-[node name="Sweep" parent="hit_scan" unique_id=773368217 instance=ExtResource("7_jodic")]
-top_level = true
-rotation = -3.1415927
-scale = Vector2(3, -3)
-source_type = 1

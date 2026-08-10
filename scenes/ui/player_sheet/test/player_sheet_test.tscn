@@ -259,6 +259,7 @@ stack_size = 1
 [node name="Mystery Snack Pack" parent="Player/Inventory" index="6" unique_id=218051020 instance=ExtResource("7_dogm3")]
 
 [node name="Slingshot" parent="Player/Inventory" index="7" unique_id=1249202197 instance=ExtResource("7_2mu2v")]
+refinement_level = 2
 
 [node name="Lure" parent="Player/Inventory" index="8" unique_id=1769649863 instance=ExtResource("22_gwxuh")]
 

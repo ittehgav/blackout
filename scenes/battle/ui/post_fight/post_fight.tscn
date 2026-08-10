@@ -187,7 +187,7 @@ from_player = true
 [node name="morale_display" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer" unique_id=55843812 instance=ExtResource("13_glk5u")]
 layout_mode = 2
 
-[node name="MoraleIcon" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer/morale_display" index="0"]
+[node name="MoraleIcon" parent="victory_sequence/exp_gain/VBoxContainer/player_levels/VBoxContainer/morale_display" index="0" unique_id=419504722]
 auto_update = false
 
 [node name="party_power" type="HBoxContainer" parent="victory_sequence/exp_gain/VBoxContainer" unique_id=1710208515]

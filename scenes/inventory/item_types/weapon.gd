@@ -29,6 +29,8 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 @export var cooldown:float;
 @export var alt_cooldown:float;
 
+@export_range(0, 3) var refinement_level:int = 0;
+
 @export_group("Common weapon settings")
 @export var hit_scan:Area2D;
 @export var alt_hit_scan:Area2D;
@@ -46,7 +48,6 @@ signal hit; ## hit only triggers once for multiple sychronous AOE hits
 @export var animation_player:AnimationPlayer
 @export var use_sfx:AudioStreamPlayer
 @export var alt_use_sfx:AudioStreamPlayer;
-
 
 @export var active_texture:Texture;
 
@@ -87,3 +88,12 @@ func damage_string()->String:
 
 func get_animation_key(track:String)->String:
 	return animation_root_key+"/"+track
+
+
+## run on a duplicated copy of weapon that only appears in combat
+## can catch all entities/units on call
+## can just hit pass when the refinement 
+## improvement is just a var check in the use code?
+@abstract func apply_r1()->void;
+@abstract func apply_r2()->void;
+@abstract func apply_r3()->void;

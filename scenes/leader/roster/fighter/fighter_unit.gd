@@ -12,7 +12,7 @@ signal accessory_equipped(new:Accessory, old:Accessory)
 		base = new_base;
 		update_stats()
 
-@export var level:int=1;
+@export var level:int=1
 @export var experience:int=0;
 
 
@@ -27,7 +27,7 @@ signal accessory_equipped(new:Accessory, old:Accessory)
 
 var stats_loaded:bool=false;
 
-func _ready()->void:
+func _enter_tree() -> void:
 	## needs to enter tree to work properly?
 	setup()
 
@@ -40,7 +40,7 @@ func find_base()->void:
 	for c:Node in get_children():
 		if c is FighterBase:
 			base = Index.fighters.all_unit_bases[c.name];
-			remove_child.call_deferred(c)
+			c.queue_free()
 			return
 	assert(false)
 
@@ -76,9 +76,7 @@ func final_stats()->CombatStats:
 func final_stat(stat:String)->float:
 	return (stats[stat] + modifier_stats[stat]) * stat_multipliers[stat];
 
-func change_base(new_base:FighterBase)->void:
-	base = new_base;
-	update_stats();
+
 
 func update_stats()->void:
 	## runs as the fighter is instantiated
@@ -88,8 +86,6 @@ func update_stats()->void:
 	for stat:String in CombatStats.all_stats:
 		stats[stat] = base.base_stats[stat];
 		stats[stat] += base.stats_per_level[stat] * level;
-	
-
 
 
 func final_skill_cooldown(_agi_acm:float=stats.agility)->float:
@@ -102,11 +98,6 @@ func final_skill_cooldown(_agi_acm:float=stats.agility)->float:
 	
 
 
-
-func _on_child_entered_tree(node: Node) -> void:
-	if node is FighterBase and not summon:
-		base = Index.fighters.all_unit_bases[node.name];
-		remove_child.call_deferred(node)
 
 func equip_accessory(new:Accessory)->Accessory:
 	var previous:Accessory = equipped_accessory;

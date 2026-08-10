@@ -13,6 +13,8 @@ const movement_distance = 500
 const base_duration = .75
 
 
+
+
 func use()->void:
 	use_sfx.play()
 	play_animation();
@@ -67,3 +69,11 @@ func show_trail(delay:float, blur:Sprite2D)->void:
 
 func clear_vfx()->void:
 	Entities.player_fighter.modulate.a = 1;
+
+
+
+const m1_description = "Dashing leaves a trail that damages enemies and reduces their attack.";
+const m1_prefix = "Blazing"
+
+const m2_description = "-50% cooldown."
+const m2_prefix = "Ever-ready"

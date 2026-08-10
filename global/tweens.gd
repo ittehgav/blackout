@@ -95,6 +95,11 @@ func floating_text(string:String, label_parent:Node, on_cursor:bool=true, font_c
 func mouseover_shake(target:Control, srr:float = PI/32, cycle:float = .05, target_scale:Vector2=Vector2(1.05, 1.05))->Tween:
 	var offset_enabled_before:bool = target.offset_transform_enabled;
 	target.offset_transform_enabled = true;
+	if "disabled" in target and target.disabled:
+		srr/= 8;
+		target_scale = Vector2.ONE
+	if target.size.x > 100:
+		srr /= 4
 
 	var tween:Tween = create_tween();
 	tween.tween_property(target, "offset_transform_rotation", srr, cycle);
@@ -103,7 +108,16 @@ func mouseover_shake(target:Control, srr:float = PI/32, cycle:float = .05, targe
 	
 	
 	tween.tween_property(target, "offset_transform_rotation", 0, cycle);
-	tween.parallel().tween_property(target, "offset_rotation_scale", Vector2.ONE, cycle)
+	tween.parallel().tween_property(target, "offset_transform_scale", Vector2.ONE, cycle)
 	tween.tween_callback(target.set_offset_transform_enabled.bind(offset_enabled_before));
 	
+	return tween
+
+func press_grow(target:Control)->Tween:
+	var offset_enabled_before:bool=target.offset_transform_enabled;
+	target.offset_transform_enabled = true;
+	var tween:=create_tween()
+	tween.tween_property(target, "offset_transform_scale", Vector2(1.2, 1.2), .1)
+	tween.tween_property(target, "offset_transform_scale", Vector2.ONE, .1)
+	tween.tween_callback(target.set_offset_transform_enabled.bind(offset_enabled_before))
 	return tween

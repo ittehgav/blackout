@@ -21,16 +21,19 @@ extends PanelContainer
 
 func _on_player_fighter_ready() -> void:
 	var dict:Dictionary = Entities.player.equipped_artifices;
+	var player_has_artifices:bool=false;
 	for key:int in dict.keys():
 		var artifice:Artifice = dict[key]
 		if artifice:
+			player_has_artifices = true
 			load_artifice(artifice, key)
 		else:
 			get_node("artifices/artifice_"+str(key)).hide()
 			var separator:HSeparator =get_node_or_null("artifices/HSeparator"+str(key))
 			if separator:
 				separator.hide()
-	
+	if not player_has_artifices:
+		hide()
 	Entities.player.equipment_changed.connect(_on_player_equipment_changed)
 			
 func _on_player_equipment_changed(which:Equipment)->void:

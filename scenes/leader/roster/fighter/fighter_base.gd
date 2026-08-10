@@ -132,12 +132,6 @@ const combat_effect_colors:Dictionary[String, Color]={
 
 func _ready()->void:
 	if not self is PlayerFighterBase:
-		if not fighter and not (get_parent() is FighterIndex):
-			## makes them take up less memory space?
-			## make this happen before ready somehow?
-			for c:Node in get_children():
-				c.queue_free();
-			return
 		## faster to reiterate than if i had to manually make the connections on each unit
 		started_moving.connect(on_started_moving)
 		stopped_moving.connect(on_stopped_moving)

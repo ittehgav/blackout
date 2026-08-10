@@ -47,13 +47,13 @@ hover_sfx_player = NodePath("hover_sfx")
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=2042019594]
 material = SubResource("ShaderMaterial_qbkmf")
-position = Vector2(62, 91)
+position = Vector2(84, 90)
 scale = Vector2(2, 2)
 texture = ExtResource("3_rwqju")
 offset = Vector2(0, 8.57)
 hframes = 8
 vframes = 7
-frame = 3
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="sprite" unique_id=938839807]
 libraries/fighter_base = ExtResource("4_be7tu")

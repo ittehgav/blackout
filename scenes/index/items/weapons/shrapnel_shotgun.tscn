@@ -7,16 +7,17 @@
 [ext_resource type="AudioStream" uid="uid://dhy561fdsun6b" path="res://assets/sound/sfx/combat/player/explosion.ogg" id="4_q0r20"]
 [ext_resource type="Texture2D" uid="uid://d0ihmqgcfqcrf" path="res://assets/visual/particles/vfx/shrapnel.png" id="5_kagd4"]
 [ext_resource type="AnimationLibrary" uid="uid://brrltqeijrp22" path="res://resources/animations/weapons/ranged_two_hand.res" id="5_mvmo7"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="5_plxna"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_kagd4"]
+points = PackedVector2Array(250, 300, 350, 0, 250, -300, 0, 0)
 
 [sub_resource type="Gradient" id="Gradient_kagd4"]
 offsets = PackedFloat32Array(0.5, 0.9074074)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.27450982)
 
 [sub_resource type="Gradient" id="Gradient_mvmo7"]
-colors = PackedColorArray(0.2, 0.2, 0.2, 1, 0.8, 0.8, 0.8, 1)
-
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_kagd4"]
-points = PackedVector2Array(300, 300, 478, 0, 300, -300, 0, 0)
+colors = PackedColorArray(0.5, 0.5, 0.5, 1, 0.7, 0.7, 0.7, 1)
 
 [sub_resource type="Animation" id="Animation_xs6uu"]
 length = 0.001
@@ -26,23 +27,22 @@ _data = {
 &"RESET": SubResource("Animation_xs6uu")
 }
 
-[node name="Shrapnel Shotgun" type="Sprite2D" unique_id=1126198983 node_paths=PackedStringArray("shrapnel", "display", "hit_scan", "projections", "animation_player", "use_sfx")]
+[node name="Shrapnel Shotgun" type="Sprite2D" unique_id=1126198983 node_paths=PackedStringArray("shrapnel", "display", "hit_scan", "projections", "animation_player", "use_sfx", "status")]
 texture = ExtResource("1_vrtai")
 offset = Vector2(5, 5)
 script = ExtResource("1_5hg34")
 shrapnel = NodePath("hit_scan/shrapnel")
 display = NodePath("components/RangedWeaponDisplay")
 animation_root_key = "ranged_two_hand"
-base_damage = 200
+base_damage = 100
 cooldown = 5.0
 hit_scan = NodePath("hit_scan")
 projections = [NodePath("hit_scan/projection")]
 animation_player = NodePath("weapon_animation")
 use_sfx = NodePath("components/use_sfx")
-use_feedback = "recoil"
-hit_feedback = "screen_shake"
 ammo_type = "scrap"
-ammo_cost = 20
+ammo_cost = 15
+status = NodePath("components/stun")
 color_tag = "scrap"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
@@ -53,11 +53,18 @@ script = ExtResource("3_kagd4")
 use_feedback = 2
 hit_feedback = 1
 camera_range = 1
+visual_scale = 1
 metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=784959205]
 stream = ExtResource("4_q0r20")
 bus = &"sfx"
+
+[node name="stun" type="Node" parent="components" unique_id=1731634429]
+script = ExtResource("5_plxna")
+type = "stun"
+duration = 1.5
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=607293741]
 collision_layer = 0
@@ -65,7 +72,19 @@ collision_mask = 2
 input_pickable = false
 monitorable = false
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=539414566]
+position = Vector2(2, 0)
+shape = SubResource("ConvexPolygonShape2D_kagd4")
+debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
+
+[node name="projection" type="Sprite2D" parent="hit_scan" unique_id=1239916499]
+modulate = Color(0.2, 0.2, 0.2, 0.19607843)
+position = Vector2(250, -1.1920929e-07)
+scale = Vector2(12, 30)
+texture = ExtResource("4_mvmo7")
+
 [node name="shrapnel" type="CPUParticles2D" parent="hit_scan" unique_id=1559480764]
+modulate = Color(0.65, 0.56224996, 0.5525, 1)
 position = Vector2(89, 2)
 scale = Vector2(2, 2)
 emitting = false
@@ -91,17 +110,6 @@ angle_max = 180.0
 scale_amount_max = 4.0
 color_ramp = SubResource("Gradient_kagd4")
 color_initial_ramp = SubResource("Gradient_mvmo7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_scan" unique_id=539414566]
-position = Vector2(2, 0)
-shape = SubResource("ConvexPolygonShape2D_kagd4")
-debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
-
-[node name="projection" type="Sprite2D" parent="hit_scan" unique_id=1239916499]
-modulate = Color(0.2, 0.2, 0.2, 0.19607843)
-position = Vector2(181, -1.1920929e-07)
-scale = Vector2(12, 20)
-texture = ExtResource("4_mvmo7")
 
 [node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=2004319821]
 libraries/ = SubResource("AnimationLibrary_oskey")

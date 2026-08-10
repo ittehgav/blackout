@@ -7,13 +7,14 @@ const size_y = 2;
 
 const scorched_ground_duration = 5
 
-const r1_improvement = "+50% scorched area size";
-const r2_improvement = "Enemies directly hit by the grenade take double damage from scorched ground";
-const r3_improvement = "Enemies in the scorched ground have -50% attack.";
+var scorched_ground_damage:float = 35;
+
+
 
 @export var scorched_ground:TextureRect;
 @export var scorched_ground_hit_scan:Area2D;
 @export var scorched_ground_sfx:AudioStreamPlayer
+@export var blast_area:CollisionShape2D
 
 func get_description()->String:
 	var ammo_str:String = ammo_cost_string()
@@ -28,21 +29,46 @@ func use(_alt:bool=false)->void:
 
 func projectile_hit(target:CombatEntity)->void:
 	Combat.deal_damage(Entities.player_fighter, target);
+	if refinement_level == 2:
+		status.apply_on_target(target)
 	hit.emit()
 
+var active_hit_scans:Array[Area2D]
 func apply_scorched_ground(target:Vector2)->void:
+	
 	var ground:TextureRect = scorched_ground.duplicate();
 	Entities.player_fighter.ally_team.ground_elements.add_child(ground);
-	ground.scale = Vector2(4, 4)
-	ground.global_position = target - Vector2(256, 256);
+	ground.global_position = target - ground.size/2;
 	ground.show();
 	scorched_ground_sfx.play()
 	
-	var blast_area:CollisionShape2D = ground.get_node("blast_area")
-	blast_area.reparent(scorched_ground_hit_scan)
-	await get_tree().create_timer(scorched_ground_duration).timeout;
-	blast_area.queue_free();
-	ground.queue_free()
 	
+	var scan:Area2D = scorched_ground_hit_scan.duplicate()
+	active_hit_scans.append(scan)
+	scan.global_position = target;
+	Entities.player_fighter.ally_team.projectiles.add_child(scan)
+	
+	await get_tree().create_timer(scorched_ground_duration).timeout;
+	scan.queue_free()
+	ground.queue_free()
+
+
 func _on_scoched_ground_dmg_ticker_timeout() -> void:
-	Combat.aoe_damage(Entities.player_fighter, scorched_ground_hit_scan, 0, true)
+	for scan:Area2D in active_hit_scans:
+		if is_instance_valid(scan):
+			Combat.aoe_damage(Entities.player_fighter, scan, scorched_ground_damage, true)
+		else:
+			active_hit_scans.erase(scan)
+
+const r1_improvement = "+10% scorched ground damage"
+const r2_improvement = "Enemies directly hit by the grenade get an agility debuff.";
+const r3_improvement = "+50% scorched area size";
+
+func apply_r1()->void:
+	scorched_ground_damage += scorched_ground_damage/10;
+func apply_r2()->void:
+	pass
+func apply_r3()->void:
+	blast_area.shape.radius *= 1.5;
+	scorched_ground.size *= 1.5;
+	scorched_ground.pivot_offset *= 1.5

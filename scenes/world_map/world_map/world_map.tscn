@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://iiwod51go8ml" path="res://assets/sound/sfx/world_map/settlement_contact.wav" id="4_fnjxc"]
 [ext_resource type="Script" uid="uid://cu3jtddlsid3a" path="res://scenes/world_map/world_map/minute_ticker.gd" id="5_1glhv"]
 [ext_resource type="Texture2D" uid="uid://behu7rnmlw745" path="res://assets/visual/tiles/world_tiles.png" id="5_5k4yq"]
+[ext_resource type="AudioStream" uid="uid://dxce8m1hdp6vk" path="res://assets/sound/sfx/ui/mouseover_1.ogg" id="5_beb05"]
 [ext_resource type="Texture2D" uid="uid://cpoknj8hpjvcc" path="res://assets/visual/tiles/road_highlight.png" id="6_1glhv"]
 [ext_resource type="Script" uid="uid://bnnjh7gh65ch0" path="res://scenes/world_map/world_map/upkeep.gd" id="7_5k4yq"]
 [ext_resource type="Script" uid="uid://cutl2ic7kaofk" path="res://scenes/world_map/world_map/tilemaps/road_highlights.gd" id="7_5vsub"]
@@ -279,7 +280,7 @@ tile_shape = 3
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_5sp40")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp71w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kulxh"]
 resource_local_to_scene = true
 shader = ExtResource("20_tbp5f")
 shader_parameter/color = Color(0.042500004, 0.25, 0.24654166, 1)
@@ -288,26 +289,6 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(5, 3)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_beb05"]
-resource_local_to_scene = true
-shader = ExtResource("20_tbp5f")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 1
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kulxh"]
-resource_local_to_scene = true
-shader = ExtResource("20_tbp5f")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 1
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tbp5f"]
 resource_local_to_scene = true
@@ -360,6 +341,26 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m17yv"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rl87i"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_omir2"]
 resource_local_to_scene = true
 shader = ExtResource("20_tbp5f")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -564,10 +565,10 @@ speed_up_persist_timer = NodePath("minute_ticker/speed_up_persist")
 speed_5x_persist_timer = NodePath("minute_ticker/speed_up_persist/speed_up_persist_5x")
 
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=573051956]
-volume_db = -2.616
 script = ExtResource("2_omxek")
 movement_started = ExtResource("3_fnjxc")
 location_visited = ExtResource("4_fnjxc")
+location_hovered = ExtResource("5_beb05")
 metadata/_custom_type_script = "uid://yn55dca3qplf"
 
 [node name="minute_ticker" type="Timer" parent="." unique_id=1629819586 node_paths=PackedStringArray("world_map", "upkeep")]
@@ -680,7 +681,7 @@ vehicle = NodePath("Doblo")
 current_location = NodePath("../locations/Tutorial")
 
 [node name="Doblo" parent="PlayerParty" unique_id=917311666 instance=ExtResource("15_tfwjm")]
-material = SubResource("ShaderMaterial_cp71w")
+material = SubResource("ShaderMaterial_kulxh")
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerParty/Doblo" unique_id=1215031195]
 light_mask = 0
@@ -720,7 +721,7 @@ road = NodePath("../tiles/road")
 fog = NodePath("../tiles/fog")
 
 [node name="Tutorial" parent="locations" unique_id=273842454 node_paths=PackedStringArray("neighbors", "settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_beb05")
+material = SubResource("ShaderMaterial_tbp5f")
 position = Vector2(-816, 256)
 neighbors = [NodePath("../Farm")]
 max_neighbors = 1
@@ -740,7 +741,7 @@ mouse_filter = 2
 waves = [NodePath("DungeonRoster"), null, null]
 
 [node name="Farm" parent="locations" unique_id=1185826475 node_paths=PackedStringArray("neighbors", "settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_kulxh")
+material = SubResource("ShaderMaterial_4ypwe")
 position = Vector2(1431, 289)
 neighbors = [NodePath("../Tutorial")]
 settlements = [NodePath("Farm")]
@@ -748,14 +749,14 @@ settlements = [NodePath("Farm")]
 [node name="Farm" parent="locations/Farm" unique_id=13982226 instance=ExtResource("24_5vsub")]
 
 [node name="Factory" parent="locations" unique_id=1850741843 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_tbp5f")
+material = SubResource("ShaderMaterial_3x04a")
 position = Vector2(3764, -1090)
 settlements = [NodePath("Factory")]
 
 [node name="Factory" parent="locations/Factory" unique_id=288129802 instance=ExtResource("29_xtkqv")]
 
 [node name="Street" parent="locations" unique_id=69350772 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_4ypwe")
+material = SubResource("ShaderMaterial_eunnb")
 position = Vector2(6968, -1599)
 settlements = [NodePath("Gas Station"), NodePath("Chop Shop")]
 
@@ -764,7 +765,7 @@ settlements = [NodePath("Gas Station"), NodePath("Chop Shop")]
 [node name="Chop Shop" parent="locations/Street" unique_id=2070719463 instance=ExtResource("26_xtkqv")]
 
 [node name="Street2" parent="locations" unique_id=424630876 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_3x04a")
+material = SubResource("ShaderMaterial_x2ygm")
 position = Vector2(5852, 257)
 settlements = [NodePath("Chop Shop"), NodePath("Gym"), NodePath("Laboratory")]
 
@@ -775,14 +776,14 @@ settlements = [NodePath("Chop Shop"), NodePath("Gym"), NodePath("Laboratory")]
 [node name="Laboratory" parent="locations/Street2" unique_id=1684508635 instance=ExtResource("33_tlj38")]
 
 [node name="Outlaw Hideout" parent="locations" unique_id=669220767 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_eunnb")
+material = SubResource("ShaderMaterial_m17yv")
 position = Vector2(8842, 4229)
 settlements = [NodePath("Outlaw Hideout")]
 
 [node name="Outlaw Hideout" parent="locations/Outlaw Hideout" unique_id=926709683 instance=ExtResource("31_a0yse")]
 
 [node name="Operation Base" parent="locations" unique_id=853050099 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_x2ygm")
+material = SubResource("ShaderMaterial_rl87i")
 position = Vector2(5772, 2419)
 settlements = [NodePath("Operation Base")]
 
@@ -790,7 +791,7 @@ settlements = [NodePath("Operation Base")]
 modulate = Color(0.12156863, 0.13333334, 0.14509805, 1)
 
 [node name="Outlaw Dwelling" parent="locations" unique_id=1344063996 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_m17yv")
+material = SubResource("ShaderMaterial_omir2")
 position = Vector2(3550, 2210)
 settlements = [NodePath("Outlaw Dwelling")]
 
@@ -1179,6 +1180,7 @@ location_menu = NodePath("../static_ui/Location Menu")
 [connection signal="half_hour_passed" from="." to="environment_color" method="_on_world_map_hour_passed"]
 [connection signal="half_hour_passed" from="." to="static_ui/ShiftSkillCheck" method="_on_world_map_half_hour_passed"]
 [connection signal="hour_passed" from="." to="environment_color" method="_on_world_map_hour_passed"]
+[connection signal="location_hovered" from="." to="SfxPlayer" method="_on_world_map_location_hovered"]
 [connection signal="location_hovered" from="." to="tiles/road" method="_on_world_map_location_hovered"]
 [connection signal="location_hovered" from="." to="static_ui/main_hud/navigation_data" method="show_location"]
 [connection signal="ready" from="." to="static_ui/main_hud/top_right_items/clock" method="_on_world_map_ready"]

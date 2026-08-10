@@ -7,7 +7,7 @@ const resource_colors = {
 	
 	"juice":Color(0.537, 0.212, 0.698, 1.0),
 	"scrap":Color(0.65, 0.562, 0.553, 1.0),
-	"chips":Color(0.212, 0.698, 0.698, 1.0)
+	"chips":Color(0.32, 0.8, 0.8, 1.0)
 }
 const all_resources = [
 	"money",
@@ -40,14 +40,17 @@ static func resource_colored_name(resource:String, close_tag:bool=true, capitali
 	return string
 
 static var resource_descriptions:Dictionary[String, String] = {
-	"food": "[color="+resource_colors.food.to_html() + "]Basic survival resource[/color], you and your party need to eat some food every hour, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop.",
+	"money": "[color="+resource_colors.money.to_html() +\
+	 "]Basic currency[/color] used for [color=green]recruiting units[/color] as well as [color=green]buying and selling[/color] items and resources.",
 	
-	"fuel": "[color="+resource_colors.fuel.to_html() + "]Basic travel resource[/color], consumed every hour of travel in the world map, the more units there are in the party the more fuel travelling will\
-	cost.\nIf you have no fuel, you will travel much slower.",
+	"food": "[color="+resource_colors.food.to_html() + "]Basic survival resource.\n[/color]While travelling, you and your party need to eat every 30 minutes, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop.",
+	
+	"fuel": "[color="+resource_colors.fuel.to_html() + "]Basic travel resource, consumed when travelling in the world map[/color], the more units there are in the party the more fuel travelling will cost.\nIf you have no fuel, your party will travel much slower.\nAlso used as [color=green]ammo[/color] for some equipment.",
 
-	"money": "[color="+resource_colors.money.to_html() + "]Basic currency[/color] used for trading items and resources.",
 
-	"juice": "[color="+resource_colors.juice.to_html() + "]Strange substance[/color] with many practical uses, a [color=green]common[/color] trade comodity.\nUsed for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for certain weapons and modules[/color].",
-	"scrap": "Broken down [color="+resource_colors.scrap.to_html() + "]pieces of metal[/color] used for all kinds of purposes, usable scrap is [color=green]rare[/color] to come across.\nUsed for [color=cyan]forging[/color] and as [color=cyan]ammo for certain weapons and module[/color].",
-	"chips": "[color="+resource_colors.fuel.to_html() + "]Intact processor chips[/color] are [color=green]exetrmely rare and valuable[/color]. A valuable trade comodity and used for [color=cyan]upgrading units[/color] and as [color=cyan]ammo for certain weapons and module[/color]."
+	"juice": "[color="+resource_colors.juice.to_html() + "]Strange substance[/color] with many practical uses, found all over the land.\nA [color=green]common[/color] trade comodity.\nUsed for [color=cyan]upgrading units.[/color]\nAlso used as [color=green]ammo[/color] for some equipment.",
+	
+	"scrap": "Broken down [color="+resource_colors.scrap.to_html() + "]pieces of metal.[/color]\nUsable scrap is [color=green]rare[/color] to come across.\nUsed for [color=cyan]refining weapons.[/color]\nAlso used as [color=green]ammo[/color] for some equipment.",
+	
+	"chips": "[color="+resource_colors.chips.to_html() + "]Intact processor chips[/color] are [color=cyan]very rare and valuable[/color].\nUsed for [color=cyan]modifying Modules[/color]\nAlso used as [color=green]ammo[/color] for some equipment."
 }

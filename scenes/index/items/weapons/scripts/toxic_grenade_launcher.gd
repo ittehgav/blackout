@@ -36,3 +36,9 @@ func projectile_hit(target:CombatEntity, smoke:Sprite2D)->void:
 	
 	smoke.explode();
 	hit.emit()
+func apply_r1()->void:
+	pass
+func apply_r2()->void:
+	pass
+func apply_r3()->void:
+	pass

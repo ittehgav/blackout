@@ -9,7 +9,7 @@ signal weapon_changed
 
 signal weapon_used;
 signal weapon_fumbled
-signal weapon_hit
+signal weapon_hit(weapon:Weapon)
 ## propagates from the weapon nodes so it's easier to connect them via editor
 
 signal continuous_weapon_started;

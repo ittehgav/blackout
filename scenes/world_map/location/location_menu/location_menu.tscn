@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://7iva7qsms5s0" path="res://scenes/world_map/location/location_menu/location_options.tscn" id="4_7vrr3"]
 [ext_resource type="PackedScene" uid="uid://ctxqhmgpiuoss" path="res://scenes/ui/location_menu/trade/trade_menu.tscn" id="6_4jn5u"]
 [ext_resource type="PackedScene" uid="uid://cqhmywx7yqdw6" path="res://scenes/ui/location_menu/recruitment/recruitment_menu.tscn" id="7_vgi1c"]
-[ext_resource type="PackedScene" uid="uid://c8aqipkg5upd" path="res://scenes/ui/location_menu/forge/forge_menu.tscn" id="8_jathp"]
+[ext_resource type="PackedScene" uid="uid://c8aqipkg5upd" path="res://scenes/ui/location_menu/forge/refine_menu.tscn" id="8_jathp"]
 [ext_resource type="PackedScene" uid="uid://7epbb0cova3w" path="res://scenes/ui/location_menu/evolution/evolution_menu.tscn" id="9_krd6j"]
 [ext_resource type="PackedScene" uid="uid://dbe388224i5ve" path="res://scenes/ui/location_menu/dungeon/dungeon_menu.tscn" id="10_tgre5"]
 
@@ -29,7 +29,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
 
-[node name="Location Menu" type="Control" unique_id=300038436 node_paths=PackedStringArray("content_vbox", "name_label", "location_vboxes", "trade_menu", "recruitment_menu", "evolve_menu", "forge_menu", "dungeon_menu", "ui_sfx")]
+[node name="Location Menu" type="Control" unique_id=300038436 node_paths=PackedStringArray("content_vbox", "name_label", "location_vboxes", "trade_menu", "recruitment_menu", "evolve_menu", "refinement_menu", "dungeon_menu", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -45,7 +45,7 @@ location_vboxes = [NodePath("content_vbox/main_panel/locations/l1"), NodePath("c
 trade_menu = NodePath("trade_menu")
 recruitment_menu = NodePath("RecruitmentMenu")
 evolve_menu = NodePath("EvolutionMenu")
-forge_menu = NodePath("ForgeMenu")
+refinement_menu = NodePath("RefinementMenu")
 dungeon_menu = NodePath("DungeonMenu")
 ui_sfx = NodePath("ui_sfx")
 
@@ -221,7 +221,7 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
-[node name="ForgeMenu" parent="." unique_id=149389698 instance=ExtResource("8_jathp")]
+[node name="RefinementMenu" parent="." unique_id=149389698 instance=ExtResource("8_jathp")]
 visible = false
 layout_mode = 1
 
@@ -244,6 +244,6 @@ layout_mode = 1
 [connection signal="option_chosen" from="content_vbox/main_panel/locations/l3/LocationOptions" to="." method="_on_option_chosen"]
 [connection signal="trade_finished" from="trade_menu" to="." method="on_menu_closed"]
 [connection signal="recruitment_finished" from="RecruitmentMenu" to="." method="on_menu_closed"]
-[connection signal="forge_finished" from="ForgeMenu" to="." method="on_menu_closed"]
+[connection signal="refinement_finished" from="RefinementMenu" to="." method="on_menu_closed"]
 [connection signal="evolution_finished" from="EvolutionMenu" to="." method="on_menu_closed"]
 [connection signal="exited" from="DungeonMenu" to="." method="on_menu_closed"]

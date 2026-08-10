@@ -6,6 +6,8 @@ class_name Location;
 
 signal player_visited;
 
+@export_tool_button("Refresh Sprite")var refresh_command:Callable = refresh_sprite;
+
 @export var data:LocationData;
 @export var street_texture:Texture;
 @export var street_modulate:Color;
@@ -31,13 +33,7 @@ var neighbor_paths:Dictionary[Location, PackedVector2Array];
 
 @export var flag:Sprite2D
 
-@export_subgroup("refresh sprite")
-@export var refresh_sprite_command:bool:
-	set(val):
-		if val:
-			refresh_sprite();
-			refresh_sprite_command = false
-			
+
 ## because siblings with the same name get enumerated
 var unique_name:String;
 

@@ -3,7 +3,7 @@ extends FighterBase
 
 @export var beam:Polygon2D
 
-func full_skill_description(unit:FighterUnit)->String:
+func full_skill_description(_unit:FighterUnit)->String:
 	var final_string:String = "Knocks back and stuns an enemy, also stuns and damages any enemies they collide with.";
 	return final_string
 

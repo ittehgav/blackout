@@ -9,6 +9,10 @@ const type = "module"
 const size_x = 2;
 const size_y = 2;
 
+@export_range(0, 2) var modifier:int=0;
+## 0 = no modifier
+## 1, 2 = modifier 1/2 applied
+
 @export var use_sfx:AudioStreamPlayer
 
 @export var cooldown:float;

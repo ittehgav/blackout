@@ -15,7 +15,7 @@ signal unit_accessories_changed
 
 @export var units_grid:GridContainer;
 
-@export var upgrade_hint:TextureRect
+
 
 @onready var player:Player = Entities.player
 
@@ -29,10 +29,6 @@ func refresh_data()->void:
 		sample.load_unit(unit, show_more.bind(unit))
 		units_grid.add_child(sample)
 		
-		if len(unit.base.evolutions):
-			var hint:TextureRect = upgrade_hint.duplicate();
-			hint.show()
-			sample.add_child(hint)
 
 		
 	

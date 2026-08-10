@@ -33,7 +33,6 @@ const selling_prices_divider = 1.5
 }
 
 func _ready()->void:
-	super();
 	pool_generated = true;
 
 func _on_child_entered_tree(node: Node) -> void:
@@ -91,9 +90,7 @@ func refresh_inventory()->void:
 			3:
 				new_item = rarity_3_items.pick_random().duplicate(DUPLICATE_USE_INSTANTIATION)
 		add_child(new_item);
-	
-	refresh_resource_counts();
-	
+
 
 func get_roll_rates()->Array[float]:
 	match rarity_rate:

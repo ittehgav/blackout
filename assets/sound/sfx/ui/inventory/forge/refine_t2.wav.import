@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://tysifqyw5h05"
-path="res://.godot/imported/forge_t2.wav-3426a93bdd70fc24a2664ded8b1167af.sample"
+path="res://.godot/imported/refine_t2.wav-c0bbf9d605788e1c9df9951aa73648ac.sample"
 
 [deps]
 
-source_file="res://assets/sound/sfx/ui/inventory/forge/forge_t2.wav"
-dest_files=["res://.godot/imported/forge_t2.wav-3426a93bdd70fc24a2664ded8b1167af.sample"]
+source_file="res://assets/sound/sfx/ui/inventory/forge/refine_t2.wav"
+dest_files=["res://.godot/imported/refine_t2.wav-c0bbf9d605788e1c9df9951aa73648ac.sample"]
 
 [params]
 

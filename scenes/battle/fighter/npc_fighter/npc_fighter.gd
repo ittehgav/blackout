@@ -49,7 +49,8 @@ func load_fighter(new_unit:FighterUnit)->void:
 	unit = new_unit
 	level = new_unit.level
 	unit = new_unit
-	base = unit.base.duplicate();
+	base = Index.fighters.all_unit_bases[unit.base.name].duplicate(DUPLICATE_USE_INSTANTIATION)
+	
 	load_base()
 	## NPC fighters bases are visible sprites so this is the only context where fighter bases need to be in the tree
 	
@@ -80,6 +81,7 @@ func load_base()->void:
 	
 	dust.reparent(base)
 	dust.position = Vector2.ZERO
+	
 	skill_dust.reparent(base);
 	skill_dust.position = Vector2.ZERO;
 	skill_dust.setup_impact_dust(self);
@@ -265,6 +267,8 @@ func _on_stat_changed(stat:String)->void:
 
 
 func final_skill_cooldown()->float:
+	if dummy:
+		return 0;
 	return base.skill.base_cooldown - CombatStats.agility_cooldown_reduction(base.skill.base_cooldown, agility)
 
 func refresh_skill_cooldown()->void:

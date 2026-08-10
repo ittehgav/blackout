@@ -3,12 +3,9 @@ extends Node2D
 
 class_name FighterIndex
 
+@export_tool_button("Refresh Index", "Reload") var refresh_index:= refresh_fighter_bases;
 
 
-@export var refresh_index:bool:
-	set(val):
-		refresh_index = false;
-		refresh_fighter_bases()
 		
 
 ## fighter bases are only stored as index references outside of combat

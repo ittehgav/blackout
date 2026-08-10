@@ -16,7 +16,7 @@ signal menu_closed;
 @export var trade_menu:TradeMenu;
 @export var recruitment_menu:RecruitmentMenu;
 @export var evolve_menu:EvolutionMenu;
-@export var forge_menu:ForgeMenu;
+@export var refinement_menu:RefinementMenu;
 @export var dungeon_menu:DungeonMenu
 var current_location:Location;
 
@@ -56,6 +56,7 @@ func display_location(target:Location=Entities.player_party.current_location)->v
 		var vbox:VBoxContainer = location_vboxes[i];
 		vbox.show()
 		var portrait:TextureRect = vbox.get_node("portrait")
+		
 		
 		var bname_label:Label = vbox.get_node("portrait/building_name");
 		bname_label.text = settlement.name;
@@ -141,8 +142,8 @@ func _on_option_chosen(building:Building, option: Building.Option, extra_arg:Var
 		Building.Option.evolve:
 			evolve_menu.start_evolution_menu()
 			slide_out()
-		Building.Option.forge:
-			forge_menu.start_forge_menu()
+		Building.Option.refine:
+			refinement_menu.start_refinement_menu()
 			slide_out()
 
 

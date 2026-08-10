@@ -2,15 +2,13 @@ extends Module
 
 const rarity = 2;
 
+
 func get_description()->String:
 	return "Cosumes " + str(ammo_cost)+" " + Resources.resource_colored_name(ammo_type) +\
 	" and increases your "+CombatStats.stat_colored_name("agility")+" for the rest of the battle.";
 
 
 const base_agility_frac = 1
-
-## juice consumption scales with level?
-var description:String;
 
 func use()->void:
 	consume_ammo()
@@ -22,3 +20,9 @@ func use()->void:
 		frac *= technique
 	var bonus_agility:float = Entities.player_fighter.agility + 1 * frac
 	status.apply_on_target(Entities.player_fighter, bonus_agility);
+
+const m1_description = "No longer costs any juice.";
+const m1_prefix = "Somatic"
+
+const m2_description = "Also applies the buff to the ally with the most attack."
+const m2_prefix = "Coordinated"

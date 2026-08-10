@@ -9,7 +9,6 @@ class_name LootInventory
 var pool_generated:bool=false;
 
 func _ready()->void:
-	super();
 	pool_generated = true;
 	
 

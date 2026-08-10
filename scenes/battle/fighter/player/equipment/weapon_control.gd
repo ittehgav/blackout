@@ -35,34 +35,36 @@ func _ready()->void:
 
 
 func load_weapon(target:Weapon)->Weapon:
-	var new_weapon:Weapon = load(target.scene_file_path).instantiate()
+	var new_weapon:Weapon = target.duplicate()
+	## was instantiating weapon from node scene path before 
+	## dont remember why i changed it in the first place so might 
+	## be a source of weapon bugs?/?
+	if new_weapon.refinement_level >= 1:
+		new_weapon.apply_r1();
+	if new_weapon.refinement_level >= 2:
+		new_weapon.apply_r2();
+	if new_weapon.refinement_level == 3:
+		new_weapon.apply_r3()
+	
 	## duplicate that behave the way i wish
 	## duplicate use instantiation worked?
 	new_weapon.display.setup(equipment.holder, new_weapon);
-
 
 	new_weapon.z_index = 1;
 
 	new_weapon.animation_player.animation_finished.connect(equipment.weapon_animation_finished.bind(new_weapon))
 	if new_weapon.status:
 		new_weapon.status.source = equipment.holder;
+
 	
 	new_weapon.use_parent_material = true;
 	for p:CanvasItem in new_weapon.projections:
 		p.hide()
 	check_active_texture(new_weapon);
-	
-	
-	#var hit_scan_origin:Vector2;
-	#if new_weapon.hit_scan:
-		#hit_scan_origin = target.hit_scan.position;
 
 	equipment.weapon_anchor.add_child(new_weapon)
-	
-	#if new_weapon.hit_scan:
-		### to make sure it applies to the weapon after it enters the tree?
-		#new_weapon.hit_scan.set_position.bind(hit_scan_origin).call_deferred()
-		#
+
+
 	new_weapon.self_modulate = new_weapon.get_mirror_color();
 	
 	if new_weapon.ammo_cost:
@@ -72,7 +74,7 @@ func load_weapon(target:Weapon)->Weapon:
 	if new_weapon.projectile:
 		new_weapon.projectile.setup(equipment.holder)
 
-	new_weapon.hit.connect(equipment.weapon_hit.emit)
+	new_weapon.hit.connect(equipment.weapon_hit.emit.bind(new_weapon))
 		
 	return new_weapon
 
@@ -157,8 +159,8 @@ func play_feedback(which:WeaponDisplay.PlayerScreenFeedback)->void:
 			camera.camera_vfx(PlayerCamera.TransformVFX.shake, 3)
 	
 
-func weapon_hit()->void:
-	play_feedback(weapon.display.hit_feedback)
+func weapon_hit(target:Weapon)->void:
+	play_feedback(target.display.hit_feedback)
 
 func play_weapon_vfx()->void:
 	play_feedback(weapon.display.use_feedback)
@@ -190,7 +192,6 @@ func equip_weapon(to_equip:Weapon, from_switch:bool=false)->void:
 		## idk sometimes it doesnt keep its position properly
 		weapon.hit_scan.reparent(equipment.hitbox_anchor)
 		weapon.hit_scan.show()
-	to_equip.hit.connect(weapon_hit)
 	
 	for p:CanvasItem in to_equip.projections:
 		p.show()

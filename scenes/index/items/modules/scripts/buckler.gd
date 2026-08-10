@@ -9,9 +9,10 @@ const rarity = 1;
 
 var current_status:Status
 
+
 func get_description()->String:
 	return "Hold to reduce speed and damage and greatly increase your " + CombatStats.stat_colored_name("defense") +\
-	", if an enemy damages you immediately after activating [u]Module - Buckler[/u], the enemy is stunned.";
+	", if an enemy damages you immediately after activating [u]Module - Buckler[/u], the enemy is stunned and knocked back.";
 
 
 const base_defense_frac = .5;
@@ -52,3 +53,10 @@ func check_parry(_damage:float, source:ActiveFighter, quiet:bool)->void:
 func _on_equipped() -> void:
 	parry_cue.reparent(Entities.player_fighter.ally_team.projectiles)
 	Entities.player_fighter.damage_taken.connect(check_parry)
+
+
+const m1_description = "+50% stun duration."
+const m1_prefix = "Staggering"
+
+const m2_description = "When hitting a perfect parry, gain a 50% agility buff."
+const m2_prefix = "Dominating"

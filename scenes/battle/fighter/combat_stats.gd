@@ -22,22 +22,6 @@ const stat_colors:Dictionary[String, Color] = {
 	"technique": Color(0.8, 0.32, 0.76, 1.0)
 }
 
-@export var max_hp:float;
-@export var attack:float;
-@export var defense:float;
-@export var agility:float;
-@export var technique:float;
-
-@export var move_speed:float=200;
-
-static func stat_colored_name(stat:String, close_tag:bool=true)->String:
-	var color:String = stat_colors[stat].to_html();
-	var string:String = "[color=" + color + "]" + stat.capitalize();
-	if close_tag:
-		string += "[/color]";
-	return string;
-	
-
 const stat_descriptions = {
 	"max_hp": "The unit's total HP at the start of battle.",
 	"attack": "The damage dealt by weapons and skills. (some units and some weapons deal no damage)",
@@ -63,12 +47,6 @@ const player_stats_per_point:Dictionary[String, float] = {
 	"technique":.5
 }
 
-
-
-static func exp_for_next_level(current_level:int)->int:
-	return (current_level + 1) ** 2;
-
-
 const technique_mechanic_multipliers = {
 	## fraction of itself that a technique scaled value gains when amplified by each point technique
 	"stun":.05, 
@@ -88,6 +66,24 @@ const agility_yield_breakpoints = {
 	100.0:.001 ## 0.1% until 100
 	## dont think there's any way to get past 100 agility rn?
 }
+@export var max_hp:float;
+@export var attack:float;
+@export var defense:float;
+@export var agility:float;
+@export var technique:float;
+
+@export var move_speed:float=200;
+
+static func stat_colored_name(stat:String, close_tag:bool=true)->String:
+	var color:String = stat_colors[stat].to_html();
+	var string:String = "[color=" + color + "]" + stat.capitalize();
+	if close_tag:
+		string += "[/color]";
+	return string;
+
+static func exp_for_next_level(current_level:int)->int:
+	return (current_level + 1) ** 2;
+
 static func agility_cooldown_reduction(initial_cooldown:float, target_agility:float)->float:
 	var previous_point:int = 0;
 	var frac:float = 0.0

@@ -50,6 +50,7 @@ border_width = 2.0
 editor_only = false
 
 [node name="Tooltip" parent="." unique_id=1191334642 instance=ExtResource("4_66raq")]
+z_index = 599
 use_parent_material = true
 layout_mode = 0
 anchors_preset = 0

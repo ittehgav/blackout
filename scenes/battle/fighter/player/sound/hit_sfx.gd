@@ -4,7 +4,7 @@ extends AudioStreamPlayer
 @export var flesh_hit:AudioStream;
 @export var metal_hit:AudioStream;
 
-func weapon_hit()->void:
+func weapon_hit(_weapon:Weapon)->void:
 	var target:CombatEntity = Entities.player_fighter.hit_targets[0]
 	if not is_instance_valid(target):return
 	body_hit(target.body_type)

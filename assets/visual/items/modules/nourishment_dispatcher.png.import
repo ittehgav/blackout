@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpks3leo4atbb"
-path="res://.godot/imported/forge.png-6433480e0596b8f42bf956eaf1571f54.ctex"
+uid="uid://blijddmew0y5l"
+path="res://.godot/imported/nourishment_dispatcher.png-0251f18b709140c0e2a073443e275b57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/visual/ui/map/building_options/forge.png"
-dest_files=["res://.godot/imported/forge.png-6433480e0596b8f42bf956eaf1571f54.ctex"]
+source_file="res://assets/visual/items/modules/nourishment_dispatcher.png"
+dest_files=["res://.godot/imported/nourishment_dispatcher.png-0251f18b709140c0e2a073443e275b57.ctex"]
 
 [params]
 

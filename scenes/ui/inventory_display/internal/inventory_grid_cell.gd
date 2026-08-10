@@ -1,5 +1,4 @@
 extends ReferenceRect
-
 class_name InventoryGridCell
 
 @export var held_item_shadow_bg_color:Color;
@@ -15,7 +14,6 @@ var filled:bool;
 @export var extension_bg:ColorRect;
 
 func _ready()->void:
-
 	release()
 
 
@@ -24,7 +22,7 @@ func _on_mouse_entered() -> void:
 
 func hover()->void:
 	z_index = 1;
-
+	bg.color = original_bg_color.darkened(.2)
 	border_color = border_color.lightened(.25)
 
 func _on_mouse_exited() -> void:

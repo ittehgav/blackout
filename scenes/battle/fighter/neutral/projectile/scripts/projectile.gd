@@ -11,6 +11,8 @@ var move_target:Vector2;
 
 @export var hit_allies:bool=false;
 @export var hit_enemies:bool=true;
+@export var hit_player:bool=false; 
+## applies collision layer 10 which is exclusive to player
 
 
 
@@ -50,6 +52,8 @@ func setup(new_shooter:ActiveFighter)->void:
 		hit_scan.set_collision_mask_value(enemy_mask, true);
 	if hit_allies:
 		hit_scan.set_collision_mask_value(ally_mask, true)
+	if hit_player:
+		hit_scan.set_collision_mask_value(10, true)
 
 func rotation_loop()->void:
 	if is_instance_valid(self):

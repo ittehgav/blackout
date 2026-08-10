@@ -7,17 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://ug7b4apvtj65" path="res://scenes/inventory/shop_inventory.tscn" id="3_jtyrd"]
 [ext_resource type="PackedScene" uid="uid://cgkevwom7geat" path="res://scenes/index/items/accessories/jumpsuit.tscn" id="5_gt0ex"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="5_rgx4l"]
+[ext_resource type="PackedScene" uid="uid://wlcq8bxxtwax" path="res://scenes/index/items/artifices/berserker_serum.tscn" id="6_6qpoq"]
 [ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="6_hexne"]
+[ext_resource type="PackedScene" uid="uid://cpqwlk68y6e6t" path="res://scenes/index/items/artifices/blow_up_dummy.tscn" id="7_5xpgi"]
 [ext_resource type="PackedScene" uid="uid://dt7tutmu87uy3" path="res://scenes/index/items/accessories/sapper.tscn" id="7_hexne"]
+[ext_resource type="PackedScene" uid="uid://xqy2xqq8h78b" path="res://scenes/index/items/artifices/first_aid_kit.tscn" id="8_16uiq"]
 [ext_resource type="PackedScene" uid="uid://djoxa1rcdyl57" path="res://scenes/index/items/accessories/spiked_shoulder_pads.tscn" id="8_ec5wv"]
+[ext_resource type="PackedScene" uid="uid://bvuw04qb36x7e" path="res://scenes/index/items/artifices/life_charm.tscn" id="9_4oal8"]
 [ext_resource type="PackedScene" uid="uid://dwu83wdr33ao5" path="res://scenes/index/items/containers/fuel_barrel.tscn" id="10_5yd3g"]
+[ext_resource type="PackedScene" uid="uid://cwbeqy517dp8o" path="res://scenes/index/items/artifices/lure.tscn" id="10_gxsu5"]
+[ext_resource type="PackedScene" uid="uid://bgpplecc7vmuh" path="res://scenes/index/items/artifices/overgrowth_powder.tscn" id="11_bcplk"]
 [ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="12_ec5wv"]
-[ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="12_oxqrc"]
-[ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/index/items/modules/buckler.tscn" id="13_c7nhy"]
-[ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/allegiance_shifter.tscn" id="14_5yd3g"]
-[ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="14_wstlo"]
-[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="16_oxqrc"]
-[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="18_wstlo"]
+[ext_resource type="PackedScene" uid="uid://dm8mv4gcuj7sc" path="res://scenes/index/items/artifices/pressure_grenade.tscn" id="12_eebtn"]
+[ext_resource type="PackedScene" uid="uid://moh5lw5akuo5" path="res://scenes/index/items/artifices/singularity_grenade.tscn" id="13_0r854"]
+[ext_resource type="PackedScene" uid="uid://frf7reky0e51" path="res://scenes/index/items/artifices/smart_boomerang.tscn" id="14_fq407"]
 [ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/index/items/containers/scrap_crate.tscn" id="23_16uiq"]
 [ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="25_wtqfl"]
 [ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="26_4oal8"]
@@ -33,7 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="36_hu1ix"]
 [ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="38_nnxq8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0sn8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i30i1"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -45,7 +48,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hj4f4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjto0"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -57,7 +60,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ph8uk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1e62"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -69,7 +72,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6qpoq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5jl6"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -81,7 +84,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xpgi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hu1ix"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -93,7 +96,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_16uiq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1yh0"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -105,7 +108,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4oal8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nnxq8"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -117,7 +120,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxsu5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpcga"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -129,7 +132,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bcplk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wcsy3"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -141,7 +144,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eebtn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6i7fo"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -153,7 +156,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0r854"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bbi65"]
 resource_local_to_scene = true
 shader = ExtResource("27_gxsu5")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -184,6 +187,24 @@ batch_size = 15
 resource_storage = [NodePath("Fuel Barrel2"), NodePath("Food Barrel")]
 holder = NodePath("..")
 
+[node name="Berserker Serum" parent="ShopInventory" unique_id=1307446497 instance=ExtResource("6_6qpoq")]
+
+[node name="Blow-Up Dummy" parent="ShopInventory" unique_id=258388888 instance=ExtResource("7_5xpgi")]
+
+[node name="First Aid Kit" parent="ShopInventory" unique_id=1890543780 instance=ExtResource("8_16uiq")]
+
+[node name="Life Charm" parent="ShopInventory" unique_id=281711132 instance=ExtResource("9_4oal8")]
+
+[node name="Lure" parent="ShopInventory" unique_id=1769649863 instance=ExtResource("10_gxsu5")]
+
+[node name="Overgrowth Powder" parent="ShopInventory" unique_id=529379539 instance=ExtResource("11_bcplk")]
+
+[node name="Pressure Grenade" parent="ShopInventory" unique_id=886888236 instance=ExtResource("12_eebtn")]
+
+[node name="Singularity Grenade" parent="ShopInventory" unique_id=1662175675 instance=ExtResource("13_0r854")]
+
+[node name="Smart Boomerang" parent="ShopInventory" unique_id=1235041317 instance=ExtResource("14_fq407")]
+
 [node name="Fuel Barrel2" parent="ShopInventory" unique_id=343611926 instance=ExtResource("10_5yd3g")]
 
 [node name="Food Barrel" parent="ShopInventory" unique_id=376968552 instance=ExtResource("6_hexne")]
@@ -201,51 +222,39 @@ exclusive_tag = 0
 
 [node name="Juice Tank" parent="ShopInventory" unique_id=316909273 instance=ExtResource("12_ec5wv")]
 
-[node name="Allegiance Shifter" parent="ShopInventory" unique_id=315618775 instance=ExtResource("14_5yd3g")]
-
 [node name="Scrap Crate" parent="ShopInventory" unique_id=1787445472 instance=ExtResource("23_16uiq")]
-
-[node name="The Consumer" parent="ShopInventory" unique_id=21279806 instance=ExtResource("16_oxqrc")]
-
-[node name="Slingshot" parent="ShopInventory" unique_id=1056785746 instance=ExtResource("18_wstlo")]
-
-[node name="Dodge Roll" parent="ShopInventory" unique_id=2106986321 instance=ExtResource("14_wstlo")]
-
-[node name="Buckler" parent="ShopInventory" unique_id=1027086966 instance=ExtResource("13_c7nhy")]
-
-[node name="Adrenaline Synthethizer" parent="ShopInventory" unique_id=736879326 instance=ExtResource("12_oxqrc")]
 
 [node name="Building Roster" parent="." unique_id=1928447804 instance=ExtResource("25_wtqfl")]
 
 [node name="Crowbar" parent="Building Roster" unique_id=2112712555 instance=ExtResource("26_4oal8")]
-material = SubResource("ShaderMaterial_e0sn8")
+material = SubResource("ShaderMaterial_i30i1")
 
 [node name="Electric Hulk" parent="Building Roster" unique_id=30330839 instance=ExtResource("28_bcplk")]
-material = SubResource("ShaderMaterial_hj4f4")
+material = SubResource("ShaderMaterial_jjto0")
 
 [node name="Electric Knight" parent="Building Roster" unique_id=366716137 instance=ExtResource("29_eebtn")]
-material = SubResource("ShaderMaterial_ph8uk")
+material = SubResource("ShaderMaterial_d1e62")
 
 [node name="Gravity" parent="Building Roster" unique_id=934399271 instance=ExtResource("30_0r854")]
-material = SubResource("ShaderMaterial_6qpoq")
+material = SubResource("ShaderMaterial_i5jl6")
 
 [node name="Puncher" parent="Building Roster" unique_id=1510142188 instance=ExtResource("31_fq407")]
-material = SubResource("ShaderMaterial_5xpgi")
+material = SubResource("ShaderMaterial_hu1ix")
 
 [node name="Scrap Hulk" parent="Building Roster" unique_id=1648266463 instance=ExtResource("32_i30i1")]
-material = SubResource("ShaderMaterial_16uiq")
+material = SubResource("ShaderMaterial_j1yh0")
 
 [node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("33_jjto0")]
-material = SubResource("ShaderMaterial_4oal8")
+material = SubResource("ShaderMaterial_nnxq8")
 
 [node name="Slammer" parent="Building Roster" unique_id=1342933973 instance=ExtResource("34_d1e62")]
-material = SubResource("ShaderMaterial_gxsu5")
+material = SubResource("ShaderMaterial_xpcga")
 
 [node name="Sniper" parent="Building Roster" unique_id=1797122592 instance=ExtResource("35_i5jl6")]
-material = SubResource("ShaderMaterial_bcplk")
+material = SubResource("ShaderMaterial_wcsy3")
 
 [node name="Toxic Hulk" parent="Building Roster" unique_id=754896079 instance=ExtResource("36_hu1ix")]
-material = SubResource("ShaderMaterial_eebtn")
+material = SubResource("ShaderMaterial_6i7fo")
 
 [node name="Wrecker" parent="Building Roster" unique_id=1018236968 instance=ExtResource("38_nnxq8")]
-material = SubResource("ShaderMaterial_0r854")
+material = SubResource("ShaderMaterial_bbi65")

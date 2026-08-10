@@ -12,16 +12,34 @@ signal changed;
 
 @export var holder:Node;
 
-@export_subgroup("Resource Counters")
+
 ## resource counters and resource items remain consistant with eachother
 ## and can both be used for checking and updating eachother
-@export var food:int;
 @export var money:int;
-@export var fuel:int;
 
-@export var juice:int;
-@export var scrap:int;
-@export var chips:int;
+var food:int:
+	get():
+		return get_resource_count("food")
+var fuel:int:
+	get():
+		return get_resource_count("fuel")
+var juice:int:
+	get():
+		return get_resource_count("juice")
+var scrap:int:
+	get():
+		return get_resource_count("scrap")
+var chips:int:
+	get():
+		return get_resource_count("chips")
+
+func get_resource_count(r:String)->int:
+	var count:int = 0;
+	for c:ResourceContainer in containers:
+		if c.resource == r:
+			count += c.stack_size;
+	return count;
+
 
 @export_subgroup("Items")
 @export var items:Array[Item];
@@ -40,20 +58,11 @@ signal changed;
 @export var capacity_y:int = 12;
 
 var last_display:InventoryDisplay;
-## to keep track of shops/forges that were opened before the player sheet
+## to keep track of shops/refinement menus that were opened before the player sheet
 
-func _ready()->void:
-	await get_parent().ready
-	refresh_resource_counts();
 
-func refresh_resource_counts(_resource:String="")->void:
-	var previous_amounts: = {}
-	for r:String in Resources.all_resources:
-		previous_amounts[r] = self[r];
-		if r != "money":
-			self[r] = 0;
-	for c in containers:
-		self[c.resource] += c.stack_size;
+
+
 
 
 func change_resource(resource:String, amount:int)->void:
@@ -111,7 +120,6 @@ func change_resource(resource:String, amount:int)->void:
 				i += 1
 	else:
 		money += amount
-	refresh_resource_counts();
 	if holder is Player:
 		## call deferred so the values are updated beofre the animation plays
 		Entities.player.resource_changed.emit.call_deferred(resource);

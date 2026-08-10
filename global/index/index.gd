@@ -24,8 +24,6 @@ extends Node
 @export var day_reflection_color:Color;
 @export var night_reflection_color:Color;
 
-
-
 @export var primary_tag_colors:Dictionary[String, Color];
 
 
@@ -36,6 +34,7 @@ func tagged_location_name(location:Location)->String:
 const flavor_colors = {
 	"blackout":Color.MEDIUM_ORCHID
 }
+
 
 const combat_effect_colors = {
 	"stun":Color.PURPLE,
@@ -52,6 +51,7 @@ const misc_colors = {
 }
 
 @onready var color_keys:Dictionary[String, Color] = generate_color_key_dict();
+@export var refinement_level_colors:Array[Color]
 
 func generate_color_key_dict()->Dictionary[String, Color]:
 	var sources:Array[Dictionary] = [

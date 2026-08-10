@@ -2,13 +2,9 @@
 extends AnimationPlayer
 class_name SkillProjection;
 
+
+@export_tool_button("Refresh Projection", "Reload") var refresh_projection:Callable = generate_projection_animation
 @export var source:FighterBase;
-@export var refresh_projection:bool:
-	## idk why this set is called when this enters the tree
-	set(val):
-		if not Engine.is_editor_hint():return
-		generate_projection_animation()
-		refresh_projection = false
 ## keeps track of generated stuff to delete them on refresh
 ## only "root" of individual elements
 ## IE the node2D for a projection shape goes in but the polygon itself doesnt

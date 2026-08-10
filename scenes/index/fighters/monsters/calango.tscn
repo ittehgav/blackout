@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://blnoxkkapudw1" path="res://assets/visual/sprites/fighters/monsters/calango/blur.png" id="5_u2fmi"]
 [ext_resource type="Script" uid="uid://bupk131cmv6l2" path="res://scenes/leader/roster/fighter/weapon_blur.gd" id="6_ocxnp"]
 [ext_resource type="Texture2D" uid="uid://cx3dwcwhghosa" path="res://assets/visual/sprites/fighters/monsters/calango/tail.png" id="7_6uly3"]
-[ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="9_eabos"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_u2fmi"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="11_xdvov"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="12_kg8r3"]
@@ -233,8 +232,6 @@ monitorable = false
 [node name="shape" type="CollisionShape2D" parent="scan" unique_id=885421959]
 shape = SubResource("CircleShape2D_kg8r3")
 debug_color = Color(0, 0.5950001, 0.7, 0)
-
-[node name="Sweep" parent="." unique_id=773368217 instance=ExtResource("9_eabos")]
 
 [node name="stat_base" type="Node" parent="." unique_id=467000274]
 

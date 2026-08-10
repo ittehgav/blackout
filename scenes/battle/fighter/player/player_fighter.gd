@@ -9,7 +9,7 @@ class_name PlayerFighter
 @export var body: FighterBase;
 @export var equipment:EquipmentControl;
 @export var hit_scan:Area2D;
-@export var camera:Camera2D;
+@export var camera:PlayerCamera;
 @export var sfx:AudioStreamPlayer
 
 

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cm6tbgnomyqf4"]
+
+[ext_resource type="Script" uid="uid://cpoi6jnbrmcej" path="res://scenes/index/items/modules/scripts/shockwave.gd" id="1_5mq83"]
+[ext_resource type="Texture2D" uid="uid://bp4l725k8aq7m" path="res://assets/visual/items/modules/shockwave.png" id="1_ll5w2"]
+[ext_resource type="AudioStream" uid="uid://dieeuhkaevyw5" path="res://assets/sound/sfx/combat/thud.wav" id="3_bu2f8"]
+
+[node name="Shockwave" type="Sprite2D" unique_id=1039713140]
+texture = ExtResource("1_ll5w2")
+script = ExtResource("1_5mq83")
+color_tag = "scrap"
+
+[node name="Thud" type="AudioStreamPlayer" parent="." unique_id=1323254715]
+stream = ExtResource("3_bu2f8")
+pitch_scale = 1.49

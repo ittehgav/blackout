@@ -38,9 +38,7 @@ func update(concurring_inventories:Array[Inventory] = [], animated:bool=false)->
 	## concurring inventories is so you can see your resources you have 0
 	## of when trading with someone who has it
 	if not animated:
-		## TODO clear the race condition in a cleaner way?
-		target_inventory.refresh_resource_counts()
-		
+		## TODO clear the race condition in a cleaner way?		
 		for r:String in Resources.all_resources:
 			resource_icons[r].update();
 			if r not in ["money", "food", "fuel"]:

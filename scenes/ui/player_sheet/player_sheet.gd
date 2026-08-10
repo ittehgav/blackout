@@ -7,7 +7,6 @@ signal space_request_cleared;
 signal item_discarded;
 
 @export var bg:ColorRect;
-
  
 @export var party_view:PartyView;
 @export var inventory_view:InventoryView;

@@ -192,8 +192,8 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="player_fighter" type="CharacterBody2D" unique_id=952457738 node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses", "sprite")]
-collision_layer = 256
-collision_mask = 256
+collision_layer = 768
+collision_mask = 768
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("2_2bwky")
@@ -246,7 +246,7 @@ flesh_hit = SubResource("AudioStreamOggVorbis_rwav2")
 metal_hit = ExtResource("6_rwav2")
 
 [node name="sfx" type="AudioStreamPlayer" parent="components/sfx" unique_id=504591273]
-stream = ExtResource("5_0y55v")
+stream = ExtResource("6_plyqv")
 bus = &"sfx"
 script = ExtResource("4_dxwve")
 damage_taken = ExtResource("5_0y55v")
@@ -254,6 +254,7 @@ weapon_change = ExtResource("9_rwav2")
 module_unavailable = ExtResource("6_plyqv")
 
 [node name="debuff_received_sfx" type="AudioStreamPlayer" parent="components/sfx" unique_id=281044584]
+stream = ExtResource("10_24aya")
 script = ExtResource("8_mepqy")
 stat_debuff = ExtResource("9_t13x7")
 stun = ExtResource("10_24aya")
@@ -273,8 +274,8 @@ manual = true
 
 [node name="hurtbox" type="Area2D" parent="." unique_id=502840166 node_paths=PackedStringArray("source")]
 position = Vector2(0, 10)
-collision_layer = 0
-collision_mask = 0
+collision_layer = 512
+collision_mask = 512
 monitoring = false
 script = ExtResource("8_ufe8c")
 source = NodePath("..")

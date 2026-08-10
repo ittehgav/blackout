@@ -4,10 +4,25 @@
 [ext_resource type="Script" uid="uid://bsioh0b3eyb0o" path="res://scenes/index/items/artifices/scripts/smart_boomerang.gd" id="2_ujjn8"]
 [ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://scenes/battle/fighter/neutral/projectile/straight_projectile.tscn" id="3_5lt2f"]
 [ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="3_xnyym"]
-[ext_resource type="AudioStream" uid="uid://cyo6x3dpuu18u" path="res://assets/sound/sfx/combat/player/smart_boomerang_hit.wav" id="4_xiaau"]
+[ext_resource type="AudioStream" uid="uid://cyo6x3dpuu18u" path="res://assets/sound/sfx/combat/player/smart_boomerang_pick_up.wav" id="4_xiaau"]
+[ext_resource type="AudioStream" uid="uid://db5in0p5ikm0b" path="res://assets/sound/sfx/combat/player/smart_boomerang/DSGNMisc_HIT-Synth Hit_HY_PC-001.wav" id="5_kojml"]
+[ext_resource type="AudioStream" uid="uid://woe76y6up02b" path="res://assets/sound/sfx/combat/player/smart_boomerang/DSGNMisc_HIT-Synth Hit_HY_PC-002.wav" id="6_1hijd"]
 [ext_resource type="Texture2D" uid="uid://cf7qn7nec5bvw" path="res://assets/visual/particles/circles/circle_hollow_16x16.png" id="6_ckimi"]
+[ext_resource type="AudioStream" uid="uid://pt8522hmey53" path="res://assets/sound/sfx/combat/player/smart_boomerang/DSGNMisc_HIT-Synth Hit_HY_PC-003.wav" id="7_3nmvm"]
 [ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="7_51tt4"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="8_t8ich"]
+[ext_resource type="AudioStream" uid="uid://dpvw1dimff2lj" path="res://assets/sound/sfx/combat/player/smart_boomerang/DSGNMisc_HIT-Synth Hit_HY_PC-004.wav" id="8_xxkib"]
+[ext_resource type="AudioStream" uid="uid://d7pun7lhljqe" path="res://assets/sound/sfx/combat/player/smart_boomerang/DSGNMisc_HIT-Synth Hit_HY_PC-005.wav" id="9_f48v7"]
+[ext_resource type="AudioStream" uid="uid://csb8hwpq6l5rk" path="res://assets/sound/sfx/combat/player/smart_boomerang/DSGNMisc_HIT-Synth Hit_HY_PC-006.wav" id="10_o45rm"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u5bk5"]
+streams_count = 6
+stream_0/stream = ExtResource("5_kojml")
+stream_1/stream = ExtResource("6_1hijd")
+stream_2/stream = ExtResource("7_3nmvm")
+stream_3/stream = ExtResource("8_xxkib")
+stream_4/stream = ExtResource("9_f48v7")
+stream_5/stream = ExtResource("10_o45rm")
 
 [sub_resource type="Animation" id="Animation_n3jvn"]
 length = 0.001
@@ -73,31 +88,40 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_u5bk5"]
 radius = 34.058773
 
-[node name="Smart Boomerang" type="Sprite2D" unique_id=1235041317 node_paths=PackedStringArray("retrieve_spot", "retrieve_hitbox", "projectile", "use_sfx", "hit_sfx")]
+[node name="Smart Boomerang" type="Sprite2D" unique_id=1235041317 node_paths=PackedStringArray("retrieve_sfx", "retrieve_spot", "retrieve_hitbox", "projectile", "use_sfx", "hit_sfx")]
 texture = ExtResource("1_ujjn8")
 script = ExtResource("2_ujjn8")
+retrieve_sfx = NodePath("retrieve")
 retrieve_spot = NodePath("retrieve_spot")
 retrieve_hitbox = NodePath("retrieve_spot/retrieve_hitbox")
 projectile = NodePath("Straight Projectile")
 use_sfx = NodePath("Throw")
-hit_sfx = NodePath("SmartBoomerangHit")
+hit_sfx = NodePath("hit_sfx")
 color_tag = "chips"
 
 [node name="Throw" type="AudioStreamPlayer" parent="." unique_id=946069381]
 stream = ExtResource("3_xnyym")
 
-[node name="SmartBoomerangHit" type="AudioStreamPlayer" parent="." unique_id=1587850377]
+[node name="retrieve" type="AudioStreamPlayer" parent="." unique_id=1587850377]
 stream = ExtResource("4_xiaau")
+
+[node name="hit_sfx" type="AudioStreamPlayer" parent="." unique_id=1736801422]
+stream = SubResource("AudioStreamRandomizer_u5bk5")
 
 [node name="Straight Projectile" parent="." unique_id=1066315008 instance=ExtResource("3_5lt2f")]
 rotation = 102.83198
 texture = ExtResource("1_ujjn8")
 auto_expire = false
 rotating = true
+hit_player = true
 flight_speed = 700
 
 [node name="despawn_timer" parent="Straight Projectile" index="0" unique_id=141295334]
 wait_time = 3.0
+
+[node name="hit_scan" parent="Straight Projectile" index="1" unique_id=720859333]
+collision_layer = 512
+collision_mask = 512
 
 [node name="trail" parent="Straight Projectile" index="2" unique_id=1816209269]
 modulate = Color(1, 1, 1, 1)
@@ -124,6 +148,8 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_ujjn8")
 
 [node name="retrieve_hitbox" type="Area2D" parent="retrieve_spot" unique_id=1915297324]
+collision_layer = 512
+collision_mask = 512
 monitoring = false
 monitorable = false
 

@@ -8,4 +8,4 @@ func show_loading_screen()->Tween:
 
 
 func set_fade_callback(target:Signal)->void:
-	target.connect(Tweens.ui_fade_out.bind(screen));
+	target.connect(Tweens.ui_fade_out.bind(screen), ConnectFlags.CONNECT_ONE_SHOT);

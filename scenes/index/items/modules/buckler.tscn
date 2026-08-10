@@ -56,8 +56,12 @@ use_sfx = NodePath("use_sfx")
 cooldown = 5.0
 animation_player = NodePath("parry_cue/AnimationPlayer")
 continuous = true
+ammo_type = null
+ammo_cost = null
 status = NodePath("defense_buff")
 color_tag = "defense"
+inventory_position = null
+stack_size = null
 
 [node name="defense_buff" type="Node" parent="." unique_id=2040237192]
 script = ExtResource("3_mtmst")

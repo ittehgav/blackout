@@ -1,5 +1,5 @@
-extends WeaponDisplay;
 class_name MeleeWeaponDisplay;
+extends WeaponDisplay;
 
 
 const skew_shift = 0.349065 ## 20º rad

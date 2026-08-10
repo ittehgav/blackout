@@ -7,7 +7,7 @@ const rarity = 2
 
 var assigned_target:CombatEntity;
 ## only for point-click artifices?
-
+@export var adrenaline_sfx:AudioStream;
 
 
 
@@ -21,3 +21,4 @@ func use()->bool:
 func hit_callback(hit_target:ActiveFighter)->void:
 	status.apply_on_target(hit_target)
 	hit_sfx.play()
+	## TODO make adrenaline play off of target's ASP2D

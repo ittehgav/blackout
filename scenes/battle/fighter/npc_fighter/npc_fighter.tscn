@@ -7,22 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://nnmygu4ogbnr" path="res://assets/visual/ui/bars/base_bar_trail.png" id="4_b8wnn"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="5_n8p1d"]
 [ext_resource type="Script" uid="uid://d03oto63awsxv" path="res://scenes/battle/fighter/collision_scan.gd" id="6_aumva"]
-[ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="9_aumva"]
 [ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="12_uoen3"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="20_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="24_nct2u"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2t4rf"]
-resource_local_to_scene = true
-shader = ExtResource("9_aumva")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 1
-shader_parameter/inside = true
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
 radius = 42.190044
@@ -182,7 +171,6 @@ texture_progress = ExtResource("4_b8wnn")
 tint_progress = Color(1, 0, 0, 1)
 
 [node name="hp_bar" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bars" unique_id=1356032778]
-material = SubResource("ShaderMaterial_2t4rf")
 custom_minimum_size = Vector2(64, 12)
 layout_mode = 1
 anchors_preset = 8
@@ -200,22 +188,22 @@ stretch_margin_left = 2
 stretch_margin_top = 2
 stretch_margin_right = 2
 stretch_margin_bottom = 2
-texture_under = ExtResource("5_n8p1d")
 texture_progress = ExtResource("5_n8p1d")
 tint_under = Color(0.6, 0.6, 0.6, 1)
 
 [node name="shield" type="TextureProgressBar" parent="FighterOverlay/VBoxContainer/hp_bars" unique_id=1473089313]
-custom_minimum_size = Vector2(0, 12)
+modulate = Color(0.78400004, 0.8, 0.48000002, 1)
+custom_minimum_size = Vector2(68, 14)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -6.0
-offset_right = 2.0
-offset_bottom = 6.0
+offset_left = -34.0
+offset_top = -7.0
+offset_right = 34.0
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 allow_greater = true

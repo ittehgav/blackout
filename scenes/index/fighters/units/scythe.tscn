@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://c22ry32eswkql" path="res://scenes/index/fighters/scripts/scythe.gd" id="3_pg4qo"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_hop5t"]
 [ext_resource type="PackedScene" uid="uid://bxnd13x1scd0r" path="res://scenes/battle/fighter/skill_projection.tscn" id="6_vb5n4"]
-[ext_resource type="PackedScene" uid="uid://c1hqprl4hycjs" path="res://scenes/index/vfx/sweep.tscn" id="8_lpcpv"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="9_vb5n4"]
 [ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="13_xonel"]
 
@@ -129,10 +128,6 @@ modulate = Color(1, 1, 1, 0)
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1084107579]
 position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_uo25i")
-
-[node name="Sweep" parent="." unique_id=773368217 instance=ExtResource("8_lpcpv")]
-activator = 1
-motion_offset = 30
 
 [node name="shadow_container" type="Node2D" parent="." unique_id=91306030]
 position = Vector2(0, -8.000001)

@@ -281,6 +281,7 @@ primary_tag_colors = Dictionary[String, Color]({
 "mechanic": Color(0.8, 0.50666666, 0.4, 1),
 "scientist": Color(0.65999985, 0.4, 0.8, 1)
 })
+refinement_level_colors = Array[Color]([Color(0.35199997, 0.8, 0.24000001, 1), Color(0.24300002, 0.38475, 0.81, 1), Color(0.8, 0.55733335, 0.24000001, 1)])
 
 [node name="scenes" type="Node" parent="." unique_id=1576804442 node_paths=PackedStringArray("ui", "items")]
 script = ExtResource("74_f4g0r")

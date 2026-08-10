@@ -199,11 +199,11 @@ func item_mirror_setup()->void:
 				hint.text = "[right-click] to deposit";
 			else:
 				hint.text = "[right-click] to loot";
-		"forge":
+		"refinement":
 			if mirror.item is Equipment:
-				hint.text = "[right-click] to forge";
+				hint.text = "[right-click] to refine";
 			else:
-				hint.text = "can't be forged"
+				hint.text = "can't be refine"
 	
 
 
@@ -211,28 +211,31 @@ func item_setup()->void:
 	var item:Item = target.item;
 	name_label.add_theme_color_override("font_color", Index.get_color(item.color_tag))
 	var target_name:String = item.unique_name;
-	while target_name[-1].is_valid_int():
-		target_name = target_name.left(-1);
+	if item is Weapon and item.refinement_level:
+		target_name = "+"+str(item.refinement_level)+" "+target_name
+		self_modulate = Index.refinement_level_colors[item.refinement_level - 1].blend(Color.WHITE/2)
 	
 	description_label.text = "";
 	if item is Weapon or item is Module:
 		var cd:String = str(snapped(item.final_cooldown(), .01))
 		description_label.text += "Cooldown: " + cd+"\n"
 	
-	var mod:ItemModifier = item.applied_modifier;
-	if mod:
-		if mod.prefix:
-			target_name = mod.prefix + " " + target_name;
-		if mod.suffix:
-			target_name += " " + mod.suffix;
-		var tier_key:String = "t"+str(mod.tier)
-		var tier_tag:String = Index.get_color_tag(tier_key)
-		description_label.text += tier_tag + mod.get_description()+"[/color]\n";
 
 	name_label.text = target_name;\
 	
 	if item is Weapon:
 		sub_name_label.text = "Weapon";
+
+		var not_active:="[color="+ Color(0.4, 0.4, 0.4, 1.0).to_html()+"]"
+		var active:="[color="+ Color(0.672, 0.7, 0.28, 1.0).to_html()+"]"
+
+		description_label.text += "[font_size=32]"
+		for i:int in range(1, 4):
+			var color_tag:String = active if item.refinement_level >= i else not_active;
+			var refinement_string:String = color_tag +  item["r"+str(i)+"_improvement"]+"[/color]\n"
+			description_label.text += refinement_string
+		
+		description_label.text += "[/font_size]"
 	elif item is ResourceContainer:
 		if item.raw_stack:
 			sub_name_label.text = "Resource";

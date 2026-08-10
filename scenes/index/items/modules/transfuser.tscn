@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cchdnwo03ffha"]
+
+[ext_resource type="Script" uid="uid://bgk06jkccdfje" path="res://scenes/index/items/modules/scripts/transfuser.gd" id="1_125i0"]
+
+[node name="Transfuser" type="Sprite2D" unique_id=632424639]
+script = ExtResource("1_125i0")
+cooldown = 10.0
+continuous = true
+color_tag = "max_hp"

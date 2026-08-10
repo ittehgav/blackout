@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://b2uyt178tixpi" path="res://assets/sound/sfx/combat/player/shoot.ogg" id="3_d4t51"]
 [ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://scenes/battle/fighter/neutral/projectile/straight_projectile.tscn" id="3_i4lfk"]
 [ext_resource type="AnimationLibrary" uid="uid://bu41wvduumwcp" path="res://resources/animations/weapons/ranged_one_hand.res" id="5_d4t51"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="6_4n02f"]
 
 [sub_resource type="Animation" id="Animation_leknc"]
 length = 0.001
@@ -34,7 +35,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.27058825, 1, 1, 1, 0)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_u5bk5"]
 gradient = SubResource("Gradient_d4t51")
 
-[node name="Slingshot" type="Sprite2D" unique_id=1249202197 node_paths=PackedStringArray("display", "projectile", "projections", "animation_player", "use_sfx")]
+[node name="Slingshot" type="Sprite2D" unique_id=1249202197 node_paths=PackedStringArray("display", "projectile", "projections", "animation_player", "use_sfx", "status")]
 use_parent_material = true
 texture = ExtResource("1_skrhi")
 offset = Vector2(10, -20)
@@ -47,6 +48,7 @@ projectile = NodePath("components/Straight Projectile")
 projections = [NodePath("projection")]
 animation_player = NodePath("weapon_animation")
 use_sfx = NodePath("components/use_sfx")
+status = NodePath("components/stun")
 color_tag = "scrap"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
@@ -54,7 +56,6 @@ metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 
 [node name="Straight Projectile" parent="components" unique_id=99424119 instance=ExtResource("3_i4lfk")]
 scale = Vector2(1, 1)
-flight_speed = 1000
 
 [node name="RangedWeaponDisplay" type="Node" parent="components" unique_id=448182386]
 script = ExtResource("3_4n02f")
@@ -65,6 +66,12 @@ metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=1044056905]
 stream = ExtResource("3_d4t51")
+
+[node name="stun" type="Node" parent="components" unique_id=1040093436]
+script = ExtResource("6_4n02f")
+type = "stun"
+duration = 1.0
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=1826344498]
 libraries/ = SubResource("AnimationLibrary_043so")

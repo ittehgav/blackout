@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="3_eyj5g"]
 [ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="4_5dn4v"]
 [ext_resource type="PackedScene" uid="uid://bxnd13x1scd0r" path="res://scenes/battle/fighter/skill_projection.tscn" id="4_lfx0t"]
-[ext_resource type="PackedScene" uid="uid://dnln8vwomwh3n" path="res://scenes/index/vfx/punch.tscn" id="9_gqyy0"]
 [ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="10_ocbov"]
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="10_x38hv"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="10_xcn2u"]
@@ -176,9 +175,6 @@ metadata/_custom_type_script = "uid://cboofk6f5g5t"
 position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_82vyf")
 debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[node name="skill_vfx" parent="." unique_id=437169543 instance=ExtResource("9_gqyy0")]
-frame = 1
 
 [node name="shadow_container" type="Node2D" parent="." unique_id=1327847149]
 position = Vector2(0, -8.000001)

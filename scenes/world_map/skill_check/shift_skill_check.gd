@@ -32,6 +32,7 @@ func _ready()->void:
 	set_process_input(false)
 
 func play()->void:
+	modulate = Color.WHITE
 	Engine.time_scale = .1
 	show()
 	roll_values()
@@ -83,6 +84,8 @@ func shift_press() -> void:
 	sfx.play()
 
 func _on_fail_hit() -> void:
+	var tween:Tween = create_tween();
+	tween.tween_property(self, "modulate", Color(0.6, 0.24, 0.24, 1.0), 1)
 	if motion_tween and motion_tween.is_running():
 		motion_tween.kill()
 	set_process_input(false)
@@ -90,12 +93,16 @@ func _on_fail_hit() -> void:
 	outcome_animation("fail", 4)
 
 func _on_good_hit() -> void:
+	var tween:Tween = create_tween();
+	tween.tween_property(self, "modulate", Color(0.27, 0.6, 0.24, 1.0), .75)
 	motion_tween.kill()
 	set_process_input(false)
 	sfx.stream = good_sound
 	outcome_animation("good", 3);
 	
 func _on_perfect_hit() -> void:
+	var tween:Tween = create_tween();
+	tween.tween_property(self, "modulate", Color(1.0, 0.947, 0.6, 1.0), .25)
 	motion_tween.kill()
 	set_process_input(false)
 	sfx.stream = perfect_sound;

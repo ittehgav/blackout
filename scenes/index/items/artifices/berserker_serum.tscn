@@ -4,12 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://dor33d5s221s4" path="res://assets/visual/items/artifices/berserker_serum.png" id="1_cen4i"]
 [ext_resource type="PackedScene" uid="uid://do5h1o6m8i2yb" path="res://scenes/battle/fighter/neutral/projectile/straight_projectile.tscn" id="3_nj0ti"]
 [ext_resource type="AudioStream" uid="uid://biscqautbdx3h" path="res://assets/sound/sfx/combat/player/throw.wav" id="3_s4ift"]
+[ext_resource type="AudioStream" uid="uid://cf5r6sya87ovr" path="res://assets/sound/sfx/combat/player/adrenaline.wav" id="3_vlw8d"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="4_r68mv"]
 [ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/player/hit/flesh_hit.ogg" id="4_s4ift"]
 
 [node name="Berserker Serum" type="Sprite2D" unique_id=1307446497 node_paths=PackedStringArray("projectile", "use_sfx", "hit_sfx", "status")]
 texture = ExtResource("1_cen4i")
 script = ExtResource("1_62yp0")
+adrenaline_sfx = ExtResource("3_vlw8d")
 projectile = NodePath("Straight Projectile")
 use_sfx = NodePath("use_sfx")
 hit_sfx = NodePath("hit_sfx")
@@ -28,7 +30,6 @@ pitch_scale = 1.5
 modulate = Color(1, 0.65, 0.65, 1)
 texture = ExtResource("1_cen4i")
 hit_allies = true
-flight_speed = 1000
 
 [node name="trail" parent="Straight Projectile" index="2" unique_id=1816209269]
 modulate = Color(0.8, 0, 0, 0.6)

@@ -12,10 +12,14 @@ var original:bool=true
 var chain:Array[Status]
 
 @export_enum("stun", "stat_change", "dot", "special") var type:String;
-@export var value:float;
-@export var duration:float=0;
+@export var value:float; 
+## used in the vast majority of statuese
+@export var duration:float=0
+## used in all statuses, duration 0 = permanent status
+@export var latency:float;
+## used in DOTs
 @export var chain_root:bool=false
-
+## used for chain statuses
 @export_enum("attack", "defense", "agility", "technique", "move_speed") var stat:String;
 @export var stat_fractal_value:bool=false
 ## ONLY FOR ENEMY MOBS,
@@ -32,11 +36,8 @@ var host:ActiveFighter
 var timer:Timer;
 
 
-
-
-
 func generate_status()->Status:
-	const properties_to_clone:Array[String] = ["type", "source", "duration", "value", "chain_root"]
+	const properties_to_clone:Array[String] = ["type", "source", "duration", "value", "chain_root", "latency"]
 	var new_status:Status = duplicate();
 	for key:String in properties_to_clone:
 		new_status[key] = self[key]
@@ -100,18 +101,21 @@ func apply(propagated:bool)->void:
 			## DOT scaled with technique i guess
 			## right now only on calango tail poison
 			## always quiet?
-			assert(value);
+			assert(value and latency);
 			var final_value:float = CombatStats.technique_scaled_value(value, source.technique, "damage")
-			var tween:Tween = create_tween();
-			for i:int in int(duration):
-				tween.tween_interval(1);
-				tween.tween_callback(Combat.deal_damage.bind(source, host, final_value, true))
-	
+			var ticker:Timer = Timer.new();
+			ticker.autostart = true;
+			ticker.wait_time = latency;
+			ticker.timeout.connect(dot_ticker.bind(final_value))
+			add_child(ticker)
+
 	host.statuses.add_child(self)
 	if type == "special":
 		## needs to be inside tree
 		host.add_to_group(name)
+		
 	if duration:
+		## 0 duration = permanent
 		timer = Timer.new();
 		timer.wait_time = duration;
 		timer.autostart = true;
@@ -122,6 +126,10 @@ func apply(propagated:bool)->void:
 
 	host.status_applied.emit(source, self, propagated or force_quiet)
 	
+
+func dot_ticker(final_value:float)->void:
+	Combat.deal_damage(source, host, final_value);
+
 func remove()->void:
 	if not is_instance_valid(host):
 		return;
@@ -132,7 +140,6 @@ func remove()->void:
 				host.stunned = false;
 				if host is NpcFighter and not host.dummy:
 					host.cooldown_timer.paused = false;
-
 		"stat_change":
 			## works with negative values just fine
 			host.stat_modifiers[stat] -= value;

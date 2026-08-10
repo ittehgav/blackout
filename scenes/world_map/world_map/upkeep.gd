@@ -55,7 +55,6 @@ func travel_upkeep()->void:
 		## bc it's easier than recalculating everything?
 
 	
-	player.inventory.refresh_resource_counts()
 
 
 func _on_return_to_main_menu_pressed() -> void:

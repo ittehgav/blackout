@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://csb8hwpq6l5rk"
+path="res://.godot/imported/DSGNMisc_HIT-Synth Hit_HY_PC-006.wav-5793e485e063e27c430108ba7dff674a.sample"
+
+[deps]
+
+source_file="res://assets/sound/sfx/combat/player/smart_boomerang/DSGNMisc_HIT-Synth Hit_HY_PC-006.wav"
+dest_files=["res://.godot/imported/DSGNMisc_HIT-Synth Hit_HY_PC-006.wav-5793e485e063e27c430108ba7dff674a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -10,16 +10,14 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_3o48k"]
 radius = 59.03389
 
-[node name="Flaming Mace" type="Sprite2D" unique_id=142070375 node_paths=PackedStringArray("display", "hit_scan", "projections", "animation_player", "use_sfx")]
+[node name="Flaming Mace" type="Sprite2D" unique_id=142070375 node_paths=PackedStringArray("display", "hit_scan", "animation_player", "use_sfx")]
 texture = ExtResource("1_8xhum")
 script = ExtResource("2_4tiub")
 display = NodePath("MeleeWeaponDisplay")
 hit_scan = NodePath("hit_scan")
 melee = true
-projections = [NodePath("hit_scan/Sprite2D")]
 animation_player = NodePath("AnimationPlayer")
 use_sfx = NodePath("use_sfx")
-hit_feedback = "screen_shake"
 color_tag = "fuel"
 metadata/_custom_type_script = "uid://b2yuhe5f6gu1m"
 

@@ -1,0 +1,317 @@
+[gd_scene format=3 uid="uid://c8aqipkg5upd"]
+
+[ext_resource type="Script" uid="uid://c1hyj7fhp5p61" path="res://scenes/ui/location_menu/forge/refine_menu.gd" id="1_4kga7"]
+[ext_resource type="AudioStream" uid="uid://ddej74okwba47" path="res://assets/sound/sfx/ui/inventory/forge/refine_t1.wav" id="2_xu2d2"]
+[ext_resource type="AudioStream" uid="uid://tysifqyw5h05" path="res://assets/sound/sfx/ui/inventory/forge/refine_t2.wav" id="3_cruha"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="3_xu2d2"]
+[ext_resource type="AudioStream" uid="uid://bx783f25kjkfg" path="res://assets/sound/sfx/ui/inventory/forge/refine_t3.wav" id="4_ikeg8"]
+[ext_resource type="AudioStream" uid="uid://b70c37xxfdhrw" path="res://assets/sound/sfx/ui/inventory/forge/modifier_apply.wav" id="5_cruha"]
+[ext_resource type="Script" uid="uid://yn55dca3qplf" path="res://scenes/ui/sound/sfx_player.gd" id="5_ikeg8"]
+[ext_resource type="AudioStream" uid="uid://bn6v52s21fuje" path="res://assets/sound/sfx/ui/inventory/forge/refine_select.wav" id="5_xu2d2"]
+[ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="6_mt5yc"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="7_v0ll8"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="8_pdlfa"]
+[ext_resource type="Texture2D" uid="uid://dpks3leo4atbb" path="res://assets/visual/ui/map/building_options/anvil.png" id="9_emyby"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8gc0"]
+atlas = ExtResource("9_emyby")
+region = Rect2(0, 12, 0, 32)
+
+[node name="refinement_bonus_descriptions" type="Control" unique_id=149389698 node_paths=PackedStringArray("refine_view", "refine_sfx", "equipment_view_scrap_icon", "equipment_view_chips_icon", "inventory_display", "equipped_display_vbox", "content_hbox", "refinement_level_label", "to_refine_sample", "anvil", "anvil_panel", "current_weapon_description_label", "refine_btn", "scrap_cost_hbox", "scrap_cost_label", "modify_view", "to_modify_name", "to_modify_sample", "m1_description", "m1_button", "m2_description", "m2_button", "chips_cost_label", "ui_sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4kga7")
+r1_sfx = ExtResource("2_xu2d2")
+r2_sfx = ExtResource("3_cruha")
+r3_sfx = ExtResource("4_ikeg8")
+modifier_sfx = ExtResource("5_cruha")
+item_chosen_sfx = ExtResource("5_xu2d2")
+refine_view = NodePath("HBoxContainer/PanelContainer/refine_view")
+refine_sfx = NodePath("refine_sfx")
+equipment_view_scrap_icon = NodePath("HBoxContainer/TabContainer/Equipped/equipped_items/resource_counters/scrap_icon")
+equipment_view_chips_icon = NodePath("HBoxContainer/TabContainer/Equipped/equipped_items/resource_counters/chips_icon")
+inventory_display = NodePath("HBoxContainer/TabContainer/Inventory/VBoxContainer/inventory_display")
+equipped_display_vbox = NodePath("HBoxContainer/TabContainer/Equipped/equipped_items")
+content_hbox = NodePath("HBoxContainer")
+refinement_level_label = NodePath("HBoxContainer/PanelContainer/refine_view/HBoxContainer/VBoxContainer/refinement_level")
+to_refine_sample = NodePath("HBoxContainer/PanelContainer/refine_view/HBoxContainer/to_refine")
+anvil = NodePath("HBoxContainer/PanelContainer/refine_view/anvil")
+anvil_panel = NodePath("HBoxContainer/PanelContainer")
+current_weapon_description_label = NodePath("HBoxContainer/PanelContainer/refine_view/HBoxContainer/VBoxContainer/refinement_bonus_descriptions")
+refine_btn = NodePath("HBoxContainer/PanelContainer/refine_view/refine_btn")
+scrap_cost_hbox = NodePath("HBoxContainer/PanelContainer/refine_view/scrap_cost")
+scrap_cost_label = NodePath("HBoxContainer/PanelContainer/refine_view/scrap_cost/scrap_cost")
+modify_view = NodePath("HBoxContainer/PanelContainer/modify_view")
+to_modify_name = NodePath("HBoxContainer/PanelContainer/modify_view/module_name")
+to_modify_sample = NodePath("HBoxContainer/PanelContainer/modify_view/item_sample")
+m1_description = NodePath("HBoxContainer/PanelContainer/modify_view/m1_description")
+m1_button = NodePath("HBoxContainer/PanelContainer/modify_view/apply_m1")
+m2_description = NodePath("HBoxContainer/PanelContainer/modify_view/m2_description")
+m2_button = NodePath("HBoxContainer/PanelContainer/modify_view/apply_m2")
+chips_cost_label = NodePath("HBoxContainer/PanelContainer/modify_view/chips_cost/chips_cost")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." unique_id=1382492662 instance=ExtResource("3_xu2d2")]
+
+[node name="refine_sfx" type="AudioStreamPlayer" parent="." unique_id=1615638470]
+stream = ExtResource("3_cruha")
+pitch_scale = 1.25
+script = ExtResource("5_ikeg8")
+metadata/_custom_type_script = "uid://yn55dca3qplf"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=104490504]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -356.0
+offset_right = 324.0
+offset_bottom = 356.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer" unique_id=268623201]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+current_tab = 1
+
+[node name="Inventory" type="PanelContainer" parent="HBoxContainer/TabContainer" unique_id=355621420]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Inventory" unique_id=58648246]
+layout_mode = 2
+
+[node name="instruction" type="RichTextLabel" parent="HBoxContainer/TabContainer/Inventory/VBoxContainer" unique_id=1084605592]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=white][pulse]right-click[/pulse][/color] a [color=white]weapon[/color] or a [color=white]module[/color]  to upgrade"
+fit_content = true
+
+[node name="inventory_display" parent="HBoxContainer/TabContainer/Inventory/VBoxContainer" unique_id=1918470521 instance=ExtResource("6_mt5yc")]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 2
+size_flags_vertical = 8
+context = "refinement"
+
+[node name="exit_btn" type="Button" parent="HBoxContainer/TabContainer/Inventory" unique_id=1960919604]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "Exit"
+
+[node name="Equipped" type="PanelContainer" parent="HBoxContainer/TabContainer" unique_id=852532949]
+custom_minimum_size = Vector2(550, 600)
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="equipped_items" type="VBoxContainer" parent="HBoxContainer/TabContainer/Equipped" unique_id=1381939987]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="RichTextLabel" parent="HBoxContainer/TabContainer/Equipped/equipped_items" unique_id=900312582]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=white][pulse]right-click[/pulse][/color] a [color=white]weapon[/color] or a [color=white]module[/color]  to upgrade"
+fit_content = true
+
+[node name="resource_counters" type="HBoxContainer" parent="HBoxContainer/TabContainer/Equipped/equipped_items" unique_id=1474875233]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="scrap_icon" parent="HBoxContainer/TabContainer/Equipped/equipped_items/resource_counters" unique_id=1028260734 node_paths=PackedStringArray("label") instance=ExtResource("7_v0ll8")]
+layout_mode = 2
+size_flags_horizontal = 8
+resource = "scrap"
+label = NodePath("../scrap_counter")
+
+[node name="scrap_counter" type="Label" parent="HBoxContainer/TabContainer/Equipped/equipped_items/resource_counters" unique_id=9528732]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="chips_icon" parent="HBoxContainer/TabContainer/Equipped/equipped_items/resource_counters" unique_id=2055771134 node_paths=PackedStringArray("label") instance=ExtResource("7_v0ll8")]
+layout_mode = 2
+resource = "chips"
+label = NodePath("../chips_counter")
+
+[node name="chips_counter" type="Label" parent="HBoxContainer/TabContainer/Equipped/equipped_items/resource_counters" unique_id=1307904524]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="exit_btn" type="Button" parent="HBoxContainer/TabContainer/Equipped" unique_id=979855922]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+text = "Exit"
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=574241545]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="refine_view" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=1686458891]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/refine_view" unique_id=1747469406]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="to_refine" parent="HBoxContainer/PanelContainer/refine_view/HBoxContainer" unique_id=1839010595 instance=ExtResource("8_pdlfa")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/refine_view/HBoxContainer" unique_id=17681731]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="refinement_level" type="Label" parent="HBoxContainer/PanelContainer/refine_view/HBoxContainer/VBoxContainer" unique_id=1149927522]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Current:
+none"
+horizontal_alignment = 1
+
+[node name="refinement_bonus_descriptions" type="RichTextLabel" parent="HBoxContainer/PanelContainer/refine_view/HBoxContainer/VBoxContainer" unique_id=802286497]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+bbcode_enabled = true
+fit_content = true
+
+[node name="anvil" type="TextureRect" parent="HBoxContainer/PanelContainer/refine_view" unique_id=312898724]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_r8gc0")
+expand_mode = 3
+
+[node name="refine_btn" type="Button" parent="HBoxContainer/PanelContainer/refine_view" unique_id=46959849]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 96
+disabled = true
+text = "REFINE"
+
+[node name="scrap_cost" type="HBoxContainer" parent="HBoxContainer/PanelContainer/refine_view" unique_id=1781718953]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer/refine_view/scrap_cost" unique_id=226074527]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Refine Cost:"
+
+[node name="resource_icon" parent="HBoxContainer/PanelContainer/refine_view/scrap_cost" unique_id=399639061 node_paths=PackedStringArray("label") instance=ExtResource("7_v0ll8")]
+layout_mode = 2
+resource = "scrap"
+match_player_inventory = false
+label = NodePath("../scrap_cost")
+
+[node name="scrap_cost" type="Label" parent="HBoxContainer/PanelContainer/refine_view/scrap_cost" unique_id=739823584]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Forge Cost: 22 Scrap"
+
+[node name="modify_view" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=902397854]
+visible = false
+layout_mode = 2
+
+[node name="module_name" type="Label" parent="HBoxContainer/PanelContainer/modify_view" unique_id=1884829466]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+
+[node name="item_sample" parent="HBoxContainer/PanelContainer/modify_view" unique_id=389664355 instance=ExtResource("8_pdlfa")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer/modify_view" unique_id=539815179]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "Modifier Options:"
+
+[node name="Label2" type="Label" parent="HBoxContainer/PanelContainer/modify_view" unique_id=982443943]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.368, 0.37720004, 0.46, 1)
+text = "(Modules can only have one modifier)"
+
+[node name="m1_description" type="RichTextLabel" parent="HBoxContainer/PanelContainer/modify_view" unique_id=1257235327]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+bbcode_enabled = true
+fit_content = true
+
+[node name="apply_m1" type="Button" parent="HBoxContainer/PanelContainer/modify_view" unique_id=1750574424]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "APPLY MODIFIER"
+
+[node name="m2_description" type="RichTextLabel" parent="HBoxContainer/PanelContainer/modify_view" unique_id=1317849303]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+bbcode_enabled = true
+fit_content = true
+
+[node name="apply_m2" type="Button" parent="HBoxContainer/PanelContainer/modify_view" unique_id=2049425498]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "APPLY MODIFIER"
+
+[node name="chips_cost" type="HBoxContainer" parent="HBoxContainer/PanelContainer/modify_view" unique_id=267365097]
+layout_mode = 2
+
+[node name="chips_cost2" type="Label" parent="HBoxContainer/PanelContainer/modify_view/chips_cost" unique_id=966724607]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Modify Cost: "
+
+[node name="resource_icon" parent="HBoxContainer/PanelContainer/modify_view/chips_cost" unique_id=339228645 node_paths=PackedStringArray("label") instance=ExtResource("7_v0ll8")]
+layout_mode = 2
+resource = "chips"
+match_player_inventory = false
+label = NodePath("../chips_cost")
+
+[node name="chips_cost" type="Label" parent="HBoxContainer/PanelContainer/modify_view/chips_cost" unique_id=159494893]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[connection signal="item_chosen" from="HBoxContainer/TabContainer/Inventory/VBoxContainer/inventory_display" to="." method="_on_inventory_display_item_chosen"]
+[connection signal="pressed" from="HBoxContainer/TabContainer/Inventory/exit_btn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/TabContainer/Equipped/exit_btn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/refine_view/refine_btn" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/PanelContainer/modify_view/apply_m1" to="." method="_on_apply_m_1_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/PanelContainer/modify_view/apply_m1" to="." method="_on_apply_m_1_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/modify_view/apply_m1" to="." method="_on_apply_m_1_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/PanelContainer/modify_view/apply_m2" to="." method="_on_apply_m_2_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/PanelContainer/modify_view/apply_m2" to="." method="_on_apply_m_2_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/PanelContainer/modify_view/apply_m2" to="." method="_on_apply_m_2_pressed"]

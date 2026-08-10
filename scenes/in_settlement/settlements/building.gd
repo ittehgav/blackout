@@ -12,7 +12,7 @@ enum Option{
 	trade,
 	recruit,
 	evolve,
-	forge
+	refine
 }
 var option_descriptions:={
 	Option.trade:
@@ -21,8 +21,8 @@ var option_descriptions:={
 		"Hire units to fight in your party.",
 	Option.evolve:
 		"Use " + Index.get_color_tag("juice") +"Juice[/color] to transform your units, making them much more powerful.",
-	Option.forge:
-		"Use "+Index.get_color_tag("scrap") + "Scrap[/color] to apply modifiers to weapons, modules and accessories."
+	Option.refine:
+		"Use "+Index.get_color_tag("scrap") + "Scrap[/color] to refine weapons, making them much stronger."
 }
 
 @export var options:Array[Option]
@@ -68,7 +68,7 @@ func has_use(o:Option)->bool:
 			for unit:FighterUnit in player.roster.units:
 				if len(unit.base.evolutions):
 					return true
-		Option.forge:
-			if player.inventory.scrap > 0:
+		Option.refine:
+			if player.inventory.scrap or player.inventory.chips:
 				return true
 	return false

@@ -37,7 +37,7 @@ static func color_code_fighter_overlay(target:FighterOverlay, team:Team)->void:
 			hp_bar_color = t2_hp_bar_color
 	
 	target.hp_bar.modulate = hp_bar_color;
-	target.hp_bar.material.set_shader_parameter("color", hp_bar_color + Color.from_hsv(0, -.5, -.5));
+
 
 	
 

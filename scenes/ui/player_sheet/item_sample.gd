@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/control/icon_ring.png")
 extends TextureRect
 
 class_name ItemSample;
@@ -69,7 +70,8 @@ func highlight_blink()->void:
 
 
 func _on_mouse_entered() -> void:
-	Tweens.mouseover_shake(self, PI/24, .03)
+	if item:
+		Tweens.mouseover_shake(self, PI/24, .03)
 	hover_sfx.play()
 	outline.modulate.v = .6;
 

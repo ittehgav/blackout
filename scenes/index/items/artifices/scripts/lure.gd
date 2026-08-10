@@ -15,6 +15,6 @@ func use()->bool:
 	throw()
 	return consume()
 
-func hit_callback(target:ActiveFighter)->void:
+func hit_callback(_target:ActiveFighter)->void:
 	
 	pass

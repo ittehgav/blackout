@@ -6,6 +6,8 @@ class_name UIRoot;
 
 @export var ui_sfx:UISFX;
 
+var feedback_ready_nodes:Array[Control]
+
 func _ready()->void:
 	assert(ui_sfx)
 	if not get_parent() is UIRoot:
@@ -23,18 +25,22 @@ func resize()->void:
 
 
 func recursive_connect_ui_feedback(node:Node)->void:
-	if "pressed" in node:
-		node.pressed.connect(ui_sfx.ui_click_sound.bind(node));
+	if node is UIRoot and node != self:return
+	if not (node in feedback_ready_nodes):
+		feedback_ready_nodes.append(node)
+		if "pressed" in node:
+			node.pressed.connect(ui_sfx.ui_click_sound.bind(node));
+			node.pressed.connect(Tweens.press_grow.bind(node))
 
-	if node is BaseButton:
-		node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
-		node.mouse_entered.connect(Tweens.mouseover_shake.bind(node))
-	if node is TabContainer:
-		node.tab_hovered.connect(ui_sfx.tab_mouseover_sound.bind(node))
-		node.tab_changed.connect(ui_sfx.tab_click_sound.bind(node))
-	if node is Icon:
-		node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
-		node.mouse_entered.connect(Tweens.mouseover_shake.bind(node))
+		if node is BaseButton:
+			node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
+			node.mouse_entered.connect(Tweens.mouseover_shake.bind(node))
+		if node is TabContainer:
+			node.tab_hovered.connect(ui_sfx.tab_mouseover_sound.bind(node))
+			node.tab_changed.connect(ui_sfx.tab_click_sound.bind(node))
+		if node is Icon:
+			node.mouse_entered.connect(ui_sfx.ui_mouseover_sound.bind(node))
+			node.mouse_entered.connect(Tweens.mouseover_shake.bind(node))
 
 	for c in node.get_children():
 		if c is Control:

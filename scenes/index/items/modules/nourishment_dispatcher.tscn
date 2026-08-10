@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cu3bhcegyrory"]
+
+[ext_resource type="Script" uid="uid://3jibunqhflor" path="res://scenes/index/items/modules/scripts/nourishment_dispatcher.gd" id="1_otf0t"]
+[ext_resource type="Texture2D" uid="uid://blijddmew0y5l" path="res://assets/visual/items/modules/nourishment_dispatcher.png" id="1_s8dvb"]
+
+[node name="Nourishment Dispatcher" type="Sprite2D" unique_id=1322560490]
+texture = ExtResource("1_s8dvb")
+script = ExtResource("1_otf0t")
+cooldown = 10.0
+ammo_type = "food"
+ammo_cost = 5
+color_tag = "food"

@@ -6,10 +6,7 @@ const size_x = 4;
 const size_y = 3;
 
 @export var shrapnel:CPUParticles2D
-
-const r1_improvement = "+30% knockback distance";
-const r2_improvement = "-10 scrap cost."
-const r3_improvement = "Enemies hit lose 5 defense for the rest of the fight";
+var knockback_strength:int = 2;
 
 func get_description()->String:
 	return "Consumes %s to deal %s and knock back all enemies in a cone area in front of you."
@@ -20,5 +17,17 @@ func use(_alt:bool=false)->void:
 	shrapnel.emitting = true;
 
 	Combat.aoe_damage(Entities.player_fighter, hit_scan);
-	for t:CombatEntity in Entities.player_fighter.hit_targets:
-		Combat.knock_back_target(Entities.player_fighter, t, 4)
+	Combat.aoe_knockback(Entities.player_fighter, hit_scan, knockback_strength)
+	if refinement_level == 3:
+		Combat.aoe_status(Entities.player_fighter, status, hit_scan)
+
+const r2_improvement = "-5 scrap cost."
+const r1_improvement = "Doubled knockback distance";
+const r3_improvement = "Hit enemies are stunned for 1.5 seconds.";
+
+func apply_r1()->void:
+	knockback_strength *= 2
+func apply_r2()->void:
+	ammo_cost -= 10;
+func apply_r3()->void:
+	use_sfx.pitch_scale *= 1.5

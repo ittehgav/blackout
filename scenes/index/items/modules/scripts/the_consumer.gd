@@ -8,6 +8,8 @@ const base_damage = 50;
 
 @export var hit_scan:Area2D
 
+
+
 func get_description()->String:
 	return "Hold to continuously spend money and drain HP from enemies in an increasingly larger area.";
 
@@ -45,3 +47,11 @@ func _on_ticker_timeout() -> void:
 func _on_equipped() -> void:
 	hit_scan.reparent(Entities.player_fighter)
 	hit_scan.position = Vector2.ZERO
+
+
+
+const m1_description = "-50% money consumption.";
+const m1_prefix = "Greedy"
+
+const m2_description = "+50% money consumption, 50% area radius and damage."
+const m2_prefix = "Ostentatious"

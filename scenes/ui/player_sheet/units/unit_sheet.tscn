@@ -21,7 +21,7 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [node name="Unit Sheet" type="Panel" unique_id=1654918354 node_paths=PackedStringArray("unit_sprite", "unit_name_label", "skill_name_label", "skill_description_label", "flavor_label", "experience_bar", "accessory_sample", "tags_label", "unit_level_label", "stats_dropdown", "mechanic_values", "ui_sfx")]
-z_index = 650
+z_index = 50
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 15
 anchor_right = 1.0

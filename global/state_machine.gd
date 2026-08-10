@@ -58,20 +58,7 @@ func set_scenario(target:Scenario)->void:
 					var world_map:WorldMap;
 					if in_tutorial:
 						player.reparent(Entities.main);
-						var chosen_weapon:Weapon = Entities.arena.get_parent().chosen_weapon;
-						var copy:Weapon = load(chosen_weapon.scene_file_path).instantiate()
-						
-						var main_weapon:Weapon = player.equipped_weapon;
-						
-						player.inventory.add_child(copy);
-						player.equip_weapon(copy)
-						
-						player.equipment.erase(player.alternative_weapon);
-						var alt:Weapon = player.alternative_weapon
-						player.alternative_weapon = null;
 
-						player.inventory.remove_item(main_weapon);
-						player.inventory.remove_item(alt)
 
 						world_map = demo_world_map_scene.instantiate();
 						Entities.world_map = world_map;

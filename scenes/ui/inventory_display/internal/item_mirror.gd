@@ -11,7 +11,6 @@ var display:InventoryDisplay;
 
 @export var tooltip:Tooltip;
 
-@export var modifier_icon:ItemModifierIcon;
 
 @export var stack_size_label:Label;
 @export var price_tag:Label;
@@ -131,7 +130,7 @@ func _on_gui_input(e: InputEvent) -> void:
 				pick_up()
 				return
 			elif e.button_index == MOUSE_BUTTON_RIGHT:
-				if display.context == "forge":
+				if display.context == "refinement":
 					display.item_chosen.emit(self);
 					return
 				if display.context == "player_sheet":

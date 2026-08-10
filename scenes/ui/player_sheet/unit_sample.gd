@@ -1,3 +1,4 @@
+@icon("res://assets/visual/editor_ui/IconGodotNode/control/icon_character.png")
 extends Button
 
 class_name UnitSample;
@@ -9,7 +10,6 @@ class_name UnitSample;
 @export var hover_sfx_player:AudioStreamPlayer;
 
 func load_base(base:FighterBase, level:int, callback:Callable = Callable())->void:
-	## for samples of evolved bases in evolution menu
 	$level.text = "Lv." + str(level);
 	sprite.texture = base.texture;
 	

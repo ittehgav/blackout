@@ -21,8 +21,6 @@
 [ext_resource type="Script" uid="uid://dqpi700chh4i" path="res://scenes/ui/player_sheet/units/party_view.gd" id="18_7ju3y"]
 [ext_resource type="PackedScene" uid="uid://c57e8ymx8ba" path="res://scenes/ui/icons/morale/morale_icon.tscn" id="19_utjw6"]
 [ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="20_dcru6"]
-[ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="21_tovog"]
-[ext_resource type="Script" uid="uid://4586apxxsg85" path="res://scenes/ui/player_sheet/units/upgrade_hint.gd" id="22_1edf1"]
 [ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/unit_sheet.tscn" id="22_in2cn"]
 [ext_resource type="Script" uid="uid://c3t5hlpw6vsaq" path="res://scenes/ui/player_sheet/player_data.gd" id="23_brbep"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="24_7b7li"]
@@ -506,9 +504,10 @@ color = Color(0, 0, 0, 0.39215687)
 custom_minimum_size = Vector2(680, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-current_tab = 0
+current_tab = 1
 
 [node name="Player" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=1631754090 node_paths=PackedStringArray("name_label", "player_sample", "level_label")]
+visible = false
 layout_mode = 2
 script = ExtResource("23_brbep")
 name_label = NodePath("columns/col1/VBoxContainer/player_name")
@@ -830,8 +829,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=299824284 node_paths=PackedStringArray("party_power_icon", "food_cost", "fuel_cost", "ui_sfx", "units_grid", "upgrade_hint")]
-visible = false
+[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=299824284 node_paths=PackedStringArray("party_power_icon", "food_cost", "fuel_cost", "ui_sfx", "units_grid")]
 layout_mode = 2
 script = ExtResource("18_7ju3y")
 party_power_icon = NodePath("HBoxContainer/party_power_icon")
@@ -840,7 +838,6 @@ fuel_cost = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/fuel_cost")
 ui_sfx = NodePath("../../../../../ui_sfx")
 unit_sheet_scene = ExtResource("22_in2cn")
 units_grid = NodePath("VBoxContainer/ScrollContainer/units")
-upgrade_hint = NodePath("upgrade_hint")
 metadata/_tab_index = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" unique_id=670359116]
@@ -932,6 +929,10 @@ horizontal_scroll_mode = 3
 
 [node name="units" type="GridContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/VBoxContainer/ScrollContainer" unique_id=1717770144]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(5, 5)
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 columns = 4
 
 [node name="Label2" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" unique_id=1425371235]
@@ -949,24 +950,6 @@ offset_bottom = -14.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Click on a unit for more information"
-
-[node name="upgrade_hint" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" unique_id=33408255]
-visible = false
-modulate = Color(1, 1, 1, 0.745098)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -8.0
-offset_top = -8.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(3, 3)
-pivot_offset = Vector2(20, 0)
-texture = ExtResource("21_tovog")
-script = ExtResource("22_1edf1")
 
 [node name="start_battle" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=1621010783]
 visible = false
