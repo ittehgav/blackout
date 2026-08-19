@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://cidv5tcb082h5" path="res://assets/sound/sfx/ui/close_player_sheet.wav" id="3_dfs8r"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="6_5ybum"]
 [ext_resource type="Script" uid="uid://4xy3dgtjm31i" path="res://scenes/ui/player_sheet/inventory_tab.gd" id="9_fsh5d"]
+[ext_resource type="Script" uid="uid://d16umcuddw6ok" path="res://scenes/ui/player_sheet/discard_overlay.gd" id="9_in2cn"]
 [ext_resource type="PackedScene" uid="uid://ba833ve2fbwcf" path="res://scenes/ui/inventory_display/inventory_display.tscn" id="10_a1oup"]
 [ext_resource type="AudioStream" uid="uid://v8eaae2kskmo" path="res://assets/sound/sfx/world_map/discard_item.wav" id="10_kgp2d"]
 [ext_resource type="Shader" uid="uid://cygfaflot1olq" path="res://resources/shaders/icon_color_replacer.gdshader" id="11_0wwji"]
@@ -32,6 +33,17 @@
 [ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="33_7ydhy"]
 [ext_resource type="Texture2D" uid="uid://6rtvfrmydkxi" path="res://assets/visual/editor_ui/IconGodotNode/node/icon_gear.png" id="34_7ydhy"]
 [ext_resource type="Script" uid="uid://dd3sexthpletg" path="res://scenes/ui/player_sheet/clear_space_request.gd" id="36_kgp2d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_in2cn"]
+resource_local_to_scene = true
+shader = ExtResource("11_0wwji")
+shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
+shader_parameter/shadow_color = Color(0, 0, 1, 1)
+shader_parameter/mid_color = Color(1, 0, 0, 1)
+shader_parameter/light_color = Color(0, 1, 0, 1)
+shader_parameter/shadow_value = 0.25
+shader_parameter/light_value = 1.75
+shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ydhy"]
 resource_local_to_scene = true
@@ -78,17 +90,6 @@ shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_41eqv"]
-resource_local_to_scene = true
-shader = ExtResource("11_0wwji")
-shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
-shader_parameter/shadow_color = Color(0, 0, 1, 1)
-shader_parameter/mid_color = Color(1, 0, 0, 1)
-shader_parameter/light_color = Color(0, 1, 0, 1)
-shader_parameter/shadow_value = 0.25
-shader_parameter/light_value = 1.75
-shader_parameter/neutral_value = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2eyh"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -155,7 +156,7 @@ _data = {
 &"RESET": SubResource("Animation_sqvxk")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_05eqd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2eyh"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -166,7 +167,7 @@ shader_parameter/shadow_value = 0.25
 shader_parameter/light_value = 1.75
 shader_parameter/neutral_value = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3o1i"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05eqd"]
 resource_local_to_scene = true
 shader = ExtResource("11_0wwji")
 shader_parameter/base_color = Color(0.545098, 0, 0.670588, 1)
@@ -286,22 +287,22 @@ resource_icons = {
 }
 
 [node name="money_icon" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/resources_dropdown/money" parent_id_path=PackedInt32Array(1336254164, 198135971, 1852868329) index="0" unique_id=604325780]
-material = SubResource("ShaderMaterial_7ydhy")
+material = SubResource("ShaderMaterial_in2cn")
 
 [node name="food_icon" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/resources_dropdown/food" parent_id_path=PackedInt32Array(1336254164, 198135971, 901840672) index="0" unique_id=183823663]
-material = SubResource("ShaderMaterial_8oj3i")
+material = SubResource("ShaderMaterial_7ydhy")
 
 [node name="fuel_icon" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/resources_dropdown/fuel" parent_id_path=PackedInt32Array(1336254164, 198135971, 1381534319) index="0" unique_id=1087245645]
-material = SubResource("ShaderMaterial_kgp2d")
+material = SubResource("ShaderMaterial_8oj3i")
 
 [node name="juice_icon" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/resources_dropdown/juice" parent_id_path=PackedInt32Array(1336254164, 198135971, 1531919764) index="0" unique_id=20070197]
-material = SubResource("ShaderMaterial_ihftv")
+material = SubResource("ShaderMaterial_kgp2d")
 
 [node name="scrap_icon" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/resources_dropdown/scrap" parent_id_path=PackedInt32Array(1336254164, 198135971, 1784312822) index="0" unique_id=615530090]
-material = SubResource("ShaderMaterial_41eqv")
+material = SubResource("ShaderMaterial_ihftv")
 
 [node name="chips_icon" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/resources_dropdown/chips" parent_id_path=PackedInt32Array(1336254164, 198135971, 1855174858) index="0" unique_id=1058611590]
-material = SubResource("ShaderMaterial_i2eyh")
+material = SubResource("ShaderMaterial_41eqv")
 
 [node name="pick_1" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/resource_picker/PanelContainer/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1336254164, 1538008034) index="0" unique_id=117561327]
 focus_mode = 0
@@ -334,8 +335,9 @@ focus_mode = 0
 [node name="item_selector" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" index="11" unique_id=1812004539]
 z_index = 20
 
-[node name="discard_overlay" type="Control" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory" unique_id=1594287045]
+[node name="discard_overlay" type="Control" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory" unique_id=1594287045 node_paths=PackedStringArray("discard_sfx", "inventory_display", "confirmation_overlay", "confirmation_label", "discard_btn", "cancel_discard_btn")]
 visible = false
+z_index = 1567
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -347,6 +349,13 @@ offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("9_in2cn")
+discard_sfx = NodePath("discard_sfx")
+inventory_display = NodePath("../inventory_display")
+confirmation_overlay = NodePath("confirmation")
+confirmation_label = NodePath("confirmation/confirmation/MarginContainer/VBoxContainer/confirmation_text")
+discard_btn = NodePath("../VBoxContainer/discard_item")
+cancel_discard_btn = NodePath("../VBoxContainer/cancel_discard")
 
 [node name="discard_sfx" type="AudioStreamPlayer" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay" unique_id=829647776]
 stream = ExtResource("10_kgp2d")
@@ -354,28 +363,20 @@ stream = ExtResource("10_kgp2d")
 [node name="ColorRect" type="ColorRect" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay" unique_id=1152801340]
 z_index = 15
 layout_mode = 0
-offset_left = 405.5
-offset_top = 4.0
-offset_right = 819.5
-offset_bottom = 599.0
+offset_left = 560.0
+offset_top = -52.0
+offset_right = 1292.0
+offset_bottom = 638.0
+mouse_filter = 2
 color = Color(0, 0, 0, 0.85490197)
-
-[node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay/ColorRect" unique_id=1897845644]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 525.0
-offset_right = 92.0
-offset_bottom = 559.0
-focus_mode = 0
-text = "Cancel"
 
 [node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay/ColorRect" unique_id=532619767]
 z_index = 1
 layout_mode = 0
-offset_left = 164.0
-offset_top = 23.0
-offset_right = 204.0
-offset_bottom = 49.0
+offset_left = 17.0
+offset_top = 190.0
+offset_right = 249.0
+offset_bottom = 349.0
 theme_override_font_sizes/font_size = 64
 text = "Choose An 
 Item to
@@ -457,6 +458,12 @@ offset_bottom = 582.0
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "SORT"
+
+[node name="cancel_discard" type="Button" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/VBoxContainer" unique_id=1897845644]
+visible = false
+z_index = 1602
+layout_mode = 2
+text = "CANCEL"
 
 [node name="discard_item" type="Button" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/VBoxContainer" unique_id=300862051]
 custom_minimum_size = Vector2(64, 64)
@@ -829,7 +836,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=299824284 node_paths=PackedStringArray("party_power_icon", "food_cost", "fuel_cost", "ui_sfx", "units_grid")]
+[node name="Party" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=299824284 node_paths=PackedStringArray("party_power_icon", "food_cost", "fuel_cost", "ui_sfx", "units_grid", "party_cap_label")]
 layout_mode = 2
 script = ExtResource("18_7ju3y")
 party_power_icon = NodePath("HBoxContainer/party_power_icon")
@@ -838,6 +845,7 @@ fuel_cost = NodePath("HBoxContainer/VBoxContainer/HBoxContainer2/fuel_cost")
 ui_sfx = NodePath("../../../../../ui_sfx")
 unit_sheet_scene = ExtResource("22_in2cn")
 units_grid = NodePath("VBoxContainer/ScrollContainer/units")
+party_cap_label = NodePath("HBoxContainer/VBoxContainer2/party_cap")
 metadata/_tab_index = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" unique_id=670359116]
@@ -854,12 +862,19 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 from_player = true
-label = NodePath("../party_power_display")
+label = NodePath("../VBoxContainer2/party_power_display")
 
-[node name="party_power_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" unique_id=389790060]
+[node name="VBoxContainer2" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" unique_id=592564525]
+layout_mode = 2
+
+[node name="party_power_display" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer2" unique_id=389790060]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "11"
+
+[node name="party_cap" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer2" unique_id=499848249]
+layout_mode = 2
+text = "11/22"
 
 [node name="MoraleIcon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer" unique_id=1611603628 instance=ExtResource("19_utjw6")]
 custom_minimum_size = Vector2(80, 80)
@@ -885,7 +900,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="resource_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1830759897 node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
-material = SubResource("ShaderMaterial_05eqd")
+material = SubResource("ShaderMaterial_i2eyh")
 layout_mode = 2
 match_player_inventory = false
 label = NodePath("../food_cost")
@@ -899,7 +914,7 @@ text = "22"
 layout_mode = 2
 
 [node name="resource_icon2" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=938964625 node_paths=PackedStringArray("label") instance=ExtResource("20_dcru6")]
-material = SubResource("ShaderMaterial_s3o1i")
+material = SubResource("ShaderMaterial_05eqd")
 layout_mode = 2
 resource = "fuel"
 match_player_inventory = false
@@ -981,9 +996,9 @@ texture = ExtResource("33_7ydhy")
 [node name="Button" type="Button" parent="main_bg" unique_id=173178629]
 modulate = Color(0.6392157, 0.654902, 0.8, 1)
 layout_mode = 0
-offset_left = 2026.0
+offset_left = 1160.0
 offset_top = 27.0
-offset_right = 2090.0
+offset_right = 1224.0
 offset_bottom = 91.0
 icon = ExtResource("34_7ydhy")
 expand_icon = true
@@ -992,7 +1007,11 @@ expand_icon = true
 [connection signal="accessory_equipped_on_unit" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/gear" method="_on_inventory_display_accessory_equipped_on_unit"]
 [connection signal="warnings_attended" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" to="." method="_on_inventory_display_warnings_attended"]
 [connection signal="warnings_shown" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" to="." method="_on_inventory_display_warnings_shown"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer/confirm_discard" to="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay" method="_on_confirm_discard_pressed"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay/confirmation/confirmation/MarginContainer/VBoxContainer/HBoxContainer/cancel_discard" to="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay" method="_on_cancel_discard_pressed"]
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/VBoxContainer/sort_inventory" to="." method="_on_sort_inventory_pressed"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/VBoxContainer/cancel_discard" to="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay" method="_on_cancel_discard_pressed"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/VBoxContainer/discard_item" to="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/discard_overlay" method="_on_discard_item_pressed"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/columns/col2/weapons/main_weapon/weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/gear" method="_on_weapon_sample_gui_input"]
 [connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/columns/col2/weapons/VBoxContainer/switch_alt" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/gear" method="_on_switch_alt_pressed"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/columns/col2/weapons/VBoxContainer/alt_weapon/alt_weapon_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/gear" method="_on_alt_weapon_sample_gui_input"]

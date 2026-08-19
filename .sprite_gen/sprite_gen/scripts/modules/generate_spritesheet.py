@@ -16,22 +16,16 @@ total_frames = 5
 
 
 
-top_light = bpy.data.objects.get("top_light");
-camera = bpy.context.scene.camera
-## will raise error on its own if one isnt found???
-to_rotate = [top_light, camera]
+camera_root = bpy.data.objects.get("camera_root")
 
 
 collection = bpy.data.collections.get("all")
 
 # --- Get camera ---
 
-if camera is None:
-    raise Exception("No active camera in the scene.")
 
-camera.location = (-25, 25, 0)
 
-sprite_gen.generate_frames(collection, total_frames, steps, output_path, pivot, to_rotate);
+sprite_gen.generate_frames(collection, total_frames, steps, output_path, pivot, camera_root);
 
 png_files = ["//renders/"+f for f in os.listdir(bpy.path.abspath("//renders")) if f.lower().endswith('.png')] 
 

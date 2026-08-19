@@ -139,7 +139,7 @@ stream = ExtResource("6_sb8v6")
 
 [node name="explosion_sfx" type="AudioStreamPlayer" parent="components" unique_id=1645965388]
 stream = ExtResource("5_vm3hj")
-pitch_scale = 1.35
+pitch_scale = 0.83
 
 [node name="scorched_ground_mask" type="TextureRect" parent="components" unique_id=657606774]
 visible = false

@@ -123,12 +123,13 @@ border_color = Color(0.47843137, 0.49019608, 0.6, 1)
 border_width = 4.0
 editor_only = false
 
-[node name="ScrollContainer" type="ScrollContainer" parent="cargo/ReferenceRect" unique_id=1632140027 node_paths=PackedStringArray("excess_left", "excess_right")]
+[node name="ScrollContainer" type="ScrollContainer" parent="cargo/ReferenceRect" unique_id=1632140027 node_paths=PackedStringArray("display", "excess_left", "excess_right")]
 custom_minimum_size = Vector2(386, 589)
 layout_mode = 0
 offset_right = 386.0
 offset_bottom = 589.0
 script = ExtResource("22_qxt2g")
+display = NodePath("../../..")
 excess_left = NodePath("../../excess_left")
 excess_right = NodePath("../../excess_right")
 
@@ -534,6 +535,7 @@ horizontal_alignment = 2
 [connection signal="item_dropped" from="." to="." method="_on_item_dropped"]
 [connection signal="item_picked_up" from="." to="." method="_on_item_picked_up"]
 [connection signal="resized" from="cargo/ReferenceRect/ScrollContainer/cargo_space/inventory_grid" to="." method="_on_inventory_grid_resized"]
+[connection signal="resized" from="cargo/ReferenceRect/ScrollContainer/cargo_space/inventory_grid" to="cargo/ReferenceRect/ScrollContainer" method="_on_inventory_grid_resized"]
 [connection signal="mouse_entered" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_entered"]
 [connection signal="mouse_exited" from="resource_picker/PanelContainer" to="resource_picker" method="_on_panel_container_mouse_exited"]
 [connection signal="pressed" from="resource_picker/PanelContainer/VBoxContainer/HBoxContainer/pick_1" to="resource_picker" method="_on_pick_1_pressed"]

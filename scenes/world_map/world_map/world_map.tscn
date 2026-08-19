@@ -53,7 +53,7 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8y4u"]
 texture = ExtResource("5_5k4yq")
-texture_region_size = Vector2i(32, 32)
+texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -75,23 +75,8 @@ texture_region_size = Vector2i(32, 32)
 0:1/0/terrains_peering_bit/top_right_corner = 0
 0:2/0 = 0
 0:2/0/terrain_set = 0
-0:2/0/terrain = 0
-0:2/0/terrains_peering_bit/right_side = 0
-0:2/0/terrains_peering_bit/bottom_right_corner = 0
-0:2/0/terrains_peering_bit/bottom_side = 0
-0:2/0/terrains_peering_bit/bottom_left_corner = 0
-0:2/0/terrains_peering_bit/left_side = 0
-0:2/0/terrains_peering_bit/top_left_corner = 0
-0:2/0/terrains_peering_bit/top_side = 0
-0:2/0/terrains_peering_bit/top_right_corner = 0
 0:3/0 = 0
 0:3/0/terrain_set = 0
-0:3/0/terrain = 0
-0:3/0/terrains_peering_bit/right_side = 0
-0:3/0/terrains_peering_bit/bottom_right_corner = 0
-0:3/0/terrains_peering_bit/top_left_corner = 0
-0:3/0/terrains_peering_bit/top_side = 0
-0:3/0/terrains_peering_bit/top_right_corner = 0
 1:1/0 = 0
 1:1/0/terrain_set = 0
 1:1/0/terrain = 0
@@ -104,46 +89,19 @@ texture_region_size = Vector2i(32, 32)
 1:0/0/terrains_peering_bit/top_left_corner = 0
 1:2/0 = 0
 1:2/0/terrain_set = 0
-1:2/0/terrain = 0
-1:2/0/terrains_peering_bit/bottom_left_corner = 0
-1:2/0/terrains_peering_bit/left_side = 0
-1:2/0/terrains_peering_bit/top_left_corner = 0
 1:3/0 = 0
 1:3/0/terrain_set = 0
-1:3/0/terrain = 0
-1:3/0/terrains_peering_bit/top_left_corner = 0
 2:1/0 = 0
 2:1/0/terrain_set = 0
-2:1/0/terrain = 0
-2:1/0/terrains_peering_bit/right_side = 0
-2:1/0/terrains_peering_bit/bottom_right_corner = 0
-2:1/0/terrains_peering_bit/top_left_corner = 0
-2:1/0/terrains_peering_bit/top_side = 0
-2:1/0/terrains_peering_bit/top_right_corner = 0
 3:1/0 = 0
 3:1/0/terrain_set = 0
-3:1/0/terrain = 0
-3:1/0/terrains_peering_bit/top_left_corner = 0
 3:0/0 = 0
 3:0/0/terrain_set = 0
-3:0/0/terrain = 0
-3:0/0/terrains_peering_bit/bottom_left_corner = 0
-3:0/0/terrains_peering_bit/left_side = 0
-3:0/0/terrains_peering_bit/top_left_corner = 0
 2:0/0 = 0
 2:0/0/terrain_set = 0
-2:0/0/terrain = 0
-2:0/0/terrains_peering_bit/right_side = 0
-2:0/0/terrains_peering_bit/bottom_right_corner = 0
-2:0/0/terrains_peering_bit/bottom_side = 0
-2:0/0/terrains_peering_bit/bottom_left_corner = 0
-2:0/0/terrains_peering_bit/left_side = 0
-2:0/0/terrains_peering_bit/top_left_corner = 0
-2:0/0/terrains_peering_bit/top_side = 0
-2:0/0/terrains_peering_bit/top_right_corner = 0
 
 [sub_resource type="TileSet" id="TileSet_x5mo2"]
-tile_size = Vector2i(32, 32)
+tile_size = Vector2i(64, 64)
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "roadside"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
@@ -151,11 +109,11 @@ sources/0 = SubResource("TileSetAtlasSource_t8y4u")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81r8l"]
 texture = ExtResource("6_1glhv")
-texture_region_size = Vector2i(32, 32)
+texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_50ku6"]
-tile_size = Vector2i(32, 32)
+tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_81r8l")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fuwqy"]
@@ -280,7 +238,7 @@ tile_shape = 3
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_5sp40")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kulxh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_beb05"]
 resource_local_to_scene = true
 shader = ExtResource("20_tbp5f")
 shader_parameter/color = Color(0.042500004, 0.25, 0.24654166, 1)
@@ -289,6 +247,16 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(5, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kulxh"]
+resource_local_to_scene = true
+shader = ExtResource("20_tbp5f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tbp5f"]
 resource_local_to_scene = true
@@ -351,16 +319,6 @@ shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rl87i"]
-resource_local_to_scene = true
-shader = ExtResource("20_tbp5f")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 1
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_omir2"]
 resource_local_to_scene = true
 shader = ExtResource("20_tbp5f")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -646,14 +604,14 @@ use_parent_material = true
 tile_set = SubResource("TileSet_fuwqy")
 
 [node name="fog_buffer" type="TileMapLayer" parent="tiles" unique_id=1420439145]
-modulate = Color(0.45, 0.395325, 0.3285, 1)
+modulate = Color(0.28, 0.24598, 0.2044, 1)
 visibility_layer = 8
 z_index = 2
 use_parent_material = true
 tile_set = SubResource("TileSet_tfwjm")
 
 [node name="fog" type="TileMapLayer" parent="tiles" unique_id=916663285 node_paths=PackedStringArray("buffer", "over_horizon", "road", "player_party", "world_map")]
-modulate = Color(0.45, 0.395325, 0.3285, 1)
+modulate = Color(0.28, 0.24598, 0.2044, 1)
 visibility_layer = 8
 z_index = 2
 use_parent_material = true
@@ -666,7 +624,7 @@ player_party = NodePath("../../PlayerParty")
 world_map = NodePath("../..")
 
 [node name="over_horizon" type="TileMapLayer" parent="tiles" unique_id=1911672858]
-modulate = Color(0.27058825, 0.2509804, 0.19607843, 1)
+modulate = Color(0.08, 0.07402667, 0.057600003, 1)
 visibility_layer = 8
 z_index = 2
 use_parent_material = true
@@ -681,7 +639,8 @@ vehicle = NodePath("Doblo")
 current_location = NodePath("../locations/Tutorial")
 
 [node name="Doblo" parent="PlayerParty" unique_id=917311666 instance=ExtResource("15_tfwjm")]
-material = SubResource("ShaderMaterial_kulxh")
+material = SubResource("ShaderMaterial_beb05")
+scale = Vector2(4, 4)
 
 [node name="PointLight2D" type="PointLight2D" parent="PlayerParty/Doblo" unique_id=1215031195]
 light_mask = 0
@@ -721,7 +680,7 @@ road = NodePath("../tiles/road")
 fog = NodePath("../tiles/fog")
 
 [node name="Tutorial" parent="locations" unique_id=273842454 node_paths=PackedStringArray("neighbors", "settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_tbp5f")
+material = SubResource("ShaderMaterial_kulxh")
 position = Vector2(-816, 256)
 neighbors = [NodePath("../Farm")]
 max_neighbors = 1
@@ -741,23 +700,23 @@ mouse_filter = 2
 waves = [NodePath("DungeonRoster"), null, null]
 
 [node name="Farm" parent="locations" unique_id=1185826475 node_paths=PackedStringArray("neighbors", "settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_4ypwe")
-position = Vector2(1431, 289)
+material = SubResource("ShaderMaterial_tbp5f")
+position = Vector2(4009, 289)
 neighbors = [NodePath("../Tutorial")]
 settlements = [NodePath("Farm")]
 
 [node name="Farm" parent="locations/Farm" unique_id=13982226 instance=ExtResource("24_5vsub")]
 
 [node name="Factory" parent="locations" unique_id=1850741843 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_3x04a")
-position = Vector2(3764, -1090)
+material = SubResource("ShaderMaterial_4ypwe")
+position = Vector2(7387, -3320)
 settlements = [NodePath("Factory")]
 
 [node name="Factory" parent="locations/Factory" unique_id=288129802 instance=ExtResource("29_xtkqv")]
 
 [node name="Street" parent="locations" unique_id=69350772 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_eunnb")
-position = Vector2(6968, -1599)
+material = SubResource("ShaderMaterial_3x04a")
+position = Vector2(10591, -3829)
 settlements = [NodePath("Gas Station"), NodePath("Chop Shop")]
 
 [node name="Gas Station" parent="locations/Street" unique_id=1406925595 instance=ExtResource("25_05tdn")]
@@ -765,8 +724,8 @@ settlements = [NodePath("Gas Station"), NodePath("Chop Shop")]
 [node name="Chop Shop" parent="locations/Street" unique_id=2070719463 instance=ExtResource("26_xtkqv")]
 
 [node name="Street2" parent="locations" unique_id=424630876 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_x2ygm")
-position = Vector2(5852, 257)
+material = SubResource("ShaderMaterial_eunnb")
+position = Vector2(9475, -1253)
 settlements = [NodePath("Chop Shop"), NodePath("Gym"), NodePath("Laboratory")]
 
 [node name="Chop Shop" parent="locations/Street2" unique_id=344644369 instance=ExtResource("26_xtkqv")]
@@ -776,23 +735,23 @@ settlements = [NodePath("Chop Shop"), NodePath("Gym"), NodePath("Laboratory")]
 [node name="Laboratory" parent="locations/Street2" unique_id=1684508635 instance=ExtResource("33_tlj38")]
 
 [node name="Outlaw Hideout" parent="locations" unique_id=669220767 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_m17yv")
-position = Vector2(8842, 4229)
+material = SubResource("ShaderMaterial_x2ygm")
+position = Vector2(12465, 6366)
 settlements = [NodePath("Outlaw Hideout")]
 
 [node name="Outlaw Hideout" parent="locations/Outlaw Hideout" unique_id=926709683 instance=ExtResource("31_a0yse")]
 
 [node name="Operation Base" parent="locations" unique_id=853050099 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_rl87i")
-position = Vector2(5772, 2419)
+material = SubResource("ShaderMaterial_m17yv")
+position = Vector2(9395, 4556)
 settlements = [NodePath("Operation Base")]
 
 [node name="Operation Base" parent="locations/Operation Base" unique_id=1010159926 instance=ExtResource("27_otblt")]
 modulate = Color(0.12156863, 0.13333334, 0.14509805, 1)
 
 [node name="Outlaw Dwelling" parent="locations" unique_id=1344063996 node_paths=PackedStringArray("settlements") instance=ExtResource("19_kulxh")]
-material = SubResource("ShaderMaterial_omir2")
-position = Vector2(3550, 2210)
+material = SubResource("ShaderMaterial_rl87i")
+position = Vector2(4943, 4347)
 settlements = [NodePath("Outlaw Dwelling")]
 
 [node name="Outlaw Dwelling" parent="locations/Outlaw Dwelling" unique_id=620524607 instance=ExtResource("33_74ily")]
@@ -815,9 +774,9 @@ top_level = true
 z_index = 6
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1607.0
+offset_left = 4168.0
 offset_top = 287.0
-offset_right = 1647.0
+offset_right = 4208.0
 offset_bottom = 327.0
 
 [node name="arrow" type="TextureRect" parent="travel_instruction" unique_id=767861279]

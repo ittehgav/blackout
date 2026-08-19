@@ -1,5 +1,7 @@
 extends ScrollContainer
 
+@export var display:InventoryDisplay
+
 @onready var bar:HScrollBar = get_h_scroll_bar()
 
 @export var excess_left:TextureRect;
@@ -15,3 +17,10 @@ func check_cropped_sides()->void:
 		excess_left.show();
 	elif bar.value < 94:
 		excess_right.show()
+
+
+func _on_inventory_grid_resized() -> void:
+	check_cropped_sides()
+	if display.inventory.capacity_x <= 8:
+		excess_right.hide();
+		excess_left.hide()

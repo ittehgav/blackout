@@ -6,7 +6,7 @@ extends SfxPlayer
 
 func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status, quiet: bool) -> void:
 	if quiet:return;
-	
+	pitch_scale = 1
 	match status.type:
 		"dot":
 			play_sound_obj(poison);
@@ -14,5 +14,6 @@ func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status, q
 			play_sound_obj(stun);
 		"stat_change":
 			if status.value < 0:
+				pitch_scale = 1.75;
 				play_sound_obj(stat_debuff)
 	

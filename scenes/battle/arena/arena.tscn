@@ -6,13 +6,12 @@
 [ext_resource type="Script" uid="uid://dclobwhhhy4eu" path="res://scenes/battle/arena/in_fight_team.gd" id="4_hdymd"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="5_rj7gd"]
 [ext_resource type="PackedScene" uid="uid://clxl0g1dnu81h" path="res://scenes/battle/fighter/player/player_fighter.tscn" id="7_8stbl"]
-[ext_resource type="AudioStream" uid="uid://db0qsxl1ljgpd" path="res://assets/sound/sfx/combat/player/module_unavailable.mp3" id="7_p7mpf"]
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="8_2foka"]
 [ext_resource type="Script" uid="uid://dv8qc4korx4fo" path="res://scenes/battle/arena/screen_blink.gd" id="9_2foka"]
 [ext_resource type="Script" uid="uid://b6hbcvrxk1f5k" path="res://scenes/battle/arena/team_balances.gd" id="9_ra4bb"]
 [ext_resource type="Script" uid="uid://2jtodbhiwuk3" path="res://scenes/battle/fighter/player/player_bars.gd" id="15_iln1w"]
 [ext_resource type="Texture2D" uid="uid://dbolt877b5gmk" path="res://assets/visual/ui/bars/player_hp_bar_bg.png" id="18_bbn25"]
-[ext_resource type="Texture2D" uid="uid://colkiyes3fc2c" path="res://assets/visual/ui/bars/complete_fill.png" id="18_rj7gd"]
+[ext_resource type="Texture2D" uid="uid://b4o22tcia04i1" path="res://assets/visual/particles/circles/circle_16x16.png" id="18_w5ded"]
 [ext_resource type="Script" uid="uid://dhtmpavn2lhf7" path="res://scenes/battle/arena/ui/party_power_display.gd" id="19_w5ded"]
 [ext_resource type="Texture2D" uid="uid://dj1i0pekcb7xu" path="res://assets/visual/icons/stats/max_hp.png" id="20_524le"]
 [ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="20_slj5k"]
@@ -122,7 +121,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w5ded"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xs7fa"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -134,7 +133,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7mpf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6diul"]
 resource_local_to_scene = true
 shader = ExtResource("8_2foka")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -143,6 +142,18 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_w5ded"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.16422288, 0.3313783, 0.49853373, 0.68328446, 0.8797654, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.08307747, 1, 1, 1, 0.16763847, 1, 1, 1, 0.25219944, 1, 1, 1, 0.34566158, 1, 1, 1, 0.4450578, 1, 1, 1, 0.5058824)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kddjp"]
+gradient = SubResource("Gradient_w5ded")
+width = 320
+height = 180
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ra4bb"]
 
@@ -171,7 +182,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:modulate")
+tracks/0/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -183,7 +194,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar:tint_under")
+tracks/1/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar:tint_under")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -195,7 +206,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar:tint_progress")
+tracks/2/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar:tint_progress")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -207,7 +218,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/hp_counter:theme_override_colors/font_color")
+tracks/3/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/hp_counter:theme_override_colors/font_color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -219,7 +230,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/hp_counter:theme_override_colors/font_shadow_color")
+tracks/4/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/hp_counter:theme_override_colors/font_shadow_color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -231,7 +242,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_scale")
+tracks/5/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -243,7 +254,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_rotation")
+tracks/6/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -255,7 +266,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/hp_counter:offset_transform_scale")
+tracks/7/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/hp_counter:offset_transform_scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -281,7 +292,7 @@ markers = [{
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:modulate")
+tracks/0/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -293,7 +304,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar:tint_under")
+tracks/1/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar:tint_under")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -305,7 +316,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar:tint_progress")
+tracks/2/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar:tint_progress")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -317,7 +328,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/hp_counter:theme_override_colors/font_color")
+tracks/3/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/hp_counter:theme_override_colors/font_color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -329,7 +340,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/hp_counter:theme_override_colors/font_shadow_color")
+tracks/4/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/hp_counter:theme_override_colors/font_shadow_color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -341,7 +352,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_scale")
+tracks/5/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -353,7 +364,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_rotation")
+tracks/6/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -365,7 +376,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/hp_counter:offset_transform_scale")
+tracks/7/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/hp_counter:offset_transform_scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -381,7 +392,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:scale")
+tracks/0/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -393,7 +404,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:modulate")
+tracks/1/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -405,7 +416,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar:tint_under")
+tracks/2/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar:tint_under")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -417,7 +428,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar:tint_progress")
+tracks/3/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar:tint_progress")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -434,7 +445,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:modulate")
+tracks/0/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -446,7 +457,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_scale")
+tracks/1/path = NodePath("ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer/heart:offset_transform_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -556,14 +567,11 @@ metadata/_custom_type_script = "uid://dclobwhhhy4eu"
 [node name="player_fighter" parent="teams/team_1" unique_id=543559168 instance=ExtResource("7_8stbl")]
 position = Vector2(-92, 537)
 
-[node name="sfx" parent="teams/team_1/player_fighter/components/sfx" parent_id_path=PackedInt32Array(543559168, 882425252) index="1" unique_id=504591273]
-stream = ExtResource("7_p7mpf")
-
 [node name="body" parent="teams/team_1/player_fighter" index="5" unique_id=416499753]
-material = SubResource("ShaderMaterial_w5ded")
+material = SubResource("ShaderMaterial_xs7fa")
 
 [node name="equipment" parent="teams/team_1/player_fighter" index="7" unique_id=488158529]
-material = SubResource("ShaderMaterial_p7mpf")
+material = SubResource("ShaderMaterial_6diul")
 
 [node name="camera" parent="teams/team_1/player_fighter" index="8" unique_id=1871726771]
 limit_left = -5999
@@ -599,6 +607,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="status_feedback" type="TextureRect" parent="ui_canvas/hud" unique_id=1944763554]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_kddjp")
 
 [node name="screen_blink" type="ColorRect" parent="ui_canvas/hud" unique_id=928573371]
 layout_mode = 1
@@ -762,20 +780,26 @@ offset_right = 343.0
 offset_bottom = 119.0
 theme_override_constants/separation = 20
 
-[node name="hp_bar" type="VBoxContainer" parent="ui_canvas/hud/player_data/bars" unique_id=375403283 node_paths=PackedStringArray("player_fighter", "heart_animation", "hp_bar", "status_bar", "floating_icon_anchor", "hp_counter")]
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/bars" unique_id=327858317]
+layout_mode = 2
+
+[node name="hp_bar" type="VBoxContainer" parent="ui_canvas/hud/player_data/bars/HBoxContainer" unique_id=375403283 node_paths=PackedStringArray("status_feedback", "player_fighter", "heart_animation", "hp_bar", "hp_label", "status_bar_container", "status_bar", "floating_icon_anchor", "hp_counter")]
 use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource("15_iln1w")
-player_fighter = NodePath("../../../../../teams/team_1/player_fighter")
+status_feedback = NodePath("../../../../status_feedback")
+player_fighter = NodePath("../../../../../../teams/team_1/player_fighter")
 heart_animation = NodePath("hp_bar/heart_animation")
 hp_bar = NodePath("hp_bar")
+hp_label = NodePath("hp_bar/HBoxContainer/hp_counter")
+status_bar_container = NodePath("../statuses")
 status_bar = NodePath("status_bar")
-floating_icon_anchor = NodePath("../../../../../teams/team_1/player_fighter/floating_icon_anchor")
+floating_icon_anchor = NodePath("../../../../../../teams/team_1/player_fighter/floating_icon_anchor")
 hp_counter = NodePath("hp_bar/HBoxContainer/hp_counter")
 
-[node name="hp_bar" type="TextureProgressBar" parent="ui_canvas/hud/player_data/bars/hp_bar" unique_id=1864388477]
+[node name="hp_bar" type="TextureProgressBar" parent="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" unique_id=1864388477]
 custom_minimum_size = Vector2(320, 36)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -787,11 +811,11 @@ texture_progress = ExtResource("18_bbn25")
 tint_under = Color(0.3723, 0.73, 0.41403168, 1)
 tint_progress = Color(0.4, 1, 0.4, 1)
 
-[node name="heart_animation" type="AnimationPlayer" parent="ui_canvas/hud/player_data/bars/hp_bar/hp_bar" unique_id=1501824334]
-root_node = NodePath("../../../../../../..")
+[node name="heart_animation" type="AnimationPlayer" parent="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar" unique_id=1501824334]
+root_node = NodePath("../../../../../../../..")
 libraries/ = SubResource("AnimationLibrary_6diul")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/bars/hp_bar/hp_bar" unique_id=864218911]
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar" unique_id=864218911]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -801,14 +825,14 @@ offset_right = 100.0
 offset_bottom = 20.0
 grow_vertical = 2
 
-[node name="heart" type="TextureRect" parent="ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer" unique_id=1353513505]
+[node name="heart" type="TextureRect" parent="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer" unique_id=1353513505]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_transform_enabled = true
 texture = ExtResource("20_524le")
 expand_mode = 3
 
-[node name="hp_counter" type="Label" parent="ui_canvas/hud/player_data/bars/hp_bar/hp_bar/HBoxContainer" unique_id=1737446379]
+[node name="hp_counter" type="Label" parent="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar/hp_bar/HBoxContainer" unique_id=1737446379]
 layout_mode = 2
 size_flags_horizontal = 4
 offset_transform_enabled = true
@@ -819,12 +843,20 @@ theme_override_constants/shadow_offset_y = 4
 theme_override_font_sizes/font_size = 48
 text = "22/22"
 
-[node name="status_bar" type="TextureProgressBar" parent="ui_canvas/hud/player_data/bars/hp_bar" unique_id=1686045936]
+[node name="status_bar" type="TextureProgressBar" parent="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" unique_id=1686045936]
 visible = false
-custom_minimum_size = Vector2(0, 12)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 step = 0.1
-texture_progress = ExtResource("18_rj7gd")
+value = 45.8
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = ExtResource("18_w5ded")
+
+[node name="statuses" type="HBoxContainer" parent="ui_canvas/hud/player_data/bars/HBoxContainer" unique_id=496203018]
+layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="party_power" type="HBoxContainer" parent="ui_canvas/hud/player_data/bars" unique_id=920717971 node_paths=PackedStringArray("player_party_power", "enemy_party_power")]
 layout_mode = 2
@@ -1039,6 +1071,7 @@ custom_minimum_size = Vector2(64, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+offset_transform_enabled = true
 step = 0.1
 value = 39.0
 fill_mode = 3
@@ -1209,14 +1242,15 @@ arena = NodePath("../../..")
 [connection signal="fighter_died" from="teams/team_1" to="ui_canvas/hud/player_data/bars" method="_on_team_1_fighter_died"]
 [connection signal="fighter_died" from="teams/team_1" to="ui_canvas/hud/player_data/bars/party_power" method="_on_team_1_fighter_died"]
 [connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud/screen_blink" method="_on_player_fighter_damage_taken"]
-[connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/hp_bar" method="_on_player_fighter_damage_taken"]
+[connection signal="damage_taken" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_damage_taken"]
 [connection signal="death" from="teams/team_1/player_fighter" to="ui_canvas/hud/tide_bar" method="_on_player_fighter_death"]
-[connection signal="healing_received" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/hp_bar" method="_on_player_fighter_healing_received"]
+[connection signal="healing_received" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_healing_received"]
 [connection signal="knocked_back" from="teams/team_1/player_fighter" to="ui_canvas/hud/screen_blink" method="_on_player_fighter_knocked_back"]
 [connection signal="ready" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/artifices" method="_on_player_fighter_ready"]
 [connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/screen_blink" method="_on_player_fighter_status_applied"]
-[connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/hp_bar" method="_on_player_fighter_status_applied"]
-[connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/bars/hp_bar" method="ammo_consumed"]
+[connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_status_applied"]
+[connection signal="status_removed" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_status_removed"]
+[connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
 [connection signal="artifice_aiming_started" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/artifices" method="_on_equipment_artifice_aiming_started"]
@@ -1224,13 +1258,14 @@ arena = NodePath("../../..")
 [connection signal="artifice_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/artifices" method="_on_equipment_artifice_used"]
 [connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_fumbled" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_fumbled"]
+[connection signal="weapon_hit" from="teams/team_1/player_fighter/equipment" to="teams/team_1/player_fighter/equipment/weapon_control" method="weapon_hit"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_used"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="check_weapon_disabled"]
 [connection signal="timeout" from="teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
 [connection signal="child_entered_tree" from="teams/team_2" to="teams/team_2" method="_on_child_entered_tree"]
 [connection signal="fighter_converted" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_fighter_converted"]
 [connection signal="fighter_converted" from="teams/team_2" to="ui_canvas/hud/player_data/bars" method="_on_team_2_fighter_converted"]
-[connection signal="fighter_converted" from="teams/team_2" to="ui_canvas/hud/player_data/bars/hp_bar" method="_on_team_2_fighter_converted"]
+[connection signal="fighter_converted" from="teams/team_2" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_team_2_fighter_converted"]
 [connection signal="fighter_converted" from="teams/team_2" to="ui_canvas/hud/player_data/bars/party_power" method="_on_team_2_fighter_converted"]
 [connection signal="fighter_died" from="teams/team_2" to="ui_canvas/hud/team_balances" method="_on_team_2_fighter_died"]
 [connection signal="fighter_died" from="teams/team_2" to="ui_canvas/hud/tide_bar" method="_on_team_2_fighter_died"]

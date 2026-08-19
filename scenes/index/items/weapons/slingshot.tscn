@@ -8,6 +8,11 @@
 [ext_resource type="AnimationLibrary" uid="uid://bu41wvduumwcp" path="res://resources/animations/weapons/ranged_one_hand.res" id="5_d4t51"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="6_4n02f"]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dxwve"]
+random_pitch = 1.122462
+streams_count = 1
+stream_0/stream = ExtResource("3_d4t51")
+
 [sub_resource type="Animation" id="Animation_leknc"]
 length = 0.001
 tracks/0/type = "value"
@@ -65,7 +70,7 @@ camera_range = 1
 metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=1044056905]
-stream = ExtResource("3_d4t51")
+stream = SubResource("AudioStreamRandomizer_dxwve")
 
 [node name="stun" type="Node" parent="components" unique_id=1040093436]
 script = ExtResource("6_4n02f")

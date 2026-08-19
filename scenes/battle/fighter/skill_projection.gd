@@ -47,7 +47,7 @@ func setup_projection(fighter:NpcFighter)->void:
 	
 	var skill:SkillComponent = source.skill;
 	
-	if SkillComponent.Effect.knockback in skill.effects:
+	if SkillComponent.Effect.knockback in skill.effects and SkillComponent.Effect.aoe_knockback not in skill.effects:
 		fighter.skill_used.connect(line_up_knockback_projection.bind(fighter))
 
 func line_up_knockback_projection(fighter:NpcFighter)->void:
@@ -64,13 +64,15 @@ func generate_projection_animation()->void:
 	var animation:Animation = Animation.new()
 	animation.length = 1;
 	
+	const fx = SkillComponent.Effect
+	
 	var skill:SkillComponent = source.skill;
-	for effect:SkillComponent.Effect in skill.effects:
+	for effect:fx in skill.effects:
 		match effect:
-			SkillComponent.Effect.aoe_damage:
+			fx.aoe_damage:
 				generate_aoe_projection();
 				generate_aoe_animation.call_deferred(AnimationType.flat);
-			SkillComponent.Effect.aoe_status:
+			fx.aoe_status:
 				generate_aoe_projection();
 				
 				var status:Status = source.skill.status;
@@ -78,12 +80,13 @@ func generate_projection_animation()->void:
 				projection_shape.modulate = status.get_status_color() - Color(0, 0, 0, .6);
 				
 				generate_aoe_animation.call_deferred(AnimationType.flat)
-			SkillComponent.Effect.knockback:
-
-				generate_knockback_projection();
-				generate_knockback_animation.call_deferred()
+			fx.knockback:
+				if not fx.aoe_knockback in skill.effects\
+				and not fx.radial_knockback in skill.effects:
+					generate_knockback_projection();
+					generate_knockback_animation.call_deferred()
 				
-			SkillComponent.Effect.aoe_knockback:
+			fx.aoe_knockback:
 				generate_aoe_projection();
 				
 				var shape:Node2D = current_aoe_projection.get_node("shape")
@@ -96,7 +99,7 @@ func generate_projection_animation()->void:
 				shape.add_child(expanding_shape)
 				
 				generate_aoe_animation.call_deferred(AnimationType.directional)
-			SkillComponent.Effect.radial_knockback:
+			fx.radial_knockback:
 				generate_aoe_projection();
 				
 				var radius:float = source.hit_scan.get_node("shape").shape.radius;

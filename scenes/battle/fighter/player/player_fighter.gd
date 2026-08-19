@@ -13,7 +13,20 @@ class_name PlayerFighter
 @export var sfx:AudioStreamPlayer
 
 
-var body_angle:float;
+var body_angle:float:
+	get():
+		if stunned:
+			return body.on_stun_angle;
+		if equipment.not_attacking() or not equipment.equipped_weapon.melee:
+			var direction:Vector2;
+			if not moving:
+				direction = global_position.direction_to(get_global_mouse_position())
+			else:
+				direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+			
+			return direction.angle()
+		else:
+			return equipment.weapon_control.attack_angle.angle()
 
 
 
@@ -54,24 +67,18 @@ func load_fighter()->void:
 	hp = max_hp;
 
 func _physics_process(delta:float)->void:
-	if not flying:
+	if not flying and not stunned:
 		movement_input(delta)
-	move_and_slide()
+	if not stunned or flying:
+		move_and_slide()
 
-	if equipment.not_attacking() or not equipment.equipped_weapon.melee:
-		var direction:Vector2;
-		if not moving:
-			direction = global_position.direction_to(get_global_mouse_position())
-		else:
-			direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-		
-		body_angle = direction.angle()
+
 
 ## where slowdown from attacking is applied
 var action_force:float = 1;
 func movement_input(delta:float)->void:
 	var input_direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	if input_direction:
+	if input_direction != Vector2.ZERO:
 		if not moving:
 			started_moving.emit()
 			moving = true;
@@ -139,3 +146,11 @@ func _on_equipment_weapon_equipped(weapon: Weapon) -> void:
 
 func on_battle_over(_won:bool)->void:
 	pass
+
+
+func _on_status_applied(_source: ActiveFighter, status: Status, _quiet: bool) -> void:
+	if status.type == "stun":
+		if moving:
+			stopped_moving.emit()
+		moving = false;
+		

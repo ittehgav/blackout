@@ -44,10 +44,11 @@ enum TransformVFX {
 }
 
 
+
 var fighter:NpcFighter;
 
 @export var targetting:TargetType;
-@export var base_cooldown:float; ## TODO 0 cooldown = passive
+@export var base_cooldown:float;
 @export var effects:Array[Effect]
 
 @export_subgroup("Settings")

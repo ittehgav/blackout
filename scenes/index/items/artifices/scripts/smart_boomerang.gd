@@ -30,7 +30,7 @@ func hit_callback(hit_target:ActiveFighter)->void:
 	Combat.deal_damage(Entities.player_fighter, hit_target, 100)
 	
 	hit_sfx.play();
-	Entities.player_fighter.equipment.hit_sfx.body_hit(hit_target.body_type)
+
 	
 	var target:Vector2 = global_position + Vector2(randf_range(-1, 1), randf_range(-1, 1))
 	var bounce:StraightProjectile = Combat.shoot_projectile(projectile, Entities.player_fighter, hit_callback, null, target);

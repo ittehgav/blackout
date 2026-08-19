@@ -33,10 +33,20 @@ func _physics_process(_delta:float)->void:
 		module_input();
 	elif Input.is_action_just_released("use_module") and holding_continuous:
 		release_module_command();
-		
+
+var module_use_disabled:bool:
+	get():
+		if not module_cd.is_stopped():
+			return true;
+		if module.check_disabled():
+			return true;
+		if equipment.holder.stunned:
+			return true;
+		return false
+
 
 func module_input()->void:
-	if module_cd.is_stopped() and not module.check_disabled():
+	if not module_use_disabled:
 		if module.continuous:
 			holding_continuous = true
 			module.start();
@@ -45,7 +55,7 @@ func module_input()->void:
 			module.use();
 			module_cd.start();
 			equipment.module_used.emit();
-	else:
+	elif not module_cd.is_stopped():
 		equipment.module_fumbled.emit();
 
 func release_module_command()->void:

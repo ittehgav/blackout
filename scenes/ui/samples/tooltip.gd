@@ -249,6 +249,11 @@ func item_setup()->void:
 		sub_name_label.text = "Consumable"
 	elif item is Artifice:
 		sub_name_label.text = "Artifice";
+	elif item is CarKey:
+		sub_name_label.text = "Vehicle"
+		description_label.text += "[color=green]+"+str(item.cargo_space) + " cargo space\n";
+		description_label.text += "+"+str(item.party_space) + " party capacity[/color]\n";
+		description_label.text += Index.get_color_tag("fuel")+"+"+str(item.fuel_cost)+" travel fuel cost[/color]\n"
 	sub_name_label.show()
 	## do the just method for everything that gets colors from index?
 	## some other way that's gonna make me feel stupid once i find out about how do modularize this stuff?

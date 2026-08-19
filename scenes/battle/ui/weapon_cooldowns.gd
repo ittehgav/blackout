@@ -98,6 +98,9 @@ func load_weapon_to_bar(weapon:Weapon, bar:TextureProgressBar, alt:bool=false)->
 
 	
 func _on_equipment_weapon_changed() -> void:
+	var tween:= create_tween();
+	cooldown_bar.offset_transform_scale = Vector2(1.2, 1.2)
+	tween.tween_property(cooldown_bar, "offset_transform_scale", Vector2.ONE, .1)
 	ammo_labels = {};
 	
 	display_weapon(equipment.equipped_weapon);

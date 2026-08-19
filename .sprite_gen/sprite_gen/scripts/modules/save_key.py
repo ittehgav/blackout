@@ -13,7 +13,7 @@ else:
 
     # Loop through all objects in the collection
     for obj in col.objects:
-        if obj.type == 'MESH' or obj.type == "CURVE":
+        if obj.type == 'MESH' or obj.type == "CURVE" or obj.type == 'VOLUME' or obj.type == 'EMPTY':
             # Insert keyframes for location, rotation, and scale
             obj.keyframe_insert(data_path="location", frame=frame)
             obj.keyframe_insert(data_path="rotation_euler", frame=frame)

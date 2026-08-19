@@ -29,6 +29,7 @@ pitch_scale = 1.5
 [node name="Straight Projectile" parent="." unique_id=1066315008 instance=ExtResource("3_nj0ti")]
 modulate = Color(1, 0.65, 0.65, 1)
 texture = ExtResource("1_cen4i")
+offset_rotation = 90
 hit_allies = true
 
 [node name="trail" parent="Straight Projectile" index="2" unique_id=1816209269]

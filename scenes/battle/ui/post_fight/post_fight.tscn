@@ -357,8 +357,10 @@ theme_override_font_sizes/font_size = 64
 
 [node name="take_loot" type="Button" parent="victory_sequence/loot_panel/VBoxContainer" unique_id=1644811856]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 64
-text = "Take Loot"
+text = "TAKE
+LOOT"
 
 [node name="finish_post_fight" type="Button" parent="victory_sequence/loot_panel" unique_id=2017450098]
 modulate = Color(0.5, 0.5, 0.5, 1)
@@ -376,6 +378,15 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 48
 text = "Continue"
+
+[node name="sort_inventory" type="Button" parent="victory_sequence/loot_panel" unique_id=1516602539]
+layout_mode = 0
+offset_left = 431.0
+offset_top = 507.0
+offset_right = 539.0
+offset_bottom = 566.0
+theme_override_font_sizes/font_size = 64
+text = "SORT"
 
 [node name="defeat_sequence" type="Control" parent="." unique_id=150164074 node_paths=PackedStringArray("morale_icon", "defeat_view", "game_over_view")]
 visible = false
@@ -514,6 +525,7 @@ texture = ExtResource("20_7r0vy")
 [connection signal="item_dropped" from="victory_sequence/loot_panel/enemy_inventory" to="victory_sequence/loot_panel" method="check_available_loot"]
 [connection signal="pressed" from="victory_sequence/loot_panel/VBoxContainer/take_loot" to="victory_sequence/loot_panel" method="_on_take_loot_pressed"]
 [connection signal="pressed" from="victory_sequence/loot_panel/finish_post_fight" to="." method="_on_finish_post_fight_pressed"]
+[connection signal="pressed" from="victory_sequence/loot_panel/sort_inventory" to="victory_sequence/loot_panel" method="_on_sort_inventory_pressed"]
 [connection signal="pressed" from="defeat_sequence/defeat/MarginContainer/finish_post_fight" to="." method="_on_finish_post_fight_pressed"]
 [connection signal="pressed" from="defeat_sequence/game_over/MarginContainer/return_to_main_menu" to="defeat_sequence" method="_on_return_to_main_menu_pressed"]
 

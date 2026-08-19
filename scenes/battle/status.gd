@@ -128,7 +128,7 @@ func apply(propagated:bool)->void:
 	
 
 func dot_ticker(final_value:float)->void:
-	Combat.deal_damage(source, host, final_value);
+	Combat.deal_damage(source, host, final_value, true);
 
 func remove()->void:
 	if not is_instance_valid(host):
@@ -145,11 +145,10 @@ func remove()->void:
 			host.stat_modifiers[stat] -= value;
 			host.stat_changed.emit(stat);
 			
-			
+	host.status_removed.emit(self)
 	if chain_root:
 		for status:Status in chain:
 			status.remove();
-				
 	queue_free()
 
 func get_status_color()->Color:

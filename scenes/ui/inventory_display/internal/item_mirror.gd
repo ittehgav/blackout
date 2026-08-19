@@ -5,11 +5,13 @@ class_name ItemMirror;
 
 var display:InventoryDisplay;
 
-@export var outline:ReferenceRect;
 @export var bg:ColorRect;
 @export var being_traded_rect:ColorRect;
 
 @export var tooltip:Tooltip;
+@export var frame:Panel;
+
+@export var rarity_panel_textures:Array[StyleBox]
 
 
 @export var stack_size_label:Label;
@@ -17,6 +19,8 @@ var display:InventoryDisplay;
 @export var artifice_equipped_label:Label;
 
 @export_group("colors")
+
+
 @export var bought_color:Color;
 @export var sold_color:Color
 var item:Item;
@@ -24,6 +28,7 @@ var item_under:ItemMirror;
 
 var inventory_position:Vector2i;
 var projection_position:Vector2i;
+
 
 
 var origin_position:Vector2;
@@ -37,8 +42,7 @@ var vacant_spot_offset:Vector2i;
 var send_on_drop:bool = false;
 
 var shader_color:Color;
-var outline_color:Color;
-var highlighted_outline_color:Color
+
 
 ## only matters when trading
 var price:float;
@@ -67,6 +71,12 @@ func load_item(target:Item, new_item:bool=false)->void:
 	
 	var item_color:Color = item.get_mirror_color();
 	self_modulate = item_color;
+	var frame_size: = Vector2(item.size_x, item.size_y) * 24;
+	frame.custom_minimum_size = frame_size;
+	frame.size = frame_size;
+	
+	frame.modulate = item_color + Color(0.4, 0.4, 0.4, -.4)
+	frame.add_theme_stylebox_override("panel", rarity_panel_textures[item.rarity - 1])
 
 	var dark_color:Color = item_color.darkened(.8);
 	var light_color:Color = item_color.lightened(.4);
@@ -82,10 +92,7 @@ func load_item(target:Item, new_item:bool=false)->void:
 	bg.color.s = min(.7, bg.color.s)
 
 	shader_color = item_color;
-	outline_color = shader_color * Color(.25, .25, .25);
-	outline.border_color = outline_color;
-	highlighted_outline_color = item_color + Color.from_hsv(0, 0, .3);
-	
+
 	var labels:Array[Label] = [stack_size_label, price_tag]
 	if item.size_x >= 2:
 		for l:Label in labels:
@@ -508,7 +515,7 @@ func highlight_item()->void:
 	if original_modulate == Color.BLACK:
 		original_modulate = modulate;
 	being_highlighted = true
-	original_modulate = modulate;
+
 	modulate.v *= 2;
 	modulate.s /= 1.25;
 
@@ -543,7 +550,7 @@ func _on_mouse_entered() -> void:
 			display.remove_mirror(self)
 	else:
 		display.item_mirror_hovered(self);
-		outline.border_color = highlighted_outline_color;
+	frame.show()
 
 func send_to_containers()->bool:
 	var amount_deposited:int=0;
@@ -571,7 +578,7 @@ func send_to_containers()->bool:
 	return false
 			
 func _on_mouse_exited() -> void:
-	outline.border_color = outline_color;
+	frame.hide()
 
 func set_price()->void:
 	price_tag.show();

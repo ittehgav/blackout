@@ -1,22 +1,60 @@
 [gd_scene format=3 uid="uid://dd47t7xuh3au2"]
 
 [ext_resource type="Script" uid="uid://cmdg018kqhwm" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.gd" id="1_a7x5t"]
+[ext_resource type="AudioStream" uid="uid://cyj4x5px7n2wi" path="res://assets/sound/sfx/combat/player/hit/flesh_hit.ogg" id="2_50rq3"]
+[ext_resource type="Script" uid="uid://dxmgckpp0gh0n" path="res://scenes/battle/fighter/npc_fighter/skill_sfx.gd" id="2_aumva"]
 [ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_uoen3"]
+[ext_resource type="Script" uid="uid://c54nijehkrne2" path="res://scenes/battle/fighter/npc_fighter/hit_feedback.gd" id="3_gxbbk"]
 [ext_resource type="Script" uid="uid://vp6mjhqjonac" path="res://scenes/battle/fighter/npc_fighter/hurtbox.gd" id="3_m77vo"]
+[ext_resource type="AudioStream" uid="uid://b7urwrftu2rv2" path="res://assets/sound/sfx/combat/generic/npc_fighter_melee_attack/DSGNMisc_MELEE-Sword Slash_HY_PC-001.wav" id="3_pw6ky"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="4_aumva"]
 [ext_resource type="Texture2D" uid="uid://nnmygu4ogbnr" path="res://assets/visual/ui/bars/base_bar_trail.png" id="4_b8wnn"]
+[ext_resource type="AudioStream" uid="uid://dmlqgtkvgv8r2" path="res://assets/sound/sfx/combat/generic/npc_fighter_melee_attack/DSGNMisc_MELEE-Sword Slash_HY_PC-002.wav" id="4_yxh0q"]
+[ext_resource type="AudioStream" uid="uid://cmvu7h5kfmq24" path="res://assets/sound/sfx/combat/player/hit/metal_hit.wav" id="5_8f7ps"]
+[ext_resource type="AudioStream" uid="uid://kjo1ngka4qkq" path="res://assets/sound/sfx/combat/generic/npc_fighter_melee_attack/DSGNMisc_MELEE-Sword Slash_HY_PC-003.wav" id="5_cn6t3"]
 [ext_resource type="Texture2D" uid="uid://eufi7oc0yx7e" path="res://assets/visual/ui/bars/base_bar_fill.png" id="5_n8p1d"]
 [ext_resource type="Script" uid="uid://d03oto63awsxv" path="res://scenes/battle/fighter/collision_scan.gd" id="6_aumva"]
+[ext_resource type="AudioStream" uid="uid://c603mj0jyhcy4" path="res://assets/sound/sfx/combat/generic/npc_fighter_melee_attack/DSGNMisc_MELEE-Sword Slash_HY_PC-004.wav" id="6_fyvuc"]
+[ext_resource type="AudioStream" uid="uid://cclsdjhjgpj12" path="res://assets/sound/sfx/combat/generic/npc_fighter_melee_attack/DSGNMisc_MELEE-Sword Slash_HY_PC-005.wav" id="7_ylefx"]
+[ext_resource type="AudioStream" uid="uid://brgt61o7ck4fv" path="res://assets/sound/sfx/combat/generic/npc_fighter_melee_attack/DSGNMisc_MELEE-Sword Slash_HY_PC-006.wav" id="8_vy3mt"]
+[ext_resource type="AudioStream" uid="uid://cohmkr4b6c2uv" path="res://assets/sound/sfx/combat/generic/npc_fighter_ranged_attack/WHSH_MOVEMENT-Noise Zap_HY_PC-001.wav" id="9_8jhbk"]
+[ext_resource type="AudioStream" uid="uid://d8ixlsqhn7ln" path="res://assets/sound/sfx/combat/generic/npc_fighter_ranged_attack/WHSH_MOVEMENT-Noise Zap_HY_PC-002.wav" id="10_3wb5v"]
+[ext_resource type="AudioStream" uid="uid://cormqe8eyl10s" path="res://assets/sound/sfx/combat/generic/npc_fighter_ranged_attack/WHSH_MOVEMENT-Noise Zap_HY_PC-003.wav" id="11_50rq3"]
+[ext_resource type="AudioStream" uid="uid://dfdkg6lio85sb" path="res://assets/sound/sfx/combat/generic/npc_fighter_ranged_attack/WHSH_MOVEMENT-Noise Zap_HY_PC-004.wav" id="12_gxbbk"]
 [ext_resource type="PackedScene" uid="uid://bmfxp2tlulc88" path="res://scenes/vfx/dust.tscn" id="12_uoen3"]
+[ext_resource type="AudioStream" uid="uid://dfurbroxnul46" path="res://assets/sound/sfx/combat/generic/npc_fighter_ranged_attack/WHSH_MOVEMENT-Noise Zap_HY_PC-005.wav" id="13_ktvg7"]
+[ext_resource type="AudioStream" uid="uid://covbas8uos6f6" path="res://assets/sound/sfx/combat/generic/npc_fighter_ranged_attack/WHSH_MOVEMENT-Noise Zap_HY_PC-006.wav" id="14_8f7ps"]
+[ext_resource type="AudioStream" uid="uid://dieeuhkaevyw5" path="res://assets/sound/sfx/combat/thud.wav" id="15_idirp"]
 [ext_resource type="Script" uid="uid://dcgknefgii0qc" path="res://assets/visual/ui/fighter_overlay/fighter_overlay.gd" id="17_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c4l430jox76ug" path="res://assets/visual/ui/bars/hollow_fill.png" id="19_arr5u"]
 [ext_resource type="Texture2D" uid="uid://dmbiowixm36fp" path="res://assets/visual/ui/bars/semi_hollow_fill.png" id="20_stwlc"]
 [ext_resource type="Texture2D" uid="uid://c2lqqbkadvblr" path="res://assets/visual/particles/circles/circle_8x8.png" id="24_nct2u"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="30_idirp"]
+[ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="31_y1g4i"]
+[ext_resource type="Script" uid="uid://b7mm34gf2ypdp" path="res://scenes/battle/fighter/fighter_shadow.gd" id="32_nphiq"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g38kn"]
+streams_count = 6
+stream_0/stream = ExtResource("3_pw6ky")
+stream_1/stream = ExtResource("4_yxh0q")
+stream_2/stream = ExtResource("5_cn6t3")
+stream_3/stream = ExtResource("6_fyvuc")
+stream_4/stream = ExtResource("7_ylefx")
+stream_5/stream = ExtResource("8_vy3mt")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8jhbk"]
+streams_count = 6
+stream_0/stream = ExtResource("9_8jhbk")
+stream_1/stream = ExtResource("10_3wb5v")
+stream_2/stream = ExtResource("11_50rq3")
+stream_3/stream = ExtResource("12_gxbbk")
+stream_4/stream = ExtResource("13_ktvg7")
+stream_5/stream = ExtResource("14_8f7ps")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
 radius = 42.190044
 
-[node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("dust", "skill_dust", "overlay", "cooldown_timer", "skill_retry_timer", "movement_ticker", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses")]
+[node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("dust", "skill_dust", "overlay", "shadow", "cooldown_timer", "skill_retry_timer", "movement_ticker", "hit_feedback", "skill_sfx", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
@@ -24,9 +62,12 @@ script = ExtResource("1_a7x5t")
 dust = NodePath("Dust")
 skill_dust = NodePath("skill_dust")
 overlay = NodePath("FighterOverlay")
+shadow = NodePath("shadow_warp_anchor/fighter_shadow")
 cooldown_timer = NodePath("components/timers/skill_cooldown")
 skill_retry_timer = NodePath("components/timers/skill_cooldown/skill_retry")
 movement_ticker = NodePath("components/timers/movement_ticker")
+hit_feedback = NodePath("hit_feedback")
+skill_sfx = NodePath("skill_sfx")
 timers = NodePath("components/timers")
 initial_stats = NodePath("components/stats/initial_stats")
 stat_modifiers = NodePath("components/stats/modifiers")
@@ -34,6 +75,22 @@ stat_multipliers = NodePath("components/stats/multipliers")
 hurtbox = NodePath("hurtbox")
 collision_scan = NodePath("collision_scan")
 statuses = NodePath("components/statuses")
+
+[node name="hit_feedback" type="AudioStreamPlayer2D" parent="." unique_id=250249191 node_paths=PackedStringArray("fighter")]
+stream = ExtResource("2_50rq3")
+script = ExtResource("3_gxbbk")
+fighter = NodePath("..")
+direct_hit = ExtResource("2_50rq3")
+shielded_hit = ExtResource("5_8f7ps")
+
+[node name="skill_sfx" type="AudioStreamPlayer2D" parent="." unique_id=2111882675 node_paths=PackedStringArray("source")]
+stream = SubResource("AudioStreamRandomizer_g38kn")
+pitch_scale = 1.19
+script = ExtResource("2_aumva")
+source = NodePath("..")
+melee_attack = SubResource("AudioStreamRandomizer_g38kn")
+ranged_attack = SubResource("AudioStreamRandomizer_8jhbk")
+crowd_control = ExtResource("15_idirp")
 
 [node name="components" type="Node" parent="." unique_id=1605454314]
 script = ExtResource("2_uoen3")
@@ -275,11 +332,35 @@ position = Vector2(0, 51)
 amount = 50
 manual = true
 
+[node name="shadow_warp_anchor" type="Node2D" parent="." unique_id=1555253963]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="shadow_warp_anchor" unique_id=824844003]
+modulate = Color(0, 0, 0, 0.3882353)
+position = Vector2(0, 1)
+scale = Vector2(0.57894737, 0.57894737)
+texture = ExtResource("30_idirp")
+
+[node name="fighter_shadow" type="Sprite2D" parent="shadow_warp_anchor" unique_id=1575324951 node_paths=PackedStringArray("source")]
+modulate = Color(0, 0, 0, 0.26666668)
+z_index = -1
+position = Vector2(-1, -1)
+texture = ExtResource("31_y1g4i")
+hframes = 8
+vframes = 11
+frame = 6
+script = ExtResource("32_nphiq")
+source = NodePath("../..")
+
+[connection signal="damage_blocked" from="." to="hit_feedback" method="_on_npc_fighter_damage_blocked"]
 [connection signal="damage_blocked" from="." to="FighterOverlay" method="_on_npc_fighter_damage_blocked"]
+[connection signal="damage_taken" from="." to="hit_feedback" method="_on_npc_fighter_damage_taken"]
 [connection signal="damage_taken" from="." to="FighterOverlay" method="_on_fighter_damage_taken"]
 [connection signal="healing_received" from="." to="FighterOverlay" method="_on_npc_fighter_healing_received"]
 [connection signal="knocked_back" from="." to="FighterOverlay" method="on_fighter_knocked_back"]
+[connection signal="ready" from="." to="shadow_warp_anchor/fighter_shadow" method="source_ready"]
 [connection signal="shield_gained" from="." to="FighterOverlay" method="_on_npc_fighter_shield_gained"]
+[connection signal="skill_used" from="." to="skill_sfx" method="_on_npc_fighter_skill_used"]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
 [connection signal="status_applied" from="." to="FighterOverlay" method="on_status_applied"]
 [connection signal="timeout" from="components/timers/skill_cooldown" to="." method="skill_cooldown"]

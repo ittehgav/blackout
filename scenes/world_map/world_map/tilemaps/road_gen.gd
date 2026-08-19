@@ -10,12 +10,8 @@ func _ready()->void:
 	Entities.road = self;
 
 
-
-var to_apply_terrain:Array[Vector2i];
-
-var road_cells:Array[Vector2i];
 var roadside:Array[Vector2i];
-var props_slots:Array[Vector2i];
+
 func generate_roads(locations:Array[Location])->void:
 	origin.neighbors = [origin.neighbors[0]]
 	for location:Location in locations:
@@ -23,11 +19,6 @@ func generate_roads(locations:Array[Location])->void:
 			if location not in neighbor.neighbor_paths:
 				connect_neighbors(location, neighbor);
 	
-	for spot:Vector2i in road_cells:
-		## so props don't appear in the middle of the road
-		props_slots.erase(spot)
-	#roadside_tiles.set_cells_terrain_connect(roadside, 0, 0)
-	props_tiles.set_cells_terrain_connect(props_slots, 0, 0)
 
 
 func connect_neighbors(l1:Location, l2:Location)->void:
@@ -55,14 +46,9 @@ func connect_neighbors(l1:Location, l2:Location)->void:
 	
 	set_cells_terrain_path(final_path, 0, 0);
 	
-	for spot:Vector2i in final_path:
-		for x in range(-1, 2):
-			for y in range(-1, 2):
-				var to_add: = Vector2i(spot.x + x, spot.y + y);
-				if to_add not in roadside:
-					roadside.append(to_add);
-
 	
+
+
 func get_straight_line(from:Vector2i, to:Vector2i)->Array[Vector2i]:
 	var path:Array[Vector2i];
 	var dx:= int(abs(to.x - from.x));
@@ -77,10 +63,8 @@ func get_straight_line(from:Vector2i, to:Vector2i)->Array[Vector2i]:
 	while true:
 		var coords:= Vector2i(x, y);
 		path.append(coords)
-
 		if x == to.x && y == to.y:
 			break
-
 		var e2: = 2 * err
 		if e2 > -dy:
 			err -= dy
@@ -88,25 +72,4 @@ func get_straight_line(from:Vector2i, to:Vector2i)->Array[Vector2i]:
 		if e2 < dx:
 			err += dx
 			y += sy
-			
-	const prop_offset = 5
-	if dx: ## horizontal line = spots offset on the Y axis
-		for spot:Vector2i in path:
-			road_cells.append(spot) ## catching road cells to prevent overlapping with props
-			var slot_1:Vector2i = Vector2i(spot.x, spot.y - prop_offset - 1)
-			var slot_2:Vector2i = Vector2i(spot.x, spot.y + prop_offset)
-			if slot_1 not in props_slots:
-				props_slots.append(slot_1);
-			if slot_2 not in props_slots:
-				props_slots.append(slot_2);
-	else: ## vertical line = spots offset on the X axis
-		for spot:Vector2i in path:
-			road_cells.append(spot)
-			var slot_1:Vector2i = Vector2i(spot.x - prop_offset - 1, spot.y)
-			var slot_2:Vector2i = Vector2i(spot.x + prop_offset, spot.y)
-			if slot_1 not in props_slots:
-				props_slots.append(slot_1);
-			if slot_2 not in props_slots:
-				props_slots.append(slot_2);
-
 	return path

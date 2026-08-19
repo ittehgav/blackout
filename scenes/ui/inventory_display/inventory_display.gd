@@ -228,7 +228,11 @@ func clear_all_mirrors()->void:
 
 func remove_mirror(mirror:ItemMirror, from_inventory:bool=true, and_refresh:bool=true)->void:
 	if from_inventory and mirror.item in inventory.items:
+		var is_key:bool = mirror.item is CarKey;
 		inventory.remove_item(mirror.item);
+		
+		if is_key:
+			hard_reset()
 	
 	if mirror.item and mirror.item is ResourceContainer:
 		self[mirror.item.resource +"_containers"].erase(mirror)
@@ -460,7 +464,6 @@ func receive_item(item_mirror:ItemMirror, trade:bool)->bool:
 
 	
 	if space_occupied:
-		print("socc?")
 		var new_mirror:ItemMirror;
 		
 		new_mirror = mirror_item(item_mirror.item)
@@ -842,6 +845,7 @@ func sort_container_mirrors(a:ItemMirror, b:ItemMirror)->bool:
 func _on_inventory_grid_resized() -> void:
 	cargo_space.custom_minimum_size.x = size_x * 48
 	cargo_space.size.x = size_x * 48
+
 
 
 func has_room(item:Item, replacing_item:Item=null)->bool:

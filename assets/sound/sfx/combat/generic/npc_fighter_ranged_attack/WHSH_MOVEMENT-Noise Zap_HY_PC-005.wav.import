@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dfurbroxnul46"
+path="res://.godot/imported/WHSH_MOVEMENT-Noise Zap_HY_PC-005.wav-39b7c0d2f1b2ffd595736a69bfdacb31.sample"
+
+[deps]
+
+source_file="res://assets/sound/sfx/combat/generic/npc_fighter_ranged_attack/WHSH_MOVEMENT-Noise Zap_HY_PC-005.wav"
+dest_files=["res://.godot/imported/WHSH_MOVEMENT-Noise Zap_HY_PC-005.wav-39b7c0d2f1b2ffd595736a69bfdacb31.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

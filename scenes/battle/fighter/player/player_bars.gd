@@ -1,7 +1,7 @@
 extends Control
 class_name PlayerHpBar
 
-@export var hud_section:VBoxContainer
+@export var status_feedback:TextureRect;
 
 @export var player_fighter:PlayerFighter;
 
@@ -9,6 +9,7 @@ class_name PlayerHpBar
 @export var hp_bar:TextureProgressBar;
 @export var hp_label:Label;
 
+@export var status_bar_container:Container;
 @export var status_bar:TextureProgressBar;
 
 @export var floating_icon_anchor:Control
@@ -43,7 +44,7 @@ func hp_frac_color()->Color:
 
 var current_color_tween:Tween;
 var current_color_tween_duration:float;
-func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status) -> void:
+func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status, quiet:bool) -> void:
 	match status.type:
 		"stun":
 			if current_color_tween and current_color_tween.is_running():
@@ -55,13 +56,19 @@ func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status) -
 
 			add_status_bar(Color.PURPLE, status.timer)
 			current_color_tween_duration = status.duration
-			hud_section.modulate = Color.PURPLE;
+			status_feedback.show()
+			status_feedback.modulate = Color.PURPLE;
 			
 			var tween:Tween = create_tween();
 			tween.set_ease(Tween.EASE_IN)
 			tween.set_trans(Tween.TRANS_CUBIC)
-			tween.tween_property(hud_section, "modulate", Color.WHITE, current_color_tween_duration);
 			
+func _on_player_fighter_status_removed(status: Status) -> void:
+	match status.type:
+		"stun":
+			if not player_fighter.stunned:
+				status_feedback.hide()
+
 func ammo_consumed(type:String, _amount:int)->void:
 	var icon:ResourceIcon = Index.scenes.ui.resource_icon.instantiate();
 	icon.resource = type
@@ -74,7 +81,7 @@ func add_status_bar(bar_color:Color, status_timer:Timer)->void:
 	bar.modulate = bar_color
 
 	bar.show()
-	add_child(bar);
+	status_bar_container.add_child(bar);
 	bar.max_value = status_timer.wait_time;
 	bar.value = status_timer.wait_time;
 	bar.size_flags_horizontal =Control.SIZE_EXPAND

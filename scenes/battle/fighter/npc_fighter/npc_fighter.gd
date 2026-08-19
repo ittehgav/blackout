@@ -19,14 +19,16 @@ var unit:FighterUnit;
 @export var dust:Dust;
 @export var skill_dust:Dust
 @export var overlay:FighterOverlay
+@export var shadow:FighterShadow
 
 @export_subgroup("timers")
 @export var cooldown_timer:Timer;
 @export var skill_retry_timer:Timer;
 @export var movement_ticker:Timer;
 
-
-
+@export_subgroup("sfx")
+@export var hit_feedback:AudioStreamPlayer2D;
+@export var skill_sfx:AudioStreamPlayer2D
 
 
 var target_fighter:ActiveFighter;
@@ -113,6 +115,7 @@ func load_base()->void:
 	
 	base.fighter = self;
 	add_child(base)
+	base.frame_changed.connect(shadow.source_frame_changed)
 	base.set_owner(self)
 	base.get_node("hurtbox").reparent(hurtbox);
 

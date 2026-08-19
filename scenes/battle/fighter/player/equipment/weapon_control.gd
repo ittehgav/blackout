@@ -18,6 +18,22 @@ var alternative_weapon:Weapon;
 
 var holding_continuous:bool=false
 
+var attack_angle:Vector2;
+## to retain direction on body_angle get
+
+
+var attack_disabled:bool:
+	get():
+		if weapon.check_disabled():
+			return true
+		if equipment.holder.stunned:
+			return true
+		if artifice_control.aiming:
+			return true
+		if not weapon_cd.is_stopped():
+			return true
+		return false
+
 func _ready()->void:
 	await equipment.holder.ready
 	var player:Player = Entities.player;
@@ -70,7 +86,7 @@ func load_weapon(target:Weapon)->Weapon:
 	if new_weapon.ammo_cost:
 		new_weapon.ammo_consumed.connect(equipment.ammo_consumed.emit)
 		new_weapon.ammo_ran_out.connect(equipment.ammo_ran_out.emit);
-
+	new_weapon.animation_player.play(new_weapon.animation_root_key+"/idle")
 	if new_weapon.projectile:
 		new_weapon.projectile.setup(equipment.holder)
 
@@ -95,7 +111,7 @@ func _physics_process(_delta:float)->void:
 func use_weapon_command(alt:bool=false)->void:
 	## using alt in a weapon that doesn't have an alt use
 	## just makes it fire the regular attack
-	if weapon_cd.is_stopped() and not weapon.check_disabled() and not artifice_control.aiming:
+	if not attack_disabled:
 		equipment.holder.hit_targets.clear();
 		if not weapon.continuous:
 			use_weapon(alt)
@@ -127,6 +143,7 @@ func use_weapon(alt:bool)->void:
 	weapon.use(alt)
 	play_weapon_vfx()
 	equipment.weapon_used.emit()
+	attack_angle = equipment.holder.global_position.direction_to(equipment.get_global_mouse_position())
 
 
 func play_feedback(which:WeaponDisplay.PlayerScreenFeedback)->void:

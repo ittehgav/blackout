@@ -4,6 +4,8 @@ class_name StraightProjectile
 @export var auto_expire:bool= true;
 @export var pierce:int=0;
 
+@export var offset_rotation:= 0;
+
 @export var despawn_timer:Timer;
 
 func shoot(target_direction:Vector2)->Projectile:
@@ -23,6 +25,7 @@ func start_flight(target_direction:Vector2)->void:
 	
 	global_position = shooter.global_position;
 	look_at(position + target_direction)
+	rotation_degrees += offset_rotation
 
 
 

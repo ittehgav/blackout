@@ -13,7 +13,7 @@ signal stopped_moving;
 signal location_visited(location:Location)
 signal location_entered(location:Location);
 
-const road_cell_size = 32;
+const road_cell_size = 64;
 
 @export var leader:Leader;
 @export var vehicle:Vehicle;

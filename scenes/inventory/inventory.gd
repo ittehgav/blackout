@@ -53,16 +53,14 @@ func get_resource_count(r:String)->int:
 @export var weapons:Array[Weapon];
 @export var modules:Array[Module];
 @export var artifices:Array[Artifice]
+@export var car_keys:Array[CarKey]
 
-@export var capacity_x:int = 8;
+@export var capacity_x:int = 0;
 @export var capacity_y:int = 12;
+## player inventory  will always have Big Family as a starter
 
 var last_display:InventoryDisplay;
 ## to keep track of shops/refinement menus that were opened before the player sheet
-
-
-
-
 
 
 func change_resource(resource:String, amount:int)->void:
@@ -145,6 +143,11 @@ func add_item(item: Item, emit_change:bool=false) -> void:
 		containers.append(item)
 	elif item is Artifice:
 		artifices.append(item)
+	elif item is CarKey:
+		car_keys.append(item)
+		capacity_x += item.cargo_space/12
+		## only messing with x_size to keep it simple rn
+		
 	if emit_change:
 		changed.emit()
 
@@ -180,7 +183,11 @@ func remove_item(item:Item)->void:
 		containers.erase(item)
 	elif item is Artifice:
 		artifices.erase(item)
+	elif item is CarKey:
+		car_keys.erase(item);
+		capacity_x -= item.cargo_space/12
 	remove_child.call_deferred(item)
+	changed.emit()
 
 
 func clear_containers()->void:

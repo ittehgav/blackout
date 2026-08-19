@@ -56,3 +56,8 @@ func loot_money()->Tween:
 	player.inventory.change_resource("money", money_gain)
 	
 	return tween;
+
+
+func _on_sort_inventory_pressed() -> void:
+	Entities.player.inventory.sort_items_by_size();
+	player_inventory_display.hard_reset()

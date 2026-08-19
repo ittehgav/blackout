@@ -10,7 +10,6 @@ const scorched_ground_duration = 5
 var scorched_ground_damage:float = 35;
 
 
-
 @export var scorched_ground:TextureRect;
 @export var scorched_ground_hit_scan:Area2D;
 @export var scorched_ground_sfx:AudioStreamPlayer

@@ -19,6 +19,11 @@ signal unit_accessories_changed
 
 @onready var player:Player = Entities.player
 
+@export var party_cap_label:Label;
+
+func _ready()->void:
+	Entities.player.inventory.changed.connect(refresh_data)
+
 func refresh_data()->void:
 	for c in units_grid.get_children():
 		c.queue_free()
@@ -28,14 +33,14 @@ func refresh_data()->void:
 		var sample:UnitSample = Index.scenes.ui.unit_sample.instantiate();
 		sample.load_unit(unit, show_more.bind(unit))
 		units_grid.add_child(sample)
-		
-
-		
 	
 	var travel_expenses:Dictionary = player.travel_upkeep_cost();
 	food_cost.text = str(travel_expenses.food) + "/hour"
 	fuel_cost.text = str(travel_expenses.fuel) + "/hour"
 		
+	var current_count:String = str(len(Entities.player.roster.units));
+	var cap:String = str(Entities.player.party_cap);
+	party_cap_label.text = current_count+"/"+cap
 var current_unit_sheet:UnitSheet;
 func show_more(unit:FighterUnit)->void:
 	ui_sfx.play_stream("button_click")

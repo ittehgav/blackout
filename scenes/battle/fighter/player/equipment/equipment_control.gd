@@ -32,9 +32,6 @@ signal artifice_aiming_stopped(which:int)
 signal artifice_used(which:int)
 signal artifice_fumbled;
 
-@export var hit_sfx:AudioStreamPlayer;
-## to make it fetchable from global scope
-
 @export var weapon_control:WeaponControl
 @export var module_control:ModuleControl;
 @export var artifice_control:ArtificeControl

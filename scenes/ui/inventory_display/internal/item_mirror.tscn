@@ -1,9 +1,49 @@
 [gd_scene format=3 uid="uid://0qsjppw7fils"]
 
 [ext_resource type="Script" uid="uid://bxflqfjcfcxqb" path="res://scenes/ui/inventory_display/internal/item_mirror.gd" id="2_7dtgv"]
+[ext_resource type="Texture2D" uid="uid://chph40wf1uj3u" path="res://resources/themes/r1_item_mirror_frame.png" id="2_arj7n"]
 [ext_resource type="PackedScene" uid="uid://qt3uf6vc1tww" path="res://scenes/ui/samples/tooltip.tscn" id="2_sxf1m"]
+[ext_resource type="Texture2D" uid="uid://pwgn6mnghr6v" path="res://resources/themes/panel.png" id="3_fembp"]
+[ext_resource type="Texture2D" uid="uid://cqnm1hn0hoj5t" path="res://resources/themes/r2_item_mirror_frame.png" id="3_kpy74"]
+[ext_resource type="Texture2D" uid="uid://dd8tl786e1svl" path="res://resources/themes/r3_item_mirror_frame.png" id="4_cs2a6"]
 
-[node name="ItemMirror" type="TextureRect" unique_id=688900415 node_paths=PackedStringArray("outline", "bg", "being_traded_rect", "tooltip", "stack_size_label", "price_tag", "artifice_equipped_label")]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e22hl"]
+resource_local_to_scene = true
+texture = ExtResource("2_arj7n")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 0, 18, 18)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_arj7n"]
+resource_local_to_scene = true
+texture = ExtResource("3_kpy74")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 0, 18, 18)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kpy74"]
+resource_local_to_scene = true
+texture = ExtResource("4_cs2a6")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cs2a6"]
+resource_local_to_scene = true
+texture = ExtResource("3_fembp")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 0, 18, 18)
+
+[node name="ItemMirror" type="TextureRect" unique_id=688900415 node_paths=PackedStringArray("bg", "being_traded_rect", "tooltip", "frame", "stack_size_label", "price_tag", "artifice_equipped_label")]
 z_index = 5
 anchors_preset = 8
 anchor_left = 0.5
@@ -17,10 +57,11 @@ size_flags_vertical = 4
 offset_transform_enabled = true
 mouse_filter = 0
 script = ExtResource("2_7dtgv")
-outline = NodePath("MarginContainer/outline")
 bg = NodePath("MarginContainer/mirror_bg")
 being_traded_rect = NodePath("being_traded")
 tooltip = NodePath("Tooltip")
+frame = NodePath("MarginContainer/frame")
+rarity_panel_textures = Array[StyleBox]([SubResource("StyleBoxTexture_e22hl"), SubResource("StyleBoxTexture_arj7n"), SubResource("StyleBoxTexture_kpy74")])
 stack_size_label = NodePath("stack_size")
 price_tag = NodePath("price_tag")
 artifice_equipped_label = NodePath("artifice_equipped")
@@ -45,13 +86,16 @@ theme_override_constants/margin_bottom = 2
 layout_mode = 2
 mouse_filter = 2
 
-[node name="outline" type="ReferenceRect" parent="MarginContainer" unique_id=600167259]
-z_index = 1
+[node name="frame" type="Panel" parent="MarginContainer" unique_id=1977642168]
+visible = false
+z_index = 2
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_scale = Vector2(2, 2)
 mouse_filter = 2
-border_color = Color(1, 1, 1, 1)
-border_width = 3.0
-editor_only = false
+theme_override_styles/panel = SubResource("StyleBoxTexture_cs2a6")
 
 [node name="Tooltip" parent="." unique_id=755899717 instance=ExtResource("2_sxf1m")]
 layout_mode = 0
@@ -70,6 +114,7 @@ target_type = 2
 
 [node name="price_tag" type="Label" parent="." unique_id=1154639968]
 visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -83,6 +128,7 @@ theme_override_constants/outline_size = 12
 horizontal_alignment = 2
 
 [node name="stack_size" type="Label" parent="." unique_id=909689931]
+z_index = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

@@ -7,7 +7,7 @@ const resource_colors = {
 	
 	"juice":Color(0.537, 0.212, 0.698, 1.0),
 	"scrap":Color(0.65, 0.562, 0.553, 1.0),
-	"chips":Color(0.32, 0.8, 0.8, 1.0)
+	"chips":Color(0.24, 0.8, 0.8, 1.0)
 }
 const all_resources = [
 	"money",
@@ -45,7 +45,7 @@ static var resource_descriptions:Dictionary[String, String] = {
 	
 	"food": "[color="+resource_colors.food.to_html() + "]Basic survival resource.\n[/color]While travelling, you and your party need to eat every 30 minutes, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop.",
 	
-	"fuel": "[color="+resource_colors.fuel.to_html() + "]Basic travel resource, consumed when travelling in the world map[/color], the more units there are in the party the more fuel travelling will cost.\nIf you have no fuel, your party will travel much slower.\nAlso used as [color=green]ammo[/color] for some equipment.",
+	"fuel": "[color="+resource_colors.fuel.to_html() + "]Basic travel resource, consumed when travelling in the world map[/color], the your cars have an hourly travel fuel cost.\nIf you have no fuel, your party will travel much slower.\nAlso used as [color=green]ammo[/color] for some equipment.",
 
 
 	"juice": "[color="+resource_colors.juice.to_html() + "]Strange substance[/color] with many practical uses, found all over the land.\nA [color=green]common[/color] trade comodity.\nUsed for [color=cyan]upgrading units.[/color]\nAlso used as [color=green]ammo[/color] for some equipment.",

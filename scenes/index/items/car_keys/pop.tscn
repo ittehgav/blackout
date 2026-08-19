@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://did3x7h2b4ex"]
+
+[ext_resource type="Script" uid="uid://c4sgvv837ictb" path="res://scenes/index/items/car_keys/scripts/pop.gd" id="1_b6672"]
+[ext_resource type="Texture2D" uid="uid://cxxgbjfuf5tam" path="res://assets/visual/items/keys/pop.png" id="1_y7vw6"]
+
+[node name="Pop" type="Sprite2D" unique_id=1419157792]
+texture = ExtResource("1_y7vw6")
+script = ExtResource("1_b6672")
+cargo_space = 24
+party_space = 6
+fuel_cost = 12
+color_tag = "chips"

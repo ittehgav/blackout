@@ -36,7 +36,6 @@ func _on_tree_entered() -> void:
 	## do we really need to do it like this?
 	Entities.player_sheet = self;
 
-		
 
 func _ready()->void:
 	super();

@@ -19,6 +19,16 @@ signal upkeep_fuel_shortage
 
 signal leveled_up;
 
+var party_cap:int:
+	get():
+		var cap:int=0;
+		for key:CarKey in inventory.car_keys:
+			cap += key.party_space;
+		return cap
+
+@export var bound_items:Array[Item]
+## right now just the initial car key but might as well
+## leave it ready to add more 
 
 ## ANY ITEMS THAT BELONG TO THE PLAYER WILL BE CHILDREN OF THE INVENTORY NODE
 
@@ -148,14 +158,16 @@ func unequip_artifice(slot:int, quiet:bool=false)->void:
 
 
 func travel_upkeep_cost(per_hour:bool=false)->Dictionary[String, int]:
-	## EVERY 30 MINUTES
+	## EVERY 30 MINUTES BY DEFAULT
 	var cost:Dictionary = {
 		"food":1.0,
-		"fuel":1.0
+		"fuel":0
 	}
 	for unit:FighterUnit in roster.units:
 		cost.food += .5 * len(unit.base.tags)
-		cost.fuel += .5 * len(unit.base.tags)
+	
+	for key:CarKey in Entities.player.inventory.car_keys:
+		cost.fuel += key.fuel_cost;
 
 	if per_hour:
 		cost.food *= 2.0;

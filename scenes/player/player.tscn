@@ -3,12 +3,14 @@
 [ext_resource type="Script" uid="uid://ddk7q8cyspbkf" path="res://scenes/player/player.gd" id="1_efaxt"]
 [ext_resource type="PackedScene" uid="uid://bomnv5gygjm3n" path="res://scenes/inventory/inventory.tscn" id="2_w3kr7"]
 [ext_resource type="PackedScene" uid="uid://bd2tml5iw13nj" path="res://scenes/leader/roster/roster.tscn" id="3_5khbq"]
+[ext_resource type="PackedScene" uid="uid://diqmxqrrlnpi8" path="res://scenes/index/items/car_keys/big_family.tscn" id="4_75vfm"]
 [ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="4_p47bc"]
 [ext_resource type="Script" uid="uid://e82nehm2kmim" path="res://scenes/ui/player_sheet/disciplines.gd" id="5_a3c1i"]
 
-[node name="Player" type="Node" unique_id=526134067 node_paths=PackedStringArray("disciplines", "inventory", "roster", "stats", "modifier_stats", "stat_multipliers")]
+[node name="Player" type="Node" unique_id=526134067 node_paths=PackedStringArray("disciplines", "bound_items", "inventory", "roster", "stats", "modifier_stats", "stat_multipliers")]
 script = ExtResource("1_efaxt")
 disciplines = NodePath("disciplines")
+bound_items = [NodePath("Inventory/Big Family")]
 color_scheme_index = 1
 inventory = NodePath("Inventory")
 roster = NodePath("Roster")
@@ -23,6 +25,8 @@ sight_range = 256
 
 [node name="Inventory" parent="." unique_id=1819646003 node_paths=PackedStringArray("holder") instance=ExtResource("2_w3kr7")]
 holder = NodePath("..")
+
+[node name="Big Family" parent="Inventory" unique_id=631997494 instance=ExtResource("4_75vfm")]
 
 [node name="base_stats" type="Node" parent="." unique_id=1645727257]
 script = ExtResource("4_p47bc")

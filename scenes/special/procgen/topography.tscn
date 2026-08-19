@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://l2n4xwsjkbux"]
+
+[sub_resource type="GDScript" id="GDScript_wpexj"]
+script/source = "extends Node2D
+"
+
+[sub_resource type="Gradient" id="Gradient_krpui"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.17521368, 0.32478634, 0.43162394, 0.53418803, 0.67094016, 0.77350426)
+colors = PackedColorArray(0.6, 0.545, 0.54, 1, 0.7866667, 0.8, 0.64000005, 1, 0.25, 0.5, 0.27499998, 1, 0.17599998, 0.28160006, 0.88, 1, 0.7866667, 0.8, 0.64000005, 1, 0.25, 0.5, 0.27499998, 1, 0.44466677, 0.174, 0.58, 1)
+metadata/_snap_count = 20
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kddjp"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u5bk5"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_kddjp")
+color_ramp = SubResource("Gradient_krpui")
+
+[node name="Node2D" type="Node2D" unique_id=1362186129]
+script = SubResource("GDScript_wpexj")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=762149815]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("NoiseTexture2D_u5bk5")

@@ -136,8 +136,9 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="Gravity Pulse" type="Node" parent="components" unique_id=882028580 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xi7nn")
-base_cooldown = 7.0
-effects = Array[int]([5, 3])
+use_sfx = 1
+base_cooldown = 5.0
+effects = Array[int]([1, 4, 5, 3])
 transform_visual = 1
 status = NodePath("Phaselock")
 knockback_strength = 4
@@ -146,7 +147,7 @@ metadata/_custom_type_script = "uid://cboofk6f5g5t"
 [node name="Phaselock" type="Node" parent="components/Gravity Pulse" unique_id=219088143]
 script = ExtResource("5_ylbig")
 type = "stun"
-duration = 2.0
+duration = 1.0
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="stats" type="Node" parent="components" unique_id=122263424]

@@ -86,9 +86,9 @@ func start_trade(target:Inventory, target_name:String, override_inventory:Invent
 	
 	refresh_trade_balance()
 	player_inventory_display.warnings_popup.hide();
-	var upkeep_cost:Dictionary = Entities.player.travel_upkeep_cost();
-	food_hourly_cost = upkeep_cost.food * 3;
-	fuel_hourly_cost = upkeep_cost.fuel * 3;
+	var upkeep_cost:Dictionary = Entities.player.travel_upkeep_cost(true);
+	food_hourly_cost = upkeep_cost.food;
+	fuel_hourly_cost = upkeep_cost.fuel;
 	
 	food_hourly_cost_label.text = str(food_hourly_cost)
 	food_daily_cost_label.text = str(food_hourly_cost * 5)
@@ -270,12 +270,9 @@ func finish_trade()->void:
 func reset_trade() -> void:
 	player_inventory_display.reset_inventory();
 	trader_inventory_display.reset_inventory();
-	
 
-	
 	set_reset_state()
 	refresh_trade_balance()
-
 
 	player_inventory_display.sfx.play_sound_by_key("reset");
 

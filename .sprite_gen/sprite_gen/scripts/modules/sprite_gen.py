@@ -6,7 +6,7 @@ import os
 
 ## leaving this as a global here since all sheets are gonna be overlapping visualizations of the same objects
 ## (at least for all fighter sprites)
-frame_size = 128
+
 
 def get_unique_name(base_name, directory="."):
     """
@@ -47,7 +47,7 @@ def rotate_around_y(obj, pivot):
     # Rotate camera orientation
     obj.matrix_world = rot_mat @ obj.matrix_world
 
-def generate_frames(collection, total_frames, steps, output_path, pivot, to_rotate, frame_offset = 0):
+def generate_frames(collection, total_frames, steps, output_path, pivot, camera_root, frame_offset = 0):
     for frame in range(total_frames):
         bpy.context.scene.frame_set((frame + frame_offset) * 5)
         for i in range(steps):
@@ -67,11 +67,9 @@ def generate_frames(collection, total_frames, steps, output_path, pivot, to_rota
 
             # Rotate camera for next frame
             
-            for obj in to_rotate:
-                print(i, " ", obj.location)
-                rotate_around_y(obj, pivot)
-
-def generate_spritesheet(png_files, total_frames, dir="sheets"):
+            camera_root.rotation_euler[1] += math.radians(45)
+   
+def generate_spritesheet(png_files, total_frames, frame_size = 128, dir="sheets"):
     height = frame_size * total_frames
     width = frame_size * 8
 

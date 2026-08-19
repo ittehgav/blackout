@@ -22,7 +22,7 @@ var option_descriptions:={
 	Option.evolve:
 		"Use " + Index.get_color_tag("juice") +"Juice[/color] to transform your units, making them much more powerful.",
 	Option.refine:
-		"Use "+Index.get_color_tag("scrap") + "Scrap[/color] to refine weapons, making them much stronger."
+		"Use "+Index.get_color_tag("scrap") + "Scrap to refine weapons[/color], or "+Index.get_color_tag("chips")+"Chips to modify modules[/color] making them much stronger."
 }
 
 @export var options:Array[Option]

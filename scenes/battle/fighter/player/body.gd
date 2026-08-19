@@ -7,6 +7,8 @@ class_name PlayerFighterBase;
 ## very ugly how this inherits fighterbase and has a ton of properties that do nothing
 ## and could lead to bugs as i expand on fighterbase
 
+var on_stun_angle:float
+
 const feedback_animation_keys:Dictionary[WeaponDisplay.PlayerScreenFeedback, String] = \
 {
 	## need to model motion for any weapon use feedback otherwise this breaks i guess
@@ -56,3 +58,9 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			animation_player.play("player/idle")
 		else:
 			animation_player.play("player/walk")
+
+
+func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status, _quiet: bool) -> void:
+	if status.type == "stun":
+		on_stun_angle = player.body_angle;
+		animation_player.play("idle")

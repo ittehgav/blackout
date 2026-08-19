@@ -81,7 +81,7 @@ func shoot_bolts(origin:Vector2, buffed:bool = false)->void:
 			aoe.scale *= 2;
 		
 		if refinement_level != 3 or buffed:
-			bolts_buffer[0].animation_player.animation_finished.connect(clear_bolt.bind(bolt))
+			bolts_buffer[0].animation_player.animation_finished.connect(clear_bolt.bind(bolt), CONNECT_ONE_SHOT)
 		
 		Combat.aoe_damage(Entities.player_fighter, aoe)
 	if refinement_level == 3 and not buffed:
