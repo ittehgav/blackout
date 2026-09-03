@@ -48,7 +48,6 @@ static func radial_pull(source:ActiveFighter, hit_scan:Area2D=source.base.hit_sc
 
 static func flying_collision(t1:CombatEntity, t2:CombatEntity)->void:
 	if t2 == t1.knockback_source:return
-	
 	var collision_velocity:float = t1.velocity.distance_to(Vector2.ZERO);
 	t1.knockback_tween.kill();
 	finish_flight.call_deferred(t1)

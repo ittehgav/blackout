@@ -13,14 +13,14 @@ signal stopped_moving;
 signal location_visited(location:Location)
 signal location_entered(location:Location);
 
-const road_cell_size = 64;
+const road_cell_size = 32;
 
 @export var leader:Leader;
 @export var vehicle:Vehicle;
 @export var current_location:Location;
 
 ## NAVIGATION SPEED = ROAD CELLS/IGT H
-@export var navigation_speed:float = 60.0;
+@export var navigation_speed:float = 120.0;
 
 @onready var world_map:WorldMap = get_tree().get_first_node_in_group("world_map")
 

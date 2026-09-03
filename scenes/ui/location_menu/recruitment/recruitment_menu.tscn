@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://c4bg8a6ld74uf" path="res://assets/sound/sfx/ui/inventory/resources/money_change.wav" id="2_vg248"]
 [ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="3_6k2ih"]
 [ext_resource type="PackedScene" uid="uid://cqyd4aj1d1d57" path="res://scenes/ui/location_menu/recruitment/recruitment_card.tscn" id="3_jvi8e"]
+[ext_resource type="AudioStream" uid="uid://brcimv0b3rv3y" path="res://assets/sound/sfx/ui/inventory/invalid.wav" id="5_1a8bw"]
 [ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="5_1eonm"]
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="7_6554f"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/collections/stats_dropdown.tscn" id="8_l4l3x"]
@@ -42,7 +43,7 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_vg248"]
 events = [SubResource("InputEventAction_6k2ih")]
 
-[node name="RecruitmentMenu" type="Control" unique_id=206142612 node_paths=PackedStringArray("hire_sfx", "content_hbox", "options_holder", "options_vbox", "unit_sprite", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "recruit_button", "hired_overlay", "placeholder", "ui_sfx")]
+[node name="RecruitmentMenu" type="Control" unique_id=206142612 node_paths=PackedStringArray("hire_sfx", "content_hbox", "options_holder", "options_vbox", "unit_sprite", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "recruit_button", "hired_overlay", "placeholder", "not_enough_room_sfx", "ui_sfx")]
 process_mode = 3
 visibility_layer = 7
 z_index = 17
@@ -69,12 +70,17 @@ skill_description_label = NodePath("main/Unit Sheet/texts/skill_description")
 recruit_button = NodePath("main/Unit Sheet/hire")
 hired_overlay = NodePath("main/Unit Sheet/hired_overlay")
 placeholder = NodePath("main/Unit Sheet/placeholder")
+not_enough_room_sfx = NodePath("party_full")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." unique_id=667375443 instance=ExtResource("3_6k2ih")]
+bus = &"Master"
 
 [node name="hired_sfx" type="AudioStreamPlayer" parent="." unique_id=2039909956]
 stream = ExtResource("2_vg248")
+
+[node name="party_full" type="AudioStreamPlayer" parent="." unique_id=453466445]
+stream = ExtResource("5_1a8bw")
 
 [node name="main" type="HBoxContainer" parent="." unique_id=1099163703]
 layout_mode = 1
@@ -98,6 +104,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="ui_sfx" parent="main/Unit Sheet" unique_id=941712662 instance=ExtResource("3_6k2ih")]
+bus = &"Master"
 
 [node name="exit" type="Label" parent="main/Unit Sheet" unique_id=221960830]
 visible = false
@@ -263,36 +270,6 @@ stat_labels = {
 "max_hp": NodePath("max_hp/max_hp"),
 "technique": NodePath("technique/technique")
 }
-
-[node name="max_hp_icon" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/max_hp" parent_id_path=PackedInt32Array(123235086, 879368159) index="0" unique_id=1084514480]
-custom_minimum_size = Vector2(32, 32)
-
-[node name="max_hp" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/max_hp" parent_id_path=PackedInt32Array(123235086, 879368159) index="1" unique_id=1952093428]
-theme_override_font_sizes/font_size = 48
-
-[node name="attack_icon" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/attack" parent_id_path=PackedInt32Array(123235086, 523508622) index="0" unique_id=1245140987]
-custom_minimum_size = Vector2(32, 32)
-
-[node name="attack" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/attack" parent_id_path=PackedInt32Array(123235086, 523508622) index="1" unique_id=1704717145]
-theme_override_font_sizes/font_size = 48
-
-[node name="defense_icon" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/defense" parent_id_path=PackedInt32Array(123235086, 1249331385) index="0" unique_id=714071709]
-custom_minimum_size = Vector2(32, 32)
-
-[node name="defense" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/defense" parent_id_path=PackedInt32Array(123235086, 1249331385) index="1" unique_id=1807945443]
-theme_override_font_sizes/font_size = 48
-
-[node name="agility_icon" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/agility" parent_id_path=PackedInt32Array(123235086, 1022494949) index="0" unique_id=1718996867]
-custom_minimum_size = Vector2(32, 32)
-
-[node name="agility" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/agility" parent_id_path=PackedInt32Array(123235086, 1022494949) index="1" unique_id=1684223526]
-theme_override_font_sizes/font_size = 48
-
-[node name="technique_icon" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/technique" parent_id_path=PackedInt32Array(123235086, 1011682043) index="0" unique_id=36948302]
-custom_minimum_size = Vector2(32, 32)
-
-[node name="technique" parent="main/Unit Sheet/HBoxContainer2/VBoxContainer/StatsDropdown/technique" parent_id_path=PackedInt32Array(123235086, 1011682043) index="1" unique_id=32419535]
-theme_override_font_sizes/font_size = 48
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="main/Unit Sheet/HBoxContainer2" unique_id=1466567295]
 visible = false

@@ -34,8 +34,12 @@ var current_option:RecruitmentCard
 
 @export var hired_overlay:ColorRect;
 @export var placeholder:ColorRect
+@export var not_enough_room_sfx:AudioStreamPlayer
+
+var current_roster:Roster;
 
 func start_recruitment(roster:RecruitmentRoster)->void:
+	current_roster = roster;
 	options_vbox.queue_free();
 	options_vbox = VBoxContainer.new();
 	options_holder.add_child(options_vbox)
@@ -100,13 +104,24 @@ func load_option(card:RecruitmentCard)->void:
 
 
 func _on_hire_pressed() -> void:
+	if not Entities.player.party_room:
+		not_enough_room()
+		return
+
 	Entities.player.inventory.change_resource("money", -current_price);
 	Entities.player.roster.add_unit(current_unit)
-	current_option.unit_hired()
+	var hired:FighterUnit = current_option.unit_hired();
+	current_roster.units.erase(hired)
+	
+
 	
 	show_hired_overlay();
 	
 	hire_sfx.play()
+
+func not_enough_room()->void:
+	not_enough_room_sfx.play()
+	Tweens.floating_text("PARTY FULL", self, true, Color.RED, 64)
 
 func refresh_affordability()->void:
 	for node:Node in options_vbox.get_children():

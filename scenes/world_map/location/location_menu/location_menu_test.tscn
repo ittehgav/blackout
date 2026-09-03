@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="10_2m4hw"]
 [ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/index/items/containers/chips_case.tscn" id="10_5p16a"]
 [ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="10_6xos7"]
-[ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="10_80ijo"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="10_avvhk"]
 [ext_resource type="PackedScene" uid="uid://ceakvif5i36fl" path="res://scenes/index/items/containers/scrap_compactor.tscn" id="10_wrmg3"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="13_5p16a"]
@@ -22,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="16_80ijo"]
 [ext_resource type="PackedScene" uid="uid://dcbeey2233tbx" path="res://scenes/index/items/modules/buckler.tscn" id="19_6xos7"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6xos7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2m4hw"]
 resource_local_to_scene = true
 shader = ExtResource("3_eldan")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -31,6 +30,18 @@ shader_parameter/pattern = 1
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6xos7"]
+resource_local_to_scene = true
+shader = ExtResource("15_kgodg")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.099999994, 0.099999994, 0.5, 0.39215687)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5p16a"]
 resource_local_to_scene = true
@@ -49,14 +60,26 @@ resource_local_to_scene = true
 shader = ExtResource("15_kgodg")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/color = Color(0.099999994, 0.099999994, 0.5, 0.39215687)
 shader_parameter/width = 1.0000000475
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
+shader_parameter/number_of_images = Vector2(3, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kgodg"]
+resource_local_to_scene = true
+shader = ExtResource("15_kgodg")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.099999994, 0.099999994, 0.5, 0.39215687)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpmxq"]
 resource_local_to_scene = true
 shader = ExtResource("15_kgodg")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -81,7 +104,7 @@ layout_mode = 1
 mock_location = NodePath("../Factory")
 
 [node name="Factory" parent="." unique_id=1185826475 node_paths=PackedStringArray("settlements") instance=ExtResource("2_ewm81")]
-material = SubResource("ShaderMaterial_6xos7")
+material = SubResource("ShaderMaterial_2m4hw")
 position = Vector2(3333, 289)
 settlements = [NodePath("Factory")]
 
@@ -97,19 +120,31 @@ experience = 1
 level = 2
 
 [node name="Puncher" parent="Player/Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("14_blqe1")]
-material = SubResource("ShaderMaterial_5p16a")
+material = SubResource("ShaderMaterial_6xos7")
 
-[node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="1" unique_id=1187060834 instance=ExtResource("13_5p16a")]
+[node name="FighterUnit4" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="1" unique_id=198870175 instance=ExtResource("13_5p16a")]
 level = 2
 
-[node name="Crowbar" parent="Player/Roster/FighterUnit2" unique_id=2112712555 instance=ExtResource("10_80ijo")]
+[node name="Puncher" parent="Player/Roster/FighterUnit4" unique_id=1691113590 instance=ExtResource("14_blqe1")]
+material = SubResource("ShaderMaterial_5p16a")
+
+[node name="FighterUnit5" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="2" unique_id=92124741 instance=ExtResource("13_5p16a")]
+level = 2
+
+[node name="Puncher" parent="Player/Roster/FighterUnit5" unique_id=281108102 instance=ExtResource("14_blqe1")]
 material = SubResource("ShaderMaterial_blqe1")
 
-[node name="FighterUnit3" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="2" unique_id=1390462273 instance=ExtResource("13_5p16a")]
+[node name="FighterUnit6" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="3" unique_id=633577907 instance=ExtResource("13_5p16a")]
+level = 2
+
+[node name="Puncher" parent="Player/Roster/FighterUnit6" unique_id=700231849 instance=ExtResource("14_blqe1")]
+material = SubResource("ShaderMaterial_kgodg")
+
+[node name="FighterUnit3" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="4" unique_id=1390462273 instance=ExtResource("13_5p16a")]
 level = 2
 
 [node name="Puncher" parent="Player/Roster/FighterUnit3" unique_id=663991513 instance=ExtResource("14_blqe1")]
-material = SubResource("ShaderMaterial_kgodg")
+material = SubResource("ShaderMaterial_dpmxq")
 
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 500

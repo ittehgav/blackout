@@ -12,7 +12,6 @@ var cleared:bool=false
 
 @onready var location:Location = get_parent()
 
-@export var highest_level_target:int;
 
 @export var waves:Array[NpcRoster];
 @export var tile_layout_scene:PackedScene
@@ -29,15 +28,7 @@ func refresh()->void:
 
 
 func get_danger_level()->int:
-	var frac:float = highest_level_target/Entities.player.get_party_level()
-	if frac <= .5:
-		return 1;
-	elif frac < .75:
-		return 2;
-	elif frac <= 2:
-		return 3;
-	else:
-		return 4
+	return waves[current_wave].get_danger_level()
 
 func get_current_wave()->NpcRoster:
 	## current_wave starts a 1 because that's how that data will appear to the player

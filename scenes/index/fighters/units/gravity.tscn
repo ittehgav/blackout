@@ -125,18 +125,17 @@ skill = NodePath("components/Gravity Pulse")
 skill_range = 10
 animation_player = NodePath("components/base_animations")
 weight_class = 0
-tags = Array[int]([7, 3])
-movement = 1
+tags = Array[int]([3, 7])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("components/stats/base_stats")
 stats_per_level = NodePath("components/stats/stats_per_level")
+movement = 1
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="components" type="Node" parent="." unique_id=482454684]
 
 [node name="Gravity Pulse" type="Node" parent="components" unique_id=882028580 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xi7nn")
-use_sfx = 1
 base_cooldown = 5.0
 effects = Array[int]([1, 4, 5, 3])
 transform_visual = 1

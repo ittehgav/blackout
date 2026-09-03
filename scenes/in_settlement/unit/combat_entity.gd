@@ -80,7 +80,7 @@ var shield:float = 0;
 var moving:bool=false;
 
 func get_sector(angle: float) -> int:
-	## idk the secto function dont catch 7 properly
+	## idk the sector function dont catch 7 properly
 	## and this is still simpler than making an if to catch all 8 sectors
 	var direction_sector:int = get_sector_full(angle)
 	
@@ -99,7 +99,40 @@ func get_sector(angle: float) -> int:
 		else:
 			direction_sector = 5
 	return direction_sector;
+
+
+const sector_angles:Dictionary[int, int] = {
+	## NOT TESTED DIDNT WORK PROPERLY LAST TIME USED
+	## degree angles to apply rotation
+	## to Node2Ds
+	0: -90, ## top 
+	1: -45, ## top right
+	2: 0, ## right
+	3: 45, ## bottom right
+	4: 90, ## bottom
+	5: 135, ## bottom left
+	6: 180, ## left
+	7: -135 ## top left
 	
+}
+const mirrored_sector_angles:Dictionary[int, int] = {
+	## right now just for quadruped kicks
+	0: 90, ## top - bottom
+	1: 135, ## top right - bottom left
+	2: 180, ## right - left
+	3: -135, ## bottom right - top left
+	4: -90, ## bottom - top
+	5: -45, ## bottom left - top right
+	6: 0, ## left - right
+	7: 45 ## top left - bottom right
+}
+
+func get_sector_angle(sector:int, mirrored:bool=false)->int:
+	if not mirrored:
+		return sector_angles[sector]
+	else:
+		return mirrored_sector_angles[sector]
+		
 const first_sector_margin = -7*PI/8
 const sector_margin_step = PI/4
 

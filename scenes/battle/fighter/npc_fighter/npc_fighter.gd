@@ -33,11 +33,13 @@ var unit:FighterUnit;
 
 var target_fighter:ActiveFighter;
 var target_in_range:bool = false;
-## for the skill_hit signal to not repeat itself
-
 ## cooldown that gets checked when the cooldown timer is changed 
 ## and is playing on a different wait time
 var true_cooldown:float;
+
+
+var skill_disabled:bool=false;
+## only for bases that fully override the skill concept
 
 func _ready()->void:
 	if dummy:
@@ -73,7 +75,6 @@ func load_fighter(new_unit:FighterUnit)->void:
 	true_cooldown = final_skill_cooldown()
 	cooldown_timer.wait_time = true_cooldown
 	if true_cooldown == 0:
-
 		cooldown_timer.stop()
 
 func load_base()->void:
@@ -112,7 +113,6 @@ func load_base()->void:
 		base.hit_scan.reparent(self)
 
 
-	
 	base.fighter = self;
 	add_child(base)
 	base.frame_changed.connect(shadow.source_frame_changed)
@@ -137,15 +137,16 @@ var movement_target:Vector2: ## ALREADY A POSITION IN SPACE RATHER THAN THE GRID
 	set(value):
 		movement_target = value
 		refresh_velocity();
-
 var target_cell_distance:int;
+
 func target_direction()->Vector2:
 	return position.direction_to(target_fighter.position)
+
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
+
+
 func refresh_velocity()->void:
-	## only when cell changes?
-	
 	var direction:Vector2 = position.direction_to(movement_target);
 	if direction == Vector2.ZERO:
 		if moving:
@@ -158,16 +159,14 @@ func refresh_velocity()->void:
 
 	velocity = direction * move_speed
 
+
 func check_move()->void:
 	refresh_target();
 	if stunned:
 		stop();
 		return;
-	if flying:
+	if flying or base.movement == FighterBase.MovementPattern.none:
 		## override velocity val at source until kb stops
-		return
-
-	if base.movement == FighterBase.MovementPattern.none:
 		return
 
 	if not target_in_range:
@@ -180,10 +179,8 @@ func check_move()->void:
 	set_direction()
 
 
-
 func set_direction()->void:
 	var angle:float;
-
 	if base.animation_player.current_animation == base.skill_animation_path:
 		## plays this outside of ticker when skill starts being 
 		## used so it instantly turns to the targer
@@ -222,6 +219,7 @@ func check_flee()->void:
 func flee_from_target()->void:
 	var direction:Vector2 = position + target_fighter.position.direction_to(position)
 	movement_target = direction
+
 func stop()->void:
 	movement_target = position;
 	## find a way to make this a slowdown instead of a full stop?
@@ -232,7 +230,8 @@ func skill_cooldown() -> void:
 	if target_in_range or not base.skill.need_target:
 		use_skill()
 		skill_retry_timer.stop()
-		cooldown_timer.start()
+		if not skill_disabled:
+			cooldown_timer.start()
 	else:
 		skill_retry_timer.start();
 
@@ -262,8 +261,8 @@ func _on_stat_changed(stat:String)->void:
 
 				var advance:float = previous_wait_time - true_cooldown + (cooldown_timer.wait_time - cooldown_timer.time_left);
 				var redone_time_left:float = cooldown_timer.wait_time - advance;
-
-				cooldown_timer.start(redone_time_left)
+				if not skill_disabled:
+					cooldown_timer.start(redone_time_left)
 				if cooldown_timer.timeout.is_connected(correct_cooldown_timer):
 					cooldown_timer.timeout.disconnect(correct_cooldown_timer);
 				cooldown_timer.timeout.connect(correct_cooldown_timer, CONNECT_ONE_SHOT);

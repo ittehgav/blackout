@@ -1,8 +1,8 @@
 class_name Resources extends RefCounted
 
-const resource_colors = {
+const resource_colors:Dictionary[String, Color] = {
 	"food":Color(0.698, 0.698, 0.212, 1.0),
-	"fuel":Color(0.7, 0.341, 0.21, 1.0),
+	"fuel":Color(0.7, 0.315, 0.175, 1.0),
 	"money":Color(0.161, 0.8, 0.161, 1.0),
 	
 	"juice":Color(0.537, 0.212, 0.698, 1.0),
@@ -46,7 +46,6 @@ static var resource_descriptions:Dictionary[String, String] = {
 	"food": "[color="+resource_colors.food.to_html() + "]Basic survival resource.\n[/color]While travelling, you and your party need to eat every 30 minutes, if there's not enough food for everyone, [color=green]Morale[/color] in the party will drop.",
 	
 	"fuel": "[color="+resource_colors.fuel.to_html() + "]Basic travel resource, consumed when travelling in the world map[/color], the your cars have an hourly travel fuel cost.\nIf you have no fuel, your party will travel much slower.\nAlso used as [color=green]ammo[/color] for some equipment.",
-
 
 	"juice": "[color="+resource_colors.juice.to_html() + "]Strange substance[/color] with many practical uses, found all over the land.\nA [color=green]common[/color] trade comodity.\nUsed for [color=cyan]upgrading units.[/color]\nAlso used as [color=green]ammo[/color] for some equipment.",
 	

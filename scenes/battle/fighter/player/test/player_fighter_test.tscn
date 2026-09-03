@@ -1,19 +1,17 @@
 [gd_scene format=3 uid="uid://yaqxj23aqgc7"]
 
 [ext_resource type="PackedScene" uid="uid://b3sr8al76si1g" path="res://scenes/battle/arena/arena.tscn" id="1_yxwnb"]
-[ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="2_6lu73"]
 [ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="2_yxwnb"]
 [ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="3_t331a"]
-[ext_resource type="Texture2D" uid="uid://bkodas6x4i7wu" path="res://assets/visual/sprites/fighters/special/dummy.png" id="4_mysod"]
-[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="4_t331a"]
 [ext_resource type="PackedScene" uid="uid://ofy6voyrdh1w" path="res://scenes/leader/roster/npc_roster.tscn" id="6_toood"]
 [ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="6_ux3o3"]
+[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="7_6ytje"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="7_l8w5n"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="8_5w0nc"]
+[ext_resource type="PackedScene" uid="uid://d36r4frhnsmgr" path="res://scenes/index/fighters/special/quadruped.tscn" id="8_6ytje"]
+[ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_ux3o3"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="9_toood"]
-[ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="10_cjrk3"]
 [ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="10_l8w5n"]
-[ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="10_o48da"]
 [ext_resource type="PackedScene" uid="uid://dm8mv4gcuj7sc" path="res://scenes/index/items/artifices/pressure_grenade.tscn" id="11_6ytje"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="11_hombn"]
 [ext_resource type="PackedScene" uid="uid://jj68s6yms5mq" path="res://scenes/index/items/containers/juice_tank.tscn" id="12_hombn"]
@@ -26,31 +24,6 @@
 [ext_resource type="PackedScene" uid="uid://dhmyvsvrw476x" path="res://scenes/index/items/weapons/toxic_shotgun.tscn" id="21_l8w5n"]
 [ext_resource type="PackedScene" uid="uid://wlcq8bxxtwax" path="res://scenes/index/items/artifices/berserker_serum.tscn" id="23_yoboh"]
 [ext_resource type="PackedScene" uid="uid://b322626nnhpf7" path="res://scenes/index/items/weapons/electric_baton.tscn" id="26_o48da"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_cpvf4"]
-radius = 70.028564
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hombn"]
-resource_local_to_scene = true
-shader = ExtResource("6_ux3o3")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 1
-shader_parameter/inside = true
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0da2b"]
-resource_local_to_scene = true
-shader = ExtResource("4_t331a")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="Shader" id="Shader_4frhf"]
 code = "shader_type canvas_item;
@@ -140,7 +113,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yoboh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ytje"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -152,7 +125,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ytje"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux3o3"]
 resource_local_to_scene = true
 shader = ExtResource("2_yxwnb")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -160,28 +133,6 @@ shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ux3o3"]
-resource_local_to_scene = true
-shader = ExtResource("6_ux3o3")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 1
-shader_parameter/inside = true
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_74asn"]
-resource_local_to_scene = true
-shader = ExtResource("4_t331a")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o48da"]
@@ -206,7 +157,7 @@ shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_spwac"]
 resource_local_to_scene = true
-shader = ExtResource("4_t331a")
+shader = ExtResource("8_ux3o3")
 shader_parameter/target_color = Color(0, 0, 0, 1)
 shader_parameter/grad = 0.0
 shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
@@ -216,29 +167,15 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ndr2i"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0da2b"]
 resource_local_to_scene = true
-shader = ExtResource("4_t331a")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader = ExtResource("6_ux3o3")
+shader_parameter/color = Color(0.2, 0.020000005, 0.020000005, 1)
 shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
+shader_parameter/pattern = 1
 shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(8, 7)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u80vi"]
-resource_local_to_scene = true
-shader = ExtResource("4_t331a")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/number_of_images = Vector2(8, 7)
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(8, 16)
 
 [node name="PlayerFighterTest" type="Node2D" unique_id=1033415098]
 
@@ -247,89 +184,17 @@ shader_parameter/number_of_images = Vector2(8, 7)
 [node name="team_1" parent="Arena/teams" parent_id_path=PackedInt32Array(896888135, 1264042758) index="2" unique_id=1279616264 node_paths=PackedStringArray("roster")]
 roster = NodePath("../../../Player/Roster")
 
-[node name="dummy" parent="Arena/teams/team_1" index="0" unique_id=1353693342 node_paths=PackedStringArray("sprite") instance=ExtResource("2_6lu73")]
-position = Vector2(274, 460)
-dummy = true
-sprite = NodePath("dummy")
-max_hp = 10000.0
-
-[node name="hurtbox" parent="Arena/teams/team_1/dummy" index="3" unique_id=1866307460]
-position = Vector2(0, -27)
-
-[node name="hurtbox" type="CollisionShape2D" parent="Arena/teams/team_1/dummy/hurtbox" index="0" unique_id=268604563]
-position = Vector2(0, 23)
-shape = SubResource("CircleShape2D_cpvf4")
-
-[node name="shape" parent="Arena/teams/team_1/dummy/collision_scan" parent_id_path=PackedInt32Array(1353693342, 869280054) index="0" unique_id=328150148]
-shape = SubResource("CircleShape2D_cpvf4")
-
-[node name="FighterOverlay" parent="Arena/teams/team_1/dummy" index="5" unique_id=442767027]
-offset_left = -33.0
-offset_top = -72.0
-offset_right = 31.0
-offset_bottom = -72.0
-
-[node name="hp_bar" parent="Arena/teams/team_1/dummy/FighterOverlay/VBoxContainer/hp_bars" parent_id_path=PackedInt32Array(1353693342, 558500387) index="1" unique_id=1356032778]
-material = SubResource("ShaderMaterial_hombn")
-
-[node name="refresh_bar" parent="Arena/teams/team_1/dummy/FighterOverlay" index="3" unique_id=395766779]
-autostart = false
-
-[node name="unit_collision" parent="Arena/teams/team_1/dummy" index="6" unique_id=1716436569]
-position = Vector2(0, -9)
-
-[node name="dummy" type="Sprite2D" parent="Arena/teams/team_1/dummy" unique_id=418877120]
-material = SubResource("ShaderMaterial_0da2b")
-position = Vector2(0, -27)
-texture = ExtResource("4_mysod")
-
-[node name="player_fighter" parent="Arena/teams/team_1" index="1" unique_id=543559168]
+[node name="player_fighter" parent="Arena/teams/team_1" index="0" unique_id=543559168]
 position = Vector2(550, 270)
 
-[node name="body" parent="Arena/teams/team_1/player_fighter" index="6" unique_id=416499753]
-material = SubResource("ShaderMaterial_yoboh")
+[node name="body" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=416499753]
+material = SubResource("ShaderMaterial_6ytje")
 
 [node name="equipment" parent="Arena/teams/team_1/player_fighter" index="8" unique_id=488158529]
-material = SubResource("ShaderMaterial_6ytje")
+material = SubResource("ShaderMaterial_ux3o3")
 
 [node name="team_2" parent="Arena/teams" parent_id_path=PackedInt32Array(896888135, 1264042758) index="3" unique_id=451149455 node_paths=PackedStringArray("roster")]
 roster = NodePath("../../NPC Roster")
-
-[node name="dummy2" parent="Arena/teams/team_2" index="0" unique_id=1723811507 node_paths=PackedStringArray("sprite") instance=ExtResource("2_6lu73")]
-position = Vector2(401, 294)
-dummy = true
-sprite = NodePath("dummy")
-max_hp = 10000.0
-
-[node name="hurtbox" parent="Arena/teams/team_2/dummy2" index="3" unique_id=1866307460]
-position = Vector2(0, -27)
-
-[node name="hurtbox" type="CollisionShape2D" parent="Arena/teams/team_2/dummy2/hurtbox" index="0" unique_id=786116503]
-position = Vector2(0, 23)
-shape = SubResource("CircleShape2D_cpvf4")
-
-[node name="shape" parent="Arena/teams/team_2/dummy2/collision_scan" parent_id_path=PackedInt32Array(1723811507, 869280054) index="0" unique_id=328150148]
-shape = SubResource("CircleShape2D_cpvf4")
-
-[node name="FighterOverlay" parent="Arena/teams/team_2/dummy2" index="5" unique_id=442767027]
-offset_left = -33.0
-offset_top = -72.0
-offset_right = 31.0
-offset_bottom = -72.0
-
-[node name="hp_bar" parent="Arena/teams/team_2/dummy2/FighterOverlay/VBoxContainer/hp_bars" parent_id_path=PackedInt32Array(1723811507, 558500387) index="1" unique_id=1356032778]
-material = SubResource("ShaderMaterial_ux3o3")
-
-[node name="refresh_bar" parent="Arena/teams/team_2/dummy2/FighterOverlay" index="3" unique_id=395766779]
-autostart = false
-
-[node name="unit_collision" parent="Arena/teams/team_2/dummy2" index="6" unique_id=1716436569]
-position = Vector2(0, -9)
-
-[node name="dummy" type="Sprite2D" parent="Arena/teams/team_2/dummy2" unique_id=250593320]
-material = SubResource("ShaderMaterial_74asn")
-position = Vector2(0, -27)
-texture = ExtResource("4_mysod")
 
 [node name="bars" parent="Arena/ui_canvas/hud/player_data" parent_id_path=PackedInt32Array(896888135, 2089638048) index="0" unique_id=963650891]
 material = SubResource("ShaderMaterial_o48da")
@@ -339,23 +204,17 @@ material = SubResource("ShaderMaterial_cjrk3")
 
 [node name="NPC Roster" parent="Arena" unique_id=159500697 instance=ExtResource("6_toood")]
 
-[node name="FighterUnit2" parent="Arena/NPC Roster" unique_id=2067750979 instance=ExtResource("7_l8w5n")]
+[node name="FighterUnit3" parent="Arena/NPC Roster" unique_id=1054985659 instance=ExtResource("7_l8w5n")]
 level = 4
 
-[node name="Gravity" parent="Arena/NPC Roster/FighterUnit2" unique_id=934399271 instance=ExtResource("10_o48da")]
+[node name="Puncher" parent="Arena/NPC Roster/FighterUnit3" unique_id=1510142188 instance=ExtResource("7_6ytje")]
 material = SubResource("ShaderMaterial_spwac")
 
-[node name="FighterUnit3" parent="Arena/NPC Roster" unique_id=773831667 instance=ExtResource("7_l8w5n")]
+[node name="FighterUnit4" parent="Arena/NPC Roster" unique_id=2067750979 instance=ExtResource("7_l8w5n")]
 level = 4
 
-[node name="Puncher" parent="Arena/NPC Roster/FighterUnit3" unique_id=1510142188 instance=ExtResource("10_cjrk3")]
-material = SubResource("ShaderMaterial_ndr2i")
-
-[node name="FighterUnit4" parent="Arena/NPC Roster" unique_id=599623709 instance=ExtResource("7_l8w5n")]
-level = 4
-
-[node name="Puncher" parent="Arena/NPC Roster/FighterUnit4" unique_id=1998936557 instance=ExtResource("10_cjrk3")]
-material = SubResource("ShaderMaterial_u80vi")
+[node name="The Quadruped" parent="Arena/NPC Roster/FighterUnit4" unique_id=161490447 instance=ExtResource("8_6ytje")]
+material = SubResource("ShaderMaterial_0da2b")
 
 [node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "alternative_weapon", "equipped_module", "equipped_artifices") groups=["player"] instance=ExtResource("3_t331a")]
 process_priority = 1
@@ -429,7 +288,5 @@ max_hp = 1000.0
 [connection signal="ready" from="Arena/teams/team_1/player_fighter" to="Arena/ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_ready"]
 
 [editable path="Arena"]
-[editable path="Arena/teams/team_1/dummy"]
 [editable path="Arena/teams/team_1/player_fighter"]
-[editable path="Arena/teams/team_2/dummy2"]
 [editable path="Player"]

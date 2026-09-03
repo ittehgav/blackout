@@ -174,7 +174,6 @@ func item_sample_setup()->void:
 func item_mirror_setup()->void:
 	var mirror:ItemMirror = target;
 	item_setup();
-	hint.show()
 	var item:Item = target.item;
 	match mirror.display.context:
 		"player_sheet":
@@ -208,6 +207,7 @@ func item_mirror_setup()->void:
 
 
 func item_setup()->void:
+	hint.show()
 	var item:Item = target.item;
 	name_label.add_theme_color_override("font_color", Index.get_color(item.color_tag))
 	var target_name:String = item.unique_name;
@@ -254,6 +254,7 @@ func item_setup()->void:
 		description_label.text += "[color=green]+"+str(item.cargo_space) + " cargo space\n";
 		description_label.text += "+"+str(item.party_space) + " party capacity[/color]\n";
 		description_label.text += Index.get_color_tag("fuel")+"+"+str(item.fuel_cost)+" travel fuel cost[/color]\n"
+		hint.hide()
 	sub_name_label.show()
 	## do the just method for everything that gets colors from index?
 	## some other way that's gonna make me feel stupid once i find out about how do modularize this stuff?

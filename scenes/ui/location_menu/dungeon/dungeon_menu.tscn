@@ -201,6 +201,7 @@ ui_sfx = NodePath("ui_sfx")
 metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
 
 [node name="ui_sfx" parent="." unique_id=7682245 instance=ExtResource("2_dqlpc")]
+bus = &"Master"
 
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="." unique_id=511596070]
 script = ExtResource("5_tpeou")

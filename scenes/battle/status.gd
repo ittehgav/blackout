@@ -29,7 +29,7 @@ var chain:Array[Status]
 @export var special_status_texture:Texture;
 
 
-var source:ActiveFighter
+var source:ActiveFighter;
 
 var host:ActiveFighter
 
@@ -39,6 +39,10 @@ var timer:Timer;
 func generate_status()->Status:
 	const properties_to_clone:Array[String] = ["type", "source", "duration", "value", "chain_root", "latency"]
 	var new_status:Status = duplicate();
+	
+	if chain_root:
+		for c:Node in new_status.get_children():
+			c.queue_free()
 	for key:String in properties_to_clone:
 		new_status[key] = self[key]
 	return new_status;
@@ -64,8 +68,8 @@ func apply_on_target(target:CombatEntity=source.target_fighter, hard_value:float
 	if chain_root:
 		for c:Node in get_children():
 			assert(c is Status);
+			c.source = source
 			var chained_status:Status = c.apply_on_target(target)
-			chained_status.source = source;
 			new_status.chain.append(chained_status)
 			
 	new_status.apply(propagated);
@@ -144,11 +148,8 @@ func remove()->void:
 			## works with negative values just fine
 			host.stat_modifiers[stat] -= value;
 			host.stat_changed.emit(stat);
-			
+	removed.emit()
 	host.status_removed.emit(self)
-	if chain_root:
-		for status:Status in chain:
-			status.remove();
 	queue_free()
 
 func get_status_color()->Color:

@@ -49,6 +49,7 @@ mechanic_colors = Dictionary[int, Color]({
 metadata/_custom_type_script = "uid://c2s047ot7rscb"
 
 [node name="Tooltip" parent="." unique_id=2029286187 instance=ExtResource("9_slgv3")]
+z_index = 1038
 layout_mode = 1
 offset_left = -640.0
 offset_top = -360.0

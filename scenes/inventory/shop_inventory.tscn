@@ -5,7 +5,6 @@
 [node name="ShopInventory" type="Node2D" unique_id=1084697740]
 visible = false
 script = ExtResource("1_vpncq")
-expandable = true
 money = 100
 capacity_x = 24
 

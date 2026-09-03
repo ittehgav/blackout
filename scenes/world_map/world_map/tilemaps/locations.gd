@@ -43,21 +43,42 @@ func assign_neighbors(target:Location)->void:
 	var to_check:Array = all_locations.duplicate();
 	to_check.erase(target)
 	to_check.sort_custom(neighbor_distance_sort.bind(target))
-	while target.room_for_neighbors():
-		var l:Location = to_check[0];
-		
-		while l in target.neighbors or (not l.room_for_neighbors() and locations_with_room > 2):
-			to_check.pop_front()
-			if not len(to_check):
-				to_check = all_locations.duplicate();
-				to_check.erase(target)
-				to_check.sort_custom(neighbor_distance_sort.bind(target))
-
-			l = to_check[0];
+	var room:int = target.room_for_neighbors()
+	while room:
+		if locations_with_room <= room:
+			var locations:Array[Location];
+			locations = all_locations.filter(
+				func(t:Location)->bool:
+					return t.room_for_neighbors() and not t in target.neighbors;
+			)
+			for l in locations:
+				match_neighbors(target, l)
+			room = target.room_for_neighbors();
 			
-		to_check.pop_front()
-		
-		match_neighbors(target, l);
+			var remainder:Array[Location] =\
+			all_locations.filter(
+				func(t:Location)->bool:
+					return not t in target.neighbors;
+			)
+			remainder.sort_custom(neighbor_distance_sort.bind(target))
+			while room:
+				match_neighbors(target, remainder.pop_front())
+
+		else:
+			var l:Location = to_check[0];
+			while l in target.neighbors or not l.room_for_neighbors():
+				to_check.pop_front()
+				if not len(to_check):
+					to_check = all_locations.duplicate();
+					to_check.erase(target)
+					to_check.sort_custom(neighbor_distance_sort.bind(target))
+
+				l = to_check[0];
+				
+			to_check.pop_front()
+			
+			match_neighbors(target, l);
+			room = target.room_for_neighbors();
 	
 func neighbor_distance_sort(a:Location, b:Location, target:Location)->bool:
 	return target.position.distance_to(a.position) < target.position.distance_to(b.position);

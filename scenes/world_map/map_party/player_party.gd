@@ -76,15 +76,15 @@ func enter_location()->void:
 
 
 func _on_shift_skill_check_fail_hit() -> void:
-	assert(navigation_tween.is_running())
-	navigation_tween.set_speed_scale(.75)
+	if navigation_tween and navigation_tween.is_running():
+		navigation_tween.set_speed_scale(.75)
 
 
 func _on_shift_skill_check_good_hit() -> void:
-	assert(navigation_tween.is_running())
-	navigation_tween.set_speed_scale(1)
+	if navigation_tween and navigation_tween.is_running():
+		navigation_tween.set_speed_scale(1)
 
 
 func _on_shift_skill_check_perfect_hit() -> void:
-	assert(navigation_tween.is_running())
-	navigation_tween.set_speed_scale(1.5)
+	if navigation_tween and navigation_tween.is_running():
+		navigation_tween.set_speed_scale(1.5)

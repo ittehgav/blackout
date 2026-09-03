@@ -121,7 +121,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xs7fa"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w5ded"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -133,7 +133,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6diul"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7mpf"]
 resource_local_to_scene = true
 shader = ExtResource("8_2foka")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -567,13 +567,13 @@ metadata/_custom_type_script = "uid://dclobwhhhy4eu"
 [node name="player_fighter" parent="teams/team_1" unique_id=543559168 instance=ExtResource("7_8stbl")]
 position = Vector2(-92, 537)
 
-[node name="body" parent="teams/team_1/player_fighter" index="5" unique_id=416499753]
-material = SubResource("ShaderMaterial_xs7fa")
+[node name="body" parent="teams/team_1/player_fighter" index="6" unique_id=416499753]
+material = SubResource("ShaderMaterial_w5ded")
 
-[node name="equipment" parent="teams/team_1/player_fighter" index="7" unique_id=488158529]
-material = SubResource("ShaderMaterial_6diul")
+[node name="equipment" parent="teams/team_1/player_fighter" index="8" unique_id=488158529]
+material = SubResource("ShaderMaterial_p7mpf")
 
-[node name="camera" parent="teams/team_1/player_fighter" index="8" unique_id=1871726771]
+[node name="camera" parent="teams/team_1/player_fighter" index="9" unique_id=1871726771]
 limit_left = -5999
 limit_top = -147
 limit_right = 6001
@@ -921,6 +921,10 @@ size_flags_horizontal = 4
 
 [node name="a1_count" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_1/HBoxContainer" unique_id=512010549]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.112, 0.11933333, 0.2, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 64
 text = "1"
 
 [node name="a1_texture" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_1/HBoxContainer" unique_id=547595711]
@@ -963,6 +967,10 @@ size_flags_horizontal = 4
 
 [node name="a2_count" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_2/HBoxContainer" unique_id=1107715501]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.112, 0.11933333, 0.2, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 64
 text = "3"
 
 [node name="a2_texture" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_2/HBoxContainer" unique_id=453486015]
@@ -1005,6 +1013,10 @@ size_flags_horizontal = 4
 
 [node name="a3_count" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_3/HBoxContainer" unique_id=1950220682]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.112, 0.11933333, 0.2, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 64
 text = "0"
 
 [node name="a3_texture" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_3/HBoxContainer" unique_id=2037514346]
@@ -1258,7 +1270,6 @@ arena = NodePath("../../..")
 [connection signal="artifice_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/artifices" method="_on_equipment_artifice_used"]
 [connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_fumbled" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_fumbled"]
-[connection signal="weapon_hit" from="teams/team_1/player_fighter/equipment" to="teams/team_1/player_fighter/equipment/weapon_control" method="weapon_hit"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_used"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="check_weapon_disabled"]
 [connection signal="timeout" from="teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]

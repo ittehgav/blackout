@@ -46,13 +46,13 @@ func _ready()->void:
 func load_fighter()->void:
 	var player:Player = Entities.player
 	var stats:CombatStats = player.final_stats();
-	
+
 	for stat:String in CombatStats.all_stats:
 		initial_stats[stat] = stats[stat];
 
-	
 	var accessory_1:Accessory = player.equipped_accessory_1;
 	var accessory_2:Accessory = player.equipped_accessory_2;
+	
 	for accessory:Accessory in [accessory_1, accessory_2]:
 		if accessory:
 			if accessory.application == "battle_start":
@@ -65,6 +65,7 @@ func load_fighter()->void:
 	
 	refresh_all_stats()
 	hp = max_hp;
+
 
 func _physics_process(delta:float)->void:
 	if not flying and not stunned:

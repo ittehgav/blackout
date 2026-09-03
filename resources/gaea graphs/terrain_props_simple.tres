@@ -1,0 +1,284 @@
+[gd_resource type="Resource" script_class="GaeaGraph" format=3 uid="uid://crpxnpkb1fuxw"]
+
+[ext_resource type="Script" uid="uid://e45byecr4gi6" path="res://addons/gaea/runtime/resources/materials/data/tilemap_material.gd" id="1_g3r4i"]
+[ext_resource type="Script" uid="uid://cj08rybcfwlle" path="res://addons/gaea/runtime/resources/materials/material.gd" id="2_g3r4i"]
+[ext_resource type="Script" uid="uid://dtocuov1r8agi" path="res://addons/gaea/runtime/resources/materials/distribution/pointwise_random_material.gd" id="3_o8h6e"]
+[ext_resource type="Script" uid="uid://3qsmwhn2sk47" path="res://addons/gaea/runtime/resources/layer.gd" id="4_b757o"]
+[ext_resource type="Script" uid="uid://dae6umbqb872e" path="res://addons/gaea/runtime/resources/graph.gd" id="5_grve8"]
+
+[sub_resource type="Resource" id="Resource_u5bk5"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(0, 2)
+preview_color = Color(0.46273494, 0.9414822, 0.69103116, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_skwmh"]
+script = ExtResource("1_g3r4i")
+preview_color = Color(0.6629655, 0.5253273, 0.8216432, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_noxwe"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(1, 0)
+preview_color = Color(0.9660963, 0.9320192, 0.3553673, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_8mq0g"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(2, 0)
+preview_color = Color(0.80403185, 0.40079623, 0.013529634, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_up215"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(0, 1)
+preview_color = Color(0.20707995, 0.22407699, 0.3293221, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_m8aqq"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(1, 1)
+preview_color = Color(0.9996035, 0.23738857, 0.36852857, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_otfe5"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(2, 1)
+preview_color = Color(0.9837253, 0.05172107, 0.34555253, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_6c33l"]
+script = ExtResource("3_o8h6e")
+materials = Array[ExtResource("2_g3r4i")]([SubResource("Resource_skwmh"), SubResource("Resource_noxwe"), SubResource("Resource_8mq0g"), SubResource("Resource_up215"), SubResource("Resource_m8aqq"), SubResource("Resource_otfe5")])
+weights = PackedFloat32Array(500, 100, 100, 100, 100, 100)
+preview_color = Color(0.43743226, 0.24546593, 0.409149, 1)
+metadata/_custom_type_script = "uid://dtocuov1r8agi"
+
+[sub_resource type="Resource" id="Resource_b757o"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(0, 3)
+preview_color = Color(0.4099552, 0.4091349, 0.5898505, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_grve8"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(1, 3)
+preview_color = Color(0.50986916, 0.24917215, 0.024043212, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_paqma"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(2, 3)
+preview_color = Color(0.13297074, 0.6285679, 0.14835203, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_cu76n"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(0, 4)
+preview_color = Color(0.6704995, 0.2645207, 0.15979308, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_3f133"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(1, 4)
+preview_color = Color(0.28919092, 0.7960537, 0.67412955, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_cmmfg"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(2, 4)
+preview_color = Color(0.7494468, 0.6924661, 0.5885349, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_5ttdy"]
+script = ExtResource("3_o8h6e")
+materials = Array[ExtResource("2_g3r4i")]([SubResource("Resource_b757o"), SubResource("Resource_grve8"), SubResource("Resource_paqma"), SubResource("Resource_cu76n"), SubResource("Resource_3f133"), SubResource("Resource_cmmfg")])
+weights = PackedFloat32Array(700, 100, 100, 100, 100, 100)
+preview_color = Color(0.20281324, 0.13463609, 0.2705335, 1)
+metadata/_custom_type_script = "uid://dtocuov1r8agi"
+
+[sub_resource type="Resource" id="Resource_s4j21"]
+script = ExtResource("1_g3r4i")
+atlas_coord = Vector2i(0, 5)
+preview_color = Color(0.10240015, 0.11517116, 0.29160872, 1)
+metadata/_custom_type_script = "uid://e45byecr4gi6"
+
+[sub_resource type="Resource" id="Resource_o8h6e"]
+script = ExtResource("4_b757o")
+
+[sub_resource type="Resource" id="Resource_d0r06"]
+script = ExtResource("4_b757o")
+metadata/_custom_type_script = "uid://3qsmwhn2sk47"
+
+[resource]
+script = ExtResource("5_grve8")
+layers = Array[ExtResource("4_b757o")]([SubResource("Resource_o8h6e"), SubResource("Resource_d0r06")])
+preview_seed = 337930924
+preview_world_size = Vector3i(64, 64, 1)
+preview_chunk_size = Vector3i(64, 64, 1)
+save_version = 5
+_connections = Array[StringName]([&"6-0-7-1", &"4-0-5-1", &"8-0-9-1", &"7-0-10-2", &"9-0-10-3", &"10-0-0-0", &"11-0-5-0", &"11-0-7-0", &"11-0-9-0", &"5-0-14-0", &"12-0-14-1", &"14-0-10-1", &"4-0-12-1", &"11-0-12-0", &"15-0-13-1", &"11-0-13-0", &"13-0-10-0"])
+_node_data = Dictionary[int, Dictionary]({
+0: {
+&"position": Vector2(1340, 400),
+&"salt": 3737671791,
+&"type": 0,
+&"uid": "uid://dol7xviglksx4"
+},
+4: {
+&"arguments": {
+&"name": "caatinga"
+},
+&"position": Vector2(-180, 800),
+&"salt": 4208994979,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+5: {
+&"arguments": {
+&"range": {
+"max": 0.4,
+"min": 0.25
+}
+},
+&"position": Vector2(60, 500),
+&"salt": 3852017730,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+6: {
+&"arguments": {
+&"name": "scrapland"
+},
+&"position": Vector2(-140, 1680),
+&"salt": 3869595135,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+7: {
+&"arguments": {
+&"range": {
+"max": 0.55,
+"min": 0.4
+}
+},
+&"position": Vector2(80, 1640),
+&"salt": 3613750098,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+8: {
+&"arguments": {
+&"name": "swamp"
+},
+&"position": Vector2(-140, 2220),
+&"salt": 2085688945,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+},
+9: {
+&"arguments": {
+&"range": {
+"max": 1.0,
+"min": 0.7000000000000001
+}
+},
+&"position": Vector2(80, 2180),
+&"salt": 2067832597,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+10: {
+&"enums": [0],
+&"position": Vector2(1000, 300),
+&"salt": 3419630491,
+&"type": 0,
+&"uid": "uid://d2f6bjkxcn7jl"
+},
+11: {
+&"arguments": {
+&"frequency": 0.01,
+&"lacunarity": 1.0,
+&"octaves": 5.0
+},
+&"enums": [0],
+&"position": Vector2(-600, 420),
+&"salt": 3761364831,
+&"type": 0,
+&"uid": "uid://cgjyi804j05dy"
+},
+12: {
+&"arguments": {
+&"range": {
+"max": 0.7000000000000001,
+"min": 0.55
+}
+},
+&"position": Vector2(60, 1060),
+&"salt": 2912334299,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+13: {
+&"arguments": {
+&"range": {
+"max": 0.25,
+"min": 0.0
+}
+},
+&"position": Vector2(60, -60),
+&"salt": 2478262904,
+&"type": 0,
+&"uid": "uid://djjvx650evm0n"
+},
+14: {
+&"position": Vector2(420, 900),
+&"salt": 2656617026,
+&"type": 0,
+&"uid": "uid://d2f6bjkxcn7jl"
+},
+15: {
+&"arguments": {
+&"name": "forest"
+},
+&"position": Vector2(-220, 20),
+&"salt": 1134522576,
+&"type": 0,
+&"uid": "uid://cqs1w714pbfql"
+}
+})
+_parameters = Dictionary[StringName, Variant]({
+&"caatinga": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": &"caatinga",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_u5bk5")
+},
+&"forest": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": &"forest",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_6c33l")
+},
+&"scrapland": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": &"scrapland",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_5ttdy")
+},
+&"swamp": {
+"hint": 17,
+"hint_string": "GaeaMaterial",
+"name": &"swamp",
+"type": 24,
+"usage": 4,
+"value": SubResource("Resource_s4j21")
+}
+})
+metadata/_custom_type_script = "uid://dae6umbqb872e"

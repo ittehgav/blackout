@@ -29,14 +29,29 @@ enum SkillRange{
 
 var fighter:NpcFighter;
 
+
 @export var tags:Array[Tag]
+@export var omit_charge_bar:bool=false;
 
+
+
+@export_group("misc")
 @export var evolutions:Array[FighterBase] = []
+## stuff that won't be changed as often as the other stuff
+@export_enum("recruit", "monster") var fighter_type:String = "recruit";
+## where we can add other special types like bosses or more complex NPCs?
+@export var body_type:CombatEntity.BodyType;
 
+@export var hit_scan:Area2D;
+@export var projectile:Projectile
+@export var base_stats:CombatStats;
+@export var stats_per_level:CombatStats;
+
+@export var idle_animation_path:String = "fighter_base/idle"
+@export var walk_animation_path:String = "fighter_base/walk"
+@export var skill_animation_path:String = "fighter_base/skill"
 
 enum Tag {
-	## just cv paste the old format if this becomes too much 
-	## work for too little payoff?
 	bodybuilder,
 	brawler,
 	cyborg,
@@ -53,7 +68,8 @@ enum Tag {
 	reptile,
 	rodent,
 	sludge,
-	insect
+	insect,
+	animatronic
 }
 
 enum RecruitTag{
@@ -73,7 +89,8 @@ enum MonsterTag{
 	reptile = Tag.reptile,
 	rodent = Tag.rodent,
 	sludge = Tag.sludge,
-	insec = Tag.insect
+	insect = Tag.insect,
+	animatronic = Tag.animatronic
 }
 ## repeating this on the base scripts so movement/skill
 ## animations can be set for each individual base
@@ -82,31 +99,17 @@ enum MonsterTag{
 
 @export var movement:MovementPattern = MovementPattern.chase;
 enum MovementPattern{
-	chase, 
 	## will go as close as possible to target unless they're in range and 
 	## the next cell in the path moves them off their skill range
-	hover,
+	chase, 
 	## will move towards target until they're in range and
 	## run away if the target is 2(?) cells closer than the max range
+	hover,
+	## never moves or movement fully overridden by base script
 	none
-	## never moves
-	## (but can still target and stuff?)
+
 }
 		
-@export_group("misc")
-## stuff that won't be changed as often as the other stuff
-@export_enum("recruit", "monster") var fighter_type:String = "recruit";
-## where we can add other special types like bosses or more complex NPCs?
-@export var body_type:CombatEntity.BodyType;
-
-@export var hit_scan:Area2D;
-@export var projectile:Projectile
-@export var base_stats:CombatStats;
-@export var stats_per_level:CombatStats;
-
-@export var idle_animation_path:String = "fighter_base/idle"
-@export var walk_animation_path:String = "fighter_base/walk"
-@export var skill_animation_path:String = "fighter_base/skill"
 signal started_moving;
 signal stopped_moving;
 

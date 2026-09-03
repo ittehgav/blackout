@@ -102,11 +102,11 @@ skill = NodePath("components/Piercing Shot")
 skill_range = 10
 animation_player = NodePath("components/base_animations")
 weight_class = 0
-tags = Array[int]([3, 2, 4])
-movement = 1
+tags = Array[int]([3, 1, 7])
 hit_scan = NodePath("hit_scan")
 base_stats = NodePath("components/stats/base_stats")
 stats_per_level = NodePath("components/stats/stats_per_level")
+movement = 1
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="components" type="Node" parent="." unique_id=308208788]

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b306krmaodahy"]
+
+[ext_resource type="Script" uid="uid://du18jftmph72c" path="res://scenes/world_map/location/bounty.gd" id="1_spjm1"]
+
+[node name="Bounty" type="Node" unique_id=237642453]
+script = ExtResource("1_spjm1")

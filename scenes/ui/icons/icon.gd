@@ -51,6 +51,9 @@ func setup()->void:
 		modulate = default_color;
 		if label:
 			label.add_theme_color_override("font_color", default_color)
+			label.add_theme_color_override("font_outline_color", default_color.darkened(.7));
+			label.add_theme_constant_override("outline_size", label.get_theme_font_size("font_size")/4)
+
 		bg.show();
 
 func _on_mouse_entered() -> void:

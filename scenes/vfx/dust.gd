@@ -5,18 +5,31 @@ class_name Dust;
 var source:ActiveFighter
 @export var manual:bool=false;
 
+@export var match_source_sector:bool=false;
+var anchor:Node2D;
 func _ready()->void:
 	## will be child of active fighter and detect context
 	## and connect itself without any other nodes having to do anything
-	if manual:return
 	var parent:Node = get_parent();
-	while not parent is ActiveFighter:
+	while not parent is ActiveFighter and parent:
 		## non-manual = started moving =
 		## only in NPC fighter and player fighter
 		parent = parent.get_parent();
-		
+	if not parent:
+		return
 	source = parent
-	source.started_moving.connect(dust_animation)
+	if match_source_sector:
+		## DEFAULT VALUE = FACING RIGHT ANCHOR ROTATION = 0 deg
+		anchor = Node2D.new();
+		get_parent().add_child(anchor);
+		source.sprite.frame_changed.connect(_on_source_sprite_frame_changed)
+		reparent(anchor)
+	
+	if not manual:
+		source.started_moving.connect(dust_animation)
+
+func _on_source_sprite_frame_changed()->void:
+	anchor.rotation_degrees = source.get_sector_angle(source.sprite.frame_coords.x)
 
 func dust_animation(motion:Vector2=(source.velocity * -1).normalized())->void:
 	if motion.x > 0:

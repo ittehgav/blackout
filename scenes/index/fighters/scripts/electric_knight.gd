@@ -5,18 +5,13 @@ extends FighterBase
 const elec_count_bonus = .5
 const elec_count_bonus_technique_amp = .1
 
-func full_skill_description(unit:FighterUnit)->String:
-	var damage_string:String = Index.colored_text("attack", unit.final_stat("attack"), " damage")
+func full_skill_description(_unit:FighterUnit)->String:
 	var electrified_tag:String = Index.get_color_tag("electrify");
-	var elec_count_increase:String = Index.colored_text("technique", CombatStats.technique_scaled_value(
-		elec_count_bonus, unit.final_stat("technique"), "", elec_count_bonus_technique_amp),"%")
-	
+
 	var f:Dictionary = {
 		"elec":electrified_tag,
-		"damage":damage_string,
-		"bonus":elec_count_increase
 	}
-	var final_string:String = "{elec}Electrifies[/color] and deals {damage} to the nearest non-electrified enemy, then fires a bolt that deals {damage} to all {elec}Electrified[/color] enemies, each electrified unit increases the bolt's damage by {bonus}.".format(f);
+	var final_string:String = "{elec}Electrifies[/color] and danages the nearest enemy, then fires a bolt that damages to all {elec}Electrified[/color] enemies, the bolts deal more damages the more {elec}Electrified[/color] enemies there are.".format(f);
 	return final_string
 
 func special_skill_effect()->void:

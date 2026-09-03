@@ -71,7 +71,7 @@ func shift_tutorial()->void:
 func _input(e:InputEvent)->void:
 	if e.is_action_pressed("shift_press"):
 		if not spacebar_clear.is_stopped():
-			spacebar_clear.start(2)
+			spacebar_clear.start(1)
 		else:
 			skill_check.set_process_input(true)
 			skill_check.motion_tween.play()

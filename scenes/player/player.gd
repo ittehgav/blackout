@@ -26,6 +26,11 @@ var party_cap:int:
 			cap += key.party_space;
 		return cap
 
+var party_room:int:
+	get():
+		var cap:int = party_cap;
+		return cap - len(roster.units);
+
 @export var bound_items:Array[Item]
 ## right now just the initial car key but might as well
 ## leave it ready to add more 

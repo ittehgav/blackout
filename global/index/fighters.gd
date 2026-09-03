@@ -11,6 +11,7 @@ class_name FighterIndex
 ## fighter bases are only stored as index references outside of combat
 @export var unit_bases_dir:String;
 @export var monster_bases_dir:String
+@export var boss_bases_dir:String;
 
 
 ## only need this for matching evolutions, no reason to fetch monster bases like this rn
@@ -27,7 +28,7 @@ func refresh_fighter_bases()->void:
 			c.queue_free();
 
 
-	for dir:String in [unit_bases_dir, monster_bases_dir]:
+	for dir:String in [unit_bases_dir, monster_bases_dir, boss_bases_dir]:
 		var access:DirAccess = DirAccess.open(dir);
 		for filename:String in access.get_files():
 			var base_scene:PackedScene = load(dir + "/" + filename);

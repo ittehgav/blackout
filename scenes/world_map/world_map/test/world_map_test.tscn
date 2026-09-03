@@ -83,26 +83,29 @@ material = SubResource("ShaderMaterial_qigu1")
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 315
 
-[node name="Brass Knuckles" parent="Player/Inventory" index="0" unique_id=834594505 instance=ExtResource("7_tsypy")]
+[node name="Fuel Tank2" parent="Player/Inventory" index="0" unique_id=696648430 instance=ExtResource("13_1rf0y")]
+position = Vector2(-845.4155, 252.2168)
 
-[node name="Tailpipe" parent="Player/Inventory" index="1" unique_id=870722934 instance=ExtResource("8_2f5bq")]
+[node name="Brass Knuckles" parent="Player/Inventory" index="1" unique_id=834594505 instance=ExtResource("7_tsypy")]
+
+[node name="Tailpipe" parent="Player/Inventory" index="2" unique_id=870722934 instance=ExtResource("8_2f5bq")]
 base_damage = 500
 
-[node name="Slingshot" parent="Player/Inventory" index="2" unique_id=1530847075 instance=ExtResource("9_sukr5")]
+[node name="Slingshot" parent="Player/Inventory" index="3" unique_id=1530847075 instance=ExtResource("9_sukr5")]
 
-[node name="Dodge Roll" parent="Player/Inventory" index="3" unique_id=1043224961 instance=ExtResource("10_nwj28")]
+[node name="Dodge Roll" parent="Player/Inventory" index="4" unique_id=1043224961 instance=ExtResource("10_nwj28")]
 cooldown = 2.0
 
-[node name="Juice Flask" parent="Player/Inventory" index="4" unique_id=474181517 instance=ExtResource("11_7vpix")]
+[node name="Juice Flask" parent="Player/Inventory" index="5" unique_id=474181517 instance=ExtResource("11_7vpix")]
 stack_size = 50
 
-[node name="Food Basket" parent="Player/Inventory" index="5" unique_id=2082907014 instance=ExtResource("13_qigu1")]
+[node name="Food Basket" parent="Player/Inventory" index="6" unique_id=2082907014 instance=ExtResource("13_qigu1")]
 stack_size = 100
 
-[node name="Fuel Tank" parent="Player/Inventory" index="6" unique_id=837139287 instance=ExtResource("13_1rf0y")]
+[node name="Fuel Tank" parent="Player/Inventory" index="7" unique_id=837139287 instance=ExtResource("13_1rf0y")]
 stack_size = 100
 
-[node name="Motivational Speech Draft" parent="Player/Inventory" index="7" unique_id=103288080 instance=ExtResource("15_vv06e")]
+[node name="Motivational Speech Draft" parent="Player/Inventory" index="8" unique_id=103288080 instance=ExtResource("15_vv06e")]
 
 [node name="base_stats" parent="Player" index="3" unique_id=1645727257]
 max_hp = 100.0

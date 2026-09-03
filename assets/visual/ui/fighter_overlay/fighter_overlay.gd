@@ -25,16 +25,17 @@ class_name FighterOverlay
 
 var trail_tween:Tween;
 
-
-func _ready()->void:
-	await fighter.ready;
-		
+func _on_npc_fighter_ready() -> void:
 	hp_bar.max_value = fighter.max_hp;
 	hp_bar.value = fighter.hp;
+	
+
 
 	hp_bar_trail.max_value = fighter.max_hp;
 	hp_bar_trail.value = fighter.hp;
 	if not fighter.dummy:
+		if fighter.base.omit_charge_bar:
+			charge_bar.hide()
 		charge_bar.max_value = cooldown_timer.wait_time;
 		get_node("refresh_bar").start()
 

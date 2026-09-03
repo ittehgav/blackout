@@ -7,9 +7,6 @@ class_name Inventory;
 signal changed;
 
 
-@export var expandable:bool=false
-## right now just for shop inventories to have infinite space
-
 @export var holder:Node;
 
 
@@ -55,6 +52,7 @@ func get_resource_count(r:String)->int:
 @export var artifices:Array[Artifice]
 @export var car_keys:Array[CarKey]
 
+@export_subgroup("Capacity")
 @export var capacity_x:int = 0;
 @export var capacity_y:int = 12;
 ## player inventory  will always have Big Family as a starter

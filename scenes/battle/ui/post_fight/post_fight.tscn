@@ -95,6 +95,7 @@ player_exp_bar = NodePath("victory_sequence/exp_gain/VBoxContainer/player_levels
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." unique_id=1468079998 instance=ExtResource("4_r614c")]
+bus = &"Master"
 
 [node name="bgm" type="AudioStreamPlayer" parent="." unique_id=1516428419]
 volume_db = -5.0
@@ -273,6 +274,12 @@ grow_vertical = 1
 context = "loot"
 exchanging_display = NodePath("../enemy_inventory")
 
+[node name="hover_sfx" parent="victory_sequence/loot_panel/player_inventory" index="0" unique_id=1571618890]
+bus = &"Master"
+
+[node name="sfx" parent="victory_sequence/loot_panel/player_inventory" index="1" unique_id=227163406]
+bus = &"Master"
+
 [node name="operation" parent="victory_sequence/loot_panel/player_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(1918470521, 2139714282) index="0" unique_id=286290238]
 text = "LOOT"
 
@@ -308,6 +315,12 @@ grow_vertical = 1
 context = "loot"
 exchanging_display = NodePath("../player_inventory")
 from_player = false
+
+[node name="hover_sfx" parent="victory_sequence/loot_panel/enemy_inventory" index="0" unique_id=1571618890]
+bus = &"Master"
+
+[node name="sfx" parent="victory_sequence/loot_panel/enemy_inventory" index="1" unique_id=227163406]
+bus = &"Master"
 
 [node name="operation" parent="victory_sequence/loot_panel/enemy_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(1767096259, 2139714282) index="0" unique_id=286290238]
 text = "DISCARD"

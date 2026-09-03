@@ -45,6 +45,7 @@ mechanic_values = NodePath("texts/Mechanic Values Grid")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." unique_id=259294312 instance=ExtResource("2_tw0lw")]
+bus = &"Master"
 
 [node name="exit" type="Label" parent="." unique_id=382584999]
 layout_mode = 1
@@ -132,6 +133,7 @@ theme_override_font_sizes/font_size = 64
 text = "Level 2"
 
 [node name="exp_bar" parent="HBoxContainer2/VBoxContainer" unique_id=1011470415 instance=ExtResource("4_kpc33")]
+custom_minimum_size = Vector2(320, 48)
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -145,6 +147,36 @@ stat_labels = {
 "max_hp": NodePath("max_hp/max_hp"),
 "technique": NodePath("technique/technique")
 }
+
+[node name="max_hp_icon" parent="HBoxContainer2/VBoxContainer/StatsDropdown/max_hp" parent_id_path=PackedInt32Array(725918644, 879368159) index="0" unique_id=1084514480]
+custom_minimum_size = Vector2(64, 64)
+
+[node name="max_hp" parent="HBoxContainer2/VBoxContainer/StatsDropdown/max_hp" parent_id_path=PackedInt32Array(725918644, 879368159) index="1" unique_id=1952093428]
+theme_override_font_sizes/font_size = 64
+
+[node name="attack_icon" parent="HBoxContainer2/VBoxContainer/StatsDropdown/attack" parent_id_path=PackedInt32Array(725918644, 523508622) index="0" unique_id=1245140987]
+custom_minimum_size = Vector2(64, 64)
+
+[node name="attack" parent="HBoxContainer2/VBoxContainer/StatsDropdown/attack" parent_id_path=PackedInt32Array(725918644, 523508622) index="1" unique_id=1704717145]
+theme_override_font_sizes/font_size = 64
+
+[node name="defense_icon" parent="HBoxContainer2/VBoxContainer/StatsDropdown/defense" parent_id_path=PackedInt32Array(725918644, 1249331385) index="0" unique_id=714071709]
+custom_minimum_size = Vector2(64, 64)
+
+[node name="defense" parent="HBoxContainer2/VBoxContainer/StatsDropdown/defense" parent_id_path=PackedInt32Array(725918644, 1249331385) index="1" unique_id=1807945443]
+theme_override_font_sizes/font_size = 64
+
+[node name="agility_icon" parent="HBoxContainer2/VBoxContainer/StatsDropdown/agility" parent_id_path=PackedInt32Array(725918644, 1022494949) index="0" unique_id=1718996867]
+custom_minimum_size = Vector2(64, 64)
+
+[node name="agility" parent="HBoxContainer2/VBoxContainer/StatsDropdown/agility" parent_id_path=PackedInt32Array(725918644, 1022494949) index="1" unique_id=1684223526]
+theme_override_font_sizes/font_size = 64
+
+[node name="technique_icon" parent="HBoxContainer2/VBoxContainer/StatsDropdown/technique" parent_id_path=PackedInt32Array(725918644, 1011682043) index="0" unique_id=36948302]
+custom_minimum_size = Vector2(64, 64)
+
+[node name="technique" parent="HBoxContainer2/VBoxContainer/StatsDropdown/technique" parent_id_path=PackedInt32Array(725918644, 1011682043) index="1" unique_id=32419535]
+theme_override_font_sizes/font_size = 64
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2" unique_id=985526786]
 layout_mode = 2
@@ -179,3 +211,5 @@ autoplay = &"fighter_base/idle"
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="gui_input" from="HBoxContainer2/VBoxContainer2/item_sample" to="." method="_on_item_sample_gui_input"]
+
+[editable path="HBoxContainer2/VBoxContainer/StatsDropdown"]

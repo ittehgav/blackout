@@ -76,8 +76,8 @@ var pan_to_player_tween:Tween;
 func pan_to_player()->void:
 	pan_to_player_tween = create_tween()
 	pan_to_player_tween.tween_property(self, "position", Vector2.ZERO, 1);
-	if zoom < max_zoom:
-		zoom_in(max_zoom)
+	if zoom < max_zoom/2:
+		zoom_in(max_zoom/2)
 
 func stop_pan_to_player()->void:
 	if pan_to_player_tween and pan_to_player_tween.is_running():

@@ -22,6 +22,7 @@ func display_loot(player_inventory:Inventory, loot_inventory:LootInventory)->voi
 
 	player_inventory_display.inventory = player_inventory
 	player_inventory_display.open()
+	
 	enemy_inventory_display.inventory = loot_inventory;
 	enemy_inventory_display.open();
 	

@@ -9,8 +9,10 @@ extends TileMapLayer
 @export var world_map:WorldMap
 
 
-const fog_range = 300;
-
+const fog_range = 150;
+const off_road_sight = 10;
+const horizon_gap:int = 3;
+@onready var horizon_limits: = set_horizon_limits();
 func _enter_tree()->void:
 	for x in fog_range * 2:
 		for y in fog_range * 2:
@@ -27,9 +29,7 @@ func reveal_neighbors(current_location:Location=player_party.current_location)->
 		if not location.data.seen:
 			location.reveal();
 
-const off_road_sight = 8;
-const horizon_gap:int = 2;
-@onready var horizon_limits: = set_horizon_limits();
+
 func set_horizon_limits()->Array[int]:
 	var limits:Array[int];
 	for i in range(off_road_sight - horizon_gap, off_road_sight + 1):

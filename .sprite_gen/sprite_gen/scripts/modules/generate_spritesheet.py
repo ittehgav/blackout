@@ -12,11 +12,12 @@ steps = 8                 # 360 / 45 = 8
 angle_step = 360 / steps  # degrees per step
 pivot = (0, 0, 0)         # rotate around world origin
 
-total_frames = 5
+total_frames = 3
 
 
 
 camera_root = bpy.data.objects.get("camera_root")
+camera_root.rotation_euler[1] = 0;
 
 
 collection = bpy.data.collections.get("all")
@@ -29,14 +30,14 @@ sprite_gen.generate_frames(collection, total_frames, steps, output_path, pivot, 
 
 png_files = ["//renders/"+f for f in os.listdir(bpy.path.abspath("//renders")) if f.lower().endswith('.png')] 
 
-sprite_gen.generate_spritesheet(png_files, total_frames);
+sprite_gen.generate_spritesheet(png_files, total_frames, 128);
 
 print("✅ Finished rendering 360° around Y-axis.")
 
 
 sample_files = ["render_00-3.png", "render_01-3.png", "render_02-3.png"]
 sample_images = [Image.open(os.path.join("renders", f)) for f in sample_files]
-frame_durations = [133, 233, 284]
+frame_durations = [150, 200, 300]
 
 sample_path = "sample.gif"
 sample_images[0].save(

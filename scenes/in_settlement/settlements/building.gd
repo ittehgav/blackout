@@ -12,7 +12,8 @@ enum Option{
 	trade,
 	recruit,
 	evolve,
-	refine
+	refine,
+	bounty_board
 }
 var option_descriptions:={
 	Option.trade:
@@ -22,7 +23,9 @@ var option_descriptions:={
 	Option.evolve:
 		"Use " + Index.get_color_tag("juice") +"Juice[/color] to transform your units, making them much more powerful.",
 	Option.refine:
-		"Use "+Index.get_color_tag("scrap") + "Scrap to refine weapons[/color], or "+Index.get_color_tag("chips")+"Chips to modify modules[/color] making them much stronger."
+		"Use "+Index.get_color_tag("scrap") + "Scrap to refine weapons[/color], or "+Index.get_color_tag("chips")+"Chips to modify modules[/color] making them much stronger.",
+		Option.bounty_board:
+			"TODO"
 }
 
 @export var options:Array[Option]
@@ -50,6 +53,7 @@ func refresh_stores()->void:
 		inventory.refresh_inventory();
 	if roster:
 		roster.refresh_recruits();
+
 
 
 func accepts_trade(item:Item)->bool:

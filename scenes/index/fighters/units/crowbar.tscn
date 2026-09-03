@@ -61,7 +61,6 @@ material = ExtResource("1_y4yls")
 texture = ExtResource("2_hvweh")
 hframes = 8
 vframes = 7
-frame = 5
 script = ExtResource("3_y4yls")
 skill = NodePath("components/Crowbar Swing")
 animation_player = NodePath("components/base_animations")

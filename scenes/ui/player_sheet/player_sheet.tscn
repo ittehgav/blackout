@@ -208,6 +208,7 @@ close_sound = ExtResource("3_dfs8r")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." unique_id=1936339172 instance=ExtResource("6_5ybum")]
+bus = &"Master"
 
 [node name="main_bg" type="ColorRect" parent="." unique_id=198358243]
 process_mode = 2
@@ -254,6 +255,12 @@ offset_left = 23.0
 offset_top = 31.0
 offset_right = 14.0
 offset_bottom = -99.0
+
+[node name="hover_sfx" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" index="0" unique_id=1571618890]
+bus = &"Master"
+
+[node name="sfx" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" index="1" unique_id=227163406]
+bus = &"Master"
 
 [node name="space_request_projection" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/cargo" parent_id_path=PackedInt32Array(1336254164, 693213085) index="0" unique_id=1582191684 instance=ExtResource("13_7sc2c")]
 visible = false

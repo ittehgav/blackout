@@ -35,6 +35,9 @@
 [ext_resource type="Texture2D" uid="uid://3yib6cpwjqx6" path="res://assets/visual/cursors/crosshair_animated3.png" id="30_skhxj"]
 [ext_resource type="AudioStream" uid="uid://d020y7kwdl3hp" path="res://assets/sound/sfx/ui/inventory/item_target.wav" id="32_skhxj"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_88w2o"]
+radius = 15.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wutkk"]
 radius = 29.0
 height = 78.0
@@ -170,9 +173,6 @@ tracks/1/keys = {
 _data = {
 &"RESET": SubResource("Animation_sqvxk")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_88w2o"]
-radius = 15.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iubqv"]
 resource_local_to_scene = true
@@ -422,6 +422,10 @@ collision_scan = NodePath("collision_scan")
 statuses = NodePath("components/statuses")
 sprite = NodePath("body")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1480294527]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_88w2o")
+
 [node name="components" type="Node" parent="." unique_id=412976950]
 
 [node name="stats" type="Node" parent="components" unique_id=1676505557]
@@ -449,8 +453,7 @@ floating_icon_anchor = NodePath("../../floating_icon_anchor")
 [node name="sfx" type="Node" parent="components" unique_id=882425252]
 
 [node name="sfx" type="AudioStreamPlayer" parent="components/sfx" unique_id=504591273]
-stream = ExtResource("6_plyqv")
-bus = &"sfx"
+stream = ExtResource("7_dxwve")
 script = ExtResource("4_dxwve")
 damage_taken = ExtResource("5_0y55v")
 weapon_change = ExtResource("7_dxwve")
@@ -536,10 +539,6 @@ process_mode = 3
 libraries/ = SubResource("AnimationLibrary_xbk01")
 libraries/player = ExtResource("18_iubqv")
 autoplay = &"player/idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1480294527]
-position = Vector2(0, -18)
-shape = SubResource("CircleShape2D_88w2o")
 
 [node name="equipment" type="Node2D" parent="." unique_id=488158529 node_paths=PackedStringArray("weapon_control", "module_control", "artifice_control", "holder", "body", "hitbox_anchor", "freeze_frame_timer", "attack_slow_timer", "weapon_anchor")]
 material = SubResource("ShaderMaterial_iubqv")

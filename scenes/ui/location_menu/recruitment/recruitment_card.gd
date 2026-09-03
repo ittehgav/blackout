@@ -43,6 +43,7 @@ func setup(target:FighterUnit)->void:
 	for stat:String in CombatStats.all_stats:
 		self["recruit_"+stat+"_label"].text = str(final_stats[stat]);
 
+
 func refresh_affordability()->void:
 	price_tag.text = "$"+str(unit_price)
 	if Entities.player.inventory.money >= unit_price:
@@ -50,9 +51,10 @@ func refresh_affordability()->void:
 	else:
 		price_tag.modulate = Color.GRAY - Color(0, 0, 0, .45)
 
-func unit_hired()->void:
+func unit_hired()->FighterUnit:
 	disabled = true;
 	hired_overlay.show();
 	hired_overlay.scale = Vector2(2, 2);
 	var tween:Tween = Tweens.ui_fade_in(hired_overlay)
 	tween.parallel().tween_property(hired_overlay, "scale", Vector2.ONE, .5)
+	return unit

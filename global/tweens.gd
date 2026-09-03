@@ -73,17 +73,19 @@ func set_label_text( target:int, label:Label)->void:
 	label.text = str(target)
 
 const default_floating_text_font_size = 64
+const cursor_offset = Vector2(20, -50)
 func floating_text(string:String, label_parent:Node, on_cursor:bool=true, font_color:Color=Color.BLACK, font_size:int=default_floating_text_font_size)->Tween:
 	var label:Label = Label.new();
 	label.text = string
 	label_parent.add_child(label);
+	label.z_index = 1000
 	if on_cursor:
-		label.global_position = label_parent.get_global_mouse_position();
+		label.global_position = label_parent.get_global_mouse_position() + cursor_offset;
 
 	if font_color != Color.BLACK:
 		label.add_theme_color_override("font_color", font_color);
 
-	label.add_theme_constant_override("font_size", font_size);
+	label.add_theme_font_size_override("font_size", font_size);
 	
 	var tween:Tween = create_tween();
 	tween.tween_property(label, "position:y", label.position.y - 30, 1);

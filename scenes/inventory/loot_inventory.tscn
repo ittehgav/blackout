@@ -5,6 +5,7 @@
 [node name="LootInventory" type="Node2D" unique_id=1047099870]
 visible = false
 script = ExtResource("1_db3sy")
+capacity_x = 8
 metadata/_custom_type_script = "uid://bjl8ll4agrd73"
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

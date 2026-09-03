@@ -30,7 +30,9 @@ func setup(target:Inventory)->void:
 	target_inventory = target;
 	for r:String in Resources.all_resources:
 		resource_icons[r].source = target_inventory;
-	target_inventory.changed.connect(update)
+	if not target_inventory.changed.get_connections().find_custom\
+			(func(a:Dictionary)->bool:return a.callable == update):
+		target_inventory.changed.connect(update)
 
 	update();
 

@@ -41,3 +41,6 @@ func get_icon_texture()->Texture2D:
 
 func get_color()->Color:
 	return Index.get_color(resource);
+
+func setup()->void:
+	super();
