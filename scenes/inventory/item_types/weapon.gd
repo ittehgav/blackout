@@ -7,7 +7,7 @@ const type = "weapon"
 
 signal unequipped;
 
-signal use_finished ## to start the cooldown timer, controlled by the weapon's script
+
 signal hit; ## hit only triggers once for multiple sychronous AOE hits
 ## emit AFTER combat calls (for hit_targets consistency)
 @export var display:WeaponDisplay;
@@ -69,13 +69,7 @@ func use(_alt:bool=false)->void:
 func final_damage()->int:
 	## ONLY FOR WEAPONS NOT COMBAT
 	## during combat the player's stats will be set dynamically
-
-	var damage:int = player.final_stats().attack;
-	damage += base_damage;
-	if applied_modifier:
-		if applied_modifier.stat_modifiers:
-			damage += applied_modifier.stat_modifiers.attack;
-	return damage
+	return player.final_stat("attack") + base_damage
 
 func ammo_cost_string()->String:
 	assert(ammo_cost);

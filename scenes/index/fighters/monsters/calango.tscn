@@ -199,7 +199,7 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 [node name="Tail Whip" type="Node" parent="." unique_id=2066648331 node_paths=PackedStringArray("status")]
 script = ExtResource("3_xjc1c")
 base_cooldown = 5.0
-effects = Array[int]([2, 9])
+effects = Array[int]([3, 10])
 status = NodePath("Poison")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 

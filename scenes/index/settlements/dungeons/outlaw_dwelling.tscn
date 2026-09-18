@@ -153,7 +153,6 @@ shader_parameter/number_of_images = Vector2(8, 7)
 
 [node name="Outlaw Dwelling" type="Node2D" unique_id=926709683 node_paths=PackedStringArray("waves", "final_loot") groups=["all_locations"]]
 script = ExtResource("1_ul3jp")
-highest_level_target = 500
 waves = [NodePath("NPC Roster"), NodePath("NPC Roster2"), NodePath("NPC Roster3")]
 tile_layout_scene = ExtResource("2_glbs4")
 final_loot = NodePath("final_loot")
@@ -201,17 +200,20 @@ material = SubResource("ShaderMaterial_4hbp0")
 
 [node name="NPC Roster2" parent="." unique_id=1557767277 instance=ExtResource("5_3cvc2")]
 
-[node name="Juice Flask" parent="NPC Roster2/LootInventory" parent_id_path=PackedInt32Array(1557767277, 1047099870) index="0" unique_id=247470069 instance=ExtResource("10_xldmh")]
+[node name="LootInventory" parent="NPC Roster2" index="0" unique_id=1047099870]
+loot_multiplier = 3.0
 
-[node name="Fuel Tank" parent="NPC Roster2/LootInventory" parent_id_path=PackedInt32Array(1557767277, 1047099870) index="1" unique_id=453261116 instance=ExtResource("15_ib3kn")]
+[node name="Juice Flask" parent="NPC Roster2/LootInventory" index="0" unique_id=247470069 instance=ExtResource("10_xldmh")]
 
-[node name="Scrap Crate" parent="NPC Roster2/LootInventory" parent_id_path=PackedInt32Array(1557767277, 1047099870) index="2" unique_id=1729248059 instance=ExtResource("16_obyhr")]
+[node name="Fuel Tank" parent="NPC Roster2/LootInventory" index="1" unique_id=453261116 instance=ExtResource("15_ib3kn")]
 
-[node name="Protein Shake" parent="NPC Roster2/LootInventory" parent_id_path=PackedInt32Array(1557767277, 1047099870) index="3" unique_id=882019264 instance=ExtResource("7_ug0fc")]
+[node name="Scrap Crate" parent="NPC Roster2/LootInventory" index="2" unique_id=1729248059 instance=ExtResource("16_obyhr")]
 
-[node name="Buckler" parent="NPC Roster2/LootInventory" parent_id_path=PackedInt32Array(1557767277, 1047099870) index="4" unique_id=1982816121 instance=ExtResource("17_x6b40")]
+[node name="Protein Shake" parent="NPC Roster2/LootInventory" index="3" unique_id=882019264 instance=ExtResource("7_ug0fc")]
 
-[node name="Motivational Speech Draft" parent="NPC Roster2/LootInventory" parent_id_path=PackedInt32Array(1557767277, 1047099870) index="5" unique_id=952537093 instance=ExtResource("18_so3ft")]
+[node name="Buckler" parent="NPC Roster2/LootInventory" index="4" unique_id=1982816121 instance=ExtResource("17_x6b40")]
+
+[node name="Motivational Speech Draft" parent="NPC Roster2/LootInventory" index="5" unique_id=952537093 instance=ExtResource("18_so3ft")]
 
 [node name="FighterUnit5" parent="NPC Roster2" unique_id=295400541 instance=ExtResource("11_tr8qw")]
 level = 3
@@ -233,19 +235,22 @@ material = SubResource("ShaderMaterial_ug0fc")
 
 [node name="NPC Roster3" parent="." unique_id=174912214 instance=ExtResource("5_3cvc2")]
 
-[node name="Adrenaline Synthethizer" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="0" unique_id=1687930944 instance=ExtResource("21_fhn4k")]
+[node name="LootInventory" parent="NPC Roster3" index="0" unique_id=1047099870]
+loot_multiplier = 5.0
 
-[node name="Food Basket" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="1" unique_id=2082907014 instance=ExtResource("22_nlk07")]
+[node name="Adrenaline Synthethizer" parent="NPC Roster3/LootInventory" index="0" unique_id=1687930944 instance=ExtResource("21_fhn4k")]
 
-[node name="Scrap Compactor" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="2" unique_id=47484155 instance=ExtResource("23_wcjqc")]
+[node name="Food Basket" parent="NPC Roster3/LootInventory" index="1" unique_id=2082907014 instance=ExtResource("22_nlk07")]
 
-[node name="Protein Shake" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="3" unique_id=199944525 instance=ExtResource("7_ug0fc")]
+[node name="Scrap Compactor" parent="NPC Roster3/LootInventory" index="2" unique_id=47484155 instance=ExtResource("23_wcjqc")]
 
-[node name="Tailpipe" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="4" unique_id=870722934 instance=ExtResource("24_htc1b")]
+[node name="Protein Shake" parent="NPC Roster3/LootInventory" index="3" unique_id=199944525 instance=ExtResource("7_ug0fc")]
 
-[node name="Jumpsuit" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="5" unique_id=342141630 instance=ExtResource("25_b4gq1")]
+[node name="Tailpipe" parent="NPC Roster3/LootInventory" index="4" unique_id=870722934 instance=ExtResource("24_htc1b")]
 
-[node name="Juice Flask" parent="NPC Roster3/LootInventory" parent_id_path=PackedInt32Array(174912214, 1047099870) index="6" unique_id=1428369178 instance=ExtResource("10_xldmh")]
+[node name="Jumpsuit" parent="NPC Roster3/LootInventory" index="5" unique_id=342141630 instance=ExtResource("25_b4gq1")]
+
+[node name="Juice Flask" parent="NPC Roster3/LootInventory" index="6" unique_id=1428369178 instance=ExtResource("10_xldmh")]
 
 [node name="FighterUnit5" parent="NPC Roster3" unique_id=696959328 instance=ExtResource("11_tr8qw")]
 level = 5

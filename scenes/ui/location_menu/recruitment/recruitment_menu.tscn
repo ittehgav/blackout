@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cl5wh0g2bs1n4" path="res://scenes/ui/experience_bar/experience_bar.tscn" id="7_6554f"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/collections/stats_dropdown.tscn" id="8_l4l3x"]
 [ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="9_l2i6a"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="10_ybet7"]
+[ext_resource type="PackedScene" uid="uid://bsqsovrg4vb55" path="res://scenes/ui/icons/party/party_icon.tscn" id="11_gjfys"]
 
 [sub_resource type="Animation" id="Animation_adifi"]
 resource_name = "idle_2"
@@ -43,14 +45,18 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_vg248"]
 events = [SubResource("InputEventAction_6k2ih")]
 
-[node name="RecruitmentMenu" type="Control" unique_id=206142612 node_paths=PackedStringArray("hire_sfx", "content_hbox", "options_holder", "options_vbox", "unit_sprite", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "recruit_button", "hired_overlay", "placeholder", "not_enough_room_sfx", "ui_sfx")]
+[node name="RecruitmentMenu" type="Control" unique_id=206142612 node_paths=PackedStringArray("hire_sfx", "content_hbox", "options_holder", "options_vbox", "unit_sprite", "stats", "name_label", "level_label", "tags_label", "skill_name_label", "skill_description_label", "recruit_button", "hired_overlay", "placeholder", "not_enough_room_sfx", "player_money", "player_party", "ui_sfx")]
 process_mode = 3
 visibility_layer = 7
 z_index = 17
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -44.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -71,6 +77,8 @@ recruit_button = NodePath("main/Unit Sheet/hire")
 hired_overlay = NodePath("main/Unit Sheet/hired_overlay")
 placeholder = NodePath("main/Unit Sheet/placeholder")
 not_enough_room_sfx = NodePath("party_full")
+player_money = NodePath("main/Unit Sheet/player_resources/MarginContainer/VBoxContainer/HBoxContainer/money")
+player_party = NodePath("main/Unit Sheet/player_resources/MarginContainer/VBoxContainer/HBoxContainer2/Party Icon")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." unique_id=667375443 instance=ExtResource("3_6k2ih")]
@@ -289,7 +297,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "[right-click] to unequip"
 
-[node name="evolutin_display" type="PanelContainer" parent="main/Unit Sheet" unique_id=218746522]
+[node name="evolution_display" type="PanelContainer" parent="main/Unit Sheet" unique_id=218746522]
 visible = false
 layout_mode = 1
 anchors_preset = 3
@@ -304,34 +312,34 @@ offset_bottom = -26.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main/Unit Sheet/evolutin_display" unique_id=1588305415]
+[node name="VBoxContainer" type="VBoxContainer" parent="main/Unit Sheet/evolution_display" unique_id=1588305415]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="main/Unit Sheet/evolutin_display/VBoxContainer" unique_id=1015687536]
+[node name="Label" type="Label" parent="main/Unit Sheet/evolution_display/VBoxContainer" unique_id=1015687536]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Level up this unit to 
 unlock evolutions"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="main/Unit Sheet/evolutin_display/VBoxContainer" unique_id=566301098]
+[node name="HBoxContainer" type="HBoxContainer" parent="main/Unit Sheet/evolution_display/VBoxContainer" unique_id=566301098]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="evolution_1" type="Control" parent="main/Unit Sheet/evolutin_display/VBoxContainer/HBoxContainer" unique_id=2006059232]
+[node name="evolution_1" type="Control" parent="main/Unit Sheet/evolution_display/VBoxContainer/HBoxContainer" unique_id=2006059232]
 custom_minimum_size = Vector2(112, 112)
 layout_mode = 2
 
-[node name="evolution_1" type="Sprite2D" parent="main/Unit Sheet/evolutin_display/VBoxContainer/HBoxContainer/evolution_1" unique_id=905742534]
+[node name="evolution_1" type="Sprite2D" parent="main/Unit Sheet/evolution_display/VBoxContainer/HBoxContainer/evolution_1" unique_id=905742534]
 position = Vector2(64, 64)
 texture = SubResource("CompressedTexture2D_xqdqb")
 hframes = 3
 vframes = 3
 
-[node name="evolution_2" type="Control" parent="main/Unit Sheet/evolutin_display/VBoxContainer/HBoxContainer" unique_id=1978918389]
+[node name="evolution_2" type="Control" parent="main/Unit Sheet/evolution_display/VBoxContainer/HBoxContainer" unique_id=1978918389]
 custom_minimum_size = Vector2(112, 112)
 layout_mode = 2
 
-[node name="evolution_2" type="Sprite2D" parent="main/Unit Sheet/evolutin_display/VBoxContainer/HBoxContainer/evolution_2" unique_id=549375739]
+[node name="evolution_2" type="Sprite2D" parent="main/Unit Sheet/evolution_display/VBoxContainer/HBoxContainer/evolution_2" unique_id=549375739]
 position = Vector2(64, 64)
 texture = SubResource("CompressedTexture2D_g52xd")
 hframes = 3
@@ -411,6 +419,62 @@ rotation = 0.6789331
 theme_override_font_sizes/font_size = 128
 text = "HIRED"
 
+[node name="player_resources" type="PanelContainer" parent="main/Unit Sheet" unique_id=156859506]
+self_modulate = Color(0.735357, 0.735357, 0.735357, 1)
+z_index = 2
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -220.0
+offset_right = 320.0
+offset_bottom = -20.0
+grow_vertical = 0
+offset_transform_enabled = true
+
+[node name="MarginContainer" type="MarginContainer" parent="main/Unit Sheet/player_resources" unique_id=1748803905]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main/Unit Sheet/player_resources/MarginContainer" unique_id=1834782517]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main/Unit Sheet/player_resources/MarginContainer/VBoxContainer" unique_id=1937741430]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="money" parent="main/Unit Sheet/player_resources/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2055771134 node_paths=PackedStringArray("label") instance=ExtResource("10_ybet7")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+resource = "money"
+label = NodePath("../money_label")
+
+[node name="money_label" type="Label" parent="main/Unit Sheet/player_resources/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1416142988]
+layout_mode = 2
+offset_transform_enabled = true
+theme_override_font_sizes/font_size = 64
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="main/Unit Sheet/player_resources/MarginContainer/VBoxContainer" unique_id=1667833135]
+layout_mode = 2
+
+[node name="Party Icon" parent="main/Unit Sheet/player_resources/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=678291032 node_paths=PackedStringArray("count_label") instance=ExtResource("11_gjfys")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+count_label = NodePath("../party_label")
+
+[node name="party_label" type="Label" parent="main/Unit Sheet/player_resources/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=838257863]
+layout_mode = 2
+offset_transform_enabled = true
+theme_override_font_sizes/font_size = 64
+
 [node name="options_holder" type="VBoxContainer" parent="main" unique_id=1010976545]
 layout_mode = 2
 
@@ -439,6 +503,8 @@ layout_mode = 2
 [node name="recruitment_card4" parent="main/options_holder/VBoxContainer" unique_id=196772019 instance=ExtResource("3_jvi8e")]
 layout_mode = 2
 
+[connection signal="recruitment_started" from="." to="main/Unit Sheet/player_resources/MarginContainer/VBoxContainer/HBoxContainer/money" method="update"]
+[connection signal="recruitment_started" from="." to="main/Unit Sheet/player_resources/MarginContainer/VBoxContainer/HBoxContainer2/Party Icon" method="refresh"]
 [connection signal="gui_input" from="main/Unit Sheet" to="main/Unit Sheet" method="_on_gui_input"]
 [connection signal="gui_input" from="main/Unit Sheet/HBoxContainer2/VBoxContainer2/item_sample" to="main/Unit Sheet" method="_on_item_sample_gui_input"]
 [connection signal="pressed" from="main/Unit Sheet/hire" to="." method="_on_hire_pressed"]

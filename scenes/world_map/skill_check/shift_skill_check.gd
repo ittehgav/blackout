@@ -7,6 +7,8 @@ signal fail_hit;
 signal good_hit;
 signal perfect_hit
 
+signal fuel_shortage;
+
 @export var sfx:AudioStreamPlayer;
 
 @export var fail_sound:AudioStream;
@@ -39,6 +41,14 @@ func play()->void:
 	start_motion_tween()
 	set_process_input(true)
 	started.emit()
+	
+	
+func _on_player_party_location_visited(_l:Location)->void:
+	if is_processing_input():
+		set_process_input(false);
+		hide();
+		## surely this is consistent
+		motion_tween.kill()
 
 func roll_values()->void:
 	good_range = randi_range(25, 65);
@@ -83,14 +93,7 @@ func shift_press() -> void:
 	
 	sfx.play()
 
-func _on_fail_hit() -> void:
-	var tween:Tween = create_tween();
-	tween.tween_property(self, "modulate", Color(0.6, 0.24, 0.24, 1.0), 1)
-	if motion_tween and motion_tween.is_running():
-		motion_tween.kill()
-	set_process_input(false)
-	sfx.stream = fail_sound
-	outcome_animation("fail", 4)
+
 
 func _on_good_hit() -> void:
 	var tween:Tween = create_tween();
@@ -108,6 +111,19 @@ func _on_perfect_hit() -> void:
 	sfx.stream = perfect_sound;
 	outcome_animation("perfect", 1.5)
 
+
+func _on_fail_hit() -> void:
+	var tween:Tween = create_tween();
+	tween.tween_property(self, "modulate", Color(0.6, 0.24, 0.24, 1.0), 1)
+	if motion_tween and motion_tween.is_running():
+		motion_tween.kill()
+	set_process_input(false)
+	sfx.stream = fail_sound
+	outcome_animation("fail", 4)
+
+
+func _on_fuel_shortage() -> void:
+	outcome_animation("out of fuel", 2)
 
 @onready var outcome_origin:Vector2 = outcome_container.position;
 func outcome_animation(key:String, tween_duration:float)->void:
@@ -128,5 +144,15 @@ func outcome_animation(key:String, tween_duration:float)->void:
 	tween.tween_callback(hide)
 
 
-func _on_world_map_half_hour_passed() -> void:
+
+
+func _on_upkeep_paid_fully() -> void:
+	play()
+
+
+func _on_upkeep_fuel_shortage() -> void:
+	fuel_shortage.emit()
+
+
+func _on_upkeep_food_shortage() -> void:
 	play()

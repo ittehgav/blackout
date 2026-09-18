@@ -59,7 +59,12 @@ func _physics_process(_delta: float) -> void:
 func _on_weapon_used() -> void:
 	holder.action_force = .4;
 	attack_slow_timer.start()
-
+	if equipped_weapon.display is MeleeWeaponDisplay and\
+	get_global_mouse_position().x < holder.global_position.x:
+		equipped_weapon.position.x -= 100
+		weapon_anchor.scale.x = abs(weapon_anchor.scale.x) * -1
+		await equipped_weapon.animation_player.animation_finished
+		weapon_anchor.scale.x = abs(weapon_anchor.scale.x);
 
 
 func _on_freeze_frame_control_timeout() -> void:
@@ -84,6 +89,7 @@ func refresh_weapon_cooldowns()->void:
 	weapon_control.refresh_weapon_cooldown(weapon_control.weapon);
 	if weapon_control.alternative_weapon:
 		weapon_control.refresh_weapon_cooldown(weapon_control.alternative_weapon);
+
 
 
 func weapon_animation_finished(anim_name:String, source:Weapon)->void:

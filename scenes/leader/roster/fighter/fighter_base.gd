@@ -7,8 +7,9 @@ const test_key = "combat"
 ## will fully replace FighterBase eventually
 
 
-## range is now in cells rather than 2D space pixels
 
+
+## 1 range = 16 pixel detection radius for target distance
 const MELEE_RANGE = 1;
 const MID_RANGE = 5;
 const LONG_RANGE = 10;
@@ -149,6 +150,7 @@ func on_stopped_moving()->void:
 		animation_player.play(idle_animation_path)
 
 func post_skill_update()->void:
+	## could be a signal if i end up needing this event for more stuff
 	if fighter.moving:
 		animation_player.play(walk_animation_path);
 	else:

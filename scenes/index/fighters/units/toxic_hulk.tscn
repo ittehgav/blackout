@@ -95,7 +95,7 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 [node name="Gas Leak" type="Node" parent="." unique_id=966815524 node_paths=PackedStringArray("status")]
 script = ExtResource("3_fwyy1")
 base_cooldown = 10.0
-effects = Array[int]([2, 3, 5])
+effects = Array[int]([3, 4, 6])
 position_lineup = false
 transform_visual = 2
 status = NodePath("Intoxicated")
@@ -105,9 +105,10 @@ metadata/_custom_type_script = "uid://cboofk6f5g5t"
 [node name="Intoxicated" type="Node" parent="Gas Leak" unique_id=162292458]
 script = ExtResource("5_db8tu")
 type = "stat_change"
-value = 3.0
-duration = -5.0
+value = 0.25
+duration = 5.0
 stat = "attack"
+stat_fractal_value = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2121434482]
@@ -174,14 +175,14 @@ shape = SubResource("CircleShape2D_paj8a")
 
 [node name="base_stats" type="Node" parent="stat_base" unique_id=921795092]
 script = ExtResource("9_epl0x")
-max_hp = 400.0
+max_hp = 1000.0
 attack = 30.0
 defense = 10.0
 metadata/_custom_type_script = "uid://dn4endealcll1"
 
 [node name="stats_per_level" type="Node" parent="stat_base" unique_id=1757146375]
 script = ExtResource("9_epl0x")
-max_hp = 40.0
+max_hp = 100.0
 attack = 10.0
 defense = 10.0
 agility = 5.0

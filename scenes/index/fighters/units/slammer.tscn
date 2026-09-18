@@ -136,7 +136,7 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 [node name="Throw Hands" type="Node" parent="components" unique_id=639767815]
 script = ExtResource("3_53j4b")
 base_cooldown = 4.0
-effects = Array[int]([2, 6])
+effects = Array[int]([3, 7])
 knockback_strength = 3
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 

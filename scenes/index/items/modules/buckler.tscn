@@ -56,12 +56,8 @@ use_sfx = NodePath("use_sfx")
 cooldown = 5.0
 animation_player = NodePath("parry_cue/AnimationPlayer")
 continuous = true
-ammo_type = null
-ammo_cost = null
 status = NodePath("defense_buff")
 color_tag = "defense"
-inventory_position = null
-stack_size = null
 
 [node name="defense_buff" type="Node" parent="." unique_id=2040237192]
 script = ExtResource("3_mtmst")
@@ -69,6 +65,7 @@ type = "stat_change"
 value = 20.0
 chain_root = true
 stat = "defense"
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="Slow" type="Node" parent="defense_buff" unique_id=981387188]
@@ -76,6 +73,7 @@ script = ExtResource("3_mtmst")
 type = "stat_change"
 value = -250.0
 stat = "move_speed"
+force_quiet = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="Attack Reduction" type="Node" parent="defense_buff" unique_id=1097352937]
@@ -83,12 +81,14 @@ script = ExtResource("3_mtmst")
 type = "stat_change"
 value = -15.0
 stat = "attack"
+force_quiet = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="Stun" type="Node" parent="." unique_id=1704072032]
 script = ExtResource("3_mtmst")
 type = "stun"
 duration = 5.0
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="." unique_id=288261941]

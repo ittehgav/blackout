@@ -6,7 +6,7 @@ class_name DungeonMenu;
 signal exited;
 signal battle_started(wave:Roster)
 
-
+const show_player_resources = true;
 @export var dungeon_name_label:Label;
 @export var content_hbox:HBoxContainer
 
@@ -132,6 +132,7 @@ func _on_start_next_wave_mouse_exited() -> void:
 
 func _on_start_next_wave_pressed() -> void:
 	State.set_substate(State.Substate.pre_battle)
+
 
 
 func show_post_fight(won:bool)->void:

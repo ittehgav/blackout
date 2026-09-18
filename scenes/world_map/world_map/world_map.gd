@@ -24,6 +24,7 @@ signal sped_up;
 
 ## world map persists throughout the entire session
 ## the true player node is located here
+## the true player node is located here
 ## and set to Entities before the world enters the tree
 @export var player_party:PlayerParty;
 ## make this easier to catch to reparent player

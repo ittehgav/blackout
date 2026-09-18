@@ -2,8 +2,10 @@ extends UIRoot
 
 class_name RecruitmentMenu
 
+signal recruitment_started;
 signal recruitment_finished;
 
+const show_player_resources = true;
 @export_subgroup("nodes")
 @export var hire_sfx:AudioStreamPlayer;
 @export var content_hbox:HBoxContainer;
@@ -36,6 +38,9 @@ var current_option:RecruitmentCard
 @export var placeholder:ColorRect
 @export var not_enough_room_sfx:AudioStreamPlayer
 
+@export var player_money:ResourceIcon
+@export var player_party:PartyIcon
+
 var current_roster:Roster;
 
 func start_recruitment(roster:RecruitmentRoster)->void:
@@ -54,6 +59,7 @@ func start_recruitment(roster:RecruitmentRoster)->void:
 	refresh_affordability();
 	recursive_connect_ui_feedback(options_vbox)
 	slide_in()
+	recruitment_started.emit()
 	
 func slide_in()->void:
 	show()
@@ -113,8 +119,13 @@ func _on_hire_pressed() -> void:
 	var hired:FighterUnit = current_option.unit_hired();
 	current_roster.units.erase(hired)
 	
-
-	
+	Tweens.tween_count_label(player_money.label, Entities.player.inventory.money, .75);
+	player_party.refresh();
+	for l:Label in [player_money.label, player_party.count_label]:
+		var t:= create_tween();
+		t.tween_property(l, "offset_transform_scale", Vector2(1.5, 1.5), .1);
+		t.tween_property(l, "offset_transform_scale", Vector2.ONE, .2)
+		
 	show_hired_overlay();
 	
 	hire_sfx.play()

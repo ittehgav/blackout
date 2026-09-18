@@ -10,11 +10,16 @@ class_name SkillComponent
 signal impact
 signal finished
 
-enum TargetType {nearest_enemy}
+enum TargetType {
+	nearest_enemy,
+	most_damaged_ally
+}
 enum Effect {
 	## direct = apply to unit's target
 	direct_damage,
 	direct_status,
+	
+	direct_heal,
 	
 	## aoe = apply to all valid targets in unit's hit scan
 	aoe_damage,
@@ -54,9 +59,9 @@ var fighter:NpcFighter;
 @export_subgroup("Settings")
 @export var instant_impact:bool=false;
 @export var position_lineup:bool=true;
-
-@export_subgroup("Aoe Settings")
 @export var transform_visual:TransformVFX
+@export_subgroup("Aoe Settings")
+
 
 @export var need_target:bool=true;
 
@@ -117,6 +122,8 @@ func use()->void:
 				Combat.deal_damage(fighter)
 			Effect.direct_status:
 				status.apply_on_target();
+			Effect.direct_heal:
+				Combat.heal_target(fighter, fighter.target_fighter, fighter.attack)
 			Effect.aoe_damage:
 				Combat.aoe_damage(fighter);
 			Effect.aoe_status:

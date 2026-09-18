@@ -12,15 +12,20 @@ var module:Module;
 var holding_continuous:bool=false
 
 func _ready()->void:
-
 	await equipment.holder.ready
 
 	module = Entities.player.equipped_module.duplicate(DUPLICATE_USE_INSTANTIATION);
-	module.hide();
+	module.self_modulate.a = 0
 	
 	if module.ammo_cost:
 		module.ammo_consumed.connect(equipment.ammo_consumed.emit);
 		module.ammo_ran_out.connect(equipment.ammo_ran_out.emit)
+
+	
+	if module.modifier == 1:
+		module.apply_m1();
+	elif module.modifier == 2:
+		module.apply_m2()
 	
 	add_child(module); 
 	## adding it because there's a lot of stuff that nodes can only do when they're in the tree

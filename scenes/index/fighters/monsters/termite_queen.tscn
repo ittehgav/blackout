@@ -82,15 +82,15 @@ termite_unit = NodePath("termite_unit")
 skill = NodePath("Queen\'s Children")
 animation_player = NodePath("AnimationPlayer")
 tags = Array[int]([9, 13])
-movement = 1
 fighter_type = "monster"
 base_stats = NodePath("stat_base/base_stats")
 stats_per_level = NodePath("stat_base/stats_per_level")
+movement = 1
 
 [node name="Queen\'s Children" type="Node" parent="." unique_id=59021356]
 script = ExtResource("2_oqdjl")
 base_cooldown = 5.0
-effects = Array[int]([6])
+effects = Array[int]([10])
 position_lineup = false
 need_target = false
 scan_enemies = false

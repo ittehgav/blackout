@@ -485,15 +485,6 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="Gradient" id="Gradient_1usgs"]
-offsets = PackedFloat32Array(0, 0.6749311)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_u5bk5"]
-gradient = SubResource("Gradient_1usgs")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [sub_resource type="Animation" id="Animation_524le"]
 length = 0.001
 tracks/0/type = "value"
@@ -531,6 +522,25 @@ _data = {
 &"ammo_warning": SubResource("Animation_61gvu")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xs7fa"]
+resource_local_to_scene = true
+shader = ExtResource("20_slj5k")
+shader_parameter/color = Color(0.18039216, 0.19215687, 0.3019608, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_1usgs"]
+offsets = PackedFloat32Array(0, 0.6749311)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u5bk5"]
+gradient = SubResource("Gradient_1usgs")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Arena" type="Node2D" unique_id=896888135 node_paths=PackedStringArray("team_1", "team_2", "current_layout", "post_fight_view") groups=["arena"]]
 y_sort_enabled = true
 script = ExtResource("1_i4yf0")
@@ -555,6 +565,7 @@ script = ExtResource("3_hkvx5")
 
 [node name="team_1" type="Node2D" parent="teams" unique_id=1279616264 node_paths=PackedStringArray("arena", "enemy_team", "ground_elements", "projectiles")]
 z_index = 1
+y_sort_enabled = true
 script = ExtResource("4_hdymd")
 npc_fighter_scene = ExtResource("5_rj7gd")
 arena = NodePath("../..")
@@ -567,13 +578,14 @@ metadata/_custom_type_script = "uid://dclobwhhhy4eu"
 [node name="player_fighter" parent="teams/team_1" unique_id=543559168 instance=ExtResource("7_8stbl")]
 position = Vector2(-92, 537)
 
-[node name="body" parent="teams/team_1/player_fighter" index="6" unique_id=416499753]
+[node name="body" parent="teams/team_1/player_fighter" index="8" unique_id=416499753]
 material = SubResource("ShaderMaterial_w5ded")
 
-[node name="equipment" parent="teams/team_1/player_fighter" index="8" unique_id=488158529]
+[node name="equipment" parent="teams/team_1/player_fighter" index="9" unique_id=488158529]
 material = SubResource("ShaderMaterial_p7mpf")
 
-[node name="camera" parent="teams/team_1/player_fighter" index="9" unique_id=1871726771]
+[node name="camera" parent="teams/team_1/player_fighter" index="10" unique_id=1871726771]
+limit_enabled = false
 limit_left = -5999
 limit_top = -147
 limit_right = 6001
@@ -589,6 +601,7 @@ offset_bottom = -101.0
 
 [node name="team_2" type="Node2D" parent="teams" unique_id=451149455 node_paths=PackedStringArray("arena", "enemy_team", "ground_elements", "projectiles")]
 z_index = 1
+y_sort_enabled = true
 script = ExtResource("4_hdymd")
 npc_fighter_scene = ExtResource("5_rj7gd")
 arena = NodePath("../..")
@@ -883,170 +896,6 @@ theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 64
 text = "232"
 
-[node name="artifices" type="PanelContainer" parent="ui_canvas/hud/player_data" unique_id=1898062156 node_paths=PackedStringArray("artifice_1_display", "artifice_1_count", "artifice_1_highlight", "artifice_1_keybind", "artifice_2_display", "artifice_2_count", "artifice_2_highlight", "artifice_2_keybind", "artifice_3_display", "artifice_3_count", "artifice_3_highlight", "artifice_3_keybind")]
-self_modulate = Color(1.353256, 1.353256, 1.353256, 0.7764706)
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 1.0
-offset_top = -53.0
-offset_right = 77.0
-offset_bottom = 53.0
-grow_vertical = 2
-script = ExtResource("21_1usgs")
-artifice_1_display = NodePath("artifices/artifice_1/HBoxContainer/a1_texture")
-artifice_1_count = NodePath("artifices/artifice_1/HBoxContainer/a1_count")
-artifice_1_highlight = NodePath("artifices/artifice_1/HBoxContainer/a1_texture/highlight")
-artifice_1_keybind = NodePath("artifices/artifice_1/keybind")
-artifice_2_display = NodePath("artifices/artifice_2/HBoxContainer/a2_texture")
-artifice_2_count = NodePath("artifices/artifice_2/HBoxContainer/a2_count")
-artifice_2_highlight = NodePath("artifices/artifice_2/HBoxContainer/a2_texture/highlight")
-artifice_2_keybind = NodePath("artifices/artifice_2/keybind")
-artifice_3_display = NodePath("artifices/artifice_3/HBoxContainer/a3_texture")
-artifice_3_count = NodePath("artifices/artifice_3/HBoxContainer/a3_count")
-artifice_3_highlight = NodePath("artifices/artifice_3/HBoxContainer/a3_texture/highlight")
-artifice_3_keybind = NodePath("artifices/artifice_3/keybind")
-
-[node name="artifices" type="VBoxContainer" parent="ui_canvas/hud/player_data/artifices" unique_id=1102746204]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="artifice_1" type="VBoxContainer" parent="ui_canvas/hud/player_data/artifices/artifices" unique_id=1852625684]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_1" unique_id=824502809]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="a1_count" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_1/HBoxContainer" unique_id=512010549]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.112, 0.11933333, 0.2, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 64
-text = "1"
-
-[node name="a1_texture" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_1/HBoxContainer" unique_id=547595711]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-texture = ExtResource("22_524le")
-
-[node name="highlight" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_1/HBoxContainer/a1_texture" unique_id=1283044996]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_scale = Vector2(1.5, 1.5)
-texture = SubResource("GradientTexture2D_u5bk5")
-
-[node name="keybind" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_1" unique_id=436469497]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "[1]"
-
-[node name="HSeparator1" type="HSeparator" parent="ui_canvas/hud/player_data/artifices/artifices" unique_id=647663371]
-layout_mode = 2
-
-[node name="artifice_2" type="VBoxContainer" parent="ui_canvas/hud/player_data/artifices/artifices" unique_id=873568658]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_2" unique_id=1356714370]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="a2_count" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_2/HBoxContainer" unique_id=1107715501]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.112, 0.11933333, 0.2, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 64
-text = "3"
-
-[node name="a2_texture" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_2/HBoxContainer" unique_id=453486015]
-custom_minimum_size = Vector2(32, 64)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-texture = ExtResource("23_w5ded")
-
-[node name="highlight" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_2/HBoxContainer/a2_texture" unique_id=889585651]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_scale = Vector2(1.5, 1.5)
-texture = SubResource("GradientTexture2D_u5bk5")
-
-[node name="keybind" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_2" unique_id=1182434612]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "[2]"
-
-[node name="HSeparator2" type="HSeparator" parent="ui_canvas/hud/player_data/artifices/artifices" unique_id=1109825370]
-layout_mode = 2
-
-[node name="artifice_3" type="VBoxContainer" parent="ui_canvas/hud/player_data/artifices/artifices" unique_id=1262824714]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_3" unique_id=810228039]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="a3_count" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_3/HBoxContainer" unique_id=1950220682]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0.112, 0.11933333, 0.2, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 64
-text = "0"
-
-[node name="a3_texture" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_3/HBoxContainer" unique_id=2037514346]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-texture = ExtResource("24_p7mpf")
-
-[node name="highlight" type="TextureRect" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_3/HBoxContainer/a3_texture" unique_id=625466046]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_scale = Vector2(1.5, 1.5)
-texture = SubResource("GradientTexture2D_u5bk5")
-
-[node name="keybind" type="Label" parent="ui_canvas/hud/player_data/artifices/artifices/artifice_3" unique_id=1930413363]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "[3]"
-
 [node name="cooldowns" type="HBoxContainer" parent="ui_canvas/hud/player_data" unique_id=1083611410]
 layout_mode = 1
 anchors_preset = 2
@@ -1171,6 +1020,178 @@ theme_override_font_sizes/font_size = 16
 text = "[spacebar]"
 horizontal_alignment = 1
 
+[node name="artifices" type="HBoxContainer" parent="ui_canvas/hud/player_data/cooldowns" unique_id=592695577 node_paths=PackedStringArray("artifice_1_display", "artifice_1_count", "artifice_1_highlight", "artifice_1_keybind", "artifice_2_display", "artifice_2_count", "artifice_2_highlight", "artifice_2_keybind", "artifice_3_display", "artifice_3_count", "artifice_3_highlight", "artifice_3_keybind")]
+layout_mode = 2
+script = ExtResource("21_1usgs")
+artifice_1_display = NodePath("artifice_1/HBoxContainer/a1_texture")
+artifice_1_count = NodePath("artifice_1/HBoxContainer/a1_count")
+artifice_1_highlight = NodePath("artifice_1/HBoxContainer/a1_texture/highlight")
+artifice_1_keybind = NodePath("artifice_1/keybind")
+artifice_2_display = NodePath("artifice_2/HBoxContainer/a2_texture")
+artifice_2_count = NodePath("artifice_2/HBoxContainer/a2_count")
+artifice_2_highlight = NodePath("artifice_2/HBoxContainer/a2_texture/highlight")
+artifice_2_keybind = NodePath("artifice_2/keybind")
+artifice_3_display = NodePath("artifice_3/HBoxContainer/a3_texture")
+artifice_3_count = NodePath("artifice_3/HBoxContainer/a3_count")
+artifice_3_highlight = NodePath("artifice_3/HBoxContainer/a3_texture/highlight")
+artifice_3_keybind = NodePath("artifice_3/keybind")
+
+[node name="artifice_1" type="VBoxContainer" parent="ui_canvas/hud/player_data/cooldowns/artifices" unique_id=1852625684]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="keybind" type="Label" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_1" unique_id=436469497]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.18, 0.19200002, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0.7081, 0.729925, 0.97, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+text = "[1]"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_1" unique_id=824502809]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="a1_count" type="Label" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_1/HBoxContainer" unique_id=512010549]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18, 0.19200002, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0.7081, 0.729925, 0.97, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 64
+text = "1"
+
+[node name="a1_texture" type="TextureRect" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_1/HBoxContainer" unique_id=547595711]
+material = SubResource("ShaderMaterial_xs7fa")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+texture = ExtResource("22_524le")
+
+[node name="highlight" type="TextureRect" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_1/HBoxContainer/a1_texture" unique_id=1283044996]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_scale = Vector2(1.5, 1.5)
+texture = SubResource("GradientTexture2D_u5bk5")
+
+[node name="artifice_2" type="VBoxContainer" parent="ui_canvas/hud/player_data/cooldowns/artifices" unique_id=873568658]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="keybind" type="Label" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_2" unique_id=1182434612]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.18, 0.19200002, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0.7081, 0.729925, 0.97, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+text = "[2]"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_2" unique_id=1356714370]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="a2_count" type="Label" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_2/HBoxContainer" unique_id=1107715501]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18, 0.19200002, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0.7081, 0.729925, 0.97, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 64
+text = "3"
+
+[node name="a2_texture" type="TextureRect" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_2/HBoxContainer" unique_id=453486015]
+material = SubResource("ShaderMaterial_xs7fa")
+custom_minimum_size = Vector2(32, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+texture = ExtResource("23_w5ded")
+
+[node name="highlight" type="TextureRect" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_2/HBoxContainer/a2_texture" unique_id=889585651]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_scale = Vector2(1.5, 1.5)
+texture = SubResource("GradientTexture2D_u5bk5")
+
+[node name="artifice_3" type="VBoxContainer" parent="ui_canvas/hud/player_data/cooldowns/artifices" unique_id=1262824714]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="keybind" type="Label" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_3" unique_id=1930413363]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.18, 0.19200002, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0.7081, 0.729925, 0.97, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+text = "[3]"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_3" unique_id=810228039]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="a3_count" type="Label" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_3/HBoxContainer" unique_id=1950220682]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.18, 0.19200002, 0.3, 1)
+theme_override_colors/font_shadow_color = Color(0.7081, 0.729925, 0.97, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="a3_texture" type="TextureRect" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_3/HBoxContainer" unique_id=2037514346]
+material = SubResource("ShaderMaterial_xs7fa")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+texture = ExtResource("24_p7mpf")
+
+[node name="highlight" type="TextureRect" parent="ui_canvas/hud/player_data/cooldowns/artifices/artifice_3/HBoxContainer/a3_texture" unique_id=625466046]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_scale = Vector2(1.5, 1.5)
+texture = SubResource("GradientTexture2D_u5bk5")
+
 [node name="enemy_party" type="PanelContainer" parent="ui_canvas/hud/player_data" unique_id=1905015565]
 layout_mode = 1
 anchors_preset = 1
@@ -1258,16 +1279,17 @@ arena = NodePath("../../..")
 [connection signal="death" from="teams/team_1/player_fighter" to="ui_canvas/hud/tide_bar" method="_on_player_fighter_death"]
 [connection signal="healing_received" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_healing_received"]
 [connection signal="knocked_back" from="teams/team_1/player_fighter" to="ui_canvas/hud/screen_blink" method="_on_player_fighter_knocked_back"]
-[connection signal="ready" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/artifices" method="_on_player_fighter_ready"]
+[connection signal="ready" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_ready"]
+[connection signal="ready" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/cooldowns/artifices" method="_on_player_fighter_ready"]
 [connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/screen_blink" method="_on_player_fighter_status_applied"]
 [connection signal="status_applied" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_status_applied"]
 [connection signal="status_removed" from="teams/team_1/player_fighter" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="_on_player_fighter_status_removed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_ammo_consumed"]
 [connection signal="ammo_consumed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/VBoxContainer/module_cooldown" method="_on_equipment_ammo_consumed"]
-[connection signal="artifice_aiming_started" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/artifices" method="_on_equipment_artifice_aiming_started"]
-[connection signal="artifice_aiming_stopped" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/artifices" method="_on_equipment_artifice_aiming_stopped"]
-[connection signal="artifice_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/artifices" method="_on_equipment_artifice_used"]
+[connection signal="artifice_aiming_started" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/artifices" method="_on_equipment_artifice_aiming_started"]
+[connection signal="artifice_aiming_stopped" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/artifices" method="_on_equipment_artifice_aiming_stopped"]
+[connection signal="artifice_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/artifices" method="_on_equipment_artifice_used"]
 [connection signal="weapon_changed" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_changed"]
 [connection signal="weapon_fumbled" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_fumbled"]
 [connection signal="weapon_used" from="teams/team_1/player_fighter/equipment" to="ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_equipment_weapon_used"]

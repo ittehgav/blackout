@@ -58,12 +58,12 @@ metadata/_custom_type_script = "uid://b0e1rmg27d5ii"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=784959205]
 stream = ExtResource("4_q0r20")
-bus = &"sfx"
 
 [node name="stun" type="Node" parent="components" unique_id=1731634429]
 script = ExtResource("5_plxna")
 type = "stun"
 duration = 1.5
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=607293741]

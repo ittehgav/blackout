@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bm0d3o2j0rhos"]
+
+[ext_resource type="Script" uid="uid://cju1lp7bcpbvh" path="res://scenes/index/fighters/scripts/healer.gd" id="1_5dcu3"]
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_tm40g"]
+[ext_resource type="Texture2D" uid="uid://cvca4s4peow0f" path="res://assets/visual/sprites/fighters/units/healer/healer.png" id="2_efw6d"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_kqhju"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="5_vl0bd"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="6_efw6d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efw6d"]
+radius = 17.029387
+
+[node name="Healer" type="Sprite2D" unique_id=50662955 node_paths=PackedStringArray("skill", "animation_player", "base_stats", "stats_per_level")]
+material = ExtResource("1_tm40g")
+texture = ExtResource("2_efw6d")
+hframes = 8
+vframes = 7
+frame = 3
+script = ExtResource("1_5dcu3")
+skill = NodePath("components/Restoring Shot")
+skill_range = 5
+animation_player = NodePath("components/AnimationPlayer")
+weight_class = 0
+tags = Array[int]([3, 4])
+base_stats = NodePath("components/stats/base_stats")
+stats_per_level = NodePath("components/stats/stats_per_level")
+movement = 1
+
+[node name="components" type="Node" parent="." unique_id=2017527803]
+
+[node name="Restoring Shot" type="Node" parent="components" unique_id=1549549040]
+script = ExtResource("2_kqhju")
+targetting = 1
+base_cooldown = 10.0
+effects = Array[int]([2])
+transform_visual = 1
+scan_enemies = false
+scan_allies = true
+aoe_projection = false
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="components" unique_id=842092951]
+root_node = NodePath("../..")
+libraries/fighter_base = ExtResource("5_vl0bd")
+
+[node name="stats" type="Node" parent="components" unique_id=1537914194]
+
+[node name="base_stats" type="Node" parent="components/stats" unique_id=1628856577]
+script = ExtResource("6_efw6d")
+max_hp = 200.0
+attack = 100.0
+defense = 4.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="components/stats" unique_id=734281636]
+script = ExtResource("6_efw6d")
+max_hp = 50.0
+attack = 10.0
+defense = 1.0
+agility = 5.0
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1803310264]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_efw6d")
+debug_color = Color(0, 0.5950001, 0.7, 0)

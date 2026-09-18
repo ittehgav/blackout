@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cqhmywx7yqdw6" path="res://scenes/ui/location_menu/recruitment/recruitment_menu.tscn" id="7_vgi1c"]
 [ext_resource type="PackedScene" uid="uid://c8aqipkg5upd" path="res://scenes/ui/location_menu/forge/refine_menu.tscn" id="8_jathp"]
 [ext_resource type="PackedScene" uid="uid://7epbb0cova3w" path="res://scenes/ui/location_menu/evolution/evolution_menu.tscn" id="9_krd6j"]
+[ext_resource type="PackedScene" uid="uid://bs834thtp7rwb" path="res://scenes/ui/location_menu/bounty/bounty_menu.tscn" id="9_tgre5"]
 [ext_resource type="PackedScene" uid="uid://dbe388224i5ve" path="res://scenes/ui/location_menu/dungeon/dungeon_menu.tscn" id="10_tgre5"]
 
 [sub_resource type="Gradient" id="Gradient_tgre5"]
@@ -29,7 +30,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
 
-[node name="Location Menu" type="Control" unique_id=300038436 node_paths=PackedStringArray("content_vbox", "name_label", "location_vboxes", "trade_menu", "recruitment_menu", "evolve_menu", "refinement_menu", "dungeon_menu", "ui_sfx")]
+[node name="Location Menu" type="Control" unique_id=300038436 node_paths=PackedStringArray("content_vbox", "name_label", "location_vboxes", "trade_menu", "recruitment_menu", "evolve_menu", "refinement_menu", "dungeon_menu", "bounty_menu", "ui_sfx")]
 process_mode = 3
 z_index = 1
 layout_mode = 3
@@ -47,10 +48,12 @@ recruitment_menu = NodePath("RecruitmentMenu")
 evolve_menu = NodePath("EvolutionMenu")
 refinement_menu = NodePath("RefinementMenu")
 dungeon_menu = NodePath("DungeonMenu")
+bounty_menu = NodePath("BountyMenu")
 ui_sfx = NodePath("ui_sfx")
 
 [node name="ui_sfx" parent="." unique_id=2143108764 instance=ExtResource("2_67qrj")]
 stream = ExtResource("3_4f855")
+bus = &"Master"
 
 [node name="ColorRect" type="TextureRect" parent="." unique_id=68625070]
 modulate = Color(5.912981, 5.912981, 5.912981, 0.5058824)
@@ -229,6 +232,10 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
+[node name="BountyMenu" parent="." unique_id=1091487864 instance=ExtResource("9_tgre5")]
+visible = false
+layout_mode = 1
+
 [node name="DungeonMenu" parent="." unique_id=1341485123 instance=ExtResource("10_tgre5")]
 visible = false
 top_level = true
@@ -246,4 +253,5 @@ layout_mode = 1
 [connection signal="recruitment_finished" from="RecruitmentMenu" to="." method="on_menu_closed"]
 [connection signal="refinement_finished" from="RefinementMenu" to="." method="on_menu_closed"]
 [connection signal="evolution_finished" from="EvolutionMenu" to="." method="on_menu_closed"]
+[connection signal="bounty_board_exited" from="BountyMenu" to="." method="on_menu_closed"]
 [connection signal="exited" from="DungeonMenu" to="." method="on_menu_closed"]

@@ -4,6 +4,8 @@ class_name RefinementMenu
 
 signal refinement_finished
 
+const show_player_resources = false;
+
 @export var r1_sfx:AudioStream;
 @export var r2_sfx:AudioStream;
 @export var r3_sfx:AudioStream;

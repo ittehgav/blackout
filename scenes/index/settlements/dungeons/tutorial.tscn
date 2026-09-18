@@ -14,9 +14,9 @@
 
 [node name="Tutorial" type="Node2D" unique_id=1276118715 node_paths=PackedStringArray("waves") groups=["all_settlements"]]
 script = ExtResource("1_nj60p")
-highest_level_target = 100
-waves = [NodePath("DungeonRoster"), null, null]
+waves = [NodePath("DungeonRoster")]
 tile_layout_scene = ExtResource("2_u27mv")
+special = true
 size = 3
 portrait = ExtResource("3_gl3rt")
 map_texture = ExtResource("4_hxipv")

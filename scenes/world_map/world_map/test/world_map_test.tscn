@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dphiet8wg7sd" path="res://scenes/world_map/world_map/world_map.tscn" id="1_g11k0"]
 [ext_resource type="PackedScene" uid="uid://cicrr5baffqaa" path="res://scenes/player/player.tscn" id="2_rvflo"]
+[ext_resource type="Shader" uid="uid://bxqef7ndrl205" path="res://resources/shaders/location_outline.gdshader" id="2_vv06e"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="3_vv06e"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="4_qigu1"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="5_awiud"]
@@ -15,7 +16,97 @@
 [ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="13_qigu1"]
 [ext_resource type="PackedScene" uid="uid://cnjcf4clj2cxd" path="res://scenes/index/items/consumables/motivational_speech_draft.tscn" id="15_vv06e"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvflo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vv06e"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(0.042500004, 0.25, 0.24654166, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(5, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qigu1"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_awiud"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmncb"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tsypy"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2f5bq"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sukr5"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nwj28"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7vpix"]
+resource_local_to_scene = true
+shader = ExtResource("2_vv06e")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 0.0
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_haksu"]
 resource_local_to_scene = true
 shader = ExtResource("5_awiud")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -27,7 +118,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(3, 3)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vv06e"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1rf0y"]
 resource_local_to_scene = true
 shader = ExtResource("5_awiud")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -39,7 +130,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qigu1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_47h5a"]
 resource_local_to_scene = true
 shader = ExtResource("5_awiud")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -55,6 +146,51 @@ shader_parameter/number_of_images = Vector2(3, 3)
 
 [node name="WorldMap" parent="." unique_id=1698110078 instance=ExtResource("1_g11k0")]
 
+[node name="Doblo" parent="WorldMap/PlayerParty" parent_id_path=PackedInt32Array(1698110078, 76874645) index="0" unique_id=917311666]
+material = SubResource("ShaderMaterial_vv06e")
+
+[node name="Tutorial" parent="WorldMap/locations" parent_id_path=PackedInt32Array(1698110078, 640560362) index="0" unique_id=273842454]
+material = SubResource("ShaderMaterial_qigu1")
+
+[node name="Farm" parent="WorldMap/locations" parent_id_path=PackedInt32Array(1698110078, 640560362) index="1" unique_id=1185826475]
+material = SubResource("ShaderMaterial_awiud")
+
+[node name="Factory" parent="WorldMap/locations" parent_id_path=PackedInt32Array(1698110078, 640560362) index="2" unique_id=1850741843]
+material = SubResource("ShaderMaterial_vmncb")
+
+[node name="Street" parent="WorldMap/locations" parent_id_path=PackedInt32Array(1698110078, 640560362) index="3" unique_id=69350772]
+material = SubResource("ShaderMaterial_tsypy")
+
+[node name="Street2" parent="WorldMap/locations" parent_id_path=PackedInt32Array(1698110078, 640560362) index="4" unique_id=424630876]
+material = SubResource("ShaderMaterial_2f5bq")
+
+[node name="Outlaw Dwelling" parent="WorldMap/locations" parent_id_path=PackedInt32Array(1698110078, 640560362) index="5" unique_id=1344063996]
+material = SubResource("ShaderMaterial_sukr5")
+
+[node name="Outlaw Hideout" parent="WorldMap/locations" parent_id_path=PackedInt32Array(1698110078, 640560362) index="6" unique_id=669220767]
+material = SubResource("ShaderMaterial_nwj28")
+
+[node name="Operation Base" parent="WorldMap/locations" parent_id_path=PackedInt32Array(1698110078, 640560362) index="7" unique_id=853050099]
+material = SubResource("ShaderMaterial_7vpix")
+
+[node name="resources_dropdown" parent="WorldMap/static_ui/main_hud/VBoxContainer/resources/VBoxContainer" parent_id_path=PackedInt32Array(1698110078, 251680820, 1764114174) index="0" unique_id=682307214 node_paths=PackedStringArray("resource_hboxes", "resource_icons")]
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+
 [node name="Player" parent="." unique_id=526134067 node_paths=PackedStringArray("equipped_weapon", "equipped_module") groups=["player"] instance=ExtResource("2_rvflo")]
 process_priority = 1
 equipped_weapon = NodePath("Inventory/Slingshot")
@@ -66,19 +202,19 @@ experience = 1
 level = 2
 
 [node name="Puncher" parent="Player/Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("4_qigu1")]
-material = SubResource("ShaderMaterial_rvflo")
+material = SubResource("ShaderMaterial_haksu")
 
 [node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="1" unique_id=9850417 instance=ExtResource("3_vv06e")]
 level = 2
 
 [node name="Crowbar" parent="Player/Roster/FighterUnit2" unique_id=2112712555 instance=ExtResource("6_vmncb")]
-material = SubResource("ShaderMaterial_vv06e")
+material = SubResource("ShaderMaterial_1rf0y")
 
 [node name="FighterUnit3" parent="Player/Roster" parent_id_path=PackedInt32Array(526134067, 625375393) index="2" unique_id=1095487692 instance=ExtResource("3_vv06e")]
 level = 2
 
 [node name="Puncher" parent="Player/Roster/FighterUnit3" unique_id=1782066876 instance=ExtResource("4_qigu1")]
-material = SubResource("ShaderMaterial_qigu1")
+material = SubResource("ShaderMaterial_47h5a")
 
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 315
@@ -110,4 +246,14 @@ stack_size = 100
 [node name="base_stats" parent="Player" index="3" unique_id=1645727257]
 max_hp = 100.0
 
+[connection signal="timeout" from="WorldMap/minute_ticker" to="WorldMap/static_ui/main_hud/top_right_items/clock" method="_on_minute_ticker_timeout"]
+[connection signal="started_moving" from="WorldMap/PlayerParty" to="WorldMap/static_ui/main_hud/location_data" method="_on_player_party_started_moving"]
+[connection signal="started_moving" from="WorldMap/PlayerParty" to="WorldMap/static_ui/main_hud/navigation_data" method="_on_player_party_started_moving"]
+[connection signal="stopped_moving" from="WorldMap/PlayerParty" to="WorldMap/static_ui/main_hud/location_data" method="_on_player_party_stopped_moving"]
+[connection signal="started_panning" from="WorldMap/PlayerParty/world_map_camera" to="WorldMap/static_ui/main_hud/navigation_data" method="_on_world_map_camera_started_panning"]
+
+[editable path="WorldMap"]
+[editable path="WorldMap/locations/Tutorial"]
+[editable path="WorldMap/static_ui/main_hud"]
+[editable path="WorldMap/static_ui/ShiftSkillCheck"]
 [editable path="Player"]

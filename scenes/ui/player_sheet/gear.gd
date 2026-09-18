@@ -104,7 +104,6 @@ func _on_inventory_display_extension_hidden() -> void:
 
 
 func _on_switch_alt_pressed() -> void:
-	sfx.play_sound_by_key("weapon_equipped")
 	Entities.player.switch_weapons()
 
 	weapon_sample.highlight_blink();
@@ -185,14 +184,12 @@ func unequip_accessory(which:int)->void:
 	if not player_inventory_display.has_room(to_unequip):
 		invalid_move("NOT ENOUGH ROOM");
 		return;
-		
+
 	Entities.player.unequip_accessory(to_unequip, which);
 	sample.load_blank(2)
-	
 
 	player_inventory_display.throw_in_inventory(to_unequip)
 
-	
 	sfx.play_sound_by_key("accessory_equipped")
 
 func unequip_artifice(slot:int)->void:

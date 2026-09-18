@@ -6,6 +6,9 @@ class_name LootInventory
 
 ## minimum amt of rare items
 @export var rare_count:int=0;
+## right now just to make tutorial battle yield more loot
+@export var loot_multiplier:float = 1.0;
+
 var pool_generated:bool=false;
 
 func _ready()->void:
@@ -27,7 +30,7 @@ func generate_loot(party_level:int)->void:
 	## still worth the simpler nodes?
 	money = randi_range(party_level, party_level * 2)
 	## loot formula = generates a total sum of item value based on the level of the roster
-	var target_value_sum:int = party_level/2;
+	var target_value_sum:int = (party_level/2)*loot_multiplier;
 	var current_sum:int = 0;
 	while current_sum < target_value_sum:
 		var new_item:Item = generate_item(current_rare_count() < rare_count);

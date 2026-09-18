@@ -78,7 +78,7 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 [node name="Self Destruct" type="Node" parent="." unique_id=745809118 node_paths=PackedStringArray("status")]
 script = ExtResource("3_jwcm1")
 base_cooldown = 10.0
-effects = Array[int]([2, 3, 6])
+effects = Array[int]([3, 4, 7, 10])
 position_lineup = false
 status = NodePath("Corrosion")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"

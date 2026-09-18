@@ -27,7 +27,6 @@ func load_building(target:Building)->void:
 		var button:Button = buttons[i];
 		i += 1;
 		if "opt_"+str(i)+'_arg' in building: 
-
 			## make this a less ugly way to do this? 
 			self["opt"+str(i)+"_extra_arg"] = building["opt_"+str(i)+"_arg"]
 		
@@ -72,3 +71,11 @@ func _on_button_3_pressed() -> void:
 		option_chosen.emit(building, current_options[2], opt3_extra_arg);
 	else:
 		option_chosen.emit(building, current_options[2])
+
+
+var opt4_extra_arg:Variant
+func _on_button_4_pressed() -> void:
+	if opt4_extra_arg:
+		option_chosen.emit(building, current_options[3], opt4_extra_arg);
+	else:
+		option_chosen.emit(building, current_options[3])

@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://cpu4aip3dy4kq"]
+
+[ext_resource type="Script" uid="uid://dm5uha7g5jd0t" path="res://scenes/index/items/weapons/scripts/tailpipe.gd" id="1_1n7ey"]
+[ext_resource type="Texture2D" uid="uid://vvpqjj3pxtbs" path="res://assets/visual/items/weapons/pipe.png" id="1_4334k"]
+[ext_resource type="Script" uid="uid://nkvusiyd18wl" path="res://scenes/battle/fighter/player/equipment/weapon_display/melee_display.gd" id="3_577ip"]
+[ext_resource type="AnimationLibrary" uid="uid://i0u7lhwyn7mk" path="res://resources/animations/weapons/melee.res" id="3_jodic"]
+[ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="5_hl2mp"]
+[ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="5_jodic"]
+[ext_resource type="AudioStream" uid="uid://cmvu7h5kfmq24" path="res://assets/sound/sfx/combat/player/hit/metal_hit.wav" id="6_577ip"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="7_vmql4"]
+[ext_resource type="Script" uid="uid://dhw5eiy25am4u" path="res://scenes/vfx/motion_trail.gd" id="9_vmql4"]
+
+[sub_resource type="Animation" id="Animation_577ip"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("components/use_sfx:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vmql4"]
+_data = {
+&"RESET": SubResource("Animation_577ip")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_053ln"]
+radius = 60.0
+
+[sub_resource type="Curve" id="Curve_vmql4"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 3.9887643), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Tailpipe" type="Sprite2D" unique_id=870722934 node_paths=PackedStringArray("stun_sfx", "display", "hit_scan", "projections", "animation_player", "use_sfx", "status")]
+use_parent_material = true
+position = Vector2(28.950424, 0)
+texture = ExtResource("1_4334k")
+offset = Vector2(0, -32)
+script = ExtResource("1_1n7ey")
+stun_sfx = NodePath("components/stun_sfx")
+display = NodePath("components/MeleeWeaponDisplay")
+base_damage = 20
+cooldown = 1.0
+hit_scan = NodePath("hit_scan")
+melee = true
+projections = [NodePath("hit_scan/projection")]
+animation_player = NodePath("components/weapon_animation")
+use_sfx = NodePath("components/use_sfx")
+status = NodePath("components/stun")
+color_tag = "scrap"
+
+[node name="components" type="Node" parent="." unique_id=372097303]
+
+[node name="MeleeWeaponDisplay" type="Node" parent="components" unique_id=203417275]
+script = ExtResource("3_577ip")
+use_feedback = 0
+hit_feedback = 1
+metadata/_custom_type_script = "uid://nkvusiyd18wl"
+
+[node name="weapon_animation" type="AnimationPlayer" parent="components" unique_id=1686799378]
+deterministic = true
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_vmql4")
+libraries/melee = ExtResource("3_jodic")
+
+[node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=562682770]
+stream = ExtResource("5_jodic")
+parameters/looping = false
+
+[node name="stun_sfx" type="AudioStreamPlayer" parent="components" unique_id=1150565066]
+stream = ExtResource("6_577ip")
+pitch_scale = 1.25
+
+[node name="stun" type="Node" parent="components" unique_id=601410638]
+script = ExtResource("7_vmql4")
+type = "stun"
+duration = 0.5
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="hit_scan" type="Area2D" parent="." unique_id=955711957]
+position = Vector2(80, 0)
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=552233929]
+position = Vector2(-21, 0)
+shape = SubResource("CircleShape2D_053ln")
+debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
+
+[node name="projection" type="Sprite2D" parent="hit_scan" unique_id=731778444]
+modulate = Color(1, 1, 1, 0.11764706)
+position = Vector2(1, -1)
+scale = Vector2(6, 8)
+texture = ExtResource("5_hl2mp")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=362393771]
+position = Vector2(4.3708763, -40.777306)
+scale = Vector2(1.0000001, 1.0000001)
+
+[node name="Line2D" type="Line2D" parent="Node2D" unique_id=11873477 node_paths=PackedStringArray("weapon", "anchor")]
+top_level = true
+points = PackedVector2Array(57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487, 57.897003, 29.051487)
+width_curve = SubResource("Curve_vmql4")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 1
+sharp_limit = 10.01
+script = ExtResource("9_vmql4")
+weapon = NodePath("../..")
+anchor = NodePath("..")
+
+[connection signal="animation_started" from="components/weapon_animation" to="Node2D/Line2D" method="_on_weapon_animation_started"]

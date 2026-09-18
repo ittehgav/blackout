@@ -13,7 +13,7 @@ const fog_range = 150;
 const off_road_sight = 10;
 const horizon_gap:int = 3;
 @onready var horizon_limits: = set_horizon_limits();
-func _enter_tree()->void:
+func _ready()->void:
 	for x in fog_range * 2:
 		for y in fog_range * 2:
 			var target:Vector2i = Vector2i(x, y) - Vector2i(fog_range, fog_range)
@@ -36,6 +36,8 @@ func set_horizon_limits()->Array[int]:
 		limits.append(i)
 		limits.append(-i)
 	return limits;
+
+
 func reveal_path(path:PackedVector2Array)->void:
 	var to_clear:PackedVector2Array
 	for cell:Vector2i in path:

@@ -5,6 +5,7 @@ class_name PlayerSheet;
 signal closed;
 signal space_request_cleared;
 signal item_discarded;
+signal pre_battle_started(enemy_name:String, enemy_roster:NpcRoster)
 
 @export var bg:ColorRect;
  
@@ -42,10 +43,13 @@ func _ready()->void:
 	player.equipment_changed.connect(_on_player_equipment_changed);
 	
 
-var open:bool=false
+var open:bool=false;
+var opening:bool=false;
 func show_player_sheet(left_tab_view:int=0)->void:
-	start_battle_prompt.hide();
-	
+	if opening or closing:return
+	opening = true;
+
+	left_tab_container.set_tab_hidden(2, true)
 	left_tab_container.get_child(left_tab_view).show()
 	ui_sfx.play_stream_obj(open_sound)
 	show()
@@ -74,23 +78,13 @@ func show_player_sheet(left_tab_view:int=0)->void:
 		State.set_substate(State.Substate.player_sheet)
 	await tween.finished;
 	open = true;
+	opening = false
 	## so the player can't mash tab and bug the UI
 
-
-func pre_battle_sheet()->void:
-	show_player_sheet();
-	start_battle_prompt.show();
-	player_view.player_sample.hide()
-	## is this too loose?
-	Entities.world_map.returned_from_battle.connect(player_view.player_sample.show)
-
-func request_space_for_item(item:Item)->void:
-	State.set_substate(State.Substate.inventory_space_request);
-	item_space_request.request_space_for_item(item)
-	show_player_sheet();
-
-
+var closing:bool=false
 func hide_player_sheet(_meta:Variant="")->void:
+	if (not open) or opening or closing:return
+	closing = true
 	## _meta to this gets called when meta clicked from memo labels in the memos tab
 	if player_inventory.pending_warnings():
 		inventory_view.show();
@@ -107,10 +101,34 @@ func hide_player_sheet(_meta:Variant="")->void:
 		
 		await tween.finished
 		open = false
+		closing = false
 		closed.emit();
 
 		State.revert_substate()
 		hide()
+
+
+func pre_battle_sheet()->void:
+	var dungeon:Dungeon = Entities.player_party.current_location.settlements[0];
+	var roster:NpcRoster = dungeon.waves[dungeon.current_wave - 1]
+	var enemy_name:String = dungeon.name + ": Wave " + str(dungeon.current_wave)
+	
+	
+	show_player_sheet();
+	left_tab_container.set_tab_hidden(2, false)
+	start_battle_prompt.show()
+	player_view.player_sample.hide()
+	## is this too loose?
+	
+	
+	pre_battle_started.emit(enemy_name, roster);
+	## to be replaced by overworld/inner world system
+
+func request_space_for_item(item:Item)->void:
+	State.set_substate(State.Substate.inventory_space_request);
+	item_space_request.request_space_for_item(item)
+	show_player_sheet();
+
 
 
 

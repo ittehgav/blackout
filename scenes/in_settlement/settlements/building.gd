@@ -13,7 +13,8 @@ enum Option{
 	recruit,
 	evolve,
 	refine,
-	bounty_board
+	bounty_board,
+	improve_unit
 }
 var option_descriptions:={
 	Option.trade:
@@ -24,8 +25,10 @@ var option_descriptions:={
 		"Use " + Index.get_color_tag("juice") +"Juice[/color] to transform your units, making them much more powerful.",
 	Option.refine:
 		"Use "+Index.get_color_tag("scrap") + "Scrap to refine weapons[/color], or "+Index.get_color_tag("chips")+"Chips to modify modules[/color] making them much stronger.",
-		Option.bounty_board:
-			"TODO"
+	Option.bounty_board:
+		"Help the locals and gain valuable rewards.",
+	Option.improve_unit:
+		"TODO"
 }
 
 @export var options:Array[Option]
@@ -42,6 +45,7 @@ var option_descriptions:={
 ## have no operations that need them to have one;
 @export var inventory:ShopInventory;
 @export var roster:RecruitmentRoster;
+@export var bounty_board:BountyBoard;
 
 
 func refresh()->void:
@@ -53,13 +57,15 @@ func refresh_stores()->void:
 		inventory.refresh_inventory();
 	if roster:
 		roster.refresh_recruits();
-
+	if bounty_board:
+		bounty_board.refresh_bounties(get_parent())
 
 
 func accepts_trade(item:Item)->bool:
 	## overrideable
 	return item is ResourceContainer;
-	
+
+
 func has_use(o:Option)->bool:
 	var player:Player = Entities.player;
 	match o:
@@ -75,4 +81,8 @@ func has_use(o:Option)->bool:
 		Option.refine:
 			if player.inventory.scrap or player.inventory.chips:
 				return true
+		Option.bounty_board:
+			return true;
+		Option.improve_unit:
+			pass
 	return false

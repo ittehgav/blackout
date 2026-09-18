@@ -12,32 +12,44 @@ var original:bool=true
 var chain:Array[Status]
 
 @export_enum("stun", "stat_change", "dot", "special") var type:String;
-@export var value:float; 
 ## used in the vast majority of statuese
-@export var duration:float=0
+@export var value:float; 
 ## used in all statuses, duration 0 = permanent status
-@export var latency:float;
+@export var duration:float=0
 ## used in DOTs
-@export var chain_root:bool=false
+@export var latency:float;
 ## used for chain statuses
+@export var chain_root:bool=false
 @export_enum("attack", "defense", "agility", "technique", "move_speed") var stat:String;
 @export var stat_fractal_value:bool=false
-## ONLY FOR ENEMY MOBS,
-## projections generated dynamically based on the hitscan's shape
+
 @export var force_quiet:bool=false;
 @export var unique:bool=false;
 @export var special_status_texture:Texture;
 
 
-var source:ActiveFighter;
+var source:ActiveFighter:
+	get():
+		## needs to have an ActiveFighter 
+		if not source:
+			var p:Node = get_parent();
+			while not p is ActiveFighter:
+				p = p.get_parent();
+				assert(not(p is Main))
+			source = p;
+		return source
+## turning this into just a bool from the class instead of 
+## having to set these to player in dozens of different contexts
+
 
 var host:ActiveFighter
 
 var timer:Timer;
+var fractal_stat_change:float;
 
 
 func generate_status()->Status:
-	const properties_to_clone:Array[String] = ["type", "source", "duration", "value", "chain_root", "latency"]
+	const properties_to_clone:Array[String] = ["type", "source", "duration", "value", "chain_root", "latency", "stat_fractal_value"]
 	var new_status:Status = duplicate();
 	
 	if chain_root:
@@ -96,12 +108,14 @@ func apply(propagated:bool)->void:
 			else:
 				var val:float = host[stat] * value;
 				final_value = CombatStats.technique_scaled_value(val, source.technique, "stat_change");
+				fractal_stat_change = final_value
 				
 			## catches buffs and debuffs by whether the value is negative of positive
 			host.stat_modifiers[stat] += final_value
 			
 			host.stat_changed.emit(stat)
 		"dot":
+			## NEGATIVE VALUE = HEAL OVER TIME
 			## DOT scaled with technique i guess
 			## right now only on calango tail poison
 			## always quiet?
@@ -132,8 +146,10 @@ func apply(propagated:bool)->void:
 	
 
 func dot_ticker(final_value:float)->void:
-	Combat.deal_damage(source, host, final_value, true);
-
+	if final_value > 0:
+		Combat.deal_damage(source, host, final_value, true);
+	else:
+		Combat.heal_target(source, host, final_value * -1)
 func remove()->void:
 	if not is_instance_valid(host):
 		return;
@@ -146,11 +162,20 @@ func remove()->void:
 					host.cooldown_timer.paused = false;
 		"stat_change":
 			## works with negative values just fine
-			host.stat_modifiers[stat] -= value;
+			if stat_fractal_value:
+				host.stat_modifiers[stat] -= fractal_stat_change;
+			else:
+				host.stat_modifiers[stat] -= value;
 			host.stat_changed.emit(stat);
 	removed.emit()
 	host.status_removed.emit(self)
 	queue_free()
+
+func remove_chain()->void:
+	assert(chain_root)
+	for s:Status in chain:
+		s.remove();
+	remove()
 
 func get_status_color()->Color:
 	match type:

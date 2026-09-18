@@ -103,7 +103,7 @@ metadata/_custom_type_script = "uid://dn4endealcll1"
 [node name="Shrapnel Slam" type="Node" parent="components" unique_id=1381515576]
 script = ExtResource("3_7ynb7")
 base_cooldown = 5.0
-effects = Array[int]([2, 9])
+effects = Array[int]([3, 10])
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="base_animations" type="AnimationPlayer" parent="components" unique_id=1719065668]

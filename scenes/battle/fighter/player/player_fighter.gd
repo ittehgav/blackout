@@ -56,14 +56,11 @@ func load_fighter()->void:
 	for accessory:Accessory in [accessory_1, accessory_2]:
 		if accessory:
 			if accessory.application == "battle_start":
-				if not accessory.apply_during_battle:
-					accessory.battle_start_apply(self);
-				else:
-					## TODO probably some signal that gets fetched from global scope
-					## instead of this
-					ally_team.arena.battle_started.connect(accessory.battle_start_apply.bind(self))
+
+				ally_team.arena.battle_started.connect(accessory.battle_start_apply.bind(self))
 	
 	refresh_all_stats()
+	
 	hp = max_hp;
 
 

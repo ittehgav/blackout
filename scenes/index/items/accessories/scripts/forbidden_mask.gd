@@ -28,7 +28,7 @@ func battle_start_apply(target:ActiveFighter, first:bool=true)->void:
 				steal_target = fighter;
 				
 		var attack_steal:int = steal_target.attack/2;
-		
+
 		status.apply_on_target(steal_target, -attack_steal)
 		self_buff.apply_on_target(Entities.player_fighter, attack_steal);
 		

@@ -27,15 +27,17 @@ func detonate()->void:
 		hit.emit(target)
 	queue_free()
 
+## to sync flgight with AOE projections
+var flight_duration:float
 func tween_arc(
 	target: Vector2,
 	speed: float,
 ) -> Tween:
 	var start :Vector2 = global_position
 	var distance := start.distance_to(target)
-	var duration := distance / speed
+	flight_duration = distance / speed
 
-	var tween := create_tween()
+	var tween := create_tween().set_trans(Tween.TRANS_LINEAR)
 
 	tween.tween_method(
 		func(t:Variant)->void:
@@ -43,6 +45,6 @@ func tween_arc(
 			var height :float = 4.0 * arc_height * t * (1.0 - t)
 
 			global_position = pos + Vector2(0, -height),
-		0.0, 1.0, duration).set_trans(Tween.TRANS_LINEAR)
+		0.0, 1.0, flight_duration)
 
 	return tween

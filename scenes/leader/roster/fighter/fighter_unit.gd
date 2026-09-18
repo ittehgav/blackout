@@ -16,6 +16,7 @@ signal accessory_equipped(new:Accessory, old:Accessory)
 @export var experience:int=0;
 
 
+
 @export var stats:CombatStats; ## EXCLUSIVELY FROM LEVELS
 @export var modifier_stats:CombatStats;
 @export var stat_multipliers:CombatStats;

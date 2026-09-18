@@ -88,3 +88,8 @@ func _on_shift_skill_check_good_hit() -> void:
 func _on_shift_skill_check_perfect_hit() -> void:
 	if navigation_tween and navigation_tween.is_running():
 		navigation_tween.set_speed_scale(1.5)
+
+
+func _on_shift_skill_check_fuel_shortage() -> void:
+	if navigation_tween and navigation_tween.is_running():
+		navigation_tween.set_speed_scale(.25);

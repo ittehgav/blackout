@@ -3,17 +3,20 @@ extends Node
 
 class_name Roster;
 
+signal changed
+
 @export var units:Array[FighterUnit];
 
 var equipped_accessories:Array[Accessory]
 
 
-func add_unit(unit:FighterUnit)->void:
+func add_unit(unit:FighterUnit, from_entering_tree:bool=false)->void:
 	assert(not units.has(unit));
 	units.append(unit)
 	if unit.equipped_accessory:
 		equipped_accessories.append(unit.equipped_accessory)
-
+	if not from_entering_tree:
+		changed.emit()
 
 func remove_unit(unit:FighterUnit)->void:
 	assert(units.has(unit));
@@ -25,7 +28,7 @@ func _on_child_entered_tree(node: Node) -> void:
 	## so editor-made roster work and are easy to edit
 	assert(node is FighterUnit)
 	if not units.has(node):
-		add_unit(node)
+		add_unit(node, true)
 	remove_child.call_deferred(node);
 	
 func get_level()->int:

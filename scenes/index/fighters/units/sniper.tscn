@@ -96,7 +96,7 @@ material = ExtResource("1_m8axb")
 texture = ExtResource("2_r7jn3")
 hframes = 8
 vframes = 7
-frame = 4
+frame = 6
 script = ExtResource("3_m8axb")
 skill = NodePath("components/Piercing Shot")
 skill_range = 10
@@ -114,7 +114,7 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 [node name="Piercing Shot" type="Node" parent="components" unique_id=1500444734]
 script = ExtResource("3_lwa6y")
 base_cooldown = 7.0
-effects = Array[int]([2, 5])
+effects = Array[int]([3, 6])
 position_lineup = false
 transform_visual = 1
 technique_scaled_damage = true

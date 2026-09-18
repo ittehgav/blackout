@@ -29,8 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="28_in2cn"]
 [ext_resource type="AnimationLibrary" uid="uid://b1duv7qswhyol" path="res://resources/animations/active_fighter/player.res" id="29_7ydhy"]
 [ext_resource type="PackedScene" uid="uid://cymd0sqneerkx" path="res://scenes/ui/icons/party/party_power_icon.tscn" id="29_8oj3i"]
+[ext_resource type="Script" uid="uid://bw1xuspgdu" path="res://scenes/ui/player_sheet/battle_data.gd" id="32_7ydhy"]
 [ext_resource type="PackedScene" uid="uid://ceqkptsraqsqu" path="res://scenes/ui/icons/collections/stats_dropdown.tscn" id="32_in2cn"]
-[ext_resource type="Texture2D" uid="uid://dut04yhgg53l8" path="res://assets/visual/ui/world_map/go_arrow.png" id="33_7ydhy"]
 [ext_resource type="Texture2D" uid="uid://6rtvfrmydkxi" path="res://assets/visual/editor_ui/IconGodotNode/node/icon_gear.png" id="34_7ydhy"]
 [ext_resource type="Script" uid="uid://dd3sexthpletg" path="res://scenes/ui/player_sheet/clear_space_request.gd" id="36_kgp2d"]
 
@@ -201,7 +201,7 @@ container = NodePath("main_bg/MarginContainer/HBoxContainer")
 gear = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/gear")
 morale_label = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party/HBoxContainer/morale_display")
 disable_display_rect = NodePath("main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/disable_rect")
-start_battle_prompt = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/start_battle")
+start_battle_prompt = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle")
 item_space_request = NodePath("main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/clear_space_request")
 open_sound = ExtResource("2_hamfw")
 close_sound = ExtResource("3_dfs8r")
@@ -255,12 +255,6 @@ offset_left = 23.0
 offset_top = 31.0
 offset_right = 14.0
 offset_bottom = -99.0
-
-[node name="hover_sfx" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" index="0" unique_id=1571618890]
-bus = &"Master"
-
-[node name="sfx" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" index="1" unique_id=227163406]
-bus = &"Master"
 
 [node name="space_request_projection" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/cargo" parent_id_path=PackedInt32Array(1336254164, 693213085) index="0" unique_id=1582191684 instance=ExtResource("13_7sc2c")]
 visible = false
@@ -463,6 +457,7 @@ offset_bottom = 582.0
 
 [node name="sort_inventory" type="Button" parent="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/VBoxContainer" unique_id=256253038]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 64
 text = "SORT"
 
@@ -519,6 +514,7 @@ custom_minimum_size = Vector2(680, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 current_tab = 1
+tab_2/hidden = true
 
 [node name="Player" type="Control" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=1631754090 node_paths=PackedStringArray("name_label", "player_sample", "level_label")]
 visible = false
@@ -973,32 +969,93 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Click on a unit for more information"
 
-[node name="start_battle" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=1621010783]
+[node name="Battle" type="MarginContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory" unique_id=1621010783 node_paths=PackedStringArray("player_party_power_icon", "enenmy_party_power_icon", "enemy_name_label")]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+script = ExtResource("32_7ydhy")
+player_party_power_icon = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/party_power_icon")
+enenmy_party_power_icon = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer/party_power_icon")
+enemy_name_label = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/enemy_name")
 metadata/_tab_index = 2
 
-[node name="start_battle" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/start_battle" unique_id=971089936]
+[node name="start_battle" type="Button" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle" unique_id=971089936]
 z_index = 1
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 focus_mode = 0
 theme_override_font_sizes/font_size = 128
 text = "START 
 BATTLE"
 alignment = 0
 
-[node name="TextureRect" type="TextureRect" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/start_battle/start_battle" unique_id=893759514]
-modulate = Color(0.6745098, 0.49803922, 0.2784314, 1)
-layout_mode = 0
-offset_left = 311.0
-offset_top = 261.0
-offset_right = 351.0
-offset_bottom = 421.0
-texture = ExtResource("33_7ydhy")
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle" unique_id=657255691]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer" unique_id=1592393704]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer" unique_id=40881232]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1129072638]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Player"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1464372129]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="party_power_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1801602026 node_paths=PackedStringArray("label") instance=ExtResource("29_8oj3i")]
+layout_mode = 2
+from_player = true
+label = NodePath("../player_party_power")
+
+[node name="player_party_power" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=230294310]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
+
+[node name="Label" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer" unique_id=2035580497]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "VS"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer" unique_id=1628413008]
+layout_mode = 2
+
+[node name="enemy_name" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1327360724]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Player"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=681557459]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="party_power_icon" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=1438975294 node_paths=PackedStringArray("label") instance=ExtResource("29_8oj3i")]
+layout_mode = 2
+label = NodePath("../enemy_party_power")
+
+[node name="enemy_party_power" type="Label" parent="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer" unique_id=757327933]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "11"
 
 [node name="Button" type="Button" parent="main_bg" unique_id=173178629]
 modulate = Color(0.6392157, 0.654902, 0.8, 1)
@@ -1010,6 +1067,7 @@ offset_bottom = 91.0
 icon = ExtResource("34_7ydhy")
 expand_icon = true
 
+[connection signal="pre_battle_started" from="." to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle" method="_on_player_sheet_pre_battle_started"]
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="accessory_equipped_on_unit" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/gear" method="_on_inventory_display_accessory_equipped_on_unit"]
 [connection signal="warnings_attended" from="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display" to="." method="_on_inventory_display_warnings_attended"]
@@ -1028,7 +1086,7 @@ expand_icon = true
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/col3/accessories/HBoxContainer/accessory_1_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/gear" method="_on_accessory_1_sample_gui_input"]
 [connection signal="gui_input" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/col3/accessories/HBoxContainer/accessory_2_sample" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Player/gear" method="_on_accessory_2_sample_gui_input"]
 [connection signal="unit_accessories_changed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" to="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Party" method="refresh_data"]
-[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/start_battle/start_battle" to="." method="_on_start_battle_pressed"]
+[connection signal="pressed" from="main_bg/MarginContainer/HBoxContainer/party_and_inventory/Battle/start_battle" to="." method="_on_start_battle_pressed"]
 
 [editable path="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display"]
 [editable path="main_bg/MarginContainer/HBoxContainer/PanelContainer/Inventory/inventory_display/resources_dropdown"]

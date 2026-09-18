@@ -45,6 +45,7 @@ func hp_frac_color()->Color:
 var current_color_tween:Tween;
 var current_color_tween_duration:float;
 func _on_player_fighter_status_applied(_source: ActiveFighter, status: Status, quiet:bool) -> void:
+	if quiet:return
 	match status.type:
 		"stun":
 			if current_color_tween and current_color_tween.is_running():

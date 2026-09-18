@@ -42,6 +42,7 @@ value = 1.0
 chain_root = true
 stat = "attack"
 stat_fractal_value = true
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="Berserker\'s Demise" type="Node" parent="Berserker\'s Rage" unique_id=1872436370]

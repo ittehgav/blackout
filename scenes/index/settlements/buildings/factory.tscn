@@ -21,11 +21,17 @@
 [ext_resource type="PackedScene" uid="uid://dm8mv4gcuj7sc" path="res://scenes/index/items/artifices/pressure_grenade.tscn" id="12_eebtn"]
 [ext_resource type="PackedScene" uid="uid://moh5lw5akuo5" path="res://scenes/index/items/artifices/singularity_grenade.tscn" id="13_0r854"]
 [ext_resource type="PackedScene" uid="uid://frf7reky0e51" path="res://scenes/index/items/artifices/smart_boomerang.tscn" id="14_fq407"]
+[ext_resource type="PackedScene" uid="uid://b322626nnhpf7" path="res://scenes/index/items/weapons/electric_baton.tscn" id="23_0r854"]
 [ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/index/items/containers/scrap_crate.tscn" id="23_16uiq"]
+[ext_resource type="PackedScene" uid="uid://prw4abfgie7j" path="res://scenes/index/items/weapons/firebomb_launcher.tscn" id="24_fq407"]
+[ext_resource type="PackedScene" uid="uid://cj5ljxvm16m8c" path="res://scenes/index/items/weapons/shrapnel_shotgun.tscn" id="25_i30i1"]
 [ext_resource type="PackedScene" uid="uid://c5awhsy8qymmm" path="res://scenes/leader/roster/building_roster.tscn" id="25_wtqfl"]
 [ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="26_4oal8"]
+[ext_resource type="PackedScene" uid="uid://vjfil4dxel55" path="res://scenes/index/items/weapons/slingshot.tscn" id="26_jjto0"]
+[ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="27_d1e62"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="27_gxsu5"]
 [ext_resource type="PackedScene" uid="uid://b8o5vlsx27qdx" path="res://scenes/index/fighters/units/electric_hulk.tscn" id="28_bcplk"]
+[ext_resource type="PackedScene" uid="uid://dhmyvsvrw476x" path="res://scenes/index/items/weapons/toxic_shotgun.tscn" id="28_i5jl6"]
 [ext_resource type="PackedScene" uid="uid://uacsw306t8nv" path="res://scenes/index/fighters/units/electric_knight.tscn" id="29_eebtn"]
 [ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="30_0r854"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="31_fq407"]
@@ -33,56 +39,9 @@
 [ext_resource type="PackedScene" uid="uid://cytn5aw6slgl8" path="res://scenes/index/fighters/units/scythe.tscn" id="33_jjto0"]
 [ext_resource type="PackedScene" uid="uid://p5ohv4n6v7n8" path="res://scenes/index/fighters/units/slammer.tscn" id="34_d1e62"]
 [ext_resource type="PackedScene" uid="uid://da6t3mxb46olo" path="res://scenes/index/fighters/units/sniper.tscn" id="35_i5jl6"]
+[ext_resource type="PackedScene" uid="uid://cneqafv10v2cd" path="res://scenes/ui/location_menu/bounty/bounty_board.tscn" id="36_5xpgi"]
 [ext_resource type="PackedScene" uid="uid://dgdmony1sdvvy" path="res://scenes/index/fighters/units/toxic_hulk.tscn" id="36_hu1ix"]
 [ext_resource type="PackedScene" uid="uid://bl82dpeovf8fl" path="res://scenes/index/fighters/units/wrecker.tscn" id="38_nnxq8"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i30i1"]
-resource_local_to_scene = true
-shader = ExtResource("27_gxsu5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjto0"]
-resource_local_to_scene = true
-shader = ExtResource("27_gxsu5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1e62"]
-resource_local_to_scene = true
-shader = ExtResource("27_gxsu5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5jl6"]
-resource_local_to_scene = true
-shader = ExtResource("27_gxsu5")
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/grad = 0.0
-shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
-shader_parameter/width = 1.0000000475
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = false
-shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hu1ix"]
 resource_local_to_scene = true
@@ -168,12 +127,61 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[node name="Factory" type="Node2D" unique_id=288129802 node_paths=PackedStringArray("inventory", "roster") groups=["all_locations"]]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5000r"]
+resource_local_to_scene = true
+shader = ExtResource("27_gxsu5")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3rwjj"]
+resource_local_to_scene = true
+shader = ExtResource("27_gxsu5")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddkdb"]
+resource_local_to_scene = true
+shader = ExtResource("27_gxsu5")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dy8t"]
+resource_local_to_scene = true
+shader = ExtResource("27_gxsu5")
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/grad = 0.0
+shader_parameter/color = Color(0.3, 0.18, 0.18, 1)
+shader_parameter/width = 1.0000000475
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="Factory" type="Node2D" unique_id=288129802 node_paths=PackedStringArray("inventory", "roster", "bounty_board") groups=["all_locations"]]
 script = ExtResource("1_rgx4l")
 theme_color = Color(0.6392157, 0.64705884, 0.8, 1)
-options = Array[int]([0, 1, 3])
+options = Array[int]([0, 1, 3, 4])
 inventory = NodePath("ShopInventory")
 roster = NodePath("Building Roster")
+bounty_board = NodePath("BountyBoard")
 size = 3
 portrait = ExtResource("2_4oal8")
 map_texture = ExtResource("2_e1iqu")
@@ -224,37 +232,51 @@ exclusive_tag = 0
 
 [node name="Scrap Crate" parent="ShopInventory" unique_id=1787445472 instance=ExtResource("23_16uiq")]
 
+[node name="Electric Baton" parent="ShopInventory" unique_id=1979784302 instance=ExtResource("23_0r854")]
+
+[node name="Firebomb Launcher" parent="ShopInventory" unique_id=785300769 instance=ExtResource("24_fq407")]
+
+[node name="Shrapnel Shotgun" parent="ShopInventory" unique_id=1126198983 instance=ExtResource("25_i30i1")]
+
+[node name="Slingshot" parent="ShopInventory" unique_id=1249202197 instance=ExtResource("26_jjto0")]
+
+[node name="Tailpipe" parent="ShopInventory" unique_id=870722934 instance=ExtResource("27_d1e62")]
+
+[node name="Toxic Shotgun" parent="ShopInventory" unique_id=264886156 instance=ExtResource("28_i5jl6")]
+
 [node name="Building Roster" parent="." unique_id=1928447804 instance=ExtResource("25_wtqfl")]
 
 [node name="Crowbar" parent="Building Roster" unique_id=2112712555 instance=ExtResource("26_4oal8")]
-material = SubResource("ShaderMaterial_i30i1")
-
-[node name="Electric Hulk" parent="Building Roster" unique_id=30330839 instance=ExtResource("28_bcplk")]
-material = SubResource("ShaderMaterial_jjto0")
-
-[node name="Electric Knight" parent="Building Roster" unique_id=366716137 instance=ExtResource("29_eebtn")]
-material = SubResource("ShaderMaterial_d1e62")
-
-[node name="Gravity" parent="Building Roster" unique_id=934399271 instance=ExtResource("30_0r854")]
-material = SubResource("ShaderMaterial_i5jl6")
-
-[node name="Puncher" parent="Building Roster" unique_id=1510142188 instance=ExtResource("31_fq407")]
 material = SubResource("ShaderMaterial_hu1ix")
 
-[node name="Scrap Hulk" parent="Building Roster" unique_id=1648266463 instance=ExtResource("32_i30i1")]
+[node name="Electric Hulk" parent="Building Roster" unique_id=30330839 instance=ExtResource("28_bcplk")]
 material = SubResource("ShaderMaterial_j1yh0")
 
-[node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("33_jjto0")]
+[node name="Electric Knight" parent="Building Roster" unique_id=366716137 instance=ExtResource("29_eebtn")]
 material = SubResource("ShaderMaterial_nnxq8")
 
-[node name="Slammer" parent="Building Roster" unique_id=1342933973 instance=ExtResource("34_d1e62")]
+[node name="Gravity" parent="Building Roster" unique_id=934399271 instance=ExtResource("30_0r854")]
 material = SubResource("ShaderMaterial_xpcga")
 
-[node name="Sniper" parent="Building Roster" unique_id=1797122592 instance=ExtResource("35_i5jl6")]
+[node name="Puncher" parent="Building Roster" unique_id=1510142188 instance=ExtResource("31_fq407")]
 material = SubResource("ShaderMaterial_wcsy3")
 
-[node name="Toxic Hulk" parent="Building Roster" unique_id=754896079 instance=ExtResource("36_hu1ix")]
+[node name="Scrap Hulk" parent="Building Roster" unique_id=1648266463 instance=ExtResource("32_i30i1")]
 material = SubResource("ShaderMaterial_6i7fo")
 
-[node name="Wrecker" parent="Building Roster" unique_id=1018236968 instance=ExtResource("38_nnxq8")]
+[node name="Scythe" parent="Building Roster" unique_id=255476344 instance=ExtResource("33_jjto0")]
 material = SubResource("ShaderMaterial_bbi65")
+
+[node name="Slammer" parent="Building Roster" unique_id=1342933973 instance=ExtResource("34_d1e62")]
+material = SubResource("ShaderMaterial_5000r")
+
+[node name="Sniper" parent="Building Roster" unique_id=1797122592 instance=ExtResource("35_i5jl6")]
+material = SubResource("ShaderMaterial_3rwjj")
+
+[node name="Toxic Hulk" parent="Building Roster" unique_id=754896079 instance=ExtResource("36_hu1ix")]
+material = SubResource("ShaderMaterial_ddkdb")
+
+[node name="Wrecker" parent="Building Roster" unique_id=1018236968 instance=ExtResource("38_nnxq8")]
+material = SubResource("ShaderMaterial_5dy8t")
+
+[node name="BountyBoard" parent="." unique_id=1670968173 instance=ExtResource("36_5xpgi")]

@@ -2,9 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://3qi1uqw3t1rg" path="res://assets/visual/icons/misc/party.png" id="2_6k8qx"]
 [ext_resource type="Script" uid="uid://qrm3ifbcbbpm" path="res://scenes/ui/icons/party/party_icon.gd" id="3_skp0e"]
-[ext_resource type="Texture2D" uid="uid://botxde0bx06yi" path="res://assets/visual/icons/upgrade_available.png" id="4_6k8qx"]
 
-[node name="Party Icon" type="TextureRect" unique_id=678291032 node_paths=PackedStringArray("upgrade_arrow")]
+[node name="Party Icon" type="TextureRect" unique_id=678291032]
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
 anchor_left = 0.5
@@ -21,11 +20,3 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("2_6k8qx")
 script = ExtResource("3_skp0e")
-upgrade_arrow = NodePath("Sprite2D")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1598320041]
-visible = false
-self_modulate = Color(0, 0.7, 0, 1)
-position = Vector2(42, 29)
-scale = Vector2(4, 4)
-texture = ExtResource("4_6k8qx")

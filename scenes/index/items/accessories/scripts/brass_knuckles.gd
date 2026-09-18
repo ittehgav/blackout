@@ -10,16 +10,20 @@ var current_attack_change:Status
 
 func get_description()->String:
 	var description:String = super();
-	description += "Increases damage from melee weapons by 20%, if you have two [u]brass knuckles[/u] equipped, the bonus for each is 40%.";
+	description += "Increases damage from melee weapons by 20%, if you have two [color=white]brass knuckles[/color] equipped, the bonus for each is 40%.";
 	return description
 
 func battle_start_apply(target:ActiveFighter)->void:
+	print("BAP????")
 	## runs before weapon control setup right?
-	await target.equipment.ready;
+	if not target.equipment.weapon_control.ready:
+		await target.equipment.weapon_control.ready;
+	print("AER???")
 	## untested
 	var wc:WeaponControl = target.equipment.weapon_control;
 	check_bonus(wc.weapon);
-	check_bonus(wc.alternative_weapon)
+	if wc.alternative_weapon:
+		check_bonus(wc.alternative_weapon)
 		
 func check_bonus(target:Weapon)->void:
 	## needs to match the signature of EquipmentControl.weapon_equipped

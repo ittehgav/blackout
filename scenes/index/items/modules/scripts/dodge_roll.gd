@@ -2,7 +2,7 @@ extends Module
 
 const rarity = 1;
 
-@export var trail:Sprite2D;
+
 
 func get_description()->String:
 	return "Quickly dashes in the direction you're facing, briefly becoming invulnerable and able to move through enemies.";
@@ -13,11 +13,9 @@ const movement_distance = 500
 const base_duration = .75
 
 
-
-
 func use()->void:
 	use_sfx.play()
-	play_animation();
+	Trail.attach(Entities.player_fighter.sprite)
 	
 	var direction:Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if direction == Vector2.ZERO:
@@ -41,39 +39,24 @@ func use()->void:
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(Entities.player_fighter, "global_position", target_position, base_duration/2);
 	tween.tween_callback(clear_vfx);
-	
-	
-func play_animation()->void:
-	## try and do these separately from the use functions
-	## because module use functions are 
-	## already gonna be clusterfucks of code as is
-	
-	trail.frame = Entities.player_fighter.body.frame;
-	const after_images = 3;
-	for i:int in after_images:
-		var blur:Sprite2D = trail.duplicate();
-		Entities.player_fighter.ally_team.projectiles.add_child(blur)
-
-		var delay:float = base_duration * ((float(i) + 1)/6) ** 2
-		show_trail(delay, blur);
-
-func show_trail(delay:float, blur:Sprite2D)->void:
-	await get_tree().create_timer(delay).timeout;
-	blur.global_position = Entities.player_fighter.global_position;
-	blur.show();
-	var tween:Tween = create_tween();
-	tween.tween_property(blur, "modulate:a", 0, .35);
-	tween.tween_callback(blur.queue_free)
-	
 
 
 func clear_vfx()->void:
+	if modifier == 1:
+		status.apply_on_target(Entities.player_fighter);
+	Trail.detach(Entities.player_fighter.sprite)
 	Entities.player_fighter.modulate.a = 1;
 
 
 
-const m1_description = "Dashing leaves a trail that damages enemies and reduces their attack.";
-const m1_prefix = "Blazing"
+const m1_description = "Gain an agility buff after rolling.";
+const m1_prefix = "Momentum"
 
 const m2_description = "-50% cooldown."
 const m2_prefix = "Ever-ready"
+
+
+
+
+func apply_m2()->void:
+	cooldown /= 2;

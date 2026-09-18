@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://bf7gjatm4f65u" path="res://assets/sound/sfx/combat/weapon_swing.ogg" id="5_jodic"]
 [ext_resource type="AudioStream" uid="uid://cmvu7h5kfmq24" path="res://assets/sound/sfx/combat/player/hit/metal_hit.wav" id="6_577ip"]
 [ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="7_vmql4"]
+[ext_resource type="PackedScene" uid="uid://bvvw16ux6yiwn" path="res://scenes/index/vfx/motion_trail.tscn" id="9_vmql4"]
 
 [sub_resource type="Animation" id="Animation_577ip"]
 length = 0.001
@@ -47,6 +48,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vmql4"]
 _data = {
@@ -54,16 +67,15 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_053ln"]
-radius = 60.0
+radius = 34.706673
 
 [node name="Tailpipe" type="Sprite2D" unique_id=870722934 node_paths=PackedStringArray("stun_sfx", "display", "hit_scan", "projections", "animation_player", "use_sfx", "status")]
 use_parent_material = true
 texture = ExtResource("1_4334k")
-offset = Vector2(0, -32)
 script = ExtResource("1_1n7ey")
 stun_sfx = NodePath("components/stun_sfx")
 display = NodePath("components/MeleeWeaponDisplay")
-base_damage = 20
+base_damage = 25
 cooldown = 1.0
 hit_scan = NodePath("hit_scan")
 melee = true
@@ -89,7 +101,6 @@ libraries/melee = ExtResource("3_jodic")
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=562682770]
 stream = ExtResource("5_jodic")
-bus = &"sfx"
 parameters/looping = false
 
 [node name="stun_sfx" type="AudioStreamPlayer" parent="components" unique_id=1150565066]
@@ -99,7 +110,8 @@ pitch_scale = 1.25
 [node name="stun" type="Node" parent="components" unique_id=601410638]
 script = ExtResource("7_vmql4")
 type = "stun"
-duration = 1.0
+duration = 0.5
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=955711957]
@@ -110,12 +122,21 @@ input_pickable = false
 monitorable = false
 
 [node name="shape" type="CollisionShape2D" parent="hit_scan" unique_id=552233929]
-position = Vector2(-21, 0)
+position = Vector2(-14, 0)
 shape = SubResource("CircleShape2D_053ln")
 debug_color = Color(0.7, 0, 0.36166683, 0.41960785)
 
 [node name="projection" type="Sprite2D" parent="hit_scan" unique_id=731778444]
-modulate = Color(1, 1, 1, 0.11764706)
-position = Vector2(1, -1)
-scale = Vector2(6, 8)
+modulate = Color(1, 1, 1, 0.39215687)
+position = Vector2(-14, 0)
+scale = Vector2(4, 4)
 texture = ExtResource("5_hl2mp")
+
+[node name="motion_trail" parent="." unique_id=1642103550 node_paths=PackedStringArray("weapon") instance=ExtResource("9_vmql4")]
+position = Vector2(4.3708763, -40.777306)
+weapon = NodePath("..")
+
+[node name="Line2D" parent="motion_trail" index="0" unique_id=657689956]
+default_color = Color(1, 1, 1, 0.58431375)
+
+[editable path="motion_trail"]

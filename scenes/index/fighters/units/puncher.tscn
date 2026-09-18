@@ -114,7 +114,7 @@ hframes = 8
 vframes = 7
 frame = 4
 script = ExtResource("2_82vyf")
-skill = NodePath("One Punch")
+skill = NodePath("components/One Punch")
 animation_player = NodePath("components/base_animations")
 tags = Array[int]([0, 5])
 base_stats = NodePath("components/stats/base_stats")
@@ -122,6 +122,14 @@ stats_per_level = NodePath("components/stats/stats_per_level")
 metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 
 [node name="components" type="Node" parent="." unique_id=927007374]
+
+[node name="One Punch" type="Node" parent="components" unique_id=1213322069]
+script = ExtResource("3_eyj5g")
+base_cooldown = 5.0
+effects = Array[int]([0, 5])
+aoe_projection = false
+knockback_strength = 2
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="stats" type="Node" parent="components" unique_id=1205250198]
 
@@ -153,23 +161,6 @@ source = NodePath("..")
 generated_elements = [NodePath("../kncokback_projection")]
 knockback_projection = NodePath("../kncokback_projection/knockback_projection")
 radial_gradient = SubResource("GradientTexture2D_qmj7q")
-
-[node name="One Punch" type="Node" parent="." unique_id=1213322069]
-script = ExtResource("3_eyj5g")
-base_cooldown = 5.0
-effects = Array[int]([0, 4])
-instant_impact = null
-position_lineup = null
-transform_visual = null
-need_target = null
-scan_enemies = null
-scan_allies = null
-aoe_projection = false
-special_aoe_projection = null
-technique_scaled_damage = null
-own_damage_modifier = null
-knockback_strength = 2
-metadata/_custom_type_script = "uid://cboofk6f5g5t"
 
 [node name="hurtbox" type="CollisionShape2D" parent="." unique_id=553118480]
 position = Vector2(0, -14)

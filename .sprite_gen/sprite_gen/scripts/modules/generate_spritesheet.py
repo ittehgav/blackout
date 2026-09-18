@@ -12,7 +12,9 @@ steps = 8                 # 360 / 45 = 8
 angle_step = 360 / steps  # degrees per step
 pivot = (0, 0, 0)         # rotate around world origin
 
-total_frames = 3
+
+## frames for regular NPC fighters = 8
+total_frames = 8
 
 
 
@@ -22,15 +24,14 @@ camera_root.rotation_euler[1] = 0;
 
 collection = bpy.data.collections.get("all")
 
-# --- Get camera ---
-
+camera_size = bpy.context.scene.render.resolution_x
 
 
 sprite_gen.generate_frames(collection, total_frames, steps, output_path, pivot, camera_root);
 
 png_files = ["//renders/"+f for f in os.listdir(bpy.path.abspath("//renders")) if f.lower().endswith('.png')] 
 
-sprite_gen.generate_spritesheet(png_files, total_frames, 128);
+sprite_gen.generate_spritesheet(png_files, total_frames, camera_size);
 
 print("✅ Finished rendering 360° around Y-axis.")
 

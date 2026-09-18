@@ -139,6 +139,7 @@ ui_sfx = NodePath("ui_sfx")
 metadata/_custom_type_script = "uid://btb6lwcqdeb0e"
 
 [node name="ui_sfx" parent="." unique_id=907330256 instance=ExtResource("2_huowc")]
+bus = &"Master"
 
 [node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1807181686]
 layout_mode = 0
@@ -283,6 +284,7 @@ anchor_right = 1.0
 offset_left = -116.0
 offset_bottom = 122.0
 grow_horizontal = 0
+mouse_filter = 2
 
 [node name="clock" type="PanelContainer" parent="top_right_items" unique_id=2098460732 node_paths=PackedStringArray("date_label", "hour_label")]
 layout_mode = 2
@@ -308,6 +310,7 @@ theme_override_font_sizes/font_size = 64
 text = "16:20"
 
 [node name="Label" type="Label" parent="top_right_items" unique_id=45077655]
+z_index = -21
 layout_mode = 2
 text = "[scroll up/down]
 zoom in/out

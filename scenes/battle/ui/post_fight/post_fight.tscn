@@ -274,12 +274,6 @@ grow_vertical = 1
 context = "loot"
 exchanging_display = NodePath("../enemy_inventory")
 
-[node name="hover_sfx" parent="victory_sequence/loot_panel/player_inventory" index="0" unique_id=1571618890]
-bus = &"Master"
-
-[node name="sfx" parent="victory_sequence/loot_panel/player_inventory" index="1" unique_id=227163406]
-bus = &"Master"
-
 [node name="operation" parent="victory_sequence/loot_panel/player_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(1918470521, 2139714282) index="0" unique_id=286290238]
 text = "LOOT"
 
@@ -315,12 +309,6 @@ grow_vertical = 1
 context = "loot"
 exchanging_display = NodePath("../player_inventory")
 from_player = false
-
-[node name="hover_sfx" parent="victory_sequence/loot_panel/enemy_inventory" index="0" unique_id=1571618890]
-bus = &"Master"
-
-[node name="sfx" parent="victory_sequence/loot_panel/enemy_inventory" index="1" unique_id=227163406]
-bus = &"Master"
 
 [node name="operation" parent="victory_sequence/loot_panel/enemy_inventory/cargo/send_rect" parent_id_path=PackedInt32Array(1767096259, 2139714282) index="0" unique_id=286290238]
 text = "DISCARD"
@@ -536,6 +524,7 @@ texture = ExtResource("20_7r0vy")
 [connection signal="pressed" from="victory_sequence/exp_gain/continue" to="victory_sequence" method="_on_continue_pressed"]
 [connection signal="item_dropped" from="victory_sequence/loot_panel/player_inventory" to="victory_sequence/loot_panel" method="check_available_loot"]
 [connection signal="item_dropped" from="victory_sequence/loot_panel/enemy_inventory" to="victory_sequence/loot_panel" method="check_available_loot"]
+[connection signal="item_sent" from="victory_sequence/loot_panel/enemy_inventory" to="victory_sequence/loot_panel" method="_on_enemy_inventory_item_sent"]
 [connection signal="pressed" from="victory_sequence/loot_panel/VBoxContainer/take_loot" to="victory_sequence/loot_panel" method="_on_take_loot_pressed"]
 [connection signal="pressed" from="victory_sequence/loot_panel/finish_post_fight" to="." method="_on_finish_post_fight_pressed"]
 [connection signal="pressed" from="victory_sequence/loot_panel/sort_inventory" to="victory_sequence/loot_panel" method="_on_sort_inventory_pressed"]

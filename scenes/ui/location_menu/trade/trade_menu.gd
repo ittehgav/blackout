@@ -4,6 +4,8 @@ class_name TradeMenu;
 signal trade_started;
 signal trade_finished;
 
+const show_player_resources = false;
+
 @export var content_hbox:HBoxContainer
 
 @export var player_inventory_display:InventoryDisplay;
@@ -23,6 +25,8 @@ var trade_volume:int = 0;
 
 
 var money_trade:int=0;
+var money_to_gain:int=0;
+var money_to_send:int=0;
 ## the player can never buy and sell the same resource in the same transaction
 var food_trade:int = 0;
 var fuel_trade:int = 0;
@@ -122,12 +126,13 @@ func set_reset_state()->void:
 	
 
 func refresh_trade_balance()->void:
-	confirm_btn.disabled = false;
+	confirm_btn.disabled = true;
+	reset_btn.disabled = true;
+	
 	money_trade = 0
 	trade_volume = 0
-
-
-	reset_btn.disabled = true;
+	money_to_gain = 0;
+	money_to_send = 0;
 	
 	var resources:Array = Resources.all_resources.filter(func(r:String)->bool:return r != "money")
 	for r:String in resources:
@@ -136,6 +141,9 @@ func refresh_trade_balance()->void:
 		var trader_delta:int = trader_inventory_display.inventory[r] - trader_inventory_display.pre_trade_resource_counts[r]
 		assert(player_delta == -trader_delta);
 		self[r+"_trade"] = player_delta;
+		if self[r+"_trade"]:
+			confirm_btn.disabled = false;
+			reset_btn.disabled = false;
 	
 	var sold_items:Array[Item];
 	var bought_items:Array[Item]
@@ -150,14 +158,17 @@ func refresh_trade_balance()->void:
 	for item:Item in bought_items:
 		var value:int = item.get_price() * trader_inventory.buying_prices_multiplier;
 		money_trade -= value
+		money_to_send += value
 		trade_volume += abs(value)
 		
 	for item:Item in sold_items:
 		var value:int = item.get_price() / trader_inventory.selling_prices_divider
 		money_trade += value
+		money_to_gain += value
 		trade_volume += abs(value)
 	
 	if len(sold_items) or len(bought_items):
+		confirm_btn.disabled = false
 		reset_btn.disabled = false
 	
 	
@@ -177,9 +188,7 @@ func refresh_trade_balance()->void:
 			var value:int = trader_inventory_display.inventory.resource_buying_prices[r] * trade
 			money_trade -= value;
 			trade_volume += value 
-	
 
-	
 
 	for r:String in Resources.all_resources:
 		var label:Label = self[r+"_trade_label"];
@@ -199,9 +208,7 @@ func refresh_trade_balance()->void:
 				label.text = str(-trade);
 				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT;
 				label.add_theme_color_override("font_color", Color.YELLOW);
-	
 
-	
 	if trader_inventory_display.inventory.money < money_trade or\
 	player_inventory_display.inventory.money < -money_trade:
 		confirm_btn.disabled = true;
@@ -248,6 +255,24 @@ func finish_trade()->void:
 			tween.tween_property(trade_label, "text", str(0), tween_duration)
 			tween.tween_callback(trade_label.set_text.bind(""))
 	
+	var shake_intensity:int = min(10, max(3, int(sqrt(money_to_gain + money_to_send))));
+	
+	var sr: = 10 * shake_intensity ## shake range
+	var tl: = .2/shake_intensity ## tween latency
+	var p:Vector2 = content_hbox.position
+	content_hbox.offset_transform_position = p + Vector2(randi_range(-sr, sr), randi_range(-sr, sr))
+	var t:= create_tween();
+	for i in range(3):
+		t.tween_property(content_hbox, "offset_transform_position",Vector2(randi_range(-sr, sr), randi_range(-sr, sr)), tl)
+	t.tween_property(content_hbox, "offset_transform_position", Vector2.ZERO, tl/2)
+	
+	
+	
+	player_inventory_display.board_shake(shake_intensity)
+	trader_inventory_display.board_shake(shake_intensity)
+	
+	
+	
 	trade_finished_sfx()
 
 	
@@ -261,10 +286,12 @@ func finish_trade()->void:
 		Entities.player.resource_changed.emit.call_deferred("money")
 	
 	set_reset_state();
-	
-	
+
+
 	player_inventory_display.open()
 	trader_inventory_display.open()
+	
+
 	refresh_trade_balance()
 
 func reset_trade() -> void:
@@ -295,8 +322,7 @@ func _on_exit_pressed() -> void:
 	else:
 		Entities.player.inventory.last_display = null;
 		
-		trade_finished.emit();
-		slide_out()
+		close()
 
 func show_exit_prompt()->void:
 	Tweens.ui_fade_in(exit_prompt)
@@ -347,12 +373,15 @@ func _on_trader_inventory_display_item_dropped(_mirror: ItemMirror) -> void:
 
 func _on_reset_and_exit_pressed() -> void:
 	reset_trade();
-	trade_finished.emit()
-	State.revert_substate()
-	slide_out()
 	exit_prompt.hide()
+	close()
 
 	
 
 func _on_return_pressed() -> void:
 	Tweens.ui_fade_out(exit_prompt)
+
+func close()->void:
+	slide_out();
+	trade_finished.emit();
+	

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cneqafv10v2cd"]
+
+[ext_resource type="Script" uid="uid://bm0fmnjuvdsos" path="res://scenes/ui/location_menu/bounty/bounty_board.gd" id="1_c8oea"]
+[ext_resource type="PackedScene" uid="uid://b306krmaodahy" path="res://scenes/ui/location_menu/bounty/bounty.tscn" id="2_33t1y"]
+
+[node name="BountyBoard" type="Node" unique_id=1670968173 node_paths=PackedStringArray("bounties")]
+script = ExtResource("1_c8oea")
+bounties = [NodePath("Bounty"), NodePath("Bounty2"), NodePath("Bounty3")]
+
+[node name="Bounty" parent="." unique_id=237642453 instance=ExtResource("2_33t1y")]
+
+[node name="Bounty2" parent="." unique_id=449595219 instance=ExtResource("2_33t1y")]
+
+[node name="Bounty3" parent="." unique_id=535745509 instance=ExtResource("2_33t1y")]

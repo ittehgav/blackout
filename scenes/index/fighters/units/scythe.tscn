@@ -103,7 +103,7 @@ libraries/fighter_base = ExtResource("4_hop5t")
 [node name="Reaping Swing" type="Node" parent="components" unique_id=1375691100]
 script = ExtResource("3_ly1nj")
 base_cooldown = 4.0
-effects = Array[int]([2, 5, 9])
+effects = Array[int]([3, 6, 10])
 knockback_strength = 1
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 

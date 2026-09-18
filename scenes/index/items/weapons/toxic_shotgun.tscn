@@ -77,13 +77,13 @@ type = "dot"
 value = 10.0
 duration = 5.0
 latency = 0.5
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="use_sfx" type="AudioStreamPlayer" parent="components" unique_id=1923456105]
 stream = ExtResource("3_uhcbr")
 volume_db = -5.0
 pitch_scale = 0.75
-bus = &"sfx"
 
 [node name="agi_debuff" type="Node" parent="components" unique_id=1681719336]
 script = ExtResource("3_234pw")
@@ -92,6 +92,7 @@ value = 0.2
 duration = 5.0
 stat = "agility"
 stat_fractal_value = true
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="hit_scan" type="Area2D" parent="." unique_id=1404506961]

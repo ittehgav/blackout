@@ -273,7 +273,7 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 [node name="Electric Pulse" type="Node" parent="components" unique_id=1249795646 node_paths=PackedStringArray("status")]
 script = ExtResource("3_5ejrg")
 base_cooldown = 5.0
-effects = Array[int]([2, 6])
+effects = Array[int]([3, 7])
 position_lineup = false
 transform_visual = 2
 status = NodePath("electrified")

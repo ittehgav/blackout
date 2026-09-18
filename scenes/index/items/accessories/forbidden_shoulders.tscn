@@ -24,10 +24,12 @@ metadata/_custom_type_script = "uid://22bfdxr3ppr7"
 script = ExtResource("4_4dt6y")
 type = "stat_change"
 stat = "defense"
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="Forbidden Touch" type="Node" parent="." unique_id=123303163]
 script = ExtResource("4_4dt6y")
 type = "stat_change"
 stat = "defense"
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"

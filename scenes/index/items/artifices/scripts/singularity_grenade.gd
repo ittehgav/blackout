@@ -10,7 +10,7 @@ const rarity = 3;
 @export var animation:AnimationPlayer;
 
 func get_description()->String:
-	return "In combat, use to throw a grenade that damages and pulls all enemies hit towards the center of the explosion.";
+	return "In combat, use to throw a grenade that damages and pulls all units hit towards the center of the explosion.";
 
 
 func use()->bool:
@@ -29,9 +29,9 @@ func detonate_callback(hit_location:Vector2)->void:
 	detonate_sfx.play();
 	vfx.global_position = hit_location;
 	
-	Combat.radial_pull(Entities.player_fighter, hit_scan, 5)
+	Combat.radial_pull(Entities.player_fighter, hit_scan, 5, true)
 	
-	Combat.aoe_damage(Entities.player_fighter, hit_scan)
+	Combat.aoe_damage(Entities.player_fighter, hit_scan, true)
 	
 	Entities.player_fighter.equipment.weapon_control.play_feedback(WeaponDisplay.PlayerScreenFeedback.shake)
 	## TODO make this cleaner and more designed to be used by anything

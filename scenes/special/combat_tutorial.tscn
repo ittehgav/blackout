@@ -11,12 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="3_myqxe"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="3_xwckw"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="5_jlwxl"]
+[ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="6_8xao2"]
+[ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="6_i6oig"]
 [ext_resource type="Texture2D" uid="uid://dk4hitgnd0bh7" path="res://assets/visual/tiles/props.png" id="7_vmpdk"]
 [ext_resource type="PackedScene" uid="uid://4jkjqr85s6x" path="res://scenes/index/items/containers/scrap_crate.tscn" id="10_8xao2"]
 [ext_resource type="Script" uid="uid://4hd1wgfo63gn" path="res://scenes/special/weapon_control_tutorial.gd" id="10_61gdm"]
 [ext_resource type="PackedScene" uid="uid://b31o7gkv766v0" path="res://scenes/index/items/containers/juice_flask.tscn" id="11_i6oig"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="12_cy0vp"]
-[ext_resource type="PackedScene" uid="uid://yc0n86e5xmce" path="res://scenes/index/items/containers/food_basket.tscn" id="12_mt1iq"]
 [ext_resource type="PackedScene" uid="uid://do7pj33eq8m5k" path="res://scenes/index/items/containers/fuel_tank.tscn" id="13_rrc26"]
 [ext_resource type="Texture2D" uid="uid://2o3535w7b607" path="res://assets/visual/tiles/props/Environment/Props/Static/Furniture.png" id="14_i6oig"]
 [ext_resource type="PackedScene" uid="uid://dd47t7xuh3au2" path="res://scenes/battle/fighter/npc_fighter/npc_fighter.tscn" id="14_l0ugp"]
@@ -27,7 +28,7 @@
 [ext_resource type="TileSet" uid="uid://db28p3nl8pseo" path="res://resources/tiles/road.tres" id="22_77537"]
 [ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="22_rrc26"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xao2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mt1iq"]
 resource_local_to_scene = true
 shader = ExtResource("3_hrh4y")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -39,7 +40,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i6oig"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rrc26"]
 resource_local_to_scene = true
 shader = ExtResource("3_hrh4y")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -139,7 +140,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mt1iq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8a727"]
 resource_local_to_scene = true
 shader = SubResource("Shader_88w2o")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -239,7 +240,7 @@ void fragment(){
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rrc26"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lor5l"]
 resource_local_to_scene = true
 shader = SubResource("Shader_4frhf")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -251,7 +252,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8a727"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lnwx"]
 resource_local_to_scene = true
 shader = ExtResource("14_mt1iq")
 shader_parameter/color = Color(0, 0.8, 0.18666668, 1)
@@ -276,11 +277,11 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mt1iq"]
-radius = 44.04543
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrc26"]
 radius = 42.190044
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mt1iq"]
+radius = 44.04543
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6hl3o"]
 resource_local_to_scene = true
@@ -294,7 +295,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lor5l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4klxu"]
 resource_local_to_scene = true
 shader = ExtResource("22_rrc26")
 shader_parameter/color = Color(1, 1, 1, 1)
@@ -302,6 +303,16 @@ shader_parameter/width = 2.000000095
 shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = false
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_brmw5"]
+resource_local_to_scene = true
+shader = ExtResource("22_rrc26")
+shader_parameter/color = Color(0.18039216, 0.19215687, 0.3019608, 1)
+shader_parameter/width = 2.000000095
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(1, 1)
 
 [sub_resource type="Animation" id="Animation_cy0vp"]
@@ -1146,9 +1157,10 @@ dummy = NodePath("Arena/teams/team_2/dummy")
 forward_arrow = NodePath("Arena/ui_canvas/tutorial_hud/forward_arrow")
 main_hud = NodePath("Arena/ui_canvas/hud")
 
-[node name="Player" parent="." unique_id=900407328 node_paths=PackedStringArray("equipped_weapon", "equipped_module") groups=["player"] instance=ExtResource("2_5tun8")]
+[node name="Player" parent="." unique_id=900407328 node_paths=PackedStringArray("equipped_weapon", "equipped_module", "equipped_accessory_2") groups=["player"] instance=ExtResource("2_5tun8")]
 equipped_weapon = NodePath("Inventory/Tailpipe")
 equipped_module = NodePath("Inventory/Dodge Roll")
+equipped_accessory_2 = NodePath("Inventory/Brass Knuckles")
 morale = 2.0
 level = null
 experience = 1
@@ -1156,32 +1168,34 @@ experience = 1
 [node name="FighterUnit" parent="Player/Roster" parent_id_path=PackedInt32Array(900407328, 625375393) index="0" unique_id=2073853245 instance=ExtResource("3_xwckw")]
 
 [node name="Puncher" parent="Player/Roster/FighterUnit" unique_id=1510142188 instance=ExtResource("12_cy0vp")]
-material = SubResource("ShaderMaterial_8xao2")
+material = SubResource("ShaderMaterial_mt1iq")
 
 [node name="FighterUnit2" parent="Player/Roster" parent_id_path=PackedInt32Array(900407328, 625375393) index="1" unique_id=1974507018 instance=ExtResource("3_xwckw")]
 
 [node name="Puncher" parent="Player/Roster/FighterUnit2" unique_id=44660637 instance=ExtResource("12_cy0vp")]
-material = SubResource("ShaderMaterial_i6oig")
+material = SubResource("ShaderMaterial_rrc26")
 
 [node name="Inventory" parent="Player" index="2" unique_id=1819646003]
 money = 200
 
-[node name="Tailpipe" parent="Player/Inventory" index="0" unique_id=870722934 instance=ExtResource("3_myqxe")]
+[node name="Brass Knuckles" parent="Player/Inventory" index="0" unique_id=834594505 instance=ExtResource("6_i6oig")]
 
-[node name="Dodge Roll" parent="Player/Inventory" index="1" unique_id=1043224961 instance=ExtResource("5_jlwxl")]
+[node name="Food Bag" parent="Player/Inventory" index="1" unique_id=510702015 instance=ExtResource("6_8xao2")]
+stack_size = 50
+
+[node name="Tailpipe" parent="Player/Inventory" index="2" unique_id=870722934 instance=ExtResource("3_myqxe")]
+
+[node name="Dodge Roll" parent="Player/Inventory" index="3" unique_id=1043224961 instance=ExtResource("5_jlwxl")]
 cooldown = 2.0
 
-[node name="Scrap Crate" parent="Player/Inventory" index="2" unique_id=472019910 instance=ExtResource("10_8xao2")]
+[node name="Scrap Crate" parent="Player/Inventory" index="4" unique_id=472019910 instance=ExtResource("10_8xao2")]
 stack_size = 50
 
-[node name="Juice Flask" parent="Player/Inventory" index="3" unique_id=1717636019 instance=ExtResource("11_i6oig")]
+[node name="Juice Flask" parent="Player/Inventory" index="5" unique_id=1717636019 instance=ExtResource("11_i6oig")]
 stack_size = 50
 
-[node name="Food Basket" parent="Player/Inventory" index="4" unique_id=1290194012 instance=ExtResource("12_mt1iq")]
-stack_size = 6
-
-[node name="Fuel Tank" parent="Player/Inventory" index="5" unique_id=1957387314 instance=ExtResource("13_rrc26")]
-stack_size = 6
+[node name="Fuel Tank" parent="Player/Inventory" index="6" unique_id=1957387314 instance=ExtResource("13_rrc26")]
+stack_size = 50
 
 [node name="base_stats" parent="Player" index="3" unique_id=1645727257]
 max_hp = 300.0
@@ -1205,22 +1219,21 @@ position = Vector2(2792, 425.0675)
 roster = NodePath("../../../Player/Roster")
 
 [node name="player_fighter" parent="Arena/teams/team_1" index="0" unique_id=543559168]
-material = SubResource("ShaderMaterial_mt1iq")
+material = SubResource("ShaderMaterial_8a727")
 position = Vector2(-7668, 638)
 collision_layer = 1114368
 collision_mask = 65792
 
-[node name="body" parent="Arena/teams/team_1/player_fighter" index="7" unique_id=416499753]
-material = SubResource("ShaderMaterial_rrc26")
+[node name="body" parent="Arena/teams/team_1/player_fighter" index="8" unique_id=416499753]
+material = SubResource("ShaderMaterial_lor5l")
 
-[node name="equipment" parent="Arena/teams/team_1/player_fighter" index="8" unique_id=488158529]
-material = SubResource("ShaderMaterial_8a727")
+[node name="equipment" parent="Arena/teams/team_1/player_fighter" index="9" unique_id=488158529]
+material = SubResource("ShaderMaterial_3lnwx")
 
 [node name="weapon_control" parent="Arena/teams/team_1/player_fighter/equipment" index="3" unique_id=1301522479]
 script = ExtResource("10_61gdm")
 
-[node name="camera" parent="Arena/teams/team_1/player_fighter" index="9" unique_id=1871726771]
-limit_enabled = false
+[node name="camera" parent="Arena/teams/team_1/player_fighter" index="10" unique_id=1871726771]
 limit_left = -10800
 limit_right = 4185
 limit_bottom = 1233
@@ -1631,12 +1644,15 @@ dummy = true
 sprite = NodePath("Sprite2D")
 max_hp = 2000.0
 
+[node name="unit_collision" parent="Arena/teams/team_2/dummy" index="2" unique_id=1716436569]
+shape = SubResource("CircleShape2D_rrc26")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/teams/team_2/dummy/hurtbox" parent_id_path=PackedInt32Array(1723811507, 1866307460) index="0" unique_id=1105935485]
 position = Vector2(-0.7055664, -13.747559)
 shape = SubResource("CircleShape2D_mt1iq")
 
-[node name="unit_collision" parent="Arena/teams/team_2/dummy" index="6" unique_id=1716436569]
-shape = SubResource("CircleShape2D_rrc26")
+[node name="shadow_warp_anchor" parent="Arena/teams/team_2/dummy" index="11" unique_id=1555253963]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Arena/teams/team_2/dummy" unique_id=246693144]
 material = SubResource("ShaderMaterial_6hl3o")
@@ -1647,10 +1663,19 @@ texture = ExtResource("15_77537")
 visible = false
 
 [node name="power_icon" parent="Arena/ui_canvas/hud/player_data/bars/party_power" parent_id_path=PackedInt32Array(896888135, 920717971) index="0" unique_id=2146997654]
-material = SubResource("ShaderMaterial_lor5l")
+material = SubResource("ShaderMaterial_4klxu")
 
 [node name="alt_weapon" parent="Arena/ui_canvas/hud/player_data/cooldowns/VBoxContainer" parent_id_path=PackedInt32Array(896888135, 1661497782) index="0" unique_id=1112909993]
 visible = false
+
+[node name="a1_texture" parent="Arena/ui_canvas/hud/player_data/cooldowns/artifices/artifice_1/HBoxContainer" parent_id_path=PackedInt32Array(896888135, 824502809) index="1" unique_id=547595711]
+material = SubResource("ShaderMaterial_brmw5")
+
+[node name="a2_texture" parent="Arena/ui_canvas/hud/player_data/cooldowns/artifices/artifice_2/HBoxContainer" parent_id_path=PackedInt32Array(896888135, 1356714370) index="1" unique_id=453486015]
+material = SubResource("ShaderMaterial_brmw5")
+
+[node name="a3_texture" parent="Arena/ui_canvas/hud/player_data/cooldowns/artifices/artifice_3/HBoxContainer" parent_id_path=PackedInt32Array(896888135, 810228039) index="1" unique_id=2037514346]
+material = SubResource("ShaderMaterial_brmw5")
 
 [node name="countdown_overlay" parent="Arena/ui_canvas/hud" index="5" unique_id=1268934347]
 countdown_second = 0
@@ -2163,6 +2188,8 @@ tile_map_data = PackedByteArray("AADH/gQAAAAAAAEAAADH/gUAAAAAAAIAAADI/gQAAAABAAE
 tile_set = SubResource("TileSet_nw1k1")
 
 [connection signal="ready" from="Arena" to="." method="_on_arena_ready"]
+[connection signal="ammo_consumed" from="Arena/teams/team_1/player_fighter/equipment" to="Arena/ui_canvas/hud/player_data/bars/HBoxContainer/hp_bar" method="ammo_consumed"]
+[connection signal="timeout" from="Arena/teams/team_1/player_fighter/equipment/weapon_control/weapon_cd" to="Arena/ui_canvas/hud/player_data/cooldowns/main_weapon" method="_on_weapon_cd_timeout"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/after_walk" to="." method="_on_after_walk_body_entered"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_weapon_obstacles" to="." method="_on_before_obstacles_body_entered"]
 [connection signal="body_entered" from="Arena/tutorial_elements/boundaries/before_weapon_obstacles" to="." method="_on_advance_boundary_body_entered"]

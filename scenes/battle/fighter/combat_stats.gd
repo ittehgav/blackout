@@ -11,15 +11,23 @@ const all_stats  = [
 	"attack",
 	"defense",
 	"agility",
-	"technique"
+	"technique",
+	"move_speed"
 ]
-
+const main_stats = [
+	"max_hp",
+	"attack",
+	"defense",
+	"agility",
+	"technique",
+]
 const stat_colors:Dictionary[String, Color] = {
 	"max_hp": Color("52cc52ff"),
 	"attack": Color(0.8, 0.32, 0.32, 1.0),
 	"defense": Color(0.32, 0.528, 0.8, 1.0),
 	"agility": Color(0.8, 0.8, 0.32, 1.0),
-	"technique": Color(0.8, 0.32, 0.76, 1.0)
+	"technique": Color(0.8, 0.32, 0.76, 1.0),
+	"move_speed":Color(0.8, 0.8, 0.4, 1.0)
 }
 
 const stat_descriptions = {
@@ -57,15 +65,7 @@ const technique_mechanic_multipliers = {
 	"damage":.1,
 	"knockback":.1
 }
-const agility_yield_breakpoints = {
-	## how much of a percentage of cooldown reduction each indifividual agility
-	## point will give
-	5.0:.025, ## 2.5% attack speed per point until 5
-	30.0:.025, ## 1% until 30
-	50.0:.005, ## 0.5% until 50
-	100.0:.001 ## 0.1% until 100
-	## dont think there's any way to get past 100 agility rn?
-}
+
 @export var max_hp:float;
 @export var attack:float;
 @export var defense:float;
@@ -84,7 +84,17 @@ static func stat_colored_name(stat:String, close_tag:bool=true)->String:
 static func exp_for_next_level(current_level:int)->int:
 	return (current_level + 1) ** 2;
 
-static func agility_cooldown_reduction(initial_cooldown:float, target_agility:float)->float:
+const agility_yield_breakpoints = {
+	## how much of a percentage of cooldown reduction each indifividual agility
+	## point will give
+	5.0:.02, ## 2% true CDR per point until 5 (0% - 10%)
+	30.0:.01, ## 1% until 30 (10% - 35%)
+	70.0:.005, ## 0.5% until 70 (35% - 55%)
+	150.0:.001 ## 0.25% until 150 (55% - 75%)
+	
+	## dont think there's any way to get past 150 agility rn?
+}
+static func agility_value(target_agility:float)->float:
 	var previous_point:int = 0;
 	var frac:float = 0.0
 	for point:float in agility_yield_breakpoints.keys():
@@ -93,6 +103,10 @@ static func agility_cooldown_reduction(initial_cooldown:float, target_agility:fl
 			previous_point = point
 		else:
 			frac += agility_yield_breakpoints[point] * (target_agility - previous_point)
+	return frac
+
+static func agility_cooldown_reduction(initial_cooldown:float, target_agility:float)->float:
+	var frac:= agility_value(target_agility)
 	return initial_cooldown * frac
 
 static func technique_scaled_value(value:float, source_technique:float, mechanic:String, custom_multiplier:float = 1.0)->float:

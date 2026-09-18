@@ -8,13 +8,14 @@ class_name StatsDropdown
 
 @export var from_player:bool=false;
 
+
 @export var exp_bar:ExperienceBar;
 @export var stat_labels:Dictionary[String, Label];
 
 func _ready()->void:
 	if from_player:
 		var player:Player = Entities.player;
-		player.leveled_up.connect(update)
+		player.stats_changed.connect(update)
 		source = player;
 	if exp_bar:
 		exp_bar.level_up.connect(refresh_animation)
@@ -25,8 +26,12 @@ func _ready()->void:
 
 func load_stats(target:CombatStats)->void:
 	## can be used separately to
-	for stat:String in CombatStats.all_stats:
-		stat_labels[stat].text = str(target[stat]);
+	for stat:String in CombatStats.main_stats:
+		if stat == "attack" and from_player:
+			## true attack stat is only changed during combat
+			stat_labels.attack.text = str(target[stat] + Entities.player.equipped_weapon.base_damage)
+		else:
+			stat_labels[stat].text = str(target[stat]);
 
 
 func update()->void:

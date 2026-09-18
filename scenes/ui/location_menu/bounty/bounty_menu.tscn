@@ -1,0 +1,457 @@
+[gd_scene format=3 uid="uid://bs834thtp7rwb"]
+
+[ext_resource type="Script" uid="uid://cc5woabtpspu4" path="res://scenes/ui/location_menu/bounty/bounty_menu.gd" id="1_n3im5"]
+[ext_resource type="PackedScene" uid="uid://db1s0cqbiran1" path="res://scenes/ui/location_menu/bounty/bounty_display.tscn" id="2_4f805"]
+[ext_resource type="PackedScene" uid="uid://bbh3hqgsu5es8" path="res://scenes/ui/sound/ui_sfx.tscn" id="2_xoq10"]
+[ext_resource type="PackedScene" uid="uid://1hbrworalfdw" path="res://scenes/ui/player_sheet/units/unit_sheet.tscn" id="4_ykkfi"]
+[ext_resource type="Script" uid="uid://btlgn3huxx7d3" path="res://scenes/ui/location_menu/bounty/claim_confirmation.gd" id="5_2qyo5"]
+[ext_resource type="AudioStream" uid="uid://07bm0hhgupx1" path="res://assets/sound/sfx/ui/loot_chosen.wav" id="5_7fotx"]
+[ext_resource type="PackedScene" uid="uid://c0cfd3mr7dsam" path="res://scenes/ui/icons/collections/resources_dropdown.tscn" id="5_o6ss2"]
+[ext_resource type="Texture2D" uid="uid://dv60sd4usr7he" path="res://assets/visual/sprites/fighters/units/puncher/puncher.png" id="6_ucoss"]
+[ext_resource type="PackedScene" uid="uid://b8uqyv4bj780w" path="res://scenes/ui/icons/modular/resource_icon.tscn" id="7_2usk0"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="7_7fotx"]
+[ext_resource type="Shader" uid="uid://3j3y6sq24qnv" path="res://resources/shaders/outline.gdshader" id="7_30l12"]
+[ext_resource type="PackedScene" uid="uid://c2atxui6lbsr0" path="res://scenes/ui/inventory/item_sample.tscn" id="7_m4dn3"]
+[ext_resource type="PackedScene" uid="uid://cbk0pwuwwf4px" path="res://scenes/ui/samples/unit_sample.tscn" id="8_eajsh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2usk0"]
+resource_local_to_scene = true
+shader = ExtResource("7_30l12")
+shader_parameter/color = Color(1, 0.98800004, 0.64, 0.4509804)
+shader_parameter/width = 3.0000001425
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/number_of_images = Vector2(1, 1)
+
+[node name="BountyMenu" type="Control" unique_id=1091487864 node_paths=PackedStringArray("main_panel", "displays_hbox", "claim_confirmation", "ui_sfx")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n3im5")
+main_panel = NodePath("main_panel")
+displays_hbox = NodePath("main_panel/bounty_displays")
+claim_confirmation = NodePath("confirmation_overlay")
+unit_sheet_scene = ExtResource("4_ykkfi")
+bounty_display_scene = ExtResource("2_4f805")
+ui_sfx = NodePath("ui_sfx")
+
+[node name="ui_sfx" parent="." unique_id=1938629513 instance=ExtResource("2_xoq10")]
+bus = &"Master"
+
+[node name="bounty_claimed" type="AudioStreamPlayer" parent="." unique_id=81491724]
+stream = ExtResource("5_7fotx")
+
+[node name="main_panel" type="PanelContainer" parent="." unique_id=1941223316]
+self_modulate = Color(0.5, 0.5, 0.5, 1)
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(3000, 0)
+mouse_filter = 2
+
+[node name="bounty_displays" type="HBoxContainer" parent="main_panel" unique_id=988657238]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 30
+
+[node name="exit" type="Button" parent="main_panel" unique_id=975536237]
+modulate = Color(0.8, 0.8, 0.8, 1)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "exit"
+
+[node name="main_panel2" type="PanelContainer" parent="." unique_id=1118565828]
+self_modulate = Color(1, 1, 1, 0.6313726)
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(3000, 0)
+mouse_filter = 2
+
+[node name="bounty_displays" type="HBoxContainer" parent="main_panel2" unique_id=144270303]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 30
+
+[node name="exit" type="Button" parent="main_panel2" unique_id=586344390]
+modulate = Color(0.8, 0.8, 0.8, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "exit"
+
+[node name="confirmation_overlay" type="ColorRect" parent="." unique_id=349332236 node_paths=PackedStringArray("confirmation_panel", "confirmation_label", "choose_a_unit", "deliver_unit_choices", "player_resources", "player_resources_panel", "new_unit_sprite", "claim_sfx", "claim_animation_container", "money_gain_icon", "food_gain_icon", "fuel_gain_icon", "juice_gain_icon", "scrap_gain_icon", "chips_gain_icon", "item_to_deliver_sample", "unit_to_deliver_sample", "resource_to_deliver_icon")]
+visible = false
+z_index = 289
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5803922)
+script = ExtResource("5_2qyo5")
+confirmation_panel = NodePath("confirmation_panel")
+confirmation_label = NodePath("confirmation_panel/VBoxContainer/confirmation_text")
+choose_a_unit = NodePath("choose_a_unit")
+deliver_unit_choices = NodePath("choose_a_unit/MarginContainer/choose_a_unit/unit_to_deliver_options")
+player_resources = NodePath("claim_animation/Panel/resources/resources_dropdown")
+player_resources_panel = NodePath("claim_animation/Panel/resources")
+new_unit_sprite = NodePath("claim_animation/Panel/Control/Sprite2D")
+claim_sfx = NodePath("../bounty_claimed")
+claim_animation_container = NodePath("claim_animation")
+money_gain_icon = NodePath("claim_animation/Panel/VBoxContainer/money_gain/money_icon")
+food_gain_icon = NodePath("claim_animation/Panel/VBoxContainer/food_gain/food_icon")
+fuel_gain_icon = NodePath("claim_animation/Panel/VBoxContainer/fuel_gain/fuel_icon")
+juice_gain_icon = NodePath("claim_animation/Panel/VBoxContainer/juice_gain/juice_icon")
+scrap_gain_icon = NodePath("claim_animation/Panel/VBoxContainer/scrap_gain/scrap_icon")
+chips_gain_icon = NodePath("claim_animation/Panel/VBoxContainer/chips_gain/chips_icon")
+item_to_deliver_sample = NodePath("confirmation_panel/VBoxContainer/item_sample")
+unit_to_deliver_sample = NodePath("confirmation_panel/VBoxContainer/unit_sample")
+resource_to_deliver_icon = NodePath("confirmation_panel/VBoxContainer/HBoxContainer/resource_to_deliver")
+
+[node name="choose_a_unit" type="PanelContainer" parent="confirmation_overlay" unique_id=538903936]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.0
+offset_top = -50.0
+offset_right = 146.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="confirmation_overlay/choose_a_unit" unique_id=15903700]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="choose_a_unit" type="VBoxContainer" parent="confirmation_overlay/choose_a_unit/MarginContainer" unique_id=1835731806]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="choose_a_unit" type="Label" parent="confirmation_overlay/choose_a_unit/MarginContainer/choose_a_unit" unique_id=689091103]
+layout_mode = 2
+text = "Choose a Unit to deliver:"
+
+[node name="unit_to_deliver_options" type="HBoxContainer" parent="confirmation_overlay/choose_a_unit/MarginContainer/choose_a_unit" unique_id=1279700928]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="cancel_deliver_unit" type="Button" parent="confirmation_overlay/choose_a_unit/MarginContainer/choose_a_unit" unique_id=771718730]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Cancel"
+
+[node name="confirmation_panel" type="PanelContainer" parent="confirmation_overlay" unique_id=892984854]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -25.0
+offset_right = 96.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="confirmation_overlay/confirmation_panel" unique_id=1141356433]
+layout_mode = 2
+
+[node name="confirmation_text" type="RichTextLabel" parent="confirmation_overlay/confirmation_panel/VBoxContainer" unique_id=1047340371]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="confirmation_overlay/confirmation_panel/VBoxContainer" unique_id=393282788]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="resource_to_deliver" parent="confirmation_overlay/confirmation_panel/VBoxContainer/HBoxContainer" unique_id=2055771134 node_paths=PackedStringArray("label") instance=ExtResource("7_2usk0")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+match_player_inventory = false
+label = NodePath("../Label")
+
+[node name="Label" type="Label" parent="confirmation_overlay/confirmation_panel/VBoxContainer/HBoxContainer" unique_id=821906877]
+layout_mode = 2
+theme_override_font_sizes/font_size = 112
+
+[node name="item_sample" parent="confirmation_overlay/confirmation_panel/VBoxContainer" unique_id=389664355 instance=ExtResource("7_m4dn3")]
+visible = false
+layout_mode = 2
+
+[node name="unit_sample" parent="confirmation_overlay/confirmation_panel/VBoxContainer" unique_id=1911631300 instance=ExtResource("8_eajsh")]
+visible = false
+layout_mode = 2
+
+[node name="confirmation_btns" type="HBoxContainer" parent="confirmation_overlay/confirmation_panel/VBoxContainer" unique_id=1004635133]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="confirm" type="Button" parent="confirmation_overlay/confirmation_panel/VBoxContainer/confirmation_btns" unique_id=749354806]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "CONFIRM"
+
+[node name="cancel" type="Button" parent="confirmation_overlay/confirmation_panel/VBoxContainer/confirmation_btns" unique_id=419595565]
+modulate = Color(0.6, 0.6, 0.6, 1)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Cancel"
+
+[node name="claim_animation" type="Control" parent="confirmation_overlay" unique_id=251560543]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="confirmation_overlay/claim_animation" unique_id=391127185]
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="confirmation_overlay/claim_animation/Panel" unique_id=1339393880]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -348.0
+offset_top = 12.0
+offset_right = 348.0
+offset_bottom = 114.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 128
+text = "BOUNTY CLAIMED"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="confirmation_overlay/claim_animation/Panel" unique_id=513191392]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 188.0
+offset_top = -20.0
+offset_right = 228.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="money_gain" type="HBoxContainer" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer" unique_id=609693991]
+layout_mode = 2
+
+[node name="money_icon" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/money_gain" unique_id=2089795669 node_paths=PackedStringArray("label") instance=ExtResource("7_2usk0")]
+layout_mode = 2
+resource = "money"
+match_player_inventory = false
+label = NodePath("../Label")
+
+[node name="Label" type="Label" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/money_gain" unique_id=725299358]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="food_gain" type="HBoxContainer" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer" unique_id=1110702624]
+layout_mode = 2
+
+[node name="food_icon" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/food_gain" unique_id=1516675838 node_paths=PackedStringArray("label") instance=ExtResource("7_2usk0")]
+layout_mode = 2
+match_player_inventory = false
+label = NodePath("../Label")
+
+[node name="Label" type="Label" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/food_gain" unique_id=279806657]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="fuel_gain" type="HBoxContainer" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer" unique_id=40184163]
+layout_mode = 2
+
+[node name="fuel_icon" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/fuel_gain" unique_id=517315300 node_paths=PackedStringArray("label") instance=ExtResource("7_2usk0")]
+layout_mode = 2
+resource = "fuel"
+match_player_inventory = false
+label = NodePath("../Label")
+
+[node name="Label" type="Label" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/fuel_gain" unique_id=1573262585]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="juice_gain" type="HBoxContainer" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer" unique_id=697676468]
+layout_mode = 2
+
+[node name="juice_icon" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/juice_gain" unique_id=345584066 node_paths=PackedStringArray("label") instance=ExtResource("7_2usk0")]
+layout_mode = 2
+resource = "juice"
+match_player_inventory = false
+label = NodePath("../Label")
+
+[node name="Label" type="Label" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/juice_gain" unique_id=684788082]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="scrap_gain" type="HBoxContainer" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer" unique_id=389988841]
+layout_mode = 2
+
+[node name="scrap_icon" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/scrap_gain" unique_id=1348688291 node_paths=PackedStringArray("label") instance=ExtResource("7_2usk0")]
+layout_mode = 2
+resource = "scrap"
+match_player_inventory = false
+label = NodePath("../Label")
+
+[node name="Label" type="Label" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/scrap_gain" unique_id=774699683]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="chips_gain" type="HBoxContainer" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer" unique_id=6781762]
+layout_mode = 2
+
+[node name="chips_icon" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/chips_gain" unique_id=807921548 node_paths=PackedStringArray("label") instance=ExtResource("7_2usk0")]
+layout_mode = 2
+resource = "chips"
+match_player_inventory = false
+label = NodePath("../Label")
+
+[node name="Label" type="Label" parent="confirmation_overlay/claim_animation/Panel/VBoxContainer/chips_gain" unique_id=1086554372]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+
+[node name="Control" type="Control" parent="confirmation_overlay/claim_animation/Panel" unique_id=1679909149]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+offset_transform_position = Vector2(300, 100)
+mouse_filter = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="confirmation_overlay/claim_animation/Panel/Control" unique_id=1882105445]
+material = SubResource("ShaderMaterial_2usk0")
+position = Vector2(-78, 93)
+scale = Vector2(4, 4)
+texture = ExtResource("6_ucoss")
+hframes = 8
+vframes = 7
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="confirmation_overlay/claim_animation/Panel/Control/Sprite2D" unique_id=1173121725]
+libraries/fighter_base = ExtResource("7_7fotx")
+autoplay = &"fighter_base/idle"
+
+[node name="resources" type="PanelContainer" parent="confirmation_overlay/claim_animation/Panel" unique_id=1054451145]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -174.0
+offset_right = 146.0
+offset_bottom = 194.0
+grow_vertical = 2
+offset_transform_enabled = true
+mouse_filter = 2
+
+[node name="resources_dropdown" parent="confirmation_overlay/claim_animation/Panel/resources" unique_id=682307214 node_paths=PackedStringArray("resource_hboxes", "resource_icons") instance=ExtResource("5_o6ss2")]
+layout_mode = 2
+resource_hboxes = {
+"chips": NodePath("chips"),
+"food": NodePath("food"),
+"fuel": NodePath("fuel"),
+"juice": NodePath("juice"),
+"money": NodePath("money"),
+"scrap": NodePath("scrap")
+}
+resource_icons = {
+"chips": NodePath("chips/chips_icon"),
+"food": NodePath("food/food_icon"),
+"fuel": NodePath("fuel/fuel_icon"),
+"juice": NodePath("juice/juice_icon"),
+"money": NodePath("money/money_icon"),
+"scrap": NodePath("scrap/scrap_icon")
+}
+from_player = true
+match_inventory = false
+
+[node name="continue" type="Button" parent="confirmation_overlay/claim_animation/Panel" unique_id=158111511]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -80.0
+offset_right = -20.0
+offset_bottom = -21.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "CONTINUE"
+
+[connection signal="pressed" from="main_panel/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="main_panel2/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="confirmation_overlay/choose_a_unit/MarginContainer/choose_a_unit/cancel_deliver_unit" to="confirmation_overlay" method="_on_cancel_deliver_unit_pressed"]
+[connection signal="pressed" from="confirmation_overlay/confirmation_panel/VBoxContainer/confirmation_btns/confirm" to="confirmation_overlay" method="_on_confirm_pressed"]
+[connection signal="pressed" from="confirmation_overlay/confirmation_panel/VBoxContainer/confirmation_btns/cancel" to="confirmation_overlay" method="_on_cancel_pressed"]
+[connection signal="pressed" from="confirmation_overlay/claim_animation/Panel/continue" to="confirmation_overlay" method="_on_continue_pressed"]

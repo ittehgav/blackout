@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://2x0ynypxgcgn" path="res://assets/visual/particles/melee_projection.png" id="7_pfuvk"]
 [ext_resource type="AnimationLibrary" uid="uid://i0u7lhwyn7mk" path="res://resources/animations/weapons/melee.res" id="8_0q57w"]
 [ext_resource type="PackedScene" uid="uid://dmvr7ngbhq7v5" path="res://scenes/index/vfx/lightning_vfx.tscn" id="9_tlqyt"]
+[ext_resource type="PackedScene" uid="uid://bvvw16ux6yiwn" path="res://scenes/index/vfx/motion_trail.tscn" id="9_y34v8"]
 
 [sub_resource type="Animation" id="Animation_tlqyt"]
 length = 0.001
@@ -41,9 +42,9 @@ radius = 59.03389
 size = Vector2(20, 250)
 
 [node name="Electric Baton" type="Sprite2D" unique_id=1979784302 node_paths=PackedStringArray("hit_sfx", "lightning", "extra_bolts_sfx", "bolts_aoe", "display", "hit_scan", "projections", "animation_player", "use_sfx")]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
 texture = ExtResource("1_saugq")
-offset = Vector2(-20, -30)
-flip_h = true
+offset = Vector2(0, -32)
 script = ExtResource("2_0q57w")
 hit_sfx = NodePath("components/hit_sfx")
 lightning = NodePath("special/Lightning")
@@ -153,3 +154,12 @@ monitorable = false
 [node name="shape" type="CollisionShape2D" parent="special/bolts_aoe/bolt_4_aoe" unique_id=332436829]
 position = Vector2(0, 124.5)
 shape = SubResource("RectangleShape2D_tlqyt")
+
+[node name="motion_trail" parent="." unique_id=1642103550 node_paths=PackedStringArray("weapon") instance=ExtResource("9_y34v8")]
+position = Vector2(4.3708763, -40.777306)
+weapon = NodePath("..")
+
+[node name="Line2D" parent="motion_trail" index="0" unique_id=657689956]
+position = Vector2(8, 0)
+
+[editable path="motion_trail"]

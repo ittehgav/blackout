@@ -7,11 +7,18 @@ class_name Player;
 signal entered_location(location:Location);
 signal left_location;
 
+## FIRES AFTER ANY AMOUNT OF CHANGED STATS FOR A SINGLE INSTANCE
+## (RIGHT NOW JUST THE PLAYER)
+## and is supposed to trigger full refreshes on dropdowns/elements
+## that represent the owner of the stats
+signal stats_changed
 
 signal resource_changed(resource:String);
 signal morale_changed;
 signal party_changed;
 signal equipment_changed(equipment:Equipment);
+
+
 
 signal upkeep_paid_fully;
 signal upkeep_food_shortage;
@@ -40,7 +47,12 @@ var party_room:int:
 ## for easier iteration/checks
 var equipment:Array[Equipment]
 
-@export var equipped_weapon:Weapon;
+@export var equipped_weapon:Weapon:
+	set(w):
+		## getter functions for anything item-type-unique that 
+		## can't get handled by equipment_changed signal?
+		equipped_weapon = w;
+		stats_changed.emit()
 @export var alternative_weapon:Weapon=null;
 
 @export var equipped_module:Module;
@@ -72,9 +84,11 @@ func level_up()->void:
 
 
 func _on_level_up() -> void:
-	for stat:String in CombatStats.all_stats:
+	for stat:String in CombatStats.main_stats:
 		stats[stat] += CombatStats.player_level_stat_gains[stat]
-		
+	stats_changed.emit()
+
+
 func switch_weapons()->void:
 	assert(equipped_weapon and alternative_weapon);
 	var alt:Weapon = alternative_weapon;
@@ -88,6 +102,7 @@ func equip_weapon(weapon:Weapon)->void:
 	equipment.erase(equipped_weapon)
 	equipped_weapon = weapon;
 	weapon.inventory_position = InventoryDisplay.ITEM_UNPLACED;
+	
 	
 	equipment.append(equipped_weapon)
 	equipment_changed.emit(weapon);
@@ -104,7 +119,9 @@ func equip_alt_weapon(weapon:Weapon, quiet:bool=false)->void:
 
 func equip_module(module:Module)->void:
 	assert(module in inventory.modules);
+	
 	equipment.erase(equipped_module)
+	
 	equipped_module = module;
 	module.inventory_position = InventoryDisplay.ITEM_UNPLACED
 	
@@ -193,7 +210,7 @@ func change_morale(change:float)->void:
 
 func battle_lost()->void:
 	## right now just does the morale and money loss
-	## to maybe take into account for losses:
+	## to maybe  take into account for losses:
 	## party power difference (enemy too high = less morale/money loss?)
 	## 
 	var morale_loss:float = .5 + (morale/3);
@@ -204,3 +221,7 @@ func battle_lost()->void:
 
 func battle_won()->void:
 	change_morale((5-morale)/2)
+
+
+func _on_roster_changed() -> void:
+	party_changed.emit()

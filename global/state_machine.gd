@@ -44,7 +44,6 @@ func set_scenario(target:Scenario)->void:
 					world_map.advance_day()
 
 				Scenario.battle:
-					
 					await Splash.show_loading_screen().finished
 					var tween:Tween = Tweens.ui_fade_out(Entities.arena.post_fight_view);
 					if not in_tutorial:

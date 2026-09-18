@@ -8,12 +8,17 @@ signal target_changed;
 signal skill_attempted;
 signal skill_used;
 ## WHEN THE BASE STARTS THE WINDUP
-signal skill_hit(target_hit:ActiveFighter);
+
 
 
 var unit:FighterUnit;
 
 @export var dummy:bool=false;
+
+@export_subgroup("movement")
+@export var raycast_root:Node2D;
+@export var up_raycast:RayCast2D
+@export var down_raycast:RayCast2D
 
 @export_subgroup("visuals")
 @export var dust:Dust;
@@ -37,6 +42,10 @@ var target_in_range:bool = false;
 ## and is playing on a different wait time
 var true_cooldown:float;
 
+## to keep track of ally hp for healer skills
+## instead of reading and comparing every single ally every single
+## check_move() call
+var ally_damage_tally:AllyDamageTally
 
 var skill_disabled:bool=false;
 ## only for bases that fully override the skill concept
@@ -50,6 +59,7 @@ func _ready()->void:
 		hp = max_hp
 
 func load_fighter(new_unit:FighterUnit)->void:
+
 	unit = new_unit
 	level = new_unit.level
 	unit = new_unit
@@ -89,9 +99,9 @@ func load_base()->void:
 	skill_dust.position = Vector2.ZERO;
 	skill_dust.setup_impact_dust(self);
 
-	if base.skill.status:
-		base.skill.status.source = self;
-	
+	if base.skill.targetting == tt.most_damaged_ally:
+		start_damage_tally();
+
 	sprite = base
 	sprite.scale = Vector2(2, 2)
 	sprite.position.y = 10
@@ -117,16 +127,24 @@ func load_base()->void:
 	add_child(base)
 	base.frame_changed.connect(shadow.source_frame_changed)
 	base.set_owner(self)
-	base.get_node("hurtbox").reparent(hurtbox);
+	var hbs:CollisionShape2D = base.get_node("hurtbox")
+	hbs.reparent(hurtbox);
+	up_raycast.position.y = -hbs.shape.radius * 1.5;
+	down_raycast.position.y = hbs.shape.radius * 1.5
 
-
+func start_damage_tally()->void:
+	var tally := AllyDamageTally.new();
+	tally.source = self
+	$components.add_child(tally)
+	## will be assigned as tally after the tally setup 
 func load_unit_stats()->void:
 	var stats:CombatStats = unit.final_stats();
 	for stat:String in CombatStats.all_stats:
 		initial_stats[stat] = stats[stat];
 	move_speed = base.base_stats['move_speed']
 
-
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
 ## storing these throughout check_move calls
 ## to reduce processing load
 ## (by an amount which i think will start to become bigger and bigger as 
@@ -142,17 +160,32 @@ var target_cell_distance:int;
 func target_direction()->Vector2:
 	return position.direction_to(target_fighter.position)
 
-func _physics_process(_delta: float) -> void:
-	move_and_slide()
 
 
+const raycast_angle_deltas = [PI/9, -PI/9, PI/4.5, -PI/4.5, PI/2, -PI/2, PI]
 func refresh_velocity()->void:
 	var direction:Vector2 = position.direction_to(movement_target);
+	
 	if direction == Vector2.ZERO:
 		if moving:
 			moving = false;
 			stopped_moving.emit();
 	else:
+		var angle:float = direction.angle()
+		raycast_root.rotation = angle;
+		var tried_angles:= 0;
+		up_raycast.force_raycast_update()
+		down_raycast.force_raycast_update()
+		while up_raycast.get_collider() or down_raycast.get_collider():
+			raycast_root.rotation = angle + raycast_angle_deltas[tried_angles];
+			tried_angles += 1;
+			up_raycast.force_raycast_update()
+			down_raycast.force_raycast_update()
+			if tried_angles == 6:
+				break
+		direction = Vector2.from_angle(raycast_root.rotation)
+			
+		angle = raycast_root.rotation;
 		if not moving:
 			moving = true;
 			started_moving.emit()
@@ -162,6 +195,7 @@ func refresh_velocity()->void:
 
 func check_move()->void:
 	refresh_target();
+	if not target_fighter:return
 	if stunned:
 		stop();
 		return;
@@ -181,26 +215,29 @@ func check_move()->void:
 
 func set_direction()->void:
 	var angle:float;
-	if base.animation_player.current_animation == base.skill_animation_path:
+	if base.animation_player.current_animation == base.skill_animation_path or moving:
 		## plays this outside of ticker when skill starts being 
 		## used so it instantly turns to the targer
 		angle = position.angle_to_point(target_fighter.position);
-	elif moving:
-		angle = velocity.angle()
 	else:
 		angle = position.angle_to_point(target_fighter.position);
+	
 	var direction_index:int = get_sector_full(angle)
 	sprite.frame_coords.x = direction_index;
 
-
+const tt = SkillComponent.TargetType
 func refresh_target()->void:
 
 	var target:ActiveFighter=null;
 	match base.skill.targetting:
 		## maybe only ever need to target allies otherwise?
 		## make this a simpler code expression if so?
-		SkillComponent.TargetType.nearest_enemy:
+		tt.nearest_enemy:
 			target = nearest_enemy();
+		tt.most_damaged_ally:
+			## surely the death signal will clear the arrays properly?
+			if not ally_damage_tally:return ## just skips a few calls until it's setup
+			target = ally_damage_tally.sorted[0]
 
 	if target != target_fighter:
 		target_fighter = target;
@@ -242,10 +279,7 @@ func use_skill()->void:
 	
 	base.skill_windup()
 	base.skill.lineup()
-	
-	await base.skill.impact
-	for target:ActiveFighter in hit_targets:
-		skill_hit.emit(target);
+
 
 
 

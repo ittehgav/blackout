@@ -26,3 +26,7 @@ func use()->void:
 	printerr("MISSINGUSE ", name)
 	## modules won't have alt uses so needs to be separated from 
 	## weapon's use super
+
+## make abstract when i get around to every module?
+func apply_m1()->void:pass
+func apply_m2()->void:pass

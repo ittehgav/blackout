@@ -120,6 +120,7 @@ static func turn_ellusive(fighter:ActiveFighter, duration:float)->void:
 	fighter.set_collision_layer_value(team_n, true)
 
 
+
 static func shoot_projectile(projectile:Projectile, source:ActiveFighter, hit_callback:Variant, detonate_callback:Variant=null, override_target:Vector2 = Vector2(-1, -1))->Projectile:
 	var projectile_target:Vector2=Vector2(-1, -1);
 	if override_target == Vector2(-1, -1):
@@ -199,13 +200,13 @@ static func knock_back_target(source:ActiveFighter, target:CombatEntity = source
 	if target.knockback_tween and target.knockback_tween.is_running():
 		target.knockback_tween.kill();
 	
-	target.knocked_back.emit(source, strength);
 
 	
 	target.knockback_tween = target.create_tween();
 	target.knockback_tween.tween_property(target, "velocity", Vector2.ZERO, duration)
 	target.knockback_tween.tween_callback(finish_flight.call_deferred.bind(target))
 
+	target.knocked_back.emit(source, strength);
 
 static func collision_damage(source:ActiveFighter, t1:ActiveFighter, t2:ActiveFighter)->void:
 	deal_damage(source, t1);

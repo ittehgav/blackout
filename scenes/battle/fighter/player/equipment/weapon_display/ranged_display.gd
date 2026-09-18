@@ -23,6 +23,7 @@ func turn_weapon()->void:
 	var cursor:Vector2 = equipment.get_global_mouse_position()
 	equipment.weapon_anchor.rotation = equipment.global_position\
 	.angle_to_point(cursor)
+	
 	if equipment.global_position.x < cursor.x:
 		weapon.scale.y = abs(weapon.scale.y);
 	else:

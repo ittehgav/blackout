@@ -2,7 +2,6 @@ extends UIRoot
 class_name UnitSheet;
 
 
-
 @export_group("data_nodes")
 @export var showing_unit:FighterUnit
 @export var unit_sprite:Sprite2D;
@@ -21,6 +20,7 @@ class_name UnitSheet;
 @export var unit_level_label:Label;
 @export var stats_dropdown:StatsDropdown
 @export var mechanic_values:MechanicValuesGrid
+
 
 
 func display_unit(unit:FighterUnit)->void:

@@ -172,6 +172,7 @@ type = "stat_change"
 value = 5.0
 duration = 5.0
 stat = "agility"
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="scorched_ground_hit_scan" type="Area2D" parent="." unique_id=155157433]

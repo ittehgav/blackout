@@ -1,6 +1,6 @@
 extends UIRoot
 class_name EvolutionMenu
-
+const show_player_resources = true;
 signal opened;
 signal evolution_finished;
 

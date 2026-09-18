@@ -15,6 +15,7 @@ func get_description()->String:
 
 
 
+
 func use(_alt:bool=false)->void:
 	animation_player.play("melee/attack")
 	pending_impact = true;
@@ -28,9 +29,11 @@ func impact()->void:
 	if refinement_level >= 1:
 		Combat.aoe_knockback(Entities.player_fighter, hit_scan, 1);
 	pending_impact = false;
+	
 	if len(Entities.player_fighter.hit_targets):
 		## projectiles do this on their own
 		hit.emit();
+
 	if refinement_level == 3:
 		for target:ActiveFighter in Entities.player_fighter.hit_targets:
 			if not target in combo_tally:
@@ -40,17 +43,22 @@ func impact()->void:
 				if combo_tally[target] == 3:
 					status.apply_on_target(target);
 					stun_sfx.play()
+					combo_tally[target] = 0
 
 const r1_improvement = "Knocks enemies back a short distance.";
 const r2_improvement = "25% attack range.";
-const r3_improvement = "+20% attack speed, hitting the same enemy 3 times stuns them for 1 second."
+const r3_improvement = "+20% attack speed, hitting the same enemy 3 times stuns them for 0.5 seconds."
 
 
 func apply_r1()->void:
 	pass
 func apply_r2()->void:
 	hit_scan.position.x += 30
-	var shape:CircleShape2D = hit_scan.get_node("shape").shape
+	var cshape:CollisionShape2D = hit_scan.get_node("shape")
+	var shape:CircleShape2D = cshape.shape
+	## so it doesn't mess with the original shape resource
+	shape = shape.duplicate()
+	cshape.shape = shape
 	shape.radius *= 1.5;
 	projections[0].scale *= 1.5;
 func apply_r3()->void:

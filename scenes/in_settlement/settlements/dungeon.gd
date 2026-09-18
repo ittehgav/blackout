@@ -3,14 +3,16 @@ extends Settlement
 class_name Dungeon
 ## settlement where you fight
 
-var cleared:bool=false
+@export var cleared:bool=false
 
 ## for transitioning between waves/into main menu
 ## starts at 1 so the number curresponds to how they're enumerated to the player
 @export var current_wave:int = 1;
 ## exporting for testing 
 
-@onready var location:Location = get_parent()
+var location:Location:
+	get():
+		return get_parent()
 
 
 @export var waves:Array[NpcRoster];
@@ -18,6 +20,8 @@ var cleared:bool=false
 
 @export var final_loot:LootInventory;
 
+## to keep it from getting chosen by bounties
+@export var special:bool=false;
 
 
 func refresh()->void:
@@ -28,7 +32,7 @@ func refresh()->void:
 
 
 func get_danger_level()->int:
-	return waves[current_wave].get_danger_level()
+	return waves[current_wave-1].get_danger_level()
 
 func get_current_wave()->NpcRoster:
 	## current_wave starts a 1 because that's how that data will appear to the player

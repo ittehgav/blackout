@@ -23,7 +23,6 @@ enum CameraRange{
 var equipment:EquipmentControl;
 var body:FighterBase
 var weapon:Weapon;
-
 var behind_player:bool;
 
 func _ready() -> void:
@@ -43,13 +42,25 @@ func setup(player:PlayerFighter, target:Weapon)->void:
 	## cleaner like this than to make a crossed reference?
 	equipment = player.equipment;
 	body = player.body;
+	
+	player.equipment.weapon_used.connect(weapon_used)
 	body.frame_changed.connect(body_frame_changed);
 	target.position = self["weapon_offset"]
 	set_process_mode(PROCESS_MODE_DISABLED)
 
 func weapon_animation_finished(_anim_name:String)->void:
 	set_process_input(not_attacking());
-	
+
+func weapon_used()->void:
+	if weapon == Entities.player_fighter.equipment.equipped_weapon:
+		var anchor:Node2D = weapon.get_parent();
+		var pg:Vector2 = Entities.player_fighter.global_position
+		var mg:Vector2 = anchor.get_global_mouse_position();
+		if pg.x < mg.x:
+			anchor.rotation = Entities.player_fighter.global_position.angle_to_point(anchor.get_global_mouse_position())
+		else:
+			anchor.rotation = Entities.player_fighter.global_position.angle_to_point(anchor.get_global_mouse_position()) - PI
+
 
 @abstract func body_frame_changed()->void;
 ## cleaner to just put a pass if a display class ends up not needing this?

@@ -77,7 +77,7 @@ metadata/_custom_type_script = "uid://2yrhy1rgp6jr"
 [node name="Lightning Swing" type="Node" parent="components" unique_id=1184690737 node_paths=PackedStringArray("status")]
 script = ExtResource("3_lsi74")
 base_cooldown = 5.0
-effects = Array[int]([0, 1, 9])
+effects = Array[int]([0, 3, 10])
 status = NodePath("electrified")
 own_damage_modifier = true
 metadata/_custom_type_script = "uid://cboofk6f5g5t"

@@ -15,6 +15,7 @@ script = ExtResource("1_8gx17")
 main_menu = NodePath("main_overlay/main_menu")
 
 [node name="ui_sfx" parent="." unique_id=2121659425 instance=ExtResource("10_a8run")]
+bus = &"Master"
 
 [node name="main_overlay" type="CanvasLayer" parent="." unique_id=2096079913]
 layer = -1
@@ -132,6 +133,7 @@ layout_mode = 2
 text = "New Game"
 
 [node name="ui_sfx" parent="main_overlay/main_menu" unique_id=45047530 instance=ExtResource("10_a8run")]
+bus = &"Master"
 
 [node name="load_menu" type="Control" parent="main_overlay/main_menu" unique_id=210465819 node_paths=PackedStringArray("main_ui", "main_menu", "options_container")]
 visible = false

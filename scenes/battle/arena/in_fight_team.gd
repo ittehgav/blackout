@@ -2,9 +2,9 @@ extends Node2D
 
 class_name Team;
 
+signal all_units_loaded;
+
 signal fighter_died(fighter:ActiveFighter)
-
-
 signal fighter_converted(fighter:ActiveFighter);
 ## team that LOSES the converted unit emits it
 
@@ -28,12 +28,15 @@ var fighters:Array[ActiveFighter];
 
 
 var col_count:int = 0;
+var units_loaded :int=0;
+var units_to_load:int;
 func load_roster()->void:
 	var cols := {"melee":[], "mid":[], "long":[]};
+	units_to_load = len(roster.units)
 	for unit:FighterUnit in roster.units:
 
 		var fighter:NpcFighter = generate_fighter(unit);
-		
+		fighter.ready.connect(fighter_ready)
 		match unit.base.skill_range:
 			FighterBase.MELEE_RANGE:
 				cols.melee.append(fighter);
@@ -48,6 +51,10 @@ func load_roster()->void:
 	position_column(cols.mid, 700, 200);
 	position_column(cols.long, 1000, 200)
 
+func fighter_ready()->void:
+	units_loaded += 1;
+	if units_loaded == units_to_load:
+		all_units_loaded.emit()
 
 func generate_fighter(unit:FighterUnit, force_position:Vector2=Vector2.ZERO)->NpcFighter:
 	var fighter:NpcFighter = npc_fighter_scene.instantiate();
@@ -63,6 +70,7 @@ func generate_fighter(unit:FighterUnit, force_position:Vector2=Vector2.ZERO)->Np
 
 	
 	add_child.call_deferred(fighter)
+
 	
 	## so i can keep setting the fighter_base shader and then it just 
 	## gets turned to unique resource here
@@ -91,7 +99,9 @@ func position_column(col:Array, x_origin:int, y_origin:int)->void:
 		if i % fighters_per_col == 0:
 			col_count += 1;
 	
-func assign_fighter(fighter:ActiveFighter)->void:
+func assign_fighter(fighter:NpcFighter)->void:
+	fighter.up_raycast.set_collision_mask_value(team_n, true)
+	fighter.down_raycast.set_collision_mask_value(team_n, true)
 	if fighter.base.hit_scan:
 		if fighter.base.skill.scan_enemies:
 			fighter.base.hit_scan.set_collision_mask_value(enemy_team.team_n, true);
@@ -115,10 +125,12 @@ func assign_entity(target:CombatEntity)->void:
 	
 
 
-func unassign_fighter(fighter:ActiveFighter)->void:
+func unassign_fighter(fighter:NpcFighter)->void:
 	fighters.erase(fighter);
 	fighter.death.disconnect(on_entity_death);
 	
+	fighter.up_raycast.set_collision_mask_value(team_n, false)
+	fighter.down_raycast.set_collision_mask_value(team_n, false)
 	fighter.set_collision_layer_value(team_n, false);
 	if fighter.base.hit_scan:
 		## will just hide it if converted from enemy team

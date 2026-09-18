@@ -9,12 +9,12 @@ class_name HitFeedbackControl
 
 func _on_equipment_weapon_hit(weapon: Weapon) -> void:
 	if weapon.melee:
-		for target:ActiveFighter in player_fighter.hit_targets:
+		for target:CombatEntity in player_fighter.hit_targets:
 			var f:Sprite2D = play_feedback(melee_feedback, target.global_position);
 			var tween := create_tween();
 			tween.tween_property(f, "offset:x", 5, .35);
 	else:
-		for target:ActiveFighter in player_fighter.hit_targets:
+		for target:CombatEntity in player_fighter.hit_targets:
 			play_feedback(projectile_feedback, target.global_position)
 
 func play_feedback(target:Sprite2D, spot:Vector2)->Sprite2D:
@@ -32,5 +32,8 @@ func play_feedback(target:Sprite2D, spot:Vector2)->Sprite2D:
 		
 	var animation:AnimationPlayer = feedback.get_node("animation")
 	animation.play("feedback");
-	animation.animation_finished.connect(feedback.queue_free)
+	animation.animation_finished.connect(clear_feedback.bind(feedback))
 	return feedback
+
+func clear_feedback(_key:String, f:Sprite2D)->void:
+	f.queue_free()

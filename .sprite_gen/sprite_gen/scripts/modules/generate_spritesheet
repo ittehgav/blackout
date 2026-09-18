@@ -1,0 +1,51 @@
+from PIL import Image
+import os
+
+from datetime import datetime
+import bpy
+import sprite_gen
+
+
+# --- Settings ---
+output_path = "//render_"  # "//" = current .blend file folder
+steps = 8                 # 360 / 45 = 8
+angle_step = 360 / steps  # degrees per step
+pivot = (0, 0, 0)         # rotate around world origin
+
+
+## frames for regular NPC fighters = 7
+total_frames = 7
+
+
+
+camera_root = bpy.data.objects.get("camera_root")
+camera_root.rotation_euler[1] = 0;
+
+
+collection = bpy.data.collections.get("all")
+
+camera_size = bpy.context.scene.render.resolution_x
+
+
+sprite_gen.generate_frames(collection, total_frames, steps, output_path, pivot, camera_root);
+
+png_files = ["//renders/"+f for f in os.listdir(bpy.path.abspath("//renders")) if f.lower().endswith('.png')] 
+
+sprite_gen.generate_spritesheet(png_files, total_frames, camera_size);
+
+print("✅ Finished rendering 360° around Y-axis.")
+
+
+sample_files = ["render_00-3.png", "render_01-3.png", "render_02-3.png"]
+sample_images = [Image.open(os.path.join("renders", f)) for f in sample_files]
+frame_durations = [150, 200, 300]
+
+sample_path = "sample.gif"
+sample_images[0].save(
+    sample_path,
+    save_all=True,
+    append_images=sample_images[1:],
+    duration = frame_durations,
+    loop=0,
+    disposal = 2
+)

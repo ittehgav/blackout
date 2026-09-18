@@ -178,7 +178,9 @@ func play_color_blink()->void:
 	if pending_blink:
 		if not struck_by_player:
 			blink_color.a = .5
-		Tweens.shader_color_blink(fighter.sprite, blink_color);
+		else:
+			blink_color = Color.WHITE
+		Tweens.shader_color_blink(fighter, blink_color);
 		pending_blink = false
 		struck_by_player = false;
 

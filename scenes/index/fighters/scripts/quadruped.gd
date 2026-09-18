@@ -3,6 +3,8 @@ extends FighterBase
 const after_dash_frame_y = 11
 
 @export var sfx:SfxPlayer2D;
+@export var hp_threshold_sfx:AudioStreamPlayer2D
+
 @export var dash_projection:Polygon2D;
 ## dash_projection.polygon[0] = tip of arrow projection
 @export var dash_projection_animation:AnimationPlayer
@@ -19,27 +21,44 @@ const after_dash_frame_y = 11
 func full_skill_description(_unit:FighterUnit)->String:
 	return ""
 
+func turn_to_player()->void:
+	var angle:float = fighter.position.angle_to_point(Entities.player_fighter.position)
+	var sector := fighter.get_sector(angle)
+	frame_coords.x = sector
 
 var acceleration:float = 1.0;
 func skill_windup()->void:
-	print("SKILL WINDUP ", Time.get_ticks_msec()/1000.0)
-	
+	fighter.damage_taken.connect(check_threshold)
+	turn_to_player()
 	start_dash_cycle()
 	fighter.skill_disabled = true;
-	stagger_status.source = fighter
+
 	## just skip over the skill component and 
 	## implement all of the behavior in this script
 	## also when full override this only runs once and
 	## just before the skill code start running which is nice
+
+var thresholds_hit:int=0;
+var final_stage:bool=false
+func check_threshold(_damage:float, _source:ActiveFighter, _quiet:bool)->void:
+	if fighter.hp <= fighter.max_hp/3:
+		acceleration += .5
+		final_stage = true
+		fighter.damage_taken.disconnect(check_threshold)
+		sfx.play_sound_by_key("hp_threshold")
+	if fighter.hp <= fighter.max_hp/2 and thresholds_hit == 0:
+		acceleration += .5
+		hp_threshold_sfx.play()
+		thresholds_hit += 1
+		sfx.play_sound_by_key("hp_threshold")
 	
+
 func start_dash_cycle()->void:
-	print("START DASH CYCLE ", Time.get_ticks_msec()/1000.0, "\n")
 	dash_miss_count = 0;
 	start_dash_windup()
 
 func start_dash_windup()->void:
-	print("START DASH WINDUP ", Time.get_ticks_msec()/1000.0)
-	
+	turn_to_player()
 	var angle:float = fighter.position.angle_to_point(Entities.player_fighter.position)
 	var sector:int = fighter.get_sector(angle);
 	frame_coords.x = sector;
@@ -54,8 +73,11 @@ func start_dash_windup()->void:
 var dash_tween:Tween;
 var dash_miss_count:int;
 func start_dash()->void:
+	turn_to_player()
+	fighter.hit_targets = []
+	## should behave just fine so long as we reset it properly
 	sfx.play_sound_by_key("dash_start")
-	print("START DASH ", Time.get_ticks_msec()/1000.0)
+	already_collided = []
 	
 	dash_hit_scan.monitoring = true;
 	animation_player.play("run")
@@ -63,7 +85,7 @@ func start_dash()->void:
 	var move_target:Vector2 = fighter.global_position + player_direction * 1500;
 	var overshoot := fighter.global_position + player_direction * 1800
 	
-	var dash_duration:float = 1.5/acceleration
+	var dash_duration:float = 1.25/acceleration
 	
 	dash_tween = create_tween();
 	dash_tween.tween_property(fighter, "global_position", move_target, dash_duration)
@@ -88,21 +110,21 @@ func start_projection_adjust()->void:
 	if adjust_projection:
 		start_projection_adjust()
 
+var already_collided:Array[CombatEntity]
 func _on_dash_hit_scan_area_entered(area: Area2D) -> void:
 	## dash hit scan is only ever monitoring during dash
 	assert(area is CollisionScan);
-	print("DASH HIT SCAN AREA ENTERED ", Time.get_ticks_msec()/1000.0)
-	if area != fighter.collision_scan:
+	if area != fighter.collision_scan and area.source not in fighter.hit_targets:
 		sfx.play_sound_by_key("collision")
-		print("NOT FIGHTER COLLISIONSC ", Time.get_ticks_msec()/1000.0)
-		dash_hit_scan.set_monitoring.call_deferred(false)
-		Combat.radial_knockback(fighter, dash_impact_hit_scan)
+		Combat.radial_knockback(fighter, dash_impact_hit_scan, 2)
+		already_collided.append(area.source)
 		Combat.aoe_damage(fighter, dash_impact_hit_scan)
-		dash_tween.kill();
-		start_kicks()
+		if area.source is PlayerFighter:
+			dash_hit_scan.set_monitoring.call_deferred(false)
+			dash_tween.kill();
+			start_kicks()
 
 func missed_dash()->void:
-	print("MISSED DASH ", Time.get_ticks_msec()/1000.0)
 	dash_miss_count += 1
 	dash_hit_scan.monitoring = false;
 	animation_player.stop();
@@ -120,29 +142,32 @@ func missed_dash()->void:
 
 
 func start_kicks()->void:
-	print("START KICKS ", Time.get_ticks_msec()/1000.0)
 	kicks_hit_scan.monitoring = true;
 	kicks_left = int(4 + (acceleration - 1)*10) ## make less based on how many charges were missed?
-	start_kick(true)
+	start_kick()
 
 var kicks_left:int;
-func start_kick(first:bool=false)->void:
-	print("START KICK ", Time.get_ticks_msec()/1000.0)
-	if first:
-		frame_coords.x = randi_range(0, 7)
-	else:
-		var roll:int = randi_range(0, 7);
-		while roll == frame_coords.x:
-			roll = randi_range(0, 7);
-		frame_coords.x = roll
-	
+func start_kick()->void:
+	frame_coords.x = roll_kick_sector();
 	var r:int = fighter.get_sector_angle(frame_coords.x, true);
 	kicks_hit_scan.rotation_degrees = r;
 
 	animation_player.play("kick")
+	
+func roll_kick_sector()->int:
+	var player_angle:= Entities.player_fighter.position.angle_to_point(fighter.position);
+	var sector:int = fighter.get_sector(player_angle)
+	var sector_offset:int = randi_range(-1, 1)
+	sector += sector_offset;
+	if sector == 8:
+		sector = 0;
+	return sector
 
 func kick_impact()->void:
-	print("KICK IMPACT ", kicks_left, Time.get_ticks_msec()/1000.0)
+	fighter.velocity = fighter.position.direction_to(Entities.player_fighter.position) * 500 * acceleration;
+	var t:= create_tween();
+	t.tween_property(fighter, "velocity", Vector2.ZERO, .5/acceleration)
+	
 	Combat.aoe_damage(fighter, kicks_hit_scan, 100);
 	Combat.aoe_knockback(fighter, kicks_hit_scan, 5);
 	kicks_left -= 1;
@@ -153,9 +178,9 @@ func kick_impact()->void:
 		start_stagger(2 + dash_miss_count * 3);
 
 func start_stagger(time:int=5)->void:
-	print("START STAGGER ", Time.get_ticks_msec()/1000.0)
+	turn_to_player()
 	sfx.play_sound_by_key("stagger")
-	stagger_status.duration = time;
+	stagger_status.duration = time/acceleration;
 	if frame_coords.x == 0:
 		if fighter.position.x < Entities.player_fighter.position.x:
 			frame_coords.x = 1;
@@ -175,6 +200,5 @@ func start_stagger(time:int=5)->void:
 
 
 func _on_stagger_removed()->void:
-	print("STAGGER REMOVED ", Time.get_ticks_msec()/1000.0)
 	acceleration += .1;
 	start_dash_cycle()

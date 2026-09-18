@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://cdaoig8f8ag52"]
+
+[ext_resource type="Material" uid="uid://c67ajt88mamto" path="res://resources/shaders/materials/fighter_base.tres" id="1_axv0y"]
+[ext_resource type="Script" uid="uid://xbca3keni8ve" path="res://scenes/index/fighters/scripts/grenadier.gd" id="1_ksfgu"]
+[ext_resource type="Script" uid="uid://cboofk6f5g5t" path="res://scenes/battle/fighter/skill_component.gd" id="2_dgkpd"]
+[ext_resource type="Texture2D" uid="uid://mvgs31r635ir" path="res://assets/visual/sprites/fighters/units/grenadier/grenadier.png" id="2_dnl7p"]
+[ext_resource type="AnimationLibrary" uid="uid://mdcsxx81a2xh" path="res://resources/animations/active_fighter/fighter_base.res" id="3_1yu08"]
+[ext_resource type="PackedScene" uid="uid://ns0jdchcd7sk" path="res://scenes/battle/fighter/neutral/projectile/arc_projectile.tscn" id="5_tvwn7"]
+[ext_resource type="Script" uid="uid://dn4endealcll1" path="res://scenes/battle/fighter/combat_stats.gd" id="6_2qgkk"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="7_2qgkk"]
+[ext_resource type="Texture2D" uid="uid://cvsimbnqx3koy" path="res://assets/visual/sprites/locations/shadow.png" id="8_mbb26"]
+[ext_resource type="Texture2D" uid="uid://n8l23w3og814" path="res://assets/visual/particles/circles/circle_32x32.png" id="10_mbb26"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r8yud"]
+radius = 102.83
+
+[sub_resource type="Animation" id="Animation_r8yud"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, 6)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:s")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_mbb26"]
+resource_name = "projection_ally"
+length = 1.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.1),
+"transitions": PackedFloat32Array(4.7568254, 0.2773925, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(6, 6), Vector2(6, 6), Vector2(10, 10)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:s")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_waqjg"]
+resource_name = "projection_ally"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.1),
+"transitions": PackedFloat32Array(1.319507, 0.2773925, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(6, 6), Vector2(6, 6), Vector2(10, 10)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:s")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.7, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.5, 0.0, 0.5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r8yud"]
+_data = {
+&"RESET": SubResource("Animation_r8yud"),
+&"projection_ally": SubResource("Animation_mbb26"),
+&"projection_enemy": SubResource("Animation_waqjg")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mbb26"]
+radius = 15.033297
+
+[node name="Grenadier" type="Sprite2D" unique_id=1253398508 node_paths=PackedStringArray("projection", "projection_animation", "skill", "animation_player", "hit_scan", "projectile", "base_stats", "stats_per_level")]
+material = ExtResource("1_axv0y")
+texture = ExtResource("2_dnl7p")
+hframes = 8
+vframes = 8
+frame = 7
+script = ExtResource("1_ksfgu")
+projection = NodePath("projection")
+projection_animation = NodePath("projection/projection_animation")
+detfx_colors = Dictionary[int, Color]({
+0: Color(0.8, 0.8, 0.8, 1),
+1: Color(0.8, 0.8, 0.6, 1),
+2: Color(0.6, 0.68666667, 0.8, 1),
+3: Color(0.5332001, 0.103999995, 0.8, 1)
+})
+skill = NodePath("components/Sketchy Grenade")
+skill_range = 10
+animation_player = NodePath("components/base_animations")
+weight_class = 0
+tags = Array[int]([3, 7])
+hit_scan = NodePath("components/Arc Projectile/hit_scan")
+projectile = NodePath("components/Arc Projectile")
+base_stats = NodePath("components/stats/base_stats")
+stats_per_level = NodePath("components/stats/stats_per_level")
+movement = 1
+
+[node name="components" type="Node" parent="." unique_id=393740651]
+
+[node name="Sketchy Grenade" type="Node" parent="components" unique_id=1503997440]
+script = ExtResource("2_dgkpd")
+base_cooldown = 10.0
+effects = Array[int]([10])
+aoe_projection = false
+knockback_strength = 3
+metadata/_custom_type_script = "uid://cboofk6f5g5t"
+
+[node name="Arc Projectile" parent="components" unique_id=1190316787 instance=ExtResource("5_tvwn7")]
+arc_height = 200.0
+rotating = true
+hit_allies = false
+hit_enemies = true
+
+[node name="CollisionShape2D" parent="components/Arc Projectile/hit_scan" parent_id_path=PackedInt32Array(1190316787, 1490198669) index="0" unique_id=708169688]
+shape = SubResource("CircleShape2D_r8yud")
+
+[node name="stats" type="Node" parent="components" unique_id=2022228095]
+
+[node name="base_stats" type="Node" parent="components/stats" unique_id=2074339004]
+script = ExtResource("6_2qgkk")
+max_hp = 100.0
+attack = 100.0
+defense = 5.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="stats_per_level" type="Node" parent="components/stats" unique_id=1483530111]
+script = ExtResource("6_2qgkk")
+max_hp = 5.0
+attack = 15.0
+defense = 2.5
+agility = 5.0
+technique = 5.0
+move_speed = 0.0
+metadata/_custom_type_script = "uid://dn4endealcll1"
+
+[node name="Status" type="Node" parent="components" unique_id=482901111]
+script = ExtResource("7_2qgkk")
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[node name="base_animations" type="AnimationPlayer" parent="components" unique_id=562271027]
+root_node = NodePath("../..")
+libraries/fighter_base = ExtResource("3_1yu08")
+
+[node name="shadow_container" type="Node2D" parent="." unique_id=101817668]
+position = Vector2(0, -8.000001)
+
+[node name="shadow" type="Sprite2D" parent="shadow_container" unique_id=502581927]
+modulate = Color(0, 0, 0, 0.11764706)
+z_index = -1
+position = Vector2(0, 8.000002)
+scale = Vector2(0.55, 0.6141531)
+texture = ExtResource("8_mbb26")
+
+[node name="projection" type="Sprite2D" parent="." unique_id=1906489143]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0.6065151, 0.1183, 0.91, 1)
+z_index = -1
+position = Vector2(360.99997, 22.999998)
+scale = Vector2(6, 6)
+texture = ExtResource("10_mbb26")
+
+[node name="projection_animation" type="AnimationPlayer" parent="projection" unique_id=390179831]
+libraries/ = SubResource("AnimationLibrary_r8yud")
+
+[node name="hurtbox" type="CollisionShape2D" parent="." unique_id=1623815290]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_mbb26")
+
+[editable path="components/Arc Projectile"]

@@ -34,6 +34,7 @@ enum BodyType {flesh, metal, wood};
 @export var body_type:BodyType;
 
 @export var statuses:Node;
+@export var knock_back_dust:Dust
 
 var stun_stack:int = 0;
 var stunned:bool;
@@ -45,6 +46,8 @@ var flying:bool;
 var knockback_source:ActiveFighter;
 var knockback_tween:Tween;
 
+var blink_tween:Tween
+## so i can clear this and add a new one when the player hits them multiple times
 
 
 ## combat stats (will get more complicated when it needs to)
@@ -168,4 +171,11 @@ func _on_collision_scan_area_entered(area: Area2D) -> void:
 	collided.emit(area.source) ## always emits from both units
 	Combat.flying_collision(self, area.source)
 
+	
+
+func _on_knocked_back(_source: ActiveFighter, strength: int) -> void:
+	knock_back_dust.amount = strength * 20
+	knock_back_dust.emitting = true
+
+	knockback_tween.finished.connect(knock_back_dust.set_emitting.bind(false))
 	

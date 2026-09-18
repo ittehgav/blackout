@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cnjcf4clj2cxd" path="res://scenes/index/items/consumables/motivational_speech_draft.tscn" id="16_ghqv0"]
 [ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="18_sont6"]
 [ext_resource type="PackedScene" uid="uid://0et87sb7ldb8" path="res://scenes/index/items/modules/adrenaline_synthethizer.tscn" id="20_tmcxr"]
-[ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/allegiance_shifter.tscn" id="21_x5c7e"]
+[ext_resource type="PackedScene" uid="uid://cpx3rlag56m1l" path="res://scenes/index/items/modules/unimplemented/allegiance_shifter.tscn" id="21_x5c7e"]
 [ext_resource type="PackedScene" uid="uid://c08u0afsm4bct" path="res://scenes/index/items/modules/dodge_roll.tscn" id="23_swpkd"]
 [ext_resource type="PackedScene" uid="uid://cpu4aip3dy4kq" path="res://scenes/index/items/weapons/tailpipe.tscn" id="29_varik"]
 

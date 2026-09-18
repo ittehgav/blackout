@@ -19,19 +19,19 @@ const base_defense_frac = .5;
 const base_stun_duration = 3;
 
 
-
-
 func start()->void:
 	use_sfx.play()
 	parry_timer.start();
 	## right now this is the only thing that alters movement speed
 	## but will need to be more comprehensive eventually
 
-
 	current_status = status.apply_on_target(Entities.player_fighter);
 
 	cue_animation();
-	
+func release()->void:
+	current_status.remove_chain()
+
+
 func cue_animation()->void:
 	parry_cue.show();
 	parry_cue.global_position = Entities.player_fighter.global_position
@@ -39,15 +39,19 @@ func cue_animation()->void:
 	await animation_player.animation_finished;
 	parry_cue.hide();
 	
-func release()->void:
-	current_status.remove()
+
 
 func check_parry(_damage:float, source:ActiveFighter, quiet:bool)->void:
 	## matching the signature of damage_taken signal
 	## only ever procs from npcfighters
-	if not quiet and not parry_timer.is_stopped() and source.base.skill_range == FighterBase.MELEE_RANGE:
+	
+	if not quiet and not parry_timer.is_stopped()\
+	 and source.base.skill_range == FighterBase.MELEE_RANGE:
+
 		parry_stun.apply_on_target(source);
-		parry_sfx.play()
+		parry_sfx.play();
+		if modifier == 2:
+			Combat.knock_back_target(Entities.player_fighter, source, 5)
 
 
 func _on_equipped() -> void:
@@ -55,8 +59,12 @@ func _on_equipped() -> void:
 	Entities.player_fighter.damage_taken.connect(check_parry)
 
 
-const m1_description = "+50% stun duration."
+const m1_description = "+50% parry stun duration."
 const m1_prefix = "Staggering"
 
-const m2_description = "When hitting a perfect parry, gain a 50% agility buff."
+const m2_description = "Parraying an enemy also sends them flying a long distance."
 const m2_prefix = "Dominating"
+
+
+func apply_m1()->void:
+	status.duration += status.duration/2;

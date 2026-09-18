@@ -29,7 +29,6 @@ func setup()->void:
 	if projectile:
 		projectile.setup(Entities.player_fighter);
 	if status:
-		status.source = Entities.player_fighter
 		for c:Node in status.get_children():
 			c.source  =Entities.player_fighter
 

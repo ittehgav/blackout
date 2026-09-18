@@ -86,7 +86,7 @@ stats_per_level = NodePath("stat_base/stats_per_level")
 [node name="Rabid Bite" type="Node" parent="." unique_id=839176132 node_paths=PackedStringArray("status")]
 script = ExtResource("2_nnsy7")
 base_cooldown = 5.0
-effects = Array[int]([0, 7])
+effects = Array[int]([0, 9])
 status = NodePath("Vicious")
 metadata/_custom_type_script = "uid://cboofk6f5g5t"
 

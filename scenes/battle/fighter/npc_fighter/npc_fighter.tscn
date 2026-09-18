@@ -52,13 +52,16 @@ stream_4/stream = ExtResource("13_ktvg7")
 stream_5/stream = ExtResource("14_8f7ps")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m77vo"]
-radius = 42.190044
+radius = 19.6
 
-[node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("dust", "skill_dust", "overlay", "shadow", "cooldown_timer", "skill_retry_timer", "movement_ticker", "hit_feedback", "skill_sfx", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses")]
+[node name="npc_fighter" type="CharacterBody2D" unique_id=1723811507 node_paths=PackedStringArray("raycast_root", "up_raycast", "down_raycast", "dust", "skill_dust", "overlay", "shadow", "cooldown_timer", "skill_retry_timer", "movement_ticker", "hit_feedback", "skill_sfx", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses", "knock_back_dust")]
 collision_layer = 256
 collision_mask = 256
 motion_mode = 1
 script = ExtResource("1_a7x5t")
+raycast_root = NodePath("raycast_root")
+up_raycast = NodePath("raycast_root/upper")
+down_raycast = NodePath("raycast_root/lower")
 dust = NodePath("Dust")
 skill_dust = NodePath("skill_dust")
 overlay = NodePath("FighterOverlay")
@@ -75,9 +78,11 @@ stat_multipliers = NodePath("components/stats/multipliers")
 hurtbox = NodePath("hurtbox")
 collision_scan = NodePath("collision_scan")
 statuses = NodePath("components/statuses")
+knock_back_dust = NodePath("knock_back_dust")
 
 [node name="hit_feedback" type="AudioStreamPlayer2D" parent="." unique_id=250249191 node_paths=PackedStringArray("fighter")]
 stream = ExtResource("2_50rq3")
+attenuation = 0.329877
 script = ExtResource("3_gxbbk")
 fighter = NodePath("..")
 direct_hit = ExtResource("2_50rq3")
@@ -91,6 +96,26 @@ source = NodePath("..")
 melee_attack = SubResource("AudioStreamRandomizer_g38kn")
 ranged_attack = SubResource("AudioStreamRandomizer_8jhbk")
 crowd_control = ExtResource("15_idirp")
+
+[node name="unit_collision" type="CollisionShape2D" parent="." unique_id=1716436569]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_m77vo")
+
+[node name="raycast_root" type="Node2D" parent="." unique_id=1335620966]
+
+[node name="upper" type="RayCast2D" parent="raycast_root" unique_id=1531371895]
+position = Vector2(0, -30)
+target_position = Vector2(100, 0)
+collision_mask = 0
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="lower" type="RayCast2D" parent="raycast_root" unique_id=491771919]
+position = Vector2(0, 30)
+target_position = Vector2(100, 0)
+collision_mask = 0
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="components" type="Node" parent="." unique_id=1605454314]
 script = ExtResource("2_uoen3")
@@ -146,6 +171,7 @@ source = NodePath("..")
 shape = NodePath("shape")
 
 [node name="shape" type="CollisionShape2D" parent="collision_scan" unique_id=328150148]
+debug_color = Color(0, 0.5950001, 0.7, 0.5372549)
 
 [node name="FighterOverlay" type="Control" parent="." unique_id=442767027 node_paths=PackedStringArray("bg", "hp_bar", "hp_bar_trail", "shield_bar", "charge_bar", "floating_icon_anchor", "cooldown_timer", "fighter", "status_icons", "status_display", "special_statuses_container")]
 z_index = 1
@@ -318,11 +344,17 @@ color = Color(1, 1, 1, 0)
 wait_time = 0.05
 autostart = true
 
-[node name="unit_collision" type="CollisionShape2D" parent="." unique_id=1716436569]
-position = Vector2(0, -13)
-shape = SubResource("CircleShape2D_m77vo")
+[node name="knock_back_dust" parent="." unique_id=1010148439 instance=ExtResource("12_uoen3")]
+modulate = Color(0.31, 0.31, 0.31, 0.40784314)
+one_shot = false
+preprocess = 0.0
+explosiveness = 0.0
+randomness = 0.37
+scale_amount_min = 4.0
+scale_amount_max = 7.0
+manual = true
 
-[node name="Dust" parent="." unique_id=1010148439 instance=ExtResource("12_uoen3")]
+[node name="Dust" parent="." unique_id=1912576808 instance=ExtResource("12_uoen3")]
 modulate = Color(0.2, 0.2, 0.2, 0.05882353)
 position = Vector2(0, 51)
 
@@ -357,7 +389,9 @@ source = NodePath("../..")
 [connection signal="damage_taken" from="." to="hit_feedback" method="_on_npc_fighter_damage_taken"]
 [connection signal="damage_taken" from="." to="FighterOverlay" method="_on_fighter_damage_taken"]
 [connection signal="healing_received" from="." to="FighterOverlay" method="_on_npc_fighter_healing_received"]
+[connection signal="knocked_back" from="." to="." method="_on_knocked_back"]
 [connection signal="knocked_back" from="." to="FighterOverlay" method="on_fighter_knocked_back"]
+[connection signal="ready" from="." to="FighterOverlay" method="_on_npc_fighter_ready"]
 [connection signal="ready" from="." to="shadow_warp_anchor/fighter_shadow" method="source_ready"]
 [connection signal="shield_gained" from="." to="FighterOverlay" method="_on_npc_fighter_shield_gained"]
 [connection signal="skill_used" from="." to="skill_sfx" method="_on_npc_fighter_skill_used"]

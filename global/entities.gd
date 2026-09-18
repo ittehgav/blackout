@@ -19,7 +19,12 @@ var player:Player:
 			player = get_tree().get_first_node_in_group("player");
 		return player
 
-var player_fighter:PlayerFighter;
+var player_fighter:PlayerFighter:
+	get():
+		if not player_fighter:
+			player_fighter = get_tree().get_first_node_in_group("player_fighter")
+		return player_fighter
+
 var player_party:PlayerParty;
 
 
@@ -32,7 +37,11 @@ var arena:Arena:
 		if not arena or not is_instance_valid(arena):
 			arena = get_tree().get_first_node_in_group("arena");
 		return arena
-var world_map:WorldMap;
+var world_map:WorldMap:
+	get():
+		if not world_map:
+			world_map = get_tree().get_first_node_in_group("world_map")
+		return world_map
 var road:RoadGrid;
 
 

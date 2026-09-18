@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ck0ok0tnqaxob" path="res://scenes/inventory/loot_inventory.tscn" id="2_4m6is"]
 [ext_resource type="PackedScene" uid="uid://11oj78crd2me" path="res://scenes/index/items/accessories/brass_knuckles.tscn" id="4_vhqu4"]
 [ext_resource type="PackedScene" uid="uid://xvtt4f2djs13" path="res://scenes/index/items/consumables/mystery_snack_pack.tscn" id="5_0iwf6"]
+[ext_resource type="PackedScene" uid="uid://cu3bhcegyrory" path="res://scenes/index/items/modules/nourishment_dispatcher.tscn" id="7_4m6is"]
 [ext_resource type="PackedScene" uid="uid://bsvx7fnl7axj8" path="res://scenes/index/items/containers/food.tscn" id="8_221v0"]
 [ext_resource type="PackedScene" uid="uid://i2005ugpjrjg" path="res://scenes/index/items/containers/food_bag.tscn" id="8_y68or"]
 [ext_resource type="PackedScene" uid="uid://di0vghxs4bkgh" path="res://scenes/index/items/containers/scrap_pile.tscn" id="9_4m6is"]
@@ -15,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ct3o06to1hg6i" path="res://scenes/index/fighters/units/crowbar.tscn" id="14_3ng4b"]
 [ext_resource type="PackedScene" uid="uid://bca1c065pcgi" path="res://scenes/index/fighters/units/gravity.tscn" id="14_4m6is"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_221v0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fjqqd"]
 resource_local_to_scene = true
 shader = ExtResource("13_sd2us")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -27,7 +28,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/number_of_images = Vector2(8, 7)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4m6is"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhqu4"]
 resource_local_to_scene = true
 shader = ExtResource("13_sd2us")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -39,7 +40,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = false
 shader_parameter/number_of_images = Vector2(1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fjqqd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0iwf6"]
 resource_local_to_scene = true
 shader = ExtResource("13_sd2us")
 shader_parameter/target_color = Color(0, 0, 0, 1)
@@ -57,6 +58,7 @@ loot = NodePath("basic_loot")
 metadata/_custom_type_script = "uid://6xsoxh5pe6pt"
 
 [node name="basic_loot" parent="." unique_id=609416018 instance=ExtResource("2_4m6is")]
+loot_multiplier = 20.0
 
 [node name="Brass Knuckles" parent="basic_loot" unique_id=834594505 instance=ExtResource("4_vhqu4")]
 
@@ -65,6 +67,8 @@ metadata/_custom_type_script = "uid://6xsoxh5pe6pt"
 [node name="Food Bag" parent="basic_loot" unique_id=1550126643 instance=ExtResource("8_y68or")]
 
 [node name="Juice Can" parent="basic_loot" unique_id=270466439 instance=ExtResource("9_ceqqo")]
+
+[node name="Nourishment Dispatcher" parent="basic_loot" unique_id=1322560490 instance=ExtResource("7_4m6is")]
 
 [node name="Food" parent="basic_loot" unique_id=101459365 instance=ExtResource("8_221v0")]
 
@@ -76,17 +80,17 @@ metadata/_custom_type_script = "uid://6xsoxh5pe6pt"
 level = 3
 
 [node name="Puncher" parent="FighterUnit3" unique_id=1510142188 instance=ExtResource("11_221v0")]
-material = SubResource("ShaderMaterial_221v0")
+material = SubResource("ShaderMaterial_fjqqd")
 
 [node name="FighterUnit4" parent="." unique_id=1215196295 instance=ExtResource("11_lk8eq")]
 level = 2
 
 [node name="Crowbar" parent="FighterUnit4" unique_id=2112712555 instance=ExtResource("14_3ng4b")]
-material = SubResource("ShaderMaterial_4m6is")
+material = SubResource("ShaderMaterial_vhqu4")
 
 [node name="FighterUnit5" parent="." unique_id=1143152229 instance=ExtResource("11_lk8eq")]
 
 [node name="Gravity" parent="FighterUnit5" unique_id=934399271 instance=ExtResource("14_4m6is")]
-material = SubResource("ShaderMaterial_fjqqd")
+material = SubResource("ShaderMaterial_0iwf6")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

@@ -31,4 +31,3 @@ func apply_r2()->void:
 func apply_r3()->void:
 	agi_debuff.reparent(status);
 	status.chain_root = true
-	agi_debuff.source = Entities.player_fighter

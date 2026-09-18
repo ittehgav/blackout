@@ -4,22 +4,20 @@
 [ext_resource type="Script" uid="uid://diisa0tddj0gc" path="res://scenes/index/items/modules/scripts/dodge_roll.gd" id="2_jqmff"]
 [ext_resource type="AudioStream" uid="uid://usoxdjsji2fj" path="res://assets/sound/sfx/combat/player/dodge_roll.wav" id="3_vah2q"]
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="4_vah2q"]
+[ext_resource type="PackedScene" uid="uid://bvvw16ux6yiwn" path="res://scenes/index/vfx/motion_trail.tscn" id="5_vah2q"]
+[ext_resource type="Script" uid="uid://ulxvybj6ipka" path="res://scenes/battle/status.gd" id="6_y7w52"]
 
-[sub_resource type="Animation" id="Animation_oik7t"]
-resource_name = "dodge_roll"
+[sub_resource type="Curve" id="Curve_y7w52"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 10), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_golxp"]
-_data = {
-&"dodge_roll": SubResource("Animation_oik7t")
-}
-
-[node name="Dodge Roll" type="Sprite2D" unique_id=1043224961 node_paths=PackedStringArray("trail", "use_sfx", "animation_player")]
+[node name="Dodge Roll" type="Sprite2D" unique_id=1043224961 node_paths=PackedStringArray("use_sfx", "status")]
 texture = ExtResource("1_uq2vo")
 script = ExtResource("2_jqmff")
-trail = NodePath("trail")
 use_sfx = NodePath("use")
 cooldown = 5.0
-animation_player = NodePath("AnimationPlayer")
+status = NodePath("buff")
 color_tag = "agility"
 
 [node name="use" type="AudioStreamPlayer" parent="." unique_id=2107147148]
@@ -28,11 +26,27 @@ stream = ExtResource("3_vah2q")
 [node name="trail" type="Sprite2D" parent="." unique_id=157831304]
 visible = false
 modulate = Color(18.892157, 18.892157, 18.892157, 0.5882353)
+self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
 scale = Vector2(2, 2)
 texture = ExtResource("4_vah2q")
 hframes = 8
 vframes = 11
 region_rect = Rect2(14, 0, 0, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=24016656]
-libraries/ = SubResource("AnimationLibrary_golxp")
+[node name="motion_trail" parent="." unique_id=1642103550 instance=ExtResource("5_vah2q")]
+
+[node name="Line2D" parent="motion_trail" index="0" unique_id=657689956]
+width_curve = SubResource("Curve_y7w52")
+default_color = Color(1, 0.8973334, 0.56, 0.29803923)
+
+[node name="buff" type="Node" parent="." unique_id=986907905]
+script = ExtResource("6_y7w52")
+type = "stat_change"
+value = 0.3
+duration = 2.0
+stat = "agility"
+stat_fractal_value = true
+from_player = true
+metadata/_custom_type_script = "uid://ulxvybj6ipka"
+
+[editable path="motion_trail"]

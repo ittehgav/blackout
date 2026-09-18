@@ -98,9 +98,9 @@ func shoot_bolts(origin:Vector2, buffed:bool = false)->void:
 			bolts_buffer.remove_at(0)
 
 
-const r1_description = "+10% damage";
-const r2_description = "Fires one additional bolt.";
-const r3_description = "Fire a second, larger salvo of bolts."
+const r1_improvement = "+10% damage";
+const r2_improvement = "Fires one additional bolt.";
+const r3_improvement = "Fire a second, larger salvo of bolts."
 
 func apply_r1()->void:
 	base_damage += base_damage/10

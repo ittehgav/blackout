@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="7_wq3sv"]
 [ext_resource type="Shader" uid="uid://k7n081sfifdq" path="res://resources/shaders/npc_fighter.gdshader" id="8_4s8dh"]
 [ext_resource type="PackedScene" uid="uid://dgf3khawq2h5f" path="res://scenes/special/tutorial_battle.tscn" id="9_3i7ef"]
-[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="10_acp4q"]
+[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/unimplemented/the_consumer.tscn" id="10_acp4q"]
 [ext_resource type="PackedScene" uid="uid://bvuw04qb36x7e" path="res://scenes/index/items/artifices/life_charm.tscn" id="11_wq3sv"]
 [ext_resource type="PackedScene" uid="uid://moh5lw5akuo5" path="res://scenes/index/items/artifices/singularity_grenade.tscn" id="12_4s8dh"]
 

@@ -5,7 +5,7 @@ class_name LocationMenu;
 signal opened;
 signal closed
 
-signal menu_opened;
+signal menu_opened(menu:Control);
 signal menu_closed;
 
 @export var content_vbox:VBoxContainer;
@@ -18,6 +18,8 @@ signal menu_closed;
 @export var evolve_menu:EvolutionMenu;
 @export var refinement_menu:RefinementMenu;
 @export var dungeon_menu:DungeonMenu
+@export var bounty_menu:BountyMenu;
+
 var current_location:Location;
 
 
@@ -34,6 +36,9 @@ func _ready()->void:
 
 func display_location(target:Location=Entities.player_party.current_location)->void:
 	## NEEDS TO CLEAR PREVIOUS DATA
+	if Entities.player_party:
+		Entities.player_party.location_entered.emit(current_location)
+		assert(Entities.main) ## shorthand to catch f6 run
 	State.set_substate(State.Substate.location_menu);
 	current_location = target;
 	content_vbox.show();
@@ -125,9 +130,11 @@ func highlight_location(index:int)->void:
 
 
 func _on_option_chosen(building:Building, option: Building.Option, extra_arg:Variant = null) -> void:
-	menu_opened.emit()
+	
+	const opt = Building.Option
 	match option:
-		Building.Option.trade:
+		opt.trade:
+			assert(building.inventory)
 			## right now only using it here, 
 			## will add more overrides as i 
 			## create featres that demand them
@@ -136,24 +143,37 @@ func _on_option_chosen(building:Building, option: Building.Option, extra_arg:Var
 			else:
 				trade_menu.start_trade(building.inventory, building.name);
 			slide_out()
-		Building.Option.recruit:
+			
+		opt.recruit:
+			assert(building.roster)
 			recruitment_menu.start_recruitment(building.roster);
 			slide_out()
-		Building.Option.evolve:
+		opt.evolve:
 			evolve_menu.start_evolution_menu()
 			slide_out()
-		Building.Option.refine:
+		opt.refine:
 			refinement_menu.start_refinement_menu()
 			slide_out()
+		opt.bounty_board:
+			assert(building.bounty_board)
+			## REMOVE THIS AFTER TESTING ONLY BOUNTY BOARD NEEDS TO REFRESH RIGHT AWAY
+			## TO HAVE VALI DATA
+			#building.bounty_board.refresh()
+			bounty_menu.board = building.bounty_board;
+			bounty_menu.start_bounty_menu();
+			slide_out()
+		opt.improve_unit:
+			pass
+	menu_opened.emit()
 
 
 func _on_exit_pressed() -> void:
-	close_location_menu()	
+	close_location_menu()
 
 func close_location_menu()->void:
-	slide_out()
-	await get_tree().create_timer(.5).timeout;
-	State.revert_substate();
+	await slide_out().finished
+	if State.current_substate != State.Substate.player_sheet:
+		State.revert_substate();
 	hide()
 	closed.emit()
 

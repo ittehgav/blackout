@@ -66,14 +66,46 @@ func get_mirror_color()->Color:
 	else:
 		return rarity_colors[self["rarity"]];
 
+const item_type_pricing:Dictionary[String, float] = {
+	"accessory":1.5,
+	"artifice":.5,
+	"car_key":3,
+	"consumable":.5,
+	"resource_container":1,
+	"module":2.0,
+	"weapon":2.0,
+}
+
 func get_price()->int:
 	## not selling = buying
 	## true price = higher than selling and lowe than buying
 	## true price dont matter right now?
 
-	var price:float = (self["rarity"] + 1) ** 2
+	var price:float = ((self["rarity"]*1.5 * get_pricing()) + 1) ** 2
 	price *= self["size_x"] * self["size_y"]
 	
 	price += price_change;
 	price *= price_multiplier
 	return int(price)
+
+func get_pricing()->float:
+	return item_type_pricing[get_item_type_key()];
+
+func get_item_type_key()->String:
+	## super silly that godot doesnt let you get class names as strings
+	if self is Accessory:
+		return "accessory"
+	if self is Artifice:
+		return "artifice";
+	elif self is CarKey:
+		return "car_key"
+	elif self is Consumable:
+		return "consumable";
+	elif self is ResourceContainer:
+		return "resource_container";
+	elif self is Module:
+		return "module";
+	elif self is Weapon:
+		return "weapon"
+	assert(false);
+	return ""

@@ -33,19 +33,20 @@ func camera_vfx(vfx:TransformVFX, magnitude:int)->void:
 	current_magnitude = magnitude
 	animation_methods[vfx].call(magnitude)
 
+	
 
 func lunge_feedback(magnitude:int)->Tween:
 	var shift:Vector2 = position.move_toward(get_local_mouse_position(), .5);
-	offset = shift * magnitude
 	
 	camera_tween = create_tween();
+	camera_tween.tween_property(self, "offset", shift * magnitude * zoom.x, .05)
 	camera_tween.tween_property(self, "offset", Vector2.ZERO, .1);
 	return camera_tween;
 
 func recoil_feedback(magnitude:int)->Tween:
-	var shift:Vector2 = position.move_toward(get_local_mouse_position(), .5);
-	offset = shift * -1 * magnitude
+	var shift:Vector2 = position.move_toward(get_local_mouse_position(), .5) * -1;
 	camera_tween = create_tween();
+	camera_tween.tween_property(self, "offset", shift * magnitude  * zoom.x, .05)
 	camera_tween.tween_property(self, "offset", Vector2.ZERO, .1 + (magnitude/2));
 	return camera_tween;
 
@@ -55,8 +56,8 @@ func shake_feedback(magnitude:int)->void:
 
 	for i in range(5):
 		var direction:Vector2 = Vector2(randf_range(-.1, .1), randf_range(-1., 1.))
-		camera_tween.tween_callback(set_offset.bind(direction * shake_range))
-		camera_tween.tween_interval(.05)
+		camera_tween.tween_property(self, "offset", direction * shake_range * zoom.x, .05)
+
 	
 	camera_tween.tween_callback(set_offset.bind(Vector2.ZERO))
 

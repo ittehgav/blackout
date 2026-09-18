@@ -44,6 +44,7 @@ texture_margin_bottom = 6.0
 region_rect = Rect2(0, 0, 18, 18)
 
 [node name="ItemMirror" type="TextureRect" unique_id=688900415 node_paths=PackedStringArray("bg", "being_traded_rect", "tooltip", "frame", "stack_size_label", "price_tag", "artifice_equipped_label")]
+modulate = Color(1.1638972, 1.1638972, 1.1638972, 1)
 z_index = 5
 anchors_preset = 8
 anchor_left = 0.5
@@ -128,7 +129,6 @@ theme_override_constants/outline_size = 12
 horizontal_alignment = 2
 
 [node name="stack_size" type="Label" parent="." unique_id=909689931]
-z_index = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

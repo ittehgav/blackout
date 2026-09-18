@@ -1,4 +1,4 @@
-extends PanelContainer
+extends HBoxContainer
 
 
 
@@ -28,7 +28,7 @@ func _on_player_fighter_ready() -> void:
 			player_has_artifices = true
 			load_artifice(artifice, key)
 		else:
-			get_node("artifices/artifice_"+str(key)).hide()
+			get_node("artifice_"+str(key)).hide()
 			var separator:HSeparator =get_node_or_null("artifices/HSeparator"+str(key))
 			if separator:
 				separator.hide()

@@ -62,3 +62,7 @@ func loot_money()->Tween:
 func _on_sort_inventory_pressed() -> void:
 	Entities.player.inventory.sort_items_by_size();
 	player_inventory_display.hard_reset()
+
+
+func _on_enemy_inventory_item_sent() -> void:
+	check_available_loot()

@@ -76,6 +76,7 @@ stream = SubResource("AudioStreamRandomizer_dxwve")
 script = ExtResource("6_4n02f")
 type = "stun"
 duration = 1.0
+from_player = true
 metadata/_custom_type_script = "uid://ulxvybj6ipka"
 
 [node name="weapon_animation" type="AnimationPlayer" parent="." unique_id=1826344498]

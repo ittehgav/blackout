@@ -41,8 +41,10 @@ func load_layout(target:PackedScene)->void:
 	add_child(current_layout);
 	move_child(current_layout, 0);
 
-
+var battle_over:bool = false
 func finish_battle(won:bool)->void:
+	if battle_over:return ## if player dies during slowdown they styill win
+	battle_over = true
 	battle_ended.emit(won);
 	won_battle = won;
 	

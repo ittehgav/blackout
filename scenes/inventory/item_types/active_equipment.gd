@@ -52,4 +52,4 @@ func release()->void:
 
 func final_cooldown()->float:
 	var base_cd:float = self["cooldown"];
-	return CombatStats.agility_cooldown_reduction(base_cd, player.final_stat("agility"))
+	return base_cd - CombatStats.agility_cooldown_reduction(base_cd, player.final_stat("agility"))

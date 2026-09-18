@@ -16,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://ms2ad5kg5m8b" path="res://assets/sound/sfx/combat/player/debuff_received/stun.wav" id="10_24aya"]
 [ext_resource type="AudioStream" uid="uid://cpx6rffx48wxd" path="res://assets/sound/sfx/combat/weapon_fumbled.mp3" id="10_p55mw"]
 [ext_resource type="AudioStream" uid="uid://c7cqjf17r2asi" path="res://assets/sound/sfx/combat/player/debuff_received/poison.wav" id="11_rwav2"]
+[ext_resource type="AudioStream" uid="uid://duxmgkoapplau" path="res://assets/sound/sfx/combat/player/debuff_received/regen.wav" id="12_ne7mt"]
 [ext_resource type="Texture2D" uid="uid://dgj0l0ajffuus" path="res://assets/visual/sprites/player/body.png" id="16_5atum"]
 [ext_resource type="Script" uid="uid://d03oto63awsxv" path="res://scenes/battle/fighter/collision_scan.gd" id="17_2bwky"]
 [ext_resource type="Script" uid="uid://cqf12thilix0a" path="res://scenes/battle/fighter/player/body.gd" id="17_5atum"]
@@ -402,7 +403,7 @@ _data = {
 &"feedback": SubResource("Animation_fqu03")
 }
 
-[node name="player_fighter" type="CharacterBody2D" unique_id=952457738 node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses", "sprite")]
+[node name="player_fighter" type="CharacterBody2D" unique_id=952457738 node_paths=PackedStringArray("body", "equipment", "camera", "sfx", "base", "timers", "initial_stats", "stat_modifiers", "stat_multipliers", "hurtbox", "collision_scan", "statuses", "knock_back_dust", "sprite") groups=["player_fighter"]]
 collision_layer = 768
 collision_mask = 768
 motion_mode = 1
@@ -420,6 +421,7 @@ stat_multipliers = NodePath("components/stats/multipliers")
 hurtbox = NodePath("hurtbox")
 collision_scan = NodePath("collision_scan")
 statuses = NodePath("components/statuses")
+knock_back_dust = NodePath("knock_back_dust")
 sprite = NodePath("body")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1480294527]
@@ -459,22 +461,33 @@ damage_taken = ExtResource("5_0y55v")
 weapon_change = ExtResource("7_dxwve")
 module_unavailable = ExtResource("6_plyqv")
 
-[node name="debuff_received_sfx" type="AudioStreamPlayer" parent="components/sfx" unique_id=281044584]
+[node name="status_sfx" type="AudioStreamPlayer" parent="components/sfx" unique_id=281044584]
 stream = ExtResource("9_t13x7")
 pitch_scale = 1.73
 script = ExtResource("8_mepqy")
 stat_debuff = ExtResource("9_t13x7")
 stun = ExtResource("10_24aya")
 poison = ExtResource("11_rwav2")
+regen = ExtResource("12_ne7mt")
 
 [node name="statuses" type="Node" parent="components" unique_id=625187668]
 
 [node name="timers" type="Node" parent="components" unique_id=2053695415]
 
+[node name="knock_back_dust" parent="." unique_id=1010148439 instance=ExtResource("27_oxj8n")]
+modulate = Color(0.31, 0.31, 0.31, 0.40784314)
+one_shot = false
+preprocess = 0.0
+explosiveness = 0.0
+randomness = 0.37
+scale_amount_min = 4.0
+scale_amount_max = 7.0
+manual = true
+
 [node name="walk_dust" parent="." unique_id=1591303957 instance=ExtResource("27_oxj8n")]
 modulate = Color(0.2, 0.142, 0.142, 0.05882353)
 
-[node name="weapon_dust" parent="." unique_id=1010148439 instance=ExtResource("27_oxj8n")]
+[node name="weapon_dust" parent="." unique_id=726462274 instance=ExtResource("27_oxj8n")]
 modulate = Color(1, 1, 1, 0.42745098)
 initial_velocity_max = 122.16
 manual = true
@@ -580,7 +593,6 @@ libraries/ = SubResource("AnimationLibrary_ne7mt")
 
 [node name="projectile_feedback" type="Sprite2D" parent="equipment/hit_feedback_control" unique_id=1815062731]
 visible = false
-modulate = Color(1, 1, 1, 0.7647059)
 self_modulate = Color(0.8, 0.8, 0.8, 1)
 z_index = 1000
 position = Vector2(265, 9)
@@ -683,13 +695,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="damage_taken" from="." to="components/sfx/sfx" method="damage_taken_sfx"]
+[connection signal="knocked_back" from="." to="." method="_on_knocked_back"]
 [connection signal="ready" from="." to="shadow_warp_anchor/fighter_shadow" method="source_ready"]
+[connection signal="ready" from="." to="equipment/weapon_control" method="_on_player_fighter_ready"]
 [connection signal="started_moving" from="." to="equipment" method="_on_player_fighter_started_moving"]
 [connection signal="started_moving" from="." to="body/AnimationPlayer" method="play" binds= ["player/walk"]]
 [connection signal="stat_changed" from="." to="." method="_on_stat_changed"]
 [connection signal="status_applied" from="." to="." method="_on_status_applied"]
 [connection signal="status_applied" from="." to="components/vfx_control" method="_on_in_fight_player_status_applied"]
-[connection signal="status_applied" from="." to="components/sfx/debuff_received_sfx" method="_on_player_fighter_status_applied"]
+[connection signal="status_applied" from="." to="components/sfx/status_sfx" method="_on_player_fighter_status_applied"]
 [connection signal="status_applied" from="." to="body" method="_on_player_fighter_status_applied"]
 [connection signal="status_removed" from="." to="components/vfx_control" method="_on_in_fight_player_status_removed"]
 [connection signal="stopped_moving" from="." to="equipment" method="_on_player_fighter_stopped_moving"]

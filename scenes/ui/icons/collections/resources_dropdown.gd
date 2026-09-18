@@ -7,6 +7,7 @@ class_name ResourcesDropdown
 @export var resource_hboxes:Dictionary[String, HBoxContainer]
 @export var resource_icons:Dictionary[String, ResourceIcon]
 @export var from_player:bool
+@export var match_inventory:bool=true
 
 func _ready()->void:
 	if get_parent() is InventoryDisplay: return;
@@ -16,7 +17,8 @@ func _ready()->void:
 	if from_player:
 		var player:Player = Entities.player;
 		target_inventory = player.inventory;
-		player.resource_changed.connect(_on_player_resource_changed)
+		if match_inventory:
+			player.resource_changed.connect(_on_player_resource_changed)
 	if target_inventory:
 		setup(target_inventory);
 	

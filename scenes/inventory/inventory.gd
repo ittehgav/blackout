@@ -146,11 +146,27 @@ func add_item(item: Item, emit_change:bool=false) -> void:
 		capacity_x += item.cargo_space/12
 		## only messing with x_size to keep it simple rn
 		
+	if holder is Player:
+		## will need to do something similar for npc leaders and equipment?
+		## NPCs just have infinite inventory space that shrinks to fit their items however?
+		var equipped_artifices:Array[Artifice] = holder.equipped_artifices.values()
+		var equipped_slots:Array[Item] =  [
+				holder.equipped_weapon,
+				holder.alternative_weapon,
+				holder.equipped_module,
+				holder.equipped_accessory_1,
+				holder.equipped_accessory_2,
+			]
+		equipped_slots.append_array(equipped_artifices)
+		if item in equipped_slots or item in holder.roster.equipped_accessories:
+			holder.equipment.append(item)
 	if emit_change:
 		changed.emit()
 
 func send_item(item:Item, target:Inventory)->bool:
-	remove_item(item);
+	if item in items:
+		## doesnt happen when sending loot back
+		remove_item(item);
 	if item is ResourceContainer and item.raw_stack:
 		for c:ResourceContainer in target.containers:
 			if c.resource == item.resource:
@@ -185,6 +201,7 @@ func remove_item(item:Item)->void:
 		car_keys.erase(item);
 		capacity_x -= item.cargo_space/12
 	remove_child.call_deferred(item)
+	## will queue free if not reparented to a different inventory
 	changed.emit()
 
 
@@ -262,23 +279,9 @@ func cell_in_grid(cell:Vector2)->bool:
 func _on_child_entered_tree(node: Node) -> void:
 	assert(node is Item);
 	## so editor-made nodes work and are easy to edit
-	
-	if holder is Player:
-		## will need to do something similar for npc leaders and equipment?
-		## NPCs just have infinite inventory space that shrinks to fit their items however?
-		var equipped_artifices:Array[Artifice] = holder.equipped_artifices.values()
-		var equipped_slots:Array[Item] =  [
-				holder.equipped_weapon,
-				holder.alternative_weapon,
-				holder.equipped_module,
-				holder.equipped_accessory_1,
-				holder.equipped_accessory_2,
-			]
-		equipped_slots.append_array(equipped_artifices)
-		if node in equipped_slots or node in holder.roster.equipped_accessories:
-			holder.equipment.append(node)
-	
-	
+	## plays back for every item when player inv leaves and enters the tree
+	## should just stop being an issue after migrating to
+	## triple state model
 	if not items.has(node):
 		add_item(node);
 

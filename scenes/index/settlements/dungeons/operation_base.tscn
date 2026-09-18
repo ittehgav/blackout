@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c552rf01ufsjl" path="res://scenes/index/items/containers/food_barrel.tscn" id="11_k48na"]
 [ext_resource type="PackedScene" uid="uid://dt7tutmu87uy3" path="res://scenes/index/items/accessories/sapper.tscn" id="11_vd74n"]
 [ext_resource type="PackedScene" uid="uid://ce1p6ul7ivkdu" path="res://scenes/index/items/consumables/protein_shake.tscn" id="12_6fits"]
-[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/the_consumer.tscn" id="12_k8vc6"]
+[ext_resource type="PackedScene" uid="uid://ckfdpaina65pn" path="res://scenes/index/items/modules/unimplemented/the_consumer.tscn" id="12_k8vc6"]
 [ext_resource type="PackedScene" uid="uid://lls0f7qofwnf" path="res://scenes/leader/roster/fighter/fighter_unit.tscn" id="15_4trfj"]
 [ext_resource type="PackedScene" uid="uid://b401u5fn3nl4q" path="res://scenes/index/items/containers/chips_case.tscn" id="15_fdd6x"]
 [ext_resource type="PackedScene" uid="uid://cs5mice0ugigb" path="res://scenes/index/fighters/units/puncher.tscn" id="16_rv67h"]

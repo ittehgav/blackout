@@ -395,9 +395,10 @@ func equip_accessory_on_unit(unit:FighterUnit)->void:
 func equip_module_command()->void:
 	var unequipped_module:Module = Entities.player.equipped_module;
 	Entities.player.equip_module(item);
-	
+	print(inventory_position)
 	item.mirror = null;
 	unequipped_module.inventory_position = inventory_position;
+	print(inventory_position)
 	
 	load_item(unequipped_module, true);
 	## doesn't have to refit since all modules are the same size;

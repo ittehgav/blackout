@@ -259,8 +259,12 @@ MAX"
 
 [node name="slider" type="HSlider" parent="resource_picker/PanelContainer/VBoxContainer" unique_id=799560199]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(1, 2)
 mouse_filter = 1
 rounded = true
+scrollable = false
+ticks_position = 3
 
 [node name="add_custom" type="Button" parent="resource_picker/PanelContainer/VBoxContainer" unique_id=1865427532]
 layout_mode = 2

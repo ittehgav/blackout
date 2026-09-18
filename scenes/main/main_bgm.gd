@@ -29,7 +29,7 @@ func play_bgm(key:String)->void:
 		pitch_scale = 1;
 		stream = target_stream;
 
-		play();
+		#play();
 
 
 func _on_finished() -> void:

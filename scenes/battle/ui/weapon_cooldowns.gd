@@ -121,7 +121,7 @@ func _on_equipment_ammo_consumed(ammo_type: String, _amount: int) -> void:
 		var tween:Tween = create_tween();
 		tween.tween_property(main_weapon_ammo_hbox, "modulate:a", 1, .5)
 	
-	if ammo_type == displaying_alt_weapon.ammo_type:
+	if displaying_alt_weapon and ammo_type == displaying_alt_weapon.ammo_type:
 		alt_weapon_ammo_hbox.modulate.a = .25;
 		var tween:Tween = create_tween();
 		tween.tween_property(alt_weapon_ammo_hbox, "modulate:a", 1, .5)
